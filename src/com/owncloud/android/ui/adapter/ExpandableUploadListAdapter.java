@@ -326,7 +326,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             /// bind listeners to perform actions
             ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
-            if (upload.userCanCancelUpload()) {
+            if (upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
                 //Cancel
                 rightButton.setImageResource(R.drawable.ic_cancel);
                 rightButton.setOnClickListener(new OnClickListener() {
@@ -339,7 +339,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         }
                     }
                 });
-            } else {
+
+            } else if (upload.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
                 //Delete
                 rightButton.setImageResource(R.drawable.ic_action_delete);
                 rightButton.setOnClickListener(new OnClickListener() {
@@ -349,9 +350,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         refreshView();
                     }
                 });
+
+            } else {    // UploadStatus.UPLOAD_SUCCESS
+                rightButton.setVisibility(View.INVISIBLE);
             }
 
-            if (upload.userCanRetryUpload()) {
+            // retry
+            if (upload.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
                 if (UploadResult.CREDENTIAL_ERROR.equals(upload.getLastResult())) {
                     view.setOnClickListener(new OnClickListener() {
                         @Override

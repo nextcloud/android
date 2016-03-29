@@ -324,29 +324,6 @@ public class OCUpload implements Parcelable {
         }
     }
 
-    /**
-     * Returns true when user is able to cancel this upload. That is, when
-     * upload is currently in progress or scheduled for upload.
-     */
-    public  boolean userCanCancelUpload() {
-        if (getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * Returns true when user can choose to retry this upload. That is, when
-     * upload has failed for any reason.
-     */
-    public boolean userCanRetryUpload() {
-        if (getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
-            return true;
-        }
-        return false;
-    }
-
-
     /****
      *
      */
