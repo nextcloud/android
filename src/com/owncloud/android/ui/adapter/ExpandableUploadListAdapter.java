@@ -256,25 +256,35 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             TextView statusTextView = (TextView) view.findViewById(R.id.upload_status);
 
+            ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
+
             /// Reset fields visibility
             uploadDateTextView.setVisibility(View.VISIBLE);
             pathTextView.setVisibility(View.VISIBLE);
             fileSizeTextView.setVisibility(View.VISIBLE);
             accountNameTextView.setVisibility(View.VISIBLE);
             statusTextView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
 
             /// Update information depending of upload details
             String status = getStatusText(upload);
             switch (upload.getUploadStatus()) {
                 case UPLOAD_IN_PROGRESS:
-                    ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                     progressBar.setProgress(0);
                     progressBar.setVisibility(View.VISIBLE);
 
                     FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
                     if (binder != null) {
                         if (binder.isUploadingNow(upload)) {
-                            /// really uploading, bind the progress bar to listen for progress updates
+                            /// really uploading, so...
+                            /// ... unbind the old progress bar, if any; ...
+                            if (mProgressListener != null) {
+                                binder.removeDatatransferProgressListener(
+                                    mProgressListener,
+                                    mProgressListener.getUpload()   // the one that was added
+                                );
+                            }
+                            /// ... then, bind the current progress bar to listen for updates
                             mProgressListener = new ProgressListener(upload, progressBar);
                             binder.addDatatransferProgressListener(
                                 mProgressListener,
@@ -311,10 +321,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 case UPLOAD_SUCCEEDED:
                     statusTextView.setVisibility(View.GONE);
                     break;
-            }
-            if (upload.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
-                ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
-                progressBar.setVisibility(View.GONE);
             }
             statusTextView.setText(status);
 
