@@ -38,7 +38,7 @@
         android:layout_width="match_parent"
         android:layout_height="4dp"
         android:layout_margin="0dp"
-        android:background="@color/background_color"
+        android:background="@color/primary"
         android:indeterminate="false"
         android:indeterminateOnly="false"
         android:padding="0dp"
