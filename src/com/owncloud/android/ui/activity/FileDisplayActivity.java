@@ -888,9 +888,6 @@ public class FileDisplayActivity extends HookActivity implements
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
-        //TODO re-enable account list
-        // refresh Navigation Drawer account list
-        //mNavigationDrawerAdapter.updateAccountList();
 
         // refresh list of files
         refreshListOfFilesFragment();
