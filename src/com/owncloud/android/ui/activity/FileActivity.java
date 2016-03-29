@@ -97,9 +97,6 @@ public class FileActivity extends DrawerActivity
     private static final String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
     private static final String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
-    /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
-    private Account mAccount;
-
      /** Main {@link OCFile} handled by the activity.*/
     private OCFile mFile;
 
@@ -171,33 +168,6 @@ public class FileActivity extends DrawerActivity
         }
 
     }
-
-    @Override
-    protected void onNewIntent (Intent intent) {
-        Log_OC.v(TAG, "onNewIntent() start");
-        Account current = AccountUtils.getCurrentOwnCloudAccount(this);
-        if (current != null && mAccount != null && !mAccount.name.equals(current.name)) {
-            mAccount = current;
-        }
-        Log_OC.v(TAG, "onNewIntent() stop");
-    }
-
-    /**
-     *  Since ownCloud {@link Account}s can be managed from the system setting menu,
-     *  the existence of the {@link Account} associated to the instance must be checked
-     *  every time it is restarted.
-     */
-    @Override
-    protected void onRestart() {
-        Log_OC.v(TAG, "onRestart() start");
-        super.onRestart();
-        boolean validAccount = (mAccount != null && AccountUtils.exists(mAccount, this));
-        if (!validAccount) {
-            swapToDefaultAccount();
-        }
-        Log_OC.v(TAG, "onRestart() end");
-    }
-
 
     @Override
     protected void onStart() {
