@@ -455,7 +455,7 @@ public class FileActivity extends AppCompatActivity
      * @param navigationDrawerLayout the drawer layout to be used
      * @param account                the account to be set in the drawer
      */
-    protected void setUsernameInDrawer(RelativeLayout navigationDrawerLayout, Account account) {
+    protected void setUsernameInDrawer(View navigationDrawerLayout, Account account) {
         if (navigationDrawerLayout != null && account != null) {
             TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
             int lastAtPos = account.name.lastIndexOf("@");

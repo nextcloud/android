@@ -344,4 +344,18 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     protected String getDefaultTitle() {
         return getString(R.string.uploads_view_title);
     }
+
+
+    /**
+     * Called when the ownCloud {@link Account} associated to the Activity was just updated.
+     */
+    @Override
+    protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
+        updateActionBarTitleAndHomeButton(null);
+        if (mAccountWasSet) {
+            setUsernameInDrawer(findViewById(R.id.left_drawer), getAccount());
+        }
+    }
+
 }

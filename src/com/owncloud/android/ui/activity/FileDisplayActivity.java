@@ -56,7 +56,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -310,7 +309,7 @@ public class FileDisplayActivity extends HookActivity implements
             setFile(file);
 
             if (mAccountWasSet) {
-                setUsernameInDrawer((RelativeLayout) findViewById(R.id.left_drawer), getAccount());
+                setUsernameInDrawer(findViewById(R.id.left_drawer), getAccount());
             }
 
             if (!stateWasRecovered) {
