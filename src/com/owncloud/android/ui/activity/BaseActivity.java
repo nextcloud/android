@@ -18,7 +18,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OCCapability;
 
 /**
- * Absolute base class holding the oC account.
+ * Base ctivity with common behaviour for activities dealing with ownCloud {@link Account}s .
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = BaseActivity.class.getSimpleName();
