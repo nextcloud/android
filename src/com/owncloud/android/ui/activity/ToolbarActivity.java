@@ -19,6 +19,7 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.accounts.AccountManagerFuture;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -34,7 +35,7 @@ import com.owncloud.android.datamodel.OCFile;
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar()}.
  */
-public class ToolbarActivity extends AppCompatActivity {
+public abstract class ToolbarActivity extends BaseActivity {
     private ProgressBar mProgressBar;
 
     @Override
