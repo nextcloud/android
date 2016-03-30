@@ -3,7 +3,7 @@
  *
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -90,6 +90,9 @@ public class FileActivity extends DrawerActivity
 
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
+
+    public static final int REQUEST_CODE__UPDATE_CREDENTIALS = 0;
+    public static final int REQUEST_CODE__LAST_SHARED = REQUEST_CODE__UPDATE_CREDENTIALS;
 
     protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
 
@@ -277,7 +280,7 @@ public class FileActivity extends DrawerActivity
 
     /**
      *
-     * @param operation     Removal operation performed.
+     * @param operation     Operation performed.
      * @param result        Result of the removal.
      */
     @Override
@@ -291,14 +294,12 @@ public class FileActivity extends DrawerActivity
 
         if (!result.isSuccess() && (
                 result.getCode() == ResultCode.UNAUTHORIZED ||
-                result.isIdPRedirection() ||
                 (result.isException() && result.getException() instanceof AuthenticatorException)
                 )) {
 
             requestCredentialsUpdate(this);
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
-                dismissLoadingDialog();
                 Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
                         operation, getResources()),
                     Toast.LENGTH_LONG);
@@ -346,16 +347,34 @@ public class FileActivity extends DrawerActivity
      * Invalidates the credentials stored for the current OC account and requests new credentials to the user,
      * navigating to {@link AuthenticatorActivity}
      *
+     * Equivalent to call requestCredentialsUpdate(context, null);
+     *
      * @param context   Android Context needed to access the {@link AccountManager}. Received as a parameter
      *                  to make the method accessible to {@link android.content.BroadcastReceiver}s.
      */
     protected void requestCredentialsUpdate(Context context) {
+        requestCredentialsUpdate(context, null);
+    }
+
+    /**
+     * Invalidates the credentials stored for the given OC account and requests new credentials to the user,
+     * navigating to {@link AuthenticatorActivity}
+     *
+     * @param context   Android Context needed to access the {@link AccountManager}. Received as a parameter
+     *                  to make the method accessible to {@link android.content.BroadcastReceiver}s.
+     * @param account   Stored OC account to request credentials update for. If null, current account will
+     *                  be used.
+     */
+    protected void requestCredentialsUpdate(Context context, Account account) {
 
         try {
             /// step 1 - invalidate credentials of current account
+            if (account == null) {
+                account = getAccount();
+            }
             OwnCloudClient client;
             OwnCloudAccount ocAccount =
-                    new OwnCloudAccount(getAccount(), context);
+                    new OwnCloudAccount(account, context);
             client = (OwnCloudClientManagerFactory.getDefaultSingleton().
                     removeClientFor(ocAccount));
             if (client != null) {
@@ -364,23 +383,23 @@ public class FileActivity extends DrawerActivity
                     AccountManager am = AccountManager.get(context);
                     if (cred.authTokenExpires()) {
                         am.invalidateAuthToken(
-                                getAccount().type,
+                                account.type,
                                 cred.getAuthToken()
                         );
                     } else {
-                        am.clearPassword(getAccount());
+                        am.clearPassword(account);
                     }
                 }
             }
 
             /// step 2 - request credentials to user
             Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
+            updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
             updateAccountCredentials.putExtra(
                     AuthenticatorActivity.EXTRA_ACTION,
                     AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
             updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
-            startActivity(updateAccountCredentials);
+            startActivityForResult(updateAccountCredentials, REQUEST_CODE__UPDATE_CREDENTIALS);
 
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
             Toast.makeText(context, R.string.auth_account_does_not_exist, Toast.LENGTH_SHORT).show();
@@ -516,6 +535,13 @@ public class FileActivity extends DrawerActivity
     }
 
     @Override
+
+    public void restart(){
+        Intent i = new Intent(this, FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
+
     public void allFilesOption(){
         restart();
     }

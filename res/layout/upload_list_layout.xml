@@ -27,19 +27,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-<<<<<<< HEAD
-        android:background="@color/background_color">
-=======
         android:orientation="vertical">
 
         <include
             layout="@layout/toolbar_standard"/>
->>>>>>> layout fix due to added toolbar + oC license added
 
         <FrameLayout
             android:id="@+id/upload_list_fragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="@color/background_color"/>
     </LinearLayout>
 
     <include
