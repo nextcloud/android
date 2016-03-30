@@ -70,41 +70,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class UploadFileOperation extends SyncOperation {
 
-
-    private static final String MIME_TYPE_PDF = "application/pdf";
-    private static final String FILE_EXTENSION_PDF = ".pdf";
-
     public static final int CREATED_BY_USER = 0;
     public static final int CREATED_AS_INSTANT_PICTURE = 1;
     public static final int CREATED_AS_INSTANT_VIDEO = 2;
-
-
-    /**
-     * Checks if content provider, using the content:// scheme, returns a file with mime-type
-     * 'application/pdf' but file has not extension
-     * @param localPath         Full path to a file in the local file system.
-     * @param mimeType          MIME type of the file.
-     * @return true if is needed to add the pdf file extension to the file
-     *
-     * TODO - move to OCFile or Utils class
-     */
-    private static boolean isPdfFileFromContentProviderWithoutExtension(String localPath,
-                                                                        String mimeType) {
-        return localPath.startsWith(UriUtils.URI_CONTENT_SCHEME) &&
-                mimeType.equals(MIME_TYPE_PDF) &&
-                !localPath.endsWith(FILE_EXTENSION_PDF);
-    }
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
 
         // MIME type
         if (mimeType == null || mimeType.length() <= 0) {
             mimeType = MimetypeIconUtil.getBestMimeTypeByFilename(localPath);
-        }
-
-        // TODO - this is a horrible special case that should not be handled this way
-        if (isPdfFileFromContentProviderWithoutExtension(localPath, mimeType)){
-            remotePath += FILE_EXTENSION_PDF;
         }
 
         OCFile newFile = new OCFile(remotePath);
@@ -125,8 +99,6 @@ public class UploadFileOperation extends SyncOperation {
 
         return newFile;
     }
-
-
 
     private static final String TAG = UploadFileOperation.class.getSimpleName();
 
