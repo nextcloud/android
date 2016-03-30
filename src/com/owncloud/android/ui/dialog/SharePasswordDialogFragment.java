@@ -83,7 +83,8 @@ public class SharePasswordDialogFragment extends DialogFragment
         inputText.requestFocus();
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
+                R.style.Theme_ownCloud_Dialog_NoButtonBarStyle);
         builder.setView(v)
                .setPositiveButton(R.string.common_ok, this)
                .setNegativeButton(R.string.common_cancel, this)

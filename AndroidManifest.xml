@@ -216,7 +216,7 @@
         <activity
             android:name=".ui.activity.ShareActivity"
             android:label="@string/share_dialog_title"
-            android:theme="@style/Theme.ownCloud.Dialog"
+            android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize" >
             <intent-filter>

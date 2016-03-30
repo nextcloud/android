@@ -341,6 +341,7 @@
   <string name="pref_behaviour_entries_keep_file">ohrani v izvorni mapi</string>
   <string name="pref_behaviour_entries_move">premakni v mapo programa</string>
   <string name="share_dialog_title">Souporaba</string>
+  <string name="share_file">Omogoči souporabo %1$s</string>
   <string name="share_with_user_section_title">Omogoči souporabo s skupino ali z uporabnikom</string>
   <string name="share_no_users">Ni datotek, ki bi jih omogočili za souporabo z drugimi</string>
   <string name="share_add_user_or_group">Dodaj uporabnika ali skupino</string>
@@ -348,7 +349,10 @@
   <string name="share_via_link_expiration_date_label">Nastavi datum preteka</string>
   <string name="share_via_link_password_label">Zaščiti z geslom</string>
   <string name="share_via_link_password_title">Varovano</string>
+  <string name="share_via_link_edit_permission_label">Dovoli urejanje</string>
   <string name="share_get_public_link_button">Pridobi povezavo</string>
+  <string name="share_with_title">Omogoči souporabo z ...</string>
+  <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>
   <string name="share_search">Poišči</string>
   <string name="search_users_and_groups_hint">Iskanje uporabnikov in skupin</string>
   <string name="share_group_clarification">%1$s (skupina)</string>

@@ -341,6 +341,7 @@
   <string name="pref_behaviour_entries_keep_file">lasciato nella cartella originale</string>
   <string name="pref_behaviour_entries_move">spostato nella cartella dell\'applicazione</string>
   <string name="share_dialog_title">Condivisione</string>
+  <string name="share_file">Condividi %1$s</string>
   <string name="share_with_user_section_title">Condividi con utenti e gruppi</string>
   <string name="share_no_users">Ancora nessun dato condiviso con gli utenti </string>
   <string name="share_add_user_or_group">Aggiungi utente o gruppo</string>
@@ -348,7 +349,10 @@
   <string name="share_via_link_expiration_date_label">Imposta data di scadenza</string>
   <string name="share_via_link_password_label">Proteggi con password</string>
   <string name="share_via_link_password_title">Protetto</string>
+  <string name="share_via_link_edit_permission_label">Consenti la modifica</string>
   <string name="share_get_public_link_button">Ottieni collegamento</string>
+  <string name="share_with_title">Condividi con...</string>
+  <string name="share_with_edit_title">Condividi con %1$s</string>
   <string name="share_search">Cerca</string>
   <string name="search_users_and_groups_hint">Cerca utenti e gruppi</string>
   <string name="share_group_clarification">%1$s (gruppo)</string>

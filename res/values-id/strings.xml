@@ -304,6 +304,7 @@
   <string name="share_via_link_section_title">Bagikan tautan</string>
   <string name="share_via_link_expiration_date_label">Atur tanggal kedaluwarsa</string>
   <string name="share_via_link_password_label">Lindungi dengan sandi</string>
+  <string name="share_via_link_edit_permission_label">Izinkan penyuntingan</string>
   <string name="share_search">Cari</string>
   <string name="share_privilege_can_share">dapat berbagi</string>
   <string name="share_privilege_can_edit">dapat disunting</string>

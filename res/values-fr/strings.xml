@@ -345,6 +345,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="pref_behaviour_entries_keep_file">gardé dans le dossier original</string>
   <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
   <string name="share_dialog_title">Partage</string>
+  <string name="share_file">Partager %1$s</string>
   <string name="share_with_user_section_title">Partager avec des utilisateurs et des groupes</string>
   <string name="share_no_users">Aucune donnée partagée avec des utilisateurs pour le moment</string>
   <string name="share_add_user_or_group">Ajouter un Utilisateur ou un Groupe</string>
@@ -352,7 +353,10 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="share_via_link_expiration_date_label">Spécifier une date d\'expiration</string>
   <string name="share_via_link_password_label">Protéger par un mot de passe</string>
   <string name="share_via_link_password_title">Sécurisé</string>
+  <string name="share_via_link_edit_permission_label">Permettre la modification</string>
   <string name="share_get_public_link_button">Obtenir le lien</string>
+  <string name="share_with_title">Partager avec ...</string>
+  <string name="share_with_edit_title">Partager avec %1$s</string>
   <string name="share_search">Rechercher</string>
   <string name="search_users_and_groups_hint">Chercher parmi les utilisateurs et groupes</string>
   <string name="share_group_clarification">%1$s (groupe)</string>

@@ -313,6 +313,7 @@
   <string name="share_via_link_section_title">Поділитись посиланням</string>
   <string name="share_via_link_expiration_date_label">Встановити термін дії</string>
   <string name="share_via_link_password_label">Захистити паролем</string>
+  <string name="share_via_link_edit_permission_label">Дозволити редагування</string>
   <string name="share_search">Пошук</string>
   <string name="share_privilege_can_share">може ділитися з іншими</string>
   <string name="share_privilege_can_edit">може редагувати</string>

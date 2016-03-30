@@ -258,6 +258,7 @@ Mesedez, baimendu berriz</string>
   <string name="share_via_link_section_title">Elkarbanatu lotura</string>
   <string name="share_via_link_expiration_date_label">Ezarri muga data</string>
   <string name="share_via_link_password_label">Babestu pasahitzarekin</string>
+  <string name="share_via_link_edit_permission_label">Baimendu editatzea</string>
   <string name="share_search">Bilatu</string>
   <string name="share_privilege_can_share">elkarbana dezake</string>
   <string name="share_privilege_can_edit">editatu dezake</string>

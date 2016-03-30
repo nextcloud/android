@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s 安卓軟體</string>
   <string name="about_version">版本 %1$s</string>
   <string name="actionbar_sync">更新檔案列表</string>
   <string name="actionbar_upload">上傳檔案</string>
@@ -36,8 +37,11 @@
   <string name="prefs_instant_upload_summary">即時上傳相機照片</string>
   <string name="prefs_instant_video_upload">即時影像上傳</string>
   <string name="prefs_instant_video_upload_summary">將照相機所拍攝完成的影像即時上傳</string>
+  <string name="prefs_log_title">啓用記錄</string>
   <string name="prefs_log_summary">這個用來記錄執行的動作以找出問題點</string>
+  <string name="prefs_log_title_history">歷史記錄</string>
   <string name="prefs_log_summary_history">顯示之前的記錄檔</string>
+  <string name="prefs_log_delete_history_button">刪除記錄</string>
   <string name="prefs_help">說明</string>
   <string name="prefs_recommend">推薦給朋友</string>
   <string name="prefs_feedback">反饋</string>
@@ -46,6 +50,7 @@
   <string name="prefs_remember_last_upload_location_summary">記住上次分享上傳位置</string>
   <string name="recommend_subject">在您的手機中試用%1$s!</string>
   <string name="recommend_text">我想邀請您在您的手機上使用 %1$s ! 可以由這兒下載: %2$s</string>
+  <string name="auth_check_server">檢查伺服器</string>
   <string name="auth_host_url">伺服器位址 https://...</string>
   <string name="auth_username">使用者名稱</string>
   <string name="auth_password">密碼</string>
@@ -56,6 +61,7 @@
   <string name="uploader_btn_new_folder_text">新資料夾</string>
   <string name="uploader_top_message">選取上傳目錄:</string>
   <string name="uploader_wrn_no_account_title">找不到帳號</string>
+  <string name="uploader_wrn_no_account_text">無%1$s帳號，請先建立帳號。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
   <string name="uploader_wrn_no_account_quit_btn_text">離開</string>
   <string name="uploader_wrn_no_content_title">沒有上載的內容</string>
@@ -65,6 +71,7 @@
   <string name="file_list_seconds_ago">幾秒前</string>
   <string name="file_list_empty">這裡還沒有東西，上傳一些吧！</string>
   <string name="file_list_loading">載入中…</string>
+  <string name="file_list_no_app_for_file_type">檔案格式無對應app可開啟</string>
   <string name="local_file_list_empty">這個目錄中沒有任何檔案.</string>
   <string name="filedetails_select_file">在檔案上輕觸來顯示更多資訊。</string>
   <string name="filedetails_size">容量:</string>
@@ -74,31 +81,41 @@
   <string name="filedetails_download">下載</string>
   <string name="filedetails_sync_file">同步</string>
   <string name="filedetails_renamed_in_upload_msg">檔案名稱在上傳時已被更改為 %1$s</string>
+  <string name="list_layout">列表模式</string>
   <string name="action_share">分享</string>
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">好</string>
+  <string name="common_cancel_sync">取消同步</string>
   <string name="common_cancel">取消</string>
+  <string name="common_save_exit">儲存；離開。</string>
   <string name="common_error">錯誤</string>
   <string name="common_loading">載入 …</string>
   <string name="common_error_unknown">未知的錯誤</string>
   <string name="about_title">關於</string>
   <string name="change_password">變更密碼</string>
+  <string name="delete_account">刪除帳號</string>
   <string name="create_account">建立帳號</string>
   <string name="upload_chooser_title">更新自 ...</string>
   <string name="uploader_info_dirname">資料夾名稱</string>
   <string name="uploader_upload_in_progress_ticker">更新中 ...</string>
   <string name="uploader_upload_in_progress_content">%1$d%% 上傳中 %2$s</string>
   <string name="uploader_upload_succeeded_ticker">更新成功</string>
+  <string name="uploader_upload_succeeded_content_single">%1$s 已上傳</string>
   <string name="uploader_upload_failed_ticker">上傳失敗</string>
   <string name="uploader_upload_failed_content_single">上傳 %1$s 未完成</string>
+  <string name="uploader_upload_failed_credentials_error">上傳失敗，請重新登入。</string>
   <string name="downloader_download_in_progress_ticker">下載中 ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% 下載中 %2$s</string>
   <string name="downloader_download_succeeded_ticker">下載成功</string>
+  <string name="downloader_download_succeeded_content">%1$s 已下載</string>
   <string name="downloader_download_failed_ticker">下載失敗</string>
   <string name="downloader_download_failed_content">下載 %1$s 未完成</string>
   <string name="downloader_not_downloaded_yet">尚未下載</string>
+  <string name="downloader_download_failed_credentials_error">下載失敗，請重新登入。</string>
   <string name="common_choose_account">選擇帳號</string>
+  <string name="sync_fail_ticker">同步失敗</string>
+  <string name="sync_fail_ticker_unauthorized">同步失敗，請重新登入。</string>
   <string name="sync_fail_content_unauthorized">無效的密碼 %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">出現衝突</string>
   <string name="sync_conflicts_in_favourites_content">%1$d 持續同步未被同步的檔案</string>
@@ -113,8 +130,10 @@
   <string name="foreign_files_fail">部份文件無法被移動</string>
   <string name="foreign_files_local_text">本地: %1$s</string>
   <string name="foreign_files_remote_text">遠端: %1$s</string>
+  <string name="pass_code_enter_pass_code">請加入您的密碼</string>
   <string name="pass_code_configure_your_pass_code">輸入您的密碼鎖密碼</string>
   <string name="pass_code_configure_your_pass_code_explanation">這個密碼在你每次啟動這程式時都會被要求輸入</string>
+  <string name="pass_code_reenter_your_pass_code">再次輸入密碼鎖</string>
   <string name="pass_code_remove_your_pass_code">移除您的密碼鎖密碼</string>
   <string name="pass_code_mismatch">密碼不相符</string>
   <string name="pass_code_wrong">不正確的密碼</string>
@@ -139,6 +158,8 @@
   <string name="media_rewind_description">重新播放按鍵</string>
   <string name="media_play_pause_description">播放或暫停按鍵</string>
   <string name="media_forward_description">快轉按鍵</string>
+  <string name="auth_getting_authorization">授權中... ...</string>
+  <string name="auth_trying_to_login">登入中... ...</string>
   <string name="auth_no_net_conn_title">沒有網際網路連線</string>
   <string name="auth_nossl_plain_ok_title">安全連線不可用。</string>
   <string name="auth_connection_established">連線已建立</string>
@@ -150,6 +171,7 @@
   <string name="auth_unknown_host_title">找不到伺服器</string>
   <string name="auth_incorrect_path_title">找不到伺服器</string>
   <string name="auth_timeout_title">伺服器回應逾時</string>
+  <string name="auth_incorrect_address_title">伺服器地址格式錯誤</string>
   <string name="auth_ssl_general_error_title">SSL 初始化失敗</string>
   <string name="auth_ssl_unverified_server_title">無法驗證 SSL 伺服器身份</string>
   <string name="auth_bad_oc_version_title">無法辨識的伺服器版本</string>
@@ -159,11 +181,14 @@
   <string name="auth_oauth_error">未成功登入</string>
   <string name="auth_oauth_error_access_denied">被授登伺服器拒絕登入</string>
   <string name="auth_expired_oauth_token_toast">你的登入授權已過期. 請再次登入</string>
+  <string name="auth_expired_basic_auth_toast">請輸入目前的密碼</string>
   <string name="auth_expired_saml_sso_token_toast">您的連接已逾期. 請重新連線.</string>
+  <string name="auth_connecting_auth_server">連接驗證伺服器中...</string>
   <string name="auth_unsupported_auth_method">伺服器不支援這種認證方式</string>
   <string name="auth_unsupported_multiaccount">%1$s 不支援複數賬戶</string>
   <string name="auth_fail_get_user_name">你的伺服器並沒有傳回正確的使用者 ID, 請聯絡伺服器的管理員
 	</string>
+  <string name="auth_can_not_auth_against_server">無法驗證這個伺服器</string>
   <string name="auth_account_does_not_exist">帳號目前不存在於本裝置</string>
   <string name="favorite">我的最愛</string>
   <string name="unfavorite">不喜愛的</string>
@@ -221,6 +246,8 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
+  <string name="instant_upload_on_wifi">經由 wifi 上傳圖片</string>
+  <string name="instant_video_upload_on_wifi">經由 wifi 上傳視訊</string>
   <string name="instant_upload_path">/InstantUpload</string>
   <string name="conflict_title">檔案衝突</string>
   <string name="conflict_message">您要保留那個檔案? 如果您同時選擇兩個版本, 本地的檔案將在檔案名稱後面會加上編號</string>
@@ -236,6 +263,8 @@
   <string name="share_link_file_error">在分享檔案或目錄時發生了錯誤</string>
   <string name="unshare_link_file_no_exist">無法取消分享這個檔案或目錄. 請檢查它們是否存在</string>
   <string name="unshare_link_file_error">在取消分享檔案或目錄時發生了錯誤</string>
+  <string name="update_link_file_no_exist">無法更新, 請檢查檔案是否存在</string>
+  <string name="update_link_file_error">當嘗試更新分享時發生錯誤</string>
   <string name="share_link_password_title">輸入密碼</string>
   <string name="share_link_empty_password">您必須輸入密碼</string>
   <string name="activity_chooser_send_file_title">寄出</string>
@@ -252,13 +281,17 @@
   <string name="forbidden_permissions_delete">刪除檔案</string>
   <string name="share_link_forbidden_permissions">分享檔案</string>
   <string name="unshare_link_forbidden_permissions">取消分享檔案</string>
+  <string name="update_link_forbidden_permissions">更新這個分享</string>
   <string name="forbidden_permissions_create">建立檔案</string>
   <string name="uploader_upload_forbidden_permissions">上傳這個目錄</string>
   <string name="downloader_download_file_not_found">這個檔案已經不存在於伺服器中</string>
   <string name="prefs_category_accounts">帳號</string>
   <string name="prefs_add_account">新增帳號</string>
   <string name="actionbar_logger">紀錄</string>
+  <string name="log_send_history_button">傳送歷史</string>
+  <string name="log_send_no_mail_app">沒有傳送紀錄的軟體. 請安裝郵件軟體</string>
   <string name="log_send_mail_subject">%1$s Android 應用程式記錄</string>
+  <string name="log_progress_dialog_text">裝載資料中...</string>
   <string name="saml_authentication_required_text">必須驗證</string>
   <string name="saml_authentication_wrong_pass">密碼錯誤</string>
   <string name="actionbar_move">移動</string>
@@ -269,6 +302,8 @@
   <string name="move_file_invalid_overwrite">這個檔案已經存在於目的目錄中</string>
   <string name="move_file_error">在移動檔案或目錄時發生了錯誤</string>
   <string name="forbidden_permissions_move">移動這個檔案</string>
+  <string name="copy_file_not_found">無法複製, 請檢查檔案是否存在</string>
+  <string name="copy_file_invalid_into_descendent">無法複製檔案夾到子目錄</string>
   <string name="copy_file_invalid_overwrite">這個檔案已經存在於目的目錄中</string>
   <string name="prefs_category_details">詳細資料</string>
   <string name="shared_subject_header">以分享的</string>
@@ -292,6 +327,7 @@
   <string name="share_via_link_section_title">分享連結</string>
   <string name="share_via_link_expiration_date_label">指定到期日</string>
   <string name="share_via_link_password_label">密碼保護</string>
+  <string name="share_via_link_edit_permission_label">允許編輯</string>
   <string name="share_search">搜尋</string>
   <string name="share_privilege_can_share">可分享</string>
   <string name="share_privilege_can_edit">可編輯</string>

@@ -349,6 +349,7 @@
   <string name="share_via_link_expiration_date_label">有効期限を設定</string>
   <string name="share_via_link_password_label">パスワード保護を有効化</string>
   <string name="share_via_link_password_title">セキュア</string>
+  <string name="share_via_link_edit_permission_label">編集を許可</string>
   <string name="share_get_public_link_button">リンクを取得</string>
   <string name="share_search">検索</string>
   <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>

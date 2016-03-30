@@ -36,8 +36,11 @@
   <string name="prefs_instant_upload_summary">Upload straks billeder taget med kameraet</string>
   <string name="prefs_instant_video_upload">Upload videoer straks</string>
   <string name="prefs_instant_video_upload_summary">Upload straks videor optaget med kameraet</string>
+  <string name="prefs_log_title">Slå logning til</string>
   <string name="prefs_log_summary">Dette bruges til at logregistrere problemer</string>
+  <string name="prefs_log_title_history">Logningshistorik</string>
   <string name="prefs_log_summary_history">Dette viser de optagne logger</string>
+  <string name="prefs_log_delete_history_button">Slet historik</string>
   <string name="prefs_help">Hjælp</string>
   <string name="prefs_recommend">Anbefal til en ven</string>
   <string name="prefs_feedback">Feedback</string>
@@ -294,6 +297,7 @@
   <string name="share_via_link_expiration_date_label">Vælg udløbsdato</string>
   <string name="share_via_link_password_label">Beskyt med adgangskode</string>
   <string name="share_via_link_password_title">Sikret</string>
+  <string name="share_via_link_edit_permission_label">Tillad redigering</string>
   <string name="share_search">Søg</string>
   <string name="share_privilege_can_share">kan dele</string>
   <string name="share_privilege_can_edit">kan redigere</string>

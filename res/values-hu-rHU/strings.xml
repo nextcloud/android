@@ -251,6 +251,7 @@
   <string name="share_via_link_section_title">Megosztás hivatkozással</string>
   <string name="share_via_link_expiration_date_label">Legyen lejárati idő</string>
   <string name="share_via_link_password_label">Jelszóval is védem</string>
+  <string name="share_via_link_edit_permission_label">Szerkesztés engedélyezése</string>
   <string name="share_search">Keresés</string>
   <string name="share_privilege_can_share">megosztható</string>
   <string name="share_privilege_can_edit">módosíthat</string>
