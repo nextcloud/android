@@ -195,9 +195,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     (LayoutInflater) mParentActivity.getSystemService(
                             Context.LAYOUT_INFLATER_SERVICE
                     );
-            view = inflator.inflate(R.layout.upload_list_item, null);
+            view = inflator.inflate(R.layout.upload_list_item, parent, false);
         }
-
 
         if (uploadsItems != null && uploadsItems.length > position) {
             final OCUpload upload = uploadsItems[position];
@@ -311,6 +310,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             if (upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
                 //Cancel
                 rightButton.setImageResource(R.drawable.ic_cancel);
+                rightButton.setVisibility(View.VISIBLE);
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -325,6 +325,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             } else if (upload.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
                 //Delete
                 rightButton.setImageResource(R.drawable.ic_action_delete);
+                rightButton.setVisibility(View.VISIBLE);
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
