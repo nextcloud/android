@@ -515,7 +515,7 @@ public class FileDisplayActivity extends HookActivity implements
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(GravityCompat.START);
+        boolean drawerOpen = isDrawerOpen();
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
         menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
@@ -543,14 +543,14 @@ public class FileDisplayActivity extends HookActivity implements
             case android.R.id.home: {
                 FileFragment second = getSecondFragment();
                 OCFile currentDir = getCurrentDir();
-                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                if (isDrawerOpen()) {
+                    closeDrawer();
                 } else if ((currentDir != null && currentDir.getParentId() != 0) ||
                         (second != null && second.getFile() != null)) {
                     onBackPressed();
 
                 } else {
-                    mDrawerLayout.openDrawer(GravityCompat.START);
+                    openDrawer();
                 }
                 break;
             }
