@@ -21,13 +21,10 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
-import android.accounts.OperationCanceledException;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -37,15 +34,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.utils.BitmapUtils;
 
@@ -114,14 +108,12 @@ public abstract class DrawerActivity extends ToolbarActivity {
                 if (mIsAccountChooserActive) {
                     toggleAccountList();
                 }
-                updateActionBarTitleAndHomeButton(null);
                 invalidateOptionsMenu();
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(R.string.app_name);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
                 invalidateOptionsMenu();
             }
@@ -129,7 +121,8 @@ public abstract class DrawerActivity extends ToolbarActivity {
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerToggle.setDrawerIndicatorEnabled(false);
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     /**
@@ -148,6 +141,12 @@ public abstract class DrawerActivity extends ToolbarActivity {
                             case R.id.nav_all_files:
                                 menuItem.setChecked(true);
                                 allFilesOption();
+                                break;
+                            case R.id.nav_uploads:
+                                Intent uploadListIntent = new Intent(getApplicationContext(),
+                                        UploadListActivity.class);
+                                uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(uploadListIntent);
                                 break;
                             case R.id.nav_settings:
                                 Intent settingsIntent = new Intent(getApplicationContext(),
@@ -380,7 +379,6 @@ public abstract class DrawerActivity extends ToolbarActivity {
         if (mDrawerToggle != null) {
             mDrawerToggle.syncState();
             if (isDrawerOpen()) {
-                getSupportActionBar().setTitle(R.string.app_name);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
             }
         }
