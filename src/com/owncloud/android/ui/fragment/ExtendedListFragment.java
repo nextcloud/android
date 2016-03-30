@@ -326,7 +326,7 @@ public class ExtendedListFragment extends Fragment
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
 
         SharedPreferences.Editor editor = PreferenceManager
-                .getDefaultSharedPreferences(MainApp.getAppContext()).edit();
+                .getDefaultSharedPreferences(getContext()).edit();
         editor.putFloat(GRID_COLUMNS, mScale).apply();
     }
 
