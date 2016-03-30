@@ -55,6 +55,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -525,7 +526,8 @@ public class Uploader extends FileActivity
             for (Parcelable mStream : mStreamsToUpload) {
 
                 Uri uri = (Uri) mStream;
-                String data = null;
+                String[] columnValues;
+                String displayName;
                 String filePath = "";
 
                 if (uri != null) {
@@ -533,51 +535,18 @@ public class Uploader extends FileActivity
                         String mimeType = getContentResolver().getType(uri);
 
                         if (mimeType.contains("image")) {
-                            String[] CONTENT_PROJECTION = {Images.Media.DATA,
-                                    Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE,
-                                    Images.Media.SIZE};
-                            Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null,
-                                    null, null);
-                            c.moveToFirst();
-                            int index = c.getColumnIndex(Images.Media.DATA);
-                            data = c.getString(index);
-                            filePath = mUploadPath +
-                                    c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
-
+                            columnValues = getColumnsValues(uri, Images.Media.DISPLAY_NAME);
                         } else if (mimeType.contains("video")) {
-                            String[] CONTENT_PROJECTION = {Video.Media.DATA,
-                                    Video.Media.DISPLAY_NAME, Video.Media.MIME_TYPE,
-                                    Video.Media.SIZE, Video.Media.DATE_MODIFIED};
-                            Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null,
-                                    null, null);
-                            c.moveToFirst();
-                            int index = c.getColumnIndex(Video.Media.DATA);
-                            data = c.getString(index);
-                            filePath = mUploadPath +
-                                    c.getString(c.getColumnIndex(Video.Media.DISPLAY_NAME));
-
+                            columnValues = getColumnsValues(uri, Images.Media.DISPLAY_NAME);
                         } else if (mimeType.contains("audio")) {
-                            String[] CONTENT_PROJECTION = {Audio.Media.DATA,
-                                    Audio.Media.DISPLAY_NAME, Audio.Media.MIME_TYPE,
-                                    Audio.Media.SIZE};
-                            Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null,
-                                    null, null);
-                            c.moveToFirst();
-                            int index = c.getColumnIndex(Audio.Media.DATA);
-                            data = c.getString(index);
-                            filePath = mUploadPath +
-                                    c.getString(c.getColumnIndex(Audio.Media.DISPLAY_NAME));
-
+                            columnValues = getColumnsValues(uri, Images.Media.DISPLAY_NAME);
                         } else {
-                            Cursor cursor = getContentResolver().query(uri,
-                                    new String[]{MediaStore.MediaColumns.DISPLAY_NAME},
-                                    null, null, null);
-                            cursor.moveToFirst();
-                            int nameIndex = cursor.getColumnIndex(cursor.getColumnNames()[0]);
-                            if (nameIndex >= 0) {
-                                filePath = mUploadPath + cursor.getString(nameIndex);
-                            }
+                            columnValues = getColumnsValues(uri, Images.Media.DISPLAY_NAME);
                         }
+
+                        displayName = (columnValues != null) ? columnValues[0] :
+                            uri.getLastPathSegment().replaceAll("\\s", "") + "."
+                            + MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
 
                     } else if (uri.getScheme().equals("file")) {
                         filePath = Uri.decode(uri.toString()).replace(uri.getScheme() +
@@ -587,23 +556,21 @@ public class Uploader extends FileActivity
                             filePath = splitedFilePath[1];
                         }
                         final File file = new File(filePath);
-                        data = file.getAbsolutePath();
-                        filePath = mUploadPath + file.getName();
+                        displayName = file.getName();
                     } else {
                         throw new SecurityException();
                     }
-                    //if (data == null) {
-                        mRemoteCacheData.add(filePath);
-                        CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
-                        Object[] params = {uri, filePath, mRemoteCacheData.size() - 1,
-                                getAccount().name, getContentResolver()};
-                        mNumCacheFile++;
-                        showWaitingCopyDialog();
-                        copyTask.execute(params);
 
-                    //} else {
-                    // TODO request to FileUploader with data as source file, resulting in lazy temporary copy
-                    //}
+                    filePath = mUploadPath + displayName;
+
+                    mRemoteCacheData.add(filePath);
+                    CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
+                    Object[] params = {uri, filePath, mRemoteCacheData.size() - 1,
+                        getAccount().name, getContentResolver()};
+                    mNumCacheFile++;
+                    showWaitingCopyDialog();
+                    copyTask.execute(params);
+
                 } else {
                     throw new SecurityException();
                 }
@@ -621,6 +588,30 @@ public class Uploader extends FileActivity
             String message = String.format(getString(R.string.uploader_error_forbidden_content),
                     getString(R.string.app_name));
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private String[] getColumnsValues(Uri uri, String... columns) {
+
+        Cursor cursor = null;
+        String[] result = new String[columns.length];
+        try {
+            cursor = getContentResolver().query(uri, columns, null,
+                null, null);
+            cursor.moveToFirst();
+
+            for (int i = 0; i < columns.length; i++) {
+                result[i] = cursor.getString(cursor.getColumnIndex(columns[i]));
+            }
+            return result;
+        } catch(IllegalArgumentException | NullPointerException e) {
+            // When the URI is wrong, NullPointerException will be thrown, and when the Content Provider don't
+            // retrieve the columns requested, an IllegalArgumentException will be thrown.
+            return null;
+        } finally {
+            if(cursor != null) {
+                cursor.close();
+            }
         }
     }
 
