@@ -20,25 +20,22 @@
 
 package com.owncloud.android.files;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}

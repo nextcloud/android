@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,7 +21,6 @@
 package com.owncloud.android.media;
 
 import android.accounts.Account;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -39,13 +38,13 @@ import android.os.PowerManager;
 import android.support.v7.app.NotificationCompat;
 import android.widget.Toast;
 
-import java.io.IOException;
-
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+
+import java.io.IOException;
 
 
 /**
@@ -59,7 +58,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
     private static final String TAG = MediaService.class.getSimpleName();
 
-    private static final String MY_PACKAGE = MediaService.class.getPackage() != null ? MediaService.class.getPackage().getName() : "com.owncloud.android.media";
+    private static final String MY_PACKAGE = MediaService.class.getPackage() != null ?
+            MediaService.class.getPackage().getName() : "com.owncloud.android.media";
     
     /// Intent actions that we are prepared to handle
     public static final String ACTION_PLAY_FILE = MY_PACKAGE + ".action.PLAY_FILE";
@@ -162,7 +162,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
                 
         } else if (extra == MediaPlayer.MEDIA_ERROR_UNSUPPORTED) {
             /*  Added in API level 17
-                Bitstream is conforming to the related coding standard or file spec, but the media framework does not support the feature.
+                Bitstream is conforming to the related coding standard or file spec,
+                but the media framework does not support the feature.
                 Constant Value: -1010 (0xfffffc0e)
              */
             messageId = R.string.media_err_unsupported;
@@ -190,7 +191,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
 
         } else if (what == MediaPlayer.MEDIA_ERROR_NOT_VALID_FOR_PROGRESSIVE_PLAYBACK) {
             /*  Added in API level 3
-                The video is streamed and its container is not valid for progressive playback i.e the video's index (e.g moov atom) is not at the start of the file.
+                The video is streamed and its container is not valid for progressive playback i.e the video's index
+                (e.g moov atom) is not at the start of the file.
                 Constant Value: 200 (0x000000c8)
             */
             messageId = R.string.media_err_invalid_progressive_playback;
@@ -203,7 +205,8 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             */
             /*  MediaPlayer.MEDIA_ERROR_SERVER_DIED)
                 Added in API level 1
-                Media server died. In this case, the application must release the MediaPlayer object and instantiate a new one.
+                Media server died. In this case, the application must release the MediaPlayer
+                object and instantiate a new one.
                 Constant Value: 100 (0x00000064) 
              */
             messageId = R.string.media_err_unknown;
@@ -471,22 +474,26 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             
         } catch (SecurityException e) {
             Log_OC.e(TAG, "SecurityException playing " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_security_ex), mFile.getFileName()), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, String.format(getString(R.string.media_err_security_ex), mFile.getFileName()),
+                    Toast.LENGTH_LONG).show();
             processStopRequest(true);
             
         } catch (IOException e) {
             Log_OC.e(TAG, "IOException playing " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_io_ex), mFile.getFileName()), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, String.format(getString(R.string.media_err_io_ex), mFile.getFileName()),
+                    Toast.LENGTH_LONG).show();
             processStopRequest(true);
             
         } catch (IllegalStateException e) {
             Log_OC.e(TAG, "IllegalStateException " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()),
+                    Toast.LENGTH_LONG).show();
             processStopRequest(true);
             
         } catch (IllegalArgumentException e) {
             Log_OC.e(TAG, "IllegalArgumentException " + mAccount.name + mFile.getRemotePath(), e);
-            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, String.format(getString(R.string.media_err_unexpected), mFile.getFileName()),
+                    Toast.LENGTH_LONG).show();
             processStopRequest(true);
         }
     }

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ListItemLayout"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/standard_half_padding"
+    android:paddingBottom="@dimen/standard_half_padding"
+    >
+
+    <FrameLayout
+        android:layout_width="60dp"
+        android:layout_height="72dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="@dimen/file_icon_size"
+            android:layout_height="@dimen/file_icon_size"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_menu_archive" />
+  
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/upload_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:textColor="@color/textColor"
+            android:text="@string/placeholder_filename"
+            android:textSize="16sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/upload_file_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:text="@string/placeholder_filesize"
+                android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/upload_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:text="@string/placeholder_timestamp"
+                android:textSize="12sp"/>
+            <TextView
+                android:id="@+id/upload_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:text="@string/uploads_view_upload_status_succeeded"
+                android:textSize="12sp"/>
+
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/upload_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/upload_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/list_item_lastmod_and_filesize_text"
+            android:singleLine="true"
+            android:text="@string/auth_username"
+            android:textSize="12dip"/>
+
+        <TextView
+            android:id="@+id/upload_remote_path"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/list_item_lastmod_and_filesize_text"
+            android:ellipsize="middle"
+            android:singleLine="true"
+            android:text="@string/instant_upload_path"
+            android:textSize="12dip"/>
+
+    </LinearLayout>
+
+    
+    <FrameLayout
+        android:layout_width="56dp"
+        android:layout_height="72dp"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="8dp"
+     >
+
+        <ImageButton
+            android:id="@+id/upload_right_button"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@android:color/transparent"
+     />
+
+	</FrameLayout>
+    
+    
+</LinearLayout>
