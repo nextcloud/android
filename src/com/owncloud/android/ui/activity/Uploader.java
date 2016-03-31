@@ -51,6 +51,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -227,6 +228,17 @@ public class Uploader extends FileActivity
     @Override
     protected Dialog onCreateDialog(final int id) {
         final AlertDialog.Builder builder = new Builder(this);
+        // Create key listener for back button pressed
+        DialogInterface.OnKeyListener onKeyListener = new DialogInterface.OnKeyListener() {
+            @Override
+            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    finish();
+                    dialog.dismiss();
+                }
+                return true;
+            }
+        };
         switch (id) {
         case DIALOG_WAITING:
             final ProgressDialog pDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
@@ -314,12 +326,13 @@ public class Uploader extends FileActivity
             builder.setTitle(R.string.uploader_wrn_no_content_title);
             builder.setMessage(R.string.uploader_wrn_no_content_text);
             builder.setCancelable(false);
-            builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
+            builder.setNegativeButton(R.string.common_back, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     finish();
                 }
             });
+            builder.setOnKeyListener(onKeyListener);
             return builder.create();
         default:
             throw new IllegalArgumentException("Unknown dialog id: " + id);

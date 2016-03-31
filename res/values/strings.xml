@@ -68,8 +68,8 @@
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
-    <string name="uploader_wrn_no_content_title">No content to upload</string>
-    <string name="uploader_wrn_no_content_text">No content was received. Nothing to upload.</string>
+    <string name="uploader_wrn_no_content_title">No file to upload</string>
+    <string name="uploader_wrn_no_content_text">Sorry, the received data does not content any file.</string>
     <string name="uploader_error_forbidden_content">%1$s is not allowed to access the shared content</string>
     <string name="uploader_info_uploading">Uploading</string>
     <string name="file_list_seconds_ago">seconds ago</string>
@@ -99,6 +99,7 @@
     <string name="common_retry_upload">Retry upload</string>
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_cancel">Cancel</string>
+    <string name="common_back">Back</string>
     <string name="common_save_exit">Save &amp; exit</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading &#8230;</string>
