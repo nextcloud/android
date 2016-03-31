@@ -69,6 +69,7 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
     <string name="uploader_wrn_no_content_title">No file to upload</string>
+    <string name="uploader_wrn_unknown_content_title">The content can not be uploaded</string>
     <string name="uploader_wrn_no_content_text">Sorry, the received data does not content any file.</string>
     <string name="uploader_error_forbidden_content">%1$s is not allowed to access the shared content</string>
     <string name="uploader_info_uploading">Uploading</string>

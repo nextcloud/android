@@ -119,6 +119,7 @@ public class Uploader extends FileActivity
     private final static int DIALOG_WAITING = 1;
     private final static int DIALOG_NO_STREAM = 2;
     private final static int DIALOG_MULTIPLE_ACCOUNT = 3;
+    private final static int DIALOG_STREAM_UNKNOWN = 4;
 
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
@@ -322,6 +323,21 @@ public class Uploader extends FileActivity
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_content_title);
             builder.setMessage(R.string.uploader_wrn_no_content_text);
+            builder.setCancelable(false);
+            builder.setNegativeButton(R.string.common_back, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            builder.setOnKeyListener(onKeyListener);
+            return builder.create();
+        case DIALOG_STREAM_UNKNOWN:
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setTitle(R.string.uploader_wrn_unknown_content_title);
+            String message = String.format(getString(R.string.uploader_error_forbidden_content),
+                getString(R.string.app_name));
+            builder.setMessage(message);
             builder.setCancelable(false);
             builder.setNegativeButton(R.string.common_back, new OnClickListener() {
                 @Override
@@ -536,7 +552,7 @@ public class Uploader extends FileActivity
 
                 Uri uri = (Uri) mStream;
                 String[] columnValues;
-                String displayName;
+                String displayName = null;
                 String filePath = "";
 
                 if (uri != null) {
@@ -572,10 +588,11 @@ public class Uploader extends FileActivity
                         }
                         final File file = new File(filePath);
                         displayName = file.getName();
-                    } else {
-                        throw new SecurityException();
                     }
 
+                }
+
+                if(displayName != null) {
                     filePath = mUploadPath + displayName;
 
                     mRemoteCacheData.add(filePath);
@@ -585,7 +602,6 @@ public class Uploader extends FileActivity
                     mNumCacheFile++;
                     showWaitingCopyDialog();
                     copyTask.execute(params);
-
                 } else {
                     throw new SecurityException();
                 }
@@ -600,9 +616,7 @@ public class Uploader extends FileActivity
             }
 
         } catch (SecurityException e) {
-            String message = String.format(getString(R.string.uploader_error_forbidden_content),
-                    getString(R.string.app_name));
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            showDialog(DIALOG_STREAM_UNKNOWN);
         }
     }
 
