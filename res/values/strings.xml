@@ -324,6 +324,9 @@
 
     <string name="copy_link">Copy link</string>
     <string name="clipboard_text_copied">Copied to clipboard</string>
+    <string name="clipboard_no_text_to_copy">No text received to copy to clipboard</string>
+    <string name="clipboard_uxexpected_error">Unexpected error while copying to clipboard</string>
+    <string name="clipboard_label">Text copied from %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Critical error: cannot perform operations</string>
 

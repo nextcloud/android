@@ -41,6 +41,8 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.util.ArrayList;
+
 public class CreateShareViaLinkOperation extends SyncOperation {
 
     private String mPath;
@@ -101,9 +103,19 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         
         if (result.isSuccess()) {
             if (result.getData().size() > 0) {
-                OCShare share = (OCShare) result.getData().get(0);
-                updateData(share);
-            } 
+                Object item = result.getData().get(0);
+                if (item instanceof  OCShare) {
+                    updateData((OCShare) item);
+                } else {
+                    ArrayList<Object> data = result.getData();
+                    result = new RemoteOperationResult(
+                        RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
+                    );
+                    result.setData(data);
+                }
+            } else {
+                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
+            }
         }
         
         return result;
