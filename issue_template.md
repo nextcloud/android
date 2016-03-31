@@ -1,9 +1,5 @@
-### Expected behaviour
-Tell us what should happen
-
 ### Actual behaviour
-Tell us what happens instead
-
+### Expected behaviour
 ### Steps to reproduce
 1. 
 2. 
