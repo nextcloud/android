@@ -409,16 +409,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
             for (OCFile f : files) {
                 if (f.isFolder()) {
                     HashMap<String, Object> h = new HashMap<>();
-                    h.put("dirname", f.getFileName());
-                    h.put("last_mod", DisplayUtils.getRelativeTimestamp(this, f));
+                    h.put("dirname", f);
                     data.add(h);
+                }
             }
 
             UploaderAdapter sa = new UploaderAdapter(this,
                                                 data,
                                                 R.layout.uploader_list_item_layout,
                                                 new String[] {"dirname"},
-                                                new int[] {R.id.filename, R.id.last_mod});
+                                                new int[] {R.id.filename},
                                                 getStorageManager(), getAccount());
 
             mListView.setAdapter(sa);

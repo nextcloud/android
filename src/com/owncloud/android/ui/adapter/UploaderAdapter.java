@@ -35,6 +35,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.util.HashMap;
@@ -74,9 +75,8 @@ public class UploaderAdapter extends SimpleAdapter {
         ImageView fileIcon = (ImageView) vi.findViewById(R.id.thumbnail);
         fileIcon.setTag(file.getFileId());
 
-        // TODO enable after #1277 is merged
-//        TextView lastModV = (TextView) vi.findViewById(R.id.last_mod);
-//        lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file));
+        TextView lastModV = (TextView) vi.findViewById(R.id.last_mod);
+        lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file));
         
         // get Thumbnail if file is image
         if (file.isImage() && file.getRemoteId() != null){
