@@ -251,6 +251,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             accountNameTextView.setVisibility(View.VISIBLE);
             statusTextView.setVisibility(View.VISIBLE);
             progressBar.setVisibility(View.GONE);
+            progressBar.setVisibility(View.GONE);
 
             /// Update information depending of upload details
             String status = getStatusText(upload);
