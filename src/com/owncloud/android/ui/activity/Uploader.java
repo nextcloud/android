@@ -41,10 +41,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore;
-import android.provider.MediaStore.Audio;
 import android.provider.MediaStore.Images;
-import android.provider.MediaStore.Video;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -535,7 +532,6 @@ public class Uploader extends FileActivity
     @SuppressLint("NewApi")
     public void uploadFiles() {
         try {
-            // this checks the mimeType
             for (Parcelable mStream : mStreamsToUpload) {
 
                 Uri uri = (Uri) mStream;
@@ -558,8 +554,14 @@ public class Uploader extends FileActivity
                         }
 
                         displayName = (columnValues != null) ? columnValues[0] :
-                            uri.getLastPathSegment().replaceAll("\\s", "") + "."
-                            + MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
+                            uri.getLastPathSegment().replaceAll("\\s", "");
+
+                        // Add extension if it does not exists in the file name
+                        int index = displayName.lastIndexOf(".");
+                        if(index != -1 || MimeTypeMap.getSingleton().
+                            getMimeTypeFromExtension(displayName.substring(index)) == null) {
+                            displayName += "." + MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
+                        }
 
                     } else if (uri.getScheme().equals("file")) {
                         filePath = Uri.decode(uri.toString()).replace(uri.getScheme() +
@@ -856,6 +858,7 @@ public class Uploader extends FileActivity
             Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             Log_OC.d(TAG, message);
         }
+
     }
 
     /**

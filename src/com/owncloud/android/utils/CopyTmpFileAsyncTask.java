@@ -129,6 +129,8 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
         if (listener!= null)
         {
             listener.onTmpFileCopied(result, mIndex);
+        } else {
+            Log_OC.e(TAG, "Lost upload because of lost context.");
         }
     }
 
