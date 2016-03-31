@@ -597,6 +597,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_sort).setVisible(false);
+        menu.findItem(R.id.action_switch_view).setVisible(false);
         menu.findItem(R.id.action_sync_account).setVisible(false);
         return true;
     }
