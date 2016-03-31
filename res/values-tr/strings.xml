@@ -61,6 +61,7 @@
   <string name="uploader_btn_new_folder_text">Yeni klasör</string>
   <string name="uploader_top_message">Yükleme klasörünü seçin:</string>
   <string name="uploader_wrn_no_account_title">Hesap bulunamadı</string>
+  <string name="uploader_wrn_no_account_text">Cihazınızda hiç %1$s hesabı yok. Lütfen ilk olarak bir hesap ayarlayın.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Çıkış</string>
   <string name="uploader_wrn_no_content_title">Yüklenecek içerik yok</string>
@@ -80,6 +81,7 @@
   <string name="filedetails_download">İndir</string>
   <string name="filedetails_sync_file">Eşitle</string>
   <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
+  <string name="list_layout">Liste yerleşimi</string>
   <string name="action_share">Paylaş</string>
   <string name="common_yes">Evet</string>
   <string name="common_no">Hayır</string>
@@ -92,6 +94,7 @@
   <string name="common_error_unknown">Bilinmeyen hata</string>
   <string name="about_title">Hakkında</string>
   <string name="change_password">Parola değiştir</string>
+  <string name="delete_account">Hesabı kaldır</string>
   <string name="create_account">Hesap oluştur</string>
   <string name="upload_chooser_title">Şuradan yükle...</string>
   <string name="uploader_info_dirname">Klasör adı</string>
@@ -101,6 +104,7 @@
   <string name="uploader_upload_succeeded_content_single">%1$s yüklendi</string>
   <string name="uploader_upload_failed_ticker">Yükleme başarısız</string>
   <string name="uploader_upload_failed_content_single">%1$s yüklenmesi tamamlanamadı</string>
+  <string name="uploader_upload_failed_credentials_error">Yükleme başarısız, tekrar oturum açmanız gerekli</string>
   <string name="downloader_download_in_progress_ticker">İndiriliyor...</string>
   <string name="downloader_download_in_progress_content">%%%1$d İndirilen: %2$s</string>
   <string name="downloader_download_succeeded_ticker">İndirme başarılı</string>
@@ -111,6 +115,8 @@
   <string name="downloader_download_failed_credentials_error">İndirme başarısız, yeniden oturum açmalısınız</string>
   <string name="common_choose_account">Hesap seçin</string>
   <string name="sync_fail_ticker">Eşitleme başarısız</string>
+  <string name="sync_fail_ticker_unauthorized">Eşitleme başarısız, tekrar oturum açmanız gerekli</string>
+  <string name="sync_fail_content">%1$s eşitlemesi tamamlanamadı</string>
   <string name="sync_fail_content_unauthorized">%1$s için geçersiz parola</string>
   <string name="sync_conflicts_in_favourites_ticker">Çakışma bulundu</string>
   <string name="sync_conflicts_in_favourites_content">%1$d eşit tut dosyası, eşitlenemedi</string>
@@ -125,9 +131,11 @@
   <string name="foreign_files_fail">Bazı dosyalar taşınamadı</string>
   <string name="foreign_files_local_text">Yerel: %1$s</string>
   <string name="foreign_files_remote_text">Uzak: %1$s</string>
+  <string name="upload_query_move_foreign_files">Seçili dosyaları %1$s klasörüne kopyalamak için yeterince alan yok. Bunun yerine taşımak ister misiniz?</string>
   <string name="pass_code_enter_pass_code">Lütfen parola kodunuzu girin</string>
   <string name="pass_code_configure_your_pass_code">Parola kodunuzu girin</string>
   <string name="pass_code_configure_your_pass_code_explanation">Parola kodu uygulama her başlatıldığında sorulacaktır</string>
+  <string name="pass_code_reenter_your_pass_code">Lütfen parola kodunu yeniden girin</string>
   <string name="pass_code_remove_your_pass_code">Parola kodunuzu kaldırın</string>
   <string name="pass_code_mismatch">Parola kodları aynı değil</string>
   <string name="pass_code_wrong">Hatalı parola kodu</string>
@@ -152,6 +160,7 @@
   <string name="media_rewind_description">Başa sar düğmesi</string>
   <string name="media_play_pause_description">Oynat veya duraklat düğmesi</string>
   <string name="media_forward_description">Hızlı ileri düğmesi</string>
+  <string name="auth_getting_authorization">Kimlik doğrulama alınıyor...</string>
   <string name="auth_trying_to_login">Oturum açmaya çalışılıyor…</string>
   <string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
   <string name="auth_nossl_plain_ok_title">Güvenli bağlantı mevcut değil.</string>
@@ -261,6 +270,7 @@
   <string name="unshare_link_file_no_exist">Paylaşımı kaldırma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
   <string name="unshare_link_file_error">Bu dosya veya klasör paylaşımı kaldırılmaya çalışılırken bir hata oluştu</string>
   <string name="update_link_file_no_exist">Güncelleme yapılamıyor. Lütfen dosyanın mevcut olup olmadığını kontrol edin.</string>
+  <string name="update_link_file_error">Paylaşım güncellenmeye çalışırken bir hata oluştu</string>
   <string name="share_link_password_title">Bir parola girin</string>
   <string name="share_link_empty_password">Bir parola girmelisiniz</string>
   <string name="activity_chooser_send_file_title">Gönder</string>
@@ -277,6 +287,7 @@
   <string name="forbidden_permissions_delete">Bu dosyayı silmek için</string>
   <string name="share_link_forbidden_permissions">Bu dosyayı paylaşmak için</string>
   <string name="unshare_link_forbidden_permissions">Bu dosya paylaşımını kaldırmak için</string>
+  <string name="update_link_forbidden_permissions">bu paylaşımı güncellemek için</string>
   <string name="forbidden_permissions_create">Dosya oluşturma</string>
   <string name="uploader_upload_forbidden_permissions">Bu klasöre yükleme</string>
   <string name="downloader_download_file_not_found">Bu dosya artık sunucuda mevcut değil</string>
@@ -330,6 +341,7 @@
   <string name="pref_behaviour_entries_keep_file">özgün klasöründe tutuldu</string>
   <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
   <string name="share_dialog_title">Paylaşım</string>
+  <string name="share_file">%1$s paylaş</string>
   <string name="share_with_user_section_title">Kullanıcı ve Gruplarla paylaş</string>
   <string name="share_no_users">Henüz kullanıcılara paylaşılan veri yok</string>
   <string name="share_add_user_or_group">Kullanıcı veya grup ekle</string>
@@ -339,9 +351,13 @@
   <string name="share_via_link_password_title">Güvenli</string>
   <string name="share_via_link_edit_permission_label">Düzenlemeye izin ver</string>
   <string name="share_get_public_link_button">Bağlantıyı al</string>
+  <string name="share_with_title">Şununla paylaş...</string>
+  <string name="share_with_edit_title">%1$s ile paylaş</string>
   <string name="share_search">Ara</string>
   <string name="search_users_and_groups_hint">Kullanıcı ve Grupları Ara</string>
   <string name="share_group_clarification">%1$s (grup)</string>
+  <string name="share_remote_clarification">%1$s (uzak)</string>
+  <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
   <string name="share_sharee_unavailable">Üzgünüz sunucu sürümünüz istemcilerdeki kullanıcılara paylaşıma izin vermiyor.
 \nLütfen yöneticinize başvurun</string>
   <string name="share_privilege_can_share">paylaşabilir</string>
@@ -350,4 +366,12 @@
   <string name="share_privilege_can_edit_change">değiştir</string>
   <string name="share_privilege_can_edit_delete">sil</string>
   <string name="edit_share_unshare">Paylaşımı durdur</string>
+  <string name="edit_share_done">bitti</string>
+  <string name="action_switch_grid_view">Izgara görünümü</string>
+  <string name="action_switch_list_view">Liste görünümü</string>
+  <string name="manage_space_title">Alanı ayarla</string>
+  <string name="manage_space_description">Ayarlar, veritabanı ve sunucu sertifikaları %1$s verilerinden tamamen silinecektir.\n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
+  <string name="manage_space_clear_data">Verileri temizle</string>
+  <string name="manage_space_error">Bazı dosyalar silinemedi</string>
+  <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izin gerekiyor.</string>
 </resources>
