@@ -581,14 +581,7 @@ public class Uploader extends FileActivity
                         }
 
                     } else if (uri.getScheme().equals("file")) {
-                        filePath = Uri.decode(uri.toString()).replace(uri.getScheme() +
-                                "://", "");
-                        if (filePath.contains("mnt")) {
-                            String splitedFilePath[] = filePath.split("/mnt");
-                            filePath = splitedFilePath[1];
-                        }
-                        final File file = new File(filePath);
-                        displayName = file.getName();
+                        displayName = uri.getLastPathSegment();
                     }
 
                 }
@@ -603,6 +596,7 @@ public class Uploader extends FileActivity
                     mNumCacheFile++;
                     showWaitingCopyDialog();
                     copyTask.execute(params);
+
                 } else {
                     throw new SecurityException();
                 }
