@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Einstellungen</string>
+  <string name="drawer_item_uploads_list">Uploads</string>
   <string name="drawer_item_logs">Protokolle</string>
   <string name="drawer_close">Schließen</string>
   <string name="drawer_open">Öffnen</string>
@@ -73,6 +74,10 @@
   <string name="file_list_loading">Lade…</string>
   <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
+  <string name="file_list_folder">Ordner</string>
+  <string name="file_list_folders">Ordner</string>
+  <string name="file_list_file">Datei</string>
+  <string name="file_list_files">Dateien</string>
   <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
   <string name="filedetails_size">Größe:</string>
   <string name="filedetails_type">Art:</string>
@@ -105,6 +110,16 @@
   <string name="uploader_upload_failed_ticker">Hochladen fehlgeschlagen</string>
   <string name="uploader_upload_failed_content_single">Hochladen von  %1$s konnte nicht abgeschlossen werden</string>
   <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, du musst dich erneut anmelden</string>
+  <string name="uploads_view_title">Uploads</string>
+  <string name="uploads_view_group_current_uploads">Wird hochgeladen</string>
+  <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
+  <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Zugangsdaten ffalsch</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Ziel-Ordner fehlt</string>
+  <string name="uploads_view_upload_status_failed_file_error">Dateifehler</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Berechtigungsfehler</string>
+  <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
+  <string name="uploads_view_later_waiting_to_upload">Warten auf hochladen</string>
   <string name="downloader_download_in_progress_ticker">Herunterladen…</string>
   <string name="downloader_download_in_progress_content">%1$d%% Herunterladen %2$s</string>
   <string name="downloader_download_succeeded_ticker">Herunterladen erfolgreich</string>

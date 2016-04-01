@@ -24,6 +24,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">설정</string>
+  <string name="drawer_item_uploads_list">업로드</string>
   <string name="drawer_item_logs">로그</string>
   <string name="drawer_close">닫기</string>
   <string name="drawer_open">열기</string>
@@ -65,6 +66,10 @@
   <string name="file_list_empty">내용이 없습니다. 업로드할 수 있습니다!</string>
   <string name="file_list_loading">불러오는 중...</string>
   <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
+  <string name="file_list_folder">폴더</string>
+  <string name="file_list_folders">폴더</string>
+  <string name="file_list_file">파일</string>
+  <string name="file_list_files">파일</string>
   <string name="filedetails_select_file">파일을 누르면 추가 정보가 표시됩니다.</string>
   <string name="filedetails_size">크기:</string>
   <string name="filedetails_type">종류:</string>
@@ -91,6 +96,16 @@
   <string name="uploader_upload_succeeded_ticker">업로드 성공</string>
   <string name="uploader_upload_failed_ticker">업로드 실패</string>
   <string name="uploader_upload_failed_content_single">%1$s을(를) 업로드할 수 없습니다</string>
+  <string name="uploads_view_title">업로드</string>
+  <string name="uploads_view_group_current_uploads">현재</string>
+  <string name="uploads_view_group_finished_uploads">업로드됨</string>
+  <string name="uploads_view_upload_status_succeeded">완료됨</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">인증 오류</string>
+  <string name="uploads_view_upload_status_failed_folder_error">폴더 오류</string>
+  <string name="uploads_view_upload_status_failed_file_error">파일 오류</string>
+  <string name="uploads_view_upload_status_failed_permission_error">권한 오류</string>
+  <string name="uploads_view_upload_status_unknown_fail">알 수 없는 오류</string>
+  <string name="uploads_view_later_waiting_to_upload">업로드 대기 중</string>
   <string name="downloader_download_in_progress_ticker">다운로드 중...</string>
   <string name="downloader_download_in_progress_content">%1$d%% %2$s 다운로드 중</string>
   <string name="downloader_download_succeeded_ticker">다운로드 성공</string>

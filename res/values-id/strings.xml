@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Pengaturan</string>
+  <string name="drawer_item_uploads_list">Unggah</string>
   <string name="drawer_item_logs">Log</string>
   <string name="drawer_close">Tutup</string>
   <string name="drawer_open">Buka</string>
@@ -69,6 +70,10 @@
   <string name="file_list_empty">Tidak ada apa-apa di sini. Unggah sesuatu!</string>
   <string name="file_list_loading">Memuat...</string>
   <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
+  <string name="file_list_folder">folder</string>
+  <string name="file_list_folders">folder</string>
+  <string name="file_list_file">berkas</string>
+  <string name="file_list_files">berkas</string>
   <string name="filedetails_select_file">Sentuh pada berkas untuk menampilkan informasi tambahan</string>
   <string name="filedetails_size">Ukuran:</string>
   <string name="filedetails_type">Tipe:</string>
@@ -98,6 +103,16 @@
   <string name="uploader_upload_failed_ticker">Gagal mengunggah</string>
   <string name="uploader_upload_failed_content_single">Unggah %1$s tidak selesai</string>
   <string name="uploader_upload_failed_credentials_error">Mungunggah gagal, kamu harus masuk log lagi</string>
+  <string name="uploads_view_title">Unggah</string>
+  <string name="uploads_view_group_current_uploads">Saat ini</string>
+  <string name="uploads_view_group_finished_uploads">Terunggah</string>
+  <string name="uploads_view_upload_status_succeeded">Selesai</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Kesalahan Kredensial</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Kesalahan folder</string>
+  <string name="uploads_view_upload_status_failed_file_error">Kesalahaan berkas</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Kesalahan hak akses</string>
+  <string name="uploads_view_upload_status_unknown_fail">Kesalahan tidak diketahui</string>
+  <string name="uploads_view_later_waiting_to_upload">Menunggu unggahan</string>
   <string name="downloader_download_in_progress_ticker">Mengunduh...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Mengunduh %2$s</string>
   <string name="downloader_download_succeeded_ticker">Berhasil mengunduh</string>

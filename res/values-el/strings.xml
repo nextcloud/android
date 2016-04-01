@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Ρυθμίσεις</string>
+  <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
   <string name="drawer_item_logs">Αρχεία καταγραφών</string>
   <string name="drawer_close">Κλείσιμο</string>
   <string name="drawer_open">Άνοιγμα</string>
@@ -73,6 +74,10 @@
   <string name="file_list_loading">Φόρτωση...</string>
   <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για τον τύπο αρχείου!</string>
   <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
+  <string name="file_list_folder">φάκελος</string>
+  <string name="file_list_folders">φάκελοι</string>
+  <string name="file_list_file">αρχείο</string>
+  <string name="file_list_files">αρχείο</string>
   <string name="filedetails_select_file">Αγγίξτε κάποιο αρχείο για να προβάλετε περισσότερες πληροφορίες.</string>
   <string name="filedetails_size">Μέγεθος:</string>
   <string name="filedetails_type">Τύπος:</string>
@@ -105,6 +110,16 @@
   <string name="uploader_upload_failed_ticker">Η μεταφόρτωση απέτυχε</string>
   <string name="uploader_upload_failed_content_single">Η μεταφόρτωση του %1$s δεν ήταν δυνατόν να ολοκληρωθεί</string>
   <string name="uploader_upload_failed_credentials_error">Η μεταφόρτωση απέτυχε, πρέπει να επανασυνδεθείτε</string>
+  <string name="uploads_view_title">Μεταφορτώσεις</string>
+  <string name="uploads_view_group_current_uploads">Τρέχουσα</string>
+  <string name="uploads_view_group_finished_uploads">Μεταφορτώθηκε</string>
+  <string name="uploads_view_upload_status_succeeded">Ολοκληρωμένες</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Σφάλμα διαπιστευτηρίων</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Σφάλμα φακέλου</string>
+  <string name="uploads_view_upload_status_failed_file_error">Σφάλμα αρχείου</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Σφάλμα δικαιωμάτων</string>
+  <string name="uploads_view_upload_status_unknown_fail">Άγνωστο σφάλμα</string>
+  <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
   <string name="downloader_download_in_progress_ticker">Λήψη ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Λαμβάνονται %2$s</string>
   <string name="downloader_download_succeeded_ticker">Η λήψη ολοκληρώθηκε επιτυχώς</string>

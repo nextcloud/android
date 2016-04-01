@@ -47,6 +47,10 @@
   <string name="file_list_seconds_ago">Sekunden zuvor</string>
   <string name="file_list_empty">Es ist nichts hier. Lade etwas hoch!</string>
   <string name="local_file_list_empty">Es sind keine Dateien in diesem Ordner.</string>
+  <string name="file_list_folder">Ordner</string>
+  <string name="file_list_folders">Ordner</string>
+  <string name="file_list_file">Datei</string>
+  <string name="file_list_files">Dateien</string>
   <string name="filedetails_select_file">Auf eine Datei drücken, um mehr Informationen zu erhalten.</string>
   <string name="filedetails_size">Größe:</string>
   <string name="filedetails_type">Typ:</string>
@@ -70,6 +74,7 @@
   <string name="uploader_upload_succeeded_ticker">Hochladen erfolgreich</string>
   <string name="uploader_upload_failed_ticker">Hochladen fehlgeschlagen</string>
   <string name="uploader_upload_failed_content_single">Hochladen von %1$s konnte nicht fertig gestellt werden</string>
+  <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
   <string name="downloader_download_in_progress_ticker">Lade herunter ...</string>
   <string name="downloader_download_succeeded_ticker">Herunterladen erfolgreich</string>
   <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>

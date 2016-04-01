@@ -24,6 +24,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Налаштування</string>
+  <string name="drawer_item_uploads_list">Завантаженнь</string>
   <string name="drawer_item_logs">Журнали</string>
   <string name="drawer_close">Закрити</string>
   <string name="drawer_open">Відкрити</string>
@@ -68,6 +69,10 @@
   <string name="file_list_empty">Тут нічого немає. Відвантажте що-небудь!</string>
   <string name="file_list_loading">Завантаження…</string>
   <string name="local_file_list_empty">В цій теці немає файлів.</string>
+  <string name="file_list_folder">тека</string>
+  <string name="file_list_folders">теки</string>
+  <string name="file_list_file">файл</string>
+  <string name="file_list_files">файл</string>
   <string name="filedetails_select_file">Натисніть на файлі для відображення додаткової інформації</string>
   <string name="filedetails_size">Розмір:</string>
   <string name="filedetails_type">Тип:</string>
@@ -98,6 +103,14 @@
   <string name="uploader_upload_succeeded_content_single">%1$s завантажено</string>
   <string name="uploader_upload_failed_ticker">Помилка завантаження</string>
   <string name="uploader_upload_failed_content_single">Завантаження %1$s не може завершитись</string>
+  <string name="uploads_view_title">Завантаженнь</string>
+  <string name="uploads_view_group_current_uploads">Поточний</string>
+  <string name="uploads_view_group_finished_uploads">Вивантажено</string>
+  <string name="uploads_view_upload_status_succeeded">Завершені</string>
+  <string name="uploads_view_upload_status_failed_file_error">Помилка файлу</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Помилка доступу</string>
+  <string name="uploads_view_upload_status_unknown_fail">Невідома помилка</string>
+  <string name="uploads_view_later_waiting_to_upload">Очікування завантаження</string>
   <string name="downloader_download_in_progress_ticker">Скачування …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Зкачування %2$s</string>
   <string name="downloader_download_succeeded_ticker">Успішно зкачано</string>

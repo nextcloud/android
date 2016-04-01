@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Nastavitve</string>
+  <string name="drawer_item_uploads_list">Poslano</string>
   <string name="drawer_item_logs">Dnevnik</string>
   <string name="drawer_close">Zapri</string>
   <string name="drawer_open">Odpri</string>
@@ -73,6 +74,10 @@
   <string name="file_list_loading">Poteka nalaganje ...</string>
   <string name="file_list_no_app_for_file_type">Ni programa za prikaz te vrste datoteke!</string>
   <string name="local_file_list_empty">V tej mapi ni datotek.</string>
+  <string name="file_list_folder">mapa</string>
+  <string name="file_list_folders">mape</string>
+  <string name="file_list_file">datoteka</string>
+  <string name="file_list_files">datoteke</string>
   <string name="filedetails_select_file">Pritisnite na datoteko za prikaz dodatnih podrobnosti.</string>
   <string name="filedetails_size">Velikost:</string>
   <string name="filedetails_type">Vrsta:</string>
@@ -105,6 +110,17 @@
   <string name="uploader_upload_failed_ticker">Pošiljanje je spodletelo</string>
   <string name="uploader_upload_failed_content_single">Pošiljanja %1$s ni mogoče dokončati</string>
   <string name="uploader_upload_failed_credentials_error">Pošiljanje je spodletelo. Zahtevana je ponovna prijava.</string>
+  <string name="uploads_view_title">Poslano</string>
+  <string name="uploads_view_group_current_uploads">Trenutno</string>
+  <string name="uploads_view_group_finished_uploads">Poslano</string>
+  <string name="uploads_view_upload_status_succeeded">Končano</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Napaka poveril</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Napaka mape</string>
+  <string name="uploads_view_upload_status_failed_file_error">Napaka datoteke</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Napaka dovoljenj</string>
+  <string name="uploads_view_upload_status_conflict">Spor</string>
+  <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>
+  <string name="uploads_view_later_waiting_to_upload">Čakanje na pošiljanje</string>
   <string name="downloader_download_in_progress_ticker">Prejemanje …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Prejemanje %2$s</string>
   <string name="downloader_download_succeeded_ticker">Prejemanje je uspešno končano</string>

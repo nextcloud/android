@@ -29,6 +29,7 @@
   <string name="common_error">﻿ತಪ್ಪಾಗಿದೆ</string>
   <string name="common_error_unknown">ಗೊತ್ತಿಲ್ಲದ ದೋಷ</string>
   <string name="change_password">ಗುಪ್ತ ಪದವನ್ನು ಬದಲಾಯಿಸಿ</string>
+  <string name="uploads_view_upload_status_unknown_fail">ಗೊತ್ತಿಲ್ಲದ ದೋಷ</string>
   <string name="favorite">ಅಚ್ಚುಮೆಚ್ಚಿನ</string>
   <string name="common_rename">﻿ಮರುಹೆಸರಿಸು</string>
   <string name="common_remove">ತೆಗೆದುಹಾಕಿ</string>

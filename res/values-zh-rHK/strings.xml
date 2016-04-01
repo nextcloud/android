@@ -52,6 +52,7 @@
   <string name="uploader_upload_in_progress_ticker">上戴中 …</string>
   <string name="uploader_upload_succeeded_ticker">上載成功</string>
   <string name="uploader_upload_failed_ticker">上載失敗</string>
+  <string name="uploads_view_upload_status_unknown_fail">不明錯誤</string>
   <string name="downloader_download_in_progress_ticker">下載中</string>
   <string name="downloader_download_succeeded_ticker">下載成功</string>
   <string name="downloader_download_failed_ticker">下載失敗</string>

@@ -29,6 +29,9 @@
   <string name="common_error_unknown">Nepoznata greška</string>
   <string name="change_password">Promijeni lozinku</string>
   <string name="create_account">Kreiraj račun</string>
+  <string name="uploads_view_group_current_uploads">Trenutno</string>
+  <string name="uploads_view_upload_status_succeeded">Zavrženo</string>
+  <string name="uploads_view_upload_status_unknown_fail">Nepoznata greška</string>
   <string name="favorite">Favorit</string>
   <string name="common_rename">Preimenuj</string>
   <string name="activity_chooser_send_file_title">Pošalji</string>

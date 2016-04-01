@@ -32,6 +32,10 @@
   <string name="uploader_wrn_no_account_quit_btn_text">Berhenti</string>
   <string name="uploader_info_uploading">Memuatnaik</string>
   <string name="file_list_empty">Tiada apa-apa di sini. Muat naik sesuatu!</string>
+  <string name="file_list_folder">direktori</string>
+  <string name="file_list_folders">direktori</string>
+  <string name="file_list_file">fail</string>
+  <string name="file_list_files">fail</string>
   <string name="filedetails_size">Saiz</string>
   <string name="filedetails_type">Jenis</string>
   <string name="filedetails_created">Telah dibina:</string>

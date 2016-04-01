@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Seaded</string>
+  <string name="drawer_item_uploads_list">Üleslaadimised</string>
   <string name="drawer_item_logs">Logid</string>
   <string name="drawer_close">Sulge</string>
   <string name="drawer_open">Ava</string>
@@ -71,6 +72,10 @@
   <string name="file_list_empty">Siin pole midagi. Lae midagi üles!</string>
   <string name="file_list_loading">Laadimine...</string>
   <string name="local_file_list_empty">Kaustas pole faile.</string>
+  <string name="file_list_folder">kaust</string>
+  <string name="file_list_folders">kaustad</string>
+  <string name="file_list_file">fail</string>
+  <string name="file_list_files">failid</string>
   <string name="filedetails_select_file">Lisainfo vaatamiseks vajuta failile.</string>
   <string name="filedetails_size">Suurus:</string>
   <string name="filedetails_type">Tüüp:</string>
@@ -100,6 +105,16 @@
   <string name="uploader_upload_succeeded_ticker">Üleslaadimine oli edukas</string>
   <string name="uploader_upload_failed_ticker">Üleslaadimine ebaõnnestus</string>
   <string name="uploader_upload_failed_content_single">%1$s üleslaadimise lõpetamine ebaõnnestus</string>
+  <string name="uploads_view_title">Üleslaadimised</string>
+  <string name="uploads_view_group_current_uploads">Praegune</string>
+  <string name="uploads_view_group_finished_uploads">Üles laetud</string>
+  <string name="uploads_view_upload_status_succeeded">Lõpetatud</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Autentimisandmete tõrge</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Kausta tõrge</string>
+  <string name="uploads_view_upload_status_failed_file_error">Faili tõrge</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Õiguse viga</string>
+  <string name="uploads_view_upload_status_unknown_fail">Tundmatu viga</string>
+  <string name="uploads_view_later_waiting_to_upload">Üleslaadimise ootamine</string>
   <string name="downloader_download_in_progress_ticker">Allalaadimine ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% allalaadimine %2$s</string>
   <string name="downloader_download_succeeded_ticker">Allalaadimine oli edukas</string>

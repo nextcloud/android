@@ -40,6 +40,10 @@
   <string name="uploader_wrn_no_account_quit_btn_text">Izlaz</string>
   <string name="file_list_seconds_ago">prije par sekundi</string>
   <string name="file_list_empty">Nema ničega u ovoj mapi. Pošalji nešto!</string>
+  <string name="file_list_folder">mapa</string>
+  <string name="file_list_folders">mape</string>
+  <string name="file_list_file">datoteka</string>
+  <string name="file_list_files">datoteka</string>
   <string name="filedetails_download">Preuzimanje</string>
   <string name="action_share">Dijeljenje</string>
   <string name="common_yes">Da</string>
@@ -50,6 +54,7 @@
   <string name="common_error_unknown">Nepoznata pogreška</string>
   <string name="change_password">Izmjena lozinke</string>
   <string name="uploader_info_dirname">Naziv mape</string>
+  <string name="uploads_view_upload_status_unknown_fail">Nepoznata pogreška</string>
   <string name="favorite">Favorit</string>
   <string name="common_rename">Promjeni ime</string>
   <string name="common_remove">Makni</string>

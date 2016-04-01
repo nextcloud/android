@@ -23,6 +23,7 @@
   <string name="common_cancel">منسوخ کریں</string>
   <string name="common_error">ایرر</string>
   <string name="common_error_unknown">غیر معروف خرابی</string>
+  <string name="uploads_view_upload_status_unknown_fail">غیر معروف خرابی</string>
   <string name="activity_chooser_send_file_title">بھجیں</string>
   <string name="empty"></string>
   <string name="folder_picker_choose_button_text">منتخب کریں</string>

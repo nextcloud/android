@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Ayarlar</string>
+  <string name="drawer_item_uploads_list">Yüklemeler</string>
   <string name="drawer_item_logs">Günlükler</string>
   <string name="drawer_close">Kapat</string>
   <string name="drawer_open">Aç</string>
@@ -73,6 +74,10 @@
   <string name="file_list_loading">Yükleniyor...</string>
   <string name="file_list_no_app_for_file_type">Dosya türü için uygulama bulunamadı!</string>
   <string name="local_file_list_empty">Bu klasörde dosya yok.</string>
+  <string name="file_list_folder">klasör</string>
+  <string name="file_list_folders">klasör</string>
+  <string name="file_list_file">dosya</string>
+  <string name="file_list_files">dosya</string>
   <string name="filedetails_select_file">Ek bilgileri görmek için dosyaya dokunun.</string>
   <string name="filedetails_size">Boyut:</string>
   <string name="filedetails_type">Tür:</string>
@@ -105,6 +110,16 @@
   <string name="uploader_upload_failed_ticker">Yükleme başarısız</string>
   <string name="uploader_upload_failed_content_single">%1$s yüklenmesi tamamlanamadı</string>
   <string name="uploader_upload_failed_credentials_error">Yükleme başarısız, tekrar oturum açmanız gerekli</string>
+  <string name="uploads_view_title">Yüklemeler</string>
+  <string name="uploads_view_group_current_uploads">Geçerli</string>
+  <string name="uploads_view_group_finished_uploads">Yüklendi</string>
+  <string name="uploads_view_upload_status_succeeded">Tamamlanmış</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Kimlik bilgi hatası</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Klasör hatası</string>
+  <string name="uploads_view_upload_status_failed_file_error">Dosya hatası</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Yetki hatası</string>
+  <string name="uploads_view_upload_status_unknown_fail">Bilinmeyen hata</string>
+  <string name="uploads_view_later_waiting_to_upload">Yüklemek için bekliyor</string>
   <string name="downloader_download_in_progress_ticker">İndiriliyor...</string>
   <string name="downloader_download_in_progress_content">%%%1$d İndirilen: %2$s</string>
   <string name="downloader_download_succeeded_ticker">İndirme başarılı</string>

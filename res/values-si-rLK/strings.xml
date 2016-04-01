@@ -26,6 +26,10 @@
   <string name="uploader_info_uploading">උඩුගතවේ</string>
   <string name="file_list_seconds_ago">තත්පරයන්ට පෙර</string>
   <string name="file_list_empty">මෙහි කිසිවක් නොමැත. යමක් උඩුගත කරන්න</string>
+  <string name="file_list_folder">ෆෝල්ඩරය</string>
+  <string name="file_list_folders">ෆෝල්ඩර</string>
+  <string name="file_list_file">ගොනුව</string>
+  <string name="file_list_files">ගොනුව</string>
   <string name="filedetails_select_file">වැඩි විස්තර සඳහා ගොනුවක් ස්පර්ෂ කරන්න</string>
   <string name="filedetails_size">විශාලත්වය:</string>
   <string name="filedetails_type">ගණය:</string>
@@ -44,6 +48,7 @@
   <string name="uploader_info_dirname">ෆොල්ඩරයේ නම</string>
   <string name="uploader_upload_succeeded_ticker">උඩුගත කිරීම සාර්ථකයි</string>
   <string name="uploader_upload_failed_ticker">උඩුගත කිරීම අසාර්ථකයි</string>
+  <string name="uploads_view_upload_status_failed_permission_error">අනුමැතියේ දෝෂයක්</string>
   <string name="downloader_download_in_progress_ticker">බාගතවේ...</string>
   <string name="downloader_download_succeeded_ticker">බාගත කිරීම සාර්ථකයි</string>
   <string name="downloader_download_failed_ticker">බාගත කිරීම අසාර්ථකයි</string>
