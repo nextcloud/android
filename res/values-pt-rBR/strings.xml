@@ -74,7 +74,7 @@
   <string name="file_list_loading">Carregando...</string>
   <string name="file_list_no_app_for_file_type">Nenhum aplicativo encontrado para esse tipo de arquivo!</string>
   <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
-  <string name="upload_list_empty">Nenhum upload disponível.</string>
+  <string name="upload_list_empty">Nenhum arquivo enviado está disponível.</string>
   <string name="file_list_folder">pasta</string>
   <string name="file_list_folders">pastas</string>
   <string name="file_list_file">arquivo</string>
@@ -92,7 +92,7 @@
   <string name="common_yes">Sim</string>
   <string name="common_no">Não</string>
   <string name="common_ok">OK</string>
-  <string name="common_remove_upload">Remover upload</string>
+  <string name="common_remove_upload">Remover arquivo enviado</string>
   <string name="common_retry_upload">Tentar enviar de novo</string>
   <string name="common_cancel_sync">Cancelar sincronização</string>
   <string name="common_cancel">Cancelar</string>
@@ -121,11 +121,11 @@
   <string name="uploads_view_upload_status_cancelled">Cancelado</string>
   <string name="uploads_view_upload_status_paused">Pausado</string>
   <string name="uploads_view_upload_status_failed_connection_error">Erro de conexão</string>
-  <string name="uploads_view_upload_status_failed_retry">Upload será recarregado em breve</string>
+  <string name="uploads_view_upload_status_failed_retry">O arquivo enviado será recarregado em breve</string>
   <string name="uploads_view_upload_status_failed_credentials_error">Erro de Credenciais</string>
   <string name="uploads_view_upload_status_failed_folder_error">Erro de pasta</string>
   <string name="uploads_view_upload_status_failed_file_error">Erro de arquivo</string>
-  <string name="uploads_view_upload_status_failed_localfile_error">Local do arquivo não encontrado</string>
+  <string name="uploads_view_upload_status_failed_localfile_error">Arquivo local não encontrado</string>
   <string name="uploads_view_upload_status_failed_permission_error">Erro de permissão</string>
   <string name="uploads_view_upload_status_conflict">Conflito</string>
   <string name="uploads_view_upload_status_service_interrupted">App foi encerrado</string>
@@ -395,10 +395,10 @@
   <string name="share_privilege_can_edit_delete">excluir</string>
   <string name="edit_share_unshare">Parar compartilhamento</string>
   <string name="edit_share_done">finalizado</string>
-  <string name="action_retry_uploads">Falha ao tentar novamente</string>
+  <string name="action_retry_uploads">Falha, tentar novamente</string>
   <string name="action_clear_failed_uploads">Limpar falha</string>
   <string name="action_clear_successful_uploads">Limpado com sucesso</string>
-  <string name="action_clear_finished_uploads">Completamente finalizado.</string>
+  <string name="action_clear_finished_uploads">Limpar tudo finalizado</string>
   <string name="action_switch_grid_view">Grade de exibição</string>
   <string name="action_switch_list_view">Lista de visualização</string>
   <string name="manage_space_title">Gerenciar o espaço</string>

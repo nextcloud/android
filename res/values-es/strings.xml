@@ -114,10 +114,16 @@
   <string name="uploads_view_group_current_uploads">Actual</string>
   <string name="uploads_view_group_finished_uploads">Subidos</string>
   <string name="uploads_view_upload_status_succeeded">Completada</string>
+  <string name="uploads_view_upload_status_cancelled">Cancelado</string>
+  <string name="uploads_view_upload_status_paused">Pausado</string>
+  <string name="uploads_view_upload_status_failed_connection_error">Error de conexión</string>
   <string name="uploads_view_upload_status_failed_credentials_error">Error de credenciales</string>
   <string name="uploads_view_upload_status_failed_folder_error">Error de carpeta</string>
   <string name="uploads_view_upload_status_failed_file_error">Error de fichero</string>
+  <string name="uploads_view_upload_status_failed_localfile_error">Archivo local no encontrado</string>
   <string name="uploads_view_upload_status_failed_permission_error">Error de permisos</string>
+  <string name="uploads_view_upload_status_conflict">Conflicto</string>
+  <string name="uploads_view_upload_status_service_interrupted">La aplicación se ha interrumpido</string>
   <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
   <string name="uploads_view_later_waiting_to_upload">Esperando para subir</string>
   <string name="downloader_download_in_progress_ticker">Descargando...</string>
