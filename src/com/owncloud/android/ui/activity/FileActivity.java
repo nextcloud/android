@@ -535,13 +535,13 @@ public class FileActivity extends DrawerActivity
     }
 
     @Override
-
     public void restart(){
         Intent i = new Intent(this, FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
     }
 
+    @Override
     public void allFilesOption(){
         restart();
     }

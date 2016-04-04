@@ -171,7 +171,7 @@ public class FileDisplayActivity extends HookActivity
         setupToolbar();
 
         // setup drawer
-        setupDrawer();
+        setupDrawer(R.id.nav_all_files);
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
