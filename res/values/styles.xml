@@ -34,7 +34,7 @@
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
-	<style name="Theme.ownCloud.Toolbar" parent="Theme.AppCompat.NoActionBar">
+	<style name="Theme.ownCloud.Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="colorPrimary">@color/primary</item>
@@ -48,11 +48,11 @@
     </style>
 
 	<!-- separate style for Drawer activities needed for v21+ theming -->
-	<style name="Theme.ownCloud.Toolbar.Drawer">
+	<style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar">
 	</style>
 
 	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.Toolbar">
-		<item name="colorAccent">@color/white</item>
+
 	</style>
 
 	<style name="ownCloud.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
