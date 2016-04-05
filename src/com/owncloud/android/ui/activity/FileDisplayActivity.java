@@ -302,7 +302,7 @@ public class FileDisplayActivity extends HookActivity
             setFile(file);
 
             if (mAccountWasSet) {
-                setUsernameInDrawer(getAccount().name);
+                setAccountInDrawer(getAccount());
             }
 
             if (!stateWasRecovered) {
