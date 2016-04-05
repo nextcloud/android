@@ -29,19 +29,43 @@
         android:padding="@dimen/standard_padding"
         >
 
-        <ImageView
-            android:id="@+id/drawer_usericon"
-            android:layout_width="@dimen/nav_drawer_header_avatar"
-            android:layout_height="@dimen/nav_drawer_header_avatar"
-            android:layout_gravity="center_vertical"
-            android:src="@drawable/ic_account_circle"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            />
+        <FrameLayout
+            android:id="@+id/drawer_user_avatars"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginBottom="@dimen/standard_half_margin">
+
+            <ImageView
+                android:id="@+id/drawer_current_account"
+                android:layout_width="@dimen/nav_drawer_header_avatar"
+                android:layout_height="@dimen/nav_drawer_header_avatar"
+                android:src="@drawable/ic_account_circle"/>
+
+            <ImageView
+                android:id="@+id/drawer_account_middle"
+                android:layout_width="@dimen/nav_drawer_header_avatar_other_accounts_size"
+                android:layout_height="@dimen/nav_drawer_header_avatar_other_accounts_size"
+                android:layout_gravity="right"
+                android:layout_marginEnd="@dimen/nav_drawer_header_avatar_second_account_margin"
+                android:layout_marginRight="@dimen/nav_drawer_header_avatar_second_account_margin"
+                android:src="@drawable/ic_account_circle"
+                android:onClick="onAccountDrawerClick"/>
+
+            <ImageView
+                android:id="@+id/drawer_account_end"
+                android:layout_width="@dimen/nav_drawer_header_avatar_other_accounts_size"
+                android:layout_height="@dimen/nav_drawer_header_avatar_other_accounts_size"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_account_circle"
+                android:onClick="onAccountDrawerClick"/>
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/drawer_usericon"
+            android:layout_below="@+id/drawer_user_avatars"
             >
 
             <LinearLayout

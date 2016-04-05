@@ -22,10 +22,13 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -53,7 +56,8 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * Base class to handle setup of the drawer implementation.
+ * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
+ * generation.
  */
 public abstract class DrawerActivity extends ToolbarActivity {
     private static final String TAG = DrawerActivity.class.getSimpleName();
@@ -84,6 +88,21 @@ public abstract class DrawerActivity extends ToolbarActivity {
     private ImageView mAccountChooserToggle;
 
     /**
+     * Reference to the current account avatar.
+     */
+    private ImageView mAccountCurrentAccountAvatar;
+
+    /**
+     * Reference to the middle account avatar.
+     */
+    private ImageView mAccountMiddleAccountAvatar;
+
+    /**
+     * Reference to the end account avatar.
+     */
+    private ImageView mAccountEndAccountAvatar;
+
+    /**
      * Flag to signal if the account chooser is active.
      */
     private boolean mIsAccountChooserActive;
@@ -92,6 +111,11 @@ public abstract class DrawerActivity extends ToolbarActivity {
      * Id of the checked menu item.
      */
     private int mCheckedMenuItem = Menu.NONE;
+
+    /**
+     * accounts for the (max) three displayed accounts in the drawer header.
+     */
+    private Account[] mAvatars = new Account[3];
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id.
@@ -113,10 +137,15 @@ public abstract class DrawerActivity extends ToolbarActivity {
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         if (mNavigationView != null) {
-            setupDrawerContent(mNavigationView);
             mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
             mIsAccountChooserActive = false;
+
+            mAccountCurrentAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_current_account);
+            mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
+            mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
+
+            setupDrawerContent(mNavigationView);
 
             findNavigationViewChildById(R.id.drawer_active_user)
                     .setOnClickListener(new View.OnClickListener() {
@@ -193,9 +222,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
                                 break;
                             case Menu.NONE:
                                 // account clicked
-                                AccountUtils.setCurrentOwnCloudAccount(
-                                        getApplicationContext(), menuItem.getTitle().toString());
-                                restart();
+                                accountClicked(menuItem.getTitle().toString());
                             default:
                                 Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
                         }
@@ -210,6 +237,28 @@ public abstract class DrawerActivity extends ToolbarActivity {
         } else {
             mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
+    }
+
+    /**
+     * sets the new/current account and restarts. In case the given account equals the actual/current account the
+     * call will be ignored.
+     *
+     * @param accountName The account name to be set
+     */
+    private void accountClicked(String accountName) {
+        if (!AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()).name.equals(accountName)) {
+            AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), accountName);
+            restart();
+        }
+    }
+
+    /**
+     * click method for mini avatars in drawer header.
+     *
+     * @param view the clicked ImageView
+     */
+    public void onAccountDrawerClick(View view) {
+        accountClicked(view.getContentDescription().toString());
     }
 
     /**
@@ -270,6 +319,26 @@ public abstract class DrawerActivity extends ToolbarActivity {
         if (accounts.length > 0 && mNavigationView != null) {
             repopulateAccountList(accounts);
             setAccountInDrawer(AccountUtils.getCurrentOwnCloudAccount(this));
+            populateDrawerOwnCloudAccounts();
+
+            // activate second/end account avatar
+            if(mAvatars[1] != null) {
+                setAvatar(mAvatars[1], R.id.drawer_account_end);
+                mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
+            } else {
+                mAccountEndAccountAvatar.setVisibility(View.GONE);
+            }
+
+            // activate third/middle account avatar
+            if(mAvatars[2] != null) {
+                setAvatar(mAvatars[2], R.id.drawer_account_middle);
+                mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
+            } else {
+                mAccountMiddleAccountAvatar.setVisibility(View.GONE);
+            }
+        } else {
+            mAccountEndAccountAvatar.setVisibility(View.GONE);
+            mAccountMiddleAccountAvatar.setVisibility(View.GONE);
         }
     }
 
@@ -347,8 +416,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
             int lastAtPos = account.name.lastIndexOf("@");
             username.setText(account.name.substring(0, lastAtPos));
 
-            ImageView userIcon = (ImageView) findNavigationViewChildById(R.id.drawer_usericon);
-            setAvatarInDrawer(account);
+            setAvatar(account, R.id.drawer_current_account);
         }
     }
 
@@ -357,11 +425,13 @@ public abstract class DrawerActivity extends ToolbarActivity {
      *
      * @param account the account to be set in the drawer
      */
-    private void setAvatarInDrawer(Account account) {
+    private void setAvatar(Account account, int avatarViewId) {
         if (mDrawerLayout != null && account != null) {
-            ImageView userIcon = (ImageView) findNavigationViewChildById(R.id.drawer_usericon);
             int lastAtPos = account.name.lastIndexOf("@");
             String username = account.name.substring(0, lastAtPos);
+
+            ImageView userIcon = (ImageView) findNavigationViewChildById(avatarViewId);
+            userIcon.setContentDescription(account.name);
 
             // Thumbnail in Cache?
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + username);
@@ -408,6 +478,16 @@ public abstract class DrawerActivity extends ToolbarActivity {
         }
     }
 
+    /**
+     * creates an avatar in form of  a TextDrawable with the first letter of the account name in a circle with the
+     * given radius.
+     *
+     * @param accountName the account name
+     * @param radiusInDp  the circle's radius
+     * @return the avatar as a TextDrawable
+     * @throws UnsupportedEncodingException if the charset is not supported when calculating the color values
+     * @throws NoSuchAlgorithmException     if the specified algorithm is not available when calculating the color values
+     */
     @NonNull
     private TextDrawable createAvatar(String accountName, float radiusInDp) throws UnsupportedEncodingException,
             NoSuchAlgorithmException {
@@ -571,5 +651,25 @@ public abstract class DrawerActivity extends ToolbarActivity {
         super.onAccountCreationSuccessful(future);
         updateAccountList();
         restart();
+    }
+
+    /**
+     * populates the avatar drawer array with the first three ownCloud {@link Account}s while the first element is
+     * always the current account.
+     */
+    private void populateDrawerOwnCloudAccounts() {
+        mAvatars = new Account[3];
+        Account[] accountsAll = AccountManager.get(this).getAccountsByType
+                (MainApp.getAccountType());
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(this);
+
+        mAvatars[0] = currentAccount;
+        int j = 0;
+        for(int i = 1 ; i <= 2 && i < accountsAll.length && j < accountsAll.length; j++) {
+            if(!currentAccount.equals(accountsAll[j])) {
+                mAvatars[i] = accountsAll[j];
+                i++;
+            }
+        }
     }
 }
