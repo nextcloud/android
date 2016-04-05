@@ -398,7 +398,8 @@ public abstract class DrawerActivity extends ToolbarActivity {
      * @param menuItemId the menu item to be highlighted
      */
     protected void setDrawerMenuItemChecked(int menuItemId) {
-        if (mNavigationView.getMenu() != null && mNavigationView.getMenu().findItem(menuItemId) != null) {
+        if (mNavigationView != null && mNavigationView.getMenu() != null && mNavigationView.getMenu().findItem
+                (menuItemId) != null) {
             mNavigationView.getMenu().findItem(menuItemId).setChecked(true);
             mCheckedMenuItem = menuItemId;
         } else {
