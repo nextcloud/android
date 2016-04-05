@@ -324,7 +324,9 @@ public abstract class DrawerActivity extends ToolbarActivity {
         super.updateActionBarTitleAndHomeButton(chosenFile);
 
         /// set home button properties
-        mDrawerToggle.setDrawerIndicatorEnabled(isRoot(chosenFile));
+        if(mDrawerToggle != null) {
+            mDrawerToggle.setDrawerIndicatorEnabled(isRoot(chosenFile));
+        }
     }
 
     /**
@@ -381,14 +383,16 @@ public abstract class DrawerActivity extends ToolbarActivity {
      * depending on the #mIsAccountChooserActive flag shows the account chooser or the standard menu.
      */
     private void showMenu() {
-        if (mIsAccountChooserActive) {
-            mAccountChooserToggle.setImageResource(R.drawable.ic_up);
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, false);
-        } else {
-            mAccountChooserToggle.setImageResource(R.drawable.ic_down);
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, true);
+        if(mNavigationView != null) {
+            if (mIsAccountChooserActive) {
+                mAccountChooserToggle.setImageResource(R.drawable.ic_up);
+                mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
+                mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, false);
+            } else {
+                mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+                mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
+                mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, true);
+            }
         }
     }
 

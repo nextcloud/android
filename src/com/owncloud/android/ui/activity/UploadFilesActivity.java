@@ -53,9 +53,8 @@ import java.io.File;
 
 /**
  * Displays local files and let the user choose what of them wants to upload
- * to the current ownCloud account
+ * to the current ownCloud account.
  */
-
 public class UploadFilesActivity extends FileActivity implements
     LocalFileListFragment.ContainerActivity, ActionBar.OnNavigationListener,
         OnClickListener, ConfirmationDialogFragmentListener {
