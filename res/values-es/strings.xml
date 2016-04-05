@@ -74,6 +74,7 @@
   <string name="file_list_loading">Cargando...</string>
   <string name="file_list_no_app_for_file_type">¡Aplicación no encontrada para el tipo de archivo!</string>
   <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
+  <string name="upload_list_empty">Sin datos para subir.</string>
   <string name="file_list_folder">carpeta</string>
   <string name="file_list_folders">carpetas</string>
   <string name="file_list_file">fichero</string>
@@ -91,6 +92,8 @@
   <string name="common_yes">Sí</string>
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
+  <string name="common_remove_upload">Quitar los datos para subir</string>
+  <string name="common_retry_upload">Reintentar la subida</string>
   <string name="common_cancel_sync">Cancelar sincronización</string>
   <string name="common_cancel">Cancelar</string>
   <string name="common_save_exit">Guardar &amp; salir</string>
@@ -112,11 +115,13 @@
   <string name="uploader_upload_failed_credentials_error">Subida fallida, necesita volver a iniciar sesión</string>
   <string name="uploads_view_title">Cargas</string>
   <string name="uploads_view_group_current_uploads">Actual</string>
+  <string name="uploads_view_group_failed_uploads">Fallido (presiona para reintentarlo)</string>
   <string name="uploads_view_group_finished_uploads">Subidos</string>
   <string name="uploads_view_upload_status_succeeded">Completada</string>
   <string name="uploads_view_upload_status_cancelled">Cancelado</string>
   <string name="uploads_view_upload_status_paused">Pausado</string>
   <string name="uploads_view_upload_status_failed_connection_error">Error de conexión</string>
+  <string name="uploads_view_upload_status_failed_retry">La subida se volverá a intentar en breve</string>
   <string name="uploads_view_upload_status_failed_credentials_error">Error de credenciales</string>
   <string name="uploads_view_upload_status_failed_folder_error">Error de carpeta</string>
   <string name="uploads_view_upload_status_failed_file_error">Error de fichero</string>
@@ -125,6 +130,7 @@
   <string name="uploads_view_upload_status_conflict">Conflicto</string>
   <string name="uploads_view_upload_status_service_interrupted">La aplicación se ha interrumpido</string>
   <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
+  <string name="uploads_view_upload_status_waiting_for_wifi">Esperando a la conexión wifi</string>
   <string name="uploads_view_later_waiting_to_upload">Esperando para subir</string>
   <string name="downloader_download_in_progress_ticker">Descargando...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Descargado de %2$s</string>
@@ -233,6 +239,7 @@
   <string name="filename_forbidden_charaters_from_server">Nombre de archivo contiene al menos un caracter no válido</string>
   <string name="filename_empty">El nombre de archivo no puede estar vacío</string>
   <string name="wait_a_moment">Espere un momento</string>
+  <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, pruebe otra app para seleccionar el archivo</string>
   <string name="filedisplay_no_file_selected">No hay ficheros seleccionados.</string>
   <string name="activity_chooser_title">Enviar enlace a...</string>
@@ -377,6 +384,8 @@
   <string name="share_search">Buscar</string>
   <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
   <string name="share_group_clarification">%1$s (grupo)</string>
+  <string name="share_remote_clarification">%1$s (remoto)</string>
+  <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
   <string name="share_sharee_unavailable">Lo siento, compartir no está disponible en su servidor.\nPor favor, contacte con su administrador</string>
   <string name="share_privilege_can_share">puede compartir</string>
   <string name="share_privilege_can_edit">puede editar</string>
@@ -385,6 +394,10 @@
   <string name="share_privilege_can_edit_delete">borrar</string>
   <string name="edit_share_unshare">Parar de compatir</string>
   <string name="edit_share_done">hecho</string>
+  <string name="action_retry_uploads">Reintento fallido</string>
+  <string name="action_clear_failed_uploads">Limpiar fallido</string>
+  <string name="action_clear_successful_uploads">Limpiar exitoso</string>
+  <string name="action_clear_finished_uploads">Limpiar todo lo terminado</string>
   <string name="action_switch_grid_view">Vista de rejilla</string>
   <string name="action_switch_list_view">Ver lista</string>
   <string name="manage_space_title">Gestionar espacio</string>
@@ -392,4 +405,5 @@
   <string name="manage_space_clear_data">Limpiar datos</string>
   <string name="manage_space_error">No se han podido eliminar algunos archivos</string>
   <string name="permission_storage_access">Se requieren permisos adicionales para subir &amp; y descargar archivos.</string>
+  <string name="local_file_not_found_toast">El archivo no se ha encontrado localmente</string>
 </resources>
