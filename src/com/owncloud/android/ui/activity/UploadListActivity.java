@@ -350,7 +350,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         super.onAccountSet(stateWasRecovered);
         getSupportActionBar().setTitle(getString(R.string.uploads_view_title));
         if (mAccountWasSet) {
-            setUsernameInDrawer(getAccount().name);
+            setAccountInDrawer(getAccount());
         }
     }
 

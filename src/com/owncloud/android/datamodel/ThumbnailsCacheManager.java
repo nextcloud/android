@@ -32,6 +32,8 @@ import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
@@ -397,7 +399,7 @@ public class ThumbnailsCacheManager {
                     thumbnail = doAvatarInBackground();
                 }
 
-            }catch(Throwable t){
+            } catch(Throwable t){
                 // the app should never break due to a problem with avatars
                 Log_OC.e(TAG, "Generation of avatar for " + mUsername + " failed", t);
                 if (t instanceof OutOfMemoryError) {
@@ -492,7 +494,7 @@ public class ThumbnailsCacheManager {
                                 mClient.exhaustResponse(get.getResponseBodyAsStream());
                             }
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            Log_OC.e(TAG, "Error downloading avatar", e);
                         } finally {
                             if (get != null) {
                                 get.releaseConnection();
