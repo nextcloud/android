@@ -68,6 +68,16 @@ public abstract class DrawerActivity extends ToolbarActivity {
     private static final int MENU_ORDER_ACCOUNT_FUNCTION = 2;
 
     /**
+     * current account avatar radius.
+     */
+    private float mCurrentAccountAvatarRadiusDimension;
+
+    /**
+     * other accounts avatar radius.
+     */
+    private float mOtherAccountAvatarRadiusDimension;
+
+    /**
      * Reference to the drawer layout.
      */
     private DrawerLayout mDrawerLayout;
@@ -323,7 +333,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
 
             // activate second/end account avatar
             if(mAvatars[1] != null) {
-                setAvatar(mAvatars[1], R.id.drawer_account_end);
+                setAvatar(mAvatars[1], R.id.drawer_account_end, false);
                 mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
             } else {
                 mAccountEndAccountAvatar.setVisibility(View.GONE);
@@ -331,7 +341,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
 
             // activate third/middle account avatar
             if(mAvatars[2] != null) {
-                setAvatar(mAvatars[2], R.id.drawer_account_middle);
+                setAvatar(mAvatars[2], R.id.drawer_account_middle, false);
                 mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
             } else {
                 mAccountMiddleAccountAvatar.setVisibility(View.GONE);
@@ -416,7 +426,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
             int lastAtPos = account.name.lastIndexOf("@");
             username.setText(account.name.substring(0, lastAtPos));
 
-            setAvatar(account, R.id.drawer_current_account);
+            setAvatar(account, R.id.drawer_current_account, true);
         }
     }
 
@@ -424,8 +434,10 @@ public abstract class DrawerActivity extends ToolbarActivity {
      * fetches and sets the avatar of the current account in the drawer in case the drawer is available.
      *
      * @param account the account to be set in the drawer
+     * @param avatarViewId the view to set the avatar on
+     * @param currentAccount flag if it is the current avatar or another (impacts chosen size)
      */
-    private void setAvatar(Account account, int avatarViewId) {
+    private void setAvatar(Account account, int avatarViewId, boolean currentAccount) {
         if (mDrawerLayout != null && account != null) {
             int lastAtPos = account.name.lastIndexOf("@");
             String username = account.name.substring(0, lastAtPos);
@@ -450,12 +462,15 @@ public abstract class DrawerActivity extends ToolbarActivity {
                             );
                     if (thumbnail == null) {
                         try {
-                            userIcon.setImageDrawable(
-                                    createAvatar(
-                                            account.name,
-                                            getResources().getDimension(R.dimen.nav_drawer_header_avatar_radius)
-                                    )
-                            );
+                            if (currentAccount) {
+                                userIcon.setImageDrawable(
+                                        createAvatar(account.name, mCurrentAccountAvatarRadiusDimension)
+                                );
+                            } else {
+                                userIcon.setImageDrawable(
+                                        createAvatar(account.name, mOtherAccountAvatarRadiusDimension)
+                                );
+                            }
                         } catch (Exception e) {
                             Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
                             userIcon.setImageResource(R.drawable.ic_account_circle);
@@ -548,6 +563,11 @@ public abstract class DrawerActivity extends ToolbarActivity {
             mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
             mCheckedMenuItem = savedInstanceState.getInt(KEY_CHECKED_MENU_ITEM, Menu.NONE);
         }
+
+        mCurrentAccountAvatarRadiusDimension = getResources()
+                .getDimension(R.dimen.nav_drawer_header_avatar_radius);
+        mOtherAccountAvatarRadiusDimension = getResources()
+                .getDimension(R.dimen.nav_drawer_header_avatar_other_accounts_radius);
     }
 
     @Override
