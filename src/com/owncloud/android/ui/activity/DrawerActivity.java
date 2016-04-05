@@ -353,7 +353,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
     }
 
     /**
-     * sets the avatar of the current account in the drawer in case the drawer is available.
+     * fetches and sets the avatar of the current account in the drawer in case the drawer is available.
      *
      * @param account the account to be set in the drawer
      */
@@ -419,7 +419,6 @@ public abstract class DrawerActivity extends ToolbarActivity {
         return new TextDrawable(
                 accountName.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], radiusInPx);
     }
-
 
     /**
      * Toggle between standard menu and account list including saving the state.
