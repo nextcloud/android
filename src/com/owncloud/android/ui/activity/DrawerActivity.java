@@ -22,13 +22,11 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
@@ -154,6 +152,12 @@ public abstract class DrawerActivity extends ToolbarActivity {
             mAccountCurrentAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_current_account);
             mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
             mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
+
+            // on pre lollipop the light theme adds a black tint to icons with white coloring
+            // ruining the generic avatars, so tinting for icons is deactivated pre lollipop
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                mNavigationView.setItemIconTintList(null);
+            }
 
             setupDrawerContent(mNavigationView);
 
@@ -332,7 +336,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
             populateDrawerOwnCloudAccounts();
 
             // activate second/end account avatar
-            if(mAvatars[1] != null) {
+            if (mAvatars[1] != null) {
                 setAvatar(mAvatars[1], R.id.drawer_account_end, false);
                 mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
             } else {
@@ -340,7 +344,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
             }
 
             // activate third/middle account avatar
-            if(mAvatars[2] != null) {
+            if (mAvatars[2] != null) {
                 setAvatar(mAvatars[2], R.id.drawer_account_middle, false);
                 mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
             } else {
@@ -407,7 +411,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
         super.updateActionBarTitleAndHomeButton(chosenFile);
 
         /// set home button properties
-        if(mDrawerToggle != null) {
+        if (mDrawerToggle != null) {
             mDrawerToggle.setDrawerIndicatorEnabled(isRoot(chosenFile));
         }
     }
@@ -433,8 +437,8 @@ public abstract class DrawerActivity extends ToolbarActivity {
     /**
      * fetches and sets the avatar of the current account in the drawer in case the drawer is available.
      *
-     * @param account the account to be set in the drawer
-     * @param avatarViewId the view to set the avatar on
+     * @param account        the account to be set in the drawer
+     * @param avatarViewId   the view to set the avatar on
      * @param currentAccount flag if it is the current avatar or another (impacts chosen size)
      */
     private void setAvatar(Account account, int avatarViewId, boolean currentAccount) {
@@ -511,8 +515,9 @@ public abstract class DrawerActivity extends ToolbarActivity {
                 TypedValue.COMPLEX_UNIT_DIP,
                 radiusInDp,
                 getResources().getDisplayMetrics());
-        return new TextDrawable(
+        TextDrawable avatar = new TextDrawable(
                 accountName.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], radiusInPx);
+        return avatar;
     }
 
     /**
@@ -527,7 +532,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
      * depending on the #mIsAccountChooserActive flag shows the account chooser or the standard menu.
      */
     private void showMenu() {
-        if(mNavigationView != null) {
+        if (mNavigationView != null) {
             if (mIsAccountChooserActive) {
                 mAccountChooserToggle.setImageResource(R.drawable.ic_up);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
@@ -685,8 +690,8 @@ public abstract class DrawerActivity extends ToolbarActivity {
 
         mAvatars[0] = currentAccount;
         int j = 0;
-        for(int i = 1 ; i <= 2 && i < accountsAll.length && j < accountsAll.length; j++) {
-            if(!currentAccount.equals(accountsAll[j])) {
+        for (int i = 1; i <= 2 && i < accountsAll.length && j < accountsAll.length; j++) {
+            if (!currentAccount.equals(accountsAll[j])) {
                 mAvatars[i] = accountsAll[j];
                 i++;
             }
