@@ -27,14 +27,12 @@ import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -48,10 +46,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.utils.BitmapUtils;
-
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -64,6 +58,11 @@ public abstract class DrawerActivity extends ToolbarActivity {
     private static final int ACTION_MANAGE_ACCOUNTS = 101;
     private static final int MENU_ORDER_ACCOUNT = 1;
     private static final int MENU_ORDER_ACCOUNT_FUNCTION = 2;
+
+    /**
+     * menu account avatar radius.
+     */
+    private float mMenuAccountAvatarRadiusDimension;
 
     /**
      * current account avatar radius.
@@ -373,7 +372,10 @@ public abstract class DrawerActivity extends ToolbarActivity {
                         Menu.NONE,
                         MENU_ORDER_ACCOUNT,
                         accounts[i].name)
-                        .setIcon(createAvatar(accounts[i].name, 16));
+                        .setIcon(TextDrawable.createAvatar(
+                                accounts[i].name,
+                                mMenuAccountAvatarRadiusDimension)
+                        );
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
                 mNavigationView.getMenu().add(
@@ -381,7 +383,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
                         Menu.NONE,
                         MENU_ORDER_ACCOUNT,
                         accounts[i].name)
-                        .setIcon(R.drawable.ic_account_circle);
+                        .setIcon(R.drawable.ic_user);
             }
         }
 
@@ -468,11 +470,17 @@ public abstract class DrawerActivity extends ToolbarActivity {
                         try {
                             if (currentAccount) {
                                 userIcon.setImageDrawable(
-                                        createAvatar(account.name, mCurrentAccountAvatarRadiusDimension)
+                                        TextDrawable.createAvatar(
+                                                account.name,
+                                                mCurrentAccountAvatarRadiusDimension
+                                        )
                                 );
                             } else {
                                 userIcon.setImageDrawable(
-                                        createAvatar(account.name, mOtherAccountAvatarRadiusDimension)
+                                        TextDrawable.createAvatar(
+                                                account.name,
+                                                mOtherAccountAvatarRadiusDimension
+                                        )
                                 );
                             }
                         } catch (Exception e) {
@@ -495,29 +503,6 @@ public abstract class DrawerActivity extends ToolbarActivity {
                 }
             }
         }
-    }
-
-    /**
-     * creates an avatar in form of  a TextDrawable with the first letter of the account name in a circle with the
-     * given radius.
-     *
-     * @param accountName the account name
-     * @param radiusInDp  the circle's radius
-     * @return the avatar as a TextDrawable
-     * @throws UnsupportedEncodingException if the charset is not supported when calculating the color values
-     * @throws NoSuchAlgorithmException     if the specified algorithm is not available when calculating the color values
-     */
-    @NonNull
-    private TextDrawable createAvatar(String accountName, float radiusInDp) throws UnsupportedEncodingException,
-            NoSuchAlgorithmException {
-        int[] rgb = BitmapUtils.calculateRGB(accountName);
-        float radiusInPx = TypedValue.applyDimension(
-                TypedValue.COMPLEX_UNIT_DIP,
-                radiusInDp,
-                getResources().getDisplayMetrics());
-        TextDrawable avatar = new TextDrawable(
-                accountName.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], radiusInPx);
-        return avatar;
     }
 
     /**
@@ -573,6 +558,8 @@ public abstract class DrawerActivity extends ToolbarActivity {
                 .getDimension(R.dimen.nav_drawer_header_avatar_radius);
         mOtherAccountAvatarRadiusDimension = getResources()
                 .getDimension(R.dimen.nav_drawer_header_avatar_other_accounts_radius);
+        mMenuAccountAvatarRadiusDimension = getResources()
+                .getDimension(R.dimen.nav_drawer_menu_avatar_radius);
     }
 
     @Override
