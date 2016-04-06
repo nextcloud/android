@@ -95,11 +95,6 @@ public abstract class DrawerActivity extends ToolbarActivity {
     private ImageView mAccountChooserToggle;
 
     /**
-     * Reference to the current account avatar.
-     */
-    private ImageView mAccountCurrentAccountAvatar;
-
-    /**
      * Reference to the middle account avatar.
      */
     private ImageView mAccountMiddleAccountAvatar;
@@ -148,7 +143,6 @@ public abstract class DrawerActivity extends ToolbarActivity {
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
             mIsAccountChooserActive = false;
 
-            mAccountCurrentAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_current_account);
             mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
             mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
