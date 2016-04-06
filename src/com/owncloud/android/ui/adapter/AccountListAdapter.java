@@ -50,7 +50,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> {
         this.mContext = context;
         this.mValues = values;
         this.mListener = (AccountListAdapterListener) context;
-        this.mAccountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.nav_drawer_menu_avatar_radius);
+        this.mAccountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
     }
 
     public void setAccountList(List<AccountListItem> values) {
