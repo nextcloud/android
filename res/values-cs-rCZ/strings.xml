@@ -74,7 +74,7 @@
   <string name="file_list_loading">Načítání...</string>
   <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
   <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
-  <string name="file_list_folder">složka</string>
+  <string name="file_list_folder">adresář</string>
   <string name="file_list_folders">adresářů</string>
   <string name="file_list_file">soubor</string>
   <string name="file_list_files">souborů</string>
@@ -91,6 +91,7 @@
   <string name="common_yes">Ano</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">OK</string>
+  <string name="common_retry_upload">Opakovat nahrání</string>
   <string name="common_cancel_sync">Zrušit synchronizaci</string>
   <string name="common_cancel">Zrušit</string>
   <string name="common_save_exit">Uložit &amp; ukončit</string>
@@ -115,7 +116,7 @@
   <string name="uploads_view_group_finished_uploads">Odesláno</string>
   <string name="uploads_view_upload_status_succeeded">Dokončeno</string>
   <string name="uploads_view_upload_status_failed_credentials_error">Chyba přihlašovacích údajů</string>
-  <string name="uploads_view_upload_status_failed_folder_error">Chyba složky</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Chyba adresáře</string>
   <string name="uploads_view_upload_status_failed_file_error">Chyba souboru</string>
   <string name="uploads_view_upload_status_failed_permission_error">Chyba oprávnění</string>
   <string name="uploads_view_upload_status_unknown_fail">Neznámá chyba</string>
@@ -381,6 +382,10 @@ správce systému.</string>
   <string name="share_privilege_can_edit_delete">smazat</string>
   <string name="edit_share_unshare">Ukončit sdílení</string>
   <string name="edit_share_done">dokončeno</string>
+  <string name="action_retry_uploads">Opakování selhalo</string>
+  <string name="action_clear_failed_uploads">Vyčištění selhalo</string>
+  <string name="action_clear_successful_uploads">Vyčištění úspěšné</string>
+  <string name="action_clear_finished_uploads">Vyčistit všechny ukončené</string>
   <string name="action_switch_grid_view">Zobrazení v mřížce</string>
   <string name="action_switch_list_view">Zobrazení v seznamu</string>
   <string name="manage_space_title">Spravovat úložný prostor</string>
@@ -388,4 +393,5 @@ správce systému.</string>
   <string name="manage_space_clear_data">Vyčistit data</string>
   <string name="manage_space_error">Některé soubory nebylo možno smazat.</string>
   <string name="permission_storage_access">Vyžadována dodatečná oprávnění pro nahrávání &amp; stahování souborů.</string>
+  <string name="local_file_not_found_toast">Soubor nebyl v místním úložišti nalezen</string>
 </resources>
