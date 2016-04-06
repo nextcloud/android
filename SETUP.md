@@ -131,29 +131,6 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
 The resulting APKs will be saved in the 'bin/' subdirectory of the project.
 
 
-### 6. Building in command line with maven:
-
-** Currently these build instructions DO NOT WORK. There is no estimation time to fix it. Unless some volunteer contributor fixes this build option, and given that Maven is a minority option in Android environments, we will probably remove this option.
-
-NOTE: You must have mvn (version >= 3.1.1) in your environment path. Current Android 'platforms-tools' need to be installed.
-
-Download/install Android plugin for Maven, then build ownCloud with mvn:
-
-* Resolve necessary dependencies running:
-  - Windows: "setup_env.bat maven"
-  - Mac OS/Linux: "./setup_env.sh maven"
-* cd ..
-* git clone https://github.com/mosabua/maven-android-sdk-deployer.git
-* cd maven-android-sdk-deployer
-* mvn -pl com.simpligility.android.sdk-deployer:android-22 -am install
-* mvn -pl com.simpligility.android.sdk-deployer:android-23 -am install
-* cd ../android/owncloud-android-library
-* mvn install
-* cd ..
-
-Now you can create ownCloud APK using "mvn package" and find it as ownCloud.apk under the target
-
-
 [0]: https://github.com/owncloud/android/blob/master/CONTRIBUTING.md
 [1]: https://git-scm.com/
 [2]: https://git-scm.com/downloads

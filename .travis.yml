@@ -6,8 +6,6 @@ android:
     - android-23
     - android-22
     - android-19
-before_install:
-  - rm pom.xml
 script:
   - ./setup_env.sh ant
   - ant clean
