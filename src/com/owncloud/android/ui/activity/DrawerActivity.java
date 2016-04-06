@@ -207,7 +207,17 @@ public abstract class DrawerActivity extends ToolbarActivity {
                                 mCheckedMenuItem = menuItem.getItemId();
 
                                 allFilesOption();
+                                // TODO activate when On Device branch is merged
+                                // MainApp.showOnlyFilesOnDevice(false);
+                                // refreshDirectory();
                                 break;
+                            // TODO activate when On Device branch is merged
+                            // case R.id.nav_on_device:
+                            //     menuItem.setChecked(true);
+                            //     mCheckedMenuItem = menuItem.getItemId();
+                            //     MainApp.showOnlyFilesOnDevice(true);
+                            //     refreshDirectory();
+                            //     break;
                             case R.id.nav_uploads:
                                 Intent uploadListIntent = new Intent(getApplicationContext(),
                                         UploadListActivity.class);
