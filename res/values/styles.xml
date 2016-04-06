@@ -165,6 +165,10 @@
 		<item name="android:textColor">@color/fab_white</item>
 	</style>
 
+	<style name="NavigationView_ItemTextAppearance">
+		<item name="android:ellipsize">end</item>
+	</style>
+
 	<!-- Button Bar hack due to Lollipop bug:
 		https://code.google.com/p/android/issues/detail?id=78302
 	fix see:
