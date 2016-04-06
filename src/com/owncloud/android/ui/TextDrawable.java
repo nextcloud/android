@@ -1,21 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author Andy Scherzinger
- *   @author Tobias Kaminsiky
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Andy Scherzinger
+ * @author Tobias Kaminsiky
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p/>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui;
@@ -34,28 +34,28 @@ import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
 /**
- * A Drawable object that draws text (1 letter) on top of a circular/filled background.
+ * A Drawable object that draws text (1 character) on top of a circular/filled background.
  */
 public class TextDrawable extends Drawable {
-
-    private String text;
-    private Paint paint;
-    private Paint bg;
-    private float radius;
-    private float textX;
-    private float textY;
+    /**
+     * the text to be rendered.
+     */
+    private String mText;
 
     /**
-     * Create a TextDrawable with a standard radius.
-     *
-     * @param text the text to be rendered
-     * @param r    rgb red value
-     * @param g    rgb green value
-     * @param b    rgb blue value
+     * the text paint to be rendered.
      */
-    public TextDrawable(String text, int r, int g, int b) {
-        init(text, r, g, b, 40);
-    }
+    private Paint mTextPaint;
+
+    /**
+     * the background to be rendered.
+     */
+    private Paint mBackground;
+
+    /**
+     * the radius of the circular background to be rendered.
+     */
+    private float mRadius;
 
     /**
      * Create a TextDrawable with the given radius.
@@ -67,55 +67,19 @@ public class TextDrawable extends Drawable {
      * @param radius circle radius
      */
     public TextDrawable(String text, int r, int g, int b, float radius) {
-        init(text, r, g, b, radius);
-    }
+        mRadius = radius;
+        mText = text;
 
-    /**
-     * initializes the TextDrawable.
-     *
-     * @param text   the text to be rendered
-     * @param r      rgb red value
-     * @param g      rgb green value
-     * @param b      rgb blue value
-     * @param radius circle radius
-     */
-    private void init(String text, int r, int g, int b, float radius) {
-        this.radius = radius;
-        this.text = text;
-        this.textX = (float) (radius * 0.5);
-        this.textY = (float) (radius * 1.5);
+        mBackground = new Paint();
+        mBackground.setStyle(Paint.Style.FILL);
+        mBackground.setAntiAlias(true);
+        mBackground.setColor(Color.rgb(r, g, b));
 
-        bg = new Paint();
-        bg.setStyle(Paint.Style.FILL);
-        bg.setAntiAlias(true);
-        bg.setColor(Color.rgb(r, g, b));
-
-        paint = new Paint();
-        paint.setColor(Color.WHITE);
-        paint.setTextSize((float) (radius * 1.5));
-        paint.setAntiAlias(true);
-        paint.setFakeBoldText(true);
-    }
-
-    @Override
-    public void draw(Canvas canvas) {
-        canvas.drawCircle(radius, radius, radius, bg);
-        canvas.drawText(text, textX, textY, paint);
-    }
-
-    @Override
-    public void setAlpha(int alpha) {
-        paint.setAlpha(alpha);
-    }
-
-    @Override
-    public void setColorFilter(ColorFilter cf) {
-        paint.setColorFilter(cf);
-    }
-
-    @Override
-    public int getOpacity() {
-        return PixelFormat.TRANSLUCENT;
+        mTextPaint = new Paint();
+        mTextPaint.setColor(Color.WHITE);
+        mTextPaint.setTextSize(radius);
+        mTextPaint.setAntiAlias(true);
+        mTextPaint.setTextAlign(Paint.Align.CENTER);
     }
 
     /**
@@ -126,16 +90,41 @@ public class TextDrawable extends Drawable {
      * @param radiusInDp  the circle's radius
      * @return the avatar as a TextDrawable
      * @throws UnsupportedEncodingException if the charset is not supported when calculating the color values
-     * @throws NoSuchAlgorithmException     if the specified algorithm is not available when calculating the color values
+     * @throws NoSuchAlgorithmException if the specified algorithm is not available when calculating the color values
      */
     @NonNull
-    public static TextDrawable createAvatar(String accountName, float radiusInDp)
-            throws
-            UnsupportedEncodingException,
-            NoSuchAlgorithmException {
+    public static TextDrawable createAvatar(String accountName, float radiusInDp) throws
+            UnsupportedEncodingException, NoSuchAlgorithmException {
         int[] rgb = BitmapUtils.calculateRGB(accountName);
         TextDrawable avatar = new TextDrawable(
                 accountName.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], radiusInDp);
         return avatar;
+    }
+
+    /**
+     * Draw in its bounds (set via setBounds) respecting optional effects such as alpha (set via setAlpha) and color
+     * filter (set via setColorFilter) a circular background with a user's first character.
+     *
+     * @param canvas The canvas to draw into
+     */
+    @Override
+    public void draw(Canvas canvas) {
+        canvas.drawCircle(mRadius, mRadius, mRadius, mBackground);
+        canvas.drawText(mText, mRadius, mRadius - ((mTextPaint.descent() + mTextPaint.ascent()) / 2), mTextPaint);
+    }
+
+    @Override
+    public void setAlpha(int alpha) {
+        mTextPaint.setAlpha(alpha);
+    }
+
+    @Override
+    public void setColorFilter(ColorFilter cf) {
+        mTextPaint.setColorFilter(cf);
+    }
+
+    @Override
+    public int getOpacity() {
+        return PixelFormat.TRANSLUCENT;
     }
 }
