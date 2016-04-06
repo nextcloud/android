@@ -253,13 +253,13 @@ public class ManageAccountsActivity extends ToolbarActivity
                     mDownloaderBinder.cancel(account);
                 }
             }
-
-            Account a = AccountUtils.getCurrentOwnCloudAccount(this);
-            String accountName = "";
-            if (a == null) {
+            
+            if (AccountUtils.getCurrentOwnCloudAccount(this) == null) {
+                String accountName = "";
                 Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
-                if (accounts.length != 0)
+                if (accounts.length != 0) {
                     accountName = accounts[0].name;
+                }
                 AccountUtils.setCurrentOwnCloudAccount(this, accountName);
             }
 
