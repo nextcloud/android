@@ -27,6 +27,13 @@
             android:id="@+id/nav_all_files"
             android:icon="@drawable/ic_folder_open"
             android:title="@string/drawer_item_all_files"/>
+        <!-- TODO activate when On Device branch is merged
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_on_device"
+            android:icon="@drawable/ic_action_download_grey"
+            android:title="@string/drawer_item_on_device"/>
+         -->
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_uploads"
