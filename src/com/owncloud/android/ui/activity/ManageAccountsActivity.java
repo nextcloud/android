@@ -54,7 +54,7 @@ import java.util.Set;
 /**
  * An Activity that allows the user to manage accounts.
  */
-public class ManageAccountsActivity extends ToolbarActivity
+public class ManageAccountsActivity extends FileActivity
         implements AccountListAdapter.AccountListAdapterListener, AccountManagerCallback<Boolean>, ComponentsGetter {
     private static final String TAG = ManageAccountsActivity.class.getSimpleName();
     public static final String KEY_ACCOUNT_LIST_CHANGED = "ACCOUNT_LIST_CHANGED";
@@ -84,6 +84,9 @@ public class ManageAccountsActivity extends ToolbarActivity
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
         mOriginalAccounts = toAccountNameSet(accountList);
         mOriginalCurrentAccount = AccountUtils.getCurrentOwnCloudAccount(this).name;
+
+        setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+        onAccountSet(false);
 
         mAccountListAdapter = new AccountListAdapter(this, getAccountListItems());
 
@@ -300,7 +303,7 @@ public class ManageAccountsActivity extends ToolbarActivity
 
     @Override
     public FileDataStorageManager getStorageManager() {
-        return null;
+        return super.getStorageManager();
     }
 
     @Override
