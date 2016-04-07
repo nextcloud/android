@@ -47,6 +47,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.utils.BitmapUtils;
+import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -334,29 +335,35 @@ public abstract class DrawerActivity extends ToolbarActivity {
      */
     public void updateAccountList() {
         Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
-        if (accounts.length > 0 && mNavigationView != null) {
-            repopulateAccountList(accounts);
-            setAccountInDrawer(AccountUtils.getCurrentOwnCloudAccount(this));
-            populateDrawerOwnCloudAccounts();
+        if (mNavigationView != null && mDrawerLayout != null) {
+            if (accounts.length > 0) {
+                repopulateAccountList(accounts);
+                setAccountInDrawer(AccountUtils.getCurrentOwnCloudAccount(this));
+                populateDrawerOwnCloudAccounts();
 
-            // activate second/end account avatar
-            if (mAvatars[1] != null) {
-                setAvatar(mAvatars[1], R.id.drawer_account_end, false);
-                mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
+                // activate second/end account avatar
+                if (mAvatars[1] != null) {
+                    DisplayUtils.setAvatar(mAvatars[1],
+                            (ImageView) findNavigationViewChildById(R.id.drawer_account_end),
+                            mOtherAccountAvatarRadiusDimension, getResources(), getStorageManager());
+                    mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
+                } else {
+                    mAccountEndAccountAvatar.setVisibility(View.GONE);
+                }
+
+                // activate third/middle account avatar
+                if (mAvatars[2] != null) {
+                    DisplayUtils.setAvatar(mAvatars[2],
+                            (ImageView) findNavigationViewChildById(R.id.drawer_account_middle),
+                            mOtherAccountAvatarRadiusDimension, getResources(), getStorageManager());
+                    mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
+                } else {
+                    mAccountMiddleAccountAvatar.setVisibility(View.GONE);
+                }
             } else {
                 mAccountEndAccountAvatar.setVisibility(View.GONE);
-            }
-
-            // activate third/middle account avatar
-            if (mAvatars[2] != null) {
-                setAvatar(mAvatars[2], R.id.drawer_account_middle, false);
-                mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
-            } else {
                 mAccountMiddleAccountAvatar.setVisibility(View.GONE);
             }
-        } else {
-            mAccountEndAccountAvatar.setVisibility(View.GONE);
-            mAccountMiddleAccountAvatar.setVisibility(View.GONE);
         }
     }
 
@@ -437,73 +444,8 @@ public abstract class DrawerActivity extends ToolbarActivity {
             usernameFull.setText(account.name);
             username.setText(AccountUtils.getUsernameOfAccount(account.name));
 
-            setAvatar(account, R.id.drawer_current_account, true);
-        }
-    }
-
-    /**
-     * fetches and sets the avatar of the current account in the drawer in case the drawer is available.
-     *
-     * @param account        the account to be set in the drawer
-     * @param avatarViewId   the view to set the avatar on
-     * @param currentAccount flag if it is the current avatar or another (impacts chosen size)
-     */
-    private void setAvatar(Account account, int avatarViewId, boolean currentAccount) {
-        if (mDrawerLayout != null && account != null) {
-
-            ImageView userIcon = (ImageView) findNavigationViewChildById(avatarViewId);
-            userIcon.setContentDescription(account.name);
-
-            // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
-
-            if (thumbnail != null) {
-                userIcon.setImageDrawable(
-                        BitmapUtils.bitmapToCircularBitmapDrawable(MainApp.getAppContext().getResources(), thumbnail)
-                );
-            } else {
-                // generate new avatar
-                if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, userIcon)) {
-                    final ThumbnailsCacheManager.AvatarGenerationTask task =
-                            new ThumbnailsCacheManager.AvatarGenerationTask(
-                                    userIcon, getStorageManager(), account
-                            );
-                    if (thumbnail == null) {
-                        try {
-                            if (currentAccount) {
-                                userIcon.setImageDrawable(
-                                        TextDrawable.createAvatar(
-                                                account.name,
-                                                mCurrentAccountAvatarRadiusDimension
-                                        )
-                                );
-                            } else {
-                                userIcon.setImageDrawable(
-                                        TextDrawable.createAvatar(
-                                                account.name,
-                                                mOtherAccountAvatarRadiusDimension
-                                        )
-                                );
-                            }
-                        } catch (Exception e) {
-                            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                            userIcon.setImageResource(R.drawable.ic_account_circle);
-                        }
-                    } else {
-                        final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncAvatarDrawable(
-                                        getResources(),
-                                        thumbnail,
-                                        task
-                                );
-                        userIcon.setImageDrawable(
-                                BitmapUtils.bitmapToCircularBitmapDrawable(
-                                        MainApp.getAppContext().getResources(), asyncDrawable.getBitmap())
-                        );
-                    }
-                    task.execute(account.name);
-                }
-            }
+            DisplayUtils.setAvatar(account, (ImageView) findNavigationViewChildById(R.id.drawer_current_account),
+                    mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager());
         }
     }
 

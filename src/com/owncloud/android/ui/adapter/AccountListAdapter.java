@@ -21,6 +21,7 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,9 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.util.List;
 
@@ -41,11 +44,11 @@ import java.util.List;
 public class AccountListAdapter extends ArrayAdapter<AccountListItem> {
     private static final String TAG = AccountListAdapter.class.getSimpleName();
     private float mAccountAvatarRadiusDimension;
-    private final Context mContext;
+    private final BaseActivity mContext;
     private List<AccountListItem> mValues;
     private AccountListAdapterListener mListener;
 
-    public AccountListAdapter(Context context, List<AccountListItem> values) {
+    public AccountListAdapter(BaseActivity context, List<AccountListItem> values) {
         super(context, -1, values);
         this.mContext = context;
         this.mValues = values;
@@ -62,7 +65,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> {
         AccountViewHolderItem viewHolder;
 
         if (convertView == null) {
-            LayoutInflater inflater = ((ManageAccountsActivity) mContext).getLayoutInflater();
+            LayoutInflater inflater = mContext.getLayoutInflater();
             convertView = inflater.inflate(R.layout.account_item, parent, false);
 
             viewHolder = new AccountViewHolderItem();
@@ -87,11 +90,8 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> {
                 viewHolder.textViewItem.setTag(account.name);
 
                 try {
-                    TextDrawable icon = TextDrawable.createAvatar(
-                            account.name,
-                            mAccountAvatarRadiusDimension
-                    );
-                    viewHolder.imageViewItem.setImageDrawable(icon);
+                    DisplayUtils.setAvatar(account, viewHolder.imageViewItem, mAccountAvatarRadiusDimension,
+                            mContext.getResources(), mContext.getStorageManager());
                 } catch (Exception e) {
                     Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
                     // use user icon as a fallback
@@ -118,11 +118,9 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> {
             } // create add account action item
             else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType()) {
                 LayoutInflater inflater = ((ManageAccountsActivity) mContext).getLayoutInflater();
-                View actionView = inflater.inflate(R.layout.account_item, parent, false);
+                View actionView = inflater.inflate(R.layout.account_action, parent, false);
                 ((TextView) actionView.findViewById(R.id.user_name)).setText(R.string.prefs_add_account);
                 ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
-                actionView.findViewById(R.id.passwordButton).setVisibility(View.GONE);
-                actionView.findViewById(R.id.removeButton).setVisibility(View.GONE);
 
                 // bind action listener
                 actionView.setOnClickListener(new View.OnClickListener() {

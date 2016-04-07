@@ -22,9 +22,12 @@
 
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -33,13 +36,18 @@ import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.Display;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.TextDrawable;
 
 import java.math.BigDecimal;
 import java.net.IDN;
@@ -53,6 +61,7 @@ import java.util.Map;
  * A helper class for some string operations.
  */
 public class DisplayUtils {
+    private static final String TAG = DisplayUtils.class.getSimpleName();
     
     private static final String OWNCLOUD_APP_NAME = "ownCloud";
     
@@ -291,5 +300,53 @@ public class DisplayUtils {
     public static void colorSnackbar(Context context, Snackbar snackbar) {
         // Changing action button text color
         snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.white));
+    }
+
+    /**
+     * fetches and sets the avatar of the current account in the drawer in case the drawer is available.
+     *
+     * @param account        the account to be set in the drawer
+     * @param userIcon       the image view to set the avatar on
+     * @param avatarRadius   the avatar radius
+     * @param resources      reference for density information
+     * @param storageManager reference for caching purposes
+     */
+    public static void setAvatar(Account account, ImageView userIcon, float avatarRadius, Resources resources,
+                           FileDataStorageManager storageManager) {
+        if (account != null) {
+
+            userIcon.setContentDescription(account.name);
+
+            // Thumbnail in Cache?
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
+
+            if (thumbnail != null) {
+                userIcon.setImageDrawable(
+                        BitmapUtils.bitmapToCircularBitmapDrawable(MainApp.getAppContext().getResources(), thumbnail)
+                );
+            } else {
+                // generate new avatar
+                if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, userIcon)) {
+                    final ThumbnailsCacheManager.AvatarGenerationTask task =
+                            new ThumbnailsCacheManager.AvatarGenerationTask(userIcon, storageManager, account);
+                    if (thumbnail == null) {
+                        try {
+                            userIcon.setImageDrawable(TextDrawable.createAvatar(account.name, avatarRadius));
+                        } catch (Exception e) {
+                            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                            userIcon.setImageResource(R.drawable.ic_account_circle);
+                        }
+                    } else {
+                        final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, thumbnail, task);
+                        userIcon.setImageDrawable(
+                                BitmapUtils.bitmapToCircularBitmapDrawable(
+                                        MainApp.getAppContext().getResources(), asyncDrawable.getBitmap())
+                        );
+                    }
+                    task.execute(account.name);
+                }
+            }
+        }
     }
 }
