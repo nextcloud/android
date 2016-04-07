@@ -32,8 +32,6 @@ import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.MenuItem;
 import android.widget.ImageView;
 
@@ -507,7 +505,7 @@ public class ThumbnailsCacheManager {
                         GetMethod get = null;
                         try {
                             String uri = mClient.getBaseUri() + "" +
-                                    "/index.php/avatar/" + username + "/" + px;
+                                    "/index.php/avatar/" + AccountUtils.getUsernameOfAccount(username) + "/" + px;
                             Log_OC.d("Avatar", "URI: " + uri);
                             get = new GetMethod(uri);
                             int status = mClient.executeMethod(get);
@@ -646,9 +644,7 @@ public class ThumbnailsCacheManager {
 
     public static AvatarGenerationTask getAvatarWorkerTask(ImageView imageView) {
         if (imageView != null) {
-            if (imageView != null) {
-                return getAvatarWorkerTask(imageView.getDrawable());
-            }
+            return getAvatarWorkerTask(imageView.getDrawable());
         }
         return null;
     }

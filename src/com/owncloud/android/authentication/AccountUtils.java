@@ -107,6 +107,20 @@ public class AccountUtils {
         }
         return false;
     }
+
+    /**
+     * returns the user's name based on the account name.
+     *
+     * @param accountName the account name
+     * @return the user's name
+     */
+    public static String getUsernameOfAccount(String accountName) {
+        if (accountName != null) {
+            return accountName.substring(0, accountName.lastIndexOf("@"));
+        } else {
+            return null;
+        }
+    }
     
     /**
      * Returns owncloud account identified by accountName or null if it does not exist.
