@@ -371,7 +371,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
         // add all accounts to list
         for (int i = 0; i < accounts.length; i++) {
             try {
-                mNavigationView.getMenu().add(
+                MenuItem accountMenuItem = mNavigationView.getMenu().add(
                         R.id.drawer_menu_accounts,
                         Menu.NONE,
                         MENU_ORDER_ACCOUNT,
@@ -380,6 +380,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
                                 accounts[i].name,
                                 mMenuAccountAvatarRadiusDimension)
                         );
+                setAvatar(accounts[i], accountMenuItem);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
                 mNavigationView.getMenu().add(
@@ -502,6 +503,62 @@ public abstract class DrawerActivity extends ToolbarActivity {
                                 (MainApp.getAppContext().getResources(), asyncDrawable.getBitmap());
                         roundedAvatar.setCircular(true);
                         userIcon.setImageDrawable(roundedAvatar);
+                    }
+                    task.execute(username);
+                }
+            }
+        }
+    }
+
+    /**
+     * fetches and sets the avatar of the current account in the drawer in case the drawer is available.
+     *
+     * @param account        the account to be set in the drawer
+     * @param menuItem       the menuItem to set the avatar on
+     */
+    private void setAvatar(Account account, MenuItem menuItem) {
+        if (mDrawerLayout != null && account != null) {
+            int lastAtPos = account.name.lastIndexOf("@");
+            String username = account.name.substring(0, lastAtPos);
+
+            // Thumbnail in Cache?
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + username);
+
+            if (thumbnail != null) {
+                RoundedBitmapDrawable roundedAvatar = RoundedBitmapDrawableFactory.create
+                        (MainApp.getAppContext().getResources(), thumbnail);
+                roundedAvatar.setCircular(true);
+                menuItem.setIcon(roundedAvatar);
+            } else {
+                // generate new avatar
+                if (ThumbnailsCacheManager.cancelPotentialAvatarWork(username, menuItem)) {
+                    final ThumbnailsCacheManager.AvatarGenerationTask task =
+                            new ThumbnailsCacheManager.AvatarGenerationTask(
+                                    menuItem, getStorageManager(), account
+                            );
+                    if (thumbnail == null) {
+                        try {
+                                menuItem.setIcon(
+                                        TextDrawable.createAvatar(
+                                                account.name,
+                                                mMenuAccountAvatarRadiusDimension
+                                        )
+                                );
+                        } catch (Exception e) {
+                            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                            menuItem.setIcon(R.drawable.ic_account_circle);
+                        }
+                    } else {
+                        final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncAvatarDrawable(
+                                        getResources(),
+                                        thumbnail,
+                                        task
+                                );
+                        RoundedBitmapDrawable roundedAvatar = RoundedBitmapDrawableFactory.create
+                                (MainApp.getAppContext().getResources(), asyncDrawable.getBitmap());
+                        roundedAvatar.setCircular(true);
+                        menuItem.setIcon(roundedAvatar);
                     }
                     task.execute(username);
                 }
