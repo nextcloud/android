@@ -25,44 +25,22 @@
 
     <ImageView
         android:id="@+id/user_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/standard_margin"
-        android:src="@drawable/ic_menu_archive"/>
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/ic_account_plus"/>
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_marginLeft="28dp"
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:paddingRight="@dimen/standard_padding"
         android:text="@string/placeholder_filename"
-        android:textColor="@color/textColor"
+        android:textColor="@color/primary"
         android:textSize="@dimen/two_line_primary_text_size"/>
-
-    <ImageView
-        android:id="@+id/passwordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:paddingLeft="@dimen/standard_half_padding"
-        android:paddingTop="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_half_padding"
-        android:src="@drawable/ic_key"/>
-
-    <ImageView
-        android:id="@+id/removeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:paddingLeft="@dimen/standard_half_padding"
-        android:paddingTop="@dimen/standard_padding"
-        android:paddingBottom="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:src="@drawable/ic_close"/>
 
 </LinearLayout>         
