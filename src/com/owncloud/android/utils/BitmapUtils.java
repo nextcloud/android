@@ -19,14 +19,18 @@
  */
 package com.owncloud.android.utils;
 
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.BitmapFactory.Options;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
@@ -75,7 +79,6 @@ public class BitmapUtils {
         // decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(srcPath, options);
-        
     }    
 
 
@@ -282,8 +285,7 @@ public class BitmapUtils {
      */
     public static int[] calculateRGB(String accountName) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         // using adapted algorithm from /core/js/placeholder.js:50
-        int lastAtPos = accountName.lastIndexOf("@");
-        String username = accountName.substring(0, lastAtPos);
+        String username = AccountUtils.getUsernameOfAccount(accountName);
         byte[] seed = username.getBytes("UTF-8");
         MessageDigest md = MessageDigest.getInstance("MD5");
 //      Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5)).hashCode());
@@ -294,5 +296,19 @@ public class BitmapUtils {
         float hue = (float) (seedMd5Int / maxRange * 360);
 
         return BitmapUtils.HSLtoRGB(hue, 90.0f, 65.0f, 1.0f);
+    }
+
+    /**
+     * Returns a new circular bitmap drawable by creating it from a bitmap, setting initial target density based on
+     * the display metrics of the resources.
+     *
+     * @param resources the resources for initial target density
+     * @param bitmap the original bitmap
+     * @return the circular bitmap
+     */
+    public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources, Bitmap bitmap) {
+        RoundedBitmapDrawable roundedBitmap = RoundedBitmapDrawableFactory.create(resources, bitmap);
+        roundedBitmap.setCircular(true);
+        return roundedBitmap;
     }
 }
