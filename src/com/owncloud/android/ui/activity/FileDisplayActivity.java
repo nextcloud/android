@@ -1728,11 +1728,14 @@ public class FileDisplayActivity extends HookActivity implements
      */
     public void showUntrustedCertDialog(RemoteOperationResult result) {
         // Show a dialog with the certificate info
-        SslUntrustedCertDialog dialog = SslUntrustedCertDialog.newInstanceForFullSslError(
-                (CertificateCombinedException) result.getException());
         FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+        SslUntrustedCertDialog dialog = (SslUntrustedCertDialog) fm.findFragmentByTag(DIALOG_UNTRUSTED_CERT);
+        if(dialog == null) {
+            dialog = SslUntrustedCertDialog.newInstanceForFullSslError(
+                (CertificateCombinedException) result.getException());
+            FragmentTransaction ft = fm.beginTransaction();
+            dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+        }
     }
 
     private void requestForDownload(OCFile file) {
