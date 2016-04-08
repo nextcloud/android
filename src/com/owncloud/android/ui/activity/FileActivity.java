@@ -66,6 +66,7 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -84,8 +85,10 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.NavigationDrawerItem;
 import com.owncloud.android.ui.adapter.NavigationDrawerListAdapter;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.util.ArrayList;
@@ -96,7 +99,7 @@ import java.util.ArrayList;
  * {@link Account}s .
  */
 public class FileActivity extends AppCompatActivity
-        implements OnRemoteOperationListener, ComponentsGetter {
+        implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_ACCOUNT = "com.owncloud.android.ui.activity.ACCOUNT";
@@ -115,6 +118,10 @@ public class FileActivity extends AppCompatActivity
     public static final int REQUEST_CODE__LAST_SHARED = REQUEST_CODE__UPDATE_CREDENTIALS;
 
     protected static final long DELAY_TO_REQUEST_OPERATIONS_LATER = 200;
+
+    /* Dialog tags */
+    private static final String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
+    private static final String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
     /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
     private Account mAccount;
@@ -741,7 +748,7 @@ public class FileActivity extends AppCompatActivity
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         Log_OC.d(TAG, "Received result of operation in FileActivity - common behaviour for all the "
-                + "FileActivities ");
+            + "FileActivities ");
 
         mFileOperationsHelper.setOpIdWaitingFor(Long.MAX_VALUE);
 
@@ -756,10 +763,14 @@ public class FileActivity extends AppCompatActivity
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
                 Toast t = Toast.makeText(this, ErrorMessageAdapter.getErrorCauseMessage(result,
-                                operation, getResources()),
-                        Toast.LENGTH_LONG);
+                        operation, getResources()),
+                    Toast.LENGTH_LONG);
                 t.show();
             }
+
+        } else if (!result.isSuccess() && ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(result.getCode())) {
+
+            showUntrustedCertDialog(result);
 
         } else if (operation == null ||
                 operation instanceof CreateShareWithShareeOperation ||
@@ -861,7 +872,20 @@ public class FileActivity extends AppCompatActivity
 
     }
 
-
+    /**
+     * Show untrusted cert dialog
+     */
+    public void showUntrustedCertDialog(RemoteOperationResult result) {
+        // Show a dialog with the certificate info
+        FragmentManager fm = getSupportFragmentManager();
+        SslUntrustedCertDialog dialog = (SslUntrustedCertDialog) fm.findFragmentByTag(DIALOG_UNTRUSTED_CERT);
+        if(dialog == null) {
+            dialog = SslUntrustedCertDialog.newInstanceForFullSslError(
+                (CertificateCombinedException) result.getException());
+            FragmentTransaction ft = fm.beginTransaction();
+            dialog.show(ft, DIALOG_UNTRUSTED_CERT);
+        }
+    }
 
     private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
                                                      RemoteOperationResult result) {
@@ -1025,6 +1049,40 @@ public class FileActivity extends AppCompatActivity
 
     public void allFilesOption(){
         restart();
+    }
+
+    protected OCFile getCurrentDir() {
+        OCFile file = getFile();
+        if (file != null) {
+            if (file.isFolder()) {
+                return file;
+            } else if (getStorageManager() != null) {
+                String parentPath = file.getRemotePath().substring(0,
+                    file.getRemotePath().lastIndexOf(file.getFileName()));
+                return getStorageManager().getFileByPath(parentPath);
+            }
+        }
+        return null;
+    }
+
+    /* OnSslUntrustedCertListener methods */
+
+    @Override
+    public void onSavedCertificate() {
+        // Nothing to do in this context
+    }
+
+    @Override
+    public void onFailedSavingCertificate() {
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
+            R.string.ssl_validator_not_saved, new String[]{}, R.string.common_ok, -1, -1
+        );
+        dialog.show(getSupportFragmentManager(), DIALOG_CERT_NOT_SAVED);
+    }
+
+    @Override
+    public void onCancelCertificate() {
+        // nothing to do
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {

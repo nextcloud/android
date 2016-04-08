@@ -350,7 +350,7 @@ public class Uploader extends FileActivity
         } else {
             mParents.pop();
             String full_path = generatePath(mParents);
-            startSyncFolderOperation(getStorageManager().getFileByPath(full_path));
+            startSyncFolderOperation(getStorageManager().getFileByPath(full_path), false);
             populateDirectoryList();
         }
     }
@@ -371,7 +371,7 @@ public class Uploader extends FileActivity
         }
         if (files.get(position).isFolder()){
             OCFile folderToEnter = files.get(position);
-            startSyncFolderOperation(folderToEnter);
+            startSyncFolderOperation(folderToEnter, false);
             mParents.push(folderToEnter.getFileName());
             populateDirectoryList();
         }
@@ -472,8 +472,13 @@ public class Uploader extends FileActivity
             mListView.setOnItemClickListener(this);
         }
     }
-    
-    private void startSyncFolderOperation(OCFile folder) {
+
+    @Override
+    public void onSavedCertificate() {
+        startSyncFolderOperation(getCurrentDir(), false);
+    }
+
+    private void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
@@ -483,7 +488,7 @@ public class Uploader extends FileActivity
                                                                         currentSyncTime, 
                                                                         false,
                                                                         false,
-                                                                        false,
+                                                                        ignoreETag,
                                                                         getStorageManager(),
                                                                         getAccount(),
                                                                         getApplicationContext()
@@ -731,7 +736,7 @@ public class Uploader extends FileActivity
     private void browseToRoot() {
         OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         mFile = root;
-        startSyncFolderOperation(root);
+        startSyncFolderOperation(root, false);
     }
     
     private class SyncBroadcastReceiver extends BroadcastReceiver {
@@ -793,13 +798,19 @@ public class Uploader extends FileActivity
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                 equals(event) &&
                                 /// TODO refactor and make common
-                                synchResult != null && !synchResult.isSuccess() &&
-                                (synchResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                synchResult != null && !synchResult.isSuccess()) {
+
+                            if(synchResult.getCode() == ResultCode.UNAUTHORIZED ||
                                         synchResult.isIdPRedirection() ||
                                         (synchResult.isException() && synchResult.getException()
-                                                instanceof AuthenticatorException))) {
+                                                instanceof AuthenticatorException)) {
 
-                            requestCredentialsUpdate(context);
+                                requestCredentialsUpdate(context);
+
+                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(synchResult.getCode())) {
+
+                                showUntrustedCertDialog(synchResult);
+                            }
                         }
                     }
                     removeStickyBroadcast(intent);
