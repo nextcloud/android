@@ -49,8 +49,8 @@
   <string name="prefs_imprint">Imprint</string>
   <string name="prefs_remember_last_share_location">Lembrar localização de partilha</string>
   <string name="prefs_remember_last_upload_location_summary">Lembrar a última localização de partilha dos carregamentos</string>
-  <string name="recommend_subject">Test %1$s no seu smartphone!</string>
-  <string name="recommend_text">Eu quero convidar-te para usares %1$s no teu smartphone!\nTransfere  aqui: %2$s</string>
+  <string name="recommend_subject">Tente %1$s no seu smartphone!</string>
+  <string name="recommend_text">Quero convidá-lo a utilizar %1$s no seu smartphone!\nDescarregue aqui: %2$s</string>
   <string name="auth_check_server">Verificar servidor</string>
   <string name="auth_host_url">Endereço do servidor https://..</string>
   <string name="auth_username">Nome de Utilizador</string>
@@ -61,7 +61,7 @@
   <string name="uploader_btn_upload_text">Carregar</string>
   <string name="uploader_btn_new_folder_text">Nova Pasta</string>
   <string name="uploader_top_message">Escolha a pasta de carregamento:</string>
-  <string name="uploader_wrn_no_account_title">A conta não foi encontrada</string>
+  <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
   <string name="uploader_wrn_no_account_text">Não existem as contas %1$s no seu equipamento. Por favor, configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
@@ -127,6 +127,7 @@
   <string name="uploads_view_upload_status_failed_localfile_error">Ficheiro local não encontrado</string>
   <string name="uploads_view_upload_status_failed_permission_error">Erro de permissão</string>
   <string name="uploads_view_upload_status_conflict">Conflito</string>
+  <string name="uploads_view_upload_status_service_interrupted">A aplicação foi terminada</string>
   <string name="uploads_view_upload_status_unknown_fail">Erro desconhecido</string>
   <string name="uploads_view_upload_status_waiting_for_wifi">Aguardando por conectividade wifi</string>
   <string name="uploads_view_later_waiting_to_upload">Esperando para carregar</string>
@@ -391,6 +392,8 @@
   <string name="share_privilege_can_edit_delete">eliminar</string>
   <string name="edit_share_unshare">Parar partilha</string>
   <string name="edit_share_done">feito</string>
+  <string name="action_retry_uploads">A tentativa falhou</string>
+  <string name="action_clear_successful_uploads">Limpar Carregamentos com Sucesso</string>
   <string name="action_switch_grid_view">Vista em grelha</string>
   <string name="action_switch_list_view">Vista em lista</string>
   <string name="manage_space_title">Gerir espaço</string>
