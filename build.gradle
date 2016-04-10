@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.3'
+        classpath 'com.android.tools.build:gradle:2.1.0-alpha5'
     }
 }
 
@@ -21,9 +21,11 @@ repositories {
 dependencies {
     compile name: 'touch-image-view'
     compile project(':owncloud-android-library')
-    compile 'com.android.support:support-v4:22.2.1'
+    compile 'com.android.support:support-v4:23.2.1'
     compile 'com.jakewharton:disklrucache:2.0.2'
-    compile 'com.android.support:appcompat-v7:22.2.1'
+//    compile 'com.android.support:appcompat-v7:22.2.1'
+//    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:design:22.2.0'
 }
 
 android {

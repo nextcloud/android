@@ -10,6 +10,7 @@
 
 package third_parties.michaelOrtiz;
 
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.preview.ImageViewCustom;
 
 import android.annotation.TargetApi;
@@ -27,6 +28,7 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -98,6 +100,8 @@ public class TouchImageViewCustom extends ImageViewCustom {
     private GestureDetector.OnDoubleTapListener doubleTapListener = null;
     private OnTouchListener userTouchListener = null;
     private OnTouchImageViewListener touchImageViewListener = null;
+
+    private Boolean showDownloadSnackbar = false;
 
     public TouchImageViewCustom(Context context) {
         super(context);
@@ -894,6 +898,22 @@ public class TouchImageViewCustom extends ImageViewCustom {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
         	scaleImage(detector.getScaleFactor(), detector.getFocusX(), detector.getFocusY(), true);
+            Log_OC.d("TouchImageView", "zoom: " + normalizedScale);
+
+            if (normalizedScale > 2 && !showDownloadSnackbar){
+                Snackbar snackbar = Snackbar
+                        .make(getRootView(), "Automatically download full image", Snackbar.LENGTH_LONG)
+                        .setAction("UNDO", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Snackbar snackbar1 = Snackbar.make(getRootView(), "Message is restored!", Snackbar.LENGTH_SHORT);
+                                        snackbar1.show();
+                                    }
+                        });
+
+                snackbar.show();
+                showDownloadSnackbar = true;
+            }
         	
         	//
         	// OnTouchImageViewListener is set: TouchImageView pinch zoomed by user.
