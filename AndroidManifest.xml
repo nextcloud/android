@@ -18,8 +18,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <manifest package="com.owncloud.android"
-    android:versionCode="20160321"
-    android:versionName="20160321"
+    android:versionCode="20160410"
+    android:versionName="20160410"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-sdk
@@ -62,12 +62,12 @@
     <application
         android:name=".MainApp"
         android:icon="@drawable/icon"
-        android:label="@string/app_name"
+        android:label="ownCloud beta"
         android:theme="@style/Theme.ownCloud"
         android:manageSpaceActivity=".ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
-            android:label="@string/app_name" >
+            android:label="ownCloud beta" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -77,7 +77,7 @@
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
         <activity android:name=".ui.activity.Uploader"
-            android:label="@string/app_name"
+            android:label="ownCloud beta"
             android:theme="@style/Theme.ownCloud">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -103,7 +103,7 @@
             android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
             android:name=".ui.preview.PreviewVideoActivity"
-            android:label="@string/app_name"
+            android:label="ownCloud beta"
             android:theme="@style/Theme.ownCloud.Fullscreen" />
 
         <service
@@ -236,16 +236,16 @@
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
             android:icon="@drawable/copy_link"
-            android:label="@string/copy_link" />
+            android:label="Copy link" />
         <activity
             android:name=".ui.activity.FolderPickerActivity"
-            android:label="@string/app_name" />
+            android:label="ownCloud beta" />
         <activity
             android:name=".ui.activity.UploadPathActivity"
-            android:label="@string/app_name" />
+            android:label="ownCloud beta" />
         <activity
             android:name=".ui.activity.ShareActivity"
-            android:label="@string/share_dialog_title"
+            android:label="Sharing"
             android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize" >
@@ -256,7 +256,7 @@
                        android:resource="@xml/users_and_groups_searchable"/>
         </activity>
         <activity android:name=".ui.activity.ManageSpaceActivity"
-                  android:label="@string/manage_space_title"
+                  android:label="Manage space"
                   android:theme="@style/Theme.ownCloud" />
     </application>
 
