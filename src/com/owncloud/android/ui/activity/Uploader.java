@@ -28,6 +28,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.IntentFilter;
@@ -36,12 +37,10 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
-import android.provider.MediaStore.Images;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -53,7 +52,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -81,6 +79,7 @@ import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.CopyTmpFileAsyncTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.UriUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -103,7 +102,6 @@ public class Uploader extends FileActivity
     private AccountManager mAccountManager;
     private Stack<String> mParents;
     private ArrayList<Parcelable> mStreamsToUpload;
-    private boolean mCreateDir;
     private String mUploadPath;
     private OCFile mFile;
 
@@ -112,7 +110,6 @@ public class Uploader extends FileActivity
     private boolean mAccountSelected;
     private boolean mAccountSelectionShowing;
 
-    private ArrayList<String> mRemoteCacheData;
     private int mNumCacheFile;
 
     private final static int DIALOG_NO_ACCOUNT = 0;
@@ -142,15 +139,12 @@ public class Uploader extends FileActivity
             mAccountSelectionShowing = false;
             mNumCacheFile = 0;
 
-            // ArrayList for files with path in private storage
-            mRemoteCacheData = new ArrayList<String>();
         } else {
             mParents = (Stack<String>) savedInstanceState.getSerializable(KEY_PARENTS);
             mFile = savedInstanceState.getParcelable(KEY_FILE);
             mAccountSelected = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTED);
             mAccountSelectionShowing = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTION_SHOWING);
             mNumCacheFile = savedInstanceState.getInt(KEY_NUM_CACHE_FILE);
-            mRemoteCacheData = savedInstanceState.getStringArrayList(KEY_REMOTE_CACHE_DATA);
         }
 
         super.onCreate(savedInstanceState);
@@ -209,7 +203,6 @@ public class Uploader extends FileActivity
         outState.putBoolean(KEY_ACCOUNT_SELECTED, mAccountSelected);
         outState.putBoolean(KEY_ACCOUNT_SELECTION_SHOWING, mAccountSelectionShowing);
         outState.putInt(KEY_NUM_CACHE_FILE, mNumCacheFile);
-        outState.putStringArrayList(KEY_REMOTE_CACHE_DATA, mRemoteCacheData);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, getAccount());
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
@@ -364,7 +357,6 @@ public class Uploader extends FileActivity
         @Override
         public void onClick(DialogInterface dialog, int which) {
             Uploader.this.mUploadPath = mPath + mDirname.getText().toString();
-            Uploader.this.mCreateDir = true;
             uploadFiles();
         }
     }
@@ -411,18 +403,21 @@ public class Uploader extends FileActivity
             case R.id.uploader_choose_folder:
                 mUploadPath = "";   // first element in mParents is root dir, represented by "";
                 // init mUploadPath with "/" results in a "//" prefix
-                for (String p : mParents)
+                for (String p : mParents) {
                     mUploadPath += p + OCFile.PATH_SEPARATOR;
+                }
                 Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
 
-                uploadFiles();
-
+                try {
+                    uploadFiles();
+                } catch (SecurityException e) {
+                    showDialog(DIALOG_STREAM_UNKNOWN);  // TODO: _FORBIDDEN
+                }
                 break;
 
             case R.id.uploader_cancel:
                 finish();
                 break;
-
 
             default:
                 throw new IllegalArgumentException("Wrong element clicked");
@@ -547,97 +542,89 @@ public class Uploader extends FileActivity
 
     @SuppressLint("NewApi")
     public void uploadFiles() {
-        try {
-            for (Parcelable mStream : mStreamsToUpload) {
+        for (Parcelable sourceStream : mStreamsToUpload) {
+            Uri sourceUri = (Uri) sourceStream;
+            if (sourceUri == null) {
+                showDialog(DIALOG_NO_STREAM);
 
-                Uri uri = (Uri) mStream;
-                String[] columnValues;
-                String displayName = null;
-                String filePath = "";
-
-                if (uri != null) {
-                    if (uri.getScheme().equals("content")) {
-                        String mimeType = getContentResolver().getType(uri);
-
-                        if (mimeType.contains("image")) {
-                            columnValues = getColumnsValues(uri, Images.Media.DISPLAY_NAME);
-                        } else if (mimeType.contains("video")) {
-                            columnValues = getColumnsValues(uri, Images.Media.DISPLAY_NAME);
-                        } else if (mimeType.contains("audio")) {
-                            columnValues = getColumnsValues(uri, Images.Media.DISPLAY_NAME);
-                        } else {
-                            columnValues = getColumnsValues(uri, Images.Media.DISPLAY_NAME);
-                        }
-
-                        displayName = (columnValues != null) ? columnValues[0] :
-                            uri.getLastPathSegment().replaceAll("\\s", "");
-
-                        // Add extension if it does not exists in the file name
-                        int index = displayName.lastIndexOf(".");
-                        if(index == -1 || MimeTypeMap.getSingleton().
-                                getMimeTypeFromExtension(displayName.substring(index + 1)) == null) {
-                            String extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
-                            displayName += (extension != null) ? "." + extension : "";
-                        }
-
-                    } else if (uri.getScheme().equals("file")) {
-                        displayName = uri.getLastPathSegment();
-                    }
-
-                }
-
-                if(displayName != null) {
-                    filePath = mUploadPath + displayName;
-
-                    mRemoteCacheData.add(filePath);
-                    CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
-                    Object[] params = {uri, filePath, mRemoteCacheData.size() - 1,
-                        getAccount().name, getContentResolver()};
-                    mNumCacheFile++;
-                    showWaitingCopyDialog();
-                    copyTask.execute(params);
+            } else {
+                String displayName = UriUtils.getDisplayNameForUri(sourceUri, this);
+                if(displayName == null) {
+                    showDialog(DIALOG_NO_STREAM);   // TODO - different dialog?
 
                 } else {
-                    throw new SecurityException();
+                    String remotePath = mUploadPath + displayName;
+
+                    if (ContentResolver.SCHEME_CONTENT.equals(sourceUri.getScheme())) {
+                        /// content: uris will be copied to temporary files before calling {@link FileUploader}
+                        copyThenUpload(sourceUri, remotePath);
+
+                    } else if (ContentResolver.SCHEME_FILE.equals(sourceUri.getScheme())) {
+                        /// file: uris should point to a local file, should be safe let FileUploader handle them
+                        requestUpload(sourceUri.getPath(), remotePath); // TODO - CHECK PATH EXTRACTION
+
+                    } else {
+                        showDialog(DIALOG_STREAM_UNKNOWN);
+                    }
                 }
-
-                //Save the path to shared preferences
-                SharedPreferences.Editor appPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext()).edit();
-                appPrefs.putString("last_upload_path", mUploadPath);
-                appPrefs.apply();
-
-                finish();
-            }
-
-        } catch (SecurityException e) {
-            showDialog(DIALOG_STREAM_UNKNOWN);
-        }
-    }
-
-    private String[] getColumnsValues(Uri uri, String... columns) {
-
-        Cursor cursor = null;
-        String[] result = new String[columns.length];
-        try {
-            cursor = getContentResolver().query(uri, columns, null,
-                null, null);
-            cursor.moveToFirst();
-
-            for (int i = 0; i < columns.length; i++) {
-                result[i] = cursor.getString(cursor.getColumnIndex(columns[i]));
-            }
-            return result;
-        } catch(IllegalArgumentException | NullPointerException e) {
-            // When the URI is wrong, NullPointerException will be thrown, and when the Content Provider don't
-            // retrieve the columns requested, an IllegalArgumentException will be thrown.
-            return null;
-        } finally {
-            if(cursor != null) {
-                cursor.close();
             }
         }
+
+        // Save the path to shared preferences; even if upload is not possible, user chose the folder
+        SharedPreferences.Editor appPrefs = PreferenceManager
+            .getDefaultSharedPreferences(getApplicationContext()).edit();
+        appPrefs.putString("last_upload_path", mUploadPath);
+        appPrefs.apply();
+
+        finish();
     }
+
+    /**
+     *
+     * @param sourceUri
+     * @param remotePath
+     */
+    private void copyThenUpload(Uri sourceUri, String remotePath) {
+        mNumCacheFile++;
+
+        showWaitingCopyDialog();
+
+        CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this, this);
+        copyTask.execute(
+            CopyTmpFileAsyncTask.makeParamsToExecute(
+                getAccount(),
+                sourceUri,
+                remotePath,
+                mNumCacheFile
+            )
+        );
+    }
+
+    /**
+     * Requests the upload of a file in the local file system to {@link FileUploader} service.
+     *
+     * The original file will be left in its original location, and will not be duplicated.
+     * As a side effect, the user will see the file as not uploaded when accesses to the OC app.
+     * This is considered as acceptable, since when a file is shared from another app to OC,
+     * the usual workflow will go back to the original app.
+     *
+     * @param localPath     Absolute path in the local file system to the file to upload.
+     * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
+     */
+    private void requestUpload(String localPath, String remotePath) {
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadNewFile(
+            this,
+            getAccount(),
+            localPath,
+            remotePath,
+            FileUploader.LOCAL_BEHAVIOUR_FORGET,
+            null,       // MIME type will be detected from file name
+            false,      // do not create parent folder if not existent
+            UploadFileOperation.CREATED_BY_USER
+        );
+    }
+
 
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
@@ -849,25 +836,6 @@ public class Uploader extends FileActivity
         if (mNumCacheFile-- == 0) {
             dismissWaitingCopyDialog();
         }
-        if (result != null) {
-            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.uploadNewFile(
-                    this, getAccount(),
-                    result,
-                    mRemoteCacheData.get(index),
-                    FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                    null,       // MIME type will be detected from file name
-                    false,      // do not create parent folder if not existent
-                    UploadFileOperation.CREATED_BY_USER
-            );
-
-        } else {
-            String message = String.format(getString(R.string.uploader_error_forbidden_content),
-                    getString(R.string.app_name));
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            Log_OC.d(TAG, message);
-        }
-
     }
 
     /**
