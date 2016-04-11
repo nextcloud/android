@@ -138,34 +138,6 @@ public class UploadFileOperation extends SyncOperation {
     protected RequestEntity mEntity = null;
 
     public UploadFileOperation(Account account,
-                               OCFile file,
-                               boolean chunked,
-                               boolean forceOverwrite,
-                               int localBehaviour,
-                               Context context
-    ) {
-        if (account == null)
-            throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
-                    "creation");
-        if (file == null)
-            throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
-        if (file.getStoragePath() == null || file.getStoragePath().length() <= 0) {
-            throw new IllegalArgumentException(
-                    "Illegal file in UploadFileOperation; storage path invalid: "
-                            + file.getStoragePath());
-        }
-
-        mAccount = account;
-        mFile = file;
-        mRemotePath = file.getRemotePath();
-        mChunked = chunked;
-        mForceOverwrite = forceOverwrite;
-        mLocalBehaviour = localBehaviour;
-        mOriginalStoragePath = mFile.getStoragePath();
-        mContext = context;
-    }
-
-    public UploadFileOperation(Account account,
                                OCUpload upload,
                                boolean chunked,
                                boolean forceOverwrite,

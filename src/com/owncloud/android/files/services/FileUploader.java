@@ -481,9 +481,19 @@ public class FileUploader extends Service
             try {
                 for (int i = 0; i < files.length; i++) {
 
+                    OCUpload ocUpload = new OCUpload(files[i], account);
+                    ocUpload.setFileSize(files[i].getFileLength());
+                    ocUpload.setForceOverwrite(forceOverwrite);
+                    ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
+                    ocUpload.setCreatedBy(createdBy);
+                    ocUpload.setLocalAction(localAction);
+                    /*ocUpload.setUseWifiOnly(isUseWifiOnly);
+                    ocUpload.setWhileChargingOnly(isWhileChargingOnly);*/
+                    ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
+
                     newUpload = new UploadFileOperation(
                             account,
-                            files[i],
+                            ocUpload,
                             chunked,
                             forceOverwrite,
                             localAction,
@@ -498,17 +508,6 @@ public class FileUploader extends Service
 
                     newUpload.addRenameUploadListener(this);
 
-                    // Save upload in database
-                    OCUpload ocUpload = new OCUpload(files[i], account);
-                    ocUpload.setFileSize(files[i].getFileLength());
-                    ocUpload.setForceOverwrite(forceOverwrite);
-                    ocUpload.setCreateRemoteFolder(isCreateRemoteFolder);
-                    ocUpload.setCreatedBy(createdBy);
-                    ocUpload.setLocalAction(localAction);
-                    /*ocUpload.setUseWifiOnly(isUseWifiOnly);
-                    ocUpload.setWhileChargingOnly(isWhileChargingOnly);*/
-                    ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
-
                     Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                             account.name,
                             files[i].getRemotePath(),
@@ -518,6 +517,7 @@ public class FileUploader extends Service
                         uploadKey = putResult.first;
                         requestedUploads.add(uploadKey);
 
+                        // Save upload in database
                         long id = mUploadsStorageManager.storeUpload(ocUpload);
                         newUpload.setOCUploadId(id);
                     }
