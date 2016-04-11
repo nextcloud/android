@@ -120,7 +120,6 @@ public class UploadFileOperation extends SyncOperation {
     private int mCreatedBy = CREATED_BY_USER;
 
     private boolean mWasRenamed = false;
-    private String mOriginalFileName = null;
     private long mOCUploadId = -1;
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
@@ -163,7 +162,6 @@ public class UploadFileOperation extends SyncOperation {
         mForceOverwrite = forceOverwrite;
         mLocalBehaviour = localBehaviour;
         mOriginalStoragePath = mFile.getStoragePath();
-        mOriginalFileName = mFile.getFileName();
         mContext = context;
     }
 
@@ -196,7 +194,6 @@ public class UploadFileOperation extends SyncOperation {
         mForceOverwrite = forceOverwrite;
         mLocalBehaviour = localBehaviour;
         mOriginalStoragePath = mFile.getStoragePath();
-        mOriginalFileName = mFile.getFileName();
         mContext = context;
         mOCUploadId = upload.getUploadId();
         mCreatedBy = upload.getCreadtedBy();
@@ -208,7 +205,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     public String getFileName() {
-        return mOriginalFileName;
+        return (mFile != null) ? mFile.getFileName() : null;
     }
 
     public OCFile getFile() {

@@ -575,7 +575,7 @@ public class Uploader extends FileActivity
                         // Add extension if it does not exists in the file name
                         int index = displayName.lastIndexOf(".");
                         if(index == -1 || MimeTypeMap.getSingleton().
-                                getMimeTypeFromExtension(displayName.substring(index)) == null) {
+                                getMimeTypeFromExtension(displayName.substring(index + 1)) == null) {
                             String extension = MimeTypeMap.getSingleton().getExtensionFromMimeType(mimeType);
                             displayName += (extension != null) ? "." + extension : "";
                         }
