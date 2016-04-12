@@ -585,8 +585,6 @@ public class Uploader extends FileActivity
             .getDefaultSharedPreferences(getApplicationContext()).edit();
         appPrefs.putString("last_upload_path", mUploadPath);
         appPrefs.apply();
-
-        finish();
     }
 
     /**
@@ -853,7 +851,10 @@ public class Uploader extends FileActivity
             Log_OC.d(TAG, message);
         }
 
-        mNumCacheFile -= numFiles;
+        mNumCacheFile = 0;
+
+        finish();
+
     }
 
     /**
