@@ -228,7 +228,8 @@ public class UriUtils {
             }
         }
 
-        return displayName;
+        // Replace path separator characters to avoid inconsistent paths
+        return displayName.replaceAll("/", "-");
     }
 
 
