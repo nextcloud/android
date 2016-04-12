@@ -574,9 +574,11 @@ public class Uploader extends FileActivity
             }
         }
 
-        /// content: uris will be copied to temporary files before calling {@link FileUploader}
-        copyThenUpload(contentUris.toArray(new Uri[contentUris.size()]),
-            contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
+        if(!contentUris.isEmpty()) {
+            /// content: uris will be copied to temporary files before calling {@link FileUploader}
+            copyThenUpload(contentUris.toArray(new Uri[contentUris.size()]),
+                contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
+        }
 
         // Save the path to shared preferences; even if upload is not possible, user chose the folder
         SharedPreferences.Editor appPrefs = PreferenceManager
