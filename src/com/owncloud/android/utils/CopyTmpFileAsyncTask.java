@@ -28,10 +28,12 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
@@ -39,7 +41,7 @@ import java.lang.ref.WeakReference;
 /**
  * AsyncTask to copy a file from a uri in a temporal file
  */
-public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, Integer> {
+public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, ResultCode> {
 
     private final String TAG = CopyTmpFileAsyncTask.class.getSimpleName();
 
@@ -48,149 +50,179 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, Integer> {
      *
      * Just packages the received parameters in correct order, doesn't check anything about them.
      *
+     * @param   account             OC account to upload the shared files.
+     * @param   sourceUris          Array of "content://" URIs to the files to be uploaded.
+     * @param   remotePaths         Array of absolute paths in the OC account to set to the uploaded files.
+     * @param   contentResolver     {@link ContentResolver} instance with appropriate permissions to open the
+     *                              URIs in 'sourceUris'.
+     *
+     * Handling this parameter in {@link #doInBackground(Object[])} keeps an indirect reference to the
+     * caller Activity, what is technically wrong, since it will be held in memory
+     * (with all its associated resources) until the task finishes even though the user leaves the Activity.
+     *
+     * But we really, really, really want that the files are copied to temporary files in the OC folder and then
+     * uploaded, even if the user gets bored of waiting while the copy finishes. And we can't forward the job to
+     * another {@link Context}, because if any of the content:// URIs is constrained by a TEMPORARY READ PERMISSION,
+     * trying to open it will fail with a {@link SecurityException} after the user leaves the Uploader Activity. We
+     * really tried it.
+     *
+     * So we are doomed to leak here for the best interest of the user. Please, don't do similar in other places.
+     *
+     * Any idea to prevent this while keeping the functionality will be welcome.
+     *
      * @return  Correct array of parameters to be passed to {@link #execute(Object[])}
      */
-    public final static Object[] makeParamsToExecute(
+    public static Object[] makeParamsToExecute(
         Account account,
         Uri[] sourceUris,
-        String[] remotePaths
+        String[] remotePaths,
+        ContentResolver contentResolver
     ) {
 
         return new Object[] {
             account,
             sourceUris,
-            remotePaths
+            remotePaths,
+            contentResolver
         };
     }
 
 
     /**
-     * Listener in main thread to be notified when the task ends. Held in a WeakReference assuming that it's
+     * Listener in main thread to be notified when the task ends. Held in a WeakReference assuming that its
      * lifespan is associated with an Activity context, that could be finished by the user before the AsyncTask
      * ends.
      */
-    private final WeakReference<OnCopyTmpFileTaskListener> mListener;
+    private final WeakReference<OnCopyTmpFilesTaskListener> mListener;
 
     /**
      * Reference to application context, used to access app resources. Holding it should not be a problem,
      * since it needs to exist until the end of the AsyncTask although the caller Activity were finished
      * before.
      */
-    private final Context mContext;
+    private final Context mAppContext;
 
 
-    public CopyTmpFileAsyncTask(OnCopyTmpFileTaskListener listener, Context context) {
-        mListener = new WeakReference<OnCopyTmpFileTaskListener>(listener);
-        mContext = context;
+    public CopyTmpFileAsyncTask(
+        OnCopyTmpFilesTaskListener listener,
+        Context context
+    ) {
+        mListener = new WeakReference<>(listener);
+        mAppContext = context.getApplicationContext();
     }
 
     /**
-     * Params for execute:
-     * - Uri: uri of file
-     * - String: path for saving the file into the app
-     * - int: index of upload
-     * - String: accountName
-     * - ContentResolver: content resolver
+     * @param params    Params to execute the task; see
+     *                  {@link #makeParamsToExecute(Account, Uri[], String[], ContentResolver)}
+     *                  for further details.
      */
     @Override
-    protected Integer doInBackground(Object[] params) {
+    protected ResultCode doInBackground(Object[] params) {
 
-        int numFiles = 0;
+        ResultCode result = ResultCode.UNKNOWN_ERROR;
 
-        if (params != null && params.length == 3) {
+        InputStream inputStream = null;
+        FileOutputStream outputStream = null;
+        String fullTempPath = null;
+        Uri currentUri = null;
+
+        try {
             Account account = (Account) params[0];
             Uri[] uris = (Uri[]) params[1];
             String[] remotePaths = (String[]) params[2];
+            ContentResolver leakedContentResolver = (ContentResolver) params[3];
 
-            InputStream inputStream = null;
-            FileOutputStream outputStream = null;
-            String fullTempPath = null;
+            String currentRemotePath;
 
-            Uri actualUri = null;
-            String actualRemotePath = null;
+            for (int i = 0; i < uris.length; i++) {
+                currentUri = uris[i];
+                currentRemotePath = remotePaths[i];
 
-            ContentResolver contentResolver = mContext.getContentResolver();
-            // TODO: test that it's safe for URLs with temporary access;
-            //      alternative: receive InputStream in another parameter
+                fullTempPath = FileStorageUtils.getTemporalPath(account.name) + currentRemotePath;
+                inputStream = leakedContentResolver.openInputStream(currentUri);
+                File cacheFile = new File(fullTempPath);
+                File tempDir = cacheFile.getParentFile();
+                if (!tempDir.exists()) {
+                    tempDir.mkdirs();
+                }
+                cacheFile.createNewFile();
+                outputStream = new FileOutputStream(fullTempPath);
+                byte[] buffer = new byte[4096];
 
-            try {
-                for(int i=0; i < uris.length; i++) {
-                    actualUri = uris[i];
-                    actualRemotePath = remotePaths[i];
-
-                    fullTempPath = FileStorageUtils.getTemporalPath(account.name) + actualRemotePath;
-                    inputStream = contentResolver.openInputStream(actualUri);
-                    File cacheFile = new File(fullTempPath);
-                    File tempDir = cacheFile.getParentFile();
-                    if (!tempDir.exists()) {
-                        tempDir.mkdirs();
-                    }
-                    cacheFile.createNewFile();
-                    outputStream = new FileOutputStream(fullTempPath);
-                    byte[] buffer = new byte[4096];
-
-                    int count = 0;
-
-                    while ((count = inputStream.read(buffer)) > 0) {
-                        outputStream.write(buffer, 0, count);
-                    }
-
-                    requestUpload(
-                        account,
-                        fullTempPath,
-                        actualRemotePath,
-                        contentResolver.getType(actualUri)
-                    );
-                    numFiles++;
+                int count;
+                while ((count = inputStream.read(buffer)) > 0) {
+                    outputStream.write(buffer, 0, count);
                 }
 
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Exception while copying " + actualUri.toString() + " to temporary file", e);
+                requestUpload(
+                    account,
+                    fullTempPath,
+                    currentRemotePath,
+                    leakedContentResolver.getType(currentUri)
+                );
+                fullTempPath = null;
+            }
 
-                // clean
-                if (fullTempPath != null) {
-                    File f = new File(fullTempPath);
-                    if (f.exists()) {
-                        if (!f.delete()) {
-                            Log_OC.e(TAG, "Could not delete temporary file " + fullTempPath);
-                        }
-                    }
-                }
+            result = ResultCode.OK;
 
-            } finally {
-                if (inputStream != null) {
-                    try {
-                        inputStream.close();
-                    } catch (Exception e) {
-                        Log_OC.w(TAG, "Ignoring exception of inputStream closure");
-                    }
-                }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            Log_OC.e(TAG, "Wrong number of arguments received ", e);
 
-                if (outputStream != null) {
-                    try {
-                        outputStream.close();
-                    } catch (Exception e) {
-                        Log_OC.w(TAG, "Ignoring exception of outStream closure");
+        } catch (ClassCastException e) {
+            Log_OC.e(TAG, "Wrong parameter received ", e);
+
+        } catch (FileNotFoundException e) {
+            Log_OC.e(TAG, "Could not find source file " + currentUri, e);
+            result = ResultCode.LOCAL_FILE_NOT_FOUND;
+
+        } catch (SecurityException e) {
+            Log_OC.e(TAG, "Not enough permissions to read source file " + currentUri, e);
+            result = ResultCode.FORBIDDEN;
+
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Exception while copying " + currentUri + " to temporary file", e);
+            result =  ResultCode.LOCAL_STORAGE_NOT_COPIED;
+
+            // clean
+            if (fullTempPath != null) {
+                File f = new File(fullTempPath);
+                if (f.exists()) {
+                    if (!f.delete()) {
+                        Log_OC.e(TAG, "Could not delete temporary file " + fullTempPath);
                     }
                 }
             }
 
-        } else {
-            throw new IllegalArgumentException("Error in parameters number");
+        } finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (Exception e) {
+                    Log_OC.w(TAG, "Ignoring exception of inputStream closure");
+                }
+            }
+
+            if (outputStream != null) {
+                try {
+                    outputStream.close();
+                } catch (Exception e) {
+                    Log_OC.w(TAG, "Ignoring exception of outStream closure");
+                }
+            }
         }
 
-        return numFiles;
+        return result;
     }
 
     private void requestUpload(Account account, String localPath, String remotePath, String mimeType) {
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         requester.uploadNewFile(
-            mContext,
+            mAppContext,
             account,
             localPath,
             remotePath,
             FileUploader.LOCAL_BEHAVIOUR_MOVE,  // the copy was already done, let's take advantage and move it
-            // into the OC folder so that the folder was not
+                                                // into the OC folder so that appears as downloaded
             mimeType,
             false,      // do not create parent folder if not existent
             UploadFileOperation.CREATED_BY_USER // TODO , different category?
@@ -198,20 +230,42 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, Integer> {
     }
 
     @Override
-    protected void onPostExecute(Integer numFiles) {
-        OnCopyTmpFileTaskListener listener = mListener.get();
+    protected void onPostExecute(ResultCode result) {
+        OnCopyTmpFilesTaskListener listener = mListener.get();
         if (listener!= null) {
-            listener.onTmpFileCopied(numFiles.intValue());
+            listener.onTmpFilesCopied(result);
+
         } else {
             Log_OC.i(TAG, "User left Uploader activity before the temporal copies were finished ");
+            if (result != ResultCode.OK) {
+                // if the user left the app, report background error in a Toast
+                int messageId;
+                switch (result) {
+                    case LOCAL_FILE_NOT_FOUND:
+                        messageId = R.string.copy_file_not_found;
+                        break;
+                    case LOCAL_STORAGE_NOT_COPIED:
+                        messageId = R.string.copy_file_error;
+                        break;
+                    case FORBIDDEN:
+                        messageId = R.string.uploader_error_forbidden_content;
+                        break;
+                    default:
+                        messageId = R.string.common_error_unknown;
+                }
+                String message = String.format(
+                    mAppContext.getString(messageId),
+                    mAppContext.getString(R.string.app_name)
+                );
+                Toast.makeText(mAppContext, message, Toast.LENGTH_LONG).show();
+            }
         }
     }
 
     /*
      * Interface to retrieve data from recognition task
      */
-    public interface OnCopyTmpFileTaskListener{
-
-        void onTmpFileCopied(int numFiles);
+    public interface OnCopyTmpFilesTaskListener {
+        void onTmpFilesCopied(ResultCode result);
     }
 }

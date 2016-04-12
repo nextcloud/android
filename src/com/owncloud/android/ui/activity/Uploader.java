@@ -26,7 +26,6 @@ import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -57,7 +56,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -81,7 +79,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.UriUtils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -95,7 +92,7 @@ import java.util.Vector;
  */
 public class Uploader extends FileActivity
         implements OnItemClickListener, android.view.View.OnClickListener,
-        CopyTmpFileAsyncTask.OnCopyTmpFileTaskListener {
+    CopyTmpFileAsyncTask.OnCopyTmpFilesTaskListener {
 
     private static final String TAG = Uploader.class.getSimpleName();
 
@@ -110,10 +107,7 @@ public class Uploader extends FileActivity
     private boolean mAccountSelected;
     private boolean mAccountSelectionShowing;
 
-    private int mNumCacheFile;
-
     private final static int DIALOG_NO_ACCOUNT = 0;
-    private final static int DIALOG_WAITING = 1;
     private final static int DIALOG_NO_STREAM = 2;
     private final static int DIALOG_MULTIPLE_ACCOUNT = 3;
     private final static int DIALOG_STREAM_UNKNOWN = 4;
@@ -124,8 +118,6 @@ public class Uploader extends FileActivity
     private final static String KEY_FILE = "FILE";
     private final static String KEY_ACCOUNT_SELECTED = "ACCOUNT_SELECTED";
     private final static String KEY_ACCOUNT_SELECTION_SHOWING = "ACCOUNT_SELECTION_SHOWING";
-    private final static String KEY_NUM_CACHE_FILE = "NUM_CACHE_FILE";
-    private final static String KEY_REMOTE_CACHE_DATA = "REMOTE_CACHE_DATA";
 
     private static final String DIALOG_WAIT_COPY_FILE = "DIALOG_WAIT_COPY_FILE";
 
@@ -134,17 +126,15 @@ public class Uploader extends FileActivity
         prepareStreamsToUpload();
 
         if (savedInstanceState == null) {
-            mParents = new Stack<String>();
+            mParents = new Stack<>();
             mAccountSelected = false;
             mAccountSelectionShowing = false;
-            mNumCacheFile = 0;
 
         } else {
             mParents = (Stack<String>) savedInstanceState.getSerializable(KEY_PARENTS);
             mFile = savedInstanceState.getParcelable(KEY_FILE);
             mAccountSelected = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTED);
             mAccountSelectionShowing = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTION_SHOWING);
-            mNumCacheFile = savedInstanceState.getInt(KEY_NUM_CACHE_FILE);
         }
 
         super.onCreate(savedInstanceState);
@@ -202,7 +192,6 @@ public class Uploader extends FileActivity
         outState.putParcelable(KEY_FILE, mFile);
         outState.putBoolean(KEY_ACCOUNT_SELECTED, mAccountSelected);
         outState.putBoolean(KEY_ACCOUNT_SELECTION_SHOWING, mAccountSelectionShowing);
-        outState.putInt(KEY_NUM_CACHE_FILE, mNumCacheFile);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, getAccount());
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
@@ -224,28 +213,13 @@ public class Uploader extends FileActivity
             @Override
             public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    finish();
+                    Uploader.super.onBackPressed();
                     dialog.dismiss();
                 }
                 return true;
             }
         };
         switch (id) {
-        case DIALOG_WAITING:
-            final ProgressDialog pDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.setMessage(getResources().getString(R.string.uploader_info_uploading));
-            pDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    ProgressBar v = (ProgressBar) pDialog.findViewById(android.R.id.progress);
-                    v.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.color_accent),
-                            android.graphics.PorterDuff.Mode.MULTIPLY);
-
-                }
-            });
-            return pDialog;
         case DIALOG_NO_ACCOUNT:
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
@@ -365,7 +339,6 @@ public class Uploader extends FileActivity
     public void onBackPressed() {
         if (mParents.size() <= 1) {
             super.onBackPressed();
-            return;
         } else {
             mParents.pop();
             String full_path = generatePath(mParents);
@@ -565,7 +538,7 @@ public class Uploader extends FileActivity
 
                     } else if (ContentResolver.SCHEME_FILE.equals(sourceUri.getScheme())) {
                         /// file: uris should point to a local file, should be safe let FileUploader handle them
-                        requestUpload(sourceUri.getPath(), remotePath); // TODO - CHECK PATH EXTRACTION
+                        requestUpload(sourceUri.getPath(), remotePath);
 
                     } else {
                         showDialog(DIALOG_STREAM_UNKNOWN);
@@ -589,12 +562,10 @@ public class Uploader extends FileActivity
 
     /**
      *
-     * @param sourceUris
-     * @param remotePaths
+     * @param sourceUris        Array of content:// URIs to the files to upload
+     * @param remotePaths       Array of absolute paths to set to the uploaded files
      */
     private void copyThenUpload(Uri[] sourceUris, String[] remotePaths) {
-        mNumCacheFile+= sourceUris.length;
-
         showWaitingCopyDialog();
 
         CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this, this);
@@ -602,7 +573,8 @@ public class Uploader extends FileActivity
             CopyTmpFileAsyncTask.makeParamsToExecute(
                 getAccount(),
                 sourceUris,
-                remotePaths
+                remotePaths,
+                getContentResolver()
             )
         );
     }
@@ -832,29 +804,19 @@ public class Uploader extends FileActivity
             }
         }
     }
+
     /**
      * Process the result of CopyTmpFileAsyncTask
-     *
-     * @param numFiles
      */
     @Override
-    public void onTmpFileCopied(int numFiles) {
-
+    public void onTmpFilesCopied(ResultCode result) {
         dismissWaitingCopyDialog();
+        if (result != ResultCode.OK) {
+            showDialog(DIALOG_STREAM_UNKNOWN);  // TODO BETTER ERROR DIALOGS!
 
-        if(mNumCacheFile != numFiles) {
-            String message = String.format(
-                getString(R.string.uploader_error_forbidden_content),
-                getString(R.string.app_name)
-            );
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            Log_OC.d(TAG, message);
+        } else {
+            finish();
         }
-
-        mNumCacheFile = 0;
-
-        finish();
-
     }
 
     /**
