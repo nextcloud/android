@@ -398,6 +398,7 @@ Neem contact op met uw beheerder</string>
   <string name="share_privilege_can_edit_delete">verwijderen</string>
   <string name="edit_share_unshare">Stop met delen</string>
   <string name="edit_share_done">gedaan</string>
+  <string name="action_retry_uploads">Opnieuw proberen mislukt</string>
   <string name="action_switch_grid_view">Raster indeling</string>
   <string name="action_switch_list_view">Lijst indeling</string>
   <string name="manage_space_title">Beheer ruimte</string>

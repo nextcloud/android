@@ -74,6 +74,7 @@
   <string name="file_list_loading">Yükleniyor...</string>
   <string name="file_list_no_app_for_file_type">Dosya türü için uygulama bulunamadı!</string>
   <string name="local_file_list_empty">Bu klasörde dosya yok.</string>
+  <string name="upload_list_empty">Uygun yükleme yok.</string>
   <string name="file_list_folder">klasör</string>
   <string name="file_list_folders">klasör</string>
   <string name="file_list_file">dosya</string>
@@ -91,6 +92,8 @@
   <string name="common_yes">Evet</string>
   <string name="common_no">Hayır</string>
   <string name="common_ok">Tamam</string>
+  <string name="common_remove_upload">Yüklemeyi kaldır</string>
+  <string name="common_retry_upload">Yüklemeyi tekrar dene</string>
   <string name="common_cancel_sync">Eşitlemeyi iptal et</string>
   <string name="common_cancel">İptal</string>
   <string name="common_save_exit">Kaydet ve çık</string>
@@ -112,13 +115,22 @@
   <string name="uploader_upload_failed_credentials_error">Yükleme başarısız, tekrar oturum açmanız gerekli</string>
   <string name="uploads_view_title">Yüklemeler</string>
   <string name="uploads_view_group_current_uploads">Geçerli</string>
+  <string name="uploads_view_group_failed_uploads">Başarısız (Tekrar denemek için dokun)</string>
   <string name="uploads_view_group_finished_uploads">Yüklendi</string>
   <string name="uploads_view_upload_status_succeeded">Tamamlanmış</string>
+  <string name="uploads_view_upload_status_cancelled">İptal edildi.</string>
+  <string name="uploads_view_upload_status_paused">Durduruldu.</string>
+  <string name="uploads_view_upload_status_failed_connection_error">Bağlantı hatası</string>
+  <string name="uploads_view_upload_status_failed_retry">Yükleme kısa bir süre sonra tekrar denenecek</string>
   <string name="uploads_view_upload_status_failed_credentials_error">Kimlik bilgi hatası</string>
   <string name="uploads_view_upload_status_failed_folder_error">Klasör hatası</string>
   <string name="uploads_view_upload_status_failed_file_error">Dosya hatası</string>
+  <string name="uploads_view_upload_status_failed_localfile_error">Yerel dosya bulunamadı</string>
   <string name="uploads_view_upload_status_failed_permission_error">Yetki hatası</string>
+  <string name="uploads_view_upload_status_conflict">Çakışma</string>
+  <string name="uploads_view_upload_status_service_interrupted">Uygulama sonlandırıldı</string>
   <string name="uploads_view_upload_status_unknown_fail">Bilinmeyen hata</string>
+  <string name="uploads_view_upload_status_waiting_for_wifi">wifi bağlantısı bekleniyor</string>
   <string name="uploads_view_later_waiting_to_upload">Yüklemek için bekliyor</string>
   <string name="downloader_download_in_progress_ticker">İndiriliyor...</string>
   <string name="downloader_download_in_progress_content">%%%1$d İndirilen: %2$s</string>
@@ -227,6 +239,7 @@
   <string name="filename_forbidden_charaters_from_server">Dosya adı en az bir geçersiz karakter içeriyor</string>
   <string name="filename_empty">Dosya adı boş olamaz</string>
   <string name="wait_a_moment">Bir süre bekleyin</string>
+  <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri kontrol ediliyor</string>
   <string name="filedisplay_unexpected_bad_get_content">Beklenmedik sorun; lütfen dosya seçmek için farklı bir uygulama kullanın</string>
   <string name="filedisplay_no_file_selected">Hiçbir dosya seçilmedi</string>
   <string name="activity_chooser_title">Bağlantıyı gönder ...</string>
@@ -382,6 +395,10 @@
   <string name="share_privilege_can_edit_delete">sil</string>
   <string name="edit_share_unshare">Paylaşımı durdur</string>
   <string name="edit_share_done">bitti</string>
+  <string name="action_retry_uploads">Tekrar deneme başarısız</string>
+  <string name="action_clear_failed_uploads">Temizleme başarısız</string>
+  <string name="action_clear_successful_uploads">Temizleme başarılı</string>
+  <string name="action_clear_finished_uploads">Tüm temizlemeler bitti</string>
   <string name="action_switch_grid_view">Izgara görünümü</string>
   <string name="action_switch_list_view">Liste görünümü</string>
   <string name="manage_space_title">Alanı ayarla</string>
@@ -389,4 +406,5 @@
   <string name="manage_space_clear_data">Verileri temizle</string>
   <string name="manage_space_error">Bazı dosyalar silinemedi</string>
   <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izin gerekiyor.</string>
+  <string name="local_file_not_found_toast">Dosya yerelde bulunamadı</string>
 </resources>
