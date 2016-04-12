@@ -17,7 +17,7 @@
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.owncloud.android.utils;
+package com.owncloud.android.ui.asynctasks;
 
 import android.accounts.Account;
 import android.content.ContentResolver;
@@ -31,6 +31,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -41,9 +42,9 @@ import java.lang.ref.WeakReference;
 /**
  * AsyncTask to copy a file from a uri in a temporal file
  */
-public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, ResultCode> {
+public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, ResultCode> {
 
-    private final String TAG = CopyTmpFileAsyncTask.class.getSimpleName();
+    private final String TAG = CopyAndUploadContentUrisTask.class.getSimpleName();
 
     /**
      * Helper method building a correct array of parameters to be passed to {@link #execute(Object[])} )}
@@ -87,13 +88,12 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, ResultCode> {
         };
     }
 
-
     /**
      * Listener in main thread to be notified when the task ends. Held in a WeakReference assuming that its
      * lifespan is associated with an Activity context, that could be finished by the user before the AsyncTask
      * ends.
      */
-    private final WeakReference<OnCopyTmpFilesTaskListener> mListener;
+    private WeakReference<OnCopyTmpFilesTaskListener> mListener;
 
     /**
      * Reference to application context, used to access app resources. Holding it should not be a problem,
@@ -103,7 +103,7 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, ResultCode> {
     private final Context mAppContext;
 
 
-    public CopyTmpFileAsyncTask(
+    public CopyAndUploadContentUrisTask(
         OnCopyTmpFilesTaskListener listener,
         Context context
     ) {
@@ -225,7 +225,7 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, ResultCode> {
                                                 // into the OC folder so that appears as downloaded
             mimeType,
             false,      // do not create parent folder if not existent
-            UploadFileOperation.CREATED_BY_USER // TODO , different category?
+            UploadFileOperation.CREATED_BY_USER
         );
     }
 
@@ -262,7 +262,16 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, ResultCode> {
         }
     }
 
-    /*
+    /**
+     * Sets the object waiting for progress report via callbacks.
+     *
+     * @param listener      New object to report progress via callbacks
+     */
+    public void setListener(OnCopyTmpFilesTaskListener listener) {
+        mListener = new WeakReference<>(listener);
+    }
+
+    /**
      * Interface to retrieve data from recognition task
      */
     public interface OnCopyTmpFilesTaskListener {

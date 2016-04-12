@@ -74,7 +74,7 @@ import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
-import com.owncloud.android.utils.CopyTmpFileAsyncTask;
+import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.UriUtils;
@@ -92,9 +92,11 @@ import java.util.Vector;
  */
 public class Uploader extends FileActivity
         implements OnItemClickListener, android.view.View.OnClickListener,
-    CopyTmpFileAsyncTask.OnCopyTmpFilesTaskListener {
+    CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener {
 
     private static final String TAG = Uploader.class.getSimpleName();
+
+    private static final String FTAG_TASK_RETAINER_FRAGMENT = "TASK_RETAINER_FRAGMENT";
 
     private AccountManager mAccountManager;
     private Stack<String> mParents;
@@ -149,6 +151,15 @@ public class Uploader extends FileActivity
         syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+
+        // Init Fragment without UI to retain AsyncTask across configuration changes
+        FragmentManager fm = getSupportFragmentManager();
+        TaskRetainerFragment taskRetainerFragment =
+            (TaskRetainerFragment) fm.findFragmentByTag(FTAG_TASK_RETAINER_FRAGMENT);
+        if (taskRetainerFragment == null) {
+            taskRetainerFragment = new TaskRetainerFragment();
+            fm.beginTransaction().add(taskRetainerFragment, FTAG_TASK_RETAINER_FRAGMENT).commit();
+        }   // else, Fragment already created and retained across configuration change
     }
 
     @Override
@@ -355,7 +366,7 @@ public class Uploader extends FileActivity
         Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
-        Vector<OCFile> files = new Vector<OCFile>();
+        Vector<OCFile> files = new Vector<>();
         for (OCFile f : tmpfiles)
                 files.add(f);
         if (files.size() < position) {
@@ -443,9 +454,9 @@ public class Uploader extends FileActivity
         if (mFile != null) {
             // TODO Enable when "On Device" is recovered ?
             Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
-            List<HashMap<String, OCFile>> data = new LinkedList<HashMap<String,OCFile>>();
+            List<HashMap<String, OCFile>> data = new LinkedList<>();
             for (OCFile f : files) {
-                HashMap<String, OCFile> h = new HashMap<String, OCFile>();
+                HashMap<String, OCFile> h = new HashMap<>();
                     h.put("dirname", f);
                     data.add(h);
             }
@@ -568,9 +579,13 @@ public class Uploader extends FileActivity
     private void copyThenUpload(Uri[] sourceUris, String[] remotePaths) {
         showWaitingCopyDialog();
 
-        CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this, this);
+        CopyAndUploadContentUrisTask copyTask = new CopyAndUploadContentUrisTask(this, this);
+        FragmentManager fm = getSupportFragmentManager();
+        TaskRetainerFragment taskRetainerFragment =
+            (TaskRetainerFragment) fm.findFragmentByTag(FTAG_TASK_RETAINER_FRAGMENT);
+        taskRetainerFragment.setTask(copyTask);
         copyTask.execute(
-            CopyTmpFileAsyncTask.makeParamsToExecute(
+            CopyAndUploadContentUrisTask.makeParamsToExecute(
                 getAccount(),
                 sourceUris,
                 remotePaths,
@@ -806,7 +821,7 @@ public class Uploader extends FileActivity
     }
 
     /**
-     * Process the result of CopyTmpFileAsyncTask
+     * Process the result of CopyAndUploadContentUrisTask
      */
     @Override
     public void onTmpFilesCopied(ResultCode result) {
@@ -841,6 +856,63 @@ public class Uploader extends FileActivity
         if (frag != null) {
             LoadingDialog loading = (LoadingDialog) frag;
             loading.dismiss();
+        }
+    }
+
+
+    /**
+     * Fragment retaining a background task across configuration changes.
+     */
+    public static class TaskRetainerFragment extends Fragment {
+
+        private CopyAndUploadContentUrisTask mTask;
+
+        /**
+         * Updates the listener of the retained task whenever the parent
+         * Activity is attached.
+         *
+         * Since its done in main thread, and provided the AsyncTask only accesses
+         * the listener in the main thread (should so), no sync problem should occur.
+         */
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            if (mTask != null) {
+                mTask.setListener((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener) context);
+            }
+        }
+
+        /**
+         * Only called once, since the instance is retained across configuration changes
+         */
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setRetainInstance(true);    // the key point
+        }
+
+        /**
+         * Set the callback to null so we don't accidentally leak the
+         * Activity instance.
+         */
+        @Override
+        public void onDetach() {
+            super.onDetach();
+        }
+
+        /**
+         * Sets the task to retain accross configuration changes
+         *
+         * @param task  Task to retain
+         */
+        private void setTask(CopyAndUploadContentUrisTask task) {
+            if (mTask != null) {
+                mTask.setListener(null);
+            }
+            mTask = task;
+            if (mTask != null && getContext() != null) {
+                task.setListener((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener) getContext());
+            }
         }
     }
 }
