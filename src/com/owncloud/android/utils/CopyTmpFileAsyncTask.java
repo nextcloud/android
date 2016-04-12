@@ -39,7 +39,7 @@ import java.lang.ref.WeakReference;
 /**
  * AsyncTask to copy a file from a uri in a temporal file
  */
-public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
+public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, Integer> {
 
     private final String TAG = CopyTmpFileAsyncTask.class.getSimpleName();
 
@@ -52,16 +52,14 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
      */
     public final static Object[] makeParamsToExecute(
         Account account,
-        Uri sourceUri,
-        String remotePath,
-        Integer numCacheFile
+        Uri[] sourceUris,
+        String[] remotePaths
     ) {
 
         return new Object[] {
             account,
-            sourceUri,
-            remotePath,
-            numCacheFile
+            sourceUris,
+            remotePaths
         };
     }
 
@@ -78,14 +76,12 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
      * since it needs to exist until the end of the AsyncTask although the caller Activity were finished
      * before.
      */
-    private final Context mAppContext;
+    private final Context mContext;
 
-
-    private int mIndex;
 
     public CopyTmpFileAsyncTask(OnCopyTmpFileTaskListener listener, Context context) {
         mListener = new WeakReference<OnCopyTmpFileTaskListener>(listener);
-        mAppContext = context.getApplicationContext();
+        mContext = context;
     }
 
     /**
@@ -97,48 +93,59 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
      * - ContentResolver: content resolver
      */
     @Override
-    protected String doInBackground(Object[] params) {
-        String pathToCopiedFile = null;
+    protected Integer doInBackground(Object[] params) {
 
-        if (params != null && params.length == 4) {
+        int numFiles = 0;
+
+        if (params != null && params.length == 3) {
             Account account = (Account) params[0];
-            Uri uri = (Uri) params[1];
-            String remotePath = (String) params[2];
-            mIndex = ((Integer) params[3]);  // TODO really?
+            Uri[] uris = (Uri[]) params[1];
+            String[] remotePaths = (String[]) params[2];
 
             InputStream inputStream = null;
             FileOutputStream outputStream = null;
             String fullTempPath = null;
 
-            ContentResolver contentResolver = mAppContext.getContentResolver();
+            Uri actualUri = null;
+            String actualRemotePath = null;
+
+            ContentResolver contentResolver = mContext.getContentResolver();
             // TODO: test that it's safe for URLs with temporary access;
             //      alternative: receive InputStream in another parameter
 
             try {
-                fullTempPath = FileStorageUtils.getTemporalPath(account.name) + remotePath;
-                inputStream = contentResolver.openInputStream(uri);
-                File cacheFile = new File(fullTempPath);
-                File tempDir = cacheFile.getParentFile();
-                if (!tempDir.exists()) {
-                    tempDir.mkdirs();
+                for(int i=0; i < uris.length; i++) {
+                    actualUri = uris[i];
+                    actualRemotePath = remotePaths[i];
+
+                    fullTempPath = FileStorageUtils.getTemporalPath(account.name) + actualRemotePath;
+                    inputStream = contentResolver.openInputStream(actualUri);
+                    File cacheFile = new File(fullTempPath);
+                    File tempDir = cacheFile.getParentFile();
+                    if (!tempDir.exists()) {
+                        tempDir.mkdirs();
+                    }
+                    cacheFile.createNewFile();
+                    outputStream = new FileOutputStream(fullTempPath);
+                    byte[] buffer = new byte[4096];
+
+                    int count = 0;
+
+                    while ((count = inputStream.read(buffer)) > 0) {
+                        outputStream.write(buffer, 0, count);
+                    }
+
+                    requestUpload(
+                        account,
+                        fullTempPath,
+                        actualRemotePath,
+                        contentResolver.getType(actualUri)
+                    );
+                    numFiles++;
                 }
-                cacheFile.createNewFile();
-                outputStream = new FileOutputStream(fullTempPath);
-                byte[] buffer = new byte[4096];
-
-                int count = 0;
-
-                while ((count = inputStream.read(buffer)) > 0) {
-                    outputStream.write(buffer, 0, count);
-                }
-
-                outputStream.close();
-                inputStream.close();
-
-                pathToCopiedFile = fullTempPath;
 
             } catch (Exception e) {
-                Log_OC.e(TAG, "Exception while copying " + uri.toString() + " to temporary file", e);
+                Log_OC.e(TAG, "Exception while copying " + actualUri.toString() + " to temporary file", e);
 
                 // clean
                 if (fullTempPath != null) {
@@ -168,35 +175,17 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
                 }
             }
 
-            if (pathToCopiedFile != null) {
-                requestUpload(
-                    account,
-                    pathToCopiedFile,
-                    remotePath,
-                    contentResolver.getType(uri)
-                );
-                // mRemoteCacheData.get(index),
-
-            } else {
-                String message = String.format(
-                    mAppContext.getString(R.string.uploader_error_forbidden_content),
-                    mAppContext.getString(R.string.app_name)
-                );
-                Toast.makeText(mAppContext, message, Toast.LENGTH_LONG).show();
-                Log_OC.d(TAG, message);
-            }
-
         } else {
             throw new IllegalArgumentException("Error in parameters number");
         }
 
-        return pathToCopiedFile;
+        return numFiles;
     }
 
     private void requestUpload(Account account, String localPath, String remotePath, String mimeType) {
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         requester.uploadNewFile(
-            mAppContext,
+            mContext,
             account,
             localPath,
             remotePath,
@@ -209,10 +198,10 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
     }
 
     @Override
-    protected void onPostExecute(String result) {
+    protected void onPostExecute(Integer numFiles) {
         OnCopyTmpFileTaskListener listener = mListener.get();
         if (listener!= null) {
-            listener.onTmpFileCopied(result, mIndex);
+            listener.onTmpFileCopied(numFiles.intValue());
         } else {
             Log_OC.i(TAG, "User left Uploader activity before the temporal copies were finished ");
         }
@@ -223,6 +212,6 @@ public class CopyTmpFileAsyncTask  extends AsyncTask<Object, Void, String> {
      */
     public interface OnCopyTmpFileTaskListener{
 
-        void onTmpFileCopied(String result, int index);
+        void onTmpFileCopied(int numFiles);
     }
 }

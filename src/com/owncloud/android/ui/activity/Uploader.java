@@ -542,6 +542,10 @@ public class Uploader extends FileActivity
 
     @SuppressLint("NewApi")
     public void uploadFiles() {
+
+        List<Uri> contentUris = new ArrayList<>();
+        List<String> contentRemotePaths = new ArrayList<>();
+
         for (Parcelable sourceStream : mStreamsToUpload) {
             Uri sourceUri = (Uri) sourceStream;
             if (sourceUri == null) {
@@ -556,8 +560,8 @@ public class Uploader extends FileActivity
                     String remotePath = mUploadPath + displayName;
 
                     if (ContentResolver.SCHEME_CONTENT.equals(sourceUri.getScheme())) {
-                        /// content: uris will be copied to temporary files before calling {@link FileUploader}
-                        copyThenUpload(sourceUri, remotePath);
+                        contentUris.add(sourceUri);
+                        contentRemotePaths.add(remotePath);
 
                     } else if (ContentResolver.SCHEME_FILE.equals(sourceUri.getScheme())) {
                         /// file: uris should point to a local file, should be safe let FileUploader handle them
@@ -570,6 +574,10 @@ public class Uploader extends FileActivity
             }
         }
 
+        /// content: uris will be copied to temporary files before calling {@link FileUploader}
+        copyThenUpload(contentUris.toArray(new Uri[contentUris.size()]),
+            contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
+
         // Save the path to shared preferences; even if upload is not possible, user chose the folder
         SharedPreferences.Editor appPrefs = PreferenceManager
             .getDefaultSharedPreferences(getApplicationContext()).edit();
@@ -581,11 +589,11 @@ public class Uploader extends FileActivity
 
     /**
      *
-     * @param sourceUri
-     * @param remotePath
+     * @param sourceUris
+     * @param remotePaths
      */
-    private void copyThenUpload(Uri sourceUri, String remotePath) {
-        mNumCacheFile++;
+    private void copyThenUpload(Uri[] sourceUris, String[] remotePaths) {
+        mNumCacheFile+= sourceUris.length;
 
         showWaitingCopyDialog();
 
@@ -593,9 +601,8 @@ public class Uploader extends FileActivity
         copyTask.execute(
             CopyTmpFileAsyncTask.makeParamsToExecute(
                 getAccount(),
-                sourceUri,
-                remotePath,
-                mNumCacheFile
+                sourceUris,
+                remotePaths
             )
         );
     }
@@ -828,14 +835,23 @@ public class Uploader extends FileActivity
     /**
      * Process the result of CopyTmpFileAsyncTask
      *
-     * @param result
-     * @param index
+     * @param numFiles
      */
     @Override
-    public void onTmpFileCopied(String result, int index) {
-        if (mNumCacheFile-- == 0) {
-            dismissWaitingCopyDialog();
+    public void onTmpFileCopied(int numFiles) {
+
+        dismissWaitingCopyDialog();
+
+        if(mNumCacheFile != numFiles) {
+            String message = String.format(
+                getString(R.string.uploader_error_forbidden_content),
+                getString(R.string.app_name)
+            );
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            Log_OC.d(TAG, message);
         }
+
+        mNumCacheFile -= numFiles;
     }
 
     /**
