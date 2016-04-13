@@ -580,4 +580,3 @@ public class FileActivity extends DrawerActivity
     }
 
 }
-}
