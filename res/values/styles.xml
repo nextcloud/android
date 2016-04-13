@@ -31,8 +31,8 @@
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
-		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 		<item name="android:windowBackground">@color/background_color</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
@@ -44,8 +44,8 @@
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
-		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 		<item name="android:windowBackground">@color/background_color</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 		<item name="android:listDivider">@color/transparent</item>
 		<item name="windowActionModeOverlay">true</item>
     </style>
@@ -76,6 +76,7 @@
 		<item name="android:windowBackground">@color/transparent</item>
 		<item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
 	</style>
+
 	<style name="ownCloud.SearchView" parent="Widget.AppCompat.SearchView">
 		<!-- Close button icon -->
 		<item name="closeIcon">@drawable/ic_close</item>

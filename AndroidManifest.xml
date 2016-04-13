@@ -16,7 +16,7 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- -->
+-->
 <manifest package="com.owncloud.android"
     android:versionCode="20160410"
     android:versionName="20160410"
@@ -193,13 +193,13 @@
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
-
+        
         <activity android:name=".ui.activity.LogHistoryActivity"/>
         <activity android:name=".ui.activity.ErrorReportActivity"/>
 
         <activity android:name=".ui.errorhandling.ErrorShowActivity" />
         <activity android:name=".ui.activity.UploadListActivity" />
-
+        
         <receiver android:name=".files.services.ConnectivityActionReceiver"
 		    android:enabled="true" android:label="ConnectivityActionReceiver">
 		    <intent-filter>
@@ -222,10 +222,6 @@
 
                 <data android:mimeType="video/*" />
             </intent-filter>
-            <intent-filter>
-				<action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
-			    <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
-			</intent-filter>
         </receiver>
         <receiver android:name=".files.BootupBroadcastReceiver" >
             <intent-filter>
@@ -258,7 +254,7 @@
                        android:resource="@xml/users_and_groups_searchable"/>
         </activity>
         <activity android:name=".ui.activity.ManageSpaceActivity"
-                  android:label="Manage space"
+                  android:label="@string/manage_space_title"
                   android:theme="@style/Theme.ownCloud" />
     </application>
 
