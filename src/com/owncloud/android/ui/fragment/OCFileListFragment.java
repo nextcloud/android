@@ -392,7 +392,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
                     if (checkedCount == 1) {
                         createContextMenu(menu);
-                    } else {
+                    } else if (checkedCount > 1) {
                         // download, move, copy, delete
                         getActivity().getMenuInflater().inflate(R.menu.multiple_file_actions_menu, menu);
 
