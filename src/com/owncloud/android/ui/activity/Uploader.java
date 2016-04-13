@@ -46,7 +46,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -54,7 +53,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -72,6 +70,7 @@ import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
@@ -98,6 +97,8 @@ public class Uploader extends FileActivity
 
     private static final String FTAG_TASK_RETAINER_FRAGMENT = "TASK_RETAINER_FRAGMENT";
 
+    private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
+
     private AccountManager mAccountManager;
     private Stack<String> mParents;
     private ArrayList<Parcelable> mStreamsToUpload;
@@ -110,9 +111,7 @@ public class Uploader extends FileActivity
     private boolean mAccountSelectionShowing;
 
     private final static int DIALOG_NO_ACCOUNT = 0;
-    private final static int DIALOG_NO_STREAM = 2;
-    private final static int DIALOG_MULTIPLE_ACCOUNT = 3;
-    private final static int DIALOG_STREAM_UNKNOWN = 4;
+    private final static int DIALOG_MULTIPLE_ACCOUNT = 1;
 
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
@@ -180,8 +179,17 @@ public class Uploader extends FileActivity
                 }
             }
 
+        } else if (getIntent().getStringExtra(Intent.EXTRA_TEXT) != null) {
+            showErrorDialog(
+                R.string.uploader_error_message_received_piece_of_text,
+                R.string.uploader_error_title_no_file_to_upload
+            );
+
         } else {
-            showDialog(DIALOG_NO_STREAM);
+            showErrorDialog(
+                R.string.uploader_error_message_no_file_to_upload,
+                R.string.uploader_error_title_no_file_to_upload
+            );
         }
 
         super.setAccount(account, savedAccount);
@@ -219,17 +227,6 @@ public class Uploader extends FileActivity
     @Override
     protected Dialog onCreateDialog(final int id) {
         final AlertDialog.Builder builder = new Builder(this);
-        // Create key listener for back button pressed
-        DialogInterface.OnKeyListener onKeyListener = new DialogInterface.OnKeyListener() {
-            @Override
-            public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
-                if (keyCode == KeyEvent.KEYCODE_BACK) {
-                    Uploader.super.onBackPressed();
-                    dialog.dismiss();
-                }
-                return true;
-            }
-        };
         switch (id) {
         case DIALOG_NO_ACCOUNT:
             builder.setIcon(R.drawable.ic_warning);
@@ -297,52 +294,8 @@ public class Uploader extends FileActivity
                 }
             });
             return builder.create();
-        case DIALOG_NO_STREAM:
-            builder.setIcon(R.drawable.ic_warning);
-            builder.setTitle(R.string.uploader_wrn_no_content_title);
-            builder.setMessage(R.string.uploader_wrn_no_content_text);
-            builder.setCancelable(false);
-            builder.setNegativeButton(R.string.common_back, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            builder.setOnKeyListener(onKeyListener);
-            return builder.create();
-        case DIALOG_STREAM_UNKNOWN:
-            builder.setIcon(android.R.drawable.ic_dialog_alert);
-            builder.setTitle(R.string.uploader_wrn_unknown_content_title);
-            String message = String.format(getString(R.string.uploader_error_forbidden_content),
-                getString(R.string.app_name));
-            builder.setMessage(message);
-            builder.setCancelable(false);
-            builder.setNegativeButton(R.string.common_back, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            builder.setOnKeyListener(onKeyListener);
-            return builder.create();
         default:
             throw new IllegalArgumentException("Unknown dialog id: " + id);
-        }
-    }
-
-    class a implements OnClickListener {
-        String mPath;
-        EditText mDirname;
-
-        public a(String path, EditText dirname) {
-            mPath = path;
-            mDirname = dirname;
-        }
-
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            Uploader.this.mUploadPath = mPath + mDirname.getText().toString();
-            uploadFiles();
         }
     }
 
@@ -391,12 +344,7 @@ public class Uploader extends FileActivity
                     mUploadPath += p + OCFile.PATH_SEPARATOR;
                 }
                 Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
-
-                try {
-                    uploadFiles();
-                } catch (SecurityException e) {
-                    showDialog(DIALOG_STREAM_UNKNOWN);  // TODO: _FORBIDDEN
-                }
+                uploadFiles();
                 break;
 
             case R.id.uploader_cancel:
@@ -513,7 +461,7 @@ public class Uploader extends FileActivity
 
     private void prepareStreamsToUpload() {
         if (getIntent().getAction().equals(Intent.ACTION_SEND)) {
-            mStreamsToUpload = new ArrayList<Parcelable>();
+            mStreamsToUpload = new ArrayList<>();
             mStreamsToUpload.add(getIntent().getParcelableExtra(Intent.EXTRA_STREAM));
         } else if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
             mStreamsToUpload = getIntent().getParcelableArrayListExtra(Intent.EXTRA_STREAM);
@@ -527,20 +475,20 @@ public class Uploader extends FileActivity
     @SuppressLint("NewApi")
     public void uploadFiles() {
 
-        List<Uri> contentUris = new ArrayList<>();
-        List<String> contentRemotePaths = new ArrayList<>();
+        try {
 
-        for (Parcelable sourceStream : mStreamsToUpload) {
-            Uri sourceUri = (Uri) sourceStream;
-            if (sourceUri == null) {
-                showDialog(DIALOG_NO_STREAM);
+            List<Uri> contentUris = new ArrayList<>();
+            List<String> contentRemotePaths = new ArrayList<>();
 
-            } else {
-                String displayName = UriUtils.getDisplayNameForUri(sourceUri, this);
-                if(displayName == null) {
-                    showDialog(DIALOG_NO_STREAM);   // TODO - different dialog?
+            int schemeFileCounter = 0;
 
-                } else {
+            for (Parcelable sourceStream : mStreamsToUpload) {
+                Uri sourceUri = (Uri) sourceStream;
+                if (sourceUri != null) {
+                    String displayName = UriUtils.getDisplayNameForUri(sourceUri, this);
+                    if (displayName == null) {
+                        displayName = generateDiplayName();
+                    }
                     String remotePath = mUploadPath + displayName;
 
                     if (ContentResolver.SCHEME_CONTENT.equals(sourceUri.getScheme())) {
@@ -550,29 +498,54 @@ public class Uploader extends FileActivity
                     } else if (ContentResolver.SCHEME_FILE.equals(sourceUri.getScheme())) {
                         /// file: uris should point to a local file, should be safe let FileUploader handle them
                         requestUpload(sourceUri.getPath(), remotePath);
-
-                    } else {
-                        showDialog(DIALOG_STREAM_UNKNOWN);
+                        schemeFileCounter++;
                     }
                 }
             }
-        }
 
-        if(!contentUris.isEmpty()) {
-            /// content: uris will be copied to temporary files before calling {@link FileUploader}
-            copyThenUpload(contentUris.toArray(new Uri[contentUris.size()]),
-                contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
-        }
+            if (!contentUris.isEmpty()) {
+                /// content: uris will be copied to temporary files before calling {@link FileUploader}
+                copyThenUpload(contentUris.toArray(new Uri[contentUris.size()]),
+                    contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
 
-        // Save the path to shared preferences; even if upload is not possible, user chose the folder
-        SharedPreferences.Editor appPrefs = PreferenceManager
-            .getDefaultSharedPreferences(getApplicationContext()).edit();
-        appPrefs.putString("last_upload_path", mUploadPath);
-        appPrefs.apply();
+            } else if (schemeFileCounter == 0) {
+                showErrorDialog(
+                    R.string.uploader_error_message_no_file_to_upload,
+                    R.string.uploader_error_title_no_file_to_upload
+                );
 
-        if(contentUris.isEmpty()) {
-            finish();
+            } else {
+                finish();
+            }
+
+        } catch (SecurityException e) {
+            Log_OC.e(TAG, "Permissions fail", e);
+            showErrorDialog(
+                R.string.uploader_error_message_read_permission_not_granted,
+                R.string.uploader_error_title_file_cannot_be_uploaded
+            );
+
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Unexpted error", e);
+            showErrorDialog(
+                R.string.common_error_unknown,
+                R.string.uploader_error_title_file_cannot_be_uploaded
+            );
+
+        } finally {
+            // Save the path to shared preferences; even if upload is not possible, user chose the folder
+            SharedPreferences.Editor appPrefs = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext()).edit();
+            appPrefs.putString("last_upload_path", mUploadPath);
+            appPrefs.apply();
+
         }
+    }
+
+
+    private String generateDiplayName() {
+        return getString(R.string.common_unknown) +
+            "-" + DisplayUtils.unixTimeToHumanReadable(System.currentTimeMillis());
     }
 
     /**
@@ -830,12 +803,7 @@ public class Uploader extends FileActivity
     @Override
     public void onTmpFilesCopied(ResultCode result) {
         dismissWaitingCopyDialog();
-        if (result != ResultCode.OK) {
-            showDialog(DIALOG_STREAM_UNKNOWN);  // TODO BETTER ERROR DIALOGS!
-
-        } else {
-            finish();
-        }
+        finish();
     }
 
     /**
@@ -861,6 +829,42 @@ public class Uploader extends FileActivity
             LoadingDialog loading = (LoadingDialog) frag;
             loading.dismiss();
         }
+    }
+
+
+    /**
+     * Show an error dialog, forcing the user to click a single button to exit the activity
+     *
+     * @param messageResId      Resource id of the message to show in the dialog.
+     * @param messageResTitle   Resource id of the title to show in the dialog. 0 to show default alert message.
+     *                          -1 to show no title.
+     */
+    private void showErrorDialog(int messageResId, int messageResTitle) {
+
+        ConfirmationDialogFragment errorDialog = ConfirmationDialogFragment.newInstance(
+            messageResId,
+            new String[]{getString(R.string.app_name)}, // see uploader_error_message_* in strings.xml
+            messageResTitle,
+            R.string.common_back,
+            -1,
+            -1
+        );
+        errorDialog.setCancelable(false);
+        errorDialog.setOnConfirmationListener(
+            new ConfirmationDialogFragment.ConfirmationDialogFragmentListener() {
+                @Override
+                public void onConfirmation(String callerTag) {
+                    finish();
+                }
+
+                @Override
+                public void onNeutral(String callerTag) {}
+
+                @Override
+                public void onCancel(String callerTag) {}
+            }
+        );
+        errorDialog.show(getSupportFragmentManager(), FTAG_ERROR_FRAGMENT);
     }
 
 

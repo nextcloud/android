@@ -242,13 +242,13 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                 int messageId;
                 switch (result) {
                     case LOCAL_FILE_NOT_FOUND:
-                        messageId = R.string.copy_file_not_found;
+                        messageId = R.string.uploader_error_message_source_file_not_found;
                         break;
                     case LOCAL_STORAGE_NOT_COPIED:
-                        messageId = R.string.copy_file_error;
+                        messageId = R.string.uploader_error_message_source_file_not_copied;
                         break;
                     case FORBIDDEN:
-                        messageId = R.string.uploader_error_forbidden_content;
+                        messageId = R.string.uploader_error_message_read_permission_not_granted;
                         break;
                     default:
                         messageId = R.string.common_error_unknown;
