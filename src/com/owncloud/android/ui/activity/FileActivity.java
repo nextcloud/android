@@ -1057,8 +1057,7 @@ public class FileActivity extends AppCompatActivity
             if (file.isFolder()) {
                 return file;
             } else if (getStorageManager() != null) {
-                String parentPath = file.getRemotePath().substring(0,
-                    file.getRemotePath().lastIndexOf(file.getFileName()));
+                String parentPath = file.getParentRemotePath();
                 return getStorageManager().getFileByPath(parentPath);
             }
         }

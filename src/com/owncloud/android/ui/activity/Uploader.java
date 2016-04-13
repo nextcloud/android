@@ -350,7 +350,7 @@ public class Uploader extends FileActivity
         } else {
             mParents.pop();
             String full_path = generatePath(mParents);
-            startSyncFolderOperation(getStorageManager().getFileByPath(full_path), false);
+            startSyncFolderOperation(getStorageManager().getFileByPath(full_path));
             populateDirectoryList();
         }
     }
@@ -371,7 +371,7 @@ public class Uploader extends FileActivity
         }
         if (files.get(position).isFolder()){
             OCFile folderToEnter = files.get(position);
-            startSyncFolderOperation(folderToEnter, false);
+            startSyncFolderOperation(folderToEnter);
             mParents.push(folderToEnter.getFileName());
             populateDirectoryList();
         }
@@ -475,10 +475,10 @@ public class Uploader extends FileActivity
 
     @Override
     public void onSavedCertificate() {
-        startSyncFolderOperation(getCurrentDir(), false);
+        startSyncFolderOperation(getCurrentDir());
     }
 
-    private void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
+    private void startSyncFolderOperation(OCFile folder) {
         long currentSyncTime = System.currentTimeMillis(); 
         
         mSyncInProgress = true;
@@ -488,7 +488,7 @@ public class Uploader extends FileActivity
                                                                         currentSyncTime, 
                                                                         false,
                                                                         false,
-                                                                        ignoreETag,
+                                                                        false,
                                                                         getStorageManager(),
                                                                         getAccount(),
                                                                         getApplicationContext()
@@ -736,7 +736,7 @@ public class Uploader extends FileActivity
     private void browseToRoot() {
         OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         mFile = root;
-        startSyncFolderOperation(root, false);
+        startSyncFolderOperation(root);
     }
     
     private class SyncBroadcastReceiver extends BroadcastReceiver {
