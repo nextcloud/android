@@ -801,7 +801,6 @@ public class Uploader extends FileActivity
                                 synchResult != null && !synchResult.isSuccess()) {
 
                             if(synchResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                        synchResult.isIdPRedirection() ||
                                         (synchResult.isException() && synchResult.getException()
                                                 instanceof AuthenticatorException)) {
 
