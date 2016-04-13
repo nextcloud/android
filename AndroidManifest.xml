@@ -71,7 +71,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.UploadFilesActivity" />
-        <activity android:name=".ui.activity.Uploader" >
+        <activity android:name=".ui.activity.Uploader"
+                  android:launchMode="singleInstance">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 

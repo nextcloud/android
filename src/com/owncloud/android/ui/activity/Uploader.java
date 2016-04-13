@@ -569,6 +569,10 @@ public class Uploader extends FileActivity
             .getDefaultSharedPreferences(getApplicationContext()).edit();
         appPrefs.putString("last_upload_path", mUploadPath);
         appPrefs.apply();
+
+        if(contentUris.isEmpty()) {
+            finish();
+        }
     }
 
     /**
