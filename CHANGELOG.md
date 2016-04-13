@@ -1,3 +1,7 @@
+# 2016-04-13
+- PR [#1552] (https://github.com/owncloud/android/pull/1552) " moved logs from drawer menu to the settings" merged
+- PR [#1559] (https://github.com/owncloud/android/pull/1559) "Toolbar, new Drawer and new Account Manager" merged 
+
 # 2016-03-05
 - PR [#1493] (https://github.com/owncloud/android/pull/1493) "Reliable uploads - UPLOADS VIEW" merged
 - update all other PR
