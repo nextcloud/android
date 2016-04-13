@@ -472,7 +472,12 @@ public class Uploader extends FileActivity
             mListView.setOnItemClickListener(this);
         }
     }
-    
+
+    @Override
+    public void onSavedCertificate() {
+        startSyncFolderOperation(getCurrentDir());
+    }
+
     private void startSyncFolderOperation(OCFile folder) {
         long currentSyncTime = System.currentTimeMillis(); 
         
@@ -793,13 +798,18 @@ public class Uploader extends FileActivity
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                 equals(event) &&
                                 /// TODO refactor and make common
-                                synchResult != null && !synchResult.isSuccess() &&
-                                (synchResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                        synchResult.isIdPRedirection() ||
-                                        (synchResult.isException() && synchResult.getException()
-                                                instanceof AuthenticatorException))) {
+                                synchResult != null && !synchResult.isSuccess()) {
 
-                            requestCredentialsUpdate(context);
+                            if(synchResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                        (synchResult.isException() && synchResult.getException()
+                                                instanceof AuthenticatorException)) {
+
+                                requestCredentialsUpdate(context);
+
+                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(synchResult.getCode())) {
+
+                                showUntrustedCertDialog(synchResult);
+                            }
                         }
                     }
                     removeStickyBroadcast(intent);
