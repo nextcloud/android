@@ -91,13 +91,22 @@
   <string name="foreign_files_success">Alle Dateien wurden verschoben</string>
   <string name="foreign_files_fail">Ein paar Dateien konnten nicht verschoben werden</string>
   <string name="foreign_files_local_text">Lokal: %1$s</string>
+  <string name="common_rename">Umbenennen</string>
   <string name="ssl_validator_btn_details_see">Details</string>
   <string name="activity_chooser_send_file_title">Senden</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Konten</string>
+  <string name="folder_picker_choose_button_text">Auswählen</string>
   <string name="prefs_category_details">Details</string>
   <string name="auth_host_address">Adresse des Servers</string>
   <string name="share_via_link_section_title">Link teilen</string>
+  <string name="share_via_link_expiration_date_label">Setze ein Ablaufdatum</string>
+  <string name="share_via_link_password_label">Passwortschutz</string>
+  <string name="share_via_link_edit_permission_label">Bearbeitung erlauben</string>
+  <string name="share_search">Suche</string>
   <string name="share_privilege_can_share">Kann teilen</string>
   <string name="share_privilege_can_edit">Kann bearbeiten</string>
+  <string name="share_privilege_can_edit_create">erstellen</string>
+  <string name="share_privilege_can_edit_change">Ändern</string>
+  <string name="share_privilege_can_edit_delete">löschen</string>
 </resources>

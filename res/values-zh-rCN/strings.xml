@@ -74,6 +74,7 @@
   <string name="file_list_loading">加载中...</string>
   <string name="file_list_no_app_for_file_type">没有找到程序打开文件格式！</string>
   <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
+  <string name="upload_list_empty">没有可用的上传任务。</string>
   <string name="file_list_folder">文件夹</string>
   <string name="file_list_folders">文件夹</string>
   <string name="file_list_file">文件</string>
@@ -91,6 +92,8 @@
   <string name="common_yes">是</string>
   <string name="common_no">否</string>
   <string name="common_ok">确定</string>
+  <string name="common_remove_upload">移除上传任务</string>
+  <string name="common_retry_upload">重试上传任务</string>
   <string name="common_cancel_sync">取消同步</string>
   <string name="common_cancel">取消</string>
   <string name="common_save_exit">保存并退出</string>
@@ -112,10 +115,18 @@
   <string name="uploader_upload_failed_credentials_error">上传失败，你需要重新登录</string>
   <string name="uploads_view_title">上传</string>
   <string name="uploads_view_group_current_uploads">当前</string>
+  <string name="uploads_view_group_failed_uploads">失败。(轻按以重试)</string>
   <string name="uploads_view_group_finished_uploads">已上传</string>
   <string name="uploads_view_upload_status_succeeded">完成</string>
+  <string name="uploads_view_upload_status_cancelled">已取消</string>
+  <string name="uploads_view_upload_status_paused">已暂停</string>
+  <string name="uploads_view_upload_status_failed_connection_error">连接错误</string>
+  <string name="uploads_view_upload_status_failed_folder_error">文件夹错误</string>
+  <string name="uploads_view_upload_status_failed_file_error">文件错误</string>
+  <string name="uploads_view_upload_status_failed_localfile_error">本地文件未找到</string>
   <string name="uploads_view_upload_status_failed_permission_error">权限错误</string>
   <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
+  <string name="uploads_view_upload_status_waiting_for_wifi">等待WiFi连接</string>
   <string name="uploads_view_later_waiting_to_upload">等待上传...</string>
   <string name="downloader_download_in_progress_ticker">下载中...</string>
   <string name="downloader_download_in_progress_content">%1$d%% 下载中 %2$s</string>
@@ -352,6 +363,7 @@
   <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
   <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
   <string name="share_dialog_title">共享</string>
+  <string name="share_file">分享 %1$s</string>
   <string name="share_with_user_section_title">分享给其他用户或组</string>
   <string name="share_no_users">目前没有文件向您分享。</string>
   <string name="share_add_user_or_group">添加用户或组</string>
@@ -361,9 +373,12 @@
   <string name="share_via_link_password_title">安全</string>
   <string name="share_via_link_edit_permission_label">允许编辑</string>
   <string name="share_get_public_link_button">获取链接</string>
+  <string name="share_with_title">分享...</string>
+  <string name="share_with_edit_title">与 %1$s 分享</string>
   <string name="share_search">搜索</string>
   <string name="search_users_and_groups_hint">搜索用户和组</string>
   <string name="share_group_clarification">%1$s (组)</string>
+  <string name="share_remote_clarification">%1$s (远程)</string>
   <string name="share_sharee_unavailable">对不起，共享服务功能未开启，请联系管理员</string>
   <string name="share_privilege_can_share">可共享</string>
   <string name="share_privilege_can_edit">可编辑</string>
@@ -372,6 +387,10 @@
   <string name="share_privilege_can_edit_delete">删除</string>
   <string name="edit_share_unshare">停止共享</string>
   <string name="edit_share_done">完成</string>
+  <string name="action_retry_uploads">重试失败</string>
+  <string name="action_clear_failed_uploads">清除失败</string>
+  <string name="action_clear_successful_uploads">清除成功</string>
+  <string name="action_clear_finished_uploads">清除所有完成任务</string>
   <string name="action_switch_grid_view">网格视图</string>
   <string name="action_switch_list_view">列表视图</string>
   <string name="manage_space_title">管理空间</string>
@@ -380,4 +399,5 @@
   <string name="manage_space_clear_data">清除数据</string>
   <string name="manage_space_error">某些文件无法删除。</string>
   <string name="permission_storage_access">没有权限上传和下载文件。</string>
+  <string name="local_file_not_found_toast">文件在本地wu\'fa\'zhao\'d</string>
 </resources>
