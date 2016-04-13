@@ -23,8 +23,6 @@
 			android:title="@string/prefs_storage_path"
 			android:key="storage_path" />
 	</PreferenceCategory>
-    <PreferenceCategory android:title="@string/prefs_category_accounts" android:key="accounts_category">
-    </PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_security">
 		<android.preference.CheckBoxPreference android:title="@string/prefs_passcode" android:key="set_pincode" />
@@ -82,17 +80,6 @@
 							android:key="pref_cache_size"
 							android:digits="0123456789"/>
 	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
-		<!-- DISABLED FOR RELEASE UNTIL FIXED
-	    CheckBoxPreference android:key="log_to_file"
-	                        android:title="@string/prefs_log_title"
-	                        android:summary="@string/prefs_log_summary"/>
-		<Preference 		android:key="log_history"
-	                        android:title="@string/prefs_log_title_history"
-	                        android:summary="@string/prefs_log_summary_history"/ -->
-                        
-    </PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
     <Preference android:title="@string/prefs_help" android:key="help" />
