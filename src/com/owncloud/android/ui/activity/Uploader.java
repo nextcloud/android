@@ -245,7 +245,7 @@ public class Uploader extends FileActivity
             });
             return pDialog;
         case DIALOG_NO_ACCOUNT:
-            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
             builder.setMessage(String.format(
                     getString(R.string.uploader_wrn_no_account_text),
@@ -311,7 +311,7 @@ public class Uploader extends FileActivity
             });
             return builder.create();
         case DIALOG_NO_STREAM:
-            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_content_title);
             builder.setMessage(R.string.uploader_wrn_no_content_text);
             builder.setCancelable(false);
@@ -430,9 +430,10 @@ public class Uploader extends FileActivity
 
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
+        setupToolbar();
+        ActionBar actionBar = getSupportActionBar();
 
         ListView mListView = (ListView) findViewById(android.R.id.list);
-        ActionBar actionBar = getSupportActionBar();
 
         String current_dir = mParents.peek();
         if (current_dir.equals("")) {
@@ -606,7 +607,7 @@ public class Uploader extends FileActivity
                     } else {
                         throw new SecurityException();
                     }
-                    if (data == null) {
+                    //if (data == null) {
                         mRemoteCacheData.add(filePath);
                         CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
                         Object[] params = {uri, filePath, mRemoteCacheData.size() - 1,
@@ -614,7 +615,10 @@ public class Uploader extends FileActivity
                         mNumCacheFile++;
                         showWaitingCopyDialog();
                         copyTask.execute(params);
-                    }
+
+                    //} else {
+                    // TODO request to FileUploader with data as source file, resulting in lazy temporary copy
+                    //}
                 } else {
                     throw new SecurityException();
                 }

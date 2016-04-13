@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Paramètres</string>
+  <string name="drawer_item_uploads_list">Chargements</string>
   <string name="drawer_item_logs">Logs</string>
   <string name="drawer_close">Fermer</string>
   <string name="drawer_open">Ouvrir</string>
@@ -74,6 +75,10 @@ Téléchargez-le ici : %2$s</string>
   <string name="file_list_loading">Chargement...</string>
   <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
   <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
+  <string name="file_list_folder">dossier</string>
+  <string name="file_list_folders">dossiers</string>
+  <string name="file_list_file">fichier</string>
+  <string name="file_list_files">fichiers</string>
   <string name="filedetails_select_file">Sélectionnez un fichier pour afficher des informations supplémentaires</string>
   <string name="filedetails_size">Taille :</string>
   <string name="filedetails_type">Type :</string>
@@ -106,6 +111,23 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploader_upload_failed_ticker">Échec de l\'envoi</string>
   <string name="uploader_upload_failed_content_single">L\'envoi de %1$s a échoué</string>
   <string name="uploader_upload_failed_credentials_error">Le téléversement a échoué, vous devez vous reconnecter</string>
+  <string name="uploads_view_title">Chargements</string>
+  <string name="uploads_view_group_current_uploads">En ce moment</string>
+  <string name="uploads_view_group_failed_uploads">Échoué (appuyer pour réessayer)</string>
+  <string name="uploads_view_group_finished_uploads">Téléversé</string>
+  <string name="uploads_view_upload_status_succeeded">Terminé</string>
+  <string name="uploads_view_upload_status_cancelled">Annulé</string>
+  <string name="uploads_view_upload_status_paused">En pause</string>
+  <string name="uploads_view_upload_status_failed_connection_error">Erreur de connexion</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Erreur d\'identifiants</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Erreur de dossier</string>
+  <string name="uploads_view_upload_status_failed_file_error">Erreur de fichier</string>
+  <string name="uploads_view_upload_status_failed_localfile_error">Fichier local non trouvé</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Erreur de permissions</string>
+  <string name="uploads_view_upload_status_conflict">Conflit</string>
+  <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>
+  <string name="uploads_view_upload_status_waiting_for_wifi">En attente d\'une connexion wifi</string>
+  <string name="uploads_view_later_waiting_to_upload">En attente de chargement</string>
   <string name="downloader_download_in_progress_ticker">Téléchargement en cours…</string>
   <string name="downloader_download_in_progress_content">Téléchargement en cours de %2$s, %1$d%% effectués</string>
   <string name="downloader_download_succeeded_ticker">Téléchargement réussi</string>
@@ -345,6 +367,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="pref_behaviour_entries_keep_file">gardé dans le dossier original</string>
   <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
   <string name="share_dialog_title">Partage</string>
+  <string name="share_file">Partager %1$s</string>
   <string name="share_with_user_section_title">Partager avec des utilisateurs et des groupes</string>
   <string name="share_no_users">Aucune donnée partagée avec des utilisateurs pour le moment</string>
   <string name="share_add_user_or_group">Ajouter un Utilisateur ou un Groupe</string>
@@ -352,7 +375,10 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="share_via_link_expiration_date_label">Spécifier une date d\'expiration</string>
   <string name="share_via_link_password_label">Protéger par un mot de passe</string>
   <string name="share_via_link_password_title">Sécurisé</string>
+  <string name="share_via_link_edit_permission_label">Permettre la modification</string>
   <string name="share_get_public_link_button">Obtenir le lien</string>
+  <string name="share_with_title">Partager avec ...</string>
+  <string name="share_with_edit_title">Partager avec %1$s</string>
   <string name="share_search">Rechercher</string>
   <string name="search_users_and_groups_hint">Chercher parmi les utilisateurs et groupes</string>
   <string name="share_group_clarification">%1$s (groupe)</string>

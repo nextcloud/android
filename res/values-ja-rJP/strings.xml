@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">設定</string>
+  <string name="drawer_item_uploads_list">アップロード</string>
   <string name="drawer_item_logs">ログ</string>
   <string name="drawer_close">閉じる</string>
   <string name="drawer_open">開く</string>
@@ -74,6 +75,10 @@
   <string name="file_list_loading">読込中...</string>
   <string name="file_list_no_app_for_file_type">ファイルタイプ に対応するアプリはありません！</string>
   <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
+  <string name="file_list_folder">フォルダー</string>
+  <string name="file_list_folders">フォルダー</string>
+  <string name="file_list_file">ファイル</string>
+  <string name="file_list_files">ファイル</string>
   <string name="filedetails_select_file">ファイルをタップすると追加情報が表示されます。</string>
   <string name="filedetails_size">サイズ:</string>
   <string name="filedetails_type">タイプ:</string>
@@ -106,6 +111,16 @@
   <string name="uploader_upload_failed_ticker">アップロードに失敗</string>
   <string name="uploader_upload_failed_content_single">%1$s のアップロードが完了しませんでした</string>
   <string name="uploader_upload_failed_credentials_error">アップロードに失敗しました,ログインし直す必要があります</string>
+  <string name="uploads_view_title">アップロード</string>
+  <string name="uploads_view_group_current_uploads">現在</string>
+  <string name="uploads_view_group_finished_uploads">アップロード済み</string>
+  <string name="uploads_view_upload_status_succeeded">完了</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">資格情報エラー</string>
+  <string name="uploads_view_upload_status_failed_folder_error">フォルダーエラー</string>
+  <string name="uploads_view_upload_status_failed_file_error">ファイルエラー</string>
+  <string name="uploads_view_upload_status_failed_permission_error">権限エラー</string>
+  <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>
+  <string name="uploads_view_later_waiting_to_upload">アップロード待ち</string>
   <string name="downloader_download_in_progress_ticker">ダウンロード中 ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% ダウンロード中 %2$s</string>
   <string name="downloader_download_succeeded_ticker">ダウンロードに成功</string>
@@ -349,6 +364,7 @@
   <string name="share_via_link_expiration_date_label">有効期限を設定</string>
   <string name="share_via_link_password_label">パスワード保護を有効化</string>
   <string name="share_via_link_password_title">セキュア</string>
+  <string name="share_via_link_edit_permission_label">編集を許可</string>
   <string name="share_get_public_link_button">リンクを取得</string>
   <string name="share_search">検索</string>
   <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>

@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">设置</string>
+  <string name="drawer_item_uploads_list">上传</string>
   <string name="drawer_item_logs">日志</string>
   <string name="drawer_close">关闭</string>
   <string name="drawer_open">打开</string>
@@ -73,6 +74,10 @@
   <string name="file_list_loading">加载中...</string>
   <string name="file_list_no_app_for_file_type">没有找到程序打开文件格式！</string>
   <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
+  <string name="file_list_folder">文件夹</string>
+  <string name="file_list_folders">文件夹</string>
+  <string name="file_list_file">文件</string>
+  <string name="file_list_files">文件</string>
   <string name="filedetails_select_file">点击一个文件可以显示额外的信息。</string>
   <string name="filedetails_size">大小：</string>
   <string name="filedetails_type">类型：</string>
@@ -105,6 +110,13 @@
   <string name="uploader_upload_failed_ticker">上传失败</string>
   <string name="uploader_upload_failed_content_single">%1$s 未能成功上传</string>
   <string name="uploader_upload_failed_credentials_error">上传失败，你需要重新登录</string>
+  <string name="uploads_view_title">上传</string>
+  <string name="uploads_view_group_current_uploads">当前</string>
+  <string name="uploads_view_group_finished_uploads">已上传</string>
+  <string name="uploads_view_upload_status_succeeded">完成</string>
+  <string name="uploads_view_upload_status_failed_permission_error">权限错误</string>
+  <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
+  <string name="uploads_view_later_waiting_to_upload">等待上传...</string>
   <string name="downloader_download_in_progress_ticker">下载中...</string>
   <string name="downloader_download_in_progress_content">%1$d%% 下载中 %2$s</string>
   <string name="downloader_download_succeeded_ticker">下载成功</string>
@@ -347,6 +359,7 @@
   <string name="share_via_link_expiration_date_label">设置过期日期</string>
   <string name="share_via_link_password_label">密码保护</string>
   <string name="share_via_link_password_title">安全</string>
+  <string name="share_via_link_edit_permission_label">允许编辑</string>
   <string name="share_get_public_link_button">获取链接</string>
   <string name="share_search">搜索</string>
   <string name="search_users_and_groups_hint">搜索用户和组</string>

@@ -121,7 +121,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     }
 
     private UploadGroup[] mUploadGroups = null;
-    private final int MAX_NUM_UPLOADS_SHOWN = 30;
 
     public ExpandableUploadListAdapter(FileActivity parentActivity) {
         Log_OC.d(TAG, "ExpandableUploadListAdapter");
@@ -133,7 +132,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             public void refresh() {
                 items = mUploadsStorageManager.getCurrentAndPendingUploads();
                 Arrays.sort(items, comparator);
-                items = trimToMaxLength(items);
             }
 
             @Override
@@ -146,7 +144,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             public void refresh() {
                 items = mUploadsStorageManager.getFailedUploads();
                 Arrays.sort(items, comparator);
-                items = trimToMaxLength(items);
             }
 
             @Override
@@ -160,7 +157,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             public void refresh() {
                 items = mUploadsStorageManager.getFinishedUploads();
                 Arrays.sort(items, comparator);
-                items = trimToMaxLength(items);
             }
 
             @Override
@@ -172,20 +168,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         loadUploadItemsFromDb();
     }
 
-
-    private OCUpload[] trimToMaxLength(OCUpload[] items) {
-        if (items.length > MAX_NUM_UPLOADS_SHOWN) {
-            OCUpload[] arrayTrim = new OCUpload[MAX_NUM_UPLOADS_SHOWN];
-
-            for (int i = 0; i < MAX_NUM_UPLOADS_SHOWN; i++) {
-                arrayTrim[i] = items[i];
-            }
-            return arrayTrim;
-
-        } else {
-            return items;
-        }
-    }
 
     @Override
     public void registerDataSetObserver(DataSetObserver observer) {
@@ -213,9 +195,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     (LayoutInflater) mParentActivity.getSystemService(
                             Context.LAYOUT_INFLATER_SERVICE
                     );
-            view = inflator.inflate(R.layout.upload_list_item, null);
+            view = inflator.inflate(R.layout.upload_list_item, parent, false);
         }
-
 
         if (uploadsItems != null && uploadsItems.length > position) {
             final OCUpload upload = uploadsItems[position];
@@ -230,7 +211,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             fileTextView.setText(fileName);
 
             // remote path to parent folder
-            TextView pathTextView = (TextView) view.findViewById(R.id.upload_local_path);
+            TextView pathTextView = (TextView) view.findViewById(R.id.upload_remote_path);
             String remoteParentPath = upload.getRemotePath();
             remoteParentPath = new File(remoteParentPath).getParent();
             pathTextView.setText(mParentActivity.getString(R.string.app_name) + remoteParentPath);
@@ -256,25 +237,35 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             TextView statusTextView = (TextView) view.findViewById(R.id.upload_status);
 
+            ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
+
             /// Reset fields visibility
             uploadDateTextView.setVisibility(View.VISIBLE);
             pathTextView.setVisibility(View.VISIBLE);
             fileSizeTextView.setVisibility(View.VISIBLE);
             accountNameTextView.setVisibility(View.VISIBLE);
             statusTextView.setVisibility(View.VISIBLE);
+            progressBar.setVisibility(View.GONE);
 
             /// Update information depending of upload details
             String status = getStatusText(upload);
             switch (upload.getUploadStatus()) {
                 case UPLOAD_IN_PROGRESS:
-                    ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
                     progressBar.setProgress(0);
                     progressBar.setVisibility(View.VISIBLE);
 
                     FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
                     if (binder != null) {
                         if (binder.isUploadingNow(upload)) {
-                            /// really uploading, bind the progress bar to listen for progress updates
+                            /// really uploading, so...
+                            /// ... unbind the old progress bar, if any; ...
+                            if (mProgressListener != null) {
+                                binder.removeDatatransferProgressListener(
+                                    mProgressListener,
+                                    mProgressListener.getUpload()   // the one that was added
+                                );
+                            }
+                            /// ... then, bind the current progress bar to listen for updates
                             mProgressListener = new ProgressListener(upload, progressBar);
                             binder.addDatatransferProgressListener(
                                 mProgressListener,
@@ -302,6 +293,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     uploadDateTextView.setVisibility(View.GONE);
                     pathTextView.setVisibility(View.GONE);
                     fileSizeTextView.setVisibility(View.GONE);
+                    progressBar.invalidate();
                     break;
 
                 case UPLOAD_FAILED:
@@ -312,17 +304,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     statusTextView.setVisibility(View.GONE);
                     break;
             }
-            if (upload.getUploadStatus() != UploadStatus.UPLOAD_IN_PROGRESS) {
-                ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.upload_progress_bar);
-                progressBar.setVisibility(View.GONE);
-            }
             statusTextView.setText(status);
 
             /// bind listeners to perform actions
             ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
-            if (upload.userCanCancelUpload()) {
+            if (upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
                 //Cancel
                 rightButton.setImageResource(R.drawable.ic_cancel);
+                rightButton.setVisibility(View.VISIBLE);
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -333,9 +322,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         }
                     }
                 });
-            } else {
+
+            } else if (upload.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
                 //Delete
                 rightButton.setImageResource(R.drawable.ic_action_delete);
+                rightButton.setVisibility(View.VISIBLE);
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -343,9 +334,13 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         refreshView();
                     }
                 });
+
+            } else {    // UploadStatus.UPLOAD_SUCCESS
+                rightButton.setVisibility(View.INVISIBLE);
             }
 
-            if (upload.userCanRetryUpload()) {
+            // retry
+            if (upload.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
                 if (UploadResult.CREDENTIAL_ERROR.equals(upload.getLastResult())) {
                     view.setOnClickListener(new OnClickListener() {
                         @Override
@@ -390,7 +385,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             fakeFileToCheatThumbnailsCacheManagerInterface.setStoragePath(upload.getLocalPath());
             fakeFileToCheatThumbnailsCacheManagerInterface.setMimetype(upload.getMimeType());
 
-            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(
+            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialThumbnailWork(
                     fakeFileToCheatThumbnailsCacheManagerInterface,
                     fileIcon)
             );
@@ -415,8 +410,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         if (thumbnail == null) {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
                         }
-                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncDrawable(
+                        final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                         mParentActivity.getResources(),
                                         thumbnail,
                                         task
@@ -447,8 +442,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         if (thumbnail == null) {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
                         }
-                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncDrawable(
+                        final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                         mParentActivity.getResources(),
                                         thumbnail,
                                         task

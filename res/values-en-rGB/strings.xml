@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Settings</string>
+  <string name="drawer_item_uploads_list">Uploads</string>
   <string name="drawer_item_logs">Logs</string>
   <string name="drawer_close">Close</string>
   <string name="drawer_open">Open</string>
@@ -73,6 +74,10 @@
   <string name="file_list_loading">Loading…</string>
   <string name="file_list_no_app_for_file_type">No app found for file type!</string>
   <string name="local_file_list_empty">There are no files in this folder.</string>
+  <string name="file_list_folder">folder</string>
+  <string name="file_list_folders">folders</string>
+  <string name="file_list_file">file</string>
+  <string name="file_list_files">file</string>
   <string name="filedetails_select_file">Tap on a file to display additional information.</string>
   <string name="filedetails_size">Size:</string>
   <string name="filedetails_type">Type:</string>
@@ -105,6 +110,16 @@
   <string name="uploader_upload_failed_ticker">Upload failed</string>
   <string name="uploader_upload_failed_content_single">Upload of %1$s could not be completed</string>
   <string name="uploader_upload_failed_credentials_error">Upload failed, you need to log in again</string>
+  <string name="uploads_view_title">Uploads</string>
+  <string name="uploads_view_group_current_uploads">Current</string>
+  <string name="uploads_view_group_finished_uploads">Uploaded</string>
+  <string name="uploads_view_upload_status_succeeded">Completed</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Credentials error</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Folder error</string>
+  <string name="uploads_view_upload_status_failed_file_error">File error</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Permission error</string>
+  <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
+  <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
   <string name="downloader_download_in_progress_ticker">Downloading …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
   <string name="downloader_download_succeeded_ticker">Download succeeded</string>
@@ -348,6 +363,7 @@
   <string name="share_via_link_expiration_date_label">Set expiration date</string>
   <string name="share_via_link_password_label">Password protect</string>
   <string name="share_via_link_password_title">Secured</string>
+  <string name="share_via_link_edit_permission_label">Allow editing</string>
   <string name="share_get_public_link_button">Get link</string>
   <string name="share_search">Search</string>
   <string name="search_users_and_groups_hint">Search users and groups</string>

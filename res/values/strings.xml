@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="about_android">%1$s Android app</string>
@@ -369,6 +369,7 @@
     <string name="prefs_category_security">Security</string>
     <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Add account</string>
+    <string name="drawer_manage_accounts">Manage accounts</string>
     <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
 
 	<string name="actionbar_logger">Logs</string>
@@ -455,6 +456,7 @@
     <string name="share_via_link_expiration_date_label">Set expiration date</string>
     <string name="share_via_link_password_label">Password protect</string>
     <string name="share_via_link_password_title">Secured</string>
+    <string name="share_via_link_edit_permission_label">Allow editing</string>
     <string name="share_get_public_link_button">Get link</string>
     <string name="share_with_title">Share with &#8230;</string>
     <string name="share_with_edit_title">Share with %1$s</string>

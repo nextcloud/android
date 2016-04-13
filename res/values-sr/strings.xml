@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Поставке</string>
+  <string name="drawer_item_uploads_list">Отпремања</string>
   <string name="drawer_item_logs">Записници</string>
   <string name="drawer_close">Затвори</string>
   <string name="drawer_open">Отвори</string>
@@ -73,6 +74,10 @@
   <string name="file_list_loading">Учитавам…</string>
   <string name="file_list_no_app_for_file_type">Нема апликације за тип фајла!</string>
   <string name="local_file_list_empty">Нема фајлова у овој фасцикли.</string>
+  <string name="file_list_folder">фасцикла</string>
+  <string name="file_list_folders">фасцикли</string>
+  <string name="file_list_file">фајл</string>
+  <string name="file_list_files">фајлова</string>
   <string name="filedetails_select_file">Тапните на фајл ради приказа додатних информација.</string>
   <string name="filedetails_size">Величина:</string>
   <string name="filedetails_type">Врста:</string>
@@ -105,6 +110,16 @@
   <string name="uploader_upload_failed_ticker">Отпремање није успело</string>
   <string name="uploader_upload_failed_content_single">Не могу да довршим отпремање %1$s</string>
   <string name="uploader_upload_failed_credentials_error">Отпремање није успело, морате поново да се пријавите</string>
+  <string name="uploads_view_title">Отпремања</string>
+  <string name="uploads_view_group_current_uploads">Текуће</string>
+  <string name="uploads_view_group_finished_uploads">Отпремљено</string>
+  <string name="uploads_view_upload_status_succeeded">Завршено</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Грешка акредитива</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Грешка фасцикле</string>
+  <string name="uploads_view_upload_status_failed_file_error">Грешка фајла</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Грешка дозвола</string>
+  <string name="uploads_view_upload_status_unknown_fail">Непозната грешка</string>
+  <string name="uploads_view_later_waiting_to_upload">Чекам отпремање</string>
   <string name="downloader_download_in_progress_ticker">Преузимам…</string>
   <string name="downloader_download_in_progress_content">%1$d%% преузимам %2$s</string>
   <string name="downloader_download_succeeded_ticker">Преузимање успешно</string>
@@ -345,6 +360,7 @@
   <string name="share_via_link_expiration_date_label">Постави датум истека</string>
   <string name="share_via_link_password_label">Заштићено лозинком</string>
   <string name="share_via_link_password_title">Обезбеђен</string>
+  <string name="share_via_link_edit_permission_label">уређивање</string>
   <string name="share_get_public_link_button">Добави везу</string>
   <string name="share_search">Тражи</string>
   <string name="search_users_and_groups_hint">Претражи кориснике и групе</string>

@@ -96,6 +96,7 @@ public class OperationsService extends Service {
     public static final String EXTRA_SHARE_WITH = "SHARE_WITH";
     public static final String EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS = "SHARE_EXPIRATION_YEAR";
     public static final String EXTRA_SHARE_PERMISSIONS = "SHARE_PERMISSIONS";
+    public static final String EXTRA_SHARE_PUBLIC_UPLOAD = "SHARE_PUBLIC_UPLOAD";
     public static final String EXTRA_SHARE_ID = "SHARE_ID";
 
     public static final String EXTRA_COOKIE = "COOKIE";
@@ -107,6 +108,7 @@ public class OperationsService extends Service {
     public static final String ACTION_GET_SERVER_INFO = "GET_SERVER_INFO";
     public static final String ACTION_OAUTH2_GET_ACCESS_TOKEN = "OAUTH2_GET_ACCESS_TOKEN";
     public static final String ACTION_GET_USER_NAME = "GET_USER_NAME";
+    public static final String ACTION_GET_USER_AVATAR = "GET_USER_AVATAR";
     public static final String ACTION_RENAME = "RENAME";
     public static final String ACTION_REMOVE = "REMOVE";
     public static final String ACTION_CREATE_FOLDER = "CREATE_FOLDER";
@@ -578,7 +580,7 @@ public class OperationsService extends Service {
                         operation = new UpdateShareViaLinkOperation(remotePath);
 
                         String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
-                        ((UpdateShareViaLinkOperation)operation).setPassword(password);
+                        ((UpdateShareViaLinkOperation) operation).setPassword(password);
 
                         long expirationDate = operationIntent.getLongExtra(
                                 EXTRA_SHARE_EXPIRATION_DATE_IN_MILLIS,
@@ -587,6 +589,9 @@ public class OperationsService extends Service {
                         ((UpdateShareViaLinkOperation)operation).setExpirationDate(
                                 expirationDate
                         );
+
+                        boolean publicUpload = operationIntent.getBooleanExtra(EXTRA_SHARE_PUBLIC_UPLOAD, false);
+                        ((UpdateShareViaLinkOperation) operation).setPublicUpload(publicUpload);
 
                     } else if (shareId > 0) {
                         operation = new UpdateSharePermissionsOperation(shareId);

@@ -86,6 +86,7 @@
   <string name="file_list__footer__files_and_folder">%1$d ֆայլ, 1 պանակ</string>
   <string name="file_list__footer__files_and_folders">%1$d ֆայլ, %2$d պանակ</string>
   <string name="share_via_link_section_title">Կիսվել հղմամբ</string>
+  <string name="share_via_link_edit_permission_label">Թույլատրել խմբագրումը</string>
   <string name="share_get_public_link_button">Ստանալ հղում</string>
   <string name="share_search">Փնտրել</string>
   <string name="share_privilege_can_share">կարող է տարածել</string>

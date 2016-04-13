@@ -20,6 +20,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">تنظیمات</string>
+  <string name="drawer_item_uploads_list">آپلودها</string>
   <string name="drawer_item_logs">لاگ‌ها</string>
   <string name="drawer_close">بستن</string>
   <string name="drawer_open">باز کردن</string>
@@ -57,6 +58,10 @@
   <string name="file_list_empty">اینجا هیچ چیز نیست.</string>
   <string name="file_list_loading">بارگذاری ...</string>
   <string name="local_file_list_empty">هیچ فایلی در این پوشه نیست.</string>
+  <string name="file_list_folder">پوشه</string>
+  <string name="file_list_folders">پوشه ها</string>
+  <string name="file_list_file">پرونده</string>
+  <string name="file_list_files">پرونده</string>
   <string name="filedetails_select_file">روی هر فایل کلیک کنید تا اطلاعات اضافی نمایش داده شود.</string>
   <string name="filedetails_size">اندازه</string>
   <string name="filedetails_type">نوع:</string>
@@ -82,6 +87,15 @@
   <string name="uploader_upload_succeeded_ticker">بارگزاری موفقیت‌آمیز بود</string>
   <string name="uploader_upload_failed_ticker">بارگزاری ناموفق بود</string>
   <string name="uploader_upload_failed_content_single">بارگزاری %1$s نتوانست به طور کامل انجام شود</string>
+  <string name="uploads_view_title">آپلودها</string>
+  <string name="uploads_view_group_current_uploads">کنونی</string>
+  <string name="uploads_view_group_finished_uploads">بارگذاری شده است.</string>
+  <string name="uploads_view_upload_status_succeeded">نکمیل شده</string>
+  <string name="uploads_view_upload_status_failed_folder_error">حطای پوشه</string>
+  <string name="uploads_view_upload_status_failed_file_error">خطای فایل</string>
+  <string name="uploads_view_upload_status_failed_permission_error">خطای دسترسی</string>
+  <string name="uploads_view_upload_status_unknown_fail">خطای نامشخص</string>
+  <string name="uploads_view_later_waiting_to_upload">درحال انتظار برای آپلود</string>
   <string name="downloader_download_in_progress_ticker">در حال بارگیری ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% در حال دانلود %2$s</string>
   <string name="downloader_download_succeeded_ticker">بارگیری موفقیت‌آمیز بود</string>
@@ -266,6 +280,7 @@
   <string name="share_via_link_section_title">اشتراک گذاشتن لینک</string>
   <string name="share_via_link_expiration_date_label">تنظیم تاریخ انقضا</string>
   <string name="share_via_link_password_label">نگهداری کردن رمز عبور</string>
+  <string name="share_via_link_edit_permission_label">اجازه‌ی ویرایش</string>
   <string name="share_search">جست‌و‌جو</string>
   <string name="share_privilege_can_share">قابل به اشتراک گذاری</string>
   <string name="share_privilege_can_edit">می توان ویرایش کرد</string>

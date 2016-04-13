@@ -63,17 +63,19 @@
         android:name=".MainApp"
         android:icon="@drawable/icon"
         android:label="ownCloud beta"
-        android:theme="@style/Theme.ownCloud"
+        android:theme="@style/Theme.ownCloud.Toolbar"
         android:manageSpaceActivity=".ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
             android:label="ownCloud beta" >
+            android:theme="@style/Theme.ownCloud.Toolbar.Drawer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.ManageAccountsActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
         <activity android:name=".ui.activity.Uploader"
@@ -166,7 +168,7 @@
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.ownCloud.noActionBar" >
+            android:theme="@style/Theme.ownCloud.Toolbar" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -245,7 +247,7 @@
             android:label="ownCloud beta" />
         <activity
             android:name=".ui.activity.ShareActivity"
-            android:label="Sharing"
+            android:label="@string/share_dialog_title"
             android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize" >

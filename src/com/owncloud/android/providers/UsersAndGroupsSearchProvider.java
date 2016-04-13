@@ -61,10 +61,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final String TAG = UsersAndGroupsSearchProvider.class.getSimpleName();
 
     private static final String[] COLUMNS = {
-        BaseColumns._ID,
-        SearchManager.SUGGEST_COLUMN_TEXT_1,
-        SearchManager.SUGGEST_COLUMN_ICON_1,
-        SearchManager.SUGGEST_COLUMN_INTENT_DATA
+            BaseColumns._ID,
+            SearchManager.SUGGEST_COLUMN_TEXT_1,
+            SearchManager.SUGGEST_COLUMN_ICON_1,
+            SearchManager.SUGGEST_COLUMN_INTENT_DATA
     };
 
     private static final int SEARCH = 1;
@@ -123,7 +123,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
      * @param selection     Expected to be NULL.
      * @param selectionArgs Expected to be NULL.
      * @param sortOrder     Expected to be NULL.
-     * @return Cursor with users and groups in the ownCloud server that match 'userQuery'.
+     * @return              Cursor with users and groups in the ownCloud server that match 'userQuery'.
      */
     @Nullable
     @Override
@@ -172,9 +172,9 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             Iterator<JSONObject> namesIt = names.iterator();
             JSONObject item;
             String displayName = null;
+            int icon = 0;
             Uri dataUri = null;
             int count = 0;
-            int icon = 0;
 
             Uri userBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_USER).build();
             Uri groupBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_GROUP).build();

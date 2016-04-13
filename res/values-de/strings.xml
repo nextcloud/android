@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Einstellungen</string>
+  <string name="drawer_item_uploads_list">Uploads</string>
   <string name="drawer_item_logs">Protokolle</string>
   <string name="drawer_close">Schließen</string>
   <string name="drawer_open">Öffnen</string>
@@ -73,6 +74,11 @@
   <string name="file_list_loading">Lade…</string>
   <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
   <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
+  <string name="upload_list_empty">Es</string>
+  <string name="file_list_folder">Ordner</string>
+  <string name="file_list_folders">Ordner</string>
+  <string name="file_list_file">Datei</string>
+  <string name="file_list_files">Dateien</string>
   <string name="filedetails_select_file">Klicken Sie auf eine Datei für weitere Informationen.</string>
   <string name="filedetails_size">Größe:</string>
   <string name="filedetails_type">Art:</string>
@@ -86,6 +92,8 @@
   <string name="common_yes">Ja</string>
   <string name="common_no">Nein</string>
   <string name="common_ok">OK</string>
+  <string name="common_remove_upload">Upload entfernen</string>
+  <string name="common_retry_upload">hochladen erneut versuchen</string>
   <string name="common_cancel_sync">Synchronisation abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
   <string name="common_save_exit">Speichern &amp; verlassen</string>
@@ -105,6 +113,25 @@
   <string name="uploader_upload_failed_ticker">Hochladen fehlgeschlagen</string>
   <string name="uploader_upload_failed_content_single">Hochladen von  %1$s konnte nicht abgeschlossen werden</string>
   <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, du musst dich erneut anmelden</string>
+  <string name="uploads_view_title">Uploads</string>
+  <string name="uploads_view_group_current_uploads">Wird hochgeladen</string>
+  <string name="uploads_view_group_failed_uploads">Fehlgeschlagen (Tippen zum Wiederholen)</string>
+  <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
+  <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
+  <string name="uploads_view_upload_status_cancelled">abgebrochen</string>
+  <string name="uploads_view_upload_status_paused">pausiert</string>
+  <string name="uploads_view_upload_status_failed_connection_error">Verbindungs Fehler</string>
+  <string name="uploads_view_upload_status_failed_retry">Der Upload wird in Kürze erneut versucht</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Zugangsdaten ffalsch</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Ziel-Ordner fehlt</string>
+  <string name="uploads_view_upload_status_failed_file_error">Dateifehler</string>
+  <string name="uploads_view_upload_status_failed_localfile_error">Lokale Datei nicht gefunden</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Berechtigungsfehler</string>
+  <string name="uploads_view_upload_status_conflict">Konflikt</string>
+  <string name="uploads_view_upload_status_service_interrupted">Die Anwendung wurde beendet</string>
+  <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
+  <string name="uploads_view_upload_status_waiting_for_wifi">warten auf eine WLAN Verbindung </string>
+  <string name="uploads_view_later_waiting_to_upload">Warten auf hochladen</string>
   <string name="downloader_download_in_progress_ticker">Herunterladen…</string>
   <string name="downloader_download_in_progress_content">%1$d%% Herunterladen %2$s</string>
   <string name="downloader_download_succeeded_ticker">Herunterladen erfolgreich</string>
@@ -212,6 +239,7 @@
   <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
   <string name="filename_empty">Dateiname darf nicht leer sein</string>
   <string name="wait_a_moment">Bitte warte einen Moment.</string>
+  <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
   <string name="filedisplay_unexpected_bad_get_content">Ein unerwartetes Problem ist aufgetreten. Bitte versuche, die Datei in einer anderen App zu öffnen</string>
   <string name="filedisplay_no_file_selected">Es wurde keine Datei ausgewählt.</string>
   <string name="activity_chooser_title">Link senden an…</string>
@@ -337,11 +365,18 @@
   <string name="upload_copy_files">kopiere Datei</string>
   <string name="upload_move_files">verschiebe Datei</string>
   <string name="share_dialog_title">Teilen</string>
+  <string name="share_file">Teile %1$s</string>
+  <string name="share_with_user_section_title">Mit Benutzern oder Gruppen teilen</string>
   <string name="share_no_users">Es wurden noch keine Dateien mit Benutzern geteilt</string>
   <string name="share_add_user_or_group">Füge Benutzer oder Gruppe hinzu</string>
   <string name="share_via_link_section_title">Link teilen</string>
   <string name="share_via_link_expiration_date_label">Setze ein Ablaufdatum</string>
   <string name="share_via_link_password_label">Passwortschutz</string>
+  <string name="share_via_link_password_title">Gesichert</string>
+  <string name="share_via_link_edit_permission_label">Bearbeitung erlauben</string>
+  <string name="share_get_public_link_button">Link erhalten</string>
+  <string name="share_with_title">Teile mit ...</string>
+  <string name="share_with_edit_title">Teile mit %1$s</string>
   <string name="share_search">Suche</string>
   <string name="share_group_clarification">%1$s (Gruppe)</string>
   <string name="share_remote_clarification">%1$s (remote)</string>
@@ -355,6 +390,10 @@
   <string name="share_privilege_can_edit_delete">löschen</string>
   <string name="edit_share_unshare">Freigabe löschen</string>
   <string name="edit_share_done">Erledigt</string>
+  <string name="action_retry_uploads">Wiederholung fehlgeschlagen</string>
+  <string name="action_clear_failed_uploads">Löschen fehlgeschlagen</string>
+  <string name="action_clear_successful_uploads">Löschen erfolgreich</string>
+  <string name="action_clear_finished_uploads">\"Alle Löschen\" abgeschlossen</string>
   <string name="action_switch_grid_view">Rasteransicht</string>
   <string name="action_switch_list_view">Listenansicht</string>
   <string name="manage_space_title">verwalte Speicherplatz</string>
@@ -362,4 +401,5 @@
   <string name="manage_space_clear_data">Daten löschen</string>
   <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden.</string>
   <string name="permission_storage_access">Du hast nicht die erforderlichen Rechte, um Dateien hoch- und herunterzuladen.</string>
+  <string name="local_file_not_found_toast">Die Datei wurde lokal nicht gefunden</string>
 </resources>

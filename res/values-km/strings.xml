@@ -65,6 +65,7 @@
   <string name="uploader_upload_in_progress_ticker">កំពុង​តែផ្ទុកឡើង...</string>
   <string name="uploader_upload_succeeded_ticker">ការផ្ទុកឡើងបាន​ជោគជ័យ</string>
   <string name="uploader_upload_failed_ticker">ការផ្ទុកឡើងបាន​បរាជ័យ</string>
+  <string name="uploads_view_upload_status_unknown_fail">មិន​ស្គាល់​កំហុស</string>
   <string name="downloader_download_in_progress_ticker">កំពុង​ធ្វើការទាញយក...</string>
   <string name="downloader_download_succeeded_ticker">ការទាញយក​បានជោគជ័យ</string>
   <string name="downloader_download_failed_ticker">ការទាញយក​បានបរាជ័យ</string>

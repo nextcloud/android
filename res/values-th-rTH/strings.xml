@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">ตั้งค่า</string>
+  <string name="drawer_item_uploads_list">อัพโหลด</string>
   <string name="drawer_item_logs">บันทึก</string>
   <string name="drawer_close">ปิด</string>
   <string name="drawer_open">เปิด</string>
@@ -73,6 +74,10 @@
   <string name="file_list_loading">กำลังโหลด...</string>
   <string name="file_list_no_app_for_file_type">ไม่พบแอพสำหรับชนิดของไฟล์</string>
   <string name="local_file_list_empty">ยังไม่มีไฟล์ในโฟลเดอร์นี้</string>
+  <string name="file_list_folder">โฟลเดอร์</string>
+  <string name="file_list_folders">โฟลเดอร์</string>
+  <string name="file_list_file">ไฟล์</string>
+  <string name="file_list_files">ไฟล์</string>
   <string name="filedetails_select_file">แตะที่ไฟล์ เพื่อแสดงข้อมูลเพิ่มเติม</string>
   <string name="filedetails_size">ขนาด:</string>
   <string name="filedetails_type">ชนิด:</string>
@@ -104,6 +109,16 @@
   <string name="uploader_upload_failed_ticker">อัพโหลดล้มเหลว</string>
   <string name="uploader_upload_failed_content_single">ไม่สามารถดำเนินการอัพโหลด %1$s ให้เสร็จสมบูรณ์ได้</string>
   <string name="uploader_upload_failed_credentials_error">การอัพโหลดล้มเหลว คุณจำเป็นต้องเข้าสู่ระบบใหม่อีกครั้ง</string>
+  <string name="uploads_view_title">อัพโหลด</string>
+  <string name="uploads_view_group_current_uploads">ปัจจุบัน</string>
+  <string name="uploads_view_group_finished_uploads">ถูกอัพโหลด</string>
+  <string name="uploads_view_upload_status_succeeded">เสร็จสมบูรณ์</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">ข้อมูลประจำตัวข้อผิดพลาดของ</string>
+  <string name="uploads_view_upload_status_failed_folder_error">ข้อผิดพลาดของโฟลเดอร์</string>
+  <string name="uploads_view_upload_status_failed_file_error">ข้อผิดพลาดของไฟล์</string>
+  <string name="uploads_view_upload_status_failed_permission_error">เกิดข้อผิดพลาดเกี่ยวกับสิทธิ์การเข้าใช้งาน</string>
+  <string name="uploads_view_upload_status_unknown_fail">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
+  <string name="uploads_view_later_waiting_to_upload">กำลังรอที่จะอัพโหลด</string>
   <string name="downloader_download_in_progress_ticker">กำลังดาวน์โหลด ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% กำลังดาวน์โหลด %2$s</string>
   <string name="downloader_download_succeeded_ticker">ดาวน์โหลดเสร็จสิ้น</string>
@@ -345,6 +360,7 @@
   <string name="share_via_link_expiration_date_label">กำหนดวันที่หมดอายุ</string>
   <string name="share_via_link_password_label">รหัสผ่านป้องกัน</string>
   <string name="share_via_link_password_title">ความปลอดภัย</string>
+  <string name="share_via_link_edit_permission_label">อนุญาตให้แก้ไข</string>
   <string name="share_get_public_link_button">รับลิงค์</string>
   <string name="share_search">ค้นหา</string>
   <string name="search_users_and_groups_hint">ค้นหาผู้ใช้และกลุ่ม</string>

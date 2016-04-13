@@ -82,20 +82,18 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         // but that's other story
         setFile(null);
 
-        // Navigation Drawer
-        initDrawer();
+        // setup toolbar
+        setupToolbar();
+
+        // setup drawer
+        setupDrawer(R.id.nav_uploads);
 
         // Add fragment with a transaction for setting a tag
         if(savedInstanceState == null) {
             createUploadListFragment();
         } // else, the Fragment Manager makes the job on configuration changes
 
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-        getSupportActionBar().setHomeButtonEnabled(true);
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(R.string.uploads_view_title);
-
+        getSupportActionBar().setTitle(getString(R.string.uploads_view_title));
     }
 
     private void createUploadListFragment(){
@@ -186,12 +184,11 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 (UploadListFragment) getSupportFragmentManager().findFragmentByTag(TAG_UPLOAD_LIST_FRAGMENT);
         switch (item.getItemId()) {
             case android.R.id.home:
-                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                if (isDrawerOpen()) {
+                    closeDrawer();
                 } else {
-                    mDrawerLayout.openDrawer(GravityCompat.START);
+                    openDrawer();
                 }
-                break;
             case R.id.action_retry_uploads:
                 FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
                 requester.retryFailedUploads(this, null, null);
@@ -340,8 +337,21 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         }
     }
 
-    @Override
     protected String getDefaultTitle() {
         return getString(R.string.uploads_view_title);
     }
+
+
+    /**
+     * Called when the ownCloud {@link Account} associated to the Activity was just updated.
+     */
+    @Override
+    protected void onAccountSet(boolean stateWasRecovered) {
+        super.onAccountSet(stateWasRecovered);
+        getSupportActionBar().setTitle(getString(R.string.uploads_view_title));
+        if (mAccountWasSet) {
+            setAccountInDrawer(getAccount());
+        }
+    }
+
 }

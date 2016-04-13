@@ -19,20 +19,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
     android:orientation="vertical" >
 
-    <ProgressBar android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:padding="0dp"
-        android:layout_margin="0dp"
-        style="@style/Widget.ownCloud.TopProgressBar"
-        android:indeterminate="false"
-        android:indeterminateOnly="false"
-        android:background="@color/background_color"
-        android:visibility="visible"
-        />
+    <include
+        layout="@layout/toolbar_standard" />
 
 	<FrameLayout 
 		android:layout_width="match_parent"

@@ -21,7 +21,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/search_layout"
-    android:minWidth="200dp">
+    android:minWidth="200dp"
+    android:layout_marginRight="@dimen/standard_margin"
+    android:layout_marginBottom="20dp">
 
     <TextView
         android:id="@+id/searchUserGroupsTitle"
@@ -36,15 +38,14 @@
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
         android:hint="@string/share_search"
-        style="@style/ownCloud.SearchView"
-        android:layout_marginRight="@dimen/standard_margin"/>
+        style="@style/ownCloud.SearchView"/>
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/searchUsersListView"
         android:scrollbars="vertical"
-        android:layout_marginLeft="4dp"
-        android:padding="@dimen/standard_padding"/>
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="@dimen/standard_half_margin"/>
 
 </LinearLayout>

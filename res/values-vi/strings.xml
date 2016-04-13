@@ -46,6 +46,10 @@
   <string name="uploader_info_uploading">Đang tải lên</string>
   <string name="file_list_seconds_ago">vài giây trước</string>
   <string name="file_list_empty">Không có gì ở đây .Hãy tải lên một cái gì đó !</string>
+  <string name="file_list_folder">folder</string>
+  <string name="file_list_folders">folders</string>
+  <string name="file_list_file">file</string>
+  <string name="file_list_files">file</string>
   <string name="filedetails_select_file">Tap vào một tập tin để hiển thị thêm thông tin</string>
   <string name="filedetails_size">Kích thước:</string>
   <string name="filedetails_type">Loại:</string>
@@ -71,6 +75,11 @@
   <string name="uploader_upload_succeeded_ticker">Tải lên thành công</string>
   <string name="uploader_upload_failed_ticker">Tải lên thất bại</string>
   <string name="uploader_upload_failed_content_single">Tải lên %1$s không thể hoàn thành</string>
+  <string name="uploads_view_group_current_uploads">Hiện tại</string>
+  <string name="uploads_view_group_finished_uploads">Đã tải lên</string>
+  <string name="uploads_view_upload_status_succeeded">Hoàn thành</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Lỗi quyền truy cập</string>
+  <string name="uploads_view_upload_status_unknown_fail">Lỗi chưa biết</string>
   <string name="downloader_download_in_progress_ticker">Đang tải về ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Đang tải về %2$s</string>
   <string name="downloader_download_succeeded_ticker">Tải về thành công</string>

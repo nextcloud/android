@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Impostazioni</string>
+  <string name="drawer_item_uploads_list">Caricamenti</string>
   <string name="drawer_item_logs">Registri</string>
   <string name="drawer_close">Chiudi</string>
   <string name="drawer_open">Apri</string>
@@ -73,6 +74,11 @@
   <string name="file_list_loading">Caricamento in corso...</string>
   <string name="file_list_no_app_for_file_type">Nessuna applicazione trovata per il tipo di file!</string>
   <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
+  <string name="upload_list_empty">Nessun caricamento disponibile.</string>
+  <string name="file_list_folder">cartella</string>
+  <string name="file_list_folders">cartelle</string>
+  <string name="file_list_file">file</string>
+  <string name="file_list_files">file</string>
   <string name="filedetails_select_file">Tocca un file per visualizzare informazioni aggiuntive.</string>
   <string name="filedetails_size">Dimensione:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -86,6 +92,8 @@
   <string name="common_yes">Sì</string>
   <string name="common_no">No</string>
   <string name="common_ok">OK</string>
+  <string name="common_remove_upload">Rimuovi caricamento</string>
+  <string name="common_retry_upload">Riprova caricamento</string>
   <string name="common_cancel_sync">Annulla sincronizzazione</string>
   <string name="common_cancel">Annulla</string>
   <string name="common_save_exit">Salva ed esci</string>
@@ -105,6 +113,25 @@
   <string name="uploader_upload_failed_ticker">Caricamento non riuscito</string>
   <string name="uploader_upload_failed_content_single">Il caricamento di %1$s non può essere completato</string>
   <string name="uploader_upload_failed_credentials_error">Caricamento non riuscito, devi effettuare nuovamente l\'accesso</string>
+  <string name="uploads_view_title">Caricamenti</string>
+  <string name="uploads_view_group_current_uploads">Attuale</string>
+  <string name="uploads_view_group_failed_uploads">Non riuscito (tocca per riprovare)</string>
+  <string name="uploads_view_group_finished_uploads">Caricati</string>
+  <string name="uploads_view_upload_status_succeeded">Completati</string>
+  <string name="uploads_view_upload_status_cancelled">Annullati</string>
+  <string name="uploads_view_upload_status_paused">Sospesi</string>
+  <string name="uploads_view_upload_status_failed_connection_error">Errore di connessione</string>
+  <string name="uploads_view_upload_status_failed_retry">Il caricamento sarà ritentato a breve</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Errore di credenziali</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Errore di cartella</string>
+  <string name="uploads_view_upload_status_failed_file_error">Errore di file</string>
+  <string name="uploads_view_upload_status_failed_localfile_error">File locale non trovato</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Errore di permessi</string>
+  <string name="uploads_view_upload_status_conflict">Conflitto</string>
+  <string name="uploads_view_upload_status_service_interrupted">L\'applicazione è stata terminata</string>
+  <string name="uploads_view_upload_status_unknown_fail">Errore sconosciuto</string>
+  <string name="uploads_view_upload_status_waiting_for_wifi">In attesa della connettività wifi</string>
+  <string name="uploads_view_later_waiting_to_upload">In attesa di caricamento</string>
   <string name="downloader_download_in_progress_ticker">Scaricamento in corso...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Scaricamento di %2$s</string>
   <string name="downloader_download_succeeded_ticker">Scaricamento effettuato</string>
@@ -212,6 +239,7 @@
   <string name="filename_forbidden_charaters_from_server">Il nome del file contiene almeno un carattere non valido</string>
   <string name="filename_empty">Il nome del file non può essere vuoto</string>
   <string name="wait_a_moment">Attendi</string>
+  <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
   <string name="filedisplay_unexpected_bad_get_content">Problema inatteso; prova un\'altra applicazione per selezionare il file</string>
   <string name="filedisplay_no_file_selected">Non è stato selezionato alcun file</string>
   <string name="activity_chooser_title">Invia collegamento a...</string>
@@ -341,6 +369,7 @@
   <string name="pref_behaviour_entries_keep_file">lasciato nella cartella originale</string>
   <string name="pref_behaviour_entries_move">spostato nella cartella dell\'applicazione</string>
   <string name="share_dialog_title">Condivisione</string>
+  <string name="share_file">Condividi %1$s</string>
   <string name="share_with_user_section_title">Condividi con utenti e gruppi</string>
   <string name="share_no_users">Ancora nessun dato condiviso con gli utenti </string>
   <string name="share_add_user_or_group">Aggiungi utente o gruppo</string>
@@ -348,7 +377,10 @@
   <string name="share_via_link_expiration_date_label">Imposta data di scadenza</string>
   <string name="share_via_link_password_label">Proteggi con password</string>
   <string name="share_via_link_password_title">Protetto</string>
+  <string name="share_via_link_edit_permission_label">Consenti la modifica</string>
   <string name="share_get_public_link_button">Ottieni collegamento</string>
+  <string name="share_with_title">Condividi con...</string>
+  <string name="share_with_edit_title">Condividi con %1$s</string>
   <string name="share_search">Cerca</string>
   <string name="search_users_and_groups_hint">Cerca utenti e gruppi</string>
   <string name="share_group_clarification">%1$s (gruppo)</string>
@@ -363,6 +395,10 @@
   <string name="share_privilege_can_edit_delete">elimina</string>
   <string name="edit_share_unshare">Interrompi la condivisione</string>
   <string name="edit_share_done">completato</string>
+  <string name="action_retry_uploads">Nuovo tentativo non riuscito</string>
+  <string name="action_clear_failed_uploads">Cancella non riusciti</string>
+  <string name="action_clear_successful_uploads">Cancella corretti</string>
+  <string name="action_clear_finished_uploads">Cancella tutti i completati</string>
   <string name="action_switch_grid_view">Vista Griglia</string>
   <string name="action_switch_list_view">Vista Elenco</string>
   <string name="manage_space_title">Gestisci lo spazio</string>
@@ -370,4 +406,5 @@
   <string name="manage_space_clear_data">Cancella i dati</string>
   <string name="manage_space_error">Alcuni file non possono essere eliminati.</string>
   <string name="permission_storage_access">Permessi aggiuntivi sono richiesti per caricare e scaricare i file.</string>
+  <string name="local_file_not_found_toast">Questo file non è stato trovato localmente</string>
 </resources>

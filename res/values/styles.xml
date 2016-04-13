@@ -36,7 +36,7 @@
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
-	<style name="Theme.ownCloud.noActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+	<style name="Theme.ownCloud.Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="colorPrimary">@color/primary</item>
@@ -46,10 +46,15 @@
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 		<item name="android:windowBackground">@color/background_color</item>
+		<item name="android:listDivider">@color/transparent</item>
     </style>
 
-	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar">
-		<item name="colorAccent">@color/white</item>
+	<!-- separate style for Drawer activities needed for v21+ theming -->
+	<style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar">
+	</style>
+
+	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.Toolbar">
+
 	</style>
 
 	<style name="ownCloud.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
@@ -78,7 +83,6 @@
 		<!-- Layout for query suggestion rows // unused for now, staying with the standard layout -->
 		<!--<item name="suggestionRowLayout">...</item>-->
 	</style>
-
 
 	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
 		<item name="colorButtonNormal">@color/primary</item>
@@ -160,6 +164,10 @@
 	<style name="menu_labels_style">
 		<item name="android:background">@drawable/fab_label_background</item>
 		<item name="android:textColor">@color/fab_white</item>
+	</style>
+
+	<style name="NavigationView_ItemTextAppearance">
+		<item name="android:ellipsize">end</item>
 	</style>
 
 	<!-- Button Bar hack due to Lollipop bug:

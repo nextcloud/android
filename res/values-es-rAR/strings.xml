@@ -61,6 +61,10 @@
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">No hay nada. ¡Subí contenido!</string>
   <string name="local_file_list_empty">No existen archivos en esta carpeta.</string>
+  <string name="file_list_folder">carpeta</string>
+  <string name="file_list_folders">carpetas</string>
+  <string name="file_list_file">archivo</string>
+  <string name="file_list_files">archivo</string>
   <string name="filedetails_select_file">Pulsá sobre un archivo para mostrar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -86,6 +90,9 @@
   <string name="uploader_upload_succeeded_ticker">Subido con éxito</string>
   <string name="uploader_upload_failed_ticker">Error al subir el archivo</string>
   <string name="uploader_upload_failed_content_single">No se pudo completar la subida de %1$s </string>
+  <string name="uploads_view_group_finished_uploads">Subido</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Error de permisos</string>
+  <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
   <string name="downloader_download_in_progress_ticker">Descargando ...</string>
   <string name="downloader_download_in_progress_content">%1$d%%  descargando %2$s</string>
   <string name="downloader_download_succeeded_ticker">Descarga completa</string>

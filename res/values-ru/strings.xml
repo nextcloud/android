@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Настройки</string>
+  <string name="drawer_item_uploads_list">Загрузки</string>
   <string name="drawer_item_logs">Журналы</string>
   <string name="drawer_close">Закрыть</string>
   <string name="drawer_open">Открыть</string>
@@ -74,6 +75,10 @@
   <string name="file_list_loading">Загрузка...</string>
   <string name="file_list_no_app_for_file_type">Приложение для этого типа файла не найдено!</string>
   <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
+  <string name="file_list_folder">каталог</string>
+  <string name="file_list_folders">каталоги</string>
+  <string name="file_list_file">файл</string>
+  <string name="file_list_files">файлы</string>
   <string name="filedetails_select_file">Нажмите на файл для отображения дополнительной информации.</string>
   <string name="filedetails_size">Размер:</string>
   <string name="filedetails_type">Тип:</string>
@@ -106,6 +111,16 @@
   <string name="uploader_upload_failed_ticker">Ошибка загрузки</string>
   <string name="uploader_upload_failed_content_single">Загрузка %1$s не может быть завершена</string>
   <string name="uploader_upload_failed_credentials_error">Загрузка не удалась, вам необходимо войти повторно.</string>
+  <string name="uploads_view_title">Загрузки</string>
+  <string name="uploads_view_group_current_uploads">Текущие</string>
+  <string name="uploads_view_group_finished_uploads">Загружено</string>
+  <string name="uploads_view_upload_status_succeeded">Завершённые</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Ошибка учетных данных</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Ошибка каталога</string>
+  <string name="uploads_view_upload_status_failed_file_error">Ошибка файла</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Ошибка доступа</string>
+  <string name="uploads_view_upload_status_unknown_fail">Неизвестная ошибка</string>
+  <string name="uploads_view_later_waiting_to_upload">Ожидается загрузка</string>
   <string name="downloader_download_in_progress_ticker">Скачивание ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Скачивается %2$s</string>
   <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
@@ -342,6 +357,7 @@
   <string name="pref_behaviour_entries_keep_file">остался в исходной папке</string>
   <string name="pref_behaviour_entries_move">перемещен в папку приложения</string>
   <string name="share_dialog_title">Общий доступ</string>
+  <string name="share_file">Поделиться %1$s</string>
   <string name="share_with_user_section_title">Поделиться с пользователями и группами</string>
   <string name="share_no_users">Нет данных используемых совместно с другими пользователями</string>
   <string name="share_add_user_or_group">Добавить пользователя или группу</string>
@@ -349,10 +365,15 @@
   <string name="share_via_link_expiration_date_label">Установить срок действия</string>
   <string name="share_via_link_password_label">Защитить паролем</string>
   <string name="share_via_link_password_title">Безопасный</string>
+  <string name="share_via_link_edit_permission_label">Разрешить редактирование</string>
   <string name="share_get_public_link_button">Получить ссылку</string>
+  <string name="share_with_title">Поделиться с …</string>
+  <string name="share_with_edit_title">Поделиться с %1$s</string>
   <string name="share_search">Найти</string>
   <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>
   <string name="share_group_clarification">%1$s (группа)</string>
+  <string name="share_remote_clarification">%1$s (в общем доступе)</string>
+  <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
   <string name="share_sharee_unavailable">Извините, версия вашего сервера не позволяет поделиться с пользователями через клиент. \nПожалуйста обратитесь к администратору</string>
   <string name="share_privilege_can_share">можно поделиться</string>
   <string name="share_privilege_can_edit">можно редактировать</string>

@@ -51,7 +51,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.PreferenceReader;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -67,7 +66,6 @@ import com.owncloud.android.notifications.NotificationDelayer;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
-import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.io.File;
@@ -96,7 +94,7 @@ import java.util.Vector;
  * However, Intent keys (e.g., KEY_WIFI_ONLY) are obeyed.
  */
 public class FileUploader extends Service
-        implements OnDatatransferProgressListener, OnAccountsUpdateListener {
+        implements OnDatatransferProgressListener, OnAccountsUpdateListener, UploadFileOperation.OnRenameListener {
 
     private static final String TAG = FileUploader.class.getSimpleName();
 
@@ -188,6 +186,12 @@ public class FileUploader extends Service
 
     public static String getUploadFinishMessage() {
         return FileUploader.class.getName() + UPLOAD_FINISH_MESSAGE;
+    }
+
+    @Override
+    public void onRenameUpload() {
+        mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
+        sendBroadcastUploadStarted(mCurrentUpload);
     }
 
 
@@ -499,6 +503,8 @@ public class FileUploader extends Service
                     newUpload.addDatatransferProgressListener(this);
                     newUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
 
+                    newUpload.addRenameUploadListener(this);
+
                     // Save upload in database
                     OCUpload ocUpload = new OCUpload(files[i], account);
                     ocUpload.setFileSize(files[i].getFileLength());
@@ -510,11 +516,6 @@ public class FileUploader extends Service
                     ocUpload.setWhileChargingOnly(isWhileChargingOnly);*/
                     ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
 
-                    // storagePath inside upload is the temporary path. file
-                    // contains the correct path used as db reference.
-                    long id = mUploadsStorageManager.storeUpload(ocUpload);
-                    newUpload.setOCUploadId(id);
-
                     Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                             account.name,
                             files[i].getRemotePath(),
@@ -523,10 +524,10 @@ public class FileUploader extends Service
                     if (putResult != null) {
                         uploadKey = putResult.first;
                         requestedUploads.add(uploadKey);
-                    } else {
-                        mUploadsStorageManager.removeUpload(account.name, files[i].getRemotePath());
+
+                        long id = mUploadsStorageManager.storeUpload(ocUpload);
+                        newUpload.setOCUploadId(id);
                     }
-                    // else, file already in the queue of uploads; don't repeat the request
                 }
 
             } catch (IllegalArgumentException e) {
@@ -561,6 +562,8 @@ public class FileUploader extends Service
 
             newUpload.addDatatransferProgressListener(this);
             newUpload.addDatatransferProgressListener((FileUploaderBinder) mBinder);
+
+            newUpload.addRenameUploadListener(this);
 
             Pair<String, String> putResult = mPendingUploads.putIfAbsent(
                     account.name,
@@ -652,6 +655,7 @@ public class FileUploader extends Service
          */
         public void cancel(OCUpload storedUpload) {
             cancel(storedUpload.getAccountName(), storedUpload.getRemotePath());
+
         }
 
         /**
@@ -674,14 +678,12 @@ public class FileUploader extends Service
             if (upload != null) {
                 boolean pending = !upload.isUploadInProgress();
                 upload.cancel();
-                if (pending) {
-                    // need to update now table in mUploadsStorageManager,
-                    // since the operation will not get to be run by FileUploader#uploadFile
-                    mUploadsStorageManager.removeUpload(
-                            accountName,
-                            remotePath
-                    );
-                }
+                // need to update now table in mUploadsStorageManager,
+                // since the operation will not get to be run by FileUploader#uploadFile
+                mUploadsStorageManager.removeUpload(
+                        accountName,
+                        remotePath
+                );
             }
         }
 
@@ -891,11 +893,6 @@ public class FileUploader extends Service
                 return;
             }
 
-            /// Check that connectivity conditions are met and delayes the upload otherwise
-            if (delayForWifi()) {
-                return;
-            }
-
             /// OK, let's upload
             mUploadsStorageManager.updateDatabaseUploadStart(mCurrentUpload);
 
@@ -959,40 +956,6 @@ public class FileUploader extends Service
 
 
     /**
-     * Checks origin of current upload and network type to decide if should be delayed, according to
-     * current user preferences.
-     *
-     * @return      'True' if the upload was delayed until WiFi connectivity is available, 'false' otherwise.
-     */
-    private boolean delayForWifi() {
-
-        boolean delayInstantPicture = (
-                mCurrentUpload.isInstantPicture() &&
-                        PreferenceReader.instantPictureUploadViaWiFiOnly(this)
-        );
-        boolean delayInstantVideo = (mCurrentUpload.isInstantVideo() &&
-                PreferenceReader.instantVideoUploadViaWiFiOnly(this)
-        );
-        if ((delayInstantPicture || delayInstantVideo) &&
-                !ConnectivityUtils.isAppConnectedViaWiFi(this)) {
-
-            Log_OC.d(TAG, "Upload delayed until WiFi is available: " + mCurrentUpload.getRemotePath());
-            mPendingUploads.removePayload(
-                    mCurrentUpload.getAccount().name,
-                    mCurrentUpload.getRemotePath()
-            );
-            mUploadsStorageManager.updateDatabaseUploadResult(
-                    new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI),
-                    mCurrentUpload
-            );
-
-            return true;
-        }
-        return false;
-    }
-
-
-    /**
      * Creates a status notification to show the upload progress
      *
      * @param upload Upload operation starting.
@@ -1009,8 +972,8 @@ public class FileUploader extends Service
                 .setContentTitle(getString(R.string.uploader_upload_in_progress_ticker))
                 .setProgress(100, 0, false)
                 .setContentText(
-                        String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName
-                                ()));
+                        String.format(getString(R.string.uploader_upload_in_progress_content), 0, upload.getFileName())
+                );
 
         /// includes a pending intent in the notification showing the details
         Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
@@ -1018,7 +981,7 @@ public class FileUploader extends Service
         showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
         showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
-                showUploadListIntent, 0));
+            showUploadListIntent, 0));
 
         mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
 

@@ -42,6 +42,7 @@
   <string name="common_error_unknown">يوچۇن خاتالىق</string>
   <string name="change_password">ئىم ئۆزگەرت</string>
   <string name="uploader_info_dirname">قىسقۇچ ئاتى</string>
+  <string name="uploads_view_upload_status_unknown_fail">يوچۇن خاتالىق</string>
   <string name="common_choose_account">ھېسابات تاللاڭ</string>
   <string name="favorite">يىغقۇچ</string>
   <string name="common_rename">ئات ئۆزگەرت</string>

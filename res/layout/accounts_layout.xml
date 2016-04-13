@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
+<!-- 
   ownCloud Android client application
 
-  Copyright (C) 2015 ownCloud Inc.
+  Copyright (C) 2016 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -15,13 +15,23 @@
 
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
-<RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/drawer_radiobutton"
-    android:layout_width="fill_parent"
-    android:layout_height="56dp"
-    android:gravity="center_vertical"
-    android:paddingLeft="@dimen/standard_padding"
-    android:paddingRight="@dimen/standard_padding"
-    android:textColor="@color/black"
-    android:textSize="18dp" />
+ -->
+<LinearLayout
+	android:id="@+id/upload_files_layout"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
+
+	<include
+		layout="@layout/toolbar_standard"/>
+
+	<ListView
+		android:id="@+id/account_list"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:divider="@color/list_divider_background"
+		android:dividerHeight="1dip">
+	</ListView>
+
+</LinearLayout>
