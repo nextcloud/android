@@ -303,6 +303,24 @@ public class Preferences extends PreferenceActivity
 
         }
 
+        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled);
+        Preference pLogger =  findPreference("logger");
+        if (pLogger != null){
+            if (loggerEnabled) {
+                pLogger.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent loggerIntent = new Intent(getApplicationContext(), LogHistoryActivity.class);
+                        startActivity(loggerIntent);
+
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategory.removePreference(pLogger);
+            }
+        }
+
         boolean imprintEnabled = getResources().getBoolean(R.bool.imprint_enabled);
         Preference pImprint =  findPreference("imprint");
         if (pImprint != null) {

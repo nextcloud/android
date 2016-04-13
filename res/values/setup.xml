@@ -58,6 +58,7 @@
     <bool name="imprint_enabled">false</bool> 
     <bool name="recommend_enabled">true</bool>
     <bool name="feedback_enabled">true</bool>
+    <bool name="logger_enabled">true</bool>
     <string name="url_help">http://owncloud.com/mobile/help</string>
     <string name="beta_link">https://github.com/owncloud/android/raw/beta/apks/owncloud-beta-</string>
     <string name="url_imprint"></string>
