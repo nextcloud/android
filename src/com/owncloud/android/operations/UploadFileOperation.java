@@ -27,7 +27,7 @@ import android.net.Uri;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.PreferenceReader;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -70,41 +70,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class UploadFileOperation extends SyncOperation {
 
-
-    private static final String MIME_TYPE_PDF = "application/pdf";
-    private static final String FILE_EXTENSION_PDF = ".pdf";
-
     public static final int CREATED_BY_USER = 0;
     public static final int CREATED_AS_INSTANT_PICTURE = 1;
     public static final int CREATED_AS_INSTANT_VIDEO = 2;
-
-
-    /**
-     * Checks if content provider, using the content:// scheme, returns a file with mime-type
-     * 'application/pdf' but file has not extension
-     * @param localPath         Full path to a file in the local file system.
-     * @param mimeType          MIME type of the file.
-     * @return true if is needed to add the pdf file extension to the file
-     *
-     * TODO - move to OCFile or Utils class
-     */
-    private static boolean isPdfFileFromContentProviderWithoutExtension(String localPath,
-                                                                        String mimeType) {
-        return localPath.startsWith(UriUtils.URI_CONTENT_SCHEME) &&
-                mimeType.equals(MIME_TYPE_PDF) &&
-                !localPath.endsWith(FILE_EXTENSION_PDF);
-    }
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
 
         // MIME type
         if (mimeType == null || mimeType.length() <= 0) {
             mimeType = MimetypeIconUtil.getBestMimeTypeByFilename(localPath);
-        }
-
-        // TODO - this is a horrible special case that should not be handled this way
-        if (isPdfFileFromContentProviderWithoutExtension(localPath, mimeType)){
-            remotePath += FILE_EXTENSION_PDF;
         }
 
         OCFile newFile = new OCFile(remotePath);
@@ -126,8 +100,6 @@ public class UploadFileOperation extends SyncOperation {
         return newFile;
     }
 
-
-
     private static final String TAG = UploadFileOperation.class.getSimpleName();
 
     private Account mAccount;
@@ -148,7 +120,6 @@ public class UploadFileOperation extends SyncOperation {
     private int mCreatedBy = CREATED_BY_USER;
 
     private boolean mWasRenamed = false;
-    private String mOriginalFileName = null;
     private long mOCUploadId = -1;
     /**
      * Local path to file which is to be uploaded (before any possible renaming or moving).
@@ -165,35 +136,6 @@ public class UploadFileOperation extends SyncOperation {
     private UploadRemoteFileOperation mUploadOperation;
 
     protected RequestEntity mEntity = null;
-
-    public UploadFileOperation(Account account,
-                               OCFile file,
-                               boolean chunked,
-                               boolean forceOverwrite,
-                               int localBehaviour,
-                               Context context
-    ) {
-        if (account == null)
-            throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
-                    "creation");
-        if (file == null)
-            throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
-        if (file.getStoragePath() == null || file.getStoragePath().length() <= 0) {
-            throw new IllegalArgumentException(
-                    "Illegal file in UploadFileOperation; storage path invalid: "
-                            + file.getStoragePath());
-        }
-
-        mAccount = account;
-        mFile = file;
-        mRemotePath = file.getRemotePath();
-        mChunked = chunked;
-        mForceOverwrite = forceOverwrite;
-        mLocalBehaviour = localBehaviour;
-        mOriginalStoragePath = mFile.getStoragePath();
-        mOriginalFileName = mFile.getFileName();
-        mContext = context;
-    }
 
     public UploadFileOperation(Account account,
                                OCUpload upload,
@@ -215,16 +157,15 @@ public class UploadFileOperation extends SyncOperation {
 
         mAccount = account;
         mFile = obtainNewOCFileToUpload(
-                upload.getRemotePath(),
-                upload.getLocalPath(),
-                upload.getMimeType()
+            upload.getRemotePath(),
+            upload.getLocalPath(),
+            upload.getMimeType()
         );
         mRemotePath = upload.getRemotePath();
         mChunked = chunked;
         mForceOverwrite = forceOverwrite;
         mLocalBehaviour = localBehaviour;
         mOriginalStoragePath = mFile.getStoragePath();
-        mOriginalFileName = mFile.getFileName();
         mContext = context;
         mOCUploadId = upload.getUploadId();
         mCreatedBy = upload.getCreadtedBy();
@@ -236,7 +177,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     public String getFileName() {
-        return mOriginalFileName;
+        return (mFile != null) ? mFile.getFileName() : null;
     }
 
     public OCFile getFile() {
@@ -503,10 +444,10 @@ public class UploadFileOperation extends SyncOperation {
      */
     private boolean delayForWifi() {
         boolean delayInstantPicture = (
-            isInstantPicture() &&  PreferenceReader.instantPictureUploadViaWiFiOnly(mContext)
+            isInstantPicture() &&  PreferenceManager.instantPictureUploadViaWiFiOnly(mContext)
         );
         boolean delayInstantVideo = (
-            isInstantVideo() && PreferenceReader.instantVideoUploadViaWiFiOnly(mContext)
+            isInstantVideo() && PreferenceManager.instantVideoUploadViaWiFiOnly(mContext)
         );
         return (
             (delayInstantPicture || delayInstantVideo) &&

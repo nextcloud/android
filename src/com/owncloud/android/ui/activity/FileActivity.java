@@ -1074,7 +1074,7 @@ public class FileActivity extends AppCompatActivity
     @Override
     public void onFailedSavingCertificate() {
         ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
-            R.string.ssl_validator_not_saved, new String[]{}, R.string.common_ok, -1, -1
+            R.string.ssl_validator_not_saved, new String[]{}, 0, R.string.common_ok, -1, -1
         );
         dialog.show(getSupportFragmentManager(), DIALOG_CERT_NOT_SAVED);
     }
