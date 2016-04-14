@@ -461,8 +461,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 .getDefaultSharedPreferences(this);
 
         // Read sorting order, default to sort by name ascending
-        FileStorageUtils.mSortOrder = sharedPreferences.getInt("sortOrder", 0);
-        FileStorageUtils.mSortAscending = sharedPreferences.getBoolean("sortAscending", true);
+        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(this);
+        FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(this);
 
         files = FileStorageUtils.sortFolder(files);
         return files;
