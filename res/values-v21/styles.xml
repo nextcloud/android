@@ -27,7 +27,6 @@
         <item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
         <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
         <item name="searchViewStyle">@style/ownCloud.SearchView</item>
-        <item name="android:listDivider">@color/transparent</item>
     </style>
 
     <style name="Theme.ownCloud.Toolbar.Drawer">
