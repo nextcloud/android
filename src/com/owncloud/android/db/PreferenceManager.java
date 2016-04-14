@@ -41,31 +41,19 @@ public abstract class PreferenceManager {
     private static final String PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI = "instant_video_upload_on_wifi";
 
     public static boolean instantPictureUploadEnabled(Context context) {
-        return android.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-                PREF__INSTANT_UPLOADING,
-                false
-        );
+        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOADING, false);
     }
 
     public static boolean instantVideoUploadEnabled(Context context) {
-        return android.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-                PREF__INSTANT_VIDEO_UPLOADING,
-                false
-        );
+        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_VIDEO_UPLOADING, false);
     }
 
     public static boolean instantPictureUploadViaWiFiOnly(Context context) {
-        return android.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-                PREF__INSTANT_UPLOAD_ON_WIFI,
-                false
-        );
+        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOAD_ON_WIFI, false);
     }
 
     public static boolean instantVideoUploadViaWiFiOnly(Context context) {
-        return android.preference.PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-                PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI,
-                false
-        );
+        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI, false);
     }
 
     /**
@@ -76,9 +64,7 @@ public abstract class PreferenceManager {
      * or empty String if never saved before.
      */
     public static String getLastUploadPath(Context context) {
-        SharedPreferences appPreferences = android.preference.PreferenceManager
-                .getDefaultSharedPreferences(context.getApplicationContext());
-        return appPreferences.getString(AUTO_PREF__LAST_UPLOAD_PATH, "");
+        return getDefaultSharedPreferences(context).getString(AUTO_PREF__LAST_UPLOAD_PATH, "");
     }
 
     /**
@@ -88,10 +74,7 @@ public abstract class PreferenceManager {
      * @param context Caller {@link Context}, used to access to shared preferences manager.
      */
     public static void setLastUploadPath(String path, Context context) {
-        SharedPreferences.Editor appPrefs = android.preference.PreferenceManager
-                .getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPrefs.putString(AUTO_PREF__LAST_UPLOAD_PATH, path);
-        appPrefs.apply();
+        saveStringPreference(AUTO_PREF__LAST_UPLOAD_PATH, path, context);
     }
 
     /**
@@ -101,9 +84,7 @@ public abstract class PreferenceManager {
      * @return sort order     the sort order, default is {@link FileStorageUtils#SORT_NAME} (sort by name)
      */
     public static int getSortOrder(Context context) {
-        SharedPreferences appPreferences = android.preference.PreferenceManager
-                .getDefaultSharedPreferences(context.getApplicationContext());
-        return appPreferences.getInt(AUTO_PREF__SORT_ORDER, FileStorageUtils.SORT_NAME);
+        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__SORT_ORDER, FileStorageUtils.SORT_NAME);
     }
 
     /**
@@ -113,10 +94,7 @@ public abstract class PreferenceManager {
      * @param context Caller {@link Context}, used to access to shared preferences manager.
      */
     public static void setSortOrder(int order, Context context) {
-        SharedPreferences.Editor appPreferences = android.preference.PreferenceManager
-                .getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putInt(AUTO_PREF__SORT_ORDER, order);
-        appPreferences.apply();
+        saveIntPreference(AUTO_PREF__SORT_ORDER, order, context);
     }
 
     /**
@@ -126,9 +104,7 @@ public abstract class PreferenceManager {
      * @return ascending order     the ascending order, default is true
      */
     public static boolean getSortAscending(Context context) {
-        SharedPreferences appPreferences = android.preference.PreferenceManager
-                .getDefaultSharedPreferences(context.getApplicationContext());
-        return appPreferences.getBoolean(AUTO_PREF__SORT_ASCENDING, true);
+        return getDefaultSharedPreferences(context).getBoolean(AUTO_PREF__SORT_ASCENDING, true);
     }
 
     /**
@@ -138,9 +114,28 @@ public abstract class PreferenceManager {
      * @param context   Caller {@link Context}, used to access to shared preferences manager.
      */
     public static void setSortAscending(boolean ascending, Context context) {
-        SharedPreferences.Editor appPreferences = android.preference.PreferenceManager
-                .getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putBoolean(AUTO_PREF__SORT_ASCENDING, true);
+        saveBooleanPreference(AUTO_PREF__SORT_ASCENDING, ascending, context);
+    }
+
+    public static void saveBooleanPreference(String key, boolean value, Context context) {
+        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
+        appPreferences.putBoolean(key, value);
         appPreferences.apply();
+    }
+
+    public static void saveStringPreference(String key, String value, Context context) {
+        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
+        appPreferences.putString(key, value);
+        appPreferences.apply();
+    }
+
+    public static void saveIntPreference(String key, int value, Context context) {
+        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
+        appPreferences.putInt(key, value);
+        appPreferences.apply();
+    }
+
+    private static SharedPreferences getDefaultSharedPreferences(Context context) {
+        return android.preference.PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
     }
 }
