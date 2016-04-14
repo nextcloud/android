@@ -166,8 +166,8 @@ public class SamlWebViewDialog extends DialogFragment {
         
         // add the webview into the layout
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                RelativeLayout.LayoutParams.WRAP_CONTENT, 
-                RelativeLayout.LayoutParams.WRAP_CONTENT
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT
                 );
         ssoRootView.addView(mSsoWebView, layoutParams);
         ssoRootView.requestLayout();
