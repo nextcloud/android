@@ -27,7 +27,7 @@ import android.net.Uri;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.PreferenceReader;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -157,9 +157,9 @@ public class UploadFileOperation extends SyncOperation {
 
         mAccount = account;
         mFile = obtainNewOCFileToUpload(
-                upload.getRemotePath(),
-                upload.getLocalPath(),
-                upload.getMimeType()
+            upload.getRemotePath(),
+            upload.getLocalPath(),
+            upload.getMimeType()
         );
         mRemotePath = upload.getRemotePath();
         mChunked = chunked;
@@ -444,10 +444,10 @@ public class UploadFileOperation extends SyncOperation {
      */
     private boolean delayForWifi() {
         boolean delayInstantPicture = (
-            isInstantPicture() &&  PreferenceReader.instantPictureUploadViaWiFiOnly(mContext)
+            isInstantPicture() &&  PreferenceManager.instantPictureUploadViaWiFiOnly(mContext)
         );
         boolean delayInstantVideo = (
-            isInstantVideo() && PreferenceReader.instantVideoUploadViaWiFiOnly(mContext)
+            isInstantVideo() && PreferenceManager.instantVideoUploadViaWiFiOnly(mContext)
         );
         return (
             (delayInstantPicture || delayInstantVideo) &&

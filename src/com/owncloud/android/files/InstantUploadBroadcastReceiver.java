@@ -28,13 +28,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
 import android.support.v4.content.ContextCompat;
 
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.db.PreferenceReader;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -87,7 +86,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         Log_OC.i(TAG, "New photo received");
 
-        if (!PreferenceReader.instantPictureUploadEnabled(context)) {
+        if (!PreferenceManager.instantPictureUploadEnabled(context)) {
             Log_OC.d(TAG, "Instant picture upload disabled, ignoring new picture");
             return;
         }
@@ -144,7 +143,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     }
 
     private Integer getUploadBehaviour(Context context) {
-        SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences appPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
         String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
 
         if (behaviour.equalsIgnoreCase("NOTHING")) {
@@ -165,7 +164,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         Log_OC.i(TAG, "New video received");
 
-        if (!PreferenceReader.instantVideoUploadEnabled(context)) {
+        if (!PreferenceManager.instantVideoUploadEnabled(context)) {
             Log_OC.d(TAG, "Instant video upload disabled, ignoring new video");
             return;
         }

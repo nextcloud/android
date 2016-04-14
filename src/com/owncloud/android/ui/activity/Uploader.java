@@ -3,6 +3,8 @@
  *
  *  @author Bartek Przybylski
  *  @author masensio
+ *  @author Juan Carlos González Cabrero
+ *  @author David A. Velasco
  *  Copyright (C) 2012  Bartek Przybylski
  *  Copyright (C) 2016 ownCloud Inc.
  *
@@ -34,12 +36,10 @@ import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -60,6 +60,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -534,11 +535,7 @@ public class Uploader extends FileActivity
 
         } finally {
             // Save the path to shared preferences; even if upload is not possible, user chose the folder
-            SharedPreferences.Editor appPrefs = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext()).edit();
-            appPrefs.putString("last_upload_path", mUploadPath);
-            appPrefs.apply();
-
+            PreferenceManager.setLastUploadPath(mUploadPath, this);
         }
     }
 
@@ -644,15 +641,12 @@ public class Uploader extends FileActivity
                     "initializing mStorageManager");
         }
 
-        SharedPreferences appPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-
-        String last_path = appPreferences.getString("last_upload_path", "");
+        String lastPath = PreferenceManager.getLastUploadPath(this);
         // "/" equals root-directory
-        if (last_path.equals("/")) {
+        if (lastPath.equals("/")) {
             mParents.add("");
         } else {
-            String[] dir_names = last_path.split("/");
+            String[] dir_names = lastPath.split("/");
             mParents.clear();
             for (String dir : dir_names)
                 mParents.add(dir);
@@ -900,16 +894,7 @@ public class Uploader extends FileActivity
         }
 
         /**
-         * Set the callback to null so we don't accidentally leak the
-         * Activity instance.
-         */
-        @Override
-        public void onDetach() {
-            super.onDetach();
-        }
-
-        /**
-         * Sets the task to retain accross configuration changes
+         * Sets the task to retain across configuration changes
          *
          * @param task  Task to retain
          */
