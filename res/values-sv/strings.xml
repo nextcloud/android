@@ -366,8 +366,8 @@
   <string name="prefs_instant_behaviour_title">Originalfilen kommer att...</string>
   <string name="upload_copy_files">Kopiera fil</string>
   <string name="upload_move_files">Flytta fil</string>
-  <string name="pref_behaviour_entries_keep_file">behållen i orginalmapp</string>
-  <string name="pref_behaviour_entries_move">flyttad till app-mapp</string>
+  <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
+  <string name="pref_behaviour_entries_move">flyttas till ownCloudmapp</string>
   <string name="share_dialog_title">Dela</string>
   <string name="share_file">Dela %1$s</string>
   <string name="share_with_user_section_title">Dela med användare och grupper</string>

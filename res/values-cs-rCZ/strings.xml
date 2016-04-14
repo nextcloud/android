@@ -115,11 +115,16 @@
   <string name="uploads_view_group_current_uploads">Aktuální</string>
   <string name="uploads_view_group_finished_uploads">Odesláno</string>
   <string name="uploads_view_upload_status_succeeded">Dokončeno</string>
+  <string name="uploads_view_upload_status_failed_connection_error">Chyba připojení</string>
   <string name="uploads_view_upload_status_failed_credentials_error">Chyba přihlašovacích údajů</string>
   <string name="uploads_view_upload_status_failed_folder_error">Chyba adresáře</string>
   <string name="uploads_view_upload_status_failed_file_error">Chyba souboru</string>
+  <string name="uploads_view_upload_status_failed_localfile_error">Místní soubor nenalezen</string>
   <string name="uploads_view_upload_status_failed_permission_error">Chyba oprávnění</string>
+  <string name="uploads_view_upload_status_conflict">Konflikt</string>
+  <string name="uploads_view_upload_status_service_interrupted">Aplikace byla ukončena</string>
   <string name="uploads_view_upload_status_unknown_fail">Neznámá chyba</string>
+  <string name="uploads_view_upload_status_waiting_for_wifi">Čekání na wifi připojení</string>
   <string name="uploads_view_later_waiting_to_upload">Čekání na nahrávání</string>
   <string name="downloader_download_in_progress_ticker">Stahuji ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Stahuji %2$s</string>

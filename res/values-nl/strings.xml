@@ -79,7 +79,7 @@ Download hier: %2$s</string>
   <string name="file_list_folder">map</string>
   <string name="file_list_folders">mappen</string>
   <string name="file_list_file">bestand</string>
-  <string name="file_list_files">bestand</string>
+  <string name="file_list_files">bestanden</string>
   <string name="filedetails_select_file">Druk op een bestand om extra informatie weer te geven</string>
   <string name="filedetails_size">Grootte:</string>
   <string name="filedetails_type">Type:</string>
@@ -399,6 +399,9 @@ Neem contact op met uw beheerder</string>
   <string name="edit_share_unshare">Stop met delen</string>
   <string name="edit_share_done">gedaan</string>
   <string name="action_retry_uploads">Opnieuw proberen mislukt</string>
+  <string name="action_clear_failed_uploads">Leegmaken mislukt</string>
+  <string name="action_clear_successful_uploads">Leegmaken gelukt</string>
+  <string name="action_clear_finished_uploads">Alles leegmaken beëindigd</string>
   <string name="action_switch_grid_view">Raster indeling</string>
   <string name="action_switch_list_view">Lijst indeling</string>
   <string name="manage_space_title">Beheer ruimte</string>
@@ -406,4 +409,5 @@ Neem contact op met uw beheerder</string>
   <string name="manage_space_clear_data">Verwijder data</string>
   <string name="manage_space_error">Sommige bestanden konden niet worden verwijderd</string>
   <string name="permission_storage_access">Aanvullende permssies vereist voor het uploaden en downloaden van bestanden.</string>
+  <string name="local_file_not_found_toast">Het bestand was lokaal niet gevonden</string>
 </resources>
