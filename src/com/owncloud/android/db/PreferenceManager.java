@@ -72,7 +72,7 @@ public abstract class PreferenceManager {
      * Gets the path where the user selected to do the last upload of a file shared from other app.
      *
      * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return path     iAbsolute path to a folder, as previously stored by {@link #setLastUploadPath(String, Context)},
+     * @return path     Absolute path to a folder, as previously stored by {@link #setLastUploadPath(String, Context)},
      * or empty String if never saved before.
      */
     public static String getLastUploadPath(Context context) {
@@ -135,7 +135,7 @@ public abstract class PreferenceManager {
      * Saves the ascending order flag which the user has set last.
      *
      * @param ascending flag if sorting is ascending or descending
-     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @param context   Caller {@link Context}, used to access to shared preferences manager.
      */
     public static void setSortAscending(boolean ascending, Context context) {
         SharedPreferences.Editor appPreferences = android.preference.PreferenceManager
