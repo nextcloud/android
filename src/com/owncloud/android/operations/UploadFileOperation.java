@@ -379,16 +379,15 @@ public class UploadFileOperation extends SyncOperation {
                     mFile.setStoragePath("");
                 } else {
                     mFile.setStoragePath(expectedPath);
-                    File fileToMove;
+
                     if (temporalFile != null) {         // FileUploader.LOCAL_BEHAVIOUR_COPY
-                        fileToMove = temporalFile;
+                        move(temporalFile, expectedFile);
                     } else {                            // FileUploader.LOCAL_BEHAVIOUR_MOVE
-                        fileToMove = originalFile;
+                        move(originalFile, expectedFile);
+                        getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                     }
-                    move(fileToMove, expectedFile);
+                    FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
                 }
-                FileDataStorageManager.triggerMediaScan(originalFile.getAbsolutePath());
-                FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
 
             } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
