@@ -23,7 +23,6 @@
   <string name="uploader_wrn_no_account_title">ගිණුමක් හමු නොවුණි</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ස්ථාපනය</string>
   <string name="uploader_wrn_no_account_quit_btn_text">නික්මෙන්න</string>
-  <string name="uploader_info_uploading">උඩුගතවේ</string>
   <string name="file_list_seconds_ago">තත්පරයන්ට පෙර</string>
   <string name="file_list_empty">මෙහි කිසිවක් නොමැත. යමක් උඩුගත කරන්න</string>
   <string name="file_list_folder">ෆෝල්ඩරය</string>

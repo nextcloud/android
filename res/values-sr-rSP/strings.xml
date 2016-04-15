@@ -21,9 +21,7 @@
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Fajlovi</string>
   <string name="uploader_btn_upload_text">Pošalji</string>
-  <string name="uploader_btn_new_folder_text">Novi direktorijum</string>
   <string name="uploader_wrn_no_account_title">Nalog nije nađen</string>
-  <string name="uploader_info_uploading">Šalje se</string>
   <string name="file_list_seconds_ago">Pre par sekundi</string>
   <string name="file_list_empty">Ovde nema ničeg. Pošaljite nešto!</string>
   <string name="filedetails_size">Veličina:</string>

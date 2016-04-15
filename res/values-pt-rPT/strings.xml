@@ -59,16 +59,11 @@
   <string name="sync_string_files">Ficheiros</string>
   <string name="setup_btn_connect">Ligar</string>
   <string name="uploader_btn_upload_text">Carregar</string>
-  <string name="uploader_btn_new_folder_text">Nova Pasta</string>
   <string name="uploader_top_message">Escolha a pasta de carregamento:</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
   <string name="uploader_wrn_no_account_text">Não existem as contas %1$s no seu equipamento. Por favor, configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
-  <string name="uploader_wrn_no_content_title">Sem conteúdo para carregar</string>
-  <string name="uploader_wrn_no_content_text">Não foi recebido nenhum conteúdo. Nada para carregar.</string>
-  <string name="uploader_error_forbidden_content">%1$s não está autorizado a aceder ao conteúdo partilhado.</string>
-  <string name="uploader_info_uploading">A carregar</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Aqui não existe nada. Carregue alguma coisa!</string>
   <string name="file_list_loading">A carregar...</string>
@@ -401,5 +396,4 @@
   <string name="manage_space_clear_data">Limpar dados</string>
   <string name="manage_space_error">Alguns ficheiros não podem ser apagados.</string>
   <string name="permission_storage_access">São necessárias permissões adicionais para carregar &amp; descarregar ficheiros.</string>
-  <string name="local_file_not_found_toast">O ficheiro não foi encontrado localmente</string>
 </resources>

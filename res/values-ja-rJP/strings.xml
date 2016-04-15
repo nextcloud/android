@@ -60,16 +60,11 @@
   <string name="sync_string_files">ファイル</string>
   <string name="setup_btn_connect">接続</string>
   <string name="uploader_btn_upload_text">アップロード</string>
-  <string name="uploader_btn_new_folder_text">新しいフォルダー</string>
   <string name="uploader_top_message">アップロードするフォルダーを選択:</string>
   <string name="uploader_wrn_no_account_title">アカウントが見つかりません</string>
   <string name="uploader_wrn_no_account_text">端末に %1$s のアカウントがありません。まずアカウントを登録してください。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
   <string name="uploader_wrn_no_account_quit_btn_text">終了</string>
-  <string name="uploader_wrn_no_content_title">アップロードするコンテンツはありません</string>
-  <string name="uploader_wrn_no_content_text">コンテンツを受信しませんでした。アップロードするものはありません。</string>
-  <string name="uploader_error_forbidden_content">%1$sで共有コンテンツへのアクセスが許可されていません。</string>
-  <string name="uploader_info_uploading">アップロード中</string>
   <string name="file_list_seconds_ago">数秒前</string>
   <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
   <string name="file_list_loading">読込中...</string>

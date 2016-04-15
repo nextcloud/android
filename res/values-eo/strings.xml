@@ -45,15 +45,10 @@
   <string name="sync_string_files">Dosieroj</string>
   <string name="setup_btn_connect">Konekti</string>
   <string name="uploader_btn_upload_text">Alŝuti</string>
-  <string name="uploader_btn_new_folder_text">Nova dosierujo</string>
   <string name="uploader_top_message">Elektu alŝutan dosierujon:</string>
   <string name="uploader_wrn_no_account_title">Neniu konto troviĝis</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Agordi</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Forlasi</string>
-  <string name="uploader_wrn_no_content_title">Neniu enhavo alŝutota</string>
-  <string name="uploader_wrn_no_content_text">Neniu enhavo riceviĝis. Nenio alŝutota.</string>
-  <string name="uploader_error_forbidden_content">$1%s ne estas permesata aliri la kunhavigitan enhavon</string>
-  <string name="uploader_info_uploading">Alŝutante</string>
   <string name="file_list_seconds_ago">sekundoj antaŭe</string>
   <string name="file_list_empty">Nenio estas ĉi tie. Alŝutu ion!</string>
   <string name="file_list_loading">Ŝargante...</string>

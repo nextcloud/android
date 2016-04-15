@@ -59,16 +59,11 @@
   <string name="sync_string_files">Dosyalar</string>
   <string name="setup_btn_connect">Bağlan</string>
   <string name="uploader_btn_upload_text">Yükle</string>
-  <string name="uploader_btn_new_folder_text">Yeni klasör</string>
   <string name="uploader_top_message">Yükleme klasörünü seçin:</string>
   <string name="uploader_wrn_no_account_title">Hesap bulunamadı</string>
   <string name="uploader_wrn_no_account_text">Cihazınızda hiç %1$s hesabı yok. Lütfen ilk olarak bir hesap ayarlayın.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Çıkış</string>
-  <string name="uploader_wrn_no_content_title">Yüklenecek içerik yok</string>
-  <string name="uploader_wrn_no_content_text">Hiç içerik alınmadı. Yüklenecek hiçbir şey yok.</string>
-  <string name="uploader_error_forbidden_content">%1$s için paylaşılan içeriğe erişim izni yok</string>
-  <string name="uploader_info_uploading">Yükleniyor</string>
   <string name="file_list_seconds_ago">saniyeler önce</string>
   <string name="file_list_empty">Burada hiçbir şey yok. Bir şeyler yükleyin!</string>
   <string name="file_list_loading">Yükleniyor...</string>
@@ -406,5 +401,4 @@
   <string name="manage_space_clear_data">Verileri temizle</string>
   <string name="manage_space_error">Bazı dosyalar silinemedi</string>
   <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izin gerekiyor.</string>
-  <string name="local_file_not_found_toast">Dosya yerelde bulunamadı</string>
 </resources>

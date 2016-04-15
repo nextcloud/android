@@ -37,13 +37,9 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Kopla til</string>
   <string name="uploader_btn_upload_text">Last opp</string>
-  <string name="uploader_btn_new_folder_text">Ny mappe</string>
   <string name="uploader_wrn_no_account_title">Fann ingen konto</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Avslutt</string>
-  <string name="uploader_wrn_no_content_title">Inga innhald å lasta opp</string>
-  <string name="uploader_wrn_no_content_text">Mottok ikkje noko innhald. Ingenting å lasta opp.</string>
-  <string name="uploader_info_uploading">Lastar opp</string>
   <string name="file_list_seconds_ago">sekund sidan</string>
   <string name="file_list_empty">Ingenting her. Last noko opp!</string>
   <string name="filedetails_select_file">Trykk på ei fil for å visa meir informasjon.</string>

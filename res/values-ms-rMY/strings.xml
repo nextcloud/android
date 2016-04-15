@@ -30,7 +30,6 @@
   <string name="uploader_btn_upload_text">Muat naik</string>
   <string name="uploader_wrn_no_account_title">Tiada akaun dijumpai</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Berhenti</string>
-  <string name="uploader_info_uploading">Memuatnaik</string>
   <string name="file_list_empty">Tiada apa-apa di sini. Muat naik sesuatu!</string>
   <string name="file_list_folder">direktori</string>
   <string name="file_list_folders">direktori</string>

@@ -48,15 +48,10 @@
   <string name="sync_string_files">Fitxers</string>
   <string name="setup_btn_connect">Connecta</string>
   <string name="uploader_btn_upload_text">Puja</string>
-  <string name="uploader_btn_new_folder_text">Carpeta nova</string>
   <string name="uploader_top_message">Seleccioneu la carpeta de pujada:</string>
   <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configura</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Surt</string>
-  <string name="uploader_wrn_no_content_title">No hi ha continguts per pujar</string>
-  <string name="uploader_wrn_no_content_text">No s\'ha rebut cap contingut. Res per pujar</string>
-  <string name="uploader_error_forbidden_content">%1$s no pot accedir al contingut compartit</string>
-  <string name="uploader_info_uploading">S\'està pujant</string>
   <string name="file_list_seconds_ago">segons enrere</string>
   <string name="file_list_empty">Res per aquí. Pugeu alguna cosa!</string>
   <string name="local_file_list_empty">No hi ha arxius a aquesta carpeta</string>

@@ -59,16 +59,11 @@
   <string name="sync_string_files">文件</string>
   <string name="setup_btn_connect">连接</string>
   <string name="uploader_btn_upload_text">上传</string>
-  <string name="uploader_btn_new_folder_text">新建文件夹</string>
   <string name="uploader_top_message">选择上传文件夹：</string>
   <string name="uploader_wrn_no_account_title">未找到账号</string>
   <string name="uploader_wrn_no_account_text">设备上无 %1$s 账号，需要先创建一个账号。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">设置</string>
   <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
-  <string name="uploader_wrn_no_content_title">没有需要上传的内容</string>
-  <string name="uploader_wrn_no_content_text">没有接收到内容，没有需要上传的内容。</string>
-  <string name="uploader_error_forbidden_content">%1$s未被允许访问共享内容。</string>
-  <string name="uploader_info_uploading">上传</string>
   <string name="file_list_seconds_ago">几秒前</string>
   <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
   <string name="file_list_loading">加载中...</string>
@@ -399,5 +394,4 @@
   <string name="manage_space_clear_data">清除数据</string>
   <string name="manage_space_error">某些文件无法删除。</string>
   <string name="permission_storage_access">没有权限上传和下载文件。</string>
-  <string name="local_file_not_found_toast">文件在本地wu\'fa\'zhao\'d</string>
 </resources>

@@ -59,16 +59,11 @@
   <string name="sync_string_files">Files</string>
   <string name="setup_btn_connect">Connect</string>
   <string name="uploader_btn_upload_text">Upload</string>
-  <string name="uploader_btn_new_folder_text">New folder</string>
   <string name="uploader_top_message">Choose upload folder:</string>
   <string name="uploader_wrn_no_account_title">No account found</string>
   <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
-  <string name="uploader_wrn_no_content_title">No content to upload</string>
-  <string name="uploader_wrn_no_content_text">No content was received. Nothing to upload.</string>
-  <string name="uploader_error_forbidden_content">%1$s is not allowed to access the shared content</string>
-  <string name="uploader_info_uploading">Uploading</string>
   <string name="file_list_seconds_ago">seconds ago</string>
   <string name="file_list_empty">Nothing in here. Upload something!</string>
   <string name="file_list_loading">Loading…</string>

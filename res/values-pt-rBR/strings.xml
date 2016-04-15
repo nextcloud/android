@@ -59,16 +59,11 @@
   <string name="sync_string_files">Arquivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
-  <string name="uploader_btn_new_folder_text">Nova pasta</string>
   <string name="uploader_top_message">Escolher pasta para enviar:</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
   <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu aparelho. Por favor configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
-  <string name="uploader_wrn_no_content_title">Nenhum conteúdo para enviar</string>
-  <string name="uploader_wrn_no_content_text">Nenhum conteúdo foi recebido. Nada para enviar.</string>
-  <string name="uploader_error_forbidden_content">%1$s não é permitido acessar o conteúdo compartilhado</string>
-  <string name="uploader_info_uploading">Enviando</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
   <string name="file_list_loading">Carregando...</string>
@@ -406,5 +401,4 @@
   <string name="manage_space_clear_data">Limpar dados</string>
   <string name="manage_space_error">Alguns arquivos não puderam ser excluído.</string>
   <string name="permission_storage_access">Permissões adicionais são necessárias para se enviar e baixar arquivos &amp; .</string>
-  <string name="local_file_not_found_toast">O arquivo não foi encontrado localmente</string>
 </resources>

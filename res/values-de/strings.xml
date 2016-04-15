@@ -59,16 +59,11 @@
   <string name="sync_string_files">Dateien</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Hochladen</string>
-  <string name="uploader_btn_new_folder_text">Neuer Ordner</string>
   <string name="uploader_top_message">Wähle Zielordner:</string>
   <string name="uploader_wrn_no_account_title">Kein Account gefunden</string>
   <string name="uploader_wrn_no_account_text">Es sind keine %1$s Konten auf deinem Gerät eingerichtet. Bitte erstelle zuerst ein Konto.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Beenden</string>
-  <string name="uploader_wrn_no_content_title">Keine Inhalte zum Hochladen vorhanden</string>
-  <string name="uploader_wrn_no_content_text">Es wurden keine Inhalte empfangen. Es gibt nichts zum Hochladen.</string>
-  <string name="uploader_error_forbidden_content">%1$s darf den freigegebenen Inhalt nicht nutzen.</string>
-  <string name="uploader_info_uploading">Lade hoch</string>
   <string name="file_list_seconds_ago">Gerade eben</string>
   <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
   <string name="file_list_loading">Lade…</string>
@@ -406,5 +401,4 @@
   <string name="manage_space_clear_data">Daten löschen</string>
   <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden.</string>
   <string name="permission_storage_access">Du hast nicht die erforderlichen Rechte, um Dateien hoch- und herunterzuladen.</string>
-  <string name="local_file_not_found_toast">Die Datei wurde lokal nicht gefunden</string>
 </resources>

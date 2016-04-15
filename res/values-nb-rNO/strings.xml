@@ -59,16 +59,11 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Koble til</string>
   <string name="uploader_btn_upload_text">Last opp</string>
-  <string name="uploader_btn_new_folder_text">Ny mappe</string>
   <string name="uploader_top_message">Velg opplastingsmappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
   <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s-kontoer på enheten din. Sett opp en konto først.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Avslutt</string>
-  <string name="uploader_wrn_no_content_title">Intet innhold å laste opp</string>
-  <string name="uploader_wrn_no_content_text">Intet innhold ble mottatt. Intet å laste opp.</string>
-  <string name="uploader_error_forbidden_content">%1$s har ikke tilgang til det delte innholdet</string>
-  <string name="uploader_info_uploading">Laster opp</string>
   <string name="file_list_seconds_ago">for få sekunder siden</string>
   <string name="file_list_empty">Ingenting her. Last opp noe!</string>
   <string name="file_list_loading">Laster...</string>
@@ -406,5 +401,4 @@
   <string name="manage_space_clear_data">Nullstill data</string>
   <string name="manage_space_error">Noen filer kunne ikke fjernes.</string>
   <string name="permission_storage_access">Flere tillatelser trengs for å laste opp &amp; ned filer.</string>
-  <string name="local_file_not_found_toast">Filen ble ikke funnet lokalt</string>
 </resources>

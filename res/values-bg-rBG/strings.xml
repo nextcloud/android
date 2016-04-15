@@ -52,15 +52,10 @@
   <string name="sync_string_files">Файлове</string>
   <string name="setup_btn_connect">Свързване</string>
   <string name="uploader_btn_upload_text">Качване</string>
-  <string name="uploader_btn_new_folder_text">Нова папка</string>
   <string name="uploader_top_message">Избери папка за качване:</string>
   <string name="uploader_wrn_no_account_title">Няма открит профил</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Изход</string>
-  <string name="uploader_wrn_no_content_title">Няма съдържание за качване</string>
-  <string name="uploader_wrn_no_content_text">Не беше получено съдържание. Няма какво да се качи.</string>
-  <string name="uploader_error_forbidden_content">%1$s няма разрешен достъп до споделеното съдържание.</string>
-  <string name="uploader_info_uploading">Качване</string>
   <string name="file_list_seconds_ago">преди секунди</string>
   <string name="file_list_empty">Тук няма нищо. Качете нещо!</string>
   <string name="file_list_loading">Зарежда…</string>

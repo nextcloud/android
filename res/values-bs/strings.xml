@@ -18,7 +18,6 @@
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Datoteke</string>
   <string name="uploader_btn_upload_text">Učitaj</string>
-  <string name="uploader_btn_new_folder_text">Novi direktorij</string>
   <string name="filedetails_download">Preuzmite</string>
   <string name="action_share">Dijeli</string>
   <string name="common_yes">Da</string>

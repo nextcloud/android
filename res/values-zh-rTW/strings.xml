@@ -59,16 +59,11 @@
   <string name="sync_string_files">檔案</string>
   <string name="setup_btn_connect">連線</string>
   <string name="uploader_btn_upload_text">上傳</string>
-  <string name="uploader_btn_new_folder_text">新資料夾</string>
   <string name="uploader_top_message">選取上傳目錄:</string>
   <string name="uploader_wrn_no_account_title">找不到帳號</string>
   <string name="uploader_wrn_no_account_text">無%1$s帳號，請先建立帳號。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
   <string name="uploader_wrn_no_account_quit_btn_text">離開</string>
-  <string name="uploader_wrn_no_content_title">沒有上載的內容</string>
-  <string name="uploader_wrn_no_content_text">沒接到任何內容。沒有什麼可上載。</string>
-  <string name="uploader_error_forbidden_content">%1$s 並沒有被允許存取分享的內容</string>
-  <string name="uploader_info_uploading">上傳中</string>
   <string name="file_list_seconds_ago">幾秒前</string>
   <string name="file_list_empty">這裡還沒有東西，上傳一些吧！</string>
   <string name="file_list_loading">載入中…</string>

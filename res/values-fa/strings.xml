@@ -45,15 +45,10 @@
   <string name="sync_string_files">پرونده‌ها</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">بارگزاری</string>
-  <string name="uploader_btn_new_folder_text">پوشه جدید</string>
   <string name="uploader_top_message">انتخاب پوشه آپلود:</string>
   <string name="uploader_wrn_no_account_title">هیچ حسابی یافت نشد</string>
   <string name="uploader_wrn_no_account_setup_btn_text">نصب</string>
   <string name="uploader_wrn_no_account_quit_btn_text">خروج</string>
-  <string name="uploader_wrn_no_content_title">هیچ مطلبی بارگزاری نشده‌ است</string>
-  <string name="uploader_wrn_no_content_text">هیچ مطلبی دریافت نشده است. هیچ‌‌چیزی بارگزاری نشده.</string>
-  <string name="uploader_error_forbidden_content">%1$s اجازه ی دسترسی به محتوای مشترک را نمی دهد</string>
-  <string name="uploader_info_uploading">در حال بارگزاری</string>
   <string name="file_list_seconds_ago">ثانیه‌ها پیش</string>
   <string name="file_list_empty">اینجا هیچ چیز نیست.</string>
   <string name="file_list_loading">بارگذاری ...</string>

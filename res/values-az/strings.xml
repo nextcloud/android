@@ -47,15 +47,10 @@
   <string name="sync_string_files">Fayllar</string>
   <string name="setup_btn_connect">Qoşul</string>
   <string name="uploader_btn_upload_text">Serverə yüklə</string>
-  <string name="uploader_btn_new_folder_text">Yeni qovluq</string>
   <string name="uploader_top_message">Yüklənmə qovluöunu seçin:</string>
   <string name="uploader_wrn_no_account_title">Hesab tapılmadı</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Qurulum</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Çıx</string>
-  <string name="uploader_wrn_no_content_title">Yükləmək üçün kontent yoxdur</string>
-  <string name="uploader_wrn_no_content_text">Heç bir kontent gəlmədi. Yukləmək üçün heçnə yoxdur.</string>
-  <string name="uploader_error_forbidden_content">%1$s yayımlanmış kontent üçün yetkili deyil</string>
-  <string name="uploader_info_uploading">Yüklənmə gedir</string>
   <string name="file_list_seconds_ago">saniyələr öncə</string>
   <string name="file_list_empty">Burda heçnə yoxdur. Nese yükləyin!</string>
   <string name="local_file_list_empty">Bu qovluqda heç bir fayl movcud deyil.</string>

@@ -44,14 +44,9 @@
   <string name="sync_string_files">Datnes</string>
   <string name="setup_btn_connect">Savienoties</string>
   <string name="uploader_btn_upload_text">Augšupielādēt</string>
-  <string name="uploader_btn_new_folder_text">Jauna mape</string>
   <string name="uploader_wrn_no_account_title">Nav atrastu kontu</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Iestatīt</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Iziet</string>
-  <string name="uploader_wrn_no_content_title">Nav satura, ko augšupielādēt</string>
-  <string name="uploader_wrn_no_content_text">Nav saņemts nekāds saturs. Nav ko augšupielādēt.</string>
-  <string name="uploader_error_forbidden_content">%1$s nedrīkst piekļūt koplietotajam saturam</string>
-  <string name="uploader_info_uploading">Augšupielādē</string>
   <string name="file_list_seconds_ago">sekundes atpakaļ</string>
   <string name="file_list_empty">Te vēl nekas nav. Rīkojies, sāc augšupielādēt!</string>
   <string name="file_list_loading">Ielādē…</string>

@@ -60,16 +60,11 @@ Download hier: %2$s</string>
   <string name="sync_string_files">Bestanden</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Uploaden</string>
-  <string name="uploader_btn_new_folder_text">Nieuwe map</string>
   <string name="uploader_top_message">Kies upload map:</string>
   <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
   <string name="uploader_wrn_no_account_text">Er zijn geen %1$s accounts op dit apparaat. Stel eerst een account in.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Afsluiten</string>
-  <string name="uploader_wrn_no_content_title">Geen inhoud om te uploaden</string>
-  <string name="uploader_wrn_no_content_text">Er werd geen inhoud ontvangen. Niets om te uploaden.</string>
-  <string name="uploader_error_forbidden_content">%1$s is niet toegestaan om toegang te hebben tot de publieke inhoud</string>
-  <string name="uploader_info_uploading">Uploaden</string>
   <string name="file_list_seconds_ago">seconden geleden</string>
   <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
   <string name="file_list_loading">Laden...</string>
@@ -409,5 +404,4 @@ Neem contact op met uw beheerder</string>
   <string name="manage_space_clear_data">Verwijder data</string>
   <string name="manage_space_error">Sommige bestanden konden niet worden verwijderd</string>
   <string name="permission_storage_access">Aanvullende permssies vereist voor het uploaden en downloaden van bestanden.</string>
-  <string name="local_file_not_found_toast">Het bestand was lokaal niet gevonden</string>
 </resources>

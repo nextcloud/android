@@ -21,7 +21,6 @@
   <string name="sync_string_files">Files</string>
   <string name="setup_btn_connect">Connecte</string>
   <string name="uploader_btn_upload_text">Incargar</string>
-  <string name="uploader_btn_new_folder_text">Nove dossier</string>
   <string name="uploader_wrn_no_account_title">Nulle contos trovate</string>
   <string name="file_list_seconds_ago">secundas passate</string>
   <string name="file_list_empty">Nihil hic. Incarga alcun cosa!</string>

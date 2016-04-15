@@ -59,16 +59,11 @@
   <string name="sync_string_files">Pliki</string>
   <string name="setup_btn_connect">Połącz</string>
   <string name="uploader_btn_upload_text">Wyślij</string>
-  <string name="uploader_btn_new_folder_text">Nowy folder</string>
   <string name="uploader_top_message">Wybierz folder do wysłania:</string>
   <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
   <string name="uploader_wrn_no_account_text">Brak kont %1$s na Twoim urządzeniu. Załóż konto.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Ustawienia</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Wyjdź</string>
-  <string name="uploader_wrn_no_content_title">Brak danych do wysłania</string>
-  <string name="uploader_wrn_no_content_text">Nie otrzymano danych. Nie ma nic do wysłania.</string>
-  <string name="uploader_error_forbidden_content">%1$s nie ma dostępu do udostępnionych treści</string>
-  <string name="uploader_info_uploading">Wysyłanie</string>
   <string name="file_list_seconds_ago">sekund temu</string>
   <string name="file_list_empty">Pusto. Wyślij coś!</string>
   <string name="file_list_loading">Wczytywanie...</string>

@@ -56,15 +56,10 @@
   <string name="sync_string_files">Файли</string>
   <string name="setup_btn_connect">З\'єднати</string>
   <string name="uploader_btn_upload_text">Відвантажити</string>
-  <string name="uploader_btn_new_folder_text">Нова тека</string>
   <string name="uploader_top_message">Оберіть теку для завантаження:</string>
   <string name="uploader_wrn_no_account_title">Не знайдено облікового запису</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Налаштування</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Вийти</string>
-  <string name="uploader_wrn_no_content_title">Відсутні дані для завантаження</string>
-  <string name="uploader_wrn_no_content_text">Не отримано даних. Нічого завантажувати.</string>
-  <string name="uploader_error_forbidden_content">%1$s не може отримати доступ до спільного контенту</string>
-  <string name="uploader_info_uploading">Завантаження</string>
   <string name="file_list_seconds_ago">секунди тому</string>
   <string name="file_list_empty">Тут нічого немає. Відвантажте що-небудь!</string>
   <string name="file_list_loading">Завантаження…</string>

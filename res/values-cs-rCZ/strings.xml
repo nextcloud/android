@@ -59,16 +59,11 @@
   <string name="sync_string_files">Soubory</string>
   <string name="setup_btn_connect">Připojit</string>
   <string name="uploader_btn_upload_text">Nahrát</string>
-  <string name="uploader_btn_new_folder_text">Nová složka</string>
   <string name="uploader_top_message">Vyberte adresář pro nahrání:</string>
   <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
   <string name="uploader_wrn_no_account_text">Na tomto přístroji nejsou žádné %1$s účty. Nejdříve prosím zadejte účet.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavení</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Ukončit</string>
-  <string name="uploader_wrn_no_content_title">Žádný obsah k odeslání</string>
-  <string name="uploader_wrn_no_content_text">Neobdržen žádný obsah. Nic k odeslání.</string>
-  <string name="uploader_error_forbidden_content">%1$s nemá právo přistupovat ke sdílenému obsahu</string>
-  <string name="uploader_info_uploading">Odesílání</string>
   <string name="file_list_seconds_ago">před pár sekundami</string>
   <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
   <string name="file_list_loading">Načítání...</string>
@@ -398,5 +393,4 @@ správce systému.</string>
   <string name="manage_space_clear_data">Vyčistit data</string>
   <string name="manage_space_error">Některé soubory nebylo možno smazat.</string>
   <string name="permission_storage_access">Vyžadována dodatečná oprávnění pro nahrávání &amp; stahování souborů.</string>
-  <string name="local_file_not_found_toast">Soubor nebyl v místním úložišti nalezen</string>
 </resources>

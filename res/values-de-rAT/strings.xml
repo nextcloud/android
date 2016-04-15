@@ -37,13 +37,8 @@
   <string name="sync_string_files">Dateien</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Hochladen</string>
-  <string name="uploader_btn_new_folder_text">Neuer Ordner</string>
   <string name="uploader_wrn_no_account_title">Kein Benutzerkonto gefunden</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Schließen</string>
-  <string name="uploader_wrn_no_content_title">Kein Inhalt zum hochladen</string>
-  <string name="uploader_wrn_no_content_text">Es wurde kein Inhalt empfangen. Nichts zum hochladen.</string>
-  <string name="uploader_error_forbidden_content">%1$s ist es nicht erlaubt auf den geiteilten Inhalt zuzugreifen</string>
-  <string name="uploader_info_uploading">Lade hoch</string>
   <string name="file_list_seconds_ago">Sekunden zuvor</string>
   <string name="file_list_empty">Es ist nichts hier. Lade etwas hoch!</string>
   <string name="local_file_list_empty">Es sind keine Dateien in diesem Ordner.</string>

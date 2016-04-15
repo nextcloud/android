@@ -25,15 +25,10 @@
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
-  <string name="uploader_btn_new_folder_text">Nuevo directorio</string>
   <string name="uploader_top_message">Elija el directorio donde subir los archivos:</string>
   <string name="uploader_wrn_no_account_title">No se encuentra la cuenta</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
-  <string name="uploader_wrn_no_content_title">ningun contenido para subir</string>
-  <string name="uploader_wrn_no_content_text">No se ha recibido ningún contenido. No hay nada para subir.</string>
-  <string name="uploader_error_forbidden_content">%1$s no esta autorizado para acceder al contenido compartido</string>
-  <string name="uploader_info_uploading">Subiendo</string>
   <string name="file_list_seconds_ago">segundos antes</string>
   <string name="filedetails_select_file">Seleccione un archivo para desplegar información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>

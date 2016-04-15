@@ -59,16 +59,11 @@
   <string name="sync_string_files">File</string>
   <string name="setup_btn_connect">Connetti</string>
   <string name="uploader_btn_upload_text">Carica</string>
-  <string name="uploader_btn_new_folder_text">Nuova cartella</string>
   <string name="uploader_top_message">Scegli la cartella da caricare:</string>
   <string name="uploader_wrn_no_account_title">Nessun account trovato</string>
   <string name="uploader_wrn_no_account_text">Non ci sono account %1$s sul tuo dispositivo. Configura prima un account.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurazione</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Esci</string>
-  <string name="uploader_wrn_no_content_title">Nessun contenuto da caricare</string>
-  <string name="uploader_wrn_no_content_text">Non è stato ricevuto alcun contenuto. Niente da caricare.</string>
-  <string name="uploader_error_forbidden_content">%1$s non è abilitato ad accedere al contenuto condiviso</string>
-  <string name="uploader_info_uploading">Caricamento in corso</string>
   <string name="file_list_seconds_ago">secondi fa</string>
   <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
   <string name="file_list_loading">Caricamento in corso...</string>
@@ -406,5 +401,4 @@
   <string name="manage_space_clear_data">Cancella i dati</string>
   <string name="manage_space_error">Alcuni file non possono essere eliminati.</string>
   <string name="permission_storage_access">Permessi aggiuntivi sono richiesti per caricare e scaricare i file.</string>
-  <string name="local_file_not_found_toast">Questo file non è stato trovato localmente</string>
 </resources>

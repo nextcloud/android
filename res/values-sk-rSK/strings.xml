@@ -54,15 +54,10 @@
   <string name="sync_string_files">Súbory</string>
   <string name="setup_btn_connect">Pripojiť</string>
   <string name="uploader_btn_upload_text">Nahrať</string>
-  <string name="uploader_btn_new_folder_text">Nový priečinok</string>
   <string name="uploader_top_message">Vyberte priečinok pre nahrávanie:</string>
   <string name="uploader_wrn_no_account_title">Účet sa nenašiel</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavenie</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Koniec</string>
-  <string name="uploader_wrn_no_content_title">Žiadny obsah pre odoslanie</string>
-  <string name="uploader_wrn_no_content_text">Nedodaný žiaden obsah. Nič na odoslanie.</string>
-  <string name="uploader_error_forbidden_content">%1$s nemá práva pre prístup k zdieľanému obsahu</string>
-  <string name="uploader_info_uploading">Nahrávanie</string>
   <string name="file_list_seconds_ago">pred sekundami</string>
   <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
   <string name="file_list_loading">Načítavam...</string>

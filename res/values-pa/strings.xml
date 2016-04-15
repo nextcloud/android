@@ -26,9 +26,6 @@
   <string name="uploader_wrn_no_account_title">ਕੋਈ ਅਕਾਊਂਟ ਨਹੀਂ ਲੱਭਾ</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ਸੈਟਅੱਪ</string>
   <string name="uploader_wrn_no_account_quit_btn_text">ਬਾਹਰ</string>
-  <string name="uploader_wrn_no_content_title">ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਕੋਈ ਸਮੱਗਰੀ ਨਹੀਂ</string>
-  <string name="uploader_wrn_no_content_text">ਕੋਈ ਸਮੱਗਰੀ ਨਹੀਂ ਮਿਲੀ। ਅੱਪਲੋਡ ਕਰਨ ਲਈ ਕੁਝ ਨਹੀਂ ਹੈ।</string>
-  <string name="uploader_info_uploading">ਅੱਪਲੋਡ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ</string>
   <string name="file_list_seconds_ago">ਸਕਿੰਟ ਪਹਿਲਾਂ</string>
   <string name="filedetails_select_file">ਹੋਰ ਜਾਣਕਾਰੀ ਵੇਖਣ ਲਈ ਫਾਇਲ ਉੱਤੇ ਛੂਹੋ</string>
   <string name="filedetails_size">ਆਕਾਰ:</string>

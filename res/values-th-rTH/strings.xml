@@ -59,16 +59,11 @@
   <string name="sync_string_files">ไฟล์</string>
   <string name="setup_btn_connect">เชื่อมต่อ</string>
   <string name="uploader_btn_upload_text">อัพโหลด</string>
-  <string name="uploader_btn_new_folder_text">โฟลเดอร์ใหม่</string>
   <string name="uploader_top_message">เลือกโฟลเดอร์ที่ต้องการอัพโหลด:</string>
   <string name="uploader_wrn_no_account_title">ไม่พบบัญชีที่ต้องการ</string>
   <string name="uploader_wrn_no_account_text">ไม่มีบัญชีผู้ใช้ %1$s ในอุปกรณ์ของคุณ กรุณาตั้งค่าบัญชีผู้ใช้ก่อน</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ตั้งค่า</string>
   <string name="uploader_wrn_no_account_quit_btn_text">ออก</string>
-  <string name="uploader_wrn_no_content_title">ยังไม่มีเนื้อหาที่ถูกอัพโหลด</string>
-  <string name="uploader_wrn_no_content_text">ยังไม่ได้รับเนื้อหา ยังไม่มีการอัพโหลดใดๆ</string>
-  <string name="uploader_error_forbidden_content">%1$s ไม่ได้รับอนุญาตให้เข้าถึงเนื้อหาที่ถูกแชร์ไว้</string>
-  <string name="uploader_info_uploading">กำลังอัพโหลด</string>
   <string name="file_list_seconds_ago">วินาที ก่อนหน้านี้</string>
   <string name="file_list_empty">ยังไม่มีไฟล์ใดๆเลย ลองอัพโหลดดูสิ!</string>
   <string name="file_list_loading">กำลังโหลด...</string>

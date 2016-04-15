@@ -57,15 +57,10 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Tilslut</string>
   <string name="uploader_btn_upload_text">Upload</string>
-  <string name="uploader_btn_new_folder_text">Ny mappe</string>
   <string name="uploader_top_message">Vælg upload-mappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto fundet</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Opsætning</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Afslut</string>
-  <string name="uploader_wrn_no_content_title">Intet indhold at uploade</string>
-  <string name="uploader_wrn_no_content_text">Intet indhold blev modtaget. Intet at uploade.</string>
-  <string name="uploader_error_forbidden_content">%1$s er ikke tilladt adgang til delt indhold</string>
-  <string name="uploader_info_uploading">Uploader</string>
   <string name="file_list_seconds_ago">sekunder siden</string>
   <string name="file_list_empty">Her er tomt. Upload noget!</string>
   <string name="file_list_loading">Indlæser...</string>

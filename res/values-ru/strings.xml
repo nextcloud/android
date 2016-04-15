@@ -60,16 +60,11 @@
   <string name="sync_string_files">Файлы</string>
   <string name="setup_btn_connect">Подключиться</string>
   <string name="uploader_btn_upload_text">Загрузить</string>
-  <string name="uploader_btn_new_folder_text">Новый каталог</string>
   <string name="uploader_top_message">Выберите каталог для загрузки</string>
   <string name="uploader_wrn_no_account_title">Учётная запись не найдена</string>
   <string name="uploader_wrn_no_account_text">На вашем устройстве нет аккаунтов %1$s. Пожалуйста выполните настройку аккаунта.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Выход</string>
-  <string name="uploader_wrn_no_content_title">Нет содержимого для загрузки</string>
-  <string name="uploader_wrn_no_content_text">Содержимое не получено. Нечего загружать.</string>
-  <string name="uploader_error_forbidden_content">Доступ к общему ресурсу для %1$s запрещен</string>
-  <string name="uploader_info_uploading">Загрузка</string>
   <string name="file_list_seconds_ago">несколько секунд назад</string>
   <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
   <string name="file_list_loading">Загрузка...</string>

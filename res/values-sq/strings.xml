@@ -59,16 +59,11 @@
   <string name="sync_string_files">Kartela</string>
   <string name="setup_btn_connect">Lidhuni</string>
   <string name="uploader_btn_upload_text">Ngarkoni</string>
-  <string name="uploader_btn_new_folder_text">Dosje e re</string>
   <string name="uploader_top_message">Zgjidhni dosje ngarkimi:</string>
   <string name="uploader_wrn_no_account_title">S\’u gjet llogari</string>
   <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Rregullim</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Dilni</string>
-  <string name="uploader_wrn_no_content_title">Pa lëndë për ngarkim</string>
-  <string name="uploader_wrn_no_content_text">S\’u mor lëndë. Asgjë për t\’u ngarkuar.</string>
-  <string name="uploader_error_forbidden_content">%1$s nuk i lejohet të hyjë në lëndë të përbashkët</string>
-  <string name="uploader_info_uploading">Ngarkim</string>
   <string name="file_list_seconds_ago">sekonda më parë</string>
   <string name="file_list_empty">Këtu nuk ka gjë. Ngarkoni diçka!</string>
   <string name="file_list_loading">Po ngarkohet…</string>
@@ -403,5 +398,4 @@
   <string name="manage_space_clear_data">Pastroji të dhënat</string>
   <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
   <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>
-  <string name="local_file_not_found_toast">Kartela s’u gjet lokalisht</string>
 </resources>

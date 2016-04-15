@@ -55,15 +55,10 @@ Descárgueo de aquí: %2$s</string>
   <string name="sync_string_files">Ficheiros</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
-  <string name="uploader_btn_new_folder_text">Novo cartafol</string>
   <string name="uploader_top_message">Escolla o cartafol de envío:</string>
   <string name="uploader_wrn_no_account_title">Non se atoparon contas</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalación</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Saír</string>
-  <string name="uploader_wrn_no_content_title">Non hai contido para enviar</string>
-  <string name="uploader_wrn_no_content_text">Non se recibiu contido. Non hai nada para enviar.</string>
-  <string name="uploader_error_forbidden_content">%1$s non ten permiso para acceder ao contido compartido</string>
-  <string name="uploader_info_uploading">Enviando</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Aquí non hai nada. Envíe algo!</string>
   <string name="file_list_loading">Cargando...</string>

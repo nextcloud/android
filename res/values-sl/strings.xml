@@ -59,16 +59,11 @@
   <string name="sync_string_files">Datoteke</string>
   <string name="setup_btn_connect">Poveži</string>
   <string name="uploader_btn_upload_text">Pošlji</string>
-  <string name="uploader_btn_new_folder_text">Nova mapa</string>
   <string name="uploader_top_message">Izbor mape za pošiljanje:</string>
   <string name="uploader_wrn_no_account_title">Uporabniškega računa ni mogoče najti</string>
   <string name="uploader_wrn_no_account_text">Za %1$s ni določenega računa. Pred nadaljevanjem ga je treba ustvariti.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavi</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Končaj</string>
-  <string name="uploader_wrn_no_content_title">Ni vsebine za pošiljanje</string>
-  <string name="uploader_wrn_no_content_text">Ni prejete vsebine. Ni datotek za pošiljanje.</string>
-  <string name="uploader_error_forbidden_content">Oblak %1$s nima nastavljenih dovoljenj za dostop do vsebine v souporabi</string>
-  <string name="uploader_info_uploading">Pošiljanje</string>
   <string name="file_list_seconds_ago">pred nekaj sekundami</string>
   <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
   <string name="file_list_loading">Poteka nalaganje ...</string>
@@ -406,5 +401,4 @@
   <string name="manage_space_clear_data">Počisti podatke</string>
   <string name="manage_space_error">Nekaterih datotek ni mogoče izbrisati.</string>
   <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
-  <string name="local_file_not_found_toast">Datoteke krajevno ni mogoče najti </string>
 </resources>

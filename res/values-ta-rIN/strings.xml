@@ -27,7 +27,6 @@
   <string name="prefs_log_summary_history">இது பதிவுசெய்யப்பட்ட பதிகைகள் காட்டுகிறது</string>
   <string name="sync_string_files">கோப்புகள்</string>
   <string name="uploader_btn_upload_text">பதிவேற்று</string>
-  <string name="uploader_btn_new_folder_text">புதிய கோப்புறை</string>
   <string name="ssl_validator_btn_details_see">விவரங்கள்</string>
   <string name="activity_chooser_send_file_title">அனுப்பவும்</string>
   <string name="empty"></string>

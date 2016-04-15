@@ -59,15 +59,10 @@
   <string name="sync_string_files">Failid</string>
   <string name="setup_btn_connect">Ühenda</string>
   <string name="uploader_btn_upload_text">Lae üles</string>
-  <string name="uploader_btn_new_folder_text">Uus kaust</string>
   <string name="uploader_top_message">Vali kataloog serveris: </string>
   <string name="uploader_wrn_no_account_title">Kontot ei leitud</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Seadista</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Lõpeta</string>
-  <string name="uploader_wrn_no_content_title">Pole sisu, mida üles laadida</string>
-  <string name="uploader_wrn_no_content_text">Sisu ei saadud. Pole midagi üles laadida.</string>
-  <string name="uploader_error_forbidden_content">%1$sile pole lubatud ligipääs jagatud sisule</string>
-  <string name="uploader_info_uploading">Üleslaadimine</string>
   <string name="file_list_seconds_ago">sekundit tagasi</string>
   <string name="file_list_empty">Siin pole midagi. Lae midagi üles!</string>
   <string name="file_list_loading">Laadimine...</string>
@@ -367,5 +362,4 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
   <string name="manage_space_title">Ruumi haldamine</string>
   <string name="manage_space_clear_data">Tühjenda andmed</string>
   <string name="manage_space_error">Mõningate failide kustutamine ebaõnnestus.</string>
-  <string name="local_file_not_found_toast">Seadmest ei leitud faili</string>
 </resources>
