@@ -43,14 +43,15 @@
   <string name="sync_string_files">Fichieren</string>
   <string name="setup_btn_connect">Verbannen</string>
   <string name="uploader_btn_upload_text">Eroplueden</string>
-  <string name="uploader_btn_new_folder_text">Neien Dossier</string>
   <string name="uploader_wrn_no_account_title">Keen Account fonnt</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Erausgoen</string>
-  <string name="uploader_wrn_no_content_text">Et gouf kee Contenu emfaangen. Näischt do fir eropzelueden.</string>
-  <string name="uploader_info_uploading">Eroplueden</string>
   <string name="file_list_seconds_ago">Sekonnen hier</string>
   <string name="file_list_empty">Hei ass näischt. Lued eppes erop!</string>
+  <string name="file_list_folder">Dossier</string>
+  <string name="file_list_folders">Dossieren</string>
+  <string name="file_list_file">Fichier</string>
+  <string name="file_list_files">Fichieren</string>
   <string name="filedetails_size">Gréisst:</string>
   <string name="filedetails_type">Typ:</string>
   <string name="filedetails_created">Erstallt:</string>
@@ -71,6 +72,7 @@
   <string name="uploader_upload_succeeded_ticker">Eroplueden ofgeschloss</string>
   <string name="uploader_upload_failed_ticker">Eropluede feelgeschloen</string>
   <string name="uploader_upload_failed_content_single">Eropluede vun %1$s konnt net ofgeschloss ginn</string>
+  <string name="uploads_view_upload_status_unknown_fail">Onbekannte Feeler</string>
   <string name="downloader_download_in_progress_ticker">Lueden erof …</string>
   <string name="downloader_download_succeeded_ticker">Eroflueden ofgeschloss</string>
   <string name="downloader_download_failed_ticker">Erofluede feelgeschloen</string>

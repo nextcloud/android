@@ -29,6 +29,8 @@
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+		<item name="android:windowBackground">@color/background_color</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
@@ -40,6 +42,8 @@
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+		<item name="android:windowBackground">@color/background_color</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
     </style>
 
 	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar">
@@ -49,10 +53,12 @@
 	<style name="ownCloud.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:textColorPrimary">@color/primary</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 	</style>
 
 	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog">
 		<item name="colorAccent">@color/color_accent</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 	</style>
 
 	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
@@ -61,6 +67,15 @@
 		<item name="android:windowFrame">@color/transparent</item>
 		<item name="android:windowBackground">@color/transparent</item>
 		<item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
+	</style>
+
+	<style name="ownCloud.SearchView" parent="Widget.AppCompat.SearchView">
+		<!-- Close button icon -->
+		<item name="closeIcon">@drawable/ic_close</item>
+		<!-- Search button icon -->
+		<item name="searchIcon">@drawable/ic_search</item>
+		<!-- Layout for query suggestion rows // unused for now, staying with the standard layout -->
+		<!--<item name="suggestionRowLayout">...</item>-->
 	</style>
 
 	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
@@ -128,6 +143,16 @@
 		<item name="colorAccent">@color/owncloud_blue_accent</item>
 		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
 		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
+	</style>
+
+	<style name="Theme.ownCloud.Dialog.NoTitle" parent="style/Theme.ownCloud.Dialog">
+		<item name="windowNoTitle">true</item>
+		<item name="colorAccent">@color/owncloud_blue_accent</item>
+	</style>
+
+	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="windowNoTitle">false</item>
+		<item name="colorAccent">@color/owncloud_blue_accent</item>
 	</style>
 
 	<style name="menu_labels_style">

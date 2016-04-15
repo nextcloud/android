@@ -25,10 +25,6 @@
   <string name="uploader_wrn_no_account_title">ஒரு கணக்கும் அறியப்படவில்லை</string>
   <string name="uploader_wrn_no_account_setup_btn_text">அமைப்பு</string>
   <string name="uploader_wrn_no_account_quit_btn_text">விலகுக</string>
-  <string name="uploader_wrn_no_content_title">பதிவேற்றுவதற்கு உள்ளடக்கங்கள் இல்லை</string>
-  <string name="uploader_wrn_no_content_text">ஒரு உள்ளடக்கமும் பெறப்படவில்லை. பதிவேற்றுவதற்கு ஒன்றும் இல்லை</string>
-  <string name="uploader_error_forbidden_content">பகிரப்பட்ட உள்ளடக்ககங்களை அணுகுவதற்கு %1$s  அனுமதிக்கமாட்டாது</string>
-  <string name="uploader_info_uploading">பதிவேற்றல்</string>
   <string name="file_list_seconds_ago">செக்கன்களுக்கு முன்</string>
   <string name="file_list_empty">இங்கு ஒன்றும் இல்லை. ஏதாவது பதிவேற்றுக!</string>
   <string name="filedetails_select_file">மேலதிக தகவல்களை காட்சிப்படுத்துவதற்கு கோப்பின் மேல் தட்டுக.</string>

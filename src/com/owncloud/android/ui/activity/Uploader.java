@@ -1,74 +1,51 @@
 /**
- *   ownCloud Android client application
+ *  ownCloud Android client application
  *
- *   @author Bartek Przybylski
- *   @author masensio
- *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *  @author Bartek Przybylski
+ *  @author masensio
+ *  @author Juan Carlos González Cabrero
+ *  @author David A. Velasco
+ *  Copyright (C) 2012  Bartek Przybylski
+ *  Copyright (C) 2016 ownCloud Inc.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License version 2,
+ *  as published by the Free Software Foundation.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
-import java.util.Vector;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountAuthenticator;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.RefreshFolderOperation;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
-import android.provider.MediaStore.Audio;
-import android.provider.MediaStore.Images;
-import android.provider.MediaStore.Video;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -76,19 +53,38 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountAuthenticator;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
+import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
-import com.owncloud.android.utils.CopyTmpFileAsyncTask;
+import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.UriUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
+import java.util.Vector;
 
 
 /**
@@ -96,14 +92,17 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
  */
 public class Uploader extends FileActivity
         implements OnItemClickListener, android.view.View.OnClickListener,
-        CopyTmpFileAsyncTask.OnCopyTmpFileTaskListener {
+    CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener {
 
     private static final String TAG = Uploader.class.getSimpleName();
+
+    private static final String FTAG_TASK_RETAINER_FRAGMENT = "TASK_RETAINER_FRAGMENT";
+
+    private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
 
     private AccountManager mAccountManager;
     private Stack<String> mParents;
     private ArrayList<Parcelable> mStreamsToUpload;
-    private boolean mCreateDir;
     private String mUploadPath;
     private OCFile mFile;
 
@@ -112,22 +111,15 @@ public class Uploader extends FileActivity
     private boolean mAccountSelected;
     private boolean mAccountSelectionShowing;
 
-    private ArrayList<String> mRemoteCacheData;
-    private int mNumCacheFile;
-    
     private final static int DIALOG_NO_ACCOUNT = 0;
-    private final static int DIALOG_WAITING = 1;
-    private final static int DIALOG_NO_STREAM = 2;
-    private final static int DIALOG_MULTIPLE_ACCOUNT = 3;
+    private final static int DIALOG_MULTIPLE_ACCOUNT = 1;
 
-    private final static int REQUEST_CODE_SETUP_ACCOUNT = 0;
+    private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
     private final static String KEY_PARENTS = "PARENTS";
     private final static String KEY_FILE = "FILE";
     private final static String KEY_ACCOUNT_SELECTED = "ACCOUNT_SELECTED";
     private final static String KEY_ACCOUNT_SELECTION_SHOWING = "ACCOUNT_SELECTION_SHOWING";
-    private final static String KEY_NUM_CACHE_FILE = "NUM_CACHE_FILE";
-    private final static String KEY_REMOTE_CACHE_DATA = "REMOTE_CACHE_DATA";
 
     private static final String DIALOG_WAIT_COPY_FILE = "DIALOG_WAIT_COPY_FILE";
 
@@ -136,20 +128,15 @@ public class Uploader extends FileActivity
         prepareStreamsToUpload();
 
         if (savedInstanceState == null) {
-            mParents = new Stack<String>();
+            mParents = new Stack<>();
             mAccountSelected = false;
             mAccountSelectionShowing = false;
-            mNumCacheFile = 0;
 
-            // ArrayList for files with path in private storage
-            mRemoteCacheData = new ArrayList<String>();
         } else {
             mParents = (Stack<String>) savedInstanceState.getSerializable(KEY_PARENTS);
             mFile = savedInstanceState.getParcelable(KEY_FILE);
             mAccountSelected = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTED);
             mAccountSelectionShowing = savedInstanceState.getBoolean(KEY_ACCOUNT_SELECTION_SHOWING);
-            mNumCacheFile = savedInstanceState.getInt(KEY_NUM_CACHE_FILE);
-            mRemoteCacheData = savedInstanceState.getStringArrayList(KEY_REMOTE_CACHE_DATA);
         }
 
         super.onCreate(savedInstanceState);
@@ -164,6 +151,15 @@ public class Uploader extends FileActivity
         syncIntentFilter.addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED);
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
+
+        // Init Fragment without UI to retain AsyncTask across configuration changes
+        FragmentManager fm = getSupportFragmentManager();
+        TaskRetainerFragment taskRetainerFragment =
+            (TaskRetainerFragment) fm.findFragmentByTag(FTAG_TASK_RETAINER_FRAGMENT);
+        if (taskRetainerFragment == null) {
+            taskRetainerFragment = new TaskRetainerFragment();
+            fm.beginTransaction().add(taskRetainerFragment, FTAG_TASK_RETAINER_FRAGMENT).commit();
+        }   // else, Fragment already created and retained across configuration change
     }
 
     @Override
@@ -184,8 +180,17 @@ public class Uploader extends FileActivity
                 }
             }
 
+        } else if (getIntent().getStringExtra(Intent.EXTRA_TEXT) != null) {
+            showErrorDialog(
+                R.string.uploader_error_message_received_piece_of_text,
+                R.string.uploader_error_title_no_file_to_upload
+            );
+
         } else {
-            showDialog(DIALOG_NO_STREAM);
+            showErrorDialog(
+                R.string.uploader_error_message_no_file_to_upload,
+                R.string.uploader_error_title_no_file_to_upload
+            );
         }
 
         super.setAccount(account, savedAccount);
@@ -200,15 +205,13 @@ public class Uploader extends FileActivity
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-         Log_OC.d(TAG, "onSaveInstanceState() start");
+        Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putSerializable(KEY_PARENTS, mParents);
         //outState.putParcelable(KEY_ACCOUNT, mAccount);
         outState.putParcelable(KEY_FILE, mFile);
         outState.putBoolean(KEY_ACCOUNT_SELECTED, mAccountSelected);
         outState.putBoolean(KEY_ACCOUNT_SELECTION_SHOWING, mAccountSelectionShowing);
-        outState.putInt(KEY_NUM_CACHE_FILE, mNumCacheFile);
-        outState.putStringArrayList(KEY_REMOTE_CACHE_DATA, mRemoteCacheData);
         outState.putParcelable(FileActivity.EXTRA_ACCOUNT, getAccount());
 
         Log_OC.d(TAG, "onSaveInstanceState() end");
@@ -226,26 +229,12 @@ public class Uploader extends FileActivity
     protected Dialog onCreateDialog(final int id) {
         final AlertDialog.Builder builder = new Builder(this);
         switch (id) {
-        case DIALOG_WAITING:
-            final ProgressDialog pDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
-            pDialog.setIndeterminate(false);
-            pDialog.setCancelable(false);
-            pDialog.setMessage(getResources().getString(R.string.uploader_info_uploading));
-            pDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                @Override
-                public void onShow(DialogInterface dialog) {
-                    ProgressBar v = (ProgressBar) pDialog.findViewById(android.R.id.progress);
-                    v.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.color_accent),
-                            android.graphics.PorterDuff.Mode.MULTIPLY);
-
-                }
-            });
-            return pDialog;
         case DIALOG_NO_ACCOUNT:
-            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
             builder.setMessage(String.format(
-                    getString(R.string.uploader_wrn_no_account_text), getString(R.string.app_name)));
+                    getString(R.string.uploader_wrn_no_account_text),
+                    getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
                 @Override
@@ -253,13 +242,13 @@ public class Uploader extends FileActivity
                     if (android.os.Build.VERSION.SDK_INT >
                             android.os.Build.VERSION_CODES.ECLAIR_MR1) {
                         // using string value since in API7 this
-                        // constant is not defined
-                        // in API7 < this constant is defined in
+                        // constatn is not defined
+                        // in API7 < this constatant is defined in
                         // Settings.ADD_ACCOUNT_SETTINGS
                         // and Settings.EXTRA_AUTHORITIES
                         Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-                        intent.putExtra("authorities", new String[] { MainApp.getAuthTokenType() });
-                        startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
+                        intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
+                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
                     } else {
                         // since in API7 there is no direct call for
                         // account setup, so we need to
@@ -267,7 +256,7 @@ public class Uploader extends FileActivity
                         // desired results and setup
                         // everything for ourself
                         Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
-                        startActivityForResult(intent, REQUEST_CODE_SETUP_ACCOUNT);
+                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
                     }
                 }
             });
@@ -306,37 +295,8 @@ public class Uploader extends FileActivity
                 }
             });
             return builder.create();
-        case DIALOG_NO_STREAM:
-            builder.setIcon(android.R.drawable.ic_dialog_alert);
-            builder.setTitle(R.string.uploader_wrn_no_content_title);
-            builder.setMessage(R.string.uploader_wrn_no_content_text);
-            builder.setCancelable(false);
-            builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            return builder.create();
         default:
             throw new IllegalArgumentException("Unknown dialog id: " + id);
-        }
-    }
-
-    class a implements OnClickListener {
-        String mPath;
-        EditText mDirname;
-
-        public a(String path, EditText dirname) {
-            mPath = path; 
-            mDirname = dirname;
-        }
-
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            Uploader.this.mUploadPath = mPath + mDirname.getText().toString();
-            Uploader.this.mCreateDir = true;
-            uploadFiles();
         }
     }
 
@@ -344,7 +304,6 @@ public class Uploader extends FileActivity
     public void onBackPressed() {
         if (mParents.size() <= 1) {
             super.onBackPressed();
-            return;
         } else {
             mParents.pop();
             String full_path = generatePath(mParents);
@@ -361,7 +320,7 @@ public class Uploader extends FileActivity
         Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
-        Vector<OCFile> files = new Vector<OCFile>();
+        Vector<OCFile> files = new Vector<>();
         for (OCFile f : tmpfiles)
                 files.add(f);
         if (files.size() < position) {
@@ -379,24 +338,22 @@ public class Uploader extends FileActivity
     public void onClick(View v) {
         // click on button
         switch (v.getId()) {
-        case R.id.uploader_choose_folder:
-            mUploadPath = "";   // first element in mParents is root dir, represented by "";
-                                // init mUploadPath with "/" results in a "//" prefix
-            for (String p : mParents)
-                mUploadPath += p + OCFile.PATH_SEPARATOR;
-            Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
+            case R.id.uploader_choose_folder:
+                mUploadPath = "";   // first element in mParents is root dir, represented by "";
+                // init mUploadPath with "/" results in a "//" prefix
+                for (String p : mParents) {
+                    mUploadPath += p + OCFile.PATH_SEPARATOR;
+                }
+                Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
+                uploadFiles();
+                break;
 
-            uploadFiles();
+            case R.id.uploader_cancel:
+                finish();
+                break;
 
-            break;
-            
-        case R.id.uploader_cancel:
-            finish();
-            break;
-            
-            
-        default:
-            throw new IllegalArgumentException("Wrong element clicked");
+            default:
+                throw new IllegalArgumentException("Wrong element clicked");
         }
     }
 
@@ -404,7 +361,7 @@ public class Uploader extends FileActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log_OC.i(TAG, "result received. req: " + requestCode + " res: " + resultCode);
-        if (requestCode == REQUEST_CODE_SETUP_ACCOUNT) {
+        if (requestCode == REQUEST_CODE__SETUP_ACCOUNT) {
             dismissDialog(DIALOG_NO_ACCOUNT);
             if (resultCode == RESULT_CANCELED) {
                 finish();
@@ -424,14 +381,13 @@ public class Uploader extends FileActivity
 
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
-        
+
         ListView mListView = (ListView) findViewById(android.R.id.list);
 
         String current_dir = mParents.peek();
-        if(current_dir.equals("")){
+        if (current_dir.equals("")) {
             getSupportActionBar().setTitle(getString(R.string.default_display_name_for_root_folder));
-        }
-        else{
+        } else {
             getSupportActionBar().setTitle(current_dir);
         }
         boolean notRoot = (mParents.size() > 1);
@@ -447,13 +403,13 @@ public class Uploader extends FileActivity
         if (mFile != null) {
             // TODO Enable when "On Device" is recovered ?
             Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
-            List<HashMap<String, OCFile>> data = new LinkedList<HashMap<String,OCFile>>();
+            List<HashMap<String, OCFile>> data = new LinkedList<>();
             for (OCFile f : files) {
-                HashMap<String, OCFile> h = new HashMap<String, OCFile>();
+                HashMap<String, OCFile> h = new HashMap<>();
                     h.put("dirname", f);
                     data.add(h);
             }
-            
+
             UploaderAdapter sa = new UploaderAdapter(this,
                                                 data,
                                                 R.layout.uploader_list_item_layout,
@@ -464,14 +420,19 @@ public class Uploader extends FileActivity
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
-            
+
             Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
             btnNewFolder.setOnClickListener(this);
-            
+
             mListView.setOnItemClickListener(this);
         }
     }
-    
+
+    @Override
+    public void onSavedCertificate() {
+        startSyncFolderOperation(getCurrentDir());
+    }
+
     private void startSyncFolderOperation(OCFile folder) {
         long currentSyncTime = System.currentTimeMillis(); 
         
@@ -501,7 +462,7 @@ public class Uploader extends FileActivity
 
     private void prepareStreamsToUpload() {
         if (getIntent().getAction().equals(Intent.ACTION_SEND)) {
-            mStreamsToUpload = new ArrayList<Parcelable>();
+            mStreamsToUpload = new ArrayList<>();
             mStreamsToUpload.add(getIntent().getParcelableExtra(Intent.EXTRA_STREAM));
         } else if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
             mStreamsToUpload = getIntent().getParcelableArrayListExtra(Intent.EXTRA_STREAM);
@@ -512,139 +473,144 @@ public class Uploader extends FileActivity
         return (mStreamsToUpload != null && mStreamsToUpload.get(0) != null);
     }
 
+    @SuppressLint("NewApi")
     public void uploadFiles() {
+
         try {
 
-            // ArrayList for files with path in external storage
-            ArrayList<String> local = new ArrayList<String>();
-            ArrayList<String> remote = new ArrayList<String>();
-            
-            // this checks the mimeType 
-            for (Parcelable mStream : mStreamsToUpload) {
-                
-                Uri uri = (Uri) mStream;
-                String data = null;
-                String filePath = "";
+            List<Uri> contentUris = new ArrayList<>();
+            List<String> contentRemotePaths = new ArrayList<>();
 
-                if (uri != null) {
-                    if (uri.getScheme().equals("content")) {
-                       String mimeType = getContentResolver().getType(uri);
+            int schemeFileCounter = 0;
 
-                       if (mimeType.contains("image")) {
-                           String[] CONTENT_PROJECTION = { Images.Media.DATA, Images.Media.DISPLAY_NAME,
-                                                           Images.Media.MIME_TYPE, Images.Media.SIZE};
-                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
-                           c.moveToFirst();
-                           int index = c.getColumnIndex(Images.Media.DATA);
-                           data = c.getString(index);
-                           local.add(data);
-                           remote.add(mUploadPath + c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME)));
-
-                       }
-                       else if (mimeType.contains("video")) {
-                           String[] CONTENT_PROJECTION = { Video.Media.DATA, Video.Media.DISPLAY_NAME,
-                                                           Video.Media.MIME_TYPE, Video.Media.SIZE,
-                                                           Video.Media.DATE_MODIFIED };
-                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
-                           c.moveToFirst();
-                           int index = c.getColumnIndex(Video.Media.DATA);
-                           data = c.getString(index);
-                           local.add(data);
-                           remote.add(mUploadPath + c.getString(c.getColumnIndex(Video.Media.DISPLAY_NAME)));
-
-                       }
-                       else if (mimeType.contains("audio")) {
-                           String[] CONTENT_PROJECTION = { Audio.Media.DATA, Audio.Media.DISPLAY_NAME,
-                                                           Audio.Media.MIME_TYPE, Audio.Media.SIZE };
-                           Cursor c = getContentResolver().query(uri, CONTENT_PROJECTION, null, null, null);
-                           c.moveToFirst();
-                           int index = c.getColumnIndex(Audio.Media.DATA);
-                           data = c.getString(index);
-                           local.add(data);
-                           remote.add(mUploadPath + c.getString(c.getColumnIndex(Audio.Media.DISPLAY_NAME)));
-
-                       }
-                       else {
-                           filePath = Uri.decode(uri.toString()).replace(uri.getScheme() + "://", "");
-                           // cut everything whats before mnt. It occured to me that sometimes apps send
-                           // their name into the URI
-                           if (filePath.contains("mnt")) {
-                              String splitedFilePath[] = filePath.split("/mnt");
-                              filePath = splitedFilePath[1];
-                           }
-                           final File file = new File(filePath);
-                           local.add(file.getAbsolutePath());
-                           remote.add(mUploadPath + file.getName());
-                       }
-                    } else if (uri.getScheme().equals("file")) {
-                        filePath = Uri.decode(uri.toString()).replace(uri.getScheme() +
-                                "://", "");
-                        if (filePath.contains("mnt")) {
-                           String splitedFilePath[] = filePath.split("/mnt");
-                           filePath = splitedFilePath[1];
-                        }
-                        final File file = new File(filePath);
-                        data = file.getAbsolutePath();
-                        filePath = mUploadPath + file.getName();
+            for (Parcelable sourceStream : mStreamsToUpload) {
+                Uri sourceUri = (Uri) sourceStream;
+                if (sourceUri != null) {
+                    String displayName = UriUtils.getDisplayNameForUri(sourceUri, this);
+                    if (displayName == null) {
+                        displayName = generateDiplayName();
                     }
-                    else {
-                        throw new SecurityException();
-                    }
-                    if (data == null) {
-                        mRemoteCacheData.add(filePath);
-                        CopyTmpFileAsyncTask copyTask = new CopyTmpFileAsyncTask(this);
-                        Object[] params = {uri, filePath, mRemoteCacheData.size() - 1,
-                                getAccount().name, getContentResolver()};
-                        mNumCacheFile++;
-                        showWaitingCopyDialog();
-                        copyTask.execute(params);
+                    String remotePath = mUploadPath + displayName;
+
+                    if (ContentResolver.SCHEME_CONTENT.equals(sourceUri.getScheme())) {
+                        contentUris.add(sourceUri);
+                        contentRemotePaths.add(remotePath);
+
+                    } else if (ContentResolver.SCHEME_FILE.equals(sourceUri.getScheme())) {
+                        /// file: uris should point to a local file, should be safe let FileUploader handle them
+                        requestUpload(sourceUri.getPath(), remotePath);
+                        schemeFileCounter++;
                     }
                 }
-                else {
-                    throw new SecurityException();
-                }
+            }
 
-                Intent intent = new Intent(getApplicationContext(), FileUploader.class);
-                intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_MULTIPLE_FILES);
-                intent.putExtra(FileUploader.KEY_LOCAL_FILE, local.toArray(new String[local.size()]));
-                intent.putExtra(FileUploader.KEY_REMOTE_FILE,
-                        remote.toArray(new String[remote.size()]));
-                intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
-                startService(intent);
+            if (!contentUris.isEmpty()) {
+                /// content: uris will be copied to temporary files before calling {@link FileUploader}
+                copyThenUpload(contentUris.toArray(new Uri[contentUris.size()]),
+                    contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
 
-                //Save the path to shared preferences
-                SharedPreferences.Editor appPrefs = PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext()).edit();
-                appPrefs.putString("last_upload_path", mUploadPath);
-                appPrefs.apply();
+            } else if (schemeFileCounter == 0) {
+                showErrorDialog(
+                    R.string.uploader_error_message_no_file_to_upload,
+                    R.string.uploader_error_title_no_file_to_upload
+                );
 
+            } else {
                 finish();
             }
-            
+
         } catch (SecurityException e) {
-            String message = String.format(getString(R.string.uploader_error_forbidden_content),
-                    getString(R.string.app_name));
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();            
+            Log_OC.e(TAG, "Permissions fail", e);
+            showErrorDialog(
+                R.string.uploader_error_message_read_permission_not_granted,
+                R.string.uploader_error_title_file_cannot_be_uploaded
+            );
+
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Unexpted error", e);
+            showErrorDialog(
+                R.string.common_error_unknown,
+                R.string.uploader_error_title_file_cannot_be_uploaded
+            );
+
+        } finally {
+            // Save the path to shared preferences; even if upload is not possible, user chose the folder
+            PreferenceManager.setLastUploadPath(mUploadPath, this);
         }
     }
-    
+
+
+    private String generateDiplayName() {
+        return getString(R.string.common_unknown) +
+            "-" + DisplayUtils.unixTimeToHumanReadable(System.currentTimeMillis());
+    }
+
+    /**
+     *
+     * @param sourceUris        Array of content:// URIs to the files to upload
+     * @param remotePaths       Array of absolute paths to set to the uploaded files
+     */
+    private void copyThenUpload(Uri[] sourceUris, String[] remotePaths) {
+        showWaitingCopyDialog();
+
+        CopyAndUploadContentUrisTask copyTask = new CopyAndUploadContentUrisTask(this, this);
+        FragmentManager fm = getSupportFragmentManager();
+        TaskRetainerFragment taskRetainerFragment =
+            (TaskRetainerFragment) fm.findFragmentByTag(FTAG_TASK_RETAINER_FRAGMENT);
+        taskRetainerFragment.setTask(copyTask);
+        copyTask.execute(
+            CopyAndUploadContentUrisTask.makeParamsToExecute(
+                getAccount(),
+                sourceUris,
+                remotePaths,
+                getContentResolver()
+            )
+        );
+    }
+
+    /**
+     * Requests the upload of a file in the local file system to {@link FileUploader} service.
+     *
+     * The original file will be left in its original location, and will not be duplicated.
+     * As a side effect, the user will see the file as not uploaded when accesses to the OC app.
+     * This is considered as acceptable, since when a file is shared from another app to OC,
+     * the usual workflow will go back to the original app.
+     *
+     * @param localPath     Absolute path in the local file system to the file to upload.
+     * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
+     */
+    private void requestUpload(String localPath, String remotePath) {
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadNewFile(
+            this,
+            getAccount(),
+            localPath,
+            remotePath,
+            FileUploader.LOCAL_BEHAVIOUR_FORGET,
+            null,       // MIME type will be detected from file name
+            false,      // do not create parent folder if not existent
+            UploadFileOperation.CREATED_BY_USER
+        );
+    }
+
+
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
         super.onRemoteOperationFinish(operation, result);
-        
-      
+
+
         if (operation instanceof CreateFolderOperation) {
-            onCreateFolderOperationFinish((CreateFolderOperation)operation, result);
+            onCreateFolderOperationFinish((CreateFolderOperation) operation, result);
         }
-        
+
     }
-    
+
     /**
      * Updates the view associated to the activity after the finish of an operation
      * trying create a new folder
-     * 
-     * @param operation     Creation operation performed.
-     * @param result        Result of the creation.
+     *
+     * @param operation Creation operation performed.
+     * @param result    Result of the creation.
      */
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
@@ -652,44 +618,41 @@ public class Uploader extends FileActivity
             populateDirectoryList();
         } else {
             try {
-                Toast msg = Toast.makeText(this, 
-                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()), 
-                        Toast.LENGTH_LONG); 
+                Toast msg = Toast.makeText(this,
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
                 msg.show();
 
             } catch (NotFoundException e) {
-                Log_OC.e(TAG, "Error while trying to show fail message " , e);
+                Log_OC.e(TAG, "Error while trying to show fail message ", e);
             }
         }
     }
-    
-    
+
+
     /**
-     *  Loads the target folder initialize shown to the user.
-     * 
-     *  The target account has to be chosen before this method is called. 
+     * Loads the target folder initialize shown to the user.
+     * <p/>
+     * The target account has to be chosen before this method is called.
      */
     private void initTargetFolder() {
         if (getStorageManager() == null) {
             throw new IllegalStateException("Do not call this method before " +
                     "initializing mStorageManager");
         }
-        
-        SharedPreferences appPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
 
-        String last_path = appPreferences.getString("last_upload_path", "");
+        String lastPath = PreferenceManager.getLastUploadPath(this);
         // "/" equals root-directory
-        if(last_path.equals("/")) {
+        if (lastPath.equals("/")) {
             mParents.add("");
-        } else{
-            String[] dir_names = last_path.split("/");
+        } else {
+            String[] dir_names = lastPath.split("/");
             mParents.clear();
             for (String dir : dir_names)
                 mParents.add(dir);
         }
         //Make sure that path still exists, if it doesn't pop the stack and try the previous path
-        while(!getStorageManager().fileExists(generatePath(mParents)) && mParents.size() > 1){
+        while (!getStorageManager().fileExists(generatePath(mParents)) && mParents.size() > 1) {
             mParents.pop();
         }
     }
@@ -702,7 +665,7 @@ public class Uploader extends FileActivity
         menu.findItem(R.id.action_sync_account).setVisible(false);
         return true;
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
@@ -714,7 +677,7 @@ public class Uploader extends FileActivity
                         CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
                 break;
             case android.R.id.home:
-                if((mParents.size() > 1)) {
+                if ((mParents.size() > 1)) {
                     onBackPressed();
                 }
                 break;
@@ -802,13 +765,18 @@ public class Uploader extends FileActivity
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                 equals(event) &&
                                 /// TODO refactor and make common
-                                synchResult != null && !synchResult.isSuccess() &&
-                                (synchResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                        synchResult.isIdPRedirection() ||
-                                        (synchResult.isException() && synchResult.getException()
-                                                instanceof AuthenticatorException))) {
+                                synchResult != null && !synchResult.isSuccess()) {
 
-                            requestCredentialsUpdate(context);
+                            if(synchResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                        (synchResult.isException() && synchResult.getException()
+                                                instanceof AuthenticatorException)) {
+
+                                requestCredentialsUpdate(context);
+
+                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(synchResult.getCode())) {
+
+                                showUntrustedCertDialog(synchResult);
+                            }
                         }
                     }
                     removeStickyBroadcast(intent);
@@ -822,30 +790,14 @@ public class Uploader extends FileActivity
             }
         }
     }
+
     /**
-     * Process the result of CopyTmpFileAsyncTask
-     * @param result
-     * @param index
+     * Process the result of CopyAndUploadContentUrisTask
      */
     @Override
-    public void onTmpFileCopied(String result, int index) {
-        if (mNumCacheFile -- == 0) {
-            dismissWaitingCopyDialog();
-        }
-        if (result != null) {
-            Intent intent = new Intent(getApplicationContext(), FileUploader.class);
-            intent.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-            intent.putExtra(FileUploader.KEY_LOCAL_FILE, result);
-            intent.putExtra(FileUploader.KEY_REMOTE_FILE, mRemoteCacheData.get(index));
-            intent.putExtra(FileUploader.KEY_ACCOUNT, getAccount());
-            startService(intent);
-
-        } else {
-            String message = String.format(getString(R.string.uploader_error_forbidden_content),
-                    getString(R.string.app_name));
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-            Log_OC.d(TAG, message);
-        }
+    public void onTmpFilesCopied(ResultCode result) {
+        dismissWaitingCopyDialog();
+        finish();
     }
 
     /**
@@ -865,11 +817,95 @@ public class Uploader extends FileActivity
     /**
      * Dismiss waiting for copy dialog
      */
-    public void dismissWaitingCopyDialog(){
+    public void dismissWaitingCopyDialog() {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_COPY_FILE);
         if (frag != null) {
             LoadingDialog loading = (LoadingDialog) frag;
             loading.dismiss();
+        }
+    }
+
+
+    /**
+     * Show an error dialog, forcing the user to click a single button to exit the activity
+     *
+     * @param messageResId      Resource id of the message to show in the dialog.
+     * @param messageResTitle   Resource id of the title to show in the dialog. 0 to show default alert message.
+     *                          -1 to show no title.
+     */
+    private void showErrorDialog(int messageResId, int messageResTitle) {
+
+        ConfirmationDialogFragment errorDialog = ConfirmationDialogFragment.newInstance(
+            messageResId,
+            new String[]{getString(R.string.app_name)}, // see uploader_error_message_* in strings.xml
+            messageResTitle,
+            R.string.common_back,
+            -1,
+            -1
+        );
+        errorDialog.setCancelable(false);
+        errorDialog.setOnConfirmationListener(
+            new ConfirmationDialogFragment.ConfirmationDialogFragmentListener() {
+                @Override
+                public void onConfirmation(String callerTag) {
+                    finish();
+                }
+
+                @Override
+                public void onNeutral(String callerTag) {}
+
+                @Override
+                public void onCancel(String callerTag) {}
+            }
+        );
+        errorDialog.show(getSupportFragmentManager(), FTAG_ERROR_FRAGMENT);
+    }
+
+
+    /**
+     * Fragment retaining a background task across configuration changes.
+     */
+    public static class TaskRetainerFragment extends Fragment {
+
+        private CopyAndUploadContentUrisTask mTask;
+
+        /**
+         * Updates the listener of the retained task whenever the parent
+         * Activity is attached.
+         *
+         * Since its done in main thread, and provided the AsyncTask only accesses
+         * the listener in the main thread (should so), no sync problem should occur.
+         */
+        @Override
+        public void onAttach(Context context) {
+            super.onAttach(context);
+            if (mTask != null) {
+                mTask.setListener((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener) context);
+            }
+        }
+
+        /**
+         * Only called once, since the instance is retained across configuration changes
+         */
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setRetainInstance(true);    // the key point
+        }
+
+        /**
+         * Sets the task to retain across configuration changes
+         *
+         * @param task  Task to retain
+         */
+        private void setTask(CopyAndUploadContentUrisTask task) {
+            if (mTask != null) {
+                mTask.setListener(null);
+            }
+            mTask = task;
+            if (mTask != null && getContext() != null) {
+                task.setListener((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener) getContext());
+            }
         }
     }
 }

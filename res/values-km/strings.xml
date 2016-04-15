@@ -36,11 +36,9 @@
   <string name="sync_string_files">ឯកសារ</string>
   <string name="setup_btn_connect">ភ្ជាប់</string>
   <string name="uploader_btn_upload_text">ផ្ទុក​ឡើង</string>
-  <string name="uploader_btn_new_folder_text">ថត​ថ្មី</string>
   <string name="uploader_wrn_no_account_title">រកមិនឃើញ​គណនី</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ដំឡើង</string>
   <string name="uploader_wrn_no_account_quit_btn_text">ចាក់ចេញ</string>
-  <string name="uploader_info_uploading">កំពុង​ផ្ទុក​ឡើង</string>
   <string name="file_list_seconds_ago">វិនាទី​មុន</string>
   <string name="file_list_empty">គ្មាន​អ្វី​នៅ​ទីនេះ​ទេ។ ផ្ទុក​ឡើង​អ្វី​មួយ!</string>
   <string name="filedetails_select_file">ចុចមួយ​លើឯកសារ ដើម្បី​បង្ហាញ​ព័ត៌មាន​បន្ថែម។</string>
@@ -65,6 +63,7 @@
   <string name="uploader_upload_in_progress_ticker">កំពុង​តែផ្ទុកឡើង...</string>
   <string name="uploader_upload_succeeded_ticker">ការផ្ទុកឡើងបាន​ជោគជ័យ</string>
   <string name="uploader_upload_failed_ticker">ការផ្ទុកឡើងបាន​បរាជ័យ</string>
+  <string name="uploads_view_upload_status_unknown_fail">មិន​ស្គាល់​កំហុស</string>
   <string name="downloader_download_in_progress_ticker">កំពុង​ធ្វើការទាញយក...</string>
   <string name="downloader_download_succeeded_ticker">ការទាញយក​បានជោគជ័យ</string>
   <string name="downloader_download_failed_ticker">ការទាញយក​បានបរាជ័យ</string>

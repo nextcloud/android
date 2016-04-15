@@ -21,9 +21,7 @@
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Fajlovi</string>
   <string name="uploader_btn_upload_text">Pošalji</string>
-  <string name="uploader_btn_new_folder_text">Novi direktorijum</string>
   <string name="uploader_wrn_no_account_title">Nalog nije nađen</string>
-  <string name="uploader_info_uploading">Šalje se</string>
   <string name="file_list_seconds_ago">Pre par sekundi</string>
   <string name="file_list_empty">Ovde nema ničeg. Pošaljite nešto!</string>
   <string name="filedetails_size">Veličina:</string>
@@ -43,6 +41,8 @@
   <string name="uploader_upload_in_progress_ticker">Otpremanje...</string>
   <string name="uploader_upload_succeeded_ticker">Uspešno otpremljeno</string>
   <string name="uploader_upload_failed_ticker">Otpremanje nije uspelo</string>
+  <string name="uploads_view_group_finished_uploads">Otpremljeno</string>
+  <string name="uploads_view_upload_status_unknown_fail">Nepoznata greška</string>
   <string name="downloader_download_in_progress_ticker">Preuzimanje...</string>
   <string name="downloader_download_succeeded_ticker">Uspešno preuzeto</string>
   <string name="downloader_download_failed_ticker">Preuzimanje nije uspelo</string>
@@ -74,6 +74,7 @@
   <string name="share_via_link_section_title">Veza deljenja</string>
   <string name="share_via_link_expiration_date_label">Datum isteka</string>
   <string name="share_via_link_password_label">Zaštita lozinkom</string>
+  <string name="share_via_link_edit_permission_label">Dozvoli uređivanje</string>
   <string name="share_search">Traži</string>
   <string name="share_privilege_can_share">može da deli</string>
   <string name="share_privilege_can_edit">može da menja</string>

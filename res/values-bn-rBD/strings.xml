@@ -38,15 +38,10 @@
   <string name="sync_string_files">ফাইল</string>
   <string name="setup_btn_connect">সংযুক্ত হও</string>
   <string name="uploader_btn_upload_text">আপলোড</string>
-  <string name="uploader_btn_new_folder_text">নব ফােলডার</string>
   <string name="uploader_top_message">আপলোডের ফোলডার পছনদ করেন</string>
   <string name="uploader_wrn_no_account_title">কোন একাউন্ট খুঁজে পাওয়া গেল না</string>
   <string name="uploader_wrn_no_account_setup_btn_text">সেট-আপ</string>
   <string name="uploader_wrn_no_account_quit_btn_text">বন্ধ</string>
-  <string name="uploader_wrn_no_content_title">আপলোডের কনটেনট নেই</string>
-  <string name="uploader_wrn_no_content_text">কোন কনটেনট আসেনি৷ আপলোডের কনটেনট নেই</string>
-  <string name="uploader_error_forbidden_content">এই যৌথ কনটেন্ট এ %1$s এর প্রবেশ অনুমোদিত নয়</string>
-  <string name="uploader_info_uploading">আপলোড করা হচ্ছে</string>
   <string name="file_list_seconds_ago">সেকেন্ড পূর্বে</string>
   <string name="file_list_empty">এখানে কিছুই নেই। কিছু আপলোড করুন !</string>
   <string name="local_file_list_empty">এই ফোলডারে কোন ফাইল নেই</string>
@@ -75,6 +70,10 @@
   <string name="uploader_upload_succeeded_ticker">আপলোড সফল</string>
   <string name="uploader_upload_failed_ticker">আপলোড হয়নি</string>
   <string name="uploader_upload_failed_content_single">%1$s আপলোড সম্পন্ন করা যায়নি</string>
+  <string name="uploads_view_group_current_uploads">বর্তমান</string>
+  <string name="uploads_view_group_finished_uploads">আপলোড করা হয়েছে</string>
+  <string name="uploads_view_upload_status_succeeded">সুসম্পন্ন</string>
+  <string name="uploads_view_upload_status_unknown_fail">অজানা জটিলতা</string>
   <string name="downloader_download_in_progress_ticker">ডাউনলোড চলছে...</string>
   <string name="downloader_download_in_progress_content">%1$d%% ডাউনলোড করছে %2$s</string>
   <string name="downloader_download_succeeded_ticker">ডাউনলোড সফল</string>

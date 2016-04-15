@@ -3,6 +3,7 @@
  *
  *   @author masensio
  *   @author David A. Velasco
+ *   @author Juan Carlos González Cabrero
  *   Copyright (C) 2015 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
@@ -28,6 +29,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Parcelable;
 import android.support.v4.app.DialogFragment;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -35,7 +37,9 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -49,7 +53,6 @@ import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 
-
 import java.util.List;
 
 /**
@@ -57,8 +60,8 @@ import java.util.List;
  */
 public class FileOperationsHelper {
 
-    private static final String TAG = FileOperationsHelper.class.getName();
-
+    private static final String TAG = FileOperationsHelper.class.getSimpleName();
+    
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 
     protected FileActivity mFileActivity = null;
@@ -90,9 +93,8 @@ public class FileOperationsHelper {
                 );
                 if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
                     intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
-                    intentForGuessedMimeType.
-                            setDataAndType(Uri.parse("file://"+ encodedStoragePath),
-                                    guessedMimeType);
+                    intentForGuessedMimeType.setDataAndType(Uri.parse("file://" +
+                            encodedStoragePath), guessedMimeType);
                     intentForGuessedMimeType.setFlags(
                             Intent.FLAG_GRANT_READ_URI_PERMISSION |
                                     Intent.FLAG_GRANT_WRITE_URI_PERMISSION
@@ -234,7 +236,7 @@ public class FileOperationsHelper {
         if (file != null) {
             // TODO check capability?
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
+                getString(R.string.wait_a_moment));
 
             Intent service = new Intent(mFileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);
@@ -322,7 +324,7 @@ public class FileOperationsHelper {
      */
     public void showShareFile(OCFile file){
         Intent intent = new Intent(mFileActivity, ShareActivity.class);
-        intent.putExtra(mFileActivity.EXTRA_FILE, file);
+        intent.putExtra(mFileActivity.EXTRA_FILE, (Parcelable) file);
         intent.putExtra(mFileActivity.EXTRA_ACCOUNT, mFileActivity.getAccount());
         mFileActivity.startActivity(intent);
 
@@ -341,8 +343,8 @@ public class FileOperationsHelper {
         SharePasswordDialogFragment dialog =
                 SharePasswordDialogFragment.newInstance(file, createShare);
         dialog.show(
-                mFileActivity.getSupportFragmentManager(),
-                SharePasswordDialogFragment.PASSWORD_FRAGMENT
+            mFileActivity.getSupportFragmentManager(),
+            SharePasswordDialogFragment.PASSWORD_FRAGMENT
         );
     }
 
@@ -409,6 +411,25 @@ public class FileOperationsHelper {
         queueShareIntent(updateShareIntent);
     }
 
+    /**
+     * Updates a public share on a folder to set its editing permission.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param folder                     Folder which editing permission of his public share will be modified.
+     * @param uploadPermission          New state of the permission for editing the folder shared via link.
+     */
+    public void setUploadPermissionsToShare(OCFile folder, boolean uploadPermission) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_REMOTE_PATH, folder.getRemotePath());
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_PUBLIC_UPLOAD,
+                uploadPermission
+        );
+        queueShareIntent(updateShareIntent);
+    }
+
 
     /**
      * @return 'True' if the server supports the Search Users API
@@ -455,7 +476,7 @@ public class FileOperationsHelper {
             intent.putExtra(OperationsService.EXTRA_SYNC_FILE_CONTENTS, true);
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(intent);
             mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
+                getString(R.string.wait_a_moment));
             
         } else {
             Intent intent = new Intent(mFileActivity, OperationsService.class);
@@ -610,4 +631,19 @@ public class FileOperationsHelper {
         return false;
     }
 
+    /**
+     * Starts a check of the currenlty stored credentials for the given account.
+     *
+     * @param account       OC account which credentials will be checked.
+     */
+    public void checkCurrentCredentials(Account account) {
+        Intent service = new Intent(mFileActivity, OperationsService.class);
+        service.setAction(OperationsService.ACTION_CHECK_CURRENT_CREDENTIALS);
+        service.putExtra(OperationsService.EXTRA_ACCOUNT, account);
+        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+
+        mFileActivity.showLoadingDialog(
+            mFileActivity.getApplicationContext().getString(R.string.wait_checking_credentials)
+        );
+    }
 }

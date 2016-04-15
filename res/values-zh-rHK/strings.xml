@@ -24,11 +24,9 @@
   <string name="sync_string_files">文件</string>
   <string name="setup_btn_connect">連線</string>
   <string name="uploader_btn_upload_text">上戴</string>
-  <string name="uploader_btn_new_folder_text">新資料夾</string>
   <string name="uploader_wrn_no_account_title">找不到帳戶</string>
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
   <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
-  <string name="uploader_info_uploading">正在上戴</string>
   <string name="file_list_seconds_ago">秒前</string>
   <string name="filedetails_select_file">按一下文件顯示更多資料。</string>
   <string name="filedetails_size">大小：</string>
@@ -52,6 +50,7 @@
   <string name="uploader_upload_in_progress_ticker">上戴中 …</string>
   <string name="uploader_upload_succeeded_ticker">上載成功</string>
   <string name="uploader_upload_failed_ticker">上載失敗</string>
+  <string name="uploads_view_upload_status_unknown_fail">不明錯誤</string>
   <string name="downloader_download_in_progress_ticker">下載中</string>
   <string name="downloader_download_succeeded_ticker">下載成功</string>
   <string name="downloader_download_failed_ticker">下載失敗</string>

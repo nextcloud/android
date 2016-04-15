@@ -21,10 +21,10 @@
   <string name="sync_string_files">Files</string>
   <string name="setup_btn_connect">Connecte</string>
   <string name="uploader_btn_upload_text">Incargar</string>
-  <string name="uploader_btn_new_folder_text">Nove dossier</string>
   <string name="uploader_wrn_no_account_title">Nulle contos trovate</string>
   <string name="file_list_seconds_ago">secundas passate</string>
   <string name="file_list_empty">Nihil hic. Incarga alcun cosa!</string>
+  <string name="file_list_folder">dossier</string>
   <string name="filedetails_size">Dimension:</string>
   <string name="filedetails_type">Typo:</string>
   <string name="filedetails_download">Discargar</string>
@@ -38,6 +38,7 @@
   <string name="about_title">A proposito</string>
   <string name="change_password">Cambiar contrasigno</string>
   <string name="uploader_info_dirname">Nomine de dossier</string>
+  <string name="uploads_view_upload_status_unknown_fail">Error Incognite</string>
   <string name="activity_chooser_send_file_title">Invia</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">Contos</string>

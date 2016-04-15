@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,11 +77,15 @@ public class ShareUserListAdapter extends ArrayAdapter {
             OCShare share = mShares.get(position);
 
             TextView userName = (TextView) view.findViewById(R.id.userOrGroupName);
+            ImageView iconView = (ImageView) view.findViewById(R.id.icon);
             String name = share.getSharedWithDisplayName();
+            Drawable icon = getContext().getResources().getDrawable(R.drawable.ic_user);
             if (share.getShareType() == ShareType.GROUP) {
                 name = getContext().getString(R.string.share_group_clarification, name);
+                icon = getContext().getResources().getDrawable(R.drawable.ic_group);
             }
             userName.setText(name);
+            iconView.setImageDrawable(icon);
 
             /// bind listener to edit privileges
             final ImageView editShareButton = (ImageView) view.findViewById(R.id.editShareButton);

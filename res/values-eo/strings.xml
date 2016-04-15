@@ -25,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Agordo</string>
+  <string name="drawer_item_uploads_list">Alŝutoj</string>
   <string name="drawer_item_logs">Protokoloj</string>
   <string name="drawer_close">Fermi</string>
   <string name="drawer_open">Malfermi</string>
@@ -44,20 +45,19 @@
   <string name="sync_string_files">Dosieroj</string>
   <string name="setup_btn_connect">Konekti</string>
   <string name="uploader_btn_upload_text">Alŝuti</string>
-  <string name="uploader_btn_new_folder_text">Nova dosierujo</string>
   <string name="uploader_top_message">Elektu alŝutan dosierujon:</string>
   <string name="uploader_wrn_no_account_title">Neniu konto troviĝis</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Agordi</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Forlasi</string>
-  <string name="uploader_wrn_no_content_title">Neniu enhavo alŝutota</string>
-  <string name="uploader_wrn_no_content_text">Neniu enhavo riceviĝis. Nenio alŝutota.</string>
-  <string name="uploader_error_forbidden_content">$1%s ne estas permesata aliri la kunhavigitan enhavon</string>
-  <string name="uploader_info_uploading">Alŝutante</string>
   <string name="file_list_seconds_ago">sekundoj antaŭe</string>
   <string name="file_list_empty">Nenio estas ĉi tie. Alŝutu ion!</string>
   <string name="file_list_loading">Ŝargante...</string>
   <string name="file_list_no_app_for_file_type">Neniu aplikaĵo troviĝis por la dosiertipo!</string>
   <string name="local_file_list_empty">Estas neniu dosiero en ĉi tiu dosierujo.</string>
+  <string name="file_list_folder">dosierujo</string>
+  <string name="file_list_folders">dosierujoj</string>
+  <string name="file_list_file">dosiero</string>
+  <string name="file_list_files">dosiero</string>
   <string name="filedetails_size">Grando:</string>
   <string name="filedetails_type">Tipo:</string>
   <string name="filedetails_created">Kreita je:</string>
@@ -88,6 +88,15 @@
   <string name="uploader_upload_failed_ticker">Alŝuto malsukcesis</string>
   <string name="uploader_upload_failed_content_single">Alŝuto de %1s ne eblis plenumiĝi</string>
   <string name="uploader_upload_failed_credentials_error">Alŝuto malsukcesis, vi devas ensaluti ree</string>
+  <string name="uploads_view_title">Alŝutoj</string>
+  <string name="uploads_view_group_current_uploads">Nuna</string>
+  <string name="uploads_view_group_finished_uploads">Alŝutita</string>
+  <string name="uploads_view_upload_status_succeeded">Plenumita</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Eraro pri dosierujo</string>
+  <string name="uploads_view_upload_status_failed_file_error">Eraro pri dosiero</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Permesa eraro</string>
+  <string name="uploads_view_upload_status_unknown_fail">Nekonata eraro</string>
+  <string name="uploads_view_later_waiting_to_upload">Atendante por alŝuti</string>
   <string name="downloader_download_in_progress_ticker">Elŝutante...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Elŝutante %2$s</string>
   <string name="downloader_download_succeeded_ticker">Elŝuto sukcesis</string>
@@ -266,6 +275,7 @@
   <string name="share_via_link_expiration_date_label">Agordi limdaton</string>
   <string name="share_via_link_password_label">Protekti per pasvorto</string>
   <string name="share_via_link_password_title">Sekurigita</string>
+  <string name="share_via_link_edit_permission_label">Permesi redakton</string>
   <string name="share_get_public_link_button">Ekhavi ligilon</string>
   <string name="share_search">Serĉi</string>
   <string name="search_users_and_groups_hint">Serĉi uzantojn kaj grupojn</string>

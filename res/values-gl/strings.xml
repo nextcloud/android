@@ -24,6 +24,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Axustes</string>
+  <string name="drawer_item_uploads_list">Envíos</string>
   <string name="drawer_item_logs">Rexistros</string>
   <string name="drawer_close">Pechar</string>
   <string name="drawer_open">Abrir</string>
@@ -54,19 +55,18 @@ Descárgueo de aquí: %2$s</string>
   <string name="sync_string_files">Ficheiros</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
-  <string name="uploader_btn_new_folder_text">Novo cartafol</string>
   <string name="uploader_top_message">Escolla o cartafol de envío:</string>
   <string name="uploader_wrn_no_account_title">Non se atoparon contas</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalación</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Saír</string>
-  <string name="uploader_wrn_no_content_title">Non hai contido para enviar</string>
-  <string name="uploader_wrn_no_content_text">Non se recibiu contido. Non hai nada para enviar.</string>
-  <string name="uploader_error_forbidden_content">%1$s non ten permiso para acceder ao contido compartido</string>
-  <string name="uploader_info_uploading">Enviando</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Aquí non hai nada. Envíe algo!</string>
   <string name="file_list_loading">Cargando...</string>
   <string name="local_file_list_empty">Non hai ficheiros neste cartafol.</string>
+  <string name="file_list_folder">cartafol</string>
+  <string name="file_list_folders">cartafoles</string>
+  <string name="file_list_file">ficheiro</string>
+  <string name="file_list_files">ficheiros</string>
   <string name="filedetails_select_file">Prema nun ficheiro para que amose a información adicional.</string>
   <string name="filedetails_size">Tamaño:</string>
   <string name="filedetails_type">Tipo:</string>
@@ -93,6 +93,16 @@ Descárgueo de aquí: %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Enviado correctamente</string>
   <string name="uploader_upload_failed_ticker">Produciuse un fallou no envío</string>
   <string name="uploader_upload_failed_content_single">Non foi posíbel completar o envío de %1$s</string>
+  <string name="uploads_view_title">Envíos</string>
+  <string name="uploads_view_group_current_uploads">Actual</string>
+  <string name="uploads_view_group_finished_uploads">Enviado</string>
+  <string name="uploads_view_upload_status_succeeded">Completado</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Produciuse un erro de credenciais</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Produciuse un erro de cartafol</string>
+  <string name="uploads_view_upload_status_failed_file_error">Produciuse un erro de ficheiro</string>
+  <string name="uploads_view_upload_status_failed_permission_error"> Erro nos permisos   </string>
+  <string name="uploads_view_upload_status_unknown_fail">Produciuse un erro descoñecido</string>
+  <string name="uploads_view_later_waiting_to_upload">Agardando polo envío</string>
   <string name="downloader_download_in_progress_ticker">Descargando…</string>
   <string name="downloader_download_in_progress_content">%1$d%% descargando %2$s</string>
   <string name="downloader_download_succeeded_ticker">Completouse a descarga</string>
@@ -298,6 +308,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="share_via_link_section_title">Ligazón para compartir</string>
   <string name="share_via_link_expiration_date_label">Definir a data de caducidade</string>
   <string name="share_via_link_password_label">Protexido con contrasinal</string>
+  <string name="share_via_link_edit_permission_label">Permitir a edición</string>
   <string name="share_search">Buscar</string>
   <string name="search_users_and_groups_hint">Buscar usuarios e grupos</string>
   <string name="share_group_clarification">%1$s (grupo)</string>

@@ -24,6 +24,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Beállítások</string>
+  <string name="drawer_item_uploads_list">Feltöltések</string>
   <string name="drawer_item_logs">Naplófájlok</string>
   <string name="drawer_close">Bezárás</string>
   <string name="drawer_open">Megnyitás</string>
@@ -50,19 +51,18 @@
   <string name="sync_string_files">Fájlok</string>
   <string name="setup_btn_connect">Kapcsolódás</string>
   <string name="uploader_btn_upload_text">Feltöltés</string>
-  <string name="uploader_btn_new_folder_text">Új mappa</string>
   <string name="uploader_top_message">Válassz feltöltési mappát:</string>
   <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Kilépés</string>
-  <string name="uploader_wrn_no_content_title">Nincs feltölthető tartalom</string>
-  <string name="uploader_wrn_no_content_text">Nem jött tartalom. Nincs mit feltölteni.</string>
-  <string name="uploader_error_forbidden_content">%1$s nem jogosult a megosztott tartalom elérésére</string>
-  <string name="uploader_info_uploading">Feltöltés</string>
   <string name="file_list_seconds_ago">pár másodperce</string>
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
   <string name="file_list_loading">Betöltés...</string>
   <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
+  <string name="file_list_folder">mappa</string>
+  <string name="file_list_folders">mappák</string>
+  <string name="file_list_file">fájl</string>
+  <string name="file_list_files">fájl</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
   <string name="filedetails_type">Tipus:</string>
@@ -89,6 +89,11 @@
   <string name="uploader_upload_succeeded_ticker">A feltöltés sikerült</string>
   <string name="uploader_upload_failed_ticker">A feltöltés nem sikerült</string>
   <string name="uploader_upload_failed_content_single"> %1$s fájl feltöltése sikertelen</string>
+  <string name="uploads_view_title">Feltöltések</string>
+  <string name="uploads_view_group_current_uploads">Jelenlegi</string>
+  <string name="uploads_view_group_finished_uploads">Feltöltve</string>
+  <string name="uploads_view_upload_status_succeeded">Befejezve</string>
+  <string name="uploads_view_upload_status_unknown_fail">Ismeretlen hiba</string>
   <string name="downloader_download_in_progress_ticker">Letöltés ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Letöltés %2$s</string>
   <string name="downloader_download_succeeded_ticker">A letöltés sikeres</string>
@@ -251,6 +256,7 @@
   <string name="share_via_link_section_title">Megosztás hivatkozással</string>
   <string name="share_via_link_expiration_date_label">Legyen lejárati idő</string>
   <string name="share_via_link_password_label">Jelszóval is védem</string>
+  <string name="share_via_link_edit_permission_label">Szerkesztés engedélyezése</string>
   <string name="share_search">Keresés</string>
   <string name="share_privilege_can_share">megosztható</string>
   <string name="share_privilege_can_edit">módosíthat</string>

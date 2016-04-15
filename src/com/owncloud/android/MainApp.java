@@ -166,7 +166,9 @@ public class MainApp extends Application {
         return getAppContext().getResources().getString(R.string.db_name);
     }
      
-    //  data_folder
+    /**
+     * name of data_folder, e.g., "owncloud"
+     */
     public static String getDataFolder() {
         return getAppContext().getResources().getString(R.string.data_folder);
     }

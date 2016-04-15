@@ -1,0 +1,19 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="3dp" >
+
+   <TextView
+       android:id="@+id/uploadListGroupName"
+       style="?android:attr/listSeparatorTextViewStyle"
+       android:layout_height="wrap_content"
+       android:layout_gravity="center_vertical"
+       android:divider="@null"
+       android:dividerHeight="0dp"
+       android:ellipsize="middle"
+       android:showDividers="none"
+       android:textColor="@color/color_accent"
+       android:paddingLeft="16dp"
+	/>
+
+</RelativeLayout>

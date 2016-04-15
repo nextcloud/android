@@ -48,18 +48,17 @@
   <string name="sync_string_files">Fitxers</string>
   <string name="setup_btn_connect">Connecta</string>
   <string name="uploader_btn_upload_text">Puja</string>
-  <string name="uploader_btn_new_folder_text">Carpeta nova</string>
   <string name="uploader_top_message">Seleccioneu la carpeta de pujada:</string>
   <string name="uploader_wrn_no_account_title">No s\'ha trobat el compte</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configura</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Surt</string>
-  <string name="uploader_wrn_no_content_title">No hi ha continguts per pujar</string>
-  <string name="uploader_wrn_no_content_text">No s\'ha rebut cap contingut. Res per pujar</string>
-  <string name="uploader_error_forbidden_content">%1$s no pot accedir al contingut compartit</string>
-  <string name="uploader_info_uploading">S\'està pujant</string>
   <string name="file_list_seconds_ago">segons enrere</string>
   <string name="file_list_empty">Res per aquí. Pugeu alguna cosa!</string>
   <string name="local_file_list_empty">No hi ha arxius a aquesta carpeta</string>
+  <string name="file_list_folder">carpeta</string>
+  <string name="file_list_folders">carpetes</string>
+  <string name="file_list_file">fitxer</string>
+  <string name="file_list_files">fitxer</string>
   <string name="filedetails_select_file">Feu clic en un fitxer per mostrar informació addicional.</string>
   <string name="filedetails_size">Mida:</string>
   <string name="filedetails_type">Tipus:</string>
@@ -85,6 +84,11 @@
   <string name="uploader_upload_succeeded_ticker">La pujada ha estat correcte</string>
   <string name="uploader_upload_failed_ticker">La pujada ha fallat</string>
   <string name="uploader_upload_failed_content_single">La pujada de %1$s no s\'ha pogut acabar</string>
+  <string name="uploads_view_group_current_uploads">Actual</string>
+  <string name="uploads_view_group_finished_uploads">Carregat</string>
+  <string name="uploads_view_upload_status_succeeded">Completat</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Error de permisos</string>
+  <string name="uploads_view_upload_status_unknown_fail">Error desconegut</string>
   <string name="downloader_download_in_progress_ticker">S\'està baixant ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% pujant %2$s</string>
   <string name="downloader_download_succeeded_ticker">La baixada ha estat correcte</string>
@@ -237,10 +241,12 @@
   <string name="share_via_link_section_title">Comparteix l\'enllaç</string>
   <string name="share_via_link_expiration_date_label">Estableix la data de venciment</string>
   <string name="share_via_link_password_label">Protegir amb contrasenya</string>
+  <string name="share_via_link_edit_permission_label">Permetre edició</string>
   <string name="share_search">Cerca</string>
   <string name="share_privilege_can_share">pot compartir</string>
   <string name="share_privilege_can_edit">pot editar</string>
   <string name="share_privilege_can_edit_create">crea</string>
   <string name="share_privilege_can_edit_change">canvi</string>
   <string name="share_privilege_can_edit_delete">elimina</string>
+  <string name="edit_share_unshare">Deixar de compartir</string>
 </resources>
