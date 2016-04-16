@@ -64,6 +64,13 @@
   <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu aparelho. Por favor configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
+  <string name="uploader_error_title_no_file_to_upload">Nenhum arquivo para envio</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s não pode ser enviado um pedaço de texto como um arquivo.</string>
+  <string name="uploader_error_message_no_file_to_upload">Os dados recebidos não incluem qualquer arquivo válido.</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">O arquivo não pode sejam enviado</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s não tem permissão para ler um arquivo recebido</string>
+  <string name="uploader_error_message_source_file_not_found">Arquivo para envio não foi encontrado em sua localização. Por favor verifique se o arquivo existe.</string>
+  <string name="uploader_error_message_source_file_not_copied">Ocorreu um erro ao copiar o arquivo para uma pasta temporária. Por favor, tente enviar novamente.</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
   <string name="file_list_loading">Carregando...</string>
@@ -91,9 +98,11 @@
   <string name="common_retry_upload">Tentar enviar de novo</string>
   <string name="common_cancel_sync">Cancelar sincronização</string>
   <string name="common_cancel">Cancelar</string>
+  <string name="common_back">Voltar</string>
   <string name="common_save_exit">Salvar &amp; e sair</string>
   <string name="common_error">Erro</string>
   <string name="common_loading">Carregando ...</string>
+  <string name="common_unknown">desconhecido</string>
   <string name="common_error_unknown">Erro desconhecido</string>
   <string name="about_title">Sobre</string>
   <string name="change_password">Alterar senha</string>
@@ -401,4 +410,5 @@
   <string name="manage_space_clear_data">Limpar dados</string>
   <string name="manage_space_error">Alguns arquivos não puderam ser excluído.</string>
   <string name="permission_storage_access">Permissões adicionais são necessárias para se enviar e baixar arquivos &amp; .</string>
+  <string name="local_file_not_found_toast">O arquivo não foi encontrado no sistema de arquivos local</string>
 </resources>

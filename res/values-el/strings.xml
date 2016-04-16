@@ -88,9 +88,11 @@
   <string name="common_ok">ΟΚ</string>
   <string name="common_cancel_sync">Ακύρωση συγχρονισμού</string>
   <string name="common_cancel">Άκυρο</string>
+  <string name="common_back">Επιστροφή</string>
   <string name="common_save_exit">Αποθήκευση &amp; έξοδος</string>
   <string name="common_error">Σφάλμα</string>
   <string name="common_loading">Φόρτωση ...</string>
+  <string name="common_unknown">άγνωστο</string>
   <string name="common_error_unknown">Άγνωστο σφάλμα</string>
   <string name="about_title">Σχετικά</string>
   <string name="change_password">Αλλαγή κωδικού πρόσβασης</string>

@@ -33,6 +33,7 @@
   <string name="common_no">No</string>
   <string name="common_ok">Ok</string>
   <string name="common_cancel">Cancellar</string>
+  <string name="common_back">Retro</string>
   <string name="common_error">Error</string>
   <string name="common_error_unknown">Error Incognite</string>
   <string name="about_title">A proposito</string>

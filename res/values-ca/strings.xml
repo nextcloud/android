@@ -71,8 +71,10 @@
   <string name="common_no">No</string>
   <string name="common_ok">D\'acord</string>
   <string name="common_cancel">Cancel·la</string>
+  <string name="common_back">Enrera</string>
   <string name="common_error">Error</string>
   <string name="common_loading">Carregant...</string>
+  <string name="common_unknown">desconegut</string>
   <string name="common_error_unknown">Error desconegut</string>
   <string name="about_title">Quant a</string>
   <string name="change_password">Canvia la contrasenya</string>

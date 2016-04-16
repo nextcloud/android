@@ -82,6 +82,7 @@
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Відмінити синхронізацію</string>
   <string name="common_cancel">Відмінити</string>
+  <string name="common_back">Назад</string>
   <string name="common_save_exit">Зберегти та вийти</string>
   <string name="common_error">Помилка</string>
   <string name="common_loading">Завантаження...</string>

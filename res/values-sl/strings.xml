@@ -91,9 +91,11 @@
   <string name="common_retry_upload">Ponovno pošlji</string>
   <string name="common_cancel_sync">Prekliči usklajevanje</string>
   <string name="common_cancel">Prekliči</string>
+  <string name="common_back">Nazaj</string>
   <string name="common_save_exit">Shrani in končaj</string>
   <string name="common_error">Napaka</string>
   <string name="common_loading">Nalaganje ...</string>
+  <string name="common_unknown">neznano</string>
   <string name="common_error_unknown">Neznana napaka</string>
   <string name="about_title">O oblaku %1$s</string>
   <string name="change_password">Spremeni geslo</string>

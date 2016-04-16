@@ -88,6 +88,7 @@
   <string name="common_ok">好</string>
   <string name="common_cancel_sync">取消同步</string>
   <string name="common_cancel">取消</string>
+  <string name="common_back">返回</string>
   <string name="common_save_exit">儲存；離開。</string>
   <string name="common_error">錯誤</string>
   <string name="common_loading">載入 …</string>

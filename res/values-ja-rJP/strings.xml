@@ -89,9 +89,11 @@
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">同期のキャンセル</string>
   <string name="common_cancel">キャンセル</string>
+  <string name="common_back">戻る</string>
   <string name="common_save_exit">保存 &amp; 終了</string>
   <string name="common_error">エラー</string>
   <string name="common_loading">読込中...</string>
+  <string name="common_unknown">不明</string>
   <string name="common_error_unknown">不明なエラー</string>
   <string name="about_title">について</string>
   <string name="change_password">パスワードを変更</string>

@@ -88,9 +88,11 @@
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Cancel sync</string>
   <string name="common_cancel">Cancel</string>
+  <string name="common_back">Back</string>
   <string name="common_save_exit">Save &amp; exit</string>
   <string name="common_error">Error</string>
   <string name="common_loading">Loading …</string>
+  <string name="common_unknown">unknown</string>
   <string name="common_error_unknown">Unknown error</string>
   <string name="about_title">About</string>
   <string name="change_password">Change password</string>

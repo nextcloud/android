@@ -89,9 +89,11 @@
   <string name="common_ok">ОК</string>
   <string name="common_cancel_sync">Отменить синхронизацию</string>
   <string name="common_cancel">Отмена</string>
+  <string name="common_back">Назад</string>
   <string name="common_save_exit">Сохранить и выйти</string>
   <string name="common_error">Ошибка</string>
   <string name="common_loading">Загрузка ...</string>
+  <string name="common_unknown">неизвестно</string>
   <string name="common_error_unknown">Неизвестная ошибка</string>
   <string name="about_title">О программе</string>
   <string name="change_password">Сменить пароль</string>

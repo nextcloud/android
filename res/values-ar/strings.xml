@@ -75,6 +75,7 @@
   <string name="common_no">لا</string>
   <string name="common_ok">تم</string>
   <string name="common_cancel">إلغاء</string>
+  <string name="common_back">رجوع</string>
   <string name="common_error">خطأ</string>
   <string name="common_loading">تحميل ...</string>
   <string name="common_error_unknown">خطأ غير معروف. </string>

@@ -89,9 +89,11 @@ Téléchargez-le ici : %2$s</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Annuler la synchronisation</string>
   <string name="common_cancel">Annuler</string>
+  <string name="common_back">Retour</string>
   <string name="common_save_exit">Enregistrer et quitter</string>
   <string name="common_error">Erreur</string>
   <string name="common_loading">Chargement…</string>
+  <string name="common_unknown">Inconnu</string>
   <string name="common_error_unknown">Erreur inconnue </string>
   <string name="about_title">À propos de</string>
   <string name="change_password">Changer de mot de passe</string>

@@ -76,8 +76,10 @@
   <string name="common_no">Не</string>
   <string name="common_ok">ОК</string>
   <string name="common_cancel">Отказ</string>
+  <string name="common_back">Назад</string>
   <string name="common_error">Грешка</string>
   <string name="common_loading">Зареждане...</string>
+  <string name="common_unknown">несяна</string>
   <string name="common_error_unknown">Непозната грешка</string>
   <string name="about_title">Относно</string>
   <string name="change_password">Промяна на парола</string>

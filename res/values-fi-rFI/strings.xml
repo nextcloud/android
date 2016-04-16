@@ -64,6 +64,7 @@
   <string name="uploader_wrn_no_account_text">Laitteellasi ei ole %1$s-tilejä. Määritä tilin asetukset ensin.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Lopeta</string>
+  <string name="uploader_error_message_no_file_to_upload">Vastaanotettu data ei sisällä yhtäkään kelvollista tiedostoa.</string>
   <string name="file_list_seconds_ago">sekuntia sitten</string>
   <string name="file_list_empty">Täällä ei ole mitään. Lähetä tänne jotakin!</string>
   <string name="file_list_loading">Ladataan…</string>
@@ -88,9 +89,11 @@
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Peru synkronointi</string>
   <string name="common_cancel">Peru</string>
+  <string name="common_back">Takaisin</string>
   <string name="common_save_exit">Tallenna &amp; poistu</string>
   <string name="common_error">Virhe</string>
   <string name="common_loading">Ladataan…</string>
+  <string name="common_unknown">tuntematon</string>
   <string name="common_error_unknown">Tuntematon virhe</string>
   <string name="about_title">Tietoja</string>
   <string name="change_password">Vaihda salasana</string>
@@ -356,10 +359,12 @@
   <string name="share_privilege_can_edit_delete">poista</string>
   <string name="edit_share_unshare">Lopeta jakaminen</string>
   <string name="edit_share_done">valmis</string>
+  <string name="action_retry_uploads">Uudelleenyritys epäonnistui</string>
   <string name="action_switch_grid_view">Ruudukkonäkymä</string>
   <string name="action_switch_list_view">Luettelonäkymä</string>
   <string name="manage_space_title">Hallitse tilaa</string>
   <string name="manage_space_clear_data">Tyhjennä tiedot</string>
   <string name="manage_space_error">Joitain tiedostoja ei voitu poistaa.</string>
   <string name="permission_storage_access">Tiedostojen lataaminen ja lähetys vaatii lisäoikeuksia.</string>
+  <string name="local_file_not_found_toast">Tiedostoa ei löytynyt paikallisesta tiedostojärjestelmästä</string>
 </resources>

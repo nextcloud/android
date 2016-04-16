@@ -91,9 +91,11 @@
   <string name="common_retry_upload">Yüklemeyi tekrar dene</string>
   <string name="common_cancel_sync">Eşitlemeyi iptal et</string>
   <string name="common_cancel">İptal</string>
+  <string name="common_back">Geri</string>
   <string name="common_save_exit">Kaydet ve çık</string>
   <string name="common_error">Hata</string>
   <string name="common_loading">Yükleniyor...</string>
+  <string name="common_unknown">bilinmiyor</string>
   <string name="common_error_unknown">Bilinmeyen hata</string>
   <string name="about_title">Hakkında</string>
   <string name="change_password">Parola değiştir</string>

@@ -91,9 +91,11 @@
   <string name="common_retry_upload">重试上传任务</string>
   <string name="common_cancel_sync">取消同步</string>
   <string name="common_cancel">取消</string>
+  <string name="common_back">返回</string>
   <string name="common_save_exit">保存并退出</string>
   <string name="common_error">错误</string>
   <string name="common_loading">加载中...</string>
+  <string name="common_unknown">未知</string>
   <string name="common_error_unknown">未知错误</string>
   <string name="about_title">关于</string>
   <string name="change_password">修改密码</string>

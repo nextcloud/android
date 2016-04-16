@@ -81,8 +81,10 @@
   <string name="common_no">Nej</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Annuller</string>
+  <string name="common_back">Tilbage</string>
   <string name="common_error">Fejl</string>
   <string name="common_loading">Indlæser...</string>
+  <string name="common_unknown">ukendt</string>
   <string name="common_error_unknown">Ukendt fejl</string>
   <string name="about_title">Om</string>
   <string name="change_password">Skift kodeord</string>

@@ -91,9 +91,11 @@
   <string name="common_retry_upload">hochladen erneut versuchen</string>
   <string name="common_cancel_sync">Synchronisation abbrechen</string>
   <string name="common_cancel">Abbrechen</string>
+  <string name="common_back">Zurück</string>
   <string name="common_save_exit">Speichern &amp; verlassen</string>
   <string name="common_error">Fehler</string>
   <string name="common_loading">Lade…</string>
+  <string name="common_unknown">unbekannt</string>
   <string name="common_error_unknown">Unbekannter Fehler</string>
   <string name="about_title">Über</string>
   <string name="change_password">Passwort ändern</string>

@@ -88,9 +88,11 @@
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Anuluj synchronizację</string>
   <string name="common_cancel">Anuluj</string>
+  <string name="common_back">Wróć</string>
   <string name="common_save_exit">Zapisz i wyjdź</string>
   <string name="common_error">Błąd</string>
   <string name="common_loading">Wczytuję ...</string>
+  <string name="common_unknown">nieznane</string>
   <string name="common_error_unknown">Nieznany błąd</string>
   <string name="about_title">O aplikacji</string>
   <string name="change_password">Zmień hasło</string>

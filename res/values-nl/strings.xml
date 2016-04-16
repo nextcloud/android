@@ -92,9 +92,11 @@ Download hier: %2$s</string>
   <string name="common_retry_upload">Probeer upload opnieuw</string>
   <string name="common_cancel_sync">Sync annuleren</string>
   <string name="common_cancel">Annuleren</string>
+  <string name="common_back">Terug</string>
   <string name="common_save_exit">Opslaan &amp; einde</string>
   <string name="common_error">Fout</string>
   <string name="common_loading">Laden...</string>
+  <string name="common_unknown">onbekend</string>
   <string name="common_error_unknown">Onbekende fout</string>
   <string name="about_title">Over</string>
   <string name="change_password">Wijzig wachtwoord</string>

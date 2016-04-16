@@ -91,6 +91,7 @@
   <string name="common_retry_upload">Riprovo ngarkimin</string>
   <string name="common_cancel_sync">Anuloje njëkohësimin</string>
   <string name="common_cancel">Anuloje</string>
+  <string name="common_back">Mbrapsht</string>
   <string name="common_save_exit">Ruaje &amp; dil</string>
   <string name="common_error">Gabim</string>
   <string name="common_loading">Po ngarkohet …</string>

@@ -91,9 +91,11 @@
   <string name="common_retry_upload">Tentar novamente o envio</string>
   <string name="common_cancel_sync">Cancelar sincronização</string>
   <string name="common_cancel">Cancelar</string>
+  <string name="common_back">Voltar</string>
   <string name="common_save_exit">Salvar &amp; sair</string>
   <string name="common_error">Erro</string>
   <string name="common_loading">A carregar ...</string>
+  <string name="common_unknown">desconhecido</string>
   <string name="common_error_unknown">Erro Desconhecido</string>
   <string name="about_title">Sobre</string>
   <string name="change_password">Alterar senha</string>

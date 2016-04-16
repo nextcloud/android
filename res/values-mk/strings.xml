@@ -74,6 +74,7 @@
   <string name="common_no">Не</string>
   <string name="common_ok">Во ред</string>
   <string name="common_cancel">Откажи</string>
+  <string name="common_back">Назад</string>
   <string name="common_error">Грешка</string>
   <string name="common_loading">Вчитувам ...</string>
   <string name="common_error_unknown">Непозната грешка</string>

@@ -88,6 +88,7 @@
   <string name="common_ok">אישור</string>
   <string name="common_cancel_sync">ביטול סנכרון</string>
   <string name="common_cancel">ביטול</string>
+  <string name="common_back">אחורה</string>
   <string name="common_save_exit">שמירה ויציאה</string>
   <string name="common_error">שגיאה</string>
   <string name="common_loading">בטעינה …</string>

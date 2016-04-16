@@ -69,6 +69,7 @@
   <string name="common_no">نه</string>
   <string name="common_ok">باشه</string>
   <string name="common_cancel">منصرف شدن</string>
+  <string name="common_back">بازگشت</string>
   <string name="common_error">خطا</string>
   <string name="common_loading">بارگذاری ...</string>
   <string name="common_error_unknown">خطای نامشخص</string>

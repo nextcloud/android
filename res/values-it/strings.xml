@@ -64,6 +64,13 @@
   <string name="uploader_wrn_no_account_text">Non ci sono account %1$s sul tuo dispositivo. Configura prima un account.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurazione</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Esci</string>
+  <string name="uploader_error_title_no_file_to_upload">Nessun file da caricare</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s non può  caricare un pezzo di testo come un file.</string>
+  <string name="uploader_error_message_no_file_to_upload">I dati ricevuti non includono alcun file valido.</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">Il file non può essere caricato</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s non ha il permesso di leggere un file ricevuto</string>
+  <string name="uploader_error_message_source_file_not_found">Il file da caricare non è stato trovato nella sua posizione. Controlla che il file esista.</string>
+  <string name="uploader_error_message_source_file_not_copied">Si è verificato un errore durante il tentativo di copiare il file in una cartella temporanea. Prova a inviarlo ancora.</string>
   <string name="file_list_seconds_ago">secondi fa</string>
   <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
   <string name="file_list_loading">Caricamento in corso...</string>
@@ -91,9 +98,11 @@
   <string name="common_retry_upload">Riprova caricamento</string>
   <string name="common_cancel_sync">Annulla sincronizzazione</string>
   <string name="common_cancel">Annulla</string>
+  <string name="common_back">Indietro</string>
   <string name="common_save_exit">Salva ed esci</string>
   <string name="common_error">Errore</string>
   <string name="common_loading">Caricamento in corso...</string>
+  <string name="common_unknown">sconosciuto</string>
   <string name="common_error_unknown">Errore sconosciuto</string>
   <string name="about_title">Informazioni</string>
   <string name="change_password">Modifica la password</string>
@@ -401,4 +410,5 @@
   <string name="manage_space_clear_data">Cancella i dati</string>
   <string name="manage_space_error">Alcuni file non possono essere eliminati.</string>
   <string name="permission_storage_access">Permessi aggiuntivi sono richiesti per caricare e scaricare i file.</string>
+  <string name="local_file_not_found_toast">Il file non è stato trovato nel file system locale</string>
 </resources>

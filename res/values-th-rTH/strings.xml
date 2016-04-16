@@ -88,6 +88,7 @@
   <string name="common_ok">ตกลง</string>
   <string name="common_cancel_sync">ยกเลิกการผสานข้อมูล</string>
   <string name="common_cancel">ยกเลิก</string>
+  <string name="common_back">ย้อนกลับ</string>
   <string name="common_save_exit">บันทึก &amp; ออก</string>
   <string name="common_error">ข้อผิดพลาด</string>
   <string name="common_loading">กำลังโหลด ...</string>

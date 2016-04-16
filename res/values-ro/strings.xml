@@ -77,6 +77,7 @@
   <string name="common_no">Nu</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Anulează</string>
+  <string name="common_back">Înapoi</string>
   <string name="common_error">Eroare</string>
   <string name="common_loading">Se încarcă...</string>
   <string name="common_error_unknown">Eroare necunoscută</string>

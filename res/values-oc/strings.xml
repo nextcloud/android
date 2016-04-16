@@ -80,6 +80,7 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="common_no">Non</string>
   <string name="common_ok">D\'acòrdi</string>
   <string name="common_cancel">Anullar</string>
+  <string name="common_back">Retorn</string>
   <string name="common_error">Error</string>
   <string name="common_loading">Cargament…</string>
   <string name="common_error_unknown">Error desconeguda </string>

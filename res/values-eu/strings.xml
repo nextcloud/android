@@ -77,8 +77,10 @@
   <string name="common_no">Ez</string>
   <string name="common_ok">Ados</string>
   <string name="common_cancel">Ezeztatu</string>
+  <string name="common_back">Atzera</string>
   <string name="common_error">Errorea</string>
   <string name="common_loading">Kargatzen ...</string>
+  <string name="common_unknown">ezezaguna</string>
   <string name="common_error_unknown">Errore ezezaguna</string>
   <string name="about_title">Honi buruz</string>
   <string name="change_password">Aldatu pasahitza</string>

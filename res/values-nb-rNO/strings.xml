@@ -91,9 +91,11 @@
   <string name="common_retry_upload">Prøv å laste opp igjen.</string>
   <string name="common_cancel_sync">Avbryt synkronisering</string>
   <string name="common_cancel">Avbryt</string>
+  <string name="common_back">Tilbake</string>
   <string name="common_save_exit">Lagre &amp; avslutt</string>
   <string name="common_error">Feil</string>
   <string name="common_loading">Laster...</string>
+  <string name="common_unknown">ukjent</string>
   <string name="common_error_unknown">Ukjent feil</string>
   <string name="about_title">Om</string>
   <string name="change_password">Endre passord</string>

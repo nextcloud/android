@@ -71,9 +71,11 @@
   <string name="common_ok">Akcepti</string>
   <string name="common_cancel_sync">Nuligi sinkronigon</string>
   <string name="common_cancel">Nuligi</string>
+  <string name="common_back">Antaŭen</string>
   <string name="common_save_exit">Konservi kaj eliri</string>
   <string name="common_error">Eraro</string>
   <string name="common_loading">Ŝargante...</string>
+  <string name="common_unknown">nekonata</string>
   <string name="common_error_unknown">Nekonata eraro</string>
   <string name="about_title">Pri</string>
   <string name="change_password">Ŝanĝi la pasvorton</string>

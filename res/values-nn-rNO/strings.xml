@@ -53,6 +53,7 @@
   <string name="common_no">Nei</string>
   <string name="common_ok">Greitt</string>
   <string name="common_cancel">Avbryt</string>
+  <string name="common_back">Tilbake</string>
   <string name="common_error">Feil</string>
   <string name="common_error_unknown">Ukjend feil</string>
   <string name="about_title">Om</string>

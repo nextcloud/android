@@ -76,6 +76,7 @@
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Mégsem</string>
+  <string name="common_back">Vissza</string>
   <string name="common_error">Hiba</string>
   <string name="common_loading">Betöltés ...</string>
   <string name="common_error_unknown">Ismeretlen hiba</string>

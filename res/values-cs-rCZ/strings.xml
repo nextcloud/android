@@ -89,9 +89,11 @@
   <string name="common_retry_upload">Opakovat nahrání</string>
   <string name="common_cancel_sync">Zrušit synchronizaci</string>
   <string name="common_cancel">Zrušit</string>
+  <string name="common_back">Zpět</string>
   <string name="common_save_exit">Uložit &amp; ukončit</string>
   <string name="common_error">Chyba</string>
   <string name="common_loading">Načítání ...</string>
+  <string name="common_unknown">neznámý</string>
   <string name="common_error_unknown">Neznámá chyba</string>
   <string name="about_title">O aplikaci</string>
   <string name="change_password">Změnit heslo</string>
