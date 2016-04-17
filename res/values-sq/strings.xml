@@ -64,6 +64,13 @@
   <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Rregullim</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Dilni</string>
+  <string name="uploader_error_title_no_file_to_upload">Pa kartelë për ngarkim</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s s’mund të ngarkojë një copë teksti si të ish një kartelë.</string>
+  <string name="uploader_error_message_no_file_to_upload">Të dhënat e marra nuk përfshijnë ndonjë kartelë të vlefshme.</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">Kartela s’mund të ngarkohet</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s s’është lejuar të lexojë një kartelë të marrë</string>
+  <string name="uploader_error_message_source_file_not_found">Kartela për ngarkim s’u gjet te vendi i saj. Ju lutemi, shihni nëse ekziston apo jo kartela.</string>
+  <string name="uploader_error_message_source_file_not_copied">Ndodhi një gabim teksa kopjohej kartela te një dosje e përkohshme. Ju lutemi, provoni ta ridërgoni.</string>
   <string name="file_list_seconds_ago">sekonda më parë</string>
   <string name="file_list_empty">Këtu nuk ka gjë. Ngarkoni diçka!</string>
   <string name="file_list_loading">Po ngarkohet…</string>
@@ -399,4 +406,5 @@
   <string name="manage_space_clear_data">Pastroji të dhënat</string>
   <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
   <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>
+  <string name="local_file_not_found_toast">Kartela s’u gjet te sistemi vendor i kartelave</string>
 </resources>

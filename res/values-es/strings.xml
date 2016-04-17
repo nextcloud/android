@@ -64,6 +64,13 @@
   <string name="uploader_wrn_no_account_text">No hay %1$s cuentas en tu dispositivo. Por favor añade una cuenta primero.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
+  <string name="uploader_error_title_no_file_to_upload">Ningún archivo para subir</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s  No puedo subir un texto como si fuera un archivo.</string>
+  <string name="uploader_error_message_no_file_to_upload">No hay ningún archivo válido en los datos recibidos.</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">No se puede subir el archivo</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s No está autorizado a leer el arcivo.</string>
+  <string name="uploader_error_message_source_file_not_found">El archivo a subir no se localiza. Compruebe que el archivo existe.</string>
+  <string name="uploader_error_message_source_file_not_copied">Ha ocurrido un error al copiar a la carpeta temporal. Por favor intentelo de nuevo.</string>
   <string name="file_list_seconds_ago">hace segundos</string>
   <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
   <string name="file_list_loading">Cargando...</string>
@@ -402,4 +409,5 @@
   <string name="manage_space_clear_data">Limpiar datos</string>
   <string name="manage_space_error">No se han podido eliminar algunos archivos</string>
   <string name="permission_storage_access">Se requieren permisos adicionales para subir &amp; y descargar archivos.</string>
+  <string name="local_file_not_found_toast">El archivo no se encuentra en el servidor local de archivos.</string>
 </resources>
