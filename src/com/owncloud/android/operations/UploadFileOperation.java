@@ -765,8 +765,8 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         if (mWasRenamed) {
-            OCFile oldFile = mOldFile;
-            if (oldFile.fileExists()) {
+            OCFile oldFile = getStorageManager().getFileByPath(mOldFile.getRemotePath());
+            if (oldFile != null) {
                 oldFile.setStoragePath(null);
                 getStorageManager().saveFile(oldFile);
                 getStorageManager().saveConflict(oldFile, null);
