@@ -64,6 +64,8 @@
   <string name="uploader_wrn_no_account_text">Za %1$s ni določenega računa. Pred nadaljevanjem ga je treba ustvariti.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavi</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Končaj</string>
+  <string name="uploader_error_title_no_file_to_upload">Ni izbrane datoteke za pošiljanje</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">Datoteke ni mogoče poslati</string>
   <string name="file_list_seconds_ago">pred nekaj sekundami</string>
   <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
   <string name="file_list_loading">Poteka nalaganje ...</string>
