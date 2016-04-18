@@ -443,7 +443,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return remote path
      */
     public String getParentRemotePath() {
-        return new File(getRemotePath()).getParent();
+        String parentPath = new File(getRemotePath()).getParent();
+        return (parentPath.substring(parentPath.length() - 1).equals("/")) ? parentPath : (parentPath + "/");
     }
 
     /**
