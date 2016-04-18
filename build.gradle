@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.0.0'
     }
 }
 
@@ -33,10 +33,7 @@ dependencies {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
-    // as long as ownCloud uses Apache HTTP
-    // http://developer.android.com/about/versions/marshmallow/android-6.0-changes.html#behavior-apache-http-client
-    useLibrary 'org.apache.http.legacy'
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.owncloud.android.beta"
