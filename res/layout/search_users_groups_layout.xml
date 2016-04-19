@@ -23,11 +23,11 @@
     android:id="@+id/search_layout"
     android:minWidth="200dp"
     android:layout_marginRight="@dimen/standard_margin"
-    android:layout_marginBottom="20dp">
+    android:layout_marginBottom="@dimen/standard_half_margin">
 
     <TextView
         android:id="@+id/searchUserGroupsTitle"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/share_with_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
