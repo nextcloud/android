@@ -165,12 +165,15 @@ public class Preferences extends PreferenceActivity
                     Boolean incoming = (Boolean) newValue;
 
                     i.setAction(
-                            incoming ? PassCodeActivity.ACTION_REQUEST_WITH_RESULT :
+                            incoming.booleanValue() ? PassCodeActivity.ACTION_REQUEST_WITH_RESULT :
                                     PassCodeActivity.ACTION_CHECK_WITH_RESULT
                     );
-                    startActivity(i);
 
-                    return true;
+                    startActivityForResult(i, incoming.booleanValue() ? ACTION_REQUEST_PASSCODE :
+                            ACTION_CONFIRM_PASSCODE);
+
+                    // Don't update just yet, we will decide on it in onActivityResult
+                    return false;
                 }
             });
 
