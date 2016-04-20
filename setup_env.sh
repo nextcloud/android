@@ -10,46 +10,21 @@ function initDefault {
     android update test-project -p tests -m ..
 }
 
-function initForAnt {
-
-	#Gets the owncloud-android-library
-	git submodule init
-	git submodule update
-
-	#Prepare project android-support-appcompat-v7 ; JAR file is not enough, includes resources
-	android update lib-project -p libs/android-support-appcompat-v7-exploded-aar --target android-23
-	android update lib-project -p libs/android-support-design-exploded-aar --target android-23
-	android update lib-project -p libs/com-getbase-floatingactionbutton-1-10-1-exploded-aar --target android-22
-
-	#As default it updates the ant scripts
-	android update lib-project -p owncloud-android-library
-	android update project -p .
-	android update project -p oc_jb_workaround
-	android update test-project -p tests -m ..
-}
-
 #No args
 if [ $# -lt 1 ]; then
         echo "No args found"
-        echo "Usage : $0 [gradle | ant]"
-        exit
+        echo "Usage : $0 [gradle]"        exit
 fi
 
 #checking args
 case "$1" in
-
-    "ant")  
-        echo "Creating Ant environment"
-        initForAnt
-        ;;
 
     "gradle")  echo  "Creating gradle environment"
         initDefault
         ;;
 
     *)  echo "Argument not recognized"
-        echo "Usage : $0 [gradle | ant]"
-       ;;
+        echo "Usage : $0 [gradle]"       ;;
 esac
 
 exit

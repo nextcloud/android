@@ -7,7 +7,7 @@ android:
     - android-22
     - android-19
 script:
-  - ./setup_env.sh ant
-  - ant clean
-  - ant debug
+  - ./setup_env.sh gradle
+  - gradle clean
+  - gradle build
   
