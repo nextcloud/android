@@ -324,6 +324,9 @@
 
     <string name="copy_link">Copy link</string>
     <string name="clipboard_text_copied">Copied to clipboard</string>
+    <string name="clipboard_no_text_to_copy">No text received to copy to clipboard</string>
+    <string name="clipboard_uxexpected_error">Unexpected error while copying to clipboard</string>
+    <string name="clipboard_label">Text copied from %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Critical error: cannot perform operations</string>
 
@@ -446,7 +449,7 @@
     <string name="action_switch_list_view">List view</string>
 
     <string name="manage_space_title">Manage space</string>
-    <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanentlty. \n\nDownloaded files will be kept untouched.\n\nThis process can take some time.</string>
+    <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take some time.</string>
     <string name="manage_space_clear_data">Clear data</string>
     <string name="manage_space_error">Some files could not be deleted.</string>
 

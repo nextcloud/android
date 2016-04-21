@@ -19,8 +19,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10900100"
-    android:versionName="1.9.1" >
+    android:versionCode="20000000"
+    android:versionName="2.0.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -72,7 +72,7 @@
         </activity>
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.Uploader"
-                  android:launchMode="singleInstance"
+                  android:taskAffinity=""
                   android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />

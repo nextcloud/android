@@ -25,7 +25,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 
 import com.owncloud.android.authentication.PassCodeManager;
@@ -87,48 +86,46 @@ public class MainApp extends Application {
         }
 
         // register global protection with pass code
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            this.registerActivityLifecycleCallbacks( new ActivityLifecycleCallbacks() {
+        registerActivityLifecycleCallbacks( new ActivityLifecycleCallbacks() {
 
-                @Override
-                public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                    Log_OC.d(activity.getClass().getSimpleName(),  "onCreate(Bundle) starting" );
-                    PassCodeManager.getPassCodeManager().onActivityCreated(activity);
-                }
+            @Override
+            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                Log_OC.d(activity.getClass().getSimpleName(),  "onCreate(Bundle) starting" );
+                PassCodeManager.getPassCodeManager().onActivityCreated(activity);
+            }
 
-                @Override
-                public void onActivityStarted(Activity activity) {
-                    Log_OC.d(activity.getClass().getSimpleName(),  "onStart() starting" );
-                    PassCodeManager.getPassCodeManager().onActivityStarted(activity);
-                }
+            @Override
+            public void onActivityStarted(Activity activity) {
+                Log_OC.d(activity.getClass().getSimpleName(),  "onStart() starting" );
+                PassCodeManager.getPassCodeManager().onActivityStarted(activity);
+            }
 
-                @Override
-                public void onActivityResumed(Activity activity) {
-                    Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting" );
-                }
+            @Override
+            public void onActivityResumed(Activity activity) {
+                Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting" );
+            }
 
-                @Override
-                public void onActivityPaused(Activity activity) {
-                    Log_OC.d(activity.getClass().getSimpleName(), "onPause() ending");
-                }
+            @Override
+            public void onActivityPaused(Activity activity) {
+                Log_OC.d(activity.getClass().getSimpleName(), "onPause() ending");
+            }
 
-                @Override
-                public void onActivityStopped(Activity activity) {
-                    Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending" );
-                    PassCodeManager.getPassCodeManager().onActivityStopped(activity);
-                }
+            @Override
+            public void onActivityStopped(Activity activity) {
+                Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending" );
+                PassCodeManager.getPassCodeManager().onActivityStopped(activity);
+            }
 
-                @Override
-                public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-                    Log_OC.d(activity.getClass().getSimpleName(), "onSaveInstanceState(Bundle) starting" );
-                }
+            @Override
+            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                Log_OC.d(activity.getClass().getSimpleName(), "onSaveInstanceState(Bundle) starting" );
+            }
 
-                @Override
-                public void onActivityDestroyed(Activity activity) {
-                    Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending" );
-                }
-            });
-        }
+            @Override
+            public void onActivityDestroyed(Activity activity) {
+                Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending" );
+            }
+        });
     }
 
     public static Context getAppContext() {

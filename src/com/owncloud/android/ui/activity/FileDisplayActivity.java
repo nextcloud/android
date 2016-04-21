@@ -765,23 +765,26 @@ public class FileDisplayActivity extends HookActivity
         OCFile currentDir = getCurrentDir();
         String remotePath = (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
 
-        if (filePath.startsWith(UriUtils.URI_CONTENT_SCHEME)) {
-            Cursor cursor = getContentResolver().query(Uri.parse(filePath), null, null, null, null);
-            try {
-                if (cursor != null && cursor.moveToFirst()) {
-                    String displayName = cursor.getString(cursor.getColumnIndex(
-                            OpenableColumns.DISPLAY_NAME));
-                    Log_OC.v(TAG, "Display Name: " + displayName);
-
-                    displayName.replace(File.separatorChar, '_');
-                    displayName.replace(File.pathSeparatorChar, '_');
-                    remotePath += displayName + DisplayUtils.getComposedFileExtension(filePath);
-
-                }
-                // and what happens in case of error?; wrong target name for the upload
-            } finally {
-                cursor.close();
-            }
+        if (selectedImageUri.toString().startsWith(UriUtils.URI_CONTENT_SCHEME)) {
+//            Cursor cursor = getContentResolver().query(Uri.parse(filePath), null, null, null, null);
+//            try {
+//                if (cursor != null && cursor.moveToFirst()) {
+//                    String displayName = cursor.getString(cursor.getColumnIndex(
+//                            OpenableColumns.DISPLAY_NAME));
+//                    Log_OC.v(TAG, "Display Name: " + displayName);
+//
+//                    displayName.replace(File.separatorChar, '_');
+//                    displayName.replace(File.pathSeparatorChar, '_');
+//                    remotePath += displayName + DisplayUtils.getComposedFileExtension(filePath);
+//
+//                }
+//                // and what happens in case of error?; wrong target name for the upload
+//            } finally {
+//                cursor.close();
+//            }
+            // Pending to be fixed
+            Toast.makeText(this, R.string.common_error_unknown, Toast.LENGTH_SHORT).show();
+            return;
 
         } else {
             remotePath += new File(filePath).getName();

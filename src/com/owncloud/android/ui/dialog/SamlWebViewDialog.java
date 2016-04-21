@@ -148,11 +148,16 @@ public class SamlWebViewDialog extends DialogFragment {
             
             WebSettings webSettings = mSsoWebView.getSettings();
             webSettings.setJavaScriptEnabled(true);
-            webSettings.setBuiltInZoomControls(false);
-            webSettings.setLoadWithOverviewMode(false);
             webSettings.setSavePassword(false);
             webSettings.setUserAgentString(MainApp.getUserAgent());
             webSettings.setSaveFormData(false);
+            // next two settings grant that non-responsive webs are zoomed out when loaded
+            webSettings.setUseWideViewPort(true);
+            webSettings.setLoadWithOverviewMode(true);
+            // next three settings allow the user use pinch gesture to zoom in / out
+            webSettings.setSupportZoom(true);
+            webSettings.setBuiltInZoomControls(true);
+            webSettings.setDisplayZoomControls(false);
             
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.setAcceptCookie(true);

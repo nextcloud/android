@@ -21,12 +21,13 @@
 package com.owncloud.android.ui.activity;
 
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.ClipboardManager;
+import android.content.ClipboardManager;
 import android.widget.Toast;
 
 /**
@@ -34,33 +35,45 @@ import android.widget.Toast;
  */
 @SuppressWarnings("deprecation")
 public class CopyToClipboardActivity extends Activity {
-    
+
+    private static final String TAG = CopyToClipboardActivity.class.getName();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // get the clipboard system service
-        ClipboardManager clipboardManager = (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
-        
-        // get the text to copy into the clipboard 
-        Intent intent = getIntent();
-        CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_TEXT);
-        
-        // and put the text the clipboard
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
-            // API level >= 11 -> modern Clipboard
-            ClipData clip = ClipData.newPlainText("ownCloud was here", text);
-            ((android.content.ClipboardManager)clipboardManager).setPrimaryClip(clip);
-            
-        } else {
-            // API level >= 11 -> legacy Clipboard
-            clipboardManager.setText(text);    
+
+        try {
+
+            // get the clipboard system service
+            ClipboardManager clipboardManager = (ClipboardManager) this.getSystemService(CLIPBOARD_SERVICE);
+
+            // get the text to copy into the clipboard
+            Intent intent = getIntent();
+            CharSequence text = intent.getCharSequenceExtra(Intent.EXTRA_TEXT);
+
+            if (text != null && text.length() > 0) {
+                // minimum API level >= 11 -> only modern Clipboard
+                ClipData clip = ClipData.newPlainText(
+                    getString(R.string.clipboard_label, getString(R.string.app_name)),
+                    text
+                );
+                clipboardManager.setPrimaryClip(clip);
+
+                // API level < 11 -> legacy Clipboard - NOT SUPPORTED ANYMORE
+                // clipboardManager.setText(text);
+
+                // alert the user that the text is in the clipboard and we're done
+                Toast.makeText(this, R.string.clipboard_text_copied, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.clipboard_no_text_to_copy, Toast.LENGTH_SHORT).show();
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this, R.string.clipboard_uxexpected_error, Toast.LENGTH_SHORT).show();
+            Log_OC.e(TAG, "Exception caught while copying to clipboard", e);
         }
-        
-        // alert the user that the text is in the clipboard and we're done
-        Toast.makeText(this, R.string.clipboard_text_copied, Toast.LENGTH_SHORT).show();
-        
+
         finish();
-    }    
+    }
 
 }
