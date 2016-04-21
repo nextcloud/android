@@ -65,11 +65,16 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploader_wrn_no_account_text">Aucun compte %1$s sur l\'appareil. Veuillez configurer un compte au préalable.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuration</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quitter</string>
+  <string name="uploader_error_title_no_file_to_upload">Aucun fichier à téléverser</string>
+  <string name="uploader_error_message_no_file_to_upload">Les données reçues n\'incluent aucun fichier valide.</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">Le fichier ne peut pas être téléversé</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s n\'est pas autorisé à lire un fichier reçu</string>
   <string name="file_list_seconds_ago">il y a quelques secondes</string>
   <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
   <string name="file_list_loading">Chargement...</string>
   <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
   <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
+  <string name="upload_list_empty">Aucun téléversement disponible.</string>
   <string name="file_list_folder">dossier</string>
   <string name="file_list_folders">dossiers</string>
   <string name="file_list_file">fichier</string>
@@ -87,6 +92,8 @@ Téléchargez-le ici : %2$s</string>
   <string name="common_yes">Oui</string>
   <string name="common_no">Non</string>
   <string name="common_ok">OK</string>
+  <string name="common_remove_upload">Retirer le téléversement</string>
+  <string name="common_retry_upload">Réessayer le téléversement</string>
   <string name="common_cancel_sync">Annuler la synchronisation</string>
   <string name="common_cancel">Annuler</string>
   <string name="common_back">Retour</string>
@@ -116,6 +123,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploads_view_upload_status_cancelled">Annulé</string>
   <string name="uploads_view_upload_status_paused">En pause</string>
   <string name="uploads_view_upload_status_failed_connection_error">Erreur de connexion</string>
+  <string name="uploads_view_upload_status_failed_retry">Le téléversement sera réessayé dans un court instant</string>
   <string name="uploads_view_upload_status_failed_credentials_error">Erreur d\'identifiants</string>
   <string name="uploads_view_upload_status_failed_folder_error">Erreur de dossier</string>
   <string name="uploads_view_upload_status_failed_file_error">Erreur de fichier</string>
@@ -390,6 +398,10 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="share_privilege_can_edit_delete">suppression</string>
   <string name="edit_share_unshare">Terminer le partage</string>
   <string name="edit_share_done">Terminé</string>
+  <string name="action_retry_uploads">Nouvel essai échoué</string>
+  <string name="action_clear_failed_uploads">Vider les échoués</string>
+  <string name="action_clear_successful_uploads">Vider les réussis</string>
+  <string name="action_clear_finished_uploads">Vider tous les terminés</string>
   <string name="action_switch_grid_view">Mosaïque</string>
   <string name="action_switch_list_view">Liste</string>
   <string name="manage_space_title">Gestion de l\'espace</string>
@@ -397,4 +409,5 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="manage_space_clear_data">Effacer les données</string>
   <string name="manage_space_error">Certains fichiers n\'ont pu être supprimés.</string>
   <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser &amp; télécharger des fichiers.</string>
+  <string name="local_file_not_found_toast">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
 </resources>
