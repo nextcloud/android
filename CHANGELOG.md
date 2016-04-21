@@ -1,3 +1,13 @@
+## 2.0.0 (April 2016)
+- Uploads view: track the progress of your uploads and handle failures
+- Federated sharing: share files with users in other ownCloud servers
+- Improvements on the UI following material design lines
+- Set a shared-by-link folder as editable
+- Wifi-only for instant uploads stop on Wifi loss
+- Be warned of server certificate changed in any action
+- Improvements when other apps send files to ownCloud
+- Bug fixing
+
 ## 1.9.1 (February 2016)
 - Set and edit permissions on internal shared data
 - Instant uploads: avoid file duplications, set policy in app settings
@@ -79,6 +89,3 @@
 - Settings view updated
 - Improved subjects in e-mails
 - Bugs fixed
-
-
-
