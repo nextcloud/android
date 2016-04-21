@@ -43,13 +43,13 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # The short X.Y version.
-version = '1.9.1'
+version = '2.0'
 # The full version, including alpha/beta/rc tags.
-release = '1.9.1'
+release = '2.0'
 
 # General information about the project.
 project = u'ownCloud Android App %s Manual' % (version)
-copyright = u'2013-2015, The ownCloud developers'
+copyright = u'2013-2016, The ownCloud developers'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
