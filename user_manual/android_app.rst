@@ -95,23 +95,23 @@ Android apps, such as the Gallery app.
 
 .. figure:: images/android-4.png 
    :alt: Your ownCloud Files page.
-
-The ownCloud menu at the top left shows the name of the logged-in user, has a 
-shortcut to your files, the **Uploads** button, and the **Settings** button.
-
-The Uploads page contains a list of your recently-uploaded files, and a Retry 
-option for any failed uploads.
-
-.. figure:: images/android-5.png
-   :alt: Top-left menu.
-
+   
 Click the overflow button at the top right (that's the one with three vertical 
 dots) to open a user menu. **Grid view** toggles between grid and list 
 view. **Refresh account** syncs with the server, and **Sort** 
 gives you the option to sort your files by date, or alphabetically.
 
 .. figure:: images/android-6.png
-   :alt: Top-right menu.
+   :alt: Top-right menu.   
+
+The ownCloud menu at the top left shows the name of the logged-in user, has a 
+shortcut to your files, the **Uploads** button, and the **Settings** button.
+
+The Uploads page displays the status of files currently uploading, a list of 
+your recently-uploaded files, and a Retry option for any failed uploads.
+
+.. figure:: images/android-15.png
+   :alt: Top-left menu.
 
 All files (that you have permission to access) on your ownCloud server are 
 displayed in your Android app, but are not downloaded until you click on them. 
