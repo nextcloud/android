@@ -406,7 +406,6 @@
   <string name="action_switch_grid_view">Zur Rasteransicht wechseln</string>
   <string name="action_switch_list_view">Zur Listenansicht wechseln</string>
   <string name="manage_space_title">Speicher verwalten</string>
-  <string name="manage_space_description">Die Einstellungen, die Datenbank und Server Zertifikate von %1$s werden endgültig gelöscht. \n\n Heruntergeladene Dateien bleiben unberührt.\n\nDieser Vorgang kann eine Weile dauern.</string>
   <string name="manage_space_clear_data">Lösche Daten</string>
   <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden</string>
   <string name="permission_storage_access">Weitere Berechtigungen erforderlich für das Hoch- und Herunterladen von Dateien</string>

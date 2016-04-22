@@ -382,7 +382,6 @@
   <string name="action_switch_grid_view">Προβολή πλέγματος</string>
   <string name="action_switch_list_view">Προβολή λίστας</string>
   <string name="manage_space_title">Διαχείριση χώρου</string>
-  <string name="manage_space_description">Οι ρυθμίσεις, η βάση δεδομένων και τα πιστοποιητικά διακομιστή από τα δεδομένα του %1$s θα διαγραφούν οριστικά. \n\nΤα ληφθέντα αρχεία δεν θα πειραχθούν. \n\nΗ διαδικασία μπορεί να διαρκέσει λίγη ώρα.</string>
   <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
   <string name="manage_space_error">Μερικά αρχεία δεν μπορούν να διαγραφούν.</string>
   <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση &amp; λήψη αρχείων.</string>

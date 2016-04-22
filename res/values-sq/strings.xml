@@ -402,7 +402,6 @@
   <string name="action_switch_grid_view">Pamje galeri</string>
   <string name="action_switch_list_view">Pamje listë</string>
   <string name="manage_space_title">Administroni hapësirë</string>
-  <string name="manage_space_description">Të dhënat e rregullimeve, bazës së të dhënave dhe dëshmive nga %1$s do të fshihen përgjithmonë. \n\nKartelat e shkarkuara do të ruhen të paprekura.\n\nKy proces mund të zgjasë ca.</string>
   <string name="manage_space_clear_data">Pastroji të dhënat</string>
   <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
   <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>

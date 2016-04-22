@@ -69,6 +69,8 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploader_error_message_no_file_to_upload">Les données reçues n\'incluent aucun fichier valide.</string>
   <string name="uploader_error_title_file_cannot_be_uploaded">Le fichier ne peut pas être téléversé</string>
   <string name="uploader_error_message_read_permission_not_granted">%1$s n\'est pas autorisé à lire un fichier reçu</string>
+  <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé dans son emplacement. Merci de vérifier si ce fichier existe.</string>
+  <string name="uploader_error_message_source_file_not_copied">Une erreur est survenue lors de la copie du fichier vers un dossier temporaire. Merci de recommencer votre envoi.</string>
   <string name="file_list_seconds_ago">il y a quelques secondes</string>
   <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
   <string name="file_list_loading">Chargement...</string>
@@ -244,6 +246,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="filename_forbidden_charaters_from_server">Le nom de fichier contient au moins un caractère non valide</string>
   <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
   <string name="wait_a_moment">Veuillez patienter</string>
+  <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
   <string name="filedisplay_unexpected_bad_get_content">Problème inattendu. Veuillez essayer une autre application pour la sélection du fichier</string>
   <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
   <string name="activity_chooser_title">Envoyer le lien vers…</string>
@@ -405,7 +408,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="action_switch_grid_view">Mosaïque</string>
   <string name="action_switch_list_view">Liste</string>
   <string name="manage_space_title">Gestion de l\'espace</string>
-  <string name="manage_space_description">Les paramètres, la base de données et les certificats provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCe processus peut prendre un certain temps.</string>
   <string name="manage_space_clear_data">Effacer les données</string>
   <string name="manage_space_error">Certains fichiers n\'ont pu être supprimés.</string>
   <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser &amp; télécharger des fichiers.</string>

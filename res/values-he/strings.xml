@@ -381,7 +381,6 @@
   <string name="action_switch_grid_view">תצוגת טבלה</string>
   <string name="action_switch_list_view">תצוגת רשימה</string>
   <string name="manage_space_title">ניהול מקום</string>
-  <string name="manage_space_description">הגדרות, מסד נתונים ואישורי אימות לשרת ממידע %1$s\'s ימחקו לצמיתות. \n\nקבצים שהורדו ישארו ללא פגע .\n\nתהליך זה יכול להמשך זמן מה.</string>
   <string name="manage_space_clear_data">ניקוי מידע</string>
   <string name="manage_space_error">לא ניתן היה למחוק מספר קבצים.</string>
   <string name="permission_storage_access">נדרשות הרשאות נוספות להעלאה והורדת קבצים.</string>

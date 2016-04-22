@@ -399,7 +399,6 @@
   <string name="action_switch_grid_view">Izgara görünümü</string>
   <string name="action_switch_list_view">Liste görünümü</string>
   <string name="manage_space_title">Alanı ayarla</string>
-  <string name="manage_space_description">Ayarlar, veritabanı ve sunucu sertifikaları %1$s verilerinden tamamen silinecektir.\n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
   <string name="manage_space_clear_data">Verileri temizle</string>
   <string name="manage_space_error">Bazı dosyalar silinemedi</string>
   <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izin gerekiyor.</string>

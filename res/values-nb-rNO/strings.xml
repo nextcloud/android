@@ -399,7 +399,6 @@
   <string name="action_switch_grid_view">Rutenett-visning</string>
   <string name="action_switch_list_view">Listevisning</string>
   <string name="manage_space_title">Håndter plass</string>
-  <string name="manage_space_description">Innstillinger, database og server-sertifikater fra %1$s sine data vil bli slettet permanent. \n\nNedlastede filer forblir urørt.\n\nDenne prosessen kan ta litt tid.</string>
   <string name="manage_space_clear_data">Nullstill data</string>
   <string name="manage_space_error">Noen filer kunne ikke fjernes.</string>
   <string name="permission_storage_access">Flere tillatelser trengs for å laste opp &amp; ned filer.</string>

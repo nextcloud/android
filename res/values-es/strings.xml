@@ -117,7 +117,7 @@
   <string name="uploader_upload_failed_ticker">Error en la subida</string>
   <string name="uploader_upload_failed_content_single">La subida de %1$s no se pudo completar</string>
   <string name="uploader_upload_failed_credentials_error">Subida fallida, necesita volver a iniciar sesión</string>
-  <string name="uploads_view_title">Cargas</string>
+  <string name="uploads_view_title">Subidas</string>
   <string name="uploads_view_group_current_uploads">Actual</string>
   <string name="uploads_view_group_failed_uploads">Fallido (presiona para reintentarlo)</string>
   <string name="uploads_view_group_finished_uploads">Subidos</string>
@@ -346,7 +346,7 @@
   <string name="copy_file_invalid_overwrite">El fichero ya existe en el directorio de destino</string>
   <string name="copy_file_error">Hubo un error al tratar de copiar este archivo o carpeta</string>
   <string name="forbidden_permissions_copy">para copiar este archivo</string>
-  <string name="prefs_category_instant_uploading">Cargas instantáneas</string>
+  <string name="prefs_category_instant_uploading">Subidas instantáneas</string>
   <string name="prefs_category_details">Detalles</string>
   <string name="prefs_instant_video_upload_path_title">Ruta de subida de vídeo </string>
   <string name="sync_folder_failed_content">La sincronización de la carpeta %1$s no se pudo completar</string>
@@ -405,7 +405,6 @@
   <string name="action_switch_grid_view">Vista de rejilla</string>
   <string name="action_switch_list_view">Ver lista</string>
   <string name="manage_space_title">Gestionar espacio</string>
-  <string name="manage_space_description">Los ajustes, bases de datos y certificados del servidor %1$s incluidos sus datos serán borrados permanentemente. \n\nLos archivos descargados permanecerán sin tocarse.\n\nEste proceso puede tomar algún tiempo.</string>
   <string name="manage_space_clear_data">Limpiar datos</string>
   <string name="manage_space_error">No se han podido eliminar algunos archivos</string>
   <string name="permission_storage_access">Se requieren permisos adicionales para subir &amp; y descargar archivos.</string>

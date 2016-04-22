@@ -398,7 +398,6 @@
   <string name="action_switch_grid_view">Rutnätsvy</string>
   <string name="action_switch_list_view">Listvy</string>
   <string name="manage_space_title">Hantera utrymme</string>
-  <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s data kommer att raderas permanent. \n\nNedladdade förblir orörda.\n\nProcessen kommer ta tid.</string>
   <string name="manage_space_clear_data">Rensa data</string>
   <string name="manage_space_error">Vissa filer kunde inte raderas.</string>
   <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp &amp; ner filer.</string>
