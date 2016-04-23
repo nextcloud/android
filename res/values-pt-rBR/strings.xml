@@ -308,6 +308,9 @@
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar link</string>
   <string name="clipboard_text_copied">Copiado para área de transferência</string>
+  <string name="clipboard_no_text_to_copy">Nenhum texto recebido para copiar para área de transferência</string>
+  <string name="clipboard_uxexpected_error">Erro inesperado ao copiar para a área de transferência</string>
+  <string name="clipboard_label">Texto copiado de %1$s</string>
   <string name="error_cant_bind_to_operations_service">Erro crítico: não pode executar operações</string>
   <string name="network_error_socket_exception">Ocorreu um erro durante a conexão com o servidor.</string>
   <string name="network_error_socket_timeout_exception">Ocorreu um erro enquanto se espera pelo servidor, a operação não poderia ter sido executada</string>
@@ -406,6 +409,7 @@
   <string name="action_switch_grid_view">Grade de exibição</string>
   <string name="action_switch_list_view">Lista de visualização</string>
   <string name="manage_space_title">Gerenciar o espaço</string>
+  <string name="manage_space_description">Definições, certificados de banco de dados e servidor de dados %1$s serão excluído permanentemente. \n\nArquivos baixados serão mantidos inalterados. \n\nEste processo pode demorar algum tempo.</string>
   <string name="manage_space_clear_data">Limpar dados</string>
   <string name="manage_space_error">Alguns arquivos não puderam ser excluído.</string>
   <string name="permission_storage_access">Permissões adicionais são necessárias para se enviar e baixar arquivos &amp; .</string>

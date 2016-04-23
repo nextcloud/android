@@ -311,6 +311,9 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="activity_chooser_send_file_title">Versturen</string>
   <string name="copy_link">Link kopiëren</string>
   <string name="clipboard_text_copied">Gekopieerd naar het klembord</string>
+  <string name="clipboard_no_text_to_copy">Geen tekst ontvangen om te kopiëren naar het klembord</string>
+  <string name="clipboard_uxexpected_error">Onverwachte fout bij het kopiëren naar het klembord</string>
+  <string name="clipboard_label">Tekst gekopieerd vanaf %1$s</string>
   <string name="error_cant_bind_to_operations_service">Kritieke fout: kan de acties niet uitvoeren</string>
   <string name="network_error_socket_exception">Er trad een fout op bij het verbinden met de server.</string>
   <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
@@ -409,6 +412,7 @@ Neem contact op met uw beheerder</string>
   <string name="action_switch_grid_view">Raster indeling</string>
   <string name="action_switch_list_view">Lijst indeling</string>
   <string name="manage_space_title">Beheer ruimte</string>
+  <string name="manage_space_description">Instellingen, database en servercertificaten van %1$s\'s data zullen permanent worden verwijderd. \n\nGedownloade bestanden blijven onaangeroerd.\n\nDit proces kan even duren.</string>
   <string name="manage_space_clear_data">Verwijder data</string>
   <string name="manage_space_error">Sommige bestanden konden niet worden verwijderd</string>
   <string name="permission_storage_access">Aanvullende permssies vereist voor het uploaden en downloaden van bestanden.</string>

@@ -304,6 +304,9 @@
   <string name="activity_chooser_send_file_title">Dërgoje</string>
   <string name="copy_link">Kopjoje lidhjen</string>
   <string name="clipboard_text_copied">U kopjua te e papastra</string>
+  <string name="clipboard_no_text_to_copy">S’u mor tekst për t’u kopjuar në të papastër</string>
+  <string name="clipboard_uxexpected_error">Gabim i panjohur teksa kopjohej në të papastër</string>
+  <string name="clipboard_label">Tekst i kopjuar prej %1$s</string>
   <string name="error_cant_bind_to_operations_service">Gabim kritik: nuk mund të kryhen veprime</string>
   <string name="network_error_socket_exception">Ndodhi një gabim teksa po lidhej me shërbyesin.</string>
   <string name="network_error_socket_timeout_exception">Ndodhi një gabim teksa po pritej për shërbyesin, veprimi s\’u krye dot</string>
@@ -402,6 +405,7 @@
   <string name="action_switch_grid_view">Pamje galeri</string>
   <string name="action_switch_list_view">Pamje listë</string>
   <string name="manage_space_title">Administroni hapësirë</string>
+  <string name="manage_space_description">Rregullimet, baza e të dhënave dhe dëshmitë e shërbyesit prej të dhënave nga %1$s do të fshihen përgjithmonë. \n\nKartelat e shkarkuara do të ruhen të paprekura.\n\nKy proces mund të hajë ca kohë.</string>
   <string name="manage_space_clear_data">Pastroji të dhënat</string>
   <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
   <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>

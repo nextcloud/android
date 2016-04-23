@@ -308,6 +308,9 @@
   <string name="activity_chooser_send_file_title">Senden</string>
   <string name="copy_link">Link kopieren</string>
   <string name="clipboard_text_copied">In die Zwischenablage kopiert</string>
+  <string name="clipboard_no_text_to_copy">Kein Text zum Kopieren in die Zwischenablage empfangen</string>
+  <string name="clipboard_uxexpected_error">Unerwarteter Fehler beim Kopieren in die Zwischenablage</string>
+  <string name="clipboard_label">Text von %1$s kopiert</string>
   <string name="error_cant_bind_to_operations_service">Kritischer Fehler: Operationen können nicht ausgeführt werden</string>
   <string name="network_error_socket_exception">Es ist ein Fehler bei der Verbindung mit dem Server aufgetreten.</string>
   <string name="network_error_socket_timeout_exception">Es ist ein Fehler während des Wartens auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
@@ -406,6 +409,7 @@
   <string name="action_switch_grid_view">Zur Rasteransicht wechseln</string>
   <string name="action_switch_list_view">Zur Listenansicht wechseln</string>
   <string name="manage_space_title">Speicher verwalten</string>
+  <string name="manage_space_description">Einstellungen, Datenbank und Server-Zertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
   <string name="manage_space_clear_data">Lösche Daten</string>
   <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden</string>
   <string name="permission_storage_access">Weitere Berechtigungen erforderlich für das Hoch- und Herunterladen von Dateien</string>

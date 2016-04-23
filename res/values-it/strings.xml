@@ -308,6 +308,9 @@
   <string name="activity_chooser_send_file_title">Invia</string>
   <string name="copy_link">Copia collegamento</string>
   <string name="clipboard_text_copied">Copiato negli appunti</string>
+  <string name="clipboard_no_text_to_copy">Nessun testo da copiare negli appunti</string>
+  <string name="clipboard_uxexpected_error">Errore inatteso durante la copia negli appunti</string>
+  <string name="clipboard_label">Testo copiato da %1$s</string>
   <string name="error_cant_bind_to_operations_service">Errore grave: impossibile eseguire le operazioni</string>
   <string name="network_error_socket_exception">Si è verificato un errore durante la connessione al server.</string>
   <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa della risposta del server, l\'operazione non è stata completata</string>
@@ -406,6 +409,7 @@
   <string name="action_switch_grid_view">Vista Griglia</string>
   <string name="action_switch_list_view">Vista Elenco</string>
   <string name="manage_space_title">Gestisci lo spazio</string>
+  <string name="manage_space_description">Impostazioni, database e certificati server dai dati di %1$s saranno eliminati definitivamente. \n\n\I file scaricati rimarranno intatti.\n\nQuesto processo può richiedere del tempo.</string>
   <string name="manage_space_clear_data">Cancella i dati</string>
   <string name="manage_space_error">Alcuni file non possono essere eliminati.</string>
   <string name="permission_storage_access">Permessi aggiuntivi sono richiesti per caricare e scaricare i file.</string>
