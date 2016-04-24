@@ -79,8 +79,7 @@
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
         <activity android:name=".ui.activity.Uploader"
-            android:label="ownCloud beta"
-            android:theme="@style/Theme.ownCloud">
+            android:label="ownCloud beta">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
