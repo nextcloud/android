@@ -864,8 +864,8 @@ public class ShareFileFragment extends Fragment
         LinearLayout shareWithUsersSection = (LinearLayout) shareView.findViewById(R.id.shareWithUsersSection);
         LinearLayout shareViaLinkSection = (LinearLayout) shareView.findViewById(R.id.shareViaLinkSection);
 
-        boolean shareByLinkAllowed = getActivity().getString(R.string.show_share_by_link_section).equalsIgnoreCase("true");
-        boolean shareWithUsersAllowed = getActivity().getString(R.string.show_share_with_users_section).equalsIgnoreCase("true");
+        boolean shareByLinkAllowed = getActivity().getString(R.string.share_by_link_feature).equalsIgnoreCase("on");
+        boolean shareWithUsersAllowed = getActivity().getString(R.string.share_with_users_feature).equalsIgnoreCase("on");
 
         if (!shareByLinkAllowed) {
             shareViaLinkSection.setVisibility(View.GONE);
