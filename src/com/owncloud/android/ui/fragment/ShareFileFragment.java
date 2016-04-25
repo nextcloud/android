@@ -213,9 +213,6 @@ public class ShareFileFragment extends Fragment
             size.setText(DisplayUtils.bytesToHumanReadable(mFile.getFileLength()));
         }
 
-        // Check which share sections are allowed to be shown
-        showShareSections(view);
-
         //  Add User Button
         Button addUserGroupButton = (Button)
                 view.findViewById(R.id.addUserButton);
@@ -244,6 +241,9 @@ public class ShareFileFragment extends Fragment
 
         // Set listener for user actions on edit permission
         initEditPermissionListener(view);
+
+        // Hide share features sections that are not enabled
+        hideNotEnabledShareSections(view);
 
         return view;
     }
@@ -860,21 +860,26 @@ public class ShareFileFragment extends Fragment
         dialog.show(getFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
     }
 
-    private void showShareSections(View shareView) {
-        LinearLayout shareWithUsersSection = (LinearLayout) shareView.findViewById(R.id.shareWithUsersSection);
-        LinearLayout shareViaLinkSection = (LinearLayout) shareView.findViewById(R.id.shareViaLinkSection);
+    /**
+     * Hide share features sections that are not enabled
+     * @param view
+     */
+    private void hideNotEnabledShareSections(View view) {
+        LinearLayout shareWithUsersSection = (LinearLayout) view.findViewById(R.id.shareWithUsersSection);
+        LinearLayout shareViaLinkSection = (LinearLayout) view.findViewById(R.id.shareViaLinkSection);
 
-        boolean shareByLinkAllowed = getActivity().getString(R.string.share_by_link_feature).equalsIgnoreCase("on");
+        boolean shareViaLinkAllowed = getActivity().getString(R.string.share_via_link_feature).equalsIgnoreCase("on");
         boolean shareWithUsersAllowed = getActivity().getString(R.string.share_with_users_feature).equalsIgnoreCase("on");
 
-        if (!shareByLinkAllowed) {
+        // Hide share via link section if it is not enabled
+        if (!shareViaLinkAllowed) {
             shareViaLinkSection.setVisibility(View.GONE);
         }
 
+        // Hide share with users section if it is not enabled
         if (!shareWithUsersAllowed) {
             shareWithUsersSection.setVisibility(View.GONE);
         }
-
     }
 
 }

@@ -181,8 +181,8 @@ public class FileMenuFilter {
         }
 
         // SHARE FILE
-        boolean shareByLinkAllowed = (mContext != null  &&
-                mContext.getString(R.string.share_by_link_feature).equalsIgnoreCase("on"));
+        boolean shareViaLinkAllowed = (mContext != null  &&
+                mContext.getString(R.string.share_via_link_feature).equalsIgnoreCase("on"));
         boolean shareWithUsersAllowed = (mContext != null  &&
                 mContext.getString(R.string.share_with_users_feature).equalsIgnoreCase("on"));
 
@@ -191,7 +191,7 @@ public class FileMenuFilter {
                 (capability.getFilesSharingApiEnabled().isTrue() ||
                         capability.getFilesSharingApiEnabled().isUnknown()
                 );
-        if ((!shareByLinkAllowed && !shareWithUsersAllowed) ||  mFile == null || !shareApiEnabled) {
+        if ((!shareViaLinkAllowed && !shareWithUsersAllowed) ||  mFile == null || !shareApiEnabled) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);
