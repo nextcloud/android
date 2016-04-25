@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -211,6 +212,9 @@ public class ShareFileFragment extends Fragment
         } else {
             size.setText(DisplayUtils.bytesToHumanReadable(mFile.getFileLength()));
         }
+
+        // Check which share sections are allowed to be shown
+        showShareSections(view);
 
         //  Add User Button
         Button addUserGroupButton = (Button)
@@ -853,7 +857,24 @@ public class ShareFileFragment extends Fragment
      */
     public void requestPasswordForShareViaLink(boolean createShare) {
         SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(mFile, createShare);
-        dialog.show(getFragmentManager(),SharePasswordDialogFragment.PASSWORD_FRAGMENT);
+        dialog.show(getFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
+    }
+
+    private void showShareSections(View shareView) {
+        LinearLayout shareWithUsersSection = (LinearLayout) shareView.findViewById(R.id.shareWithUsersSection);
+        LinearLayout shareViaLinkSection = (LinearLayout) shareView.findViewById(R.id.shareViaLinkSection);
+
+        boolean shareByLinkAllowed = getActivity().getString(R.string.show_share_by_link_section).equalsIgnoreCase("true");
+        boolean shareWithUsersAllowed = getActivity().getString(R.string.show_share_with_users_section).equalsIgnoreCase("true");
+
+        if (!shareByLinkAllowed) {
+            shareViaLinkSection.setVisibility(View.GONE);
+        }
+
+        if (!shareWithUsersAllowed) {
+            shareWithUsersSection.setVisibility(View.GONE);
+        }
+
     }
 
 }
