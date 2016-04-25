@@ -366,9 +366,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param savedInstanceState        Saved activity state, as in {{@link #onCreate(Bundle)}
      */
     private void initServerPreFragment(Bundle savedInstanceState) {
+        boolean checkHostUrl = false;
 
         /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
-        boolean isUrlInputAllowed = getResources().getBoolean(R.bool.show_server_url_input); 
+        boolean isUrlInputAllowed = getResources().getBoolean(R.bool.show_server_url_input);
         if (savedInstanceState == null) {
             if (mAccount != null) {
                 mServerInfo.mBaseUrl = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
@@ -408,8 +409,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mHostUrlInput.setFocusable(false);
         }
         if (isUrlInputAllowed) {
+            if (!mServerInfo.mBaseUrl.isEmpty()) {
+                checkHostUrl = true;
+            }
             mRefreshButton = findViewById(R.id.embeddedRefreshButton);
         } else {
+            checkHostUrl = true;
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
             mRefreshButton = findViewById(R.id.centeredRefreshButton);
         }
@@ -471,7 +476,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         /// step 4 - mark automatic check to be started when OperationsService is ready
         mPendingAutoCheck = (savedInstanceState == null && 
-                (mAction != ACTION_CREATE || !isUrlInputAllowed));
+                (mAction != ACTION_CREATE || checkHostUrl));
     }
     
     
