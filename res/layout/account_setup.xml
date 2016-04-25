@@ -28,7 +28,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/login_background_color"
         android:gravity="center"
         android:orientation="vertical"
@@ -207,6 +207,11 @@
             android:text="@string/setup_btn_connect"
             android:contentDescription="@string/setup_btn_connect"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom">
+
         <Button
             android:id="@+id/welcome_link"
             android:layout_width="wrap_content"
@@ -219,6 +224,7 @@
             android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
             android:contentDescription="@string/auth_register"/>
+        </LinearLayout>
 
     </LinearLayout>
 
