@@ -323,6 +323,17 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         return ret;
     }
 
+    /**
+     * Set view layout, list or grid view
+     * @param resLayout
+     */
+    public void setViewLayout(int resLayout) {
+        viewLayout = resLayout;
+        SharedPreferences.Editor editor = mAppPreferences.edit();
+        editor.putInt("viewLayout", viewLayout);
+        editor.apply();
+    }
+
 
     public void setSortOrder(Integer order, boolean ascending) {
         SharedPreferences.Editor editor = mAppPreferences.edit();
@@ -338,6 +349,8 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         notifyDataSetChanged();
 
     }
+
+
 
     private CharSequence showRelativeTimestamp(OCFile file) {
         return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),

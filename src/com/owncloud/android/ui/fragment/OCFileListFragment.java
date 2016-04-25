@@ -26,10 +26,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -794,7 +798,7 @@ public class OCFileListFragment extends ExtendedListFragment
         switchToGridView();
     }*/
 
-    private void saveGridAsPreferred(boolean setGrid){
+    /*private void saveGridAsPreferred(boolean setGrid){
         SharedPreferences setting = getActivity().getSharedPreferences(
                 GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
         );
@@ -802,6 +806,46 @@ public class OCFileListFragment extends ExtendedListFragment
         SharedPreferences.Editor editor = setting.edit();
         editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
         editor.apply();
+    }*/
+
+
+    /**
+     * Cahnging the layout view , list or grid
+     *
+     * @param viewMode
+     */
+    public void layoutView(int viewMode) {
+
+        int layoutMode = 0;
+
+        // save list position
+        Parcelable s = getListView().getLayoutManager().onSaveInstanceState();
+
+        switch (viewMode) {
+            case 0:
+                mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                mAdapter.setViewLayout(R.layout.list_item);
+                break;
+            case 1:
+                if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS, GridLayoutManager.VERTICAL, false);
+                } else {
+                    mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS_LANDSCAPE, GridLayoutManager.VERTICAL, false);
+                }
+                mAdapter.setViewLayout(R.layout.grid_item);
+                break;
+            default:
+                mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                mAdapter.setViewLayout(R.layout.list_item);
+                break;
+        }
+
+        // update current layout mode
+        SharedPreferences.Editor editor = mAppPreferences.edit();
+        editor.putInt("layoutMode", layoutMode);
+        editor.apply();
+
+        mCurrentRecyclerView.setLayoutManager(mLayoutManager);
     }
 
 

@@ -20,11 +20,15 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -64,6 +68,8 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_TOPS = "TOPS";
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
+    protected static final int NUMBER_OF_GRID_COLUMNS = 2;
+    protected static final int NUMBER_OF_GRID_COLUMNS_LANDSCAPE = 4;
 
     protected SwipeRefreshLayout mRefreshListLayout;
     private SwipeRefreshLayout mRefreshGridLayout;
@@ -75,6 +81,8 @@ public class ExtendedListFragment extends Fragment
     private FloatingActionButton mFabMkdir;
     private FloatingActionButton mFabUploadFromApp;
 
+    private int viewLayout = 0;
+
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
     private ArrayList<Integer> mFirstPositions;
@@ -83,6 +91,7 @@ public class ExtendedListFragment extends Fragment
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
 
+    protected SharedPreferences mAppPreferences;
     protected OCRecyclerView mCurrentRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
 
@@ -157,7 +166,35 @@ public class ExtendedListFragment extends Fragment
 
         View v = inflater.inflate(R.layout.list_fragment, null);
 
+        // shared preferences
+        mAppPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         mCurrentRecyclerView = (OCRecyclerView)(v.findViewById(R.id.list_root));
+
+        viewLayout = mAppPreferences.getInt("viewLayout", R.layout.list_item);
+        switch (viewLayout) {
+            case R.layout.list_item:
+                mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                break;
+            case R.layout.grid_item:
+                if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS, GridLayoutManager.VERTICAL, false);
+                } else {
+                    mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS_LANDSCAPE, GridLayoutManager.VERTICAL, false);
+                }
+                break;
+        }
+
+        // Fix for the bug when updating applications
+        if (mLayoutManager == null)
+        {
+            if (mAppPreferences != null) {
+                mAppPreferences.edit().clear().commit();
+            }
+            mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        }
+
+
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mCurrentRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -165,6 +202,8 @@ public class ExtendedListFragment extends Fragment
         mCurrentRecyclerView.setEmptyView(mEmptyListMessage);
         mCurrentRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mCurrentRecyclerView.setHasFixedSize(true);
+
+
 
         /*mCurrentRecyclerView.setOnItemClickListener(this);
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
@@ -206,6 +245,28 @@ public class ExtendedListFragment extends Fragment
         mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
 
         return v;
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        Log_OC.v(TAG, "onConfigurationChanged() start");
+
+        // Change column count for landscape mode in grid layout.
+        if (mAppPreferences.getInt("viewLayout", R.layout.list_item) == R.layout.grid_item) {
+            if (getActivity().getResources().getBoolean(R.bool.is_landscape))
+            {
+                mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS_LANDSCAPE, GridLayoutManager.VERTICAL, false);
+            } else
+            {
+                mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS, GridLayoutManager.VERTICAL, false);
+            }
+
+            mCurrentRecyclerView.setLayoutManager(mLayoutManager);
+        }
+
+        Log_OC.v(TAG, "onConfigurationChanged() end");
     }
 
     /**
