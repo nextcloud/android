@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.dialog.parcel.MenuItemParcelable;
 import com.owncloud.android.ui.dialog.parcel.MenuParcelable;
 
@@ -28,6 +29,7 @@ public class FileActionsDialogFragment extends DialogFragment implements
         OnItemClickListener {
     private static final String ARG_ITEM_LIST = "ITEM_LIST";
     private static final String ARG_FILE_POSITION = "FILE_POSITION";
+    private static final String ARG_FILE = "FILE";
     private static final String ARG_FILE_NAME = "FILE_NAME";
     public static final String FTAG_FILE_ACTIONS = "FILE_ACTIONS_FRAGMENT";
 
@@ -50,7 +52,7 @@ public class FileActionsDialogFragment extends DialogFragment implements
      * @param menu menu to be display.
      * @return Dialog ready to show.
      */
-    public static FileActionsDialogFragment newInstance(Menu menu, int filePosition, String fileName) {
+    public static FileActionsDialogFragment newInstance(Menu menu, int filePosition, OCFile file) {
         FileActionsDialogFragment fragment = new FileActionsDialogFragment();
         Bundle args = new Bundle();
 
@@ -59,7 +61,8 @@ public class FileActionsDialogFragment extends DialogFragment implements
 
         args.putParcelable(ARG_ITEM_LIST, menuParcelable);
         args.putInt(ARG_FILE_POSITION, filePosition);
-        args.putCharSequence(ARG_FILE_NAME, fileName);
+        args.putParcelable(ARG_FILE, file);
+        args.putCharSequence(ARG_FILE_NAME, file.getFileName());
 
         fragment.setArguments(args);
         return fragment;

@@ -24,6 +24,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +46,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.widgets.OCRecyclerView;
 
 import java.util.ArrayList;
 
@@ -78,27 +83,16 @@ public class ExtendedListFragment extends Fragment
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
 
-    protected AbsListView mCurrentListView;
-    private ExtendedListView mListView;
-    private View mListFooterView;
-    private GridViewWithHeaderAndFooter mGridView;
-    private View mGridFooterView;
+    protected OCRecyclerView mCurrentRecyclerView;
+    protected RecyclerView.LayoutManager mLayoutManager;
 
-    private ListAdapter mAdapter;
-
-    protected void setListAdapter(ListAdapter listAdapter) {
-        mAdapter = listAdapter;
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mCurrentListView.setAdapter(listAdapter);
-        } else {
-            ((ListView)mCurrentListView).setAdapter(listAdapter);
-        }
-
-        mCurrentListView.invalidate();
+    protected void setListAdapter(RecyclerView.Adapter mAdapter) {
+        mCurrentRecyclerView.setAdapter(mAdapter);
+        mCurrentRecyclerView.invalidate();
     }
 
-    protected AbsListView getListView() {
-        return mCurrentListView;
+    protected OCRecyclerView getListView() {
+        return mCurrentRecyclerView;
     }
 
     public FloatingActionButton getFabUpload() {
@@ -117,7 +111,7 @@ public class ExtendedListFragment extends Fragment
         return mFabMain;
     }
 
-    public void switchToGridView() {
+    /*public void switchToGridView() {
         if ((mCurrentListView == mListView)) {
 
             mListView.setAdapter(null);
@@ -146,14 +140,14 @@ public class ExtendedListFragment extends Fragment
 
             mCurrentListView = mListView;
         }
-    }
+    }*/
 
-    public boolean isGridView(){
+    /*public boolean isGridView(){
         if (mAdapter instanceof FileListListAdapter) {
             return ((FileListListAdapter) mAdapter).isGridMode();
         }
         return false;
-    }
+    }*/
     
     
     @Override
@@ -163,8 +157,16 @@ public class ExtendedListFragment extends Fragment
 
         View v = inflater.inflate(R.layout.list_fragment, null);
 
-        mListView = (ExtendedListView)(v.findViewById(R.id.list_root));
-        mListView.setOnItemClickListener(this);
+        mCurrentRecyclerView = (OCRecyclerView)(v.findViewById(R.id.list_root));
+        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        mCurrentRecyclerView.setLayoutManager(mLayoutManager);
+
+        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
+        mCurrentRecyclerView.setEmptyView(mEmptyListMessage);
+        mCurrentRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mCurrentRecyclerView.setHasFixedSize(true);
+
+        /*mCurrentRecyclerView.setOnItemClickListener(this);
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
@@ -181,22 +183,22 @@ public class ExtendedListFragment extends Fragment
                 Log_OC.v(TAG, "Setting grid position " + referencePosition);
                 mGridView.setSelection(referencePosition);
             }
-        }
+        }*/
 
         // Pull-down to refresh layout
         mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
-        mRefreshGridLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_grid);
-        mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_empty);
-        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
+        /*mRefreshGridLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_grid);
+        mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_empty);*/
+
         
         onCreateSwipeToRefresh(mRefreshListLayout);
-        onCreateSwipeToRefresh(mRefreshGridLayout);
+       /* onCreateSwipeToRefresh(mRefreshGridLayout);
         onCreateSwipeToRefresh(mRefreshEmptyLayout);
 
         mListView.setEmptyView(mRefreshEmptyLayout);
         mGridView.setEmptyView(mRefreshEmptyLayout);
 
-        mCurrentListView = mListView;   // list as default
+        mCurrentRecyclerView = mListView;   // list as default*/
 
         mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
         mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
@@ -221,9 +223,9 @@ public class ExtendedListFragment extends Fragment
             setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
             
         } else {
-            mIndexes = new ArrayList<Integer>();
-            mFirstPositions = new ArrayList<Integer>();
-            mTops = new ArrayList<Integer>();
+            mIndexes = new ArrayList<>();
+            mFirstPositions = new ArrayList<>();
+            mTops = new ArrayList<>();
             mHeightCell = 0;
         }
     }    
@@ -233,7 +235,7 @@ public class ExtendedListFragment extends Fragment
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         Log_OC.d(TAG, "onSaveInstanceState()");
-        savedInstanceState.putInt(KEY_SAVED_LIST_POSITION, getReferencePosition());
+        savedInstanceState.putParcelable(KEY_SAVED_LIST_POSITION, mCurrentRecyclerView.getLayoutManager().onSaveInstanceState());
         savedInstanceState.putIntegerArrayList(KEY_INDEXES, mIndexes);
         savedInstanceState.putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions);
         savedInstanceState.putIntegerArrayList(KEY_TOPS, mTops);
@@ -252,20 +254,20 @@ public class ExtendedListFragment extends Fragment
      * @return The position in the list of the visible item in the center of the
      *         screen.
      */
-    protected int getReferencePosition() {
-        if (mCurrentListView != null) {
-            return (mCurrentListView.getFirstVisiblePosition() +
-                    mCurrentListView.getLastVisiblePosition()) / 2;
+    /*protected int getReferencePosition() {
+        if (mCurrentRecyclerView != null) {
+            return (mCurrentRecyclerView.getFirstVisiblePosition() +
+                    mCurrentRecyclerView.getLastVisiblePosition()) / 2;
         } else {
             return 0;
         }
-    }
+    }*/
 
 
     /*
      * Restore index and position
      */
-    protected void restoreIndexAndTopPosition() {
+    /*protected void restoreIndexAndTopPosition() {
         if (mIndexes.size() > 0) {  
             // needs to be checked; not every browse-up had a browse-down before 
             
@@ -294,12 +296,12 @@ public class ExtendedListFragment extends Fragment
             }
 
         }
-    }
+    }*/
     
     /*
      * Save index and top position
      */
-    protected void saveIndexAndTopPosition(int index) {
+   /*protected void saveIndexAndTopPosition(int index) {
         
         mIndexes.add(index);
         
@@ -313,7 +315,7 @@ public class ExtendedListFragment extends Fragment
         
         // Save the height of a cell
         mHeightCell = (view == null || mHeightCell != 0) ? mHeightCell : view.getHeight();
-    }
+    }*/
     
     
     @Override
@@ -395,29 +397,28 @@ public class ExtendedListFragment extends Fragment
     @Override
     public void onRefresh(boolean ignoreETag) {
         mRefreshListLayout.setRefreshing(false);
-        mRefreshGridLayout.setRefreshing(false);
-        mRefreshEmptyLayout.setRefreshing(false);
 
         if (mOnRefreshListener != null) {
             mOnRefreshListener.onRefresh();
         }
     }
 
-    protected void setChoiceMode(int choiceMode) {
+    /*protected void setChoiceMode(int choiceMode) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             mListView.setChoiceMode(choiceMode);
             mGridView.setChoiceMode(choiceMode);
         } else {
             ((ListView)mListView).setChoiceMode(choiceMode);
         }
-    }
+    }*/
 
-    protected void registerForContextMenu() {
+    /*protected void registerForContextMenu() {
+        registerForContextMenu(mCurrentRecyclerView);
         registerForContextMenu(mListView);
         registerForContextMenu(mGridView);
         mListView.setOnCreateContextMenuListener(this);
         mGridView.setOnCreateContextMenuListener(this);
-    }
+    }*/
 
     /**
      * TODO doc
@@ -425,7 +426,7 @@ public class ExtendedListFragment extends Fragment
      *
      * @param enabled
      */
-    protected void setFooterEnabled(boolean enabled) {
+   /* protected void setFooterEnabled(boolean enabled) {
         if (enabled) {
             if (mGridView.getFooterViewCount() == 0) {
                 if (mGridFooterView.getParent() != null ) {
@@ -447,13 +448,13 @@ public class ExtendedListFragment extends Fragment
             mGridView.removeFooterView(mGridFooterView);
             mListView.removeFooterView(mListFooterView);
         }
-    }
+    }*/
 
     /**
      * TODO doc
      * @param text
      */
-    protected void setFooterText(String text) {
+    /*protected void setFooterText(String text) {
         if (text != null && text.length() > 0) {
             ((TextView)mListFooterView.findViewById(R.id.footerText)).setText(text);
             ((TextView)mGridFooterView.findViewById(R.id.footerText)).setText(text);
@@ -462,6 +463,6 @@ public class ExtendedListFragment extends Fragment
         } else {
             setFooterEnabled(false);
         }
-    }
+    }*/
 
 }

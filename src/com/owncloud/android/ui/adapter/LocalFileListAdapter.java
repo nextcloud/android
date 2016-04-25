@@ -1,211 +1,159 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p/>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.adapter;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Comparator;
-
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+
+/**
+ * Changes made by Denis Dijak on 25.4.2016
+ */
+
 /**
  * This Adapter populates a ListView with all files and directories contained
  * in a local directory
  */
-public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
+
+public class LocalFileListAdapter extends RecyclerView.Adapter<LocalRecyclerViewHolder> {
 
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
     private Context mContext;
     private File mDirectory;
+    private ArrayList<String> checkedFiles;
     private File[] mFiles = null;
-    
+
     public LocalFileListAdapter(File directory, Context context) {
         mContext = context;
         swapDirectory(directory);
     }
 
     @Override
-    public boolean areAllItemsEnabled() {
-        return true;
+    public long getItemId(int position) {
+        if (mFiles == null || mFiles.length <= position)
+            return 0;
+        try {
+            return mFiles[position].hashCode();
+        } catch (ArrayIndexOutOfBoundsException aiobe) {
+            return 0;
+        }
     }
 
     @Override
-    public boolean isEnabled(int position) {
-        return true;
+    public int getItemCount() {
+        return mFiles == null ? 0 : mFiles.length;
     }
 
-    @Override
-    public int getCount() {
-        return mFiles != null ? mFiles.length : 0;
-    }
-
-    @Override
     public Object getItem(int position) {
         if (mFiles == null || mFiles.length <= position)
             return null;
-        return mFiles[position];
+        if (position <= mFiles.length) {
+            return mFiles[position];
+        } else {
+            return null;
+        }
     }
 
     @Override
-    public long getItemId(int position) {
-        return mFiles != null && mFiles.length <= position ? position : -1;
+    public LocalRecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        return new LocalRecyclerViewHolder(view, this, mContext);
     }
+
+    @Override
+    public void onBindViewHolder(LocalRecyclerViewHolder holder, int position) {
+
+        if (mFiles != null && mFiles.length > position) {
+            File file = mFiles[position];
+            holder.fileName.setText(file.getName());
+
+            if (!file.isDirectory()) {
+                holder.fileIcon.setImageResource(R.drawable.file);
+            } else {
+                holder.fileIcon.setImageResource(R.drawable.ic_menu_archive);
+            }
+
+            if (!file.isDirectory()) {
+                holder.fileSizeV.setVisibility(View.VISIBLE);
+                holder.fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+
+                holder.lastModV.setVisibility(View.VISIBLE);
+                holder.lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
+
+                if (getCheckedFiles().contains(file.getAbsolutePath())) {
+                    holder.checkBoxV.setChecked(true);
+                } else {
+                    holder.checkBoxV.setChecked(false);
+                }
+
+                holder.checkBoxV.setVisibility(View.VISIBLE);
+
+                // get Thumbnail if file is image
+                // TODO : implement proper thumbnails / image handling
+
+            } else {
+                holder.fileSizeV.setVisibility(View.GONE);
+                holder.lastModV.setVisibility(View.GONE);
+                holder.checkBoxV.setVisibility(View.GONE);
+            }
+
+            // not GONE; the alignment changes; ugly way to keep it
+            holder.localStateView.setVisibility(View.INVISIBLE);
+            holder.favoriteIcon.setVisibility(View.GONE);
+
+            holder.sharedIconV.setVisibility(View.GONE);
+            holder.sharedWithMeIconV.setVisibility(View.GONE);
+        }
+
+    }
+
+    public ArrayList<String> getCheckedFiles() {
+        return checkedFiles;
+    }
+
+    public void setCheckedFile(String path) {
+        checkedFiles.add(path);
+    }
+
+    public void removeCheckedFile(String path) {
+        checkedFiles.remove(path);
+    }
+
 
     @Override
     public int getItemViewType(int position) {
         return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        View view = convertView;
-        if (view == null) {
-            LayoutInflater inflator = (LayoutInflater) mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflator.inflate(R.layout.list_item, null);
-        }
-        if (mFiles != null && mFiles.length > position) {
-            File file = mFiles[position];
-            
-            TextView fileName = (TextView) view.findViewById(R.id.Filename);
-            String name = file.getName();
-            fileName.setText(name);
-            
-            ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
-
-            /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
-             * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
-             **/
-            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon));
-
-            if (!file.isDirectory()) {
-                fileIcon.setImageResource(R.drawable.file);
-            } else {
-                fileIcon.setImageResource(R.drawable.ic_menu_archive);
-            }
-            fileIcon.setTag(file.hashCode());
-
-            TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
-            TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
-            TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
-            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            if (!file.isDirectory()) {
-                fileSizeSeparatorV.setVisibility(View.VISIBLE);
-                fileSizeV.setVisibility(View.VISIBLE);
-                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
-
-                lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
-                ListView parentList = (ListView) parent;
-                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
-                    checkBoxV.setVisibility(View.GONE);
-                } else {
-                    if (parentList.isItemChecked(position)) {
-                        checkBoxV.setImageResource(R.drawable.ic_checkbox_marked);
-                    } else {
-                        checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
-                    }
-                    checkBoxV.setVisibility(View.VISIBLE);
-                }
-                
-             // get Thumbnail if file is image
-                if (BitmapUtils.isImage(file)){
-                // Thumbnail in Cache?
-                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            String.valueOf(file.hashCode())
-                    );
-                    if (thumbnail != null){
-                        fileIcon.setImageBitmap(thumbnail);
-                    } else {
-
-                        // generate new Thumbnail
-                        if (allowedToCreateNewThumbnail) {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
-                            if (thumbnail == null) {
-                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                            }
-                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                        		new ThumbnailsCacheManager.AsyncDrawable(
-                                    mContext.getResources(), 
-                                    thumbnail, 
-                                    task
-                		        );
-                            fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
-                            Log_OC.v(TAG, "Executing task to generate a new thumbnail");
-
-                        } // else, already being generated, don't restart it
-                    }
-                } else {
-                    fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
-                }  
-
-            } else {
-                fileSizeSeparatorV.setVisibility(View.GONE);
-                fileSizeV.setVisibility(View.GONE);
-                lastModV.setVisibility(View.GONE);
-                checkBoxV.setVisibility(View.GONE);
-            }
-
-            // not GONE; the alignment changes; ugly way to keep it
-            view.findViewById(R.id.localFileIndicator).setVisibility(View.INVISIBLE);   
-            view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
-            
-            view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
-        }
-
-        return view;
-    }
-
-    @Override
-    public int getViewTypeCount() {
-        return 1;
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return false;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return (mFiles == null || mFiles.length == 0);
     }
 
     /**
@@ -226,11 +174,11 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                     }
                     return compareNames(lhs, rhs);
                 }
-            
+
                 private int compareNames(File lhs, File rhs) {
-                    return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());                
+                    return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());
                 }
-            
+
             });
         }
         notifyDataSetChanged();

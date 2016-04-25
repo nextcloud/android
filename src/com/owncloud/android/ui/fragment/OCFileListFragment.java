@@ -148,6 +148,7 @@ public class OCFileListFragment extends ExtendedListFragment
     public void onDetach() {
         setOnRefreshListener(null);
         mContainerActivity = null;
+        mAdapter = null;
         super.onDetach();
     }
 
@@ -163,22 +164,11 @@ public class OCFileListFragment extends ExtendedListFragment
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
 
-        if (mJustFolders) {
-            setFooterEnabled(false);
-        } else {
-            setFooterEnabled(true);
-        }
-
         Bundle args = getArguments();
         mJustFolders = (args == null) ? false : args.getBoolean(ARG_JUST_FOLDERS, false);
-        mAdapter = new FileListListAdapter(
-                mJustFolders,
-                getActivity(),
-                mContainerActivity
-        );
+        mAdapter = new FileListListAdapter(getContext(), this, mContainerActivity);
         setListAdapter(mAdapter);
-
-        registerLongClickListener();
+        mAdapter.notifyDataSetChanged();
 
         boolean hideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
         if (hideFab) {
@@ -228,7 +218,7 @@ public class OCFileListFragment extends ExtendedListFragment
         getFabUpload().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity)getActivity())
+                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity) getActivity())
                         .getAccount(), FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM);
                 getFabMain().collapse();
                 recordMiniFabClick();
@@ -334,17 +324,6 @@ public class OCFileListFragment extends ExtendedListFragment
                 com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
     }
 
-    private void registerLongClickListener() {
-        getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            public boolean onItemLongClick(AdapterView<?> arg0, View v,
-                                           int index, long arg3) {
-                showFileAction(index);
-                return true;
-            }
-        });
-    }
-
-
     private void showFileAction(int fileIndex) {
         Bundle args = getArguments();
         PopupMenu pm = new PopupMenu(getActivity(),null);
@@ -382,7 +361,7 @@ public class OCFileListFragment extends ExtendedListFragment
             }
 
             FileActionsDialogFragment dialog = FileActionsDialogFragment.newInstance(menu,
-                    fileIndex, targetFile.getFileName());
+                    fileIndex, targetFile);
             dialog.setTargetFragment(this, 0);
             dialog.show(getFragmentManager(), FileActionsDialogFragment.FTAG_FILE_ACTIONS);
         }
@@ -440,10 +419,6 @@ public class OCFileListFragment extends ExtendedListFragment
             listDirectory(mFile /*, MainApp.getOnlyOnDevice()*/);
 
             onRefresh(false);
-
-            // restore index and top position
-            restoreIndexAndTopPosition();
-
         }   // else - should never happen now
 
         return moveCount;
@@ -459,8 +434,6 @@ public class OCFileListFragment extends ExtendedListFragment
                 listDirectory(file/*, MainApp.getOnlyOnDevice()*/);
                 // then, notify parent activity to let it update its state and view
                 mContainerActivity.onBrowsedDownTo(file);
-                // save index and top position
-                saveIndexAndTopPosition(position);
 
             } else { /// Click on a file
                 if (PreviewImageFragment.canBePreviewed(file)) {
@@ -636,6 +609,14 @@ public class OCFileListFragment extends ExtendedListFragment
     }
 
     /**
+     * Sets passed in file as current file
+     * @param file
+     */
+    public void setCurrentFile(OCFile file) {
+        mFile = file;
+    }
+
+    /**
      * Calls {@link OCFileListFragment#listDirectory(OCFile)} with a null parameter
      */
     public void listDirectory(/*boolean onlyOnDevice*/){
@@ -680,51 +661,13 @@ public class OCFileListFragment extends ExtendedListFragment
             // TODO Enable when "On Device" is recovered ?
             mAdapter.swapDirectory(directory, storageManager/*, onlyOnDevice*/);
             if (mFile == null || !mFile.equals(directory)) {
-                mCurrentListView.setSelection(0);
+                mCurrentRecyclerView.scrollToPosition(0);
             }
             mFile = directory;
-
-            updateLayout();
-
         }
     }
 
-    private void updateLayout() {
-        if (!mJustFolders) {
-            int filesCount = 0, foldersCount = 0, imagesCount = 0;
-            int count = mAdapter.getCount();
-            OCFile file;
-            for (int i=0; i < count ; i++) {
-                file = (OCFile) mAdapter.getItem(i);
-                if (file.isFolder()) {
-                    foldersCount++;
-                } else {
-                    if (!file.isHidden()) {
-                        filesCount++;
-
-                        if (file.isImage()) {
-                            imagesCount++;
-                        }
-                    }
-                }
-            }
-            // set footer text
-            setFooterText(generateFooterText(filesCount, foldersCount));
-
-            // decide grid vs list view
-            OwnCloudVersion version = AccountUtils.getServerVersion(
-                    ((FileActivity)mContainerActivity).getAccount());
-            if (version != null && version.supportsRemoteThumbnails() &&
-                    isGridViewPreferred(mFile)) {
-                switchToGridView();
-                registerLongClickListener();
-            } else {
-                switchToListView();
-            }
-        }
-    }
-
-    private String generateFooterText(int filesCount, int foldersCount) {
+    /*private String generateFooterText(int filesCount, int foldersCount) {
         String output;
         if (filesCount <= 0) {
             if (foldersCount <= 0) {
@@ -762,7 +705,7 @@ public class OCFileListFragment extends ExtendedListFragment
             }
         }
         return output;
-    }
+    }*/
 
     public void sortByName(boolean descending) {
         mAdapter.setSortOrder(FileStorageUtils.SORT_NAME, descending);
@@ -841,7 +784,7 @@ public class OCFileListFragment extends ExtendedListFragment
         }
     }
 
-    public void setListAsPreferred() {
+   /* public void setListAsPreferred() {
         saveGridAsPreferred(false);
         switchToListView();
     }
@@ -849,7 +792,7 @@ public class OCFileListFragment extends ExtendedListFragment
     public void setGridAsPreferred() {
         saveGridAsPreferred(true);
         switchToGridView();
-    }
+    }*/
 
     private void saveGridAsPreferred(boolean setGrid){
         SharedPreferences setting = getActivity().getSharedPreferences(
