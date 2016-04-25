@@ -28,6 +28,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
@@ -90,6 +91,7 @@ public class ExtendedListFragment extends Fragment
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
 
+    protected SharedPreferences mAppPreferences;
     protected OCRecyclerView mCurrentRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
 
@@ -164,7 +166,35 @@ public class ExtendedListFragment extends Fragment
 
         View v = inflater.inflate(R.layout.list_fragment, null);
 
+        // shared preferences
+        mAppPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         mCurrentRecyclerView = (OCRecyclerView)(v.findViewById(R.id.list_root));
+
+        viewLayout = mAppPreferences.getInt("viewLayout", R.layout.list_item);
+        switch (viewLayout) {
+            case R.layout.list_item:
+                mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+                break;
+            case R.layout.grid_item:
+                if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                    mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS, GridLayoutManager.VERTICAL, false);
+                } else {
+                    mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS_LANDSCAPE, GridLayoutManager.VERTICAL, false);
+                }
+                break;
+        }
+
+        // Fix for the bug when updating applications
+        if (mLayoutManager == null)
+        {
+            if (mAppPreferences != null) {
+                mAppPreferences.edit().clear().commit();
+            }
+            mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        }
+
+
         mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         mCurrentRecyclerView.setLayoutManager(mLayoutManager);
 
@@ -172,6 +202,8 @@ public class ExtendedListFragment extends Fragment
         mCurrentRecyclerView.setEmptyView(mEmptyListMessage);
         mCurrentRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mCurrentRecyclerView.setHasFixedSize(true);
+
+
 
         /*mCurrentRecyclerView.setOnItemClickListener(this);
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
