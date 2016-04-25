@@ -35,12 +35,11 @@
         android:footerDividersEnabled="false"
         android:visibility="visible" >
         
-        <com.owncloud.android.ui.ExtendedListView
+        <com.owncloud.android.widgets.OCRecyclerView
             android:id="@+id/list_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@color/list_divider_background"
-            android:dividerHeight="1px"
+            android:scrollbars="vertical"
             android:visibility="visible" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
