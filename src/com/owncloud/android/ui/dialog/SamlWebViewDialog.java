@@ -158,7 +158,8 @@ public class SamlWebViewDialog extends DialogFragment {
             webSettings.setSupportZoom(true);
             webSettings.setBuiltInZoomControls(true);
             webSettings.setDisplayZoomControls(false);
-            
+            webSettings.setAllowFileAccess(false);
+
             CookieManager cookieManager = CookieManager.getInstance();
             cookieManager.setAcceptCookie(true);
             cookieManager.removeAllCookie();
