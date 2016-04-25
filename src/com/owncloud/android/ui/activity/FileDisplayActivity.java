@@ -596,17 +596,6 @@ public class FileDisplayActivity extends HookActivity
                 break;
             }
             case R.id.action_switch_view: {
-
-
-                if (mAppPreferences.getInt("viewLayout", R.layout.list_item) == R.layout.grid_item) {
-                    // change to list view
-                    getListOfFilesFragment().layoutView(0);
-                } else {
-                    // change to grid view
-                    getListOfFilesFragment().layoutView(1);
-                }
-
-
                 /*if (isGridView()) {
                     item.setTitle(getString(R.string.action_switch_grid_view));
                     item.setIcon(ContextCompat.getDrawable(getApplicationContext(),

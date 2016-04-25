@@ -3,7 +3,9 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -20,10 +22,11 @@ public class LocalRecyclerViewHolder extends RecyclerView.ViewHolder implements 
     protected ImageView fileIcon;
     protected TextView fileSizeV;
     protected TextView lastModV;
-    protected ImageView checkBoxV;
+    protected CheckBox checkBoxV;
     protected ImageView favoriteIcon;
     protected ImageView localStateView;
     protected ImageView sharedIconV;
+    protected ImageView sharedWithMeIconV;
     protected UploadFilesActivity activity;
     protected LocalFileListAdapter mAdapter;
     private Context mContext;
@@ -37,7 +40,7 @@ public class LocalRecyclerViewHolder extends RecyclerView.ViewHolder implements 
         this.fileIcon = (ImageView) itemView.findViewById(R.id.thumbnail);
         this.fileSizeV = (TextView) itemView.findViewById(R.id.file_size);
         this.lastModV = (TextView) itemView.findViewById(R.id.last_mod);
-        this.checkBoxV = (ImageView) itemView.findViewById(R.id.custom_checkbox);
+        this.checkBoxV = (CheckBox) itemView.findViewById(R.id.custom_checkbox);
         this.favoriteIcon = (ImageView) itemView.findViewById(R.id.favoriteIcon);
         this.localStateView = (ImageView) itemView.findViewById(R.id.localFileIndicator);
         this.sharedIconV = (ImageView) itemView.findViewById(R.id.sharedIcon);
@@ -58,13 +61,12 @@ public class LocalRecyclerViewHolder extends RecyclerView.ViewHolder implements 
                 mAdapter.swapDirectory(file);
                 // notify the click to container Activity
             } else {
-
-                if(mAdapter.getCheckedFiles().contains(file.getAbsolutePath()))
-                {
-                    checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
+                if (checkBoxV.isChecked()) {
+                    checkBoxV.setChecked(false);
                     mAdapter.removeCheckedFile(file.getAbsolutePath());
+
                 } else {
-                    checkBoxV.setImageResource(R.drawable.ic_checkbox_marked);
+                    checkBoxV.setChecked(true);
                     mAdapter.setCheckedFile(file.getAbsolutePath());
                 }
             }
