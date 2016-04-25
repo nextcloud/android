@@ -29,6 +29,7 @@
     
     
     <!-- Colors -->
+    <color name="login_text_color">#757575</color>
     <color name="login_background_color">#FFFFFF</color>
     <color name="login_logo_background_color">#FFFFFF</color>
     <color name="background_color">#FFFFFF</color>
