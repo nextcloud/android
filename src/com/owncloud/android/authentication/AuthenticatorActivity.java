@@ -366,7 +366,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param savedInstanceState        Saved activity state, as in {{@link #onCreate(Bundle)}
      */
     private void initServerPreFragment(Bundle savedInstanceState) {
-        boolean checkHostUrl = false;
+        boolean checkHostUrl = true;
 
         /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
         boolean isUrlInputAllowed = getResources().getBoolean(R.bool.show_server_url_input);
@@ -409,12 +409,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mHostUrlInput.setFocusable(false);
         }
         if (isUrlInputAllowed) {
-            if (!mServerInfo.mBaseUrl.isEmpty()) {
-                checkHostUrl = true;
+            if (mServerInfo.mBaseUrl.isEmpty()) {
+                checkHostUrl = false;
             }
             mRefreshButton = findViewById(R.id.embeddedRefreshButton);
         } else {
-            checkHostUrl = true;
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
             mRefreshButton = findViewById(R.id.centeredRefreshButton);
         }
