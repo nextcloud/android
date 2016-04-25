@@ -182,9 +182,9 @@ public class FileMenuFilter {
 
         // SHARE FILE
         boolean shareViaLinkAllowed = (mContext != null  &&
-                mContext.getString(R.string.share_via_link_feature).equalsIgnoreCase("on"));
+                mContext.getResources().getBoolean(R.bool.share_via_link_feature));
         boolean shareWithUsersAllowed = (mContext != null  &&
-                mContext.getString(R.string.share_with_users_feature).equalsIgnoreCase("on"));
+                mContext.getResources().getBoolean(R.bool.share_with_users_feature));
 
         OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
         boolean shareApiEnabled  = capability != null &&

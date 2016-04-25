@@ -24,8 +24,8 @@
     
     <!-- Flags to enable/disable some features -->
     <string name = "send_files_to_other_apps">on</string>
-    <string name = "share_via_link_feature">on</string>
-    <string name = "share_with_users_feature">on</string>
+    <bool name = "share_via_link_feature">true</bool>
+    <bool name = "share_with_users_feature">true</bool>
     
     
     <!-- Colors -->
