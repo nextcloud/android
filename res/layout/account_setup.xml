@@ -83,6 +83,7 @@
 				android:inputType="textUri"
 				android:drawablePadding="5dp"
 				android:paddingRight="55dp"
+                android:textColor="@color/login_text_color"
                 android:textColorHint="@color/login_text_hint_color"
 				android:contentDescription="@string/auth_host_address"
                 >
@@ -136,6 +137,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
 			android:enabled="false"
+            android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
             android:text="@string/oauth2_url_endpoint_auth"
             android:singleLine="true"
@@ -152,6 +154,7 @@
             android:text="@string/oauth2_url_endpoint_access"
             android:singleLine="true"
             android:inputType="textUri"
+            android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
             android:visibility="gone"/>
 
@@ -162,6 +165,7 @@
             android:ems="10"
             android:hint="@string/auth_username"
             android:inputType="textNoSuggestions"
+            android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
             android:contentDescription="@string/auth_username"
             />
@@ -174,6 +178,7 @@
 		    android:ems="10"
 		    android:hint="@string/auth_password"
 		    android:inputType="textPassword"
+            android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
 		    android:contentDescription="@string/auth_password"
             />
