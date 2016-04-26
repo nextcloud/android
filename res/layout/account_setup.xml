@@ -212,18 +212,19 @@
             android:layout_height="match_parent"
             android:gravity="center|bottom">
 
-        <Button
-            android:id="@+id/welcome_link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:onClick="onRegisterClick"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:text="@string/auth_register"
-            android:textColor="@color/login_text_color"
-            android:textColorHint="@color/login_text_hint_color"
-            android:contentDescription="@string/auth_register"/>
+            <Button
+                android:id="@+id/welcome_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="onRegisterClick"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/auth_register"
+                android:textColor="@color/login_text_color"
+                android:textColorHint="@color/login_text_hint_color"
+                android:contentDescription="@string/auth_register"/>
+            
         </LinearLayout>
 
     </LinearLayout>
