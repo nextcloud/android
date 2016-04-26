@@ -32,6 +32,7 @@ import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
@@ -168,6 +169,30 @@ public class FileStorageUtils {
                 + (fileName == null ? "" : fileName);
     }
 
+    /**
+     * Returns account for instant upload or null, if not defined.
+     * @return instant upload account or null
+     */
+    public static Account getInstantUploadAccount(Context context) {
+        return getAccount(context, "instant_upload_path_account");
+    }
+
+    /**
+     * Returns account for instant video upload or null, if not defined.
+     * @return instant video upload account or null
+     */
+    public static Account getInstantVideoUploadAccount(Context context) {
+        return getAccount(context, "instant_video_upload_path_account");
+    }
+
+    private static Account getAccount(Context context, String prefName) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        String accountName = pref.getString(prefName, null);
+        Account account = AccountUtils.getOwnCloudAccountByName(MainApp.getAppContext(),
+                accountName);
+        return account;
+    }
+    
     /**
      * Gets the composed path when video is or must be stored
      * @param context

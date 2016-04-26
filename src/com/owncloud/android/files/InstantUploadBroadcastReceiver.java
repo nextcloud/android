@@ -92,7 +92,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
-        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+        Account account = FileStorageUtils.getInstantUploadAccount(context);
         if (account == null) {
             Log_OC.w(TAG, "No account found for instant upload, aborting");
             return;
@@ -172,7 +172,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             return;
         }
 
-        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
+        Account account = FileStorageUtils.getInstantVideoUploadAccount(context);
         if (account == null) {
             Log_OC.w(TAG, "No account found for instant upload, aborting");
             return;
