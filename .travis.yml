@@ -8,6 +8,6 @@ android:
     - android-19
 script:
   - ./setup_env.sh gradle
-  - gradle clean
-  - gradle build
+  - gradlew clean
+  - gradlew build
   
