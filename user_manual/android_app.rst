@@ -111,9 +111,12 @@ The Uploads page displays the status of files currently uploading, a list of
 your recently-uploaded files, and a Retry option for any failed uploads. If 
 credentials to access the file have changed, you'll see a credentials error. 
 Tap the file to retry, and you'll get a login screen to enter the new 
-credentials. If the upload fails because you're trying to upload to a folder 
-that you do not have permission to access, then you can select a different 
-folder.
+credentials. 
+
+If the upload fails because you're trying to upload to a folder that you do not 
+have permission to access, you will see a "Permissions error". Change the 
+permissions on the folder and retry the upload, or cancel and then upload the 
+file to a different folder.
 
 .. figure:: images/android-15.png
    :alt: Top-left menu.
