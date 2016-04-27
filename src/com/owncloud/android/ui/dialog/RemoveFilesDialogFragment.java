@@ -78,8 +78,8 @@ implements ConfirmationDialogFragmentListener {
             negBtn = R.string.confirmation_remove_local;
         }
         
-        args.putInt(ARG_CONF_RESOURCE_ID, messageStringId);
-        args.putStringArray(ARG_CONF_ARGUMENTS, new String[]{MainApp.getAppContext().getString(R.string.confirmation_remove_files_alert)});
+        args.putInt(ARG_MESSAGE_RESOURCE_ID, messageStringId);
+        args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{MainApp.getAppContext().getString(R.string.confirmation_remove_files_alert)});
         args.putInt(ARG_POSITIVE_BTN_RES, posBtn);
         args.putInt(ARG_NEUTRAL_BTN_RES, R.string.common_no);
         args.putInt(ARG_NEGATIVE_BTN_RES, negBtn);

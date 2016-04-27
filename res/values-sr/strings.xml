@@ -59,16 +59,11 @@
   <string name="sync_string_files">Фајлови</string>
   <string name="setup_btn_connect">Повежи се</string>
   <string name="uploader_btn_upload_text">Отпреми</string>
-  <string name="uploader_btn_new_folder_text">Нова фасцикла</string>
   <string name="uploader_top_message">Изаберите фасциклу отпремања:</string>
   <string name="uploader_wrn_no_account_title">Нема налога</string>
   <string name="uploader_wrn_no_account_text">Нема %1$s налога на вашем уређају. Најпре подесите налог.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Подеси</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Напусти</string>
-  <string name="uploader_wrn_no_content_title">Нема садржаја за отпремање</string>
-  <string name="uploader_wrn_no_content_text">Садржај није примљен. Нема шта да се отпреми.</string>
-  <string name="uploader_error_forbidden_content">Апликацији %1$s није дозвољен приступ дељеном садржају</string>
-  <string name="uploader_info_uploading">Отпремање</string>
   <string name="file_list_seconds_ago">пре пар секунди</string>
   <string name="file_list_empty">Овде нема ничег. Отпремите нешто!</string>
   <string name="file_list_loading">Учитавам…</string>
@@ -93,6 +88,7 @@
   <string name="common_ok">У реду</string>
   <string name="common_cancel_sync">Откажи синхронизацију</string>
   <string name="common_cancel">Откажи</string>
+  <string name="common_back">Назад</string>
   <string name="common_save_exit">Сачувај и изађи</string>
   <string name="common_error">Грешка</string>
   <string name="common_loading">Учитавам...</string>

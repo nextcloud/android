@@ -54,15 +54,10 @@
   <string name="sync_string_files">Fitxategiak</string>
   <string name="setup_btn_connect">Konektatu</string>
   <string name="uploader_btn_upload_text">Igo</string>
-  <string name="uploader_btn_new_folder_text">Karpeta berria</string>
   <string name="uploader_top_message">Hautatu igoera karpeta:</string>
   <string name="uploader_wrn_no_account_title">Ez da konturik aurkitu</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Konfiguratu</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Irten</string>
-  <string name="uploader_wrn_no_content_title">Ez dago igotzeko edukirik</string>
-  <string name="uploader_wrn_no_content_text">Ez da edukirik jaso. Ez dago ezer igotzeko.</string>
-  <string name="uploader_error_forbidden_content">%1$s-(e)k ez du baimenik elkarbanatutako edukian sartzeko</string>
-  <string name="uploader_info_uploading">Igotzen</string>
   <string name="file_list_seconds_ago">segundu</string>
   <string name="file_list_empty">Ez dago ezer. Igo zerbait!</string>
   <string name="local_file_list_empty">Ez dago fitxategirik karpeta honetan.</string>
@@ -82,8 +77,10 @@
   <string name="common_no">Ez</string>
   <string name="common_ok">Ados</string>
   <string name="common_cancel">Ezeztatu</string>
+  <string name="common_back">Atzera</string>
   <string name="common_error">Errorea</string>
   <string name="common_loading">Kargatzen ...</string>
+  <string name="common_unknown">ezezaguna</string>
   <string name="common_error_unknown">Errore ezezaguna</string>
   <string name="about_title">Honi buruz</string>
   <string name="change_password">Aldatu pasahitza</string>

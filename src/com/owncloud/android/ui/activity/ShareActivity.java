@@ -28,9 +28,11 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -42,10 +44,12 @@ import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.fragment.EditShareFragment;
 import com.owncloud.android.ui.fragment.SearchShareesFragment;
 import com.owncloud.android.ui.fragment.ShareFileFragment;
 import com.owncloud.android.ui.fragment.ShareFragmentListener;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
 
 
@@ -62,10 +66,10 @@ public class ShareActivity extends FileActivity
     private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
     private static final String TAG_EDIT_SHARE_FRAGMENT = "EDIT_SHARE_FRAGMENT";
 
-    /**
-     * Tag for dialog
-     */
+    /// Tags for dialog fragments
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
+    private static final String FTAG_SHARE_PASSWORD_DIALOG = "SHARE_PASSWORD_DIALOG";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,17 +211,8 @@ public class ShareActivity extends FileActivity
             refreshSharesFromStorageManager();
         }
 
-        if (operation instanceof CreateShareViaLinkOperation && result.isSuccess()) {
-            // Send link to the app
-            String link = ((OCShare) (result.getData().get(0))).getShareLink();
-            Log_OC.d(TAG, "Share link = " + link);
-
-            Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
-            intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
-            intentToShareLink.setType("text/plain");
-            String[] packagesToExclude = new String[]{getPackageName()};
-            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
-            chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+        if (operation instanceof CreateShareViaLinkOperation) {
+            onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
         }
 
         if (operation instanceof UnshareOperation && result.isSuccess() && getEditShareFragment() != null) {
@@ -285,5 +280,67 @@ public class ShareActivity extends FileActivity
     private EditShareFragment getEditShareFragment() {
         return (EditShareFragment) getSupportFragmentManager().findFragmentByTag(TAG_EDIT_SHARE_FRAGMENT);
     }
+
+
+    private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
+                                                     RemoteOperationResult result) {
+        if (result.isSuccess()) {
+            updateFileFromDB();
+
+            // Create dialog to allow the user choose an app to send the link
+            Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
+            String link = ((OCShare) (result.getData().get(0))).getShareLink();
+            intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
+            intentToShareLink.setType("text/plain");
+            String username = AccountUtils.getUsernameForAccount(getAccount());
+            if (username != null) {
+                intentToShareLink.putExtra(
+                    Intent.EXTRA_SUBJECT,
+                    getString(
+                        R.string.subject_user_shared_with_you,
+                        username,
+                        getFile().getFileName()
+                    )
+                );
+            } else {
+                intentToShareLink.putExtra(
+                    Intent.EXTRA_SUBJECT,
+                    getString(
+                        R.string.subject_shared_with_you,
+                        getFile().getFileName()
+                    )
+                );
+            }
+
+            String[] packagesToExclude = new String[]{getPackageName()};
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(intentToShareLink, packagesToExclude);
+            chooserDialog.show(getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+
+        } else {
+            // Detect Failure (403) --> maybe needs password
+            String password = operation.getPassword();
+            if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN    &&
+                    (password == null || password.length() == 0)                        &&
+                    getCapabilities().getFilesSharingPublicEnabled().isUnknown()) {
+                    // Was tried without password, but not sure that it's optional.
+
+                // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
+                ShareFileFragment shareFileFragment = getShareFileFragment();
+                if (shareFileFragment != null
+                    && shareFileFragment.isAdded()) {   // only if added to the view hierarchy!!
+
+                    shareFileFragment.requestPasswordForShareViaLink(true);
+                }
+
+            } else {
+                Toast t = Toast.makeText(this,
+                    ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                    Toast.LENGTH_LONG);
+                t.show();
+            }
+        }
+
+    }
+
 
 }

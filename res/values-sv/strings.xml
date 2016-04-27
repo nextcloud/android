@@ -59,16 +59,11 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Anslut</string>
   <string name="uploader_btn_upload_text">Ladda upp</string>
-  <string name="uploader_btn_new_folder_text">Ny mapp</string>
   <string name="uploader_top_message">Välj mapp för uppladdning:</string>
   <string name="uploader_wrn_no_account_title">Hittade inget konto</string>
   <string name="uploader_wrn_no_account_text">Det finns inga %1$s-konton på din enhet. Lägg till ett konto först</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Skapa</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Avsluta</string>
-  <string name="uploader_wrn_no_content_title">Inget att ladda upp</string>
-  <string name="uploader_wrn_no_content_text">Inget innehåll mottaget. Inget att ladda upp.</string>
-  <string name="uploader_error_forbidden_content">%1$s har inte rättighet till det delade innehållet</string>
-  <string name="uploader_info_uploading">Laddar upp</string>
   <string name="file_list_seconds_ago">sekunder sedan</string>
   <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
   <string name="file_list_loading">Laddar...</string>
@@ -96,9 +91,11 @@
   <string name="common_retry_upload">Försök ladda upp igen</string>
   <string name="common_cancel_sync">Avbryt synkronisering</string>
   <string name="common_cancel">Avbryt</string>
+  <string name="common_back">Tillbaka</string>
   <string name="common_save_exit">Spara &amp; avsluta</string>
   <string name="common_error">Fel</string>
   <string name="common_loading">Laddar...</string>
+  <string name="common_unknown">okänt</string>
   <string name="common_error_unknown">Okänt fel</string>
   <string name="about_title">Om</string>
   <string name="change_password">Ändra lösenord</string>
@@ -366,8 +363,8 @@
   <string name="prefs_instant_behaviour_title">Originalfilen kommer att...</string>
   <string name="upload_copy_files">Kopiera fil</string>
   <string name="upload_move_files">Flytta fil</string>
-  <string name="pref_behaviour_entries_keep_file">behållen i orginalmapp</string>
-  <string name="pref_behaviour_entries_move">flyttad till app-mapp</string>
+  <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
+  <string name="pref_behaviour_entries_move">flyttas till ownCloudmapp</string>
   <string name="share_dialog_title">Dela</string>
   <string name="share_file">Dela %1$s</string>
   <string name="share_with_user_section_title">Dela med användare och grupper</string>
@@ -401,9 +398,7 @@
   <string name="action_switch_grid_view">Rutnätsvy</string>
   <string name="action_switch_list_view">Listvy</string>
   <string name="manage_space_title">Hantera utrymme</string>
-  <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s data kommer att raderas permanent. \n\nNedladdade förblir orörda.\n\nProcessen kommer ta tid.</string>
   <string name="manage_space_clear_data">Rensa data</string>
   <string name="manage_space_error">Vissa filer kunde inte raderas.</string>
   <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp &amp; ner filer.</string>
-  <string name="local_file_not_found_toast">Filen återfanns ej lokalt</string>
 </resources>

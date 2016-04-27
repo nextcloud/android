@@ -394,34 +394,4 @@ public class OCUpload implements Parcelable {
 
     enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR};
 
-    /**
-     * Returns true when the file may be uploaded now. This methods checks all
-     * restraints of the passed {@link OCUpload}, these include
-     * isUseWifiOnly(), check if local file exists, check if file was already
-     * uploaded...
-     *
-     * If return value is CanUploadFileNowStatus.NOW, uploadFile() may be
-     * called.
-     *
-     * @return CanUploadFileNowStatus.NOW is upload may proceed, <br>
-     *         CanUploadFileNowStatus.LATER if upload should be performed at a
-     *         later time, <br>
-     *         CanUploadFileNowStatus.ERROR if a severe error happened, calling
-     *         entity should remove upload from queue.
-     *
-     */
-    private CanUploadFileNowStatus canUploadFileNow(Context context) {
-
-        if (getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
-            Log_OC.w(TAG, "Already succeeded uploadObject was again scheduled for upload. Fix that!");
-            return CanUploadFileNowStatus.ERROR;
-        }
-
-        if (!new File(getLocalPath()).exists()) {
-            Log_OC.d(TAG, "Do not start upload because local file does not exist.");
-            return CanUploadFileNowStatus.FILE_GONE;
-        }
-        return CanUploadFileNowStatus.NOW;
-    }
-
 }

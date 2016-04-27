@@ -194,6 +194,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         
     }
 
+    @Override
+    public void onSavedCertificate() {
+        startSyncFolderOperation(getCurrentDir(), false);
+    }
     
     public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
         long currentSyncTime = System.currentTimeMillis(); 
@@ -336,9 +340,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         actionBar.setDisplayHomeAsUpEnabled(!atRoot);
         actionBar.setHomeButtonEnabled(!atRoot);
         actionBar.setTitle(
-                atRoot
-                        ? getString(R.string.default_display_name_for_root_folder)
-                        : currentDir.getFileName()
+            atRoot
+                ? getString(R.string.default_display_name_for_root_folder)
+                : currentDir.getFileName()
         );
     }
 
@@ -475,12 +479,18 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                     equals(event) &&
                                 /// TODO refactor and make common
-                                synchResult != null && !synchResult.isSuccess() &&  
-                                (ResultCode.UNAUTHORIZED.equals(synchResult.getCode()) ||
-                                    (synchResult.isException() && synchResult.getException()
-                                            instanceof AuthenticatorException))) {
+                                synchResult != null && !synchResult.isSuccess()) {
 
-                            requestCredentialsUpdate(context);
+                            if(ResultCode.UNAUTHORIZED.equals(synchResult.getCode())   ||
+                                (synchResult.isException() && synchResult.getException()
+                                    instanceof AuthenticatorException)) {
+
+                                requestCredentialsUpdate(context);
+
+                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(synchResult.getCode())) {
+
+                                showUntrustedCertDialog(synchResult);
+                            }
 
                         }
                     }

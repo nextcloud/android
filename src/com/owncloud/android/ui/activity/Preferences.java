@@ -254,11 +254,7 @@ public class Preferences extends PreferenceActivity
 
                         String appName = getString(R.string.app_name);
                         String downloadUrl = getString(R.string.url_app_download);
-                        Account currentAccount = AccountUtils.
-                                getCurrentOwnCloudAccount(Preferences.this);
-                        String username = currentAccount.name.substring(0,
-                                currentAccount.name.lastIndexOf('@'));
-                        
+
                         String recommendSubject =
                                 String.format(getString(R.string.recommend_subject),
                                 appName);

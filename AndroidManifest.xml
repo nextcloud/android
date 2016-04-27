@@ -17,10 +17,10 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<manifest package="com.owncloud.android"
-    android:versionCode="20160419"
-    android:versionName="20160419"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.owncloud.android"
+    android:versionCode="20000000"
+    android:versionName="2.0.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -79,7 +79,9 @@
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
         <activity android:name=".ui.activity.Uploader"
-            android:label="ownCloud beta">
+                  android:taskAffinity=""
+                  android:excludeFromRecents="true"
+                  android:label="ownCloud beta">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 

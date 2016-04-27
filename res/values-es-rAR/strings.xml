@@ -49,15 +49,10 @@
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
-  <string name="uploader_btn_new_folder_text">Nueva Carpeta</string>
   <string name="uploader_top_message">Elija la carpeta de subida:</string>
   <string name="uploader_wrn_no_account_title">No se encontraron cuentas</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
-  <string name="uploader_wrn_no_content_title">No hay contenido para subir</string>
-  <string name="uploader_wrn_no_content_text">No se recibió ningún contenido. No hay nada para subir.</string>
-  <string name="uploader_error_forbidden_content">%1$s no está autorizado para acceder al contenido compartido</string>
-  <string name="uploader_info_uploading">Subiendo</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">No hay nada. ¡Subí contenido!</string>
   <string name="local_file_list_empty">No existen archivos en esta carpeta.</string>
@@ -77,6 +72,7 @@
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
   <string name="common_cancel">Cancelar</string>
+  <string name="common_back">Volver</string>
   <string name="common_error">Error</string>
   <string name="common_loading">Cargando ...</string>
   <string name="common_error_unknown">Error desconocido</string>

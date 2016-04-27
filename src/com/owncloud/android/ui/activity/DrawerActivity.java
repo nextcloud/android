@@ -79,7 +79,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
     /**
      * Reference to the drawer layout.
      */
-    private DrawerLayout mDrawerLayout;
+    protected DrawerLayout mDrawerLayout;
 
     /**
      * Reference to the drawer toggle.

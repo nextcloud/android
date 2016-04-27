@@ -59,16 +59,11 @@
   <string name="sync_string_files">קבצים</string>
   <string name="setup_btn_connect">התחברות</string>
   <string name="uploader_btn_upload_text">העלאה</string>
-  <string name="uploader_btn_new_folder_text">תיקייה חדשה</string>
   <string name="uploader_top_message">בחירת תיקיית העלאה:</string>
   <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
   <string name="uploader_wrn_no_account_text">לא מוגדרים חשבונות %1$s במכשיר שלך. יש להגדיר חשבות תחילה.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
   <string name="uploader_wrn_no_account_quit_btn_text">יציאה</string>
-  <string name="uploader_wrn_no_content_title">אין תוכן להעלאה</string>
-  <string name="uploader_wrn_no_content_text">לא התקבל תוכן. אין מה להעלות.</string>
-  <string name="uploader_error_forbidden_content">ל־%1$s אין הרשאה לגשת לתוכן המשותף שלך</string>
-  <string name="uploader_info_uploading">בהעלאה</string>
   <string name="file_list_seconds_ago">שניות</string>
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
   <string name="file_list_loading">בטעינה …</string>
@@ -93,6 +88,7 @@
   <string name="common_ok">אישור</string>
   <string name="common_cancel_sync">ביטול סנכרון</string>
   <string name="common_cancel">ביטול</string>
+  <string name="common_back">אחורה</string>
   <string name="common_save_exit">שמירה ויציאה</string>
   <string name="common_error">שגיאה</string>
   <string name="common_loading">בטעינה …</string>
@@ -385,7 +381,6 @@
   <string name="action_switch_grid_view">תצוגת טבלה</string>
   <string name="action_switch_list_view">תצוגת רשימה</string>
   <string name="manage_space_title">ניהול מקום</string>
-  <string name="manage_space_description">הגדרות, מסד נתונים ואישורי אימות לשרת ממידע %1$s\'s ימחקו לצמיתות. \n\nקבצים שהורדו ישארו ללא פגע .\n\nתהליך זה יכול להמשך זמן מה.</string>
   <string name="manage_space_clear_data">ניקוי מידע</string>
   <string name="manage_space_error">לא ניתן היה למחוק מספר קבצים.</string>
   <string name="permission_storage_access">נדרשות הרשאות נוספות להעלאה והורדת קבצים.</string>

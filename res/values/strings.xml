@@ -61,15 +61,18 @@
     <string name="setup_btn_connect">Connect</string>
     <string name="uploader_btn_upload_text">Upload</string>
     <string name="uploader_btn_new_folder_text">New folder</string>
-    <string name="uploader_top_message">Choose upload folder</string>
+    <string name="uploader_top_message">Choose upload folder:</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
-    <string name="uploader_wrn_no_content_title">No content to upload</string>
-    <string name="uploader_wrn_no_content_text">No content was received. Nothing to upload.</string>
-    <string name="uploader_error_forbidden_content">%1$s is not allowed to access the shared content</string>
-    <string name="uploader_info_uploading">Uploading</string>
+    <string name="uploader_error_title_no_file_to_upload">No file to upload</string>
+    <string name="uploader_error_message_received_piece_of_text">%1$s cannot upload a piece of text as a file.</string>
+    <string name="uploader_error_message_no_file_to_upload">Received data do not include any valid file.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">File cannot be uploaded</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s is not allowed to read a received file</string>
+    <string name="uploader_error_message_source_file_not_found">File to upload was not found in its location. Please check whether the file exists.</string>
+    <string name="uploader_error_message_source_file_not_copied">An error occurred while copying the file to a temporary folder. Please try to send again.</string>
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty">Nothing in here. Upload something!</string>
     <string name="file_list_loading">Loading&#8230;</string>
@@ -98,9 +101,11 @@
     <string name="common_retry_upload">Retry upload</string>
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_cancel">Cancel</string>
+    <string name="common_back">Back</string>
     <string name="common_save_exit">Save &amp; exit</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading &#8230;</string>
+    <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
     <string name="about_title">About</string>
     <string name="change_password">Change password</string>
@@ -324,6 +329,9 @@
 
     <string name="copy_link">Copy link</string>
     <string name="clipboard_text_copied">Copied to clipboard</string>
+    <string name="clipboard_no_text_to_copy">No text received to copy to clipboard</string>
+    <string name="clipboard_uxexpected_error">Unexpected error while copying to clipboard</string>
+    <string name="clipboard_label">Text copied from %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Critical error: cannot perform operations</string>
 
@@ -492,11 +500,11 @@
     <string name="action_switch_list_view">List view</string>
 
     <string name="manage_space_title">Manage space</string>
-    <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanentlty. \n\nDownloaded files will be kept untouched.\n\nThis process can take some time.</string>
+    <string name="manage_space_description">Settings, database and server certificates from %1$s\'s data will be deleted permanently. \n\nDownloaded files will be kept untouched.\n\nThis process can take some time.</string>
     <string name="manage_space_clear_data">Clear data</string>
     <string name="manage_space_error">Some files could not be deleted.</string>
 
     <string name="permission_storage_access">Additional permissions required to upload &amp; download files.</string>
-    <string name="local_file_not_found_toast">The file was not found locally</string>
+    <string name="local_file_not_found_toast">The file was not found in the local file system</string>
 
 </resources>

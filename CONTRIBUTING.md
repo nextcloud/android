@@ -16,7 +16,7 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue.
 Help us to maximize the effort we can spend fixing issues and adding new features, by not reporting duplicate issues.
 
 [template]: https://raw.github.com/owncloud/android/master/issue_template.md
-[mailinglist]: https://mail.kde.org/mailman/listinfo/owncloud
+[mailinglist]: https://mailman.owncloud.org/mailman/listinfo/user
 [forum]: http://forum.owncloud.org/
 [irc]: http://webchat.freenode.net/?channels=owncloud&uio=d4
 
@@ -35,19 +35,10 @@ Before we're able to merge your code into the ownCloud app for Android, you need
 
 ### 1. Fork and download android/master repository:
 
-NOTE: You must have the git installation folder in your environment variable PATH to perform the next operations.
-
-* In a web browser, go to https://github.com/owncloud/android, and click the 'Fork' button near the top right corner.
-* In a command line prompt, clone your new repo: ```git clone git@github.com:YOURGITHUBNAME/android.git```.
-* Move to the project folder with ```cd android```.
-* Checkout the remote branch 'master' in your own local branch: ```git checkout -b master remotes/origin/master```.
-* Pull any changes from your remote branch 'master': ```git pull origin master```
-* Make official ownCloud repo known as upstream: ```git remote add upstream git@github.com:owncloud/android.git```
-* Make sure to get the latest changes from official android/master branch: ```git pull upstream master```
-* Make sure you read [SETUP.md](https://github.com/owncloud/android/blob/master/SETUP.md) when you start working on this project.
+* Please follow [SETUP.md](https://github.com/owncloud/android/blob/master/SETUP.md) to setup ownCloud Android app work environment.
 
 
-### 7. Create pull request:
+### 2. Create pull request:
 
 NOTE: You must sign the [Contributor Agreement][agreement] before your changes can be accepted!
 
@@ -56,7 +47,7 @@ NOTE: You must sign the [Contributor Agreement][agreement] before your changes c
 * Browse to https://github.com/YOURGITHUBNAME/android/pulls and issue pull request
 * Enter description and send pull request.
 
-### 8. Create another pull request:
+### 3. Create another pull request:
 
 To make sure your new pull request does not contain commits which are already contained in previous PRs, create a new branch which is a clone of upstream/master.
 

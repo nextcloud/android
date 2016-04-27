@@ -59,16 +59,11 @@
   <string name="sync_string_files">Αρχεία</string>
   <string name="setup_btn_connect">Σύνδεση</string>
   <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
-  <string name="uploader_btn_new_folder_text">Νέος φάκελος</string>
   <string name="uploader_top_message">Επιλέξτε φάκελο μεταφορτώσεων:</string>
   <string name="uploader_wrn_no_account_title">Δεν βρέθηκε λογαριασμός</string>
   <string name="uploader_wrn_no_account_text">Δεν υπάρχουν λογαριασμοί %1$s στη συσκευή σας. Παρακαλώ ρυθμίστε πρώτα ένα λογαριασμό.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Ρύθμιση</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Έξοδος</string>
-  <string name="uploader_wrn_no_content_title">Δεν υπάρχει περιεχόμενο για να μεταφορτώσετε</string>
-  <string name="uploader_wrn_no_content_text">Δεν ελήφθη περιεχόμενο. Δεν υπάρχει τίποτα να μεταφορτώσετε.</string>
-  <string name="uploader_error_forbidden_content">Ο %1$s δεν επιτρέπεται να έχει πρόσβαση στο κοινόχρηστο περιεχόμενο</string>
-  <string name="uploader_info_uploading">Μεταφόρτωση</string>
   <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
   <string name="file_list_empty">Δεν υπάρχει τίποτα εδώ. Μεταφορτώστε κάτι!</string>
   <string name="file_list_loading">Φόρτωση...</string>
@@ -93,9 +88,11 @@
   <string name="common_ok">ΟΚ</string>
   <string name="common_cancel_sync">Ακύρωση συγχρονισμού</string>
   <string name="common_cancel">Άκυρο</string>
+  <string name="common_back">Επιστροφή</string>
   <string name="common_save_exit">Αποθήκευση &amp; έξοδος</string>
   <string name="common_error">Σφάλμα</string>
   <string name="common_loading">Φόρτωση ...</string>
+  <string name="common_unknown">άγνωστο</string>
   <string name="common_error_unknown">Άγνωστο σφάλμα</string>
   <string name="about_title">Σχετικά</string>
   <string name="change_password">Αλλαγή κωδικού πρόσβασης</string>
@@ -385,7 +382,6 @@
   <string name="action_switch_grid_view">Προβολή πλέγματος</string>
   <string name="action_switch_list_view">Προβολή λίστας</string>
   <string name="manage_space_title">Διαχείριση χώρου</string>
-  <string name="manage_space_description">Οι ρυθμίσεις, η βάση δεδομένων και τα πιστοποιητικά διακομιστή από τα δεδομένα του %1$s θα διαγραφούν οριστικά. \n\nΤα ληφθέντα αρχεία δεν θα πειραχθούν. \n\nΗ διαδικασία μπορεί να διαρκέσει λίγη ώρα.</string>
   <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
   <string name="manage_space_error">Μερικά αρχεία δεν μπορούν να διαγραφούν.</string>
   <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση &amp; λήψη αρχείων.</string>

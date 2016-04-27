@@ -59,16 +59,11 @@
   <string name="sync_string_files">Pliki</string>
   <string name="setup_btn_connect">Połącz</string>
   <string name="uploader_btn_upload_text">Wyślij</string>
-  <string name="uploader_btn_new_folder_text">Nowy folder</string>
   <string name="uploader_top_message">Wybierz folder do wysłania:</string>
   <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
   <string name="uploader_wrn_no_account_text">Brak kont %1$s na Twoim urządzeniu. Załóż konto.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Ustawienia</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Wyjdź</string>
-  <string name="uploader_wrn_no_content_title">Brak danych do wysłania</string>
-  <string name="uploader_wrn_no_content_text">Nie otrzymano danych. Nie ma nic do wysłania.</string>
-  <string name="uploader_error_forbidden_content">%1$s nie ma dostępu do udostępnionych treści</string>
-  <string name="uploader_info_uploading">Wysyłanie</string>
   <string name="file_list_seconds_ago">sekund temu</string>
   <string name="file_list_empty">Pusto. Wyślij coś!</string>
   <string name="file_list_loading">Wczytywanie...</string>
@@ -93,9 +88,11 @@
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Anuluj synchronizację</string>
   <string name="common_cancel">Anuluj</string>
+  <string name="common_back">Wróć</string>
   <string name="common_save_exit">Zapisz i wyjdź</string>
   <string name="common_error">Błąd</string>
   <string name="common_loading">Wczytuję ...</string>
+  <string name="common_unknown">nieznane</string>
   <string name="common_error_unknown">Nieznany błąd</string>
   <string name="about_title">O aplikacji</string>
   <string name="change_password">Zmień hasło</string>
@@ -380,7 +377,6 @@
   <string name="action_switch_grid_view">Widok siatki</string>
   <string name="action_switch_list_view">Widok listy</string>
   <string name="manage_space_title">Zarządzaj przestrzenią</string>
-  <string name="manage_space_description">Ustawienia, baza danych i certyfikaty serwera z danych %1$s zostaną trwale usunięte. \n\nŚciągnięte pliki zostaną zachowane.\n\nTen proces może zająć trochę czasu.</string>
   <string name="manage_space_clear_data">Wyczyść dane</string>
   <string name="manage_space_error">Nie udało się usunąć niektórych plików.</string>
   <string name="permission_storage_access">Dodatkowe uprawnienia do wysyłania i ściągania plików.</string>

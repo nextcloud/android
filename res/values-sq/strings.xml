@@ -59,16 +59,18 @@
   <string name="sync_string_files">Kartela</string>
   <string name="setup_btn_connect">Lidhuni</string>
   <string name="uploader_btn_upload_text">Ngarkoni</string>
-  <string name="uploader_btn_new_folder_text">Dosje e re</string>
   <string name="uploader_top_message">Zgjidhni dosje ngarkimi:</string>
   <string name="uploader_wrn_no_account_title">S\’u gjet llogari</string>
   <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Rregullim</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Dilni</string>
-  <string name="uploader_wrn_no_content_title">Pa lëndë për ngarkim</string>
-  <string name="uploader_wrn_no_content_text">S\’u mor lëndë. Asgjë për t\’u ngarkuar.</string>
-  <string name="uploader_error_forbidden_content">%1$s nuk i lejohet të hyjë në lëndë të përbashkët</string>
-  <string name="uploader_info_uploading">Ngarkim</string>
+  <string name="uploader_error_title_no_file_to_upload">Pa kartelë për ngarkim</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s s’mund të ngarkojë një copë teksti si të ish një kartelë.</string>
+  <string name="uploader_error_message_no_file_to_upload">Të dhënat e marra nuk përfshijnë ndonjë kartelë të vlefshme.</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">Kartela s’mund të ngarkohet</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s s’është lejuar të lexojë një kartelë të marrë</string>
+  <string name="uploader_error_message_source_file_not_found">Kartela për ngarkim s’u gjet te vendi i saj. Ju lutemi, shihni nëse ekziston apo jo kartela.</string>
+  <string name="uploader_error_message_source_file_not_copied">Ndodhi një gabim teksa kopjohej kartela te një dosje e përkohshme. Ju lutemi, provoni ta ridërgoni.</string>
   <string name="file_list_seconds_ago">sekonda më parë</string>
   <string name="file_list_empty">Këtu nuk ka gjë. Ngarkoni diçka!</string>
   <string name="file_list_loading">Po ngarkohet…</string>
@@ -96,6 +98,7 @@
   <string name="common_retry_upload">Riprovo ngarkimin</string>
   <string name="common_cancel_sync">Anuloje njëkohësimin</string>
   <string name="common_cancel">Anuloje</string>
+  <string name="common_back">Mbrapsht</string>
   <string name="common_save_exit">Ruaje &amp; dil</string>
   <string name="common_error">Gabim</string>
   <string name="common_loading">Po ngarkohet …</string>
@@ -301,6 +304,9 @@
   <string name="activity_chooser_send_file_title">Dërgoje</string>
   <string name="copy_link">Kopjoje lidhjen</string>
   <string name="clipboard_text_copied">U kopjua te e papastra</string>
+  <string name="clipboard_no_text_to_copy">S’u mor tekst për t’u kopjuar në të papastër</string>
+  <string name="clipboard_uxexpected_error">Gabim i panjohur teksa kopjohej në të papastër</string>
+  <string name="clipboard_label">Tekst i kopjuar prej %1$s</string>
   <string name="error_cant_bind_to_operations_service">Gabim kritik: nuk mund të kryhen veprime</string>
   <string name="network_error_socket_exception">Ndodhi një gabim teksa po lidhej me shërbyesin.</string>
   <string name="network_error_socket_timeout_exception">Ndodhi një gabim teksa po pritej për shërbyesin, veprimi s\’u krye dot</string>
@@ -399,9 +405,9 @@
   <string name="action_switch_grid_view">Pamje galeri</string>
   <string name="action_switch_list_view">Pamje listë</string>
   <string name="manage_space_title">Administroni hapësirë</string>
-  <string name="manage_space_description">Të dhënat e rregullimeve, bazës së të dhënave dhe dëshmive nga %1$s do të fshihen përgjithmonë. \n\nKartelat e shkarkuara do të ruhen të paprekura.\n\nKy proces mund të zgjasë ca.</string>
+  <string name="manage_space_description">Rregullimet, baza e të dhënave dhe dëshmitë e shërbyesit prej të dhënave nga %1$s do të fshihen përgjithmonë. \n\nKartelat e shkarkuara do të ruhen të paprekura.\n\nKy proces mund të hajë ca kohë.</string>
   <string name="manage_space_clear_data">Pastroji të dhënat</string>
   <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
   <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>
-  <string name="local_file_not_found_toast">Kartela s’u gjet lokalisht</string>
+  <string name="local_file_not_found_toast">Kartela s’u gjet te sistemi vendor i kartelave</string>
 </resources>

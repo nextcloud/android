@@ -1,4 +1,5 @@
 # built application files
+*.apk
 *.ap_
 
 # files for the dex VM
@@ -38,6 +39,3 @@ tests/proguard-project.txt
 .idea
 *.iml
 build
-
-# Actionbarsherlock is now ignored since scripts takes care of init the sub-modules.
-actionbarsherlock

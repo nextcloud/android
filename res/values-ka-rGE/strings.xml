@@ -24,14 +24,9 @@
   <string name="sync_string_files">ფაილები</string>
   <string name="setup_btn_connect">დაკავშირება</string>
   <string name="uploader_btn_upload_text">ატვირთვა</string>
-  <string name="uploader_btn_new_folder_text">ახალი ფოლდერი</string>
   <string name="uploader_wrn_no_account_title">ანგარიში ვერ მოიძებნა</string>
   <string name="uploader_wrn_no_account_setup_btn_text">დაყენება</string>
   <string name="uploader_wrn_no_account_quit_btn_text">გამოსვლა</string>
-  <string name="uploader_wrn_no_content_title">არ არის კონტენტი ასატვირთად</string>
-  <string name="uploader_wrn_no_content_text">კონტენტი არ იქნა მიღებული. არაფერია ასატვირთად.</string>
-  <string name="uploader_error_forbidden_content">%1$s–ი არ დაიშვება გაზიარებული კონტენტის სანახავად</string>
-  <string name="uploader_info_uploading">მიმდინარეობს ატვირთვა</string>
   <string name="file_list_seconds_ago">წამის წინ</string>
   <string name="file_list_empty">აქ არაფერი არ არის. ატვირთე რამე!</string>
   <string name="filedetails_select_file">დააჭირეთ ფაილს დამატებითი ინფორმაციის გამოსაჩენად.</string>

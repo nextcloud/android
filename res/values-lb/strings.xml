@@ -43,12 +43,9 @@
   <string name="sync_string_files">Fichieren</string>
   <string name="setup_btn_connect">Verbannen</string>
   <string name="uploader_btn_upload_text">Eroplueden</string>
-  <string name="uploader_btn_new_folder_text">Neien Dossier</string>
   <string name="uploader_wrn_no_account_title">Keen Account fonnt</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Setup</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Erausgoen</string>
-  <string name="uploader_wrn_no_content_text">Et gouf kee Contenu emfaangen. Näischt do fir eropzelueden.</string>
-  <string name="uploader_info_uploading">Eroplueden</string>
   <string name="file_list_seconds_ago">Sekonnen hier</string>
   <string name="file_list_empty">Hei ass näischt. Lued eppes erop!</string>
   <string name="file_list_folder">Dossier</string>
@@ -65,6 +62,7 @@
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Ofbriechen</string>
+  <string name="common_back">Zeréck</string>
   <string name="common_error">Feeler</string>
   <string name="common_error_unknown">Onbekannte Feeler</string>
   <string name="about_title">Iwwer</string>

@@ -51,15 +51,10 @@
   <string name="sync_string_files">الملفات</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">رفع</string>
-  <string name="uploader_btn_new_folder_text">مجلد جديد</string>
   <string name="uploader_top_message">اختر مجلد الرفع</string>
   <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
   <string name="uploader_wrn_no_account_setup_btn_text">تهيئة</string>
   <string name="uploader_wrn_no_account_quit_btn_text">خروج</string>
-  <string name="uploader_wrn_no_content_title">لا يوجد محتوى للرفع</string>
-  <string name="uploader_wrn_no_content_text">لم يتم استلام أي محتوى. لا شيء للرفع.</string>
-  <string name="uploader_error_forbidden_content">%1$s  غير مسموح له بالوصول للمحتوى المشارك</string>
-  <string name="uploader_info_uploading">يتم الرفع</string>
   <string name="file_list_seconds_ago">منذ ثواني</string>
   <string name="file_list_empty">لا يوجد شيء هنا. إرفع بعض الملفات!</string>
   <string name="file_list_loading">تحميل ...</string>
@@ -80,6 +75,7 @@
   <string name="common_no">لا</string>
   <string name="common_ok">تم</string>
   <string name="common_cancel">إلغاء</string>
+  <string name="common_back">رجوع</string>
   <string name="common_error">خطأ</string>
   <string name="common_loading">تحميل ...</string>
   <string name="common_error_unknown">خطأ غير معروف. </string>

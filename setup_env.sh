@@ -31,7 +31,7 @@ function initForAnt {
 #No args
 if [ $# -lt 1 ]; then
         echo "No args found"
-        echo "Usage : $0 [gradle | maven | ant]"
+        echo "Usage : $0 [gradle | ant]"
         exit
 fi
 
@@ -47,12 +47,8 @@ case "$1" in
         initDefault
         ;;
 
-    "maven")  echo  "Creating maven environment"
-        initDefault
-        ;;
-
     *)  echo "Argument not recognized"
-        echo "Usage : $0 [gradle | maven | ant]"
+        echo "Usage : $0 [gradle | ant]"
        ;;
 esac
 

@@ -30,7 +30,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 
-import com.owncloud.android.db.PreferenceReader;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -155,10 +155,10 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
     private void wifiConnected(Context context) {
         // for the moment, only recovery of instant uploads, similar to behaviour in release 1.9.1
         if (
-                (PreferenceReader.instantPictureUploadEnabled(context) &&
-                        PreferenceReader.instantPictureUploadViaWiFiOnly(context)) ||
-                (PreferenceReader.instantVideoUploadEnabled(context) &&
-                        PreferenceReader.instantVideoUploadViaWiFiOnly(context))
+                (PreferenceManager.instantPictureUploadEnabled(context) &&
+                        PreferenceManager.instantPictureUploadViaWiFiOnly(context)) ||
+                (PreferenceManager.instantVideoUploadEnabled(context) &&
+                        PreferenceManager.instantVideoUploadViaWiFiOnly(context))
                 ) {
             Log_OC.d(TAG, "Requesting retry of instant uploads (& friends)");
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();

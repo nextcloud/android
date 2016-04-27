@@ -256,16 +256,25 @@ public class EditShareFragment extends Fragment {
                     boolean isFederated = ShareType.FEDERATED.equals(mShare.getShareType());
                     if (mFile.isFolder()) {
                         if (isChecked) {
-                            for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
-                                //noinspection ConstantConditions, prevented in the method beginning
-                                subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
-                                if (!isFederated) {
+                            if (!isFederated) {
+                                /// not federated shares -> enable all the subpermisions
+                                for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
+                                    //noinspection ConstantConditions, prevented in the method beginning
+                                    subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
                                     subordinate.setVisibility(View.VISIBLE);
-                                }
-                                if (!subordinate.isChecked() &&
+                                    if (!subordinate.isChecked() &&
                                         !mFile.isSharedWithMe()) {          // see (1)
+                                        toggleDisablingListener(subordinate);
+                                    }
+                                }
+                            } else {
+                                /// federated share -> enable delete subpermission, as server side; TODO why?
+                                //noinspection ConstantConditions, prevented in the method beginning
+                                subordinate = (CompoundButton) getView().findViewById(R.id.canEditDeleteCheckBox);
+                                if (!subordinate.isChecked()) {
                                     toggleDisablingListener(subordinate);
                                 }
+
                             }
                         } else {
                             for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
@@ -279,7 +288,8 @@ public class EditShareFragment extends Fragment {
                         }
                     }
 
-                    if(!(mFile.isFolder() && isChecked && mFile.isSharedWithMe())) {    // see (1)
+                    if(!(mFile.isFolder() && isChecked && mFile.isSharedWithMe())       // see (1)
+                        || isFederated ) {
                         updatePermissionsToShare();
                     }
 

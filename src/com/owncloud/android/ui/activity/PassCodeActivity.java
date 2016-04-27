@@ -32,6 +32,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -297,6 +298,7 @@ public class PassCodeActivity extends AppCompatActivity {
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             if (checkPassCode()) {
                 /// pass code accepted in request, user is allowed to access the app
+                hideSoftKeyboard();
                 finish();
 
             }  else {
@@ -309,7 +311,7 @@ public class PassCodeActivity extends AppCompatActivity {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(KEY_CHECK_RESULT, true);
                 setResult(RESULT_OK, resultIntent);
-
+                hideSoftKeyboard();
                 finish();
             } else {
                 showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code,
@@ -333,6 +335,17 @@ public class PassCodeActivity extends AppCompatActivity {
         }
     }
 
+    private void hideSoftKeyboard() {
+        View focusedView = getCurrentFocus();
+        if (focusedView != null) {
+            InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(
+                focusedView.getWindowToken(),
+                0
+            );
+        }
+    }
 
     private void showErrorAndRestart(int errorMessage, int headerMessage,
                                      int explanationVisibility) {

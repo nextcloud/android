@@ -60,16 +60,11 @@
   <string name="sync_string_files">Файлы</string>
   <string name="setup_btn_connect">Подключиться</string>
   <string name="uploader_btn_upload_text">Загрузить</string>
-  <string name="uploader_btn_new_folder_text">Новый каталог</string>
   <string name="uploader_top_message">Выберите каталог для загрузки</string>
   <string name="uploader_wrn_no_account_title">Учётная запись не найдена</string>
   <string name="uploader_wrn_no_account_text">На вашем устройстве нет аккаунтов %1$s. Пожалуйста выполните настройку аккаунта.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Выход</string>
-  <string name="uploader_wrn_no_content_title">Нет содержимого для загрузки</string>
-  <string name="uploader_wrn_no_content_text">Содержимое не получено. Нечего загружать.</string>
-  <string name="uploader_error_forbidden_content">Доступ к общему ресурсу для %1$s запрещен</string>
-  <string name="uploader_info_uploading">Загрузка</string>
   <string name="file_list_seconds_ago">несколько секунд назад</string>
   <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
   <string name="file_list_loading">Загрузка...</string>
@@ -94,9 +89,11 @@
   <string name="common_ok">ОК</string>
   <string name="common_cancel_sync">Отменить синхронизацию</string>
   <string name="common_cancel">Отмена</string>
+  <string name="common_back">Назад</string>
   <string name="common_save_exit">Сохранить и выйти</string>
   <string name="common_error">Ошибка</string>
   <string name="common_loading">Загрузка ...</string>
+  <string name="common_unknown">неизвестно</string>
   <string name="common_error_unknown">Неизвестная ошибка</string>
   <string name="about_title">О программе</string>
   <string name="change_password">Сменить пароль</string>
@@ -385,7 +382,6 @@
   <string name="action_switch_grid_view">Сетка</string>
   <string name="action_switch_list_view">Список</string>
   <string name="manage_space_title">Управление свободным местом</string>
-  <string name="manage_space_description">Настройки, база данных и сертификат сервера от %1$s будут удалены навсегда.\n\nСкачанные файлы не будут изменены.\n\nЭто действие может занять некоторое время.</string>
   <string name="manage_space_clear_data">Очистить данные</string>
   <string name="manage_space_error">Некоторые файлы не могут быть удалены.</string>
   <string name="permission_storage_access">Для загрузки и скачивания файлов требуются дополнительные права.</string>

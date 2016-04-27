@@ -1,4 +1,3 @@
-
 These instructions will help you to set up your development environment, get the source code of the ownCloud for Android app and build it by yourself. If you want to help developing the app take a look to the [contribution guidelines][0].
 
 Sections 1) and 2) are common for any environment. The rest of the sections describe how to set up a project in different tool environments. Choose the build tool or IDE you prefer and follow the instructions in its specific section. Nowadays we recommend to use Android Studio (section 2), but the decision is up to you.
@@ -10,7 +9,7 @@ If you have any problem, remove the 'android' folder, start again from 1) and wo
 
 There are some tools needed, no matter what is your specific IDE or build tool of preference.
 
-[git][1] is used to access to the different versions of the ownCloud's source code. Download and install the version appropiate for your operating system from [here][2]. Add the full path to the 'bin/' directory from your git installation into the PATH variable of your environment so that it can be used from any location.
+[git][1] is used to access to the different versions of the ownCloud's source code. Download and install the version appropriate for your operating system from [here][2]. Add the full path to the 'bin/' directory from your git installation into the PATH variable of your environment so that it can be used from any location.
 
 The [Android SDK][3] is necessary to build the app. There are different options to install it in your system, depending of the IDE you decide to use. Check Google documentation about [installation][4] for more details on these options. After installing it, add the full path to the directories 'tools/' and 'platform-tools/' from your Android SDK installation into the PATH variable of your environment.
 
@@ -37,7 +36,6 @@ Next steps will assume you have a Github account and that you will get the code 
 * Open a terminal and go on with the next steps in it.
 * Clone your forked repository: ```git clone git@github.com:YOURGITHUBNAME/android.git```.
 * Move to the project folder with ```cd android```.
-* Checkout the remote branch 'master' in your own local branch 'master': ```git checkout master remotes/origin/master```.
 * Pull any changes from your remote branch 'master': ```git pull origin master```
 * Make official ownCloud repo known as upstream: ```git remote add upstream git@github.com:owncloud/android.git```
 * Make sure to get the latest changes from official android/master branch: ```git pull upstream master```
@@ -132,29 +130,6 @@ The generated APK file is saved in android/build/outputs/apk as android-debug.ap
 * Run ```ant debug``` to generate a debuggable version of the ownCloud app.
 
 The resulting APKs will be saved in the 'bin/' subdirectory of the project.
-
-
-### 6. Building in command line with maven:
-
-** Currently these build instructions DO NOT WORK. There is no estimation time to fix it. Unless some volunteer contributor fixes this build option, and given that Maven is a minority option in Android environments, we will probably remove this option.
-
-NOTE: You must have mvn (version >= 3.1.1) in your environment path. Current Android 'platforms-tools' need to be installed.
-
-Download/install Android plugin for Maven, then build ownCloud with mvn:
-
-* Resolve necessary dependencies running:
-  - Windows: "setup_env.bat maven"
-  - Mac OS/Linux: "./setup_env.sh maven"
-* cd ..
-* git clone https://github.com/mosabua/maven-android-sdk-deployer.git
-* cd maven-android-sdk-deployer
-* mvn -pl com.simpligility.android.sdk-deployer:android-22 -am install
-* mvn -pl com.simpligility.android.sdk-deployer:android-23 -am install
-* cd ../android/owncloud-android-library
-* mvn install
-* cd ..
-
-Now you can create ownCloud APK using "mvn package" and find it as ownCloud.apk under the target
 
 
 [0]: https://github.com/owncloud/android/blob/master/CONTRIBUTING.md

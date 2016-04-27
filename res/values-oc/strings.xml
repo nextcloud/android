@@ -55,15 +55,10 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="sync_string_files">Fichièrs</string>
   <string name="setup_btn_connect">Connectar</string>
   <string name="uploader_btn_upload_text">Mandar</string>
-  <string name="uploader_btn_new_folder_text">Dorsièr novèl</string>
   <string name="uploader_top_message">Seleccionar lo dorsièr de mandadís :</string>
   <string name="uploader_wrn_no_account_title">Cap de compte es pas estat trobat</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuracion</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quitar</string>
-  <string name="uploader_wrn_no_content_title">Pas res a mandar</string>
-  <string name="uploader_wrn_no_content_text">Cap de contengut pas recebut. Pas res a mandar.</string>
-  <string name="uploader_error_forbidden_content">%1$s es pas autorizat a accedir al contengut partejat</string>
-  <string name="uploader_info_uploading">Mandadís...</string>
   <string name="file_list_seconds_ago">i a qualques segondas</string>
   <string name="file_list_empty">I a pas res aicí ! Mandatz doncas quicòm :)</string>
   <string name="file_list_loading">Cargament...</string>
@@ -85,6 +80,7 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="common_no">Non</string>
   <string name="common_ok">D\'acòrdi</string>
   <string name="common_cancel">Anullar</string>
+  <string name="common_back">Retorn</string>
   <string name="common_error">Error</string>
   <string name="common_loading">Cargament…</string>
   <string name="common_error_unknown">Error desconeguda </string>

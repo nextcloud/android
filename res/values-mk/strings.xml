@@ -51,15 +51,10 @@
   <string name="sync_string_files">Датотеки</string>
   <string name="setup_btn_connect">Поврзи се</string>
   <string name="uploader_btn_upload_text">Подигни</string>
-  <string name="uploader_btn_new_folder_text">Нова папка</string>
   <string name="uploader_top_message">Избери папка за префрлање:</string>
   <string name="uploader_wrn_no_account_title">Не е пронајдена сметка</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Нагодување</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Прекини</string>
-  <string name="uploader_wrn_no_content_title">Нема содржина за префрлање</string>
-  <string name="uploader_wrn_no_content_text">Не е примена содржина. Нема што да се префрла</string>
-  <string name="uploader_error_forbidden_content">на %1$s не му е дозволено да пристапи на споделената содржина</string>
-  <string name="uploader_info_uploading">Префрлам</string>
   <string name="file_list_seconds_ago">пред секунди</string>
   <string name="file_list_empty">Тука нема ништо. Префрлете нешто!</string>
   <string name="local_file_list_empty">Нема датотеки во оваа папка.</string>
@@ -79,6 +74,7 @@
   <string name="common_no">Не</string>
   <string name="common_ok">Во ред</string>
   <string name="common_cancel">Откажи</string>
+  <string name="common_back">Назад</string>
   <string name="common_error">Грешка</string>
   <string name="common_loading">Вчитувам ...</string>
   <string name="common_error_unknown">Непозната грешка</string>

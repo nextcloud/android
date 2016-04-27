@@ -51,15 +51,10 @@
   <string name="sync_string_files">Fájlok</string>
   <string name="setup_btn_connect">Kapcsolódás</string>
   <string name="uploader_btn_upload_text">Feltöltés</string>
-  <string name="uploader_btn_new_folder_text">Új mappa</string>
   <string name="uploader_top_message">Válassz feltöltési mappát:</string>
   <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Kilépés</string>
-  <string name="uploader_wrn_no_content_title">Nincs feltölthető tartalom</string>
-  <string name="uploader_wrn_no_content_text">Nem jött tartalom. Nincs mit feltölteni.</string>
-  <string name="uploader_error_forbidden_content">%1$s nem jogosult a megosztott tartalom elérésére</string>
-  <string name="uploader_info_uploading">Feltöltés</string>
   <string name="file_list_seconds_ago">pár másodperce</string>
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
   <string name="file_list_loading">Betöltés...</string>
@@ -81,6 +76,7 @@
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Mégsem</string>
+  <string name="common_back">Vissza</string>
   <string name="common_error">Hiba</string>
   <string name="common_loading">Betöltés ...</string>
   <string name="common_error_unknown">Ismeretlen hiba</string>

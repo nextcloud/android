@@ -59,16 +59,18 @@
   <string name="sync_string_files">Arquivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
-  <string name="uploader_btn_new_folder_text">Nova pasta</string>
   <string name="uploader_top_message">Escolher pasta para enviar:</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
   <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu aparelho. Por favor configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
-  <string name="uploader_wrn_no_content_title">Nenhum conteúdo para enviar</string>
-  <string name="uploader_wrn_no_content_text">Nenhum conteúdo foi recebido. Nada para enviar.</string>
-  <string name="uploader_error_forbidden_content">%1$s não é permitido acessar o conteúdo compartilhado</string>
-  <string name="uploader_info_uploading">Enviando</string>
+  <string name="uploader_error_title_no_file_to_upload">Nenhum arquivo para envio</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s não pode ser enviado um pedaço de texto como um arquivo.</string>
+  <string name="uploader_error_message_no_file_to_upload">Os dados recebidos não incluem qualquer arquivo válido.</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">O arquivo não pode sejam enviado</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s não tem permissão para ler um arquivo recebido</string>
+  <string name="uploader_error_message_source_file_not_found">Arquivo para envio não foi encontrado em sua localização. Por favor verifique se o arquivo existe.</string>
+  <string name="uploader_error_message_source_file_not_copied">Ocorreu um erro ao copiar o arquivo para uma pasta temporária. Por favor, tente enviar novamente.</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
   <string name="file_list_loading">Carregando...</string>
@@ -96,9 +98,11 @@
   <string name="common_retry_upload">Tentar enviar de novo</string>
   <string name="common_cancel_sync">Cancelar sincronização</string>
   <string name="common_cancel">Cancelar</string>
+  <string name="common_back">Voltar</string>
   <string name="common_save_exit">Salvar &amp; e sair</string>
   <string name="common_error">Erro</string>
   <string name="common_loading">Carregando ...</string>
+  <string name="common_unknown">desconhecido</string>
   <string name="common_error_unknown">Erro desconhecido</string>
   <string name="about_title">Sobre</string>
   <string name="change_password">Alterar senha</string>
@@ -304,6 +308,9 @@
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar link</string>
   <string name="clipboard_text_copied">Copiado para área de transferência</string>
+  <string name="clipboard_no_text_to_copy">Nenhum texto recebido para copiar para área de transferência</string>
+  <string name="clipboard_uxexpected_error">Erro inesperado ao copiar para a área de transferência</string>
+  <string name="clipboard_label">Texto copiado de %1$s</string>
   <string name="error_cant_bind_to_operations_service">Erro crítico: não pode executar operações</string>
   <string name="network_error_socket_exception">Ocorreu um erro durante a conexão com o servidor.</string>
   <string name="network_error_socket_timeout_exception">Ocorreu um erro enquanto se espera pelo servidor, a operação não poderia ter sido executada</string>
@@ -402,9 +409,9 @@
   <string name="action_switch_grid_view">Grade de exibição</string>
   <string name="action_switch_list_view">Lista de visualização</string>
   <string name="manage_space_title">Gerenciar o espaço</string>
-  <string name="manage_space_description">Definições, banco de dados e certificados de servidor de %1$s será excluído permanentemente. Arquivos baixados serão mantidos inalterados. \n\nEste processo pode demorar algum tempo.</string>
+  <string name="manage_space_description">Definições, certificados de banco de dados e servidor de dados %1$s serão excluído permanentemente. \n\nArquivos baixados serão mantidos inalterados. \n\nEste processo pode demorar algum tempo.</string>
   <string name="manage_space_clear_data">Limpar dados</string>
   <string name="manage_space_error">Alguns arquivos não puderam ser excluído.</string>
   <string name="permission_storage_access">Permissões adicionais são necessárias para se enviar e baixar arquivos &amp; .</string>
-  <string name="local_file_not_found_toast">O arquivo não foi encontrado localmente</string>
+  <string name="local_file_not_found_toast">O arquivo não foi encontrado no sistema de arquivos local</string>
 </resources>

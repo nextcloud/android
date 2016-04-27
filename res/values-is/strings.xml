@@ -58,16 +58,11 @@
   <string name="sync_string_files">Skrár</string>
   <string name="setup_btn_connect">Tengjast</string>
   <string name="uploader_btn_upload_text">Senda inn</string>
-  <string name="uploader_btn_new_folder_text">Ný mappa</string>
   <string name="uploader_top_message">Veldu innsendingamöppu:</string>
   <string name="uploader_wrn_no_account_title">Enginn notandaaðgangur fannst</string>
   <string name="uploader_wrn_no_account_text">Það eru engir %1$s aðgangar á tækinu þínu. Settu fyrst upp notandaaðgang.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Uppsetning</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Hætta</string>
-  <string name="uploader_wrn_no_content_title">Ekkert efni til að senda inn</string>
-  <string name="uploader_wrn_no_content_text">Ekkert efni barst. Ekkert til að senda inn.</string>
-  <string name="uploader_error_forbidden_content">%1$s er ekki með heimild til að nálgast sameiginlega efnið</string>
-  <string name="uploader_info_uploading">Sendi inn</string>
   <string name="file_list_seconds_ago">sek.</string>
   <string name="file_list_empty">Ekkert hér. Settu eitthvað inn!</string>
   <string name="file_list_loading">Hleð inn…</string>
@@ -88,6 +83,7 @@
   <string name="common_ok">Í lagi</string>
   <string name="common_cancel_sync">Hætta við samstillingu</string>
   <string name="common_cancel">Hætta við</string>
+  <string name="common_back">Til baka</string>
   <string name="common_save_exit">Vista &amp; fara út</string>
   <string name="common_error"><strong>Villa</strong></string>
   <string name="common_loading">Hleð inn …</string>
@@ -367,7 +363,6 @@
   <string name="action_switch_grid_view">Reitir</string>
   <string name="action_switch_list_view">Listi</string>
   <string name="manage_space_title">Sýsla með geymslurými</string>
-  <string name="manage_space_description">Stillingar, gagnagrunnur og skilríki þjóna verður eytt endanlega úr gögnum %1$s. \n\nSóttar skrár verða skildar eftir ósnertar.\n\nÞetta ferli getur tekið drjúgan tíma.</string>
   <string name="manage_space_clear_data">Hreinsa gögn</string>
   <string name="manage_space_error">Ekki tókst að eyða öllum skrám.</string>
   <string name="permission_storage_access">Aukinna heimilda er krafist til að geta sent inn og sótt skrár.</string>

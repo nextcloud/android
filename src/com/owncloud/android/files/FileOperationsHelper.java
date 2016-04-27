@@ -209,25 +209,6 @@ public class FileOperationsHelper {
         }
     }
 
-    public void shareFileWithLinkToApp(OCFile file, String password, Intent sendIntent) {
-        
-        if (file != null) {
-            mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                    getString(R.string.wait_a_moment));
-
-            Intent service = new Intent(mFileActivity, OperationsService.class);
-            service.setAction(OperationsService.ACTION_CREATE_SHARE_VIA_LINK);
-            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-            service.putExtra(OperationsService.EXTRA_SHARE_PASSWORD, password);
-            service.putExtra(OperationsService.EXTRA_SEND_INTENT, sendIntent);
-            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
-            
-        } else {
-            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
-        }
-    }
-
     /**
      * Helper method to share a file with a known sharee. Starts a request to do it in {@link OperationsService}
      *
@@ -334,23 +315,6 @@ public class FileOperationsHelper {
 
     }
 
-
-    /**
-     * Starts a dialog that requests a password to the user to protect a share link.
-     *
-     * @param   file            File which public share will be protected by the requested password
-     * @param   createShare     When 'true', the request for password will be followed by the creation of a new
-     *                          public link; when 'false', a public share is assumed to exist, and the password
-     *                          is bound to it.
-     */
-    public void requestPasswordForShareViaLink(OCFile file, boolean createShare) {
-        SharePasswordDialogFragment dialog =
-                SharePasswordDialogFragment.newInstance(file, createShare);
-        dialog.show(
-            mFileActivity.getSupportFragmentManager(),
-            SharePasswordDialogFragment.PASSWORD_FRAGMENT
-        );
-    }
 
     /**
      * Updates a public share on a file to set its password.

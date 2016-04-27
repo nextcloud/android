@@ -51,6 +51,7 @@ import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
+import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
@@ -279,16 +280,16 @@ public class ShareFileFragment extends Fragment
                 if (mCapabilities != null &&
                         mCapabilities.getFilesSharingPublicPasswordEnforced().isTrue()) {
                     // password enforced by server, request to the user before trying to create
-                    ((FileActivity) getActivity()).getFileOperationsHelper().
-                            requestPasswordForShareViaLink(mFile, true);
+                    requestPasswordForShareViaLink(true);
 
                 } else {
                     // create without password if not enforced by server or we don't know if enforced;
                     ((FileActivity) getActivity()).getFileOperationsHelper().
                             shareFileViaLink(mFile, null);
 
-                    // FileActivtiy#onCreateShareViaLinkOperationFinish still handles the guess of enforcement
-                    // for server in versions previous to OwnCloudVersion#MINIMUM_VERSION_CAPABILITIES_API
+                    // ShareActivity#onCreateShareViaLinkOperationFinish will take care if password
+                    // is enforced by the server but app doesn't know, or if server version is
+                    // older than OwnCloudVersion#MINIMUM_VERSION_CAPABILITIES_API
                 }
 
             } else {
@@ -429,8 +430,7 @@ public class ShareFileFragment extends Fragment
                 return;
             }
             if (isChecked) {
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        requestPasswordForShareViaLink(mFile, false);
+                requestPasswordForShareViaLink(false);
             } else {
                 ((FileActivity) getActivity()).getFileOperationsHelper().
                         setPasswordToShareViaLink(mFile, "");   // "" clears
@@ -451,8 +451,7 @@ public class ShareFileFragment extends Fragment
         @Override
         public void onClick(View passwordView) {
             if (mPublicShare != null && mPublicShare.isPasswordProtected()) {
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        requestPasswordForShareViaLink(mFile, false);
+                requestPasswordForShareViaLink(false);
             }
         }
     }
@@ -844,6 +843,19 @@ public class ShareFileFragment extends Fragment
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
         listView.requestLayout();
+    }
+
+
+    /**
+     * Starts a dialog that requests a password to the user to protect a share link.
+     *
+     * @param   createShare     When 'true', the request for password will be followed by the creation of a new
+     *                          public link; when 'false', a public share is assumed to exist, and the password
+     *                          is bound to it.
+     */
+    public void requestPasswordForShareViaLink(boolean createShare) {
+        SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(mFile, createShare);
+        dialog.show(getFragmentManager(),SharePasswordDialogFragment.PASSWORD_FRAGMENT);
     }
 
 }

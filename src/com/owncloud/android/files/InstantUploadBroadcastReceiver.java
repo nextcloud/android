@@ -22,16 +22,6 @@
 package com.owncloud.android.files;
 
 import android.Manifest;
-import java.io.File;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.FileStorageUtils;
-
-
-import android.Manifest;
 import android.accounts.Account;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -43,25 +33,16 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo.State;
 import android.net.Uri;
 import android.os.BatteryManager;
-import android.preference.PreferenceManager;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
 import android.support.v4.content.ContextCompat;
 
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.db.PreferenceReader;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.FileStorageUtils;
-
-import java.io.File;
 
 
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
@@ -110,7 +91,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         Log_OC.i(TAG, "New photo received");
 
-        if (!PreferenceReader.instantPictureUploadEnabled(context)) {
+        if (!PreferenceManager.instantPictureUploadEnabled(context)) {
             Log_OC.d(TAG, "Instant picture upload disabled, ignoring new picture");
             return;
         }
@@ -146,7 +127,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         file_name = c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
         mime_type = c.getString(c.getColumnIndex(Images.Media.MIME_TYPE));
         c.close();
-        
+
         Log_OC.d(TAG, file_path + "");
 
         if (file_path.equals(lastUploadedPhotoPath)) {
@@ -174,7 +155,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     }
 
     private Integer getUploadBehaviour(Context context) {
-        SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences appPreferences = android.preference.PreferenceManager.getDefaultSharedPreferences(context);
         String behaviour = appPreferences.getString("prefs_instant_behaviour", "NOTHING");
 
         if (behaviour.equalsIgnoreCase("NOTHING")) {
@@ -195,7 +176,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         Log_OC.i(TAG, "New video received");
 
-        if (!PreferenceReader.instantVideoUploadEnabled(context)) {
+        if (!PreferenceManager.instantVideoUploadEnabled(context)) {
             Log_OC.d(TAG, "Instant video upload disabled, ignoring new video");
             return;
         }
@@ -255,27 +236,5 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         }
         return status == BatteryManager.BATTERY_STATUS_CHARGING ||
                 status == BatteryManager.BATTERY_STATUS_FULL;
-    }
-
-    public static boolean instantPictureUploadEnabled(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_uploading", false);
-    }
-
-    public static boolean instantVideoUploadEnabled(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_uploading", false);
-    }
-
-    public static boolean instantPictureUploadViaWiFiOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_wifi", false);
-    }
-
-    public static boolean instantVideoUploadViaWiFiOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_wifi", false);
-    }
-    public static boolean instantUploadWhenChargingOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_charging", false);
-    }
-    public static boolean instantVideoUploadWhenChargingOnly(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_charging", false);
     }
 }

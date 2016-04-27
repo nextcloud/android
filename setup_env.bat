@@ -2,16 +2,11 @@
 
 :: Use argument to decide which build system should be used
 if "%1" == "gradle" goto initForGradle
-if "%1" == "maven" goto initForMaven
 if "%1" == "ant" goto initForAnt
 goto invalidInput
 
 :initForGradle
 echo "Executing Gradle setup..."
-goto initDefault
-
-:initForMaven
-echo "Executing Maven setup..."
 goto initDefault
 
 :initForAnt
@@ -43,7 +38,7 @@ goto complete
 
 :invalidInput
 echo "Input argument invalid."
-echo "Usage: %0 [ant | maven | gradle]."
+echo "Usage: %0 [ant | gradle]."
 goto exit
 
 :complete

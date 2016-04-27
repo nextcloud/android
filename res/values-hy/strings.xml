@@ -23,7 +23,6 @@
   <string name="auth_password">Գաղտնաբառ</string>
   <string name="sync_string_files">Ֆայլեր</string>
   <string name="uploader_btn_upload_text">Բեռնել</string>
-  <string name="uploader_btn_new_folder_text">Նոր պանակ</string>
   <string name="file_list_seconds_ago">վրկ. առաջ</string>
   <string name="filedetails_size">Չափս.</string>
   <string name="filedetails_type">Տիպ.</string>
