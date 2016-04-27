@@ -76,6 +76,7 @@
   <string name="file_list_loading">Načítání...</string>
   <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
   <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
+  <string name="upload_list_empty">Uploady nejsou k dispozici.</string>
   <string name="file_list_folder">adresář</string>
   <string name="file_list_folders">adresářů</string>
   <string name="file_list_file">soubor</string>
@@ -93,6 +94,7 @@
   <string name="common_yes">Ano</string>
   <string name="common_no">Ne</string>
   <string name="common_ok">OK</string>
+  <string name="common_remove_upload">Odstranit upload</string>
   <string name="common_retry_upload">Opakovat nahrání</string>
   <string name="common_cancel_sync">Zrušit synchronizaci</string>
   <string name="common_cancel">Zrušit</string>
@@ -123,6 +125,7 @@
   <string name="uploads_view_upload_status_cancelled">Zrušeno</string>
   <string name="uploads_view_upload_status_paused">Pozastaveno</string>
   <string name="uploads_view_upload_status_failed_connection_error">Chyba připojení</string>
+  <string name="uploads_view_upload_status_failed_retry">Upload bude brzy opakován</string>
   <string name="uploads_view_upload_status_failed_credentials_error">Chyba přihlašovacích údajů</string>
   <string name="uploads_view_upload_status_failed_folder_error">Chyba adresáře</string>
   <string name="uploads_view_upload_status_failed_file_error">Chyba souboru</string>
@@ -304,6 +307,9 @@ správce systému.</string>
   <string name="activity_chooser_send_file_title">Odeslat</string>
   <string name="copy_link">Zkopírovat odkaz</string>
   <string name="clipboard_text_copied">Zkopírováno do schránky</string>
+  <string name="clipboard_no_text_to_copy">Žádný výběr textu pro kopírování do schránky</string>
+  <string name="clipboard_uxexpected_error">Neočekávaná chyba při kopírování do schránky</string>
+  <string name="clipboard_label">Text zkopírován z %1$s</string>
   <string name="error_cant_bind_to_operations_service">Kritická chyba: operace nelze provést</string>
   <string name="network_error_socket_exception">Při pokusu o připojení k serveru došlo k chybě.</string>
   <string name="network_error_socket_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
@@ -402,6 +408,7 @@ správce systému.</string>
   <string name="action_switch_grid_view">Zobrazení v mřížce</string>
   <string name="action_switch_list_view">Zobrazení v seznamu</string>
   <string name="manage_space_title">Spravovat úložný prostor</string>
+  <string name="manage_space_description">Nastavení, databáze a certifikáty serverů z %1$s data budou permanentně smazány. \n\nStažené soubory nebudou rozbaleny.\n\nTento proces může chvíli trvat.</string>
   <string name="manage_space_clear_data">Vyčistit data</string>
   <string name="manage_space_error">Některé soubory nebylo možno smazat.</string>
   <string name="permission_storage_access">Vyžadována dodatečná oprávnění pro nahrávání &amp; stahování souborů.</string>

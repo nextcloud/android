@@ -287,7 +287,7 @@
   <string name="instant_video_upload_on_wifi">Videos nur über WiFi hochladen</string>
   <string name="instant_upload_path">/SofortUpload</string>
   <string name="conflict_title">Dateikonflikt</string>
-  <string name="conflict_message">Welche Datei möchtest du behalten? Wenn du beide Versionen auswählst, wird der lokalen Datei eine Zahl am Ende Ihres Dateiname angehangen.</string>
+  <string name="conflict_message">Welche Datei möchten Sie behalten? Wenn Sie beide Versionen auswählen, wird der lokalen Datei eine Zahl ans Ende ihres Dateinamens angehängt.</string>
   <string name="conflict_keep_both">Beide behalten</string>
   <string name="conflict_use_local_version">lokale Version</string>
   <string name="conflict_use_server_version">Server Version</string>
@@ -402,10 +402,10 @@
   <string name="share_privilege_can_edit_delete">löschen</string>
   <string name="edit_share_unshare">Freigabe löschen</string>
   <string name="edit_share_done">Erledigt</string>
-  <string name="action_retry_uploads">Wiederholung fehlgeschlagen</string>
-  <string name="action_clear_failed_uploads">Löschen fehlgeschlagen</string>
-  <string name="action_clear_successful_uploads">Löschen erfolgreich</string>
-  <string name="action_clear_finished_uploads">\"Alle Löschen\" abgeschlossen</string>
+  <string name="action_retry_uploads">Wiederhole Fehlversuche</string>
+  <string name="action_clear_failed_uploads">Entferne Fehlversuche</string>
+  <string name="action_clear_successful_uploads">Entferne erfolgreiche Uploads</string>
+  <string name="action_clear_finished_uploads">Alles aufräumen</string>
   <string name="action_switch_grid_view">Zur Rasteransicht wechseln</string>
   <string name="action_switch_list_view">Zur Listenansicht wechseln</string>
   <string name="manage_space_title">Speicher verwalten</string>

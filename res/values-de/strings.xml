@@ -402,10 +402,10 @@
   <string name="share_privilege_can_edit_delete">löschen</string>
   <string name="edit_share_unshare">Freigabe löschen</string>
   <string name="edit_share_done">Erledigt</string>
-  <string name="action_retry_uploads">Wiederholung fehlgeschlagen</string>
-  <string name="action_clear_failed_uploads">Löschen fehlgeschlagen</string>
-  <string name="action_clear_successful_uploads">Löschen erfolgreich</string>
-  <string name="action_clear_finished_uploads">\"Alle Löschen\" abgeschlossen</string>
+  <string name="action_retry_uploads">Wiederhole Fehlversuche</string>
+  <string name="action_clear_failed_uploads">Entferne Fehlversuche</string>
+  <string name="action_clear_successful_uploads">Entferne erfolgreiche Uploads</string>
+  <string name="action_clear_finished_uploads">Alles aufräumen</string>
   <string name="action_switch_grid_view">Rasteransicht</string>
   <string name="action_switch_list_view">Listenansicht</string>
   <string name="manage_space_title">verwalte Speicherplatz</string>
