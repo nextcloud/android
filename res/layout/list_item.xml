@@ -22,11 +22,11 @@
     android:layout_width="match_parent"
     android:background="@drawable/list_selector"
     android:orientation="vertical"
-    android:layout_height="72dp">
+    android:layout_height="73dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="72dp"
         android:orientation="horizontal">
 
         <FrameLayout
@@ -147,6 +147,6 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/list_divider_background"></View>
+        android:background="@color/list_divider_background" />
 
 </RelativeLayout>

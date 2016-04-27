@@ -72,7 +72,7 @@ public class ExtendedListFragment extends Fragment
     protected static final int NUMBER_OF_GRID_COLUMNS_LANDSCAPE = 4;
 
     protected SwipeRefreshLayout mRefreshListLayout;
-    private SwipeRefreshLayout mRefreshGridLayout;
+    //private SwipeRefreshLayout mRefreshGridLayout;
     protected SwipeRefreshLayout mRefreshEmptyLayout;
     protected TextView mEmptyListMessage;
 
@@ -387,7 +387,7 @@ public class ExtendedListFragment extends Fragment
     @Override
     public void onRefresh() {
         mRefreshListLayout.setRefreshing(false);
-        mRefreshGridLayout.setRefreshing(false);
+        //mRefreshGridLayout.setRefreshing(false);
         mRefreshEmptyLayout.setRefreshing(false);
 
         if (mOnRefreshListener != null) {
@@ -410,7 +410,7 @@ public class ExtendedListFragment extends Fragment
      */
     public void setSwipeEnabled(boolean enabled) {
         mRefreshListLayout.setEnabled(enabled);
-        mRefreshGridLayout.setEnabled(enabled);
+        //mRefreshGridLayout.setEnabled(enabled);
         mRefreshEmptyLayout.setEnabled(enabled);
     }
 
