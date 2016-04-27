@@ -46,6 +46,7 @@ import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -79,6 +80,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -101,7 +103,7 @@ import java.io.File;
 
 public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
-        OnEnforceableRefreshListener {
+        OnEnforceableRefreshListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener {
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -730,16 +732,16 @@ public class FileDisplayActivity extends HookActivity
         String filePath = null;
         String mimeType = null;
 
-        Uri selectedImageUri = data.getData();
+        Uri selectedFileUri = data.getData();
 
         try {
-            mimeType = getContentResolver().getType(selectedImageUri);
+            mimeType = getContentResolver().getType(selectedFileUri);
 
-            String fileManagerString = selectedImageUri.getPath();
-            String selectedImagePath = UriUtils.getLocalPath(selectedImageUri, this);
+            String fileManagerString = selectedFileUri.getPath();
+            String selectedFilePath = UriUtils.getLocalPath(selectedFileUri, this);
 
-            if (selectedImagePath != null)
-                filePath = selectedImagePath;
+            if (selectedFilePath != null)
+                filePath = selectedFilePath;
             else
                 filePath = fileManagerString;
 
@@ -765,27 +767,40 @@ public class FileDisplayActivity extends HookActivity
         OCFile currentDir = getCurrentDir();
         String remotePath = (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
 
-        if (selectedImageUri.toString().startsWith(UriUtils.URI_CONTENT_SCHEME)) {
-//            Cursor cursor = getContentResolver().query(Uri.parse(filePath), null, null, null, null);
-//            try {
-//                if (cursor != null && cursor.moveToFirst()) {
-//                    String displayName = cursor.getString(cursor.getColumnIndex(
-//                            OpenableColumns.DISPLAY_NAME));
-//                    Log_OC.v(TAG, "Display Name: " + displayName);
-//
-//                    displayName.replace(File.separatorChar, '_');
-//                    displayName.replace(File.pathSeparatorChar, '_');
-//                    remotePath += displayName + DisplayUtils.getComposedFileExtension(filePath);
-//
-//                }
-//                // and what happens in case of error?; wrong target name for the upload
-//            } finally {
-//                cursor.close();
-//            }
-            // Pending to be fixed
-            Toast.makeText(this, R.string.common_error_unknown, Toast.LENGTH_SHORT).show();
-            return;
+        if (selectedFileUri.toString().startsWith(UriUtils.URI_CONTENT_SCHEME)) {
+            Cursor cursor = getContentResolver().query(selectedFileUri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    String displayName = cursor.getString(cursor.getColumnIndex(
+                            OpenableColumns.DISPLAY_NAME));
+                    Log_OC.v(TAG, "Display Name: " + displayName);
 
+                    displayName.replace(File.separatorChar, '_');
+                    displayName.replace(File.pathSeparatorChar, '_');
+
+                    // Check if extension is included in file name
+                    int pos = displayName.lastIndexOf('.');
+                    if (pos >= 0) {
+                        remotePath += displayName;
+                    } else {
+                        remotePath += displayName + DisplayUtils.getComposedFileExtension(filePath);
+                    }
+
+                    // URi and remote path parameters
+                    Uri[] uris = new Uri[]{selectedFileUri};
+                    String[] remotePaths = new String[]{remotePath};;
+
+                    // Call to copy and then upload the selected file
+                    copyThenUpload(uris, remotePaths);
+
+                    cursor.close();
+                    return;
+
+                }
+                // and what happens in case of error?; wrong target name for the upload
+            } catch (Exception e) {
+                Log_OC.e(TAG, "Error while trying to copy and upload a content schema type file ", e);
+            }
         } else {
             remotePath += new File(filePath).getName();
         }
@@ -804,6 +819,25 @@ public class FileDisplayActivity extends HookActivity
                 UploadFileOperation.CREATED_BY_USER
         );
 
+    }
+
+    /**
+     * Call asyncTask to copy passed files from uris in temporal files
+     *
+     * @param sourceUris        Array of content:// URIs to the files to upload
+     * @param remotePaths       Array of absolute paths to set to the uploaded files
+     */
+    private void copyThenUpload(Uri[] sourceUris, String[] remotePaths) {
+
+        CopyAndUploadContentUrisTask copyTask = new CopyAndUploadContentUrisTask(this, getApplicationContext());
+        copyTask.execute(
+                CopyAndUploadContentUrisTask.makeParamsToExecute(
+                        getAccount(),
+                        sourceUris,
+                        remotePaths,
+                        getContentResolver()
+                )
+        );
     }
 
     /**
@@ -952,6 +986,11 @@ public class FileDisplayActivity extends HookActivity
         } else {
             return false;
         }
+    }
+
+    @Override
+    public void onTmpFilesCopied(ResultCode result) {
+
     }
 
 
