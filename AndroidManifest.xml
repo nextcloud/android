@@ -64,7 +64,7 @@
         android:icon="@drawable/icon"
         android:label="ownCloud beta"
         android:theme="@style/Theme.ownCloud.Toolbar"
-        android:manageSpaceActivity=".ui.activity.ManageSpaceActivity">
+        android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
             android:label="ownCloud beta" >
