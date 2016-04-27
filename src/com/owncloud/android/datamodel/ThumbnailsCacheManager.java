@@ -204,6 +204,14 @@ public class ThumbnailsCacheManager {
             mAccount = account;
         }
 
+        public ThumbnailGenerationTask(FileDataStorageManager storageManager, Account account){
+            if (storageManager == null)
+                throw new IllegalArgumentException("storageManager must not be NULL");
+            mStorageManager = storageManager;
+            mAccount = account;
+            mImageViewReference = null;
+        }
+
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
                                        Account account, ProgressBar progressWheel) {
         this(imageView, storageManager, account);
@@ -266,7 +274,7 @@ public class ThumbnailsCacheManager {
         }
 
         protected void onPostExecute(Bitmap bitmap){
-            if (bitmap != null) {
+            if (bitmap != null && mImageViewReference != null) {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
                 if (this == bitmapWorkerTask && imageView != null) {
