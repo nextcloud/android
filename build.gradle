@@ -17,7 +17,7 @@ buildscript {
 apply plugin: 'com.android.application'
 
 ext {
-    supportLibraryVersion = '23.1.1'
+    supportLibraryVersion = '23.3.0'
 }
 
 repositories {
