@@ -35,9 +35,9 @@
   <string name="prefs_manage_accounts">Gerenciar contas</string>
   <string name="prefs_passcode">Bloqueio de senha</string>
   <string name="prefs_instant_upload">Envio instantâneo de imagem</string>
-  <string name="prefs_instant_upload_summary">Enviar instantaneamente fotos tiradas com a camera</string>
+  <string name="prefs_instant_upload_summary">Enviar instantaneamente fotos tiradas com a câmera</string>
   <string name="prefs_instant_video_upload">Envio instantâneo de vídeos</string>
-  <string name="prefs_instant_video_upload_summary">Enviar instantaneamente vídeos feitos com a camera</string>
+  <string name="prefs_instant_video_upload_summary">Enviar instantaneamente vídeos feitos com a câmera</string>
   <string name="prefs_log_title">Habilitar login</string>
   <string name="prefs_log_summary">Isto é usado para registrar(log) os problemas</string>
   <string name="prefs_log_title_history">História de logins</string>
@@ -165,7 +165,7 @@
   <string name="upload_query_move_foreign_files">Não há espaço suficiente para copiar os arquivos selecionados para a pasta %1$s. Você gostaria de movê-los em vez disso?</string>
   <string name="pass_code_enter_pass_code">Por favor insira sua senha</string>
   <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>
-  <string name="pass_code_configure_your_pass_code_explanation">O código de acesso será solicitado toda vez que o aplicativo é iniciado</string>
+  <string name="pass_code_configure_your_pass_code_explanation">O código de acesso será solicitado toda vez que o aplicativo for iniciado</string>
   <string name="pass_code_reenter_your_pass_code">Por favor reentre sua senha</string>
   <string name="pass_code_remove_your_pass_code">Remover o seu código de acesso</string>
   <string name="pass_code_mismatch">Os códigos de acesso não são os mesmos</string>
@@ -373,7 +373,7 @@
   <string name="prefs_instant_behaviour_title">O arquivo original será...</string>
   <string name="upload_copy_files">Copiar o arquivo</string>
   <string name="upload_move_files">Mover o arquivo</string>
-  <string name="pref_behaviour_entries_keep_file">manter na pasta original</string>
+  <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
   <string name="pref_behaviour_entries_move">movido para a pasta app</string>
   <string name="share_dialog_title">Compartilhamento</string>
   <string name="share_file">Compartilhar %1$s</string>
