@@ -177,7 +177,7 @@ public class DisplayUtils {
      * @param filepath: Content Uri converted to string format
      * @return String: fileExtension (type '.pdf'). Empty if no extension
      */
-    public static String getComposedFileExtension(String filepath) {
+    public static String getFileExtension(String filepath) {
         String fileExtension = "";
         String fileNameInContentUri = filepath.substring(filepath.lastIndexOf("/"));
 

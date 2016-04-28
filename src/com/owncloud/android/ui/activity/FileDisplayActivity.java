@@ -777,12 +777,12 @@ public class FileDisplayActivity extends HookActivity
                     displayName.replace(File.separatorChar, '_');
                     displayName.replace(File.pathSeparatorChar, '_');
 
-                    // Check if extension is included in file name
+                    remotePath += displayName;
+
+                    // Check if extension is not included in file display name and add file extension
                     int pos = displayName.lastIndexOf('.');
-                    if (pos >= 0) {
-                        remotePath += displayName;
-                    } else {
-                        remotePath += displayName + DisplayUtils.getComposedFileExtension(filePath);
+                    if (pos < 0) {
+                        remotePath += DisplayUtils.getFileExtension(filePath);
                     }
 
                     // URi and remote path parameters
@@ -798,7 +798,7 @@ public class FileDisplayActivity extends HookActivity
                 }
                 // and what happens in case of error?; wrong target name for the upload
             } catch (Exception e) {
-                Log_OC.e(TAG, "Error while trying to copy and upload a content schema type file ", e);
+                Log_OC.e(TAG, "Error while trying to copy and upload a schema type content file ", e);
             }
         } else {
             remotePath += new File(filePath).getName();
