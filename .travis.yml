@@ -10,7 +10,6 @@ android:
     - android-19
     - extra-android-m2repository
 script:
-  - ./setup_env.sh gradle
   - ./gradlew clean
   - ./gradlew build
   
