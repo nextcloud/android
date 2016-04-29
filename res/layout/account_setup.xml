@@ -28,7 +28,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/login_background_color"
         android:gravity="center"
         android:orientation="vertical"
@@ -65,7 +65,6 @@
             android:visibility="gone"
             android:layout_marginBottom="10dp"
             android:textColor="@color/login_text_color"
-            android:textColorHint="@color/login_text_hint_color"
             android:contentDescription="@string/auth_expired_basic_auth_toast"/>
 
 	    <FrameLayout 
@@ -83,6 +82,7 @@
 				android:inputType="textUri"
 				android:drawablePadding="5dp"
 				android:paddingRight="55dp"
+                android:textColor="@color/login_text_color"
                 android:textColorHint="@color/login_text_hint_color"
 				android:contentDescription="@string/auth_host_address"
                 >
@@ -112,7 +112,6 @@
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:textColor="@color/login_text_color"
-            android:textColorHint="@color/login_text_hint_color"
             android:text="@string/auth_testing_connection"
             android:minHeight="32dp"
             android:contentDescription="@string/auth_testing_connection"/>
@@ -126,7 +125,6 @@
             android:text="@string/oauth_check_onoff"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/primary"
-            android:textColorHint="@color/login_text_hint_color"
             android:contentDescription="@string/oauth_check_onoff"
             />
 
@@ -136,6 +134,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
 			android:enabled="false"
+            android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
             android:text="@string/oauth2_url_endpoint_auth"
             android:singleLine="true"
@@ -152,6 +151,7 @@
             android:text="@string/oauth2_url_endpoint_access"
             android:singleLine="true"
             android:inputType="textUri"
+            android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
             android:visibility="gone"/>
 
@@ -162,6 +162,7 @@
             android:ems="10"
             android:hint="@string/auth_username"
             android:inputType="textNoSuggestions"
+            android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
             android:contentDescription="@string/auth_username"
             />
@@ -174,6 +175,7 @@
 		    android:ems="10"
 		    android:hint="@string/auth_password"
 		    android:inputType="textPassword"
+            android:textColor="@color/login_text_color"
             android:textColorHint="@color/login_text_hint_color"
 		    android:contentDescription="@string/auth_password"
             />
@@ -188,7 +190,6 @@
             android:gravity="center_vertical"
             android:text="@string/auth_unauthorized"
             android:textColor="@color/login_text_color"
-            android:textColorHint="@color/login_text_hint_color"
             android:contentDescription="@string/auth_unauthorized"/>
 
         <android.support.v7.widget.AppCompatButton
@@ -202,18 +203,24 @@
             android:text="@string/setup_btn_connect"
             android:contentDescription="@string/setup_btn_connect"/>
 
-        <Button
-            android:id="@+id/welcome_link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:onClick="onRegisterClick"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:text="@string/auth_register"
-            android:textColor="@color/login_text_color"
-            android:textColorHint="@color/login_text_hint_color"
-            android:contentDescription="@string/auth_register"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom">
+
+            <Button
+                android:id="@+id/welcome_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="onRegisterClick"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/auth_register"
+                android:textColor="@color/login_text_color"
+                android:contentDescription="@string/auth_register"/>
+            
+        </LinearLayout>
 
     </LinearLayout>
 
