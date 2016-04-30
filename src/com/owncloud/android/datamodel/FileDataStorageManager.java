@@ -484,6 +484,8 @@ public class FileDataStorageManager {
                     }
                 }
             }
+        } else {
+            success = false;
         }
         return success;
     }
