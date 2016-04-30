@@ -308,6 +308,9 @@
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar enlace</string>
   <string name="clipboard_text_copied">Copiado al portapapeles</string>
+  <string name="clipboard_no_text_to_copy">No se recibió ningún mensaje para copiar al portapapeles</string>
+  <string name="clipboard_uxexpected_error">Error inesperado al copiar al portapapeles</string>
+  <string name="clipboard_label">Texto copiado de %1$s</string>
   <string name="error_cant_bind_to_operations_service">Error crítico: no es posible realizar operaciones</string>
   <string name="network_error_socket_exception">Ocurrió un error al conectarse con el servidor.</string>
   <string name="network_error_socket_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
