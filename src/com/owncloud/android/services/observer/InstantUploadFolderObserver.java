@@ -5,10 +5,10 @@ import java.io.File;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.files.InstantUploadBroadcastReceiver;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.RecursiveFileObserver;
 
@@ -44,23 +44,27 @@ public class InstantUploadFolderObserver extends RecursiveFileObserver {
         Uri selectedUri = Uri.fromFile(file);
         String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString());
         String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
-         
-        DbHandler db = new DbHandler(context);
-        db.putFileForLater(path, account.name, null);
-        db.close();
 
-        if (!InstantUploadBroadcastReceiver.isOnline(context)) {
-            return;
-        }
-        
-        Intent i = new Intent(context, FileUploader.class);
-        i.putExtra(FileUploader.KEY_ACCOUNT, account);
-        i.putExtra(FileUploader.KEY_LOCAL_FILE, path);
-        i.putExtra(FileUploader.KEY_REMOTE_FILE, OCFile.PATH_SEPARATOR + remoteFolder + OCFile.PATH_SEPARATOR +  getRelativePath(file, dirToWatch));
-        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
-        i.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
-        i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
-        MainApp.getAppContext().startService(i);
+        // int behaviour = getUploadBehaviour(context);
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadNewFile(
+                context,
+                account,
+                file.getAbsolutePath(),
+                remoteFolder,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                null,
+                true,
+                UploadFileOperation.CREATED_AS_INSTANT_PICTURE
+        );
+
+//        i.putExtra(FileUploader.KEY_ACCOUNT, account);
+//        i.putExtra(FileUploader.KEY_LOCAL_FILE, path);
+//        i.putExtra(FileUploader.KEY_REMOTE_FILE, OCFile.PATH_SEPARATOR + remoteFolder + OCFile.PATH_SEPARATOR +  getRelativePath(file, dirToWatch));
+//        i.putExtra(FileUploader.KEY_UPLOAD_TYPE, FileUploader.UPLOAD_SINGLE_FILE);
+//        i.putExtra(FileUploader.KEY_MIME_TYPE, mimeType);
+//        i.putExtra(FileUploader.KEY_INSTANT_UPLOAD, true);
+//        MainApp.getAppContext().startService(i);
     }
 
     private String getRelativePath(File file, File folder) {
