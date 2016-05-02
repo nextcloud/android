@@ -310,6 +310,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="activity_chooser_send_file_title">Envoyer</string>
   <string name="copy_link">Copier le lien</string>
   <string name="clipboard_text_copied">Copié dans le presse-papier</string>
+  <string name="clipboard_uxexpected_error">Erreur inattendue lors de la copie vers le presse-papiers</string>
   <string name="clipboard_label">Texte copié depuis %1$s</string>
   <string name="error_cant_bind_to_operations_service">Erreur critique : impossible de réaliser les opérations</string>
   <string name="network_error_socket_exception">Une erreur est survenue pendant la connexion au serveur.</string>
