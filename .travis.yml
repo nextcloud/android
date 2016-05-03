@@ -10,6 +10,8 @@ android:
     - android-19
     - extra-android-m2repository
 script:
+  - git submodule init
+  - git submodule update
   - ./gradlew clean
   - ./gradlew build
   
