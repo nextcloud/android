@@ -1,6 +1,6 @@
 These instructions will help you to set up your development environment, get the source code of the ownCloud for Android app and build it by yourself. If you want to help developing the app take a look to the [contribution guidelines][0].
 
-Sections 1) and 2) are common for any environment. The rest of the sections describe how to set up a project in different tool environments. Choose the build tool or IDE you prefer and follow the instructions in its specific section. Nowadays we recommend to use Android Studio (section 2), but the decision is up to you.
+Sections 1) and 2) are common for any environment. The rest of the sections describe how to set up a project in different tool environments. Nowadays we recommend to use Android Studio (section 2), but you can also build the app from the command line (section 3).
 
 If you have any problem, remove the 'android' folder, start again from 1) and work your way down. If something still does not work as described here, please open a new issue describing exactly what you did, what happened, and what should have happened.
 
