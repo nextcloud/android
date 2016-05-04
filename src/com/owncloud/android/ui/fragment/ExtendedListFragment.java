@@ -22,7 +22,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -31,49 +30,31 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SimpleItemAnimator;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.GridView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.widgets.OCRecyclerView;
 
-import java.util.ArrayList;
-
-import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
 public class ExtendedListFragment extends Fragment
-        implements OnItemClickListener, OnEnforceableRefreshListener {
+        implements OnEnforceableRefreshListener {
 
     protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
-    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION"; 
-
-    private static final String KEY_INDEXES = "INDEXES";
-    private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
-    private static final String KEY_TOPS = "TOPS";
-    private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
+    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     protected static final int NUMBER_OF_GRID_COLUMNS = 2;
     protected static final int NUMBER_OF_GRID_COLUMNS_LANDSCAPE = 4;
 
     protected SwipeRefreshLayout mRefreshListLayout;
-    //private SwipeRefreshLayout mRefreshGridLayout;
-    protected SwipeRefreshLayout mRefreshEmptyLayout;
     protected TextView mEmptyListMessage;
 
     private FloatingActionsMenu mFabMain;
@@ -81,37 +62,60 @@ public class ExtendedListFragment extends Fragment
     private FloatingActionButton mFabMkdir;
     private FloatingActionButton mFabUploadFromApp;
 
-    private int viewLayout = 0;
-
-    // Save the state of the scroll in browsing
-    private ArrayList<Integer> mIndexes;
-    private ArrayList<Integer> mFirstPositions;
-    private ArrayList<Integer> mTops;
-    private int mHeightCell = 0;
-
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
 
     protected SharedPreferences mAppPreferences;
     protected OCRecyclerView mCurrentRecyclerView;
     protected RecyclerView.LayoutManager mLayoutManager;
+    private FileListListAdapter mAdapter;
 
+    /**
+     * Set adapter for current recylcerView list
+     * @param mAdapter
+     */
     protected void setListAdapter(RecyclerView.Adapter mAdapter) {
+        if (mAdapter instanceof FileListListAdapter) {
+            // set LayoutManager for Remote list of files
+            buildLayoutManager((FileListListAdapter) mAdapter);
+        } else
+        {
+            mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+            // set LayoutManager to RecyclerView for Local list of files
+            getRecyclerView().setLayoutManager(mLayoutManager);
+        }
+
         mCurrentRecyclerView.setAdapter(mAdapter);
         mCurrentRecyclerView.invalidate();
     }
 
-    protected OCRecyclerView getListView() {
+    /**
+     * Returns instance of current RecyclerView
+     * @return current recylcer view
+     */
+    protected OCRecyclerView getRecyclerView() {
         return mCurrentRecyclerView;
     }
 
+    /**
+     * Returns FabUpload instance
+     * @return mFabUpload
+     */
     public FloatingActionButton getFabUpload() {
         return mFabUpload;
     }
 
+    /**
+     * Returns FabUploadFromApp insance
+     * @return mFabUploadFromApp
+     */
     public FloatingActionButton getFabUploadFromApp() {
         return mFabUploadFromApp;
     }
 
+    /**
+     * Returns FabMkDir instance
+     * @return mFabMkdir
+     */
     public FloatingActionButton getFabMkdir() {
         return mFabMkdir;
     }
@@ -120,125 +124,54 @@ public class ExtendedListFragment extends Fragment
         return mFabMain;
     }
 
-    /*public void switchToGridView() {
-        if ((mCurrentListView == mListView)) {
+    public void switchToGridView(FileListListAdapter mAdapter) {
+        mAdapter.setGridMode(true);
+        setListAdapter(mAdapter);
+    }
 
-            mListView.setAdapter(null);
-            mRefreshListLayout.setVisibility(View.GONE);
+    public void switchToListView(FileListListAdapter mAdapter) {
+        mAdapter.setGridMode(false);
+        setListAdapter(mAdapter);
+    }
 
-            if (mAdapter instanceof FileListListAdapter) {
-                ((FileListListAdapter) mAdapter).setGridMode(true);
-            }
-            mGridView.setAdapter(mAdapter);
-            mRefreshGridLayout.setVisibility(View.VISIBLE);
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
 
-            mCurrentListView = mGridView;
+        if (savedInstanceState != null) {
+            setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
+            //mCurrentRecyclerView.getLayoutManager().onRestoreInstanceState(savedInstanceState.getParcelable(KEY_SAVED_LIST_POSITION));
         }
     }
 
-    public void switchToListView() {
-        if (mCurrentListView == mGridView) {
-            mGridView.setAdapter(null);
-            mRefreshGridLayout.setVisibility(View.GONE);
-
-            if (mAdapter instanceof FileListListAdapter) {
-                ((FileListListAdapter) mAdapter).setGridMode(false);
-            }
-            mListView.setAdapter(mAdapter);
-            mRefreshListLayout.setVisibility(View.VISIBLE);
-
-            mCurrentListView = mListView;
-        }
-    }*/
-
-    /*public boolean isGridView(){
-        if (mAdapter instanceof FileListListAdapter) {
-            return ((FileListListAdapter) mAdapter).isGridMode();
-        }
-        return false;
-    }*/
-    
-    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView");
 
-        View v = inflater.inflate(R.layout.list_fragment, null);
+        View v = inflater.inflate(R.layout.list_fragment, container, false);
 
         // shared preferences
         mAppPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
+        // assign recycler view
         mCurrentRecyclerView = (OCRecyclerView)(v.findViewById(R.id.list_root));
 
-        viewLayout = mAppPreferences.getInt("viewLayout", R.layout.list_item);
-        switch (viewLayout) {
-            case R.layout.list_item:
-                mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-                break;
-            case R.layout.grid_item:
-                if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS, GridLayoutManager.VERTICAL, false);
-                } else {
-                    mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS_LANDSCAPE, GridLayoutManager.VERTICAL, false);
-                }
-                break;
-        }
-
-        // Fix for the bug when updating applications
-        if (mLayoutManager == null)
-        {
-            if (mAppPreferences != null) {
-                mAppPreferences.edit().clear().commit();
-            }
-            mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        }
-
-
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        mCurrentRecyclerView.setLayoutManager(mLayoutManager);
-
+        // set empty recylcer view message
         mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         mCurrentRecyclerView.setEmptyView(mEmptyListMessage);
+
+        // set default recycler view animator
         mCurrentRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mCurrentRecyclerView.setHasFixedSize(true);
 
-
-
-        /*mCurrentRecyclerView.setOnItemClickListener(this);
-        mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
-
-        mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
-        mGridView.setNumColumns(GridView.AUTO_FIT);
-        mGridView.setOnItemClickListener(this);
-        mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
-
-        if (savedInstanceState != null) {
-            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-            if (mCurrentListView == mListView) {
-                Log_OC.v(TAG, "Setting and centering around list position " + referencePosition);
-                mListView.setAndCenterSelection(referencePosition);
-            } else {
-                Log_OC.v(TAG, "Setting grid position " + referencePosition);
-                mGridView.setSelection(referencePosition);
-            }
-        }*/
-
         // Pull-down to refresh layout
         mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
-        /*mRefreshGridLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_grid);
-        mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_empty);*/
-
-        
         onCreateSwipeToRefresh(mRefreshListLayout);
-       /* onCreateSwipeToRefresh(mRefreshGridLayout);
-        onCreateSwipeToRefresh(mRefreshEmptyLayout);
 
-        mListView.setEmptyView(mRefreshEmptyLayout);
-        mGridView.setEmptyView(mRefreshEmptyLayout);
-
-        mCurrentRecyclerView = mListView;   // list as default*/
-
+        // Assign FAB buttons and menu
         mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
         mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
         mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
@@ -248,147 +181,54 @@ public class ExtendedListFragment extends Fragment
     }
 
     @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-
-        Log_OC.v(TAG, "onConfigurationChanged() start");
-
-        // Change column count for landscape mode in grid layout.
-        if (mAppPreferences.getInt("viewLayout", R.layout.list_item) == R.layout.grid_item) {
-            if (getActivity().getResources().getBoolean(R.bool.is_landscape))
-            {
-                mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS_LANDSCAPE, GridLayoutManager.VERTICAL, false);
-            } else
-            {
-                mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS, GridLayoutManager.VERTICAL, false);
-            }
-
-            mCurrentRecyclerView.setLayoutManager(mLayoutManager);
-        }
-
-        Log_OC.v(TAG, "onConfigurationChanged() end");
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        
-        if (savedInstanceState != null) {
-            mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
-            mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
-            mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
-            mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
-            setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
-            
-        } else {
-            mIndexes = new ArrayList<>();
-            mFirstPositions = new ArrayList<>();
-            mTops = new ArrayList<>();
-            mHeightCell = 0;
-        }
-    }    
-    
-    
-    @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
         Log_OC.d(TAG, "onSaveInstanceState()");
+        // Save recycler view instance state
         savedInstanceState.putParcelable(KEY_SAVED_LIST_POSITION, mCurrentRecyclerView.getLayoutManager().onSaveInstanceState());
-        savedInstanceState.putIntegerArrayList(KEY_INDEXES, mIndexes);
-        savedInstanceState.putIntegerArrayList(KEY_FIRST_POSITIONS, mFirstPositions);
-        savedInstanceState.putIntegerArrayList(KEY_TOPS, mTops);
-        savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
+        // Save empty list message
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
     }
 
-    /**
-     * Calculates the position of the item that will be used as a reference to
-     * reposition the visible items in the list when the device is turned to
-     * other position.
-     * 
-     * The current policy is take as a reference the visible item in the center
-     * of the screen.
-     * 
-     * @return The position in the list of the visible item in the center of the
-     *         screen.
-     */
-    /*protected int getReferencePosition() {
-        if (mCurrentRecyclerView != null) {
-            return (mCurrentRecyclerView.getFirstVisiblePosition() +
-                    mCurrentRecyclerView.getLastVisiblePosition()) / 2;
-        } else {
-            return 0;
-        }
-    }*/
-
-
-    /*
-     * Restore index and position
-     */
-    /*protected void restoreIndexAndTopPosition() {
-        if (mIndexes.size() > 0) {  
-            // needs to be checked; not every browse-up had a browse-down before 
-            
-            int index = mIndexes.remove(mIndexes.size() - 1);
-            final int firstPosition = mFirstPositions.remove(mFirstPositions.size() -1);
-            int top = mTops.remove(mTops.size() - 1);
-
-            Log_OC.v(TAG, "Setting selection to position: " + firstPosition + "; top: "
-                    + top + "; index: " + index);
-
-            if (mCurrentListView == mListView) {
-                if (mHeightCell*index <= mListView.getHeight()) {
-                    mListView.setSelectionFromTop(firstPosition, top);
-                } else {
-                    mListView.setSelectionFromTop(index, 0);
-                }
-
-            } else {
-                if (mHeightCell*index <= mGridView.getHeight()) {
-                    mGridView.setSelection(firstPosition);
-                    //mGridView.smoothScrollToPosition(firstPosition);
-                } else {
-                    mGridView.setSelection(index);
-                    //mGridView.smoothScrollToPosition(index);
-                }
-            }
-
-        }
-    }*/
-    
-    /*
-     * Save index and top position
-     */
-   /*protected void saveIndexAndTopPosition(int index) {
-        
-        mIndexes.add(index);
-        
-        int firstPosition = mCurrentListView.getFirstVisiblePosition();
-        mFirstPositions.add(firstPosition);
-        
-        View view = mCurrentListView.getChildAt(0);
-        int top = (view == null) ? 0 : view.getTop() ;
-
-        mTops.add(top);
-        
-        // Save the height of a cell
-        mHeightCell = (view == null || mHeightCell != 0) ? mHeightCell : view.getHeight();
-    }*/
-    
-    
     @Override
-    public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
-        // to be @overriden
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
+
+    /**
+     * Sets aLayoutManager based on device orientation and selected view (grid, list),
+     * and saves the selected view into the application preferences
+     */
+    public void buildLayoutManager(FileListListAdapter mAdapter)
+    {
+        if (mAdapter.isGridMode())
+        {
+            if (getActivity().getResources().getBoolean(R.bool.is_landscape)){
+                mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS_LANDSCAPE, GridLayoutManager.VERTICAL, false);
+            } else {
+                mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS, GridLayoutManager.VERTICAL, false);
+            }
+        } else
+        {
+            mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        }
+
+        // This may occur on library updates
+        if (mLayoutManager == null)
+        {
+            if (mAppPreferences != null) {
+                mAppPreferences.edit().clear().apply();
+            }
+            mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        }
+
+        // set LayoutManager to RecyclerView
+        getRecyclerView().setLayoutManager(mLayoutManager);
     }
 
     @Override
     public void onRefresh() {
         mRefreshListLayout.setRefreshing(false);
-        //mRefreshGridLayout.setRefreshing(false);
-        mRefreshEmptyLayout.setRefreshing(false);
 
         if (mOnRefreshListener != null) {
             mOnRefreshListener.onRefresh();
@@ -397,7 +237,7 @@ public class ExtendedListFragment extends Fragment
     public void setOnRefreshListener(OnEnforceableRefreshListener listener) {
         mOnRefreshListener = listener;
     }
-    
+
 
     /**
      * Disables swipe gesture.
@@ -410,8 +250,6 @@ public class ExtendedListFragment extends Fragment
      */
     public void setSwipeEnabled(boolean enabled) {
         mRefreshListLayout.setEnabled(enabled);
-        //mRefreshGridLayout.setEnabled(enabled);
-        mRefreshEmptyLayout.setEnabled(enabled);
     }
 
     /**
@@ -440,7 +278,7 @@ public class ExtendedListFragment extends Fragment
 
     /**
      * Get the text of EmptyListMessage TextView
-     * 
+     *
      * @return String
      */
     public String getEmptyViewText() {
@@ -463,67 +301,4 @@ public class ExtendedListFragment extends Fragment
             mOnRefreshListener.onRefresh();
         }
     }
-
-    /*protected void setChoiceMode(int choiceMode) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mListView.setChoiceMode(choiceMode);
-            mGridView.setChoiceMode(choiceMode);
-        } else {
-            ((ListView)mListView).setChoiceMode(choiceMode);
-        }
-    }*/
-
-    /*protected void registerForContextMenu() {
-        registerForContextMenu(mCurrentRecyclerView);
-        registerForContextMenu(mListView);
-        registerForContextMenu(mGridView);
-        mListView.setOnCreateContextMenuListener(this);
-        mGridView.setOnCreateContextMenuListener(this);
-    }*/
-
-    /**
-     * TODO doc
-     * To be called before setAdapter, or GridViewWithHeaderAndFooter will throw an exception
-     *
-     * @param enabled
-     */
-   /* protected void setFooterEnabled(boolean enabled) {
-        if (enabled) {
-            if (mGridView.getFooterViewCount() == 0) {
-                if (mGridFooterView.getParent() != null ) {
-                    ((ViewGroup) mGridFooterView.getParent()).removeView(mGridFooterView);
-                }
-                mGridView.addFooterView(mGridFooterView, null, false);
-            }
-            mGridFooterView.invalidate();
-
-            if (mListView.getFooterViewsCount() == 0) {
-                if (mListFooterView.getParent() != null ) {
-                    ((ViewGroup) mListFooterView.getParent()).removeView(mListFooterView);
-                }
-                mListView.addFooterView(mListFooterView, null, false);
-            }
-            mListFooterView.invalidate();
-
-        } else {
-            mGridView.removeFooterView(mGridFooterView);
-            mListView.removeFooterView(mListFooterView);
-        }
-    }*/
-
-    /**
-     * TODO doc
-     * @param text
-     */
-    /*protected void setFooterText(String text) {
-        if (text != null && text.length() > 0) {
-            ((TextView)mListFooterView.findViewById(R.id.footerText)).setText(text);
-            ((TextView)mGridFooterView.findViewById(R.id.footerText)).setText(text);
-            setFooterEnabled(true);
-
-        } else {
-            setFooterEnabled(false);
-        }
-    }*/
-
 }
