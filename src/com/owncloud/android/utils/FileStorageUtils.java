@@ -198,7 +198,11 @@ public class FileStorageUtils {
     public static OCFile fillOCFile(RemoteFile remote) {
         OCFile file = new OCFile(remote.getRemotePath());
         file.setCreationTimestamp(remote.getCreationTimestamp());
-        file.setFileLength(remote.getLength());
+        if (remote.getMimeType().equalsIgnoreCase("DIR")){
+            file.setFileLength(remote.getSize());
+        } else {
+            file.setFileLength(remote.getLength());
+        }
         file.setMimetype(remote.getMimeType());
         file.setModificationTimestamp(remote.getModifiedTimestamp());
         file.setEtag(remote.getEtag());
@@ -236,8 +240,8 @@ public class FileStorageUtils {
         case 1:
             files = FileStorageUtils.sortByDate(files);
             break;
-        case 2: 
-           // mFiles = FileStorageUtils.sortBySize(mSortAscending);
+        case 2:
+            files = FileStorageUtils.sortBySize(files);
             break;
         }
        
@@ -278,39 +282,38 @@ public class FileStorageUtils {
         return files;
     }
 
-//    /**
-//     * Sorts list by Size
-//     * @param sortAscending true: ascending, false: descending
-//     */
-//    public static Vector<OCFile> sortBySize(Vector<OCFile> files){
-//        final Integer val;
-//        if (mSortAscending){
-//            val = 1;
-//        } else {
-//            val = -1;
-//        }
-//        
-//        Collections.sort(files, new Comparator<OCFile>() {
-//            public int compare(OCFile o1, OCFile o2) {
-//                if (o1.isFolder() && o2.isFolder()) {
-//                    Long obj1 = getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1)));
-//                    return val * obj1.compareTo(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
-//                }
-//                else if (o1.isFolder()) {
-//                    return -1;
-//                } else if (o2.isFolder()) {
-//                    return 1;
-//                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
-//                    return 0;
-//                } else {
-//                    Long obj1 = o1.getFileLength();
-//                    return val * obj1.compareTo(o2.getFileLength());
-//                }
-//            }
-//        });
-//        
-//        return files;
-//    }
+    /**
+     * Sorts list by Size
+     */
+    public static Vector<OCFile> sortBySize(Vector<OCFile> files){
+        final Integer val;
+        if (mSortAscending){
+            val = 1;
+        } else {
+            val = -1;
+        }
+
+        Collections.sort(files, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    Long obj1 = o1.getFileLength();
+                    return val * obj1.compareTo(o2.getFileLength());
+                }
+                else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
+                    return 0;
+                } else {
+                    Long obj1 = o1.getFileLength();
+                    return val * obj1.compareTo(o2.getFileLength());
+                }
+            }
+        });
+
+        return files;
+    }
 
     /**
      * Sorts list by Name
@@ -338,27 +341,6 @@ public class FileStorageUtils {
         });
         
         return files;
-    }
-    
-    /**
-     * Local Folder size
-     * @param dir File
-     * @return Size in bytes
-     */
-    public static long getFolderSize(File dir) {
-        if (dir.exists()) {
-            long result = 0;
-            File[] fileList = dir.listFiles();
-            for(int i = 0; i < fileList.length; i++) {
-                if(fileList[i].isDirectory()) {
-                    result += getFolderSize(fileList[i]);
-                } else {
-                    result += fileList[i].length();
-                }
-            }
-            return result;
-        }
-        return 0;
     }
 
     /**

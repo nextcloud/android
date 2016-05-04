@@ -17,8 +17,7 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Newest - Oldest</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
+    	<item>Biggest - Smallest</item>
     </string-array>
     <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
     <!--<string name="drawer_item_accounts">Accounts</string>-->
