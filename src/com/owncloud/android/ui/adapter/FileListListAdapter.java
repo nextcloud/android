@@ -68,18 +68,22 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     private FileDataStorageManager mStorageManager;
     private OCFileListFragment mOCFileListFragment;
+    private boolean mGridMode;
 
-    private int viewLayout = 0;
     private Account mAccount;
     private FileFragment.ContainerActivity mContainerActivity;
     private SharedPreferences mAppPreferences;
+    private String mFooterText;
 
     private static final int TYPE_LIST = 0;
     private static final int TYPE_GRID = 1;
+    private static final int TYPE_GRID_IMAGE = 2;
+    protected static final int TYPE_FOOTER = 3;
 
     public FileListListAdapter(Context mContext, OCFileListFragment mOCFileListFragment, FileFragment.ContainerActivity mContainerActivity) {
 
         setHasStableIds(true);
+
 
         this.mContext = mContext;
         this.mOCFileListFragment = mOCFileListFragment;
@@ -92,11 +96,11 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         FileStorageUtils.mSortOrder = mAppPreferences.getInt("sortOrder", 0);
         FileStorageUtils.mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
 
-        // set view layout
-        viewLayout = mAppPreferences.getInt("viewLayout", R.layout.list_item);
-
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+
+        mGridMode = false;
+        mFooterText = null;
     }
 
     public Object getItem(int position) {
@@ -116,16 +120,28 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         return mFiles.get(position).getFileId();
     }
 
+    /**
+     * Returns count of items + 1 to show footer
+     * @return return file count + 1 to show footer
+     */
     @Override
     public int getItemCount() {
-        return (null != mFiles && mFiles.size() > 0 ? mFiles.size() : 0);
+        return (null != mFiles && mFiles.size() > 0 ? mFiles.size()+1 : 0);
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (viewLayout == R.layout.grid_item) {
+        if (position == mFiles.size())
+        {
+            return TYPE_FOOTER;
+        } else
+        if (isGridMode()) {
+            if (((OCFile)getItem(position)).isImage())
+            {
+                return TYPE_GRID_IMAGE;
+            }
             return TYPE_GRID;
-        } else if (viewLayout == R.layout.list_item) {
+        } else if (!isGridMode()) {
             return TYPE_LIST;
         } else
             return super.getItemViewType(position);
@@ -133,6 +149,25 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        int viewLayout;
+        switch (viewType)
+        {
+            case TYPE_LIST:
+                viewLayout = R.layout.list_item;
+                break;
+            case TYPE_GRID:
+                viewLayout = R.layout.grid_item;
+                break;
+            case TYPE_GRID_IMAGE:
+                viewLayout = R.layout.grid_image;
+                break;
+            case TYPE_FOOTER:
+                viewLayout = R.layout.list_footer;
+                break;
+            default:
+                viewLayout = R.layout.list_item;
+        }
+
         View view = LayoutInflater.from(parent.getContext()).inflate(viewLayout, parent, false);
         return new RecyclerViewHolder(view, this, mContainerActivity, mOCFileListFragment);
     }
@@ -140,128 +175,133 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, int position) {
 
+        int viewLayout = getItemViewType(position);
+
         OCFile file = null;
         if (mFiles != null && mFiles.size() > position) {
             file = mFiles.get(position);
         }
 
-        if (file != null /*&& getItemViewType(position) == TYPE_ITEM*/) {
+        if (viewLayout == TYPE_FOOTER) // This is a footer layout, set footer text
+        {
+            holder.footerText.setText(getFooterText());
+        } else               // This are normal items
+            if (file != null) {
 
-            holder.fileName.setText(file.getFileName());
-            if (holder.lastModV != null) {
-                holder.lastModV.setVisibility(View.VISIBLE);
-                holder.lastModV.setText(showRelativeTimestamp(file));
-            }
+                if (holder.fileName != null) {
+                    holder.fileName.setText(file.getFileName());
+                }
 
-            if (holder.checkBoxV != null) {
-                holder.checkBoxV.setVisibility(View.GONE);
-            }
+                if (holder.lastModV != null) {
+                    holder.lastModV.setVisibility(View.VISIBLE);
+                    holder.lastModV.setText(showRelativeTimestamp(file));
+                }
 
-            if (holder.fileSizeV != null) {
-                holder.fileSizeV.setVisibility(View.VISIBLE);
-                holder.fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-            }
+                if (holder.checkBoxV != null) {
+                    holder.checkBoxV.setVisibility(View.GONE);
+                }
 
-            // sharedIcon
-            if (file.isSharedViaLink()) {
-                holder.sharedIconV.setVisibility(View.VISIBLE);
-            } else {
-                holder.sharedIconV.setVisibility(View.GONE);
-            }
-            // share with me icon
-            /*if (file.isSharedWithMe()) {
-                holder.sharedWithMeIconV.setVisibility(View.VISIBLE);
-            } else {
-                holder.sharedWithMeIconV.setVisibility(View.GONE);
-            }
-
-            // share with others icon
-            if (file.isSharedWithSharee()) {
-                holder.sharedWithOthersIconV.setVisibility(View.VISIBLE);
-            } else {
-                holder.sharedWithOthersIconV.setVisibility(View.GONE);
-            }*/
-
-            // local state
-            FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
-            FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
-            OperationsServiceBinder opsBinder = mContainerActivity.getOperationsServiceBinder();
-
-            boolean downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file));
-
-            downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, file.getRemotePath()));
-            if (downloading) {
-                holder.localStateView.setImageResource(R.drawable.downloading_file_indicator);
-                holder.localStateView.setVisibility(View.VISIBLE);
-            } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
-                holder.localStateView.setImageResource(R.drawable.uploading_file_indicator);
-                holder.localStateView.setVisibility(View.VISIBLE);
-            } else if (file.isDown()) {
-                holder.localStateView.setImageResource(R.drawable.local_file_indicator);
-                holder.localStateView.setVisibility(View.VISIBLE);
-            } else {
-                holder.localStateView.setVisibility(View.GONE);
-            }
-
-            // this if-else is needed even though favorite icon is visible by default
-            // because android reuses views in listview
-            if (!file.isFavorite()) {
-                holder.favoriteIcon.setVisibility(View.GONE);
-            } else {
-                holder.favoriteIcon.setVisibility(View.VISIBLE);
-            }
-
-            // Icons and thumbnail utils
-            // TODO : image processing, this has to be fixed !!!!
-
-            // No Folder
-            if (!file.isFolder()) {
-                if (file.isImage() && file.getRemoteId() != null) {
-                    // Thumbnail in Cache?
-                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            String.valueOf(file.getRemoteId())
-                    );
-                    if (thumbnail != null && !file.needsUpdateThumbnail()) {
-                        holder.fileIcon.setImageBitmap(thumbnail);
-                    } else {
-                        // generate new Thumbnail
-                        if (ThumbnailsCacheManager.cancelPotentialWork(file, holder.fileIcon)) {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                            holder.fileIcon, mStorageManager, mAccount
-                                    );
-                            if (thumbnail == null) {
-                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                            }
-                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                    new ThumbnailsCacheManager.AsyncDrawable(
-                                            mContext.getResources(),
-                                            thumbnail,
-                                            task
-                                    );
-                            holder.fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
-                        }
+                if (holder.fileSizeV != null && holder.fileSizeSeperatorV != null) {
+                    if (!file.isFolder()) {
+                        holder.fileSizeV.setVisibility(View.VISIBLE);
+                        holder.fileSizeSeperatorV.setVisibility(View.VISIBLE);
+                        holder.fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
                     }
+                    else
+                    {
+                        holder.fileSizeV.setVisibility(View.GONE);
+                        holder.fileSizeSeperatorV.setVisibility(View.GONE);
+                    }
+                }
 
-                    if (file.getMimetype().equalsIgnoreCase("image/png")) {
-                        holder.fileIcon.setBackgroundColor(mContext.getResources()
-                                .getColor(R.color.background_color));
+                // sharedIcon
+                if (file.isSharedViaLink()) {
+                    holder.sharedIconV.setVisibility(View.VISIBLE);
+                } else {
+                    holder.sharedIconV.setVisibility(View.GONE);
+                }
+
+                // local state
+                FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
+                FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
+                OperationsServiceBinder opsBinder = mContainerActivity.getOperationsServiceBinder();
+
+                boolean downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file));
+
+                downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, file.getRemotePath()));
+                if (downloading) {
+                    holder.localStateView.setImageResource(R.drawable.downloading_file_indicator);
+                    holder.localStateView.setVisibility(View.VISIBLE);
+                } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
+                    holder.localStateView.setImageResource(R.drawable.uploading_file_indicator);
+                    holder.localStateView.setVisibility(View.VISIBLE);
+                } else if (file.isDown()) {
+                    holder.localStateView.setImageResource(R.drawable.local_file_indicator);
+                    holder.localStateView.setVisibility(View.VISIBLE);
+                } else {
+                    holder.localStateView.setVisibility(View.GONE);
+                }
+
+                // this if-else is needed even though favorite icon is visible by default
+                // because android reuses views in listview
+                if (!file.isFavorite()) {
+                    holder.favoriteIcon.setVisibility(View.GONE);
+                } else {
+                    holder.favoriteIcon.setVisibility(View.VISIBLE);
+                }
+
+                // Icons and thumbnail utils
+                // TODO : image processing, this has to be fixed !!!!
+
+                // No Folder
+                if (!file.isFolder()) {
+                    if (file.isImage() && file.getRemoteId() != null) {
+                        // Thumbnail in Cache?
+                        Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                                String.valueOf(file.getRemoteId())
+                        );
+                        if (thumbnail != null && !file.needsUpdateThumbnail()) {
+                            holder.fileIcon.setImageBitmap(thumbnail);
+                        } else {
+                            // generate new Thumbnail
+                            if (ThumbnailsCacheManager.cancelPotentialWork(file, holder.fileIcon)) {
+                                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                        new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                                holder.fileIcon, mStorageManager, mAccount
+                                        );
+                                if (thumbnail == null) {
+                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                }
+                                final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                        new ThumbnailsCacheManager.AsyncDrawable(
+                                                mContext.getResources(),
+                                                thumbnail,
+                                                task
+                                        );
+                                holder.fileIcon.setImageDrawable(asyncDrawable);
+                                task.execute(file);
+                            }
+                        }
+
+                        if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                            holder.fileIcon.setBackgroundColor(mContext.getResources()
+                                    .getColor(R.color.background_color));
+                        }
+                    } else {
+                        holder.fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(file.getMimetype(),
+                                file.getFileName()));
                     }
                 } else {
-                    holder.fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(file.getMimetype(),
-                            file.getFileName()));
+                    // Folder
+                    holder.fileIcon.setImageResource(
+                            MimetypeIconUtil.getFolderTypeIconId(
+                                    file.isSharedWithMe() || file.isSharedWithSharee(),
+                                    file.isSharedViaLink()
+                            )
+                    );
                 }
-            } else {
-                // Folder
-                holder.fileIcon.setImageResource(
-                        MimetypeIconUtil.getFolderTypeIconId(
-                                file.isSharedWithMe() || file.isSharedWithSharee(),
-                                file.isSharedViaLink()
-                        )
-                );
             }
-        }
+
 
     }
 
@@ -276,9 +316,9 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     /**
      * Change the adapted directory for a new one
-     * @param directory                 New file to adapt. Can be NULL, meaning 
+     * @param directory                 New file to adapt. Can be NULL, meaning
      *                                  "no content to adapt".
-     * @param updatedStorageManager     Optional updated storage manager; used to replace 
+     * @param updatedStorageManager     Optional updated storage manager; used to replace
      *                                  mStorageManager if is different (and not NULL)
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
@@ -323,18 +363,6 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
         return ret;
     }
 
-    /**
-     * Set view layout, list or grid view
-     * @param resLayout
-     */
-    public void setViewLayout(int resLayout) {
-        viewLayout = resLayout;
-        SharedPreferences.Editor editor = mAppPreferences.edit();
-        editor.putInt("viewLayout", viewLayout);
-        editor.apply();
-    }
-
-
     public void setSortOrder(Integer order, boolean ascending) {
         SharedPreferences.Editor editor = mAppPreferences.edit();
         editor.putInt("sortOrder", order);
@@ -350,10 +378,26 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
 
     }
 
-
-
     private CharSequence showRelativeTimestamp(OCFile file) {
         return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
                 DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
+    }
+
+    public void setGridMode(boolean gridMode) {
+        mGridMode = gridMode;
+    }
+
+    public boolean isGridMode() {
+        return mGridMode;
+    }
+
+    public void setFooterText(String mFooterText)
+    {
+        this.mFooterText = mFooterText;
+    }
+
+    private String getFooterText()
+    {
+        return mFooterText;
     }
 }
