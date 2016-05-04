@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
+  <string name="about_android">%1$s aplicație Android</string>
   <string name="about_version">versiunea %1$s</string>
   <string name="actionbar_sync">Refresh cont</string>
   <string name="actionbar_upload">Încarcă</string>
@@ -24,6 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Setări</string>
+  <string name="drawer_item_uploads_list">Încărcări</string>
   <string name="drawer_item_logs">Înregistrări</string>
   <string name="drawer_close">Închide</string>
   <string name="drawer_open">Deschide</string>
@@ -36,8 +38,11 @@
   <string name="prefs_instant_upload_summary">Încarcă instantant imagini luate cu camera</string>
   <string name="prefs_instant_video_upload">Încărcare instantă de videoclipuri.</string>
   <string name="prefs_instant_video_upload_summary">Încarcă instant videoclipuri înregistrate cu camera</string>
+  <string name="prefs_log_title">Activează înregistrarea / jurnalizarea activităților</string>
   <string name="prefs_log_summary">Acesta este folosit pentru a înregistra problemele</string>
+  <string name="prefs_log_title_history">Istoric activități jurnalizate</string>
   <string name="prefs_log_summary_history">Asta arată înregistrările salvate</string>
+  <string name="prefs_log_delete_history_button">Șterge istoricul</string>
   <string name="prefs_help">Ajutor</string>
   <string name="prefs_recommend">Recomandați unui prieten</string>
   <string name="prefs_feedback">Feedback</string>
@@ -46,6 +51,7 @@
   <string name="prefs_remember_last_upload_location_summary">Reține locația fișierului încărcat precedent</string>
   <string name="recommend_subject">Încearcă %1$s pe smartphone-ul tău!</string>
   <string name="recommend_text">Te invit să folosești %1$s pe smartphone-ul tău!\nDescarcă aici: %2$s</string>
+  <string name="auth_check_server">Verifică serverul</string>
   <string name="auth_host_url">Adresa serverului https://...</string>
   <string name="auth_username">Nume utilizator</string>
   <string name="auth_password">Parolă</string>
@@ -55,8 +61,15 @@
   <string name="uploader_btn_upload_text">Încărcare</string>
   <string name="uploader_top_message">Alegeţi dosarul pentru încărcare</string>
   <string name="uploader_wrn_no_account_title">Nici un cont găsit</string>
+  <string name="uploader_wrn_no_account_text">Nu există conturi %1$s pe dispozitivul tău. Te rugăm să configurezi unul mai întâi.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurare</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Renunță</string>
+  <string name="uploader_error_title_no_file_to_upload">Niciun fișier disponibil pentru încărcare</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s nu poate încărca o bucată de text ca un fișier.</string>
+  <string name="uploader_error_message_no_file_to_upload">Datele primite nu includ vreun fișier valid.</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">Fișierul nu poate fi încărcat</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s nu are permisiunea de a citi un fișier primit</string>
+  <string name="uploader_error_message_source_file_not_found">Fișierul de încărcat nu a fost găsit în locația sa. Vă rugăm verificați dacă fișierul există.</string>
   <string name="file_list_seconds_ago">secunde în urmă</string>
   <string name="file_list_empty">Nimic aici. Încarcă ceva!</string>
   <string name="file_list_loading">Se încarcă...</string>
@@ -91,6 +104,7 @@
   <string name="uploader_upload_succeeded_ticker">Încărcat cu succes</string>
   <string name="uploader_upload_failed_ticker">Încărcarea a eșuat</string>
   <string name="uploader_upload_failed_content_single">Încărcarea fișierului %1$s nu a putut fi încheiată</string>
+  <string name="uploads_view_title">Încărcări</string>
   <string name="uploads_view_group_current_uploads">Curent</string>
   <string name="uploads_view_upload_status_succeeded">Terminat</string>
   <string name="uploads_view_upload_status_unknown_fail">Eroare necunoscută</string>
