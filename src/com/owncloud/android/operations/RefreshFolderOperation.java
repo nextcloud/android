@@ -397,8 +397,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 // eTag will not be updated unless file CONTENTS are synchronized
                 updatedFile.setEtag(localFile.getEtag());
                 if (updatedFile.isFolder()) {
-                    updatedFile.setFileLength(localFile.getFileLength());
-                        // TODO move operations about size of folders to FileContentProvider
+                    updatedFile.setFileLength(remoteFile.getFileLength());
                 } else if (mRemoteFolderChanged && remoteFile.isImage() &&
                         remoteFile.getModificationTimestamp() !=
                                 localFile.getModificationTimestamp()) {
