@@ -215,10 +215,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                 checkBoxV.setVisibility(View.VISIBLE);
                             }
                         }
-
-                    } else { //Folder
-//                        fileSizeSeparatorV.setVisibility(View.GONE);
-//                        fileSizeV.setVisibility(View.GONE);
                     }
 
                 case GRID_ITEM:
