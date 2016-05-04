@@ -34,14 +34,18 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.
     private OCFileListFragment mFileListFragment;
     private FileFragment.ContainerActivity mComponentsGetter;
 
+
     protected TextView fileName;
     protected ImageView fileIcon;
     protected TextView fileSizeV;
+    protected TextView fileSizeSeperatorV;
     protected TextView lastModV;
     protected ImageView checkBoxV;
     protected ImageView favoriteIcon;
     protected ImageView localStateView;
     protected ImageView sharedIconV;
+
+    protected TextView footerText;
 
     /**
      * Recycler view holder implements view holder logic for all the elements shown in recycler view.
@@ -69,11 +73,13 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.
         this.fileName = (TextView) itemView.findViewById(R.id.Filename);
         this.fileIcon = (ImageView) itemView.findViewById(R.id.thumbnail);
         this.fileSizeV = (TextView) itemView.findViewById(R.id.file_size);
+        this.fileSizeSeperatorV = (TextView) itemView.findViewById(R.id.file_separator);
         this.lastModV = (TextView) itemView.findViewById(R.id.last_mod);
         this.checkBoxV = (ImageView) itemView.findViewById(R.id.custom_checkbox);
         this.favoriteIcon = (ImageView) itemView.findViewById(R.id.favoriteIcon);
         this.localStateView = (ImageView) itemView.findViewById(R.id.localFileIndicator);
         this.sharedIconV = (ImageView) itemView.findViewById(R.id.sharedIcon);
+        this.footerText = (TextView) itemView.findViewById(R.id.footerText);
 
     }
 
@@ -135,7 +141,10 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder implements View.
      */
     @Override
     public boolean onLongClick(View v) {
-        showFileAction(getAdapterPosition());
+
+        if (mAdapter.getItemViewType(getAdapterPosition()) != mAdapter.TYPE_FOOTER) {
+            showFileAction(getAdapterPosition());
+        }
         return true;
     }
 
