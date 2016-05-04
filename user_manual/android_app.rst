@@ -15,8 +15,8 @@ some advantages over the Web interface:
 * Easily add files from your device to ownCloud
 * Two-factor authentication
 
-New In Version 2.0
-------------------
+New In Version 2.0.0
+--------------------
 
 This release contains a number of improvements, including:
 

@@ -42,10 +42,10 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
-# The short X.Y version.
-version = '2.0'
+# The short X.Y.Z version.
+version = '2.0.0'
 # The full version, including alpha/beta/rc tags.
-release = '2.0'
+release = '2.0.0'
 
 # General information about the project.
 project = u'ownCloud Android App %s Manual' % (version)
