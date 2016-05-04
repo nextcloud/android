@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -18,9 +18,12 @@ import java.io.File;
  */
 public class LocalRecyclerViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
+
     protected TextView fileName;
     protected ImageView fileIcon;
+    protected LinearLayout secondLine;
     protected TextView fileSizeV;
+    protected TextView fileSizeSeperatorV;
     protected TextView lastModV;
     protected CheckBox checkBoxV;
     protected ImageView favoriteIcon;
@@ -36,9 +39,12 @@ public class LocalRecyclerViewHolder extends RecyclerView.ViewHolder implements 
         itemView.setOnClickListener(this);
 
         mContext = context;
+
         this.fileName = (TextView) itemView.findViewById(R.id.Filename);
         this.fileIcon = (ImageView) itemView.findViewById(R.id.thumbnail);
+        this.secondLine = (LinearLayout) itemView.findViewById(R.id.second_line);
         this.fileSizeV = (TextView) itemView.findViewById(R.id.file_size);
+        this.fileSizeSeperatorV = (TextView) itemView.findViewById(R.id.file_separator);
         this.lastModV = (TextView) itemView.findViewById(R.id.last_mod);
         this.checkBoxV = (CheckBox) itemView.findViewById(R.id.custom_checkbox);
         this.favoriteIcon = (ImageView) itemView.findViewById(R.id.favoriteIcon);

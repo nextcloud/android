@@ -105,7 +105,8 @@ public class OCFileListFragment extends ExtendedListFragment
     private OCFile mTargetFile;
 
     private boolean miniFabClicked = false;
-   
+    private boolean mGridMode;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -428,44 +429,6 @@ public class OCFileListFragment extends ExtendedListFragment
         return moveCount;
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        OCFile file = (OCFile) mAdapter.getItem(position);
-        if (file != null) {
-            if (file.isFolder()) {
-                // update state and view of this fragment
-                // TODO Enable when "On Device" is recovered ?
-                listDirectory(file/*, MainApp.getOnlyOnDevice()*/);
-                // then, notify parent activity to let it update its state and view
-                mContainerActivity.onBrowsedDownTo(file);
-
-            } else { /// Click on a file
-                if (PreviewImageFragment.canBePreviewed(file)) {
-                    // preview image - it handles the download, if needed
-                    ((FileDisplayActivity)mContainerActivity).startImagePreview(file);
-                } else if (PreviewTextFragment.canBePreviewed(file)){
-                    ((FileDisplayActivity)mContainerActivity).startTextPreview(file);
-                } else if (file.isDown()) {
-                    if (PreviewMediaFragment.canBePreviewed(file)) {
-                        // media preview
-                        ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true);
-                    } else {
-                        mContainerActivity.getFileOperationsHelper().openFile(file);
-                    }
-
-                } else {
-                    // automatic download, preview on finish
-                    ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
-                }
-
-            }
-
-        } else {
-            Log_OC.d(TAG, "Null object in ListAdapter!!");
-        }
-
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -668,10 +631,48 @@ public class OCFileListFragment extends ExtendedListFragment
                 mCurrentRecyclerView.scrollToPosition(0);
             }
             mFile = directory;
+
+            updateLayout();
         }
     }
 
-    /*private String generateFooterText(int filesCount, int foldersCount) {
+    private void updateLayout() {
+        if (!mJustFolders) {
+            int filesCount = 0, foldersCount = 0, imagesCount = 0;
+            int count = mAdapter.getItemCount() - 1;
+            OCFile file;
+            for (int i=0; i < count ; i++) {
+                file = (OCFile) mAdapter.getItem(i);
+                if (file.isFolder()) {
+                    foldersCount++;
+                } else {
+                    if (!file.isHidden()) {
+                        filesCount++;
+
+                        if (file.isImage()) {
+                            imagesCount++;
+                        }
+                    }
+                }
+            }
+            // set footer text
+            // TODO : set footer text
+
+            mAdapter.setFooterText(generateFooterText(filesCount, foldersCount));
+
+            // decide grid vs list view
+            OwnCloudVersion version = AccountUtils.getServerVersion(
+                    ((FileActivity)mContainerActivity).getAccount());
+            if (version != null && version.supportsRemoteThumbnails() &&
+                    isGridViewPreferred(mFile)) {
+                switchToGridView(mAdapter);
+            } else {
+                switchToListView(mAdapter);
+            }
+        }
+    }
+
+    private String generateFooterText(int filesCount, int foldersCount) {
         String output;
         if (filesCount <= 0) {
             if (foldersCount <= 0) {
@@ -709,7 +710,7 @@ public class OCFileListFragment extends ExtendedListFragment
             }
         }
         return output;
-    }*/
+    }
 
     public void sortByName(boolean descending) {
         mAdapter.setSortOrder(FileStorageUtils.SORT_NAME, descending);
@@ -788,17 +789,17 @@ public class OCFileListFragment extends ExtendedListFragment
         }
     }
 
-   /* public void setListAsPreferred() {
+    public void setListAsPreferred() {
         saveGridAsPreferred(false);
-        switchToListView();
+        switchToListView(mAdapter);
     }
 
     public void setGridAsPreferred() {
         saveGridAsPreferred(true);
-        switchToGridView();
-    }*/
+        switchToGridView(mAdapter);
+    }
 
-    /*private void saveGridAsPreferred(boolean setGrid){
+    private void saveGridAsPreferred(boolean setGrid){
         SharedPreferences setting = getActivity().getSharedPreferences(
                 GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
         );
@@ -806,47 +807,12 @@ public class OCFileListFragment extends ExtendedListFragment
         SharedPreferences.Editor editor = setting.edit();
         editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
         editor.apply();
-    }*/
-
-
-    /**
-     * Cahnging the layout view , list or grid
-     *
-     * @param viewMode
-     */
-    public void layoutView(int viewMode) {
-
-        int layoutMode = 0;
-
-        // save list position
-        Parcelable s = getListView().getLayoutManager().onSaveInstanceState();
-
-        switch (viewMode) {
-            case 0:
-                mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-                mAdapter.setViewLayout(R.layout.list_item);
-                break;
-            case 1:
-                if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                    mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS, GridLayoutManager.VERTICAL, false);
-                } else {
-                    mLayoutManager = new GridLayoutManager(getActivity(), NUMBER_OF_GRID_COLUMNS_LANDSCAPE, GridLayoutManager.VERTICAL, false);
-                }
-                mAdapter.setViewLayout(R.layout.grid_item);
-                break;
-            default:
-                mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-                mAdapter.setViewLayout(R.layout.list_item);
-                break;
-        }
-
-        // update current layout mode
-        SharedPreferences.Editor editor = mAppPreferences.edit();
-        editor.putInt("layoutMode", layoutMode);
-        editor.apply();
-
-        mCurrentRecyclerView.setLayoutManager(mLayoutManager);
     }
 
-
+    public boolean isGridView(){
+        if (mAdapter instanceof FileListListAdapter) {
+            return mAdapter.isGridMode();
+        }
+        return false;
+    }
 }

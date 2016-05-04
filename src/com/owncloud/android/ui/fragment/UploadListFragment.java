@@ -71,7 +71,6 @@ public class UploadListFragment extends ExpandableListFragment {
     @Override
     public void onRefresh() {
         // remove the progress circle as soon as pull is triggered, like in the list of files
-        mRefreshEmptyLayout.setRefreshing(false);
         mRefreshListLayout.setRefreshing(false);
 
         mAdapter.notifyDataSetChanged();

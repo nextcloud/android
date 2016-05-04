@@ -105,9 +105,12 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<LocalRecyclerView
                 holder.fileIcon.setImageResource(R.drawable.ic_menu_archive);
             }
 
-            if (!file.isDirectory()) {
+                holder.secondLine.setVisibility(View.VISIBLE);
+
                 holder.fileSizeV.setVisibility(View.VISIBLE);
                 holder.fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+
+                holder.fileSizeSeperatorV.setVisibility(View.VISIBLE);
 
                 holder.lastModV.setVisibility(View.VISIBLE);
                 holder.lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
@@ -124,8 +127,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<LocalRecyclerView
                 // TODO : implement proper thumbnails / image handling
 
             } else {
-                holder.fileSizeV.setVisibility(View.GONE);
-                holder.lastModV.setVisibility(View.GONE);
+                holder.secondLine.setVisibility(View.GONE);
                 holder.checkBoxV.setVisibility(View.GONE);
             }
 

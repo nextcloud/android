@@ -1,0 +1,54 @@
+[1mdiff --cc .travis.yml[m
+[1mindex 5d9e038,f7373aa..0000000[m
+[1m--- a/.travis.yml[m
+[1m+++ b/.travis.yml[m
+[36m@@@ -2,12 -2,15 +2,23 @@@[m [msudo: fals[m
+  language: android[m
+  android:[m
+    components:[m
+[32m++<<<<<<< HEAD[m
+[32m++=======[m
+[32m+     - platform-tools[m
+[32m+     - tools[m
+[32m++>>>>>>> 59e6a06bc93a3d89ccaf89f2aa66b8b639c1251b[m
+      - build-tools-23.0.3[m
+      - android-23[m
+      - android-22[m
+      - android-19[m
+[32m+     - extra-android-m2repository[m
+  script:[m
+    - ./setup_env.sh gradle[m
+[32m++<<<<<<< HEAD[m
+[32m +  - gradle clean[m
+[32m +  - gradle build[m
+[32m++=======[m
+[32m+   - ./gradlew clean[m
+[32m+   - ./gradlew build[m
+[32m++>>>>>>> 59e6a06bc93a3d89ccaf89f2aa66b8b639c1251b[m
+    [m
+[1mdiff --cc gradle/wrapper/gradle-wrapper.jar[m
+[1mindex 6402d25,13372ae..0000000[m
+Binary files differ
+[1mdiff --cc oc_jb_workaround/gradle/wrapper/gradle-wrapper.jar[m
+[1mindex 6402d25,13372ae..0000000[m
+Binary files differ
+[1mdiff --cc oc_jb_workaround/gradle/wrapper/gradle-wrapper.properties[m
+[1mindex e6fdbcf,122a0dc..0000000[m
+[1m--- a/oc_jb_workaround/gradle/wrapper/gradle-wrapper.properties[m
+[1m+++ b/oc_jb_workaround/gradle/wrapper/gradle-wrapper.properties[m
+[36m@@@ -3,4 -3,4 +3,8 @@@[m [mdistributionBase=GRADLE_USER_HOM[m
+  distributionPath=wrapper/dists[m
+  zipStoreBase=GRADLE_USER_HOME[m
+  zipStorePath=wrapper/dists[m
+[32m++<<<<<<< HEAD[m
+[32m +distributionUrl=http\://services.gradle.org/distributions/gradle-2.10-all.zip[m
+[32m++=======[m
+[32m+ distributionUrl=https\://services.gradle.org/distributions/gradle-2.10-all.zip[m
+[32m++>>>>>>> 59e6a06bc93a3d89ccaf89f2aa66b8b639c1251b[m
+[1mdiff --git a/owncloud-android-library b/owncloud-android-library[m
+[1mindex 0d95b0c..19e30a6 160000[m
+[1m--- a/owncloud-android-library[m
+[1m+++ b/owncloud-android-library[m
+[36m@@ -1 +1 @@[m
+[31m-Subproject commit 0d95b0ce24d3ac1b379dd93ec38b0f9217839822[m
+[32m+[m[32mSubproject commit 19e30a6236ca75a6e223ba6b7b0bd901b6615e12[m
