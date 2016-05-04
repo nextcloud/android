@@ -1,3 +1,10 @@
+// Gradle build file
+//
+// This project was started in Eclipse and later moved to Android Studio. In the transition, both IDEs were supported.
+// Due to this, the files layout is not the usual in new projects created with Android Studio / gradle. This file
+// merges declarations usually split in two separates build.gradle file, one for global settings of the project in
+// its root folder, another one for the app module in subfolder of root.
+
 buildscript {
     repositories {
         mavenCentral()
@@ -35,6 +42,8 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
 
+    // adapt structure from Eclipse to Gradle/Android Studio expectations;
+    // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -43,11 +52,11 @@ android {
             aidl.srcDirs = ['src']
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
-            assets.srcDirs = ['res']
+            assets.srcDirs = ['assets']
         }
 
-        // Move the tests to tests/java, tests/res, etc...
-        instrumentTest.setRoot('tests')
+        // move all the local unit tests structure as a whole from src/test/* to test/*
+        test.setRoot('test')
 
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
