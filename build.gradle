@@ -77,8 +77,12 @@ android {
             assets.srcDirs = ['assets']
         }
 
-        // move all the local unit tests structure as a whole from src/test/* to test/*
+        // move whole local unit tests structure as a whole from src/test/* to test/*
         test.setRoot('test')
+
+        // move whole instrumented tests structure as a whole from src/androidTest/* to androidTest/*
+        androidTest.setRoot('androidTest')
+
 
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
