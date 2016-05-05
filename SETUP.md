@@ -17,7 +17,6 @@ Open a terminal and type 'android' to start the Android SDK Manager. To build th
 
 * Android SDK Tools and Android SDK Platform-tools (already installed); upgrade to their last versions is usually a good idea.
 * Android SDK Build-Tools; any version from 23 or later should work fine; avoid preview versions, if any available.
-* Android 4.4.2 (API 19), SDK Platform; needed for build/test ownCloud app.
 * Android 6.0 (API 23), SDK Platform; needed to build the owncloud app.
 
 Install any other package you consider interesting, such as emulators.
