@@ -54,8 +54,9 @@ dependencies {
     // Espresso core
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 
-    // UIAutomator - needed to grant emulator screen is turned on before every Espresso test
+    // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+
 }
 
 tasks.withType(Test) {
