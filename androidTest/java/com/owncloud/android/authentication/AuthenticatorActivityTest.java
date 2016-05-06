@@ -26,6 +26,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
 
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
 
 import org.junit.Rule;
@@ -51,10 +52,6 @@ public class AuthenticatorActivityTest {
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
-    public static final String TEST_USER = ""; // Fill with custom values
-    public static final String TEST_PASSWORD = ""; // Fill with custom values
-    public static final String TEST_SERVER_URL = ""; // Fill with custom values
-
 
     @Rule
     public ActivityTestRule<AuthenticatorActivity> mActivityRule = new ActivityTestRule<AuthenticatorActivity>(
@@ -79,16 +76,16 @@ public class AuthenticatorActivityTest {
 
         // Type server url
         onView(withId(R.id.hostUrlInput))
-                .perform(typeText(TEST_SERVER_URL), closeSoftKeyboard());
+                .perform(typeText(BuildConfig.TEST_SERVER_URL), closeSoftKeyboard());
         onView(withId(R.id.account_username)).perform(click());
 
         // Type user
         onView(withId(R.id.account_username))
-                .perform(typeText(TEST_USER), closeSoftKeyboard());
+                .perform(typeText(BuildConfig.TEST_USER), closeSoftKeyboard());
 
         // Type user pass
         onView(withId(R.id.account_password))
-                .perform(typeText(TEST_PASSWORD), closeSoftKeyboard());
+                .perform(typeText(BuildConfig.TEST_PASSWORD), closeSoftKeyboard());
         onView(withId(R.id.buttonOK)).perform(click());
 
         // Check that login button is now enabled

@@ -2,11 +2,17 @@ sudo: false
 language: android
 android:
   components:
-  - platform-tools
-  - tools
   - build-tools-23.0.3
   - android-23
-  - extra-android-m2repository
+  - android-22
+  - android-19
 script:
-  - ./gradlew testDebug
-
+  - ./setup_env.sh ant
+  - ant clean
+  - ant debug
+#  - ./gradlew connectedAndroidTest
+env:
+  global:
+  - secure: bm8mkBKaujxI/C7Kp2NjwDl0vsfWd3qDGZ+7WiLPGTbXnwJf8urxFQLrMkhqIR4wZs2M1LSW+P9SfD2FwL5Y0GDo29IeYLqhW5LIT8tGCZevBUfMDqd4w+eFHY73FXEAwLWVavfKmeuyisK/JNwGr75penOuQkZXTow6wgNLBjs=
+  - secure: EqLPMLaAcr+6NKeXWJdaUiNfMHJ+zdocKw7SyWsezKMMfsY6hME22m8TNHJZpt0nPCDoX7iPjJoh8svOe2RZo6UZG2q4hjcLxBu29b7QvJeChq7oJvjXPVNRUg2P2zJ2OUBbnyOhpw3cZruIncSr+QasSD8FGI7j3kw3t/86YE0=
+  - secure: pfNH4RVBy0vRPKRY3z4EQD9SRPyCuqYISQ+87cOlfpVbYHOc7xspaQSg7L9sB/sBMumOuMgGSLD6RincRrSy6nHhd70Vm4ccJxJYOynqDxC3EXNihDesw9Q+MJh1mr7WpTP21sXpP4+HkLQV0U+bKl3xcnGgeR4FU3BWYigNMkA=
