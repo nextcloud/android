@@ -122,10 +122,15 @@
   <string name="uploads_view_group_failed_uploads">ล้มเหลว (แตะเพื่อลองอีกครั้ง)</string>
   <string name="uploads_view_group_finished_uploads">ถูกอัพโหลด</string>
   <string name="uploads_view_upload_status_succeeded">เสร็จสมบูรณ์</string>
+  <string name="uploads_view_upload_status_cancelled">ยกเลิกแล้ว</string>
+  <string name="uploads_view_upload_status_paused">หยุดชั่วคราวแล้ว</string>
+  <string name="uploads_view_upload_status_failed_connection_error">การเชื่อมต่อล้มเหลว</string>
   <string name="uploads_view_upload_status_failed_credentials_error">ข้อมูลประจำตัวข้อผิดพลาดของ</string>
   <string name="uploads_view_upload_status_failed_folder_error">ข้อผิดพลาดของโฟลเดอร์</string>
   <string name="uploads_view_upload_status_failed_file_error">ข้อผิดพลาดของไฟล์</string>
   <string name="uploads_view_upload_status_failed_permission_error">เกิดข้อผิดพลาดเกี่ยวกับสิทธิ์การเข้าใช้งาน</string>
+  <string name="uploads_view_upload_status_conflict">ความขัดแย้ง</string>
+  <string name="uploads_view_upload_status_service_interrupted">แอพฯได้ถูกยกเลิกแล้ว</string>
   <string name="uploads_view_upload_status_unknown_fail">เกิดข้อผิดพลาดที่ไม่ทราบสาเหตุ</string>
   <string name="uploads_view_later_waiting_to_upload">กำลังรอที่จะอัพโหลด</string>
   <string name="downloader_download_in_progress_ticker">กำลังดาวน์โหลด ...</string>
