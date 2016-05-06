@@ -66,10 +66,6 @@ android {
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "TEST_USER", "${TEST_USER}"
-        buildConfigField "String", "TEST_PASSWORD", "${TEST_PASSWORD}"
-        buildConfigField "String", "TEST_SERVER_URL", "${TEST_SERVER_URL}"
-
         testInstrumentationRunnerArguments TEST_USER: "${TEST_USER}"
         testInstrumentationRunnerArguments TEST_PASSWORD: "${TEST_PASSWORD}"
         testInstrumentationRunnerArguments TEST_SERVER_URL: "${TEST_SERVER_URL}"
