@@ -88,9 +88,11 @@
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Anuluj synchronizację</string>
   <string name="common_cancel">Anuluj</string>
+  <string name="common_back">Wróć</string>
   <string name="common_save_exit">Zapisz i wyjdź</string>
   <string name="common_error">Błąd</string>
   <string name="common_loading">Wczytuję ...</string>
+  <string name="common_unknown">nieznane</string>
   <string name="common_error_unknown">Nieznany błąd</string>
   <string name="about_title">O aplikacji</string>
   <string name="change_password">Zmień hasło</string>
@@ -375,7 +377,6 @@
   <string name="action_switch_grid_view">Widok siatki</string>
   <string name="action_switch_list_view">Widok listy</string>
   <string name="manage_space_title">Zarządzaj przestrzenią</string>
-  <string name="manage_space_description">Ustawienia, baza danych i certyfikaty serwera z danych %1$s zostaną trwale usunięte. \n\nŚciągnięte pliki zostaną zachowane.\n\nTen proces może zająć trochę czasu.</string>
   <string name="manage_space_clear_data">Wyczyść dane</string>
   <string name="manage_space_error">Nie udało się usunąć niektórych plików.</string>
   <string name="permission_storage_access">Dodatkowe uprawnienia do wysyłania i ściągania plików.</string>

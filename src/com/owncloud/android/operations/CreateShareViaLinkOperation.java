@@ -26,10 +26,6 @@ package com.owncloud.android.operations;
  */
 
 
-import android.content.Context;
-import android.content.Intent;
-
-import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -41,31 +37,26 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
+import java.util.ArrayList;
+
 public class CreateShareViaLinkOperation extends SyncOperation {
 
     private String mPath;
     private String mPassword;
-    private Intent mSendIntent;
-    private String mFileName;
 
     /**
      * Constructor
      * @param path          Full path of the file/folder being shared. Mandatory argument
      * @param password      Password to protect a public link share.
      *                      Only available for public link shares
-     *  @param sendIntent   Optional Intent with the information of an app where the link to the new share (if public)
-     *                      should be posted later.
      */
     public CreateShareViaLinkOperation(
             String path,
-            String password,
-            Intent sendIntent
+            String password
     ) {
 
         mPath = path;
         mPassword = password;
-        mSendIntent = sendIntent;
-        mFileName = null;
     }
 
     @Override
@@ -101,9 +92,19 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         
         if (result.isSuccess()) {
             if (result.getData().size() > 0) {
-                OCShare share = (OCShare) result.getData().get(0);
-                updateData(share);
-            } 
+                Object item = result.getData().get(0);
+                if (item instanceof  OCShare) {
+                    updateData((OCShare) item);
+                } else {
+                    ArrayList<Object> data = result.getData();
+                    result = new RemoteOperationResult(
+                        RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
+                    );
+                    result.setData(data);
+                }
+            } else {
+                result = new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
+            }
         }
         
         return result;
@@ -115,32 +116,6 @@ public class CreateShareViaLinkOperation extends SyncOperation {
 
     public String getPassword() {
         return mPassword;
-    }
-
-    public Intent getSendIntent() {
-        return mSendIntent;
-    }
-
-    public Intent getSendIntentWithSubject(Context context) {
-        if (context != null && mSendIntent != null && mSendIntent.getStringExtra(Intent.EXTRA_SUBJECT) != null) {
-            if (getClient() == null || getClient().getCredentials() == null ||
-                    getClient().getCredentials().getUsername() == null) {
-                mSendIntent.putExtra(
-                        Intent.EXTRA_SUBJECT,
-                        context.getString(R.string.subject_shared_with_you, mFileName)
-                );
-            } else {
-                mSendIntent.putExtra(
-                        Intent.EXTRA_SUBJECT,
-                        context.getString(
-                                R.string.subject_user_shared_with_you,
-                                getClient().getCredentials().getUsername(),
-                                mFileName
-                        )
-                );
-            }
-        }
-        return mSendIntent;
     }
 
     private void updateData(OCShare share) {
@@ -160,9 +135,6 @@ public class CreateShareViaLinkOperation extends SyncOperation {
             file.setPublicLink(share.getShareLink());
             file.setShareViaLink(true);
             getStorageManager().saveFile(file);
-            if (mSendIntent != null) {
-                mSendIntent.putExtra(Intent.EXTRA_TEXT, share.getShareLink());
-            }
         }
     }
 

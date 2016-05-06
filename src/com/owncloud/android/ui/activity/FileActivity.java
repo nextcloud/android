@@ -73,7 +73,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -87,7 +86,6 @@ import com.owncloud.android.ui.NavigationDrawerItem;
 import com.owncloud.android.ui.adapter.NavigationDrawerListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
-import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
@@ -111,7 +109,6 @@ public class FileActivity extends AppCompatActivity
     private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
 
     private static final String KEY_WAITING_FOR_OP_ID = "WAITING_FOR_OP_ID";
-    private static final String DIALOG_SHARE_PASSWORD = "DIALOG_SHARE_PASSWORD";
     private static final String KEY_ACTION_BAR_TITLE = "ACTION_BAR_TITLE";
 
     public static final int REQUEST_CODE__UPDATE_CREDENTIALS = 0;
@@ -789,9 +786,6 @@ public class FileActivity extends AppCompatActivity
                 t.show();
             }
 
-        } else if (operation instanceof CreateShareViaLinkOperation) {
-            onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
-
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
 
@@ -884,44 +878,6 @@ public class FileActivity extends AppCompatActivity
                 (CertificateCombinedException) result.getException());
             FragmentTransaction ft = fm.beginTransaction();
             dialog.show(ft, DIALOG_UNTRUSTED_CERT);
-        }
-    }
-
-    private void onCreateShareViaLinkOperationFinish(CreateShareViaLinkOperation operation,
-                                                     RemoteOperationResult result) {
-        if (result.isSuccess()) {
-            updateFileFromDB();
-
-            Intent sendIntent = operation.getSendIntentWithSubject(this);
-            if (sendIntent != null) {
-                startActivity(sendIntent);
-            }
-
-        } else {
-            // Detect Failure (403) --> needs Password
-            if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
-                String password = operation.getPassword();
-                if ((password == null || password.length() == 0) &&
-                    getCapabilities().getFilesSharingPublicEnabled().isUnknown())
-                    {
-                    // Was tried without password, but not sure that it's optional. Try with password.
-                    // Try with password before giving up.
-                    // See also ShareFileFragment#OnShareViaLinkListener
-                    SharePasswordDialogFragment dialog =
-                            SharePasswordDialogFragment.newInstance(new OCFile(operation.getPath()), true);
-                    dialog.show(getSupportFragmentManager(), DIALOG_SHARE_PASSWORD);
-                } else {
-                    Toast t = Toast.makeText(this,
-                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-                        Toast.LENGTH_LONG);
-                    t.show();
-                }
-            } else {
-                Toast t = Toast.makeText(this,
-                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-                        Toast.LENGTH_LONG);
-                t.show();
-            }
         }
     }
 
@@ -1044,6 +1000,7 @@ public class FileActivity extends AppCompatActivity
     public void restart(){
         Intent i = new Intent(this, FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(i);
     }
 

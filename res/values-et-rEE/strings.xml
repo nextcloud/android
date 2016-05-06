@@ -85,9 +85,11 @@
   <string name="common_no">Ei</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Loobu</string>
+  <string name="common_back">Tagasi</string>
   <string name="common_save_exit">Salvesta &amp; välju</string>
   <string name="common_error">Viga</string>
   <string name="common_loading">Laadimine ...</string>
+  <string name="common_unknown">tundmatu</string>
   <string name="common_error_unknown">Tundmatu viga</string>
   <string name="about_title">Info</string>
   <string name="change_password">Muuda parooli</string>

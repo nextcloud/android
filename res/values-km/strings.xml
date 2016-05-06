@@ -52,6 +52,7 @@
   <string name="common_no">ទេ</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">លើកលែង</string>
+  <string name="common_back">ត្រឡប់ក្រោយ</string>
   <string name="common_error">កំហុស</string>
   <string name="common_loading">កំពុងដំណើរការ</string>
   <string name="common_error_unknown">មិន​ស្គាល់​កំហុស</string>

@@ -91,9 +91,11 @@
   <string name="common_retry_upload">重试上传任务</string>
   <string name="common_cancel_sync">取消同步</string>
   <string name="common_cancel">取消</string>
+  <string name="common_back">返回</string>
   <string name="common_save_exit">保存并退出</string>
   <string name="common_error">错误</string>
   <string name="common_loading">加载中...</string>
+  <string name="common_unknown">未知</string>
   <string name="common_error_unknown">未知错误</string>
   <string name="about_title">关于</string>
   <string name="change_password">修改密码</string>
@@ -389,8 +391,6 @@
   <string name="action_switch_grid_view">网格视图</string>
   <string name="action_switch_list_view">列表视图</string>
   <string name="manage_space_title">管理空间</string>
-  <string name="manage_space_description">设置，数据库以及 %1$s 的服务器证书将会被永久删除。
-\n\n 已经下载的文件将会保留。\n\n完成此操作将会消耗一些时间。</string>
   <string name="manage_space_clear_data">清除数据</string>
   <string name="manage_space_error">某些文件无法删除。</string>
   <string name="permission_storage_access">没有权限上传和下载文件。</string>

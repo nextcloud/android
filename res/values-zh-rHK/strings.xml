@@ -39,6 +39,7 @@
   <string name="common_no">否</string>
   <string name="common_ok">確定</string>
   <string name="common_cancel">取消</string>
+  <string name="common_back">返回</string>
   <string name="common_error">錯誤</string>
   <string name="common_loading">戴入中 …</string>
   <string name="common_error_unknown">不明錯誤</string>

@@ -57,6 +57,7 @@
   <string name="common_no">Không</string>
   <string name="common_ok">Chấp nhận</string>
   <string name="common_cancel">Hủy</string>
+  <string name="common_back">Trở lại</string>
   <string name="common_error">Lỗi</string>
   <string name="common_loading">Đang tải...</string>
   <string name="common_error_unknown">Lỗi chưa biết</string>

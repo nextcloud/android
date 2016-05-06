@@ -79,8 +79,10 @@
   <string name="common_no">Nie</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Zrušiť</string>
+  <string name="common_back">Späť</string>
   <string name="common_error">Chyba</string>
   <string name="common_loading">Načítavam...</string>
+  <string name="common_unknown">neznámy</string>
   <string name="common_error_unknown">Neznáma chyba</string>
   <string name="about_title">O</string>
   <string name="change_password">Zmeniť heslo</string>

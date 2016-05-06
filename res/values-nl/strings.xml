@@ -65,6 +65,13 @@ Download hier: %2$s</string>
   <string name="uploader_wrn_no_account_text">Er zijn geen %1$s accounts op dit apparaat. Stel eerst een account in.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Afsluiten</string>
+  <string name="uploader_error_title_no_file_to_upload">Niets te uploaden</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s kan niet een stuk tekst als bestand uploaden.</string>
+  <string name="uploader_error_message_no_file_to_upload">Ontvangen data bevat geen geldig bestand.</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">Bestand kan niet worden geüpload</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s is niet toegestaan om een ontvangen bestand te lezen</string>
+  <string name="uploader_error_message_source_file_not_found">Het te uploaden bestand is hier niet. Controleer of het bestand wel bestaat.</string>
+  <string name="uploader_error_message_source_file_not_copied">Er trad een fout op bij het kopiëren van het bestand naar een tijdelijke map. Probeer het opnieuw te versturen.</string>
   <string name="file_list_seconds_ago">seconden geleden</string>
   <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
   <string name="file_list_loading">Laden...</string>
@@ -92,9 +99,11 @@ Download hier: %2$s</string>
   <string name="common_retry_upload">Probeer upload opnieuw</string>
   <string name="common_cancel_sync">Sync annuleren</string>
   <string name="common_cancel">Annuleren</string>
+  <string name="common_back">Terug</string>
   <string name="common_save_exit">Opslaan &amp; einde</string>
   <string name="common_error">Fout</string>
   <string name="common_loading">Laden...</string>
+  <string name="common_unknown">onbekend</string>
   <string name="common_error_unknown">Onbekende fout</string>
   <string name="about_title">Over</string>
   <string name="change_password">Wijzig wachtwoord</string>
@@ -302,6 +311,9 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
   <string name="activity_chooser_send_file_title">Versturen</string>
   <string name="copy_link">Link kopiëren</string>
   <string name="clipboard_text_copied">Gekopieerd naar het klembord</string>
+  <string name="clipboard_no_text_to_copy">Geen tekst ontvangen om te kopiëren naar het klembord</string>
+  <string name="clipboard_uxexpected_error">Onverwachte fout bij het kopiëren naar het klembord</string>
+  <string name="clipboard_label">Tekst gekopieerd vanaf %1$s</string>
   <string name="error_cant_bind_to_operations_service">Kritieke fout: kan de acties niet uitvoeren</string>
   <string name="network_error_socket_exception">Er trad een fout op bij het verbinden met de server.</string>
   <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
@@ -400,8 +412,9 @@ Neem contact op met uw beheerder</string>
   <string name="action_switch_grid_view">Raster indeling</string>
   <string name="action_switch_list_view">Lijst indeling</string>
   <string name="manage_space_title">Beheer ruimte</string>
-  <string name="manage_space_description">Instellingen, database en server certificaten van %1$s\'s zullen permanent worden verwijderd.\n\nGedownloade bestanden zullen niet worden verwijderd.\n\nDit kan enige tijd in beslag nemen.</string>
+  <string name="manage_space_description">Instellingen, database en servercertificaten van %1$s\'s data zullen permanent worden verwijderd. \n\nGedownloade bestanden blijven onaangeroerd.\n\nDit proces kan even duren.</string>
   <string name="manage_space_clear_data">Verwijder data</string>
   <string name="manage_space_error">Sommige bestanden konden niet worden verwijderd</string>
   <string name="permission_storage_access">Aanvullende permssies vereist voor het uploaden en downloaden van bestanden.</string>
+  <string name="local_file_not_found_toast">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
 </resources>

@@ -57,6 +57,7 @@
   <string name="common_no">না</string>
   <string name="common_ok">তথাস্তু</string>
   <string name="common_cancel">বাতিল</string>
+  <string name="common_back">পেছনে যাও</string>
   <string name="common_error">সমস্যা</string>
   <string name="common_loading">লোড চলছে....</string>
   <string name="common_error_unknown">অজানা জটিলতা</string>

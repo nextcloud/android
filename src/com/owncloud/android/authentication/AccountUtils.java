@@ -194,7 +194,8 @@ public class AccountUtils {
                 for (Account account : ocAccounts) {
                     // build new account name
                     serverUrl = accountMgr.getUserData(account, Constants.KEY_OC_BASE_URL);
-                    username = account.name.substring(0, account.name.lastIndexOf('@'));
+                    username = com.owncloud.android.lib.common.accounts.AccountUtils.
+                            getUsernameForAccount(account);
                     newAccountName = com.owncloud.android.lib.common.accounts.AccountUtils.
                             buildAccountName(Uri.parse(serverUrl), username);
 

@@ -88,6 +88,7 @@
   <string name="common_ok">У реду</string>
   <string name="common_cancel_sync">Откажи синхронизацију</string>
   <string name="common_cancel">Откажи</string>
+  <string name="common_back">Назад</string>
   <string name="common_save_exit">Сачувај и изађи</string>
   <string name="common_error">Грешка</string>
   <string name="common_loading">Учитавам...</string>

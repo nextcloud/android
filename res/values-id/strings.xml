@@ -83,6 +83,7 @@
   <string name="common_ok">Oke</string>
   <string name="common_cancel_sync">Batalkan sinkron</string>
   <string name="common_cancel">Batal</string>
+  <string name="common_back">Kembali</string>
   <string name="common_error">Kesalahan</string>
   <string name="common_loading">Memuat ...</string>
   <string name="common_error_unknown">Kesalahan tidak diketahui</string>

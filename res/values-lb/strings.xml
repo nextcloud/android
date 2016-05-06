@@ -62,6 +62,7 @@
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Ofbriechen</string>
+  <string name="common_back">Zeréck</string>
   <string name="common_error">Feeler</string>
   <string name="common_error_unknown">Onbekannte Feeler</string>
   <string name="about_title">Iwwer</string>

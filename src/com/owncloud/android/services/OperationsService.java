@@ -83,7 +83,6 @@ public class OperationsService extends Service {
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
     public static final String EXTRA_OAUTH2_QUERY_PARAMETERS = "OAUTH2_QUERY_PARAMETERS";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
-    public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
     public static final String EXTRA_NEWNAME = "NEWNAME";
     public static final String EXTRA_REMOVE_ONLY_LOCAL = "REMOVE_LOCAL_COPY";
     public static final String EXTRA_CREATE_FULL_PATH = "CREATE_FULL_PATH";
@@ -563,12 +562,10 @@ public class OperationsService extends Service {
                 if (action.equals(ACTION_CREATE_SHARE_VIA_LINK)) {  // Create public share via link
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
-                    Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
                     if (remotePath.length() > 0) {
                         operation = new CreateShareViaLinkOperation(
                                 remotePath,
-                                password,
-                                sendIntent
+                                password
                         );
                     }
 

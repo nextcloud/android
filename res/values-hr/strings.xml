@@ -49,6 +49,7 @@
   <string name="common_no">Ne</string>
   <string name="common_ok">U redu</string>
   <string name="common_cancel">Odustani</string>
+  <string name="common_back">Natrag</string>
   <string name="common_error">Greška</string>
   <string name="common_error_unknown">Nepoznata pogreška</string>
   <string name="change_password">Izmjena lozinke</string>

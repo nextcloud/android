@@ -78,6 +78,7 @@
   <string name="common_no">Ne</string>
   <string name="common_ok">Gerai</string>
   <string name="common_cancel">Atšaukti</string>
+  <string name="common_back">Atgal</string>
   <string name="common_error">Klaida</string>
   <string name="common_loading">Įkeliama...</string>
   <string name="common_error_unknown">Neatpažinta klaida</string>

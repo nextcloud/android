@@ -15,19 +15,19 @@ some advantages over the Web interface:
 * Easily add files from your device to ownCloud
 * Two-factor authentication
 
-New In Version 1.9.1
+New In Version 2.0.0
 --------------------
 
 This release contains a number of improvements, including:
 
-* Set and edit permissions on internal shared data.
-* Instant uploads: avoid file duplications, set policy in app settings.
-* Control duplication of files uploaded via **Upload** button.
-* Select view mode: either list or grid per folder.
-* More buttons and checkboxes for faster operations.
-* Fixed battery drain in automatic synchronization.
-* Security fixes related to passcode.
-* Wording fixes.
+* View status of uploads and manage failures
+* Federated sharing is now supported with users on ownCloud servers
+* UI improvements, following Material Design lines
+* Share-by-link folders are editable
+* Instant uploads automatically stop when Wifi connection is interrupted
+* Server certificate warnings are supported
+* Improvement when other apps send files to ownCloud
+* Bug fixes
 
 Upgrading
 ---------
@@ -50,7 +50,6 @@ with a download link to the ownCloud app in the `Google Play store
 <https://play.google.com/store/apps/details?id=com.owncloud.android>`_.
 
 .. figure:: images/android-1.png
-   :scale: 75% 
    :alt: Android app new account welcome screen.
 
 You will also find these links on your Personal page in the ownCloud Web interface.
@@ -70,7 +69,6 @@ button. (Click the eyeball to the right of your password to expose your
 password.)
 
 .. figure:: images/android-2.png
-   :scale: 75% 
    :alt: New account creation screen.
 
 For best security your ownCloud server should be SSL-enabled, so that you can 
@@ -86,91 +84,104 @@ setup.
 Managing Files
 --------------
 
-Now you should see the Files page of your ownCloud account. 
+Now you should see the Files page of your ownCloud account. Note some 
+differences from the previous release: click the blue button at the bottom 
+right to expose the **Upload**, **Content from other apps**, and **New folder** 
+buttons.
 
-.. figure:: images/android-4.png
-   :scale: 75% 
+Use the **Upload** button to add files to your ownCloud account from your 
+Android filesystem. Use **Content from other apps** to upload files from 
+Android apps, such as the Gallery app.
+
+.. figure:: images/android-4.png 
    :alt: Your ownCloud Files page.
-
-The ownCloud menu at the top left shows the name of the logged-in user, has a 
-shortcut to your files, and contains the Settings button.
-
-.. figure:: images/android-5.png
-   :alt: Top-left menu.
-
+   
 Click the overflow button at the top right (that's the one with three vertical 
 dots) to open a user menu. **Grid view** toggles between grid and list 
 view. **Refresh account** syncs with the server, and **Sort** 
 gives you the option to sort your files by date, or alphabetically.
 
 .. figure:: images/android-6.png
-   :alt: Top-right menu.
+   :alt: Top-right menu.   
 
-The little file folder icon to the left of the overflow button opens a dialog to 
-create a new folder. The arrow button opens a file upload dialog, and you can 
-either upload content from other Android apps such as Google Drive, the Gallery, 
-your music player, or from your Android filesystem.
+The ownCloud menu at the top left shows the name of the logged-in user, has a 
+shortcut to your files, the **Uploads** button, and the **Settings** button.
 
-.. figure:: images/android-7.png
-   :scale: 75%
-   :alt: File upload dialogue.
+The Uploads page displays the status of files currently uploading, a list of 
+your recently-uploaded files, and a Retry option for any failed uploads. If 
+credentials to access the file have changed, you'll see a credentials error. 
+Tap the file to retry, and you'll get a login screen to enter the new 
+credentials. 
+
+If the upload fails because you're trying to upload to a folder that you do not 
+have permission to access, you will see a "Permissions error". Change the 
+permissions on the folder and retry the upload, or cancel and then upload the 
+file to a different folder.
+
+.. figure:: images/android-15.png
+   :alt: Top-left menu.
 
 All files (that you have permission to access) on your ownCloud server are 
 displayed in your Android app, but are not downloaded until you click on them. 
 Downloaded files are marked with a green arrow.
 
 .. figure:: images/android-8.png
-   :scale: 75%
    :alt: Downloaded files are marked with green arrows.
 
 Download and view a file with a short press on the filename.  Then a short 
 press on the overflow button opens a menu with options for managing your file.
 
 .. figure:: images/android-9.png
-   :scale: 75%
    :alt: File management options. Betsy Ross says "Don't believe everything you 
     read on the Internet."
    
 When you are on your main Files page, a long press on any file or folder 
-displays a list of options: Share, Open With, Synchronize, Rename, Move, Copy, 
-Remove, Send, Favorite, and Details.
+displays a list of options: **Share**, **Open With**, **Synchronize**, 
+**Rename**, **Move**, **Copy**, **Remove**, **Send**, **Favorite**, and 
+**Details**.
 
 .. figure:: images/android-11.png
-   :scale: 75%
    :alt: Folder and file management options.
    
-Click Share to share files. You can share with other ownCloud users, and create 
-public share links. If your ownCloud server administrator has enabled username 
-auto-completion, when you start typing user or group names they will 
-auto-complete. After you have shared files, click the Share button to see who 
-you have shared with, and to remove shares.
+Click **Share** to share files. You can share with other ownCloud users and 
+groups, and create public share links. If your ownCloud server administrator 
+has enabled username auto-completion, when you start typing user or group names 
+they will auto-complete. After you have shared files, click the **Share** button 
+to see who you have shared with, and to remove shares.
 
 .. figure:: images/android-12.png
-   :scale: 75%
    :alt: Sharing files.
+   
+Create a Federated share link by clicking **Add User or Group** and entering 
+the username and remote URL of the person you want to share with in this 
+format: user@domain.com. You don't have to guess; the Personal page in the 
+ownCloud Web GUI tells the exact Federated Cloud ID. Just ask them to copy and 
+paste and send it to you.
+
+.. figure:: images/android-14.png
+   :alt: Federated share creation.
    
 Settings
 --------
 
-Use the Settings screen to control your ownCloud app functions.
+Use the **Settings** screen to control your ownCloud app functions. 
 
 .. figure:: images/android-10.png
-   :scale: 75%
    :alt: Setting screen.
 
-In the Accounts section you can set up and manage multiple accounts.
+In the **Accounts** section you can set up and manage multiple accounts.
 
-The Security section sets up strong two-factor authentication by allowing you 
-to add a PIN (personal identification number) to access your account.  
+The **Security** section sets up strong two-factor authentication by allowing 
+you to add a PIN (personal identification number) to access your account.  
 
-The Instant Uploads section creates a directory, :file:`/InstantUpload`, and any 
-photos or videos created with your Android device's camera are instantly 
+The **Instant Uploads** section creates a directory, :file:`/InstantUpload`, and 
+any photos or videos created with your Android device's camera are instantly 
 uploaded to this directory. You also have the option to choose any other 
-existing directory, or to create a new one. Another nice option is Upload 
-Pictures/Video via WiFi Only, to conserve your mobile data usage.
+existing directory, or to create a new one. Another nice option is **Upload 
+Pictures/Video via WiFi Only**, to conserve your mobile data usage.
 
-The bottom section of the Settings screen has links to Help, Recommend to a 
-friend, Feedback, and the version number.
+The bottom section of the **Settings** screen has links to **Help**, 
+**Recommend to a friend**, **Feedback**, and the version number.
 
 Removing/Logging Out
 --------------------

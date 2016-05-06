@@ -46,7 +46,7 @@
   <string name="prefs_help">Ajuda</string>
   <string name="prefs_recommend">Recomendar a um amigo</string>
   <string name="prefs_feedback">Feedback</string>
-  <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_imprint">Marca</string>
   <string name="prefs_remember_last_share_location">Lembrar localização de partilha</string>
   <string name="prefs_remember_last_upload_location_summary">Lembrar a última localização de partilha dos carregamentos</string>
   <string name="recommend_subject">Tente %1$s no seu smartphone!</string>
@@ -64,6 +64,13 @@
   <string name="uploader_wrn_no_account_text">Não existem as contas %1$s no seu equipamento. Por favor, configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurar</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
+  <string name="uploader_error_title_no_file_to_upload">Nenhum ficheiro para submeter</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s não pode submeter um pedaço de texto como um ficheiro.</string>
+  <string name="uploader_error_message_no_file_to_upload">A informação recebida não inclui nenhum ficheiro válido.</string>
+  <string name="uploader_error_title_file_cannot_be_uploaded">O ficheiro não pode ser submetido</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s não está autorizado a ler um ficheiro recebido</string>
+  <string name="uploader_error_message_source_file_not_found">O ficheiro a submeter não foi encontrado nesta localização. Por favor verifique se o ficheiro existe.</string>
+  <string name="uploader_error_message_source_file_not_copied">Ocorreu um erro a tentar copiar o ficheiro para uma pasta temporária. Por favor tente submeter novamente.</string>
   <string name="file_list_seconds_ago">segundos atrás</string>
   <string name="file_list_empty">Aqui não existe nada. Carregue alguma coisa!</string>
   <string name="file_list_loading">A carregar...</string>
@@ -91,9 +98,11 @@
   <string name="common_retry_upload">Tentar novamente o envio</string>
   <string name="common_cancel_sync">Cancelar sincronização</string>
   <string name="common_cancel">Cancelar</string>
+  <string name="common_back">Voltar</string>
   <string name="common_save_exit">Salvar &amp; sair</string>
   <string name="common_error">Erro</string>
   <string name="common_loading">A carregar ...</string>
+  <string name="common_unknown">desconhecido</string>
   <string name="common_error_unknown">Erro Desconhecido</string>
   <string name="about_title">Sobre</string>
   <string name="change_password">Alterar senha</string>
@@ -107,9 +116,10 @@
   <string name="uploader_upload_succeeded_content_single">%1$s carregado</string>
   <string name="uploader_upload_failed_ticker">Não foi possível enviar</string>
   <string name="uploader_upload_failed_content_single">Não foi possível concluir o envio de %1$s.</string>
-  <string name="uploader_upload_failed_credentials_error">Falha no upload, precisa fazer o login novamente</string>
+  <string name="uploader_upload_failed_credentials_error">Falha no envio, precisa fazer o login novamente</string>
   <string name="uploads_view_title">Carregamentos</string>
   <string name="uploads_view_group_current_uploads">Atual</string>
+  <string name="uploads_view_group_failed_uploads">Falhou (prima para tentar novamente)</string>
   <string name="uploads_view_group_finished_uploads">Carregado</string>
   <string name="uploads_view_upload_status_succeeded">Concluída</string>
   <string name="uploads_view_upload_status_cancelled">Cancelado</string>
@@ -142,7 +152,7 @@
   <string name="sync_conflicts_in_favourites_ticker">Foram encontrados conflitos</string>
   <string name="sync_conflicts_in_favourites_content">Não foi possível sincronizar o ficheiro %1$d</string>
   <string name="sync_fail_in_favourites_ticker">Falhou a operação de manter os ficheiros sincronizados</string>
-  <string name="sync_fail_in_favourites_content">Não foi possível sincronizar  o conteúdo de %1$d ficheiros  (%2$d conflitos)</string>
+  <string name="sync_fail_in_favourites_content">Não foi possível sincronizar o conteúdo de %1$d ficheiros  (%2$d conflitos)</string>
   <string name="sync_foreign_files_forgotten_ticker">Alguns ficheiros locais ficaram esquecidos</string>
   <string name="sync_foreign_files_forgotten_content">Nao foi possivel copiar os ficheiros %1$d da pasta %2$s para</string>
   <string name="sync_foreign_files_forgotten_explanation">A partir da versão 1.3.16, os ficheiros que forem enviados deste dispositivo são copiados para a pasta local %1$s para prevenir perda de dados quando um ficheiro é sincronizado com várias contas.\n\nDevido a esta alteração, todos os ficheiros subidos em as versões anteriores desta app foram copiados para a pasta %2$s. No entanto, um erro impediu a conclusão deste processo durante a sincronização da conta. Pode deixar o ficheiro(s) como estão e remover o link para %3$s, ou mover o(s) ficheiro(s) para a pasta %1$s e guardar o link para %4$s.\n\nEm baixo estão listados os ficheiro(s) locais e remotos em %5$s que foram ligados.</string>
@@ -176,7 +186,7 @@
   <string name="media_err_invalid_progressive_playback">O ficheiro de multimédia não pôde ser transmitido</string>
   <string name="media_err_unknown">O ficheiro não pode ser reproduzido com o leitor de média de origem</string>
   <string name="media_err_security_ex">Erro de segurança a tentar reproduzir o ficheiro %1$s</string>
-  <string name="media_err_io_ex">Erro de input a tentar reproduzir %1$s</string>
+  <string name="media_err_io_ex">Erro de entrada a tentar reproduzir %1$s</string>
   <string name="media_err_unexpected">Erro inesperado a tentar reproduzir %1$s</string>
   <string name="media_rewind_description">Botão de Retroceder</string>
   <string name="media_play_pause_description">Botão de Reproduzir/Pausar</string>
@@ -227,7 +237,7 @@
   <string name="rename_server_fail_msg">Não foi possível renomear</string>
   <string name="sync_file_fail_msg">Não foi possível verificar o ficheiro remoto</string>
   <string name="sync_file_nothing_to_do_msg">O conteúdo do ficheiro já foi sincronizado</string>
-  <string name="create_dir_fail_msg">Não foi possivel criar a pasta</string>
+  <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
   <string name="filename_forbidden_characters">Caracteres não permitidos: / \\ &lt; &gt; : \" | ? *</string>
   <string name="filename_forbidden_charaters_from_server">O nome de ficheiro contém pelo menos um caráter inválido</string>
   <string name="filename_empty">O nome do ficheiro não pode ser vazio.</string>
@@ -236,7 +246,7 @@
   <string name="filedisplay_unexpected_bad_get_content">Erro inesperado. Por favor tente outra aplicação para seleccionar o ficheiro.</string>
   <string name="filedisplay_no_file_selected">Não selecionou nenhum ficheiro</string>
   <string name="activity_chooser_title">Enviar a ligação para ...</string>
-  <string name="wait_for_tmp_copy_from_private_storage">A copiar o ficheiro do aramazenamento privado</string>
+  <string name="wait_for_tmp_copy_from_private_storage">A copiar o ficheiro do armazenamento privado</string>
   <string name="oauth_check_onoff">Autenticar-se com oAuth2</string>
   <string name="oauth_login_connection">A ligar ao servidor oAuth2</string>
   <string name="ssl_validator_header">Não foi possível verificar a identidade do site.</string>
@@ -272,8 +282,8 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="instant_upload_on_wifi">Só enviar as fotos por wi-fi</string>
-  <string name="instant_video_upload_on_wifi">Só enviar os vídeos via wi-fi</string>
+  <string name="instant_upload_on_wifi">Enviar as fotos apenas via wi-fi</string>
+  <string name="instant_video_upload_on_wifi">Enviar vídeos apenas via wi-fi</string>
   <string name="instant_upload_path">/Envio Instantâneo </string>
   <string name="conflict_title">Conflito de ficheiro</string>
   <string name="conflict_message">Quais os ficheiros que pretende manter? Se selecionar ambas as versões, o ficheiro local irá ter um número adicionado ao seu nome.</string>
@@ -285,7 +295,7 @@
   <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
   <string name="prefs_instant_upload_path_title">Caminho de envio</string>
   <string name="share_link_no_support_share_api">Lamentamos mas não é possível partilhar através do seu servidor. Por favor contacte o seu administrador.</string>
-  <string name="share_link_file_no_exist">Não é possivel partilhar. Por favor verifique se o ficheiro existe</string>
+  <string name="share_link_file_no_exist">Não é possível partilhar. Por favor verifique se o ficheiro existe</string>
   <string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
   <string name="unshare_link_file_no_exist">Não é possível retirar a partilha. Verifique se o ficheiro existe</string>
   <string name="unshare_link_file_error">Ocorreu um erro enquanto retirava a partilha deste ficheiro ou pasta</string>
@@ -296,8 +306,11 @@
   <string name="activity_chooser_send_file_title">Enviar</string>
   <string name="copy_link">Copiar hiperligação</string>
   <string name="clipboard_text_copied">Copiado para a área de transferência</string>
+  <string name="clipboard_no_text_to_copy">Não foi recebido nenhum texto para copiar para a área de transferência</string>
+  <string name="clipboard_uxexpected_error">Erro inesperado ao copiar para a área de transferência</string>
+  <string name="clipboard_label">Texto copiado a partir de %1$s</string>
   <string name="error_cant_bind_to_operations_service">Erro crítico: não é possível executar as operações</string>
-  <string name="network_error_socket_exception">Ocorreu um erro durante a ligação ao servidos.</string>
+  <string name="network_error_socket_exception">Ocorreu um erro durante a ligação ao servidor.</string>
   <string name="network_error_socket_timeout_exception">Ocorreu um erro durante a ligação ao servidor, não foi possível realizar a operação.</string>
   <string name="network_error_connect_timeout_exception">Ocorreu um erro durante a ligação ao servidor, não foi possível realizar a operação.</string>
   <string name="network_host_not_available">A operação não foi concluída, o servidor está inacessível.</string>
@@ -317,7 +330,7 @@
   <string name="actionbar_logger">Registos de Alterações</string>
   <string name="log_send_history_button">Histórico de envio</string>
   <string name="log_send_no_mail_app">Não foi encontrada nenhuma app para enviar logs. Por favor, instale uma aplicação de envio.</string>
-  <string name="log_send_mail_subject">%1$s Android Aplicação de Registyos</string>
+  <string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
   <string name="log_progress_dialog_text">A carregar dados ...</string>
   <string name="saml_authentication_required_text">Autenticação necessária</string>
   <string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
@@ -378,8 +391,8 @@
   <string name="share_group_clarification">%1$s (grupo)</string>
   <string name="share_remote_clarification">%1$s (remoto)</string>
   <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
-  <string name="share_sharee_unavailable">Desculpe, a versão do seu servidor não autoriza a partilha com utilizadores no mesmo cliente.
-        \nPor favor contacte o seu administrador</string>
+  <string name="share_sharee_unavailable">Desculpe, a versão do seu servidor não permite a partilha com utilizadores através de clientes.
+\nPor favor contacte o seu administrador</string>
   <string name="share_privilege_can_share">pode partilhar</string>
   <string name="share_privilege_can_edit">pode editar</string>
   <string name="share_privilege_can_edit_create">criar</string>
@@ -388,12 +401,15 @@
   <string name="edit_share_unshare">Parar partilha</string>
   <string name="edit_share_done">feito</string>
   <string name="action_retry_uploads">A tentativa falhou</string>
+  <string name="action_clear_failed_uploads">Limpar os que falharam</string>
   <string name="action_clear_successful_uploads">Limpar Carregamentos com Sucesso</string>
+  <string name="action_clear_finished_uploads">Limpar todos os concluídos</string>
   <string name="action_switch_grid_view">Vista em grelha</string>
   <string name="action_switch_list_view">Vista em lista</string>
   <string name="manage_space_title">Gerir espaço</string>
-  <string name="manage_space_description">Definições, base de dados e certificados de servidor dos dados de %1$s serão apagados permanentemente. \n\nFicheiros descarregados permanecerão intocados.\n\nEste processo pode demorar algum tempo.</string>
+  <string name="manage_space_description">As configurações, base de dados e certificados de servidor referentes aos dados de %1$s serão eliminados para sempre. \n\nOs ficheiros descarregados mantêm-se.\n\nEsta acção pode ser demorada.</string>
   <string name="manage_space_clear_data">Limpar dados</string>
   <string name="manage_space_error">Alguns ficheiros não podem ser apagados.</string>
   <string name="permission_storage_access">São necessárias permissões adicionais para carregar &amp; descarregar ficheiros.</string>
+  <string name="local_file_not_found_toast">O ficheiro não foi encontrado no sistema de ficheiros local</string>
 </resources>

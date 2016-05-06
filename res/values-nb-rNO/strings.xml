@@ -91,9 +91,11 @@
   <string name="common_retry_upload">Prøv å laste opp igjen.</string>
   <string name="common_cancel_sync">Avbryt synkronisering</string>
   <string name="common_cancel">Avbryt</string>
+  <string name="common_back">Tilbake</string>
   <string name="common_save_exit">Lagre &amp; avslutt</string>
   <string name="common_error">Feil</string>
   <string name="common_loading">Laster...</string>
+  <string name="common_unknown">ukjent</string>
   <string name="common_error_unknown">Ukjent feil</string>
   <string name="about_title">Om</string>
   <string name="change_password">Endre passord</string>
@@ -397,7 +399,6 @@
   <string name="action_switch_grid_view">Rutenett-visning</string>
   <string name="action_switch_list_view">Listevisning</string>
   <string name="manage_space_title">Håndter plass</string>
-  <string name="manage_space_description">Innstillinger, database og server-sertifikater fra %1$s sine data vil bli slettet permanent. \n\nNedlastede filer forblir urørt.\n\nDenne prosessen kan ta litt tid.</string>
   <string name="manage_space_clear_data">Nullstill data</string>
   <string name="manage_space_error">Noen filer kunne ikke fjernes.</string>
   <string name="permission_storage_access">Flere tillatelser trengs for å laste opp &amp; ned filer.</string>
