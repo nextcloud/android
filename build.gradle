@@ -59,6 +59,13 @@ dependencies {
 
 }
 
+tasks.withType(Test) {
+    /// increased logging for tests
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
@@ -66,9 +73,9 @@ android {
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        testInstrumentationRunnerArguments TEST_USER: "${TEST_USER}"
-        testInstrumentationRunnerArguments TEST_PASSWORD: "${TEST_PASSWORD}"
-        testInstrumentationRunnerArguments TEST_SERVER_URL: "${TEST_SERVER_URL}"
+        buildConfigField "String", "TEST_USER",  "\"${TEST_USER}\""
+        buildConfigField "String", "TEST_PASSWORD",  "\"${TEST_PASSWORD}\""
+        buildConfigField "String", "TEST_SERVER_URL",  "\"${TEST_SERVER_URL}\""
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
@@ -113,10 +120,5 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
     }
+
 }
-
-
-
-
-
-

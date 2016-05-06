@@ -75,7 +75,6 @@ public class AuthenticatorActivityTest {
                 .check(matches(not(isEnabled())));
 
         // Type server url
-        /*
         onView(withId(R.id.hostUrlInput))
                 .perform(typeText(BuildConfig.TEST_SERVER_URL), closeSoftKeyboard());
         onView(withId(R.id.account_username)).perform(click());
@@ -88,7 +87,6 @@ public class AuthenticatorActivityTest {
         onView(withId(R.id.account_password))
                 .perform(typeText(BuildConfig.TEST_PASSWORD), closeSoftKeyboard());
         onView(withId(R.id.buttonOK)).perform(click());
-        */
 
         // Check that login button is now enabled
         onView(withId(R.id.buttonOK)).check(matches(isEnabled()));

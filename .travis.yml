@@ -16,12 +16,12 @@ before_install:
 script:
 # build app and assemble APK, in debug mode
   - ./gradlew assembleDebug
-# run all the local unit tests
-  - ./gradlew testDebug
+# run all the local unit tests of app module
+  - ./gradlew :testDebug
 # - ./gradlew connectedAndroidTest
-# install app, then assemble and install instrumented tests
-  - ./gradlew installDebug
-  - ./gradlew installDebugAndroidTest
+# install app, then assemble and install instrumented tests of app module
+  - ./gradlew :installDebug
+  - ./gradlew :installDebugAndroidTest
 # run sample instrumented unit test
   - adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
 env:
