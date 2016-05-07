@@ -105,40 +105,38 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<LocalRecyclerView
                 holder.fileIcon.setImageResource(R.drawable.ic_menu_archive);
             }
 
-                holder.secondLine.setVisibility(View.VISIBLE);
+            holder.secondLine.setVisibility(View.VISIBLE);
 
-                holder.fileSizeV.setVisibility(View.VISIBLE);
-                holder.fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+            holder.fileSizeV.setVisibility(View.VISIBLE);
+            holder.fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
 
-                holder.fileSizeSeperatorV.setVisibility(View.VISIBLE);
+            holder.fileSizeSeperatorV.setVisibility(View.VISIBLE);
 
-                holder.lastModV.setVisibility(View.VISIBLE);
-                holder.lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
+            holder.lastModV.setVisibility(View.VISIBLE);
+            holder.lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
 
-                if (getCheckedFiles().contains(file.getAbsolutePath())) {
-                    holder.checkBoxV.setChecked(true);
-                } else {
-                    holder.checkBoxV.setChecked(false);
-                }
-
-                holder.checkBoxV.setVisibility(View.VISIBLE);
-
-                // get Thumbnail if file is image
-                // TODO : implement proper thumbnails / image handling
-
+            if (getCheckedFiles().contains(file.getAbsolutePath())) {
+                holder.checkBoxV.setChecked(true);
             } else {
-                holder.secondLine.setVisibility(View.GONE);
-                holder.checkBoxV.setVisibility(View.GONE);
+                holder.checkBoxV.setChecked(false);
             }
 
-            // not GONE; the alignment changes; ugly way to keep it
-            holder.localStateView.setVisibility(View.INVISIBLE);
-            holder.favoriteIcon.setVisibility(View.GONE);
+            holder.checkBoxV.setVisibility(View.VISIBLE);
 
-            holder.sharedIconV.setVisibility(View.GONE);
-            holder.sharedWithMeIconV.setVisibility(View.GONE);
+            // get Thumbnail if file is image
+            // TODO : implement proper thumbnails / image handling
+
+        } else {
+            holder.secondLine.setVisibility(View.GONE);
+            holder.checkBoxV.setVisibility(View.GONE);
         }
 
+        // not GONE; the alignment changes; ugly way to keep it
+        holder.localStateView.setVisibility(View.INVISIBLE);
+        holder.favoriteIcon.setVisibility(View.GONE);
+
+        holder.sharedIconV.setVisibility(View.GONE);
+        holder.sharedWithMeIconV.setVisibility(View.GONE);
     }
 
     public ArrayList<String> getCheckedFiles() {
