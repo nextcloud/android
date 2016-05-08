@@ -66,7 +66,7 @@ public class DataStorageProvider {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             for (File f : MainApp.getAppContext().getExternalFilesDirs(null)) {
                 if (f != null) {
-                    mCachedStoragePoints.add(new StoragePoint(f.getName(), f.getAbsolutePath()));
+                    mCachedStoragePoints.add(new StoragePoint(f.getAbsolutePath(), f.getAbsolutePath()));
                 }
             }
         } else {
