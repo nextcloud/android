@@ -21,6 +21,8 @@
 
 package com.owncloud.android.datastorage;
 
+import android.os.Build;
+
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datastorage.providers.EnvironmentStoragePointProvider;
@@ -30,6 +32,7 @@ import com.owncloud.android.datastorage.providers.MountCommandStoragePointProvid
 import com.owncloud.android.datastorage.providers.SystemDefaultStoragePointProvider;
 import com.owncloud.android.datastorage.providers.VDCStoragePointProvider;
 
+import java.io.File;
 import java.util.Vector;
 
 /**
@@ -60,10 +63,18 @@ public class DataStorageProvider {
         if (mCachedStoragePoints.size() != 0)
             return mCachedStoragePoints.toArray(new StoragePoint[mCachedStoragePoints.size()]);
 
-
-        for (IStoragePointProvider p : mStorageProviders)
-            if (p.canProvideStoragePoints())
-                mCachedStoragePoints.addAll(p.getAvailableStoragePoint());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            for (File f : MainApp.getAppContext().getExternalFilesDirs(null)) {
+                if (f != null) {
+                    mCachedStoragePoints.add(new StoragePoint(f.getAbsolutePath(), f.getAbsolutePath()));
+                }
+            }
+        } else {
+            for (IStoragePointProvider p : mStorageProviders)
+                if (p.canProvideStoragePoints()) {
+                    mCachedStoragePoints.addAll(p.getAvailableStoragePoint());
+                }
+        }
 
         return mCachedStoragePoints.toArray(new StoragePoint[mCachedStoragePoints.size()]);
     }
