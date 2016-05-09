@@ -18,7 +18,8 @@ script:
   - ./gradlew assembleDebug
 # run all the local unit tests of app module
   - ./gradlew :testDebug
-  - ./gradlew connectedAndroidTest
+# run all the instrumented tests of app module
+  - ./gradlew connectedDebugAndroidTest
 # install app, then assemble and install instrumented tests of app module
 # - ./gradlew :installDebug
 # - ./gradlew :installDebugAndroidTest
@@ -26,8 +27,8 @@ script:
 # - adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
 env:
   global:
-  - secure: bm8mkBKaujxI/C7Kp2NjwDl0vsfWd3qDGZ+7WiLPGTbXnwJf8urxFQLrMkhqIR4wZs2M1LSW+P9SfD2FwL5Y0GDo29IeYLqhW5LIT8tGCZevBUfMDqd4w+eFHY73FXEAwLWVavfKmeuyisK/JNwGr75penOuQkZXTow6wgNLBjs=
-  - secure: EqLPMLaAcr+6NKeXWJdaUiNfMHJ+zdocKw7SyWsezKMMfsY6hME22m8TNHJZpt0nPCDoX7iPjJoh8svOe2RZo6UZG2q4hjcLxBu29b7QvJeChq7oJvjXPVNRUg2P2zJ2OUBbnyOhpw3cZruIncSr+QasSD8FGI7j3kw3t/86YE0=
-  - secure: pfNH4RVBy0vRPKRY3z4EQD9SRPyCuqYISQ+87cOlfpVbYHOc7xspaQSg7L9sB/sBMumOuMgGSLD6RincRrSy6nHhd70Vm4ccJxJYOynqDxC3EXNihDesw9Q+MJh1mr7WpTP21sXpP4+HkLQV0U+bKl3xcnGgeR4FU3BWYigNMkA=
+  - secure: h4Y7ZvgbvOj5T71ubRcw3Fy3KXF8qHugRFLGK3q2R9YuRsDAf8XH+Y/UiXyH8sac2QSj7Zlny1kA1DEJgwhTXs9wsAVKVJCQNTJGEvhm/4uQgPeNMzMv07Lqe8V+KUBsFH5qhfPJO357ERW0k2f2qljoLSHtHStclt7iGvFdynA=
+  - secure: o9L6lXWpXowhQSdiUSmajliBUkQ6n7NrBUqhC09lqe7yXSGhEsgGRXqHoT3q2B4uIqGSiLCa9HQbW0dfDQCs+pADmzHIl3zbTViR88TSaIhOiTrqMUUl5iaO++pneZ2TzgU9bbGHbl6Ixjc6iALH2+F7P+RUM6vLTNPcfnCJa3g=
+  - secure: ydxZrS7+1ht3p1tC6DE9W9bjLQGjMkwFBwyhNmcdEM6538kN8ZCBQe7NxSsCrC1nSDBLQ17Cziv0XJHl/pCfPrbkrPPgVFpjDfPeqC2zcGcCNcFQUEylXCvQ4uRU2hKL6dPqCsOQ57Pv3qwpPoprl/usoN5Wh8V7BKplU88ZaYM=
   matrix:
   - ANDROID_TARGET=android-23 ANDROID_ABI=armeabi-v7a

@@ -71,9 +71,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         // arguments to be passed to functional tests
-        testInstrumentationRunnerArgument "TEST_USER", "\"$System.env.TEST_USER\""
-        testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.TEST_PASSWORD\""
-        testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.TEST_SERVER_URL\""
+        testInstrumentationRunnerArgument "TEST_USER", "\"$System.env.OCTEST_APP_USERNAME\""
+        testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.OCTEST_APP_PASSWORD\""
+        testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
