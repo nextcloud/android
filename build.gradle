@@ -91,6 +91,7 @@ android {
             assets.srcDirs = ['assets']
         }
 
+
         // move whole local unit tests structure as a whole from src/test/* to test/*
         test.setRoot('test')
 

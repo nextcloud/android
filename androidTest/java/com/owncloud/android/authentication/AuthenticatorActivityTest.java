@@ -32,6 +32,11 @@ import com.owncloud.android.R;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import static org.junit.Assert.assertTrue;
+
+import java.lang.reflect.Field;
+
+import android.app.Activity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -51,6 +56,11 @@ public class AuthenticatorActivityTest {
 
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
+
+    private int mResultCode = -2;
+    private int WAIT_LOGIN = 5000;
+
+    private static String errorMessage = "Activity not finished";
 
 
     @Rule
@@ -90,6 +100,20 @@ public class AuthenticatorActivityTest {
 
         // Check that login button is now enabled
         onView(withId(R.id.buttonOK)).check(matches(isEnabled()));
+
+        // Check that the Activity ends after clicking
+        try {
+
+            Thread.sleep(WAIT_LOGIN);
+            Field f = Activity.class.getDeclaredField("mResultCode"); //NoSuchFieldException
+            f.setAccessible(true);
+            mResultCode = f.getInt(mActivityRule.getActivity());
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
+        assertTrue(errorMessage, mResultCode == Activity.RESULT_OK);
 
     }
 }
