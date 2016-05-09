@@ -26,15 +26,11 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.test.suitebuilder.annotation.LargeTest;
-<<<<<<< HEAD
 
 import com.owncloud.android.BuildConfig;
-=======
 import static org.junit.Assert.assertTrue;
-import com.owncloud.android.ui.activity.FileActivity;
->>>>>>> add asserts
 import com.owncloud.android.R;
-//import android.support.v7.app.AppCompat
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,9 +40,6 @@ import java.lang.reflect.Field;
 
 import android.app.Activity;
 
-import java.lang.reflect.Field;
-
-import android.app.Activity;
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
@@ -65,8 +58,6 @@ public class AuthenticatorActivityTest {
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
-
-
     private int mResultCode = -2;
     private int WAIT_LOGIN = 5000;
 
@@ -79,7 +70,7 @@ public class AuthenticatorActivityTest {
         @Override
         protected Intent getActivityIntent() {
 
-            targetContext = InstrumentationRegistry.getInstrumentation()
+            Context targetContext = InstrumentationRegistry.getInstrumentation()
                     .getTargetContext();
             Intent result = new Intent(targetContext, AuthenticatorActivity.class);
             result.putExtra(EXTRA_ACTION, "");
