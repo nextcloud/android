@@ -2,8 +2,9 @@ sudo: false
 language: android
 android:
   components:
-  - platform-tools
   - tools
+  - tools
+  - platform-tools
   - build-tools-23.0.3
   - android-23
   - extra-android-m2repository
@@ -19,7 +20,7 @@ script:
 # run all the local unit tests of app module
   - ./gradlew :testDebug
 # run all the instrumented tests of app module
-  - ./gradlew connectedDebugAndroidTest
+  - ./gradlew connectedDebugAndroidTest --info
 # install app, then assemble and install instrumented tests of app module
 # - ./gradlew :installDebug
 # - ./gradlew :installDebugAndroidTest

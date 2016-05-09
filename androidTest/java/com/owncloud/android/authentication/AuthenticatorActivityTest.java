@@ -21,15 +21,19 @@ package com.owncloud.android.authentication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
+import android.support.test.uiautomator.UiDevice;
 import android.test.suitebuilder.annotation.LargeTest;
 
 import static org.junit.Assert.assertTrue;
 import com.owncloud.android.R;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -71,11 +75,29 @@ public class AuthenticatorActivityTest {
             Context targetContext = InstrumentationRegistry.getInstrumentation()
                     .getTargetContext();
             Intent result = new Intent(targetContext, AuthenticatorActivity.class);
-            result.putExtra(EXTRA_ACTION, "");
+            result.putExtra(EXTRA_ACTION, AuthenticatorActivity.ACTION_CREATE);
             result.putExtra(EXTRA_ACCOUNT, "");
             return result;
         }
     };
+
+    @Before
+    public void init(){
+        UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        Point[] coordinates = new Point[4];
+        coordinates[0] = new Point(248, 1020);
+        coordinates[1] = new Point(248, 429);
+        coordinates[2] = new Point(796, 1020);
+        coordinates[3] = new Point(796, 429);
+        try {
+            if (!uiDevice.isScreenOn()) {
+                uiDevice.wakeUp();
+                //uiDevice.swipe(coordinates, 10);
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Test
     public void check_login()
