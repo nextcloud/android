@@ -73,9 +73,10 @@ android {
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "TEST_USER",  "\"${TEST_USER}\""
-        buildConfigField "String", "TEST_PASSWORD",  "\"${TEST_PASSWORD}\""
-        buildConfigField "String", "TEST_SERVER_URL",  "\"${TEST_SERVER_URL}\""
+        testInstrumentationRunnerArgument "TEST_USER", "\"${TEST_USER}\""
+        testInstrumentationRunnerArgument "TEST_PASSWORD", "\"${TEST_PASSWORD}\""
+        testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"${TEST_SERVER_URL}\""
+
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
