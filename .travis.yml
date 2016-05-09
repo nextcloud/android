@@ -18,12 +18,12 @@ script:
   - ./gradlew assembleDebug
 # run all the local unit tests of app module
   - ./gradlew :testDebug
-# - ./gradlew connectedAndroidTest
+  - ./gradlew connectedAndroidTest
 # install app, then assemble and install instrumented tests of app module
-  - ./gradlew :installDebug
-  - ./gradlew :installDebugAndroidTest
+# - ./gradlew :installDebug
+# - ./gradlew :installDebugAndroidTest
 # run sample instrumented unit test
-  - adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
+# - adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
 env:
   global:
   - secure: bm8mkBKaujxI/C7Kp2NjwDl0vsfWd3qDGZ+7WiLPGTbXnwJf8urxFQLrMkhqIR4wZs2M1LSW+P9SfD2FwL5Y0GDo29IeYLqhW5LIT8tGCZevBUfMDqd4w+eFHY73FXEAwLWVavfKmeuyisK/JNwGr75penOuQkZXTow6wgNLBjs=
