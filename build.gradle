@@ -18,9 +18,6 @@ apply plugin: 'com.android.application'
 
 ext {
     supportLibraryVersion = '23.1.1'
-    TEST_USER = "$System.env.TEST_USER"
-    TEST_PASSWORD = "$System.env.TEST_PASSWORD"
-    TEST_SERVER_URL = "$System.env.TEST_SERVER_URL"
 }
 
 repositories {
@@ -73,10 +70,10 @@ android {
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-        testInstrumentationRunnerArgument "TEST_USER", "\"${TEST_USER}\""
-        testInstrumentationRunnerArgument "TEST_PASSWORD", "\"${TEST_PASSWORD}\""
-        testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"${TEST_SERVER_URL}\""
-
+        // arguments to be passed to functional tests
+        testInstrumentationRunnerArgument "TEST_USER", "\"$System.env.TEST_USER\""
+        testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.TEST_PASSWORD\""
+        testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.TEST_SERVER_URL\""
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
