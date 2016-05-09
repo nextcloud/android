@@ -57,6 +57,7 @@ public class AuthenticatorActivityTest {
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
+
     private int mResultCode = -2;
     private int WAIT_LOGIN = 5000;
 
