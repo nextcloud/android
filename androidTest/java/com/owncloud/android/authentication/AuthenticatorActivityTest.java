@@ -21,7 +21,6 @@ package com.owncloud.android.authentication;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.support.test.InstrumentationRegistry;
@@ -84,11 +83,11 @@ public class AuthenticatorActivityTest {
     @Before
     public void init(){
         UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-        Point[] coordinates = new Point[4];
+        /*Point[] coordinates = new Point[4];
         coordinates[0] = new Point(248, 1020);
         coordinates[1] = new Point(248, 429);
         coordinates[2] = new Point(796, 1020);
-        coordinates[3] = new Point(796, 429);
+        coordinates[3] = new Point(796, 429);*/
         try {
             if (!uiDevice.isScreenOn()) {
                 uiDevice.wakeUp();
