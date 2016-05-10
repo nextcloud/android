@@ -2,7 +2,9 @@ sudo: false
 language: android
 android:
   components:
+# first 'tools' updates SDK tools 'til last version ** in remote repository number 10 **
   - tools
+# second 'tools' updates SDK tools 'til last version ** in remote repository number 11 ** (current last one)
   - tools
   - platform-tools
   - build-tools-23.0.3
