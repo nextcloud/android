@@ -58,10 +58,10 @@ public class AuthenticatorActivityTest {
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
-    private static int RESULT_CODE = -2;
     private static int WAIT_LOGIN = 5000;
 
     private static String ERROR_MESSAGE = "Activity not finished";
+    private static String RESULT_CODE = "mResultCode";
 
 
     @Rule
@@ -80,7 +80,7 @@ public class AuthenticatorActivityTest {
     };
 
     @Test
-    public void check_login() {
+    public void check_login() throws InterruptedException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
 
         // Check that login button is disabled
         onView(withId(R.id.buttonOK))
@@ -101,16 +101,11 @@ public class AuthenticatorActivityTest {
         onView(withId(R.id.buttonOK)).perform(click());
 
         // Check that the Activity ends after clicking
-        try {
 
-            Thread.sleep(WAIT_LOGIN);
-            Field f = Activity.class.getDeclaredField(RESULT_CODE);
-            f.setAccessible(true);
-            mResultCode = f.getInt(mActivityRule.getActivity());
-
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        Thread.sleep(WAIT_LOGIN);
+        Field f = Activity.class.getDeclaredField(RESULT_CODE);
+        f.setAccessible(true);
+        int mResultCode = f.getInt(mActivityRule.getActivity());
 
         assertTrue(ERROR_MESSAGE, mResultCode == Activity.RESULT_OK);
 
