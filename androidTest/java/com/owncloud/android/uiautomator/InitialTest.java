@@ -49,7 +49,7 @@ public class InitialTest {
 
     private static final String OWNCLOUD_APP_PACKAGE = "com.owncloud.android";
     private static final String ANDROID_SETTINGS_PACKAGE = "com.android.settings";
-
+    private static final String SETTINGS_DATA_USAGE_OPTION = "Data usage";
 
     private static final int LAUNCH_TIMEOUT = 5000;
 
@@ -113,7 +113,7 @@ public class InitialTest {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
 
-        clickByText("Data usage");
+        clickByText(SETTINGS_DATA_USAGE_OPTION);
 
     }
 
