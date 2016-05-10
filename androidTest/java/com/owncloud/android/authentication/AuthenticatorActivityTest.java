@@ -58,10 +58,10 @@ public class AuthenticatorActivityTest {
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
-    private int mResultCode = -2;
-    private int WAIT_LOGIN = 5000;
+    private static int RESULT_CODE = -2;
+    private static int WAIT_LOGIN = 5000;
 
-    private static String errorMessage = "Activity not finished";
+    private static String ERROR_MESSAGE = "Activity not finished";
 
 
     @Rule
@@ -104,7 +104,7 @@ public class AuthenticatorActivityTest {
         try {
 
             Thread.sleep(WAIT_LOGIN);
-            Field f = Activity.class.getDeclaredField("mResultCode");
+            Field f = Activity.class.getDeclaredField(RESULT_CODE);
             f.setAccessible(true);
             mResultCode = f.getInt(mActivityRule.getActivity());
 
@@ -112,7 +112,7 @@ public class AuthenticatorActivityTest {
             e.printStackTrace();
         }
 
-        assertTrue(errorMessage, mResultCode == Activity.RESULT_OK);
+        assertTrue(ERROR_MESSAGE, mResultCode == Activity.RESULT_OK);
 
     }
 }
