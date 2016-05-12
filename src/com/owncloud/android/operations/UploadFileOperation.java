@@ -138,6 +138,7 @@ public class UploadFileOperation extends SyncOperation {
     protected RequestEntity mEntity = null;
 
     public UploadFileOperation(Account account,
+                               OCFile file,
                                OCUpload upload,
                                boolean chunked,
                                boolean forceOverwrite,
@@ -156,11 +157,15 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         mAccount = account;
-        mFile = obtainNewOCFileToUpload(
-            upload.getRemotePath(),
-            upload.getLocalPath(),
-            upload.getMimeType()
-        );
+        if (file == null) {
+            mFile = obtainNewOCFileToUpload(
+                    upload.getRemotePath(),
+                    upload.getLocalPath(),
+                    upload.getMimeType()
+            );
+        } else {
+            mFile = file;
+        }
         mRemotePath = upload.getRemotePath();
         mChunked = chunked;
         mForceOverwrite = forceOverwrite;
