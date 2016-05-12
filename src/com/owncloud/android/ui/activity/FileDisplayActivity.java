@@ -775,7 +775,6 @@ public class FileDisplayActivity extends HookActivity
                     Log_OC.v(TAG, "Display Name: " + displayName);
 
                     displayName = displayName.replace(File.separatorChar, '_');
-                    displayName = displayName.replace(File.pathSeparatorChar, '_');
 
                     remotePath += displayName;
 
