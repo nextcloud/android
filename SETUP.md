@@ -1,6 +1,6 @@
 These instructions will help you to set up your development environment, get the source code of the ownCloud for Android app and build it by yourself. If you want to help developing the app take a look to the [contribution guidelines][0].
 
-Sections 1) and 2) are common for any environment. The rest of the sections describe how to set up a project in different tool environments. Choose the build tool or IDE you prefer and follow the instructions in its specific section. Nowadays we recommend to use Android Studio (section 2), but the decision is up to you.
+Sections 1) and 2) are common for any environment. The rest of the sections describe how to set up a project in different tool environments. Nowadays we recommend to use Android Studio (section 2), but you can also build the app from the command line (section 3).
 
 If you have any problem, remove the 'android' folder, start again from 1) and work your way down. If something still does not work as described here, please open a new issue describing exactly what you did, what happened, and what should have happened.
 
@@ -16,9 +16,8 @@ The [Android SDK][3] is necessary to build the app. There are different options 
 Open a terminal and type 'android' to start the Android SDK Manager. To build the ownCloud for Android app you will need to install at least the next SDK packages:
 
 * Android SDK Tools and Android SDK Platform-tools (already installed); upgrade to their last versions is usually a good idea.
-* Android SDK Build-Tools; any version from 20 or later should work fine; avoid preview versions, if any available.
-* Android 4.4.2 (API 19), SDK Platform; needed for build/test ownCloud app.
-* Android 6.0 (API 23), SDK Platform; needed to build the Android Support Library (not neeeded if working with Android Studio or gradle) and build the owncloud app.
+* Android SDK Build-Tools; any version from 23 or later should work fine; avoid preview versions, if any available.
+* Android 6.0 (API 23), SDK Platform; needed to build the owncloud app.
 
 Install any other package you consider interesting, such as emulators.
 
@@ -33,13 +32,13 @@ Next steps will assume you have a Github account and that you will get the code 
 
 * In a web browser, go to https://github.com/owncloud/android, and click the 'Fork' button near the top right corner.
 * Open a terminal and go on with the next steps in it.
-* Clone your forked repository: ```git clone git@github.com:YOURGITHUBNAME/android.git```.
+* Clone your forked repository: ```git clone --recursive git@github.com:YOURGITHUBNAME/android.git```.
 * Move to the project folder with ```cd android```.
 * Pull any changes from your remote branch 'master': ```git pull origin master```
 * Make official ownCloud repo known as upstream: ```git remote add upstream git@github.com:owncloud/android.git```
 * Make sure to get the latest changes from official android/master branch: ```git pull upstream master```
 
-At this point you can continue using different tools to build the project. Section 2, 3, 4, 5 and 6 describe the existing alternatives.
+At this point you can continue using different tools to build the project. Section 2 and 3 describe the existing alternatives.
 
 
 ### 2. Working with Android Studio.
@@ -50,9 +49,7 @@ We recommend to use the last version available in the stable channel of Android 
 
 To set up the project in Android Studio follow the next steps:
 
-* Complete the setup of project properties running:
-    - Windows: ```setup_env.bat gradle```
-    - Mac OS/Linux: ```./setup_env.sh gradle```
+* Make sure you have called ```git submodule update``` whenever you switched branches
 * Open Android Studio and select 'Import Project (Eclipse ADT, Gradle, etc)'. Browse through your file system to the folder 'android' where the project is located. Android Studio will then create the '.iml' files it needs. If you ever close the project but the files are still there, you just select 'Open Project...'. The file chooser will show an Android face as the folder icon, which you can select to reopen the project.
 * Android Studio will try to build the project directly after importing it. To build it manually, follow the menu path 'Build'/'Make Project', or just click the 'Play' button in the tool bar to build and run it in a mobile device or an emulator. The resulting APK file will be saved in the 'build/outputs/apk/' subdirectory in the project folder.
 
@@ -62,9 +59,7 @@ To set up the project in Android Studio follow the next steps:
 [Gradle][7] is the build system used by Android Studio to manage the building operations on Android apps. You do not need to install Gradle in your system, and Google recommends not to do it, but instead trusting on the [Graddle wrapper][8] included in the project.
 
 * Open a terminal and go to the 'android' directory that contains the repository.
-* Complete the setup of project properties running:
-    - Windows: ```setup_env.bat gradle```
-    - Mac OS/Linux: ```./setup_env.sh gradle```
+* Make sure you have called ```git submodule update``` whenever you switched branches
 * Run the 'clean' and 'build' tasks using the Gradle wrapper provided
     - Windows: ```gradlew.bat clean build```
     - Mac OS/Linux: ```./gradlew clean build```
@@ -72,63 +67,6 @@ To set up the project in Android Studio follow the next steps:
 The first time the Gradle wrapper is called, the correct Gradle version will be downloaded automatically. An Internet connection is needed for it works.
 	
 The generated APK file is saved in android/build/outputs/apk as android-debug.apk
-
-
-### 4. Building with Eclipse:
-
-[Eclipse][9] is still an option to work with Android apps, although the [ADT Plugin][10] needed is not in active development anymore. Next steps have been tested in Eclipse Luna.
-
-* Open a terminal and go to the 'android' directory that contains the repository.
-* Resolve necessary dependencies running:
-  - Windows: ```setup_env.bat ant```
-  - Mac OS/Linux: ```./setup_env.sh ant```
-* Open Eclipse and follow the menu path 'File'/'New'/'Project'
-* Choose the option 'Android'/'Android Project from Existing Code' and click 'Next'
-* Choose 'android/' folder as root
-* Choose the projects with the next names under the 'New Project Name' column:
-  - owncloud-android 
-  - android-support-appcompat-v7-exploded-aar
-  - android-support-design-exploded-aar
-  - com-getbase-floatingactionbutton-1-10-0-exploded-aar
-  - owncloud-android-workaround-accounts (optional)
-  - ownCloud Android Library
-  - ownCloud Sample Client (optional)
-  - ownCloud Android library test project (optional)
-  - ownCloud Android library test cases (optional)
-* Do not choose the project owncloud-android-tests; it's obsolete.
-* Do not enable 'Copy projects into workspace'.
-* Click the 'Finish' button.	
-* Wait for a while; if 'Build automatically' is enabled in Eclipse, some errors could appear during the creation of the projects, but all of them should finally disappear.
-* If any error persists, clean and build manually the next projects in order:
-  - ownCloud Android Library
-  - android-support-appcompat-v7-exploded-aar
-  - android-support-design-exploded-aar
-  - com-getbase-floatingactionbutton-1-10-0-exploded-aar
-  - owncloud-android
-* If any error on those projects persists, check the project properties. In the 'Android' section, API Level should be
-  - ownCloud Android Library	-> API level 19
-  - android-support-appcompat-v7-exploded-aa -> API level 23
-  - android-support-design-exploded-aa -> API level 23
-  - owncloud-android	-> API level 23 ; in this project, three library projects should appear referred in the bottom of the dialog: 
-    - libs\android-support-appcompat-v7-exploded-aar, 
-    - libs\android-support-design-exploded-aar, 
-    - owncloud-android-library. 
-    - Add them if needed.
-* After those actions you should be good to go. HAVE FUN!
-
-
-### 5. Building in command line with Ant:
-
-[Ant][10] can be used to build the ownCloud for Android app in a terminal. Be sure that the PATH variable in your environment contains the full path to the 'bin/' subdirectory in your Ant installation. Define also an ANDROID_HOME variable in your environment with the full path to your Android SDK (see section 1). Then follow the next steps:
-
-* Open a terminal and go to the 'android' directory that contains the repository.
-* Resolve necessary dependencies running:
-    - Windows: ```setup_env.bat ant```
-    - Mac OS/Linux: ```./setup_env.sh ant```
-* Run ```ant clean```.
-* Run ```ant debug``` to generate a debuggable version of the ownCloud app.
-
-The resulting APKs will be saved in the 'bin/' subdirectory of the project.
 
 
 [0]: https://github.com/owncloud/android/blob/master/CONTRIBUTING.md

@@ -66,8 +66,12 @@
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
   <string name="uploader_wrn_no_account_quit_btn_text">終了</string>
   <string name="uploader_error_title_no_file_to_upload">アップロードするファイルはありません</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s でテキストをファイルとしてアップロードできませんでした。</string>
   <string name="uploader_error_message_no_file_to_upload">受信データに正しいファイルが含まれていません。</string>
   <string name="uploader_error_title_file_cannot_be_uploaded">アップロードできません</string>
+  <string name="uploader_error_message_read_permission_not_granted">%1$s で受信ファイルを読み込む権限がありません</string>
+  <string name="uploader_error_message_source_file_not_found">アップロードするファイルが指定の場所にありません。ファイルがあるかどうか確認してください。</string>
+  <string name="uploader_error_message_source_file_not_copied">ファイルを一時フォルダーにコピーする際にエラーが発生しました。再送してください。</string>
   <string name="file_list_seconds_ago">数秒前</string>
   <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
   <string name="file_list_loading">読込中...</string>
@@ -91,6 +95,8 @@
   <string name="common_yes">はい</string>
   <string name="common_no">いいえ</string>
   <string name="common_ok">OK</string>
+  <string name="common_remove_upload">アップロードを削除</string>
+  <string name="common_retry_upload">アップロード再実行</string>
   <string name="common_cancel_sync">同期のキャンセル</string>
   <string name="common_cancel">キャンセル</string>
   <string name="common_back">戻る</string>
@@ -114,13 +120,22 @@
   <string name="uploader_upload_failed_credentials_error">アップロードに失敗しました,ログインし直す必要があります</string>
   <string name="uploads_view_title">アップロード</string>
   <string name="uploads_view_group_current_uploads">現在</string>
+  <string name="uploads_view_group_failed_uploads">失敗(タップして再試行)</string>
   <string name="uploads_view_group_finished_uploads">アップロード済み</string>
   <string name="uploads_view_upload_status_succeeded">完了</string>
+  <string name="uploads_view_upload_status_cancelled">キャンセル済</string>
+  <string name="uploads_view_upload_status_paused">停止中</string>
+  <string name="uploads_view_upload_status_failed_connection_error">接続エラー</string>
+  <string name="uploads_view_upload_status_failed_retry">アップロードは間もなく再試行されます</string>
   <string name="uploads_view_upload_status_failed_credentials_error">資格情報エラー</string>
   <string name="uploads_view_upload_status_failed_folder_error">フォルダーエラー</string>
   <string name="uploads_view_upload_status_failed_file_error">ファイルエラー</string>
+  <string name="uploads_view_upload_status_failed_localfile_error">ローカルファイルがありません</string>
   <string name="uploads_view_upload_status_failed_permission_error">権限エラー</string>
+  <string name="uploads_view_upload_status_conflict">競合</string>
+  <string name="uploads_view_upload_status_service_interrupted">強制終了されました</string>
   <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>
+  <string name="uploads_view_upload_status_waiting_for_wifi">WiFiの接続を待っています</string>
   <string name="uploads_view_later_waiting_to_upload">アップロード待ち</string>
   <string name="downloader_download_in_progress_ticker">ダウンロード中 ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% ダウンロード中 %2$s</string>
@@ -229,6 +244,7 @@
   <string name="filename_forbidden_charaters_from_server">ファイル名に1文字以上の無効な文字が含まれています</string>
   <string name="filename_empty">ファイル名を空にすることはできません。</string>
   <string name="wait_a_moment">しばらくお待ちください</string>
+  <string name="wait_checking_credentials">保存された資格情報をチェック</string>
   <string name="filedisplay_unexpected_bad_get_content">予期せぬ問題；他のアプリでファイルを選択してみてください。</string>
   <string name="filedisplay_no_file_selected">ファイルは選択されていません</string>
   <string name="activity_chooser_title">リンクを送信…</string>
@@ -293,6 +309,9 @@
   <string name="activity_chooser_send_file_title">送信</string>
   <string name="copy_link">リンクをコピー</string>
   <string name="clipboard_text_copied">クリップボードにコピー</string>
+  <string name="clipboard_no_text_to_copy">クリップボードにテキストはコピーされませんでした</string>
+  <string name="clipboard_uxexpected_error">クリップボードにテキストをコピーするときにエラーが発生しました。</string>
+  <string name="clipboard_label">%1$s からテキストをコピー</string>
   <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
   <string name="network_error_socket_exception">サーバーへの接続中にエラーが発生しました。</string>
   <string name="network_error_socket_timeout_exception">サーバーからの応答を待っている間にエラーが発生しました。操作を完了することができません。</string>
@@ -358,6 +377,7 @@
   <string name="pref_behaviour_entries_keep_file">元のフォルダに保持</string>
   <string name="pref_behaviour_entries_move">アプリフォルダに移動</string>
   <string name="share_dialog_title">共有</string>
+  <string name="share_file">%1$s を共有</string>
   <string name="share_with_user_section_title">ユーザーとグループで共有</string>
   <string name="share_no_users">ユーザーと共有されているデータはありません</string>
   <string name="share_add_user_or_group">ユーザーかグループを追加</string>
@@ -367,9 +387,12 @@
   <string name="share_via_link_password_title">セキュア</string>
   <string name="share_via_link_edit_permission_label">編集を許可</string>
   <string name="share_get_public_link_button">リンクを取得</string>
+  <string name="share_with_title">共有開始... </string>
+  <string name="share_with_edit_title">%1$s と共有</string>
   <string name="share_search">検索</string>
   <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>
   <string name="share_group_clarification">%1$s (グループ)</string>
+  <string name="share_remote_clarification">%1$s (リモート)</string>
   <string name="share_sharee_unavailable">申し訳ありませんが、このサーバーのバージョンではこのクライアントアプリ上で他のユーザーと共有することができません。
         \n管理者に相談してしてください。</string>
   <string name="share_privilege_can_share">共有可</string>
@@ -379,10 +402,16 @@
   <string name="share_privilege_can_edit_delete">削除</string>
   <string name="edit_share_unshare">共有の停止</string>
   <string name="edit_share_done">完了</string>
+  <string name="action_retry_uploads">再試行に失敗</string>
+  <string name="action_clear_failed_uploads">クリアに失敗</string>
+  <string name="action_clear_successful_uploads">クリアに成功</string>
+  <string name="action_clear_finished_uploads">終了済をクリア</string>
   <string name="action_switch_grid_view">グリッド表示</string>
   <string name="action_switch_list_view">リスト表示</string>
   <string name="manage_space_title">管理領域</string>
+  <string name="manage_space_description">%1$s のデータから 設定、データベース、サーバー証明書が完全に削除されます。\n\n ダウンロードされたファイルはそのまま残ります。\n\n 実行中はしばらくお待ちください。</string>
   <string name="manage_space_clear_data">データのクリア</string>
   <string name="manage_space_error">いくつかのファイルがクリアできませんでした。</string>
   <string name="permission_storage_access">ファイルをダウンロード &amp; アップロードする追加の権限が必要です。</string>
+  <string name="local_file_not_found_toast">ローカルファイルにファイルがありません</string>
 </resources>
