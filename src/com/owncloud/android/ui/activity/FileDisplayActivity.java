@@ -774,8 +774,8 @@ public class FileDisplayActivity extends HookActivity
                             OpenableColumns.DISPLAY_NAME));
                     Log_OC.v(TAG, "Display Name: " + displayName);
 
-                    displayName.replace(File.separatorChar, '_');
-                    displayName.replace(File.pathSeparatorChar, '_');
+                    displayName = displayName.replace(File.separatorChar, '_');
+                    displayName = displayName.replace(File.pathSeparatorChar, '_');
 
                     remotePath += displayName;
 
