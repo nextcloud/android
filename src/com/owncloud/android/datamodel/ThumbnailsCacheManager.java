@@ -167,8 +167,8 @@ public class ThumbnailsCacheManager {
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
                                        Account account, ProgressBar progressWheel) {
-        this(imageView, storageManager, account);
-        mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
+            this(imageView, storageManager, account);
+            mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
         }
 
         public ThumbnailGenerationTask(ImageView imageView) {
