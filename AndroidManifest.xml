@@ -116,7 +116,7 @@
             android:enabled="true"
             android:exported="true"
             android:label="@string/sync_string_files"
-            android:syncable="true" />
+            android:syncable="false" />
 
         <provider
             android:name=".providers.UsersAndGroupsSearchProvider"
