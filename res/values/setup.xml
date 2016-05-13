@@ -53,7 +53,7 @@
     <bool name="imprint_enabled">false</bool> 
     <bool name="recommend_enabled">true</bool>
     <bool name="feedback_enabled">true</bool>
-    <bool name="logger_enabled">true</bool>
+    <bool name="logger_enabled">false</bool>
     <string name="url_help">http://owncloud.com/mobile/help</string>
     <string name="url_imprint"></string>
     <string name="mail_recommend">"mailto:"</string>

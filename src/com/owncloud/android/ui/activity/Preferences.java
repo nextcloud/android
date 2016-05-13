@@ -270,7 +270,8 @@ public class Preferences extends PreferenceActivity
             
         }
 
-        if (BuildConfig.DEBUG) {
+        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
+        if (loggerEnabled) {
             Preference pLog =  findPreference("log");
             if (pLog != null ){
                 pLog.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -347,7 +348,6 @@ public class Preferences extends PreferenceActivity
             }
         }
 
-        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled);
         Preference pLogger =  findPreference("logger");
         if (pLogger != null){
             if (loggerEnabled) {
