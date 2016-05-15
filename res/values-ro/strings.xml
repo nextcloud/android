@@ -84,6 +84,7 @@
   <string name="filedetails_created">Creat:</string>
   <string name="filedetails_modified">Modificat:</string>
   <string name="filedetails_download">Descarcă</string>
+  <string name="filedetails_sync_file">Sincronizează</string>
   <string name="filedetails_renamed_in_upload_msg">Fișierul a fost redenumit %1$s în timpul încărcării</string>
   <string name="action_share">Partajează</string>
   <string name="common_yes">Da</string>
@@ -93,6 +94,7 @@
   <string name="common_back">Înapoi</string>
   <string name="common_error">Eroare</string>
   <string name="common_loading">Se încarcă...</string>
+  <string name="common_unknown">necunoscut</string>
   <string name="common_error_unknown">Eroare necunoscută</string>
   <string name="about_title">Despre</string>
   <string name="change_password">Schimbă parola</string>
@@ -106,7 +108,10 @@
   <string name="uploader_upload_failed_content_single">Încărcarea fișierului %1$s nu a putut fi încheiată</string>
   <string name="uploads_view_title">Încărcări</string>
   <string name="uploads_view_group_current_uploads">Curent</string>
+  <string name="uploads_view_group_finished_uploads">Încărcat</string>
   <string name="uploads_view_upload_status_succeeded">Terminat</string>
+  <string name="uploads_view_upload_status_cancelled">Anulat</string>
+  <string name="uploads_view_upload_status_conflict">Conflict</string>
   <string name="uploads_view_upload_status_unknown_fail">Eroare necunoscută</string>
   <string name="downloader_download_in_progress_ticker">Se descarcă...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Se descarcă %2$s</string>
