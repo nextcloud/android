@@ -316,4 +316,5 @@
   <string name="share_privilege_can_edit_create">creare</string>
   <string name="share_privilege_can_edit_change">modifică</string>
   <string name="share_privilege_can_edit_delete">ștergere</string>
+  <string name="edit_share_unshare">Oprește partajarea</string>
 </resources>
