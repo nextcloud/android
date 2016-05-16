@@ -794,10 +794,14 @@ public class FileDisplayActivity extends HookActivity
                     cursor.close();
                     return;
 
+                } else {
+                    Toast.makeText(this, R.string.uploader_error_message_no_file_to_upload,
+                            Toast.LENGTH_SHORT).show();
                 }
                 // and what happens in case of error?; wrong target name for the upload
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error while trying to copy and upload a schema type content file ", e);
+                Toast.makeText(this, R.string.common_error_unknown, Toast.LENGTH_SHORT).show();
             }
         } else {
             remotePath += new File(filePath).getName();
