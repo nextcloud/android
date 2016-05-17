@@ -316,4 +316,5 @@
   <string name="share_privilege_can_edit_create">opret</string>
   <string name="share_privilege_can_edit_change">tilpas</string>
   <string name="share_privilege_can_edit_delete">slet</string>
+  <string name="edit_share_unshare">Stop deling</string>
 </resources>

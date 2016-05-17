@@ -64,6 +64,7 @@
   <string name="uploader_wrn_no_account_text">设备上无 %1$s 账号，需要先创建一个账号。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">设置</string>
   <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
+  <string name="uploader_error_title_no_file_to_upload">文件没有上传</string>
   <string name="file_list_seconds_ago">几秒前</string>
   <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
   <string name="file_list_loading">加载中...</string>
