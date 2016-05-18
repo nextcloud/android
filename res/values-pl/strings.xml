@@ -114,6 +114,7 @@
   <string name="uploads_view_upload_status_failed_credentials_error">Błąd uwierzytelniania</string>
   <string name="uploads_view_upload_status_failed_folder_error">Błąd folderu</string>
   <string name="uploads_view_upload_status_failed_file_error">Błąd pliku</string>
+  <string name="uploads_view_upload_status_failed_localfile_error">Nie odnaleziono pliku lokalnego</string>
   <string name="uploads_view_upload_status_failed_permission_error">Błąd uprawnień</string>
   <string name="uploads_view_upload_status_unknown_fail">Nieznany błąd</string>
   <string name="uploads_view_later_waiting_to_upload">Oczekuję na przesyłanie</string>
