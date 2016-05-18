@@ -493,6 +493,7 @@ public class FileUploader extends Service
 
                     newUpload = new UploadFileOperation(
                             account,
+                            files[i],
                             ocUpload,
                             chunked,
                             forceOverwrite,
@@ -546,6 +547,7 @@ public class FileUploader extends Service
 
             UploadFileOperation newUpload = new UploadFileOperation(
                     account,
+                    null,
                     upload,
                     chunked,
                     upload.isForceOverwrite(),  // TODO should be read from DB?
