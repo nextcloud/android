@@ -90,11 +90,11 @@ import java.util.Vector;
 /**
  * This can be used to upload things to an ownCloud instance.
  */
-public class Uploader extends FileActivity
+public class ReceiveExternalFilesActivity extends FileActivity
         implements OnItemClickListener, android.view.View.OnClickListener,
     CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener {
 
-    private static final String TAG = Uploader.class.getSimpleName();
+    private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
 
     private static final String FTAG_TASK_RETAINER_FRAGMENT = "TASK_RETAINER_FRAGMENT";
 

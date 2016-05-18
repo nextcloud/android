@@ -66,7 +66,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
      * But we really, really, really want that the files are copied to temporary files in the OC folder and then
      * uploaded, even if the user gets bored of waiting while the copy finishes. And we can't forward the job to
      * another {@link Context}, because if any of the content:// URIs is constrained by a TEMPORARY READ PERMISSION,
-     * trying to open it will fail with a {@link SecurityException} after the user leaves the Uploader Activity. We
+     * trying to open it will fail with a {@link SecurityException} after the user leaves the ReceiveExternalFilesActivity Activity. We
      * really tried it.
      *
      * So we are doomed to leak here for the best interest of the user. Please, don't do similar in other places.
@@ -238,7 +238,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             listener.onTmpFilesCopied(result);
 
         } else {
-            Log_OC.i(TAG, "User left Uploader activity before the temporal copies were finished ");
+            Log_OC.i(TAG, "User left ReceiveExternalFilesActivity activity before the temporal copies were finished ");
             if (result != ResultCode.OK) {
                 // if the user left the app, report background error in a Toast
                 int messageId;
