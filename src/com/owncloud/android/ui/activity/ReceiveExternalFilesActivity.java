@@ -79,7 +79,6 @@ import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.UriUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -485,7 +484,30 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 getContentResolver(),
                 FileUploader.LOCAL_BEHAVIOUR_FORGET);
 
-        uploader.uploadUris();
+        UriUploader.UriUploadCode resultCode = uploader.uploadUris();
+
+        if (resultCode == UriUploader.UriUploadCode.OK) {
+            finish();
+        } else {
+
+            int messageResTitle = R.string.uploader_error_title_file_cannot_be_uploaded;
+            int messageResId = R.string.common_error_unknown;
+
+            if (resultCode == UriUploader.UriUploadCode.ERROR_NO_FILE_TO_UPLOAD) {
+                messageResId = R.string.uploader_error_message_no_file_to_upload;
+                messageResTitle = R.string.uploader_error_title_no_file_to_upload;
+            } else if (resultCode == UriUploader.UriUploadCode.ERROR_READ_PERMISSION_NOT_GRANTED) {
+                messageResId = R.string.uploader_error_message_read_permission_not_granted;
+            } else if (resultCode == UriUploader.UriUploadCode.ERROR_UNKNOWN) {
+                messageResId = R.string.common_error_unknown;
+            }
+
+            showErrorDialog(
+                    messageResId,
+                    messageResTitle
+            );
+        }
+
 
         /*try {
 

@@ -53,6 +53,14 @@ public class UriUploader implements
     private Account mAccount;
     private ContentResolver mContentResolver;
 
+    private UriUploadCode mCode = UriUploadCode.OK;
+
+    public enum UriUploadCode {
+        OK,
+        ERROR_UNKNOWN,
+        ERROR_NO_FILE_TO_UPLOAD,
+        ERROR_READ_PERMISSION_NOT_GRANTED
+    }
 
     public UriUploader(
             Activity context,
@@ -74,7 +82,7 @@ public class UriUploader implements
         this.mBehaviour = behaviour;
     }
 
-    public void uploadUris() {
+    public UriUploadCode uploadUris() {
 
         try {
 
@@ -110,39 +118,23 @@ public class UriUploader implements
                         contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
 
             } else if (schemeFileCounter == 0) {
-                if (mActivity instanceof ReceiveExternalFilesActivity) {
-                    ((ReceiveExternalFilesActivity) mActivity).showErrorDialog(
-                            R.string.uploader_error_message_no_file_to_upload,
-                            R.string.uploader_error_title_no_file_to_upload
-                    );
-                }
+                mCode = UriUploadCode.ERROR_NO_FILE_TO_UPLOAD;
 
-            } else {
-                mActivity.finish();
             }
 
         } catch (SecurityException e) {
+            mCode = UriUploadCode.ERROR_READ_PERMISSION_NOT_GRANTED;
             Log_OC.e(TAG, "Permissions fail", e);
-            if (mActivity instanceof ReceiveExternalFilesActivity) {
-                ((ReceiveExternalFilesActivity) mActivity).showErrorDialog(
-                        R.string.uploader_error_message_read_permission_not_granted,
-                        R.string.uploader_error_title_file_cannot_be_uploaded
-                );
-            }
 
         } catch (Exception e) {
+            mCode = UriUploadCode.ERROR_UNKNOWN;
             Log_OC.e(TAG, "Unexpted error", e);
-            if (mActivity instanceof ReceiveExternalFilesActivity) {
-                ((ReceiveExternalFilesActivity) mActivity).showErrorDialog(
-                        R.string.common_error_unknown,
-                        R.string.uploader_error_title_file_cannot_be_uploaded
-                );
-            }
 
         } finally {
             // Save the path to shared preferences; even if upload is not possible, user chose the folder
             PreferenceManager.setLastUploadPath(mUploadPath, mActivity);
         }
+        return mCode;
     }
 
     private String generateDiplayName() {
