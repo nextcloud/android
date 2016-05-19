@@ -27,6 +27,7 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
@@ -75,6 +76,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
+import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.UriUtils;
@@ -476,7 +478,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @SuppressLint("NewApi")
     public void uploadFiles() {
 
-        try {
+        UriUploader uploader = new UriUploader(this,
+                mStreamsToUpload,
+                mUploadPath,
+                getAccount(),
+                getContentResolver());
+
+        uploader.uploadUris();
+
+        /*try {
 
             List<Uri> contentUris = new ArrayList<>();
             List<String> contentRemotePaths = new ArrayList<>();
@@ -536,7 +546,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         } finally {
             // Save the path to shared preferences; even if upload is not possible, user chose the folder
             PreferenceManager.setLastUploadPath(mUploadPath, this);
-        }
+        }*/
     }
 
 
@@ -833,7 +843,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
      * @param messageResTitle   Resource id of the title to show in the dialog. 0 to show default alert message.
      *                          -1 to show no title.
      */
-    private void showErrorDialog(int messageResId, int messageResTitle) {
+    public void showErrorDialog(int messageResId, int messageResTitle) {
 
         ConfirmationDialogFragment errorDialog = ConfirmationDialogFragment.newInstance(
             messageResId,
