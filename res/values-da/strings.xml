@@ -25,7 +25,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Indstillinger</string>
   <string name="drawer_item_uploads_list">Uploade filer</string>
-  <string name="drawer_item_logs">Logregistreringer</string>
   <string name="drawer_close">Luk</string>
   <string name="drawer_open">Åbn</string>
   <string name="prefs_category_general">Generel</string>

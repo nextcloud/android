@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Einstellungen</string>
   <string name="drawer_item_uploads_list">Uploads</string>
-  <string name="drawer_item_logs">Protokolle</string>
   <string name="drawer_close">Schließen</string>
   <string name="drawer_open">Öffnen</string>
   <string name="prefs_category_general">Allgemein</string>

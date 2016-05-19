@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">设置</string>
   <string name="drawer_item_uploads_list">上传</string>
-  <string name="drawer_item_logs">日志</string>
   <string name="drawer_close">关闭</string>
   <string name="drawer_open">打开</string>
   <string name="prefs_category_general">常规</string>

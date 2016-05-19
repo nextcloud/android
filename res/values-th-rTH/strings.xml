@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">ตั้งค่า</string>
   <string name="drawer_item_uploads_list">อัพโหลด</string>
-  <string name="drawer_item_logs">บันทึก</string>
   <string name="drawer_close">ปิด</string>
   <string name="drawer_open">เปิด</string>
   <string name="prefs_category_general">ทั่วไป</string>

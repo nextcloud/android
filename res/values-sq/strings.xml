@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Llogari</string>
   <string name="drawer_item_uploads_list">Ngarkime</string>
-  <string name="drawer_item_logs">Regjistra</string>
   <string name="drawer_close">Mbylle</string>
   <string name="drawer_open">Hape</string>
   <string name="prefs_category_general">Të përgjithshme</string>

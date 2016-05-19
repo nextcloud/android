@@ -24,7 +24,6 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Parinktys</string>
-  <string name="drawer_item_logs">Žurnalai</string>
   <string name="drawer_close">Užverti</string>
   <string name="drawer_open">Atverti</string>
   <string name="prefs_category_general">Bendras</string>

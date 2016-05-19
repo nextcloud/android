@@ -25,7 +25,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Paramètres</string>
   <string name="drawer_item_uploads_list">Cargaments</string>
-  <string name="drawer_item_logs">Logs</string>
   <string name="drawer_close">Tampar</string>
   <string name="drawer_open">Dobrir</string>
   <string name="prefs_category_general">General</string>

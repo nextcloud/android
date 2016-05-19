@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Setări</string>
   <string name="drawer_item_uploads_list">Încărcări</string>
-  <string name="drawer_item_logs">Înregistrări</string>
   <string name="drawer_close">Închide</string>
   <string name="drawer_open">Deschide</string>
   <string name="prefs_category_general">General</string>

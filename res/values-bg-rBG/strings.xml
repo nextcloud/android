@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Настройки</string>
   <string name="drawer_item_uploads_list">Качено</string>
-  <string name="drawer_item_logs">Логове</string>
   <string name="drawer_close">Затвори</string>
   <string name="drawer_open">Отвори</string>
   <string name="prefs_category_general">Общи</string>

@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Ayarlar</string>
   <string name="drawer_item_uploads_list">Yüklemeler</string>
-  <string name="drawer_item_logs">Günlükler</string>
   <string name="drawer_close">Kapat</string>
   <string name="drawer_open">Aç</string>
   <string name="prefs_category_general">Genel</string>

@@ -24,7 +24,6 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">الإعدادات</string>
-  <string name="drawer_item_logs">سجلّ</string>
   <string name="drawer_close">إغلاق</string>
   <string name="drawer_open">افتح</string>
   <string name="prefs_category_general">عام</string>

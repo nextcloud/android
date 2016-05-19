@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Поставке</string>
   <string name="drawer_item_uploads_list">Отпремања</string>
-  <string name="drawer_item_logs">Записници</string>
   <string name="drawer_close">Затвори</string>
   <string name="drawer_open">Отвори</string>
   <string name="prefs_category_general">Опште</string>

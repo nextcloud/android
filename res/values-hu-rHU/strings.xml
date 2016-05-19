@@ -25,7 +25,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Beállítások</string>
   <string name="drawer_item_uploads_list">Feltöltések</string>
-  <string name="drawer_item_logs">Naplófájlok</string>
   <string name="drawer_close">Bezárás</string>
   <string name="drawer_open">Megnyitás</string>
   <string name="prefs_category_general">Általános</string>

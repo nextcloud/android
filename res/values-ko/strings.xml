@@ -25,7 +25,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">설정</string>
   <string name="drawer_item_uploads_list">업로드</string>
-  <string name="drawer_item_logs">로그</string>
   <string name="drawer_close">닫기</string>
   <string name="drawer_open">열기</string>
   <string name="prefs_category_general">일반</string>

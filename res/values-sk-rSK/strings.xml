@@ -25,7 +25,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Nastavenia</string>
   <string name="drawer_item_uploads_list">Nahranie</string>
-  <string name="drawer_item_logs">Logy</string>
   <string name="drawer_close">Zavrieť</string>
   <string name="drawer_open">Otvoriť</string>
   <string name="prefs_category_general">Všeobecné</string>

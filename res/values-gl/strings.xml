@@ -25,7 +25,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Axustes</string>
   <string name="drawer_item_uploads_list">Envíos</string>
-  <string name="drawer_item_logs">Rexistros</string>
   <string name="drawer_close">Pechar</string>
   <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">Xeral</string>

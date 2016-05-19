@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Ρυθμίσεις</string>
   <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
-  <string name="drawer_item_logs">Αρχεία καταγραφών</string>
   <string name="drawer_close">Κλείσιμο</string>
   <string name="drawer_open">Άνοιγμα</string>
   <string name="prefs_category_general">Γενικά</string>

@@ -21,7 +21,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">تنظیمات</string>
   <string name="drawer_item_uploads_list">آپلودها</string>
-  <string name="drawer_item_logs">لاگ‌ها</string>
   <string name="drawer_close">بستن</string>
   <string name="drawer_open">باز کردن</string>
   <string name="prefs_category_general">عمومی</string>
