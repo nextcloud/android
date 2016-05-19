@@ -19,7 +19,6 @@
 package com.owncloud.android.ui.helpers;
 
 import android.accounts.Account;
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.Parcelable;
@@ -30,7 +29,6 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.UriUtils;
