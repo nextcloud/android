@@ -37,14 +37,12 @@ import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
 import android.preference.PreferenceManager;
-import android.provider.OpenableColumns;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -94,11 +92,9 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
-import com.owncloud.android.utils.UriUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -751,7 +747,8 @@ public class FileDisplayActivity extends HookActivity
                 mStreamsToUpload,
                 remotePath,
                 getAccount(),
-                behaviour);
+                behaviour,
+                false);
 
         uploader.uploadUris();
 

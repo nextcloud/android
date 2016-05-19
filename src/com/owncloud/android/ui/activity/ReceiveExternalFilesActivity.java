@@ -479,7 +479,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mStreamsToUpload,
                 mUploadPath,
                 getAccount(),
-                FileUploader.LOCAL_BEHAVIOUR_FORGET);
+                FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                true);
 
         UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
 
@@ -826,7 +827,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
      */
     @Override
     public void onTmpFilesCopied(ResultCode result) {
-        dismissWaitingCopyDialog();
+        dismissLoadingDialog();
         finish();
     }
 

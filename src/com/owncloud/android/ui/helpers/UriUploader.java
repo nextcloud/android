@@ -27,9 +27,9 @@ import android.os.Parcelable;
 import com.owncloud.android.R;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ReceiveExternalFilesActivity;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.utils.DisplayUtils;
@@ -39,18 +39,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UriUploader implements
-        CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener  {
+public class UriUploader {
 
     private final String TAG = UriUploader.class.getSimpleName();
 
-    private Activity mActivity;
+    private FileActivity mActivity;
     private ArrayList<Parcelable> mUrisToUpload;
 
     private int mBehaviour;
 
     private String mUploadPath;
     private Account mAccount;
+    private boolean mShowWaitingDialog;
 
     private UriUploaderResultCode mCode = UriUploaderResultCode.OK;
 
@@ -62,17 +62,19 @@ public class UriUploader implements
     }
 
     public UriUploader(
-            Activity context,
+            FileActivity activity,
             ArrayList<Parcelable> uris,
             String uploadPath,
             Account account,
-            int behaviour
+            int behaviour,
+            boolean showWaitingDialog
     ) {
-        mActivity = context;
+        mActivity = activity;
         mUrisToUpload = uris;
         mUploadPath = uploadPath;
         mAccount = account;
         mBehaviour = behaviour;
+        mShowWaitingDialog = showWaitingDialog;
     }
 
     public void setBehaviour(int behaviour) {
@@ -170,11 +172,13 @@ public class UriUploader implements
      * @param remotePaths       Array of absolute paths to set to the uploaded files
      */
     private void copyThenUpload(Uri[] sourceUris, String[] remotePaths) {
-        if (mActivity instanceof ReceiveExternalFilesActivity) {
-            ((ReceiveExternalFilesActivity) mActivity).showWaitingCopyDialog();
+        if (mShowWaitingDialog) {
+            mActivity.showLoadingDialog(mActivity.getResources().
+                    getString(R.string.wait_for_tmp_copy_from_private_storage));
         }
 
-        CopyAndUploadContentUrisTask copyTask = new CopyAndUploadContentUrisTask(this, mActivity);
+        CopyAndUploadContentUrisTask copyTask = new CopyAndUploadContentUrisTask
+                ((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener)mActivity, mActivity);
 
         copyTask.execute(
                 CopyAndUploadContentUrisTask.makeParamsToExecute(
@@ -186,14 +190,5 @@ public class UriUploader implements
         );
     }
 
-    /**
-     * Process the result of CopyAndUploadContentUrisTask
-     */
-    @Override
-    public void onTmpFilesCopied(RemoteOperationResult.ResultCode result) {
-        if (mActivity instanceof ReceiveExternalFilesActivity) {
-            ((ReceiveExternalFilesActivity) mActivity).dismissWaitingCopyDialog();
-            mActivity.finish();
-        }
-    }
+
 }
