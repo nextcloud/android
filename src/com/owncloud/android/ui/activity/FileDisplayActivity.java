@@ -728,13 +728,9 @@ public class FileDisplayActivity extends HookActivity
 
 
     private void requestSimpleUpload(final Intent data, int resultCode) {
-       /* String filePath = null;
-        String mimeType = null;*/
-
 
         int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader.LOCAL_BEHAVIOUR_MOVE :
                 FileUploader.LOCAL_BEHAVIOUR_COPY;
-
 
         ArrayList<Parcelable> mStreamsToUpload = new ArrayList<Parcelable>() {{
             add(data.getData());
@@ -752,147 +748,6 @@ public class FileDisplayActivity extends HookActivity
 
         uploader.uploadUris();
 
-
-        /*Uri selectedFileUri = data.getData();
-
-        try {
-            mimeType = getContentResolver().getType(selectedFileUri);
-
-            String fileManagerString = selectedFileUri.getPath();
-            String selectedFilePath = UriUtils.getLocalPath(selectedFileUri, this);
-
-            if (selectedFilePath != null)
-                filePath = selectedFilePath;
-            else
-                filePath = fileManagerString;
-
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Unexpected exception when trying to read the result of " +
-                    "Intent.ACTION_GET_CONTENT", e);
-
-        } finally {
-            if (filePath == null) {
-                Log_OC.e(TAG, "Couldn't resolve path to file");
-                Toast t = Toast.makeText(
-                        this, getString(R.string.filedisplay_unexpected_bad_get_content),
-                        Toast.LENGTH_LONG
-                );
-                t.show();
-                return;
-            }
-        }*/
-
-
-
-       /* Uri selectedFileUri = data.getData();
-
-        try {
-            mimeType = getContentResolver().getType(selectedFileUri);
-
-            String fileManagerString = selectedFileUri.getPath();
-            String selectedFilePath = UriUtils.getLocalPath(selectedFileUri, this);
-
-            if (selectedFilePath != null)
-                filePath = selectedFilePath;
-            else
-                filePath = fileManagerString;
-
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Unexpected exception when trying to read the result of " +
-                    "Intent.ACTION_GET_CONTENT", e);
-
-        } finally {
-            if (filePath == null) {
-                Log_OC.e(TAG, "Couldn't resolve path to file");
-                Toast t = Toast.makeText(
-                        this, getString(R.string.filedisplay_unexpected_bad_get_content),
-                        Toast.LENGTH_LONG
-                );
-                t.show();
-                return;
-            }
-        }
-
-        Intent i = new Intent(this, FileUploader.class);
-        i.putExtra(FileUploader.KEY_ACCOUNT,
-                getAccount());
-        OCFile currentDir = getCurrentDir();
-        String remotePath = (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
-
-        if (selectedFileUri.toString().startsWith(UriUtils.URI_CONTENT_SCHEME)) {
-            Cursor cursor = getContentResolver().query(selectedFileUri, null, null, null, null);
-            try {
-                if (cursor != null && cursor.moveToFirst()) {
-                    String displayName = cursor.getString(cursor.getColumnIndex(
-                            OpenableColumns.DISPLAY_NAME));
-                    Log_OC.v(TAG, "Display Name: " + displayName);
-
-                    displayName = displayName.replace(File.separatorChar, '_');
-
-                    remotePath += displayName;
-
-                    // Check if extension is not included in file display name and add file extension
-                    int pos = displayName.lastIndexOf('.');
-                    if (pos < 0) {
-                        remotePath += DisplayUtils.getFileExtension(filePath);
-                    }
-
-                    // URi and remote path parameters
-                    Uri[] uris = new Uri[]{selectedFileUri};
-                    String[] remotePaths = new String[]{remotePath};;
-
-                    // Call to copy and then upload the selected file
-                    copyThenUpload(uris, remotePaths);
-
-                    cursor.close();
-                    return;
-
-                } else {
-                    Toast.makeText(this, R.string.uploader_error_message_no_file_to_upload,
-                            Toast.LENGTH_SHORT).show();
-                }
-                // and what happens in case of error?; wrong target name for the upload
-            } catch (Exception e) {
-                Log_OC.e(TAG, "Error while trying to copy and upload a schema type content file ", e);
-                Toast.makeText(this, R.string.common_error_unknown, Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            remotePath += new File(filePath).getName();
-        }
-
-        int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader.LOCAL_BEHAVIOUR_MOVE :
-                FileUploader.LOCAL_BEHAVIOUR_COPY;
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(
-                this,
-                getAccount(),
-                filePath,
-                remotePath,
-                behaviour,
-                mimeType,
-                false,          // do not create parent folder if not existent
-                UploadFileOperation.CREATED_BY_USER
-        );*/
-
-    }
-
-    /**
-     * Call asyncTask to copy passed files from uris in temporal files
-     *
-     * @param sourceUris        Array of content:// URIs to the files to upload
-     * @param remotePaths       Array of absolute paths to set to the uploaded files
-     */
-    private void copyThenUpload(Uri[] sourceUris, String[] remotePaths) {
-
-        CopyAndUploadContentUrisTask copyTask = new CopyAndUploadContentUrisTask(this, getApplicationContext());
-        copyTask.execute(
-                CopyAndUploadContentUrisTask.makeParamsToExecute(
-                        getAccount(),
-                        sourceUris,
-                        remotePaths,
-                        getContentResolver()
-                )
-        );
     }
 
     /**

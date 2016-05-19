@@ -505,125 +505,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     messageResTitle
             );
         }
-
-
-        /*try {
-
-            List<Uri> contentUris = new ArrayList<>();
-            List<String> contentRemotePaths = new ArrayList<>();
-
-            int schemeFileCounter = 0;
-
-            for (Parcelable sourceStream : mStreamsToUpload) {
-                Uri sourceUri = (Uri) sourceStream;
-                if (sourceUri != null) {
-                    String displayName = UriUtils.getDisplayNameForUri(sourceUri, this);
-                    if (displayName == null) {
-                        displayName = generateDiplayName();
-                    }
-                    String remotePath = mUploadPath + displayName;
-
-                    if (ContentResolver.SCHEME_CONTENT.equals(sourceUri.getScheme())) {
-                        contentUris.add(sourceUri);
-                        contentRemotePaths.add(remotePath);
-
-                    } else if (ContentResolver.SCHEME_FILE.equals(sourceUri.getScheme())) {
-                        /// file: uris should point to a local file, should be safe let FileUploader handle them
-                        requestUpload(sourceUri.getPath(), remotePath);
-                        schemeFileCounter++;
-                    }
-                }
-            }
-
-            if (!contentUris.isEmpty()) {
-                /// content: uris will be copied to temporary files before calling {@link FileUploader}
-                copyThenUpload(contentUris.toArray(new Uri[contentUris.size()]),
-                    contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
-
-            } else if (schemeFileCounter == 0) {
-                showErrorDialog(
-                    R.string.uploader_error_message_no_file_to_upload,
-                    R.string.uploader_error_title_no_file_to_upload
-                );
-
-            } else {
-                finish();
-            }
-
-        } catch (SecurityException e) {
-            Log_OC.e(TAG, "Permissions fail", e);
-            showErrorDialog(
-                R.string.uploader_error_message_read_permission_not_granted,
-                R.string.uploader_error_title_file_cannot_be_uploaded
-            );
-
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Unexpted error", e);
-            showErrorDialog(
-                R.string.common_error_unknown,
-                R.string.uploader_error_title_file_cannot_be_uploaded
-            );
-
-        } finally {
-            // Save the path to shared preferences; even if upload is not possible, user chose the folder
-            PreferenceManager.setLastUploadPath(mUploadPath, this);
-        }*/
     }
-
-
-    private String generateDiplayName() {
-        return getString(R.string.common_unknown) +
-            "-" + DisplayUtils.unixTimeToHumanReadable(System.currentTimeMillis());
-    }
-
-    /**
-     *
-     * @param sourceUris        Array of content:// URIs to the files to upload
-     * @param remotePaths       Array of absolute paths to set to the uploaded files
-     */
-    private void copyThenUpload(Uri[] sourceUris, String[] remotePaths) {
-        showWaitingCopyDialog();
-
-        CopyAndUploadContentUrisTask copyTask = new CopyAndUploadContentUrisTask(this, this);
-        FragmentManager fm = getSupportFragmentManager();
-        TaskRetainerFragment taskRetainerFragment =
-            (TaskRetainerFragment) fm.findFragmentByTag(FTAG_TASK_RETAINER_FRAGMENT);
-        taskRetainerFragment.setTask(copyTask);
-        copyTask.execute(
-            CopyAndUploadContentUrisTask.makeParamsToExecute(
-                getAccount(),
-                sourceUris,
-                remotePaths,
-                getContentResolver()
-            )
-        );
-    }
-
-    /**
-     * Requests the upload of a file in the local file system to {@link FileUploader} service.
-     *
-     * The original file will be left in its original location, and will not be duplicated.
-     * As a side effect, the user will see the file as not uploaded when accesses to the OC app.
-     * This is considered as acceptable, since when a file is shared from another app to OC,
-     * the usual workflow will go back to the original app.
-     *
-     * @param localPath     Absolute path in the local file system to the file to upload.
-     * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
-     */
-    private void requestUpload(String localPath, String remotePath) {
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(
-            this,
-            getAccount(),
-            localPath,
-            remotePath,
-            FileUploader.LOCAL_BEHAVIOUR_FORGET,
-            null,       // MIME type will be detected from file name
-            false,      // do not create parent folder if not existent
-            UploadFileOperation.CREATED_BY_USER
-        );
-    }
-
 
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
@@ -832,39 +714,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     /**
-     * Show waiting for copy dialog
-     */
-    public void showWaitingCopyDialog() {
-        // Construct dialog
-        LoadingDialog loading = new LoadingDialog(
-                getResources().getString(R.string.wait_for_tmp_copy_from_private_storage));
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        loading.show(ft, DIALOG_WAIT_COPY_FILE);
-
-    }
-
-
-    /**
-     * Dismiss waiting for copy dialog
-     */
-    public void dismissWaitingCopyDialog() {
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_COPY_FILE);
-        if (frag != null) {
-            LoadingDialog loading = (LoadingDialog) frag;
-            loading.dismiss();
-        }
-    }
-
-
-    /**
      * Show an error dialog, forcing the user to click a single button to exit the activity
      *
      * @param messageResId      Resource id of the message to show in the dialog.
      * @param messageResTitle   Resource id of the title to show in the dialog. 0 to show default alert message.
      *                          -1 to show no title.
      */
-    public void showErrorDialog(int messageResId, int messageResTitle) {
+    private void showErrorDialog(int messageResId, int messageResTitle) {
 
         ConfirmationDialogFragment errorDialog = ConfirmationDialogFragment.newInstance(
             messageResId,
