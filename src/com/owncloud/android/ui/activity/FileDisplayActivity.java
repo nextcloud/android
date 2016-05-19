@@ -42,6 +42,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.support.design.widget.Snackbar;
@@ -83,6 +84,7 @@ import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
@@ -95,6 +97,8 @@ import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -727,11 +731,64 @@ public class FileDisplayActivity extends HookActivity
     }
 
 
-    private void requestSimpleUpload(Intent data, int resultCode) {
-        String filePath = null;
-        String mimeType = null;
+    private void requestSimpleUpload(final Intent data, int resultCode) {
+       /* String filePath = null;
+        String mimeType = null;*/
 
-        Uri selectedFileUri = data.getData();
+
+        int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader.LOCAL_BEHAVIOUR_MOVE :
+                FileUploader.LOCAL_BEHAVIOUR_COPY;
+
+
+        ArrayList<Parcelable> mStreamsToUpload = new ArrayList<Parcelable>() {{
+            add(data.getData());
+        }};
+
+        OCFile currentDir = getCurrentDir();
+        String remotePath = (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
+
+        UriUploader uploader = new UriUploader(this,
+                mStreamsToUpload,
+                remotePath,
+                getAccount(),
+                getContentResolver(),
+                behaviour);
+
+        uploader.uploadUris();
+
+
+        /*Uri selectedFileUri = data.getData();
+
+        try {
+            mimeType = getContentResolver().getType(selectedFileUri);
+
+            String fileManagerString = selectedFileUri.getPath();
+            String selectedFilePath = UriUtils.getLocalPath(selectedFileUri, this);
+
+            if (selectedFilePath != null)
+                filePath = selectedFilePath;
+            else
+                filePath = fileManagerString;
+
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Unexpected exception when trying to read the result of " +
+                    "Intent.ACTION_GET_CONTENT", e);
+
+        } finally {
+            if (filePath == null) {
+                Log_OC.e(TAG, "Couldn't resolve path to file");
+                Toast t = Toast.makeText(
+                        this, getString(R.string.filedisplay_unexpected_bad_get_content),
+                        Toast.LENGTH_LONG
+                );
+                t.show();
+                return;
+            }
+        }*/
+
+
+
+       /* Uri selectedFileUri = data.getData();
 
         try {
             mimeType = getContentResolver().getType(selectedFileUri);
@@ -819,7 +876,7 @@ public class FileDisplayActivity extends HookActivity
                 mimeType,
                 false,          // do not create parent folder if not existent
                 UploadFileOperation.CREATED_BY_USER
-        );
+        );*/
 
     }
 

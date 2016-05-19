@@ -47,6 +47,8 @@ public class UriUploader implements
     private Activity mActivity;
     private ArrayList<Parcelable> mUrisToUpload;
 
+    private int mBehaviour;
+
     private String mUploadPath;
     private Account mAccount;
     private ContentResolver mContentResolver;
@@ -57,13 +59,19 @@ public class UriUploader implements
             ArrayList<Parcelable> uris,
             String uploadPath,
             Account account,
-            ContentResolver contentResolver
+            ContentResolver contentResolver,
+            int behaviour
     ) {
         mActivity = context;
         mUrisToUpload = uris;
         mUploadPath = uploadPath;
         mAccount = account;
         mContentResolver = contentResolver;
+        mBehaviour = behaviour;
+    }
+
+    public void setBehaviour(int behaviour) {
+        this.mBehaviour = behaviour;
     }
 
     public void uploadUris() {
@@ -135,10 +143,6 @@ public class UriUploader implements
             // Save the path to shared preferences; even if upload is not possible, user chose the folder
             PreferenceManager.setLastUploadPath(mUploadPath, mActivity);
         }
-
-
-
-
     }
 
     private String generateDiplayName() {
@@ -164,7 +168,7 @@ public class UriUploader implements
                 mAccount,
                 localPath,
                 remotePath,
-                FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                mBehaviour,
                 null,       // MIME type will be detected from file name
                 false,      // do not create parent folder if not existent
                 UploadFileOperation.CREATED_BY_USER

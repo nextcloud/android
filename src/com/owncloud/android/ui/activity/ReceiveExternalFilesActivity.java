@@ -482,7 +482,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mStreamsToUpload,
                 mUploadPath,
                 getAccount(),
-                getContentResolver());
+                getContentResolver(),
+                FileUploader.LOCAL_BEHAVIOUR_FORGET);
 
         uploader.uploadUris();
 
