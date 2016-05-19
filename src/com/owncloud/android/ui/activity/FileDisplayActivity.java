@@ -37,7 +37,6 @@ import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -739,12 +738,14 @@ public class FileDisplayActivity extends HookActivity
         OCFile currentDir = getCurrentDir();
         String remotePath = (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
 
-        UriUploader uploader = new UriUploader(this,
+        UriUploader uploader = new UriUploader(
+                this,
                 mStreamsToUpload,
                 remotePath,
                 getAccount(),
                 behaviour,
-                false);
+                false // Not show waiting dialog while file is being copied from private storage
+        );
 
         uploader.uploadUris();
 

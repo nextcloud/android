@@ -36,7 +36,9 @@ import com.owncloud.android.utils.UriUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * This class handle both file:// and content:// URIs pointing to files to upload.
+ */
 public class UriUploader {
 
     private final String TAG = UriUploader.class.getSimpleName();
@@ -73,10 +75,6 @@ public class UriUploader {
         mAccount = account;
         mBehaviour = behaviour;
         mShowWaitingDialog = showWaitingDialog;
-    }
-
-    public void setBehaviour(int behaviour) {
-        this.mBehaviour = behaviour;
     }
 
     public UriUploaderResultCode uploadUris() {
@@ -187,6 +185,4 @@ public class UriUploader {
                 )
         );
     }
-
-
 }

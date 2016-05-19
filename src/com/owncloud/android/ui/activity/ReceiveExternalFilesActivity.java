@@ -36,12 +36,10 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources.NotFoundException;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
@@ -67,12 +65,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DisplayUtils;
@@ -475,12 +471,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @SuppressLint("NewApi")
     public void uploadFiles() {
 
-        UriUploader uploader = new UriUploader(this,
+        UriUploader uploader = new UriUploader(
+                this,
                 mStreamsToUpload,
                 mUploadPath,
                 getAccount(),
                 FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                true);
+                true // Show waiting dialog while file is being copied from private storage
+        );
 
         UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
 
