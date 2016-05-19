@@ -751,7 +751,6 @@ public class FileDisplayActivity extends HookActivity
                 mStreamsToUpload,
                 remotePath,
                 getAccount(),
-                getContentResolver(),
                 behaviour);
 
         uploader.uploadUris();

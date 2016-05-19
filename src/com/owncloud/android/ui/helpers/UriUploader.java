@@ -51,11 +51,10 @@ public class UriUploader implements
 
     private String mUploadPath;
     private Account mAccount;
-    private ContentResolver mContentResolver;
 
-    private UriUploadCode mCode = UriUploadCode.OK;
+    private UriUploaderResultCode mCode = UriUploaderResultCode.OK;
 
-    public enum UriUploadCode {
+    public enum UriUploaderResultCode {
         OK,
         ERROR_UNKNOWN,
         ERROR_NO_FILE_TO_UPLOAD,
@@ -67,14 +66,12 @@ public class UriUploader implements
             ArrayList<Parcelable> uris,
             String uploadPath,
             Account account,
-            ContentResolver contentResolver,
             int behaviour
     ) {
         mActivity = context;
         mUrisToUpload = uris;
         mUploadPath = uploadPath;
         mAccount = account;
-        mContentResolver = contentResolver;
         mBehaviour = behaviour;
     }
 
@@ -82,7 +79,7 @@ public class UriUploader implements
         this.mBehaviour = behaviour;
     }
 
-    public UriUploadCode uploadUris() {
+    public UriUploaderResultCode uploadUris() {
 
         try {
 
@@ -118,16 +115,16 @@ public class UriUploader implements
                         contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
 
             } else if (schemeFileCounter == 0) {
-                mCode = UriUploadCode.ERROR_NO_FILE_TO_UPLOAD;
+                mCode = UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD;
 
             }
 
         } catch (SecurityException e) {
-            mCode = UriUploadCode.ERROR_READ_PERMISSION_NOT_GRANTED;
+            mCode = UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED;
             Log_OC.e(TAG, "Permissions fail", e);
 
         } catch (Exception e) {
-            mCode = UriUploadCode.ERROR_UNKNOWN;
+            mCode = UriUploaderResultCode.ERROR_UNKNOWN;
             Log_OC.e(TAG, "Unexpted error", e);
 
         } finally {
@@ -184,7 +181,7 @@ public class UriUploader implements
                         mAccount,
                         sourceUris,
                         remotePaths,
-                        mContentResolver
+                        mActivity.getContentResolver()
                 )
         );
     }
