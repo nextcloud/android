@@ -101,7 +101,7 @@ import java.util.ArrayList;
 
 public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
-        OnEnforceableRefreshListener, CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener {
+        OnEnforceableRefreshListener {
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -743,7 +743,8 @@ public class FileDisplayActivity extends HookActivity
                 remotePath,
                 getAccount(),
                 behaviour,
-                false // Not show waiting dialog while file is being copied from private storage
+                false, // Not show waiting dialog while file is being copied from private storage
+                null
         );
 
         uploader.uploadUris();
@@ -896,11 +897,6 @@ public class FileDisplayActivity extends HookActivity
         } else {
             return false;
         }
-    }
-
-    @Override
-    public void onTmpFilesCopied(ResultCode result) {
-
     }
 
 

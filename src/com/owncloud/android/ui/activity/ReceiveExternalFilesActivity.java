@@ -411,7 +411,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                 new String[] {"dirname"},
                                                 new int[] {R.id.filename},
                                                 getStorageManager(), getAccount());
-            
+
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
@@ -429,13 +429,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void startSyncFolderOperation(OCFile folder) {
-        long currentSyncTime = System.currentTimeMillis(); 
-        
+        long currentSyncTime = System.currentTimeMillis();
+
         mSyncInProgress = true;
-        
+
         // perform folder synchronization
         RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
-                                                                        currentSyncTime, 
+                                                                        currentSyncTime,
                                                                         false,
                                                                         false,
                                                                         false,
@@ -477,10 +477,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mUploadPath,
                 getAccount(),
                 FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                true // Show waiting dialog while file is being copied from private storage
+                true, // Show waiting dialog while file is being copied from private storage
+                this
         );
 
         UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
+
+        // Save the path to shared preferences; even if upload is not possible, user chose the folder
+        PreferenceManager.setLastUploadPath(mUploadPath, this);
 
         if (resultCode == UriUploader.UriUploaderResultCode.OK) {
             finish();
@@ -502,9 +506,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     messageResId,
                     messageResTitle
             );
-
-            // Save the path to shared preferences; even if upload is not possible, user chose the folder
-            PreferenceManager.setLastUploadPath(mUploadPath, this);
         }
     }
 
@@ -601,7 +602,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
         return retval;
     }
-    
+
     private OCFile getCurrentFolder(){
         OCFile file = mFile;
         if (file != null) {
@@ -613,13 +614,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
         return null;
     }
-    
+
     private void browseToRoot() {
         OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         mFile = root;
         startSyncFolderOperation(root);
     }
-    
+
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
         /**
@@ -651,7 +652,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                 getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
 
                         if (currentDir == null) {
-                            // current folder was removed from the server 
+                            // current folder was removed from the server
                             Toast.makeText(context,
                                     String.format(
                                             getString(R.string.sync_current_folder_was_removed),
@@ -698,7 +699,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                 }
             } catch (RuntimeException e) {
-                // avoid app crashes after changing the serial id of RemoteOperationResult 
+                // avoid app crashes after changing the serial id of RemoteOperationResult
                 // in owncloud library with broadcast notifications pending to process
                 removeStickyBroadcast(intent);
             }

@@ -44,6 +44,7 @@ public class UriUploader {
 
     private FileActivity mActivity;
     private ArrayList<Parcelable> mUrisToUpload;
+    private CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener mCopyTmpTaskListener;
 
     private int mBehaviour;
 
@@ -66,7 +67,8 @@ public class UriUploader {
             String uploadPath,
             Account account,
             int behaviour,
-            boolean showWaitingDialog
+            boolean showWaitingDialog,
+            CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener copyTmpTaskListener
     ) {
         mActivity = activity;
         mUrisToUpload = uris;
@@ -74,6 +76,7 @@ public class UriUploader {
         mAccount = account;
         mBehaviour = behaviour;
         mShowWaitingDialog = showWaitingDialog;
+        mCopyTmpTaskListener = copyTmpTaskListener;
     }
 
     public UriUploaderResultCode uploadUris() {
@@ -170,7 +173,7 @@ public class UriUploader {
         }
 
         CopyAndUploadContentUrisTask copyTask = new CopyAndUploadContentUrisTask
-                ((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener)mActivity, mActivity);
+                (mCopyTmpTaskListener, mActivity);
 
         copyTask.execute(
                 CopyAndUploadContentUrisTask.makeParamsToExecute(
