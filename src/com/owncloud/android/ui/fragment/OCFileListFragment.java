@@ -96,6 +96,8 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
 
+    private static final int MIN_FILES_FOR_MULTISELECT = 2;
+
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile = null;
@@ -347,7 +349,9 @@ public class OCFileListFragment extends ExtendedListFragment {
         AbsListView listView = getListView();
         setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
             private Menu menu;
+
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 final int checkedCount = getListView().getCheckedItemCount();
@@ -360,20 +364,34 @@ public class OCFileListFragment extends ExtendedListFragment {
                     mAdapter.removeSelection(position);
                 }
 
-                // TODO maybe change: only recreate menu if count changes
-                if (menu != null) {
-                    menu.clear();
-                    if (checkedCount == 1) {
-                        createContextMenu(menu);
-                    } else {
-                        // download, move, copy, delete
-                        getActivity().getMenuInflater().inflate(R.menu.multiple_file_actions_menu, menu);
+                OCFile targetFile = null;
+                if (checkedCount > 0 && checkedCount <= MIN_FILES_FOR_MULTISELECT) {
+                    targetFile = (checkedCount == MIN_FILES_FOR_MULTISELECT)
+                        ? mFile : mAdapter.getCheckedItems().get(0);
+
+                    if (mContainerActivity.getStorageManager() != null) {
+                        FileMenuFilter mf = new FileMenuFilter(
+                            targetFile,
+                            mContainerActivity.getStorageManager().getAccount(),
+                            mContainerActivity,
+                            getActivity(),
+                            mAdapter.getCheckedItems().size() == MIN_FILES_FOR_MULTISELECT
+                        );
+                        mf.filter(menu);
                     }
+
+                } else {
+                    getListView().clearChoices();
+                    menu.clear();
+                    menu.close();
                 }
+
             }
 
             @Override
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+
+                createContextActionBar(menu);
                 this.menu = menu;
 
                 //set gray color
@@ -560,46 +578,16 @@ public class OCFileListFragment extends ExtendedListFragment {
     }
 
     /**
-     * {@inheritDoc}
+     * Create the context bar with the file actions
+     * @param menu
      */
-    // TODO Tobi needed?
-    public void createContextMenu(Menu menu) {
+    public void createContextActionBar(Menu menu) {
         Bundle args = getArguments();
         boolean allowContextualActions =
                 (args == null) ? true : args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
         if (allowContextualActions) {
             MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.file_actions_menu, menu);
-            OCFile targetFile = null;
-            if (mAdapter.getCheckedItems().size() == 1){
-                targetFile = mAdapter.getCheckedItems().get(0);
-            }
-
-            if (mContainerActivity.getStorageManager() != null) {
-                FileMenuFilter mf = new FileMenuFilter(
-                    targetFile,
-                    mContainerActivity.getStorageManager().getAccount(),
-                    mContainerActivity,
-                    getActivity()
-                );
-                mf.filter(menu);
-            }
-
-            /// TODO break this direct dependency on FileDisplayActivity... if possible
-            MenuItem item = menu.findItem(R.id.action_open_file_with);
-            FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
-            if (frag != null && frag instanceof FileDetailFragment &&
-                    frag.getFile().getFileId() == targetFile.getFileId()) {
-                item = menu.findItem(R.id.action_see_details);
-                if (item != null) {
-                    item.setVisible(false);
-                    item.setEnabled(false);
-                }
-            }
-
-//            String.format(mContext.getString(R.string.subject_token),
-//                    getClient().getCredentials().getUsername(), file.getFileName()));
-
         }
     }
 
