@@ -121,7 +121,7 @@ public class FileDisplayActivity extends HookActivity
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
     public static final int REQUEST_CODE__SELECT_CONTENT_FROM_APPS = REQUEST_CODE__LAST_SHARED + 1;
-    public static final int REQUEST_CODE__SELECT_MULTIPLE_FILES = REQUEST_CODE__LAST_SHARED + 2;
+    public static final int REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM = REQUEST_CODE__LAST_SHARED + 2;
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
 
@@ -188,16 +188,6 @@ public class FileDisplayActivity extends HookActivity
         // enable ActionBar app icon to behave as action to toggle nav drawer
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
-        // Init Fragment without UI to retain AsyncTask across configuration changes
-        FragmentManager fm = getSupportFragmentManager();
-        TaskRetainerFragment taskRetainerFragment =
-                (TaskRetainerFragment) fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT);
-        if (taskRetainerFragment == null) {
-            taskRetainerFragment = new TaskRetainerFragment();
-            fm.beginTransaction()
-                    .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
-        }   // else, Fragment already created and retained across configuration change
 
         Log_OC.v(TAG, "onCreate() end");
     }
@@ -650,29 +640,15 @@ public class FileDisplayActivity extends HookActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK ||
-                resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+        if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS &&
+            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
 
-            ArrayList<Parcelable> streamsToUpload = new ArrayList<Parcelable>();
+            requestUploadOfContentFromApps(data, resultCode);
 
-            //getClipData is only supported on api level 16+, Jelly Bean
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
-                    data.getClipData() != null &&
-                    data.getClipData().getItemCount() > 0) {
+        } else if (requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
+            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
 
-                for (int i = 0; i < data.getClipData().getItemCount(); i++) {
-                    Intent intent = new Intent();
-                    intent.setData(data.getClipData().getItemAt(i).getUri());
-                    streamsToUpload.add(intent.getData());
-                }
-
-            } else {
-                streamsToUpload.add(data.getData());
-            }
-            requestSimpleUpload(streamsToUpload, resultCode);
-        } else if (requestCode == REQUEST_CODE__SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK ||
-                resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
-            requestMultipleUpload(data, resultCode);
+            requestUploadOfFilesFromFileSystem(data, resultCode);
 
         } else if (requestCode == REQUEST_CODE__MOVE_FILES && resultCode == RESULT_OK) {
             final Intent fData = data;
@@ -707,7 +683,7 @@ public class FileDisplayActivity extends HookActivity
 
     }
 
-    private void requestMultipleUpload(Intent data, int resultCode) {
+    private void requestUploadOfFilesFromFileSystem(Intent data, int resultCode) {
         String[] filePaths = data.getStringArrayExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES);
         if (filePaths != null) {
             String[] remotePaths = new String[filePaths.length];
@@ -740,7 +716,22 @@ public class FileDisplayActivity extends HookActivity
     }
 
 
-    private void requestSimpleUpload(ArrayList<Parcelable> streamsToUpload, int resultCode) {
+    private void requestUploadOfContentFromApps(Intent contentIntent, int resultCode) {
+
+        ArrayList<Parcelable> streamsToUpload = new ArrayList<>();
+
+        //getClipData is only supported on api level 16+, Jelly Bean
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
+            contentIntent.getClipData() != null &&
+            contentIntent.getClipData().getItemCount() > 0) {
+
+            for (int i = 0; i < contentIntent.getClipData().getItemCount(); i++) {
+                streamsToUpload.add(contentIntent.getClipData().getItemAt(i).getUri());
+            }
+
+        } else {
+            streamsToUpload.add(contentIntent.getData());
+        }
 
         int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader.LOCAL_BEHAVIOUR_MOVE :
                 FileUploader.LOCAL_BEHAVIOUR_COPY;

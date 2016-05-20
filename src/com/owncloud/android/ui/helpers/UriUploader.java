@@ -38,7 +38,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class handle both file:// and content:// URIs pointing to files to upload.
+ * This class examines URIs pointing to files to upload and then requests {@link FileUploader} to upload them.
+ *
+ * URIs with scheme file:// do not require any previous processing, their path is sent to {@link FileUploader}
+ * to find the source file.
+ *
+ * URIs with scheme content:// are handling assuming that file is in private storage owned by a different app,
+ * and that persistency permission is not granted. Due to this, contents of the file are temporary copied by
+ * the OC app, and then passed {@link FileUploader}.
  */
 public class UriUploader {
 
@@ -178,8 +185,15 @@ public class UriUploader {
                 (mCopyTmpTaskListener, mActivity);
 
         FragmentManager fm = mActivity.getSupportFragmentManager();
+
+        // Init Fragment without UI to retain AsyncTask across configuration changes
         TaskRetainerFragment taskRetainerFragment =
                 (TaskRetainerFragment) fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT);
+        if (taskRetainerFragment == null) {
+            taskRetainerFragment = new TaskRetainerFragment();
+            fm.beginTransaction()
+                .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
+        }   // else, Fragment was created before
         taskRetainerFragment.setTask(copyTask);
 
         copyTask.execute(
