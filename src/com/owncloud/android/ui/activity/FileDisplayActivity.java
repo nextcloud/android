@@ -642,6 +642,8 @@ public class FileDisplayActivity extends HookActivity
         if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS && (resultCode == RESULT_OK ||
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
 
+            ArrayList<Parcelable> streamsToUpload = new ArrayList<Parcelable>();
+
             //getClipData is only supported on api level 16+, Jelly Bean
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
                     data.getClipData() != null &&
@@ -650,12 +652,13 @@ public class FileDisplayActivity extends HookActivity
                 for (int i = 0; i < data.getClipData().getItemCount(); i++) {
                     Intent intent = new Intent();
                     intent.setData(data.getClipData().getItemAt(i).getUri());
-                    requestSimpleUpload(intent, resultCode);
+                    streamsToUpload.add(intent.getData());
                 }
 
             } else {
-                requestSimpleUpload(data, resultCode);
+                streamsToUpload.add(data.getData());
             }
+            requestSimpleUpload(streamsToUpload, resultCode);
         } else if (requestCode == REQUEST_CODE__SELECT_MULTIPLE_FILES && (resultCode == RESULT_OK ||
                 resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
             requestMultipleUpload(data, resultCode);
@@ -726,21 +729,17 @@ public class FileDisplayActivity extends HookActivity
     }
 
 
-    private void requestSimpleUpload(final Intent data, int resultCode) {
+    private void requestSimpleUpload(ArrayList<Parcelable> streamsToUpload, int resultCode) {
 
         int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader.LOCAL_BEHAVIOUR_MOVE :
                 FileUploader.LOCAL_BEHAVIOUR_COPY;
-
-        ArrayList<Parcelable> mStreamsToUpload = new ArrayList<Parcelable>() {{
-            add(data.getData());
-        }};
 
         OCFile currentDir = getCurrentDir();
         String remotePath = (currentDir != null) ? currentDir.getRemotePath() : OCFile.ROOT_PATH;
 
         UriUploader uploader = new UriUploader(
                 this,
-                mStreamsToUpload,
+                streamsToUpload,
                 remotePath,
                 getAccount(),
                 behaviour,

@@ -238,7 +238,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             listener.onTmpFilesCopied(result);
 
         } else {
-            Log_OC.i(TAG, "User left ReceiveExternalFilesActivity activity before the temporal copies were finished ");
+            Log_OC.i(TAG, "User left the caller activity before the temporal copies were finished ");
             if (result != ResultCode.OK) {
                 // if the user left the app, report background error in a Toast
                 int messageId;

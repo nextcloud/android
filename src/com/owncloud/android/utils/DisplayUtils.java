@@ -172,23 +172,6 @@ public class DisplayUtils {
         }
     }
 
-    /**
-     * Get the file extension if it is on path as type "content://.../DocInfo.doc"
-     * @param filepath: Content Uri converted to string format
-     * @return String: fileExtension (type '.pdf'). Empty if no extension
-     */
-    public static String getFileExtension(String filepath) {
-        String fileExtension = "";
-        String fileNameInContentUri = filepath.substring(filepath.lastIndexOf("/"));
-
-        // Check if extension is included in uri
-        int pos = fileNameInContentUri.lastIndexOf('.');
-        if (pos >= 0) {
-            fileExtension = fileNameInContentUri.substring(pos);
-        }
-        return fileExtension;
-    }
-
     @SuppressWarnings("deprecation")
     public static CharSequence getRelativeDateTimeString (
             Context c, long time, long minResolution, long transitionResolution, int flags

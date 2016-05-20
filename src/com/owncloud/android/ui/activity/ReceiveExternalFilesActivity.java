@@ -502,6 +502,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     messageResId,
                     messageResTitle
             );
+
+            // Save the path to shared preferences; even if upload is not possible, user chose the folder
+            PreferenceManager.setLastUploadPath(mUploadPath, this);
         }
     }
 

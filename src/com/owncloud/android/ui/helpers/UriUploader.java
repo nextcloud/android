@@ -24,7 +24,6 @@ import android.net.Uri;
 import android.os.Parcelable;
 
 import com.owncloud.android.R;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -123,11 +122,8 @@ public class UriUploader {
 
         } catch (Exception e) {
             mCode = UriUploaderResultCode.ERROR_UNKNOWN;
-            Log_OC.e(TAG, "Unexpted error", e);
+            Log_OC.e(TAG, "Unexpected error", e);
 
-        } finally {
-            // Save the path to shared preferences; even if upload is not possible, user chose the folder
-            PreferenceManager.setLastUploadPath(mUploadPath, mActivity);
         }
         return mCode;
     }
