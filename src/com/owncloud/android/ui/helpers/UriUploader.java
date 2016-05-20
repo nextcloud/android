@@ -189,12 +189,10 @@ public class UriUploader {
         // Init Fragment without UI to retain AsyncTask across configuration changes
         TaskRetainerFragment taskRetainerFragment =
                 (TaskRetainerFragment) fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT);
-        if (taskRetainerFragment == null) {
-            taskRetainerFragment = new TaskRetainerFragment();
-            fm.beginTransaction()
-                .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
-        }   // else, Fragment was created before
-        taskRetainerFragment.setTask(copyTask);
+
+        if (taskRetainerFragment != null) {
+            taskRetainerFragment.setTask(copyTask);
+        }
 
         copyTask.execute(
                 CopyAndUploadContentUrisTask.makeParamsToExecute(

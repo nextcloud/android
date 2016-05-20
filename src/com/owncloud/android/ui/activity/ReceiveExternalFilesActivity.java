@@ -145,6 +145,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mSyncBroadcastReceiver = new SyncBroadcastReceiver();
         registerReceiver(mSyncBroadcastReceiver, syncIntentFilter);
 
+        // Init Fragment without UI to retain AsyncTask across configuration changes
+        FragmentManager fm = getSupportFragmentManager();
+        TaskRetainerFragment taskRetainerFragment =
+                (TaskRetainerFragment) fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT);
+        if (taskRetainerFragment == null) {
+            taskRetainerFragment = new TaskRetainerFragment();
+            fm.beginTransaction()
+                    .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
+        }   // else, Fragment already created and retained across configuration change
+
     }
 
     @Override

@@ -45,7 +45,11 @@ public class TaskRetainerFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
         if (mTask != null) {
-            mTask.setListener((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener) context);
+            if (context instanceof ReceiveExternalFilesActivity) {
+                mTask.setListener((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener) context);
+            } else {
+                mTask.setListener(null);
+            }
         }
     }
 
