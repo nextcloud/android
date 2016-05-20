@@ -44,6 +44,7 @@ import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
@@ -77,10 +78,10 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
-import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -187,6 +188,16 @@ public class FileDisplayActivity extends HookActivity
         // enable ActionBar app icon to behave as action to toggle nav drawer
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        // Init Fragment without UI to retain AsyncTask across configuration changes
+        FragmentManager fm = getSupportFragmentManager();
+        TaskRetainerFragment taskRetainerFragment =
+                (TaskRetainerFragment) fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT);
+        if (taskRetainerFragment == null) {
+            taskRetainerFragment = new TaskRetainerFragment();
+            fm.beginTransaction()
+                    .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
+        }   // else, Fragment already created and retained across configuration change
 
         Log_OC.v(TAG, "onCreate() end");
     }
@@ -744,7 +755,7 @@ public class FileDisplayActivity extends HookActivity
                 getAccount(),
                 behaviour,
                 false, // Not show waiting dialog while file is being copied from private storage
-                null
+                null  // Not needed copy temp task listener
         );
 
         uploader.uploadUris();

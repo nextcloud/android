@@ -38,7 +38,6 @@ import android.content.Intent;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -70,6 +69,7 @@ import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
+import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -90,8 +90,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
     CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener {
 
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
-
-    private static final String FTAG_TASK_RETAINER_FRAGMENT = "TASK_RETAINER_FRAGMENT";
 
     private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
 
@@ -150,10 +148,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
         // Init Fragment without UI to retain AsyncTask across configuration changes
         FragmentManager fm = getSupportFragmentManager();
         TaskRetainerFragment taskRetainerFragment =
-            (TaskRetainerFragment) fm.findFragmentByTag(FTAG_TASK_RETAINER_FRAGMENT);
+            (TaskRetainerFragment) fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT);
         if (taskRetainerFragment == null) {
             taskRetainerFragment = new TaskRetainerFragment();
-            fm.beginTransaction().add(taskRetainerFragment, FTAG_TASK_RETAINER_FRAGMENT).commit();
+            fm.beginTransaction()
+                    .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
     }
 
@@ -478,7 +477,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 getAccount(),
                 FileUploader.LOCAL_BEHAVIOUR_FORGET,
                 true, // Show waiting dialog while file is being copied from private storage
-                this
+                this  // Copy temp task listener
         );
 
         UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
@@ -748,53 +747,5 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
         );
         errorDialog.show(getSupportFragmentManager(), FTAG_ERROR_FRAGMENT);
-    }
-
-
-    /**
-     * Fragment retaining a background task across configuration changes.
-     */
-    public static class TaskRetainerFragment extends Fragment {
-
-        private CopyAndUploadContentUrisTask mTask;
-
-        /**
-         * Updates the listener of the retained task whenever the parent
-         * Activity is attached.
-         *
-         * Since its done in main thread, and provided the AsyncTask only accesses
-         * the listener in the main thread (should so), no sync problem should occur.
-         */
-        @Override
-        public void onAttach(Context context) {
-            super.onAttach(context);
-            if (mTask != null) {
-                mTask.setListener((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener) context);
-            }
-        }
-
-        /**
-         * Only called once, since the instance is retained across configuration changes
-         */
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setRetainInstance(true);    // the key point
-        }
-
-        /**
-         * Sets the task to retain across configuration changes
-         *
-         * @param task  Task to retain
-         */
-        private void setTask(CopyAndUploadContentUrisTask task) {
-            if (mTask != null) {
-                mTask.setListener(null);
-            }
-            mTask = task;
-            if (mTask != null && getContext() != null) {
-                task.setListener((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener) getContext());
-            }
-        }
     }
 }
