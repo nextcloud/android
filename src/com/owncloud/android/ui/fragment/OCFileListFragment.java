@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ActionMode;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,6 +42,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -342,9 +344,10 @@ public class OCFileListFragment extends ExtendedListFragment {
     }
 
     private void registerLongClickListener() {
-        getListView().setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+        AbsListView listView = getListView();
+        setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
             private Menu menu;
-
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 final int checkedCount = getListView().getCheckedItemCount();

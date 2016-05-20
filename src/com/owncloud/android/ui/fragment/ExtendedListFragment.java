@@ -453,12 +453,13 @@ public class ExtendedListFragment extends Fragment
     }
 
     protected void setChoiceMode(int choiceMode) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mListView.setChoiceMode(choiceMode);
-            mGridView.setChoiceMode(choiceMode);
-        } else {
-            ((ListView)mListView).setChoiceMode(choiceMode);
-        }
+        mListView.setChoiceMode(choiceMode);
+        mGridView.setChoiceMode(choiceMode);
+    }
+
+    protected void setMultiChoiceModeListener(AbsListView.MultiChoiceModeListener listener) {
+        mListView.setMultiChoiceModeListener(listener);
+        mGridView.setMultiChoiceModeListener(listener);
     }
 
     protected void registerForContextMenu() {
