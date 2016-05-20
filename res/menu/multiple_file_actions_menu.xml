@@ -36,14 +36,17 @@
         android:title="@string/common_remove"
         android:icon="@drawable/ic_delete"
         android:orderInCategory="1" />
-    <item
-        android:id="@+id/action_favorite_file"
-        android:title="@string/favorite"
-        android:icon="@android:drawable/ic_menu_set_as"
-        android:orderInCategory="1" />
-    <item
-        android:id="@+id/action_unfavorite_file"
-        android:title="@string/unfavorite"
-        android:icon="@android:drawable/ic_menu_set_as"
-        android:orderInCategory="1" />
+
+    <!-- Uncomment when favorite folders become available -->
+
+    <!--<item-->
+        <!--android:id="@+id/action_favorite_file"-->
+        <!--android:title="@string/favorite"-->
+        <!--android:icon="@android:drawable/ic_menu_set_as"-->
+        <!--android:orderInCategory="1" />-->
+    <!--<item-->
+        <!--android:id="@+id/action_unfavorite_file"-->
+        <!--android:title="@string/unfavorite"-->
+        <!--android:icon="@android:drawable/ic_menu_set_as"-->
+        <!--android:orderInCategory="1" />-->
 </menu>
