@@ -46,6 +46,8 @@
   <string name="prefs_recommend">Recomana a un amic</string>
   <string name="prefs_feedback">Comentaris</string>
   <string name="prefs_imprint">Imprint</string>
+  <string name="prefs_remember_last_share_location">Recorda la ubicació de la unitat compartida</string>
+  <string name="prefs_remember_last_upload_location_summary">Recorda la ubicació de l\'última càrrega</string>
   <string name="recommend_subject">Proveu %1$s a un telèfon avançat!</string>
   <string name="auth_check_server">Comprova el funcionament del servidor</string>
   <string name="auth_host_url">Adreça del servidor https://…</string>
@@ -65,6 +67,7 @@
   <string name="uploader_error_message_no_file_to_upload">Les dades rebudes no contenen cap fitxer vàlid.</string>
   <string name="uploader_error_title_file_cannot_be_uploaded">No es pot carregar el fitxer</string>
   <string name="uploader_error_message_read_permission_not_granted">%1$s no té permissos per llegir un dels fitxers rebuts</string>
+  <string name="uploader_error_message_source_file_not_found">L\' arxiu a carregar no va ser trobat en la seva ubicació. Si us plau verifica si l\'arxiu existeix.</string>
   <string name="file_list_seconds_ago">segons enrere</string>
   <string name="file_list_empty">Res per aquí. Pugeu alguna cosa!</string>
   <string name="file_list_loading">Carregant...</string>
