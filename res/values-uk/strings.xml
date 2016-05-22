@@ -328,5 +328,6 @@
   <string name="share_privilege_can_edit_create">створити</string>
   <string name="share_privilege_can_edit_change">змінити</string>
   <string name="share_privilege_can_edit_delete">видалити</string>
+  <string name="edit_share_unshare">Не ділитися</string>
   <string name="manage_space_clear_data">Очистити дані</string>
 </resources>
