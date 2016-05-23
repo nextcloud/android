@@ -45,7 +45,7 @@
                 android:layout_height="@dimen/file_icon_size"
                 android:layout_gravity="top|right"
                 android:layout_marginRight="4dp"
-                android:src="@drawable/local_file_indicator" />
+                android:src="@drawable/ic_synced" />
 
             <ImageView
                 android:id="@+id/thumbnail"

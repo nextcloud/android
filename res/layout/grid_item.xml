@@ -54,7 +54,7 @@
             android:layout_gravity="bottom|right"
             android:layout_marginTop="2dp"
             android:layout_marginRight="2dp"
-            android:src="@drawable/local_file_indicator" />
+            android:src="@drawable/ic_synced" />
 
         <ImageView
             android:id="@+id/favoriteIcon"
