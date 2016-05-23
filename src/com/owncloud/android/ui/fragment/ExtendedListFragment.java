@@ -164,46 +164,6 @@ public class ExtendedListFragment extends Fragment
                              Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreateView");
 
-        // TODO Tobi remove
-//         AbsListView.MultiChoiceModeListener listener = new AbsListView.MultiChoiceModeListener() {
-//            @Override
-//            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-//                // Capture total checked items
-//                final int checkedCount = mListView.getCheckedItemCount();
-//                // Set the CAB title according to total checked items
-//                mode.setTitle(checkedCount + " Selected");
-//                // Calls toggleSelection method from ListViewAdapter Class
-//                 // mAdapter.toggleSelection(position);
-//
-//                if (checked){
-//                    mAdapter.setNewSelection(position,checked);
-//                } else {
-//                    mAdapter.removeSelection(position);
-//                }
-//            }
-//
-//            @Override
-//            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-//                mode.getMenuInflater().inflate(R.menu.context, menu);
-//                return true;
-//            }
-//
-//            @Override
-//            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onDestroyActionMode(ActionMode mode) {
-//                // mAdapter.removeSelection();
-//            }
-//        };
-
         View v = inflater.inflate(R.layout.list_fragment, null);
 
         mListView = (ExtendedListView)(v.findViewById(R.id.list_root));
@@ -460,13 +420,6 @@ public class ExtendedListFragment extends Fragment
     protected void setMultiChoiceModeListener(AbsListView.MultiChoiceModeListener listener) {
         mListView.setMultiChoiceModeListener(listener);
         mGridView.setMultiChoiceModeListener(listener);
-    }
-
-    protected void registerForContextMenu() {
-        registerForContextMenu(mListView);
-        registerForContextMenu(mGridView);
-        mListView.setOnCreateContextMenuListener(this);
-        mGridView.setOnCreateContextMenuListener(this);
     }
 
     /**
