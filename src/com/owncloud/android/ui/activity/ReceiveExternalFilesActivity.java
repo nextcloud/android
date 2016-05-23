@@ -29,7 +29,6 @@ import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.IntentFilter;
@@ -37,12 +36,9 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.Resources.NotFoundException;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
@@ -68,16 +64,15 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
+import com.owncloud.android.ui.fragment.TaskRetainerFragment;
+import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-import com.owncloud.android.utils.UriUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,13 +85,11 @@ import java.util.Vector;
 /**
  * This can be used to upload things to an ownCloud instance.
  */
-public class Uploader extends FileActivity
+public class ReceiveExternalFilesActivity extends FileActivity
         implements OnItemClickListener, android.view.View.OnClickListener,
     CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener {
 
-    private static final String TAG = Uploader.class.getSimpleName();
-
-    private static final String FTAG_TASK_RETAINER_FRAGMENT = "TASK_RETAINER_FRAGMENT";
+    private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
 
     private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
 
@@ -155,11 +148,13 @@ public class Uploader extends FileActivity
         // Init Fragment without UI to retain AsyncTask across configuration changes
         FragmentManager fm = getSupportFragmentManager();
         TaskRetainerFragment taskRetainerFragment =
-            (TaskRetainerFragment) fm.findFragmentByTag(FTAG_TASK_RETAINER_FRAGMENT);
+                (TaskRetainerFragment) fm.findFragmentByTag(TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT);
         if (taskRetainerFragment == null) {
             taskRetainerFragment = new TaskRetainerFragment();
-            fm.beginTransaction().add(taskRetainerFragment, FTAG_TASK_RETAINER_FRAGMENT).commit();
+            fm.beginTransaction()
+                    .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
+
     }
 
     @Override
@@ -416,7 +411,7 @@ public class Uploader extends FileActivity
                                                 new String[] {"dirname"},
                                                 new int[] {R.id.filename},
                                                 getStorageManager(), getAccount());
-            
+
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
@@ -434,13 +429,13 @@ public class Uploader extends FileActivity
     }
 
     private void startSyncFolderOperation(OCFile folder) {
-        long currentSyncTime = System.currentTimeMillis(); 
-        
+        long currentSyncTime = System.currentTimeMillis();
+
         mSyncInProgress = true;
-        
+
         // perform folder synchronization
         RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
-                                                                        currentSyncTime, 
+                                                                        currentSyncTime,
                                                                         false,
                                                                         false,
                                                                         false,
@@ -476,123 +471,43 @@ public class Uploader extends FileActivity
     @SuppressLint("NewApi")
     public void uploadFiles() {
 
-        try {
+        UriUploader uploader = new UriUploader(
+                this,
+                mStreamsToUpload,
+                mUploadPath,
+                getAccount(),
+                FileUploader.LOCAL_BEHAVIOUR_FORGET,
+                true, // Show waiting dialog while file is being copied from private storage
+                this  // Copy temp task listener
+        );
 
-            List<Uri> contentUris = new ArrayList<>();
-            List<String> contentRemotePaths = new ArrayList<>();
+        UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
 
-            int schemeFileCounter = 0;
+        // Save the path to shared preferences; even if upload is not possible, user chose the folder
+        PreferenceManager.setLastUploadPath(mUploadPath, this);
 
-            for (Parcelable sourceStream : mStreamsToUpload) {
-                Uri sourceUri = (Uri) sourceStream;
-                if (sourceUri != null) {
-                    String displayName = UriUtils.getDisplayNameForUri(sourceUri, this);
-                    if (displayName == null) {
-                        displayName = generateDiplayName();
-                    }
-                    String remotePath = mUploadPath + displayName;
+        if (resultCode == UriUploader.UriUploaderResultCode.OK) {
+            finish();
+        } else {
 
-                    if (ContentResolver.SCHEME_CONTENT.equals(sourceUri.getScheme())) {
-                        contentUris.add(sourceUri);
-                        contentRemotePaths.add(remotePath);
+            int messageResTitle = R.string.uploader_error_title_file_cannot_be_uploaded;
+            int messageResId = R.string.common_error_unknown;
 
-                    } else if (ContentResolver.SCHEME_FILE.equals(sourceUri.getScheme())) {
-                        /// file: uris should point to a local file, should be safe let FileUploader handle them
-                        requestUpload(sourceUri.getPath(), remotePath);
-                        schemeFileCounter++;
-                    }
-                }
+            if (resultCode == UriUploader.UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD) {
+                messageResId = R.string.uploader_error_message_no_file_to_upload;
+                messageResTitle = R.string.uploader_error_title_no_file_to_upload;
+            } else if (resultCode == UriUploader.UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED) {
+                messageResId = R.string.uploader_error_message_read_permission_not_granted;
+            } else if (resultCode == UriUploader.UriUploaderResultCode.ERROR_UNKNOWN) {
+                messageResId = R.string.common_error_unknown;
             }
 
-            if (!contentUris.isEmpty()) {
-                /// content: uris will be copied to temporary files before calling {@link FileUploader}
-                copyThenUpload(contentUris.toArray(new Uri[contentUris.size()]),
-                    contentRemotePaths.toArray(new String[contentRemotePaths.size()]));
-
-            } else if (schemeFileCounter == 0) {
-                showErrorDialog(
-                    R.string.uploader_error_message_no_file_to_upload,
-                    R.string.uploader_error_title_no_file_to_upload
-                );
-
-            } else {
-                finish();
-            }
-
-        } catch (SecurityException e) {
-            Log_OC.e(TAG, "Permissions fail", e);
             showErrorDialog(
-                R.string.uploader_error_message_read_permission_not_granted,
-                R.string.uploader_error_title_file_cannot_be_uploaded
+                    messageResId,
+                    messageResTitle
             );
-
-        } catch (Exception e) {
-            Log_OC.e(TAG, "Unexpted error", e);
-            showErrorDialog(
-                R.string.common_error_unknown,
-                R.string.uploader_error_title_file_cannot_be_uploaded
-            );
-
-        } finally {
-            // Save the path to shared preferences; even if upload is not possible, user chose the folder
-            PreferenceManager.setLastUploadPath(mUploadPath, this);
         }
     }
-
-
-    private String generateDiplayName() {
-        return getString(R.string.common_unknown) +
-            "-" + DisplayUtils.unixTimeToHumanReadable(System.currentTimeMillis());
-    }
-
-    /**
-     *
-     * @param sourceUris        Array of content:// URIs to the files to upload
-     * @param remotePaths       Array of absolute paths to set to the uploaded files
-     */
-    private void copyThenUpload(Uri[] sourceUris, String[] remotePaths) {
-        showWaitingCopyDialog();
-
-        CopyAndUploadContentUrisTask copyTask = new CopyAndUploadContentUrisTask(this, this);
-        FragmentManager fm = getSupportFragmentManager();
-        TaskRetainerFragment taskRetainerFragment =
-            (TaskRetainerFragment) fm.findFragmentByTag(FTAG_TASK_RETAINER_FRAGMENT);
-        taskRetainerFragment.setTask(copyTask);
-        copyTask.execute(
-            CopyAndUploadContentUrisTask.makeParamsToExecute(
-                getAccount(),
-                sourceUris,
-                remotePaths,
-                getContentResolver()
-            )
-        );
-    }
-
-    /**
-     * Requests the upload of a file in the local file system to {@link FileUploader} service.
-     *
-     * The original file will be left in its original location, and will not be duplicated.
-     * As a side effect, the user will see the file as not uploaded when accesses to the OC app.
-     * This is considered as acceptable, since when a file is shared from another app to OC,
-     * the usual workflow will go back to the original app.
-     *
-     * @param localPath     Absolute path in the local file system to the file to upload.
-     * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
-     */
-    private void requestUpload(String localPath, String remotePath) {
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(
-            this,
-            getAccount(),
-            localPath,
-            remotePath,
-            FileUploader.LOCAL_BEHAVIOUR_FORGET,
-            null,       // MIME type will be detected from file name
-            false,      // do not create parent folder if not existent
-            UploadFileOperation.CREATED_BY_USER
-        );
-    }
-
 
     @Override
     public void onRemoteOperationFinish(RemoteOperation operation, RemoteOperationResult result) {
@@ -687,7 +602,7 @@ public class Uploader extends FileActivity
         }
         return retval;
     }
-    
+
     private OCFile getCurrentFolder(){
         OCFile file = mFile;
         if (file != null) {
@@ -699,13 +614,13 @@ public class Uploader extends FileActivity
         }
         return null;
     }
-    
+
     private void browseToRoot() {
         OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         mFile = root;
         startSyncFolderOperation(root);
     }
-    
+
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
         /**
@@ -737,7 +652,7 @@ public class Uploader extends FileActivity
                                 getStorageManager().getFileByPath(getCurrentFolder().getRemotePath());
 
                         if (currentDir == null) {
-                            // current folder was removed from the server 
+                            // current folder was removed from the server
                             Toast.makeText(context,
                                     String.format(
                                             getString(R.string.sync_current_folder_was_removed),
@@ -784,7 +699,7 @@ public class Uploader extends FileActivity
 
                 }
             } catch (RuntimeException e) {
-                // avoid app crashes after changing the serial id of RemoteOperationResult 
+                // avoid app crashes after changing the serial id of RemoteOperationResult
                 // in owncloud library with broadcast notifications pending to process
                 removeStickyBroadcast(intent);
             }
@@ -796,35 +711,9 @@ public class Uploader extends FileActivity
      */
     @Override
     public void onTmpFilesCopied(ResultCode result) {
-        dismissWaitingCopyDialog();
+        dismissLoadingDialog();
         finish();
     }
-
-    /**
-     * Show waiting for copy dialog
-     */
-    public void showWaitingCopyDialog() {
-        // Construct dialog
-        LoadingDialog loading = new LoadingDialog(
-                getResources().getString(R.string.wait_for_tmp_copy_from_private_storage));
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        loading.show(ft, DIALOG_WAIT_COPY_FILE);
-
-    }
-
-
-    /**
-     * Dismiss waiting for copy dialog
-     */
-    public void dismissWaitingCopyDialog() {
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_COPY_FILE);
-        if (frag != null) {
-            LoadingDialog loading = (LoadingDialog) frag;
-            loading.dismiss();
-        }
-    }
-
 
     /**
      * Show an error dialog, forcing the user to click a single button to exit the activity
@@ -859,53 +748,5 @@ public class Uploader extends FileActivity
             }
         );
         errorDialog.show(getSupportFragmentManager(), FTAG_ERROR_FRAGMENT);
-    }
-
-
-    /**
-     * Fragment retaining a background task across configuration changes.
-     */
-    public static class TaskRetainerFragment extends Fragment {
-
-        private CopyAndUploadContentUrisTask mTask;
-
-        /**
-         * Updates the listener of the retained task whenever the parent
-         * Activity is attached.
-         *
-         * Since its done in main thread, and provided the AsyncTask only accesses
-         * the listener in the main thread (should so), no sync problem should occur.
-         */
-        @Override
-        public void onAttach(Context context) {
-            super.onAttach(context);
-            if (mTask != null) {
-                mTask.setListener((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener) context);
-            }
-        }
-
-        /**
-         * Only called once, since the instance is retained across configuration changes
-         */
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setRetainInstance(true);    // the key point
-        }
-
-        /**
-         * Sets the task to retain across configuration changes
-         *
-         * @param task  Task to retain
-         */
-        private void setTask(CopyAndUploadContentUrisTask task) {
-            if (mTask != null) {
-                mTask.setListener(null);
-            }
-            mTask = task;
-            if (mTask != null && getContext() != null) {
-                task.setListener((CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener) getContext());
-            }
-        }
     }
 }

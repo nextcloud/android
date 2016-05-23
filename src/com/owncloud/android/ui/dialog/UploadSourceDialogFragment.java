@@ -77,12 +77,12 @@ public class UploadSourceDialogFragment extends DialogFragment {
                             UploadFilesActivity.EXTRA_ACCOUNT,
                             ((FileActivity)getActivity()).getAccount()
                     );
-                    //startActivityForResult(action, REQUEST_CODE__SELECT_MULTIPLE_FILES);
+                    //startActivityForResult(action, REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM);
                     // this flow seems broken;
                     // Actionbarsherlock, maybe?
                     getActivity().startActivityForResult(
                             action,
-                            FileDisplayActivity.REQUEST_CODE__SELECT_MULTIPLE_FILES
+                            FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
                     );
 
                 } else if (item == 1) {
