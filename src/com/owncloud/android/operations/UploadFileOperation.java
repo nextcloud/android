@@ -381,7 +381,14 @@ public class UploadFileOperation extends SyncOperation {
             // location in the ownCloud local folder
             if (result.isSuccess()) {
                 if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
+                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                    if (mOriginalStoragePath.equals(temporalPath)) {
+                        // delete local file is was pre-copied in temporary folder (see .ui.helpers.UriUploader)
+                        temporalFile = new File(temporalPath);
+                        temporalFile.delete();
+                    }
                     mFile.setStoragePath("");
+
                 } else {
                     mFile.setStoragePath(expectedPath);
 
