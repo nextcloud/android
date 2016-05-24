@@ -1012,7 +1012,9 @@ public class FileUploader extends Service
         mNotificationManager.cancel(R.string.uploader_upload_in_progress_ticker);
 
         // Show the result: success or fail notification
-        if (!uploadResult.isCancelled()) {
+        if (!uploadResult.isCancelled() &&
+            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI)) {
+
             int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker :
                     R.string.uploader_upload_failed_ticker;
 
