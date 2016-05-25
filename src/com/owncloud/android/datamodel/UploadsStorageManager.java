@@ -363,12 +363,15 @@ public class UploadsStorageManager extends Observable {
      * Get all uploads which are currently being uploaded or waiting in the queue to be uploaded.
      */
     public OCUpload[] getCurrentAndPendingUploads() {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value, null);
+        return getUploads(
+            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR " +
+            ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue(),
+            null
+        );
     }
 
     /**
-     * Get all unrecoverably failed. Upload of these should/must/will not be
-     * retried.
+     * Get all failed uploads.
      */
     public OCUpload[] getFailedUploads() {
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value, null);
@@ -379,6 +382,18 @@ public class UploadsStorageManager extends Observable {
      */
     public OCUpload[] getFinishedUploads() {
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
+    }
+
+    /**
+     * Get all failed uploads, except for those that were not performed due to lack of Wifi connection
+     * @return      Array of failed uploads, except for those that were not performed due to lack of Wifi connection.
+     */
+    public OCUpload[] getFailedButNotDelayedForWifiUploads() {
+        return getUploads(
+            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + " AND " +
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue(),
+            null
+        );
     }
 
     private ContentResolver getDB() {
