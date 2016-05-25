@@ -139,10 +139,12 @@
   <string name="share_via_link_section_title">Del lenkje</string>
   <string name="share_via_link_expiration_date_label">Set utløpsdato</string>
   <string name="share_via_link_password_label">Passordvern</string>
+  <string name="share_via_link_edit_permission_label">Tillat endring</string>
   <string name="share_search">Søk</string>
   <string name="share_privilege_can_share">kan dela</string>
   <string name="share_privilege_can_edit">kan endra</string>
   <string name="share_privilege_can_edit_create">lag</string>
+  <string name="share_privilege_can_edit_change">endra</string>
   <string name="share_privilege_can_edit_delete">slett</string>
   <string name="action_retry_uploads">Prøv feila på nytt</string>
   <string name="action_clear_failed_uploads">Fjern feila</string>
