@@ -377,10 +377,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                         mf.filter(menu);
                     }
 
-                } else {
-                    getListView().clearChoices();
-                    menu.clear();
-                    menu.close();
                 }
 
             }
