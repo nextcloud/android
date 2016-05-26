@@ -48,7 +48,7 @@
   <string name="prefs_imprint">Marca</string>
   <string name="prefs_remember_last_share_location">Lembrar localização de partilha</string>
   <string name="prefs_remember_last_upload_location_summary">Lembrar a última localização de partilha dos carregamentos</string>
-  <string name="recommend_subject">Tente %1$s no seu smartphone!</string>
+  <string name="recommend_subject">Experimente %1$s no seu smartphone!</string>
   <string name="recommend_text">Quero convidá-lo a utilizar %1$s no seu smartphone!\nDescarregue aqui: %2$s</string>
   <string name="auth_check_server">Verificar servidor</string>
   <string name="auth_host_url">Endereço do servidor https://..</string>
