@@ -56,6 +56,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
      * @param   account             OC account to upload the shared files.
      * @param   sourceUris          Array of "content://" URIs to the files to be uploaded.
      * @param   remotePaths         Array of absolute paths in the OC account to set to the uploaded files.
+     * @param   behaviour           Indicates what to do with the local file once uploaded.
      * @param   contentResolver     {@link ContentResolver} instance with appropriate permissions to open the
      *                              URIs in 'sourceUris'.
      *
@@ -79,6 +80,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
         Account account,
         Uri[] sourceUris,
         String[] remotePaths,
+        int behaviour,
         ContentResolver contentResolver
     ) {
 
@@ -86,6 +88,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             account,
             sourceUris,
             remotePaths,
+            new Integer(behaviour),
             contentResolver
         };
     }
@@ -115,7 +118,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
 
     /**
      * @param params    Params to execute the task; see
-     *                  {@link #makeParamsToExecute(Account, Uri[], String[], ContentResolver)}
+     *                  {@link #makeParamsToExecute(Account, Uri[], String[], int, ContentResolver)}
      *                  for further details.
      */
     @Override
@@ -132,7 +135,8 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             Account account = (Account) params[0];
             Uri[] uris = (Uri[]) params[1];
             String[] remotePaths = (String[]) params[2];
-            ContentResolver leakedContentResolver = (ContentResolver) params[3];
+            int behaviour = (Integer) params[3];
+            ContentResolver leakedContentResolver = (ContentResolver) params[4];
 
             String currentRemotePath;
 
@@ -160,6 +164,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                     account,
                     fullTempPath,
                     currentRemotePath,
+                    behaviour,
                     leakedContentResolver.getType(currentUri)
                 );
                 fullTempPath = null;
@@ -216,15 +221,14 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
         return result;
     }
 
-    private void requestUpload(Account account, String localPath, String remotePath, String mimeType) {
+    private void requestUpload(Account account, String localPath, String remotePath, int behaviour, String mimeType) {
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         requester.uploadNewFile(
             mAppContext,
             account,
             localPath,
             remotePath,
-            FileUploader.LOCAL_BEHAVIOUR_MOVE,  // the copy was already done, let's take advantage and move it
-                                                // into the OC folder so that appears as downloaded
+            behaviour,
             mimeType,
             false,      // do not create parent folder if not existent
             UploadFileOperation.CREATED_BY_USER

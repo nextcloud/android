@@ -199,6 +199,7 @@ public class UriUploader {
                         mAccount,
                         sourceUris,
                         remotePaths,
+                        mBehaviour,
                         mActivity.getContentResolver()
                 )
         );
