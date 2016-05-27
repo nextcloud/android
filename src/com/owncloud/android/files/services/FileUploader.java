@@ -61,8 +61,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.notifications.NotificationBuilderWithProgressBar;
-import com.owncloud.android.notifications.NotificationDelayer;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
@@ -959,7 +958,7 @@ public class FileUploader extends Service
         // / create status notification with a progress bar
         mLastPercent = 0;
         mNotificationBuilder =
-                NotificationBuilderWithProgressBar.newNotificationBuilderWithProgressBar(this);
+                NotificationUtils.newNotificationBuilder(this);
         mNotificationBuilder
                 .setOngoing(true)
                 .setSmallIcon(R.drawable.notification_icon)
@@ -1081,7 +1080,7 @@ public class FileUploader extends Service
             if (uploadResult.isSuccess()) {
                 mPendingUploads.remove(upload.getAccount().name, upload.getFile().getRemotePath());
                 // remove success notification, with a delay of 2 seconds
-                NotificationDelayer.cancelWithDelay(
+                NotificationUtils.cancelWithDelay(
                         mNotificationManager,
                         R.string.uploader_upload_succeeded_ticker,
                         2000);
