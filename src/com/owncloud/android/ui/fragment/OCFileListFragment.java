@@ -72,6 +72,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A Fragment that lists all files and folders in a given path.
@@ -95,8 +96,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
 
     private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
-
-    private static final int MIN_FILES_FOR_MULTISELECT = 2;
 
     private FileFragment.ContainerActivity mContainerActivity;
 
@@ -355,7 +354,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
                 final int checkedCount = getListView().getCheckedItemCount();
-                // TODO Tobi extract to values
+
                 mode.setTitle(checkedCount + " selected");
 
                 if (checked) {
@@ -364,24 +363,19 @@ public class OCFileListFragment extends ExtendedListFragment {
                     mAdapter.removeSelection(position);
                 }
 
-                OCFile targetFile = null;
-                if (checkedCount > 0 && checkedCount <= MIN_FILES_FOR_MULTISELECT) {
-                    targetFile = (checkedCount == MIN_FILES_FOR_MULTISELECT)
-                        ? mFile : mAdapter.getCheckedItems().get(0);
+                if (checkedCount > 0) {
+                    List<OCFile> targetFiles = mAdapter.getCheckedItems();
 
                     if (mContainerActivity.getStorageManager() != null) {
                         FileMenuFilter mf = new FileMenuFilter(
-                            targetFile,
+                            targetFiles,
                             mContainerActivity.getStorageManager().getAccount(),
                             mContainerActivity,
-                            getActivity(),
-                            mAdapter.getCheckedItems().size() == MIN_FILES_FOR_MULTISELECT
+                            getActivity()
                         );
                         mf.filter(menu);
                     }
-
                 }
-
             }
 
             @Override
@@ -672,6 +666,10 @@ public class OCFileListFragment extends ExtendedListFragment {
                 case R.id.action_download_file:
                 case R.id.action_sync_file: {
                     mContainerActivity.getFileOperationsHelper().syncFiles(mTargetFiles);
+                    return true;
+                }
+                case R.id.action_cancel_sync: {
+                    ((FileDisplayActivity) mContainerActivity).cancelTransference(mTargetFiles);
                     return true;
                 }
                 case R.id.action_move: {

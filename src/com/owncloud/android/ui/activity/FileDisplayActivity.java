@@ -41,14 +41,12 @@ import android.content.res.Resources.NotFoundException;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Parcelable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
-import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -60,7 +58,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -95,7 +92,7 @@ import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 import static com.owncloud.android.db.PreferenceManager.*;
 
@@ -1753,6 +1750,11 @@ public class FileDisplayActivity extends HookActivity
     }
 
 
+    /**
+     * Request stopping the upload/download operation in progress over the given {@link OCFile} file.
+     *
+     * @param file {@link OCFile} file which operation are wanted to be cancel
+     */
     public void cancelTransference(OCFile file) {
         getFileOperationsHelper().cancelTransference(file);
         if (mWaitingToPreview != null &&
@@ -1764,6 +1766,17 @@ public class FileDisplayActivity extends HookActivity
             mWaitingToSend = null;
         }
         onTransferStateChanged(file, false, false);
+    }
+
+    /**
+     * Request stopping all upload/download operations in progress over the given {@link OCFile} files.
+     *
+     * @param files list of {@link OCFile} files which operations are wanted to be cancel
+     */
+    public void cancelTransference(List<OCFile> files) {
+        for(OCFile file: files) {
+            cancelTransference(file);
+        }
     }
 
     @Override
