@@ -353,15 +353,39 @@ public class OCFileListFragment extends ExtendedListFragment {
 
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                final int checkedCount = getListView().getCheckedItemCount();
-
-                mode.setTitle(checkedCount + " selected");
-
                 if (checked) {
                     mAdapter.setNewSelection(position, checked);
                 } else {
                     mAdapter.removeSelection(position);
                 }
+
+                updateActionsMenu(mode);
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+
+                createContextActionBar(menu);
+                this.menu = menu;
+
+                updateActionsMenu(mode);
+
+                //set gray color
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getActivity().getWindow().setStatusBarColor(mStatusBarColorActionMode);
+                }
+
+                // hide FAB in multi selection mode
+                setFabEnabled(false);
+
+                return true;
+            }
+
+            private void updateActionsMenu(ActionMode mode) {
+                final int checkedCount = getListView().getCheckedItemCount();
+
+                mode.setTitle(checkedCount + " selected");
 
                 if (checkedCount > 0) {
                     List<OCFile> targetFiles = mAdapter.getCheckedItems();
@@ -376,23 +400,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                         mf.filter(menu);
                     }
                 }
-            }
-
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-
-                createContextActionBar(menu);
-                this.menu = menu;
-
-                //set gray color
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getActivity().getWindow().setStatusBarColor(mStatusBarColorActionMode);
-                }
-
-                // hide FAB in multi selection mode
-                setFabEnabled(false);
-
-                return true;
             }
 
             @Override
