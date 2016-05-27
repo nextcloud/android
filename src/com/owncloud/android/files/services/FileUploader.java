@@ -71,6 +71,7 @@ import java.io.File;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -442,6 +443,26 @@ public class FileUploader extends Service
         public boolean isUploading(Account account, OCFile file) {
             if (account == null || file == null) return false;
             return (mPendingUploads.contains(account, file.getRemotePath()));
+        }
+
+        /**
+         * Returns True when the file described by 'file' is being uploaded to
+         * the ownCloud account 'account' or waiting for it
+         *
+         * If 'file' is a directory, returns 'true' if some of its descendant files
+         * is uploading or waiting to upload.
+         *
+         * @param account   ownCloud account where the remote file will be stored.
+         * @param files      A list of files that could contains someone in the queue of pending uploads
+         */
+        public boolean isUploading(Account account, List<OCFile> files) {
+            if (account == null || files.isEmpty()) return false;
+            for(OCFile file: files) {
+                if(mPendingUploads.contains(account, file.getRemotePath())) {
+                    return true;
+                }
+            }
+            return false;
         }
 
 

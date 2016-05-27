@@ -272,7 +272,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
                     if ( //synchronizing
                                 opsBinder != null &&
-                                opsBinder.isSynchronizing(mAccount, file.getRemotePath())
+                                opsBinder.isSynchronizing(mAccount, file)
                             ) {
                         localStateView.setImageResource(R.drawable.synchronizing_file_indicator);
                         localStateView.setVisibility(View.VISIBLE);
