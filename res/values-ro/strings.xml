@@ -110,8 +110,13 @@
   <string name="uploads_view_group_finished_uploads">Încărcat</string>
   <string name="uploads_view_upload_status_succeeded">Terminat</string>
   <string name="uploads_view_upload_status_cancelled">Anulat</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Erori de autentificare</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Eroare de director</string>
+  <string name="uploads_view_upload_status_failed_file_error">Eroare de fișier</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Eroare de permisiune</string>
   <string name="uploads_view_upload_status_conflict">Conflict</string>
   <string name="uploads_view_upload_status_unknown_fail">Eroare necunoscută</string>
+  <string name="uploads_view_later_waiting_to_upload">Se așteaptă încărcarea</string>
   <string name="downloader_download_in_progress_ticker">Se descarcă...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Se descarcă %2$s</string>
   <string name="downloader_download_succeeded_ticker">Descărcarea a reușit</string>
