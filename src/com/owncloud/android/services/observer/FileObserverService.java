@@ -260,9 +260,9 @@ public class FileObserverService extends Service {
             // file downloading or to be downloaded for the first time
             localPath = FileStorageUtils.getDefaultSavePathFor(account.name, file);
         }
-        
+
         addObservedFile(localPath, account);
-        
+
     }
 
     
@@ -276,16 +276,27 @@ public class FileObserverService extends Service {
      */
     private void addObservedFile(String localPath, Account account) {
         File file = new File(localPath);
-        String parentPath = file.getParent();
-        FolderObserver observer = mFolderObserversMap.get(parentPath);
-        if (observer == null) {
-            observer = new FolderObserver(parentPath, account, getApplicationContext());
-            mFolderObserversMap.put(parentPath, observer);
-            Log_OC.d(TAG, "Observer added for parent folder " + parentPath + "/");
+
+        if(file.isDirectory()) {
+            File[] children = file.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    addObservedFile(child.getAbsolutePath(), account);
+                }
+            }
+        } else {
+
+            String parentPath = file.getParent();
+            FolderObserver observer = mFolderObserversMap.get(parentPath);
+            if (observer == null) {
+                observer = new FolderObserver(parentPath, account, getApplicationContext());
+                mFolderObserversMap.put(parentPath, observer);
+                Log_OC.d(TAG, "Observer added for parent folder " + parentPath + "/");
+            }
+
+            observer.startWatching(file.getName());
+            Log_OC.d(TAG, "Added " + localPath + " to list of observed children");
         }
-        
-        observer.startWatching(file.getName());
-        Log_OC.d(TAG, "Added " + localPath + " to list of observed children");
     }
 
     
