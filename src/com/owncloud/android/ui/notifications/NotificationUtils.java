@@ -17,17 +17,42 @@
  *
  */
 
-package com.owncloud.android.notifications;
+package com.owncloud.android.ui.notifications;
 
 import java.util.Random;
 
 import android.app.NotificationManager;
+import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
+import android.support.v4.app.NotificationCompat;
 
-public class NotificationDelayer {
-    
+import com.owncloud.android.R;
+
+public class NotificationUtils {
+
+    /**
+     * Factory method for {@link android.support.v4.app.NotificationCompat.Builder} instances.
+     *
+     * Not strictly needed from the moment when the minimum API level supported by the app
+     * was raised to 14 (Android 4.0).
+     *
+     * Formerly, returned a customized implementation of {@link android.support.v4.app.NotificationCompat.Builder}
+     * for Android API levels >= 8 and < 14.
+     *
+     * Kept in place for the extra abstraction level; notifications in the app need a review, and they
+     * change a lot in different Android versions.
+     *
+     * @param context       Context that will use the builder to create notifications
+     * @return              An instance of the regular {@link NotificationCompat.Builder}.
+     */
+    public static NotificationCompat.Builder newNotificationBuilder(Context context) {
+        return new NotificationCompat.Builder(context).
+            setColor(context.getResources().getColor(R.color.primary));
+    }
+
+
     public static void cancelWithDelay(
             final NotificationManager notificationManager,
             final int notificationId,
