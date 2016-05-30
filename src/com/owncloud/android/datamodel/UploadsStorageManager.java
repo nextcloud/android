@@ -400,12 +400,14 @@ public class UploadsStorageManager extends Observable {
         return mContentResolver;
     }
 
-    public long clearFailedUploads() {
+    public long clearFailedButNotDelayedForWifiUploads() {
         long result = getDB().delete(
-                ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value, null
+            ProviderTableMeta.CONTENT_URI_UPLOADS,
+            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + " AND " +
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue(),
+            null
         );
-        Log_OC.d(TAG, "delete all failed uploads");
+        Log_OC.d(TAG, "delete all failed uploads but those delayed for Wifi");
         if (result > 0) {
             notifyObserversNow();
         }
@@ -424,13 +426,14 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
-    public long clearAllFinishedUploads() {
+    public long clearAllFinishedButNotDelayedForWifiUploads() {
         String[] whereArgs = new String[2];
         whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
         whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=?",
+                ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=? AND " +
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue(),
                 whereArgs
         );
         Log_OC.d(TAG, "delete all finished uploads");
