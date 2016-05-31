@@ -418,15 +418,25 @@ public class RefreshFolderOperation extends RemoteOperation {
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, mAccount);
 
             /// prepare content synchronization for kept-in-sync files
-            if (updatedFile.isFavorite() && !updatedFile.isFolder()) {
-                SynchronizeFileOperation operation = new SynchronizeFileOperation(  localFile,        
-                                                                                    remoteFile, 
-                                                                                    mAccount, 
-                                                                                    true, 
-                                                                                    mContext
-                                                                                    );
-                
-                mFilesToSyncContents.add(operation);
+            if (updatedFile.isFavorite() ) {
+                if (updatedFile.isFolder()) {
+                    SynchronizeFolderOperation operation = new SynchronizeFolderOperation(
+                            mContext,
+                            remoteFile.getRemotePath(),
+                            mAccount,
+                            System.currentTimeMillis()
+                    );
+                    operation.execute(mStorageManager, mContext);
+                } else {
+                    SynchronizeFileOperation operation = new SynchronizeFileOperation(localFile,
+                            remoteFile,
+                            mAccount,
+                            true,
+                            mContext
+                    );
+
+                    mFilesToSyncContents.add(operation);
+                }
             }
 
             updatedFiles.add(updatedFile);
