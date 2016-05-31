@@ -253,21 +253,6 @@ public class FileDataStorageManager {
         return overriden;
     }
 
-
-    public void saveNewFile(OCFile newFile) {
-        String remoteParentPath = new File(newFile.getRemotePath()).getParent();
-        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
-                remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
-        OCFile parent = getFileByPath(remoteParentPath);
-        if (parent != null) {
-            newFile.setParentId(parent.getFileId());
-            saveFile(newFile);
-        } else {
-            throw new IllegalArgumentException("Saving a new file in an unexisting folder");
-        }
-    }
-
-
     /**
      * Inserts or updates the list of files contained in a given folder.
      * <p/>
