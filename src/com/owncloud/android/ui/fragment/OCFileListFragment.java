@@ -590,11 +590,15 @@ public class OCFileListFragment extends ExtendedListFragment
                 return true;
             }
             case R.id.action_favorite_file: {
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(mTargetFile, true);
+                if (mTargetFile.isFavorite() == OCFile.FavoriteStatus.FAVORITE_PARENT.getValue()) {
+                    Toast.makeText(getActivity(),
+                            getString(R.string.unfavorite_inherited_msg), Toast.LENGTH_LONG).show();
+                } else {
+                    mContainerActivity.getFileOperationsHelper().toggleFavorite(mTargetFile, true);
+                }
                 return true;
             }
             case R.id.action_unfavorite_file: {
-                // TODO : Check if file is favorite due to inheritance
                 mContainerActivity.getFileOperationsHelper().toggleFavorite(mTargetFile, false);
                 return true;
             }
