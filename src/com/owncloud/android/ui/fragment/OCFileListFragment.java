@@ -590,7 +590,7 @@ public class OCFileListFragment extends ExtendedListFragment
                 return true;
             }
             case R.id.action_favorite_file: {
-                if (mTargetFile.isFavorite() == OCFile.FavoriteStatus.FAVORITE_PARENT.getValue()) {
+                if (mTargetFile.getFavoriteStatus() == OCFile.FavoriteStatus.FAVORITE_PARENT.getValue()) {
                     Toast.makeText(getActivity(),
                             getString(R.string.unfavorite_inherited_msg), Toast.LENGTH_LONG).show();
                 } else {

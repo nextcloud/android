@@ -362,7 +362,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             
             CheckBox cb = (CheckBox)getView().findViewById(R.id.fdFavorite);
             boolean isFavorite = false;
-            if (file.isFavorite() != OCFile.FavoriteStatus.NO_FAVORITE.getValue()) {
+            if (file.getFavoriteStatus() != OCFile.FavoriteStatus.NO_FAVORITE.getValue()) {
                 isFavorite = true;
             }
             cb.setChecked(isFavorite);

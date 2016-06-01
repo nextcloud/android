@@ -37,9 +37,7 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -51,7 +49,6 @@ import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
-import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 
 import java.util.List;
 import java.util.Vector;
@@ -454,9 +451,9 @@ public class FileOperationsHelper {
     }
 
     public void toggleFavorite(OCFile file, boolean isFavorite) {
-        int favoriteStatus = (isFavorite)  ?
+        int favoriteStatus = isFavorite  ?
                 OCFile.FavoriteStatus.FAVORITE.getValue() : OCFile.FavoriteStatus.NO_FAVORITE.getValue();
-        file.setFavorite(favoriteStatus);
+        file.setFavoriteStatus(favoriteStatus);
         mFileActivity.getStorageManager().saveFile(file);
 
         // If file is a folder, all children files that were available offline must be unset
@@ -473,17 +470,17 @@ public class FileOperationsHelper {
         mFileActivity.startService(observedFileIntent);
 
         /// immediate content synchronization
-        if (file.isFavorite() == OCFile.FavoriteStatus.FAVORITE.getValue()) {
+        if (file.getFavoriteStatus() == OCFile.FavoriteStatus.FAVORITE.getValue()) {
             syncFile(file);
         }
     }
 
     private void toggleAvailableOfflineFilesInFolder(OCFile file, boolean isAvailableOffline) {
-        int favoriteStatus = (isAvailableOffline) ?
+        int favoriteStatus = isAvailableOffline ?
                 OCFile.FavoriteStatus.FAVORITE.getValue() : OCFile.FavoriteStatus.NO_FAVORITE.getValue();
         Vector<OCFile> filesInFolder = mFileActivity.getStorageManager().getFolderContent(file);
         for (OCFile fileInFolder: filesInFolder) {
-            fileInFolder.setFavorite(favoriteStatus);
+            fileInFolder.setFavoriteStatus(favoriteStatus);
             mFileActivity.getStorageManager().saveFile(fileInFolder);
             if (fileInFolder.isFolder()) {
                 toggleAvailableOfflineFilesInFolder(fileInFolder, isAvailableOffline);

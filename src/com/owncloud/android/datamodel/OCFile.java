@@ -109,7 +109,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mNeedsUpdating;
     private long mLastSyncDateForProperties;
     private long mLastSyncDateForData;
-    private int mFavorite;
+    private int mFavoriteStatus;
 
     private String mEtag;
 
@@ -166,7 +166,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLocalPath = source.readString();
         mMimeType = source.readString();
         mNeedsUpdating = source.readInt() == 0;
-        mFavorite = source.readInt();
+        mFavoriteStatus = source.readInt();
         mLastSyncDateForProperties = source.readLong();
         mLastSyncDateForData = source.readLong();
         mEtag = source.readString();
@@ -193,7 +193,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mLocalPath);
         dest.writeString(mMimeType);
         dest.writeInt(mNeedsUpdating ? 1 : 0);
-        dest.writeInt(mFavorite);
+        dest.writeInt(mFavoriteStatus);
         dest.writeLong(mLastSyncDateForProperties);
         dest.writeLong(mLastSyncDateForData);
         dest.writeString(mEtag);
@@ -412,7 +412,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mModifiedTimestampAtLastSyncForData = 0;
         mLastSyncDateForProperties = 0;
         mLastSyncDateForData = 0;
-        mFavorite = 0;
+        mFavoriteStatus = 0;
         mNeedsUpdating = false;
         mEtag = null;
         mShareByLink = false;
@@ -521,12 +521,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLastSyncDateForData = lastSyncDate;
     }
 
-    public void setFavorite(int favorite) {
-        mFavorite = favorite;
+    public void setFavoriteStatus(int favorite) {
+        mFavoriteStatus = favorite;
     }
 
-    public int isFavorite() {
-        return mFavorite;
+    public int getFavoriteStatus() {
+        return mFavoriteStatus;
     }
 
     @Override
@@ -563,7 +563,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
                 "parentId=%s, favorite=%s etag=%s]";
         asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(),
-                mLocalPath, mRemotePath, Long.valueOf(mParentId), Integer.valueOf(mFavorite),
+                mLocalPath, mRemotePath, Long.valueOf(mParentId), Integer.valueOf(mFavoriteStatus),
                 mEtag);
         return asString;
     }

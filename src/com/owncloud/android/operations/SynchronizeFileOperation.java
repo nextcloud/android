@@ -247,7 +247,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                         // service when the upload finishes
                     } else {
                         // TODO CHECK: is this really useful in some point in the code?
-                        mServerFile.setFavorite(mLocalFile.isFavorite());
+                        mServerFile.setFavoriteStatus(mLocalFile.getFavoriteStatus());
                         mServerFile.setLastSyncDateForData(mLocalFile.getLastSyncDateForData());
                         mServerFile.setStoragePath(mLocalFile.getStoragePath());
                         mServerFile.setParentId(mLocalFile.getParentId());

@@ -534,7 +534,7 @@ public class UploadFileOperation extends SyncOperation {
                 mFile.getModificationTimestampAtLastSyncForData()
         );
         newFile.setEtag(mFile.getEtag());
-        newFile.setFavorite(mFile.isFavorite());
+        newFile.setFavoriteStatus(mFile.getFavoriteStatus());
         newFile.setLastSyncDateForProperties(mFile.getLastSyncDateForProperties());
         newFile.setLastSyncDateForData(mFile.getLastSyncDateForData());
         newFile.setStoragePath(mFile.getStoragePath());
