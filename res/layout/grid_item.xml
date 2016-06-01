@@ -54,7 +54,7 @@
             android:layout_gravity="bottom|right"
             android:layout_marginTop="2dp"
             android:layout_marginRight="2dp"
-            android:src="@drawable/local_file_indicator" />
+            android:src="@drawable/ic_synced" />
 
         <ImageView
             android:id="@+id/favoriteIcon"
@@ -63,7 +63,7 @@
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="2dp"
             android:layout_marginRight="2dp"
-            android:src="@drawable/ic_favorite" />
+            android:src="@drawable/ic_available_offline" />
 
 
 
