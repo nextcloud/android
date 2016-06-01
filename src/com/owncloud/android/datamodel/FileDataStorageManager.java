@@ -189,7 +189,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
-        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isFavorite() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isFavorite());
         cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
         cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, file.isSharedViaLink() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, file.isSharedWithSharee() ? 1 : 0);
@@ -294,7 +294,7 @@ public class FileDataStorageManager {
             cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
             cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
             cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
-            cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isFavorite() ? 1 : 0);
+            cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isFavorite());
             cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
             cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, file.isSharedViaLink() ? 1 : 0);
             cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, file.isSharedWithSharee() ? 1 : 0);
@@ -372,7 +372,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, folder.getLastSyncDateForProperties());
         cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, folder.getLastSyncDateForData());
-        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, folder.isFavorite() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, folder.isFavorite());
         cv.put(ProviderTableMeta.FILE_ETAG, folder.getEtag());
         cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, folder.isSharedViaLink() ? 1 : 0);
         cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, folder.isSharedWithSharee() ? 1 : 0);
@@ -784,6 +784,15 @@ public class FileDataStorageManager {
                 ret.add(child);
                 // }
             } while (c.moveToNext());
+
+            if (ret.size() > 0) {
+                OCFile parent = getFileById(ret.get(0).getParentId());
+                if (isAnyParentAFavoriteFolder(parent)) {
+                    for(OCFile file: ret) {
+                        file.setFavorite(OCFile.FavoriteStatus.FAVORITE_PARENT.getValue());
+                    }
+                }
+            }
         }
 
         c.close();
@@ -793,6 +802,27 @@ public class FileDataStorageManager {
         return ret;
     }
 
+    /**
+    * Checks if OCFile is favorite or it is inside a favorite folder
+    * @param parentFile
+    * @return true/false
+    */
+    private boolean isAnyParentAFavoriteFolder(OCFile parentFile) {
+        boolean isFavorite = false;
+        if (parentFile.isFolder() &&
+                parentFile.isFavorite() == OCFile.FavoriteStatus.FAVORITE.getValue()) {
+            isFavorite = true;
+        }else if (parentFile.isFolder() &&
+                parentFile.isFavorite() == OCFile.FavoriteStatus.FAVORITE.getValue()) {
+            isFavorite = true;
+        } else if (parentFile.isFolder() &&
+                parentFile.isFavorite() != OCFile.FavoriteStatus.FAVORITE.getValue() &&
+                !parentFile.getFileName().equals("/")) {
+            parentFile = getFileById(parentFile.getParentId());
+            isFavorite = isAnyParentAFavoriteFolder(parentFile);
+        }
+        return isFavorite;
+    }
 
     private OCFile createRootDir() {
         OCFile file = new OCFile(OCFile.ROOT_PATH);
@@ -896,7 +926,7 @@ public class FileDataStorageManager {
             file.setLastSyncDateForData(c.getLong(c.
                     getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
             file.setFavorite(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)) == 1 ? true : false);
+                    c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)));
             file.setEtag(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG)));
             file.setShareViaLink(c.getInt(
                     c.getColumnIndex(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1 ? true : false);
@@ -1346,7 +1376,7 @@ public class FileDataStorageManager {
                         ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA,
                         file.getLastSyncDateForData()
                 );
-                cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isFavorite() ? 1 : 0);
+                cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isFavorite());
                 cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
                 cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, file.isSharedViaLink() ? 1 : 0);
                 cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, file.isSharedWithSharee() ? 1 : 0);

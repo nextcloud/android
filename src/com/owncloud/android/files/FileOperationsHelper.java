@@ -454,7 +454,9 @@ public class FileOperationsHelper {
     }
 
     public void toggleFavorite(OCFile file, boolean isFavorite) {
-        file.setFavorite(isFavorite);
+        int favoriteStatus = (isFavorite)  ?
+                OCFile.FavoriteStatus.FAVORITE.getValue() : OCFile.FavoriteStatus.NO_FAVORITE.getValue();
+        file.setFavorite(favoriteStatus);
         mFileActivity.getStorageManager().saveFile(file);
 
         // If file is a folder, all children files that were available offline must be unset
@@ -471,15 +473,17 @@ public class FileOperationsHelper {
         mFileActivity.startService(observedFileIntent);
 
         /// immediate content synchronization
-        if (file.isFavorite()) {
+        if (file.isFavorite() == OCFile.FavoriteStatus.FAVORITE.getValue()) {
             syncFile(file);
         }
     }
 
     private void toggleAvailableOfflineFilesInFolder(OCFile file, boolean isAvailableOffline) {
+        int favoriteStatus = (isAvailableOffline) ?
+                OCFile.FavoriteStatus.FAVORITE.getValue() : OCFile.FavoriteStatus.NO_FAVORITE.getValue();
         Vector<OCFile> filesInFolder = mFileActivity.getStorageManager().getFolderContent(file);
         for (OCFile fileInFolder: filesInFolder) {
-            fileInFolder.setFavorite(isAvailableOffline);
+            fileInFolder.setFavorite(favoriteStatus);
             mFileActivity.getStorageManager().saveFile(fileInFolder);
             if (fileInFolder.isFolder()) {
                 toggleAvailableOfflineFilesInFolder(fileInFolder, isAvailableOffline);

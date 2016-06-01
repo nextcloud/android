@@ -361,7 +361,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             setTimeModified(file.getModificationTimestamp());
             
             CheckBox cb = (CheckBox)getView().findViewById(R.id.fdFavorite);
-            cb.setChecked(file.isFavorite());
+            boolean isFavorite = false;
+            if (file.isFavorite() != OCFile.FavoriteStatus.NO_FAVORITE.getValue()) {
+                isFavorite = true;
+            }
+            cb.setChecked(isFavorite);
 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
