@@ -479,11 +479,10 @@ public class FileOperationsHelper {
     private void toggleAvailableOfflineFilesInFolder(OCFile file, boolean isAvailableOffline) {
         Vector<OCFile> filesInFolder = mFileActivity.getStorageManager().getFolderContent(file);
         for (OCFile fileInFolder: filesInFolder) {
+            fileInFolder.setFavorite(isAvailableOffline);
+            mFileActivity.getStorageManager().saveFile(fileInFolder);
             if (fileInFolder.isFolder()) {
                 toggleAvailableOfflineFilesInFolder(fileInFolder, isAvailableOffline);
-            } else {
-                fileInFolder.setFavorite(isAvailableOffline);
-                mFileActivity.getStorageManager().saveFile(fileInFolder);
             }
         }
     }
