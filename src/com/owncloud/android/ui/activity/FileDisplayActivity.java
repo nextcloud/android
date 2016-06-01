@@ -40,7 +40,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -94,6 +93,8 @@ import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+
+import static com.owncloud.android.db.PreferenceManager.*;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -563,7 +564,7 @@ public class FileDisplayActivity extends HookActivity
                 break;
             }
             case R.id.action_sort: {
-                Integer sortOrder = PreferenceManager.getSortOrder(this);
+                Integer sortOrder = getSortOrder(this);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.actionbar_sort_title)
