@@ -240,6 +240,7 @@
     <string name="remove_success_msg">"Removal succeeded"</string>
     <string name="remove_fail_msg">"Removal failed"</string>
     <string name="rename_dialog_title">Enter a new name</string>
+    <string name="unfavorite_inherited_msg">A folder that contains this file is already favorite</string>
     <string name="rename_local_fail_msg">"Local copy could not be renamed; try a different name"</string>
     <string name="rename_server_fail_msg">"Rename could not be completed"</string>
     <string name="sync_file_fail_msg">Remote file could not be checked</string>
