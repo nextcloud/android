@@ -62,6 +62,7 @@ public class OCFileUnitTest {
     private static final String PERMISSIONS = "SRKNVD";
     private static final String REMOTE_ID = "jadñgiadf8203:9jrp98v2mn3er2089fh";
     private static final String ETAG_IN_CONFLICT = "2adshfas98ferqw8f9yu";
+    private static final int FAVORITE = OCFile.FavoriteStatus.FAVORITE.getValue();
 
     private OCFile mFile;
 
@@ -85,7 +86,7 @@ public class OCFileUnitTest {
         mFile.setModificationTimestampAtLastSyncForData(MODIFICATION_TIMESTAMP_AT_LAST_SYNC_FOR_DATA);
         mFile.setLastSyncDateForProperties(LAST_SYNC_DATE_FOR_PROPERTIES);
         mFile.setLastSyncDateForData(LAST_SYNC_DATE_FOR_DATA);
-        mFile.setFavorite(true);
+        mFile.setFavoriteStatus(FAVORITE);
         mFile.setEtag(ETAG);
         mFile.setShareViaLink(true);
         mFile.setShareWithSharee(true);
@@ -120,7 +121,7 @@ public class OCFileUnitTest {
         );
         assertThat(fileReadFromParcel.getLastSyncDateForProperties(), is(LAST_SYNC_DATE_FOR_PROPERTIES));
         assertThat(fileReadFromParcel.getLastSyncDateForData(), is(LAST_SYNC_DATE_FOR_DATA));
-        assertThat(fileReadFromParcel.isFavorite(), is(true));
+        assertThat(fileReadFromParcel.getFavoriteStatus(), is(FAVORITE));
         assertThat(fileReadFromParcel.getEtag(), is(ETAG));
         assertThat(fileReadFromParcel.isSharedViaLink(), is(true));
         assertThat(fileReadFromParcel.isSharedWithSharee(), is(true));
