@@ -809,13 +809,12 @@ public class FileDataStorageManager {
     private boolean isAnyParentAFavoriteFolder(long parentId) {
         boolean isFavorite = false;
         OCFile file = getFileById(parentId);
-        if (file.isFolder() &&
-                file.getFavoriteStatus() == OCFile.FavoriteStatus.FAVORITE.getValue()) {
-            isFavorite = true;
-        } else if (file.isFolder() &&
-                file.getFavoriteStatus() != OCFile.FavoriteStatus.FAVORITE.getValue() &&
-                !file.getFileName().equals(OCFile.ROOT_PATH)) {
-            isFavorite = isAnyParentAFavoriteFolder(file.getParentId());
+        if (file.isFolder()) {
+            if (file.getFavoriteStatus() == OCFile.FavoriteStatus.FAVORITE.getValue()) {
+                isFavorite = true;
+            } else if (!file.getFileName().equals(OCFile.ROOT_PATH)) {
+                isFavorite = isAnyParentAFavoriteFolder(file.getParentId());
+            }
         }
         return isFavorite;
     }
