@@ -123,4 +123,47 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
 
+    applicationVariants.all { variant ->
+        setOutputFileName(variant)
+    }
 }
+
+/// updates output file names of a given variant from parameters to format
+// [OC_APP_NAME].[versionName].[OC_BUILD_NUMBER]-[variant].apk
+//
+// OC_APP_NAME and OC_BUILD_NUMBER are read from environment variables
+//
+// If OC_APP_NAME is undefined, original prefix is kept
+//
+// If OC_BUILD_NUMBER is undefined, it's not added
+//
+def setOutputFileName(variant) {
+    logger.info("Setting new name for output of variant $variant.name")
+
+    def originalFile = variant.outputs[0].outputFile;
+    def originalName = originalFile.name;
+    logger.info("$variant.name: originalName is $originalName")
+    def originalParts = originalName.split("-")
+
+    def newName = ""
+
+    def appName = System.env.OC_APP_NAME
+    if (appName) {
+        newName += appName
+    } else {
+        newName += originalParts.first()
+    }
+
+    newName += "_$variant.versionName"
+
+    def buildNumber = System.env.OC_BUILD_NUMBER
+    if (buildNumber) {
+        newName += ".$buildNumber"
+    }
+
+    newName += "-" + originalParts.last()
+
+    logger.info("$variant.name: newName is $newName")
+    variant.outputs[0].outputFile = new File(originalFile.parent, newName)
+}
+
