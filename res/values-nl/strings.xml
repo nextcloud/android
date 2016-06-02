@@ -226,8 +226,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
 	</string>
   <string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
   <string name="auth_account_does_not_exist">Het account bestaat nog niet in dit apparaat</string>
-  <string name="favorite">Favoriet</string>
-  <string name="unfavorite">Niet meer favoriet</string>
   <string name="common_rename">Hernoemen</string>
   <string name="common_remove">Verwijderen</string>
   <string name="confirmation_remove_alert">Wilt u %1$s werkelijk verwijderen?</string>

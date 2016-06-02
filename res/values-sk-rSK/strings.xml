@@ -176,8 +176,6 @@
   <string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému
 	</string>
   <string name="auth_account_does_not_exist">Účet zatiaľ v zariadení neexistuje</string>
-  <string name="favorite">Obľúbené</string>
-  <string name="unfavorite">Odobrať z obľúbených</string>
   <string name="common_rename">Premenuj</string>
   <string name="common_remove">Odober</string>
   <string name="confirmation_remove_alert">Naozaj chcete odstrániť %1$s?</string>

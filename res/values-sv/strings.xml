@@ -223,8 +223,6 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
   <string name="auth_account_does_not_exist">Det finns inget konto på denna enhet än</string>
-  <string name="favorite">Favorit</string>
-  <string name="unfavorite">Avfavoritisera</string>
   <string name="common_rename">Byt namn</string>
   <string name="common_remove">Radera</string>
   <string name="confirmation_remove_alert">Vill du verkligen ta bort %1$s?</string>

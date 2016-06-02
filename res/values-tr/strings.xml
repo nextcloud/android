@@ -216,8 +216,6 @@
         </string>
   <string name="auth_can_not_auth_against_server">Bu sunucuya karşı kimlik doğrulama yapılamaz</string>
   <string name="auth_account_does_not_exist">Hesap henüz cihazda mevcut değil</string>
-  <string name="favorite">Favorilere ekle</string>
-  <string name="unfavorite">Favoriden kaldır</string>
   <string name="common_rename">Yeniden adlandır</string>
   <string name="common_remove">Kaldır</string>
   <string name="confirmation_remove_alert">Gerçekten %1$s dosyasını kaldırmak istiyor musunuz?</string>

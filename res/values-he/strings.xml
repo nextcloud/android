@@ -203,8 +203,6 @@
 ⇥</string>
   <string name="auth_can_not_auth_against_server">לא ניתן לאמת עבור שרת זה</string>
   <string name="auth_account_does_not_exist">עדיין לא קיים חשבון במכשיר</string>
-  <string name="favorite">מועדף</string>
-  <string name="unfavorite">לא מועדף</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
   <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>

@@ -191,8 +191,6 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
   <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá fyrir hendi á tækinu</string>
-  <string name="favorite">Uppáhalds</string>
-  <string name="unfavorite">Taka úr eftirlæti</string>
   <string name="common_rename">Endurnefna</string>
   <string name="common_remove">Fjarlægja</string>
   <string name="confirmation_remove_alert">Ertu viss um að þú viljir fjarlægja %1$s?</string>

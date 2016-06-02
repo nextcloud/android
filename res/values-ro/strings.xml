@@ -189,8 +189,6 @@
   <string name="auth_unsupported_multiaccount">%1$s nu suporta conturi multiple</string>
   <string name="auth_fail_get_user_name">Server-ul dvs. nu  întoarce un ID de utilizator corect, vă rugăm să contactați un administrator </string>
   <string name="auth_account_does_not_exist">Contul nu există încă în dispozitiv</string>
-  <string name="favorite">Favorit</string>
-  <string name="unfavorite">Defavoritați</string>
   <string name="common_rename">Redenumește</string>
   <string name="common_remove">Elimină</string>
   <string name="confirmation_remove_alert">Doriti sigur sa stergeti %1$s?</string>

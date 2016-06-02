@@ -177,8 +177,6 @@
   <string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
   <string name="auth_fail_get_user_name">Din server retunere ikke et korrekt bruger-id. Kontakt venligst din administrator</string>
   <string name="auth_account_does_not_exist">Kontoen findes endnu ikke på enheden</string>
-  <string name="favorite">Foretrukken</string>
-  <string name="unfavorite">Fjern markering som foretrukket</string>
   <string name="common_rename">Omdøb</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_alert">Er du sikker på at du vil fjerne %1$s ?</string>

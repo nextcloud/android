@@ -222,8 +222,6 @@
   <string name="auth_fail_get_user_name">Shërbyesi juaj s\’po përgjigje me id të saktë përdoruesi, ju lutemi, lidhuni me një admin</string>
   <string name="auth_can_not_auth_against_server">S’kryhet dot mirëfilltësimi me këtë shërbyes</string>
   <string name="auth_account_does_not_exist">Llogaria s\’ekziston ende te pajisja</string>
-  <string name="favorite">Vëre te Të parapëlqyerit</string>
-  <string name="unfavorite">Hiqe nga Të parapëlqyerit</string>
   <string name="common_rename">Riemërtojeni</string>
   <string name="common_remove">Hiqe</string>
   <string name="confirmation_remove_alert">Doni vërtet të hiqet %1$s?</string>

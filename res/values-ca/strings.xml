@@ -187,7 +187,6 @@
   <string name="auth_unsupported_auth_method">El serivdor no permet aquest mètode d\'autenticació</string>
   <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
   <string name="auth_fail_get_user_name">El servidor no retorna una id d\'usuari correcta, contacteu amb l\'administrador.</string>
-  <string name="favorite">Preferits</string>
   <string name="common_rename">Reanomena</string>
   <string name="common_remove">Elimina</string>
   <string name="confirmation_remove_alert">Esteu segur que voleu eliminar %1$s?</string>

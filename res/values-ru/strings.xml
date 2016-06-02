@@ -223,9 +223,7 @@
   <string name="auth_fail_get_user_name">Сервер вернул некорректный пользовательский идентификатор. Пожалуйста, свяжитесь с вашим администратором
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Не удается авторизоваться на этом сервере</string>
-  <string name="auth_account_does_not_exist">Аккаунт не существует на устройстве ещё</string>
-  <string name="favorite">Добавить в избранное</string>
-  <string name="unfavorite">Убрать из избранного</string>
+  <string name="auth_account_does_not_exist">Аккаунт ещё не существует на устройстве</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>
   <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>

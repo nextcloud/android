@@ -105,7 +105,6 @@
   <string name="auth_bad_oc_version_title">Neatpazīta servera versija</string>
   <string name="auth_wrong_connection_title">Nevarēja izveidot savienojumu</string>
   <string name="auth_secure_connection">Ir izveidots drošs savienojums</string>
-  <string name="favorite">Iecienītais</string>
   <string name="common_rename">Pārsaukt</string>
   <string name="common_remove">Izņemt</string>
   <string name="confirmation_remove_local">Tikai lokālos</string>

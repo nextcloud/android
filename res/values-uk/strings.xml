@@ -183,8 +183,6 @@
   <string name="auth_fail_get_user_name">Ваш сервер не повертає коректний ідентифікатор користувача, будь ласка зверніться до адміністратора
 ⇥</string>
   <string name="auth_account_does_not_exist">Користвача в пристрої не існуе</string>
-  <string name="favorite">Улюблений</string>
-  <string name="unfavorite">Прибрати з вибраного</string>
   <string name="common_rename">Перейменувати</string>
   <string name="common_remove">Видалити</string>
   <string name="confirmation_remove_alert">Ви дійсно бажаєте видалити %1$s?</string>

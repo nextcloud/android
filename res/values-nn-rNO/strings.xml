@@ -110,7 +110,6 @@
   <string name="auth_ssl_general_error_title">Feil ved SSL-oppstart</string>
   <string name="auth_wrong_connection_title">Klarte ikkje å oppretta ei tilkopling</string>
   <string name="auth_secure_connection">Trygg tilkopling oppretta</string>
-  <string name="favorite">Favoritt</string>
   <string name="common_rename">Endra namn</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_local">Berre lokalt</string>

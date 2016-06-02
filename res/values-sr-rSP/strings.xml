@@ -50,7 +50,6 @@
   <string name="auth_no_net_conn_title">Nema konekcije</string>
   <string name="auth_nossl_plain_ok_title">Sigurna konekcija nije dostupna.</string>
   <string name="auth_connection_established">Konekcija uspostavljena</string>
-  <string name="favorite">Omiljeni</string>
   <string name="common_rename">Preimenij</string>
   <string name="common_remove">Ukloni</string>
   <string name="remove_success_msg">Uklanjanje je uspelo</string>

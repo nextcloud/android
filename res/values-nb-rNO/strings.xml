@@ -216,8 +216,6 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne serveren</string>
   <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
-  <string name="favorite">Gjør til favoritt</string>
-  <string name="unfavorite">Fjern favoritt</string>
   <string name="common_rename">Endre navn</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_alert">Vil du virkelig fjerne %1$s?</string>

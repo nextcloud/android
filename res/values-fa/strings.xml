@@ -158,7 +158,6 @@
   <string name="auth_expired_oauth_token_toast">احراز هویت شما منقضی شده است. لطفا، مجددا احراز هویت فرمایید.</string>
   <string name="auth_unsupported_auth_method">سرور این نوع احراز هویت را پشتیبانی نمی‌کند</string>
   <string name="auth_unsupported_multiaccount">%1$s چند اکانته بودن را پشتیبانی نمی‌کند</string>
-  <string name="favorite">برگزیده</string>
   <string name="common_rename">تغییرنام</string>
   <string name="common_remove">حذف</string>
   <string name="confirmation_remove_alert">آیا واقعا می‌خواهید %1$s حذف شود ؟</string>
