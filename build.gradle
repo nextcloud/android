@@ -124,34 +124,34 @@ android {
     }
 
     applicationVariants.all { variant ->
-        setOutputFileName(variant)
+        def appName = System.env.OC_APP_NAME
+        setOutputFileName(variant, appName, project)
     }
 }
 
-/// updates output file names of a given variant from parameters to format
-// [OC_APP_NAME].[versionName].[OC_BUILD_NUMBER]-[variant].apk
+// Updates output file names of a given variant to format
+// [appName].[variant.versionName].[OC_BUILD_NUMBER]-[variant.name].apk.
 //
-// OC_APP_NAME and OC_BUILD_NUMBER are read from environment variables
+// OC_BUILD_NUMBER is an environment variable read directly in this method. If undefined, it's not added.
 //
-// If OC_APP_NAME is undefined, original prefix is kept
-//
-// If OC_BUILD_NUMBER is undefined, it's not added
-//
-def setOutputFileName(variant) {
+// @param variant           Build variant instance which output file name will be updated.
+// @param appName           String to use as first part of the new file name. May be undefined, the original
+//                          project.archivesBaseName property will be used instead.
+// @param callerProject     Caller project.
+
+def setOutputFileName(variant, appName, callerProject) {
     logger.info("Setting new name for output of variant $variant.name")
 
     def originalFile = variant.outputs[0].outputFile;
     def originalName = originalFile.name;
     logger.info("$variant.name: originalName is $originalName")
-    def originalParts = originalName.split("-")
 
     def newName = ""
 
-    def appName = System.env.OC_APP_NAME
     if (appName) {
         newName += appName
     } else {
-        newName += originalParts.first()
+        newName += callerProject.archivesBaseName
     }
 
     newName += "_$variant.versionName"
@@ -161,9 +161,9 @@ def setOutputFileName(variant) {
         newName += ".$buildNumber"
     }
 
-    newName += "-" + originalParts.last()
+    newName += originalName.substring(callerProject.archivesBaseName.length())
 
-    logger.info("$variant.name: newName is $newName")
+    logger.quiet("$variant.name: newName is $newName")
     variant.outputs[0].outputFile = new File(originalFile.parent, newName)
 }
 

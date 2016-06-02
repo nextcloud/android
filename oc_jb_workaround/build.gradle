@@ -39,4 +39,12 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
+
+    applicationVariants.all { variant ->
+        def appName = System.env.OC_APP_NAME
+        if (appName) {
+            appName += "_jb_workaround"
+        }
+        setOutputFileName(variant, appName, project)
+    }
 }
