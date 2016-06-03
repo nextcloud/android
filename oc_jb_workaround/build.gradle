@@ -40,6 +40,23 @@ android {
         release.setRoot('build-types/release')
     }
 
+    signingConfigs {
+        release {
+            if (System.env.OC_RELEASE_KEYSTORE) {
+                storeFile file(System.env.OC_RELEASE_KEYSTORE)  // use an absolute path
+                storePassword System.env.OC_RELEASE_KEYSTORE_PASSWORD
+                keyAlias System.env.OC_RELEASE_KEY_ALIAS
+                keyPassword System.env.OC_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
     applicationVariants.all { variant ->
         def appName = System.env.OC_APP_NAME
         if (appName) {
@@ -47,4 +64,5 @@ android {
         }
         setOutputFileName(variant, appName, project)
     }
+
 }
