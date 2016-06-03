@@ -123,10 +123,28 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
 
+    signingConfigs {
+        release {
+            if (System.env.OC_RELEASE_KEYSTORE) {
+                storeFile file(System.env.OC_RELEASE_KEYSTORE)  // use an absolute path
+                storePassword System.env.OC_RELEASE_KEYSTORE_PASSWORD
+                keyAlias System.env.OC_RELEASE_KEY_ALIAS
+                keyPassword System.env.OC_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
     applicationVariants.all { variant ->
         def appName = System.env.OC_APP_NAME
         setOutputFileName(variant, appName, project)
     }
+
 }
 
 // Updates output file names of a given variant to format
@@ -163,7 +181,6 @@ def setOutputFileName(variant, appName, callerProject) {
 
     newName += originalName.substring(callerProject.archivesBaseName.length())
 
-    logger.quiet("$variant.name: newName is $newName")
+    logger.info("$variant.name: newName is $newName")
     variant.outputs[0].outputFile = new File(originalFile.parent, newName)
 }
-
