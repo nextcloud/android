@@ -223,6 +223,8 @@
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Não é possível obter autenticação neste servidor</string>
   <string name="auth_account_does_not_exist">Conta ainda não existe no dispositivo</string>
+  <string name="favorite">Definir como disponível offline</string>
+  <string name="unfavorite">Definir como não disponível offline</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Remover</string>
   <string name="confirmation_remove_alert">Você realmente deseja remover %1$s?</string>
