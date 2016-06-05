@@ -25,7 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">הגדרות</string>
-  <string name="drawer_item_logs">לוגים</string>
+  <string name="drawer_item_uploads_list">העלאות</string>
   <string name="drawer_close">סגירה</string>
   <string name="drawer_open">פתיחה</string>
   <string name="prefs_category_general">כללי</string>
@@ -58,21 +58,20 @@
   <string name="sync_string_files">קבצים</string>
   <string name="setup_btn_connect">התחברות</string>
   <string name="uploader_btn_upload_text">העלאה</string>
-  <string name="uploader_btn_new_folder_text">תיקייה חדשה</string>
   <string name="uploader_top_message">בחירת תיקיית העלאה:</string>
   <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
   <string name="uploader_wrn_no_account_text">לא מוגדרים חשבונות %1$s במכשיר שלך. יש להגדיר חשבות תחילה.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>
   <string name="uploader_wrn_no_account_quit_btn_text">יציאה</string>
-  <string name="uploader_wrn_no_content_title">אין תוכן להעלאה</string>
-  <string name="uploader_wrn_no_content_text">לא התקבל תוכן. אין מה להעלות.</string>
-  <string name="uploader_error_forbidden_content">ל־%1$s אין הרשאה לגשת לתוכן המשותף שלך</string>
-  <string name="uploader_info_uploading">בהעלאה</string>
   <string name="file_list_seconds_ago">שניות</string>
   <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
   <string name="file_list_loading">בטעינה …</string>
   <string name="file_list_no_app_for_file_type">לא נמצא יישום עבור סוג זה!</string>
   <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
+  <string name="file_list_folder">תקיה</string>
+  <string name="file_list_folders">תקיות</string>
+  <string name="file_list_file">קובץ</string>
+  <string name="file_list_files">קובץ</string>
   <string name="filedetails_select_file">יש לגעת בקובץ כדי להציג פרטים נוספים.</string>
   <string name="filedetails_size">גודל:</string>
   <string name="filedetails_type">סוג:</string>
@@ -88,6 +87,7 @@
   <string name="common_ok">אישור</string>
   <string name="common_cancel_sync">ביטול סנכרון</string>
   <string name="common_cancel">ביטול</string>
+  <string name="common_back">אחורה</string>
   <string name="common_save_exit">שמירה ויציאה</string>
   <string name="common_error">שגיאה</string>
   <string name="common_loading">בטעינה …</string>
@@ -105,6 +105,16 @@
   <string name="uploader_upload_failed_ticker">ההעלאה נכשלה</string>
   <string name="uploader_upload_failed_content_single">אין אפשרות להשלים את ההעלאה של %1$s</string>
   <string name="uploader_upload_failed_credentials_error">העלאה נכשלה, יש להתחבר מחדש</string>
+  <string name="uploads_view_title">העלאות</string>
+  <string name="uploads_view_group_current_uploads">נוכחי</string>
+  <string name="uploads_view_group_finished_uploads">הועלה</string>
+  <string name="uploads_view_upload_status_succeeded">הושלם</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">שגיאת אישורי גישה</string>
+  <string name="uploads_view_upload_status_failed_folder_error">שגיאת תיקייה</string>
+  <string name="uploads_view_upload_status_failed_file_error">שגיאת קובץ</string>
+  <string name="uploads_view_upload_status_failed_permission_error">שגיאת הרשאה</string>
+  <string name="uploads_view_upload_status_unknown_fail">שגיאה בלתי ידועה</string>
+  <string name="uploads_view_later_waiting_to_upload">ממתין להעלאה</string>
   <string name="downloader_download_in_progress_ticker">בהורדה …</string>
   <string name="downloader_download_in_progress_content">%1$d%% בהורדה %2$s</string>
   <string name="downloader_download_succeeded_ticker">ההורדה הצליחה</string>
@@ -193,8 +203,6 @@
 ⇥</string>
   <string name="auth_can_not_auth_against_server">לא ניתן לאמת עבור שרת זה</string>
   <string name="auth_account_does_not_exist">עדיין לא קיים חשבון במכשיר</string>
-  <string name="favorite">מועדף</string>
-  <string name="unfavorite">לא מועדף</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
   <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>
@@ -370,7 +378,6 @@
   <string name="action_switch_grid_view">תצוגת טבלה</string>
   <string name="action_switch_list_view">תצוגת רשימה</string>
   <string name="manage_space_title">ניהול מקום</string>
-  <string name="manage_space_description">הגדרות, מסד נתונים ואישורי אימות לשרת ממידע %1$s\'s ימחקו לצמיתות. \n\nקבצים שהורדו ישארו ללא פגע .\n\nתהליך זה יכול להמשך זמן מה.</string>
   <string name="manage_space_clear_data">ניקוי מידע</string>
   <string name="manage_space_error">לא ניתן היה למחוק מספר קבצים.</string>
   <string name="permission_storage_access">נדרשות הרשאות נוספות להעלאה והורדת קבצים.</string>

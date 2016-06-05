@@ -24,7 +24,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Налаштування</string>
-  <string name="drawer_item_logs">Журнали</string>
+  <string name="drawer_item_uploads_list">Завантаженнь</string>
   <string name="drawer_close">Закрити</string>
   <string name="drawer_open">Відкрити</string>
   <string name="prefs_category_general">Основне</string>
@@ -55,19 +55,18 @@
   <string name="sync_string_files">Файли</string>
   <string name="setup_btn_connect">З\'єднати</string>
   <string name="uploader_btn_upload_text">Відвантажити</string>
-  <string name="uploader_btn_new_folder_text">Нова тека</string>
   <string name="uploader_top_message">Оберіть теку для завантаження:</string>
   <string name="uploader_wrn_no_account_title">Не знайдено облікового запису</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Налаштування</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Вийти</string>
-  <string name="uploader_wrn_no_content_title">Відсутні дані для завантаження</string>
-  <string name="uploader_wrn_no_content_text">Не отримано даних. Нічого завантажувати.</string>
-  <string name="uploader_error_forbidden_content">%1$s не може отримати доступ до спільного контенту</string>
-  <string name="uploader_info_uploading">Завантаження</string>
   <string name="file_list_seconds_ago">секунди тому</string>
   <string name="file_list_empty">Тут нічого немає. Відвантажте що-небудь!</string>
   <string name="file_list_loading">Завантаження…</string>
   <string name="local_file_list_empty">В цій теці немає файлів.</string>
+  <string name="file_list_folder">тека</string>
+  <string name="file_list_folders">теки</string>
+  <string name="file_list_file">файл</string>
+  <string name="file_list_files">файл</string>
   <string name="filedetails_select_file">Натисніть на файлі для відображення додаткової інформації</string>
   <string name="filedetails_size">Розмір:</string>
   <string name="filedetails_type">Тип:</string>
@@ -82,6 +81,7 @@
   <string name="common_ok">OK</string>
   <string name="common_cancel_sync">Відмінити синхронізацію</string>
   <string name="common_cancel">Відмінити</string>
+  <string name="common_back">Назад</string>
   <string name="common_save_exit">Зберегти та вийти</string>
   <string name="common_error">Помилка</string>
   <string name="common_loading">Завантаження...</string>
@@ -98,6 +98,14 @@
   <string name="uploader_upload_succeeded_content_single">%1$s завантажено</string>
   <string name="uploader_upload_failed_ticker">Помилка завантаження</string>
   <string name="uploader_upload_failed_content_single">Завантаження %1$s не може завершитись</string>
+  <string name="uploads_view_title">Завантаженнь</string>
+  <string name="uploads_view_group_current_uploads">Поточний</string>
+  <string name="uploads_view_group_finished_uploads">Вивантажено</string>
+  <string name="uploads_view_upload_status_succeeded">Завершені</string>
+  <string name="uploads_view_upload_status_failed_file_error">Помилка файлу</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Помилка доступу</string>
+  <string name="uploads_view_upload_status_unknown_fail">Невідома помилка</string>
+  <string name="uploads_view_later_waiting_to_upload">Очікування завантаження</string>
   <string name="downloader_download_in_progress_ticker">Скачування …</string>
   <string name="downloader_download_in_progress_content">%1$d%% Зкачування %2$s</string>
   <string name="downloader_download_succeeded_ticker">Успішно зкачано</string>
@@ -175,8 +183,6 @@
   <string name="auth_fail_get_user_name">Ваш сервер не повертає коректний ідентифікатор користувача, будь ласка зверніться до адміністратора
 ⇥</string>
   <string name="auth_account_does_not_exist">Користвача в пристрої не існуе</string>
-  <string name="favorite">Улюблений</string>
-  <string name="unfavorite">Прибрати з вибраного</string>
   <string name="common_rename">Перейменувати</string>
   <string name="common_remove">Видалити</string>
   <string name="confirmation_remove_alert">Ви дійсно бажаєте видалити %1$s?</string>
@@ -320,5 +326,6 @@
   <string name="share_privilege_can_edit_create">створити</string>
   <string name="share_privilege_can_edit_change">змінити</string>
   <string name="share_privilege_can_edit_delete">видалити</string>
+  <string name="edit_share_unshare">Не ділитися</string>
   <string name="manage_space_clear_data">Очистити дані</string>
 </resources>

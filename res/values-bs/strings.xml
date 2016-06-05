@@ -18,7 +18,6 @@
   <string name="auth_password">Lozinka</string>
   <string name="sync_string_files">Datoteke</string>
   <string name="uploader_btn_upload_text">Učitaj</string>
-  <string name="uploader_btn_new_folder_text">Novi direktorij</string>
   <string name="filedetails_download">Preuzmite</string>
   <string name="action_share">Dijeli</string>
   <string name="common_yes">Da</string>
@@ -29,7 +28,9 @@
   <string name="common_error_unknown">Nepoznata greška</string>
   <string name="change_password">Promijeni lozinku</string>
   <string name="create_account">Kreiraj račun</string>
-  <string name="favorite">Favorit</string>
+  <string name="uploads_view_group_current_uploads">Trenutno</string>
+  <string name="uploads_view_upload_status_succeeded">Zavrženo</string>
+  <string name="uploads_view_upload_status_unknown_fail">Nepoznata greška</string>
   <string name="common_rename">Preimenuj</string>
   <string name="activity_chooser_send_file_title">Pošalji</string>
   <string name="empty"></string>

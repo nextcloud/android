@@ -19,7 +19,6 @@
   <string name="auth_password">ಗುಪ್ತ ಪದ</string>
   <string name="sync_string_files">﻿ಕಡತಗಳು</string>
   <string name="uploader_btn_upload_text">ಪೇರಿಸು</string>
-  <string name="uploader_btn_new_folder_text">﻿ಹೊಸ ಕಡತಕೋಶ</string>
   <string name="filedetails_download">ಪ್ರತಿಯನ್ನು ಸ್ಥಳೀಯವಾಗಿ ಉಳಿಸಿಕೊಳ್ಳಿ</string>
   <string name="action_share">﻿ಹಂಚಿಕೊಳ್ಳಿ</string>
   <string name="common_yes">﻿ಹೌದು</string>
@@ -29,7 +28,7 @@
   <string name="common_error">﻿ತಪ್ಪಾಗಿದೆ</string>
   <string name="common_error_unknown">ಗೊತ್ತಿಲ್ಲದ ದೋಷ</string>
   <string name="change_password">ಗುಪ್ತ ಪದವನ್ನು ಬದಲಾಯಿಸಿ</string>
-  <string name="favorite">ಅಚ್ಚುಮೆಚ್ಚಿನ</string>
+  <string name="uploads_view_upload_status_unknown_fail">ಗೊತ್ತಿಲ್ಲದ ದೋಷ</string>
   <string name="common_rename">﻿ಮರುಹೆಸರಿಸು</string>
   <string name="common_remove">ತೆಗೆದುಹಾಕಿ</string>
   <string name="activity_chooser_send_file_title">﻿ಕಳುಹಿಸಿ</string>

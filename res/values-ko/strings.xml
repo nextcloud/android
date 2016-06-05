@@ -24,7 +24,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">설정</string>
-  <string name="drawer_item_logs">로그</string>
+  <string name="drawer_item_uploads_list">업로드</string>
   <string name="drawer_close">닫기</string>
   <string name="drawer_open">열기</string>
   <string name="prefs_category_general">일반</string>
@@ -52,19 +52,18 @@
   <string name="sync_string_files">파일</string>
   <string name="setup_btn_connect">접속</string>
   <string name="uploader_btn_upload_text">업로드</string>
-  <string name="uploader_btn_new_folder_text">새 폴더</string>
   <string name="uploader_top_message">업로드 폴더 선택:</string>
   <string name="uploader_wrn_no_account_title">계정 없음</string>
   <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
   <string name="uploader_wrn_no_account_quit_btn_text">끝내기</string>
-  <string name="uploader_wrn_no_content_title">업로드할 콘텐츠 없음</string>
-  <string name="uploader_wrn_no_content_text">받은 콘텐츠가 없습니다. 업로드할 항목이 없습니다.</string>
-  <string name="uploader_error_forbidden_content">%1$s에서 공유된 콘텐츠에 접근할 수 없습니다</string>
-  <string name="uploader_info_uploading">업로드 중</string>
   <string name="file_list_seconds_ago">초 지남</string>
   <string name="file_list_empty">내용이 없습니다. 업로드할 수 있습니다!</string>
   <string name="file_list_loading">불러오는 중...</string>
   <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
+  <string name="file_list_folder">폴더</string>
+  <string name="file_list_folders">폴더</string>
+  <string name="file_list_file">파일</string>
+  <string name="file_list_files">파일</string>
   <string name="filedetails_select_file">파일을 누르면 추가 정보가 표시됩니다.</string>
   <string name="filedetails_size">크기:</string>
   <string name="filedetails_type">종류:</string>
@@ -78,6 +77,7 @@
   <string name="common_no">아니요</string>
   <string name="common_ok">확인</string>
   <string name="common_cancel">취소</string>
+  <string name="common_back">뒤로</string>
   <string name="common_error">오류</string>
   <string name="common_loading">불러오는 중...</string>
   <string name="common_error_unknown">알 수 없는 오류</string>
@@ -91,6 +91,16 @@
   <string name="uploader_upload_succeeded_ticker">업로드 성공</string>
   <string name="uploader_upload_failed_ticker">업로드 실패</string>
   <string name="uploader_upload_failed_content_single">%1$s을(를) 업로드할 수 없습니다</string>
+  <string name="uploads_view_title">업로드</string>
+  <string name="uploads_view_group_current_uploads">현재</string>
+  <string name="uploads_view_group_finished_uploads">업로드됨</string>
+  <string name="uploads_view_upload_status_succeeded">완료됨</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">인증 오류</string>
+  <string name="uploads_view_upload_status_failed_folder_error">폴더 오류</string>
+  <string name="uploads_view_upload_status_failed_file_error">파일 오류</string>
+  <string name="uploads_view_upload_status_failed_permission_error">권한 오류</string>
+  <string name="uploads_view_upload_status_unknown_fail">알 수 없는 오류</string>
+  <string name="uploads_view_later_waiting_to_upload">업로드 대기 중</string>
   <string name="downloader_download_in_progress_ticker">다운로드 중...</string>
   <string name="downloader_download_in_progress_content">%1$d%% %2$s 다운로드 중</string>
   <string name="downloader_download_succeeded_ticker">다운로드 성공</string>
@@ -164,8 +174,6 @@
   <string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않았습니다. 관리자에게 연락하십시오
 	</string>
   <string name="auth_account_does_not_exist">장치에 아직 계정이 없음</string>
-  <string name="favorite">책갈피</string>
-  <string name="unfavorite">책갈피 해제</string>
   <string name="common_rename">이름 바꾸기</string>
   <string name="common_remove">삭제</string>
   <string name="confirmation_remove_alert">%1$s을(를) 삭제하시겠습니까?</string>

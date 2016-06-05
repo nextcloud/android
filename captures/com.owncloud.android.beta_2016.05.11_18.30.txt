@@ -1,0 +1,2 @@
+Bad activity command, or no activities match: com.owncloud.android.beta
+Use -h for help.

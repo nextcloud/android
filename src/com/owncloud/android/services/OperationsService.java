@@ -52,6 +52,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
+import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
@@ -82,7 +83,6 @@ public class OperationsService extends Service {
     public static final String EXTRA_SERVER_URL = "SERVER_URL";
     public static final String EXTRA_OAUTH2_QUERY_PARAMETERS = "OAUTH2_QUERY_PARAMETERS";
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
-    public static final String EXTRA_SEND_INTENT = "SEND_INTENT";
     public static final String EXTRA_NEWNAME = "NEWNAME";
     public static final String EXTRA_REMOVE_ONLY_LOCAL = "REMOVE_LOCAL_COPY";
     public static final String EXTRA_CREATE_FULL_PATH = "CREATE_FULL_PATH";
@@ -114,6 +114,7 @@ public class OperationsService extends Service {
     public static final String ACTION_SYNC_FOLDER = "SYNC_FOLDER";
     public static final String ACTION_MOVE_FILE = "MOVE_FILE";
     public static final String ACTION_COPY_FILE = "COPY_FILE";
+    public static final String ACTION_CHECK_CURRENT_CREDENTIALS = "CHECK_CURRENT_CREDENTIALS";
 
     public static final String ACTION_OPERATION_ADDED = OperationsService.class.getName() +
             ".OPERATION_ADDED";
@@ -561,12 +562,10 @@ public class OperationsService extends Service {
                 if (action.equals(ACTION_CREATE_SHARE_VIA_LINK)) {  // Create public share via link
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
-                    Intent sendIntent = operationIntent.getParcelableExtra(EXTRA_SEND_INTENT);
                     if (remotePath.length() > 0) {
                         operation = new CreateShareViaLinkOperation(
                                 remotePath,
-                                password,
-                                sendIntent
+                                password
                         );
                     }
 
@@ -693,6 +692,10 @@ public class OperationsService extends Service {
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String newParentPath = operationIntent.getStringExtra(EXTRA_NEW_PARENT_PATH);
                     operation = new CopyFileOperation(remotePath, newParentPath, account);
+
+                } else if (action.equals(ACTION_CHECK_CURRENT_CREDENTIALS)) {
+                    // Check validity of currently stored credentials for a given account
+                    operation = new CheckCurrentCredentialsOperation(account);
                 }
             }
                 

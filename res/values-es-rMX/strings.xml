@@ -35,14 +35,9 @@
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
-  <string name="uploader_btn_new_folder_text">Nueva carpeta</string>
   <string name="uploader_wrn_no_account_title">No se encontraron cuentas</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
-  <string name="uploader_wrn_no_content_title">No hay contenido para subir</string>
-  <string name="uploader_wrn_no_content_text">Ningún contenido ha sido recibido. No hay nada que subir.</string>
-  <string name="uploader_error_forbidden_content">%1$s no está autorizado para acceder al contenido compartido</string>
-  <string name="uploader_info_uploading">Enviando</string>
   <string name="file_list_seconds_ago">hace segundos</string>
   <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
   <string name="filedetails_select_file">Pulsa sobre un archivo para mostrar información adicional.</string>
@@ -57,6 +52,7 @@
   <string name="common_no">No</string>
   <string name="common_ok">Aceptar</string>
   <string name="common_cancel">Cancelar</string>
+  <string name="common_back">Atrás</string>
   <string name="common_error">Error</string>
   <string name="common_loading">Cargando ...</string>
   <string name="common_error_unknown">Error desconocido</string>
@@ -70,6 +66,8 @@
   <string name="uploader_upload_succeeded_ticker">Subido con éxito</string>
   <string name="uploader_upload_failed_ticker">Error en la subida</string>
   <string name="uploader_upload_failed_content_single">La subida de %1$s no se pudo completar</string>
+  <string name="uploads_view_upload_status_succeeded">Completado</string>
+  <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
   <string name="downloader_download_in_progress_ticker">Descargando ...</string>
   <string name="downloader_download_in_progress_content">%1$s Descargada de %2$s</string>
   <string name="downloader_download_succeeded_ticker">Descarga completa</string>
@@ -130,7 +128,6 @@
   <string name="auth_expired_saml_sso_token_toast">Su sesión ha expirado. Favor de conectarse de nuevo</string>
   <string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
   <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
-  <string name="favorite">Favorito</string>
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
   <string name="confirmation_remove_local">Sólo local</string>

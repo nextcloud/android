@@ -1,7 +1,7 @@
 /**
  *   ownCloud Android client application
  *
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,7 +20,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -44,11 +43,6 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
-import com.owncloud.android.lib.common.OwnCloudCredentials;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -203,6 +197,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         
     }
 
+    @Override
+    public void onSavedCertificate() {
+        startSyncFolderOperation(getCurrentDir(), false);
+    }
     
     public void startSyncFolderOperation(OCFile folder, boolean ignoreETag) {
         long currentSyncTime = System.currentTimeMillis(); 
@@ -349,9 +347,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         actionBar.setDisplayHomeAsUpEnabled(!atRoot);
         actionBar.setHomeButtonEnabled(!atRoot);
         actionBar.setTitle(
-                atRoot
-                        ? getString(R.string.default_display_name_for_root_folder)
-                        : currentDir.getFileName()
+            atRoot
+                ? getString(R.string.default_display_name_for_root_folder)
+                : currentDir.getFileName()
         );
     }
 
@@ -379,6 +377,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                 data.putExtra(EXTRA_FILE, targetFile);
             }
             setResult(RESULT_OK, data);
+
             finish();
         }
     }
@@ -485,13 +484,18 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
                                     equals(event) &&
                                 /// TODO refactor and make common
-                                synchResult != null && !synchResult.isSuccess() &&  
-                                (synchResult.getCode() == ResultCode.UNAUTHORIZED   || 
-                                    synchResult.isIdPRedirection()                  ||
-                                    (synchResult.isException() && synchResult.getException() 
-                                            instanceof AuthenticatorException))) {
+                                synchResult != null && !synchResult.isSuccess()) {
 
-                            requestCredentialsUpdate(context);
+                            if(ResultCode.UNAUTHORIZED.equals(synchResult.getCode())   ||
+                                (synchResult.isException() && synchResult.getException()
+                                    instanceof AuthenticatorException)) {
+
+                                requestCredentialsUpdate(context);
+
+                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(synchResult.getCode())) {
+
+                                showUntrustedCertDialog(synchResult);
+                            }
 
                         }
                     }

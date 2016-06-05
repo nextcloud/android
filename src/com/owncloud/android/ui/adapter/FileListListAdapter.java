@@ -6,7 +6,7 @@
  *   @author David A. Velasco
  *   @author masensio
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -23,9 +23,6 @@
  */
 package com.owncloud.android.ui.adapter;
 
-
-import java.io.File;
-import java.util.Vector;
 
 import android.accounts.Account;
 import android.content.Context;
@@ -56,6 +53,8 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
+
+import java.util.Vector;
 
 
 /**
@@ -88,12 +87,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+
         mTransferServiceGetter = transferServiceGetter;
 
         mAppPreferences = PreferenceManager
                 .getDefaultSharedPreferences(mContext);
         
         // Read sorting order, default to sort by name ascending
+
         FileStorageUtils.mSortOrder = mAppPreferences.getInt("sortOrder", 0);
         FileStorageUtils.mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
         
@@ -268,37 +269,29 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                 opsBinder != null &&
                                 opsBinder.isSynchronizing(mAccount, file.getRemotePath())
                             ) {
-                        localStateView.setImageResource(R.drawable.synchronizing_file_indicator);
+                        localStateView.setImageResource(R.drawable.ic_synchronizing);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if ( // downloading
                                 downloaderBinder != null &&
                                 downloaderBinder.isDownloading(mAccount, file)
                             ) {
-                        localStateView.setImageResource(
-                                file.isFolder() ?
-                                        R.drawable.synchronizing_file_indicator :
-                                        R.drawable.downloading_file_indicator
-                        );
+                        localStateView.setImageResource(R.drawable.ic_synchronizing);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if ( //uploading
                                 uploaderBinder != null &&
                                 uploaderBinder.isUploading(mAccount, file)
                             ) {
-                        localStateView.setImageResource(
-                                file.isFolder() ?
-                                        R.drawable.synchronizing_file_indicator :
-                                        R.drawable.uploading_file_indicator
-                        );
+                        localStateView.setImageResource(R.drawable.ic_synchronizing);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if (file.getEtagInConflict() != null) {   // conflict
-                        localStateView.setImageResource(R.drawable.conflict_file_indicator);
+                        localStateView.setImageResource(R.drawable.ic_synchronizing_error);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if (file.isDown()) {
-                        localStateView.setImageResource(R.drawable.local_file_indicator);
+                        localStateView.setImageResource(R.drawable.ic_synced);
                         localStateView.setVisibility(View.VISIBLE);
                     }
 
@@ -355,6 +348,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(file.getMimetype(),
                             file.getFileName()));
                 }
+
 
             } else {
                 // Folder

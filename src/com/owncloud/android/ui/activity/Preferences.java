@@ -4,7 +4,7 @@
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -71,7 +71,6 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.DbHandler;
 import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -92,12 +91,12 @@ public class Preferences extends PreferenceActivity
     
     private static final String TAG = Preferences.class.getSimpleName();
 
+
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
     private static final int ACTION_REQUEST_PASSCODE = 5;
     private static final int ACTION_CONFIRM_PASSCODE = 6;
 
-    private DbHandler mDbHandler;
     private CheckBoxPreference pCode;
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
@@ -128,7 +127,6 @@ public class Preferences extends PreferenceActivity
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
         super.onCreate(savedInstanceState);
-        mDbHandler = new DbHandler(getBaseContext());
         addPreferencesFromResource(R.xml.preferences);
 
         ActionBar actionBar = getSupportActionBar();
@@ -271,21 +269,6 @@ public class Preferences extends PreferenceActivity
             }
             
         }
-
-        if (BuildConfig.DEBUG) {
-            Preference pLog =  findPreference("log");
-            if (pLog != null ){
-                pLog.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent loggerIntent = new Intent(getApplicationContext(),
-                                LogHistoryActivity.class);
-                        startActivity(loggerIntent);
-                        return true;
-                    }
-                });
-            }
-        }
         
        boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
        Preference pRecommend =  findPreference("recommend");
@@ -302,12 +285,9 @@ public class Preferences extends PreferenceActivity
                         
                         String appName = getString(R.string.app_name);
                         String downloadUrl = getString(R.string.url_app_download);
-                        Account currentAccount = AccountUtils.
-                                getCurrentOwnCloudAccount(Preferences.this);
-                        String username = currentAccount.name.substring(0,
-                                currentAccount.name.lastIndexOf('@'));
-                        
-                        String recommendSubject = String.format(getString(R.string.recommend_subject),
+
+                        String recommendSubject =
+                                String.format(getString(R.string.recommend_subject),
                                 appName);
                         String recommendText = String.format(getString(R.string.recommend_text),
                                 appName, downloadUrl);
@@ -334,7 +314,8 @@ public class Preferences extends PreferenceActivity
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         String feedbackMail   =(String) getText(R.string.mail_feedback);
-                        String feedback   =(String) getText(R.string.prefs_feedback) + " - android v" + appVersion;
+                        String feedback   =(String) getText(R.string.prefs_feedback) +
+                                " - android v" + appVersion;
                         Intent intent = new Intent(Intent.ACTION_SENDTO); 
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
@@ -349,9 +330,26 @@ public class Preferences extends PreferenceActivity
             } else {
                 preferenceCategory.removePreference(pFeedback);
             }
-            
         }
-        
+
+        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
+        Preference pLogger =  findPreference("logger");
+        if (pLogger != null){
+            if (loggerEnabled) {
+                pLogger.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        Intent loggerIntent = new Intent(getApplicationContext(), LogHistoryActivity.class);
+                        startActivity(loggerIntent);
+
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategory.removePreference(pLogger);
+            }
+        }
+
         boolean imprintEnabled = getResources().getBoolean(R.bool.imprint_enabled);
         Preference pImprint =  findPreference("imprint");
         if (pImprint != null) {
@@ -453,7 +451,8 @@ public class Preferences extends PreferenceActivity
         /* About App */
        pAboutApp = (Preference) findPreference("about_app");
        if (pAboutApp != null) { 
-               pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
+               pAboutApp.setTitle(String.format(getString(R.string.about_android),
+                       getString(R.string.app_name)));
                pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
        }
 
@@ -692,8 +691,6 @@ public class Preferences extends PreferenceActivity
 
     @Override
     protected void onDestroy() {
-        mDbHandler.close();
-
         if (mDownloadServiceConnection != null) {
             unbindService(mDownloadServiceConnection);
             mDownloadServiceConnection = null;
@@ -912,7 +909,8 @@ public class Preferences extends PreferenceActivity
             if (component.equals(new ComponentName(Preferences.this, FileDownloader.class))) {
                 mDownloaderBinder = (FileDownloader.FileDownloaderBinder) service;
 
-            } else if (component.equals(new ComponentName(Preferences.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(Preferences.this,
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service connected");
                 mUploaderBinder = (FileUploader.FileUploaderBinder) service;
             } else {
@@ -926,7 +924,8 @@ public class Preferences extends PreferenceActivity
             if (component.equals(new ComponentName(Preferences.this, FileDownloader.class))) {
                 Log_OC.d(TAG, "Download service suddenly disconnected");
                 mDownloaderBinder = null;
-            } else if (component.equals(new ComponentName(Preferences.this, FileUploader.class))) {
+            } else if (component.equals(new ComponentName(Preferences.this,
+                    FileUploader.class))) {
                 Log_OC.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }

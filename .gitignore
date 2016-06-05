@@ -21,6 +21,7 @@ oc_workaround/local.properties
 oc_framework/local.properties
 oc_framework-test-project/local.properties
 tests/local.properties
+lint.xml
 
 # Mac .DS_Store files
 .DS_Store
@@ -37,6 +38,3 @@ tests/proguard-project.txt
 .idea
 *.iml
 build
-
-# Actionbarsherlock is now ignored since scripts takes care of init the sub-modules.
-actionbarsherlock

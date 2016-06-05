@@ -25,10 +25,6 @@
   <string name="uploader_wrn_no_account_title">ஒரு கணக்கும் அறியப்படவில்லை</string>
   <string name="uploader_wrn_no_account_setup_btn_text">அமைப்பு</string>
   <string name="uploader_wrn_no_account_quit_btn_text">விலகுக</string>
-  <string name="uploader_wrn_no_content_title">பதிவேற்றுவதற்கு உள்ளடக்கங்கள் இல்லை</string>
-  <string name="uploader_wrn_no_content_text">ஒரு உள்ளடக்கமும் பெறப்படவில்லை. பதிவேற்றுவதற்கு ஒன்றும் இல்லை</string>
-  <string name="uploader_error_forbidden_content">பகிரப்பட்ட உள்ளடக்ககங்களை அணுகுவதற்கு %1$s  அனுமதிக்கமாட்டாது</string>
-  <string name="uploader_info_uploading">பதிவேற்றல்</string>
   <string name="file_list_seconds_ago">செக்கன்களுக்கு முன்</string>
   <string name="file_list_empty">இங்கு ஒன்றும் இல்லை. ஏதாவது பதிவேற்றுக!</string>
   <string name="filedetails_select_file">மேலதிக தகவல்களை காட்சிப்படுத்துவதற்கு கோப்பின் மேல் தட்டுக.</string>
@@ -43,6 +39,7 @@
   <string name="common_no">இல்லை</string>
   <string name="common_ok">சரி </string>
   <string name="common_cancel">இரத்து செய்க</string>
+  <string name="common_back">பின்னுக்கு</string>
   <string name="common_error">வழு</string>
   <string name="about_title">பற்றி</string>
   <string name="change_password">கடவுச்சொல்லை மாற்றுக</string>
@@ -74,7 +71,6 @@
   <string name="auth_bad_oc_version_title">அங்கீகரிக்கப்படாத சேவையகம் பதிப்பு</string>
   <string name="auth_wrong_connection_title">இணைப்பை நிறுவமுடியாது</string>
   <string name="auth_secure_connection">பாதுகாப்பான இணைப்பு உருவாக்கப்பட்டது.</string>
-  <string name="favorite">விருப்பமான</string>
   <string name="common_rename">பெயர்மாற்றம்</string>
   <string name="common_remove">அகற்றுக</string>
   <string name="confirmation_remove_local">உள்ளூர் மட்டும்</string>

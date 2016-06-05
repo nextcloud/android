@@ -19,8 +19,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10900100"
-    android:versionName="1.9.1" >
+    android:versionCode="20000000"
+    android:versionName="2.0.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -71,7 +71,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.UploadFilesActivity" />
-        <activity android:name=".ui.activity.Uploader" >
+        <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
+                  android:taskAffinity=""
+                  android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -163,12 +165,23 @@
         <service android:name=".media.MediaService" />
 
         <activity android:name=".ui.activity.PassCodeActivity" />
-        <activity android:name=".ui.activity.ConflictsResolveActivity" />
-        <activity android:name=".ui.activity.GenericExplanationActivity" />
-        <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity" />
-        <activity android:name=".ui.activity.LogHistoryActivity" />
+        <activity android:name=".ui.activity.ConflictsResolveActivity"/>
+        <activity android:name=".ui.activity.GenericExplanationActivity"/>
+        <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
+        
+        <activity android:name=".ui.activity.LogHistoryActivity"/>
 
-        <receiver android:name=".files.InstantUploadBroadcastReceiver" >
+        <activity android:name=".ui.errorhandling.ErrorShowActivity" />
+        <activity android:name=".ui.activity.UploadListActivity" />
+        
+        <receiver android:name=".files.services.ConnectivityActionReceiver"
+		    android:enabled="true" android:label="ConnectivityActionReceiver">
+		    <intent-filter>
+		        <!--action android:name="android.net.conn.CONNECTIVITY_CHANGE"/-->
+		        <action android:name="android.net.wifi.STATE_CHANGE"/>
+		    </intent-filter>
+		</receiver>
+		<receiver android:name=".files.InstantUploadBroadcastReceiver">
             <intent-filter>
 
                 <!-- unofficially supported by many Android phones but not by HTC devices: -->
@@ -182,9 +195,6 @@
                 <action android:name="android.hardware.action.NEW_VIDEO" />
 
                 <data android:mimeType="video/*" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <receiver android:name=".files.BootupBroadcastReceiver" >

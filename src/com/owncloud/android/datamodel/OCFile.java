@@ -4,7 +4,7 @@
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,6 +22,9 @@
 
 package com.owncloud.android.datamodel;
 
+
+import java.io.File;
+
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.Parcel;
@@ -30,9 +33,8 @@ import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
-import java.io.File;
-
 import third_parties.daveKoeller.AlphanumComparator;
+
 public class OCFile implements Parcelable, Comparable<OCFile> {
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
@@ -441,7 +443,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return remote path
      */
     public String getParentRemotePath() {
-        return new File(getRemotePath()).getParent();
+        String parentPath = new File(getRemotePath()).getParent();
+        return (parentPath.endsWith("/")) ? parentPath : (parentPath + "/");
     }
 
     /**

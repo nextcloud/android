@@ -113,21 +113,21 @@
             fab:fab_title=""/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_mkdir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_size="mini"
-            fab:fab_icon="@drawable/ic_action_create_dir"
-            fab:fab_colorNormal="@color/primary_button_background_color"
-            fab:fab_colorPressed="@color/owncloud_blue"
-            fab:fab_title=""/>
-
-        <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_upload_from_app"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             fab:fab_size="mini"
             fab:fab_icon="@drawable/ic_import"
+            fab:fab_colorNormal="@color/primary_button_background_color"
+            fab:fab_colorPressed="@color/owncloud_blue"
+            fab:fab_title=""/>
+
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_mkdir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            fab:fab_size="mini"
+            fab:fab_icon="@drawable/ic_action_create_dir"
             fab:fab_colorNormal="@color/primary_button_background_color"
             fab:fab_colorPressed="@color/owncloud_blue"
             fab:fab_title=""/>

@@ -363,8 +363,8 @@ public class UploadFilesActivity extends FileActivity implements
         /**
          * Updates the activity UI after the check of space is done.
          * 
-         * If there is not space enough. shows a new dialog to query the user if wants to move the files instead
-         * of copy them.
+         * If there is not space enough. shows a new dialog to query the user if wants to move the
+         * files instead of copy them.
          * 
          * @param result        'True' when there is space enough to copy all the selected files.
          */
@@ -398,7 +398,8 @@ public class UploadFilesActivity extends FileActivity implements
                 // to the ownCloud folder instead of copying
                 String[] args = {getString(R.string.app_name)};
                 ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
-                    R.string.upload_query_move_foreign_files, args, R.string.common_yes, -1, R.string.common_no
+                    R.string.upload_query_move_foreign_files, args, 0, R.string.common_yes, -1,
+                        R.string.common_no
                 );
                 dialog.setOnConfirmationListener(UploadFilesActivity.this);
                 dialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);

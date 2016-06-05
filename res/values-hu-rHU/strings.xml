@@ -24,7 +24,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Beállítások</string>
-  <string name="drawer_item_logs">Naplófájlok</string>
+  <string name="drawer_item_uploads_list">Feltöltések</string>
   <string name="drawer_close">Bezárás</string>
   <string name="drawer_open">Megnyitás</string>
   <string name="prefs_category_general">Általános</string>
@@ -50,19 +50,18 @@
   <string name="sync_string_files">Fájlok</string>
   <string name="setup_btn_connect">Kapcsolódás</string>
   <string name="uploader_btn_upload_text">Feltöltés</string>
-  <string name="uploader_btn_new_folder_text">Új mappa</string>
   <string name="uploader_top_message">Válassz feltöltési mappát:</string>
   <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Kilépés</string>
-  <string name="uploader_wrn_no_content_title">Nincs feltölthető tartalom</string>
-  <string name="uploader_wrn_no_content_text">Nem jött tartalom. Nincs mit feltölteni.</string>
-  <string name="uploader_error_forbidden_content">%1$s nem jogosult a megosztott tartalom elérésére</string>
-  <string name="uploader_info_uploading">Feltöltés</string>
   <string name="file_list_seconds_ago">pár másodperce</string>
   <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
   <string name="file_list_loading">Betöltés...</string>
   <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
+  <string name="file_list_folder">mappa</string>
+  <string name="file_list_folders">mappák</string>
+  <string name="file_list_file">fájl</string>
+  <string name="file_list_files">fájl</string>
   <string name="filedetails_select_file">Érintsen meg egy fájlt a további információkért.</string>
   <string name="filedetails_size">Méret:</string>
   <string name="filedetails_type">Tipus:</string>
@@ -76,6 +75,7 @@
   <string name="common_no">Nem</string>
   <string name="common_ok">OK</string>
   <string name="common_cancel">Mégsem</string>
+  <string name="common_back">Vissza</string>
   <string name="common_error">Hiba</string>
   <string name="common_loading">Betöltés ...</string>
   <string name="common_error_unknown">Ismeretlen hiba</string>
@@ -89,6 +89,11 @@
   <string name="uploader_upload_succeeded_ticker">A feltöltés sikerült</string>
   <string name="uploader_upload_failed_ticker">A feltöltés nem sikerült</string>
   <string name="uploader_upload_failed_content_single"> %1$s fájl feltöltése sikertelen</string>
+  <string name="uploads_view_title">Feltöltések</string>
+  <string name="uploads_view_group_current_uploads">Jelenlegi</string>
+  <string name="uploads_view_group_finished_uploads">Feltöltve</string>
+  <string name="uploads_view_upload_status_succeeded">Befejezve</string>
+  <string name="uploads_view_upload_status_unknown_fail">Ismeretlen hiba</string>
   <string name="downloader_download_in_progress_ticker">Letöltés ...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Letöltés %2$s</string>
   <string name="downloader_download_succeeded_ticker">A letöltés sikeres</string>
@@ -157,8 +162,6 @@
   <string name="auth_expired_saml_sso_token_toast">Lejárt a munkamenetének érvényessége. Kérjük jelentkezzen be ismét!</string>
   <string name="auth_unsupported_auth_method">A kiszolgáló nem támogatja ezt a felhasználóazonosítási módszert</string>
   <string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
-  <string name="favorite">Kedvenc</string>
-  <string name="unfavorite">Nem kedvenc</string>
   <string name="common_rename">Átnevezés</string>
   <string name="common_remove">Eltávolítás</string>
   <string name="confirmation_remove_alert">Tényleg el akarod távolítani %1$s?</string>

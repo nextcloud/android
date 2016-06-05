@@ -25,7 +25,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Pengaturan</string>
-  <string name="drawer_item_logs">Log</string>
+  <string name="drawer_item_uploads_list">Unggah</string>
   <string name="drawer_close">Tutup</string>
   <string name="drawer_open">Buka</string>
   <string name="prefs_category_general">Umum</string>
@@ -56,19 +56,18 @@
   <string name="sync_string_files">Berkas</string>
   <string name="setup_btn_connect">Sambungkan</string>
   <string name="uploader_btn_upload_text">Unggah</string>
-  <string name="uploader_btn_new_folder_text">Folder baru</string>
   <string name="uploader_top_message">Pilih folder unggah:</string>
   <string name="uploader_wrn_no_account_title">Tidak ada akun yang ditemukan</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Pengaturan</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Keluar</string>
-  <string name="uploader_wrn_no_content_title">Tidak ada konten untuk diunggah</string>
-  <string name="uploader_wrn_no_content_text">Tidak ada konten yang diterima. Tidak ada yang diunggah</string>
-  <string name="uploader_error_forbidden_content">%1$s tidak diizinkan mengakses konten berbagi</string>
-  <string name="uploader_info_uploading">Mengunggah</string>
   <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
   <string name="file_list_empty">Tidak ada apa-apa di sini. Unggah sesuatu!</string>
   <string name="file_list_loading">Memuat...</string>
   <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
+  <string name="file_list_folder">folder</string>
+  <string name="file_list_folders">folder</string>
+  <string name="file_list_file">berkas</string>
+  <string name="file_list_files">berkas</string>
   <string name="filedetails_select_file">Sentuh pada berkas untuk menampilkan informasi tambahan</string>
   <string name="filedetails_size">Ukuran:</string>
   <string name="filedetails_type">Tipe:</string>
@@ -83,6 +82,7 @@
   <string name="common_ok">Oke</string>
   <string name="common_cancel_sync">Batalkan sinkron</string>
   <string name="common_cancel">Batal</string>
+  <string name="common_back">Kembali</string>
   <string name="common_error">Kesalahan</string>
   <string name="common_loading">Memuat ...</string>
   <string name="common_error_unknown">Kesalahan tidak diketahui</string>
@@ -98,6 +98,16 @@
   <string name="uploader_upload_failed_ticker">Gagal mengunggah</string>
   <string name="uploader_upload_failed_content_single">Unggah %1$s tidak selesai</string>
   <string name="uploader_upload_failed_credentials_error">Mungunggah gagal, kamu harus masuk log lagi</string>
+  <string name="uploads_view_title">Unggah</string>
+  <string name="uploads_view_group_current_uploads">Saat ini</string>
+  <string name="uploads_view_group_finished_uploads">Terunggah</string>
+  <string name="uploads_view_upload_status_succeeded">Selesai</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Kesalahan Kredensial</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Kesalahan folder</string>
+  <string name="uploads_view_upload_status_failed_file_error">Kesalahaan berkas</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Kesalahan hak akses</string>
+  <string name="uploads_view_upload_status_unknown_fail">Kesalahan tidak diketahui</string>
+  <string name="uploads_view_later_waiting_to_upload">Menunggu unggahan</string>
   <string name="downloader_download_in_progress_ticker">Mengunduh...</string>
   <string name="downloader_download_in_progress_content">%1$d%% Mengunduh %2$s</string>
   <string name="downloader_download_succeeded_ticker">Berhasil mengunduh</string>
@@ -173,8 +183,6 @@
   <string name="auth_fail_get_user_name">Server Anda tidak membalas id pengguna dengan banar, Sialakn hubungi Administrator
 	</string>
   <string name="auth_account_does_not_exist">Akun tidak ada di perangkat ini</string>
-  <string name="favorite">Favorit</string>
-  <string name="unfavorite">Hapus favorit</string>
   <string name="common_rename">Ubah nama</string>
   <string name="common_remove">Hapus</string>
   <string name="confirmation_remove_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
