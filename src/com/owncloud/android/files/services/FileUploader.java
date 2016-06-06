@@ -53,6 +53,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudAccountStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -907,7 +908,10 @@ public class FileUploader extends Service
                 }   // else, reuse storage manager from previous operation
 
                 // always get client from client manager, to get fresh credentials in case of update
-                OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
+                OwnCloudAccount ocAccount = OwnCloudAccountStorageManager.getOwnCloudAccount(
+                        mCurrentAccount,
+                        this
+                );
                 mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, this);
 

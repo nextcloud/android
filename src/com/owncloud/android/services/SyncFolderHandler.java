@@ -32,6 +32,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.IndexedForest;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudAccountStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -115,7 +116,9 @@ class SyncFolderHandler extends Handler {
                 }   // else, reuse storage manager from previous operation
 
                 // always get client from client manager, to get fresh credentials in case of update
-                OwnCloudAccount ocAccount = new OwnCloudAccount(account, mService);
+                OwnCloudAccount ocAccount = OwnCloudAccountStorageManager.getOwnCloudAccount(
+                    account, mService
+                );
                 mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, mService);
 

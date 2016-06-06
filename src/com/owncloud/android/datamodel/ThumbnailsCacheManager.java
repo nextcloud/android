@@ -46,6 +46,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudAccountStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -168,8 +169,10 @@ public class ThumbnailsCacheManager {
 
             try {
                 if (mAccount != null) {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount,
-                            MainApp.getAppContext());
+                    OwnCloudAccount ocAccount = OwnCloudAccountStorageManager.getOwnCloudAccount(
+                            mAccount,
+                            MainApp.getAppContext()
+                    );
                     mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                 }

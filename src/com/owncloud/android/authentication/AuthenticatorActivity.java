@@ -66,6 +66,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudAccountStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
@@ -1502,7 +1503,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         // remove managed clients for this account to enforce creation with fresh credentials
-        OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, this);
+        OwnCloudAccount ocAccount = OwnCloudAccountStorageManager.getOwnCloudAccount(mAccount, this);
         OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
 
         setAccountAuthenticatorResult(response);
@@ -1594,6 +1595,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAccountMgr.setUserData(
                     mAccount, Constants.KEY_OC_BASE_URL,   mServerInfo.mBaseUrl
             );
+            if (authResult.getData() != null) {
+                try {
+                    String displayName = (String) authResult.getData().get(0);
+                    mAccountMgr.setUserData(
+                        mAccount, Constants.KEY_DISPLAY_NAME, displayName
+                    );
+                } catch (ClassCastException c) {
+                    Log_OC.w(TAG, "Couldn't get display name for " + username);
+                }
+            } else {
+                Log_OC.w(TAG, "Couldn't get display name for " + username);
+            }
 
             if (isSaml) {
                 mAccountMgr.setUserData(mAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 

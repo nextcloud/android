@@ -28,6 +28,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudAccountStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
@@ -64,8 +65,10 @@ public class GetShareWithUsersAsyncTask extends AsyncTask<Object, Void, Pair<Rem
             try {
                 // Get shares request
                 operation = new GetSharesForFileOperation(file.getRemotePath(), false, false);
-                OwnCloudAccount ocAccount = new OwnCloudAccount(account,
-                        MainApp.getAppContext());
+                OwnCloudAccount ocAccount = OwnCloudAccountStorageManager.getOwnCloudAccount(
+                        account,
+                        MainApp.getAppContext()
+                );
                 OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, MainApp.getAppContext());
                 result = operation.execute(client, fileDataStorageManager);

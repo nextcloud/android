@@ -43,6 +43,7 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudAccountStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -411,7 +412,10 @@ public class FileDownloader extends Service
 
                     // always get client from client manager, to get fresh credentials in case
                     // of update
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
+                    OwnCloudAccount ocAccount = OwnCloudAccountStorageManager.getOwnCloudAccount(
+                            mCurrentAccount,
+                            this
+                    );
                     mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, this);
 
