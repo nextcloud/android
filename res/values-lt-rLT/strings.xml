@@ -24,7 +24,6 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Parinktys</string>
-  <string name="drawer_item_logs">Žurnalai</string>
   <string name="drawer_close">Užverti</string>
   <string name="drawer_open">Atverti</string>
   <string name="prefs_category_general">Bendras</string>
@@ -168,8 +167,6 @@
   <string name="auth_unsupported_multiaccount">%1$s nepalaiko kelių paskyrų iš karto</string>
   <string name="auth_fail_get_user_name">Serveris negražina tinkamo vartotojo ID, susisiekite su administratoriumi</string>
   <string name="auth_account_does_not_exist">Paskyra neegzistuoja įrenginyje</string>
-  <string name="favorite">Mėgiamas</string>
-  <string name="unfavorite">Nebemėgti</string>
   <string name="common_rename">Pervadinti</string>
   <string name="common_remove">Pašalinti</string>
   <string name="confirmation_remove_file_alert">Ar tikrai norite pašalinti %1$s?</string>

@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">設定</string>
   <string name="drawer_item_uploads_list">上傳</string>
-  <string name="drawer_item_logs">紀錄</string>
   <string name="drawer_close"> 關閉</string>
   <string name="drawer_open">開啟</string>
   <string name="prefs_category_general">一般</string>
@@ -224,8 +223,6 @@
 	</string>
   <string name="auth_can_not_auth_against_server">無法驗證這個伺服器</string>
   <string name="auth_account_does_not_exist">帳號目前不存在於本裝置</string>
-  <string name="favorite">我的最愛</string>
-  <string name="unfavorite">不喜愛的</string>
   <string name="common_rename">重新命名</string>
   <string name="common_remove">移除</string>
   <string name="confirmation_remove_alert">您真的要移除 %1$s ?</string>

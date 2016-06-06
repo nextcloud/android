@@ -24,7 +24,6 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">الإعدادات</string>
-  <string name="drawer_item_logs">سجلّ</string>
   <string name="drawer_close">إغلاق</string>
   <string name="drawer_open">افتح</string>
   <string name="prefs_category_general">عام</string>
@@ -154,7 +153,6 @@
   <string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
   <string name="auth_fail_get_user_name">الخادم الخاص بك لم يعد الإتصال بهويتك الصحيحة, الرجاء الإتصال بالمسؤول
 	</string>
-  <string name="favorite">المفضلة</string>
   <string name="common_rename">إعادة التسمية</string>
   <string name="common_remove">حذف</string>
   <string name="confirmation_remove_file_alert">هل تريد حقاً حذف %1$s ؟</string>

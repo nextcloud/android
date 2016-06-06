@@ -155,7 +155,6 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="auth_unsupported_multiaccount">%1$s çoxlu hesab dəstəkləmir</string>
   <string name="auth_fail_get_user_name">Sizin server düzgün istifadəçi id-si qaytarmır, xahiş olunur inzibatçı ilə əlaqə saxlayasınız</string>
   <string name="auth_account_does_not_exist">Hesab göstərilən avadanlıqda mövcud deyil</string>
-  <string name="favorite">İstəkli</string>
   <string name="common_rename">Adı dəyiş</string>
   <string name="common_remove">Sil</string>
   <string name="confirmation_remove_file_alert">Siz həqiqətən %1$s silmək istəyirsiniz?</string>

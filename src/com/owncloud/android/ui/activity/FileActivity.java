@@ -58,8 +58,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
@@ -71,7 +69,6 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
-import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
@@ -102,12 +99,6 @@ public class FileActivity extends DrawerActivity
     /* Dialog tags */
     private static final String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
     private static final String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
-
-    /** OwnCloud {@link Account} where the main {@link OCFile} handled by the activity is located.*/
-    private Account mAccount;
-
-    /** Capabilites of the server where {@link #mAccount} lives */
-     private OCCapability mCapabilities;
 
      /** Main {@link OCFile} handled by the activity.*/
     private OCFile mFile;
@@ -203,7 +194,6 @@ public class FileActivity extends DrawerActivity
         mResumed = false;
         super.onPause();
     }
-
 
     @Override
     protected void onDestroy() {
@@ -423,9 +413,9 @@ public class FileActivity extends DrawerActivity
         // Show a dialog with the certificate info
         FragmentManager fm = getSupportFragmentManager();
         SslUntrustedCertDialog dialog = (SslUntrustedCertDialog) fm.findFragmentByTag(DIALOG_UNTRUSTED_CERT);
-        if (dialog == null) {
+        if(dialog == null) {
             dialog = SslUntrustedCertDialog.newInstanceForFullSslError(
-                    (CertificateCombinedException) result.getException());
+                (CertificateCombinedException) result.getException());
             FragmentTransaction ft = fm.beginTransaction();
             dialog.show(ft, DIALOG_UNTRUSTED_CERT);
         }
@@ -599,50 +589,4 @@ public class FileActivity extends DrawerActivity
         // nothing to do
     }
 
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            // TODO re-enable when "Accounts" is available in Navigation Drawer
-//            if (mShowAccounts && position > 0){
-//                position = position - 1;
-//            }
-            switch (position){
-                // TODO re-enable when "Accounts" is available in Navigation Drawer
-//                case 0: // Accounts
-//                    mShowAccounts = !mShowAccounts;
-//                    mNavigationDrawerAdapter.setShowAccounts(mShowAccounts);
-//                    mNavigationDrawerAdapter.notifyDataSetChanged();
-//                    break;
-
-                case 0: // All Files
-                    allFilesOption();
-                    break;
-
-                // TODO Enable when "On Device" is recovered ?
-//                case 2:
-//                    MainApp.showOnlyFilesOnDevice(true);
-//                    break;
-
-                case 1: // Uploads
-                    Intent uploadListIntent = new Intent(getApplicationContext(),
-                            UploadListActivity.class);
-                    uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(uploadListIntent);
-                    break;
-
-                case 2: // Settings
-                    Intent settingsIntent = new Intent(getApplicationContext(),
-                            Preferences.class);
-                    startActivity(settingsIntent);
-                    break;
-
-                case 3: // Logs
-                    Intent loggerIntent = new Intent(getApplicationContext(),
-                            LogHistoryActivity.class);
-                    startActivity(loggerIntent);
-                    break;
-            }
-            mDrawerLayout.closeDrawers();
-        }
-    }
 }

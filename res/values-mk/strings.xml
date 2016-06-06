@@ -163,7 +163,6 @@
   <string name="auth_fail_get_user_name">Вашиот сервер не праќа точен кориснички id, ве молам контактирајте го администраторот
  </string>
   <string name="auth_account_does_not_exist">Сметката сеуште не постои на овој уред</string>
-  <string name="favorite">Омилен</string>
   <string name="common_rename">Преименувај</string>
   <string name="common_remove">Отстрани</string>
   <string name="confirmation_remove_file_alert">Дали навистина сакаш да ја отстраниш %1$s?</string>

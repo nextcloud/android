@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Asetukset</string>
   <string name="drawer_item_uploads_list">Lataukset</string>
-  <string name="drawer_item_logs">Lokit</string>
   <string name="drawer_close">Sulje</string>
   <string name="drawer_open">Avaa</string>
   <string name="prefs_category_general">Yleiset</string>
@@ -203,8 +202,6 @@
   <string name="auth_unsupported_multiaccount">%1$s ei tue useita tilejä</string>
   <string name="auth_can_not_auth_against_server">Tälle palvelimelle ei voi tunnistautua</string>
   <string name="auth_account_does_not_exist">Tiliä ei ole olemassa vielä laitteella</string>
-  <string name="favorite">Suosikit</string>
-  <string name="unfavorite">Poista suosikeista</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
   <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>

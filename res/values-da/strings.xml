@@ -25,7 +25,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Indstillinger</string>
   <string name="drawer_item_uploads_list">Uploade filer</string>
-  <string name="drawer_item_logs">Logregistreringer</string>
   <string name="drawer_close">Luk</string>
   <string name="drawer_open">Åbn</string>
   <string name="prefs_category_general">Generel</string>
@@ -178,8 +177,6 @@
   <string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
   <string name="auth_fail_get_user_name">Din server retunere ikke et korrekt bruger-id. Kontakt venligst din administrator</string>
   <string name="auth_account_does_not_exist">Kontoen findes endnu ikke på enheden</string>
-  <string name="favorite">Foretrukken</string>
-  <string name="unfavorite">Fjern markering som foretrukket</string>
   <string name="common_rename">Omdøb</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_alert">Er du sikker på at du vil fjerne %1$s ?</string>
@@ -316,4 +313,5 @@
   <string name="share_privilege_can_edit_create">opret</string>
   <string name="share_privilege_can_edit_change">tilpas</string>
   <string name="share_privilege_can_edit_delete">slet</string>
+  <string name="edit_share_unshare">Stop deling</string>
 </resources>

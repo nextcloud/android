@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">הגדרות</string>
   <string name="drawer_item_uploads_list">העלאות</string>
-  <string name="drawer_item_logs">לוגים</string>
   <string name="drawer_close">סגירה</string>
   <string name="drawer_open">פתיחה</string>
   <string name="prefs_category_general">כללי</string>
@@ -204,8 +203,6 @@
 ⇥</string>
   <string name="auth_can_not_auth_against_server">לא ניתן לאמת עבור שרת זה</string>
   <string name="auth_account_does_not_exist">עדיין לא קיים חשבון במכשיר</string>
-  <string name="favorite">מועדף</string>
-  <string name="unfavorite">לא מועדף</string>
   <string name="common_rename">שינוי שם</string>
   <string name="common_remove">הסרה</string>
   <string name="confirmation_remove_file_alert">האם באמת להסיר %1$s?</string>

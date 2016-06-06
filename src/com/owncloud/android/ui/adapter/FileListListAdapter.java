@@ -274,37 +274,29 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                 opsBinder != null &&
                                 opsBinder.isSynchronizing(mAccount, file.getRemotePath())
                             ) {
-                        localStateView.setImageResource(R.drawable.synchronizing_file_indicator);
+                        localStateView.setImageResource(R.drawable.ic_synchronizing);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if ( // downloading
                                 downloaderBinder != null &&
                                 downloaderBinder.isDownloading(mAccount, file)
                             ) {
-                        localStateView.setImageResource(
-                                file.isFolder() ?
-                                        R.drawable.synchronizing_file_indicator :
-                                        R.drawable.downloading_file_indicator
-                        );
+                        localStateView.setImageResource(R.drawable.ic_synchronizing);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if ( //uploading
                                 uploaderBinder != null &&
                                 uploaderBinder.isUploading(mAccount, file)
                             ) {
-                        localStateView.setImageResource(
-                                file.isFolder() ?
-                                        R.drawable.synchronizing_file_indicator :
-                                        R.drawable.uploading_file_indicator
-                        );
+                        localStateView.setImageResource(R.drawable.ic_synchronizing);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if (file.getEtagInConflict() != null) {   // conflict
-                        localStateView.setImageResource(R.drawable.conflict_file_indicator);
+                        localStateView.setImageResource(R.drawable.ic_synchronizing_error);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if (file.isDown()) {
-                        localStateView.setImageResource(R.drawable.local_file_indicator);
+                        localStateView.setImageResource(R.drawable.ic_synced);
                         localStateView.setVisibility(View.VISIBLE);
                     }
 

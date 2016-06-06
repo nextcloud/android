@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Llogari</string>
   <string name="drawer_item_uploads_list">Ngarkime</string>
-  <string name="drawer_item_logs">Regjistra</string>
   <string name="drawer_close">Mbylle</string>
   <string name="drawer_open">Hape</string>
   <string name="prefs_category_general">Të përgjithshme</string>
@@ -102,6 +101,7 @@
   <string name="common_save_exit">Ruaje &amp; dil</string>
   <string name="common_error">Gabim</string>
   <string name="common_loading">Po ngarkohet …</string>
+  <string name="common_unknown">panjohur</string>
   <string name="common_error_unknown">Gabim i panjohur</string>
   <string name="about_title">Rreth</string>
   <string name="change_password">Ndryshoni fjalëkalimin</string>
@@ -150,6 +150,7 @@
   <string name="sync_fail_content_unauthorized">Fjalëkalim i pavlefshëm për %1$s</string>
   <string name="sync_conflicts_in_favourites_ticker">U hasën përplasje</string>
   <string name="sync_conflicts_in_favourites_content">%1$d kartela kept-in-sync s’u njëkohësuan dot</string>
+  <string name="sync_fail_in_favourites_ticker">Mbajtja-në-sinkron e skedarëve dështoj </string>
   <string name="sync_fail_in_favourites_content">Lënda e %1$d kartelave s\’u njëkohësua dot (%2$d përplasje)</string>
   <string name="sync_foreign_files_forgotten_ticker">Disa kartela vendore u harruan</string>
   <string name="sync_foreign_files_forgotten_content">%1$d kartela nga dosja %2$s s\’u kopjuan dot</string>
@@ -221,8 +222,8 @@
   <string name="auth_fail_get_user_name">Shërbyesi juaj s\’po përgjigje me id të saktë përdoruesi, ju lutemi, lidhuni me një admin</string>
   <string name="auth_can_not_auth_against_server">S’kryhet dot mirëfilltësimi me këtë shërbyes</string>
   <string name="auth_account_does_not_exist">Llogaria s\’ekziston ende te pajisja</string>
-  <string name="favorite">Vëre te Të parapëlqyerit</string>
-  <string name="unfavorite">Hiqe nga Të parapëlqyerit</string>
+  <string name="favorite">Caktojeni si të passhëm jo në linjë</string>
+  <string name="unfavorite">Hiqeni si të passhëm jo në linjë</string>
   <string name="common_rename">Riemërtojeni</string>
   <string name="common_remove">Hiqe</string>
   <string name="confirmation_remove_alert">Doni vërtet të hiqet %1$s?</string>

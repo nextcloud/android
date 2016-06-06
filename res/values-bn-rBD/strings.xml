@@ -138,7 +138,6 @@
   <string name="auth_unsupported_multiaccount">%1$s একাধিক একাউন্ট সমর্থন করেনা</string>
   <string name="auth_fail_get_user_name">আপনার সার্ভার একটি সঠিক ব্যবহারকারী আইডি দেয়না। দয়া করে প্রশাসকের সংগে যোগাযোগ করুন
 ⇥</string>
-  <string name="favorite">প্রিয়জন</string>
   <string name="common_rename">পূনঃনামকরণ</string>
   <string name="common_remove">অপসারণ</string>
   <string name="confirmation_remove_file_alert">আপনি কি সত্যিই %1$s অপসারণ করতে চান?</string>

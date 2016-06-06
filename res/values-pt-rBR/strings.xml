@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Configurações</string>
   <string name="drawer_item_uploads_list">Envios</string>
-  <string name="drawer_item_logs">Logs</string>
   <string name="drawer_close">Fechar</string>
   <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">Geral</string>
@@ -224,8 +223,8 @@
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Não é possível obter autenticação neste servidor</string>
   <string name="auth_account_does_not_exist">Conta ainda não existe no dispositivo</string>
-  <string name="favorite">Favorito</string>
-  <string name="unfavorite">Nãofavorito</string>
+  <string name="favorite">Definir como disponível offline</string>
+  <string name="unfavorite">Definir como não disponível offline</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Remover</string>
   <string name="confirmation_remove_alert">Você realmente deseja remover %1$s?</string>

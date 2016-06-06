@@ -71,7 +71,6 @@
   <string name="auth_bad_oc_version_title">அங்கீகரிக்கப்படாத சேவையகம் பதிப்பு</string>
   <string name="auth_wrong_connection_title">இணைப்பை நிறுவமுடியாது</string>
   <string name="auth_secure_connection">பாதுகாப்பான இணைப்பு உருவாக்கப்பட்டது.</string>
-  <string name="favorite">விருப்பமான</string>
   <string name="common_rename">பெயர்மாற்றம்</string>
   <string name="common_remove">அகற்றுக</string>
   <string name="confirmation_remove_local">உள்ளூர் மட்டும்</string>

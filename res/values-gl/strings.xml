@@ -25,7 +25,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Axustes</string>
   <string name="drawer_item_uploads_list">Envíos</string>
-  <string name="drawer_item_logs">Rexistros</string>
   <string name="drawer_close">Pechar</string>
   <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">Xeral</string>
@@ -178,8 +177,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="auth_fail_get_user_name">O seu servidor non devolveu un ID de usuario correcto, contacte cun administrador
 	</string>
   <string name="auth_account_does_not_exist">Aínda non existe a conta no dispositivo</string>
-  <string name="favorite">Favorito</string>
-  <string name="unfavorite">Retirar de favoritos</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Retirar</string>
   <string name="confirmation_remove_file_alert">Confirma que quere retirar %1$s?</string>

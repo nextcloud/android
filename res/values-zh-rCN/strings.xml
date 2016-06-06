@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">设置</string>
   <string name="drawer_item_uploads_list">上传</string>
-  <string name="drawer_item_logs">日志</string>
   <string name="drawer_close">关闭</string>
   <string name="drawer_open">打开</string>
   <string name="prefs_category_general">常规</string>
@@ -64,6 +63,7 @@
   <string name="uploader_wrn_no_account_text">设备上无 %1$s 账号，需要先创建一个账号。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">设置</string>
   <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
+  <string name="uploader_error_title_no_file_to_upload">文件没有上传</string>
   <string name="file_list_seconds_ago">几秒前</string>
   <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
   <string name="file_list_loading">加载中...</string>
@@ -213,8 +213,6 @@
 	</string>
   <string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
   <string name="auth_account_does_not_exist">设备中还未存在该帐号</string>
-  <string name="favorite">收藏</string>
-  <string name="unfavorite">取消收藏</string>
   <string name="common_rename">重命名</string>
   <string name="common_remove">删除</string>
   <string name="confirmation_remove_alert">你确定要删除 %1$s 吗？</string>

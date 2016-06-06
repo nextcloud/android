@@ -1,3 +1,10 @@
+// Gradle build file
+//
+// This project was started in Eclipse and later moved to Android Studio. In the transition, both IDEs were supported.
+// Due to this, the files layout is not the usual in new projects created with Android Studio / gradle. This file
+// merges declarations usually split in two separates build.gradle file, one for global settings of the project in
+// its root folder, another one for the app module in subfolder of root.
+
 buildscript {
     repositories {
         mavenCentral()
@@ -22,6 +29,7 @@ repositories {
 }
 
 dependencies {
+    /// dependencies for app building
     compile name: 'touch-image-view'
     compile project(':owncloud-android-library')
     compile "com.android.support:support-v4:${supportLibraryVersion}"
@@ -29,6 +37,33 @@ dependencies {
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile 'com.getbase:floatingactionbutton:1.10.1'
+
+
+    /// dependencies for local unit tests
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+
+
+    /// dependencies for instrumented tests
+    // JUnit4 Rules
+    androidTestCompile 'com.android.support.test:rules:0.5'
+
+    // Android JUnit Runner
+    androidTestCompile 'com.android.support.test:runner:0.5'
+
+    // Espresso core
+    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
+
+    // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+
+}
+
+tasks.withType(Test) {
+    /// increased logging for tests
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
 }
 
 android {
@@ -36,11 +71,20 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        // arguments to be passed to functional tests
+        testInstrumentationRunnerArgument "TEST_USER", "\"$System.env.OCTEST_APP_USERNAME\""
+        testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.OCTEST_APP_PASSWORD\""
+        testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
+
         applicationId "com.owncloud.android.beta"
         versionCode 20160427
         versionName "20160427"
     }
 
+    // adapt structure from Eclipse to Gradle/Android Studio expectations;
+    // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -49,11 +93,16 @@ android {
             aidl.srcDirs = ['src']
             renderscript.srcDirs = ['src']
             res.srcDirs = ['res']
-            assets.srcDirs = ['res']
+            assets.srcDirs = ['assets']
         }
 
-        // Move the tests to tests/java, tests/res, etc...
-        instrumentTest.setRoot('tests')
+
+        // move whole local unit tests structure as a whole from src/test/* to test/*
+        test.setRoot('test')
+
+        // move whole instrumented tests structure as a whole from src/androidTest/* to androidTest/*
+        androidTest.setRoot('androidTest')
+
 
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...

@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Nastavitve</string>
   <string name="drawer_item_uploads_list">Poslano</string>
-  <string name="drawer_item_logs">Dnevnik</string>
   <string name="drawer_close">Zapri</string>
   <string name="drawer_open">Odpri</string>
   <string name="prefs_category_general">Splošno</string>
@@ -224,8 +223,8 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
   <string name="auth_account_does_not_exist">Račun na napravi še ne obstaja.</string>
-  <string name="favorite">Priljubljeno</string>
-  <string name="unfavorite">Odstrani priljubljeno</string>
+  <string name="favorite">Nastavi dosegljivost brez povezave</string>
+  <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
   <string name="common_rename">Preimenuj</string>
   <string name="common_remove">Odstrani</string>
   <string name="confirmation_remove_alert">Ali res želite odstraniti %1$s?</string>

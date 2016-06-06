@@ -62,7 +62,7 @@ import java.util.Map;
  */
 public class DisplayUtils {
     private static final String TAG = DisplayUtils.class.getSimpleName();
-    
+
     private static final String OWNCLOUD_APP_NAME = "ownCloud";
     
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };

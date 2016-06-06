@@ -92,6 +92,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             @Override
             public int compare(OCUpload upload1, OCUpload upload2) {
                 if (upload1.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
+                    if (!upload2.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
+                        return -1;
+                    }
                     FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
                     if (binder != null) {
                         if (binder.isUploadingNow(upload1)) {
@@ -100,6 +103,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                             return 1;
                         }
                     }
+                } else if (upload2.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
+                    return 1;
                 }
                 if (upload1.getUploadEndTimestamp() == 0) {
                     return compareUploadId(upload1, upload2);
@@ -142,7 +147,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getFailedUploads();
+                items = mUploadsStorageManager.getFailedButNotDelayedForWifiUploads();
                 Arrays.sort(items, comparator);
             }
 

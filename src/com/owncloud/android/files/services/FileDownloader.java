@@ -50,8 +50,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.notifications.NotificationBuilderWithProgressBar;
-import com.owncloud.android.notifications.NotificationDelayer;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -483,7 +482,7 @@ public class FileDownloader extends Service
         /// create status notification with a progress bar
         mLastPercent = 0;
         mNotificationBuilder =
-                NotificationBuilderWithProgressBar.newNotificationBuilderWithProgressBar(this);
+                NotificationUtils.newNotificationBuilder(this);
         mNotificationBuilder
                 .setSmallIcon(R.drawable.notification_icon)
                 .setTicker(getString(R.string.downloader_download_in_progress_ticker))
@@ -591,7 +590,7 @@ public class FileDownloader extends Service
             // Remove success notification
             if (downloadResult.isSuccess()) {
                 // Sleep 2 seconds, so show the notification before remove it
-                NotificationDelayer.cancelWithDelay(
+                NotificationUtils.cancelWithDelay(
                         mNotificationManager,
                         R.string.downloader_download_succeeded_ticker,
                         2000);

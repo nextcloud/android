@@ -224,21 +224,6 @@ public class Preferences extends PreferenceActivity
 
         }
 
-        if (BuildConfig.DEBUG) {
-            Preference pLog = findPreference("log");
-            if (pLog != null ){
-                pLog.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                    @Override
-                    public boolean onPreferenceClick(Preference preference) {
-                        Intent loggerIntent = new Intent(getApplicationContext(),
-                                LogHistoryActivity.class);
-                        startActivity(loggerIntent);
-                        return true;
-                    }
-                });
-            }
-        }
-
        boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
        Preference pRecommend =  findPreference("recommend");
         if (pRecommend != null){
@@ -299,7 +284,6 @@ public class Preferences extends PreferenceActivity
             } else {
                 preferenceCategory.removePreference(pFeedback);
             }
-
         }
 
         boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled);

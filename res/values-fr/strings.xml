@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Paramètres</string>
   <string name="drawer_item_uploads_list">Chargements</string>
-  <string name="drawer_item_logs">Logs</string>
   <string name="drawer_close">Fermer</string>
   <string name="drawer_open">Ouvrir</string>
   <string name="prefs_category_general">Général</string>
@@ -66,6 +65,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuration</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quitter</string>
   <string name="uploader_error_title_no_file_to_upload">Aucun fichier à téléverser</string>
+  <string name="uploader_error_message_received_piece_of_text">%1$s ne peut téléverser un morceau de texte comme un fichier.</string>
   <string name="uploader_error_message_no_file_to_upload">Les données reçues n\'incluent aucun fichier valide.</string>
   <string name="uploader_error_title_file_cannot_be_uploaded">Le fichier ne peut pas être téléversé</string>
   <string name="uploader_error_message_read_permission_not_granted">%1$s n\'est pas autorisé à lire un fichier reçu</string>
@@ -132,6 +132,7 @@ Téléchargez-le ici : %2$s</string>
   <string name="uploads_view_upload_status_failed_localfile_error">Fichier local non trouvé</string>
   <string name="uploads_view_upload_status_failed_permission_error">Erreur de permissions</string>
   <string name="uploads_view_upload_status_conflict">Conflit</string>
+  <string name="uploads_view_upload_status_service_interrupted">L\'application a été arrêté</string>
   <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>
   <string name="uploads_view_upload_status_waiting_for_wifi">En attente d\'une connexion wifi</string>
   <string name="uploads_view_later_waiting_to_upload">En attente de chargement</string>
@@ -227,8 +228,6 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
 </string>
   <string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
   <string name="auth_account_does_not_exist">Le compte n\'existe pas encore sur ce périphérique</string>
-  <string name="favorite">Ajouter aux favoris</string>
-  <string name="unfavorite">Retirer des favoris</string>
   <string name="common_rename">Renommer</string>
   <string name="common_remove">Supprimer</string>
   <string name="confirmation_remove_alert">Voulez-vous vraiment supprimer %1$s ?</string>
@@ -310,6 +309,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="activity_chooser_send_file_title">Envoyer</string>
   <string name="copy_link">Copier le lien</string>
   <string name="clipboard_text_copied">Copié dans le presse-papier</string>
+  <string name="clipboard_no_text_to_copy">Aucun texte n\'a été reçu pour copier dans le presse-papier</string>
+  <string name="clipboard_uxexpected_error">Erreur inattendue lors de la copie vers le presse-papiers</string>
   <string name="clipboard_label">Texte copié depuis %1$s</string>
   <string name="error_cant_bind_to_operations_service">Erreur critique : impossible de réaliser les opérations</string>
   <string name="network_error_socket_exception">Une erreur est survenue pendant la connexion au serveur.</string>
@@ -409,6 +410,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
   <string name="action_switch_grid_view">Mosaïque</string>
   <string name="action_switch_list_view">Liste</string>
   <string name="manage_space_title">Gestion de l\'espace</string>
+  <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCe processus peut prendre du temps.</string>
   <string name="manage_space_clear_data">Effacer les données</string>
   <string name="manage_space_error">Certains fichiers n\'ont pu être supprimés.</string>
   <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser &amp; télécharger des fichiers.</string>

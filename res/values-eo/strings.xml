@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Agordo</string>
   <string name="drawer_item_uploads_list">Alŝutoj</string>
-  <string name="drawer_item_logs">Protokoloj</string>
   <string name="drawer_close">Fermi</string>
   <string name="drawer_open">Malfermi</string>
   <string name="prefs_category_general">Ĝeneralo</string>
@@ -147,8 +146,6 @@
   <string name="auth_unsupported_auth_method">La servilo ne kongruas kun ĉi tiu aŭtentiga metodo</string>
   <string name="auth_unsupported_multiaccount">%1$s ne subtenas plurajn kontojn</string>
   <string name="auth_account_does_not_exist">Konto ankoraŭ ne ekzistas en la aparato</string>
-  <string name="favorite">Favorato</string>
-  <string name="unfavorite">Nefavoratigi</string>
   <string name="common_rename">Alinomigi</string>
   <string name="common_remove">Forigi</string>
   <string name="confirmation_remove_file_alert">Ĉu vi vere volas forigi %1$s?</string>

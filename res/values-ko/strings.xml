@@ -25,7 +25,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">설정</string>
   <string name="drawer_item_uploads_list">업로드</string>
-  <string name="drawer_item_logs">로그</string>
   <string name="drawer_close">닫기</string>
   <string name="drawer_open">열기</string>
   <string name="prefs_category_general">일반</string>
@@ -175,8 +174,6 @@
   <string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않았습니다. 관리자에게 연락하십시오
 	</string>
   <string name="auth_account_does_not_exist">장치에 아직 계정이 없음</string>
-  <string name="favorite">책갈피</string>
-  <string name="unfavorite">책갈피 해제</string>
   <string name="common_rename">이름 바꾸기</string>
   <string name="common_remove">삭제</string>
   <string name="confirmation_remove_file_alert">%1$s을(를) 삭제하시겠습니까?</string>
