@@ -481,6 +481,10 @@ public class OCFileListFragment extends ExtendedListFragment
                     ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
                 }
 
+                if(file.needsSync()) {
+                    mContainerActivity.getFileOperationsHelper().syncFile(file);
+                }
+
             }
 
         } else {

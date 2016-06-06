@@ -456,6 +456,15 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mNeedsUpdating;
     }
 
+    /**
+     * Check if there are updates from server not synced in the file
+     *
+     * @return
+     */
+    public boolean needsSync() {
+        return !(mModifiedTimestamp == mModifiedTimestampAtLastSyncForData);
+    }
+
     public boolean needsUpdateThumbnail() {
         return mNeedsUpdateThumbnail;
     }
