@@ -226,20 +226,30 @@ public class FileListListAdapter extends RecyclerView.Adapter<RecyclerViewHolder
                 FileUploaderBinder uploaderBinder = mContainerActivity.getFileUploaderBinder();
                 OperationsServiceBinder opsBinder = mContainerActivity.getOperationsServiceBinder();
 
-                boolean downloading = (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file));
+                holder.localStateView.setVisibility(View.INVISIBLE);   // default first
 
-                downloading |= (opsBinder != null && opsBinder.isSynchronizing(mAccount, file.getRemotePath()));
-                if (downloading) {
-                    holder.localStateView.setImageResource(R.drawable.downloading_file_indicator);
+                if ( //synchronizing
+                        opsBinder != null && opsBinder.isSynchronizing(mAccount, file.getRemotePath())) {
+                    holder.localStateView.setImageResource(R.drawable.ic_synchronizing);
                     holder.localStateView.setVisibility(View.VISIBLE);
-                } else if (uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
-                    holder.localStateView.setImageResource(R.drawable.uploading_file_indicator);
+
+                } else if ( // downloading
+                        downloaderBinder != null && downloaderBinder.isDownloading(mAccount, file)) {
+                    holder.localStateView.setImageResource(R.drawable.ic_synchronizing);
                     holder.localStateView.setVisibility(View.VISIBLE);
+
+                } else if ( //uploading
+                        uploaderBinder != null && uploaderBinder.isUploading(mAccount, file)) {
+                    holder.localStateView.setImageResource(R.drawable.ic_synchronizing);
+                    holder.localStateView.setVisibility(View.VISIBLE);
+
+                } else if (file.getEtagInConflict() != null) {   // conflict
+                    holder.localStateView.setImageResource(R.drawable.ic_synchronizing_error);
+                    holder.localStateView.setVisibility(View.VISIBLE);
+
                 } else if (file.isDown()) {
-                    holder.localStateView.setImageResource(R.drawable.local_file_indicator);
+                    holder.localStateView.setImageResource(R.drawable.ic_synced);
                     holder.localStateView.setVisibility(View.VISIBLE);
-                } else {
-                    holder.localStateView.setVisibility(View.GONE);
                 }
 
                 // this if-else is needed even though favorite icon is visible by default
