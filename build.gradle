@@ -79,8 +79,8 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
         applicationId "com.owncloud.android.beta"
-        versionCode 20160427
-        versionName "20160427"
+        versionCode 20160606
+        versionName "20160606"
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
