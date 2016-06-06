@@ -31,7 +31,7 @@ repositories {
 dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
-    compile project(':owncloud-android-library')
+    compile project(':nextcloud-android-library')
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
