@@ -586,8 +586,11 @@ public class OperationsService extends Service {
                                 expirationDate
                         );
 
-                        boolean publicUpload = operationIntent.getBooleanExtra(EXTRA_SHARE_PUBLIC_UPLOAD, false);
-                        ((UpdateShareViaLinkOperation) operation).setPublicUpload(publicUpload);
+                        if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_UPLOAD)) {
+                            ((UpdateShareViaLinkOperation) operation).setPublicUpload(
+                                operationIntent.getBooleanExtra(EXTRA_SHARE_PUBLIC_UPLOAD, false)
+                            );
+                        }
 
                     } else if (shareId > 0) {
                         operation = new UpdateSharePermissionsOperation(shareId);
