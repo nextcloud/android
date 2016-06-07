@@ -2,7 +2,3 @@
 	path = user_manual/ocdoc
 	url = https://github.com/owncloud/documentation
 	branch = master
-[submodule "nextcloud-android-library"]
-	path = nextcloud-android-library
-	url = https://github.com/nextcloud/android-library.git
-	branch = master
