@@ -1,5 +1,5 @@
 # [Nextcloud](https://nextcloud.com) Android app
-**Build status:** master ![](https://api.travis-ci.org/nextcloud/android.svg?branch=master) stable ![](https://api.travis-ci.org/nextcloud/android.svg?branch=stable)
+**Build status:** master ![](https://api.travis-ci.org/nextcloud/android.svg?branch=master)
 
 [![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud)
 [![irc](https://img.shields.io/badge/IRC-%23nextcloud--mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile)
