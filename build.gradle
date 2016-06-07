@@ -23,7 +23,7 @@ ext {
 repositories {
     mavenCentral()
     maven { url "https://jitpack.io" }
-    
+
     flatDir {
         dirs 'libs'
     }
@@ -33,7 +33,7 @@ dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
 
-    compile 'com.github.owncloud:android-library:-SNAPSHOT'
+    compile 'com.github.nextcloud:android-library:-SNAPSHOT'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
