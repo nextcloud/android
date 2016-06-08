@@ -1,3 +1,13 @@
+## 2.0.1 (June 2016)
+- Favorite files are now called AVAILABLE OFFLINE
+- New overlay icons
+- Bugs fixed, including:
+ + Upload content from other apps works again
+ + Passwords with non-alphanumeric characters work fine
+ + Sending files from other apps does not duplicate them
+ + Favorite setting is not lost after uploading
+ + Instant uploads waiting for Wi-Fi are not shown as failed
+
 ## 2.0.0 (April 2016)
 - Uploads view: track the progress of your uploads and handle failures
 - Federated sharing: share files with users in other ownCloud servers
