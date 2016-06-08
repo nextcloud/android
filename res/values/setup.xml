@@ -2,13 +2,13 @@
 <resources>
     <!-- App name  and other strings-->
     <string name="app_name">Nextcloud</string>
-    <string name="account_type">nextcloud</string>	<!-- better if was a domain name; but changing it now would require
+    <string name="account_type">owncloud</string>	<!-- better if was a domain name; but changing it now would require
     migrate accounts when the app is updated -->
-    <string name="authority">org.nextcloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
-    <string name ="db_file">nextcloud.db</string>
-    <string name ="db_name">nextcloud</string>
-    <string name ="data_folder">nextcloud</string>
-    <string name ="log_name">nextcloud_</string>
+    <string name="authority">org.owncloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name ="db_file">owncloud.db</string>
+    <string name ="db_name">owncloud</string>
+    <string name ="data_folder">owncloud</string>
+    <string name ="log_name">owncloud</string>
     <string name ="default_display_name_for_root_folder">Nextcloud</string>
     <string name ="user_agent">Mozilla/5.0 (Android) nextcloud-android/%1$s</string>
     
