@@ -119,12 +119,12 @@
   <string name="uploads_view_title">Carregamentos</string>
   <string name="uploads_view_group_current_uploads">Atual</string>
   <string name="uploads_view_group_failed_uploads">Falhou (toque para repetir)</string>
-  <string name="uploads_view_group_finished_uploads">Enviado</string>
+  <string name="uploads_view_group_finished_uploads">Carregado</string>
   <string name="uploads_view_upload_status_succeeded">Concluído</string>
   <string name="uploads_view_upload_status_cancelled">Cancelado</string>
-  <string name="uploads_view_upload_status_paused">Pausado</string>
+  <string name="uploads_view_upload_status_paused">Em pausa</string>
   <string name="uploads_view_upload_status_failed_connection_error">Erro de ligação</string>
-  <string name="uploads_view_upload_status_failed_retry">O envio será repetido brevemente</string>
+  <string name="uploads_view_upload_status_failed_retry">O carregamento será repetido brevemente</string>
   <string name="uploads_view_upload_status_failed_credentials_error">Erro de credenciais</string>
   <string name="uploads_view_upload_status_failed_folder_error">Erro de pasta</string>
   <string name="uploads_view_upload_status_failed_file_error">Erro de ficheiro</string>

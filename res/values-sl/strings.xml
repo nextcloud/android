@@ -223,6 +223,8 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
   <string name="auth_account_does_not_exist">Račun na napravi še ne obstaja.</string>
+  <string name="favorite">Nastavi dosegljivost brez povezave</string>
+  <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
   <string name="common_rename">Preimenuj</string>
   <string name="common_remove">Odstrani</string>
   <string name="confirmation_remove_alert">Ali res želite odstraniti %1$s?</string>

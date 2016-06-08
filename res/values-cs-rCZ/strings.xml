@@ -222,6 +222,8 @@
   <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
   <string name="auth_can_not_auth_against_server">Na tomto serveru nelze ověřit</string>
   <string name="auth_account_does_not_exist">V zařízení není zatím nastaven účet</string>
+  <string name="favorite">Nastavit jako dostupné offline</string>
+  <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
   <string name="common_rename">Přejmenovat</string>
   <string name="common_remove">Odstranit</string>
   <string name="confirmation_remove_alert">Opravdu chcete odstranit %1$s ?</string>

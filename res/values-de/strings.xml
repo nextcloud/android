@@ -223,6 +223,8 @@
 </string>
   <string name="auth_can_not_auth_against_server">Kann sich nicht auf diesem Server authentifizieren</string>
   <string name="auth_account_does_not_exist">Das Benutzerkonto ist bis jetzt noch nicht auf dem Gerät vorhanden</string>
+  <string name="favorite">Als Offline verfügbar markieren</string>
+  <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
   <string name="common_rename">Umbenennen</string>
   <string name="common_remove">Löschen</string>
   <string name="confirmation_remove_alert">Möchtest Du %1$s wirklich löschen?</string>
