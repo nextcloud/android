@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.1.0'
     }
 }
 apply plugin: 'com.android.application'
@@ -14,7 +14,7 @@ dependencies {
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    buildToolsVersion "23.0.3"
 
     sourceSets {
         main {
@@ -39,4 +39,30 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
+
+    signingConfigs {
+        release {
+            if (System.env.OC_RELEASE_KEYSTORE) {
+                storeFile file(System.env.OC_RELEASE_KEYSTORE)  // use an absolute path
+                storePassword System.env.OC_RELEASE_KEYSTORE_PASSWORD
+                keyAlias System.env.OC_RELEASE_KEY_ALIAS
+                keyPassword System.env.OC_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
+    applicationVariants.all { variant ->
+        def appName = System.env.OC_APP_NAME
+        if (appName) {
+            appName += "_jb_workaround"
+        }
+        setOutputFileName(variant, appName, project)
+    }
+
 }

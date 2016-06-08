@@ -138,6 +138,7 @@ public class UploadFileOperation extends SyncOperation {
     protected RequestEntity mEntity = null;
 
     public UploadFileOperation(Account account,
+                               OCFile file,
                                OCUpload upload,
                                boolean chunked,
                                boolean forceOverwrite,
@@ -156,11 +157,15 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         mAccount = account;
-        mFile = obtainNewOCFileToUpload(
-            upload.getRemotePath(),
-            upload.getLocalPath(),
-            upload.getMimeType()
-        );
+        if (file == null) {
+            mFile = obtainNewOCFileToUpload(
+                    upload.getRemotePath(),
+                    upload.getLocalPath(),
+                    upload.getMimeType()
+            );
+        } else {
+            mFile = file;
+        }
         mRemotePath = upload.getRemotePath();
         mChunked = chunked;
         mForceOverwrite = forceOverwrite;
@@ -376,7 +381,14 @@ public class UploadFileOperation extends SyncOperation {
             // location in the ownCloud local folder
             if (result.isSuccess()) {
                 if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
+                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                    if (mOriginalStoragePath.equals(temporalPath)) {
+                        // delete local file is was pre-copied in temporary folder (see .ui.helpers.UriUploader)
+                        temporalFile = new File(temporalPath);
+                        temporalFile.delete();
+                    }
                     mFile.setStoragePath("");
+
                 } else {
                     mFile.setStoragePath(expectedPath);
 

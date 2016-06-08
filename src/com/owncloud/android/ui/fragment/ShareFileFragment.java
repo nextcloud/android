@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -240,6 +241,9 @@ public class ShareFileFragment extends Fragment
 
         // Set listener for user actions on edit permission
         initEditPermissionListener(view);
+
+        // Hide share features sections that are not enabled
+        hideNotEnabledShareSections(view);
 
         return view;
     }
@@ -853,7 +857,29 @@ public class ShareFileFragment extends Fragment
      */
     public void requestPasswordForShareViaLink(boolean createShare) {
         SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(mFile, createShare);
-        dialog.show(getFragmentManager(),SharePasswordDialogFragment.PASSWORD_FRAGMENT);
+        dialog.show(getFragmentManager(), SharePasswordDialogFragment.PASSWORD_FRAGMENT);
+    }
+
+    /**
+     * Hide share features sections that are not enabled
+     * @param view
+     */
+    private void hideNotEnabledShareSections(View view) {
+        LinearLayout shareWithUsersSection = (LinearLayout) view.findViewById(R.id.shareWithUsersSection);
+        LinearLayout shareViaLinkSection = (LinearLayout) view.findViewById(R.id.shareViaLinkSection);
+
+        boolean shareViaLinkAllowed = getActivity().getResources().getBoolean(R.bool.share_via_link_feature);
+        boolean shareWithUsersAllowed = getActivity().getResources().getBoolean(R.bool.share_with_users_feature);
+
+        // Hide share via link section if it is not enabled
+        if (!shareViaLinkAllowed) {
+            shareViaLinkSection.setVisibility(View.GONE);
+        }
+
+        // Hide share with users section if it is not enabled
+        if (!shareWithUsersAllowed) {
+            shareWithUsersSection.setVisibility(View.GONE);
+        }
     }
 
 }

@@ -181,14 +181,17 @@ public class FileMenuFilter {
         }
 
         // SHARE FILE
-        boolean shareAllowed = (mContext != null  &&
-                mContext.getString(R.string.share_feature).equalsIgnoreCase("on"));
+        boolean shareViaLinkAllowed = (mContext != null  &&
+                mContext.getResources().getBoolean(R.bool.share_via_link_feature));
+        boolean shareWithUsersAllowed = (mContext != null  &&
+                mContext.getResources().getBoolean(R.bool.share_with_users_feature));
+
         OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
         boolean shareApiEnabled  = capability != null &&
                 (capability.getFilesSharingApiEnabled().isTrue() ||
                         capability.getFilesSharingApiEnabled().isUnknown()
                 );
-        if (!shareAllowed ||  mFile == null || !shareApiEnabled) {
+        if ((!shareViaLinkAllowed && !shareWithUsersAllowed) ||  mFile == null || !shareApiEnabled) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);

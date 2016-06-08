@@ -25,7 +25,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Paramètres</string>
   <string name="drawer_item_uploads_list">Cargaments</string>
-  <string name="drawer_item_logs">Logs</string>
   <string name="drawer_close">Tampar</string>
   <string name="drawer_open">Dobrir</string>
   <string name="prefs_category_general">General</string>
@@ -181,8 +180,6 @@ En rason d\'aquesta modificacion, totes los fichièrs mandats amb de versions an
   <string name="auth_fail_get_user_name">Vòstre servidor a tornat un identificant d\'utilizaire incorrècte. Prenètz contacte amb vòstre administrator
 </string>
   <string name="auth_account_does_not_exist">Lo compte existís pas encara sus aqueste periferic</string>
-  <string name="favorite">Apondre als favorits</string>
-  <string name="unfavorite">Suprimir dels favorits</string>
   <string name="common_rename">Renomenar</string>
   <string name="common_remove">Suprimir</string>
   <string name="confirmation_remove_alert">Sètz segur que volètz suprimir %1$s ?</string>

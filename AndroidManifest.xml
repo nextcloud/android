@@ -19,8 +19,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="20000000"
-    android:versionName="2.0.0" >
+    android:versionCode="20000001"
+    android:versionName="2.0.1" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -71,7 +71,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.UploadFilesActivity" />
-        <activity android:name=".ui.activity.Uploader"
+        <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
                   android:taskAffinity=""
                   android:excludeFromRecents="true">
             <intent-filter>

@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Ayarlar</string>
   <string name="drawer_item_uploads_list">Yüklemeler</string>
-  <string name="drawer_item_logs">Günlükler</string>
   <string name="drawer_close">Kapat</string>
   <string name="drawer_open">Aç</string>
   <string name="prefs_category_general">Genel</string>
@@ -217,8 +216,6 @@
         </string>
   <string name="auth_can_not_auth_against_server">Bu sunucuya karşı kimlik doğrulama yapılamaz</string>
   <string name="auth_account_does_not_exist">Hesap henüz cihazda mevcut değil</string>
-  <string name="favorite">Favorilere ekle</string>
-  <string name="unfavorite">Favoriden kaldır</string>
   <string name="common_rename">Yeniden adlandır</string>
   <string name="common_remove">Kaldır</string>
   <string name="confirmation_remove_alert">Gerçekten %1$s dosyasını kaldırmak istiyor musunuz?</string>
@@ -399,7 +396,6 @@
   <string name="action_switch_grid_view">Izgara görünümü</string>
   <string name="action_switch_list_view">Liste görünümü</string>
   <string name="manage_space_title">Alanı ayarla</string>
-  <string name="manage_space_description">Ayarlar, veritabanı ve sunucu sertifikaları %1$s verilerinden tamamen silinecektir.\n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
   <string name="manage_space_clear_data">Verileri temizle</string>
   <string name="manage_space_error">Bazı dosyalar silinemedi</string>
   <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izin gerekiyor.</string>

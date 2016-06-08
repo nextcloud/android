@@ -136,7 +136,6 @@
   <string name="auth_expired_saml_sso_token_toast">Phiên làm việc của bạn đã kết thúc. Vui lòng kết nối lại</string>
   <string name="auth_unsupported_auth_method">Máy chủ không hổ trợ phương thức xác thực này</string>
   <string name="auth_unsupported_multiaccount">%1$s  không hỗ trợ nhiều tài khoản</string>
-  <string name="favorite">Ưu thích</string>
   <string name="common_rename">Sửa tên</string>
   <string name="common_remove">Xóa</string>
   <string name="confirmation_remove_local">Chỉ cục bộ</string>

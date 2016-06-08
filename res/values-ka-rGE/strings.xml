@@ -83,7 +83,6 @@
   <string name="auth_bad_oc_version_title">ამოუცნობი სერვერის ვერსია</string>
   <string name="auth_wrong_connection_title">კავშირის დამყარება ვერ მოხერხდა</string>
   <string name="auth_secure_connection">დაცული კავშირი დამყარდა</string>
-  <string name="favorite">ფავორიტი</string>
   <string name="common_rename">გადარქმევა</string>
   <string name="common_remove">წაშლა</string>
   <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>

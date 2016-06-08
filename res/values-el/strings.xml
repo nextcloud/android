@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Ρυθμίσεις</string>
   <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
-  <string name="drawer_item_logs">Αρχεία καταγραφών</string>
   <string name="drawer_close">Κλείσιμο</string>
   <string name="drawer_open">Άνοιγμα</string>
   <string name="prefs_category_general">Γενικά</string>
@@ -205,8 +204,6 @@
 ⇥</string>
   <string name="auth_can_not_auth_against_server">Δεν είναι δυνατή η πιστοποίηση με αυτόν το διακομιστή</string>
   <string name="auth_account_does_not_exist">Ο λογαριασμός δεν υπάρχει στη συσκευή ακόμα.</string>
-  <string name="favorite">Αγαπημένο</string>
-  <string name="unfavorite">Κατάργηση από τα αγαπημένα</string>
   <string name="common_rename">Μετονομασία</string>
   <string name="common_remove">Αφαίρεση</string>
   <string name="confirmation_remove_alert">Θέλετε στ\' αλήθεια να αφαιρέσετε το  %1$s;</string>
@@ -382,7 +379,6 @@
   <string name="action_switch_grid_view">Προβολή πλέγματος</string>
   <string name="action_switch_list_view">Προβολή λίστας</string>
   <string name="manage_space_title">Διαχείριση χώρου</string>
-  <string name="manage_space_description">Οι ρυθμίσεις, η βάση δεδομένων και τα πιστοποιητικά διακομιστή από τα δεδομένα του %1$s θα διαγραφούν οριστικά. \n\nΤα ληφθέντα αρχεία δεν θα πειραχθούν. \n\nΗ διαδικασία μπορεί να διαρκέσει λίγη ώρα.</string>
   <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
   <string name="manage_space_error">Μερικά αρχεία δεν μπορούν να διαγραφούν.</string>
   <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση &amp; λήψη αρχείων.</string>

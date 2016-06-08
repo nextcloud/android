@@ -55,7 +55,6 @@
   <string name="change_password">Izmjena lozinke</string>
   <string name="uploader_info_dirname">Naziv mape</string>
   <string name="uploads_view_upload_status_unknown_fail">Nepoznata pogreška</string>
-  <string name="favorite">Favorit</string>
   <string name="common_rename">Promjeni ime</string>
   <string name="common_remove">Makni</string>
   <string name="ssl_validator_btn_details_see">Detalji</string>

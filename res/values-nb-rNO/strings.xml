@@ -26,7 +26,6 @@
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Innstillinger</string>
   <string name="drawer_item_uploads_list">Opplastinger</string>
-  <string name="drawer_item_logs">Logger</string>
   <string name="drawer_close">Lukk</string>
   <string name="drawer_open">Åpne</string>
   <string name="prefs_category_general">Generelt</string>
@@ -217,8 +216,6 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne serveren</string>
   <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
-  <string name="favorite">Gjør til favoritt</string>
-  <string name="unfavorite">Fjern favoritt</string>
   <string name="common_rename">Endre navn</string>
   <string name="common_remove">Fjern</string>
   <string name="confirmation_remove_alert">Vil du virkelig fjerne %1$s?</string>
@@ -399,7 +396,6 @@
   <string name="action_switch_grid_view">Rutenett-visning</string>
   <string name="action_switch_list_view">Listevisning</string>
   <string name="manage_space_title">Håndter plass</string>
-  <string name="manage_space_description">Innstillinger, database og server-sertifikater fra %1$s sine data vil bli slettet permanent. \n\nNedlastede filer forblir urørt.\n\nDenne prosessen kan ta litt tid.</string>
   <string name="manage_space_clear_data">Nullstill data</string>
   <string name="manage_space_error">Noen filer kunne ikke fjernes.</string>
   <string name="permission_storage_access">Flere tillatelser trengs for å laste opp &amp; ned filer.</string>
