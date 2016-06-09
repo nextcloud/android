@@ -223,6 +223,8 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
   <string name="auth_account_does_not_exist">Konto jeszcze nie istnieje na tym urządzeniu.</string>
+  <string name="favorite">Udostępnij w trybie offline</string>
+  <string name="unfavorite">Wyłącz udostępnianie w trybie offline</string>
   <string name="common_rename">Zmień nazwę</string>
   <string name="common_remove">Usuń</string>
   <string name="confirmation_remove_alert">Czy naprawdę chcesz usunąć %1$s?</string>
