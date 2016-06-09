@@ -69,7 +69,7 @@ public class ChangelogDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         
         Dialog dialog = builder.setView(webview)
-                                .setIcon(DisplayUtils.getSeasonalIconId())
+                                .setIcon(R.mipmap.ic_launcher)
                                 //.setTitle(R.string.whats_new)
                                 .setPositiveButton(R.string.common_ok,
                                         new DialogInterface.OnClickListener() {
