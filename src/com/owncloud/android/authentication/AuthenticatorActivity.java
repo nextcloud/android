@@ -66,7 +66,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
 import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudAccountStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
@@ -1503,7 +1502,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         // remove managed clients for this account to enforce creation with fresh credentials
-        OwnCloudAccount ocAccount = OwnCloudAccountStorageManager.getOwnCloudAccount(mAccount, this);
+        OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, this);
         OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
 
         setAccountAuthenticatorResult(response);

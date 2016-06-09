@@ -63,7 +63,6 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudAccountStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
@@ -827,9 +826,7 @@ public class FileActivity extends AppCompatActivity
                 account = getAccount();
             }
             OwnCloudClient client;
-            OwnCloudAccount ocAccount = OwnCloudAccountStorageManager.getOwnCloudAccount(
-                    account, context
-            );
+            OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
             client = (OwnCloudClientManagerFactory.getDefaultSingleton().
                     removeClientFor(ocAccount));
             if (client != null) {
