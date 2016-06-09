@@ -57,7 +57,7 @@
 
     <application
         android:name=".MainApp"
-        android:icon="@drawable/icon"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/Theme.ownCloud"
         android:manageSpaceActivity=".ui.activity.ManageSpaceActivity">
