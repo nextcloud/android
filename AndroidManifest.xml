@@ -77,9 +77,8 @@
         </activity>
         <activity android:name=".ui.activity.ManageAccountsActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
-        <activity android:name=".ui.activity.ReceiveExternalFilesActivity" />
         <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
-        <activity android:name=".ui.activity.Uploader"
+        <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
                   android:label="ownCloud beta">
