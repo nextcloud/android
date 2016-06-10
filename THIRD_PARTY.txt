@@ -1,8 +1,9 @@
 ###################################################################
-  ownCloud Android client                                       
+  Nextcloud Android client                                       
 
-  Copyright (C) 2012-2013 ownCloud Inc.
-  Copyright (C) 2012  Bartek Przybylski
+  Copyright (C) 2016      Nextcloud Project
+  Copyright (C) 2012-2016 ownCloud Inc.
+  Copyright (C) 2012      Bartek Przybylski
 ###################################################################
 
 

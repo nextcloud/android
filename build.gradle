@@ -10,7 +10,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.android.tools.build:gradle:2.1.2'
     }
 }
 
@@ -22,6 +22,7 @@ ext {
 
 repositories {
     mavenCentral()
+    maven { url "https://jitpack.io" }
 
     flatDir {
         dirs 'libs'
@@ -31,7 +32,8 @@ repositories {
 dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
-    compile project(':owncloud-android-library')
+
+    compile 'com.github.nextcloud:android-library:-SNAPSHOT'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
@@ -77,6 +79,11 @@ android {
 //        testInstrumentationRunnerArgument "TEST_USER", "\"$System.env.OCTEST_APP_USERNAME\""
 //        testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.OCTEST_APP_PASSWORD\""
 //        testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
+
+        // arguments to be passed to functional tests
+        testInstrumentationRunnerArgument "TEST_USER", "\"$System.env.OCTEST_APP_USERNAME\""
+        testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.OCTEST_APP_PASSWORD\""
+        testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
         applicationId "com.owncloud.android.beta"
         versionCode 20160606

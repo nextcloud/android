@@ -134,15 +134,6 @@ public class DisplayUtils {
         return df.format(date);
     }
     
-    public static int getSeasonalIconId() {
-        if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) >= 354 &&
-                MainApp.getAppContext().getString(R.string.app_name).equals(OWNCLOUD_APP_NAME)) {
-            return R.drawable.winter_holidays_icon;
-        } else {
-            return R.drawable.icon;
-        }
-    }
-    
     /**
      * Converts an internationalized domain name (IDN) in an URL to and from ASCII/Unicode.
      * @param url the URL where the domain name should be converted

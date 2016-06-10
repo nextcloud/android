@@ -634,6 +634,10 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mEtagInConflict;
     }
 
+    public boolean isInConflict() {
+        return mEtagInConflict != null && mEtagInConflict != "";
+    }
+
     public void setEtagInConflict(String etagInConflict) {
         mEtagInConflict = etagInConflict;
     }
@@ -650,4 +654,5 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         String permissions = getPermissions();
         return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
     }
+
 }

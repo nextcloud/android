@@ -1,3 +1,2 @@
-include ':owncloud-android-library'
 include ':'
 include ':oc_jb_workaround'
