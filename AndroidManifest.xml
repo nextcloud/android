@@ -67,7 +67,7 @@
         android:manageSpaceActivity=".ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
-            android:label="ownCloud beta" >
+            android:label="ownCloud beta"
             android:theme="@style/Theme.ownCloud.Toolbar.Drawer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
