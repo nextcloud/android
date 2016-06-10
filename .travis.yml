@@ -13,9 +13,9 @@ android:
   - sys-img-armeabi-v7a-android-23
 before_install:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
-#  - emulator -avd test -no-skin -no-audio -no-window &
-#  - chmod +x ./wait_for_emulator.sh
-#  - ./wait_for_emulator.sh
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - chmod +x ./wait_for_emulator.sh
+  - ./wait_for_emulator.sh
 script:
 # build app and assemble APK, in debug mode
   - ./gradlew assembleDebug
