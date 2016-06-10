@@ -18,25 +18,18 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="56dp"
     android:background="@drawable/list_selector"
     android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="@dimen/file_icon_size"
-            android:layout_height="@dimen/file_icon_size"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="12dp"
-            android:src="@drawable/ic_menu_archive" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="@dimen/file_icon_size"
+        android:layout_height="@dimen/file_icon_size"
+        android:layout_gravity="center_vertical"
+        android:layout_margin="12dp"
+        android:src="@drawable/ic_menu_archive" />
 
     <LinearLayout
         android:layout_width="0dp"

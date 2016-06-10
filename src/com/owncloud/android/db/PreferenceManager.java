@@ -117,19 +117,19 @@ public abstract class PreferenceManager {
         saveBooleanPreference(AUTO_PREF__SORT_ASCENDING, ascending, context);
     }
 
-    public static void saveBooleanPreference(String key, boolean value, Context context) {
+    private static void saveBooleanPreference(String key, boolean value, Context context) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putBoolean(key, value);
         appPreferences.apply();
     }
 
-    public static void saveStringPreference(String key, String value, Context context) {
+    private static void saveStringPreference(String key, String value, Context context) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putString(key, value);
         appPreferences.apply();
     }
 
-    public static void saveIntPreference(String key, int value, Context context) {
+    private static void saveIntPreference(String key, int value, Context context) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putInt(key, value);
         appPreferences.apply();
