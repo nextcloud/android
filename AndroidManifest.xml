@@ -19,8 +19,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="20160606"
-    android:versionName="20160606" >
+    android:versionCode="20160610"
+    android:versionName="20160610" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -62,7 +62,7 @@
     <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="ownCloud beta"
         android:theme="@style/Theme.ownCloud"
         android:manageSpaceActivity=".ui.activity.ManageSpaceActivity">
         <activity
