@@ -80,7 +80,7 @@ android {
 //        testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.OCTEST_APP_PASSWORD\""
 //        testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
-        applicationId "com.owncloud.android.beta"
+        applicationId "com.nextcloud.android.beta"
         versionCode 20160606
         versionName "20160606"
     }
