@@ -408,11 +408,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             List<HashMap<String, Object>> data = new LinkedList<>();
             for (OCFile f : files) {
-                if (f.isFolder()) {
-                    HashMap<String, Object> h = new HashMap<>();
-                    h.put("dirname", f);
-                    data.add(h);
-                }
+                HashMap<String, Object> h = new HashMap<>();
+                h.put("dirname", f);
+                data.add(h);
             }
 
             UploaderAdapter sa = new UploaderAdapter(this,
