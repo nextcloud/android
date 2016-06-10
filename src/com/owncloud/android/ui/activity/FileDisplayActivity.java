@@ -977,22 +977,28 @@ public class FileDisplayActivity extends HookActivity
                                         .equals(event));
 
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
-                            equals(event) &&/// TODO refactor and make common
+                            equals(event)) {
 
-                            synchResult != null && !synchResult.isSuccess()) {
+                            if (synchResult != null && !synchResult.isSuccess()) {
+                                /// TODO refactor and make common
 
-                            if(ResultCode.UNAUTHORIZED.equals(synchResult.getCode()) ||
-                                (synchResult.isException() && synchResult.getException()
-                                    instanceof AuthenticatorException)) {
+                                if (ResultCode.UNAUTHORIZED.equals(synchResult.getCode()) ||
+                                    (synchResult.isException() && synchResult.getException()
+                                        instanceof AuthenticatorException)) {
 
-                                requestCredentialsUpdate(context);
+                                    requestCredentialsUpdate(context);
 
-                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
-                                synchResult.getCode())) {
+                                } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
+                                    synchResult.getCode())) {
 
-                                showUntrustedCertDialog(synchResult);
+                                    showUntrustedCertDialog(synchResult);
+                                }
+
                             }
 
+                            if (synchFolderRemotePath.equals(OCFile.ROOT_PATH)) {
+                                setUsernameInDrawer(mDrawerLayout, getAccount());
+                            }
                         }
 
                     }
