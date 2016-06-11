@@ -24,6 +24,7 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -98,6 +99,7 @@ public class Preferences extends PreferenceActivity
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
     public static final String PREFERENCE_EXPERT_MODE = "expert_mode";
+    public static final String PREFERENCE_TIME_BETWEEN_SYNC = "time_between_sync";
 
     private static final int ACTION_REQUEST_PASSCODE = 5;
     private static final int ACTION_CONFIRM_PASSCODE = 6;
@@ -117,6 +119,7 @@ public class Preferences extends PreferenceActivity
     private ListPreference mLock;
     private SwitchPreference mShowHiddenFiles;
     private SwitchPreference mExpertMode;
+    private Preference mPrefTimeBetweenSynchronizations;
     private AppCompatDelegate mDelegate;
 
     private ListPreference mPrefStoragePath;
@@ -177,6 +180,25 @@ public class Preferences extends PreferenceActivity
         
         // Dev
         setupDevCategory(accentColor, preferenceScreen);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        boolean isAutoSyncEnabled = ContentResolver.getSyncAutomatically(
+                AccountUtils.getCurrentOwnCloudAccount(this), getString(R.string.authority));
+        mPrefTimeBetweenSynchronizations.setEnabled(isAutoSyncEnabled);
+        String summary;
+        if (isAutoSyncEnabled) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            int minutesBetweenSyncs = Integer.parseInt(prefs.getString("time_between_sync", "60"));
+            summary = getResources().getQuantityString(
+                    R.plurals.minutes, minutesBetweenSyncs, minutesBetweenSyncs);
+        } else {
+            summary = getString(R.string.prefs_time_between_sync_sync_disabled);
+        }
+        mPrefTimeBetweenSynchronizations.setSummary(summary);
     }
 
     private void setupDevCategory(int accentColor, PreferenceScreen preferenceScreen) {
@@ -564,8 +586,36 @@ public class Preferences extends PreferenceActivity
 
         setupExpertModePreference(preferenceCategoryDetails, fSyncedFolderLightEnabled);
 
+        setupTimeBetweenSynchronizationsPreference(preferenceCategoryDetails, fSyncedFolderLightEnabled);
+
         if (!fPassCodeEnabled && !fDeviceCredentialsEnabled && !fShowHiddenFilesEnabled && fSyncedFolderLightEnabled) {
             preferenceScreen.removePreference(preferenceCategoryDetails);
+        }
+    }
+
+    private void setupTimeBetweenSynchronizationsPreference(
+            PreferenceCategory preferenceCategoryDetails,
+            boolean fSyncedFolderLightEnabled) {
+        mPrefTimeBetweenSynchronizations = findPreference(PREFERENCE_TIME_BETWEEN_SYNC);
+
+        if (fSyncedFolderLightEnabled) {
+            preferenceCategoryDetails.removePreference(mExpertMode);
+        } else if (mPrefTimeBetweenSynchronizations != null) {
+            mPrefTimeBetweenSynchronizations.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValueObject) {
+                    if (newValueObject instanceof String && ((String) newValueObject).length() > 0) {
+                        int newValue = Integer.parseInt((String) newValueObject);
+                        if (newValue > 0) {
+                            mPrefTimeBetweenSynchronizations.setSummary(
+                                    getResources().getQuantityString(
+                                            R.plurals.minutes, newValue, newValue));
+                            return true;
+                        }
+                    }
+                    return false;
+                }
+            });
         }
     }
 

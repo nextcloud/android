@@ -50,6 +50,7 @@
 		<com.owncloud.android.ui.ThemeableSwitchPreference
 			android:title="@string/prefs_expert_mode"
 			android:key="expert_mode"/>
+        <android.preference.EditTextPreference android:numeric="integer" android:inputType="number" android:defaultValue="60" android:title="@string/prefs_time_between_sync" android:key="time_between_sync" />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">

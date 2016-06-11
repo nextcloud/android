@@ -443,6 +443,13 @@
 
     <string name="prefs_category_details">Details</string>
 
+
+    <string name="prefs_time_between_sync">Time between synchronization</string>
+    <plurals name="minutes">
+        <item quantity="one">One minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
+
     <string name="sync_folder_failed_content">Sync of %1$s folder could not be completed</string>
 
 	<string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
