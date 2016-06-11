@@ -37,7 +37,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -50,7 +50,7 @@
        id="linearGradient6098"
        osb:paint="solid">
       <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
+         style="stop-color:#82c9ff;stop-opacity:1;"
          offset="0"
          id="stop6100" />
     </linearGradient>
@@ -73,7 +73,7 @@
        id="linearGradient5650"
        osb:paint="solid">
       <stop
-         style="stop-color:#ffffff;stop-opacity:1;"
+         style="stop-color:#82c9ff;stop-opacity:1;"
          offset="0"
          id="stop5652" />
     </linearGradient>
@@ -255,22 +255,13 @@
          result="dropShadow"
          id="feComposite43" />
     </filter>
-    <linearGradient
-       inkscape:collect="always"
-       xlink:href="#linearGradient6098"
-       id="linearGradient6102"
-       x1="5"
-       y1="24"
-       x2="43"
-       y2="24"
-       gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
      showgrid="true"
      id="namedview45"
-     inkscape:zoom="9.8333333"
-     inkscape:cx="40.11977"
-     inkscape:cy="16.349996"
+     inkscape:zoom="13.906433"
+     inkscape:cx="4.0439432"
+     inkscape:cy="29.818644"
      inkscape:window-width="1920"
      inkscape:window-height="1005"
      inkscape:window-x="-9"
@@ -314,10 +305,10 @@
       We need to use nested groups to apply multiple filters on a
       single element. -->
     <g
-       style="filter:url(#filterShade);fill-opacity:1;fill:url(#linearGradient6102)"
+       style="filter:url(#filterShade);fill-opacity:0.94117647;fill:#0082cf;stroke:none;stroke-opacity:1"
        id="g50">
       <rect
-         style="fill:url(#linearGradient6102);filter:url(#filterTint);fill-opacity:1"
+         style="fill:#0082cf;filter:url(#filterTint);fill-opacity:0.94117647;stroke:none;stroke-opacity:1"
          width="38"
          height="38"
          x="5"
@@ -328,8 +319,8 @@
     </g>
     <path
        inkscape:connector-curvature="0"
-       style="color:#000000;text-indent:0;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;text-transform:none;block-progression:tb;white-space:normal;isolation:auto;mix-blend-mode:normal;solid-color:#000000;fill:#0082c9;color-rendering:auto;image-rendering:auto;shape-rendering:auto;enable-background:accumulate"
-       d="m 24.070612,15.835785 c -3.745727,3.59e-4 -6.891036,2.565083 -7.852186,6.015574 -0.83879,-1.84545 -2.685138,-3.153398 -4.830318,-3.153398 -2.9201215,3.31e-4 -5.3210785,2.401377 -5.3213781,5.321678 -5.693e-4,2.920841 2.4006874,5.322278 5.3213781,5.322876 2.14545,-2.59e-4 3.99051,-1.308936 4.829419,-3.154596 0.960671,3.450912 4.107058,6.016175 7.853386,6.016475 3.725354,2.87e-4 6.855383,-2.53713 7.835707,-5.95835 0.852392,1.811563 2.670367,3.096173 4.791069,3.096471 2.921261,5.11e-4 5.322877,-2.401315 5.322577,-5.322876 -2.82e-4,-2.92084 -2.401767,-5.322276 -5.322577,-5.321678 -2.120672,2.46e-4 -3.939576,1.284729 -4.791968,3.096473 -0.980923,-3.42155 -4.109754,-5.95895 -7.835109,-5.958649 z m 0,3.124036 c 2.813132,-1.87e-4 5.060119,2.246419 5.060419,5.059818 1.4e-4,2.813582 -2.247077,5.061018 -5.060419,5.060718 -2.81313,-2.73e-4 -5.059518,-2.247527 -5.059518,-5.060718 2.95e-4,-2.81292 2.246657,-5.059518 5.059518,-5.059818 z m -12.682504,2.861877 c 1.232297,1.42e-4 2.197462,0.965345 2.197612,2.197702 2.17e-4,1.232627 -0.965045,2.19866 -2.197612,2.19881 -1.232567,-1.43e-4 -2.1978209,-0.966183 -2.1976111,-2.19881 1.414e-4,-1.232357 0.9652851,-2.197582 2.1976111,-2.197702 z m 25.309281,0 c 1.232537,-2.15e-4 2.19854,0.965076 2.19869,2.197702 2.94e-4,1.232897 -0.965823,2.19902 -2.19869,2.19881 -1.232596,-1.43e-4 -2.197851,-0.966183 -2.197641,-2.19881 1.4e-4,-1.232357 0.965345,-2.197582 2.197641,-2.197702 z"
+       style="color:#000000;text-indent:0;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;text-transform:none;block-progression:tb;white-space:normal;isolation:auto;mix-blend-mode:normal;solid-color:#000000;fill:#ffffff;fill-opacity:1;color-rendering:auto;image-rendering:auto;shape-rendering:auto;enable-background:accumulate"
+       d="m 24.069078,16.547649 c -3.53383,3.31e-4 -6.501209,2.357911 -7.407987,5.529718 -0.791338,-1.6964 -2.533238,-2.898709 -4.557066,-2.898709 -2.7549289,3.04e-4 -5.0200633,2.207427 -5.0203459,4.891865 -5.371e-4,2.684935 2.26488,4.892417 5.0203459,4.892966 2.024082,-2.38e-4 3.764767,-1.203218 4.556219,-2.899811 0.906325,3.172195 3.87472,5.530271 7.409118,5.530547 3.51461,2.64e-4 6.467573,-2.332215 7.392439,-5.477116 0.804172,1.665249 2.519305,2.846106 4.520038,2.84638 2.756004,4.7e-4 5.021761,-2.207369 5.021478,-4.892966 -2.66e-4,-2.684934 -2.265899,-4.892415 -5.021478,-4.891865 -2.000705,2.26e-4 -3.716713,1.180966 -4.520885,2.846382 -0.925433,-3.145204 -3.877265,-5.477667 -7.391876,-5.477391 z m 0,2.871719 c 2.653993,-1.72e-4 4.773868,2.064984 4.77415,4.651155 1.32e-4,2.586339 -2.119959,4.652257 -4.77415,4.651982 -2.653991,-2.51e-4 -4.7733,-2.066003 -4.7733,-4.651982 2.78e-4,-2.58573 2.119564,-4.650879 4.7733,-4.651155 z m -11.965053,2.630733 c 1.162587,1.31e-4 2.073152,0.887378 2.073294,2.020202 2.05e-4,1.133073 -0.910453,2.021082 -2.073294,2.02122 -1.162839,-1.31e-4 -2.073489,-0.888147 -2.073291,-2.02122 1.33e-4,-1.132824 0.910679,-2.020091 2.073291,-2.020202 z m 23.877531,0 c 1.162812,-1.97e-4 2.074168,0.887131 2.07431,2.020202 2.77e-4,1.13332 -0.911187,2.021414 -2.07431,2.02122 -1.162868,-1.31e-4 -2.073518,-0.888147 -2.07332,-2.02122 1.32e-4,-1.132824 0.910736,-2.020091 2.07332,-2.020202 z"
        id="path6" />
   </g>
   <g
