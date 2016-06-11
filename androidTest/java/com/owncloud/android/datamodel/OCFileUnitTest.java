@@ -103,7 +103,7 @@ public class OCFileUnitTest {
 
         // Read the data from the parcel
         parcel.setDataPosition(0);
-        OCFile fileReadFromParcel = OCFile.CREATOR.createFromParcel(parcel);
+        OCFile fileReadFromParcel = (OCFile) OCFile.CREATOR.createFromParcel(parcel);
 
         // Verify that the received data are correct
         assertThat(fileReadFromParcel.getRemotePath(), is(PATH));
