@@ -30,6 +30,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -119,7 +120,7 @@ public class Preferences extends PreferenceActivity
     private ListPreference mLock;
     private SwitchPreference mShowHiddenFiles;
     private SwitchPreference mExpertMode;
-    private Preference mPrefTimeBetweenSynchronizations;
+    private Preference syncGapPreference;
     private AppCompatDelegate mDelegate;
 
     private ListPreference mPrefStoragePath;
@@ -188,7 +189,7 @@ public class Preferences extends PreferenceActivity
 
         boolean isAutoSyncEnabled = ContentResolver.getSyncAutomatically(
                 AccountUtils.getCurrentOwnCloudAccount(this), getString(R.string.authority));
-        mPrefTimeBetweenSynchronizations.setEnabled(isAutoSyncEnabled);
+        syncGapPreference.setEnabled(isAutoSyncEnabled);
         String summary;
         if (isAutoSyncEnabled) {
             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -198,7 +199,7 @@ public class Preferences extends PreferenceActivity
         } else {
             summary = getString(R.string.prefs_time_between_sync_sync_disabled);
         }
-        mPrefTimeBetweenSynchronizations.setSummary(summary);
+        syncGapPreference.setSummary(summary);
     }
 
     private void setupDevCategory(int accentColor, PreferenceScreen preferenceScreen) {
@@ -596,26 +597,30 @@ public class Preferences extends PreferenceActivity
     private void setupTimeBetweenSynchronizationsPreference(
             PreferenceCategory preferenceCategoryDetails,
             boolean fSyncedFolderLightEnabled) {
-        mPrefTimeBetweenSynchronizations = findPreference(PREFERENCE_TIME_BETWEEN_SYNC);
+        syncGapPreference = findPreference(PREFERENCE_TIME_BETWEEN_SYNC);
 
         if (fSyncedFolderLightEnabled) {
             preferenceCategoryDetails.removePreference(mExpertMode);
         } else if (mPrefTimeBetweenSynchronizations != null) {
-            mPrefTimeBetweenSynchronizations.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValueObject) {
-                    if (newValueObject instanceof String && ((String) newValueObject).length() > 0) {
-                        int newValue = Integer.parseInt((String) newValueObject);
-                        if (newValue > 0) {
-                            mPrefTimeBetweenSynchronizations.setSummary(
-                                    getResources().getQuantityString(
-                                            R.plurals.minutes, newValue, newValue));
-                            return true;
+            if (syncGapPreference != null) {
+                SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+                final Resources res = getResources();
+                int minutesBetweenSyncs = Integer.parseInt(prefs.getString("time_between_sync", "60"));
+                syncGapPreference.setSummary(res.getQuantityString(R.plurals.minutes, minutesBetweenSyncs, minutesBetweenSyncs));
+                syncGapPreference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValueObject) {
+                        if (newValueObject instanceof String && ((String) newValueObject).length() > 0) {
+                            int newValue = Integer.parseInt((String) newValueObject);
+                            if (newValue > 0) {
+                                syncGapPreference.setSummary(res.getQuantityString(R.plurals.minutes, newValue, newValue));
+                                return true;
+                            }
                         }
+                        return false;
                     }
-                    return false;
-                }
-            });
+                });
+            }
         }
     }
 

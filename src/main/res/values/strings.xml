@@ -445,6 +445,7 @@
 
 
     <string name="prefs_time_between_sync">Time between synchronization</string>
+    <string name="prefs_time_between_sync_sync_disabled">Automatic synchronization disabled</string>
     <plurals name="minutes">
         <item quantity="one">One minute</item>
         <item quantity="other">%d minutes</item>
