@@ -81,7 +81,7 @@ android {
         testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.OCTEST_APP_PASSWORD\""
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
-        applicationId "com.nextcloud.android"
+        applicationId "com.nextcloud.client"
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
