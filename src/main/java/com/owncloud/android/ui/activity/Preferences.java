@@ -25,6 +25,12 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.content.ComponentName;
+import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -601,8 +607,10 @@ public class Preferences extends PreferenceActivity
 
         if (fSyncedFolderLightEnabled) {
             preferenceCategoryDetails.removePreference(mExpertMode);
-        } else if (mPrefTimeBetweenSynchronizations != null) {
-            if (syncGapPreference != null) {
+        } else if (syncGapPreference != null) {
+            boolean isAutoSyncEnabled = ContentResolver.getSyncAutomatically(AccountUtils.getCurrentOwnCloudAccount(this), getString(R.string.authority));
+            syncGapPreference.setEnabled(isAutoSyncEnabled);
+            if (isAutoSyncEnabled) {
                 SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
                 final Resources res = getResources();
                 int minutesBetweenSyncs = Integer.parseInt(prefs.getString("time_between_sync", "60"));
@@ -620,6 +628,8 @@ public class Preferences extends PreferenceActivity
                         return false;
                     }
                 });
+            } else {
+                syncGapPreference.setSummary(R.string.prefs_time_between_sync_sync_disabled);
             }
         }
     }
