@@ -249,12 +249,12 @@ public class Preferences extends PreferenceActivity
         PreferenceCategory preferenceCategoryAbout = (PreferenceCategory) findPreference("about");
         preferenceCategoryAbout.setTitle(ThemeUtils.getColoredTitle(getString(R.string.prefs_category_about),
                 accentColor));
-
         /* About App */
         Preference pAboutApp = findPreference("about_app");
         if (pAboutApp != null) {
             pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
             pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
+        }
         }
 
         // license
