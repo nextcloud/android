@@ -269,7 +269,10 @@
   <string name="prefs_category_accounts">حسابات</string>
   <string name="actionbar_logger">سجل</string>
   <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
+  <string name="actionbar_move">أنقل</string>
   <string name="folder_picker_choose_button_text">اختيار</string>
+  <string name="move_file_invalid_overwrite">الملف موجود بالفعل في المجلد الوجهة</string>
+  <string name="copy_file_invalid_overwrite">الملف موجود بالفعل في المجلد الوجهة</string>
   <string name="prefs_category_details">تفاصيل</string>
   <string name="auth_host_address">عنوان الخادم</string>
   <string name="share_dialog_title">مشاركة</string>
