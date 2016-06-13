@@ -18,12 +18,12 @@
    id="svg2"
    inkscape:version="0.91 r13725"
    sodipodi:docname="launcher_beta.svg"
-   inkscape:export-filename="C:\DEV\src\Android\nextcloud_android_beta\res\mipmap-xhdpi\ic_launcher.png"
-   inkscape:export-xdpi="270"
-   inkscape:export-ydpi="270"><metadata
+   inkscape:export-filename="C:\DEV\src\Android\nextcloud_android_beta\res\mipmap-mdpi\ic_launcher.png"
+   inkscape:export-xdpi="135"
+   inkscape:export-ydpi="135"><metadata
      id="metadata12"><rdf:RDF><cc:Work
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title /></cc:Work></rdf:RDF></metadata><defs
      id="defs10" /><sodipodi:namedview
      pagecolor="#ffffff"
      bordercolor="#666666"
@@ -38,8 +38,8 @@
      id="namedview8"
      showgrid="false"
      inkscape:zoom="3.6875"
-     inkscape:cx="1.0680032"
-     inkscape:cy="40.080182"
+     inkscape:cx="31.293394"
+     inkscape:cy="20.491932"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
      inkscape:window-maximized="1"
@@ -59,11 +59,11 @@
      xml:space="preserve"
      style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:5px;line-height:125%;font-family:Roboto;-inkscape-font-specification:'Roboto, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
      x="8.3471136"
-     y="31.050848"
+     y="29.050848"
      id="text4140"
      sodipodi:linespacing="125%"><tspan
        sodipodi:role="line"
        id="tspan4144"
        x="8.3471136"
-       y="31.050848">B E T A</tspan></text>
+       y="29.050848">B E T A</tspan></text>
 </svg>
