@@ -49,6 +49,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
@@ -520,9 +521,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     public ArrayList<OCFile> getCheckedItems() {
         ArrayList<OCFile> files = new ArrayList<OCFile>();
 
+        OCFile checkedFile = null;
         for (Map.Entry<Integer, Boolean> entry : mSelection.entrySet()){
             if (entry.getValue()){
-                files.add((OCFile) getItem(entry.getKey()));
+                checkedFile = (OCFile) getItem(entry.getKey());
+                if (checkedFile != null) {
+                    files.add((OCFile) getItem(entry.getKey()));
+                }
             }
         }
         return files;
