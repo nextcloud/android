@@ -50,39 +50,35 @@ implements ConfirmationDialogFragmentListener {
     /**
      * Public factory method to create new RemoveFileDialogFragment instances.
      * 
-     * @param files            Files to remove.
+     * @param files           Files to remove.
      * @return                Dialog ready to show.
      */
     public static RemoveFilesDialogFragment newInstance(ArrayList<OCFile> files) {
         RemoveFilesDialogFragment frag = new RemoveFilesDialogFragment();
         Bundle args = new Bundle();
         
-        int messageStringId = R.string.confirmation_remove_files_alert;
-        
-        int posBtn = R.string.confirmation_remove_file_remote;
-        int negBtn = -1;
-
         boolean containsFolder = false;
         boolean containsDown = false;
+        boolean containsFavorite = false;
         for (OCFile file: files) {
             if (file.isFolder()) containsFolder = true;
             if (file.isDown()) containsDown = true;
+            if (file.isFavorite()) containsFavorite = true;
         }
 
-        if (containsFolder) {
-            messageStringId = R.string.confirmation_remove_folders_alert;
-            posBtn = R.string.confirmation_remove_remote_and_local;
-            negBtn = R.string.confirmation_remove_local;
-        } else if (containsDown) {
-            posBtn = R.string.confirmation_remove_remote_and_local;
-            negBtn = R.string.confirmation_remove_local;
-        }
-        
+        int messageStringId = (containsFolder) ?
+            R.string.confirmation_remove_folders_alert :
+            R.string.confirmation_remove_files_alert;
+
+        int localRemoveButton = (!containsFavorite && (containsFolder || containsDown)) ?
+            R.string.confirmation_remove_local :
+            -1;
+
         args.putInt(ARG_MESSAGE_RESOURCE_ID, messageStringId);
         args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{MainApp.getAppContext().getString(R.string.confirmation_remove_files)});
-        args.putInt(ARG_POSITIVE_BTN_RES, posBtn);
+        args.putInt(ARG_POSITIVE_BTN_RES, R.string.common_yes);
         args.putInt(ARG_NEUTRAL_BTN_RES, R.string.common_no);
-        args.putInt(ARG_NEGATIVE_BTN_RES, negBtn);
+        args.putInt(ARG_NEGATIVE_BTN_RES, localRemoveButton);
         args.putParcelableArrayList(ARG_TARGET_FILES, files);
         frag.setArguments(args);
         

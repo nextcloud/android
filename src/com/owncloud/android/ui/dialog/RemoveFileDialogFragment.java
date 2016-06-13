@@ -52,14 +52,13 @@ implements ConfirmationDialogFragmentListener {
         RemoveFileDialogFragment frag = new RemoveFileDialogFragment();
         Bundle args = new Bundle();
         
-        int messageStringId = R.string.confirmation_remove_file_alert;
+        int messageStringId = (file.isFolder()) ?
+            R.string.confirmation_remove_folder_alert :
+            R.string.confirmation_remove_file_alert;
         
         int localRemoveButton = (!file.isFavorite() && (file.isFolder() || file.isDown())) ?
-            R.string.confirmation_remove_local : -1;
-
-        if (file.isFolder()) {
-            messageStringId = R.string.confirmation_remove_folder_alert;
-        }
+            R.string.confirmation_remove_local :
+            -1;
 
         args.putInt(ARG_MESSAGE_RESOURCE_ID, messageStringId);
         args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{file.getFileName()});
