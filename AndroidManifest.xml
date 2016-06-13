@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ownCloud Android client application
+  Nextcloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
   Copyright (C) 2012-2015 ownCloud Inc.
@@ -62,12 +62,12 @@
     <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
-        android:label="ownCloud beta"
+        android:label="Nextcloud beta"
         android:theme="@style/Theme.ownCloud"
         android:manageSpaceActivity=".ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
-            android:label="ownCloud beta"
+            android:label="Nextcloud beta"
             android:theme="@style/Theme.ownCloud.Toolbar.Drawer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -81,7 +81,7 @@
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
-                  android:label="ownCloud beta">
+                  android:label="Nextcloud beta">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -106,7 +106,7 @@
             android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
             android:name=".ui.preview.PreviewVideoActivity"
-            android:label="ownCloud beta"
+            android:label="Nextcloud beta"
             android:theme="@style/Theme.ownCloud.Fullscreen" />
 
         <service
@@ -238,10 +238,10 @@
             android:label="Copy link" />
         <activity
             android:name=".ui.activity.FolderPickerActivity"
-            android:label="ownCloud beta" />
+            android:label="Nextcloud beta" />
         <activity
             android:name=".ui.activity.UploadPathActivity"
-            android:label="ownCloud beta" />
+            android:label="Nextcloud beta" />
         <activity
             android:name=".ui.activity.ShareActivity"
             android:label="Sharing"
