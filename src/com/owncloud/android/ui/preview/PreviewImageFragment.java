@@ -505,7 +505,7 @@ public class PreviewImageFragment extends FileFragment {
                 }
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
-                    imageView.setGIFImage(result.ocFile);
+                    imageView.setGIFImageFromStoragePath(result.ocFile.getStoragePath());
                 } else {
                     imageView.setImageBitmap(bitmap);
                 }
