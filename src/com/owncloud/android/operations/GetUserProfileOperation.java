@@ -26,12 +26,9 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.resources.status.GetRemoteStatusOperation;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation.UserInfo;
 import com.owncloud.android.operations.common.SyncOperation;
-
-import java.util.ArrayList;
 
 /**
  * Get and save user's profile from the server.
@@ -55,15 +52,19 @@ public class GetUserProfileOperation extends SyncOperation {
     protected RemoteOperationResult run(OwnCloudClient client) {
 
         // get display name
-        GetRemoteUserNameOperation getDisplayName = new GetRemoteUserNameOperation();
+        GetRemoteUserInfoOperation getDisplayName = new GetRemoteUserInfoOperation();
         RemoteOperationResult result = getDisplayName.execute(client);
 
         if (result.isSuccess()) {
             // store display name with account data
             AccountManager accountManager = AccountManager.get(MainApp.getAppContext());
-            String displayName = (String) result.getData().get(0);
+            UserInfo userInfo = (UserInfo) result.getData().get(0);
             Account storedAccount = getStorageManager().getAccount();
-            accountManager.setUserData(storedAccount, AccountUtils.Constants.KEY_DISPLAY_NAME, displayName);
+            accountManager.setUserData(
+                storedAccount,
+                AccountUtils.Constants.KEY_DISPLAY_NAME,
+                userInfo.mDisplayName
+            );
         }
         return result;
     }

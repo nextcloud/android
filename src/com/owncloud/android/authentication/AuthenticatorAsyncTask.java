@@ -30,7 +30,7 @@ import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.network.RedirectionPath;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
-import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 
 import java.lang.ref.WeakReference;
 
@@ -80,7 +80,7 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
 
             // Operation - get display name
             if (result.isSuccess()) {
-                GetRemoteUserNameOperation remoteUserNameOperation = new GetRemoteUserNameOperation();
+                GetRemoteUserInfoOperation remoteUserNameOperation = new GetRemoteUserInfoOperation();
                 result = remoteUserNameOperation.execute(client);
             }
 
