@@ -58,10 +58,9 @@ public class ImageViewCustom extends ImageView {
             //
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
+        super.onDraw(canvas);
 
-        if(mGifMovie == null) {
-            super.onDraw(canvas);
-        } else {
+        if(mGifMovie != null) {
             long nowTick = android.os.SystemClock.uptimeMillis();
             if (mLastTick == 0) {
                 mMovieRunDuration = 0;
