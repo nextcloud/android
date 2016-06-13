@@ -118,7 +118,7 @@ public class ImageViewCustom extends ImageView {
     
     @Override
     /**
-     * Keeps the size of the bitmap cached in member variables for faster access in {@link #onDraw(Canvas)} ,
+     * Keeps the size of the bitmap cached in member variables for faster access in {@link #onDraw(Canvas)},
      * but without keeping another reference to the {@link Bitmap}
      */
     public void setImageBitmap(Bitmap bm) {
@@ -127,18 +127,23 @@ public class ImageViewCustom extends ImageView {
         super.setImageBitmap(bm);
     }
 
-    public void setGIFImage(OCFile file) {
-      try {
-          InputStream gifInputStream = new FileInputStream(file.getStoragePath());
-          setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-          setFocusable(true);
+    /**
+     * sets the GIF image of the given storage path.
+     *
+     * @param storagePath the storage path of the GIF image
+     */
+    public void setGIFImageFromStoragePath(String storagePath) {
+        try {
+            InputStream gifInputStream = new FileInputStream(storagePath);
+            setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            setFocusable(true);
 
-          mGifMovie = Movie.decodeStream(gifInputStream);
-          mMovieWidth = mGifMovie.width();
-          mMovieHeight = mGifMovie.height();
-          mMovieDuration = mGifMovie.duration();
+            mGifMovie = Movie.decodeStream(gifInputStream);
+            mMovieWidth = mGifMovie.width();
+            mMovieHeight = mGifMovie.height();
+            mMovieDuration = mGifMovie.duration();
         } catch (Exception e) {
-          Log_OC.e(TAG, "Failed to set GIF image");
+            Log_OC.e(TAG, "Failed to set GIF image");
         }
     }
 
