@@ -87,19 +87,13 @@ public class ImageViewCustom extends ImageView {
         }
     }
 
-    private float getScaleToViewFactor(Movie movie, Canvas canvas){
-        float scale;
-
+    private float getScaleToViewFactor(Movie movie, Canvas canvas) {
         if (movie.height() > getHeight() || movie.width() > getWidth()) {
             float offset = 0.25f;
-            scale = (1f / Math.min(canvas.getHeight() / movie.height(),
-                    canvas.getWidth() / movie.width())) + offset;
-        } else {
-            scale = Math.min(canvas.getHeight() / movie.height(),
-                    canvas.getWidth() / movie.width());
+            return (1f / Math.min(canvas.getHeight() / movie.height(), canvas.getWidth() / movie.width())) + offset;
         }
 
-        return scale;
+        return Math.min(canvas.getHeight() / movie.height(), canvas.getWidth() / movie.width());
     }
 
     @Override
