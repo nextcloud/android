@@ -191,7 +191,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
 
                     lastModV.setVisibility(View.VISIBLE);
-                    lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file));
+                    lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.getModificationTimestamp()));
 
                     checkBoxV.setVisibility(View.GONE);
 
@@ -422,8 +422,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     
     
     public void setSortOrder(Integer order, boolean ascending) {
-        PreferenceManager.setSortOrder(order, mContext);
-        PreferenceManager.setSortAscending(ascending, mContext);
+        PreferenceManager.setSortOrder(mContext, order);
+        PreferenceManager.setSortAscending(mContext, ascending);
         
         FileStorageUtils.mSortOrder = order;
         FileStorageUtils.mSortAscending = ascending;
