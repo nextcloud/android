@@ -345,7 +345,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     }
 
     private void registerLongClickListener() {
-        AbsListView listView = getListView();
         setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
 
