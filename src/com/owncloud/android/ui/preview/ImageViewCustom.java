@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -73,14 +74,7 @@ public class ImageViewCustom extends ImageView {
 
             mGifMovie.setTime((int) mMovieRunDuration);
 
-            float scale;
-            if(mGifMovie.height() > getHeight() || mGifMovie.width() > getWidth()) {
-                scale = (1f / Math.min(canvas.getHeight() / mGifMovie.height(),
-                        canvas.getWidth() / mGifMovie.width())) + 0.25f;
-            } else {
-                scale = Math.min(canvas.getHeight() / mGifMovie.height(),
-                                 canvas.getWidth() / mGifMovie.width());
-            }
+            float scale = getScaleToViewFactor(mGifMovie, canvas);
 
             canvas.scale(scale, scale);
             canvas.translate(((float) getWidth() / scale - (float) mGifMovie.width()) / 2f,
@@ -91,6 +85,21 @@ public class ImageViewCustom extends ImageView {
             mLastTick = nowTick;
             invalidate();
         }
+    }
+
+    private float getScaleToViewFactor(Movie movie, Canvas canvas){
+        float scale;
+
+        if (movie.height() > getHeight() || movie.width() > getWidth()) {
+            float offset = 0.25f;
+            scale = (1f / Math.min(canvas.getHeight() / movie.height(),
+                    canvas.getWidth() / movie.width())) + offset;
+        } else {
+            scale = Math.min(canvas.getHeight() / movie.height(),
+                    canvas.getWidth() / movie.width());
+        }
+
+        return scale;
     }
 
     @Override
@@ -125,7 +134,7 @@ public class ImageViewCustom extends ImageView {
         super.setImageBitmap(bm);
     }
 
-    public void setGifImage(OCFile file){
+    public void setGIFImage(OCFile file) {
       try {
           InputStream gifInputStream = new FileInputStream(file.getStoragePath());
           setLayerType(View.LAYER_TYPE_SOFTWARE, null);
@@ -136,7 +145,7 @@ public class ImageViewCustom extends ImageView {
           mMovieHeight = mGifMovie.height();
           mMovieDuration = mGifMovie.duration();
         } catch (Exception e) {
-            e.printStackTrace();
+          Log_OC.e(TAG, "Failed to set GIF image");
         }
     }
 
