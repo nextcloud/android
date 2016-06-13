@@ -163,6 +163,18 @@ public class DisplayUtils {
         }
     }
 
+    /**
+     * calculates the relative time string based on the given modificaion timestamp.
+     *
+     * @param context the app's context
+     * @param modificationTimestamp the UNIX timestamp of the file modification time.
+     * @return a relative time string
+     */
+    public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp) {
+        return getRelativeDateTimeString(context, modificationTimestamp, DateUtils.SECOND_IN_MILLIS,
+                DateUtils.WEEK_IN_MILLIS, 0);
+    }
+
     @SuppressWarnings("deprecation")
     public static CharSequence getRelativeDateTimeString (
             Context c, long time, long minResolution, long transitionResolution, int flags
