@@ -28,6 +28,8 @@
     <dimen name="standard_half_padding">8dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
+    <dimen name="min_list_item_size">56dp</dimen>
+    <dimen name="standard_list_item_size">72dp</dimen>
 
     <dimen name="two_line_primary_text_size">16sp</dimen>
     <dimen name="two_line_secondary_text_size">14sp</dimen>

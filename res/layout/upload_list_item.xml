@@ -10,7 +10,7 @@
 
     <FrameLayout
         android:layout_width="60dp"
-        android:layout_height="72dp"
+        android:layout_height="@dimen/standard_list_item_size"
         android:focusable="false"
         android:focusableInTouchMode="false">
 
@@ -105,8 +105,8 @@
 
     
     <FrameLayout
-        android:layout_width="56dp"
-        android:layout_height="72dp"
+        android:layout_width="@dimen/min_list_item_size"
+        android:layout_height="@dimen/standard_list_item_size"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:layout_gravity="center_vertical"
