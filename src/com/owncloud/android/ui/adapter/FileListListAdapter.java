@@ -191,7 +191,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
 
                     lastModV.setVisibility(View.VISIBLE);
-                    lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file));
+                    lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.getModificationTimestamp()));
 
                     checkBoxV.setVisibility(View.GONE);
 
