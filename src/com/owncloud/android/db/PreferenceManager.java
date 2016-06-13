@@ -33,8 +33,8 @@ public abstract class PreferenceManager {
      * Value handled by the app without direct access in the UI.
      */
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
-    private static final String AUTO_PREF__SORT_ORDER = "sortOrder";
-    private static final String AUTO_PREF__SORT_ASCENDING = "sortAscending";
+    private static final String AUTO_PREF__SORT_ORDER = "sort_order";
+    private static final String AUTO_PREF__SORT_ASCENDING = "sort_ascending";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
     private static final String PREF__INSTANT_UPLOAD_ON_WIFI = "instant_upload_on_wifi";
@@ -60,7 +60,7 @@ public abstract class PreferenceManager {
      * Gets the path where the user selected to do the last upload of a file shared from other app.
      *
      * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return path     Absolute path to a folder, as previously stored by {@link #setLastUploadPath(String, Context)},
+     * @return path     Absolute path to a folder, as previously stored by {@link #setLastUploadPath(Context, String)},
      * or empty String if never saved before.
      */
     public static String getLastUploadPath(Context context) {
@@ -70,11 +70,11 @@ public abstract class PreferenceManager {
     /**
      * Saves the path where the user selected to do the last upload of a file shared from other app.
      *
-     * @param path    Absolute path to a folder.
      * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @param path    Absolute path to a folder.
      */
-    public static void setLastUploadPath(String path, Context context) {
-        saveStringPreference(AUTO_PREF__LAST_UPLOAD_PATH, path, context);
+    public static void setLastUploadPath(Context context, String path) {
+        saveStringPreference(context, AUTO_PREF__LAST_UPLOAD_PATH, path);
     }
 
     /**
@@ -90,11 +90,11 @@ public abstract class PreferenceManager {
     /**
      * Save the sort order which the user has set last.
      *
-     * @param order   the sort order
      * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @param order   the sort order
      */
-    public static void setSortOrder(int order, Context context) {
-        saveIntPreference(AUTO_PREF__SORT_ORDER, order, context);
+    public static void setSortOrder(Context context, int order) {
+        saveIntPreference(context, AUTO_PREF__SORT_ORDER, order);
     }
 
     /**
@@ -110,26 +110,26 @@ public abstract class PreferenceManager {
     /**
      * Saves the ascending order flag which the user has set last.
      *
-     * @param ascending flag if sorting is ascending or descending
      * @param context   Caller {@link Context}, used to access to shared preferences manager.
+     * @param ascending flag if sorting is ascending or descending
      */
-    public static void setSortAscending(boolean ascending, Context context) {
-        saveBooleanPreference(AUTO_PREF__SORT_ASCENDING, ascending, context);
+    public static void setSortAscending(Context context, boolean ascending) {
+        saveBooleanPreference(context, AUTO_PREF__SORT_ASCENDING, ascending);
     }
 
-    private static void saveBooleanPreference(String key, boolean value, Context context) {
+    private static void saveBooleanPreference(Context context, String key, boolean value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putBoolean(key, value);
         appPreferences.apply();
     }
 
-    private static void saveStringPreference(String key, String value, Context context) {
+    private static void saveStringPreference(Context context, String key, String value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putString(key, value);
         appPreferences.apply();
     }
 
-    private static void saveIntPreference(String key, int value, Context context) {
+    private static void saveIntPreference(Context context, String key, int value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putInt(key, value);
         appPreferences.apply();

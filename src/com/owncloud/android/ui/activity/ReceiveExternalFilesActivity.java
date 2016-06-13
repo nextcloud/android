@@ -500,7 +500,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
 
         // Save the path to shared preferences; even if upload is not possible, user chose the folder
-        PreferenceManager.setLastUploadPath(mUploadPath, this);
+        PreferenceManager.setLastUploadPath(this, mUploadPath);
 
         if (resultCode == UriUploader.UriUploaderResultCode.OK) {
             finish();

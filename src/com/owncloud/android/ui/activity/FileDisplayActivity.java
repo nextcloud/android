@@ -94,8 +94,6 @@ import com.owncloud.android.utils.PermissionUtil;
 import java.io.File;
 import java.util.ArrayList;
 
-import static com.owncloud.android.db.PreferenceManager.*;
-
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
  */
@@ -564,7 +562,7 @@ public class FileDisplayActivity extends HookActivity
                 break;
             }
             case R.id.action_sort: {
-                Integer sortOrder = getSortOrder(this);
+                Integer sortOrder = PreferenceManager.getSortOrder(this);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.actionbar_sort_title)

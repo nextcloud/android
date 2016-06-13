@@ -76,7 +76,19 @@ public class UploaderAdapter extends SimpleAdapter {
         fileIcon.setTag(file.getFileId());
 
         TextView lastModV = (TextView) vi.findViewById(R.id.last_mod);
-        lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file));
+        lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.getModificationTimestamp()));
+
+        TextView fileSizeV = (TextView) vi.findViewById(R.id.file_size);
+        TextView fileSizeSeparatorV = (TextView) vi.findViewById(R.id.file_separator);
+
+        if(!file.isFolder()) {
+            fileSizeV.setVisibility(View.VISIBLE);
+            fileSizeSeparatorV.setVisibility(View.VISIBLE);
+            fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+        } else {
+            fileSizeV.setVisibility(View.GONE);
+            fileSizeSeparatorV.setVisibility(View.GONE);
+        }
         
         // get Thumbnail if file is image
         if (file.isImage() && file.getRemoteId() != null){
