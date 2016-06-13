@@ -315,7 +315,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         Log_OC.d(TAG, "on item click");
         // TODO Enable when "On Device" is recovered ?
         Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
-        tmpfiles = sortFileList(tmpfiles);
+        sortFileList(tmpfiles);
 
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
@@ -404,7 +404,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (mFile != null) {
             // TODO Enable when "On Device" is recovered ?
             Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
-            files = sortFileList(files);
+            sortFileList(files);
 
             List<HashMap<String, Object>> data = new LinkedList<>();
             for (OCFile f : files) {
@@ -454,13 +454,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
         synchFolderOp.execute(getAccount(), this, null, null);
     }
 
-    private Vector<OCFile> sortFileList(Vector<OCFile> files) {
+    private void sortFileList(Vector<OCFile> files) {
         // Read sorting order, default to sort by name ascending
         FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(this);
         FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(this);
-
-        files = FileStorageUtils.sortFolder(files);
-        return files;
+        FileStorageUtils.sortFolder(files);
     }
 
     private String generatePath(Stack<String> dirs) {
