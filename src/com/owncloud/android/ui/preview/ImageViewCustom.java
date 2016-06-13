@@ -67,7 +67,7 @@ public class ImageViewCustom extends ImageView {
                 mMovieRunDuration = 0;
             } else {
                 mMovieRunDuration += nowTick - mLastTick;
-                if(mMovieRunDuration > mMovieDuration){
+                if(mMovieRunDuration > mMovieDuration) {
                         mMovieRunDuration = 0;
                 }
             }
@@ -98,7 +98,7 @@ public class ImageViewCustom extends ImageView {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (mGifMovie == null){
+        if (mGifMovie == null) {
             setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
         } else {
             setMeasuredDimension(mMovieWidth, mMovieHeight);
