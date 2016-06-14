@@ -82,6 +82,8 @@ public class ImageViewCustom extends ImageView {
 
             mLastTick = nowTick;
             invalidate();
+        } else {
+            super.onDraw(canvas);
         }
     }
 
