@@ -384,7 +384,8 @@ public class OCFileListFragment extends ExtendedListFragment {
                             targetFiles,
                             mContainerActivity.getStorageManager().getAccount(),
                             mContainerActivity,
-                            getActivity());
+                            getActivity()
+                        );
                         mf.filter(menu);
                     }
                 }
