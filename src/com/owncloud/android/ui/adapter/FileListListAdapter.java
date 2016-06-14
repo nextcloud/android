@@ -55,7 +55,6 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
@@ -474,46 +473,5 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     public boolean isGridMode() {
         return mGridMode;
-    }
-
-    public void setNewSelection(int position, boolean checked) {
-        mSelection.put(position, checked);
-        notifyDataSetChanged();
-    }
-
-    public void removeSelection(int position) {
-        mSelection.remove(position);
-        notifyDataSetChanged();
-    }
-
-    public void removeSelection(){
-         mSelection.clear();
-        notifyDataSetChanged();
-    }
-
-    public ArrayList<Integer> getCheckedItemPositions() {
-        ArrayList<Integer> ids = new ArrayList<Integer>();
-
-        for (Map.Entry<Integer, Boolean> entry : mSelection.entrySet()){
-            if (entry.getValue()){
-                ids.add(entry.getKey());
-            }
-        }
-        return ids;
-    }
-
-    public ArrayList<OCFile> getCheckedItems() {
-        ArrayList<OCFile> files = new ArrayList<OCFile>();
-
-        OCFile checkedFile = null;
-        for (Map.Entry<Integer, Boolean> entry : mSelection.entrySet()){
-            if (entry.getValue()){
-                checkedFile = (OCFile) getItem(entry.getKey());
-                if (checkedFile != null) {
-                    files.add((OCFile) getItem(entry.getKey()));
-                }
-            }
-        }
-        return files;
     }
 }

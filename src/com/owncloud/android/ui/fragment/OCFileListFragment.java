@@ -41,7 +41,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.PopupMenu;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -102,7 +101,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
     private boolean mJustFolders;
-
 
     private int mStatusBarColorActionMode;
     private int mStatusBarColor;
@@ -387,7 +385,8 @@ public class OCFileListFragment extends ExtendedListFragment {
                             targetFiles,
                             mContainerActivity.getStorageManager().getAccount(),
                             mContainerActivity,
-                            getActivity());
+                            getActivity()
+                        );
                         mf.filter(menu);
                     }
                 }
