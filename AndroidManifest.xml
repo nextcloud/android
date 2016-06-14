@@ -73,7 +73,8 @@
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
                   android:taskAffinity=""
-                  android:excludeFromRecents="true">
+                  android:excludeFromRecents="true"
+                  android:theme="@style/Theme.ownCloud">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
