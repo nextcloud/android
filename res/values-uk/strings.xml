@@ -55,7 +55,6 @@
   <string name="sync_string_files">Файли</string>
   <string name="setup_btn_connect">З\'єднати</string>
   <string name="uploader_btn_upload_text">Відвантажити</string>
-  <string name="uploader_top_message">Оберіть теку для завантаження:</string>
   <string name="uploader_wrn_no_account_title">Не знайдено облікового запису</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Налаштування</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Вийти</string>

@@ -59,7 +59,6 @@ Téléchargez-le ici : %2$s</string>
   <string name="sync_string_files">Fichiers</string>
   <string name="setup_btn_connect">Connecter</string>
   <string name="uploader_btn_upload_text">Téléverser</string>
-  <string name="uploader_top_message">Sélectionner le dossier d\'envoi :</string>
   <string name="uploader_wrn_no_account_title">Aucun compte n\'a été trouvé</string>
   <string name="uploader_wrn_no_account_text">Aucun compte %1$s sur l\'appareil. Veuillez configurer un compte au préalable.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuration</string>

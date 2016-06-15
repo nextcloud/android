@@ -56,7 +56,6 @@
   <string name="sync_string_files">Berkas</string>
   <string name="setup_btn_connect">Sambungkan</string>
   <string name="uploader_btn_upload_text">Unggah</string>
-  <string name="uploader_top_message">Pilih folder unggah:</string>
   <string name="uploader_wrn_no_account_title">Tidak ada akun yang ditemukan</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Pengaturan</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Keluar</string>

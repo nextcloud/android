@@ -55,7 +55,6 @@
   <string name="sync_string_files">الملفات</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">رفع</string>
-  <string name="uploader_top_message">اختر مجلد الرفع</string>
   <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
   <string name="uploader_wrn_no_account_text">لا توجد حسابات %1$s على جهازك.  أنت بحاجة لإعداد حساب في البداية.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">تهيئة</string>

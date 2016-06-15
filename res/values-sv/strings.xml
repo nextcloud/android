@@ -58,7 +58,6 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Anslut</string>
   <string name="uploader_btn_upload_text">Ladda upp</string>
-  <string name="uploader_top_message">Välj mapp för uppladdning:</string>
   <string name="uploader_wrn_no_account_title">Hittade inget konto</string>
   <string name="uploader_wrn_no_account_text">Det finns inga %1$s-konton på din enhet. Lägg till ett konto först</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Skapa</string>

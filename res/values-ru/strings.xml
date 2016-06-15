@@ -59,7 +59,6 @@
   <string name="sync_string_files">Файлы</string>
   <string name="setup_btn_connect">Подключиться</string>
   <string name="uploader_btn_upload_text">Загрузить</string>
-  <string name="uploader_top_message">Выберите каталог для загрузки</string>
   <string name="uploader_wrn_no_account_title">Учётная запись не найдена</string>
   <string name="uploader_wrn_no_account_text">На вашем устройстве нет аккаунтов %1$s. Пожалуйста выполните настройку аккаунта.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>

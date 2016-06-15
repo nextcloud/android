@@ -58,7 +58,6 @@
   <string name="sync_string_files">Файлове</string>
   <string name="setup_btn_connect">Свързване</string>
   <string name="uploader_btn_upload_text">Качване</string>
-  <string name="uploader_top_message">Избери папка за качване:</string>
   <string name="uploader_wrn_no_account_title">Няма открит профил</string>
   <string name="uploader_wrn_no_account_text">Все още няма %1$s създаден профила на устройството. Моля да се създаде такъв.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>

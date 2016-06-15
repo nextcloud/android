@@ -59,7 +59,6 @@ Download hier: %2$s</string>
   <string name="sync_string_files">Bestanden</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Uploaden</string>
-  <string name="uploader_top_message">Kies upload map:</string>
   <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
   <string name="uploader_wrn_no_account_text">Er zijn geen %1$s accounts op dit apparaat. Stel eerst een account in.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>

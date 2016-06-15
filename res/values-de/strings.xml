@@ -58,7 +58,6 @@
   <string name="sync_string_files">Dateien</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Hochladen</string>
-  <string name="uploader_top_message">Wähle Zielordner:</string>
   <string name="uploader_wrn_no_account_title">Kein Account gefunden</string>
   <string name="uploader_wrn_no_account_text">Es sind keine %1$s Konten auf deinem Gerät eingerichtet. Bitte erstelle zuerst ein Konto.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>

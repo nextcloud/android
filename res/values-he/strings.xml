@@ -58,7 +58,6 @@
   <string name="sync_string_files">קבצים</string>
   <string name="setup_btn_connect">התחברות</string>
   <string name="uploader_btn_upload_text">העלאה</string>
-  <string name="uploader_top_message">בחירת תיקיית העלאה:</string>
   <string name="uploader_wrn_no_account_title">לא נמצא חשבון</string>
   <string name="uploader_wrn_no_account_text">לא מוגדרים חשבונות %1$s במכשיר שלך. יש להגדיר חשבות תחילה.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">הגדרות</string>

@@ -58,7 +58,6 @@
   <string name="sync_string_files">Tiedostot</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
-  <string name="uploader_top_message">Valitse lähetyskansio:</string>
   <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
   <string name="uploader_wrn_no_account_text">Laitteellasi ei ole %1$s-tilejä. Määritä tilin asetukset ensin.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>

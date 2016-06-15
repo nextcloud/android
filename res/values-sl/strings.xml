@@ -58,7 +58,6 @@
   <string name="sync_string_files">Datoteke</string>
   <string name="setup_btn_connect">Poveži</string>
   <string name="uploader_btn_upload_text">Pošlji</string>
-  <string name="uploader_top_message">Izbor mape za pošiljanje:</string>
   <string name="uploader_wrn_no_account_title">Uporabniškega računa ni mogoče najti</string>
   <string name="uploader_wrn_no_account_text">Za %1$s ni določenega računa. Pred nadaljevanjem ga je treba ustvariti.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nastavi</string>

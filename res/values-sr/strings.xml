@@ -58,7 +58,6 @@
   <string name="sync_string_files">Фајлови</string>
   <string name="setup_btn_connect">Повежи се</string>
   <string name="uploader_btn_upload_text">Отпреми</string>
-  <string name="uploader_top_message">Изаберите фасциклу отпремања:</string>
   <string name="uploader_wrn_no_account_title">Нема налога</string>
   <string name="uploader_wrn_no_account_text">Нема %1$s налога на вашем уређају. Најпре подесите налог.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Подеси</string>

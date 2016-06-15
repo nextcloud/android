@@ -52,7 +52,6 @@
   <string name="sync_string_files">Failai</string>
   <string name="setup_btn_connect">Prisijungti</string>
   <string name="uploader_btn_upload_text">Įkelti</string>
-  <string name="uploader_top_message">Nustatyti įkėlimų aplanką:</string>
   <string name="uploader_wrn_no_account_title">Paskyrų nerasta</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Nustatymai</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Išeiti</string>
