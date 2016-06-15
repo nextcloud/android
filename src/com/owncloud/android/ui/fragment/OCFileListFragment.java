@@ -372,8 +372,8 @@ public class OCFileListFragment extends ExtendedListFragment {
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                final int checkedCount = getListView().getCheckedItemCount();
 
+                final int checkedCount = getListView().getCheckedItemCount();
                 mode.setTitle(checkedCount + " selected");
 
                 if (checkedCount > 0) {
@@ -390,6 +390,11 @@ public class OCFileListFragment extends ExtendedListFragment {
                     }
                 }
                 return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return onFileActionChosen(item.getItemId());
             }
 
             @Override
@@ -658,23 +663,6 @@ public class OCFileListFragment extends ExtendedListFragment {
             return matched;
         }
     }
-
-    /**
-     * Query all selected Files
-     * @return selected Files
-     */
-    public ArrayList<OCFile> getCheckedItems() {
-        ArrayList<OCFile> files = new ArrayList<OCFile>();
-        SparseBooleanArray mSelection = getListView().getCheckedItemPositions();
-        for (int i = 0; i < mSelection.size(); ++i) {
-            if (mSelection.valueAt(i)) {
-                final int position = mSelection.keyAt(i);
-                files.add((OCFile) mAdapter.getItem(position));
-            }
-        }
-        return files;
-    }
-
 
     /**
      * Use this to query the {@link OCFile} that is currently
