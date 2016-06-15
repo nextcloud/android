@@ -41,7 +41,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -343,7 +342,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     }
 
     private void registerLongClickListener() {
-        setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
 
             @Override
@@ -768,7 +766,6 @@ public class OCFileListFragment extends ExtendedListFragment {
             if (version != null && version.supportsRemoteThumbnails() &&
                     isGridViewPreferred(mFile)) {
                 switchToGridView();
-                registerLongClickListener();
             } else {
                 switchToListView();
             }
