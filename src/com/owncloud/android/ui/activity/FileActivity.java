@@ -456,12 +456,11 @@ public class FileActivity extends AppCompatActivity
     protected void setUsernameInDrawer(View navigationDrawerLayout, Account account) {
         if (navigationDrawerLayout != null && account != null) {
             TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
-
             try {
                 OwnCloudAccount oca = new OwnCloudAccount(account, this);
                 username.setText(oca.getDisplayName());
 
-            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            } catch (Exception e) {
                 Log_OC.w(TAG, "Couldn't read display name of account; using account name instead");
 
                 int lastAtPos = account.name.lastIndexOf("@");

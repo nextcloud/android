@@ -745,14 +745,16 @@ public class Preferences extends PreferenceActivity
                     null);
         }
         else {
-
+            OwnCloudAccount oca;
             for (Account a : accounts) {
                 RadioButtonPreference accountPreference = new RadioButtonPreference(this);
                 accountPreference.setKey(a.name);
                 try {
-                    OwnCloudAccount oca = new OwnCloudAccount(a, this);
-                    accountPreference.setTitle(oca.getDisplayName());
-                } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                    oca = new OwnCloudAccount(a, this);
+                    accountPreference.setTitle(
+                        oca.getDisplayName() + " @ " + DisplayUtils.convertIdn(oca.getBaseUri().getHost(), false)
+                    );
+                } catch (Exception e) {
                     Log_OC.w(
                         TAG,
                         "Account not found right after being read :\\ ; using account name instead of display name"
