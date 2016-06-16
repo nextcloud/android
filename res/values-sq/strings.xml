@@ -58,6 +58,7 @@
   <string name="sync_string_files">Kartela</string>
   <string name="setup_btn_connect">Lidhuni</string>
   <string name="uploader_btn_upload_text">Ngarkoni</string>
+  <string name="uploader_top_message">Zgjidhni dosje ngarkimi</string>
   <string name="uploader_wrn_no_account_title">S\’u gjet llogari</string>
   <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Rregullim</string>
