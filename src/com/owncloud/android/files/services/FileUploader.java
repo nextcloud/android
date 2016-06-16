@@ -907,7 +907,10 @@ public class FileUploader extends Service
                 }   // else, reuse storage manager from previous operation
 
                 // always get client from client manager, to get fresh credentials in case of update
-                OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
+                OwnCloudAccount ocAccount = new OwnCloudAccount(
+                        mCurrentAccount,
+                        this
+                );
                 mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, this);
 

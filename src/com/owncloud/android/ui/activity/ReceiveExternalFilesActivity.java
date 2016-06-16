@@ -59,6 +59,7 @@ import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -265,14 +266,26 @@ public class ReceiveExternalFilesActivity extends FileActivity
             });
             return builder.create();
         case DIALOG_MULTIPLE_ACCOUNT:
-            CharSequence ac[] = new CharSequence[
-                    mAccountManager.getAccountsByType(MainApp.getAccountType()).length];
-            for (int i = 0; i < ac.length; ++i) {
-                ac[i] = DisplayUtils.convertIdn(
-                        mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name, false);
+            Account accounts[] = mAccountManager.getAccountsByType(MainApp.getAccountType());
+            CharSequence dialogItems[] = new CharSequence[accounts.length];
+            OwnCloudAccount oca;
+            for (int i = 0; i < dialogItems.length; ++i) {
+                try {
+                    oca = new OwnCloudAccount(accounts[i], this);
+                    dialogItems[i] =
+                        oca.getDisplayName() + " @ " +
+                        DisplayUtils.convertIdn(
+                            accounts[i].name.substring(accounts[i].name.lastIndexOf("@") + 1),
+                            false
+                        );
+
+                } catch (Exception e) {
+                    Log_OC.w(TAG, "Couldn't read display name of account; using account name instead");
+                    dialogItems[i] = DisplayUtils.convertIdn(accounts[i].name, false);
+                }
             }
             builder.setTitle(R.string.common_choose_account);
-            builder.setItems(ac, new OnClickListener() {
+            builder.setItems(dialogItems, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);

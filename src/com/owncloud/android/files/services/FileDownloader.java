@@ -411,7 +411,10 @@ public class FileDownloader extends Service
 
                     // always get client from client manager, to get fresh credentials in case
                     // of update
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(
+                            mCurrentAccount,
+                            this
+                    );
                     mDownloadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, this);
 
