@@ -242,12 +242,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             TextView accountNameTextView = (TextView) view.findViewById(R.id.upload_account);
             try {
-                OwnCloudAccount oca = new OwnCloudAccount(
-                    AccountUtils.getOwnCloudAccountByName(mParentActivity, upload.getAccountName()),
-                    mParentActivity
-                );
+                Account account = AccountUtils.getOwnCloudAccountByName(mParentActivity, upload.getAccountName());
+                OwnCloudAccount oca = new OwnCloudAccount(account, mParentActivity);
                 accountNameTextView.setText(
-                    oca.getDisplayName() + " @ " + DisplayUtils.convertIdn(oca.getBaseUri().getHost(), false)
+                    oca.getDisplayName() + " @ " +
+                    DisplayUtils.convertIdn(account.name.substring(account.name.lastIndexOf("@") + 1), false)
                 );
             } catch (Exception e) {
                 Log_OC.w(TAG, "Couldn't get display name for account, using old style");

@@ -273,7 +273,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 try {
                     oca = new OwnCloudAccount(accounts[i], this);
                     dialogItems[i] =
-                        oca.getDisplayName() + " @ " + DisplayUtils.convertIdn(oca.getBaseUri().getHost(), false);
+                        oca.getDisplayName() + " @ " +
+                        DisplayUtils.convertIdn(
+                            accounts[i].name.substring(accounts[i].name.lastIndexOf("@") + 1),
+                            false
+                        );
+
                 } catch (Exception e) {
                     Log_OC.w(TAG, "Couldn't read display name of account; using account name instead");
                     dialogItems[i] = DisplayUtils.convertIdn(accounts[i].name, false);

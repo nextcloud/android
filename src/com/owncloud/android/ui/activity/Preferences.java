@@ -752,7 +752,8 @@ public class Preferences extends PreferenceActivity
                 try {
                     oca = new OwnCloudAccount(a, this);
                     accountPreference.setTitle(
-                        oca.getDisplayName() + " @ " + DisplayUtils.convertIdn(oca.getBaseUri().getHost(), false)
+                        oca.getDisplayName() + " @ " +
+                        DisplayUtils.convertIdn(a.name.substring(a.name.lastIndexOf("@") + 1), false)
                     );
                 } catch (Exception e) {
                     Log_OC.w(
