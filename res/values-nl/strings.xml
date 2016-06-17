@@ -59,6 +59,7 @@ Download hier: %2$s</string>
   <string name="sync_string_files">Bestanden</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Uploaden</string>
+  <string name="uploader_top_message">Kies een uploadmap</string>
   <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
   <string name="uploader_wrn_no_account_text">Er zijn geen %1$s accounts op dit apparaat. Stel eerst een account in.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configureren</string>
@@ -225,6 +226,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
 	</string>
   <string name="auth_can_not_auth_against_server">Kan niet authenticeren tegen deze server</string>
   <string name="auth_account_does_not_exist">Het account bestaat nog niet in dit apparaat</string>
+  <string name="favorite">Instellen als beschikbaar offline</string>
+  <string name="unfavorite">Instellen als niet beschikbaar offline</string>
   <string name="common_rename">Hernoemen</string>
   <string name="common_remove">Verwijderen</string>
   <string name="confirmation_remove_alert">Wilt u %1$s werkelijk verwijderen?</string>
