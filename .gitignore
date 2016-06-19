@@ -17,19 +17,14 @@ target/
 
 # Local configuration files (sdk path, etc)
 local.properties
-oc_workaround/local.properties
-oc_framework/local.properties
-oc_framework-test-project/local.properties
 tests/local.properties
+lint.xml
 
 # Mac .DS_Store files
 .DS_Store
 
 # Proguard README
 proguard-project.txt
-oc_workaround/proguard-project.txt
-oc_framework/proguard-project.txt
-oc_framework-test-project/proguard-project.txt
 tests/proguard-project.txt
 
 # Android Studio and Gradle specific entries
@@ -37,6 +32,3 @@ tests/proguard-project.txt
 .idea
 *.iml
 build
-
-# Actionbarsherlock is now ignored since scripts takes care of init the sub-modules.
-actionbarsherlock

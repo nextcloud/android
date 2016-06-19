@@ -30,7 +30,6 @@ import java.util.Map;
 
 import org.apache.jackrabbit.webdav.DavException;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -59,7 +58,7 @@ import android.support.v4.app.NotificationCompat;
  * Implementation of {@link AbstractThreadedSyncAdapter} responsible for synchronizing 
  * ownCloud files.
  * 
- * Performs a full synchronization of the account recieved in {@link #onPerformSync(Account, Bundle,
+ * Performs a full synchronization of the account received in {@link #onPerformSync(Account, Bundle,
  * String, ContentProviderClient, SyncResult)}.
  */
 public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
@@ -77,9 +76,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             ".EVENT_FULL_SYNC_END";
     public static final String EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED =
             FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED";
-    //public static final String EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED =
-    // FileSyncAdapter.class.getName() + ".EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED";
-    
+
     public static final String EXTRA_ACCOUNT_NAME = FileSyncAdapter.class.getName() +
             ".EXTRA_ACCOUNT_NAME";
     public static final String EXTRA_FOLDER_PATH = FileSyncAdapter.class.getName() +
@@ -157,7 +154,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         mForgottenLocalFiles = new HashMap<String, String>();
         mSyncResult = syncResult;
         mSyncResult.fullSyncRequested = false;
-        mSyncResult.delayUntil = 60*60*24; // avoid too many automatic synchronizations
+        mSyncResult.delayUntil = (System.currentTimeMillis()/1000) + 3*60*60; // avoid too many automatic synchronizations
 
         this.setAccount(account);
         this.setContentProviderClient(providerClient);
@@ -268,16 +265,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         if (mFailedResultsCounter > MAX_FAILED_RESULTS || isFinisher(mLastFailedResult))
             return;
         
-        /*
-        OCFile folder, 
-        long currentSyncTime, 
-        boolean updateFolderProperties,
-        boolean syncFullAccount,
-        DataStorageManager dataStorageManager, 
-        Account account, 
-        Context context ) {
-        }
-        */
         // folder synchronization
         RefreshFolderOperation synchFolderOp = new RefreshFolderOperation( folder,
                                                                                    mCurrentSyncTime,
@@ -308,14 +295,12 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
                 // synchronize children folders 
                 List<OCFile> children = synchFolderOp.getChildren();
                 // beware of the 'hidden' recursion here!
-                fetchChildren(folder, children, synchFolderOp.getRemoteFolderChanged());
+                syncChildren(children);
             }
             
-        } else {
+        } else if (result.getCode() != ResultCode.FILE_NOT_FOUND) {
             // in failures, the statistics for the global result are updated
-            if (    result.getCode() == RemoteOperationResult.ResultCode.UNAUTHORIZED ||
-                    result.isIdPRedirection()
-                ) {
+            if (RemoteOperationResult.ResultCode.UNAUTHORIZED.equals(result.getCode())) {
                 mSyncResult.stats.numAuthExceptions++;
                 
             } else if (result.getException() instanceof DavException) {
@@ -326,7 +311,10 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             }
             mFailedResultsCounter++;
             mLastFailedResult = result;
-        }
+
+        } // else, ResultCode.FILE_NOT_FOUND is ignored, remote folder was
+          // removed from other thread or other client during the synchronization,
+          // before this thread fetched its contents
             
     }
 
@@ -351,25 +339,19 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
     /**
      * Triggers the synchronization of any folder contained in the list of received files.
+     *
+     * No consideration of etag here because it MUST walk down anyway, in case that kept-in-sync files
+     * have local changes.
      * 
      * @param files         Files to recursively synchronize.
      */
-    private void fetchChildren(OCFile parent, List<OCFile> files, boolean parentEtagChanged) {
+    private void syncChildren(List<OCFile> files) {
         int i;
-        OCFile newFile = null;
-        //String etag = null;
-        //boolean syncDown = false;
+        OCFile newFile;
         for (i=0; i < files.size() && !mCancellation; i++) {
             newFile = files.get(i);
             if (newFile.isFolder()) {
-                /*
-                etag = newFile.getEtag();
-                syncDown = (parentEtagChanged || etag == null || etag.length() == 0);
-                if(syncDown) { */
-                    synchronizeFolder(newFile);
-                    //sendLocalBroadcast(EVENT_FULL_SYNC_FOLDER_SIZE_SYNCED, parent.getRemotePath(),
-                    // null);
-                //}
+                synchronizeFolder(newFile);
             }
         }
        
@@ -411,10 +393,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private void notifyFailedSynchronization() {
         NotificationCompat.Builder notificationBuilder = createNotificationBuilder();
         boolean needsToUpdateCredentials = (
-                mLastFailedResult != null && (  
-                        mLastFailedResult.getCode() == ResultCode.UNAUTHORIZED ||
-                        mLastFailedResult.isIdPRedirection()
-                )
+                mLastFailedResult != null &&
+                ResultCode.UNAUTHORIZED.equals(mLastFailedResult.getCode())
         );
         if (needsToUpdateCredentials) {
             // let the user update credentials with one click
@@ -526,6 +506,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     private NotificationCompat.Builder createNotificationBuilder() {
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(getContext());
         notificationBuilder.setSmallIcon(R.drawable.notification_icon).setAutoCancel(true);
+        notificationBuilder.setColor(getContext().getResources().getColor(R.color.primary));
         return notificationBuilder;
     }
     

@@ -23,6 +23,7 @@
  */
 
 package third_parties.daveKoeller;
+import java.text.Collator;
 import java.util.Comparator;
 
 import com.owncloud.android.datamodel.OCFile;
@@ -48,14 +49,12 @@ public class AlphanumComparator implements Comparator<OCFile>
     }
 
     /** Length of string is passed in for improved efficiency (only need to calculate it once) **/
-    private final String getChunk(String s, int slength, int marker)
-    {
+    private final String getChunk(String s, int slength, int marker){
         StringBuilder chunk = new StringBuilder();
         char c = s.charAt(marker);
         chunk.append(c);
         marker++;
-        if (isDigit(c))
-        {
+        if (isDigit(c)){
             while (marker < slength)
             {
                 c = s.charAt(marker);
@@ -64,8 +63,7 @@ public class AlphanumComparator implements Comparator<OCFile>
                 chunk.append(c);
                 marker++;
             }
-        } else
-        {
+        } else {
             while (marker < slength)
             {
                 c = s.charAt(marker);
@@ -78,8 +76,7 @@ public class AlphanumComparator implements Comparator<OCFile>
         return chunk.toString();
     }
 
-    public int compare(OCFile o1, OCFile o2)
-    {
+    public int compare(OCFile o1, OCFile o2){
         String s1 = (String)o1.getRemotePath().toLowerCase();
         String s2 = (String)o2.getRemotePath().toLowerCase();
 
@@ -88,8 +85,7 @@ public class AlphanumComparator implements Comparator<OCFile>
         int s1Length = s1.length();
         int s2Length = s2.length();
 
-        while (thisMarker < s1Length && thatMarker < s2Length)
-        {
+        while (thisMarker < s1Length && thatMarker < s2Length) {
             String thisChunk = getChunk(s1, s1Length, thisMarker);
             thisMarker += thisChunk.length();
 
@@ -98,26 +94,23 @@ public class AlphanumComparator implements Comparator<OCFile>
 
             // If both chunks contain numeric characters, sort them numerically
             int result = 0;
-            if (isDigit(thisChunk.charAt(0)) && isDigit(thatChunk.charAt(0)))
-            {
+            if (isDigit(thisChunk.charAt(0)) && isDigit(thatChunk.charAt(0))) {
                 // Simple chunk comparison by length.
                 int thisChunkLength = thisChunk.length();
                 result = thisChunkLength - thatChunk.length();
                 // If equal, the first different number counts
-                if (result == 0)
-                {
-                    for (int i = 0; i < thisChunkLength; i++)
-                    {
+                if (result == 0) {
+                    for (int i = 0; i < thisChunkLength; i++) {
                         result = thisChunk.charAt(i) - thatChunk.charAt(i);
-                        if (result != 0)
-                        {
+                        if (result != 0) {
                             return result;
                         }
                     }
                 }
-            } else
-            {
-                result = thisChunk.compareTo(thatChunk);
+            } else {
+                Collator collator = Collator.getInstance();
+                collator.setStrength(Collator.PRIMARY);
+                result = collator.compare(thisChunk, thatChunk);
             }
 
             if (result != 0)

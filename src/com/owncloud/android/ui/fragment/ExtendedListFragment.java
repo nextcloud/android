@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2015 ownCloud Inc.
+ *   Copyright (C) 2012-2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,8 +20,6 @@
 
 package com.owncloud.android.ui.fragment;
 
-import java.util.ArrayList;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,34 +35,41 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 
+import java.util.ArrayList;
+
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
-/**
- * TODO extending SherlockListFragment instead of SherlockFragment
- */
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener {
 
-    private static final String TAG = ExtendedListFragment.class.getSimpleName();
+    protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
-    private static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION";
+    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION"; 
+
     private static final String KEY_INDEXES = "INDEXES";
     private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
     private static final String KEY_TOPS = "TOPS";
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
 
-    private SwipeRefreshLayout mRefreshListLayout;
+    protected SwipeRefreshLayout mRefreshListLayout;
     private SwipeRefreshLayout mRefreshGridLayout;
-    private SwipeRefreshLayout mRefreshEmptyLayout;
-    private TextView mEmptyListMessage;
-    
+    protected SwipeRefreshLayout mRefreshEmptyLayout;
+    protected TextView mEmptyListMessage;
+
+    private FloatingActionsMenu mFabMain;
+    private FloatingActionButton mFabUpload;
+    private FloatingActionButton mFabMkdir;
+    private FloatingActionButton mFabUploadFromApp;
+
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
     private ArrayList<Integer> mFirstPositions;
@@ -96,8 +101,23 @@ public class ExtendedListFragment extends Fragment
         return mCurrentListView;
     }
 
+    public FloatingActionButton getFabUpload() {
+        return mFabUpload;
+    }
 
-    protected void switchToGridView() {
+    public FloatingActionButton getFabUploadFromApp() {
+        return mFabUploadFromApp;
+    }
+
+    public FloatingActionButton getFabMkdir() {
+        return mFabMkdir;
+    }
+
+    public FloatingActionsMenu getFabMain() {
+        return mFabMain;
+    }
+
+    public void switchToGridView() {
         if ((mCurrentListView == mListView)) {
 
             mListView.setAdapter(null);
@@ -112,8 +132,8 @@ public class ExtendedListFragment extends Fragment
             mCurrentListView = mGridView;
         }
     }
-    
-    protected void switchToListView() {
+
+    public void switchToListView() {
         if (mCurrentListView == mGridView) {
             mGridView.setAdapter(null);
             mRefreshGridLayout.setVisibility(View.GONE);
@@ -126,6 +146,13 @@ public class ExtendedListFragment extends Fragment
 
             mCurrentListView = mListView;
         }
+    }
+
+    public boolean isGridView(){
+        if (mAdapter instanceof FileListListAdapter) {
+            return ((FileListListAdapter) mAdapter).isGridMode();
+        }
+        return false;
     }
     
     
@@ -170,6 +197,11 @@ public class ExtendedListFragment extends Fragment
         mGridView.setEmptyView(mRefreshEmptyLayout);
 
         mCurrentListView = mListView;   // list as default
+
+        mFabMain = (FloatingActionsMenu) v.findViewById(R.id.fab_main);
+        mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
+        mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
+        mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
 
         return v;
     }
@@ -320,6 +352,21 @@ public class ExtendedListFragment extends Fragment
     }
 
     /**
+     * Sets the 'visibility' state of the FAB contained in the fragment.
+     *
+     * When 'false' is set, FAB visibility is set to View.GONE programatically,
+     *
+     * @param   enabled     Desired visibility for the FAB.
+     */
+    public void setFabEnabled(boolean enabled) {
+        if(enabled) {
+            mFabMain.setVisibility(View.VISIBLE);
+        } else {
+            mFabMain.setVisibility(View.GONE);
+        }
+    }
+
+    /**
      * Set message for empty list view
      */
     public void setMessageForEmptyList(String message) {
@@ -337,7 +384,7 @@ public class ExtendedListFragment extends Fragment
         return (mEmptyListMessage != null) ? mEmptyListMessage.getText().toString() : "";
     }
 
-    private void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
+    protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
         // Colors in animations
         refreshLayout.setColorSchemeResources(R.color.color_accent, R.color.primary,
                 R.color.primary_dark);

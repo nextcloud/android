@@ -16,56 +16,54 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingTop="5dp"
-        android:paddingLeft="5dp"
-        >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <ImageView android:id="@+id/icon"
+        android:layout_width="@android:dimen/notification_large_icon_width"
+        android:layout_height="@android:dimen/notification_large_icon_height"
+        android:scaleType="center"
+        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="3dp"
+        android:layout_gravity="center"
+        android:minHeight="64dp"
+        android:orientation="vertical"
+        android:paddingRight="12dp"
+        android:paddingLeft="12dp"
         >
-        <ImageView android:id="@+id/icon"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:scaleType="centerInside"
-            />
-        <TextView android:id="@+id/title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:singleLine="true"
-            android:ellipsize="marquee"
+		<TextView android:id="@+id/title"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:singleLine="true"
+			android:ellipsize="marquee"
             android:fadingEdge="horizontal"
-            android:paddingLeft="4dp"
-        	style="@style/Theme.ownCloud.NotificationText.Title"
+            style="@style/Theme.ownCloud.NotificationText.Title"
+        	/>
+        <TextView android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:layout_marginBottom="-2dp"
+            android:singleLine="true"
+            android:fadingEdge="horizontal"
+            android:ellipsize="marquee"
+            style="@style/Theme.ownCloud.NotificationText.Content"
             />
+        <FrameLayout android:id="@+id/progressHolder"
+            android:layout_width="match_parent"
+            android:layout_height="12dp"
+            >
+            <!--  the FrameLayout is needed to change visibility of the
+            	progress bar in Android 2.2, even though 
+            	https://code.google.com/p/android/issues/detail?id=11040 -->
+	        <ProgressBar
+	            android:id="@+id/progress"
+	            android:layout_width="match_parent"
+	            android:layout_height="match_parent"
+	            style="?android:attr/progressBarStyleHorizontal"
+	            />
+        </FrameLayout>
     </LinearLayout>
-	<TextView android:id="@+id/text"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:singleLine="true"
-	    android:ellipsize="marquee"
-	    android:fadingEdge="horizontal"
-        style="@style/Theme.ownCloud.NotificationText.Content"
-	    />
-    <FrameLayout android:id="@+id/progressHolder"
-        android:layout_width="match_parent"
-        android:layout_height="10dp"
-        android:paddingTop="2dp"
-        android:paddingBottom="2dp"
-        >
-        <!--  the FrameLayout is needed to change visibility of the
-        	progress bar in Android 2.2, even though 
-        	https://code.google.com/p/android/issues/detail?id=11040 -->
-		<ProgressBar
-    		android:id="@+id/progress"
-    		android:layout_width="match_parent"
-    		android:layout_height="match_parent"
-    		style="?android:attr/progressBarStyleHorizontal"
-    	/>
-    </FrameLayout>
 </LinearLayout>

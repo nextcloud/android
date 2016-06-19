@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,10 +21,6 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaMetadataRetriever;
-import android.support.v7.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,14 +28,16 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -153,7 +151,7 @@ public class PreviewMediaFragment extends FileFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        Log_OC.e(TAG, "onCreateView");
+        Log_OC.v(TAG, "onCreateView");
 
 
         mView = inflater.inflate(R.layout.file_preview, container, false);
@@ -174,7 +172,7 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log_OC.e(TAG, "onActivityCreated");
+        Log_OC.v(TAG, "onActivityCreated");
 
         OCFile file = getFile();
         if (savedInstanceState == null) {
@@ -244,7 +242,7 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log_OC.e(TAG, "onSaveInstanceState");
+        Log_OC.v(TAG, "onSaveInstanceState");
 
         outState.putParcelable(PreviewMediaFragment.EXTRA_FILE, getFile());
         outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
@@ -268,7 +266,7 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onStart() {
         super.onStart();
-        Log_OC.e(TAG, "onStart");
+        Log_OC.v(TAG, "onStart");
 
         OCFile file = getFile();
         if (file != null && file.isDown()) {
@@ -351,13 +349,7 @@ public class PreviewMediaFragment extends FileFragment implements
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                stopPreview(false);
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
-                return true;
-            }
-            case R.id.action_unshare_file: {
-                stopPreview(false);
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
+                seeShareFile();
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -398,7 +390,7 @@ public class PreviewMediaFragment extends FileFragment implements
     /**
      * Update the file of the fragment with file value
      *
-     * @param file
+     * @param file      Replaces the held file with a new one
      */
     public void updateFile(OCFile file) {
         setFile(file);
@@ -415,6 +407,10 @@ public class PreviewMediaFragment extends FileFragment implements
         mContainerActivity.showDetails(getFile());
     }
 
+    private void seeShareFile() {
+        stopPreview(false);
+        mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
+    }
 
     private void prepareVideo() {
         // create helper to get more control on the playback
@@ -431,8 +427,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
         // load the video file in the video player ; 
         // when done, VideoHelper#onPrepared() will be called
-        Uri uri = Uri.parse(getFile().getStoragePath());
-        mVideoPreview.setVideoPath(uri.encode(getFile().getStoragePath()));
+        mVideoPreview.setVideoURI(getFile().getStorageUri());
     }
 
 
@@ -447,7 +442,7 @@ public class PreviewMediaFragment extends FileFragment implements
          */
         @Override
         public void onPrepared(MediaPlayer vp) {
-            Log_OC.e(TAG, "onPrepared");
+            Log_OC.v(TAG, "onPrepared");
             mVideoPreview.seekTo(mSavedPlaybackPosition);
             if (mAutoplay) {
                 mVideoPreview.start();
@@ -467,25 +462,9 @@ public class PreviewMediaFragment extends FileFragment implements
          */
         @Override
         public void onCompletion(MediaPlayer mp) {
-            Log_OC.e(TAG, "completed");
+            Log_OC.v(TAG, "completed");
             if (mp != null) {
                 mVideoPreview.seekTo(0);
-                // next lines are necessary to work around undesired video loops
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.GINGERBREAD) {
-                    mVideoPreview.pause();
-
-                }
-                else {
-                    if (Build.VERSION.SDK_INT == Build.VERSION_CODES.GINGERBREAD_MR1) {
-                        // mVideePreview.pause() is not enough
-
-                        mMediaController.setEnabled(false);
-                        mVideoPreview.stopPlayback();
-                        mAutoplay = false;
-                        mSavedPlaybackPosition = 0;
-                        mVideoPreview.setVideoPath(getFile().getStoragePath());
-                    }
-                }
             } // else : called from onError()
             mMediaController.updatePausePlay();
         }
@@ -500,6 +479,7 @@ public class PreviewMediaFragment extends FileFragment implements
          */
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
+            Log_OC.e(TAG, "Error in video playback, what = " + what + ", extra = " + extra);
             if (mVideoPreview.getWindowToken() != null) {
                 String message = MediaService.getMessageForMediaError(
                         getActivity(), what, extra);
@@ -523,25 +503,25 @@ public class PreviewMediaFragment extends FileFragment implements
 
     @Override
     public void onPause() {
-        Log_OC.e(TAG, "onPause");
+        Log_OC.v(TAG, "onPause");
         super.onPause();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Log_OC.e(TAG, "onResume");
+        Log_OC.v(TAG, "onResume");
     }
 
     @Override
     public void onDestroy() {
-        Log_OC.e(TAG, "onDestroy");
+        Log_OC.v(TAG, "onDestroy");
         super.onDestroy();
     }
 
     @Override
     public void onStop() {
-        Log_OC.e(TAG, "onStop");
+        Log_OC.v(TAG, "onStop");
 
         mPrepared = false;
         if (mMediaServiceConnection != null) {
@@ -577,17 +557,17 @@ public class PreviewMediaFragment extends FileFragment implements
         i.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, mVideoPreview.isPlaying());
         mVideoPreview.pause();
         i.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPreview.getCurrentPosition());
-        startActivityForResult(i, 0);
+        startActivityForResult(i, FileActivity.REQUEST_CODE__LAST_SHARED + 1);
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
-        Log_OC.e(TAG, "onConfigurationChanged " + this);
+        Log_OC.v(TAG, "onConfigurationChanged " + this);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log_OC.e(TAG, "onActivityResult " + this);
+        Log_OC.v(TAG, "onActivityResult " + this);
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             mSavedPlaybackPosition = data.getExtras().getInt(
@@ -661,7 +641,7 @@ public class PreviewMediaFragment extends FileFragment implements
         @Override
         public void onServiceDisconnected(ComponentName component) {
             if (component.equals(new ComponentName(getActivity(), MediaService.class))) {
-                Log_OC.e(TAG, "Media service suddenly disconnected");
+                Log_OC.w(TAG, "Media service suddenly disconnected");
                 if (mMediaController != null) {
                     mMediaController.setMediaPlayer(null);
                 }
@@ -725,7 +705,7 @@ public class PreviewMediaFragment extends FileFragment implements
         if (mPrepared) {
             mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
         }
-        Log_OC.e(TAG, "getting position: " + mSavedPlaybackPosition);
+        Log_OC.v(TAG, "getting position: " + mSavedPlaybackPosition);
         return mSavedPlaybackPosition;
     }
 

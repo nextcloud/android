@@ -65,6 +65,8 @@ import android.widget.Toast;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.SsoWebViewClient.SsoWebViewClientListener;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
@@ -176,7 +178,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private EditText mUsernameInput;
     private EditText mPasswordInput;
     private View mOkButton;
-    private View mCenteredRefreshButton;
     private TextView mAuthStatusView;
 
     private int mAuthStatusText = 0, mAuthStatusIcon = 0;
@@ -261,16 +262,22 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         });
 
-        mCenteredRefreshButton = findViewById(R.id.centeredRefreshButton);
-        mCenteredRefreshButton.setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.centeredRefreshButton).setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 checkOcServer();
             }
         });
-        
-        mOkButton = findViewById(R.id.buttonOK);
+
+        findViewById(R.id.embeddedRefreshButton).setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                checkOcServer();
+            }
+        });
+
 
         /// initialize block to be moved to single Fragment to check server and get info about it 
         initServerPreFragment(savedInstanceState);
@@ -359,9 +366,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param savedInstanceState        Saved activity state, as in {{@link #onCreate(Bundle)}
      */
     private void initServerPreFragment(Bundle savedInstanceState) {
+        boolean checkHostUrl = true;
 
         /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
-        boolean isUrlInputAllowed = getResources().getBoolean(R.bool.show_server_url_input); 
+        boolean isUrlInputAllowed = getResources().getBoolean(R.bool.show_server_url_input);
         if (savedInstanceState == null) {
             if (mAccount != null) {
                 mServerInfo.mBaseUrl = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
@@ -401,6 +409,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mHostUrlInput.setFocusable(false);
         }
         if (isUrlInputAllowed) {
+            if (mServerInfo.mBaseUrl.isEmpty()) {
+                checkHostUrl = false;
+            }
             mRefreshButton = findViewById(R.id.embeddedRefreshButton);
         } else {
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
@@ -464,7 +475,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         /// step 4 - mark automatic check to be started when OperationsService is ready
         mPendingAutoCheck = (savedInstanceState == null && 
-                (mAction != ACTION_CREATE || !isUrlInputAllowed));
+                (mAction != ACTION_CREATE || checkHostUrl));
     }
     
     
@@ -487,7 +498,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         boolean isPasswordExposed = false;
         if (savedInstanceState == null) {
             if (mAccount != null) {
-                presetUserName = mAccount.name.substring(0, mAccount.name.lastIndexOf('@'));
+                presetUserName =
+                    com.owncloud.android.lib.common.accounts.AccountUtils.
+                        getUsernameForAccount(mAccount);
             }
             
         } else {
@@ -702,7 +715,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         
         mHostUrlInput.removeTextChangedListener(mHostUrlInputWatcher);
         mHostUrlInput.setOnFocusChangeListener(null);
-        
+
         super.onPause();
     }
     
@@ -742,7 +755,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mOAuthTokenEndpointText.getText().toString().trim());
         
         getServerInfoIntent.putExtra(
-                OperationsService.EXTRA_OAUTH2_QUERY_PARAMETERS, 
+                OperationsService.EXTRA_OAUTH2_QUERY_PARAMETERS,
                 queryParameters);
         
         if (mOperationsServiceBinder != null) {
@@ -801,8 +814,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         showRefreshButton(false);
 
         if (uri.length() != 0) {
+            uri = stripIndexPhpOrAppsFiles(uri, mHostUrlInput);
+
             // Handle internationalized domain names
-            uri = DisplayUtils.convertIdn(uri, true);
+            try {
+                uri = DisplayUtils.convertIdn(uri, true);
+            } catch (IllegalArgumentException ex) {
+                // Let Owncloud library check the error of the malformed URI
+            }
 
             mServerStatusText = R.string.auth_testing_connection;
             mServerStatusIcon = R.drawable.progress_small;
@@ -811,8 +830,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Intent getServerInfoIntent = new Intent();
             getServerInfoIntent.setAction(OperationsService.ACTION_GET_SERVER_INFO);
             getServerInfoIntent.putExtra(
-                OperationsService.EXTRA_SERVER_URL,
-                normalizeUrlSuffix(uri)
+                    OperationsService.EXTRA_SERVER_URL,
+                    normalizeUrlSuffix(uri)
             );
             if (mOperationsServiceBinder != null) {
                 mWaitingForOpId = mOperationsServiceBinder.queueNewOperation(getServerInfoIntent);
@@ -914,6 +933,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {
             checkBasicAuthorization();
         }
+
     }
 
 
@@ -1143,6 +1163,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         return url;
     }
 
+    private String stripIndexPhpOrAppsFiles(String url, EditText mHostUrlInput) {
+        if (url.endsWith("/index.php")) {
+            url = url.substring(0, url.lastIndexOf("/index.php"));
+            mHostUrlInput.setText(url);
+        } else if (url.contains("/index.php/apps/")) {
+            url = url.substring(0, url.lastIndexOf("/index.php/apps/"));
+            mHostUrlInput.setText(url);
+        }
+
+        return url;
+    }
 
     // TODO remove, if possible
     private String trimUrlWebdav(String url){       
@@ -1443,6 +1474,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * the new credentials when needed.
      */
     private void updateAccountAuthentication() throws AccountNotFoundException {
+
+
         
         Bundle response = new Bundle();
         response.putString(AccountManager.KEY_ACCOUNT_NAME, mAccount.name);
@@ -1467,7 +1500,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             response.putString(AccountManager.KEY_AUTHTOKEN, mPasswordInput.getText().toString());
             mAccountMgr.setPassword(mAccount, mPasswordInput.getText().toString());
         }
+
+        // remove managed clients for this account to enforce creation with fresh credentials
+        OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount, this);
+        OwnCloudClientManagerFactory.getDefaultSingleton().removeClientFor(ocAccount);
+
         setAccountAuthenticatorResult(response);
+        final Intent intent = new Intent();
+        intent.putExtras(response);
+        setResult(RESULT_OK, intent);
 
     }
 
@@ -1623,18 +1664,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mRefreshButton.setVisibility(View.GONE);
         }
     }
-
-    /**
-     * Called when the refresh button in the input field for ownCloud host is clicked.
-     * 
-     * Performs a new check on the URL in the input field.
-     * 
-     * @param view      Refresh 'button'
-     */
-    public void onRefreshClick(View view) {
-        checkOcServer();
-    }
-
 
     /**
      * Called when the eye icon in the password field is clicked.

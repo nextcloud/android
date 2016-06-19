@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -32,6 +32,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 
+import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -52,25 +53,53 @@ public class FileStorageUtils {
     public static Integer mSortOrder = SORT_NAME;
     public static Boolean mSortAscending = true;
 
+    /**
+     * Takes a full path to owncloud file and removes beginning which is path to ownload data folder.
+     * If fullPath does not start with that folder, fullPath is returned as is.
+     */
+    public static final String removeDataFolderPath(String fullPath) {
+        File sdCard = Environment.getExternalStorageDirectory();
+        String dataFolderPath = sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/";
+        if(fullPath.indexOf(dataFolderPath) == 0) {
+            return fullPath.substring(dataFolderPath.length());
+        }
+        return fullPath;
+    }
     
-    //private static final String LOG_TAG = "FileStorageUtils";
-
+    /**
+     * Get local owncloud storage path for accountName.
+     */
     public static final String getSavePath(String accountName) {
         File sdCard = Environment.getExternalStorageDirectory();
         return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/" + Uri.encode(accountName, "@");
-        // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names, that can be in the accountName since 0.1.190B
+        // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
+        // that can be in the accountName since 0.1.190B
     }
 
+    /**
+     * Get local path where OCFile file is to be stored after upload. That is,
+     * corresponding local path (in local owncloud storage) to remote uploaded
+     * file.
+     */
     public static final String getDefaultSavePathFor(String accountName, OCFile file) {
         return getSavePath(accountName) + file.getRemotePath();
     }
 
+    /**
+     * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
+     */
     public static final String getTemporalPath(String accountName) {
         File sdCard = Environment.getExternalStorageDirectory();
         return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/tmp/" + Uri.encode(accountName, "@");
-            // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names, that can be in the accountName since 0.1.190B
+            // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
+            // that can be in the accountName since 0.1.190B
     }
 
+    /**
+     * Optimistic number of bytes available on sd-card. accountName is ignored.
+     * @param accountName not used. can thus be null.
+     * @return Optimistic number of available bytes (can be less)
+     */
     @SuppressLint("NewApi")
     public static final long getUsableSpace(String accountName) {
         File savePath = Environment.getExternalStorageDirectory();
@@ -120,7 +149,7 @@ public class FileStorageUtils {
      * Creates and populates a new {@link OCFile} object with the data read from the server.
      * 
      * @param remote    remote file read from the server (remote file or folder).
-     * @return          New OCFile instance representing the remote resource described by we.
+     * @return          New OCFile instance representing the remote resource described by remote.
      */
     public static OCFile fillOCFile(RemoteFile remote) {
         OCFile file = new OCFile(remote.getRemotePath());
@@ -254,7 +283,7 @@ public class FileStorageUtils {
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
-                    return val * o1.getRemotePath().toLowerCase().compareTo(o2.getRemotePath().toLowerCase());
+                    return val * new AlphanumComparator().compare(o1, o2);
                 } else if (o1.isFolder()) {
                     return -1;
                 } else if (o2.isFolder()) {
@@ -302,5 +331,33 @@ public class FileStorageUtils {
         String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
         return (result != null) ? result : "";
     }
-  
+
+    /**
+     * Scans the default location for saving local copies of files searching for
+     * a 'lost' file with the same full name as the {@link OCFile} received as
+     * parameter.
+     *
+     * This method helps to keep linked local copies of the files when the app is uninstalled, and then
+     * reinstalled in the device. OR after the cache of the app was deleted in system settings.
+     *
+     * The method is assuming that all the local changes in the file where synchronized in the past. This is dangerous,
+     * but assuming the contrary could lead to massive unnecessary synchronizations of downloaded file after deleting
+     * the app cache.
+     *
+     * This should be changed in the near future to avoid any chance of data loss, but we need to add some options
+     * to limit hard automatic synchronizations to wifi, unless the user wants otherwise.
+     *
+     * @param file      File to associate a possible 'lost' local file.
+     * @param account   Account holding file.
+     */
+    public static void searchForLocalFileInDefaultPath(OCFile file, Account account) {
+        if (file.getStoragePath() == null && !file.isFolder()) {
+            File f = new File(FileStorageUtils.getDefaultSavePathFor(account.name, file));
+            if (f.exists()) {
+                file.setStoragePath(f.getAbsolutePath());
+                file.setLastSyncDateForData(f.lastModified());
+            }
+        }
+    }
+
 }

@@ -21,7 +21,7 @@
     android:layout_width="fill_parent"
     android:layout_height="56dp"
     android:gravity="center_vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:textColor="#000"
+    android:paddingLeft="@dimen/standard_padding"
+    android:paddingRight="@dimen/standard_padding"
+    android:textColor="@color/black"
     android:textSize="18dp" />
