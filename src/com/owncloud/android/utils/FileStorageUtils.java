@@ -21,8 +21,11 @@
 package com.owncloud.android.utils;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Vector;
 
 import third_parties.daveKoeller.AlphanumComparator;
@@ -117,11 +120,30 @@ public class FileStorageUtils {
         return Environment.getExternalStorageDirectory() + File.separator + MainApp.getDataFolder() + File.separator + "log";
     }
 
-    public static String getInstantUploadFilePath(Context context, String fileName) {
+    /**
+     * Returns the InstantUploadFilePath on the owncloud instance
+     *
+     * @param context
+     * @param fileName
+     * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
+     * @return
+     */
+    public static String getInstantUploadFilePath(Context context, String fileName, String dateTaken) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String uploadPathdef = context.getString(R.string.instant_upload_path);
         String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
-        String value = uploadPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
+        String subFolders = "";
+        if(dateTaken != null && com.owncloud.android.db.PreferenceManager.instantPictureUploadPathUseSubfolders(context)) {
+            try {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy" + OCFile.PATH_SEPARATOR + "MM" + OCFile.PATH_SEPARATOR, Locale.ENGLISH);
+                subFolders = formatter.format(new Date(Long.parseLong(dateTaken)));
+                Date d = new Date(Long.parseLong((dateTaken)));
+            }
+            catch(RuntimeException ex) {
+                // don´t use a subfolder if we can´t parse the date
+            }
+        }
+        String value = uploadPath + OCFile.PATH_SEPARATOR + subFolders + (fileName == null ? "" : fileName);
         return value;
     }
 
