@@ -22,6 +22,9 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -29,11 +32,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision;
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener;
-import com.owncloud.android.utils.DisplayUtils;
-
-import android.app.ActionBar;
-import android.content.Intent;
-import android.os.Bundle;
 
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external
@@ -46,8 +44,6 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActionBar actionBar = getActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
     }
 
     @Override

@@ -17,6 +17,8 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">Ajustes</string>
+  <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
@@ -153,9 +155,7 @@
   <string name="common_rename">Renombrar</string>
   <string name="common_remove">Borrar</string>
   <string name="confirmation_remove_local">Sólo local</string>
-  <string name="confirmation_remove_folder_local">Sólo archivos locales</string>
-  <string name="confirmation_remove_remote">Eliminar del servidor</string>
-  <string name="confirmation_remove_remote_and_local">Tanto remoto como local</string>
+  <string name="confirmation_remove_folder_local">Sólo local</string>
   <string name="remove_success_msg">Borrado correctamente</string>
   <string name="remove_fail_msg">El borrado no pudo ser completado</string>
   <string name="rename_dialog_title">Introduzca un nombre nuevo</string>

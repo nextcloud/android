@@ -28,6 +28,7 @@
     <string name="drawer_item_settings">Settings</string>
     <string name="drawer_item_logs">Logs</string>
 	<string name="drawer_close">Close</string>
+    <string name="drawer_open">Open</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
     <string name="prefs_accounts">Accounts</string>
@@ -121,14 +122,14 @@
     <string name="sync_fail_ticker_unauthorized">Synchronization failed, you need to relogin</string>
     <string name="sync_fail_content">Synchronization of %1$s could not be completed</string>
     <string name="sync_fail_content_unauthorized">Invalid password for %1$s</string>
-	<string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
-	<string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync files could not be sync\'ed</string>
+    <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
+    <string name="sync_conflicts_in_favourites_content">%1$d kept-in-sync files could not be sync\'ed</string>
     <string name="sync_fail_in_favourites_ticker">Kept-in-sync files failed</string>
     <string name="sync_fail_in_favourites_content">Contents of %1$d files could not be sync\'ed (%2$d conflicts)</string>
     <string name="sync_foreign_files_forgotten_ticker">Some local files were forgotten</string>
     <string name="sync_foreign_files_forgotten_content">%1$d files out of the %2$s folder could not be copied into</string>
     <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded in previous versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and remove the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
-	<string name="sync_current_folder_was_removed">Folder %1$s does not exist anymore</string>    
+    <string name="sync_current_folder_was_removed">Folder %1$s does not exist anymore</string>
     <string name="foreign_files_move">"Move all"</string>
     <string name="foreign_files_success">"All files were moved"</string>
     <string name="foreign_files_fail">"Some files could not be moved"</string>
@@ -151,20 +152,20 @@
     <string name="media_state_loading">"%1$s (loading)"</string>
     <string name="media_event_done">"%1$s playback finished"</string>
     <string name="media_err_nothing_to_play">No media file found</string>
-	<string name="media_err_no_account">No account provided</string>
-	<string name="media_err_not_in_owncloud">File not in a valid account</string>
-	<string name="media_err_unsupported">Unsupported media codec</string>
-	<string name="media_err_io">Media file could not be read</string>
-	<string name="media_err_malformed">Media file not correctly encoded</string>
-	<string name="media_err_timeout">Timed out while trying to play</string>
-	<string name="media_err_invalid_progressive_playback">Media file cannot be streamed</string>
-	<string name="media_err_unknown">Media file cannot be played with the stock media player</string>
-	<string name="media_err_security_ex">Security error trying to play %1$s</string>
-	<string name="media_err_io_ex">Input error trying to play %1$s</string>
-	<string name="media_err_unexpected">Unexpected error trying to play %1$s</string>
-	<string name="media_rewind_description">Rewind button</string>
-	<string name="media_play_pause_description">Play or pause button</string>
-	<string name="media_forward_description">Fast forward button</string>
+    <string name="media_err_no_account">No account provided</string>
+    <string name="media_err_not_in_owncloud">File not in a valid account</string>
+    <string name="media_err_unsupported">Unsupported media codec</string>
+    <string name="media_err_io">Media file could not be read</string>
+    <string name="media_err_malformed">Media file not correctly encoded</string>
+    <string name="media_err_timeout">Timed out while trying to play</string>
+    <string name="media_err_invalid_progressive_playback">Media file cannot be streamed</string>
+    <string name="media_err_unknown">Media file cannot be played with the stock media player</string>
+    <string name="media_err_security_ex">Security error trying to play %1$s</string>
+    <string name="media_err_io_ex">Input error trying to play %1$s</string>
+    <string name="media_err_unexpected">Unexpected error trying to play %1$s</string>
+    <string name="media_rewind_description">Rewind button</string>
+    <string name="media_play_pause_description">Play or pause button</string>
+    <string name="media_forward_description">Fast forward button</string>
 
 	<string name="auth_getting_authorization">Getting authorization&#8230;</string>
 	<string name="auth_trying_to_login">Trying to login&#8230;</string>
@@ -207,9 +208,9 @@
     <string name="confirmation_remove_alert">"Do you really want to remove %1$s?"</string>
     <string name="confirmation_remove_folder_alert">"Do you really want to remove %1$s and its contents?"</string>
     <string name="confirmation_remove_local">Local only</string>
-    <string name="confirmation_remove_folder_local">Local contents only</string>
-    <string name="confirmation_remove_remote">Remove from server</string>
-    <string name="confirmation_remove_remote_and_local">Remote and local</string>
+    <string name="confirmation_remove_folder_local">Local only</string>
+    <string name="confirmation_remove_remote">From server</string>
+    <string name="confirmation_remove_remote_and_local">Remote &amp; local</string>
     <string name="remove_success_msg">"Removal succeeded"</string>
     <string name="remove_fail_msg">"Removal failed"</string>
     <string name="rename_dialog_title">Enter a new name</string>
@@ -249,31 +250,31 @@
     <string name="ssl_validator_label_L">Location:</string>
     <string name="ssl_validator_label_validity">Validity:</string>
     <string name="ssl_validator_label_validity_from">From:</string>
-	<string name="ssl_validator_label_validity_to">To:</string>
-	<string name="ssl_validator_label_signature">Signature:</string>
-	<string name="ssl_validator_label_signature_algorithm">Algorithm:</string>
-	<string name="ssl_validator_null_cert">The certificate could not be shown.</string>
-	<string name="ssl_validator_no_info_about_error">- No information about the error</string>
-			
+    <string name="ssl_validator_label_validity_to">To:</string>
+    <string name="ssl_validator_label_signature">Signature:</string>
+    <string name="ssl_validator_label_signature_algorithm">Algorithm:</string>
+    <string name="ssl_validator_null_cert">The certificate could not be shown.</string>
+    <string name="ssl_validator_no_info_about_error">- No information about the error</string>
+
     <string name="placeholder_sentence">This is a placeholder</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_filetype">PNG Image</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
-    
+
     <string name="instant_upload_on_wifi">Upload pictures via WiFi only</string>
     <string name="instant_video_upload_on_wifi">Upload videos via WiFi only</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">File conflict</string>
     <string name="conflict_message">Which files do you want to keep? If you select both versions, the local file will have a number added to its name.</string>
     <string name="conflict_keep_both">Keep both</string>
-    <string name="conflict_use_local_version">Use local version</string>
-    <string name="conflict_use_server_version">Use server version</string>
+    <string name="conflict_use_local_version">local version</string>
+    <string name="conflict_use_server_version">server version</string>
     
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_unknown_format">This image cannot be shown</string>
-    
+
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
     <string name="prefs_instant_upload_path_title">Upload Path</string>
 
@@ -286,32 +287,31 @@
     <string name="share_link_password_title">Enter a password</string>
     <string name="share_link_empty_password">You must enter a password</string>
 
-	<string name="activity_chooser_send_file_title">Send</string>
+    <string name="activity_chooser_send_file_title">Send</string>
 
-	<string name="copy_link">Copy link</string>
-	<string name="clipboard_text_copied">Copied to clipboard</string>
+    <string name="copy_link">Copy link</string>
+    <string name="clipboard_text_copied">Copied to clipboard</string>
 
-	<string name="error_cant_bind_to_operations_service">Critical error: cannot perform operations</string>
-	
-	<string name="network_error_socket_exception">An error occurred while connecting with the server.</string>
-	<string name="network_error_socket_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
-	<string name="network_error_connect_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
-	<string name="network_host_not_available">The operation couldn\'t be completed, server is unavailable</string>
+    <string name="error_cant_bind_to_operations_service">Critical error: cannot perform operations</string>
 
-	<string name="empty" />
-	
-	<string name="forbidden_permissions">You do not have permission %s</string>
-	<string name="forbidden_permissions_rename">to rename this file</string>
-	<string name="forbidden_permissions_delete">to delete this file</string>
-	<string name="share_link_forbidden_permissions">to share this file</string>
-	<string name="unshare_link_forbidden_permissions">to unshare this file</string>
-	<string name="forbidden_permissions_create">to create the file</string>
-	<string name="uploader_upload_forbidden_permissions">to upload in this folder</string>
-	<string name="downloader_download_file_not_found">The file is no longer available on the server</string>
+    <string name="network_error_socket_exception">An error occurred while connecting with the server.</string>
+    <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
+    <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
+    <string name="network_host_not_available">The operation couldn\'t be completed, server is unavailable</string>
+    <string name="empty" />
 
-	<string name="prefs_category_accounts">Accounts</string>
-	<string name="prefs_add_account">Add account</string>
-	<string name="auth_redirect_non_secure_connection_title">Secure connection is redirected to an unsecured route.</string>
+    <string name="forbidden_permissions">You do not have permission %s</string>
+    <string name="forbidden_permissions_rename">to rename this file</string>
+    <string name="forbidden_permissions_delete">to delete this file</string>
+    <string name="share_link_forbidden_permissions">to share this file</string>
+    <string name="unshare_link_forbidden_permissions">to unshare this file</string>
+    <string name="forbidden_permissions_create">to create the file</string>
+    <string name="uploader_upload_forbidden_permissions">to upload in this folder</string>
+    <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
+
+    <string name="prefs_category_accounts">Accounts</string>
+    <string name="prefs_add_account">Add account</string>
+    <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
 
 	<string name="actionbar_logger">Logs</string>
 	<string name="log_send_history_button">Send History</string>
@@ -325,13 +325,20 @@
 	<string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
 	<string name="folder_picker_choose_button_text">Choose</string>
 
-	<string name="move_file_not_found">Unable to move. Please check whether the file exists</string>
-	<string name="move_file_invalid_into_descendent">It is not possible to move a folder into a descendant</string>
-	<string name="move_file_invalid_overwrite">The file exists already in the destination folder</string>
-	<string name="move_file_error">An error occurred while trying to move this file or folder</string>
-	<string name="forbidden_permissions_move">to move this file</string>
+    <string name="move_file_not_found">Unable to move. Please check whether the file exists</string>
+    <string name="move_file_invalid_into_descendent">It is not possible to move a folder into a descendant</string>
+    <string name="move_file_invalid_overwrite">The file exists already in the destination folder</string>
+    <string name="move_file_error">An error occurred while trying to move this file or folder</string>
+    <string name="forbidden_permissions_move">to move this file</string>
 
-	<string name="prefs_category_instant_uploading">Instant Uploads</string>
+
+    <string name="copy_file_not_found">Unable to copy. Please check whether the file exists</string>
+    <string name="copy_file_invalid_into_descendent">It is not possible to copy a folder into a descendant</string>
+    <string name="copy_file_invalid_overwrite">The file exists already in the destination folder</string>
+    <string name="copy_file_error">An error occurred while trying to copy this file or folder</string>
+    <string name="forbidden_permissions_copy">to copy this file</string>
+
+    <string name="prefs_category_instant_uploading">Instant Uploads</string>
 	<string name="prefs_category_security">Security</string>
 
 	<string name="prefs_instant_video_upload_path_title">Upload Video Path</string>

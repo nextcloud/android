@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">設定</string>
   <string name="drawer_item_logs">ログ</string>
   <string name="drawer_close">閉じる</string>
+  <string name="drawer_open">開く</string>
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">もっと見る</string>
   <string name="prefs_accounts">アカウント</string>
@@ -201,9 +202,7 @@
   <string name="confirmation_remove_alert">本当に %1$s を削除しますか？</string>
   <string name="confirmation_remove_folder_alert">本当に %1$s およびそのコンテンツを削除してもよろしいですか？</string>
   <string name="confirmation_remove_local">ローカルのみ</string>
-  <string name="confirmation_remove_folder_local">ローカルコンテンツのみ</string>
-  <string name="confirmation_remove_remote">サーバーから削除</string>
-  <string name="confirmation_remove_remote_and_local">リモートとローカルの両方</string>
+  <string name="confirmation_remove_folder_local">ローカルのみ</string>
   <string name="remove_success_msg">削除に成功しました</string>
   <string name="remove_fail_msg">削除を完了できませんでした</string>
   <string name="rename_dialog_title">新しい名前を入力</string>
@@ -255,6 +254,8 @@
   <string name="instant_upload_on_wifi">WiFi経由でのみ画像をアップロード</string>
   <string name="instant_video_upload_on_wifi">WiFi経由でのみ動画をアップロード</string>
   <string name="instant_upload_path">/InstantUpload</string>
+  <string name="conflict_title">ファイルが競合</string>
+  <string name="conflict_message">どちらのファイルを保存したいですか？両方のバージョンを選択した場合は、ファイル名の後ろに数字を追加したファイルのコピーを作成します。</string>
   <string name="conflict_keep_both">両方を保持</string>
   <string name="preview_image_description">イメージプレビュー</string>
   <string name="preview_image_error_unknown_format">この画像は表示できません</string>
@@ -287,7 +288,7 @@
   <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
   <string name="prefs_category_accounts">アカウント</string>
   <string name="prefs_add_account">アカウントを追加</string>
-  <string name="auth_redirect_non_secure_connection_title">暗号化接続は非暗号化接続にリダイレクトされました。</string>
+  <string name="auth_redirect_non_secure_connection_title">暗号化されていない接続を経て、暗号化接続へリダイレクトされました。</string>
   <string name="actionbar_logger">ログ</string>
   <string name="log_send_history_button">ログを送信</string>
   <string name="log_send_no_mail_app">ログを送信するアプリが見つかりませんでした。メールアプリをインストールしてください。</string>
@@ -303,6 +304,7 @@
   <string name="move_file_invalid_overwrite">そのファイルは宛先フォルダーにすでに存在します。</string>
   <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
   <string name="forbidden_permissions_move">このファイルを移動</string>
+  <string name="copy_file_invalid_overwrite">そのファイルは宛先フォルダーにすでに存在します。</string>
   <string name="prefs_category_instant_uploading">自動アップロード</string>
   <string name="prefs_category_security">セキュリティ</string>
   <string name="prefs_instant_video_upload_path_title">動画のアップロードパス</string>
@@ -310,6 +312,7 @@
   <string name="shared_subject_header">共有中</string>
   <string name="with_you_subject_header">あなたと</string>
   <string name="subject_token">%1$s は \"%2$s\" をあなたと共有しました</string>
+  <string name="saml_subject_token">\"%1$s\" があなたと共有しました</string>
   <string name="auth_refresh_button">再接続中</string>
   <string name="auth_host_address">サーバーアドレス</string>
   <string name="common_error_out_memory">十分なメモリがありません</string>

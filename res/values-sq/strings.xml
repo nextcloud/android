@@ -11,6 +11,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Hap</string>
   <string name="prefs_category_general">Përgjithshme</string>
   <string name="prefs_category_more">Më tepër</string>
   <string name="prefs_accounts">Llogarit</string>

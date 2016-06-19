@@ -11,6 +11,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Aperi</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Plus</string>
   <string name="prefs_accounts">Contos</string>

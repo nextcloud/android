@@ -12,6 +12,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">გახსნა</string>
   <string name="prefs_category_general">ზოგადი</string>
   <string name="prefs_category_more">უფრო მეტი</string>
   <string name="prefs_accounts">ანგარიში</string>
@@ -99,9 +100,7 @@
   <string name="common_rename">გადარქმევა</string>
   <string name="common_remove">წაშლა</string>
   <string name="confirmation_remove_local">მხოლოდ ლოკალური</string>
-  <string name="confirmation_remove_folder_local">მხოლოდ ლოკალური კონტენტი</string>
-  <string name="confirmation_remove_remote">სერვერიდან წაშლა</string>
-  <string name="confirmation_remove_remote_and_local">დაშორებული და ლოკალური</string>
+  <string name="confirmation_remove_folder_local">მხოლოდ ლოკალური</string>
   <string name="remove_success_msg">წაშლა შარმატებით დასრულდა</string>
   <string name="remove_fail_msg">წაშლა წარუმატებლად დამთავრდა</string>
   <string name="rename_dialog_title">შეიყვანეთ ახალი სახელი</string>

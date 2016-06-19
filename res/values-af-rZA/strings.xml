@@ -16,6 +16,7 @@
   <string name="common_ok">OK</string>
   <string name="common_cancel">Kanseleer</string>
   <string name="common_error">Fout</string>
+  <string name="activity_chooser_send_file_title">Stuur</string>
   <string name="empty"></string>
   <string name="folder_picker_choose_button_text">Kies</string>
 </resources>

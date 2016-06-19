@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">설정</string>
   <string name="drawer_item_logs">로그</string>
   <string name="drawer_close">닫기</string>
+  <string name="drawer_open">열기</string>
   <string name="prefs_category_general">일반</string>
   <string name="prefs_category_more">더 보기</string>
   <string name="prefs_accounts">계정</string>
@@ -200,8 +201,8 @@
   <string name="confirmation_remove_alert">%1$s을(를) 삭제하시겠습니까?</string>
   <string name="confirmation_remove_folder_alert">%1$s 및 포함된 내용을 삭제하시겠습니까?</string>
   <string name="confirmation_remove_local">로컬만</string>
-  <string name="confirmation_remove_folder_local">로컬 콘텐츠만</string>
-  <string name="confirmation_remove_remote">서버에서 삭제</string>
+  <string name="confirmation_remove_folder_local">로컬만</string>
+  <string name="confirmation_remove_remote">서버만</string>
   <string name="confirmation_remove_remote_and_local">서버와 로컬 모두</string>
   <string name="remove_success_msg">성공적으로 삭제함</string>
   <string name="remove_fail_msg">삭제할 수 없음</string>
@@ -248,13 +249,17 @@
   <string name="placeholder_sentence">이것은 자리 비움자입니다</string>
   <string name="placeholder_filename">placeholder.txt</string>
   <string name="placeholder_filetype">PNG 그림</string>
-  <string name="placeholder_filesize">389 KB</string>
-  <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+  <string name="placeholder_filesize">389KB</string>
+  <string name="placeholder_timestamp">2012년 05월 18일 오후 12:23</string>
   <string name="placeholder_media_time">12:23:45</string>
   <string name="instant_upload_on_wifi">Wi-Fi 사용 중일때만 사진 업로드</string>
   <string name="instant_video_upload_on_wifi">Wi-Fi 사용 중일때만 동영상 업로드</string>
   <string name="instant_upload_path">/InstantUpload</string>
+  <string name="conflict_title">파일 충돌</string>
+  <string name="conflict_message">어떤 파일을 유지하시겠습니까? 두 버전을 모두 선택하면 로컬 파일 이름 뒤에 번호가 추가됩니다.</string>
   <string name="conflict_keep_both">모두 저장</string>
+  <string name="conflict_use_local_version">로컬 버전</string>
+  <string name="conflict_use_server_version">서버 버전</string>
   <string name="preview_image_description">사진 미리 보기</string>
   <string name="preview_image_error_unknown_format">이 사진을 미리 볼 수 없습니다</string>
   <string name="error__upload__local_file_not_copied">%1$s을(를) 로컬 폴더 %2$s(으)로 복사할 수 없습니다</string>
@@ -285,7 +290,7 @@
   <string name="downloader_download_file_not_found">이 파일을 서버에서 더 이상 사용할 수 없습니다</string>
   <string name="prefs_category_accounts">계정</string>
   <string name="prefs_add_account">계정 추가</string>
-  <string name="auth_redirect_non_secure_connection_title">보안 연결이 안전하지 않은 경로로 넘어갑니다.</string>
+  <string name="auth_redirect_non_secure_connection_title">보안 연결이 보안되지 않는 연결로 전환되었습니다.</string>
   <string name="actionbar_logger">로그</string>
   <string name="log_send_history_button">과거 기록 보내기</string>
   <string name="log_send_no_mail_app">로그를 보낼 앱이 없습니다. 메일 앱을 설치하십시오!</string>
@@ -301,6 +306,11 @@
   <string name="move_file_invalid_overwrite">파일이 이미 대상 폴더에 존재합니다</string>
   <string name="move_file_error">이 파일이나 폴더를 이동하는 중 오류가 발생하였습니다</string>
   <string name="forbidden_permissions_move">이 파일을 이동할</string>
+  <string name="copy_file_not_found">복사할 수 없습니다. 파일이 존재하는 지 확인하십시오</string>
+  <string name="copy_file_invalid_into_descendent">폴더를 하위 폴더 아래로 복사할 수 없습니다</string>
+  <string name="copy_file_invalid_overwrite">파일이 이미 대상 폴더에 존재합니다</string>
+  <string name="copy_file_error">이 파일이나 폴더를 복사할 수 없습니다.</string>
+  <string name="forbidden_permissions_copy">이 파일을 복사할</string>
   <string name="prefs_category_instant_uploading">즉시 업로드</string>
   <string name="prefs_category_security">보안</string>
   <string name="prefs_instant_video_upload_path_title">동영상 업로드 경로</string>
@@ -308,6 +318,7 @@
   <string name="shared_subject_header">공유됨</string>
   <string name="with_you_subject_header">여러분과</string>
   <string name="subject_token">%1$s 님이 \"%2$s\" 항목을 여러분과 공유하였습니다</string>
+  <string name="saml_subject_token">\"%1$s\"을(를) 여러분과 공유하였습니다</string>
   <string name="auth_refresh_button">연결 새로 고침</string>
   <string name="auth_host_address">서버 주소</string>
   <string name="common_error_out_memory">메모리 부족</string>

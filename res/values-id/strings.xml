@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Pengaturan</string>
   <string name="drawer_item_logs">Log</string>
   <string name="drawer_close">Tutup</string>
+  <string name="drawer_open">Buka</string>
   <string name="prefs_category_general">Umum</string>
   <string name="prefs_category_more">Lainnya</string>
   <string name="prefs_accounts">Akun</string>
@@ -200,9 +201,9 @@
   <string name="confirmation_remove_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
   <string name="confirmation_remove_folder_alert">Apakah Anda yakin ingin menghapus %1$s dan isinya?</string>
   <string name="confirmation_remove_local">Lokal saja</string>
-  <string name="confirmation_remove_folder_local">Konten lokal saja</string>
-  <string name="confirmation_remove_remote">Hapus dari server</string>
-  <string name="confirmation_remove_remote_and_local">Jarak jauh dan lokal</string>
+  <string name="confirmation_remove_folder_local">Lokal saja</string>
+  <string name="confirmation_remove_remote">Dari server</string>
+  <string name="confirmation_remove_remote_and_local">Remot &amp; lokal</string>
   <string name="remove_success_msg">Penghapusan berhasil</string>
   <string name="remove_fail_msg">Penghapusan gagal</string>
   <string name="rename_dialog_title">Masukkan nama baru</string>
@@ -254,7 +255,11 @@
   <string name="instant_upload_on_wifi">Hanya unggah gambar via WiFi</string>
   <string name="instant_video_upload_on_wifi">Hanya unggah video via WiFi</string>
   <string name="instant_upload_path">/UnggahInstan</string>
+  <string name="conflict_title">Berkas konflik</string>
+  <string name="conflict_message">Berkas mana yang ingin Anda simpan? Jika Anda memilih kedua versi, berkas lokal akan memiliki angka yang ditambahkan pada namanya.</string>
   <string name="conflict_keep_both">Biarkan keduannya</string>
+  <string name="conflict_use_local_version">versi lokal</string>
+  <string name="conflict_use_server_version">versi server</string>
   <string name="preview_image_description">Pratilik gambar</string>
   <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
   <string name="error__upload__local_file_not_copied">%1$s tidak dapat disalin ke folder lokal %2$s</string>
@@ -286,7 +291,7 @@
   <string name="downloader_download_file_not_found">Berkas tidak lagi tersedia pada server</string>
   <string name="prefs_category_accounts">Akun</string>
   <string name="prefs_add_account">Tambah akun</string>
-  <string name="auth_redirect_non_secure_connection_title">Sambungan aman dialihkan ke rute yang tidak aman.</string>
+  <string name="auth_redirect_non_secure_connection_title">Sambungan aman dialihkan melalui rute yang tidak aman.</string>
   <string name="actionbar_logger">Log</string>
   <string name="log_send_history_button">Kirim Riwayat</string>
   <string name="log_send_no_mail_app">Tidak ada apl untuk mengirim log. Instal apl mail!</string>
@@ -302,6 +307,11 @@
   <string name="move_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
   <string name="move_file_error">Terjadi kesalahan saat mencoba memindahkan berkas atau folder ini</string>
   <string name="forbidden_permissions_move">untuk memindahkan berkas ini</string>
+  <string name="copy_file_not_found">Tidak dapat menyalin. Silakan periksa apakah berkas ada</string>
+  <string name="copy_file_invalid_into_descendent">Tidak mungkin menyalin folder kedalam turunannya</string>
+  <string name="copy_file_invalid_overwrite">Berkas sudah ada didalam folder tujuan</string>
+  <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
+  <string name="forbidden_permissions_copy">untuk menyalin berkas ini</string>
   <string name="prefs_category_instant_uploading">Unggah Cepat</string>
   <string name="prefs_category_security">Keamanan</string>
   <string name="prefs_instant_video_upload_path_title">Unggah Lokasi Video</string>
@@ -309,6 +319,7 @@
   <string name="shared_subject_header">dibagikan</string>
   <string name="with_you_subject_header">kepada Anda</string>
   <string name="subject_token">%1$s dibagikan \"%2$s\" kepada Anda</string>
+  <string name="saml_subject_token">\"%1$s\" telah membagikan dengan Anda</string>
   <string name="auth_refresh_button">Menyegarkan sambungan</string>
   <string name="auth_host_address">Alamat server</string>
   <string name="common_error_out_memory">Memori tidak cukup</string>

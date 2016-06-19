@@ -33,8 +33,8 @@ import java.util.Vector;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -57,6 +57,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -64,6 +66,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -146,11 +149,6 @@ public class Uploader extends FileActivity
         if (mAccountSelected) {
             setAccount((Account) savedInstanceState.getParcelable(FileActivity.EXTRA_ACCOUNT));
         }
-
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setIcon(DisplayUtils.getSeasonalIconId());
-
     }
 
     @Override
@@ -206,10 +204,19 @@ public class Uploader extends FileActivity
         final AlertDialog.Builder builder = new Builder(this);
         switch (id) {
         case DIALOG_WAITING:
-            ProgressDialog pDialog = new ProgressDialog(this);
+            final ProgressDialog pDialog = new ProgressDialog(this, R.style.ProgressDialogTheme);
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.setMessage(getResources().getString(R.string.uploader_info_uploading));
+            pDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                @Override
+                public void onShow(DialogInterface dialog) {
+                    ProgressBar v = (ProgressBar) pDialog.findViewById(android.R.id.progress);
+                    v.getIndeterminateDrawable().setColorFilter(getResources().getColor(R.color.color_accent),
+                            android.graphics.PorterDuff.Mode.MULTIPLY);
+
+                }
+            });
             return pDialog;
         case DIALOG_NO_ACCOUNT:
             builder.setIcon(android.R.drawable.ic_dialog_alert);
@@ -356,9 +363,8 @@ public class Uploader extends FileActivity
 
             break;
             
-        case R.id.uploader_new_folder:
-            CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(mFile);
-            dialog.show(getSupportFragmentManager(), "createdirdialog");
+        case R.id.uploader_cancel:
+            finish();
             break;
             
             
@@ -432,7 +438,7 @@ public class Uploader extends FileActivity
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
             
-            Button btnNewFolder = (Button) findViewById(R.id.uploader_new_folder);
+            Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
             btnNewFolder.setOnClickListener(this);
             
             mListView.setOnItemClickListener(this);
@@ -648,11 +654,26 @@ public class Uploader extends FileActivity
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        menu.findItem(R.id.action_upload).setVisible(false);
+        menu.findItem(R.id.action_sort).setVisible(false);
+        menu.findItem(R.id.action_sync_account).setVisible(false);
+        return true;
+    }
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval = true;
         switch (item.getItemId()) {
+            case R.id.action_create_dir:
+                CreateFolderDialogFragment dialog = CreateFolderDialogFragment.newInstance(mFile);
+                dialog.show(
+                        getSupportFragmentManager(),
+                        CreateFolderDialogFragment.CREATE_FOLDER_FRAGMENT);
+                break;
             case android.R.id.home:
                 if((mParents.size() > 1)) {
                     onBackPressed();

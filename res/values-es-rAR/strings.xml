@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Más</string>
   <string name="prefs_accounts">Cuentas</string>
@@ -179,9 +180,7 @@
   <string name="confirmation_remove_alert">¿Realmente quieres eliminar %1$s?</string>
   <string name="confirmation_remove_folder_alert">¿Realmente deseas eliminar %1$s y todo su contenido?</string>
   <string name="confirmation_remove_local">Sólo local</string>
-  <string name="confirmation_remove_folder_local">Solo archivos locales</string>
-  <string name="confirmation_remove_remote">Borrar del servidor</string>
-  <string name="confirmation_remove_remote_and_local">Ambos: remoto y local</string>
+  <string name="confirmation_remove_folder_local">Sólo local</string>
   <string name="remove_success_msg">Borrado correctamente</string>
   <string name="remove_fail_msg">El borrado no pudo ser completado</string>
   <string name="rename_dialog_title">Ingrese un nombre</string>
@@ -261,7 +260,6 @@
   <string name="downloader_download_file_not_found">El archivo no esta mas disponible en este Servidor</string>
   <string name="prefs_category_accounts">Cuentas</string>
   <string name="prefs_add_account">Añadir cuenta</string>
-  <string name="auth_redirect_non_secure_connection_title">Conexión segura redireccionada a una ruta insegura.</string>
   <string name="actionbar_logger">Registro</string>
   <string name="log_send_history_button">Enviar Historial</string>
   <string name="log_send_no_mail_app">Aplicación para enviar registros no encontrada. Instale una aplicación de correo!</string>
@@ -276,6 +274,7 @@
   <string name="move_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
   <string name="move_file_error">Un error ocurrió intentando mover el archivo o carpeta</string>
   <string name="forbidden_permissions_move">para mover este archivo</string>
+  <string name="copy_file_invalid_overwrite">El archivo ya existe en la carpeta destino</string>
   <string name="prefs_category_instant_uploading">Subida Instantánea </string>
   <string name="prefs_category_security">Seguridad</string>
   <string name="prefs_instant_video_upload_path_title">Dirección de subida del video</string>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 /*
- * Copyright (C) 2013 The Android Open Source Project
+ * Copyright (C) 2014 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,46 +15,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:paddingLeft="@dimen/abc_dropdownitem_text_padding_left"
-                android:paddingRight="4dip"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/searchResultListItemHeight" >
+                android:layout_height="58dip"
+                style="@style/RtlOverlay.Widget.AppCompat.Search.DropDown">
 
     <!-- Icons come first in the layout, since their placement doesn't depend on
          the placement of the text views. -->
-    <ImageView android:id="@android:id/icon1"
+    <android.support.v7.internal.widget.TintImageView
+               android:id="@android:id/icon1"
                android:layout_width="@dimen/abc_dropdownitem_icon_width"
                android:layout_height="48dip"
                android:scaleType="centerInside"
-               android:layout_alignParentLeft="true"
                android:layout_alignParentTop="true"
                android:layout_alignParentBottom="true"
-               android:visibility="invisible" />
+               android:visibility="invisible"
+               style="@style/RtlOverlay.Widget.AppCompat.Search.DropDown.Icon1" />
 
-    <ImageView android:id="@+id/edit_query"
+    <android.support.v7.internal.widget.TintImageView
+               android:id="@+id/edit_query"
                android:layout_width="48dip"
                android:layout_height="48dip"
                android:scaleType="centerInside"
-               android:layout_alignParentRight="true"
                android:layout_alignParentTop="true"
                android:layout_alignParentBottom="true"
-               android:src="?attr/searchViewEditQuery"
-               android:background="?attr/searchViewEditQueryBackground"
-               android:visibility="gone" />
+               android:background="?attr/selectableItemBackground"
+               android:visibility="gone"
+               style="@style/RtlOverlay.Widget.AppCompat.Search.DropDown.Query" />
 
-    <ImageView android:id="@android:id/icon2"
+    <android.support.v7.internal.widget.TintImageView
+               android:id="@id/android:icon2"
                android:layout_width="48dip"
                android:layout_height="48dip"
                android:scaleType="centerInside"
                android:layout_alignWithParentIfMissing="true"
-               android:layout_toLeftOf="@id/edit_query"
                android:layout_alignParentTop="true"
                android:layout_alignParentBottom="true"
-               android:visibility="gone" />
+               android:visibility="gone"
+               style="@style/RtlOverlay.Widget.AppCompat.Search.DropDown.Icon2" />
 
 
     <!-- The subtitle comes before the title, since the height of the title depends on whether the
@@ -67,8 +67,6 @@
               android:layout_height="29dip"
               android:paddingBottom="4dip"
               android:gravity="top"
-              android:layout_toRightOf="@android:id/icon1"
-              android:layout_toLeftOf="@android:id/icon2"
               android:layout_alignWithParentIfMissing="true"
               android:layout_alignParentBottom="true"
               android:visibility="gone" />
@@ -82,8 +80,6 @@
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:layout_centerVertical="true"
-              android:layout_toRightOf="@android:id/icon1"
-              android:layout_toLeftOf="@android:id/icon2"
               android:layout_above="@android:id/text2" />
 
-</RelativeLayout><!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_search_dropdown_item_icons_2line.xml -->
+</RelativeLayout>

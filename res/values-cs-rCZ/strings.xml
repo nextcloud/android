@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Nastavení</string>
   <string name="drawer_item_logs">Logy</string>
   <string name="drawer_close">Zavřít</string>
+  <string name="drawer_open">Otevřít</string>
   <string name="prefs_category_general">Obecné</string>
   <string name="prefs_category_more">Více</string>
   <string name="prefs_accounts">Účty</string>
@@ -199,9 +200,9 @@
   <string name="confirmation_remove_alert">Opravdu chcete odstranit %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Opravdu chcete odstranit %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Pouze místní</string>
-  <string name="confirmation_remove_folder_local">Pouze místní obsah</string>
-  <string name="confirmation_remove_remote">Odstranit ze serveru</string>
-  <string name="confirmation_remove_remote_and_local">Oboje, místní i vzdálené</string>
+  <string name="confirmation_remove_folder_local">Pouze místní</string>
+  <string name="confirmation_remove_remote">Ze serveru</string>
+  <string name="confirmation_remove_remote_and_local">Vzdálený &amp; místní</string>
   <string name="remove_success_msg">Úspěšně odstraněno</string>
   <string name="remove_fail_msg">Odstranění nelze dokončit</string>
   <string name="rename_dialog_title">Zadejte nový název</string>
@@ -256,8 +257,8 @@
   <string name="conflict_title">Konflikt souboru</string>
   <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
   <string name="conflict_keep_both">Ponechat oba</string>
-  <string name="conflict_use_local_version">Použít lokální verzi</string>
-  <string name="conflict_use_server_version">Použít serverovou verzi</string>
+  <string name="conflict_use_local_version">místní verze</string>
+  <string name="conflict_use_server_version">serverová verze</string>
   <string name="preview_image_description">Náhled obrázku</string>
   <string name="preview_image_error_unknown_format">Obrázek nelze zobrazit</string>
   <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
@@ -289,7 +290,7 @@ správce systému.</string>
   <string name="downloader_download_file_not_found">Tento soubor již není dostupný na serveru</string>
   <string name="prefs_category_accounts">Účty</string>
   <string name="prefs_add_account">Přidat účet</string>
-  <string name="auth_redirect_non_secure_connection_title">Bezpečné spojení je přesměrováno na nezabezpečenou trasu.</string>
+  <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojení je přesměrováváno nezabezpečenou trasou.</string>
   <string name="actionbar_logger">Logy</string>
   <string name="log_send_history_button">Odeslat historii</string>
   <string name="log_send_no_mail_app">Nebyla nalezena žádná aplikace pro odesílání logů. Nainstalujte poštovní aplikaci!</string>
@@ -305,6 +306,11 @@ správce systému.</string>
   <string name="move_file_invalid_overwrite">Soubor již v cílovém adresáři existuje</string>
   <string name="move_file_error">Při pokusu o přesun tohoto souboru či složky nastala chyba</string>
   <string name="forbidden_permissions_move">pro přesun tohoto souboru</string>
+  <string name="copy_file_not_found">Nelze zkopírpovat. Zkontrolujte prosím že soubor existuje</string>
+  <string name="copy_file_invalid_into_descendent">Není možné adresář zkopírovat do jeho vlastního podadresáře</string>
+  <string name="copy_file_invalid_overwrite">Soubor již v cílové složce existuje</string>
+  <string name="copy_file_error">Při pokusu o zkopírování tohoto souboru či složky došlo k chybě</string>
+  <string name="forbidden_permissions_copy">pro zkopírování tohoto souboru</string>
   <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
   <string name="prefs_category_security">Zabezpečení</string>
   <string name="prefs_instant_video_upload_path_title">Cesta pro nahrávání videí</string>

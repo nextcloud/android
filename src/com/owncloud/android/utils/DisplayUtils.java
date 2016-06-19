@@ -22,28 +22,27 @@
 
 package com.owncloud.android.utils;
 
-import java.net.IDN;
-import java.text.DateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Vector;
-
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Point;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.text.format.DateUtils;
 import android.view.Display;
-import android.webkit.MimeTypeMap;
+import android.widget.ProgressBar;
+import android.widget.SeekBar;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+
+import java.net.IDN;
+import java.text.DateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A helper class for some string operations.
@@ -51,67 +50,26 @@ import com.owncloud.android.datamodel.OCFile;
 public class DisplayUtils {
     
     private static final String OWNCLOUD_APP_NAME = "ownCloud";
-
-    //private static String TAG = DisplayUtils.class.getSimpleName(); 
     
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
 
-    private static HashMap<String, String> mimeType2HUmanReadable;
-    static {
-        mimeType2HUmanReadable = new HashMap<String, String>();
-        // images
-        mimeType2HUmanReadable.put("image/jpeg", "JPEG image");
-        mimeType2HUmanReadable.put("image/jpg", "JPEG image");
-        mimeType2HUmanReadable.put("image/png", "PNG image");
-        mimeType2HUmanReadable.put("image/bmp", "Bitmap image");
-        mimeType2HUmanReadable.put("image/gif", "GIF image");
-        mimeType2HUmanReadable.put("image/svg+xml", "JPEG image");
-        mimeType2HUmanReadable.put("image/tiff", "TIFF image");
-        // music
-        mimeType2HUmanReadable.put("audio/mpeg", "MP3 music file");
-        mimeType2HUmanReadable.put("application/ogg", "OGG music file");
+    private static Map<String, String> mimeType2HumanReadable;
 
+    static {
+        mimeType2HumanReadable = new HashMap<String, String>();
+        // images
+        mimeType2HumanReadable.put("image/jpeg", "JPEG image");
+        mimeType2HumanReadable.put("image/jpg", "JPEG image");
+        mimeType2HumanReadable.put("image/png", "PNG image");
+        mimeType2HumanReadable.put("image/bmp", "Bitmap image");
+        mimeType2HumanReadable.put("image/gif", "GIF image");
+        mimeType2HumanReadable.put("image/svg+xml", "JPEG image");
+        mimeType2HumanReadable.put("image/tiff", "TIFF image");
+        // music
+        mimeType2HumanReadable.put("audio/mpeg", "MP3 music file");
+        mimeType2HumanReadable.put("application/ogg", "OGG music file");
     }
 
-    private static final String TYPE_APPLICATION = "application";
-    private static final String TYPE_AUDIO = "audio";
-    private static final String TYPE_IMAGE = "image";
-    private static final String TYPE_TXT = "text";
-    private static final String TYPE_VIDEO = "video";
-    
-    private static final String SUBTYPE_PDF = "pdf";
-    private static final String SUBTYPE_XML = "xml";
-    private static final String[] SUBTYPES_DOCUMENT = { 
-        "msword",
-        "vnd.openxmlformats-officedocument.wordprocessingml.document",
-        "vnd.oasis.opendocument.text",
-        "rtf",
-        "javascript"
-    };
-    private static Set<String> SUBTYPES_DOCUMENT_SET = new HashSet<String>(Arrays.asList(SUBTYPES_DOCUMENT));
-    private static final String[] SUBTYPES_SPREADSHEET = {
-        "msexcel",
-        "vnd.ms-excel",
-        "vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        "vnd.oasis.opendocument.spreadsheet"
-    };
-    private static Set<String> SUBTYPES_SPREADSHEET_SET = new HashSet<String>(Arrays.asList(SUBTYPES_SPREADSHEET));
-    private static final String[] SUBTYPES_PRESENTATION = { 
-        "mspowerpoint",
-        "vnd.ms-powerpoint",
-        "vnd.openxmlformats-officedocument.presentationml.presentation",
-        "vnd.oasis.opendocument.presentation"
-    };
-    private static Set<String> SUBTYPES_PRESENTATION_SET = new HashSet<String>(Arrays.asList(SUBTYPES_PRESENTATION));
-    private static final String[] SUBTYPES_COMPRESSED = {"x-tar", "x-gzip", "zip"};
-    private static final Set<String> SUBTYPES_COMPRESSED_SET = new HashSet<String>(Arrays.asList(SUBTYPES_COMPRESSED));
-    private static final String SUBTYPE_OCTET_STREAM = "octet-stream";
-    private static final String EXTENSION_RAR = "rar";
-    private static final String EXTENSION_RTF = "rtf";
-    private static final String EXTENSION_3GP = "3gp";
-    private static final String EXTENSION_PY = "py";
-    private static final String EXTENSION_JS = "js";
-    
     /**
      * Converts the file size in bytes to human readable output.
      * 
@@ -137,100 +95,14 @@ public class DisplayUtils {
      * @return A human friendly version of the MIME type
      */
     public static String convertMIMEtoPrettyPrint(String mimetype) {
-        if (mimeType2HUmanReadable.containsKey(mimetype)) {
-            return mimeType2HUmanReadable.get(mimetype);
+        if (mimeType2HumanReadable.containsKey(mimetype)) {
+            return mimeType2HumanReadable.get(mimetype);
         }
         if (mimetype.split("/").length >= 2)
             return mimetype.split("/")[1].toUpperCase() + " file";
         return "Unknown type";
     }
-    
-    
-    /**
-     * Returns the resource identifier of an image to use as icon associated to a known MIME type.
-     * 
-     * @param mimetype      MIME type string; if NULL, the method tries to guess it from the extension in filename
-     * @param filename      Name, with extension.
-     * @return              Identifier of an image resource.
-     */
-    public static int getFileTypeIconId(String mimetype, String filename) {
 
-        if (mimetype == null) {
-            String fileExtension = getExtension(filename);
-            mimetype = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
-            if (mimetype == null) {
-                mimetype = TYPE_APPLICATION + "/" + SUBTYPE_OCTET_STREAM;
-            }
-        } 
-            
-        if ("DIR".equals(mimetype)) {
-            return R.drawable.ic_menu_archive;
-
-        } else {
-            String [] parts = mimetype.split("/");
-            String type = parts[0];
-            String subtype = (parts.length > 1) ? parts[1] : "";
-            
-            if(TYPE_TXT.equals(type)) {
-                return R.drawable.file_doc;
-    
-            } else if(TYPE_IMAGE.equals(type)) {
-                return R.drawable.file_image;
-                
-            } else if(TYPE_VIDEO.equals(type)) {
-                return R.drawable.file_movie;
-                
-            } else if(TYPE_AUDIO.equals(type)) {  
-                return R.drawable.file_sound;
-                
-            } else if(TYPE_APPLICATION.equals(type)) {
-                
-                if (SUBTYPE_PDF.equals(subtype)) {
-                    return R.drawable.file_pdf;
-                    
-                } else if (SUBTYPE_XML.equals(subtype)) {
-                    return R.drawable.file_doc;
-
-                } else if (SUBTYPES_DOCUMENT_SET.contains(subtype)) {
-                    return R.drawable.file_doc;
-
-                } else if (SUBTYPES_SPREADSHEET_SET.contains(subtype)) {
-                    return R.drawable.file_xls;
-
-                } else if (SUBTYPES_PRESENTATION_SET.contains(subtype)) {
-                    return R.drawable.file_ppt;
-
-                } else if (SUBTYPES_COMPRESSED_SET.contains(subtype)) {
-                    return R.drawable.file_zip;
-
-                } else if (SUBTYPE_OCTET_STREAM.equals(subtype) ) {
-                    if (getExtension(filename).equalsIgnoreCase(EXTENSION_RAR)) {
-                        return R.drawable.file_zip;
-                        
-                    } else if (getExtension(filename).equalsIgnoreCase(EXTENSION_RTF)) {
-                        return R.drawable.file_doc;
-                        
-                    } else if (getExtension(filename).equalsIgnoreCase(EXTENSION_3GP)) {
-                        return R.drawable.file_movie;
-                     
-                    } else if ( getExtension(filename).equalsIgnoreCase(EXTENSION_PY) ||
-                                getExtension(filename).equalsIgnoreCase(EXTENSION_JS)) {
-                        return R.drawable.file_doc;
-                    } 
-                } 
-            }
-        }
-
-        // default icon
-        return R.drawable.file;
-    }
-
-    
-    private static String getExtension(String filename) {
-        String extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
-        return extension;
-    }
-    
     /**
      * Converts Unix time to human readable format
      * @param milliseconds that have passed since 01/01/1970
@@ -241,7 +113,6 @@ public class DisplayUtils {
         DateFormat df = DateFormat.getDateTimeInstance();
         return df.format(date);
     }
-    
     
     public static int getSeasonalIconId() {
         if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) >= 354 &&
@@ -373,4 +244,33 @@ public class DisplayUtils {
         return size;
     }
 
+    /**
+     * sets the coloring of the given progress bar to color_accent.
+     *
+     * @param progressBar the progress bar to be colored
+     */
+    public static void colorPreLollipopHorizontalProgressBar(ProgressBar progressBar) {
+        if (progressBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            int color = progressBar.getResources().getColor(R.color.color_accent);
+            progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            progressBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+        }
+    }
+
+    /**
+     * sets the coloring of the given seek bar to color_accent.
+     *
+     * @param seekBar the seek bar to be colored
+     */
+    public static void colorPreLollipopHorizontalSeekBar(SeekBar seekBar) {
+        if (seekBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            colorPreLollipopHorizontalProgressBar(seekBar);
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                int color = seekBar.getResources().getColor(R.color.color_accent);
+                seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+                seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            }
+        }
+    }
 }

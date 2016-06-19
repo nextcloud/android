@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Einstellungen</string>
   <string name="drawer_item_logs">Protokolle</string>
   <string name="drawer_close">Schließen</string>
+  <string name="drawer_open">Öffnen</string>
   <string name="prefs_category_general">Allgemein</string>
   <string name="prefs_category_more">Mehr</string>
   <string name="prefs_accounts">Konten</string>
@@ -200,9 +201,7 @@
   <string name="confirmation_remove_alert">Möchten Sie %1$s wirklich löschen?</string>
   <string name="confirmation_remove_folder_alert">Möchten Sie wirklich %1$s und dessen Inhalte entfernen?</string>
   <string name="confirmation_remove_local">Nur lokal</string>
-  <string name="confirmation_remove_folder_local">Nur lokale Inhalte</string>
-  <string name="confirmation_remove_remote">Vom Server entfernen</string>
-  <string name="confirmation_remove_remote_and_local">Lokal und auf dem Server</string>
+  <string name="confirmation_remove_folder_local">Nur lokal</string>
   <string name="remove_success_msg">Erfolgreich gelöscht</string>
   <string name="remove_fail_msg">Der Löschvorgang konnte nicht beendet werden</string>
   <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
@@ -257,8 +256,6 @@
   <string name="conflict_title">Dateikonflikt</string>
   <string name="conflict_message">Welche Datei möchtest du behalten? Wenn du beide Versionen auswählst, wird der lokalen Datei eine Zahl am Ende Ihres Dateiname angehangen.</string>
   <string name="conflict_keep_both">Beide behalten</string>
-  <string name="conflict_use_local_version">Benutze lokale Version</string>
-  <string name="conflict_use_server_version">Benutze Version auf dem Server</string>
   <string name="preview_image_description">Bildvorschau</string>
   <string name="preview_image_error_unknown_format">Dieses Bild kann nicht angezeigt werden</string>
   <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
@@ -306,6 +303,7 @@
   <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
   <string name="move_file_error">Es ist ein Fehler beim Verschieben dieser Datei oder dieses Ordners aufgetreten.</string>
   <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
+  <string name="copy_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
   <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
   <string name="prefs_category_security">Sicherheit</string>
   <string name="prefs_instant_video_upload_path_title">Verzeichnis zum Hochladen der Videos</string>

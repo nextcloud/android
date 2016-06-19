@@ -23,6 +23,9 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_item_settings">configuració</string>
+  <string name="drawer_close">tanca</string>
+  <string name="drawer_open">Obre</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Més</string>
   <string name="prefs_accounts">Comptes</string>
@@ -177,9 +180,7 @@
   <string name="confirmation_remove_alert">Esteu segur que voleu eliminar %1$s?</string>
   <string name="confirmation_remove_folder_alert">Estàs segur que vols esborrar %1$s i els seus continguts?</string>
   <string name="confirmation_remove_local">Només local</string>
-  <string name="confirmation_remove_folder_local">Només contiguts locals</string>
-  <string name="confirmation_remove_remote">Elimina del servidor</string>
-  <string name="confirmation_remove_remote_and_local">Remot i local</string>
+  <string name="confirmation_remove_folder_local">Només local</string>
   <string name="remove_success_msg">L\'eliminació ha tingut èxit</string>
   <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
   <string name="rename_dialog_title">Introdueix un nom nou</string>
@@ -255,6 +256,7 @@
   <string name="downloader_download_file_not_found">El fitxer ja no està disponible en el servidor</string>
   <string name="prefs_category_accounts">Comptes</string>
   <string name="prefs_add_account">Afegeix compte</string>
+  <string name="auth_redirect_non_secure_connection_title">La connexió segura està essent redirigida a través d\'una ruta insegura</string>
   <string name="log_progress_dialog_text">Carregant dades...</string>
   <string name="saml_authentication_required_text">Es requereix autenticació</string>
   <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>

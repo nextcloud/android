@@ -48,15 +48,17 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-		<Button
+        <android.support.v7.widget.AppCompatButton
 		    android:id="@+id/ok"
+            style="@style/ownCloud.Button"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="1"
 		    android:text="@string/common_ok" />
-		
-        <Button
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/cancel"
+            style="@style/ownCloud.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

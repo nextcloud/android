@@ -16,6 +16,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Malfermi</string>
   <string name="prefs_category_general">Ĝeneralo</string>
   <string name="prefs_category_more">Pli</string>
   <string name="prefs_accounts">Kontoj</string>
@@ -124,9 +125,7 @@
   <string name="confirmation_remove_alert">Ĉu vi vere volas forigi %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ĉu vi vere volas forigi %1$s kaj ĝia enhavo?</string>
   <string name="confirmation_remove_local">Nur loka</string>
-  <string name="confirmation_remove_folder_local">Nur lokaj enhavoj</string>
-  <string name="confirmation_remove_remote">Forigi el la servilo</string>
-  <string name="confirmation_remove_remote_and_local">Kaj malloka kaj loka</string>
+  <string name="confirmation_remove_folder_local">Nur loka</string>
   <string name="remove_success_msg">Forigo sukcesis</string>
   <string name="remove_fail_msg">Forigo ne eblis plenumiĝi</string>
   <string name="rename_dialog_title">Enigu novan nomon</string>
@@ -184,6 +183,9 @@
   <string name="actionbar_move">Movi</string>
   <string name="folder_picker_choose_button_text">Elekti</string>
   <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
+  <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
   <string name="prefs_category_security">Sekuro</string>
   <string name="auth_host_address">Servila adreso</string>
+  <string name="file_list__footer__file">1 dosiero</string>
+  <string name="file_list__footer__files">%1$d dosieroj</string>
 </resources>

@@ -2,8 +2,7 @@ language: android
 android:
   components:
     - build-tools-22.0.1
-    - android-19
-    - android-16
+    - android-22
 before_install:
   - rm pom.xml
 script:

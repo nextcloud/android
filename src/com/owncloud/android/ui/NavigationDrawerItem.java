@@ -24,6 +24,7 @@ public class NavigationDrawerItem {
 
     private String mTitle;
     private String mContentDescription;
+    private int mIcon;
 
     // Constructors
     public NavigationDrawerItem(){}
@@ -32,9 +33,10 @@ public class NavigationDrawerItem {
         mTitle = title;
     }
 
-    public NavigationDrawerItem(String title, String contentDescription){
+    public NavigationDrawerItem(String title, String contentDescription, int icon){
         mTitle = title;
         mContentDescription = contentDescription;
+        mIcon = icon;
     }
 
     // Getters and Setters
@@ -52,5 +54,13 @@ public class NavigationDrawerItem {
 
     public void setContentDescription(String contentDescription) {
         this.mContentDescription = contentDescription;
+    }
+
+    public int getIcon() {
+        return mIcon;
+    }
+
+    public void setIcon(int icon) {
+        this.mIcon = icon;
     }
 }

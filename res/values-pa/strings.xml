@@ -89,8 +89,7 @@
   <string name="common_rename">ਨਾਂ ਬਦਲੋ</string>
   <string name="common_remove">ਹਟਾਓ</string>
   <string name="confirmation_remove_local">ਕੇਵਲ ਲੋਕਲ</string>
-  <string name="confirmation_remove_remote">ਸਰਵਰ ਤੋਂ ਹਟਾਓ</string>
-  <string name="confirmation_remove_remote_and_local">ਰਿਮੋਟ ਤੇ ਲੋਕਲ</string>
+  <string name="confirmation_remove_folder_local">ਕੇਵਲ ਲੋਕਲ</string>
   <string name="wait_a_moment">ਪਲ਼ ਭਰ ਲਈ ਉਡੀਕੋ</string>
   <string name="filedisplay_no_file_selected">ਕੋਈ ਫਾਇਲ ਨਹੀਂ ਚੁਣੀ ਗਈ</string>
   <string name="ssl_validator_header">ਇਹ ਸਾਈਟ ਦੀ ਪਛਾਣ ਦੀ ਜਾਂਚ ਨਹੀਂ ਕੀਤੀ ਜਾ ਸਕੀ ਹੈ</string>

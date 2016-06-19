@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Open</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">More</string>
   <string name="prefs_accounts">Accounts</string>
@@ -194,9 +195,7 @@
   <string name="confirmation_remove_alert">Do you really want to remove %1$s?</string>
   <string name="confirmation_remove_folder_alert">Do you really want to remove %1$s and its contents?</string>
   <string name="confirmation_remove_local">Local only</string>
-  <string name="confirmation_remove_folder_local">Local contents only</string>
-  <string name="confirmation_remove_remote">Remove from server</string>
-  <string name="confirmation_remove_remote_and_local">Remote and local</string>
+  <string name="confirmation_remove_folder_local">Local only</string>
   <string name="remove_success_msg">Removal succeeded</string>
   <string name="remove_fail_msg">Removal failed</string>
   <string name="rename_dialog_title">Enter a new name</string>
@@ -279,7 +278,7 @@
   <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
   <string name="prefs_category_accounts">Accounts</string>
   <string name="prefs_add_account">Add account</string>
-  <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected to an unsecured route.</string>
+  <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Send History</string>
   <string name="log_send_no_mail_app">No app for sending logs found. Install mail app!</string>
@@ -295,6 +294,7 @@
   <string name="move_file_invalid_overwrite">The file exists already in the destination folder</string>
   <string name="move_file_error">An error occurred whilst trying to move this file or folder</string>
   <string name="forbidden_permissions_move">to move this file</string>
+  <string name="copy_file_invalid_overwrite">The file exists already in the destination folder</string>
   <string name="prefs_category_instant_uploading">Instant Uploads</string>
   <string name="prefs_category_security">Security</string>
   <string name="prefs_instant_video_upload_path_title">Upload Video Path</string>

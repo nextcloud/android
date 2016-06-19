@@ -21,6 +21,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:gravity="center"
+	android:padding="16dp"
     android:orientation="vertical" >
 
 	<TextView
@@ -28,9 +29,10 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
+		android:paddingBottom="16dp"
 		android:text="@string/ssl_validator_header"
-		android:padding="5dp"
 		android:textAppearance="?android:attr/textAppearanceMedium"
+		android:textColor="@android:color/black"
 		 />
     
 	<TextView
@@ -39,7 +41,7 @@
 		android:layout_height="wrap_content"
 		android:layout_weight="0"
 		android:layout_gravity="left"
-		android:paddingLeft="20dp"
+		android:paddingLeft="8dp"
 		android:text="@string/ssl_validator_reason_cert_not_trusted"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
@@ -50,7 +52,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="left"
-		android:paddingLeft="20dp"
+		android:paddingLeft="8dp"
 		android:text="@string/ssl_validator_reason_cert_expired"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
@@ -60,7 +62,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="left"
-		android:paddingLeft="20dp"
+		android:paddingLeft="8dp"
 		android:text="@string/ssl_validator_reason_cert_not_yet_valid"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
@@ -70,7 +72,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="left"
-		android:paddingLeft="20dp"
+		android:paddingLeft="8dp"
 		android:text="@string/ssl_validator_reason_hostname_not_verified"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
@@ -80,7 +82,7 @@
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="left"
-		android:paddingLeft="20dp"
+		android:paddingLeft="8dp"
 		android:text="@string/ssl_validator_no_info_about_error"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		 />
@@ -88,7 +90,7 @@
     <ScrollView 
         android:id="@+id/details_scroll"
         android:visibility="gone" 
-    	android:padding="20dp"
+    	android:padding="8dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -422,7 +424,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 		android:layout_weight="0"
-		android:padding="5dp"
+		android:paddingTop="16dp"
         android:text="@string/ssl_validator_question"
         android:textAppearance="?android:attr/textAppearanceMedium"
         >
@@ -431,29 +433,31 @@
 	<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-		android:layout_weight="0"
         android:gravity="center" >
 
-        <Button
+		<android.support.v7.widget.AppCompatButton
             android:id="@+id/cancel"
+			style="@style/Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/common_cancel" />
+            android:text="@string/common_no" />
 
-        <Button
+		<android.support.v7.widget.AppCompatButton
             android:id="@+id/details_btn"
+			style="@style/Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:text="@string/ssl_validator_btn_details_see" />
 
-        <Button
+		<android.support.v7.widget.AppCompatButton
             android:id="@+id/ok"
+			style="@style/Button.Borderless"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/common_ok" />
+            android:text="@string/common_yes" />
 
     </LinearLayout>
 

@@ -1,8 +1,3 @@
-
-[submodule "owncloud-android-library"]
-	path = owncloud-android-library
-	url = git://github.com/owncloud/android-library.git
-	branch = master
 [submodule "ocdoc"]
 	path = user_manual/ocdoc
 	url = https://github.com/owncloud/documentation

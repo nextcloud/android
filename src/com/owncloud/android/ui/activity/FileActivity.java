@@ -35,18 +35,20 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
@@ -76,8 +78,6 @@ import com.owncloud.android.ui.NavigationDrawerItem;
 import com.owncloud.android.ui.adapter.NavigationDrawerListAdapter;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
-import com.owncloud.android.ui.fragment.FileDetailFragment;
-import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.util.ArrayList;
@@ -87,7 +87,7 @@ import java.util.ArrayList;
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud
  * {@link Account}s .
  */
-public class FileActivity extends ActionBarActivity
+public class FileActivity extends AppCompatActivity
         implements OnRemoteOperationListener, ComponentsGetter {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
@@ -291,7 +291,7 @@ public class FileActivity extends ActionBarActivity
         // Sync the toggle state after onRestoreInstanceState has occurred.
         if (mDrawerToggle != null) {
             mDrawerToggle.syncState();
-            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+            if (isDrawerOpen()) {
                 getSupportActionBar().setTitle(R.string.app_name);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
             }
@@ -306,6 +306,37 @@ public class FileActivity extends ActionBarActivity
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        if (isDrawerOpen()) {
+            closeNavDrawer();
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    /**
+     * checks if the drawer exists and is opened.
+     *
+     * @return <code>true</code> if the drawer is open, else <code>false</code>
+     */
+    public boolean isDrawerOpen() {
+        if(mDrawerLayout != null) {
+            return mDrawerLayout.isDrawerOpen(GravityCompat.START);
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * closes the navigation drawer.
+     */
+    public void closeNavDrawer() {
+        if(mDrawerLayout != null) {
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        }
+    }
+
     protected void initDrawer(){
         // constant settings for action bar when navigation drawer is inited
         getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
@@ -313,7 +344,7 @@ public class FileActivity extends ActionBarActivity
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         // Notification Drawer
-        LinearLayout navigationDrawerLayout = (LinearLayout) findViewById(R.id.left_drawer);
+        RelativeLayout navigationDrawerLayout = (RelativeLayout) findViewById(R.id.left_drawer);
         mDrawerList = (ListView) navigationDrawerLayout.findViewById(R.id.drawer_list);
 
         // TODO re-enable when "Accounts" is available in Navigation Drawer
@@ -331,6 +362,14 @@ public class FileActivity extends ActionBarActivity
 //            username.setText(account.name.substring(0, lastAtPos));
 //        }
 
+        // Display username in drawer
+        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        if (account != null) {
+            TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
+            int lastAtPos = account.name.lastIndexOf("@");
+            username.setText(account.name.substring(0, lastAtPos));
+        }
+
         // load slide menu items
         mDrawerTitles = getResources().getStringArray(R.array.drawer_items);
 
@@ -346,7 +385,8 @@ public class FileActivity extends ActionBarActivity
         // mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0],
         // mDrawerContentDescriptions[0]));
         // All Files
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0]));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[0], mDrawerContentDescriptions[0],
+                R.drawable.ic_folder_open));
 
         // TODO Enable when "On Device" is recovered
         // On Device
@@ -354,11 +394,12 @@ public class FileActivity extends ActionBarActivity
         //        mDrawerContentDescriptions[2]));
 
         // Settings
-        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1]));
+        mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[1], mDrawerContentDescriptions[1],
+                R.drawable.ic_settings));
         // Logs
         if (BuildConfig.DEBUG) {
             mDrawerItems.add(new NavigationDrawerItem(mDrawerTitles[2],
-                    mDrawerContentDescriptions[2]));
+                    mDrawerContentDescriptions[2],R.drawable.ic_log));
         }
 
         // setting the nav drawer list adapter
@@ -366,12 +407,8 @@ public class FileActivity extends ActionBarActivity
                 mDrawerItems);
         mDrawerList.setAdapter(mNavigationDrawerAdapter);
 
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,
-                mDrawerLayout,
-                R.drawable.ic_drawer,
-                R.string.app_name,
-                R.string.drawer_close) {
+
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,R.string.drawer_open,R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
@@ -388,13 +425,13 @@ public class FileActivity extends ActionBarActivity
                 invalidateOptionsMenu();
             }
         };
-
-        //mDrawerToggle.setDrawerIndicatorEnabled(true);
+        
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.setDrawerIndicatorEnabled(false);
     }
 
     /**
@@ -473,7 +510,7 @@ public class FileActivity extends ActionBarActivity
      */
     private void swapToDefaultAccount() {
         // default to the most recently used account
-        Account newAccount  = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+        Account newAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         if (newAccount == null) {
             /// no account available: force account creation
             createFirstAccount();
@@ -514,7 +551,11 @@ public class FileActivity extends ActionBarActivity
         outState.putBoolean(FileActivity.EXTRA_FROM_NOTIFICATION, mFromNotification);
         outState.putLong(KEY_WAITING_FOR_OP_ID, mFileOperationsHelper.getOpIdWaitingFor());
         outState.putBoolean(KEY_TRY_SHARE_AGAIN, mTryShareAgain);
-        outState.putString(KEY_ACTION_BAR_TITLE, getSupportActionBar().getTitle().toString());
+        if(getSupportActionBar().getTitle() != null) {
+            // Null check in case the actionbar is used in ActionBar.NAVIGATION_MODE_LIST
+            // since it doesn't have a title then
+            outState.putString(KEY_ACTION_BAR_TITLE, getSupportActionBar().getTitle().toString());
+        }
     }
 
 
@@ -561,7 +602,7 @@ public class FileActivity extends ActionBarActivity
     }
 
     /**
-     * @return  'True' when the Activity is finishing to enforce the setup of a new account.
+     * @return 'True' when the Activity is finishing to enforce the setup of a new account.
      */
     protected boolean isRedirectingToSetupAccount() {
         return mRedirectingToSetupAccount;
@@ -711,6 +752,7 @@ public class FileActivity extends ActionBarActivity
     }
 
 
+
     private void onCreateShareOperationFinish(CreateShareOperation operation,
                                               RemoteOperationResult result) {
         dismissLoadingDialog();
@@ -816,7 +858,7 @@ public class FileActivity extends ActionBarActivity
     /**
      * Dismiss loading dialog
      */
-    public void dismissLoadingDialog(){
+    public void dismissLoadingDialog() {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag != null) {
             LoadingDialog loading = (LoadingDialog) frag;

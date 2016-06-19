@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Поставке</string>
   <string name="drawer_item_logs">Записници</string>
   <string name="drawer_close">Затвори</string>
+  <string name="drawer_open">Отвори</string>
   <string name="prefs_category_general">Опште</string>
   <string name="prefs_category_more">Остало</string>
   <string name="prefs_accounts">Налози</string>
@@ -200,9 +201,7 @@
   <string name="confirmation_remove_alert">Желите да уклоните %1$s?</string>
   <string name="confirmation_remove_folder_alert">Желите да уклоните %1$s и њен садржај?</string>
   <string name="confirmation_remove_local">Само локално</string>
-  <string name="confirmation_remove_folder_local">Само локални садржај</string>
-  <string name="confirmation_remove_remote">Уклони са сервера</string>
-  <string name="confirmation_remove_remote_and_local">Удаљено и локално</string>
+  <string name="confirmation_remove_folder_local">Само локално</string>
   <string name="remove_success_msg">Уклањање успешно</string>
   <string name="remove_fail_msg">Уклањање неуспешно</string>
   <string name="rename_dialog_title">Унесите нов назив</string>
@@ -286,7 +285,6 @@
   <string name="downloader_download_file_not_found">Фајл није више доступан на серверу</string>
   <string name="prefs_category_accounts">Налози</string>
   <string name="prefs_add_account">Додај налог</string>
-  <string name="auth_redirect_non_secure_connection_title">Безбедна веза је преусмерена на небезбедну руту</string>
   <string name="actionbar_logger">Записници</string>
   <string name="log_send_history_button">Историјат слања</string>
   <string name="log_send_no_mail_app">Нема начина за слање записника. Инсталирајте апликацију е-поште!</string>
@@ -302,6 +300,7 @@
   <string name="move_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
   <string name="move_file_error">Дошло је до грешке при премештању фајла или фасцикле</string>
   <string name="forbidden_permissions_move">да преместите овај фајл</string>
+  <string name="copy_file_invalid_overwrite">Фајл већ постоји у одредишној фасцикли</string>
   <string name="prefs_category_instant_uploading">Тренутна отпремања</string>
   <string name="prefs_category_security">Безбедност</string>
   <string name="prefs_instant_video_upload_path_title">Путања отпремања видеа</string>

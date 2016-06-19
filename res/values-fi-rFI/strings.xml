@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Asetukset</string>
   <string name="drawer_item_logs">Lokit</string>
   <string name="drawer_close">Sulje</string>
+  <string name="drawer_open">Avaa</string>
   <string name="prefs_category_general">Yleiset</string>
   <string name="prefs_category_more">Enemmän</string>
   <string name="prefs_accounts">Tilit</string>
@@ -191,9 +192,9 @@
   <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
   <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
   <string name="confirmation_remove_local">Vain paikallinen</string>
-  <string name="confirmation_remove_folder_local">Vain paikallinen sisältö</string>
-  <string name="confirmation_remove_remote">Poista palvelimelta</string>
-  <string name="confirmation_remove_remote_and_local">Sekä etä- että paikallinen</string>
+  <string name="confirmation_remove_folder_local">Vain paikallinen</string>
+  <string name="confirmation_remove_remote">Palvelimelta</string>
+  <string name="confirmation_remove_remote_and_local">Etä ja paikallinen</string>
   <string name="remove_success_msg">Poistettu onnistuneesti</string>
   <string name="remove_fail_msg">Poistamista ei voitu suorittaa loppuun asti</string>
   <string name="rename_dialog_title">Anna uusi nimi</string>
@@ -245,8 +246,8 @@
   <string name="conflict_title">Tiedoston ristiriita</string>
   <string name="conflict_message">Mitkä tiedostot haluat säilyttää? Jos valitset kummatkin versiot, paikallisen version tiedoston nimeen lisätään numero.</string>
   <string name="conflict_keep_both">Säilytä molemmat</string>
-  <string name="conflict_use_local_version">Käytä paikallista versiota</string>
-  <string name="conflict_use_server_version">Käytä palvelimen versiota</string>
+  <string name="conflict_use_local_version">paikallinen versio</string>
+  <string name="conflict_use_server_version">palvelimen versio</string>
   <string name="preview_image_description">Kuvan esikatselu</string>
   <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
   <string name="prefs_instant_upload_path_title">Lähetyspolku</string>
@@ -289,6 +290,9 @@
   <string name="move_file_not_found">Siirto ei onnistu. Tarkista, ettei tiedostoa ole jo olemassa</string>
   <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
   <string name="move_file_error">Tämän tiedoston tai kansion siirtoa yrittäessä tapahtui virhe</string>
+  <string name="copy_file_not_found">Kopiointi epäonnistui. Tarkista onko tiedostoa olemassa</string>
+  <string name="copy_file_invalid_overwrite">Tiedosto on jo kohdekansiossa.</string>
+  <string name="copy_file_error">Tätä tiedostoa tai kansiota kopioitaessa tapahtui virhe</string>
   <string name="prefs_category_instant_uploading">Välittömät lähetykset</string>
   <string name="prefs_category_security">Tietoturva</string>
   <string name="shared_subject_header">jaettu</string>

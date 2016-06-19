@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Настройки</string>
   <string name="drawer_item_logs">Журналы</string>
   <string name="drawer_close">Закрыть</string>
+  <string name="drawer_open">Открыть</string>
   <string name="prefs_category_general">Основные</string>
   <string name="prefs_category_more">Больше</string>
   <string name="prefs_accounts">Учётные записи</string>
@@ -201,9 +202,7 @@
   <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>
   <string name="confirmation_remove_folder_alert">Вы действительно хотите удалить %1$s и его содержимое?</string>
   <string name="confirmation_remove_local">Только локально</string>
-  <string name="confirmation_remove_folder_local">Только локальные данные</string>
-  <string name="confirmation_remove_remote">Удалить с сервера</string>
-  <string name="confirmation_remove_remote_and_local">Удалённо и локально</string>
+  <string name="confirmation_remove_folder_local">Только локально</string>
   <string name="remove_success_msg">Удаление завершено</string>
   <string name="remove_fail_msg">Ошибка удаления</string>
   <string name="rename_dialog_title">Введите новое имя</string>
@@ -255,6 +254,8 @@
   <string name="instant_upload_on_wifi">Загрузка изображений только через Wi-Fi</string>
   <string name="instant_video_upload_on_wifi">Загрузка видео только через WiFi</string>
   <string name="instant_upload_path">/InstantUpload</string>
+  <string name="conflict_title">Конфликт файлов</string>
+  <string name="conflict_message">Какие файлы Вы хотите сохранить? При выборе обеих версий, к названию локального файла будет добавлена цифра</string>
   <string name="conflict_keep_both">Сохранить оба</string>
   <string name="preview_image_description">Предпросмотр</string>
   <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
@@ -287,7 +288,7 @@
   <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
   <string name="prefs_category_accounts">Учётные записи</string>
   <string name="prefs_add_account">Добавить учетную запись</string>
-  <string name="auth_redirect_non_secure_connection_title">Защищённое соединение перенаправлено по небезопасному маршруту</string>
+  <string name="auth_redirect_non_secure_connection_title">Безопасное соединение перенаправлено через небезопасный маршрут.</string>
   <string name="actionbar_logger">Журналы</string>
   <string name="log_send_history_button">История Отправлений</string>
   <string name="log_send_no_mail_app">Приложение для отправки журнала не найдено. Установите почтовое приложение!</string>
@@ -303,6 +304,7 @@
   <string name="move_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
   <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или каталога</string>
   <string name="forbidden_permissions_move">для перемещения этого файла</string>
+  <string name="copy_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
   <string name="prefs_category_instant_uploading">Мгновенные загрузки</string>
   <string name="prefs_category_security">Безопасность</string>
   <string name="prefs_instant_video_upload_path_title">Путь для загрузки Видео</string>
@@ -310,6 +312,7 @@
   <string name="shared_subject_header">поделился</string>
   <string name="with_you_subject_header">с вами</string>
   <string name="subject_token">%1$s предоставил вам доступ к \"%2$s\"</string>
+  <string name="saml_subject_token">Вам предоставлен доступ к \"%1$s\"</string>
   <string name="auth_refresh_button">Обновить соединение</string>
   <string name="auth_host_address">Адрес сервера</string>
   <string name="common_error_out_memory">Недостаточно памяти</string>

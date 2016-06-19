@@ -28,6 +28,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -102,11 +103,17 @@ public class NavigationDrawerListAdapter extends BaseAdapter {
                 NavigationDrawerItem navItem = (NavigationDrawerItem) mAll.get(position);
 
                 View view = inflator.inflate(R.layout.drawer_list_item, null);
-                view.setMinimumHeight(40);
+
                 LinearLayout itemLayout = (LinearLayout) view.findViewById(R.id.itemLayout);
                 itemLayout.setContentDescription(navItem.getContentDescription());
+
                 TextView itemText = (TextView) view.findViewById(R.id.itemTitle);
                 itemText.setText(navItem.getTitle());
+
+                if(navItem.getIcon()!=0) {
+                    ImageView itemImage = (ImageView) view.findViewById(R.id.itemIcon);
+                    itemImage.setImageResource(navItem.getIcon());
+                }
 
                 return view;
             }

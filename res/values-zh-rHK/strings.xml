@@ -13,6 +13,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">開啟</string>
   <string name="prefs_category_general">一般</string>
   <string name="prefs_category_more">更多</string>
   <string name="prefs_accounts">帳號</string>
@@ -71,7 +72,7 @@
   <string name="placeholder_filesize">389 KB</string>
   <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
   <string name="placeholder_media_time">12:23:45</string>
-  <string name="activity_chooser_send_file_title">傳送</string>
+  <string name="activity_chooser_send_file_title">發送</string>
   <string name="copy_link">複製連結</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">帳號</string>

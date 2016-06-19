@@ -42,7 +42,7 @@
         android:indeterminateOnly="true"
         android:layout_centerInParent="true"
         />
-    
+
     <third_parties.michaelOrtiz.TouchImageViewCustom
         android:id="@+id/image"
         android:layout_width="match_parent"
@@ -62,5 +62,5 @@
         android:text="@string/placeholder_sentence"
         android:textColor="@color/owncloud_blue_bright"
         />
-    
+
 </RelativeLayout>

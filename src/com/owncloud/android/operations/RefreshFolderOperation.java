@@ -252,8 +252,14 @@ public class RefreshFolderOperation extends RemoteOperation {
 
             if (!mIgnoreETag) {
                 // check if remote and local folder are different
-                mRemoteFolderChanged = 
-                        !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
+                String remoteFolderETag = remoteFolder.getEtag();
+                if (remoteFolderETag != null) {
+                    mRemoteFolderChanged =
+                            !(remoteFolderETag.equalsIgnoreCase(mLocalFolder.getEtag()));
+                } else {
+                    Log_OC.e(TAG, "Checked " + mAccount.name + remotePath + " : " +
+                            "No ETag received from server");
+                }
             }
 
             result = new RemoteOperationResult(ResultCode.OK);

@@ -23,6 +23,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">Aç</string>
   <string name="prefs_category_general">Ümumi</string>
   <string name="prefs_category_more">Daha da</string>
   <string name="prefs_accounts">Hesablar</string>
@@ -186,9 +187,7 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="confirmation_remove_alert">Siz həqiqətən %1$s silmək istəyirsiniz?</string>
   <string name="confirmation_remove_folder_alert">Siz həqiqətəndə %1$s və onun kontentini silmək istəyirsiniz?</string>
   <string name="confirmation_remove_local">Yalnız daxili</string>
-  <string name="confirmation_remove_folder_local">Yalnız daxili kontent</string>
-  <string name="confirmation_remove_remote">Serverdən sil</string>
-  <string name="confirmation_remove_remote_and_local">Uzaq və lokal</string>
+  <string name="confirmation_remove_folder_local">Yalnız daxili</string>
   <string name="remove_success_msg">Silmə uğurlu oldu</string>
   <string name="remove_fail_msg">Silmək mümkün olmadı</string>
   <string name="rename_dialog_title">Yeni adı daxil edin</string>
@@ -270,7 +269,6 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="downloader_download_file_not_found">Bu fayla serverdə artıq uzun müddətdir ki, çatmaq mümkün deyil</string>
   <string name="prefs_category_accounts">Hesablar</string>
   <string name="prefs_add_account">Hesab əlavə et</string>
-  <string name="auth_redirect_non_secure_connection_title">Təhlükəsiz qoşulma, təhlükəsiz olmayan istiqamətə yönlədirilmişdir</string>
   <string name="actionbar_logger">Jurnallar</string>
   <string name="log_send_history_button">Tarixçəni göndər</string>
   <string name="log_send_no_mail_app">Jurnalların ötürülməsi üçün proqram təminatı tapılmadı!</string>
@@ -286,6 +284,7 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="move_file_invalid_overwrite">Fayl artıq mənsəb qovluğunda mövcuddur</string>
   <string name="move_file_error">Fayl və ya qovluğun köçürülməsi müddətində səhv baş verdi</string>
   <string name="forbidden_permissions_move">bu faylı köçürtmək</string>
+  <string name="copy_file_invalid_overwrite">Fayl artıq mənsəb qovluğunda mövcuddur</string>
   <string name="prefs_category_instant_uploading">Anında yükləmələr</string>
   <string name="prefs_category_security">Təhlükəsizlik</string>
   <string name="prefs_instant_video_upload_path_title">Video ünvanını yüklə</string>

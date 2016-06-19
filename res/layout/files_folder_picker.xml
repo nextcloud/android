@@ -22,6 +22,18 @@
     android:background="@color/background_color"
     android:orientation="vertical" >
 
+    <ProgressBar android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:padding="0dp"
+        android:layout_margin="0dp"
+        style="@style/Widget.ownCloud.TopProgressBar"
+        android:indeterminate="false"
+        android:indeterminateOnly="false"
+        android:background="@color/background_color"
+        android:visibility="visible"
+        />
+
 	<FrameLayout 
 		android:layout_width="match_parent"
 		android:layout_height="0dip"
@@ -34,15 +46,17 @@
         android:gravity="center"
         android:orientation="horizontal" >
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/folder_picker_btn_cancel"
+            style="@style/ownCloud.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/common_cancel" />
 
-		<Button
+        <android.support.v7.widget.AppCompatButton
 		    android:id="@+id/folder_picker_btn_choose"
+            style="@style/ownCloud.Button"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_weight="1"

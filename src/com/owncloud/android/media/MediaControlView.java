@@ -43,6 +43,7 @@ import java.util.Formatter;
 import java.util.Locale;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.DisplayUtils;
 
 
 /**
@@ -220,7 +221,10 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         if (mProgress != null) {
             if (mProgress instanceof SeekBar) {
                 SeekBar seeker = (SeekBar) mProgress;
+                DisplayUtils.colorPreLollipopHorizontalSeekBar(seeker);
                 seeker.setOnSeekBarChangeListener(this);
+            } else {
+                DisplayUtils.colorPreLollipopHorizontalProgressBar(mProgress);
             }
             mProgress.setMax(1000);
         }

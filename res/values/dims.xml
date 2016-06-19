@@ -17,6 +17,16 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
-	<dimen name="file_icon_size">32dp</dimen>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">@dimen/standard_padding</dimen>
+    <dimen name="activity_vertical_margin">@dimen/standard_padding</dimen>
+    <dimen name="nav_drawer_width">260dp</dimen>
+
+    <dimen name="file_icon_size">32dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
+    <dimen name="standard_padding">16dp</dimen>
+    <dimen name="standard_margin">16dp</dimen>
+
+    <dimen name="two_line_primary_text_size">16sp</dimen>
+    <dimen name="two_line_secondary_text_size">14sp</dimen>
 </resources>

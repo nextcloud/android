@@ -25,35 +25,36 @@
     <RelativeLayout
             android:layout_width="0dip"
             android:layout_weight="1"
-            android:layout_marginLeft="?attr/listPreferredItemPaddingLeft"
-            android:layout_marginRight="?attr/listPreferredItemPaddingRight"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
+            android:layout_marginLeft="?attr/listPreferredItemPaddingLeft"
+            android:layout_marginRight="?attr/listPreferredItemPaddingRight"
             android:duplicateParentState="true">
 
         <TextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:textAppearance="?attr/textAppearanceListItemSmall"
-                android:singleLine="true"
-                android:duplicateParentState="true"
-                android:ellipsize="marquee"
-                android:fadingEdge="horizontal" />
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="?attr/textAppearanceListItemSmall"
+            android:singleLine="true"
+            android:duplicateParentState="true"
+            android:ellipsize="marquee"
+            android:fadingEdge="horizontal" />
 
         <TextView
-                android:id="@+id/shortcut"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:singleLine="true"
-                android:duplicateParentState="true" />
+            android:id="@+id/shortcut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_alignParentLeft="true"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:singleLine="true"
+            android:duplicateParentState="true" />
 
     </RelativeLayout>
 
     <!-- Checkbox, and/or radio button will be inserted here. -->
 
 </android.support.v7.internal.view.menu.ListMenuItemView>
-<!-- From: file:/usr/local/google/buildbot/repo_clients/https___googleplex-android.googlesource.com_a_platform_manifest.git/klp-ub-dev/frameworks/support/v7/appcompat/res/layout/abc_list_menu_item_layout.xml -->

@@ -17,6 +17,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">פתיחה</string>
   <string name="prefs_category_general">כללי</string>
   <string name="prefs_category_more">יותר</string>
   <string name="prefs_accounts">חשבונות</string>
@@ -172,9 +173,7 @@
   <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>
   <string name="confirmation_remove_folder_alert">האם באמת להסיר %1$s ואת כל התכולה?</string>
   <string name="confirmation_remove_local">מקומי בלבד</string>
-  <string name="confirmation_remove_folder_local">תכנים מקומיים בלבד</string>
-  <string name="confirmation_remove_remote">הסרה מהשרת</string>
-  <string name="confirmation_remove_remote_and_local">מרוחק ומקומי</string>
+  <string name="confirmation_remove_folder_local">מקומי בלבד</string>
   <string name="remove_success_msg">ההסרה הצליחה</string>
   <string name="remove_fail_msg">ההסרה נכשלה</string>
   <string name="rename_dialog_title">נא להזין שם חדש</string>
@@ -251,6 +250,7 @@
   <string name="downloader_download_file_not_found">הקובץ אינו זמין יותר על השרת</string>
   <string name="prefs_category_accounts">חשבונות</string>
   <string name="prefs_add_account">הוספת חשבון</string>
+  <string name="auth_redirect_non_secure_connection_title">חיבור מאובטח מנותב דרך נתיב לא מאובטח</string>
   <string name="folder_picker_choose_button_text">בחירה</string>
   <string name="prefs_category_security">אבטחה</string>
   <string name="auth_host_address">כתובת שרת</string>

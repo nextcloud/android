@@ -25,28 +25,46 @@
 
     <!-- The main content view -->
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background_color"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:id="@+id/ListLayout"
-        android:contentDescription="@string/list_layout"
-        >
+        android:orientation="vertical">
 
+        <ProgressBar android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:padding="0dp"
+            android:layout_margin="0dp"
+            style="@style/Widget.ownCloud.TopProgressBar"
+            android:indeterminate="false"
+            android:indeterminateOnly="false"
+            android:background="@color/background_color"
+            android:visibility="visible"
+            />
 
-        <FrameLayout
-            android:id="@+id/left_fragment_container"
-            android:layout_width="0dp"
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:background="@color/background_color"
 
-        <FrameLayout
-            android:id="@+id/right_fragment_container"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2" />
+            android:orientation="horizontal"
+            android:id="@+id/ListLayout"
+            android:contentDescription="@string/list_layout"
+            >
+
+            <FrameLayout
+                android:id="@+id/left_fragment_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <FrameLayout
+                android:id="@+id/right_fragment_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <include

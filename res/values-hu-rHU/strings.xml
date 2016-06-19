@@ -18,6 +18,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Beállítások</string>
+  <string name="drawer_open">Megnyitás</string>
   <string name="prefs_category_general">Általános</string>
   <string name="prefs_category_more">Több</string>
   <string name="prefs_accounts">Fiókok</string>
@@ -169,9 +170,7 @@
   <string name="confirmation_remove_alert">Tényleg el akarod távolítani %1$s?</string>
   <string name="confirmation_remove_folder_alert">Tényleg el akarod távolítani a %1$s és tartalmát?</string>
   <string name="confirmation_remove_local">Csak a helyi példány</string>
-  <string name="confirmation_remove_folder_local">Csak a helyi tartalmat</string>
-  <string name="confirmation_remove_remote">Törlés a szerverről</string>
-  <string name="confirmation_remove_remote_and_local">A szerveren levő és a helyi példány törlése</string>
+  <string name="confirmation_remove_folder_local">Csak a helyi példány</string>
   <string name="remove_success_msg">Az eltávolítás sikerült</string>
   <string name="remove_fail_msg">Az eltávolítás nem sikerült</string>
   <string name="rename_dialog_title">Adj meg egy új nevet</string>

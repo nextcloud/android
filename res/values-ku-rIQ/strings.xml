@@ -9,6 +9,7 @@
   <!--<string name="drawer_item_accounts">Accounts</string>-->
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
+  <string name="drawer_open">بیکەوە</string>
   <string name="prefs_category_general">گشتی</string>
   <string name="prefs_accounts">هەژمارەکان</string>
   <string name="prefs_help">یارمەتی</string>

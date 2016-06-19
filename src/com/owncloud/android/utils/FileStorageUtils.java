@@ -46,12 +46,12 @@ import android.webkit.MimeTypeMap;
  * Static methods to help in access to local file system.
  */
 public class FileStorageUtils {
-    public static Integer mSortOrder;
-    public static Boolean mSortAscending;
     public static final Integer SORT_NAME = 0;
     public static final Integer SORT_DATE = 1;
     public static final Integer SORT_SIZE = 2;
-  
+    public static Integer mSortOrder = SORT_NAME;
+    public static Boolean mSortAscending = true;
+
     
     //private static final String LOG_TAG = "FileStorageUtils";
 

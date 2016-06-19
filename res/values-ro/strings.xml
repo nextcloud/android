@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Setări</string>
   <string name="drawer_item_logs">Înregistrări</string>
   <string name="drawer_close">Închide</string>
+  <string name="drawer_open">Deschide</string>
   <string name="prefs_category_general">General</string>
   <string name="prefs_category_more">Mai mult</string>
   <string name="prefs_accounts">Conturi</string>
@@ -194,14 +195,15 @@
   <string name="auth_can_not_auth_against_server">Nu se poate autentifica cu acest server</string>
   <string name="auth_account_does_not_exist">Contul nu există încă în dispozitiv</string>
   <string name="favorite">Favorit</string>
+  <string name="unfavorite">Defavoritați</string>
   <string name="common_rename">Redenumește</string>
   <string name="common_remove">Elimină</string>
   <string name="confirmation_remove_alert">Doriti sigur sa stergeti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Sigur vrei să elimini %1$s și conținutul său?</string>
   <string name="confirmation_remove_local">Doar local</string>
-  <string name="confirmation_remove_folder_local">Doar continut local</string>
-  <string name="confirmation_remove_remote">Elimină de pe server</string>
-  <string name="confirmation_remove_remote_and_local">De la distanță și local</string>
+  <string name="confirmation_remove_folder_local">Doar local</string>
+  <string name="confirmation_remove_remote">De pe server</string>
+  <string name="confirmation_remove_remote_and_local">Ambele</string>
   <string name="remove_success_msg">Eliminat cu succes</string>
   <string name="remove_fail_msg">Eliminarea nu a reușit</string>
   <string name="rename_dialog_title">Introduceţi un nou nume</string>
@@ -253,7 +255,11 @@
   <string name="instant_upload_on_wifi">Încarcă poze doar prin WiFi</string>
   <string name="instant_video_upload_on_wifi">Încarcă videoclipuri doar via WiFi</string>
   <string name="instant_upload_path">/Încărcare instantă</string>
+  <string name="conflict_title">Conflict de fișiere</string>
+  <string name="conflict_message">Care fișiere doriți să păstrați? Dacă selectați „ambele”, fișierului local i se va adăuga un număr numelui său.</string>
   <string name="conflict_keep_both">Pastreaza amandoua</string>
+  <string name="conflict_use_local_version">versiunea locală</string>
+  <string name="conflict_use_server_version">versiunea de pe server</string>
   <string name="preview_image_description">Previzualizare imagine</string>
   <string name="preview_image_error_unknown_format">Aceasta imagine nu poate fi arătată</string>
   <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
@@ -265,7 +271,7 @@
   <string name="unshare_link_file_error">A apărut o eroare în timp ce încerca să departajeze sau unshare acest fișier sau folder</string>
   <string name="share_link_password_title">Introduceţi parola</string>
   <string name="share_link_empty_password">Trebuie să introduci o parolă</string>
-  <string name="activity_chooser_send_file_title">Expediază</string>
+  <string name="activity_chooser_send_file_title">Trimite</string>
   <string name="copy_link">Link copiat</string>
   <string name="clipboard_text_copied">Copiat în clipboard</string>
   <string name="error_cant_bind_to_operations_service">Eroare critică: nu se pot executa operațiunile</string>
@@ -284,7 +290,6 @@
   <string name="downloader_download_file_not_found">Fișierul nu mai este disponibil pe server</string>
   <string name="prefs_category_accounts">Conturi</string>
   <string name="prefs_add_account">Adaugă cont</string>
-  <string name="auth_redirect_non_secure_connection_title">Conexiunea securizată este redirecționată către un traseu neasigurat.</string>
   <string name="actionbar_logger">Înregistrări</string>
   <string name="log_send_history_button">Trimite Istoria</string>
   <string name="log_send_no_mail_app">App-ul de trimitere a inregistrărilor nu a fost găsit. Instalează mail app-ul!</string>
@@ -300,6 +305,7 @@
   <string name="move_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
   <string name="move_file_error">O eroare apare la transferarea acestui fișier sau dosar</string>
   <string name="forbidden_permissions_move">pentru a muta acest fișier</string>
+  <string name="copy_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
   <string name="prefs_category_instant_uploading">Încărcări instante</string>
   <string name="prefs_category_security">Securitate</string>
   <string name="prefs_instant_video_upload_path_title">Calea de încărcare Video</string>
@@ -307,6 +313,7 @@
   <string name="shared_subject_header">partajat</string>
   <string name="with_you_subject_header">cu tine</string>
   <string name="subject_token">%1$s a partajat fișierul \"%2$s\" cu tine</string>
+  <string name="saml_subject_token">„%1$s” a fost partajat cu dumneavoastră</string>
   <string name="auth_refresh_button">Reîmprospătează conexiunea</string>
   <string name="auth_host_address">Adresa server-ului</string>
   <string name="common_error_out_memory">Memorie insuficientă </string>

@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Configurações</string>
   <string name="drawer_item_logs">Logs</string>
   <string name="drawer_close">Fechar</string>
+  <string name="drawer_open">Abrir</string>
   <string name="prefs_category_general">Geral</string>
   <string name="prefs_category_more">Mais</string>
   <string name="prefs_accounts">Contas</string>
@@ -200,9 +201,9 @@
   <string name="confirmation_remove_alert">Você realmente deseja remover %1$s?</string>
   <string name="confirmation_remove_folder_alert">Você realmente deseja remover %1$s e seus conteúdos?</string>
   <string name="confirmation_remove_local">Somente local</string>
-  <string name="confirmation_remove_folder_local">Somente conteúdo local</string>
-  <string name="confirmation_remove_remote">Remover do servidor</string>
-  <string name="confirmation_remove_remote_and_local">Ambos remoto e local</string>
+  <string name="confirmation_remove_folder_local">Somente local</string>
+  <string name="confirmation_remove_remote">Do servidor</string>
+  <string name="confirmation_remove_remote_and_local">Remoto &amp; local</string>
   <string name="remove_success_msg">Removido com sucesso</string>
   <string name="remove_fail_msg">Erro ao remover</string>
   <string name="rename_dialog_title">Digite um novo nome</string>
@@ -257,8 +258,8 @@
   <string name="conflict_title">Conflito de arquivo</string>
   <string name="conflict_message">Quais arquivos você deseja manter? Se você selecionar ambas as versões, o arquivo local terá um número adicionado ao seu nome.</string>
   <string name="conflict_keep_both">Manter ambos</string>
-  <string name="conflict_use_local_version">Usar a versão local</string>
-  <string name="conflict_use_server_version">Usar a versão servidor</string>
+  <string name="conflict_use_local_version">versão local</string>
+  <string name="conflict_use_server_version">versão do servidor</string>
   <string name="preview_image_description">Pré-visualização da imagem</string>
   <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
   <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
@@ -272,7 +273,7 @@
   <string name="share_link_password_title">Digite uma senha</string>
   <string name="share_link_empty_password">Você deve digitar uma senha</string>
   <string name="activity_chooser_send_file_title">Enviar</string>
-  <string name="copy_link">Copiar o link</string>
+  <string name="copy_link">Copiar link</string>
   <string name="clipboard_text_copied">Copiado para área de transferência</string>
   <string name="error_cant_bind_to_operations_service">Erro crítico: não pode executar operações</string>
   <string name="network_error_socket_exception">Ocorreu um erro durante a conexão com o servidor.</string>
@@ -290,7 +291,7 @@
   <string name="downloader_download_file_not_found">Este arquivo não mais está disponível neste servidor</string>
   <string name="prefs_category_accounts">Contas</string>
   <string name="prefs_add_account">Adicionar uma conta</string>
-  <string name="auth_redirect_non_secure_connection_title">Conexão segura esta redirecionada para uma rota não segura.</string>
+  <string name="auth_redirect_non_secure_connection_title">A conexão segura está redirecionada através de uma rota insegura.</string>
   <string name="actionbar_logger">Logs</string>
   <string name="log_send_history_button">Enviar Histórico</string>
   <string name="log_send_no_mail_app">Não foi encontrado nenhum app para envio de logs. Instale o mail app!</string>
@@ -306,6 +307,11 @@
   <string name="move_file_invalid_overwrite">O arquivo já existe na pasta de destino</string>
   <string name="move_file_error">Ocorreu um erro ao tentar mover este arquivo ou pasta</string>
   <string name="forbidden_permissions_move">mover este arquivo</string>
+  <string name="copy_file_not_found">Não é possível copiar. Por favor verifique se o arquivo existe</string>
+  <string name="copy_file_invalid_into_descendent">Não é possível copiar uma pasta em uma descendente</string>
+  <string name="copy_file_invalid_overwrite">O arquivo já existe na pasta de destino</string>
+  <string name="copy_file_error">Ocorreu um erro ao tentar copiar este arquivo ou pasta</string>
+  <string name="forbidden_permissions_copy">para copiar este arquivo</string>
   <string name="prefs_category_instant_uploading">Envios Instantâneos</string>
   <string name="prefs_category_security">Segurança</string>
   <string name="prefs_instant_video_upload_path_title">Enviar o Caminho do Vídeo</string>

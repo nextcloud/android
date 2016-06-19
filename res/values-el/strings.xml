@@ -27,6 +27,7 @@
   <string name="drawer_item_settings">Ρυθμίσεις</string>
   <string name="drawer_item_logs">Αρχεία καταγραφών</string>
   <string name="drawer_close">Κλείσιμο</string>
+  <string name="drawer_open">Άνοιγμα</string>
   <string name="prefs_category_general">Γενικά</string>
   <string name="prefs_category_more">Περισσότερα</string>
   <string name="prefs_accounts">Λογαριασμοί</string>
@@ -200,9 +201,9 @@
   <string name="confirmation_remove_alert">Θέλετε στ\' αλήθεια να αφαιρέσετε το  %1$s;</string>
   <string name="confirmation_remove_folder_alert">Θέλετε στ\' αλήθεια να διαγράψετε το %1$s και τα περιεχόμενά του;</string>
   <string name="confirmation_remove_local">Μόνο τοπικά</string>
-  <string name="confirmation_remove_folder_local">Μόνο τοπικό περιεχόμενο</string>
-  <string name="confirmation_remove_remote">Αφαίρεση από το διακομιστή</string>
-  <string name="confirmation_remove_remote_and_local">Απομακρυσμένα και τοπικά</string>
+  <string name="confirmation_remove_folder_local">Μόνο τοπικά</string>
+  <string name="confirmation_remove_remote">Από το διακομιστή</string>
+  <string name="confirmation_remove_remote_and_local">Απομακρυσμένα &amp; τοπικά</string>
   <string name="remove_success_msg">Αφαίρεση επιτυχής</string>
   <string name="remove_fail_msg">Η αφαίρεση απέτυχε</string>
   <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
@@ -257,8 +258,8 @@
   <string name="conflict_title">Διένεξη αρχείων</string>
   <string name="conflict_message">Ποια αρχεία θέλετε να κρατήσετε; Αν επιλέξετε και τις δύο εκδοχές, στο τοπικό αρχείο θα προστεθεί ένας αριθμός στο όνομά του.</string>
   <string name="conflict_keep_both">Διατήρηση και των δύο</string>
-  <string name="conflict_use_local_version">Χρήση τοπικής εκδοχής</string>
-  <string name="conflict_use_server_version">Χρήση εκδοχής διακομιστή</string>
+  <string name="conflict_use_local_version">τοπική έκδοση</string>
+  <string name="conflict_use_server_version">έκδοση διακομιστή</string>
   <string name="preview_image_description">Προεπισκόπηση εικόνας</string>
   <string name="preview_image_error_unknown_format">Αυτή η εικόνα δεν μπορεί να προβληθεί</string>
   <string name="error__upload__local_file_not_copied">Το %1$s δεν μπόρεσε να αντιγραφεί στον τοπικό φάκελο %2$s</string>
@@ -273,7 +274,7 @@
   <string name="share_link_empty_password">Πρέπει να εισάγετε ένα κωδικό πρόσβασης.</string>
   <string name="activity_chooser_send_file_title">Αποστολή</string>
   <string name="copy_link">Αντιγραφή συνδέσμου</string>
-  <string name="clipboard_text_copied">Αντιγραφθηκε στο πρόχειρο</string>
+  <string name="clipboard_text_copied">Αντιγράφηκε στο πρόχειρο</string>
   <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργειών</string>
   <string name="network_error_socket_exception">Ένα σφάλμα προέκυψε κατά τη σύνδεση με το διακομιστή.</string>
   <string name="network_error_socket_timeout_exception">Ένα σφάλμα προέκυψε κατά την αναμονή για το διακομιστή, η λειτουργία δεν ήταν επιτυχής</string>
@@ -290,7 +291,7 @@
   <string name="downloader_download_file_not_found">Αυτό το αρχείο δεν είναι πια διαθέσιμο στο διακομιστή</string>
   <string name="prefs_category_accounts">Λογαριασμοί</string>
   <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
-  <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται σε μια μη ασφαλή διαδρομή.</string>
+  <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται μέσω μιας μη ασφαλούς διαδρομής.</string>
   <string name="actionbar_logger">Αρχεία καταγραφών</string>
   <string name="log_send_history_button">Αποστολή Ιστορικού</string>
   <string name="log_send_no_mail_app">Δεν εντοπίστηκε εφαρμογή αποστολής αναφορών συστήματος. Εγκαταστήστε την εφαρμογή Ηλ. Ταχυδρομείου!!</string>
@@ -306,6 +307,11 @@
   <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
   <string name="move_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια μετακίνησης αυτού του αρχείου ή φακέλου</string>
   <string name="forbidden_permissions_move">για μετακίνηση αυτού του αρχείου</string>
+  <string name="copy_file_not_found">Αδύνατη η αντιγραφή. Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
+  <string name="copy_file_invalid_into_descendent">Δεν είναι δυνατό να αντιγραφεί ο φάκελος σε παράγωγό του φάκελο</string>
+  <string name="copy_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
+  <string name="copy_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια αντιγραφής αυτού του αρχείου ή φακέλου</string>
+  <string name="forbidden_permissions_copy">για αντιγραφή αυτού του αρχείου</string>
   <string name="prefs_category_instant_uploading">Στιγμιαίες Μεταφορτώσεις</string>
   <string name="prefs_category_security">Ασφάλεια</string>
   <string name="prefs_instant_video_upload_path_title">Διαδρομή Μεταφόρτωσης Βίντεο</string>
