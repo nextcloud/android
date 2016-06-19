@@ -21,20 +21,20 @@
   <string name="uploader_wrn_no_account_title">هیچ هەژمارێک نه‌دۆزرایه‌وه‌</string>
   <string name="uploader_wrn_no_account_setup_btn_text">جێگیرکردن</string>
   <string name="uploader_wrn_no_account_quit_btn_text">دەرچوون</string>
-  <string name="uploader_info_uploading">بارکردن</string>
   <string name="filedetails_size">قەبارە:</string>
   <string name="filedetails_type">جۆر:</string>
   <string name="filedetails_created">درووستبووە:</string>
   <string name="filedetails_modified">گۆردراو:</string>
   <string name="filedetails_download">داگرتن</string>
+  <string name="action_share">هاوبەشی کردن</string>
   <string name="common_yes">بەڵێ</string>
   <string name="common_no">نەخێر</string>
   <string name="common_ok">باشە</string>
   <string name="common_cancel">لابردن</string>
-  <string name="common_save_exit">پاشکەوتکردن &amp; دەرچوون</string>
   <string name="common_error">هه‌ڵه</string>
   <string name="uploader_info_dirname">ناوی بوخچه</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">هەژمارەکان</string>
   <string name="auth_host_address">ناونیشانی ڕاژه</string>
+  <string name="share_search">بگەڕێ</string>
 </resources>

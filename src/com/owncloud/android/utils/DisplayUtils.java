@@ -28,15 +28,20 @@ import android.content.Context;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.os.Build;
+import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.Display;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 
+import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -52,6 +57,7 @@ public class DisplayUtils {
     private static final String OWNCLOUD_APP_NAME = "ownCloud";
     
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+    private static final int[] sizeScales = { 0, 0, 1, 1, 1, 2, 2, 2, 2 };
 
     private static Map<String, String> mimeType2HumanReadable;
 
@@ -72,19 +78,24 @@ public class DisplayUtils {
 
     /**
      * Converts the file size in bytes to human readable output.
-     * 
+     * <ul>
+     *     <li>appends a size suffix, e.g. B, KB, MB etc.</li>
+     *     <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
+     * </ul>
+     *
      * @param bytes Input file size
      * @return Like something readable like "12 MB"
      */
     public static String bytesToHumanReadable(long bytes) {
         double result = bytes;
-        int attachedsuff = 0;
-        while (result > 1024 && attachedsuff < sizeSuffixes.length) {
+        int attachedSuff = 0;
+        while (result > 1024 && attachedSuff < sizeSuffixes.length) {
             result /= 1024.;
-            attachedsuff++;
+            attachedSuff++;
         }
-        result = ((int) (result * 100)) / 100.;
-        return result + " " + sizeSuffixes[attachedsuff];
+
+        return new BigDecimal(result).setScale(
+                sizeScales[attachedSuff], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[attachedSuff];
     }
 
     /**
@@ -112,15 +123,6 @@ public class DisplayUtils {
         Date date = new Date(milliseconds);
         DateFormat df = DateFormat.getDateTimeInstance();
         return df.format(date);
-    }
-    
-    public static int getSeasonalIconId() {
-        if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) >= 354 &&
-                MainApp.getAppContext().getString(R.string.app_name).equals(OWNCLOUD_APP_NAME)) {
-            return R.drawable.winter_holidays_icon;
-        } else {
-            return R.drawable.icon;
-        }
     }
     
     /**
@@ -162,20 +164,15 @@ public class DisplayUtils {
     }
 
     /**
-     * Get the file extension if it is on path as type "content://.../DocInfo.doc"
-     * @param filepath: Content Uri converted to string format
-     * @return String: fileExtension (type '.pdf'). Empty if no extension
+     * calculates the relative time string based on the given modificaion timestamp.
+     *
+     * @param context the app's context
+     * @param modificationTimestamp the UNIX timestamp of the file modification time.
+     * @return a relative time string
      */
-    public static String getComposedFileExtension(String filepath) {
-        String fileExtension = "";
-        String fileNameInContentUri = filepath.substring(filepath.lastIndexOf("/"));
-
-        // Check if extension is included in uri
-        int pos = fileNameInContentUri.lastIndexOf('.');
-        if (pos >= 0) {
-            fileExtension = fileNameInContentUri.substring(pos);
-        }
-        return fileExtension;
+    public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp) {
+        return getRelativeDateTimeString(context, modificationTimestamp, DateUtils.SECOND_IN_MILLIS,
+                DateUtils.WEEK_IN_MILLIS, 0);
     }
 
     @SuppressWarnings("deprecation")
@@ -193,22 +190,19 @@ public class DisplayUtils {
         else if ((System.currentTimeMillis() - time) < 60 * 1000) {
             return c.getString(R.string.file_list_seconds_ago);
         } else {
-            // Workaround 2.x bug (see https://github.com/owncloud/android/issues/716)
-            if (    Build.VERSION.SDK_INT <= Build.VERSION_CODES.HONEYCOMB && 
-                    (System.currentTimeMillis() - time) > 24 * 60 * 60 * 1000   ) {
-                Date date = new Date(time);
-                date.setHours(0);
-                date.setMinutes(0);
-                date.setSeconds(0);
-                dateString = DateUtils.getRelativeDateTimeString(
-                        c, date.getTime(), minResolution, transitionResolution, flags
-                );
-            } else {
-                dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
+            dateString = DateUtils.getRelativeDateTimeString(c, time, minResolution, transitionResolution, flags);
+        }
+
+        String[] parts = dateString.toString().split(",");
+        if (parts.length == 2) {
+            if (parts[1].contains(":") && !parts[0].contains(":")) {
+                return parts[0];
+            } else if (parts[0].contains(":") && !parts[1].contains(":")) {
+                return parts[1];
             }
         }
-        
-        return dateString.toString().split(",")[0];
+        //dateString contains unexpected format. fallback: use relative date time string from android api as is.
+        return dateString.toString();
     }
 
     /**
@@ -272,5 +266,16 @@ public class DisplayUtils {
                 seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
             }
         }
+    }
+
+    /**
+     * set the owncloud standard colors for the snackbar.
+     *
+     * @param context the context relevant for setting the color according to the context's theme
+     * @param snackbar the snackbar to be colored
+     */
+    public static void colorSnackbar(Context context, Snackbar snackbar) {
+        // Changing action button text color
+        snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.white));
     }
 }

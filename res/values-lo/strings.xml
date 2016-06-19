@@ -7,5 +7,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="common_error_unknown">ຂໍ້ຜິດພາດທີ່ບໍ່ຮູ້ສາເຫດ</string>
+  <string name="uploads_view_upload_status_unknown_fail">ຂໍ້ຜິດພາດທີ່ບໍ່ຮູ້ສາເຫດ</string>
   <string name="empty"></string>
+  <string name="share_dialog_title">ການແບ່ງປັນ</string>
 </resources>

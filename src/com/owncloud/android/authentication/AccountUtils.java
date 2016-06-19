@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,7 +20,12 @@
 
 package com.owncloud.android.authentication;
 
-import java.util.Locale;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
@@ -28,12 +33,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.net.Uri;
-import android.preference.PreferenceManager;
+import java.util.Locale;
 
 public class AccountUtils {
 
@@ -108,6 +108,22 @@ public class AccountUtils {
         return false;
     }
     
+    /**
+     * Returns owncloud account identified by accountName or null if it does not exist.
+     * @param context
+     * @param accountName name of account to be returned
+     * @return owncloud account named accountName
+     */
+    public static Account getOwnCloudAccountByName(Context context, String accountName) {
+        Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
+                MainApp.getAccountType());
+        for (Account account : ocAccounts) {
+            if(account.name.equals(accountName))
+                return account;
+        }
+        return null;
+    }
+    
 
     public static boolean setCurrentOwnCloudAccount(Context context, String accountName) {
         boolean result = false;
@@ -178,7 +194,8 @@ public class AccountUtils {
                 for (Account account : ocAccounts) {
                     // build new account name
                     serverUrl = accountMgr.getUserData(account, Constants.KEY_OC_BASE_URL);
-                    username = account.name.substring(0, account.name.lastIndexOf('@'));
+                    username = com.owncloud.android.lib.common.accounts.AccountUtils.
+                            getUsernameForAccount(account);
                     newAccountName = com.owncloud.android.lib.common.accounts.AccountUtils.
                             buildAccountName(Uri.parse(serverUrl), username);
 
@@ -289,4 +306,15 @@ public class AccountUtils {
         return serverVersion;
     }
 
+    public static boolean hasSearchUsersSupport(Account account){
+        OwnCloudVersion serverVersion = null;
+        if (account != null) {
+            AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
+            String serverVersionStr = accountMgr.getUserData(account, Constants.KEY_OC_VERSION);
+            if (serverVersionStr != null) {
+                serverVersion = new OwnCloudVersion(serverVersionStr);
+            }
+        }
+        return (serverVersion != null ? serverVersion.isSearchUsersSupported() : false);
+    }
 }

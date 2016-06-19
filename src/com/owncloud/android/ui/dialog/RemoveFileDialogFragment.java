@@ -25,7 +25,6 @@ package com.owncloud.android.ui.dialog;
  * 
  *  Triggers the removal according to the user response.
  */
-import java.util.Vector;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -55,22 +54,18 @@ implements ConfirmationDialogFragmentListener {
         
         int messageStringId = R.string.confirmation_remove_alert;
         
-        int posBtn = R.string.confirmation_remove_remote;
-        int negBtn = -1;
+        int localRemoveButton = (!file.isFavorite() && (file.isFolder() || file.isDown())) ?
+            R.string.confirmation_remove_local : -1;
+
         if (file.isFolder()) {
             messageStringId = R.string.confirmation_remove_folder_alert;
-            posBtn = R.string.confirmation_remove_remote_and_local;
-            negBtn = R.string.confirmation_remove_local;
-        } else if (file.isDown()) {
-            posBtn = R.string.confirmation_remove_remote_and_local;
-            negBtn = R.string.confirmation_remove_local;
         }
-        
-        args.putInt(ARG_CONF_RESOURCE_ID, messageStringId);
-        args.putStringArray(ARG_CONF_ARGUMENTS, new String[]{file.getFileName()});
-        args.putInt(ARG_POSITIVE_BTN_RES, posBtn);
+
+        args.putInt(ARG_MESSAGE_RESOURCE_ID, messageStringId);
+        args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{file.getFileName()});
+        args.putInt(ARG_POSITIVE_BTN_RES, R.string.common_yes);
         args.putInt(ARG_NEUTRAL_BTN_RES, R.string.common_no);
-        args.putInt(ARG_NEGATIVE_BTN_RES, negBtn);
+        args.putInt(ARG_NEGATIVE_BTN_RES, localRemoveButton);
         args.putParcelable(ARG_TARGET_FILE, file);
         frag.setArguments(args);
         
@@ -106,34 +101,6 @@ implements ConfirmationDialogFragmentListener {
     public void onCancel(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter)getActivity();
         cg.getFileOperationsHelper().removeFile(mTargetFile, true);
-        
-        FileDataStorageManager storageManager = cg.getStorageManager();
-        
-        boolean containsFavorite = false;
-        if (mTargetFile.isFolder()) {
-            // TODO Enable when "On Device" is recovered ?
-            Vector<OCFile> files = storageManager.getFolderContent(mTargetFile/*, false*/);
-            for(OCFile file: files) {
-                containsFavorite = file.isFavorite() || containsFavorite;
-
-                if (containsFavorite)
-                    break;
-            }
-        }
-
-        // Remove etag for parent, if file is a favorite
-        // or is a folder and contains favorite
-        if (mTargetFile.isFavorite() || containsFavorite) {
-            OCFile folder = null;
-            if (mTargetFile.isFolder()) {
-                folder = mTargetFile;
-            } else {
-                folder = storageManager.getFileById(mTargetFile.getParentId());
-            }
-            
-           folder.setEtag("");
-           storageManager.saveFile(folder);
-        }
     }
 
     @Override
