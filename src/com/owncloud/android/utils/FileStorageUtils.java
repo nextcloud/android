@@ -128,22 +128,22 @@ public class FileStorageUtils {
      * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
      * @return
      */
-    public static String getInstantUploadFilePath(Context context, String fileName, String dateTaken) {
+    public static String getInstantUploadFilePath(Context context, String fileName, long dateTaken) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String uploadPathdef = context.getString(R.string.instant_upload_path);
         String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
-        String subFolders = "";
-        if(dateTaken != null && com.owncloud.android.db.PreferenceManager.instantPictureUploadPathUseSubfolders(context)) {
+        String subFolders = null;
+        if(dateTaken != 0 && com.owncloud.android.db.PreferenceManager.instantPictureUploadPathUseSubfolders(context)) {
             try {
                 SimpleDateFormat formatter = new SimpleDateFormat("yyyy" + OCFile.PATH_SEPARATOR + "MM" + OCFile.PATH_SEPARATOR, Locale.ENGLISH);
-                subFolders = formatter.format(new Date(Long.parseLong(dateTaken)));
-                Date d = new Date(Long.parseLong((dateTaken)));
+                subFolders = formatter.format(new Date(dateTaken));
+                Date d = new Date(dateTaken);
             }
             catch(RuntimeException ex) {
                 // don´t use a subfolder if we can´t parse the date
             }
         }
-        String value = uploadPath + OCFile.PATH_SEPARATOR + subFolders + (fileName == null ? "" : fileName);
+        String value = uploadPath + OCFile.PATH_SEPARATOR + (subFolders != null ? subFolders : "") + (fileName == null ? "" : fileName);
         return value;
     }
 
