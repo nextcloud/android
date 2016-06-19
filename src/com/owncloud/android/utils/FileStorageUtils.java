@@ -121,6 +121,27 @@ public class FileStorageUtils {
     }
 
     /**
+     * Returns the a string like 2016/08/ for the passed date. If date is 0 an empty
+     * string is returned
+     *
+     * @param date: date in microseconds since 1st January 1970
+     * @return
+     */
+    private static String getSubpathFromDate(long date) {
+        try {
+            if(date == 0) {
+                return "";
+            }
+            SimpleDateFormat formatter = new SimpleDateFormat(
+                    "yyyy" + OCFile.PATH_SEPARATOR + "MM" + OCFile.PATH_SEPARATOR, Locale.ENGLISH);
+            return formatter.format(new Date(date));
+        }
+        catch(RuntimeException ex) {
+            return "";
+        }
+    }
+
+    /**
      * Returns the InstantUploadFilePath on the owncloud instance
      *
      * @param context
@@ -132,18 +153,12 @@ public class FileStorageUtils {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String uploadPathdef = context.getString(R.string.instant_upload_path);
         String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
-        String subFolders = null;
-        if(dateTaken != 0 && com.owncloud.android.db.PreferenceManager.instantPictureUploadPathUseSubfolders(context)) {
-            try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy" + OCFile.PATH_SEPARATOR + "MM" + OCFile.PATH_SEPARATOR, Locale.ENGLISH);
-                subFolders = formatter.format(new Date(dateTaken));
-                Date d = new Date(dateTaken);
-            }
-            catch(RuntimeException ex) {
-                // don´t use a subfolder if we can´t parse the date
-            }
+        String subPath = "";
+        if(com.owncloud.android.db.PreferenceManager.instantPictureUploadPathUseSubfolders(context)) {
+           subPath = getSubpathFromDate(dateTaken);
         }
-        String value = uploadPath + OCFile.PATH_SEPARATOR + (subFolders != null ? subFolders : "") + (fileName == null ? "" : fileName);
+        String value = uploadPath + OCFile.PATH_SEPARATOR + subPath
+                + (fileName == null ? "" : fileName);
         return value;
     }
 
@@ -153,11 +168,16 @@ public class FileStorageUtils {
      * @param fileName: video file name
      * @return String: video file path composed
      */
-    public static String getInstantVideoUploadFilePath(Context context, String fileName) {
+    public static String getInstantVideoUploadFilePath(Context context, String fileName, long dateTaken) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String uploadVideoPathdef = context.getString(R.string.instant_upload_path);
         String uploadVideoPath = pref.getString("instant_video_upload_path", uploadVideoPathdef);
-        String value = uploadVideoPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
+        String subPath = "";
+        if(com.owncloud.android.db.PreferenceManager.instantVideoUploadPathUseSubfolders(context)) {
+            subPath = getSubpathFromDate(dateTaken);
+        }
+        String value = uploadVideoPath + OCFile.PATH_SEPARATOR + subPath
+                + (fileName == null ? "" : fileName);
         return value;
     }
     
