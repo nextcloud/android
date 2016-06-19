@@ -110,6 +110,7 @@ public class Preferences extends PreferenceActivity
     private Preference mPrefInstantUpload;
     private Preference mPrefInstantUploadBehaviour;
     private Preference mPrefInstantUploadPath;
+    private Preference mPrefInstantUploadUseSubfolders;
     private Preference mPrefInstantUploadPathWiFi;
     private Preference mPrefInstantVideoUpload;
     private Preference mPrefInstantVideoUploadPath;
@@ -391,7 +392,8 @@ public class Preferences extends PreferenceActivity
         
         mPrefInstantUploadCategory =
                 (PreferenceCategory) findPreference("instant_uploading_category");
-        
+
+        mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
         mPrefInstantUploadPathWiFi =  findPreference("instant_upload_on_wifi");
         mPrefInstantUpload = findPreference("instant_uploading");
         
@@ -477,9 +479,11 @@ public class Preferences extends PreferenceActivity
         if (value){
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPath);
+            mPrefInstantUploadCategory.addPreference(mPrefInstantUploadUseSubfolders);
         } else {
             mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPathWiFi);
             mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPath);
+            mPrefInstantUploadCategory.removePreference(mPrefInstantUploadUseSubfolders);
         }
     }
     
