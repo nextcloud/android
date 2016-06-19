@@ -83,6 +83,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String file_path = null;
         String file_name = null;
         String mime_type = null;
+        String date_taken = null;
 
         Log_OC.i(TAG, "New photo received");
 
@@ -116,6 +117,8 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         file_path = c.getString(c.getColumnIndex(Images.Media.DATA));
         file_name = c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
         mime_type = c.getString(c.getColumnIndex(Images.Media.MIME_TYPE));
+        // date_taken = c.getString(c.getColumnIndex(Images.Media.DATE_TAKEN)); does not seem to work for all cameras
+        date_taken = Long.toString(System.currentTimeMillis());
         c.close();
 
         if (file_path.equals(lastUploadedPhotoPath)) {
@@ -134,7 +137,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                 context,
                 account,
                 file_path,
-                FileStorageUtils.getInstantUploadFilePath(context, file_name),
+                FileStorageUtils.getInstantUploadFilePath(context, file_name, date_taken),
                 behaviour,
                 mime_type,
                 true,           // create parent folder if not existent
