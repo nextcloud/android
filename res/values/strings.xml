@@ -485,7 +485,7 @@
     <string name="share_privilege_can_edit_delete">delete</string>
     <string name="edit_share_unshare">Stop sharing</string>
     <string name="edit_share_done">done</string>
-    <string name="changelog">https://github.com/owncloud/android/raw/beta/CHANGELOG.md</string>
+    <string name="changelog">https://github.com/nextcloud/android/raw/beta/CHANGELOG.md</string>
 
     <string name="storage_description_default">Default</string>
     <string name="storage_description_sd_no">SD card %1$d</string>
