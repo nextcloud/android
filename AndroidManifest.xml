@@ -63,7 +63,7 @@
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
         android:label="Nextcloud beta"
-        android:theme="@style/Theme.ownCloud"
+        android:theme="@style/Theme.ownCloud.Toolbar"
         android:manageSpaceActivity=".ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
