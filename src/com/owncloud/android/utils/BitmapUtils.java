@@ -285,7 +285,7 @@ public class BitmapUtils {
      */
     public static int[] calculateRGB(String accountName) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         // using adapted algorithm from /core/js/placeholder.js:50
-        String username = AccountUtils.getUsernameOfAccount(accountName);
+        String username = AccountUtils.getAccountUsername(accountName);
         byte[] seed = username.getBytes("UTF-8");
         MessageDigest md = MessageDigest.getInstance("MD5");
 //      Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5)).hashCode());
