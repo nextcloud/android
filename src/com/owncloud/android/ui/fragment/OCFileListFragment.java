@@ -720,7 +720,6 @@ public class OCFileListFragment extends ExtendedListFragment
                 registerLongClickListener();
             } else {
                 switchToListView();
-//                switchToGridView();
             }
         }
     }
