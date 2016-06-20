@@ -507,7 +507,7 @@ public class ThumbnailsCacheManager {
                         GetMethod get = null;
                         try {
                             String uri = mClient.getBaseUri() + "" +
-                                    "/index.php/avatar/" + AccountUtils.getUsernameOfAccount(username) + "/" + px;
+                                    "/index.php/avatar/" + AccountUtils.getAccountUsername(username) + "/" + px;
                             Log_OC.d("Avatar", "URI: " + uri);
                             get = new GetMethod(uri);
                             int status = mClient.executeMethod(get);

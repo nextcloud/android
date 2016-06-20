@@ -117,7 +117,7 @@ public class AccountUtils {
      * @param accountName the account name
      * @return the user's name
      */
-    public static String getUsernameOfAccount(String accountName) {
+    public static String getAccountUsername(String accountName) {
         if (accountName != null) {
             return accountName.substring(0, accountName.lastIndexOf("@"));
         } else {
