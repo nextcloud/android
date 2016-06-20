@@ -33,6 +33,7 @@ import third_parties.daveKoeller.AlphanumComparator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 
 import android.accounts.Account;
@@ -50,6 +51,8 @@ import android.webkit.MimeTypeMap;
  * Static methods to help in access to local file system.
  */
 public class FileStorageUtils {
+    private static final String TAG = FileStorageUtils.class.getSimpleName();
+
     public static final Integer SORT_NAME = 0;
     public static final Integer SORT_DATE = 1;
     public static final Integer SORT_SIZE = 2;
@@ -128,15 +131,16 @@ public class FileStorageUtils {
      * @return
      */
     private static String getSubpathFromDate(long date) {
+        if (date == 0) {
+            return "";
+        }
         try {
-            if(date == 0) {
-                return "";
-            }
             SimpleDateFormat formatter = new SimpleDateFormat(
                     "yyyy" + OCFile.PATH_SEPARATOR + "MM" + OCFile.PATH_SEPARATOR, Locale.ENGLISH);
             return formatter.format(new Date(date));
         }
         catch(RuntimeException ex) {
+            Log_OC.w(TAG, "could not extract date from timestamp");
             return "";
         }
     }
@@ -154,12 +158,11 @@ public class FileStorageUtils {
         String uploadPathdef = context.getString(R.string.instant_upload_path);
         String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
         String subPath = "";
-        if(com.owncloud.android.db.PreferenceManager.instantPictureUploadPathUseSubfolders(context)) {
+        if (com.owncloud.android.db.PreferenceManager.instantPictureUploadPathUseSubfolders(context)) {
            subPath = getSubpathFromDate(dateTaken);
         }
-        String value = uploadPath + OCFile.PATH_SEPARATOR + subPath
+        return uploadPath + OCFile.PATH_SEPARATOR + subPath
                 + (fileName == null ? "" : fileName);
-        return value;
     }
 
     /**
@@ -173,12 +176,11 @@ public class FileStorageUtils {
         String uploadVideoPathdef = context.getString(R.string.instant_upload_path);
         String uploadVideoPath = pref.getString("instant_video_upload_path", uploadVideoPathdef);
         String subPath = "";
-        if(com.owncloud.android.db.PreferenceManager.instantVideoUploadPathUseSubfolders(context)) {
+        if (com.owncloud.android.db.PreferenceManager.instantVideoUploadPathUseSubfolders(context)) {
             subPath = getSubpathFromDate(dateTaken);
         }
-        String value = uploadVideoPath + OCFile.PATH_SEPARATOR + subPath
+        return uploadVideoPath + OCFile.PATH_SEPARATOR + subPath
                 + (fileName == null ? "" : fileName);
-        return value;
     }
     
     public static String getParentPath(String remotePath) {
