@@ -398,6 +398,8 @@ public class ThumbnailsCacheManager {
                                             pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
                                     Log_OC.d("Thumbnail", "Download URI: " + uri);
                                     get = new GetMethod(uri);
+                                    get.setRequestHeader("Cookie",
+                                        "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
                                     int status = mClient.executeMethod(get);
                                     if (status == HttpStatus.SC_OK) {
                                         InputStream inputStream = get.getResponseBodyAsStream();
