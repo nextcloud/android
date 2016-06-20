@@ -76,7 +76,7 @@
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
-                  android:theme="@style/Theme.ownCloud">
+                  android:theme="@style/Theme.ownCloud.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
