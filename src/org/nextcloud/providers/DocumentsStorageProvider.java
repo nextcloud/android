@@ -69,7 +69,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         updateCurrentStorageManagerIfNeeded(docId);
 
         final FileCursor result = new FileCursor(projection);
-        result.addFile(mCurrentStorageManager.getFileById(docId));
+        OCFile file = mCurrentStorageManager.getFileById(docId);
+        if (file != null)
+            result.addFile(file);
 
         return result;
     }
@@ -84,8 +86,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         final FileCursor result = new FileCursor(projection);
 
         final OCFile browsedDir = mCurrentStorageManager.getFileById(folderId);
-        for (OCFile file : mCurrentStorageManager.getFolderContent(browsedDir))
+        for (OCFile file : mCurrentStorageManager.getFolderContent(browsedDir)) {
             result.addFile(file);
+        }
 
         return result;
     }
@@ -106,8 +109,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             getContext().startService(i);
 
             do {
-                if (!waitOrGetCancelled(cancellationSignal))
+                if (!waitOrGetCancelled(cancellationSignal)) {
                     return null;
+                }
                 file = mCurrentStorageManager.getFileById(docId);
 
             } while (!file.isDown());
@@ -123,7 +127,10 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     @Override
-    public AssetFileDescriptor openDocumentThumbnail(String documentId, Point sizeHint, CancellationSignal signal) throws FileNotFoundException {
+    public AssetFileDescriptor openDocumentThumbnail(String documentId,
+                                                     Point sizeHint,
+                                                     CancellationSignal signal)
+            throws FileNotFoundException {
         long docId = Long.parseLong(documentId);
         updateCurrentStorageManagerIfNeeded(docId);
 
@@ -144,8 +151,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         OCFile root = mCurrentStorageManager.getFileByPath("/");
         FileCursor result = new FileCursor(projection);
 
-        for (OCFile f : findFiles(root, query))
+        for (OCFile f : findFiles(root, query)) {
             result.addFile(f);
+        }
 
         return result;
     }
@@ -160,8 +168,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private void updateCurrentStorageManagerIfNeeded(String rootId) {
         for (FileDataStorageManager data : mRootIdToStorageManager.values())
-            if (data.getAccount().name.equals(rootId))
+            if (data.getAccount().name.equals(rootId)) {
                 mCurrentStorageManager = data;
+            }
     }
 
     private void initiateStorageMap() {
@@ -186,8 +195,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             return false;
         }
 
-        if (cancellationSignal != null && cancellationSignal.isCanceled())
+        if (cancellationSignal != null && cancellationSignal.isCanceled()) {
             return false;
+        }
 
         return true;
     }
@@ -197,9 +207,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         for (OCFile f : mCurrentStorageManager.getFolderContent(root)) {
             if (f.isFolder()) {
                 result.addAll(findFiles(f, query));
-            } else {
-                if (f.getFileName().contains(query))
-                    result.add(f);
+            } else if (f.getFileName().contains(query)) {
+                result.add(f);
             }
         }
         return result;
