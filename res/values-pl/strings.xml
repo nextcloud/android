@@ -58,6 +58,7 @@
   <string name="sync_string_files">Pliki</string>
   <string name="setup_btn_connect">Połącz</string>
   <string name="uploader_btn_upload_text">Wyślij</string>
+  <string name="uploader_top_message">Wybierz folder do wgrywania plików</string>
   <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
   <string name="uploader_wrn_no_account_text">Brak kont %1$s na Twoim urządzeniu. Załóż konto.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Ustawienia</string>
