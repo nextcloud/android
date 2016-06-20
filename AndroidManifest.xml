@@ -19,8 +19,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10000000"
-    android:versionName="1.0.0" >
+    android:versionCode="10000100"
+    android:versionName="1.0.1" >
 
     <uses-sdk
         android:minSdkVersion="14"
