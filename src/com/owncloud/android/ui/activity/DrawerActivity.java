@@ -28,8 +28,6 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -442,7 +440,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
             TextView username = (TextView) findNavigationViewChildById(R.id.drawer_username);
             TextView usernameFull = (TextView) findNavigationViewChildById(R.id.drawer_username_full);
             usernameFull.setText(account.name);
-            username.setText(AccountUtils.getUsernameOfAccount(account.name));
+            username.setText(AccountUtils.getAccountUsername(account.name));
 
             DisplayUtils.setAvatar(account, (ImageView) findNavigationViewChildById(R.id.drawer_current_account),
                     mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager());
