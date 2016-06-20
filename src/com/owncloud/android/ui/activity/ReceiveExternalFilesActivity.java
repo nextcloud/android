@@ -386,7 +386,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         String current_dir = mParents.peek();
         if (current_dir.equals("")) {
-            actionBar.setTitle(getString(R.string.default_display_name_for_root_folder));
+            actionBar.setTitle(getString(R.string.uploader_top_message));
         } else {
             actionBar.setTitle(current_dir);
         }
