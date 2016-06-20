@@ -18,7 +18,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/upload_files_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -27,15 +26,7 @@
     <include
         layout="@layout/toolbar_standard" />
 
-	<TextView android:layout_width="fill_parent"
-		android:text="@string/uploader_top_message"
-		android:layout_height="wrap_content"
-		android:id="@+id/drawer_username"
-		android:textColor="@android:color/black"
-		android:gravity="center_horizontal">
-	</TextView>
-
-	<FrameLayout android:layout_height="fill_parent"
+	<FrameLayout android:layout_height="0dp"
 		android:layout_width="fill_parent"
 		android:id="@+id/frameLayout1"
 		android:layout_weight="1">
