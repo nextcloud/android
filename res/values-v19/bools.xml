@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ownCloud Android client application
+  nextCloud Android client application
 
-  Copyright (C) 2015 ownCloud Inc.
+  Copyright (C) 2016 Bartosz Przybylski <bart.p.pl@gmail.com>
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -16,8 +16,6 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<!-- Default boolean values -->
 <resources>
-    <bool name="large_land_layout">false</bool>
-    <bool name="atLeastKitKat">false</bool>
+    <bool name="atLeastKitKat">true</bool>
 </resources>
