@@ -140,7 +140,20 @@ public class ThumbnailsCacheManager {
         return null;
     }
 
-    public static class ThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
+    private static void waitForCacheInit() {
+        synchronized (mThumbnailsDiskCacheLock) {
+            // Wait while disk cache is started from background thread
+            while (mThumbnailCacheStarting) {
+                try {
+                    mThumbnailsDiskCacheLock.wait();
+                } catch (InterruptedException e) {
+                    Log_OC.e(TAG, "Wait in mThumbnailsDiskCacheLock was interrupted", e);
+                }
+            }
+        }
+    }
+
+    public static class ThumbnailGenerationTask extends AsyncTask<Object, Bitmap, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
         private static Account mAccount;
         private Object mFile;
@@ -155,11 +168,13 @@ public class ThumbnailsCacheManager {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             mStorageManager = storageManager;
             mAccount = account;
+            waitForCacheInit();
         }
 
         public ThumbnailGenerationTask(ImageView imageView) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<ImageView>(imageView);
+            waitForCacheInit();
         }
 
         @Override
@@ -167,6 +182,24 @@ public class ThumbnailsCacheManager {
             Bitmap thumbnail = null;
 
             try {
+                mFile = params[0];
+
+                // try cache
+                String cacheKey = null;
+                if (mFile instanceof OCFile) {
+                    cacheKey = ((OCFile) mFile).getRemoteId();
+                } else if (mFile instanceof File) {
+                    cacheKey = String.valueOf(((File) mFile).hashCode());
+                }
+                Log_OC.d(TAG, "CacheKey is " + cacheKey);
+                if (cacheKey != null) {
+                    thumbnail = getBitmapFromDiskCache(cacheKey);
+                }
+                if (thumbnail != null) {
+                    Log_OC.d(TAG, "Early cache hit in ThumbnailGenerationTask");
+                    return thumbnail;
+                }
+
                 if (mAccount != null) {
                     OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount,
                             MainApp.getAppContext());
@@ -174,15 +207,14 @@ public class ThumbnailsCacheManager {
                             getClientFor(ocAccount, MainApp.getAppContext());
                 }
 
-                mFile = params[0];
-                
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground();
-                }  else if (mFile instanceof File) {
+                } else if (mFile instanceof File) {
                     thumbnail = doFileInBackground();
-                //} else {  do nothing
+                    //} else {  do nothing
                 }
 
+                addBitmapToCache(cacheKey, thumbnail);
                 }catch(Throwable t){
                     // the app should never break due to a problem with thumbnails
                     Log_OC.e(TAG, "Generation of thumbnail for " + mFile + " failed", t);
@@ -190,6 +222,10 @@ public class ThumbnailsCacheManager {
                         System.gc();
                     }
                 }
+
+            //Bitmap preview = Bitmap.createScaledBitmap(thumbnail, 10,10, true);
+
+            // publishProgress(preview);
 
             return thumbnail;
         }
@@ -206,7 +242,14 @@ public class ThumbnailsCacheManager {
                         tagId = String.valueOf(mFile.hashCode());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                        imageView.setImageBitmap(bitmap);
+                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncDrawable(
+                                        imageView.getResources(),
+                                        bitmap,
+                                        this
+                                );
+                        imageView.setImageDrawable(asyncDrawable);
+                        // imageView.setImageBitmap(bitmap);
                     }
                 }
             }
@@ -247,6 +290,8 @@ public class ThumbnailsCacheManager {
             OCFile file = (OCFile)mFile;
 
             final String imageKey = String.valueOf(file.getRemoteId());
+
+            Log_OC.d(TAG, "doOCFileInBackground CacheKEy " + imageKey);
 
             // Check disk cache in background thread
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
@@ -341,6 +386,7 @@ public class ThumbnailsCacheManager {
 
             final String imageKey = String.valueOf(file.hashCode());
 
+            Log_OC.d(TAG, "doFileInBackground CacheKEy " + imageKey);
             // Check disk cache in background thread
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
 
@@ -367,6 +413,7 @@ public class ThumbnailsCacheManager {
         if (bitmapWorkerTask != null) {
             final Object bitmapData = bitmapWorkerTask.mFile;
             // If bitmapData is not yet set or it differs from the new data
+
             if (bitmapData == null || bitmapData != file) {
                 // Cancel previous task
                 bitmapWorkerTask.cancel(true);
@@ -392,7 +439,7 @@ public class ThumbnailsCacheManager {
     }
 
     public static class AsyncDrawable extends BitmapDrawable {
-        private final WeakReference<ThumbnailGenerationTask> bitmapWorkerTaskReference;
+        private final ThumbnailGenerationTask bitmapWorkerTaskReference;
 
         public AsyncDrawable(
                 Resources res, Bitmap bitmap, ThumbnailGenerationTask bitmapWorkerTask
@@ -400,11 +447,11 @@ public class ThumbnailsCacheManager {
 
             super(res, bitmap);
             bitmapWorkerTaskReference =
-                    new WeakReference<ThumbnailGenerationTask>(bitmapWorkerTask);
+                    bitmapWorkerTask;
         }
 
         public ThumbnailGenerationTask getBitmapWorkerTask() {
-            return bitmapWorkerTaskReference.get();
+            return bitmapWorkerTaskReference;
         }
     }
 }
