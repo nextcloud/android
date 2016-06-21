@@ -113,7 +113,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 listDirectory(file);
                 // notify the click to container Activity
                 mContainerActivity.onDirectoryClick(file);
-                Log_OC.e(TAG, "onItemClick directory");
+
                 // save index and top position
                 saveIndexAndTopPosition(position);
             
