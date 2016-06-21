@@ -5,6 +5,7 @@
     <string name="account_type">nextcloud</string>	<!-- better if was a domain name; but changing it now would require
     migrate accounts when the app is updated -->
     <string name="authority">org.nextcloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="document_provider_authority">org.nextcloud.documents</string>
     <string name ="db_file">nextcloud.db</string>
     <string name ="db_name">nextcloud</string>
     <string name ="data_folder">nextcloud</string>
