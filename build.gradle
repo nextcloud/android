@@ -136,7 +136,9 @@ android {
 
     buildTypes {
         release {
-            signingConfig signingConfigs.release
+            if (System.env.OC_RELEASE_KEYSTORE) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 
