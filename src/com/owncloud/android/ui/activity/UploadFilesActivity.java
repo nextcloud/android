@@ -323,8 +323,7 @@ public class UploadFilesActivity extends FileActivity implements
     public void onDirectoryClick(File directory) {
         // invalidate checked state when navigating directories
         MenuItem selectAll = mOptionsMenu.findItem(R.id.action_select_all);
-        selectAll.setChecked(false);
-        selectAll.setIcon(R.drawable.ic_select_all);
+        setSelectAllMenuItem(selectAll, false);
 
         pushDirname(directory);
         ActionBar actionBar = getSupportActionBar();
