@@ -1,4 +1,13 @@
 # [Nextcloud](https://nextcloud.com) Android app
+
+<a href="https://play.google.com/store/apps/details?id=com.nextcloud.client" alt="Download from Google Play">
+  <img src="http://www.android.com/images/brand/android_app_on_play_large.png">
+</a>
+
+or via f-droid
+- [stable](https://f-droid.org/repository/browse/?fdfilter=Nextcloud&fdid=com.nextcloud.client)
+- [beta](https://f-droid.org/repository/browse/?fdfilter=Nextcloud&fdid=com.nextcloud.android.beta)
+
 **Build status:** master ![](https://api.travis-ci.org/nextcloud/android.svg?branch=master)
 
 [![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud)
