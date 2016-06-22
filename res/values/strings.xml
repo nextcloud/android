@@ -373,9 +373,6 @@
     <string name="prefs_instant_behaviour_title">Original file will be...</string>
     <string name="upload_copy_files">Copy file</string>
     <string name="upload_move_files">Move file</string>
-    <string name="confirmation_remove_files_alert">Do you really want to remove selected items?</string>
-    <string name="confirmation_remove_folders_alert">Do you really want to remove a folder and its content?</string>
-    <string name="confirmation_remove_files">selected items</string>
 
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
