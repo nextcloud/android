@@ -140,19 +140,6 @@ public class ThumbnailsCacheManager {
         return null;
     }
 
-    private static void waitForCacheInit() {
-        synchronized (mThumbnailsDiskCacheLock) {
-            // Wait while disk cache is started from background thread
-            while (mThumbnailCacheStarting) {
-                try {
-                    mThumbnailsDiskCacheLock.wait();
-                } catch (InterruptedException e) {
-                    Log_OC.e(TAG, "Wait in mThumbnailsDiskCacheLock was interrupted", e);
-                }
-            }
-        }
-    }
-    
     public static class ThumbnailGenerationTask extends AsyncTask<Object, Bitmap, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
         private static Account mAccount;
@@ -168,13 +155,11 @@ public class ThumbnailsCacheManager {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             mStorageManager = storageManager;
             mAccount = account;
-            waitForCacheInit();
         }
 
         public ThumbnailGenerationTask(ImageView imageView) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<ImageView>(imageView);
-            waitForCacheInit();
         }
 
         @Override
