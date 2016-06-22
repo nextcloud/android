@@ -58,6 +58,7 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Anslut</string>
   <string name="uploader_btn_upload_text">Ladda upp</string>
+  <string name="uploader_top_message">Välj mapp för uppladdning</string>
   <string name="uploader_wrn_no_account_title">Hittade inget konto</string>
   <string name="uploader_wrn_no_account_text">Det finns inga %1$s-konton på din enhet. Lägg till ett konto först</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Skapa</string>
@@ -222,6 +223,8 @@
 	</string>
   <string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
   <string name="auth_account_does_not_exist">Det finns inget konto på denna enhet än</string>
+  <string name="favorite">Sätt som tillgänglig offline</string>
+  <string name="unfavorite">Ta bort som tillgänglig offline</string>
   <string name="common_rename">Byt namn</string>
   <string name="common_remove">Radera</string>
   <string name="confirmation_remove_alert">Vill du verkligen ta bort %1$s?</string>
