@@ -62,6 +62,7 @@ import java.io.File;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -299,6 +300,26 @@ public class FileDownloader extends Service
         public boolean isDownloading(Account account, OCFile file) {
             if (account == null || file == null) return false;
             return (mPendingDownloads.contains(account.name, file.getRemotePath()));
+        }
+
+        /**
+         * Returns True when the file described by 'file' in the ownCloud account 'account'
+         * is downloading or waiting to download.
+         *
+         * If 'file' is a directory, returns 'true' if any of its descendant files is downloading or
+         * waiting to download.
+         *
+         * @param account ownCloud account where the remote file is stored.
+         * @param files    A list of files that could contains someone in the queue of downloads.
+         */
+        public boolean isDownloading(Account account, List<OCFile> files) {
+            if (account == null || files.isEmpty()) return false;
+            for(OCFile file: files) {
+                if(mPendingDownloads.contains(account.name, file.getRemotePath())) {
+                    return true;
+                }
+            }
+            return false;
         }
 
 

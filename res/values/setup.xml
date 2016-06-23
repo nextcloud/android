@@ -46,7 +46,12 @@
 
     <!-- Button -->
     <color name="button_text_color">#000000</color>
-    
+
+    <!-- Multiselect backgrounds -->
+    <color name="action_mode_background">#757575</color>
+    <color name="action_mode_status_bar_background">#616161</color>
+    <color name="selected_item_background">#ECECEC</color>
+
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">true</bool>
     

@@ -55,13 +55,17 @@ import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
-public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity, 
+import java.util.ArrayList;
+
+public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
     OnClickListener, OnEnforceableRefreshListener {
 
     public static final String EXTRA_FOLDER = UploadFilesActivity.class.getCanonicalName()
                                                             + ".EXTRA_FOLDER";
     public static final String EXTRA_FILE = UploadFilesActivity.class.getCanonicalName()
                                                             + ".EXTRA_FILE";
+    public static final String EXTRA_FILES = UploadFilesActivity.class.getCanonicalName()
+            + ".EXTRA_FILES";
     //TODO: Think something better
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
@@ -370,11 +374,15 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         } else if (v == mChooseBtn) {
             Intent i = getIntent();
             Parcelable targetFile = i.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
+            ArrayList<Parcelable> targetFiles = i.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
 
             Intent data = new Intent();
             data.putExtra(EXTRA_FOLDER, getCurrentFolder());
             if (targetFile != null) {
                 data.putExtra(EXTRA_FILE, targetFile);
+            }
+            if (targetFiles != null){
+                data.putParcelableArrayListExtra(EXTRA_FILES, targetFiles);
             }
             setResult(RESULT_OK, data);
 
