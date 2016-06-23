@@ -93,10 +93,6 @@ public abstract class ToolbarActivity extends BaseActivity {
         View actionBarTitleView = getWindow().getDecorView().findViewById(
                 getResources().getIdentifier("action_bar_title", "id", "android")
         );
-        // TODO remove legacy code
-        if (actionBarTitleView != null) {    // it's null in Android 2.x
-            actionBarTitleView.setContentDescription(titleToSet);
-        }
 
         // set home button properties
         actionBar.setDisplayHomeAsUpEnabled(true);
