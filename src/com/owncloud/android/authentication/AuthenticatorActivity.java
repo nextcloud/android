@@ -79,7 +79,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
@@ -1030,7 +1030,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else if (operation instanceof OAuth2GetAccessToken) {
             onGetOAuthAccessTokenFinish(result);
 
-        } else if (operation instanceof GetRemoteUserNameOperation) {
+        } else if (operation instanceof GetRemoteUserInfoOperation) {
             onGetUserNameFinish(result);
         }
 
