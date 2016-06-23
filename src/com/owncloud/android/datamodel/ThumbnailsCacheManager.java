@@ -363,9 +363,8 @@ public class ThumbnailsCacheManager {
     public static class AvatarGenerationTask extends AsyncTask<Object, Void, Bitmap> {
         private final WeakReference<ImageView> mImageViewReference;
         private final WeakReference<MenuItem> mMenuItemReference;
-        private static Account mAccount;
+        private Account mAccount;
         private Object mUsername;
-        private FileDataStorageManager mStorageManager;
 
 
         public AvatarGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
@@ -375,7 +374,6 @@ public class ThumbnailsCacheManager {
             mImageViewReference = new WeakReference<ImageView>(imageView);
             if (storageManager == null)
                 throw new IllegalArgumentException("storageManager must not be NULL");
-            mStorageManager = storageManager;
             mAccount = account;
         }
 
@@ -386,7 +384,6 @@ public class ThumbnailsCacheManager {
             mMenuItemReference = new WeakReference<MenuItem>(menuItem);
             if (storageManager == null)
                 throw new IllegalArgumentException("storageManager must not be NULL");
-            mStorageManager = storageManager;
             mAccount = account;
         }
 
