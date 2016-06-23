@@ -2,7 +2,7 @@
 <resources>
   <string name="about_android">%1$s Aplicativo Android</string>
   <string name="about_version">versão %1$s</string>
-  <string name="actionbar_sync">Atualização de conta</string>
+  <string name="actionbar_sync">Atualizar conta</string>
   <string name="actionbar_upload">Enviar</string>
   <string name="actionbar_upload_from_apps">Conteúdo de outros apps</string>
   <string name="actionbar_upload_files">Arquivos</string>
