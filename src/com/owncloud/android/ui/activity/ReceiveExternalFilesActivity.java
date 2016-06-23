@@ -35,7 +35,6 @@ import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -59,6 +58,7 @@ import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -315,7 +315,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         Log_OC.d(TAG, "on item click");
         // TODO Enable when "On Device" is recovered ?
         Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
-        sortFileList(tmpfiles);
+        tmpfiles = sortFileList(tmpfiles);
 
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
@@ -404,7 +404,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (mFile != null) {
             // TODO Enable when "On Device" is recovered ?
             Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
-            sortFileList(files);
+            files = sortFileList(files);
 
             List<HashMap<String, Object>> data = new LinkedList<>();
             for (OCFile f : files) {
@@ -454,11 +454,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
         synchFolderOp.execute(getAccount(), this, null, null);
     }
 
-    private void sortFileList(Vector<OCFile> files) {
+    private Vector<OCFile> sortFileList(Vector<OCFile> files) {
         // Read sorting order, default to sort by name ascending
         FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(this);
         FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(this);
-        FileStorageUtils.sortFolder(files);
+
+        files = FileStorageUtils.sortFolder(files);
+        return files;
     }
 
     private String generatePath(Stack<String> dirs) {

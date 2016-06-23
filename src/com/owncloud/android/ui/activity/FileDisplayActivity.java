@@ -58,7 +58,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -93,6 +92,9 @@ import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+
+import static com.owncloud.android.db.PreferenceManager.*;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -562,7 +564,7 @@ public class FileDisplayActivity extends HookActivity
                 break;
             }
             case R.id.action_sort: {
-                Integer sortOrder = PreferenceManager.getSortOrder(this);
+                Integer sortOrder = getSortOrder(this);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.actionbar_sort_title)
@@ -764,8 +766,12 @@ public class FileDisplayActivity extends HookActivity
      */
     private void requestMoveOperation(Intent data, int resultCode) {
         OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        OCFile targetFile = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
-        getFileOperationsHelper().moveFile(folderToMoveAt, targetFile);
+
+        ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
+
+        for (Parcelable file : files) {
+            getFileOperationsHelper().moveFile(folderToMoveAt, (OCFile) file);
+        }
     }
 
     /**
@@ -776,8 +782,12 @@ public class FileDisplayActivity extends HookActivity
      */
     private void requestCopyOperation(Intent data, int resultCode) {
         OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        OCFile targetFile = data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
-        getFileOperationsHelper().copyFile(folderToMoveAt, targetFile);
+
+        ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
+
+        for (Parcelable file : files) {
+            getFileOperationsHelper().copyFile(folderToMoveAt, (OCFile) file);
+        }
     }
 
     @Override
@@ -975,22 +985,28 @@ public class FileDisplayActivity extends HookActivity
                                         .equals(event));
 
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
-                            equals(event) &&/// TODO refactor and make common
+                            equals(event)) {
 
-                            synchResult != null && !synchResult.isSuccess()) {
+                            if (synchResult != null && !synchResult.isSuccess()) {
+                                /// TODO refactor and make common
 
-                            if(ResultCode.UNAUTHORIZED.equals(synchResult.getCode()) ||
-                                (synchResult.isException() && synchResult.getException()
-                                    instanceof AuthenticatorException)) {
+                                if (ResultCode.UNAUTHORIZED.equals(synchResult.getCode()) ||
+                                    (synchResult.isException() && synchResult.getException()
+                                        instanceof AuthenticatorException)) {
 
-                                requestCredentialsUpdate(context);
+                                    requestCredentialsUpdate(context);
 
-                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
-                                synchResult.getCode())) {
+                                } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
+                                    synchResult.getCode())) {
 
-                                showUntrustedCertDialog(synchResult);
+                                    showUntrustedCertDialog(synchResult);
+                                }
+
                             }
 
+                            if (synchFolderRemotePath.equals(OCFile.ROOT_PATH)) {
+                                setUsernameInDrawer(mDrawerLayout, getAccount());
+                            }
                         }
 
                     }
@@ -1734,6 +1750,11 @@ public class FileDisplayActivity extends HookActivity
     }
 
 
+    /**
+     * Request stopping the upload/download operation in progress over the given {@link OCFile} file.
+     *
+     * @param file {@link OCFile} file which operation are wanted to be cancel
+     */
     public void cancelTransference(OCFile file) {
         getFileOperationsHelper().cancelTransference(file);
         if (mWaitingToPreview != null &&
@@ -1745,6 +1766,17 @@ public class FileDisplayActivity extends HookActivity
             mWaitingToSend = null;
         }
         onTransferStateChanged(file, false, false);
+    }
+
+    /**
+     * Request stopping all upload/download operations in progress over the given {@link OCFile} files.
+     *
+     * @param files list of {@link OCFile} files which operations are wanted to be cancel
+     */
+    public void cancelTransference(List<OCFile> files) {
+        for(OCFile file: files) {
+            cancelTransference(file);
+        }
     }
 
     @Override

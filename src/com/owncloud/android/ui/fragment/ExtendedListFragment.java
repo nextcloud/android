@@ -165,11 +165,14 @@ public class ExtendedListFragment extends Fragment
 
         mListView = (ExtendedListView)(v.findViewById(R.id.list_root));
         mListView.setOnItemClickListener(this);
+        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
         mGridView.setNumColumns(GridView.AUTO_FIT);
         mGridView.setOnItemClickListener(this);
+        mGridView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
         mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         if (savedInstanceState != null) {
@@ -404,19 +407,13 @@ public class ExtendedListFragment extends Fragment
     }
 
     protected void setChoiceMode(int choiceMode) {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            mListView.setChoiceMode(choiceMode);
-            mGridView.setChoiceMode(choiceMode);
-        } else {
-            ((ListView)mListView).setChoiceMode(choiceMode);
-        }
+        mListView.setChoiceMode(choiceMode);
+        mGridView.setChoiceMode(choiceMode);
     }
 
-    protected void registerForContextMenu() {
-        registerForContextMenu(mListView);
-        registerForContextMenu(mGridView);
-        mListView.setOnCreateContextMenuListener(this);
-        mGridView.setOnCreateContextMenuListener(this);
+    protected void setMultiChoiceModeListener(AbsListView.MultiChoiceModeListener listener) {
+        mListView.setMultiChoiceModeListener(listener);
+        mGridView.setMultiChoiceModeListener(listener);
     }
 
     /**
