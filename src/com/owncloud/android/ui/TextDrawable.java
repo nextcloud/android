@@ -83,7 +83,7 @@ public class TextDrawable extends Drawable {
     }
 
     /**
-     * creates an avatar in form of  a TextDrawable with the first letter of the account name in a circle with the
+     * creates an avatar in form of a TextDrawable with the first letter of the account name in a circle with the
      * given radius.
      *
      * @param accountName the account name

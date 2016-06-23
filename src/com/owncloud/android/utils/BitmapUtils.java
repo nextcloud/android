@@ -288,7 +288,6 @@ public class BitmapUtils {
         String username = AccountUtils.getAccountUsername(accountName);
         byte[] seed = username.getBytes("UTF-8");
         MessageDigest md = MessageDigest.getInstance("MD5");
-//      Integer seedMd5Int = Math.abs(new String(Hex.encodeHex(seedMd5)).hashCode());
         Integer seedMd5Int = String.format(Locale.ROOT, "%032x",
                 new BigInteger(1, md.digest(seed))).hashCode();
 
