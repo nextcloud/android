@@ -18,7 +18,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OCCapability;
 
 /**
- * Base ctivity with common behaviour for activities dealing with ownCloud {@link Account}s .
+ * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
  */
 public abstract class BaseActivity extends AppCompatActivity {
     private static final String TAG = BaseActivity.class.getSimpleName();
@@ -29,7 +29,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Account mCurrentAccount;
 
     /**
-     * Capabilites of the server where {@link #mCurrentAccount} lives.
+     * Capabilities of the server where {@link #mCurrentAccount} lives.
      */
     private OCCapability mCapabilities;
 
@@ -80,9 +80,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Sets and validates the ownCloud {@link Account} associated to the Activity.
-     * <p/>
+     *
      * If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
-     * <p/>
+     *
      * POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
      *
      * @param account      New {@link Account} to set.
@@ -105,10 +105,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Tries to swap the current ownCloud {@link Account} for other valid and existing.
-     * <p/>
+     *
      * If no valid ownCloud {@link Account} exists, the the user is requested
      * to create a new ownCloud {@link Account}.
-     * <p/>
+     *
      * POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
      */
     protected void swapToDefaultAccount() {
@@ -144,7 +144,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     * <p/>
+     *
      * Child classes must grant that state depending on the {@link Account} is updated.
      */
     protected void onAccountSet(boolean stateWasRecovered) {
