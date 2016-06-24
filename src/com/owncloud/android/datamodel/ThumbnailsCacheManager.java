@@ -40,6 +40,7 @@ import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.LruCache;
 import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
@@ -66,6 +67,11 @@ public class ThumbnailsCacheManager {
     private static final Object mThumbnailsDiskCacheLock = new Object();
     private static DiskLruImageCache mThumbnailCache = null;
     private static boolean mThumbnailCacheStarting = true;
+
+    private static final int RUNTIME_MAX_MEMORY_KBYTE = (int) (Runtime.getRuntime().maxMemory() / 1024);
+    private static final int MEMORY_LRU_CACHE_SIZE = RUNTIME_MAX_MEMORY_KBYTE / 4; // use an 8th of the availiable memory for cache
+
+    private LruCache<String, Bitmap> fullSizeLruCache = new LruCache<String, Bitmap>(MEMORY_LRU_CACHE_SIZE) {
     
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
