@@ -144,7 +144,7 @@ public class PreviewTextFragment extends FileFragment {
         loadAndShowTextPreview();
     }
 
-    private void loadAndShowTextPreview() {
+    public void loadAndShowTextPreview() {
         mTextLoadTask = new TextLoadAsyncTask(new WeakReference<TextView>(mTextPreview));
         mTextLoadTask.execute(getFile().getStoragePath());
     }
