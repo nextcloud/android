@@ -29,6 +29,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -45,6 +46,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.utils.BitmapUtils;
+import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -361,36 +364,19 @@ public class ThumbnailsCacheManager {
     }
 
     public static class AvatarGenerationTask extends AsyncTask<Object, Void, Bitmap> {
-        private final WeakReference<ImageView> mImageViewReference;
-        private final WeakReference<MenuItem> mMenuItemReference;
+        private final WeakReference<AvatarGenerationListener> mAvatarGenerationListener;
+        private final Object mCallContext;
         private Account mAccount;
         private Object mUsername;
 
 
-        public AvatarGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-                                       Account account) {
-            // Use a WeakReference to ensure the ImageView can be garbage collected
-            mMenuItemReference = null;
-            mImageViewReference = new WeakReference<ImageView>(imageView);
+        public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener, Object callContext,
+                                    FileDataStorageManager storageManager, Account account) {
+            mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
+            mCallContext = callContext;
             if (storageManager == null)
                 throw new IllegalArgumentException("storageManager must not be NULL");
             mAccount = account;
-        }
-
-        public AvatarGenerationTask(MenuItem menuItem, FileDataStorageManager storageManager,
-                                    Account account) {
-            // Use a WeakReference to ensure the ImageView can be garbage collected
-            mImageViewReference = null;
-            mMenuItemReference = new WeakReference<MenuItem>(menuItem);
-            if (storageManager == null)
-                throw new IllegalArgumentException("storageManager must not be NULL");
-            mAccount = account;
-        }
-
-        public AvatarGenerationTask(ImageView imageView) {
-            // Use a WeakReference to ensure the ImageView can be garbage collected
-            mMenuItemReference = null;
-            mImageViewReference = new WeakReference<ImageView>(imageView);
         }
 
         @Override
@@ -424,28 +410,15 @@ public class ThumbnailsCacheManager {
 
         protected void onPostExecute(Bitmap bitmap) {
             if (bitmap != null) {
-                if (mImageViewReference != null) {
-                    ImageView imageView = mImageViewReference.get();
-                    AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(imageView);
+                if (mAvatarGenerationListener != null) {
+                    AvatarGenerationListener listener = mAvatarGenerationListener.get();
+                    AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
                     if (this == avatarWorkerTask) {
                         String tagId = "";
                         if (mUsername instanceof String) {
                             tagId = (String) mUsername;
-                            if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                                imageView.setImageBitmap(bitmap);
-                            }
-                        }
-                    }
-                } else {
-                    MenuItem menuItem = mMenuItemReference.get();
-                    AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(menuItem);
-                    if (this == avatarWorkerTask) {
-                        String tagId = "";
-                        if (mUsername instanceof String) {
-                            tagId = (String) mUsername;
-                            if (String.valueOf(menuItem.getTitle()).equals(tagId)) {
-                                menuItem.setIcon(new BitmapDrawable(MainApp.getAppContext().getResources(),
-                                        bitmap));
+                            if (listener.shouldCallGeneratedCallback(tagId, mCallContext)) {
+                                listener.avatarGenerated(new BitmapDrawable(bitmap), mCallContext);
                             }
                         }
                     }
@@ -592,6 +565,15 @@ public class ThumbnailsCacheManager {
         return true;
     }
 
+    public static boolean cancelPotentialAvatarWork(Object file, Object callContext) {
+        if (callContext instanceof ImageView)
+            return cancelPotentialAvatarWork(file, (ImageView)callContext);
+        else if (callContext instanceof MenuItem)
+            return cancelPotentialAvatarWork(file, (MenuItem)callContext);
+
+        return false;
+    }
+
     public static boolean cancelPotentialAvatarWork(Object file, ImageView imageView) {
         final AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(imageView);
 
@@ -641,21 +623,16 @@ public class ThumbnailsCacheManager {
         return null;
     }
 
-    public static AvatarGenerationTask getAvatarWorkerTask(ImageView imageView) {
-        if (imageView != null) {
-            return getAvatarWorkerTask(imageView.getDrawable());
-        }
+    public static AvatarGenerationTask getAvatarWorkerTask(Object callContext) {
+        if (callContext instanceof ImageView)
+            return getAvatarWorkerTask(((ImageView)callContext).getDrawable());
+        else if (callContext instanceof MenuItem)
+            return getAvatarWorkerTask(((MenuItem)callContext).getIcon());
+
         return null;
     }
 
-    public static AvatarGenerationTask getAvatarWorkerTask(MenuItem menuItem) {
-        if (menuItem != null) {
-            return getAvatarWorkerTask(menuItem.getIcon());
-        }
-        return null;
-    }
-
-    public static AvatarGenerationTask getAvatarWorkerTask(Drawable drawable) {
+    private static AvatarGenerationTask getAvatarWorkerTask(Drawable drawable) {
         if (drawable instanceof AsyncAvatarDrawable) {
             final AsyncAvatarDrawable asyncDrawable = (AsyncAvatarDrawable) drawable;
             return asyncDrawable.getAvatarWorkerTask();
@@ -671,8 +648,7 @@ public class ThumbnailsCacheManager {
         ) {
 
             super(res, bitmap);
-            bitmapWorkerTaskReference =
-                    new WeakReference<ThumbnailGenerationTask>(bitmapWorkerTask);
+            bitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
         }
 
         public ThumbnailGenerationTask getBitmapWorkerTask() {
