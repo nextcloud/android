@@ -401,7 +401,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     upload.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED)) {
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                        String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId())
+                        String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.hashCode())
                 );
                 if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.needsUpdateThumbnail()) {
                     fileIcon.setImageBitmap(thumbnail);

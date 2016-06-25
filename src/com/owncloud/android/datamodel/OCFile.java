@@ -657,4 +657,13 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
     }
 
+    /**
+     * hashCode is derive from remoteId of the file, so the hash code is
+     * identical for the same file on the remote server
+     * @return
+     */
+    @Override
+    public int hashCode() {
+        return this.getRemoteId().hashCode();
+    }
 }
