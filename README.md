@@ -29,7 +29,7 @@ if you want to join the Github organization just let us know and we’ll add you
 *This is by the community, for the community. Everyone is welcome! :)*
 
 ## Start contributing
-Make sure you read [SETUP.md](https://github.com/nextcloud/android/blob/master/SETUP.md) when you start working on this project. Basically: Fork this repository and contribute back using pull requests to the master branch.
+Make sure you read [SETUP.md](https://github.com/nextcloud/android/blob/master/SETUP.md) and [CONTRIBUTING.md](https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md) when you start working on this project. Basically: Fork this repository and contribute back using pull requests to the master branch.
 Easy starting points are also reviewing [pull requests](https://github.com/nextcloud/android/pulls) and working on [starter issue](https://github.com/nextcloud/android/issues?q=is%3Aopen+is%3Aissue+label%3A%22starter+issue%22).
 
 **Beta version** [beta version](https://github.com/nextcloud/android/raw/beta/apks/latest.apk)
