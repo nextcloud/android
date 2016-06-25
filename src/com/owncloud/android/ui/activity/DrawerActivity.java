@@ -44,6 +44,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.utils.BitmapUtils;
@@ -442,7 +443,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             TextView username = (TextView) findNavigationViewChildById(R.id.drawer_username);
             TextView usernameFull = (TextView) findNavigationViewChildById(R.id.drawer_username_full);
             usernameFull.setText(account.name);
-            username.setText(AccountUtils.getAccountUsername(account.name));
+            try {
+                OwnCloudAccount oca = new OwnCloudAccount(account, this);
+                username.setText(oca.getDisplayName());
+            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                Log_OC.w(TAG, "Couldn't read display name of account fallback to account name");
+                username.setText(AccountUtils.getAccountUsername(account.name));
+            }
 
             DisplayUtils.setAvatar(account, this,
                     mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),
