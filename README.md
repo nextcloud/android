@@ -3,6 +3,7 @@
 <a href="https://play.google.com/store/apps/details?id=com.nextcloud.client" alt="Download from Google Play">
   <img src="http://www.android.com/images/brand/android_app_on_play_large.png">
 </a>
+
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
       height="80">](https://f-droid.org/repository/browse/?fdfilter=com.nextcloud)
