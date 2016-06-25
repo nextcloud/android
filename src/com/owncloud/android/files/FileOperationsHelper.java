@@ -26,7 +26,6 @@ import android.accounts.Account;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
@@ -35,14 +34,10 @@ import android.support.v4.app.DialogFragment;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -52,18 +47,9 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.ui.adapter.DiskLruImageCacheFileProvider;
 import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.adapter.DiskLruImageCacheFileProvider;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
-import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
-
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
-import org.apache.http.protocol.HTTP;
 
 import java.util.List;
 
@@ -443,13 +429,12 @@ public class FileOperationsHelper {
             Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
             // set MimeType
             sendIntent.setType(file.getMimetype());
-//            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + "/#" + file.getRemoteId() + "#" + file.getFileName()));
             sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath()));
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
 
             // Show dialog, without the own app
             String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
-            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude, file);
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude);
             chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
         } else {
             Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
