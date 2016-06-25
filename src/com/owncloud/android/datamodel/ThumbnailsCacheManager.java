@@ -325,19 +325,6 @@ public class ThumbnailsCacheManager {
 
         }
 
-        private Bitmap handlePNG(Bitmap bitmap, int px){
-            Bitmap resultBitmap = Bitmap.createBitmap(px,
-                    px,
-                    Bitmap.Config.ARGB_8888);
-            Canvas c = new Canvas(resultBitmap);
-
-            c.drawColor(MainApp.getAppContext().getResources().
-                    getColor(R.color.background_color));
-            c.drawBitmap(bitmap, 0, 0, null);
-
-            return resultBitmap;
-        }
-
         private Bitmap doFileInBackground() {
             File file = (File)mFile;
 
@@ -509,19 +496,6 @@ public class ThumbnailsCacheManager {
             return avatar;
         }
 
-        private Bitmap handlePNG(Bitmap bitmap, int px){
-            Bitmap resultBitmap = Bitmap.createBitmap(px,
-                    px,
-                    Bitmap.Config.ARGB_8888);
-            Canvas c = new Canvas(resultBitmap);
-
-            c.drawColor(MainApp.getAppContext().getResources().
-                    getColor(R.color.background_color));
-            c.drawBitmap(bitmap, 0, 0, null);
-
-            return resultBitmap;
-        }
-
         private Bitmap doFileInBackground() {
             File file = (File) mUsername;
 
@@ -672,5 +646,18 @@ public class ThumbnailsCacheManager {
         public AvatarGenerationTask getAvatarWorkerTask() {
             return avatarWorkerTaskReference.get();
         }
+    }
+
+    private static Bitmap handlePNG(Bitmap bitmap, int px){
+        Bitmap resultBitmap = Bitmap.createBitmap(px,
+                px,
+                Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(resultBitmap);
+
+        c.drawColor(MainApp.getAppContext().getResources().
+                getColor(R.color.background_color));
+        c.drawBitmap(bitmap, 0, 0, null);
+
+        return resultBitmap;
     }
 }
