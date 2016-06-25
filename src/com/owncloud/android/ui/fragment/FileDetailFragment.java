@@ -4,7 +4,7 @@
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -217,6 +217,26 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             item.setVisible(false);
             item.setEnabled(false);
         }
+
+        Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
+
+        item = menu.findItem(R.id.action_switch_view);
+        if (item != null && !dualPane){
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        item = menu.findItem(R.id.action_sync_account);
+        if (item != null && !dualPane) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        item = menu.findItem(R.id.action_sort);
+        if (item != null && !dualPane) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
     }
 
 
@@ -227,18 +247,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
-                return true;
-            }
-            case R.id.action_share_with_users: {
                 mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
                 return true;
             }
-            case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
-                return true;
-            }
-
             case R.id.action_open_file_with: {
                 mContainerActivity.getFileOperationsHelper().openFile(getFile());
                 return true;
@@ -538,6 +549,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 mContainerActivity.getFileUploaderBinder().
                         addDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
+        } else {
+            Log_OC.d(TAG, "mProgressListener == null");
         }
     }
 

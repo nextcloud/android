@@ -1,6 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <resources>
-  <string name="about_android">%1$s ஆன்றாஇட் மென்பொருள்</string>
   <string name="about_version">பதிப்பு எண் %1$s</string>
   <string name="actionbar_sync">கணக்கை புதுப்பி </string>
   <string name="actionbar_upload">பதிவேற்று</string>
@@ -20,20 +19,17 @@
   <string name="prefs_category_general">பொது</string>
   <string name="prefs_category_more">மேலும்</string>
   <string name="prefs_accounts">கணக்குகள்</string>
-  <string name="prefs_manage_accounts">கணக்குகளை நிர்வகி</string>
   <string name="prefs_instant_upload">உடனடி புகைப்பட பதிவேற்றம்</string>
   <string name="prefs_instant_upload_summary">உடனடியாக கேமரா மூலம் எடுக்கப்பட்ட படங்களை பதிவேற்றம் செய்யவும்</string>
   <string name="prefs_instant_video_upload">உடனடி காணொளி பதிவேற்றம்</string>
   <string name="prefs_instant_video_upload_summary">உடனடியாக கேமரா மூலம் எடுக்கப்பட்ட காணொளிகளை பதிவேற்றம் செய்யவும்</string>
-  <string name="prefs_log_title">பதிவுகளை அனுமதிக்கவும்</string>
   <string name="prefs_log_summary">இது சிக்கல்களை பதிவு செய்ய பயன்படுகின்றது</string>
-  <string name="prefs_log_title_history">உள்நுழைவு வரலாறு</string>
   <string name="prefs_log_summary_history">இது பதிவுசெய்யப்பட்ட பதிகைகள் காட்டுகிறது</string>
   <string name="sync_string_files">கோப்புகள்</string>
   <string name="uploader_btn_upload_text">பதிவேற்று</string>
-  <string name="uploader_btn_new_folder_text">புதிய கோப்புறை</string>
   <string name="ssl_validator_btn_details_see">விவரங்கள்</string>
   <string name="activity_chooser_send_file_title">அனுப்பவும்</string>
   <string name="empty"></string>
   <string name="prefs_category_accounts">கணக்குகள்</string>
+  <string name="prefs_category_details">விவரங்கள்</string>
 </resources>

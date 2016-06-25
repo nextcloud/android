@@ -54,22 +54,18 @@ implements ConfirmationDialogFragmentListener {
         
         int messageStringId = R.string.confirmation_remove_alert;
         
-        int posBtn = R.string.confirmation_remove_remote;
-        int negBtn = -1;
+        int localRemoveButton = (!file.isFavorite() && (file.isFolder() || file.isDown())) ?
+            R.string.confirmation_remove_local : -1;
+
         if (file.isFolder()) {
             messageStringId = R.string.confirmation_remove_folder_alert;
-            posBtn = R.string.confirmation_remove_remote_and_local;
-            negBtn = R.string.confirmation_remove_local;
-        } else if (file.isDown()) {
-            posBtn = R.string.confirmation_remove_remote_and_local;
-            negBtn = R.string.confirmation_remove_local;
         }
-        
-        args.putInt(ARG_CONF_RESOURCE_ID, messageStringId);
-        args.putStringArray(ARG_CONF_ARGUMENTS, new String[]{file.getFileName()});
-        args.putInt(ARG_POSITIVE_BTN_RES, posBtn);
+
+        args.putInt(ARG_MESSAGE_RESOURCE_ID, messageStringId);
+        args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{file.getFileName()});
+        args.putInt(ARG_POSITIVE_BTN_RES, R.string.common_yes);
         args.putInt(ARG_NEUTRAL_BTN_RES, R.string.common_no);
-        args.putInt(ARG_NEGATIVE_BTN_RES, negBtn);
+        args.putInt(ARG_NEGATIVE_BTN_RES, localRemoveButton);
         args.putParcelable(ARG_TARGET_FILE, file);
         frag.setArguments(args);
         

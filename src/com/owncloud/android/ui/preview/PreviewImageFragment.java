@@ -285,7 +285,7 @@ public class PreviewImageFragment extends FileFragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        if (mContainerActivity.getStorageManager() != null) {
+        if (mContainerActivity.getStorageManager() != null && getFile() != null) {
             // Update the file
             setFile(mContainerActivity.getStorageManager().getFileById(getFile().getFileId()));
 
@@ -338,15 +338,7 @@ public class PreviewImageFragment extends FileFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
-                return true;
-            }
-            case R.id.action_share_with_users: {
                 mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
-                return true;
-            }
-            case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -565,12 +557,17 @@ public class PreviewImageFragment extends FileFragment {
                 Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
                         bitmap.getHeight());
 
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")){
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                     Drawable backrepeat = getResources().getDrawable(R.drawable.backrepeat);
                     imageView.setBackground(backrepeat);
                 }
 
-                imageView.setImageBitmap(bitmap);
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
+                    imageView.setGIFImageFromStoragePath(result.ocFile.getStoragePath());
+                } else {
+                    imageView.setImageBitmap(bitmap);
+                }
+
                 imageView.setVisibility(View.VISIBLE);
                 mBitmap  = bitmap;  // needs to be kept for recycling when not useful
             }

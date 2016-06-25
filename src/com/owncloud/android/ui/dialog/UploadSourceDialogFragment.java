@@ -31,6 +31,7 @@ import android.support.v4.app.DialogFragment;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 
 
@@ -44,9 +45,6 @@ public class UploadSourceDialogFragment extends DialogFragment {
     private final static String TAG =  UploadSourceDialogFragment.class.getSimpleName();
     private final static String ARG_ACCOUNT =  UploadSourceDialogFragment.class.getSimpleName() +
             ".ARG_ACCOUNT";
-
-    public static final int ACTION_SELECT_CONTENT_FROM_APPS = 1;
-    public static final int ACTION_SELECT_MULTIPLE_FILES = 2;
 
     public static UploadSourceDialogFragment newInstance(Account account) {
         UploadSourceDialogFragment f = new UploadSourceDialogFragment();
@@ -79,10 +77,13 @@ public class UploadSourceDialogFragment extends DialogFragment {
                             UploadFilesActivity.EXTRA_ACCOUNT,
                             ((FileActivity)getActivity()).getAccount()
                     );
-                    //startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
+                    //startActivityForResult(action, REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM);
                     // this flow seems broken;
                     // Actionbarsherlock, maybe?
-                    getActivity().startActivityForResult(action, ACTION_SELECT_MULTIPLE_FILES);
+                    getActivity().startActivityForResult(
+                            action,
+                            FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
+                    );
 
                 } else if (item == 1) {
                     Intent action = new Intent(Intent.ACTION_GET_CONTENT);
@@ -91,11 +92,9 @@ public class UploadSourceDialogFragment extends DialogFragment {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
                         action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
                     }
-                    //startActivityForResult(   // this flow seems broken;
-                                                // Actionbarsherlock, maybe?
                     getActivity().startActivityForResult(
                             Intent.createChooser(action, getString(R.string.upload_chooser_title)),
-                            ACTION_SELECT_CONTENT_FROM_APPS
+                            FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
                     );
                 }
             }

@@ -187,6 +187,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         
         if (OCFile.ROOT_PATH.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount) {
             updateOCVersion(client);
+
         }
         
         result = checkForChanges(client);
@@ -231,10 +232,24 @@ public class RefreshFolderOperation extends RemoteOperation {
         RemoteOperationResult result = update.execute(client);
         if (result.isSuccess()) {
             mIsShareSupported = update.getOCVersion().isSharedSupported();
+
+            // Update Capabilities for this account
+            if (update.getOCVersion().isVersionWithCapabilitiesAPI()) {
+                updateCapabilities(client);
+            } else {
+                Log_OC.d(TAG, "Capabilities API disabled");
+            }
         }
     }
 
-    
+    private void updateCapabilities(OwnCloudClient client){
+        GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
+        RemoteOperationResult  result = getCapabilities.execute(mStorageManager,mContext);
+        if (!result.isSuccess()){
+            Log_OC.w(TAG, "Update Capabilities unsuccessfully");
+        }
+    }
+
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = true;
         RemoteOperationResult result = null;
@@ -512,7 +527,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private void fetchFavoritesToSyncFromLocalData() {
         List<OCFile> children = mStorageManager.getFolderContent(mLocalFolder);
         for (OCFile child : children) {
-            if (!child.isFolder() && child.isFavorite()) {
+            if (!child.isFolder() && child.isFavorite() && !child.isInConflict()) {
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(
                         child,
                         child,  // cheating with the remote file to get an update to server; to refactor

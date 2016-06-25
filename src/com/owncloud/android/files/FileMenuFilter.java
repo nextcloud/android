@@ -20,23 +20,22 @@
 
 package com.owncloud.android.files;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
@@ -182,30 +181,21 @@ public class FileMenuFilter {
         }
 
         // SHARE FILE
-        // TODO add check on SHARE available on server side?
-        boolean shareAllowed = (mContext != null  &&
-                mContext.getString(R.string.share_feature).equalsIgnoreCase("on"));
-        if (!shareAllowed || mFile == null) {
+        boolean shareViaLinkAllowed = (mContext != null  &&
+                mContext.getResources().getBoolean(R.bool.share_via_link_feature));
+        boolean shareWithUsersAllowed = (mContext != null  &&
+                mContext.getResources().getBoolean(R.bool.share_with_users_feature));
+
+        OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
+        boolean shareApiEnabled  = capability != null &&
+                (capability.getFilesSharingApiEnabled().isTrue() ||
+                        capability.getFilesSharingApiEnabled().isUnknown()
+                );
+        if ((!shareViaLinkAllowed && !shareWithUsersAllowed) ||  mFile == null || !shareApiEnabled) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);
         }
-
-        // UNSHARE FILE
-        // TODO add check on SHARE available on server side?
-        if ( !shareAllowed || (mFile == null || !mFile.isSharedViaLink())) {
-            toHide.add(R.id.action_unshare_file);
-        } else {
-            toShow.add(R.id.action_unshare_file);
-        }
-
-        // SHARE FILE, with Users
-        if (!shareAllowed ||  mFile == null) {
-            toHide.add(R.id.action_share_with_users);
-        } else {
-            toShow.add(R.id.action_share_with_users);
-        }
-
 
         // SEE DETAILS
         if (mFile == null || mFile.isFolder()) {

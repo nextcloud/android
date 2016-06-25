@@ -3,7 +3,8 @@
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2015 ownCloud Inc.
+  Copyright (C) 2015-2016 ownCloud Inc.
+  Copyright (C) 2016 Nextcloud
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -18,6 +19,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -29,20 +31,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/login_background_color"
+        android:background="@color/primary"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="8dp" >
+        android:padding="@dimen/standard_padding" >
 
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="10dp"
-            android:background="@color/login_logo_background_color"
-            android:src="@drawable/logo"
-            android:contentDescription="@string/app_name"/>
+		<ImageView
+			android:id="@+id/thumbnail"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginBottom="@dimen/standard_padding"
+			android:src="@drawable/logo"
+			android:contentDescription="@string/app_name"/>
+
+		<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+			android:id="@+id/card_view"
+			android:layout_gravity="center"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+            card_view:cardBackgroundColor="@color/white"
+            card_view:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/centeredRefreshButton"
@@ -51,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="10dp"
+            android:theme="@style/Button"
             android:text="@string/auth_check_server"
             android:visibility="gone"
             android:contentDescription="@string/auth_check_server"/>
@@ -64,30 +80,38 @@
             android:visibility="gone"
             android:layout_marginBottom="10dp"
             android:textColor="@color/login_text_color"
-            android:textColorHint="@color/login_text_hint_color"
             android:contentDescription="@string/auth_expired_basic_auth_toast"/>
 
 	    <FrameLayout 
 	        android:id="@+id/hostUrlFrame"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp"
-	        >
-			<EditText
-				android:id="@+id/hostUrlInput"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:layout_gravity="bottom"
-				android:hint="@string/auth_host_url"
-				android:inputType="textUri"
-				android:drawablePadding="5dp"
-				android:paddingRight="55dp"
-                android:textColorHint="@color/login_text_hint_color"
-				android:contentDescription="@string/auth_host_address"
-                >
-				<requestFocus />
-			</EditText>
-			<ImageButton
+            android:layout_marginBottom="0dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/input_layout_hostUrl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/hostUrlInput"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:contentDescription="@string/auth_host_address"
+                    android:drawablePadding="5dp"
+                    android:hint="@string/auth_host_url"
+                    android:inputType="textUri"
+                    android:paddingRight="55dp"
+                    android:textColor="@color/login_text_color"
+                    android:textColorHint="@color/login_text_hint_color">
+
+                    <requestFocus/>
+                </EditText>
+
+            </android.support.design.widget.TextInputLayout>
+
+            <ImageButton
 			    android:id="@+id/embeddedRefreshButton"
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
@@ -96,7 +120,6 @@
 			    android:padding="0dp"
 			    android:scaleType="fitCenter"
 			    android:src="@drawable/ic_action_refresh_grey"
-            	android:onClick="onRefreshClick"
 				android:visibility="gone"
 				android:background="@android:color/transparent"
                 android:contentDescription="@string/auth_refresh_button"
@@ -112,7 +135,6 @@
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:textColor="@color/login_text_color"
-            android:textColorHint="@color/login_text_hint_color"
             android:text="@string/auth_testing_connection"
             android:minHeight="32dp"
             android:contentDescription="@string/auth_testing_connection"/>
@@ -126,58 +148,86 @@
             android:text="@string/oauth_check_onoff"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@color/primary"
-            android:textColorHint="@color/login_text_hint_color"
             android:contentDescription="@string/oauth_check_onoff"
             />
 
-        <EditText
-            android:id="@+id/oAuthEntryPoint_1"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_oAuthEntryPoint_1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-			android:enabled="false"
-            android:textColorHint="@color/login_text_hint_color"
-            android:text="@string/oauth2_url_endpoint_auth"
-            android:singleLine="true"
-            android:inputType="textUri"
-            android:visibility="gone">
-        </EditText>
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/oAuthEntryPoint_2"
+            <EditText
+                android:id="@+id/oAuthEntryPoint_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textUri"
+                android:singleLine="true"
+                android:text="@string/oauth2_url_endpoint_auth"
+                android:textColor="@color/login_text_color"
+                android:textColorHint="@color/login_text_hint_color"
+                android:visibility="gone" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_oAuthEntryPoint_2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-			android:enabled="false"
-            android:text="@string/oauth2_url_endpoint_access"
-            android:singleLine="true"
-            android:inputType="textUri"
-            android:textColorHint="@color/login_text_hint_color"
-            android:visibility="gone"/>
+            android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/account_username"
+            <EditText
+                android:id="@+id/oAuthEntryPoint_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:enabled="false"
+                android:inputType="textUri"
+                android:singleLine="true"
+                android:text="@string/oauth2_url_endpoint_access"
+                android:textColor="@color/login_text_color"
+                android:textColorHint="@color/login_text_hint_color"
+                android:visibility="gone"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_account_username"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/auth_username"
-            android:inputType="textNoSuggestions"
-            android:textColorHint="@color/login_text_hint_color"
-            android:contentDescription="@string/auth_username"
-            />
+            android:layout_height="wrap_content">
 
-		<EditText
-		    android:id="@+id/account_password"
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:drawablePadding="5dp"
-		    android:ems="10"
-		    android:hint="@string/auth_password"
-		    android:inputType="textPassword"
-            android:textColorHint="@color/login_text_hint_color"
-		    android:contentDescription="@string/auth_password"
-            />
-        
+            <EditText
+                android:id="@+id/account_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/auth_username"
+                android:ems="10"
+                android:hint="@string/auth_username"
+                android:inputType="textNoSuggestions"
+                android:textColor="@color/login_text_color"
+                android:textColorHint="@color/login_text_hint_color"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_layout_account_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/account_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/auth_password"
+                android:drawablePadding="5dp"
+                android:ems="10"
+                android:hint="@string/auth_password"
+                android:inputType="textPassword"
+                android:textColor="@color/login_text_color"
+                android:textColorHint="@color/login_text_hint_color"
+                />
+        </android.support.design.widget.TextInputLayout>
+
         <TextView
             android:id="@+id/auth_status_text"
             android:layout_width="match_parent"
@@ -188,7 +238,6 @@
             android:gravity="center_vertical"
             android:text="@string/auth_unauthorized"
             android:textColor="@color/login_text_color"
-            android:textColorHint="@color/login_text_hint_color"
             android:contentDescription="@string/auth_unauthorized"/>
 
         <android.support.v7.widget.AppCompatButton
@@ -202,18 +251,26 @@
             android:text="@string/setup_btn_connect"
             android:contentDescription="@string/setup_btn_connect"/>
 
-        <Button
-            android:id="@+id/welcome_link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:onClick="onRegisterClick"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"
-            android:text="@string/auth_register"
-            android:textColor="@color/login_text_color"
-            android:textColorHint="@color/login_text_hint_color"
-            android:contentDescription="@string/auth_register"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom">
+
+            <Button
+                android:id="@+id/welcome_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:onClick="onRegisterClick"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="@string/auth_register"
+                android:textColor="@color/login_text_color"
+                android:contentDescription="@string/auth_register"/>
+            
+        </LinearLayout>
+        </LinearLayout>
+		</android.support.v7.widget.CardView>
 
     </LinearLayout>
 

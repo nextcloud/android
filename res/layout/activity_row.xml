@@ -21,9 +21,12 @@
     			android:id="@+id/list_item"
 				android:layout_width="match_parent"
 				android:layout_height="48dp"
+				android:paddingStart="16dip"
+				android:paddingEnd="16dip"
 				android:paddingRight="16dip"
 				android:paddingLeft="16dip"
 				android:minWidth="196dip"
+				android:background="?android:attr/activatedBackgroundIndicator"
     			android:orientation="vertical" >
 
 	<LinearLayout
@@ -36,6 +39,7 @@
 			android:layout_width="40dip"
 			android:layout_height="40dip"
 			android:layout_gravity="center_vertical"
+			android:layout_marginEnd="8dip"
 			android:layout_marginRight="8dip"
 			android:duplicateParentState="true" />
 
@@ -44,7 +48,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceLargePopupMenu"
             android:duplicateParentState="true"
             android:singleLine="true"
             android:ellipsize="marquee"

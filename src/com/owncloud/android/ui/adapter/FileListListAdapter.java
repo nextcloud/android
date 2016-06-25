@@ -6,7 +6,7 @@
  *   @author David A. Velasco
  *   @author masensio
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -24,16 +24,10 @@
 package com.owncloud.android.ui.adapter;
 
 
-import java.io.File;
-import java.util.Vector;
-
 import android.accounts.Account;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +43,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -56,6 +51,8 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
+
+import java.util.Vector;
 
 
 /**
@@ -76,8 +73,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private boolean mGridMode;
 
     private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM };
-
-    private SharedPreferences mAppPreferences;
     
     public FileListListAdapter(
             boolean justFolders, 
@@ -88,14 +83,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
-        mTransferServiceGetter = transferServiceGetter;
 
-        mAppPreferences = PreferenceManager
-                .getDefaultSharedPreferences(mContext);
+        mTransferServiceGetter = transferServiceGetter;
         
         // Read sorting order, default to sort by name ascending
-        FileStorageUtils.mSortOrder = mAppPreferences.getInt("sortOrder", 0);
-        FileStorageUtils.mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
+        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(mContext);
+        FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(mContext);
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -193,14 +186,16 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             switch (viewType){
                 case LIST_ITEM:
                     TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+                    TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
                     TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
                     ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
 
                     lastModV.setVisibility(View.VISIBLE);
-                    lastModV.setText(showRelativeTimestamp(file));
+                    lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.getModificationTimestamp()));
 
                     checkBoxV.setVisibility(View.GONE);
 
+                    fileSizeSeparatorV.setVisibility(View.VISIBLE);
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
@@ -212,17 +207,18 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             } else {
                                 if (parentList.isItemChecked(position)) {
                                     checkBoxV.setImageResource(
-                                            android.R.drawable.checkbox_on_background);
+                                            R.drawable.ic_checkbox_marked);
                                 } else {
                                     checkBoxV.setImageResource(
-                                            android.R.drawable.checkbox_off_background);
+                                            R.drawable.ic_checkbox_blank_outline);
                                 }
                                 checkBoxV.setVisibility(View.VISIBLE);
                             }
                         }
 
                     } else { //Folder
-                        fileSizeV.setVisibility(View.INVISIBLE);
+                        fileSizeSeparatorV.setVisibility(View.GONE);
+                        fileSizeV.setVisibility(View.GONE);
                     }
 
                 case GRID_ITEM:
@@ -265,37 +261,29 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                 opsBinder != null &&
                                 opsBinder.isSynchronizing(mAccount, file.getRemotePath())
                             ) {
-                        localStateView.setImageResource(R.drawable.synchronizing_file_indicator);
+                        localStateView.setImageResource(R.drawable.ic_synchronizing);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if ( // downloading
                                 downloaderBinder != null &&
                                 downloaderBinder.isDownloading(mAccount, file)
                             ) {
-                        localStateView.setImageResource(
-                                file.isFolder() ?
-                                        R.drawable.synchronizing_file_indicator :
-                                        R.drawable.downloading_file_indicator
-                        );
+                        localStateView.setImageResource(R.drawable.ic_synchronizing);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if ( //uploading
                                 uploaderBinder != null &&
                                 uploaderBinder.isUploading(mAccount, file)
                             ) {
-                        localStateView.setImageResource(
-                                file.isFolder() ?
-                                        R.drawable.synchronizing_file_indicator :
-                                        R.drawable.uploading_file_indicator
-                        );
+                        localStateView.setImageResource(R.drawable.ic_synchronizing);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if (file.getEtagInConflict() != null) {   // conflict
-                        localStateView.setImageResource(R.drawable.conflict_file_indicator);
+                        localStateView.setImageResource(R.drawable.ic_synchronizing_error);
                         localStateView.setVisibility(View.VISIBLE);
 
                     } else if (file.isDown()) {
-                        localStateView.setImageResource(R.drawable.local_file_indicator);
+                        localStateView.setImageResource(R.drawable.ic_synced);
                         localStateView.setVisibility(View.VISIBLE);
                     }
 
@@ -351,6 +339,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(file.getMimetype(),
                             file.getFileName()));
                 }
+
 
             } else {
                 // Folder
@@ -432,26 +421,21 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     
     
     public void setSortOrder(Integer order, boolean ascending) {
-        SharedPreferences.Editor editor = mAppPreferences.edit();
-        editor.putInt("sortOrder", order);
-        editor.putBoolean("sortAscending", ascending);
-        editor.commit();
+        PreferenceManager.setSortOrder(mContext, order);
+        PreferenceManager.setSortAscending(mContext, ascending);
         
         FileStorageUtils.mSortOrder = order;
         FileStorageUtils.mSortAscending = ascending;
-        
 
         mFiles = FileStorageUtils.sortFolder(mFiles);
         notifyDataSetChanged();
-
-    }
-    
-    private CharSequence showRelativeTimestamp(OCFile file){
-        return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
-                DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
     }
 
     public void setGridMode(boolean gridMode) {
         mGridMode = gridMode;
+    }
+
+    public boolean isGridMode() {
+        return mGridMode;
     }
 }

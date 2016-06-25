@@ -121,22 +121,25 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             fileIcon.setTag(file.hashCode());
 
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
+            TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
+            lastModV.setVisibility(View.VISIBLE);
+            lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.lastModified()));
+
             if (!file.isDirectory()) {
+                fileSizeSeparatorV.setVisibility(View.VISIBLE);
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
 
-                lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
                 ListView parentList = (ListView) parent;
                 if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
                 } else {
                     if (parentList.isItemChecked(position)) {
-                        checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                        checkBoxV.setImageResource(R.drawable.ic_checkbox_marked);
                     } else {
-                        checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                        checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
@@ -175,8 +178,8 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 }  
 
             } else {
+                fileSizeSeparatorV.setVisibility(View.GONE);
                 fileSizeV.setVisibility(View.GONE);
-                lastModV.setVisibility(View.GONE);
                 checkBoxV.setVisibility(View.GONE);
             }
 

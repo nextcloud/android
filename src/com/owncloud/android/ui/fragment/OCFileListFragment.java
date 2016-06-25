@@ -5,7 +5,7 @@
  *   @author masensio
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -23,17 +23,25 @@
 package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.PopupMenu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -46,8 +54,10 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.FileActionsDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
@@ -65,7 +75,7 @@ import java.io.File;
  */
 public class OCFileListFragment extends ExtendedListFragment
         implements FileActionsDialogFragment.FileActionsDialogFragmentListener {
-    
+
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
@@ -73,19 +83,31 @@ public class OCFileListFragment extends ExtendedListFragment
 
     public final static String ARG_JUST_FOLDERS = MY_PACKAGE + ".JUST_FOLDERS";
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
+    public final static String ARG_HIDE_FAB = MY_PACKAGE + ".HIDE_FAB";
 
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
+    private static final String KEY_FAB_EVER_CLICKED = "FAB_EVER_CLICKED";
+
+    private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
+
+    private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
 
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
     private boolean mJustFolders;
-    
+
     private OCFile mTargetFile;
-    
+
+    private boolean miniFabClicked = false;
    
-    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -102,14 +124,26 @@ public class OCFileListFragment extends ExtendedListFragment
         }
         try {
             setOnRefreshListener((OnEnforceableRefreshListener) activity);
-            
+
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement " +
                     SwipeRefreshLayout.OnRefreshListener.class.getSimpleName());
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        Log_OC.i(TAG, "onCreateView() start");
+        View v = super.onCreateView(inflater, container, savedInstanceState);
 
+        Log_OC.i(TAG, "onCreateView() end");
+        return v;
+    }
+
+    
     @Override
     public void onDetach() {
         setOnRefreshListener(null);
@@ -145,7 +179,160 @@ public class OCFileListFragment extends ExtendedListFragment
         setListAdapter(mAdapter);
 
         registerLongClickListener();
+
+        boolean hideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
+        if (hideFab) {
+            setFabEnabled(false);
+        } else {
+            setFabEnabled(true);
+            registerFabListeners();
+
+            // detect if a mini FAB has ever been clicked
+            final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            if(prefs.getLong(KEY_FAB_EVER_CLICKED, 0) > 0) {
+                miniFabClicked = true;
+            }
+
+            // add labels to the min FABs when none of them has ever been clicked on
+            if(!miniFabClicked) {
+                setFabLabels();
+            } else {
+                removeFabLabels();
+            }
+        }
   }
+
+    /**
+     * adds labels to all mini FABs.
+     */
+    private void setFabLabels() {
+        getFabUpload().setTitle(getResources().getString(R.string.actionbar_upload));
+        getFabMkdir().setTitle(getResources().getString(R.string.actionbar_mkdir));
+        getFabUploadFromApp().setTitle(getResources().getString(R.string.actionbar_upload_from_apps));
+    }
+
+    /**
+     * registers all listeners on all mini FABs.
+     */
+    private void registerFabListeners() {
+        registerFabUploadListeners();
+        registerFabMkDirListeners();
+        registerFabUploadFromAppListeners();
+    }
+
+    /**
+     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
+     * on the Upload mini FAB for the linked action and {@link Toast} showing the underlying action.
+     */
+    private void registerFabUploadListeners() {
+        getFabUpload().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UploadFilesActivity.startUploadActivityForResult(getActivity(), ((FileActivity)getActivity())
+                        .getAccount(), FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM);
+                getFabMain().collapse();
+                recordMiniFabClick();
+            }
+        });
+
+        getFabUpload().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getActivity(), R.string.actionbar_upload, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
+
+    /**
+     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
+     * on the 'Create Dir' mini FAB for the linked action and {@link Toast} showing the underlying action.
+     */
+    private void registerFabMkDirListeners() {
+        getFabMkdir().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreateFolderDialogFragment dialog =
+                        CreateFolderDialogFragment.newInstance(mFile);
+                dialog.show(getActivity().getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
+                getFabMain().collapse();
+                recordMiniFabClick();
+            }
+        });
+
+        getFabMkdir().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getActivity(), R.string.actionbar_mkdir, Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
+
+    /**
+     * registers {@link android.view.View.OnClickListener} and {@link android.view.View.OnLongClickListener}
+     * on the Upload from App mini FAB for the linked action and {@link Toast} showing the underlying action.
+     */
+    private void registerFabUploadFromAppListeners() {
+        getFabUploadFromApp().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent action = new Intent(Intent.ACTION_GET_CONTENT);
+                action = action.setType("*/*").addCategory(Intent.CATEGORY_OPENABLE);
+                //Intent.EXTRA_ALLOW_MULTIPLE is only supported on api level 18+, Jelly Bean
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                    action.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+                }
+                getActivity().startActivityForResult(
+                        Intent.createChooser(action, getString(R.string.upload_chooser_title)),
+                        FileDisplayActivity.REQUEST_CODE__SELECT_CONTENT_FROM_APPS
+                );
+                getFabMain().collapse();
+                recordMiniFabClick();
+            }
+        });
+
+        getFabUploadFromApp().setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(getActivity(),
+                        R.string.actionbar_upload_from_apps,
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+    }
+
+    /**
+     * records a click on a mini FAB and thus:
+     * <ol>
+     *     <li>persists the click fact</li>
+     *     <li>removes the mini FAB labels</li>
+     * </ol>
+     */
+    private void recordMiniFabClick() {
+        // only record if it hasn't been done already at some other time
+        if(!miniFabClicked) {
+            final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            sp.edit().putLong(KEY_FAB_EVER_CLICKED, 1).commit();
+            miniFabClicked = true;
+        }
+    }
+
+    /**
+     * removes the labels on all known min FABs.
+     */
+    private void removeFabLabels() {
+        getFabUpload().setTitle(null);
+        getFabMkdir().setTitle(null);
+        getFabUploadFromApp().setTitle(null);
+        ((TextView) getFabUpload().getTag(
+                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+        ((TextView) getFabMkdir().getTag(
+                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+        ((TextView) getFabUploadFromApp().getTag(
+                com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+    }
 
     private void registerLongClickListener() {
         getListView().setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -208,6 +395,11 @@ public class OCFileListFragment extends ExtendedListFragment
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_FILE, mFile);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu (Menu menu) {
+        changeGridIcon(menu);   // this is enough if the option stays out of the action bar
     }
 
     /**
@@ -321,11 +513,11 @@ public class OCFileListFragment extends ExtendedListFragment
                 );
                 mf.filter(menu);
             }
-                 
+
             /// TODO break this direct dependency on FileDisplayActivity... if possible
             MenuItem item = menu.findItem(R.id.action_open_file_with);
             FileFragment frag = ((FileDisplayActivity)getActivity()).getSecondFragment();
-            if (frag != null && frag instanceof FileDetailFragment && 
+            if (frag != null && frag instanceof FileDetailFragment &&
                     frag.getFile().getFileId() == targetFile.getFileId()) {
                 item = menu.findItem(R.id.action_see_details);
                 if (item != null) {
@@ -333,6 +525,10 @@ public class OCFileListFragment extends ExtendedListFragment
                     item.setEnabled(false);
                 }
             }
+
+//            String.format(mContext.getString(R.string.subject_token),
+//                    getClient().getCredentials().getUsername(), file.getFileName()));
+
         }
     }
 
@@ -344,19 +540,11 @@ public class OCFileListFragment extends ExtendedListFragment
         mTargetFile = (OCFile) mAdapter.getItem(filePosition);
         switch (menuId) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(mTargetFile);
-                return true;
-            }
-            case R.id.action_share_with_users: {
                 mContainerActivity.getFileOperationsHelper().showShareFile(mTargetFile);
                 return true;
             }
             case R.id.action_open_file_with: {
                 mContainerActivity.getFileOperationsHelper().openFile(mTargetFile);
-                return true;
-            }
-            case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(mTargetFile);
                 return true;
             }
             case R.id.action_rename_file: {
@@ -398,7 +586,7 @@ public class OCFileListFragment extends ExtendedListFragment
 
                 // Pass mTargetFile that contains info of selected file/folder
                 action.putExtra(FolderPickerActivity.EXTRA_FILE, mTargetFile);
-                getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_MOVE_FILES);
+                getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__MOVE_FILES);
                 return true;
             }
             case R.id.action_favorite_file: {
@@ -414,13 +602,13 @@ public class OCFileListFragment extends ExtendedListFragment
 
                 // Pass mTargetFile that contains info of selected file/folder
                 action.putExtra(FolderPickerActivity.EXTRA_FILE, mTargetFile);
-                getActivity().startActivityForResult(action, FileDisplayActivity.ACTION_COPY_FILES);
+                getActivity().startActivityForResult(action, FileDisplayActivity.REQUEST_CODE__COPY_FILES);
                 return true;
             default:
                 return false;
         }
     }
-    
+
     /**
      * {@inhericDoc}
      */
@@ -455,7 +643,7 @@ public class OCFileListFragment extends ExtendedListFragment
         // TODO Enable when "On Device" is recovered ?
         // listDirectory(null, onlyOnDevice);
     }
-    
+
     public void refreshDirectory(){
         // TODO Enable when "On Device" is recovered ?
         listDirectory(getCurrentFile()/*, MainApp.getOnlyOnDevice()*/);
@@ -527,7 +715,7 @@ public class OCFileListFragment extends ExtendedListFragment
             OwnCloudVersion version = AccountUtils.getServerVersion(
                     ((FileActivity)mContainerActivity).getAccount());
             if (version != null && version.supportsRemoteThumbnails() &&
-                imagesCount > 0 && imagesCount == filesCount) {
+                    isGridViewPreferred(mFile)) {
                 switchToGridView();
                 registerLongClickListener();
             } else {
@@ -587,4 +775,91 @@ public class OCFileListFragment extends ExtendedListFragment
     public void sortBySize(boolean descending) {
         mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
     }
+
+    /**
+     * Determines if user set folder to grid or list view. If folder is not set itself,
+     * it finds a parent that is set (at least root is set).
+     * @param file
+     * @return
+     */
+    public boolean isGridViewPreferred(OCFile file){
+        if (file != null) {
+            OCFile fileToTest = file;
+            OCFile parentDir = null;
+            String parentPath = null;
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+
+            SharedPreferences setting =
+                    getActivity().getSharedPreferences(
+                            GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
+                    );
+
+            if (setting.contains(String.valueOf(fileToTest.getFileId()))) {
+                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
+            } else {
+                do {
+                    if (fileToTest.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+                        parentPath = new File(fileToTest.getRemotePath()).getParent();
+                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                                parentPath + OCFile.PATH_SEPARATOR;
+                        parentDir = storageManager.getFileByPath(parentPath);
+                    } else {
+                        parentDir = storageManager.getFileByPath(OCFile.ROOT_PATH);
+                    }
+
+                    while (parentDir == null) {
+                        parentPath = new File(parentPath).getParent();
+                        parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                                parentPath + OCFile.PATH_SEPARATOR;
+                        parentDir = storageManager.getFileByPath(parentPath);
+                    }
+                    fileToTest = parentDir;
+                } while (endWhile(parentDir, setting));
+                return setting.getBoolean(String.valueOf(fileToTest.getFileId()), false);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    private boolean endWhile(OCFile parentDir, SharedPreferences setting) {
+        if (parentDir.getRemotePath().compareToIgnoreCase(OCFile.ROOT_PATH) == 0) {
+            return false;
+        } else {
+            return !setting.contains(String.valueOf(parentDir.getFileId()));
+        }
+    }
+
+    private void changeGridIcon(Menu menu){
+        MenuItem menuItem = menu.findItem(R.id.action_switch_view);
+        if (isGridViewPreferred(mFile)){
+            menuItem.setTitle(getString(R.string.action_switch_list_view));
+            menuItem.setIcon(R.drawable.ic_view_list);
+        } else {
+            menuItem.setTitle(getString(R.string.action_switch_grid_view));
+            menuItem.setIcon(R.drawable.ic_view_module);
+        }
+    }
+
+    public void setListAsPreferred() {
+        saveGridAsPreferred(false);
+        switchToListView();
+    }
+
+    public void setGridAsPreferred() {
+        saveGridAsPreferred(true);
+        switchToGridView();
+    }
+
+    private void saveGridAsPreferred(boolean setGrid){
+        SharedPreferences setting = getActivity().getSharedPreferences(
+                GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
+        );
+
+        SharedPreferences.Editor editor = setting.edit();
+        editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
+        editor.apply();
+    }
+
+
 }
