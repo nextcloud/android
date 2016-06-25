@@ -350,11 +350,11 @@ public class ThumbnailsCacheManager {
 
     }
 
-    public static class AvatarGenerationTask extends AsyncTask<Object, Void, Bitmap> {
+    public static class AvatarGenerationTask extends AsyncTask<String, Void, Bitmap> {
         private final WeakReference<AvatarGenerationListener> mAvatarGenerationListener;
         private final Object mCallContext;
         private Account mAccount;
-        private Object mUsername;
+        private String mUsername;
 
 
         public AvatarGenerationTask(AvatarGenerationListener avatarGenerationListener, Object callContext,
@@ -367,7 +367,7 @@ public class ThumbnailsCacheManager {
         }
 
         @Override
-        protected Bitmap doInBackground(Object... params) {
+        protected Bitmap doInBackground(String... params) {
             Bitmap thumbnail = null;
 
             try {
@@ -379,10 +379,7 @@ public class ThumbnailsCacheManager {
                 }
 
                 mUsername = params[0];
-
-                if (mUsername instanceof String) {
-                    thumbnail = doAvatarInBackground();
-                }
+                thumbnail = doAvatarInBackground();
 
             } catch(Throwable t){
                 // the app should never break due to a problem with avatars
@@ -401,12 +398,8 @@ public class ThumbnailsCacheManager {
                     AvatarGenerationListener listener = mAvatarGenerationListener.get();
                     AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
                     if (this == avatarWorkerTask) {
-                        String tagId = "";
-                        if (mUsername instanceof String) {
-                            tagId = (String) mUsername;
-                            if (listener.shouldCallGeneratedCallback(tagId, mCallContext)) {
-                                listener.avatarGenerated(new BitmapDrawable(bitmap), mCallContext);
-                            }
+                        if (listener.shouldCallGeneratedCallback(mUsername, mCallContext)) {
+                            listener.avatarGenerated(new BitmapDrawable(bitmap), mCallContext);
                         }
                     }
                 }
@@ -495,30 +488,6 @@ public class ThumbnailsCacheManager {
             }
             return avatar;
         }
-
-        private Bitmap doFileInBackground() {
-            File file = (File) mUsername;
-
-            final String imageKey = String.valueOf(file.hashCode());
-
-            // Check disk cache in background thread
-            Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
-
-            // Not found in disk cache
-            if (thumbnail == null) {
-
-                int px = getAvatarDimension();
-
-                Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(
-                        file.getAbsolutePath(), px, px);
-
-                if (bitmap != null) {
-                    thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), px);
-                }
-            }
-            return thumbnail;
-        }
-
     }
 
     public static boolean cancelPotentialThumbnailWork(Object file, ImageView imageView) {
