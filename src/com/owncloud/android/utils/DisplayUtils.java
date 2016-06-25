@@ -30,6 +30,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -288,47 +289,49 @@ public class DisplayUtils {
         snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.white));
     }
 
+    public interface AvatarGenerationListener {
+        void avatarGenerated(Drawable avatarDrawable, Object callContext);
+        boolean shouldCallGeneratedCallback(String tag, Object callContext);
+    }
+
     /**
      * fetches and sets the avatar of the current account in the drawer in case the drawer is available.
      *
      * @param account        the account to be set in the drawer
-     * @param userIcon       the image view to set the avatar on
      * @param avatarRadius   the avatar radius
      * @param resources      reference for density information
      * @param storageManager reference for caching purposes
      */
-    public static void setAvatar(Account account, ImageView userIcon, float avatarRadius, Resources resources,
-                           FileDataStorageManager storageManager) {
+    public static void setAvatar(Account account, AvatarGenerationListener listener, float avatarRadius, Resources resources,
+                           FileDataStorageManager storageManager, Object callContext) {
         if (account != null) {
-
-            userIcon.setContentDescription(account.name);
+            if (callContext instanceof View)
+                ((View)callContext).setContentDescription(account.name);
 
             // Thumbnail in Cache?
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
 
             if (thumbnail != null) {
-                userIcon.setImageDrawable(
-                        BitmapUtils.bitmapToCircularBitmapDrawable(MainApp.getAppContext().getResources(), thumbnail)
-                );
+                listener.avatarGenerated(
+                        BitmapUtils.bitmapToCircularBitmapDrawable(MainApp.getAppContext().getResources(), thumbnail),
+                        callContext);
             } else {
                 // generate new avatar
-                if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, userIcon)) {
+                if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, callContext)) {
                     final ThumbnailsCacheManager.AvatarGenerationTask task =
-                            new ThumbnailsCacheManager.AvatarGenerationTask(userIcon, storageManager, account);
+                            new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager, account);
                     if (thumbnail == null) {
                         try {
-                            userIcon.setImageDrawable(TextDrawable.createAvatar(account.name, avatarRadius));
+                            listener.avatarGenerated(TextDrawable.createAvatar(account.name, avatarRadius), callContext);
                         } catch (Exception e) {
                             Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                            userIcon.setImageResource(R.drawable.ic_account_circle);
+                            listener.avatarGenerated(resources.getDrawable(R.drawable.ic_account_circle), callContext);
                         }
                     } else {
                         final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, thumbnail, task);
-                        userIcon.setImageDrawable(
-                                BitmapUtils.bitmapToCircularBitmapDrawable(
-                                        MainApp.getAppContext().getResources(), asyncDrawable.getBitmap())
-                        );
+                        listener.avatarGenerated(BitmapUtils.bitmapToCircularBitmapDrawable(
+                                        resources, asyncDrawable.getBitmap()), callContext);
                     }
                     task.execute(account.name);
                 }
