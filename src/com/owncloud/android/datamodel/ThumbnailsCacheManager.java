@@ -82,7 +82,7 @@ public class ThumbnailsCacheManager {
 
     private static class DiskCacheRequest implements Comparable<DiskCacheRequest>
     {
-        protected Integer priority;
+        protected Integer priority = 5;
 
         @Override
         public int compareTo(DiskCacheRequest c) {
@@ -427,6 +427,9 @@ public class ThumbnailsCacheManager {
 
     public static boolean cancelPotentialWork(Object file, ImageView imageView) {
         // remove me
+        if(!cacheIOThread.isAlive() && !cacheIOThread.isInterrupted()) {
+            cacheIOThread.start();
+        }
         diskCacheRequestQueue.put(new DiskCacheRequest());
 
         final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
