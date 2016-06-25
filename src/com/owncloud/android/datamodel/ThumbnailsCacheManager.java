@@ -24,6 +24,8 @@ package com.owncloud.android.datamodel;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -77,6 +79,31 @@ public class ThumbnailsCacheManager {
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient = null;
+
+    private static class DiskCacheRequest implements Comparable<DiskCacheRequest>
+    {
+        protected Integer priority;
+
+        @Override
+        public int compareTo(DiskCacheRequest c) {
+            return this.priority.compareTo(c.priority);
+        }
+    }
+
+    private static PriorityBlockingQueue<DiskCacheRequest> diskCacheRequestQueue = new PriorityBlockingQueue<>();
+
+    private static Thread cacheIOThread = new Thread(new Runnable() {
+        @Override
+        public void run() {
+            try {
+                while (true) {
+                    DiskCacheRequest cacheRequest = diskCacheRequestQueue.take();
+                    Log_OC.d(TAG, "processing disk cache request on second thread!");
+                }
+            }
+            catch(InterruptedException e) { /* expected behaviour on application exit */ }
+        }
+    });
 
     public static Bitmap mDefaultImg = 
             BitmapFactory.decodeResource(
@@ -399,6 +426,9 @@ public class ThumbnailsCacheManager {
     }
 
     public static boolean cancelPotentialWork(Object file, ImageView imageView) {
+        // remove me
+        diskCacheRequestQueue.put(new DiskCacheRequest());
+
         final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
 
         if (bitmapWorkerTask != null) {
