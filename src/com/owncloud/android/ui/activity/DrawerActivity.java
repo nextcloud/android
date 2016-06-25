@@ -25,6 +25,8 @@ import android.accounts.AccountManagerFuture;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -51,7 +53,7 @@ import com.owncloud.android.utils.DisplayUtils;
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
  * generation.
  */
-public abstract class DrawerActivity extends ToolbarActivity {
+public abstract class DrawerActivity extends ToolbarActivity implements DisplayUtils.AvatarGenerationListener {
     private static final String TAG = DrawerActivity.class.getSimpleName();
     private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
     private static final String KEY_CHECKED_MENU_ITEM = "CHECKED_MENU_ITEM";
@@ -341,9 +343,9 @@ public abstract class DrawerActivity extends ToolbarActivity {
 
                 // activate second/end account avatar
                 if (mAvatars[1] != null) {
-                    DisplayUtils.setAvatar(mAvatars[1],
-                            (ImageView) findNavigationViewChildById(R.id.drawer_account_end),
-                            mOtherAccountAvatarRadiusDimension, getResources(), getStorageManager());
+                    DisplayUtils.setAvatar(mAvatars[1], this,
+                            mOtherAccountAvatarRadiusDimension, getResources(), getStorageManager(),
+                            findNavigationViewChildById(R.id.drawer_account_end));
                     mAccountEndAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountEndAccountAvatar.setVisibility(View.GONE);
@@ -351,9 +353,9 @@ public abstract class DrawerActivity extends ToolbarActivity {
 
                 // activate third/middle account avatar
                 if (mAvatars[2] != null) {
-                    DisplayUtils.setAvatar(mAvatars[2],
-                            (ImageView) findNavigationViewChildById(R.id.drawer_account_middle),
-                            mOtherAccountAvatarRadiusDimension, getResources(), getStorageManager());
+                    DisplayUtils.setAvatar(mAvatars[2], this,
+                            mOtherAccountAvatarRadiusDimension, getResources(), getStorageManager(),
+                            findNavigationViewChildById(R.id.drawer_account_middle));
                     mAccountMiddleAccountAvatar.setVisibility(View.VISIBLE);
                 } else {
                     mAccountMiddleAccountAvatar.setVisibility(View.GONE);
@@ -386,7 +388,7 @@ public abstract class DrawerActivity extends ToolbarActivity {
                                 accounts[i].name,
                                 mMenuAccountAvatarRadiusDimension)
                         );
-                setAvatar(accounts[i], accountMenuItem);
+                DisplayUtils.setAvatar(accounts[i], this, mMenuAccountAvatarRadiusDimension, getResources(), getStorageManager(), accountMenuItem);
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
                 mNavigationView.getMenu().add(
@@ -442,61 +444,9 @@ public abstract class DrawerActivity extends ToolbarActivity {
             usernameFull.setText(account.name);
             username.setText(AccountUtils.getAccountUsername(account.name));
 
-            DisplayUtils.setAvatar(account, (ImageView) findNavigationViewChildById(R.id.drawer_current_account),
-                    mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager());
-        }
-    }
-
-    /**
-     * fetches and sets the avatar of the current account in the drawer in case the drawer is available.
-     *
-     * @param account        the account to be set in the drawer
-     * @param menuItem       the menuItem to set the avatar on
-     */
-    private void setAvatar(Account account, MenuItem menuItem) {
-        if (mDrawerLayout != null && account != null) {
-
-            // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
-
-            if (thumbnail != null) {
-                menuItem.setIcon(
-                        BitmapUtils.bitmapToCircularBitmapDrawable(MainApp.getAppContext().getResources(), thumbnail)
-                );
-            } else {
-                // generate new avatar
-                if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, menuItem)) {
-                    final ThumbnailsCacheManager.AvatarGenerationTask task =
-                            new ThumbnailsCacheManager.AvatarGenerationTask(
-                                    menuItem, getStorageManager(), account
-                            );
-                    if (thumbnail == null) {
-                        try {
-                                menuItem.setIcon(
-                                        TextDrawable.createAvatar(
-                                                account.name,
-                                                mMenuAccountAvatarRadiusDimension
-                                        )
-                                );
-                        } catch (Exception e) {
-                            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
-                            menuItem.setIcon(R.drawable.ic_account_circle);
-                        }
-                    } else {
-                        final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncAvatarDrawable(
-                                        getResources(),
-                                        thumbnail,
-                                        task
-                                );
-                        menuItem.setIcon(
-                                BitmapUtils.bitmapToCircularBitmapDrawable(
-                                        MainApp.getAppContext().getResources(), asyncDrawable.getBitmap())
-                        );
-                    }
-                    task.execute(account.name);
-                }
-            }
+            DisplayUtils.setAvatar(account, this,
+                    mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),
+                    findNavigationViewChildById(R.id.drawer_current_account));
         }
     }
 
@@ -678,5 +628,28 @@ public abstract class DrawerActivity extends ToolbarActivity {
                 i++;
             }
         }
+    }
+
+    @Override
+    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
+        if (callContext instanceof MenuItem) {
+            MenuItem mi = (MenuItem)callContext;
+            mi.setIcon(avatarDrawable);
+        } else if (callContext instanceof ImageView) {
+            ImageView iv = (ImageView)callContext;
+            iv.setImageDrawable(avatarDrawable);
+        }
+    }
+
+    @Override
+    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
+        if (callContext instanceof MenuItem) {
+            MenuItem mi = (MenuItem)callContext;
+            return String.valueOf(mi.getTitle()).equals(tag);
+        } else if (callContext instanceof ImageView) {
+            ImageView iv = (ImageView)callContext;
+            return String.valueOf(iv.getTag()).equals(tag);
+        }
+        return false;
     }
 }

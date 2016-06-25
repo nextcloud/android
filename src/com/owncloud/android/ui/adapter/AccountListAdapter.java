@@ -21,6 +21,7 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,7 +42,7 @@ import java.util.List;
 /**
  * This Adapter populates a ListView with all accounts within the app.
  */
-public class AccountListAdapter extends ArrayAdapter<AccountListItem> {
+public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements DisplayUtils.AvatarGenerationListener {
     private static final String TAG = AccountListAdapter.class.getSimpleName();
     private float mAccountAvatarRadiusDimension;
     private final BaseActivity mContext;
@@ -90,8 +91,8 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> {
                 viewHolder.textViewItem.setTag(account.name);
 
                 try {
-                    DisplayUtils.setAvatar(account, viewHolder.imageViewItem, mAccountAvatarRadiusDimension,
-                            mContext.getResources(), mContext.getStorageManager());
+                    DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension,
+                            mContext.getResources(), mContext.getStorageManager(), viewHolder.imageViewItem);
                 } catch (Exception e) {
                     Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
                     // use user icon as a fallback
@@ -135,6 +136,16 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> {
         }
 
         return convertView;
+    }
+
+    @Override
+    public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
+        ((ImageView)callContext).setImageDrawable(avatarDrawable);
+    }
+
+    @Override
+    public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
+        return String.valueOf(((ImageView)callContext).getTag()).equals(tag);
     }
 
     /**
