@@ -224,6 +224,8 @@ public class FileDisplayActivity extends HookActivity
             createMinFragments();
         }
 
+        refreshList(true);
+
         setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
