@@ -485,10 +485,10 @@ public class ThumbnailsCacheManager {
                                 InputStream inputStream = get.getResponseBodyAsStream();
                                 Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                 avatar = ThumbnailUtils.extractThumbnail(bitmap, px, px);
-                                avatar = handlePNG(avatar, px);
 
                                 // Add avatar to cache
                                 if (avatar != null) {
+                                    avatar = handlePNG(avatar, px);
                                     addBitmapToCache(imageKey, avatar);
                                 }
                             } else {
