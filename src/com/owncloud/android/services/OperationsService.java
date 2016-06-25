@@ -51,7 +51,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.GetRemoteUserNameOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -664,7 +664,7 @@ public class OperationsService extends Service {
 
                 } else if (action.equals(ACTION_GET_USER_NAME)) {
                     // Get User Name
-                    operation = new GetRemoteUserNameOperation();
+                    operation = new GetRemoteUserInfoOperation();
                     
                 } else if (action.equals(ACTION_RENAME)) {
                     // Rename file or folder
