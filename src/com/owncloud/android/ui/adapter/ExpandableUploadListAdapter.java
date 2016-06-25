@@ -412,6 +412,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                         fileIcon, mParentActivity.getStorageManager(), mParentActivity.getAccount()
                                 );
+
                         if (thumbnail == null) {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
                         }

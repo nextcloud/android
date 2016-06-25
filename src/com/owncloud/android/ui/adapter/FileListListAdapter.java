@@ -307,6 +307,15 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     Bitmap thumbnail = ThumbnailsCacheManager.mDefaultImg; // ThumbnailsCacheManager.getBitmapFromDiskCache(String.valueOf(file.getRemoteId()));
                     // request Thumbnail in background task
                     if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
+
+                        ThumbnailsCacheManager.GenerateThumbnail(
+                                file,
+                                fileIcon,
+                                mStorageManager,
+                                mAccount
+                        );
+
+                        /*
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                         fileIcon, mStorageManager, mAccount
@@ -319,6 +328,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                 );
                         fileIcon.setImageDrawable(asyncDrawable);
                         task.execute(file);
+                        */
                     }
                     if (file.getMimetype().equalsIgnoreCase("image/png")) {
                         fileIcon.setBackgroundColor(mContext.getResources()

@@ -42,6 +42,8 @@ import android.graphics.drawable.Drawable;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.LruCache;
 import android.widget.ImageView;
 
@@ -80,9 +82,116 @@ public class ThumbnailsCacheManager {
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient = null;
 
+    public static void GenerateThumbnail(OCFile file, ImageView fileIcon, FileDataStorageManager storageManager, Account account)
+    {
+        if(file == null || fileIcon == null)
+            return;
+
+        fileIcon.setImageBitmap(ThumbnailsCacheManager.mDefaultImg);
+
+        DiskCacheRequest dcr = new DiskCacheRequest();
+        dcr.file = file;
+        dcr.fileIcon = fileIcon;
+        dcr.storageManager = storageManager;
+        dcr.account = account;
+
+        for(DiskCacheRequest r : diskCacheRequestQueue)
+        {
+            if(r.fileIcon == dcr.fileIcon) {
+                Log_OC.d(TAG, "removing for reused ImageView");
+                diskCacheRequestQueue.remove(r);
+                break;
+            }
+        }
+
+        diskCacheRequestQueue.put(dcr);
+
+        // kick of thread if not already running or stopped
+        if(!cacheIOThread.isAlive() && !cacheIOThread.isInterrupted()) {
+            cacheIOThread.start();
+        }
+    }
+
+    private static Bitmap handlePNG(Bitmap bitmap, int px){
+        Bitmap resultBitmap = Bitmap.createBitmap(px,
+                px,
+                Bitmap.Config.ARGB_8888);
+        Canvas c = new Canvas(resultBitmap);
+
+        c.drawColor(MainApp.getAppContext().getResources().
+                getColor(R.color.background_color));
+        c.drawBitmap(bitmap, 0, 0, null);
+
+        return resultBitmap;
+    }
+
+    private static Bitmap getOCThumb(OCFile file, OwnCloudClient client, Account account) {
+        final String imageKey = String.valueOf(file.getRemoteId());
+
+        Bitmap thumbnail = null;
+
+        Log_OC.d(TAG, "NOT FOUND DOWNLOADING!");
+        // Not found in disk cache
+        if (file.needsUpdateThumbnail() || true) {
+            Resources r = MainApp.getAppContext().getResources();
+            int px = Math.round(r.getDimension(R.dimen.file_icon_size_grid));
+
+            // Download thumbnail from server
+            OwnCloudVersion serverOCVersion = AccountUtils.getServerVersion(account);
+            if (client != null && serverOCVersion != null) {
+                if (serverOCVersion.supportsRemoteThumbnails()) {
+                    GetMethod get = null;
+                    try {
+                        String uri = client.getBaseUri() + "" +
+                                "/index.php/apps/files/api/v1/thumbnail/" +
+                                px + "/" + px + Uri.encode(file.getRemotePath(), "/");
+                        Log_OC.d("Thumbnail", "URI: " + uri);
+                        get = new GetMethod(uri);
+                        get.setRequestHeader("Cookie",
+                                "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                        int status = client.executeMethod(get);
+                        if (status == HttpStatus.SC_OK) {
+                            InputStream inputStream = get.getResponseBodyAsStream();
+                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                            thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+
+                            // Handle PNG
+                            if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                                thumbnail = handlePNG(thumbnail, px);
+                            }
+
+                            // Add thumbnail to cache
+                            if (thumbnail != null) {
+                                addBitmapToCache(imageKey, thumbnail);
+                            }
+                        } else {
+                            client.exhaustResponse(get.getResponseBodyAsStream());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        if (get != null) {
+                            get.releaseConnection();
+                        }
+                    }
+                } else {
+                    Log_OC.d(TAG, "Server too old");
+                }
+            }
+        }
+
+        return thumbnail;
+
+    }
+
     private static class DiskCacheRequest implements Comparable<DiskCacheRequest>
     {
         protected Integer priority = 5;
+
+        protected OCFile file;
+        protected ImageView fileIcon;
+        protected FileDataStorageManager storageManager;
+        protected Account account;
 
         @Override
         public int compareTo(DiskCacheRequest c) {
@@ -97,8 +206,57 @@ public class ThumbnailsCacheManager {
         public void run() {
             try {
                 while (true) {
-                    DiskCacheRequest cacheRequest = diskCacheRequestQueue.take();
+                    final DiskCacheRequest dcr = diskCacheRequestQueue.take();
+
                     Log_OC.d(TAG, "processing disk cache request on second thread!");
+
+                    Bitmap thumbnail = null;
+
+                    try {
+                        // try cache
+                        String cacheKey = String.valueOf(dcr.file.getRemoteId());
+
+                        Log_OC.d(TAG, "CacheKey is " + cacheKey);
+                        if (cacheKey != null) {
+                            thumbnail = getBitmapFromDiskCache(cacheKey);
+                        }
+
+                        if(thumbnail == null) {
+                            if (dcr.file instanceof OCFile) {
+                                if (dcr.account != null) {
+                                    OwnCloudAccount ocAccount = new OwnCloudAccount(dcr.account,
+                                            MainApp.getAppContext());
+                                    OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                            getClientFor(ocAccount, MainApp.getAppContext());
+                                    thumbnail = getOCThumb(dcr.file, client, dcr.account);
+                                }
+                            }
+                            // TODO: Add normal File
+
+                            addBitmapToCache(cacheKey, thumbnail);
+                        }
+
+                        if(thumbnail != null) {
+                            final Bitmap thumbCopy = thumbnail;
+
+                            // do on handler
+                            Log_OC.d(TAG, "Setting preview image via UI Thread Handler!");
+                            Handler mainHandler = new Handler(Looper.getMainLooper());
+                            mainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    final ImageView imageView = dcr.fileIcon;
+                                    imageView.setImageBitmap(thumbCopy);
+                                }
+                            });
+                        }
+                    }catch(Throwable t){
+                        // the app should never break due to a problem with thumbnails
+                        Log_OC.e(TAG, "Generation of thumbnail for " + dcr.file + " failed", t);
+                        if (t instanceof OutOfMemoryError) {
+                            System.gc();
+                        }
+                    }
                 }
             }
             catch(InterruptedException e) { /* expected behaviour on application exit */ }
@@ -426,12 +584,6 @@ public class ThumbnailsCacheManager {
     }
 
     public static boolean cancelPotentialWork(Object file, ImageView imageView) {
-        // remove me
-        if(!cacheIOThread.isAlive() && !cacheIOThread.isInterrupted()) {
-            cacheIOThread.start();
-        }
-        diskCacheRequestQueue.put(new DiskCacheRequest());
-
         final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
 
         if (bitmapWorkerTask != null) {
