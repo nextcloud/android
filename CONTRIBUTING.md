@@ -42,10 +42,10 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue.
 
 
 ### Pull request
-* 1 in progress
-* 2 ready to CR
-* 3 ready to test
-* 4 ready to release
+* 1 to develop
+* 2 developing
+* 3 to review
+* 4 to release
 
 
 ### Issue
