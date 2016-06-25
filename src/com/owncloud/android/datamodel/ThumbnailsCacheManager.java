@@ -24,6 +24,7 @@ package com.owncloud.android.datamodel;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.PriorityBlockingQueue;
 
@@ -39,6 +40,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -82,10 +84,21 @@ public class ThumbnailsCacheManager {
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient = null;
 
+    private static HashMap<ImageView, String> imageViewStates = new HashMap<ImageView, String>();
+
     public static void GenerateThumbnail(OCFile file, ImageView fileIcon, FileDataStorageManager storageManager, Account account)
     {
         if(file == null || fileIcon == null)
             return;
+
+        synchronized (fileIcon) {
+            // don´t do work twice if state is already present or queued!
+            if (imageViewStates.containsKey(fileIcon) && imageViewStates.get(fileIcon) == file.getRemoteId()) {
+                return;
+            }
+            imageViewStates.remove(fileIcon);
+            imageViewStates.put(fileIcon, file.getRemoteId());
+        }
 
         fileIcon.setImageBitmap(ThumbnailsCacheManager.mDefaultImg);
 
