@@ -4,9 +4,9 @@
   <img src="http://www.android.com/images/brand/android_app_on_play_large.png">
 </a>
 
-or via f-droid
-- [stable](https://f-droid.org/repository/browse/?fdfilter=Nextcloud&fdid=com.nextcloud.client)
-- [beta](https://f-droid.org/repository/browse/?fdfilter=Nextcloud&fdid=com.nextcloud.android.beta)
+[<img src="https://f-droid.org/badge/get-it-on.png"
+      alt="Get it on F-Droid"
+      height="80">](https://f-droid.org/repository/browse/?fdfilter=com.nextcloud)
 
 **Build status:** master ![](https://api.travis-ci.org/nextcloud/android.svg?branch=master)
 
