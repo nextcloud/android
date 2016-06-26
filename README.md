@@ -1,9 +1,8 @@
 # [Nextcloud](https://nextcloud.com) Android app
 
-
- <a href="https://play.google.com/store/apps/details?id=com.nextcloud.client" alt="Download from Google Play">
-  <img src="http://www.android.com/images/brand/android_app_on_play_large.png">
-</a>
+[<img src="http://www.android.com/images/brand/android_app_on_play_large.png" 
+      alt="Download from Google Play" 
+      height="80">](https://play.google.com/store/apps/details?id=com.nextcloud.client")
 
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
