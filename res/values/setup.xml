@@ -31,8 +31,8 @@
     
     
     <!-- Colors -->
-    <color name="login_text_color">#000000</color>
-    <color name="login_text_hint_color">#757575</color>
+    <color name="login_text_color">@color/white</color>
+    <color name="login_text_hint_color">#7fC0E3</color>
     <color name="login_background_color">#FFFFFF</color>
     <color name="login_logo_background_color">#FFFFFF</color>
     <color name="background_color">#FFFFFF</color>
