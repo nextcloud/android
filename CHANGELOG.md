@@ -1,7 +1,7 @@
 ## 1.1.0 RC1 (June 27, 2016)
 
 - New main menu to switch accounts easily
-- Ability to open Nextcloud hostes files (read-only) from other apps that support the standard file chooser (requires Android 4.4 / KitKat or higher)
+- Ability to open Nextcloud hosted files (read-only) from other apps that support the standard file chooser (requires Android 4.4 / KitKat or higher)
 - "Select all files" for upload within a folder
 - optional feature to auto-create monthly folders for your instant uploads
 
