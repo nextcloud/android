@@ -128,7 +128,7 @@ beta = your awesome beta application that can be installed in parallel and conta
 ##Version Name and number
 For _stable_ and _release candidate_ the version name follows the [semantic versioning schema](http://semver.org/) and the version number has several digits reserved to parts of the versioning schema inspired by the [jayway version numbering](https://www.jayway.com/2015/03/11/automatic-versioncode-generation-in-android-gradle/), where:
 
-* 2 digits for beta code as in release candidates sarting at 01
+* 2 digits for beta code as in release candidates starting at '01'
 * 2 digits for hot fix code
 * 3 digits for minor version code
 * n digits for mayor version code
