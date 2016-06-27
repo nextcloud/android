@@ -1,6 +1,7 @@
 # [Nextcloud](https://nextcloud.com) Android app
+
 [![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud)
-[![irc](https://img.shields.io/badge/IRC-%23nextcloud-mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile)
+[![irc](https://img.shields.io/badge/IRC-%23nextcloud--mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile)
 
 
 # Index
@@ -11,6 +12,7 @@
         1. Issue
 1. Contributing to Source Code
     1. Developing process
+        1. Android Studio formatter setup
     1. Contribution process
         1. Fork and download android/master repository
         1. Create pull request
@@ -70,6 +72,13 @@ We are all about quality while not sacrificing speed so we use a very pragmatic 
 * create [pull request](https://github.com/nextcloud/android/pulls)
 * to assure the quality of the app, any PR gets reviewed, approved and tested by [two developers](https://github.com/nextcloud/android/blob/master/MAINTAINERS) before it will be merged to master
 
+### Android Studio formatter setup
+
+Our formatter setup is rather simple:
+* Standard Android Studio
+* Line length 120 characters (Settings->Editor->Code Style->Right margin(columns): 120)
+* Auto optimize imports (Settings->Editor->Auto Import->Optimize imports on the fly)
+
 
 ## Contribution process
 * Contribute your code in the branch 'master'. It will give us a better chance to test your code before merging it with stable code.
@@ -104,7 +113,7 @@ To make sure your new pull request does not contain commits which are already co
 At the moment we are releasing the app in two app stores:
 
 * [Google Play Store](https://play.google.com/store/apps/details?id=com.nextcloud.client)
-* f-droid (work in progress)
+* [f-droid](https://f-droid.org/repository/browse/?fdfilter=com.nextcloud)
 
 
 ## Types
@@ -112,7 +121,7 @@ We do differentiate between three different kinds of releases:
 
 ### Stable
 Play store and f-droid releases for the masses
-stable: as described, PRs that have been tested and reviewed can go to master. After the last stable beta published PR is out in the wild for ~2 weeks and no errors get reported (by users or in the developer console) the master branch is release ready. So when we decide to go for a new release we freeze the master feature wise
+stable: as described, PRs that have been tested and reviewed can go to master. After the last stable beta published PR is out in the wild for ~2 weeks and no errors get reported (by users or in the developer console) the master branch is ready for the stable release. So when we decide to go for a new release we freeze the master feature wise.
 
 ### Release Candidate
 * _stable beta_ releases done via the Beta program of the Google Play store
@@ -126,9 +135,9 @@ beta = your awesome beta application that can be installed in parallel and conta
 
 
 ##Version Name and number
-For _stable_ and _release candidate_ the version name follows the [semantic versioning schema](http://semver.org/) and the version number has several digits reserved to parts of the versioning schema, where:
+For _stable_ and _release candidate_ the version name follows the [semantic versioning schema](http://semver.org/) and the version number has several digits reserved to parts of the versioning schema inspired by the [jayway version numbering](https://www.jayway.com/2015/03/11/automatic-versioncode-generation-in-android-gradle/), where:
 
-* 2 digits for beta code
+* 2 digits for beta code as in release candidates starting at '01'
 * 2 digits for hot fix code
 * 3 digits for minor version code
 * n digits for mayor version code
@@ -136,11 +145,11 @@ For _stable_ and _release candidate_ the version name follows the [semantic vers
 ![Version code schema](https://cloud.githubusercontent.com/assets/1315170/15992040/e4e05442-30c2-11e6-88e2-84e77fa1653d.png)
 
 Examples for different versions:
-* 1.0.0 ```10000000```
+* 1.0.0 ```10000099```
 * 8.12.2 ```80120200```
 * 9.8.4-rc18 ```90080418```
 
-beware, that beta releases for an upcoming version will always use the minor and hotfix version of the current release not the upcoming so that the version code of the upcoming stable release will always be higher so the current beta release can be updated to the latest hot fix release.
+beware, that beta releases for an upcoming version will always use the minor and hotfix version of the release they are targeting. So to make sure the version code of the upcoming stable release will always be higher stable releases set the 2 beta digits to '99' as seen above in the examples.
 
 
 ## Release cycle
@@ -150,6 +159,7 @@ beware, that beta releases for an upcoming version will always use the minor and
 * ~2 weeks testing, bug fixing
 * release final version on f-droid and play store
 
+To get an idea which PRs and issues will be part of the next release simply check our [milestone plan](https://github.com/nextcloud/android/milestones)
 
 ##Release process
 
@@ -157,7 +167,7 @@ beware, that beta releases for an upcoming version will always use the minor and
 ###Stable Release
 Stable releases are based on the git [master](https://github.com/nextcloud/android).
 
-1. Bump the version name and version code in the [AndroidManifest.xml](https://github.com/nextcloud/android/blob/master/AndroidManifest.xml), see below the version name and code concept.
+1. Bump the version name and version code in the [AndroidManifest.xml](https://github.com/nextcloud/android/blob/master/AndroidManifest.xml), see chapter 'Version Name and number'.
 2. Create a [release/tag](https://github.com/nextcloud/android/releases) in git. Tag name following the naming schema: ```stable-Mayor.Minor.Hotfix``` (e.g. stable-1.2.0) naming the version number following the [semantic versioning schema](http://semver.org/)
 
 
