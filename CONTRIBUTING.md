@@ -158,7 +158,7 @@ To get an idea which PRs and issues will be part of the next release simply chec
 ###Stable Release
 Stable releases are based on the git [master](https://github.com/nextcloud/android).
 
-1. Bump the version name and version code in the [AndroidManifest.xml](https://github.com/nextcloud/android/blob/master/AndroidManifest.xml), see chaper 'Version Name and number'.
+1. Bump the version name and version code in the [AndroidManifest.xml](https://github.com/nextcloud/android/blob/master/AndroidManifest.xml), see chapter 'Version Name and number'.
 2. Create a [release/tag](https://github.com/nextcloud/android/releases) in git. Tag name following the naming schema: ```stable-Mayor.Minor.Hotfix``` (e.g. stable-1.2.0) naming the version number following the [semantic versioning schema](http://semver.org/)
 
 
