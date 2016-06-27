@@ -3,7 +3,8 @@
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2012-2015 ownCloud Inc.
+  Copyright (C) 2012-2016 ownCloud Inc.
+  Copyright (C) 2016 Nextcloud
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -19,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10000100"
-    android:versionName="1.0.1" >
+    android:versionCode="10010000"
+    android:versionName="1.1.0" >
 
     <uses-sdk
         android:minSdkVersion="14"
