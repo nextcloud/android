@@ -102,8 +102,8 @@
 	</style>
 
 	<style name="Button.Login" parent="Button">
-		<item name="colorButtonNormal">@color/login_text_hint_color</item>
-		<item name="android:textColor">@color/white</item>
+		<item name="colorButtonNormal">@color/white</item>
+		<item name="android:textColor">@color/owncloud_blue</item>
 	</style>
 
 	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
