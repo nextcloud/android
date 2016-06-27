@@ -94,7 +94,7 @@ public class UploaderAdapter extends SimpleAdapter {
         if (file.isImage() && file.getRemoteId() != null){
              // Thumbnail in Cache?
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    String.valueOf(file.getRemoteId())
+                    String.valueOf(file.hashCode())
             );
             if (thumbnail != null && !file.needsUpdateThumbnail()){
                 fileIcon.setImageBitmap(thumbnail);

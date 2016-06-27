@@ -248,7 +248,7 @@ public class ThumbnailsCacheManager {
         private Bitmap doOCFileInBackground() {
             OCFile file = (OCFile)mFile;
 
-            final String imageKey = String.valueOf(file.getRemoteId());
+            final String imageKey = String.valueOf(file.hashCode());
 
             // Check disk cache in background thread
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
