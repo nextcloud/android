@@ -140,7 +140,7 @@ Examples for different versions:
 * 8.12.2 ```80120200```
 * 9.8.4-rc18 ```90080418```
 
-beware, that beta releases for an upcoming version will always use the minor and hotfix version of the actual release not the upcoming so that the version code of the upcoming stable release will always be higher so the actual beta release can be updated to the latest hot fix release.
+beware, that beta releases for an upcoming version will always use the minor and hotfix version of the current release not the upcoming so that the version code of the upcoming stable release will always be higher so the current beta release can be updated to the latest hot fix release.
 
 
 ## Release cycle
