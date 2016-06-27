@@ -12,6 +12,7 @@
         1. Issue
 1. Contributing to Source Code
     1. Developing process
+        1. Android Studio formatter setup
     1. Contribution process
         1. Fork and download android/master repository
         1. Create pull request
@@ -70,6 +71,13 @@ We are all about quality while not sacrificing speed so we use a very pragmatic 
 * develop code
 * create [pull request](https://github.com/nextcloud/android/pulls)
 * to assure the quality of the app, any PR gets reviewed, approved and tested by [two developers](https://github.com/nextcloud/android/blob/master/MAINTAINERS) before it will be merged to master
+
+### Android Studio formatter setup
+
+Our formatter setup is rather simple:
+* Standard Android Studio
+* Line length 120 characters (Settings->Editor->Code Style->Right margin(columns): 120)
+* Auto optimize imports (Settings->Editor->Auto Import->Optimize imports on the fly)
 
 
 ## Contribution process
