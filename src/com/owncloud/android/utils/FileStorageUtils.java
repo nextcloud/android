@@ -21,8 +21,11 @@
 package com.owncloud.android.utils;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Vector;
 
 import third_parties.daveKoeller.AlphanumComparator;
@@ -30,6 +33,7 @@ import third_parties.daveKoeller.AlphanumComparator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 
 import android.accounts.Account;
@@ -47,6 +51,8 @@ import android.webkit.MimeTypeMap;
  * Static methods to help in access to local file system.
  */
 public class FileStorageUtils {
+    private static final String TAG = FileStorageUtils.class.getSimpleName();
+
     public static final Integer SORT_NAME = 0;
     public static final Integer SORT_DATE = 1;
     public static final Integer SORT_SIZE = 2;
@@ -117,12 +123,46 @@ public class FileStorageUtils {
         return Environment.getExternalStorageDirectory() + File.separator + MainApp.getDataFolder() + File.separator + "log";
     }
 
-    public static String getInstantUploadFilePath(Context context, String fileName) {
+    /**
+     * Returns the a string like 2016/08/ for the passed date. If date is 0 an empty
+     * string is returned
+     *
+     * @param date: date in microseconds since 1st January 1970
+     * @return
+     */
+    private static String getSubpathFromDate(long date) {
+        if (date == 0) {
+            return "";
+        }
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat(
+                    "yyyy" + OCFile.PATH_SEPARATOR + "MM" + OCFile.PATH_SEPARATOR, Locale.ENGLISH);
+            return formatter.format(new Date(date));
+        }
+        catch(RuntimeException ex) {
+            Log_OC.w(TAG, "could not extract date from timestamp");
+            return "";
+        }
+    }
+
+    /**
+     * Returns the InstantUploadFilePath on the owncloud instance
+     *
+     * @param context
+     * @param fileName
+     * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
+     * @return
+     */
+    public static String getInstantUploadFilePath(Context context, String fileName, long dateTaken) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String uploadPathdef = context.getString(R.string.instant_upload_path);
         String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
-        String value = uploadPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
-        return value;
+        String subPath = "";
+        if (com.owncloud.android.db.PreferenceManager.instantPictureUploadPathUseSubfolders(context)) {
+           subPath = getSubpathFromDate(dateTaken);
+        }
+        return uploadPath + OCFile.PATH_SEPARATOR + subPath
+                + (fileName == null ? "" : fileName);
     }
 
     /**
@@ -131,12 +171,16 @@ public class FileStorageUtils {
      * @param fileName: video file name
      * @return String: video file path composed
      */
-    public static String getInstantVideoUploadFilePath(Context context, String fileName) {
+    public static String getInstantVideoUploadFilePath(Context context, String fileName, long dateTaken) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String uploadVideoPathdef = context.getString(R.string.instant_upload_path);
         String uploadVideoPath = pref.getString("instant_video_upload_path", uploadVideoPathdef);
-        String value = uploadVideoPath + OCFile.PATH_SEPARATOR +  (fileName == null ? "" : fileName);
-        return value;
+        String subPath = "";
+        if (com.owncloud.android.db.PreferenceManager.instantVideoUploadPathUseSubfolders(context)) {
+            subPath = getSubpathFromDate(dateTaken);
+        }
+        return uploadVideoPath + OCFile.PATH_SEPARATOR + subPath
+                + (fileName == null ? "" : fileName);
     }
     
     public static String getParentPath(String remotePath) {
