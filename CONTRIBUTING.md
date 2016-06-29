@@ -107,7 +107,7 @@ To make sure your new pull request does not contain commits which are already co
 
 
 ## Translations
-...are an open issue. Please stay with us until we have bootstrapped translations.
+We manage translations via [Transifex](https://www.transifex.com/nextcloud/nextcloud/android/). So just request joining the translation team for Android on the site and start translating. All translations will then be automatically pushed to this repository, there is no need for any pull request for translations.
 
 # Releases
 At the moment we are releasing the app in two app stores:
