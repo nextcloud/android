@@ -99,11 +99,11 @@
   <string name="fd_keep_in_sync">Обновлять файл</string>
   <string name="common_rename">Переименовать</string>
   <string name="common_remove">Удалить</string>
-  <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>
+  <string name="confirmation_remove_file_alert">Вы действительно хотите удалить %1$s?</string>
   <string name="confirmation_remove_folder_alert">Вы действительно хотите удалить %1$s и все содержимое ?</string>
   <string name="confirmation_remove_local">Только локально</string>
   <string name="confirmation_remove_folder_local">Только локальное содержимое</string>
-  <string name="confirmation_remove_remote">Удалить с сервера</string>
+  <string name="confirmation_remove_file_remote">Удалить с сервера</string>
   <string name="confirmation_remove_remote_and_local">Оба, удаленный и локальный</string>
   <string name="remove_success_msg">Успешное удаление</string>
   <string name="remove_fail_msg">Удаление не может быть завершено</string>

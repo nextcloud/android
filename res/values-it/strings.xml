@@ -58,7 +58,7 @@
   <string name="sync_string_files">File</string>
   <string name="setup_btn_connect">Connetti</string>
   <string name="uploader_btn_upload_text">Carica</string>
-  <string name="uploader_top_message">Scegli la cartella da caricare:</string>
+  <string name="uploader_top_message">Scegli la cartella di caricamento</string>
   <string name="uploader_wrn_no_account_title">Nessun account trovato</string>
   <string name="uploader_wrn_no_account_text">Non ci sono account %1$s sul tuo dispositivo. Configura prima un account.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configurazione</string>
@@ -201,7 +201,7 @@
   <string name="auth_account_not_the_same">L\'utente digitato non corrisponde all\'utente di questo account</string>
   <string name="auth_unknown_error_title">Errore sconosciuto</string>
   <string name="auth_unknown_host_title">Impossibile trovare l\'host</string>
-  <string name="auth_incorrect_path_title">Istanza di il server non trovata</string>
+  <string name="auth_incorrect_path_title">Istanza del server non trovata</string>
   <string name="auth_timeout_title">Il server ha richiesto troppo tempo per rispondere</string>
   <string name="auth_incorrect_address_title">Formato indirizzo del server errato</string>
   <string name="auth_ssl_general_error_title">Inizializzazione  SSL non riuscita</string>
@@ -227,7 +227,7 @@
   <string name="unfavorite">Rimuovi come disponibile non in linea</string>
   <string name="common_rename">Rinomina</string>
   <string name="common_remove">Rimuovi</string>
-  <string name="confirmation_remove_alert">Vuoi davvero rimuovere %1$s?</string>
+  <string name="confirmation_remove_file_alert">Vuoi davvero rimuovere %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vuoi davvero rimuovere %1$s e il suo contenuto?</string>
   <string name="confirmation_remove_local">Solo localmente</string>
   <string name="remove_success_msg">Rimozione effettuata con successo</string>

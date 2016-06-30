@@ -28,7 +28,7 @@
     <item
         android:id="@+id/action_open_file_with"
         android:title="@string/actionbar_open_with"
-        android:icon="@drawable/ic_export"
+        android:icon="@drawable/ic_open_in_app"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_download_file"

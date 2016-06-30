@@ -50,7 +50,6 @@
   <string name="sync_string_files">Fájlok</string>
   <string name="setup_btn_connect">Kapcsolódás</string>
   <string name="uploader_btn_upload_text">Feltöltés</string>
-  <string name="uploader_top_message">Válassz feltöltési mappát:</string>
   <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Kilépés</string>
@@ -164,7 +163,7 @@
   <string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
   <string name="common_rename">Átnevezés</string>
   <string name="common_remove">Eltávolítás</string>
-  <string name="confirmation_remove_alert">Tényleg el akarod távolítani %1$s?</string>
+  <string name="confirmation_remove_file_alert">Tényleg el akarod távolítani %1$s?</string>
   <string name="confirmation_remove_folder_alert">Tényleg el akarod távolítani a %1$s és tartalmát?</string>
   <string name="confirmation_remove_local">Csak a helyi példány</string>
   <string name="remove_success_msg">Az eltávolítás sikerült</string>

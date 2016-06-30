@@ -58,7 +58,6 @@
   <string name="sync_string_files">Tiedostot</string>
   <string name="setup_btn_connect">Yhdistä</string>
   <string name="uploader_btn_upload_text">Lähetä</string>
-  <string name="uploader_top_message">Valitse lähetyskansio:</string>
   <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
   <string name="uploader_wrn_no_account_text">Laitteellasi ei ole %1$s-tilejä. Määritä tilin asetukset ensin.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
@@ -204,7 +203,7 @@
   <string name="auth_account_does_not_exist">Tiliä ei ole olemassa vielä laitteella</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
-  <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
+  <string name="confirmation_remove_file_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
   <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
   <string name="confirmation_remove_local">Vain paikallinen</string>
   <string name="remove_success_msg">Poistettu onnistuneesti</string>

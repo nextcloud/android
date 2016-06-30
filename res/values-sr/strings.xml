@@ -58,7 +58,6 @@
   <string name="sync_string_files">Фајлови</string>
   <string name="setup_btn_connect">Повежи се</string>
   <string name="uploader_btn_upload_text">Отпреми</string>
-  <string name="uploader_top_message">Изаберите фасциклу отпремања:</string>
   <string name="uploader_wrn_no_account_title">Нема налога</string>
   <string name="uploader_wrn_no_account_text">Нема %1$s налога на вашем уређају. Најпре подесите налог.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Подеси</string>
@@ -205,7 +204,7 @@
   <string name="auth_account_does_not_exist">Не постоји налог на уређају</string>
   <string name="common_rename">Преименуј</string>
   <string name="common_remove">Уклони</string>
-  <string name="confirmation_remove_alert">Желите да уклоните %1$s?</string>
+  <string name="confirmation_remove_file_alert">Желите да уклоните %1$s?</string>
   <string name="confirmation_remove_folder_alert">Желите да уклоните %1$s и њен садржај?</string>
   <string name="confirmation_remove_local">Само локално</string>
   <string name="remove_success_msg">Уклањање успешно</string>

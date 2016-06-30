@@ -58,7 +58,7 @@
   <string name="sync_string_files">Dateien</string>
   <string name="setup_btn_connect">Verbinden</string>
   <string name="uploader_btn_upload_text">Hochladen</string>
-  <string name="uploader_top_message">Uploadordner auswählen:</string>
+  <string name="uploader_top_message">Hochladeordner auswählen</string>
   <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
   <string name="uploader_wrn_no_account_text">Es sind keine %1$s-Konten auf Ihrem Gerät eingerichtet. Bitte richten Sie zuerst ein Konto ein.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>
@@ -227,7 +227,7 @@
   <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
   <string name="common_rename">Umbenennen</string>
   <string name="common_remove">Löschen</string>
-  <string name="confirmation_remove_alert">Möchten Sie %1$s wirklich löschen?</string>
+  <string name="confirmation_remove_file_alert">Möchten Sie %1$s wirklich löschen?</string>
   <string name="confirmation_remove_folder_alert">Möchten Sie wirklich %1$s und dessen Inhalte entfernen?</string>
   <string name="confirmation_remove_local">Nur lokal</string>
   <string name="remove_success_msg">Erfolgreich gelöscht</string>

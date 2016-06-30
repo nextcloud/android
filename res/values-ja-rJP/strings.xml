@@ -59,7 +59,6 @@
   <string name="sync_string_files">ファイル</string>
   <string name="setup_btn_connect">接続</string>
   <string name="uploader_btn_upload_text">アップロード</string>
-  <string name="uploader_top_message">アップロードするフォルダーを選択:</string>
   <string name="uploader_wrn_no_account_title">アカウントが見つかりません</string>
   <string name="uploader_wrn_no_account_text">端末に %1$s のアカウントがありません。まずアカウントを登録してください。</string>
   <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
@@ -226,7 +225,7 @@
   <string name="auth_account_does_not_exist">デバイス上にまだアカウントが存在しません</string>
   <string name="common_rename">名前を変更</string>
   <string name="common_remove">削除</string>
-  <string name="confirmation_remove_alert">本当に %1$s を削除しますか？</string>
+  <string name="confirmation_remove_file_alert">本当に %1$s を削除しますか？</string>
   <string name="confirmation_remove_folder_alert">本当に %1$s およびそのコンテンツを削除してもよろしいですか？</string>
   <string name="confirmation_remove_local">ローカルのみ</string>
   <string name="remove_success_msg">削除に成功しました</string>

@@ -47,7 +47,6 @@
   <string name="sync_string_files">Fayllar</string>
   <string name="setup_btn_connect">Qoşul</string>
   <string name="uploader_btn_upload_text">Serverə yüklə</string>
-  <string name="uploader_top_message">Yüklənmə qovluöunu seçin:</string>
   <string name="uploader_wrn_no_account_title">Hesab tapılmadı</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Qurulum</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Çıx</string>
@@ -157,7 +156,7 @@ Aşağıda göstərilən %5$s-də olan daxili və xarici fayl(lar) link edilmiş
   <string name="auth_account_does_not_exist">Hesab göstərilən avadanlıqda mövcud deyil</string>
   <string name="common_rename">Adı dəyiş</string>
   <string name="common_remove">Sil</string>
-  <string name="confirmation_remove_alert">Siz həqiqətən %1$s silmək istəyirsiniz?</string>
+  <string name="confirmation_remove_file_alert">Siz həqiqətən %1$s silmək istəyirsiniz?</string>
   <string name="confirmation_remove_folder_alert">Siz həqiqətəndə %1$s və onun kontentini silmək istəyirsiniz?</string>
   <string name="confirmation_remove_local">Yalnız daxili</string>
   <string name="remove_success_msg">Silmə uğurlu oldu</string>
