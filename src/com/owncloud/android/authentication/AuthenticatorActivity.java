@@ -80,6 +80,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation.UserInfo;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
@@ -1594,6 +1595,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAccountMgr.setUserData(
                     mAccount, Constants.KEY_OC_BASE_URL,   mServerInfo.mBaseUrl
             );
+            if (authResult.getData() != null) {
+                try {
+                    UserInfo userInfo = (UserInfo) authResult.getData().get(0);
+                    mAccountMgr.setUserData(
+                        mAccount, Constants.KEY_DISPLAY_NAME, userInfo.mDisplayName
+                    );
+                } catch (ClassCastException c) {
+                    Log_OC.w(TAG, "Couldn't get display name for " + username);
+                }
+            } else {
+                Log_OC.w(TAG, "Couldn't get display name for " + username);
+            }
 
             if (isSaml) {
                 mAccountMgr.setUserData(mAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE"); 

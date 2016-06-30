@@ -58,7 +58,6 @@
   <string name="sync_string_files">ไฟล์</string>
   <string name="setup_btn_connect">เชื่อมต่อ</string>
   <string name="uploader_btn_upload_text">อัพโหลด</string>
-  <string name="uploader_top_message">เลือกโฟลเดอร์ที่ต้องการอัพโหลด:</string>
   <string name="uploader_wrn_no_account_title">ไม่พบบัญชีที่ต้องการ</string>
   <string name="uploader_wrn_no_account_text">ไม่มีบัญชีผู้ใช้ %1$s ในอุปกรณ์ของคุณ กรุณาตั้งค่าบัญชีผู้ใช้ก่อน</string>
   <string name="uploader_wrn_no_account_setup_btn_text">ตั้งค่า</string>
@@ -221,7 +220,7 @@
   <string name="auth_account_does_not_exist">ยังไม่มีบัญชีในอุปกรณ์นี้</string>
   <string name="common_rename">เปลี่ยนชื่อ</string>
   <string name="common_remove">ลบออก</string>
-  <string name="confirmation_remove_alert">คุณต้องการที่จะลบ %1$s?</string>
+  <string name="confirmation_remove_file_alert">คุณต้องการที่จะลบ %1$s?</string>
   <string name="confirmation_remove_folder_alert">คุณต้องการที่จะลบ %1$s และเนื้อหาของมัน?</string>
   <string name="confirmation_remove_local">เฉพาะต้นทางเท่านั้น</string>
   <string name="remove_success_msg">ลบเรียบร้อยแล้ว</string>

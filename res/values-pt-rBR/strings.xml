@@ -2,7 +2,7 @@
 <resources>
   <string name="about_android">%1$s Aplicativo Android</string>
   <string name="about_version">versão %1$s</string>
-  <string name="actionbar_sync">Atualização de conta</string>
+  <string name="actionbar_sync">Atualizar conta</string>
   <string name="actionbar_upload">Enviar</string>
   <string name="actionbar_upload_from_apps">Conteúdo de outros apps</string>
   <string name="actionbar_upload_files">Arquivos</string>
@@ -58,7 +58,7 @@
   <string name="sync_string_files">Arquivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
-  <string name="uploader_top_message">Escolher pasta para enviar:</string>
+  <string name="uploader_top_message">Escolher pasta para envio</string>
   <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
   <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu aparelho. Por favor configure uma conta primeiro.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
@@ -227,7 +227,7 @@
   <string name="unfavorite">Definir como não disponível offline</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Remover</string>
-  <string name="confirmation_remove_alert">Você realmente deseja remover %1$s?</string>
+  <string name="confirmation_remove_file_alert">Você realmente deseja remover %1$s?</string>
   <string name="confirmation_remove_folder_alert">Você realmente deseja remover %1$s e seus conteúdos?</string>
   <string name="confirmation_remove_local">Somente local</string>
   <string name="remove_success_msg">Removido com sucesso</string>

@@ -456,8 +456,16 @@ public class FileActivity extends AppCompatActivity
     protected void setUsernameInDrawer(View navigationDrawerLayout, Account account) {
         if (navigationDrawerLayout != null && account != null) {
             TextView username = (TextView) navigationDrawerLayout.findViewById(R.id.drawer_username);
-            int lastAtPos = account.name.lastIndexOf("@");
-            username.setText(account.name.substring(0, lastAtPos));
+            try {
+                OwnCloudAccount oca = new OwnCloudAccount(account, this);
+                username.setText(oca.getDisplayName());
+
+            } catch (Exception e) {
+                Log_OC.w(TAG, "Couldn't read display name of account; using account name instead");
+
+                int lastAtPos = account.name.lastIndexOf("@");
+                username.setText(account.name.substring(0, lastAtPos));
+            }
         }
     }
 
@@ -826,8 +834,7 @@ public class FileActivity extends AppCompatActivity
                 account = getAccount();
             }
             OwnCloudClient client;
-            OwnCloudAccount ocAccount =
-                    new OwnCloudAccount(account, context);
+            OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
             client = (OwnCloudClientManagerFactory.getDefaultSingleton().
                     removeClientFor(ocAccount));
             if (client != null) {

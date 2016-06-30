@@ -58,7 +58,6 @@
   <string name="sync_string_files">Файлове</string>
   <string name="setup_btn_connect">Свързване</string>
   <string name="uploader_btn_upload_text">Качване</string>
-  <string name="uploader_top_message">Избери папка за качване:</string>
   <string name="uploader_wrn_no_account_title">Няма открит профил</string>
   <string name="uploader_wrn_no_account_text">Все още няма %1$s създаден профила на устройството. Моля да се създаде такъв.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
@@ -223,7 +222,7 @@
   <string name="auth_account_does_not_exist">Профила не съществува на устройството все още</string>
   <string name="common_rename">Преименуване</string>
   <string name="common_remove">Премахване</string>
-  <string name="confirmation_remove_alert">Наистина ли искате да изтриете %1$s ?</string>
+  <string name="confirmation_remove_file_alert">Наистина ли искате да изтриете %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Наистина ли искате да премахнете %1$s и съдържанието му?</string>
   <string name="confirmation_remove_local">Само локално</string>
   <string name="remove_success_msg">Премахването успешно.</string>

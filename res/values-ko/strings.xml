@@ -52,7 +52,6 @@
   <string name="sync_string_files">파일</string>
   <string name="setup_btn_connect">접속</string>
   <string name="uploader_btn_upload_text">업로드</string>
-  <string name="uploader_top_message">업로드 폴더 선택:</string>
   <string name="uploader_wrn_no_account_title">계정 없음</string>
   <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
   <string name="uploader_wrn_no_account_quit_btn_text">끝내기</string>
@@ -176,7 +175,7 @@
   <string name="auth_account_does_not_exist">장치에 아직 계정이 없음</string>
   <string name="common_rename">이름 바꾸기</string>
   <string name="common_remove">삭제</string>
-  <string name="confirmation_remove_alert">%1$s을(를) 삭제하시겠습니까?</string>
+  <string name="confirmation_remove_file_alert">%1$s을(를) 삭제하시겠습니까?</string>
   <string name="confirmation_remove_folder_alert">%1$s 및 포함된 내용을 삭제하시겠습니까?</string>
   <string name="confirmation_remove_local">로컬만</string>
   <string name="remove_success_msg">성공적으로 삭제함</string>

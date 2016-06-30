@@ -173,7 +173,7 @@ public class FileMenuFilter {
         }
 
         // OPEN WITH (different to preview!)
-        if (!isFile() || !anyFileDown() || synchronizing) {
+        if (!isSingleFile() || !anyFileDown() || synchronizing) {
             toHide.add(R.id.action_open_file_with);
 
         } else {
@@ -214,7 +214,7 @@ public class FileMenuFilter {
         }
 
         // SEE DETAILS
-        if (!isFile()) {
+        if (!isSingleFile()) {
             toHide.add(R.id.action_see_details);
         } else {
             toShow.add(R.id.action_see_details);
@@ -223,21 +223,21 @@ public class FileMenuFilter {
         // SEND
         boolean sendAllowed = (mContext != null &&
                 mContext.getString(R.string.send_files_to_other_apps).equalsIgnoreCase("on"));
-        if (!isFile() || !sendAllowed || synchronizing) {
+        if (!isSingleFile() || !sendAllowed || synchronizing) {
             toHide.add(R.id.action_send_file);
         } else {
             toShow.add(R.id.action_send_file);
         }
 
         // FAVORITES
-        if (!isFile() || synchronizing || allFavorites()) {
+        if (!allFiles() || synchronizing || allFavorites()) {
             toHide.add(R.id.action_favorite_file);
         } else {
             toShow.add(R.id.action_favorite_file);
         }
 
         // UNFAVORITES
-        if (!isFile() || synchronizing || allUnfavorites()) {
+        if (!allFiles() || synchronizing || allUnfavorites()) {
             toHide.add(R.id.action_unfavorite_file);
         } else {
             toShow.add(R.id.action_unfavorite_file);
@@ -249,8 +249,12 @@ public class FileMenuFilter {
         return mFiles.size() == SINGLE_SELECT_ITEMS;
     }
 
-    private boolean isFile() {
+    private boolean isSingleFile() {
         return isSingleSelect() && !mFiles.get(0).isFolder();
+    }
+
+    private boolean allFiles() {
+        return mFiles != null && !containsFolder();
     }
 
     private boolean containsFolder() {

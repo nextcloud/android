@@ -54,7 +54,6 @@ Descárgueo de aquí: %2$s</string>
   <string name="sync_string_files">Ficheiros</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Enviar</string>
-  <string name="uploader_top_message">Escolla o cartafol de envío:</string>
   <string name="uploader_wrn_no_account_title">Non se atoparon contas</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Instalación</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Saír</string>
@@ -179,7 +178,7 @@ Descárgueo de aquí: %2$s</string>
   <string name="auth_account_does_not_exist">Aínda non existe a conta no dispositivo</string>
   <string name="common_rename">Renomear</string>
   <string name="common_remove">Retirar</string>
-  <string name="confirmation_remove_alert">Confirma que quere retirar %1$s?</string>
+  <string name="confirmation_remove_file_alert">Confirma que quere retirar %1$s?</string>
   <string name="confirmation_remove_folder_alert">Confirma que quere retirar %1$s e o seu contido?</string>
   <string name="confirmation_remove_local">Só local</string>
   <string name="remove_success_msg">Retirado correctamente</string>

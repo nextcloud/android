@@ -74,6 +74,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.RadioButtonPreference;
@@ -744,12 +745,24 @@ public class Preferences extends PreferenceActivity
                     null);
         }
         else {
-
+            OwnCloudAccount oca;
             for (Account a : accounts) {
                 RadioButtonPreference accountPreference = new RadioButtonPreference(this);
                 accountPreference.setKey(a.name);
-                // Handle internationalized domain names
-                accountPreference.setTitle(DisplayUtils.convertIdn(a.name, false));
+                try {
+                    oca = new OwnCloudAccount(a, this);
+                    accountPreference.setTitle(
+                        oca.getDisplayName() + " @ " +
+                        DisplayUtils.convertIdn(a.name.substring(a.name.lastIndexOf("@") + 1), false)
+                    );
+                } catch (Exception e) {
+                    Log_OC.w(
+                        TAG,
+                        "Account not found right after being read :\\ ; using account name instead of display name"
+                    );
+                    // Handle internationalized domain names
+                    accountPreference.setTitle(DisplayUtils.convertIdn(a.name, false));
+                }
                 mAccountsPrefCategory.addPreference(accountPreference);
 
                 // Check the current account that is being used

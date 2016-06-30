@@ -19,6 +19,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
@@ -36,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -43,6 +45,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -238,7 +241,17 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             uploadDateTextView.setText(dateString);
 
             TextView accountNameTextView = (TextView) view.findViewById(R.id.upload_account);
-            accountNameTextView.setText(upload.getAccountName());
+            try {
+                Account account = AccountUtils.getOwnCloudAccountByName(mParentActivity, upload.getAccountName());
+                OwnCloudAccount oca = new OwnCloudAccount(account, mParentActivity);
+                accountNameTextView.setText(
+                    oca.getDisplayName() + " @ " +
+                    DisplayUtils.convertIdn(account.name.substring(account.name.lastIndexOf("@") + 1), false)
+                );
+            } catch (Exception e) {
+                Log_OC.w(TAG, "Couldn't get display name for account, using old style");
+                accountNameTextView.setText(upload.getAccountName());
+            }
 
             TextView statusTextView = (TextView) view.findViewById(R.id.upload_status);
 

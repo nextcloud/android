@@ -58,7 +58,6 @@
   <string name="sync_string_files">Dosyalar</string>
   <string name="setup_btn_connect">Bağlan</string>
   <string name="uploader_btn_upload_text">Yükle</string>
-  <string name="uploader_top_message">Yükleme klasörünü seçin:</string>
   <string name="uploader_wrn_no_account_title">Hesap bulunamadı</string>
   <string name="uploader_wrn_no_account_text">Cihazınızda hiç %1$s hesabı yok. Lütfen ilk olarak bir hesap ayarlayın.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
@@ -223,7 +222,7 @@
   <string name="unfavorite">Çevrimdışı erişimden kaldır</string>
   <string name="common_rename">Yeniden adlandır</string>
   <string name="common_remove">Kaldır</string>
-  <string name="confirmation_remove_alert">Gerçekten %1$s dosyasını kaldırmak istiyor musunuz?</string>
+  <string name="confirmation_remove_file_alert">Gerçekten %1$s dosyasını kaldırmak istiyor musunuz?</string>
   <string name="confirmation_remove_folder_alert">Gerçekten %1$s ve içeriğini kaldırmak istediğinizden emin misiniz?</string>
   <string name="confirmation_remove_local">Sadece yerel</string>
   <string name="remove_success_msg">Kaldırma başarılı</string>

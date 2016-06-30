@@ -55,7 +55,6 @@
   <string name="sync_string_files">Файли</string>
   <string name="setup_btn_connect">З\'єднати</string>
   <string name="uploader_btn_upload_text">Відвантажити</string>
-  <string name="uploader_top_message">Оберіть теку для завантаження:</string>
   <string name="uploader_wrn_no_account_title">Не знайдено облікового запису</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Налаштування</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Вийти</string>
@@ -185,7 +184,7 @@
   <string name="auth_account_does_not_exist">Користвача в пристрої не існуе</string>
   <string name="common_rename">Перейменувати</string>
   <string name="common_remove">Видалити</string>
-  <string name="confirmation_remove_alert">Ви дійсно бажаєте видалити %1$s?</string>
+  <string name="confirmation_remove_file_alert">Ви дійсно бажаєте видалити %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ви дійсно бажаєте видалити %1$s та весь вміст?</string>
   <string name="confirmation_remove_local">Лише локально</string>
   <string name="remove_success_msg">Успішно видалено</string>

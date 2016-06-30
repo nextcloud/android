@@ -58,7 +58,6 @@
   <string name="sync_string_files">Filer</string>
   <string name="setup_btn_connect">Koble til</string>
   <string name="uploader_btn_upload_text">Last opp</string>
-  <string name="uploader_top_message">Velg opplastingsmappe:</string>
   <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
   <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s-kontoer på enheten din. Sett opp en konto først.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
@@ -218,7 +217,7 @@
   <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
   <string name="common_rename">Endre navn</string>
   <string name="common_remove">Fjern</string>
-  <string name="confirmation_remove_alert">Vil du virkelig fjerne %1$s?</string>
+  <string name="confirmation_remove_file_alert">Vil du virkelig fjerne %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vil du virkelig fjerne %1$s inkludert innholdet?</string>
   <string name="confirmation_remove_local">Kun lokalt</string>
   <string name="remove_success_msg">Fjerning var vellykket</string>

@@ -53,7 +53,6 @@
   <string name="sync_string_files">Fitxategiak</string>
   <string name="setup_btn_connect">Konektatu</string>
   <string name="uploader_btn_upload_text">Igo</string>
-  <string name="uploader_top_message">Hautatu igoera karpeta:</string>
   <string name="uploader_wrn_no_account_title">Ez da konturik aurkitu</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Konfiguratu</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Irten</string>
@@ -164,7 +163,7 @@ Mesedez, baimendu berriz</string>
   <string name="auth_fail_get_user_name">Zure zerbitzariak ez du bueltatzen erabiltzailearen id egokia, mesedez jarri harremanetan administratzailearekin.</string>
   <string name="common_rename">Berrizendatu</string>
   <string name="common_remove">Ezabatu</string>
-  <string name="confirmation_remove_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
+  <string name="confirmation_remove_file_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
   <string name="confirmation_remove_folder_alert">Ziru zaude %1$s eta bere edukiak ezabatu nahi dituzula?</string>
   <string name="confirmation_remove_local">Bertakoa bakarrik</string>
   <string name="remove_success_msg">Ongi ezabatu da</string>

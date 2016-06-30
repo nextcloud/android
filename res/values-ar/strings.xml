@@ -55,7 +55,6 @@
   <string name="sync_string_files">الملفات</string>
   <string name="setup_btn_connect">اتصال</string>
   <string name="uploader_btn_upload_text">رفع</string>
-  <string name="uploader_top_message">اختر مجلد الرفع</string>
   <string name="uploader_wrn_no_account_title">لم يتم العثور على أي حساب</string>
   <string name="uploader_wrn_no_account_text">لا توجد حسابات %1$s على جهازك.  أنت بحاجة لإعداد حساب في البداية.</string>
   <string name="uploader_wrn_no_account_setup_btn_text">تهيئة</string>
@@ -198,7 +197,7 @@
 	</string>
   <string name="common_rename">إعادة التسمية</string>
   <string name="common_remove">حذف</string>
-  <string name="confirmation_remove_alert">هل تريد حقاً حذف %1$s ؟</string>
+  <string name="confirmation_remove_file_alert">هل تريد حقاً حذف %1$s ؟</string>
   <string name="confirmation_remove_folder_alert">هل ترغب في حذف %1$s و جهات الإتصال التابعة له؟ </string>
   <string name="confirmation_remove_local">محليا فقط</string>
   <string name="remove_success_msg">تم الحذف بنجاح</string>
@@ -269,7 +268,10 @@
   <string name="prefs_category_accounts">حسابات</string>
   <string name="actionbar_logger">سجل</string>
   <string name="saml_authentication_wrong_pass">كلمة مرور خاطئة</string>
+  <string name="actionbar_move">أنقل</string>
   <string name="folder_picker_choose_button_text">اختيار</string>
+  <string name="move_file_invalid_overwrite">الملف موجود بالفعل في المجلد الوجهة</string>
+  <string name="copy_file_invalid_overwrite">الملف موجود بالفعل في المجلد الوجهة</string>
   <string name="prefs_category_details">تفاصيل</string>
   <string name="auth_host_address">عنوان الخادم</string>
   <string name="share_dialog_title">مشاركة</string>

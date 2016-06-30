@@ -51,7 +51,6 @@
   <string name="sync_string_files">Датотеки</string>
   <string name="setup_btn_connect">Поврзи се</string>
   <string name="uploader_btn_upload_text">Подигни</string>
-  <string name="uploader_top_message">Избери папка за префрлање:</string>
   <string name="uploader_wrn_no_account_title">Не е пронајдена сметка</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Нагодување</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Прекини</string>
@@ -165,7 +164,7 @@
   <string name="auth_account_does_not_exist">Сметката сеуште не постои на овој уред</string>
   <string name="common_rename">Преименувај</string>
   <string name="common_remove">Отстрани</string>
-  <string name="confirmation_remove_alert">Дали навистина сакаш да ја отстраниш %1$s?</string>
+  <string name="confirmation_remove_file_alert">Дали навистина сакаш да ја отстраниш %1$s?</string>
   <string name="confirmation_remove_folder_alert">Дали навистина сакаш да го отстранам %1$s и неговата содржина?</string>
   <string name="confirmation_remove_local">Само локално</string>
   <string name="remove_success_msg">Одстранувањето е успешно</string>

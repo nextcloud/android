@@ -38,7 +38,6 @@
   <string name="sync_string_files">ফাইল</string>
   <string name="setup_btn_connect">সংযুক্ত হও</string>
   <string name="uploader_btn_upload_text">আপলোড</string>
-  <string name="uploader_top_message">আপলোডের ফোলডার পছনদ করেন</string>
   <string name="uploader_wrn_no_account_title">কোন একাউন্ট খুঁজে পাওয়া গেল না</string>
   <string name="uploader_wrn_no_account_setup_btn_text">সেট-আপ</string>
   <string name="uploader_wrn_no_account_quit_btn_text">বন্ধ</string>
@@ -140,7 +139,7 @@
 ⇥</string>
   <string name="common_rename">পূনঃনামকরণ</string>
   <string name="common_remove">অপসারণ</string>
-  <string name="confirmation_remove_alert">আপনি কি সত্যিই %1$s অপসারণ করতে চান?</string>
+  <string name="confirmation_remove_file_alert">আপনি কি সত্যিই %1$s অপসারণ করতে চান?</string>
   <string name="confirmation_remove_folder_alert">আপনি কি সত্যিই %1$s এবং এর কনটেন্ট অপসারণ করতে চান?</string>
   <string name="confirmation_remove_local">শুধুমাত্র লোকাল</string>
   <string name="remove_success_msg">অপসারণ সফল</string>
