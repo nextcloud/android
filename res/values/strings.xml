@@ -507,7 +507,7 @@
 
 
     <!-- What's new feature and texts to show -->
-    <string name="welcome_to_oc_title">Welcome to nextCloud!</string>
+    <string name="welcome_to_nc_title">Welcome to nextCloud!</string>
     <string name="whats_new_title">What\'s new in nextCloud</string>
 
     <!-- Welcome to oC intro features -->
