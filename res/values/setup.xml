@@ -56,10 +56,10 @@
     <bool name="recommend_enabled">true</bool>
     <bool name="feedback_enabled">true</bool>
     <bool name="logger_enabled">false</bool>
-    <string name="url_help">http://nextcloud.com/mobile/help</string>
+    <string name="url_help">https://help.nextcloud.com/c/feature</string>
     <string name="url_imprint"></string>
     <string name="mail_recommend">"mailto:"</string>
-    <string name="mail_feedback">"mailto:apps@nextcloud.com"</string>
+    <string name="mail_feedback">"mailto:android@nextcloud.com"</string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.android"</string>
 
     <!--Destination mail for sending log files -->
