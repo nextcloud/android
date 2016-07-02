@@ -37,8 +37,10 @@ public abstract class PreferenceManager {
     private static final String AUTO_PREF__SORT_ASCENDING = "sort_ascending";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
+    private static final String PREF__INSTANT_UPLOAD_PATH_USE_SUBFOLDERS = "instant_upload_path_use_subfolders";
     private static final String PREF__INSTANT_UPLOAD_ON_WIFI = "instant_upload_on_wifi";
     private static final String PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI = "instant_video_upload_on_wifi";
+    private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS = "instant_video_upload_path_use_subfolders";
 
     public static boolean instantPictureUploadEnabled(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOADING, false);
@@ -48,8 +50,16 @@ public abstract class PreferenceManager {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_VIDEO_UPLOADING, false);
     }
 
+    public static boolean instantPictureUploadPathUseSubfolders(Context context) {
+        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOAD_PATH_USE_SUBFOLDERS, false);
+    }
+
     public static boolean instantPictureUploadViaWiFiOnly(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOAD_ON_WIFI, false);
+    }
+
+    public static boolean instantVideoUploadPathUseSubfolders(Context context) {
+        return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS, false);
     }
 
     public static boolean instantVideoUploadViaWiFiOnly(Context context) {
