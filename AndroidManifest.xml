@@ -243,7 +243,9 @@
             <meta-data android:name="android.app.searchable"
                        android:resource="@xml/users_and_groups_searchable"/>
         </activity>
-        <activity android:name=".ui.activity.ManageSpaceActivity"></activity>
+        <activity android:name=".ui.activity.ManageSpaceActivity"
+                  android:label="@string/manage_space_title"
+                  android:theme="@style/Theme.ownCloud" />
     </application>
 
 </manifest>
