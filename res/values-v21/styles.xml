@@ -17,12 +17,19 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
-	</style>
-    <style name="Theme.ownCloud.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
+    <style name="Theme.ownCloud.Toolbar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+        <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+        <item name="searchViewStyle">@style/ownCloud.SearchView</item>
+    </style>
+
+    <style name="Theme.ownCloud.Toolbar.Drawer">
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>

@@ -83,6 +83,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String file_path = null;
         String file_name = null;
         String mime_type = null;
+        long date_taken = 0;
 
         Log_OC.i(TAG, "New photo received");
 
@@ -116,6 +117,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         file_path = c.getString(c.getColumnIndex(Images.Media.DATA));
         file_name = c.getString(c.getColumnIndex(Images.Media.DISPLAY_NAME));
         mime_type = c.getString(c.getColumnIndex(Images.Media.MIME_TYPE));
+        date_taken = System.currentTimeMillis();
         c.close();
 
         if (file_path.equals(lastUploadedPhotoPath)) {
@@ -134,7 +136,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                 context,
                 account,
                 file_path,
-                FileStorageUtils.getInstantUploadFilePath(context, file_name),
+                FileStorageUtils.getInstantUploadFilePath(context, file_name, date_taken),
                 behaviour,
                 mime_type,
                 true,           // create parent folder if not existent
@@ -161,6 +163,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         String file_path = null;
         String file_name = null;
         String mime_type = null;
+        long date_taken = 0;
 
         Log_OC.i(TAG, "New video received");
 
@@ -186,6 +189,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         file_name = c.getString(c.getColumnIndex(Video.Media.DISPLAY_NAME));
         mime_type = c.getString(c.getColumnIndex(Video.Media.MIME_TYPE));
         c.close();
+        date_taken = System.currentTimeMillis();
         Log_OC.d(TAG, file_path + "");
 
         int behaviour = getUploadBehaviour(context);
@@ -194,7 +198,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
                 context,
                 account,
                 file_path,
-                FileStorageUtils.getInstantVideoUploadFilePath(context, file_name),
+                FileStorageUtils.getInstantVideoUploadFilePath(context, file_name, date_taken),
                 behaviour,
                 mime_type,
                 true,           // create parent folder if not existent
