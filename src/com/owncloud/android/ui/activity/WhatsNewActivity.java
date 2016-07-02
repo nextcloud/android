@@ -1,8 +1,9 @@
 /**
  *   ownCloud Android client application
  *
- *   Copyright (C) 2015 Bartosz Przybylski
+ *   Copyright (C) 2015-2016 Bartosz Przybylski
  *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 nextCloud
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -98,7 +99,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         });
 
         TextView tv = (TextView)findViewById(R.id.welcomeText);
-        tv.setText(isFirstRun() ? R.string.welcome_to_oc_title : R.string.whats_new_title);
+        tv.setText(isFirstRun() ? R.string.welcome_to_nc_title : R.string.whats_new_title);
 
         updateNextButtonIfNeeded();
     }
