@@ -66,7 +66,7 @@ public class UploadFilesActivity extends FileActivity implements
     private boolean mSelectAll = false;
     private LocalFileListFragment mFileListFragment;
     private Button mCancelBtn;
-    private Button mUploadBtn;
+    protected Button mUploadBtn;
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     private Menu mOptionsMenu;
