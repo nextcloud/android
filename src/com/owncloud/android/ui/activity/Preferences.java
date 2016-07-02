@@ -21,10 +21,10 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -32,8 +32,6 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
-import android.os.IBinder;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -57,20 +55,15 @@ import android.widget.Toast;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.PreferenceWithLongSummary;
-import com.owncloud.android.ui.RadioButtonPreference;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.IOException;
@@ -88,8 +81,6 @@ public class Preferences extends PreferenceActivity
 
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
-    private static final int ACTION_SELECT_STORAGE_PATH = 3;
-    private static final int ACTION_PERFORM_MIGRATION = 4;
     private static final int ACTION_REQUEST_PASSCODE = 5;
     private static final int ACTION_CONFIRM_PASSCODE = 6;
 
@@ -105,7 +96,6 @@ public class Preferences extends PreferenceActivity
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
 
-    private PreferenceCategory mAccountsPrefCategory = null;
     private String mUploadPath;
     private PreferenceCategory mPrefInstantUploadCategory;
     private Preference mPrefInstantUpload;
@@ -120,8 +110,7 @@ public class Preferences extends PreferenceActivity
     private Preference mPrefInstantVideoUploadPathWiFi;
     private Preference mPrefInstantVideoUploadOnlyOnCharging;
     private String mUploadVideoPath;
-
-    private PreferenceWithLongSummary mPrefStoragePath;
+    private ListPreference mPrefStoragePath;
     private String mStoragePath;
 
     public static class Keys {
@@ -651,21 +640,6 @@ public class Preferences extends PreferenceActivity
 
                 Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
             }
-        } else if (requestCode == ACTION_SELECT_STORAGE_PATH && resultCode == RESULT_OK) {
-            File currentStorageDir = new File(mStoragePath);
-            File upcomingStorageDir = new File(data.getStringExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES));
-
-            if (currentStorageDir != upcomingStorageDir) {
-                Intent migrationIntent = new Intent(this, StorageMigrationActivity.class);
-                migrationIntent.putExtra(StorageMigrationActivity.KEY_MIGRATION_SOURCE_DIR,
-                        currentStorageDir.getAbsolutePath());
-                migrationIntent.putExtra(StorageMigrationActivity.KEY_MIGRATION_TARGET_DIR,
-                        upcomingStorageDir.getAbsolutePath());
-                startActivityForResult(migrationIntent, ACTION_PERFORM_MIGRATION);
-            }
-        } else if (requestCode == ACTION_PERFORM_MIGRATION && resultCode == RESULT_OK) {
-            String resultStorageDir = data.getStringExtra(StorageMigrationActivity.KEY_MIGRATION_TARGET_DIR);
-            saveStoragePath(resultStorageDir);
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
             Toast.makeText(this, R.string.prefs_calendar_contacts_sync_setup_successful, Toast.LENGTH_LONG).show();        }
     }
@@ -801,7 +775,10 @@ public class Preferences extends PreferenceActivity
      * Load upload video path set on preferences
      */
     private void loadInstantUploadVideoPath() {
-        mPrefInstantVideoUploadPath.setSummary(MainApp.getStoragePath());
+        SharedPreferences appPrefs =
+                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        mUploadVideoPath = appPrefs.getString("instant_video_upload_path", getString(R.string.instant_upload_path));
+        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
     }
 
     /**
@@ -825,4 +802,5 @@ public class Preferences extends PreferenceActivity
     public void onCancelMigration() {
         // Migration was canceled so we don't do anything
     }
+
 }
