@@ -412,6 +412,10 @@ public class GridViewWithHeaderAndFooter extends GridView {
         }
     }
 
+    public boolean isCorrectAdapter(){
+        return getAdapter() == null || getAdapter() instanceof HeaderViewGridAdapter;
+    }
+
     /**
      * ListAdapter used when a HeaderGridView has header views. This ListAdapter
      * wraps another one and also keeps track of the header views and their
