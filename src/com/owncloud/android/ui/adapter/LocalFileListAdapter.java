@@ -159,7 +159,11 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
                             if (thumbnail == null) {
-                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                if (BitmapUtils.isVideo(file)) {
+                                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                                } else {
+                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                }
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                         		new ThumbnailsCacheManager.AsyncThumbnailDrawable(
