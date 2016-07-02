@@ -91,6 +91,12 @@ public class ThumbnailsCacheManager {
                     R.drawable.file_image
             );
 
+    public static Bitmap mDefaultVideo =
+            BitmapFactory.decodeResource(
+                    MainApp.getAppContext().getResources(),
+                    R.drawable.file_movie
+            );
+
     
     public static class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
 
