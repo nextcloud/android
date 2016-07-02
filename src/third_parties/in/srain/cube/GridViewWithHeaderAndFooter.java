@@ -413,8 +413,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
     }
 
     public boolean isCorrectAdapter(){
-        return getAdapter() == null ||
-               (getAdapter() != null && getAdapter() instanceof HeaderViewGridAdapter);
+        return getAdapter() == null || getAdapter() instanceof HeaderViewGridAdapter;
     }
 
     /**
