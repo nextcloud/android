@@ -39,14 +39,20 @@ public abstract class PreferenceManager {
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_URL = "prefs_upload_file_extension_url";
     private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
+    private static final String PREF__INSTANT_UPLOAD_PATH_ACCOUNT = "instant_upload_path_account";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
     private static final String PREF__INSTANT_UPLOAD_PATH_USE_SUBFOLDERS = "instant_upload_path_use_subfolders";
     private static final String PREF__INSTANT_UPLOAD_ON_WIFI = "instant_upload_on_wifi";
     private static final String PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI = "instant_video_upload_on_wifi";
     private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS = "instant_video_upload_path_use_subfolders";
+    private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT = "instant_video_upload_path_account";
 
     public static boolean instantPictureUploadEnabled(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOADING, false);
+    }
+
+    public static String instantPictureUploadPathAccount(Context context) {
+        return getDefaultSharedPreferences(context).getString(PREF__INSTANT_UPLOAD_PATH_ACCOUNT, null);
     }
 
     public static boolean instantVideoUploadEnabled(Context context) {
@@ -59,6 +65,10 @@ public abstract class PreferenceManager {
 
     public static boolean instantPictureUploadViaWiFiOnly(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOAD_ON_WIFI, false);
+    }
+
+    public static String instantVideoUploadPathAccount(Context context) {
+        return getDefaultSharedPreferences(context).getString(PREF__INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT, null);
     }
 
     public static boolean instantVideoUploadPathUseSubfolders(Context context) {
