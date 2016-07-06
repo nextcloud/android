@@ -382,7 +382,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 return true;
             }
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
     }
 

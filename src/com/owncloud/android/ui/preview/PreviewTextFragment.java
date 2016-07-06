@@ -358,7 +358,7 @@ public class PreviewTextFragment extends FileFragment {
             }
 
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
     }
 
