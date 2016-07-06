@@ -319,7 +319,7 @@ public class PreviewImageFragment extends FileFragment {
                 return true;
             }
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
     }
 
