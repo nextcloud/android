@@ -203,7 +203,7 @@
   <string name="auth_account_does_not_exist">Tiliä ei ole olemassa vielä laitteella</string>
   <string name="common_rename">Nimeä uudelleen</string>
   <string name="common_remove">Poista</string>
-  <string name="confirmation_remove_file_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
+  <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
   <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
   <string name="confirmation_remove_local">Vain paikallinen</string>
   <string name="remove_success_msg">Poistettu onnistuneesti</string>

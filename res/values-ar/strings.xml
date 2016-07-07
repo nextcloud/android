@@ -197,7 +197,7 @@
 	</string>
   <string name="common_rename">إعادة التسمية</string>
   <string name="common_remove">حذف</string>
-  <string name="confirmation_remove_file_alert">هل تريد حقاً حذف %1$s ؟</string>
+  <string name="confirmation_remove_alert">هل تريد حقاً حذف %1$s ؟</string>
   <string name="confirmation_remove_folder_alert">هل ترغب في حذف %1$s و جهات الإتصال التابعة له؟ </string>
   <string name="confirmation_remove_local">محليا فقط</string>
   <string name="remove_success_msg">تم الحذف بنجاح</string>

@@ -220,7 +220,7 @@
   <string name="auth_account_does_not_exist">ยังไม่มีบัญชีในอุปกรณ์นี้</string>
   <string name="common_rename">เปลี่ยนชื่อ</string>
   <string name="common_remove">ลบออก</string>
-  <string name="confirmation_remove_file_alert">คุณต้องการที่จะลบ %1$s?</string>
+  <string name="confirmation_remove_alert">คุณต้องการที่จะลบ %1$s?</string>
   <string name="confirmation_remove_folder_alert">คุณต้องการที่จะลบ %1$s และเนื้อหาของมัน?</string>
   <string name="confirmation_remove_local">เฉพาะต้นทางเท่านั้น</string>
   <string name="remove_success_msg">ลบเรียบร้อยแล้ว</string>

@@ -227,7 +227,7 @@
   <string name="unfavorite">Rimuovi come disponibile non in linea</string>
   <string name="common_rename">Rinomina</string>
   <string name="common_remove">Rimuovi</string>
-  <string name="confirmation_remove_file_alert">Vuoi davvero rimuovere %1$s?</string>
+  <string name="confirmation_remove_alert">Vuoi davvero rimuovere %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vuoi davvero rimuovere %1$s e il suo contenuto?</string>
   <string name="confirmation_remove_local">Solo localmente</string>
   <string name="remove_success_msg">Rimozione effettuata con successo</string>

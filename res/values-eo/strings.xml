@@ -147,7 +147,7 @@
   <string name="auth_account_does_not_exist">Konto ankoraŭ ne ekzistas en la aparato</string>
   <string name="common_rename">Alinomigi</string>
   <string name="common_remove">Forigi</string>
-  <string name="confirmation_remove_file_alert">Ĉu vi vere volas forigi %1$s?</string>
+  <string name="confirmation_remove_alert">Ĉu vi vere volas forigi %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ĉu vi vere volas forigi %1$s kaj ĝia enhavo?</string>
   <string name="confirmation_remove_local">Nur loka</string>
   <string name="remove_success_msg">Forigo sukcesis</string>

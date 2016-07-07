@@ -214,7 +214,7 @@
   <string name="auth_account_does_not_exist">设备中还未存在该帐号</string>
   <string name="common_rename">重命名</string>
   <string name="common_remove">删除</string>
-  <string name="confirmation_remove_file_alert">你确定要删除 %1$s 吗？</string>
+  <string name="confirmation_remove_alert">你确定要删除 %1$s 吗？</string>
   <string name="confirmation_remove_folder_alert">您确定要删除 %1$s 及其内容吗？</string>
   <string name="confirmation_remove_local">仅本地</string>
   <string name="remove_success_msg">成功删除</string>
