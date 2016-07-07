@@ -70,7 +70,6 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -733,26 +732,6 @@ public class FileUploader extends Service
                 upload.getAccountName().equals(mCurrentAccount.name) &&
                 upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
             );
-        }
-
-        /**
-         * Returns True when the file described by 'file' is being uploaded to
-         * the ownCloud account 'account' or waiting for it
-         *
-         * If 'file' is a directory, returns 'true' if some of its descendant files
-         * is uploading or waiting to upload.
-         *
-         * @param account   ownCloud account where the remote file will be stored.
-         * @param files      A list of files that could contains someone in the queue of pending uploads
-         */
-        public boolean isUploading(Account account, List<OCFile> files) {
-            if (account == null || files.isEmpty()) return false;
-            for(OCFile file: files) {
-                if(mPendingUploads.contains(account.name, file.getRemotePath())) {
-                    return true;
-                }
-            }
-            return false;
         }
 
 

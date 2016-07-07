@@ -552,36 +552,37 @@ public class FileOperationsHelper {
     }
 
     /**
-     * Start move file operation
+     * Start operations to move on or several files
      *
-     * @param newfile     File where it is going to be moved
-     * @param currentFile File with the previous info
+     * @param files            Files to move
+     * @param targetFolder     Folder where the files while be moved into
      */
-    public void moveFile(OCFile newfile, OCFile currentFile) {
-        // Move files
-        Intent service = new Intent(mFileActivity, OperationsService.class);
-        service.setAction(OperationsService.ACTION_MOVE_FILE);
-        service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, newfile.getRemotePath());
-        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, currentFile.getRemotePath());
-        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
-
+    public void moveFiles(Collection<OCFile> files, OCFile targetFolder) {
+        for (OCFile file : files) {
+            Intent service = new Intent(mFileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_MOVE_FILE);
+            service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        }
     }
 
     /**
      * Start copy file operation
      *
-     * @param newfile     File where it is going to be moved
-     * @param currentFile File with the previous info
+     * @param files            Files to move
+     * @param targetFolder     Folder where the files while be copied into
      */
-    public void copyFile(OCFile newfile, OCFile currentFile) {
-        // Copy files
-        Intent service = new Intent(mFileActivity, OperationsService.class);
-        service.setAction(OperationsService.ACTION_COPY_FILE);
-        service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, newfile.getRemotePath());
-        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, currentFile.getRemotePath());
-        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+    public void copyFiles(Collection<OCFile> files, OCFile targetFolder) {
+        for (OCFile file : files) {
+            Intent service = new Intent(mFileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_COPY_FILE);
+            service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        }
 
         mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
                 getString(R.string.wait_a_moment));

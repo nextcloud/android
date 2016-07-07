@@ -468,11 +468,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     }
 
 
-    private CharSequence showRelativeTimestamp(OCFile file) {
-        return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
-                DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
-    }
-
     public void setGridMode(boolean gridMode) {
         mGridMode = gridMode;
     }
@@ -481,7 +476,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return mSelection.contains(getItemId(position));
     }
 
-    public void setNewSelection(int position, boolean checked) {
+    public void updateSelection(int position, boolean checked) {
         if (checked) {
             mSelection.add(getItemId(position));
             notifyDataSetChanged();

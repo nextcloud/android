@@ -60,13 +60,10 @@ import java.util.ArrayList;
 public class FolderPickerActivity extends FileActivity implements FileFragment.ContainerActivity,
     OnClickListener, OnEnforceableRefreshListener {
 
-    public static final String EXTRA_FOLDER = UploadFilesActivity.class.getCanonicalName()
+    public static final String EXTRA_FOLDER = FolderPickerActivity.class.getCanonicalName()
                                                             + ".EXTRA_FOLDER";
-    public static final String EXTRA_FILE = UploadFilesActivity.class.getCanonicalName()
-                                                            + ".EXTRA_FILE";
-    public static final String EXTRA_FILES = UploadFilesActivity.class.getCanonicalName()
+    public static final String EXTRA_FILES = FolderPickerActivity.class.getCanonicalName()
             + ".EXTRA_FILES";
-    //TODO: Think something better
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
@@ -151,7 +148,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         OCFileListFragment listOfFiles = new OCFileListFragment();
         Bundle args = new Bundle();
         args.putBoolean(OCFileListFragment.ARG_JUST_FOLDERS, true);
-        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, false);
         args.putBoolean(OCFileListFragment.ARG_HIDE_FAB, true);
         listOfFiles.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -373,17 +369,11 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             finish();
         } else if (v == mChooseBtn) {
             Intent i = getIntent();
-            Parcelable targetFile = i.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
             ArrayList<Parcelable> targetFiles = i.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
 
             Intent data = new Intent();
             data.putExtra(EXTRA_FOLDER, getCurrentFolder());
-            if (targetFile != null) {
-                data.putExtra(EXTRA_FILE, targetFile);
-            }
-            if (targetFiles != null){
-                data.putParcelableArrayListExtra(EXTRA_FILES, targetFiles);
-            }
+            data.putParcelableArrayListExtra(EXTRA_FILES, targetFiles);
             setResult(RESULT_OK, data);
 
             finish();

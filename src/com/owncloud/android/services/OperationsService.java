@@ -387,26 +387,6 @@ public class OperationsService extends Service {
             return mSyncFolderHandler.isSynchronizing(account, file.getRemotePath());
         }
 
-        /**
-         * Returns True when the file described by 'file' in the ownCloud account 'account' is
-         * downloading or waiting to download.
-         *
-         * If 'file' is a directory, returns 'true' if some of its descendant files is downloading
-         * or waiting to download.
-         *
-         * @param account       ownCloud account where the remote file is stored.
-         * @param files         List of files to check if something is synchronizing
-         *                      / downloading / uploading inside.
-         */
-        public boolean isSynchronizing(Account account, List<OCFile> files) {
-            for(OCFile file: files) {
-                if(isSynchronizing(account, file)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
     }
 
 
