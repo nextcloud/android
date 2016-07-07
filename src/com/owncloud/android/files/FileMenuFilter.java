@@ -27,7 +27,6 @@ import android.view.MenuItem;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -56,8 +55,7 @@ public class FileMenuFilter {
      *
      * @param targetFiles       List of {@link OCFile} file targets of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
-     * @param cg                Accessor to app components, needed to access the
-     *                          {@link FileUploader} and {@link FileDownloader} services
+     * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
     public FileMenuFilter(List<OCFile> targetFiles, Account account, ComponentsGetter cg,
@@ -73,8 +71,7 @@ public class FileMenuFilter {
      *
      * @param targetFile        {@link OCFile} target of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
-     * @param cg                Accessor to app components, needed to access the
-     *                          {@link FileUploader} and {@link FileDownloader} services
+     * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
     public FileMenuFilter(OCFile targetFile, Account account, ComponentsGetter cg,
@@ -122,20 +119,7 @@ public class FileMenuFilter {
      * @param toHide            List to save the options that must be shown in the menu.
      */
     private void filter(List<Integer> toShow, List <Integer> toHide) {
-        boolean synchronizing = false;
-        if (mComponentsGetter != null && !mFiles.isEmpty() && mAccount != null) {
-            OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
-            FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
-            FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
-            synchronizing = (
-                // comparing local and remote
-                (opsBinder != null && opsBinder.isSynchronizing(mAccount, mFiles)) ||
-                // downloading
-                (downloaderBinder != null && downloaderBinder.isDownloading(mAccount, mFiles)) ||
-                // uploading
-                (uploaderBinder != null && uploaderBinder.isUploading(mAccount, mFiles))
-            );
-        }
+        boolean synchronizing = anyFileSynchronizing();
 
         /// decision is taken for each possible action on a file in the menu
 
@@ -148,7 +132,7 @@ public class FileMenuFilter {
         }
 
         // RENAME
-        if (!isSingleSelect() || synchronizing) {
+        if (!isSingleSelection() || synchronizing) {
             toHide.add(R.id.action_rename_file);
 
         } else {
@@ -207,7 +191,7 @@ public class FileMenuFilter {
                 (capability.getFilesSharingApiEnabled().isTrue() ||
                         capability.getFilesSharingApiEnabled().isUnknown()
                 );
-        if ((!shareViaLinkAllowed && !shareWithUsersAllowed) || !isSingleSelect() || !shareApiEnabled) {
+        if ((!shareViaLinkAllowed && !shareWithUsersAllowed) || !isSingleSelection() || !shareApiEnabled) {
             toHide.add(R.id.action_share_file);
         } else {
             toShow.add(R.id.action_share_file);
@@ -245,12 +229,57 @@ public class FileMenuFilter {
 
     }
 
-    private boolean isSingleSelect() {
+    private boolean anyFileSynchronizing() {
+        boolean synchronizing = false;
+        if (mComponentsGetter != null && !mFiles.isEmpty() && mAccount != null) {
+            OperationsServiceBinder opsBinder = mComponentsGetter.getOperationsServiceBinder();
+            FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
+            FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
+            synchronizing = (
+                anyFileSynchronizing(opsBinder) ||      // comparing local and remote
+                anyFileDownloading(downloaderBinder) ||
+                anyFileUploading(uploaderBinder)
+            );
+        }
+        return synchronizing;
+    }
+
+    private boolean anyFileSynchronizing(OperationsServiceBinder opsBinder) {
+        boolean synchronizing = false;
+        if (opsBinder != null) {
+            for (int i=0; !synchronizing && i < mFiles.size(); i++) {
+                synchronizing = opsBinder.isSynchronizing(mAccount, mFiles.get(i));
+            }
+        }
+        return synchronizing;
+    }
+
+    private boolean anyFileDownloading(FileDownloaderBinder downloaderBinder) {
+        boolean downloading = false;
+        if (downloaderBinder != null) {
+            for (int i=0; !downloading && i < mFiles.size(); i++) {
+                downloading = downloaderBinder.isDownloading(mAccount, mFiles.get(i));
+            }
+        }
+        return downloading;
+    }
+
+    private boolean anyFileUploading(FileUploaderBinder uploaderBinder) {
+        boolean uploading = false;
+        if (uploaderBinder != null) {
+            for (int i=0; !uploading && i < mFiles.size(); i++) {
+                uploading = uploaderBinder.isUploading(mAccount, mFiles.get(i));
+            }
+        }
+        return uploading;
+    }
+
+    private boolean isSingleSelection() {
         return mFiles.size() == SINGLE_SELECT_ITEMS;
     }
 
     private boolean isSingleFile() {
-        return isSingleSelect() && !mFiles.get(0).isFolder();
+        return isSingleSelection() && !mFiles.get(0).isFolder();
     }
 
     private boolean allFiles() {

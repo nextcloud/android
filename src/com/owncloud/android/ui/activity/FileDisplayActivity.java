@@ -330,6 +330,9 @@ public class FileDisplayActivity extends HookActivity
 
     private void createMinFragments() {
         OCFileListFragment listOfFiles = new OCFileListFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+        listOfFiles.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
         transaction.commit();
@@ -657,12 +660,11 @@ public class FileDisplayActivity extends HookActivity
 
         } else if (requestCode == REQUEST_CODE__MOVE_FILES && resultCode == RESULT_OK) {
             final Intent fData = data;
-            final int fResultCode = resultCode;
             getHandler().postDelayed(
                     new Runnable() {
                         @Override
                         public void run() {
-                            requestMoveOperation(fData, fResultCode);
+                            requestMoveOperation(fData);
                         }
                     },
                     DELAY_TO_REQUEST_OPERATIONS_LATER
@@ -676,7 +678,7 @@ public class FileDisplayActivity extends HookActivity
                     new Runnable() {
                         @Override
                         public void run() {
-                            requestCopyOperation(fData, fResultCode);
+                            requestCopyOperation(fData);
                         }
                     },
                     DELAY_TO_REQUEST_OPERATIONS_LATER
@@ -762,32 +764,22 @@ public class FileDisplayActivity extends HookActivity
      * Request the operation for moving the file/folder from one path to another
      *
      * @param data       Intent received
-     * @param resultCode Result code received
      */
-    private void requestMoveOperation(Intent data, int resultCode) {
-        OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-
+    private void requestMoveOperation(Intent data) {
+        OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
         ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
-
-        for (Parcelable file : files) {
-            getFileOperationsHelper().moveFile(folderToMoveAt, (OCFile) file);
-        }
+        getFileOperationsHelper().moveFiles(files, folderToMoveAt);
     }
 
     /**
      * Request the operation for copying the file/folder from one path to another
      *
      * @param data       Intent received
-     * @param resultCode Result code received
      */
-    private void requestCopyOperation(Intent data, int resultCode) {
+    private void requestCopyOperation(Intent data) {
         OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-
         ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
-
-        for (Parcelable file : files) {
-            getFileOperationsHelper().copyFile(folderToMoveAt, (OCFile) file);
-        }
+        getFileOperationsHelper().copyFiles(files, folderToMoveAt);
     }
 
     @Override

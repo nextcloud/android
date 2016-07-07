@@ -48,7 +48,7 @@ import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
@@ -255,7 +255,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 return true;
             }
             case R.id.action_remove_file: {
-                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
                 dialog.show(getFragmentManager(), FTAG_CONFIRMATION);
                 return true;
             }
