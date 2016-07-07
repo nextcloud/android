@@ -190,7 +190,7 @@
   <string name="auth_account_does_not_exist">Contul nu există încă în dispozitiv</string>
   <string name="common_rename">Redenumește</string>
   <string name="common_remove">Elimină</string>
-  <string name="confirmation_remove_file_alert">Doriti sigur sa stergeti %1$s?</string>
+  <string name="confirmation_remove_alert">Doriti sigur sa stergeti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Sigur vrei să elimini %1$s și conținutul său?</string>
   <string name="confirmation_remove_local">Doar local</string>
   <string name="remove_success_msg">Eliminat cu succes</string>

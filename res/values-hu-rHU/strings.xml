@@ -163,7 +163,7 @@
   <string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
   <string name="common_rename">Átnevezés</string>
   <string name="common_remove">Eltávolítás</string>
-  <string name="confirmation_remove_file_alert">Tényleg el akarod távolítani %1$s?</string>
+  <string name="confirmation_remove_alert">Tényleg el akarod távolítani %1$s?</string>
   <string name="confirmation_remove_folder_alert">Tényleg el akarod távolítani a %1$s és tartalmát?</string>
   <string name="confirmation_remove_local">Csak a helyi példány</string>
   <string name="remove_success_msg">Az eltávolítás sikerült</string>

@@ -226,7 +226,7 @@
   <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
   <string name="common_rename">Preimenuj</string>
   <string name="common_remove">Odstrani</string>
-  <string name="confirmation_remove_file_alert">Ali res želite odstraniti %1$s?</string>
+  <string name="confirmation_remove_alert">Ali res želite odstraniti %1$s?</string>
   <string name="confirmation_remove_folder_alert">Ali res želite odstraniti %1$s skupaj s celotno vsebino?</string>
   <string name="confirmation_remove_local">Le krajevno</string>
   <string name="remove_success_msg">Odstranitev je uspešno končana</string>

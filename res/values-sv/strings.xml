@@ -227,7 +227,7 @@
   <string name="unfavorite">Ta bort som tillgänglig offline</string>
   <string name="common_rename">Byt namn</string>
   <string name="common_remove">Radera</string>
-  <string name="confirmation_remove_file_alert">Vill du verkligen ta bort %1$s?</string>
+  <string name="confirmation_remove_alert">Vill du verkligen ta bort %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
   <string name="confirmation_remove_local">Endast lokalt</string>
   <string name="remove_success_msg">Lyckad radering</string>

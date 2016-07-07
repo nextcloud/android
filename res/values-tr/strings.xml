@@ -222,7 +222,7 @@
   <string name="unfavorite">Çevrimdışı erişimden kaldır</string>
   <string name="common_rename">Yeniden adlandır</string>
   <string name="common_remove">Kaldır</string>
-  <string name="confirmation_remove_file_alert">Gerçekten %1$s dosyasını kaldırmak istiyor musunuz?</string>
+  <string name="confirmation_remove_alert">Gerçekten %1$s dosyasını kaldırmak istiyor musunuz?</string>
   <string name="confirmation_remove_folder_alert">Gerçekten %1$s ve içeriğini kaldırmak istediğinizden emin misiniz?</string>
   <string name="confirmation_remove_local">Sadece yerel</string>
   <string name="remove_success_msg">Kaldırma başarılı</string>

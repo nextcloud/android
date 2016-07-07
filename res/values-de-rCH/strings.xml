@@ -146,7 +146,7 @@
   <string name="common_remove">Löschen</string>
   <string name="confirmation_remove_local">Nur lokal</string>
   <string name="confirmation_remove_folder_local">Nur lokale Inhalte</string>
-  <string name="confirmation_remove_file_remote">Vom Server entfernen</string>
+  <string name="confirmation_remove_remote">Vom Server entfernen</string>
   <string name="confirmation_remove_remote_and_local">Lokal und auf dem Server</string>
   <string name="remove_success_msg">Erfolgreich gelöscht</string>
   <string name="remove_fail_msg">Der Löschvorgang konnte nicht beendet werden</string>

@@ -226,7 +226,7 @@
   <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
   <string name="common_rename">Přejmenovat</string>
   <string name="common_remove">Odstranit</string>
-  <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s ?</string>
+  <string name="confirmation_remove_alert">Opravdu chcete odstranit %1$s ?</string>
   <string name="confirmation_remove_folder_alert">Opravdu chcete odstranit %1$s a jeho obsah?</string>
   <string name="confirmation_remove_local">Pouze místní</string>
   <string name="remove_success_msg">Úspěšně odstraněno</string>

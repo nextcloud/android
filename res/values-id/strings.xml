@@ -184,7 +184,7 @@
   <string name="auth_account_does_not_exist">Akun tidak ada di perangkat ini</string>
   <string name="common_rename">Ubah nama</string>
   <string name="common_remove">Hapus</string>
-  <string name="confirmation_remove_file_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
+  <string name="confirmation_remove_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
   <string name="confirmation_remove_folder_alert">Apakah Anda yakin ingin menghapus %1$s dan isinya?</string>
   <string name="confirmation_remove_local">Lokal saja</string>
   <string name="remove_success_msg">Penghapusan berhasil</string>

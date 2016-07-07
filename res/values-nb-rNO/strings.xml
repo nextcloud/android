@@ -217,7 +217,7 @@
   <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
   <string name="common_rename">Endre navn</string>
   <string name="common_remove">Fjern</string>
-  <string name="confirmation_remove_file_alert">Vil du virkelig fjerne %1$s?</string>
+  <string name="confirmation_remove_alert">Vil du virkelig fjerne %1$s?</string>
   <string name="confirmation_remove_folder_alert">Vil du virkelig fjerne %1$s inkludert innholdet?</string>
   <string name="confirmation_remove_local">Kun lokalt</string>
   <string name="remove_success_msg">Fjerning var vellykket</string>

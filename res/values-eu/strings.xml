@@ -163,7 +163,7 @@ Mesedez, baimendu berriz</string>
   <string name="auth_fail_get_user_name">Zure zerbitzariak ez du bueltatzen erabiltzailearen id egokia, mesedez jarri harremanetan administratzailearekin.</string>
   <string name="common_rename">Berrizendatu</string>
   <string name="common_remove">Ezabatu</string>
-  <string name="confirmation_remove_file_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
+  <string name="confirmation_remove_alert">Ziur zaude %1$s ezabatu nahi duzula?</string>
   <string name="confirmation_remove_folder_alert">Ziru zaude %1$s eta bere edukiak ezabatu nahi dituzula?</string>
   <string name="confirmation_remove_local">Bertakoa bakarrik</string>
   <string name="remove_success_msg">Ongi ezabatu da</string>
