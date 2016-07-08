@@ -349,7 +349,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                mAdapter.updateSelection(position, checked);
+                mAdapter.updateSelection(id, checked);
                 mode.invalidate();
             }
 
@@ -376,18 +376,17 @@ public class OCFileListFragment extends ExtendedListFragment {
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                final int checkedCount = getListView().getCheckedItemCount();
+                List<OCFile> checkedFiles = mAdapter.getCheckedItems();
+                final int checkedCount = checkedFiles.size();
                 String title = getResources().getQuantityString(
                     R.plurals.items_selected_count,
                     checkedCount,
                     checkedCount
                 );
                 mode.setTitle(title);
-
                 if (checkedCount > 0) {
-                    List<OCFile> targetFiles = mAdapter.getCheckedItems();
                     FileMenuFilter mf = new FileMenuFilter(
-                        targetFiles,
+                        checkedFiles,
                         ((FileActivity) getActivity()).getAccount(),
                         mContainerActivity,
                         getActivity()

@@ -476,17 +476,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return mSelection.contains(getItemId(position));
     }
 
-    public void updateSelection(int position, boolean checked) {
+    public void updateSelection(long itemId, boolean checked) {
         if (checked) {
-            mSelection.add(getItemId(position));
-            notifyDataSetChanged();
+            mSelection.add(itemId);
         } else {
-            removeSelection(position);
+            mSelection.remove(itemId);
         }
-    }
-
-    public void removeSelection(int position) {
-        mSelection.remove(getItemId(position));
         notifyDataSetChanged();
     }
 
