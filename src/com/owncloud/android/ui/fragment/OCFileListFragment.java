@@ -184,7 +184,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                 getActivity(),
                 mContainerActivity
         );
-        mAdapter.restoreSelectionState(savedInstanceState);
         setListAdapter(mAdapter);
 
         mHideFab = (args != null) && args.getBoolean(ARG_HIDE_FAB, false);
@@ -349,7 +348,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
             @Override
             public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                mAdapter.updateSelection(id, checked);
+                getListView().invalidateViews();
                 mode.invalidate();
             }
 
@@ -376,7 +375,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
             @Override
             public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                List<OCFile> checkedFiles = mAdapter.getCheckedItems();
+                List<OCFile> checkedFiles = mAdapter.getCheckedItems(getListView());
                 final int checkedCount = checkedFiles.size();
                 String title = getResources().getQuantityString(
                     R.plurals.items_selected_count,
@@ -384,15 +383,13 @@ public class OCFileListFragment extends ExtendedListFragment {
                     checkedCount
                 );
                 mode.setTitle(title);
-                if (checkedCount > 0) {
-                    FileMenuFilter mf = new FileMenuFilter(
-                        checkedFiles,
-                        ((FileActivity) getActivity()).getAccount(),
-                        mContainerActivity,
-                        getActivity()
-                    );
-                    mf.filter(menu);
-                }
+                FileMenuFilter mf = new FileMenuFilter(
+                    checkedFiles,
+                    ((FileActivity) getActivity()).getAccount(),
+                    mContainerActivity,
+                    getActivity()
+                );
+                mf.filter(menu);
                 return true;
             }
 
@@ -404,8 +401,6 @@ public class OCFileListFragment extends ExtendedListFragment {
             @Override
             public void onDestroyActionMode(ActionMode mode) {
                 mActiveActionMode = null;
-                //getListView().clearChoices();
-                mAdapter.clearSelection();
 
                 // reset to previous color
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -427,7 +422,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_FILE, mFile);
-        mAdapter.saveSelectionState(outState);
     }
 
     @Override
@@ -444,7 +438,7 @@ public class OCFileListFragment extends ExtendedListFragment {
      * return       Count of folder levels browsed up.
      */
     public int onBrowseUp() {
-        OCFile parentDir = null;
+        OCFile parentDir;
         int moveCount = 0;
 
         if (mFile != null) {
@@ -529,7 +523,7 @@ public class OCFileListFragment extends ExtendedListFragment {
      * @return              'true' if the menu selection started any action, 'false' otherwise.
      */
     public boolean onFileActionChosen(int menuId) {
-        final ArrayList<OCFile> checkedFiles = mAdapter.getCheckedItems();
+        final ArrayList<OCFile> checkedFiles = mAdapter.getCheckedItems(getListView());
         if (checkedFiles.size() <= 0) return false;
 
         if (checkedFiles.size() == 1) {
@@ -626,11 +620,6 @@ public class OCFileListFragment extends ExtendedListFragment {
         // listDirectory(null, onlyOnDevice);
     }
 
-    public void refreshDirectory(){
-        // TODO Enable when "On Device" is recovered ?
-        listDirectory(getCurrentFile()/*, MainApp.getOnlyOnDevice()*/);
-    }
-
     /**
      * Lists the given directory on the view. When the input parameter is null,
      * it will either refresh the last known directory. list the root
@@ -673,7 +662,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     private void updateLayout() {
         if (!mJustFolders) {
-            int filesCount = 0, foldersCount = 0, imagesCount = 0;
+            int filesCount = 0, foldersCount = 0;
             int count = mAdapter.getCount();
             OCFile file;
             for (int i=0; i < count ; i++) {
@@ -683,10 +672,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                 } else {
                     if (!file.isHidden()) {
                         filesCount++;
-
-                        if (file.isImage()) {
-                            imagesCount++;
-                        }
                     }
                 }
             }
@@ -767,13 +752,13 @@ public class OCFileListFragment extends ExtendedListFragment {
     /**
      * Determines if user set folder to grid or list view. If folder is not set itself,
      * it finds a parent that is set (at least root is set).
-     * @param file
-     * @return
+     * @param file      Folder to check.
+     * @return          'true' is folder should be shown in grid mode, 'false' if list mode is preferred.
      */
     public boolean isGridViewPreferred(OCFile file){
         if (file != null) {
             OCFile fileToTest = file;
-            OCFile parentDir = null;
+            OCFile parentDir;
             String parentPath = null;
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
 

@@ -1806,7 +1806,7 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private boolean isGridView() {
-        return getListOfFilesFragment().isGridView();
+        return getListOfFilesFragment().isGridEnabled();
     }
 
     public void allFilesOption() {

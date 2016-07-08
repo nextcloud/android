@@ -23,20 +23,14 @@
 package com.owncloud.android.ui.adapter;
 
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Map;
 import java.util.Vector;
 
 import android.accounts.Account;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.text.format.DateUtils;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -62,11 +56,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Vector;
-
 
 /**
  * This Adapter populates a ListView with all files and folders in an ownCloud
@@ -74,23 +63,15 @@ import java.util.Vector;
  */
 public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
-    private static final String SELECTION_KEY = "multiFileSelectionsKey";
-
     private Context mContext;
-    private OCFile mFile = null;
     private Vector<OCFile> mFiles = null;
-    private Vector<OCFile> mFilesOrig = new Vector<OCFile>();
     private boolean mJustFolders;
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
-    private boolean mGridMode;
-    private boolean isGridViewSelectionRestored = true;
 
-    private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM};
-
-    private HashSet<Long> mSelection = new LinkedHashSet<Long>();
+    private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM}
 
     public FileListListAdapter(
             boolean justFolders,
@@ -110,8 +91,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
-
-        mGridMode = false;
     }
 
     @Override
@@ -150,7 +129,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        restoreGridViewSelection((AbsListView) parent);
 
         View view = convertView;
         OCFile file = null;
@@ -163,33 +141,33 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
         // Find out which layout should be displayed
         ViewType viewType;
-        if (!mGridMode) {
-            viewType = ViewType.LIST_ITEM;
-        } else if (file.isImage()) {
-            viewType = ViewType.GRID_IMAGE;
+        if (parent instanceof GridView) {
+            if (file != null && file.isImage()) {
+                viewType = ViewType.GRID_IMAGE;
+            } else {
+                viewType = ViewType.GRID_ITEM;
+            }
         } else {
-            viewType = ViewType.GRID_ITEM;
+            viewType = ViewType.LIST_ITEM;
         }
 
         // create view only if differs, otherwise reuse
-        if (convertView == null || (convertView != null && convertView.getTag() != viewType)) {
+        if (convertView == null || convertView.getTag() != viewType) {
             switch (viewType) {
                 case GRID_IMAGE:
-                    view = inflator.inflate(R.layout.grid_image, null);
+                    view = inflator.inflate(R.layout.grid_image, parent, false);
                     view.setTag(ViewType.GRID_IMAGE);
                     break;
                 case GRID_ITEM:
-                    view = inflator.inflate(R.layout.grid_item, null);
+                    view = inflator.inflate(R.layout.grid_item, parent, false);
                     view.setTag(ViewType.GRID_ITEM);
                     break;
                 case LIST_ITEM:
-                    view = inflator.inflate(R.layout.list_item, null);
+                    view = inflator.inflate(R.layout.list_item, parent, false);
                     view.setTag(ViewType.LIST_ITEM);
                     break;
             }
         }
-
-        view.invalidate();
 
         if (file != null) {
 
@@ -243,9 +221,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         sharedIconV.setVisibility(View.GONE);
                     }
 
-                    /*ImageView sharedWithMeIcon = (ImageView) view.findViewById(R.id.sharedWithMeIcon);
-                    sharedWithMeIcon.bringToFront();*/
-
                     // local state
                     ImageView localStateView = (ImageView) view.findViewById(R.id.localFileIndicator);
                     localStateView.bringToFront();
@@ -291,14 +266,17 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     break;
             }
 
+            // For all Views
+
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             checkBoxV.setVisibility(View.GONE);
             view.setBackgroundColor(Color.WHITE);
 
             AbsListView parentList = (AbsListView) parent;
-            if (parentList.getChoiceMode() != AbsListView.CHOICE_MODE_NONE
-                    && parentList.getCheckedItemCount() > 0) {
-                if (isItemSelected(position)) {
+            if (parentList.getChoiceMode() != AbsListView.CHOICE_MODE_NONE &&
+                    parentList.getCheckedItemCount() > 0
+                ) {
+                if (parentList.isItemChecked(position)) {
                     view.setBackgroundColor(mContext.getResources().getColor(
                             R.color.selected_item_background));
                     checkBoxV.setImageResource(
@@ -310,8 +288,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 }
                 checkBoxV.setVisibility(View.VISIBLE);
             }
-
-            // For all Views
 
             // this if-else is needed even though favorite icon is visible by default
             // because android reuses views in listview
@@ -376,19 +352,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return view;
     }
 
-    private void restoreGridViewSelection(AbsListView parent) {
-        if (parent instanceof GridView && !isGridViewSelectionRestored) {
-            isGridViewSelectionRestored = true;
-            parent.clearChoices();
-            final Vector<OCFile> files = mFiles;
-            for (int i = 0; i < files.size(); ++i) {
-                if(mSelection.contains(files.get(i).getFileId())){
-                    parent.setItemChecked(i, true);
-                }
-            }
-        }
-    }
-
     @Override
     public int getViewTypeCount() {
         return 1;
@@ -407,23 +370,20 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     /**
      * Change the adapted directory for a new one
      *
-     * @param directory             New file to adapt. Can be NULL, meaning
+     * @param folder                New folder to adapt. Can be NULL, meaning
      *                              "no content to adapt".
      * @param updatedStorageManager Optional updated storage manager; used to replace
      *                              mStorageManager if is different (and not NULL)
      */
-    public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
+    public void swapDirectory(OCFile folder, FileDataStorageManager updatedStorageManager
             /*, boolean onlyOnDevice*/) {
-        mFile = directory;
         if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
         if (mStorageManager != null) {
             // TODO Enable when "On Device" is recovered ?
-            mFiles = mStorageManager.getFolderContent(mFile/*, onlyOnDevice*/);
-            mFilesOrig.clear();
-            mFilesOrig.addAll(mFiles);
+            mFiles = mStorageManager.getFolderContent(folder/*, onlyOnDevice*/);
 
             if (mJustFolders) {
                 mFiles = getFolders(mFiles);
@@ -439,12 +399,12 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     /**
      * Filter for getting only the folders
      *
-     * @param files
-     * @return Vector<OCFile>
+     * @param files             Collection of files to filter
+     * @return                  Folders in the input
      */
     public Vector<OCFile> getFolders(Vector<OCFile> files) {
-        Vector<OCFile> ret = new Vector<OCFile>();
-        OCFile current = null;
+        Vector<OCFile> ret = new Vector<>();
+        OCFile current;
         for (int i = 0; i < files.size(); i++) {
             current = files.get(i);
             if (current.isFolder()) {
@@ -468,64 +428,19 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     }
 
 
-    public void setGridMode(boolean gridMode) {
-        mGridMode = gridMode;
-    }
-
-    public boolean isItemSelected(int position) {
-        return mSelection.contains(getItemId(position));
-    }
-
-    public void updateSelection(long itemId, boolean checked) {
-        if (checked) {
-            mSelection.add(itemId);
-        } else {
-            mSelection.remove(itemId);
-        }
-        notifyDataSetChanged();
-    }
-
-    public void clearSelection() {
-        mSelection.clear();
-        notifyDataSetChanged();
-    }
-
-    public ArrayList<OCFile> getCheckedItems() {
-        ArrayList<OCFile> files = new ArrayList<OCFile>();
-        if (mFiles != null && mFiles.size() != 0) {
-            for (OCFile file : mFiles) {
-                if (mSelection.contains(file.getFileId())) {
-                    files.add(file);
+    public ArrayList<OCFile> getCheckedItems(AbsListView parentList) {
+        SparseBooleanArray checkedPositions = parentList.getCheckedItemPositions();
+        ArrayList<OCFile> files = new ArrayList<>();
+        Object item;
+        for (int i=0; i < checkedPositions.size(); i++) {
+            if (checkedPositions.valueAt(i)) {
+                item = getItem(checkedPositions.keyAt(i));
+                if (item != null) {
+                    files.add((OCFile)item);
                 }
             }
         }
         return files;
     }
 
-    public void restoreSelectionState(Bundle savedInstanceState) {
-        if (savedInstanceState == null) {
-            return;
-        }
-        long[] selectionState = savedInstanceState.getLongArray(SELECTION_KEY);
-        mSelection.clear();
-        if (selectionState != null) {
-            for (long id : selectionState) {
-                mSelection.add(id);
-            }
-        }
-        isGridViewSelectionRestored = false;
-    }
-
-    public void saveSelectionState(Bundle outState) {
-        long[] selectionStatePrimitive = new long[mSelection.size()];
-        int i = 0;
-        for (Long id : mSelection) {
-            selectionStatePrimitive[i++] = id;
-        }
-        outState.putLongArray(SELECTION_KEY, selectionStatePrimitive);
-    }
-
-    public boolean isGridMode() {
-        return mGridMode;
-    }
 }
