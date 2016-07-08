@@ -86,26 +86,40 @@ public class FileMenuFilter {
      * @param menu              Options or context menu to filter.
      */
     public void filter(Menu menu) {
-        List<Integer> toShow = new ArrayList<Integer>();
-        List<Integer> toHide = new ArrayList<Integer>();
+        if (mFiles == null || mFiles.size() <= 0) {
+            hideAll(menu);
 
-        filter(toShow, toHide);
+        } else {
+            List<Integer> toShow = new ArrayList<Integer>();
+            List<Integer> toHide = new ArrayList<Integer>();
 
-        MenuItem item = null;
-        for (int i : toShow) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(true);
-                item.setEnabled(true);
+            filter(toShow, toHide);
+
+            MenuItem item;
+            for (int i : toShow) {
+                item = menu.findItem(i);
+                if (item != null) {
+                    item.setVisible(true);
+                    item.setEnabled(true);
+                }
+            }
+
+            for (int i : toHide) {
+                item = menu.findItem(i);
+                if (item != null) {
+                    item.setVisible(false);
+                    item.setEnabled(false);
+                }
             }
         }
+    }
 
-        for (int i : toHide) {
-            item = menu.findItem(i);
-            if (item != null) {
-                item.setVisible(false);
-                item.setEnabled(false);
-            }
+    private void hideAll(Menu menu) {
+        MenuItem item;
+        for (int i=0; i<menu.size(); i++) {
+            item = menu.getItem(i);
+            item.setVisible(false);
+            item.setEnabled(false);
         }
     }
 
