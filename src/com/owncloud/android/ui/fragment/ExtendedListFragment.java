@@ -145,7 +145,7 @@ public class ExtendedListFragment extends Fragment
 
         mListView = (ExtendedListView)(v.findViewById(R.id.list_root));
         mListView.setOnItemClickListener(this);
-        mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        //mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
