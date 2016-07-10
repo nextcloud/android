@@ -105,6 +105,7 @@
     <string name="about_title">About</string>
     <string name="change_password">Change password</string>
     <string name="delete_account">Remove account</string>
+    <string name="delete_account_warning">Delete account %s? Deleting cannot be undone.</string>
     <string name="create_account">Create account</string>
     <string name="upload_chooser_title">Upload from &#8230;</string>
     <string name="uploader_info_dirname">Folder name</string>
