@@ -169,7 +169,7 @@ public class ManageAccountsActivity extends FileActivity
      */
     private ArrayList<AccountListItem> getAccountListItems() {
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
-        ArrayList<AccountListItem> adapterAccountList = new ArrayList<AccountListItem>(accountList.length);
+        ArrayList<AccountListItem> adapterAccountList = new ArrayList<>(accountList.length);
         for (Account account : accountList) {
             adapterAccountList.add(new AccountListItem(account));
         }
@@ -271,7 +271,7 @@ public class ManageAccountsActivity extends FileActivity
             }
 
             mAccountListAdapter = new AccountListAdapter(this, getAccountListItems());
-            mAccountListAdapter.notifyDataSetChanged();
+            mListView.setAdapter(mAccountListAdapter);
         }
     }
 
