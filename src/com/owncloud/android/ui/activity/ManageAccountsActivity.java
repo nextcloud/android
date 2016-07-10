@@ -24,13 +24,19 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.view.MenuItem;
 import android.widget.ListView;
 
@@ -115,8 +121,7 @@ public class ManageAccountsActivity extends FileActivity
         resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged());
         resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged());
         setResult(RESULT_OK, resultIntent);
-
-        finish();
+        
         super.onBackPressed();
     }
 
@@ -191,11 +196,10 @@ public class ManageAccountsActivity extends FileActivity
     }
 
     @Override
-    public void removeAccount(Account account) {
-        AccountManager am = (AccountManager) this.getSystemService(ACCOUNT_SERVICE);
+    public void performAccountRemoval(Account account) {
+        AccountRemovalConfirmationDialog dialog = AccountRemovalConfirmationDialog.newInstance(account);
         mAccountName = account.name;
-        am.removeAccount(account, ManageAccountsActivity.this, mHandler);
-        Log_OC.d(TAG, "Remove an account " + account.name);
+        dialog.show(getFragmentManager(), "dialog");
     }
 
     @Override
@@ -285,6 +289,8 @@ public class ManageAccountsActivity extends FileActivity
         super.onDestroy();
     }
 
+    public Handler getHandler() { return mHandler; }
+
     // Methods for ComponentsGetter
     @Override
     public FileDownloader.FileDownloaderBinder getFileDownloaderBinder() {
@@ -341,6 +347,51 @@ public class ManageAccountsActivity extends FileActivity
                 Log_OC.d(TAG, "Upload service suddenly disconnected");
                 mUploaderBinder = null;
             }
+        }
+    }
+
+    public static class AccountRemovalConfirmationDialog extends DialogFragment {
+
+        private static final String ARG__ACCOUNT = "account";
+
+        private Account mAccount;
+
+        public static AccountRemovalConfirmationDialog newInstance(Account account) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(ARG__ACCOUNT, account);
+
+            AccountRemovalConfirmationDialog dialog = new AccountRemovalConfirmationDialog();
+            dialog.setArguments(bundle);
+
+            return dialog;
+        }
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            mAccount = getArguments().getParcelable(ARG__ACCOUNT);
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
+                    .setTitle(R.string.delete_account)
+                    .setMessage(getResources().getString(R.string.delete_account_warning, mAccount.name))
+                    .setIcon(R.drawable.ic_warning)
+                    .setPositiveButton(R.string.common_ok,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    AccountManager am = (AccountManager) getActivity().getSystemService(ACCOUNT_SERVICE);
+                                    am.removeAccount(
+                                            mAccount,
+                                            (ManageAccountsActivity)getActivity(),
+                                            ((ManageAccountsActivity)getActivity()).getHandler());
+                                }
+                            })
+                    .setNegativeButton(R.string.common_cancel, null)
+                    .create();
         }
     }
 }
