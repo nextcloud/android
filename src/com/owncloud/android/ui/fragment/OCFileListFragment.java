@@ -544,6 +544,9 @@ public class OCFileListFragment extends ExtendedListFragment {
                     return true;
                 }
                 case R.id.action_see_details: {
+                    if (mActiveActionMode != null) {
+                        mActiveActionMode.finish();
+                    }
                     mContainerActivity.showDetails(singleFile);
                     return true;
                 }
