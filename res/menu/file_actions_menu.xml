@@ -22,7 +22,7 @@
     <item
         android:id="@+id/action_share_file"
         android:title="@string/action_share"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_action_share"
         android:orderInCategory="1" />
 
     <item
@@ -38,12 +38,12 @@
     <item
         android:id="@+id/action_sync_file"
         android:title="@string/filedetails_sync_file"
-        android:icon="@drawable/ic_action_refresh"
+        android:icon="@drawable/ic_action_refresh_white"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_cancel_sync"
         android:title="@string/common_cancel_sync"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:icon="@drawable/ic_action_cancel_white"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_rename_file"
@@ -53,17 +53,17 @@
     <item
         android:id="@+id/action_move"
         android:title="@string/actionbar_move"
-        android:icon="@drawable/ic_export"
+        android:icon="@drawable/ic_action_move"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_copy"
         android:title="@android:string/copy"
-        android:icon="@drawable/ic_copy"
+        android:icon="@drawable/ic_action_copy"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_remove_file"
         android:title="@string/common_remove"
-        android:icon="@drawable/ic_delete"
+        android:icon="@drawable/ic_action_delete_white"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_send_file"
@@ -83,7 +83,6 @@
     <item
         android:id="@+id/action_see_details"
         android:title="@string/actionbar_see_details"
-        android:icon="@android:drawable/ic_menu_info_details"
         android:orderInCategory="1" />
 
 </menu>
