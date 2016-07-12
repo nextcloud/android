@@ -30,7 +30,6 @@ import android.app.Dialog;
 import android.os.Bundle;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
@@ -127,12 +126,7 @@ implements ConfirmationDialogFragmentListener {
     @Override
     public void onConfirmation(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter) getActivity();
-        FileDataStorageManager storageManager = cg.getStorageManager();
-        for (OCFile targetFile : mTargetFiles) {
-            if (storageManager.getFileById(targetFile.getFileId()) != null) {
-                cg.getFileOperationsHelper().removeFile(targetFile, false);
-            }
-        }
+        cg.getFileOperationsHelper().removeFiles(mTargetFiles, false);
     }
     
     /**
@@ -141,9 +135,7 @@ implements ConfirmationDialogFragmentListener {
     @Override
     public void onCancel(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter) getActivity();
-        for (OCFile targetFile : mTargetFiles) {
-            cg.getFileOperationsHelper().removeFile(targetFile, true);
-        }
+        cg.getFileOperationsHelper().removeFiles(mTargetFiles, true);
     }
 
     @Override
