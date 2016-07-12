@@ -146,6 +146,7 @@ public class ThumbnailsCacheManager {
         private final WeakReference<ImageView> mImageViewReference;
         private static Account mAccount;
         private Object mFile;
+        private String mImageKey = null;
         private FileDataStorageManager mStorageManager;
 
 
@@ -185,6 +186,9 @@ public class ThumbnailsCacheManager {
                 }
 
                 mFile = params[0];
+                if (params.length == 2){
+                    mImageKey = (String) params[1];
+                }
                 
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground();
@@ -336,7 +340,12 @@ public class ThumbnailsCacheManager {
         private Bitmap doFileInBackground() {
             File file = (File)mFile;
 
-            final String imageKey = String.valueOf(file.hashCode());
+            final String imageKey;
+            if (mImageKey != null) {
+                imageKey = mImageKey;
+            } else {
+                imageKey = String.valueOf(file.hashCode());
+            }
 
             // Check disk cache in background thread
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
