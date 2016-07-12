@@ -34,7 +34,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncDrawable;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.util.HashMap;
@@ -74,9 +75,20 @@ public class UploaderAdapter extends SimpleAdapter {
         ImageView fileIcon = (ImageView) vi.findViewById(R.id.thumbnail);
         fileIcon.setTag(file.getFileId());
 
-        // TODO enable after #1277 is merged
-//        TextView lastModV = (TextView) vi.findViewById(R.id.last_mod);
-//        lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file));
+        TextView lastModV = (TextView) vi.findViewById(R.id.last_mod);
+        lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.getModificationTimestamp()));
+
+        TextView fileSizeV = (TextView) vi.findViewById(R.id.file_size);
+        TextView fileSizeSeparatorV = (TextView) vi.findViewById(R.id.file_separator);
+
+        if(!file.isFolder()) {
+            fileSizeV.setVisibility(View.VISIBLE);
+            fileSizeSeparatorV.setVisibility(View.VISIBLE);
+            fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
+        } else {
+            fileSizeV.setVisibility(View.GONE);
+            fileSizeSeparatorV.setVisibility(View.GONE);
+        }
         
         // get Thumbnail if file is image
         if (file.isImage() && file.getRemoteId() != null){
@@ -88,14 +100,14 @@ public class UploaderAdapter extends SimpleAdapter {
                 fileIcon.setImageBitmap(thumbnail);
             } else {
                 // generate new Thumbnail
-                if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
+                if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
                     final ThumbnailsCacheManager.ThumbnailGenerationTask task = 
                             new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon, mStorageManager, 
                                     mAccount);
                     if (thumbnail == null) {
                         thumbnail = ThumbnailsCacheManager.mDefaultImg;
                     }
-                    final AsyncDrawable asyncDrawable = new AsyncDrawable(
+                    final AsyncThumbnailDrawable asyncDrawable = new AsyncThumbnailDrawable(
                             mContext.getResources(), 
                             thumbnail, 
                             task

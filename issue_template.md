@@ -10,10 +10,6 @@
 3. 
 
 
-Can this problem be reproduced with the official owncloud server?
-(url: https://demo.owncloud.org, user: test, password: test)
-
-
 ### Environment data
 Android version:
 
@@ -21,9 +17,9 @@ Device model:
 
 Stock or customized system:
 
-ownCloud app version:
+Nextcloud app version:
 
-ownCloud server version:
+Nextcloud server version:
 
 ### Logs
 #### Web server error log
@@ -31,7 +27,7 @@ ownCloud server version:
 Insert your webserver log here
 ```
 
-#### ownCloud log (data/owncloud.log)
+#### Nextcloud log (data/nextcloud.log)
 ```
-Insert your ownCloud log here
+Insert your Nextcloud log here
 ```

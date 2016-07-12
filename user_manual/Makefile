@@ -42,22 +42,17 @@ help:
 clean:
 	-rm -rf $(BUILDDIR)/*
 
-html:   html-org
+html:   html-com
 
-html-all: html-release html-org html-com
+html-all: html-release html-com
 
 html-release:
 	$(SPHINXBUILD) -b html -D html_theme='owncloud_release' $(ALLSPHINXOPTS) $(BUILDDIR)/html/release
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html/release."
 
-html-org:
-	$(SPHINXBUILD) -b html -D html_theme='owncloud_org' $(ALLSPHINXOPTS) $(BUILDDIR)/html/org
-	@echo
-	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html/org."
-
 html-com:
-	$(SPHINXBUILD) -b html -D html_theme='owncloud_com' $(ALLSPHINXOPTS) $(BUILDDIR)/html/com
+	$(SPHINXBUILD) -b html -D html_theme='nextcloud_com' $(ALLSPHINXOPTS) $(BUILDDIR)/html/com
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html/com."
 

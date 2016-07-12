@@ -1,69 +1,69 @@
-==============================
-Using the ownCloud Android App
-==============================
+===============================
+Using the Nextcloud Android App
+===============================
 
-Accessing your files on your ownCloud server via the Web interface is easy and 
+Accessing your files on your Nextcloud server via the Web interface is easy and 
 convenient, as you can use any Web browser on any operating system without 
-installing special client software. However, the ownCloud Android app offers 
+installing special client software. However, the Nextcloud Android app offers 
 some advantages over the Web interface:
 
 * A simplified interface that fits nicely on a tablet or smartphone
 * Automatic synchronization of your files
-* Share files with other ownCloud users and groups, and create public share 
+* Share files with other Nextcloud users and groups, and create public share 
   links
 * Instant uploads of photos or videos recorded on your Android device
-* Easily add files from your device to ownCloud
+* Easily add files from your device to Nextcloud 
 * Two-factor authentication
 
-New In Version 2.0.0
+New In Version 1.0.0
 --------------------
 
 This release contains a number of improvements, including:
 
 * View status of uploads and manage failures
-* Federated sharing is now supported with users on ownCloud servers
+* Federated sharing is now supported with users on Nextcloud servers
 * UI improvements, following Material Design lines
 * Share-by-link folders are editable
 * Instant uploads automatically stop when Wifi connection is interrupted
 * Server certificate warnings are supported
-* Improvement when other apps send files to ownCloud
+* Improvement when other apps send files to Nextcloud 
 * Bug fixes
 
 Upgrading
 ---------
 
-When you download your ownCloud Android App from the Google Play store, it will 
+When you download your Nextcloud Android App from the Google Play store, it will 
 be upgraded just like any other Play Store app, according to your settings on 
 your Android device. It will either upgrade automatically, or give you a 
 notification than an upgrade is available.
 
-If you are using an ownCloud Android app from a custom repository, e.g. your 
+If you are using an Nextcloud Android app from a custom repository, e.g. your 
 employer, then you will upgrade according their policies.
 
-Getting the ownCloud Android App
---------------------------------
+Getting the Nextcloud Android App
+---------------------------------
 
-One way to get your ownCloud Android app is to log into your ownCloud server 
+One way to get your Nextcloud Android app is to log into your Nextcloud server 
 from your Android device using a Web browser such as Chrome, Firefox, or 
-Dolphin. The first time you log in to a new ownCloud account you'll see a screen 
-with a download link to the ownCloud app in the `Google Play store
-<https://play.google.com/store/apps/details?id=com.owncloud.android>`_.
+Dolphin. The first time you log in to a new Nextcloud account you'll see a screen 
+with a download link to the Nextcloud app in the `Google Play store
+<https://play.google.com/store/apps/details?id=com.nextcloud.client>`_.
 
 .. figure:: images/android-1.png
    :alt: Android app new account welcome screen.
 
-You will also find these links on your Personal page in the ownCloud Web interface.
+You will also find these links on your Personal page in the Nextcloud Web interface.
 
-Find source code and more information from the `ownCloud download page 
-<http://owncloud.org/install/#mobile>`_.
+Find source code and more information from the `Nextcloud download page 
+<https://nextcloud.com/install/#mobile>`_.
 
-Users of customized ownCloud Android apps, for example from their employer, 
+Users of customized Nextcloud Android apps, for example from their employer, 
 should follow their employer's instructions.
 
-Connecting to Your ownCloud Server
-----------------------------------
+Connecting to Your Nextcloud Server
+-----------------------------------
 
-The first time you run your ownCloud Android app it opens to a configuration 
+The first time you run your Nextcloud Android app it opens to a configuration 
 screen. Enter your server URL, login name, password, and click the Connect 
 button. (Click the eyeball to the right of your password to expose your 
 password.)
@@ -71,8 +71,8 @@ password.)
 .. figure:: images/android-2.png
    :alt: New account creation screen.
 
-For best security your ownCloud server should be SSL-enabled, so that you can 
-connect via ``https``. The ownCloud app will test your connection as soon as 
+For best security your Nextcloud server should be TLS-enabled, so that you can 
+connect via ``https``. The Nextcloud  app will test your connection as soon as 
 you enter it and tell you if you entered it correctly. If your server has a 
 self-signed SSL certificate you'll get a warning that it is not to be 
 trusted. Click the OK button to accept the certificate and complete your account 
@@ -84,17 +84,17 @@ setup.
 Managing Files
 --------------
 
-Now you should see the Files page of your ownCloud account. Note some 
+Now you should see the Files page of your Nextcloud account. Note some 
 differences from the previous release: click the blue button at the bottom 
 right to expose the **Upload**, **Content from other apps**, and **New folder** 
 buttons.
 
-Use the **Upload** button to add files to your ownCloud account from your 
+Use the **Upload** button to add files to your Nextcloud account from your 
 Android filesystem. Use **Content from other apps** to upload files from 
 Android apps, such as the Gallery app.
 
 .. figure:: images/android-4.png 
-   :alt: Your ownCloud Files page.
+   :alt: Your Nextcloud Files page.
    
 Click the overflow button at the top right (that's the one with three vertical 
 dots) to open a user menu. **Grid view** toggles between grid and list 
@@ -104,7 +104,7 @@ gives you the option to sort your files by date, or alphabetically.
 .. figure:: images/android-6.png
    :alt: Top-right menu.   
 
-The ownCloud menu at the top left shows the name of the logged-in user, has a 
+The Nextcloud menu at the top left shows the name of the logged-in user, has a 
 shortcut to your files, the **Uploads** button, and the **Settings** button.
 
 The Uploads page displays the status of files currently uploading, a list of 
@@ -121,7 +121,7 @@ file to a different folder.
 .. figure:: images/android-15.png
    :alt: Top-left menu.
 
-All files (that you have permission to access) on your ownCloud server are 
+All files (that you have permission to access) on your Nextcloud server are 
 displayed in your Android app, but are not downloaded until you click on them. 
 Downloaded files are marked with a green arrow.
 
@@ -143,8 +143,8 @@ displays a list of options: **Share**, **Open With**, **Synchronize**,
 .. figure:: images/android-11.png
    :alt: Folder and file management options.
    
-Click **Share** to share files. You can share with other ownCloud users and 
-groups, and create public share links. If your ownCloud server administrator 
+Click **Share** to share files. You can share with other Nextcloud users and 
+groups, and create public share links. If your Nextcloud server administrator 
 has enabled username auto-completion, when you start typing user or group names 
 they will auto-complete. After you have shared files, click the **Share** button 
 to see who you have shared with, and to remove shares.
@@ -155,7 +155,7 @@ to see who you have shared with, and to remove shares.
 Create a Federated share link by clicking **Add User or Group** and entering 
 the username and remote URL of the person you want to share with in this 
 format: user@domain.com. You don't have to guess; the Personal page in the 
-ownCloud Web GUI tells the exact Federated Cloud ID. Just ask them to copy and 
+Nextcloud Web GUI tells the exact Federated Cloud ID. Just ask them to copy and 
 paste and send it to you.
 
 .. figure:: images/android-14.png
@@ -164,7 +164,7 @@ paste and send it to you.
 Settings
 --------
 
-Use the **Settings** screen to control your ownCloud app functions. 
+Use the **Settings** screen to control your Nextcloud app functions. 
 
 .. figure:: images/android-10.png
    :alt: Setting screen.
@@ -194,7 +194,7 @@ changing your password.
 and removes your files from your Android device. It does not change anything on 
 the server. There is no logout function that simply logs out of your account 
 and leaves all your files on your Android device. If you want extra security, 
-you can set a login PIN on your Android device, and also on your ownCloud 
+you can set a login PIN on your Android device, and also on your Nextcloud 
 account. If you are using a shared Android device, other users can access your 
 files in the file manager if you are sharing a single user account, so you 
 could set up multiple user accounts to protect your files.

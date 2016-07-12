@@ -20,10 +20,6 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Comparator;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -41,6 +37,10 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * This Adapter populates a ListView with all files and directories contained
@@ -109,9 +109,9 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
 
             /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
-             * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
+             * {@link ThumbnailsCacheManager#cancelPotentialThumbnailWork} will NEVER cancel any task.
              **/
-            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon));
+            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon));
 
             if (!file.isDirectory()) {
                 fileIcon.setImageResource(R.drawable.file);
@@ -124,13 +124,14 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
             TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
+            lastModV.setVisibility(View.VISIBLE);
+            lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.lastModified()));
+
             if (!file.isDirectory()) {
                 fileSizeSeparatorV.setVisibility(View.VISIBLE);
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
 
-                lastModV.setVisibility(View.VISIBLE);
-                lastModV.setText(DisplayUtils.unixTimeToHumanReadable(file.lastModified()));
                 ListView parentList = (ListView) parent;
                 if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
                     checkBoxV.setVisibility(View.GONE);
@@ -160,8 +161,8 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
-                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                        		new ThumbnailsCacheManager.AsyncDrawable(
+                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                        		new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                     mContext.getResources(), 
                                     thumbnail, 
                                     task
@@ -179,7 +180,6 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             } else {
                 fileSizeSeparatorV.setVisibility(View.GONE);
                 fileSizeV.setVisibility(View.GONE);
-                lastModV.setVisibility(View.GONE);
                 checkBoxV.setVisibility(View.GONE);
             }
 
