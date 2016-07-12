@@ -35,6 +35,7 @@ import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -73,6 +74,7 @@ import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -154,7 +156,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             fm.beginTransaction()
                     .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
-
     }
 
     @Override
@@ -313,6 +314,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
         Log_OC.d(TAG, "on item click");
         // TODO Enable when "On Device" is recovered ?
         Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
+        sortFileList(tmpfiles);
+
         if (tmpfiles.size() <= 0) return;
         // filter on dirtype
         Vector<OCFile> files = new Vector<>();
@@ -376,17 +379,20 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
+        setupToolbar();
+        ActionBar actionBar = getSupportActionBar();
 
         ListView mListView = (ListView) findViewById(android.R.id.list);
 
         String current_dir = mParents.peek();
         if (current_dir.equals("")) {
-            getSupportActionBar().setTitle(getString(R.string.default_display_name_for_root_folder));
+            actionBar.setTitle(getString(R.string.uploader_top_message));
         } else {
-            getSupportActionBar().setTitle(current_dir);
+            actionBar.setTitle(current_dir);
         }
+
         boolean notRoot = (mParents.size() > 1);
-        ActionBar actionBar = getSupportActionBar();
+
         actionBar.setDisplayHomeAsUpEnabled(notRoot);
         actionBar.setHomeButtonEnabled(notRoot);
 
@@ -398,11 +404,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (mFile != null) {
             // TODO Enable when "On Device" is recovered ?
             Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
-            List<HashMap<String, OCFile>> data = new LinkedList<>();
+            sortFileList(files);
+
+            List<HashMap<String, Object>> data = new LinkedList<>();
             for (OCFile f : files) {
-                HashMap<String, OCFile> h = new HashMap<>();
-                    h.put("dirname", f);
-                    data.add(h);
+                HashMap<String, Object> h = new HashMap<>();
+                h.put("dirname", f);
+                data.add(h);
             }
 
             UploaderAdapter sa = new UploaderAdapter(this,
@@ -446,6 +454,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
         synchFolderOp.execute(getAccount(), this, null, null);
     }
 
+    private void sortFileList(Vector<OCFile> files) {
+        // Read sorting order, default to sort by name ascending
+        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(this);
+        FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(this);
+        FileStorageUtils.sortFolder(files);
+    }
 
     private String generatePath(Stack<String> dirs) {
         String full_path = "";
@@ -484,7 +498,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         UriUploader.UriUploaderResultCode resultCode = uploader.uploadUris();
 
         // Save the path to shared preferences; even if upload is not possible, user chose the folder
-        PreferenceManager.setLastUploadPath(mUploadPath, this);
+        PreferenceManager.setLastUploadPath(this, mUploadPath);
 
         if (resultCode == UriUploader.UriUploaderResultCode.OK) {
             finish();
@@ -577,6 +591,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_sort).setVisible(false);
+        menu.findItem(R.id.action_switch_view).setVisible(false);
         menu.findItem(R.id.action_sync_account).setVisible(false);
         return true;
     }

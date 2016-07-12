@@ -22,7 +22,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/list_selector"
     android:orientation="vertical"
-    android:layout_height="72dp">
+    android:layout_height="@dimen/standard_list_item_size">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
 
         <FrameLayout
             android:layout_width="60dp"
-            android:layout_height="72dp"
+            android:layout_height="@dimen/standard_list_item_size"
             android:paddingLeft="12dp"
             android:paddingBottom="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_padding"

@@ -499,12 +499,17 @@ public class PreviewImageFragment extends FileFragment {
                 Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
                         bitmap.getHeight());
 
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")){
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                     Drawable backrepeat = getResources().getDrawable(R.drawable.backrepeat);
                     imageView.setBackground(backrepeat);
                 }
 
-                imageView.setImageBitmap(bitmap);
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
+                    imageView.setGIFImageFromStoragePath(result.ocFile.getStoragePath());
+                } else {
+                    imageView.setImageBitmap(bitmap);
+                }
+
                 imageView.setVisibility(View.VISIBLE);
                 mBitmap  = bitmap;  // needs to be kept for recycling when not useful
             }

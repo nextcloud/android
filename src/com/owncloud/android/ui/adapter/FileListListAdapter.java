@@ -26,11 +26,8 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Build;
-import android.preference.PreferenceManager;
-import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +43,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -75,8 +73,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private boolean mGridMode;
 
     private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM };
-
-    private SharedPreferences mAppPreferences;
     
     public FileListListAdapter(
             boolean justFolders, 
@@ -89,14 +85,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         mTransferServiceGetter = transferServiceGetter;
-
-        mAppPreferences = PreferenceManager
-                .getDefaultSharedPreferences(mContext);
         
         // Read sorting order, default to sort by name ascending
-
-        FileStorageUtils.mSortOrder = mAppPreferences.getInt("sortOrder", 0);
-        FileStorageUtils.mSortAscending = mAppPreferences.getBoolean("sortAscending", true);
+        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(mContext);
+        FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(mContext);
         
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -199,7 +191,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
 
                     lastModV.setVisibility(View.VISIBLE);
-                    lastModV.setText(showRelativeTimestamp(file));
+                    lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.getModificationTimestamp()));
 
                     checkBoxV.setVisibility(View.GONE);
 
@@ -319,7 +311,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
                         // generate new Thumbnail
-                        if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
+                        if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                             fileIcon, mStorageManager, mAccount
@@ -327,8 +319,8 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                             if (thumbnail == null) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
-                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                    new ThumbnailsCacheManager.AsyncDrawable(
+                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                     mContext.getResources(), 
                                     thumbnail, 
                                     task
@@ -430,23 +422,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     
     
     public void setSortOrder(Integer order, boolean ascending) {
-        SharedPreferences.Editor editor = mAppPreferences.edit();
-        editor.putInt("sortOrder", order);
-        editor.putBoolean("sortAscending", ascending);
-        editor.commit();
+        PreferenceManager.setSortOrder(mContext, order);
+        PreferenceManager.setSortAscending(mContext, ascending);
         
         FileStorageUtils.mSortOrder = order;
         FileStorageUtils.mSortAscending = ascending;
-        
 
         mFiles = FileStorageUtils.sortFolder(mFiles);
         notifyDataSetChanged();
-
-    }
-    
-    private CharSequence showRelativeTimestamp(OCFile file){
-        return DisplayUtils.getRelativeDateTimeString(mContext, file.getModificationTimestamp(),
-                DateUtils.SECOND_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0);
     }
 
     public void setGridMode(boolean gridMode) {

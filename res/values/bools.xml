@@ -19,4 +19,5 @@
 <!-- Default boolean values -->
 <resources>
     <bool name="large_land_layout">false</bool>
+    <bool name="atLeastKitKat">false</bool>
 </resources>

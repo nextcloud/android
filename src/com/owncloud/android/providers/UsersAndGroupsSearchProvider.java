@@ -72,7 +72,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final int RESULTS_PER_PAGE = 50;
     private static final int REQUESTED_PAGE = 1;
 
-    public static final String AUTHORITY = UsersAndGroupsSearchProvider.class.getCanonicalName();
+    public static final String AUTHORITY = "com.nextcloud.android.providers.UsersAndGroupsSearchProvider";
     public static final String ACTION_SHARE_WITH = AUTHORITY + ".action.SHARE_WITH";
 
     public static final String CONTENT = "content";
@@ -117,7 +117,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
      * Reference: http://developer.android.com/guide/topics/search/adding-custom-suggestions.html#CustomContentProvider
      *
      * @param uri           Content {@link Uri}, formattted as
-     *                      "content://com.owncloud.android.providers.UsersAndGroupsSearchProvider/" +
+     *                      "content://com.nextcloud.android.providers.UsersAndGroupsSearchProvider/" +
      *                      {@link android.app.SearchManager#SUGGEST_URI_PATH_QUERY} + "/" + 'userQuery'
      * @param projection    Expected to be NULL.
      * @param selection     Expected to be NULL.

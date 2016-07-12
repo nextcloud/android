@@ -22,24 +22,33 @@
 
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.Display;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.TextDrawable;
 
 import java.math.BigDecimal;
 import java.net.IDN;
@@ -53,6 +62,7 @@ import java.util.Map;
  * A helper class for some string operations.
  */
 public class DisplayUtils {
+    private static final String TAG = DisplayUtils.class.getSimpleName();
     
     private static final String OWNCLOUD_APP_NAME = "ownCloud";
     
@@ -125,15 +135,6 @@ public class DisplayUtils {
         return df.format(date);
     }
     
-    public static int getSeasonalIconId() {
-        if (Calendar.getInstance().get(Calendar.DAY_OF_YEAR) >= 354 &&
-                MainApp.getAppContext().getString(R.string.app_name).equals(OWNCLOUD_APP_NAME)) {
-            return R.drawable.winter_holidays_icon;
-        } else {
-            return R.drawable.icon;
-        }
-    }
-    
     /**
      * Converts an internationalized domain name (IDN) in an URL to and from ASCII/Unicode.
      * @param url the URL where the domain name should be converted
@@ -170,6 +171,18 @@ public class DisplayUtils {
         } else {
             return dots + url;
         }
+    }
+
+    /**
+     * calculates the relative time string based on the given modificaion timestamp.
+     *
+     * @param context the app's context
+     * @param modificationTimestamp the UNIX timestamp of the file modification time.
+     * @return a relative time string
+     */
+    public static CharSequence getRelativeTimestamp(Context context, long modificationTimestamp) {
+        return getRelativeDateTimeString(context, modificationTimestamp, DateUtils.SECOND_IN_MILLIS,
+                DateUtils.WEEK_IN_MILLIS, 0);
     }
 
     @SuppressWarnings("deprecation")
@@ -274,5 +287,55 @@ public class DisplayUtils {
     public static void colorSnackbar(Context context, Snackbar snackbar) {
         // Changing action button text color
         snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.white));
+    }
+
+    public interface AvatarGenerationListener {
+        void avatarGenerated(Drawable avatarDrawable, Object callContext);
+        boolean shouldCallGeneratedCallback(String tag, Object callContext);
+    }
+
+    /**
+     * fetches and sets the avatar of the current account in the drawer in case the drawer is available.
+     *
+     * @param account        the account to be set in the drawer
+     * @param avatarRadius   the avatar radius
+     * @param resources      reference for density information
+     * @param storageManager reference for caching purposes
+     */
+    public static void setAvatar(Account account, AvatarGenerationListener listener, float avatarRadius, Resources resources,
+                           FileDataStorageManager storageManager, Object callContext) {
+        if (account != null) {
+            if (callContext instanceof View)
+                ((View)callContext).setContentDescription(account.name);
+
+            // Thumbnail in Cache?
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
+
+            if (thumbnail != null) {
+                listener.avatarGenerated(
+                        BitmapUtils.bitmapToCircularBitmapDrawable(MainApp.getAppContext().getResources(), thumbnail),
+                        callContext);
+            } else {
+                // generate new avatar
+                if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, callContext)) {
+                    final ThumbnailsCacheManager.AvatarGenerationTask task =
+                            new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager, account);
+                    if (thumbnail == null) {
+                        try {
+                            listener.avatarGenerated(TextDrawable.createAvatar(account.name, avatarRadius), callContext);
+                        } catch (Exception e) {
+                            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                            listener.avatarGenerated(resources.getDrawable(R.drawable.ic_account_circle), callContext);
+                        }
+                    } else {
+                        final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, thumbnail, task);
+                        listener.avatarGenerated(BitmapUtils.bitmapToCircularBitmapDrawable(
+                                        resources, asyncDrawable.getBitmap()), callContext);
+                    }
+                    task.execute(account.name);
+                }
+            }
+        }
     }
 }
