@@ -20,12 +20,6 @@
 
 package com.owncloud.android.operations;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
@@ -33,20 +27,24 @@ import android.util.Log;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
-
+import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 
 
@@ -523,7 +521,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
 
     private void fetchFavoritesToSyncFromLocalData() {
-        List<OCFile> children = mStorageManager.getFolderContent(mLocalFolder);
+        List<OCFile> children = mStorageManager.getFolderContent(mLocalFolder, true);
         for (OCFile child : children) {
             if (!child.isFolder() && child.isFavorite() && !child.isInConflict()) {
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(

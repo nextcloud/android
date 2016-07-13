@@ -1775,7 +1775,7 @@ public class FileDisplayActivity extends HookActivity
         browseToRoot();
     }
 
-    public void refreshDirectory(){
+    public void refreshDirectory() {
         getListOfFilesFragment().refreshDirectory();
     }
 }

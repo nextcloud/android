@@ -31,7 +31,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -86,7 +85,6 @@ public class PreviewImageActivity extends FileActivity implements
     private DownloadFinishReceiver mDownloadFinishReceiver;
     
     private View mFullScreenAnchorView;
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -586,8 +584,7 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     @Override
-    public void allFilesOption(){
+    public void refreshDirectory() {
         backToDisplayActivity();
-        super.allFilesOption();
     }
 }
