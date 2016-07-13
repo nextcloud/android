@@ -146,6 +146,7 @@ public class ThumbnailsCacheManager {
         private final WeakReference<ImageView> mImageViewReference;
         private static Account mAccount;
         private Object mFile;
+        private String mImageKey = null;
         private FileDataStorageManager mStorageManager;
 
 
@@ -157,6 +158,14 @@ public class ThumbnailsCacheManager {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             mStorageManager = storageManager;
             mAccount = account;
+        }
+
+        public ThumbnailGenerationTask(FileDataStorageManager storageManager, Account account){
+            if (storageManager == null)
+                throw new IllegalArgumentException("storageManager must not be NULL");
+            mStorageManager = storageManager;
+            mAccount = account;
+            mImageViewReference = null;
         }
 
         public ThumbnailGenerationTask(ImageView imageView) {
@@ -177,6 +186,9 @@ public class ThumbnailsCacheManager {
                 }
 
                 mFile = params[0];
+                if (params.length == 2){
+                    mImageKey = (String) params[1];
+                }
                 
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground();
@@ -197,7 +209,7 @@ public class ThumbnailsCacheManager {
         }
 
         protected void onPostExecute(Bitmap bitmap){
-            if (bitmap != null) {
+            if (bitmap != null && mImageViewReference != null) {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
                 if (this == bitmapWorkerTask) {
@@ -328,7 +340,12 @@ public class ThumbnailsCacheManager {
         private Bitmap doFileInBackground() {
             File file = (File)mFile;
 
-            final String imageKey = String.valueOf(file.hashCode());
+            final String imageKey;
+            if (mImageKey != null) {
+                imageKey = mImageKey;
+            } else {
+                imageKey = String.valueOf(file.hashCode());
+            }
 
             // Check disk cache in background thread
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);

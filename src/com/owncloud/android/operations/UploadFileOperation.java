@@ -26,6 +26,7 @@ import android.net.Uri;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
@@ -793,6 +794,11 @@ public class UploadFileOperation extends SyncOperation {
         getStorageManager().saveConflict(file, null);
 
         FileDataStorageManager.triggerMediaScan(file.getStoragePath());
+
+        // generate new Thumbnail
+        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+            new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), mAccount);
+        task.execute(file);
     }
 
     private void updateOCFile(OCFile file, RemoteFile remoteFile) {
