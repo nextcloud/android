@@ -42,6 +42,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -811,7 +812,7 @@ public class FileDataStorageManager {
 
     private OCFile createRootDir() {
         OCFile file = new OCFile(OCFile.ROOT_PATH);
-        file.setMimetype("DIR");
+        file.setMimetype(MimeType.DIRECTORY);
         file.setParentId(FileDataStorageManager.ROOT_PARENT_ID);
         saveFile(file);
         return file;
