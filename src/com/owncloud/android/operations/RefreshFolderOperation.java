@@ -521,7 +521,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
 
     private void fetchFavoritesToSyncFromLocalData() {
-        List<OCFile> children = mStorageManager.getFolderContent(mLocalFolder, true);
+        List<OCFile> children = mStorageManager.getFolderContent(mLocalFolder, false);
         for (OCFile child : children) {
             if (!child.isFolder() && child.isFavorite() && !child.isInConflict()) {
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(
