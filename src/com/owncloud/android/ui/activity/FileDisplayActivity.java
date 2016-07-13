@@ -571,6 +571,8 @@ public class FileDisplayActivity extends HookActivity
                                             case 1:
                                                 sortByDate(false);
                                                 break;
+                                            case 2:
+                                                sortBySize(false);
                                         }
 
                                         dialog.dismiss();
