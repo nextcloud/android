@@ -20,6 +20,22 @@
 
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.StatFs;
+import android.preference.PreferenceManager;
+import android.webkit.MimeTypeMap;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.RemoteFile;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Collections;
@@ -29,22 +45,6 @@ import java.util.Locale;
 import java.util.Vector;
 
 import third_parties.daveKoeller.AlphanumComparator;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.RemoteFile;
-
-import android.accounts.Account;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.net.Uri;
-import android.os.Environment;
-import android.os.StatFs;
-import android.webkit.MimeTypeMap;
 
 
 /**
@@ -198,7 +198,7 @@ public class FileStorageUtils {
     public static OCFile fillOCFile(RemoteFile remote) {
         OCFile file = new OCFile(remote.getRemotePath());
         file.setCreationTimestamp(remote.getCreationTimestamp());
-        if (remote.getMimeType().equalsIgnoreCase("DIR")){
+        if (remote.getMimeType().equalsIgnoreCase(MimeType.DIRECTORY)){
             file.setFileLength(remote.getSize());
         } else {
             file.setFileLength(remote.getLength());
