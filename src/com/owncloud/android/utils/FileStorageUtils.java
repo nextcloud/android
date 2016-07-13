@@ -253,18 +253,13 @@ public class FileStorageUtils {
      * @param files
      */
     public static Vector<OCFile> sortByDate(Vector<OCFile> files){
-        final Integer val;
-        if (mSortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
+        final int multiplier = mSortAscending ? 1 : -1;
         
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
                     Long obj1 = o1.getModificationTimestamp();
-                    return val * obj1.compareTo(o2.getModificationTimestamp());
+                    return multiplier * obj1.compareTo(o2.getModificationTimestamp());
                 }
                 else if (o1.isFolder()) {
                     return -1;
@@ -274,7 +269,7 @@ public class FileStorageUtils {
                     return 0;
                 } else {
                     Long obj1 = o1.getModificationTimestamp();
-                    return val * obj1.compareTo(o2.getModificationTimestamp());
+                    return multiplier * obj1.compareTo(o2.getModificationTimestamp());
                 }
             }
         });
@@ -286,18 +281,13 @@ public class FileStorageUtils {
      * Sorts list by Size
      */
     public static Vector<OCFile> sortBySize(Vector<OCFile> files){
-        final Integer val;
-        if (mSortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
+        final int multiplier = mSortAscending ? 1 : -1;
 
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
                     Long obj1 = o1.getFileLength();
-                    return val * obj1.compareTo(o2.getFileLength());
+                    return multiplier * obj1.compareTo(o2.getFileLength());
                 }
                 else if (o1.isFolder()) {
                     return -1;
@@ -307,7 +297,7 @@ public class FileStorageUtils {
                     return 0;
                 } else {
                     Long obj1 = o1.getFileLength();
-                    return val * obj1.compareTo(o2.getFileLength());
+                    return multiplier * obj1.compareTo(o2.getFileLength());
                 }
             }
         });
@@ -320,23 +310,18 @@ public class FileStorageUtils {
      * @param files     files to sort
      */
     public static Vector<OCFile> sortByName(Vector<OCFile> files){
-        final Integer val;
-        if (mSortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
+        final int multiplier = mSortAscending ? 1 : -1;
 
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
-                    return val * new AlphanumComparator().compare(o1, o2);
+                    return multiplier * new AlphanumComparator().compare(o1, o2);
                 } else if (o1.isFolder()) {
                     return -1;
                 } else if (o2.isFolder()) {
                     return 1;
                 }
-                return val * new AlphanumComparator().compare(o1, o2);
+                return multiplier * new AlphanumComparator().compare(o1, o2);
             }
         });
         
