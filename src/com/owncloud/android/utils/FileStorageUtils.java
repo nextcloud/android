@@ -244,7 +244,7 @@ public class FileStorageUtils {
             files = FileStorageUtils.sortOCFilesByDate(files);
             break;
         case 2:
-            files = FileStorageUtils.sortBySize(files);
+            files = FileStorageUtils.sortOCFilesBySize(files);
             break;
         }
        
@@ -334,7 +334,7 @@ public class FileStorageUtils {
     /**
      * Sorts list by Size
      */
-    public static Vector<OCFile> sortBySize(Vector<OCFile> files){
+    public static Vector<OCFile> sortOCFilesBySize(Vector<OCFile> files){
         final int multiplier = mSortAscending ? 1 : -1;
 
         Collections.sort(files, new Comparator<OCFile>() {
@@ -386,7 +386,7 @@ public class FileStorageUtils {
      * Sorts list by Name
      * @param filesArray    files to sort
      */
-    public static File[] sortLocalFilesByName(File[] filesArray){
+    public static File[] sortLocalFilesByName(File[] filesArray) {
         final int multiplier = mSortAscending ? 1 : -1;
 
         List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
