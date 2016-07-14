@@ -138,14 +138,14 @@
 
         <provider
             android:name=".providers.UsersAndGroupsSearchProvider"
-            android:authorities=".providers.UsersAndGroupsSearchProvider"
+            android:authorities="com.nextcloud.providers.UsersAndGroupsSearchProvider"
             android:enabled="true"
             android:exported="false"
             android:label="@string/search_users_and_groups_hint" />
 
         <provider
-            android:authorities="@string/document_provider_authority"
             android:name="org.nextcloud.providers.DocumentsStorageProvider"
+            android:authorities="@string/document_provider_authority"
             android:exported="true"
             android:grantUriPermissions="true"
             android:permission="android.permission.MANAGE_DOCUMENTS"
