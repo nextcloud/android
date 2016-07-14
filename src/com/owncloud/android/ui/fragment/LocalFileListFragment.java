@@ -37,6 +37,7 @@ import android.widget.ListView;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.utils.FileStorageUtils;
 
 
 /**
@@ -227,6 +228,18 @@ public class LocalFileListFragment extends ExtendedListFragment {
             Log_OC.d(TAG, "Returning " + result.size() + " selected files");
         }
         return result.toArray(new String[result.size()]);
+    }
+
+    public void sortByName(boolean descending) {
+        mAdapter.setSortOrder(FileStorageUtils.SORT_NAME, descending);
+    }
+
+    public void sortByDate(boolean descending) {
+        mAdapter.setSortOrder(FileStorageUtils.SORT_DATE, descending);
+    }
+
+    public void sortBySize(boolean descending) {
+        mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
     }
 
     /**
