@@ -22,13 +22,13 @@
     <item
         android:id="@+id/action_share_file"
         android:title="@string/action_share"
-        android:icon="@android:drawable/ic_menu_share"
+        android:icon="@drawable/ic_share"
         android:orderInCategory="1" />
 
     <item
         android:id="@+id/action_open_file_with"
         android:title="@string/actionbar_open_with"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_open_with"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_download_file"
@@ -43,47 +43,47 @@
     <item
         android:id="@+id/action_cancel_sync"
         android:title="@string/common_cancel_sync"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:icon="@drawable/ic_action_cancel_sync"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_rename_file"
         android:title="@string/common_rename"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_edit"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_move"
         android:title="@string/actionbar_move"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_action_move"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_copy"
         android:title="@android:string/copy"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_action_copy"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_remove_file"
         android:title="@string/common_remove"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/ic_action_delete_white"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_send_file"
         android:title="@string/actionbar_send_file"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_send"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_favorite_file"
         android:title="@string/favorite"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_action_set_available_offline_white"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_unfavorite_file"
         android:title="@string/unfavorite"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_action_unset_available_offline_white"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_see_details"
         android:title="@string/actionbar_see_details"
-        android:icon="@android:drawable/ic_menu_info_details"
+        android:icon="@drawable/ic_information"
         android:orderInCategory="1" />
 
 </menu>
