@@ -36,7 +36,7 @@
             android:orderInCategory="0"
             android:id="@+id/nav_uploads"
             android:icon="@drawable/ic_uploads"
-            android:title="Uploads"/>
+            android:title="@string/drawer_item_uploads_list"/>
     </group>
 
     <!--
@@ -53,7 +53,7 @@
         <item
             android:orderInCategory="2"
             android:id="@+id/drawer_menu_account_manage"
-            android:icon="@drawable/ic_action_settings"
+            android:icon="@drawable/ic_settings"
             android:title="@string/drawer_manage_accounts"/>
     </group>
 
@@ -64,7 +64,7 @@
         <item
             android:orderInCategory="3"
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_action_settings"
+            android:icon="@drawable/ic_settings"
             android:title="@string/actionbar_settings"/>
     </group>
 </menu>
