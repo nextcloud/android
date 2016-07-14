@@ -34,9 +34,6 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
@@ -120,6 +117,11 @@ public class FileActivity extends DrawerActivity
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+
+    @Override
+    public void refreshDirectory() {
+        // implementation to be done in FileDisplayActivity
+    }
 
     /**
      * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of
@@ -539,11 +541,6 @@ public class FileActivity extends DrawerActivity
         Intent i = new Intent(this, FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-    }
-
-    @Override
-    public void allFilesOption(){
-        restart();
     }
 
     protected OCFile getCurrentDir() {

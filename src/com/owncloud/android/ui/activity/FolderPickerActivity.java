@@ -127,7 +127,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             
             if (!stateWasRecovered) {
                 OCFileListFragment listOfFolders = getListOfFilesFragment(); 
-                listOfFolders.listDirectory(folder/*, false*/);
+                listOfFolders.listDirectory(folder, false);
                 
                 startSyncFolderOperation(folder, false);
             }
@@ -300,9 +300,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     protected void refreshListOfFilesFragment() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
-            fileListFragment.listDirectory();
-            // TODO Enable when "On Device" is recovered ?
-            // fileListFragment.listDirectory(false);
+            fileListFragment.listDirectory(false);
         }
     }
 
@@ -310,9 +308,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         OCFileListFragment listOfFiles = getListOfFilesFragment(); 
         if (listOfFiles != null) {  // should never be null, indeed
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root);
-            // TODO Enable when "On Device" is recovered ?
-            // listOfFiles.listDirectory(root, false);
+            listOfFiles.listDirectory(root, false);
             setFile(listOfFiles.getCurrentFile());
             updateNavigationElementsInActionBar();
             startSyncFolderOperation(root, false);
@@ -463,9 +459,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                     equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
-                                    fileListFragment.listDirectory(currentDir);
-                                    // TODO Enable when "On Device" is recovered ?
-                                    // fileListFragment.listDirectory(currentDir, false);
+                                    fileListFragment.listDirectory(currentDir, false);
                                 }
                             }
                             setFile(currentFile);
