@@ -263,7 +263,7 @@ public class FileStorageUtils {
                 files = FileStorageUtils.sortLocalFilesByDate(files);
                 break;
             case 2:
-                // mFiles = FileStorageUtils.sortBySize(mSortAscending);
+                files = FileStorageUtils.sortLocalFilesBySize(files);
                 break;
         }
 
@@ -357,6 +357,37 @@ public class FileStorageUtils {
         });
 
         return files;
+    }
+
+    /**
+     * Sorts list by Size
+     */
+    public static File[] sortLocalFilesBySize(File[] filesArray) {
+        final int multiplier = mSortAscending ? 1 : -1;
+
+        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
+
+        Collections.sort(files, new Comparator<File>() {
+            public int compare(File o1, File o2) {
+                if (o1.isDirectory() && o2.isDirectory()) {
+                    Long obj1 = getFolderSize(o1);
+                    return multiplier * obj1.compareTo(getFolderSize(o2));
+                }
+                else if (o1.isDirectory()) {
+                    return -1;
+                } else if (o2.isDirectory()) {
+                    return 1;
+                } else if (o1.length() == 0 || o2.length() == 0){
+                    return 0;
+                } else {
+                    Long obj1 = o1.length();
+                    return multiplier * obj1.compareTo(o2.length());
+                }
+            }
+        });
+
+        File[] returnArray = new File[1];
+        return files.toArray(returnArray);
     }
 
     /**
