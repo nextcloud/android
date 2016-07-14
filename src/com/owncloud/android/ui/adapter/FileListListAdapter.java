@@ -375,15 +375,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      *                                  mStorageManager if is different (and not NULL)
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
-            /*, boolean onlyOnDevice*/) {
+            , boolean onlyOnDevice) {
         mFile = directory;
         if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
         if (mStorageManager != null) {
-            // TODO Enable when "On Device" is recovered ?
-            mFiles = mStorageManager.getFolderContent(mFile/*, onlyOnDevice*/);
+            mFiles = mStorageManager.getFolderContent(mFile, onlyOnDevice);
             mFilesOrig.clear();
             mFilesOrig.addAll(mFiles);
             

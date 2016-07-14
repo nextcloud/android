@@ -53,9 +53,7 @@ public class MainApp extends Application {
 
     private static Context mContext;
 
-    // TODO Enable when "On Device" is recovered?
-    // TODO better place
-    // private static boolean mOnlyOnDevice = false;
+    private static boolean mOnlyOnDevice = false;
 
     
     public void onCreate(){
@@ -175,14 +173,13 @@ public class MainApp extends Application {
         return getAppContext().getResources().getString(R.string.log_name);
     }
 
-    // TODO Enable when "On Device" is recovered ?
-//    public static void showOnlyFilesOnDevice(boolean state){
-//        mOnlyOnDevice = state;
-//    }
-//
-//    public static boolean getOnlyOnDevice(){
-//        return mOnlyOnDevice;
-//    }
+    public static void showOnlyFilesOnDevice(boolean state){
+        mOnlyOnDevice = state;
+    }
+
+    public static boolean getOnlyOnDevice(){
+        return mOnlyOnDevice;
+    }
 
     // user agent
     public static String getUserAgent() {
