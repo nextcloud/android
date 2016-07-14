@@ -25,11 +25,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
@@ -43,6 +41,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -131,10 +130,7 @@ public class UploadFilesActivity extends FileActivity implements
         mUploadBtn = (Button) findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.setOnClickListener(this);
 
-        SharedPreferences appPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-
-        Integer localBehaviour = appPreferences.getInt("prefs_uploader_behaviour", FileUploader.LOCAL_BEHAVIOUR_COPY);
+        int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
 
         mRadioBtnMoveFiles = (RadioButton) findViewById(R.id.upload_radio_move);
         if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE){
@@ -209,12 +205,8 @@ public class UploadFilesActivity extends FileActivity implements
                 break;
             }
             case R.id.action_sort: {
-                SharedPreferences appPreferences = PreferenceManager
-                        .getDefaultSharedPreferences(this);
-
                 // Read sorting order, default to sort by name ascending
-                Integer sortOrder = appPreferences
-                        .getInt("sortOrder", FileStorageUtils.SORT_NAME);
+                Integer sortOrder = PreferenceManager.getSortOrder(this);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.actionbar_sort_title)
@@ -453,20 +445,13 @@ public class UploadFilesActivity extends FileActivity implements
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
 
-                SharedPreferences.Editor appPreferencesEditor = PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext()).edit();
-
-
                 if (mRadioBtnMoveFiles.isChecked()){
                     setResult(RESULT_OK_AND_MOVE, data);
-                    appPreferencesEditor.putInt("prefs_uploader_behaviour",
-                            FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                    PreferenceManager.setUploaderBehaviour(getApplicationContext(), FileUploader.LOCAL_BEHAVIOUR_MOVE);
                 } else {
                     setResult(RESULT_OK, data);
-                    appPreferencesEditor.putInt("prefs_uploader_behaviour",
-                            FileUploader.LOCAL_BEHAVIOUR_COPY);
+                    PreferenceManager.setUploaderBehaviour(getApplicationContext(), FileUploader.LOCAL_BEHAVIOUR_COPY);
                 }
-                appPreferencesEditor.apply();
                 finish();
             } else {
                 // show a dialog to query the user if wants to move the selected files
