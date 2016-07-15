@@ -26,4 +26,11 @@
         android:title="@string/select_all"
         android:icon="@drawable/ic_select_all"
         app:showAsAction="always"/>
+    <item
+        android:id="@+id/action_sort"
+        android:icon="@drawable/ic_sort_variant"
+        android:orderInCategory="2"
+        app:showAsAction="ifRoom"
+        android:title="@string/actionbar_sort"
+        android:contentDescription="@string/actionbar_sort"/>
 </menu>

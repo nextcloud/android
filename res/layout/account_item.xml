@@ -43,7 +43,7 @@
         android:textColor="@color/textColor"
         android:textSize="@dimen/two_line_primary_text_size"/>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/passwordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,9 +52,10 @@
         android:paddingTop="@dimen/standard_padding"
         android:paddingBottom="@dimen/standard_padding"
         android:paddingRight="@dimen/standard_half_padding"
+        android:background="?android:selectableItemBackground"
         android:src="@drawable/ic_key"/>
 
-    <ImageView
+    <ImageButton
         android:id="@+id/removeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,6 +64,7 @@
         android:paddingTop="@dimen/standard_padding"
         android:paddingBottom="@dimen/standard_padding"
         android:paddingRight="@dimen/standard_padding"
-        android:src="@drawable/ic_close"/>
+        android:background="?android:selectableItemBackground"
+        android:src="@drawable/ic_action_delete"/>
 
 </LinearLayout>         

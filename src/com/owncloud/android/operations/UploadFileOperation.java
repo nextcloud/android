@@ -26,6 +26,7 @@ import android.net.Uri;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
@@ -45,6 +46,7 @@ import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimetypeIconUtil;
 import com.owncloud.android.utils.UriUtils;
 
@@ -509,7 +511,7 @@ public class UploadFileOperation extends SyncOperation {
         }
         if (parent != null) {
             OCFile createdFolder = new OCFile(remotePath);
-            createdFolder.setMimetype("DIR");
+            createdFolder.setMimetype(MimeType.DIRECTORY);
             createdFolder.setParentId(parent.getFileId());
             getStorageManager().saveFile(createdFolder);
             return createdFolder;
@@ -792,6 +794,11 @@ public class UploadFileOperation extends SyncOperation {
         getStorageManager().saveConflict(file, null);
 
         FileDataStorageManager.triggerMediaScan(file.getStoragePath());
+
+        // generate new Thumbnail
+        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+            new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), mAccount);
+        task.execute(file);
     }
 
     private void updateOCFile(OCFile file, RemoteFile remoteFile) {
