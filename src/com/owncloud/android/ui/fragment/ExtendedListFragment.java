@@ -406,7 +406,7 @@ public class ExtendedListFragment extends Fragment
      */
     protected void setFooterEnabled(boolean enabled) {
         if (enabled) {
-            if (mGridView.getFooterViewCount() == 0) {
+            if (mGridView.getFooterViewCount() == 0 && mGridView.isCorrectAdapter()) {
                 if (mGridFooterView.getParent() != null ) {
                     ((ViewGroup) mGridFooterView.getParent()).removeView(mGridFooterView);
                 }

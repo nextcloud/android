@@ -19,7 +19,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -31,7 +30,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="@dimen/standard_padding" >
@@ -44,20 +42,12 @@
 			android:src="@drawable/logo"
 			android:contentDescription="@string/app_name"/>
 
-		<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-			android:id="@+id/card_view"
-			android:layout_gravity="center"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-            card_view:cardBackgroundColor="@color/white"
-            card_view:cardCornerRadius="4dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="@dimen/standard_half_padding">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/centeredRefreshButton"
@@ -104,7 +94,7 @@
                     android:inputType="textUri"
                     android:paddingRight="55dp"
                     android:textColor="@color/login_text_color"
-                    android:textColorHint="@color/login_text_hint_color">
+                    android:textColorHint="@color/login_text_color">
 
                     <requestFocus/>
                 </EditText>
@@ -119,7 +109,7 @@
 			    android:layout_marginRight="5dp"
 			    android:padding="0dp"
 			    android:scaleType="fitCenter"
-			    android:src="@drawable/ic_action_refresh_grey"
+			    android:src="@drawable/ic_action_refresh"
 				android:visibility="gone"
 				android:background="@android:color/transparent"
                 android:contentDescription="@string/auth_refresh_button"
@@ -147,7 +137,7 @@
             android:onClick="onCheckClick"
             android:text="@string/oauth_check_onoff"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="@color/primary"
+            android:textColor="@color/white"
             android:contentDescription="@string/oauth_check_onoff"
             />
 
@@ -242,11 +232,12 @@
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/buttonOK"
-            android:theme="@style/Button.Primary"
-            style="@style/Button.Primary"
-            android:layout_width="match_parent"
+            android:theme="@style/Button.Login"
+            style="@style/Button.Login"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:padding="@dimen/standard_padding"
             android:enabled="false"
             android:text="@string/setup_btn_connect"
             android:contentDescription="@string/setup_btn_connect"/>
@@ -265,12 +256,11 @@
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="@string/auth_register"
-                android:textColor="@color/login_text_color"
+                android:textColor="@color/login_text_hint_color"
                 android:contentDescription="@string/auth_register"/>
             
         </LinearLayout>
         </LinearLayout>
-		</android.support.v7.widget.CardView>
 
     </LinearLayout>
 

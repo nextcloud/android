@@ -40,6 +40,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -47,6 +48,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -112,7 +114,6 @@ public class FileDisplayActivity extends HookActivity
     private boolean mDualPane;
     private View mLeftFragmentContainer;
     private View mRightFragmentContainer;
-    private ProgressBar mProgressBar;
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -168,25 +169,17 @@ public class FileDisplayActivity extends HookActivity
         // Inflate and set the layout view
         setContentView(R.layout.files);
 
-        // Navigation Drawer
-        initDrawer();
+        // setup toolbar
+        setupToolbar();
 
-        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mProgressBar.setIndeterminateDrawable(
-                ContextCompat.getDrawable(this,
-                        R.drawable.actionbar_progress_indeterminate_horizontal));
+        // setup drawer
+        setupDrawer(R.id.nav_all_files);
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
         mRightFragmentContainer = findViewById(R.id.right_fragment_container);
 
         // Action bar setup
-        getSupportActionBar().setHomeButtonEnabled(true);       // mandatory since Android ICS,
-        // according to the official
-        // documentation
-
-        // enable ActionBar app icon to behave as action to toggle nav drawer
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         // Init Fragment without UI to retain AsyncTask across configuration changes
@@ -233,7 +226,9 @@ public class FileDisplayActivity extends HookActivity
             createMinFragments();
         }
 
-        mProgressBar.setIndeterminate(mSyncInProgress);
+        refreshList(true);
+
+        setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
         setBackgroundText();
@@ -311,7 +306,7 @@ public class FileDisplayActivity extends HookActivity
             setFile(file);
 
             if (mAccountWasSet) {
-                setUsernameInDrawer(findViewById(R.id.left_drawer), getAccount());
+                setAccountInDrawer(getAccount());
             }
 
             if (!stateWasRecovered) {
@@ -343,10 +338,7 @@ public class FileDisplayActivity extends HookActivity
             /// First fragment
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (listOfFiles != null) {
-                listOfFiles.listDirectory(getCurrentDir());
-                // TODO Enable when "On Device" is recovered
-                // listOfFiles.listDirectory(getCurrentDir(), MainApp.getOnlyOnDevice());
-
+                listOfFiles.listDirectory(getCurrentDir(), MainApp.getOnlyOnDevice());
             } else {
                 Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
             }
@@ -474,9 +466,7 @@ public class FileDisplayActivity extends HookActivity
     protected void refreshListOfFilesFragment() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
-            fileListFragment.listDirectory();
-            // TODO Enable when "On Device" is recovered ?
-            // fileListFragment.listDirectory(MainApp.getOnlyOnDevice());
+            fileListFragment.listDirectory(MainApp.getOnlyOnDevice());
         }
     }
 
@@ -527,7 +517,7 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(GravityCompat.START);
+        boolean drawerOpen = isDrawerOpen();
         menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
         menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
         menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
@@ -555,14 +545,14 @@ public class FileDisplayActivity extends HookActivity
             case android.R.id.home: {
                 FileFragment second = getSecondFragment();
                 OCFile currentDir = getCurrentDir();
-                if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    mDrawerLayout.closeDrawer(GravityCompat.START);
+                if (isDrawerOpen()) {
+                    closeDrawer();
                 } else if ((currentDir != null && currentDir.getParentId() != 0) ||
                         (second != null && second.getFile() != null)) {
                     onBackPressed();
 
                 } else {
-                    mDrawerLayout.openDrawer(GravityCompat.START);
+                    openDrawer();
                 }
                 break;
             }
@@ -581,6 +571,8 @@ public class FileDisplayActivity extends HookActivity
                                             case 1:
                                                 sortByDate(false);
                                                 break;
+                                            case 2:
+                                                sortBySize(false);
                                         }
 
                                         dialog.dismiss();
@@ -841,8 +833,6 @@ public class FileDisplayActivity extends HookActivity
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
-        // refresh Navigation Drawer account list
-        mNavigationDrawerAdapter.updateAccountList();
 
         // refresh list of files
         refreshListOfFilesFragment();
@@ -963,10 +953,8 @@ public class FileDisplayActivity extends HookActivity
                                     currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
-                                    fileListFragment.listDirectory();
-                                    // TODO Enable when "On Device" is recovered ?
-                                    // fileListFragment.listDirectory(currentDir,
-                                    // MainApp.getOnlyOnDevice());
+                                    fileListFragment.listDirectory(currentDir,
+                                    MainApp.getOnlyOnDevice());
                                 }
                             }
                             setFile(currentFile);
@@ -1004,10 +992,9 @@ public class FileDisplayActivity extends HookActivity
                     }
                     removeStickyBroadcast(intent);
                     Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    mProgressBar.setIndeterminate(mSyncInProgress);
+                    setIndeterminate(mSyncInProgress);
 
                     setBackgroundText();
-
                 }
 
                 if (synchResult != null) {
@@ -1115,7 +1102,7 @@ public class FileDisplayActivity extends HookActivity
                     }
                 }
 
-                mProgressBar.setIndeterminate(false);
+                setIndeterminate(false);
 
             } finally {
                 if (intent != null) {
@@ -1210,9 +1197,7 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {  // should never be null, indeed
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root);
-            // TODO Enable when "On Device" is recovered ?
-            // listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
+            listOfFiles.listDirectory(root, MainApp.getOnlyOnDevice());
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
         }
@@ -1249,6 +1234,9 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     protected void updateActionBarTitleAndHomeButton(OCFile chosenFile) {
+        if (chosenFile == null) {
+            chosenFile = getFile();     // if no file is passed, current file decides
+        }
         if (mDualPane) {
             // in dual pane mode, keep the focus of title an action bar in the current folder
             super.updateActionBarTitleAndHomeButton(getCurrentDir());
@@ -1296,9 +1284,7 @@ public class FileDisplayActivity extends HookActivity
             // getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (listOfFiles != null) {
-                listOfFiles.listDirectory();
-                // TODO Enable when "On Device" is recovered ?
-                // listOfFiles.listDirectory(MainApp.getOnlyOnDevice());
+                listOfFiles.listDirectory(MainApp.getOnlyOnDevice());
             }
             FileFragment secondFragment = getSecondFragment();
             if (secondFragment != null && secondFragment instanceof FileDetailFragment) {
@@ -1633,7 +1619,7 @@ public class FileDisplayActivity extends HookActivity
                                     null
                             );
 
-                            mProgressBar.setIndeterminate(true);
+                            setIndeterminate(true);
 
                             setBackgroundText();
 
@@ -1720,7 +1706,7 @@ public class FileDisplayActivity extends HookActivity
                 PreviewTextFragment.class.getName(), args);
         setSecondFragment(textPreviewFragment);
         updateFragmentsVisibility(true);
-        //updateNavigationElementsInActionBar(file);
+        updateActionBarTitleAndHomeButton(file);
         setFile(file);
     }
 
@@ -1811,5 +1797,9 @@ public class FileDisplayActivity extends HookActivity
 
     public void allFilesOption() {
         browseToRoot();
+    }
+
+    public void refreshDirectory() {
+        getListOfFilesFragment().refreshDirectory();
     }
 }
