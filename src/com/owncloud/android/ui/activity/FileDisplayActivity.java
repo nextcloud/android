@@ -984,17 +984,13 @@ public class FileDisplayActivity extends HookActivity
 
                             }
 
-                            if (synchFolderRemotePath.equals(OCFile.ROOT_PATH)) {
-                                setUsernameInDrawer(mDrawerLayout, getAccount());
-                            }
                         }
+                        removeStickyBroadcast(intent);
+                        Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
+                        setIndeterminate(mSyncInProgress);
 
+                        setBackgroundText();
                     }
-                    removeStickyBroadcast(intent);
-                    Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    setIndeterminate(mSyncInProgress);
-
-                    setBackgroundText();
                 }
 
                 if (synchResult != null) {

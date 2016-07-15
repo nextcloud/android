@@ -65,6 +65,6 @@
         android:paddingBottom="@dimen/standard_padding"
         android:paddingRight="@dimen/standard_padding"
         android:background="?android:selectableItemBackground"
-        android:src="@drawable/ic_action_delete"/>
+        android:src="@drawable/ic_action_delete_grey"/>
 
 </LinearLayout>         
