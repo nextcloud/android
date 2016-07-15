@@ -434,7 +434,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                     iv.setImageBitmap(thumbnail);
                 } else {
                     // generate new Thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialWork(file, iv)) {
+                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, iv)) {
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                         iv, mContainerActivity.getStorageManager(), mAccount
@@ -442,8 +442,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                         if (thumbnail == null) {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
                         }
-                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncDrawable(
+                        final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                         MainApp.getAppContext().getResources(),
                                         thumbnail,
                                         task

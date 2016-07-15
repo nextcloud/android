@@ -11,7 +11,7 @@
     <string name ="data_folder">nextcloud</string>
     <string name ="log_name">nextcloud</string>
     <string name ="default_display_name_for_root_folder">Nextcloud</string>
-    <string name ="user_agent">Mozilla/5.0 (Android) nextcloud-android/%1$s</string>
+    <string name ="user_agent">Mozilla/5.0 (Android) ownCloud-android/%1$s</string>
     
     <!-- URLs and flags related -->
     <string name="server_url"></string>
@@ -31,8 +31,8 @@
     
     
     <!-- Colors -->
-    <color name="login_text_color">#000000</color>
-    <color name="login_text_hint_color">#757575</color>
+    <color name="login_text_color">@color/white</color>
+    <color name="login_text_hint_color">#7fC0E3</color>
     <color name="login_background_color">#FFFFFF</color>
     <color name="login_logo_background_color">#FFFFFF</color>
     <color name="background_color">#FFFFFF</color>
@@ -61,11 +61,11 @@
     <bool name="recommend_enabled">true</bool>
     <bool name="feedback_enabled">true</bool>
     <bool name="logger_enabled">false</bool>
-    <string name="url_help">http://nextcloud.com/mobile/help</string>
+    <string name="url_help">https://help.nextcloud.com/c/feature</string>
     <string name="url_imprint"></string>
     <string name="mail_recommend">"mailto:"</string>
-    <string name="mail_feedback">"mailto:apps@nextcloud.com"</string>
-    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.android"</string>
+    <string name="mail_feedback">"mailto:android@nextcloud.com"</string>
+    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
 
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>

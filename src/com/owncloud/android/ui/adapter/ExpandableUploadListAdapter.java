@@ -403,7 +403,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             fakeFileToCheatThumbnailsCacheManagerInterface.setStoragePath(upload.getLocalPath());
             fakeFileToCheatThumbnailsCacheManagerInterface.setMimetype(upload.getMimeType());
 
-            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(
+            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialThumbnailWork(
                     fakeFileToCheatThumbnailsCacheManagerInterface,
                     fileIcon)
             );
@@ -428,8 +428,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         if (thumbnail == null) {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
                         }
-                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncDrawable(
+                        final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                         mParentActivity.getResources(),
                                         thumbnail,
                                         task
@@ -460,8 +460,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         if (thumbnail == null) {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
                         }
-                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncDrawable(
+                        final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                         mParentActivity.getResources(),
                                         thumbnail,
                                         task
