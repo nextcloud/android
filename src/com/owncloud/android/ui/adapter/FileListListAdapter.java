@@ -218,10 +218,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                 checkBoxV.setVisibility(View.VISIBLE);
                             }
                         }
-
-                    } else { //Folder
-                        fileSizeSeparatorV.setVisibility(View.GONE);
-                        fileSizeV.setVisibility(View.GONE);
                     }
 
                 case GRID_ITEM:
@@ -392,15 +388,14 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
      *                                  mStorageManager if is different (and not NULL)
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
-            /*, boolean onlyOnDevice*/) {
+            , boolean onlyOnDevice) {
         mFile = directory;
         if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
         if (mStorageManager != null) {
-            // TODO Enable when "On Device" is recovered ?
-            mFiles = mStorageManager.getFolderContent(mFile/*, onlyOnDevice*/);
+            mFiles = mStorageManager.getFolderContent(mFile, onlyOnDevice);
             mFilesOrig.clear();
             mFilesOrig.addAll(mFiles);
             
@@ -411,7 +406,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
             mFiles = null;
         }
 
-        mFiles = FileStorageUtils.sortFolder(mFiles);
+        mFiles = FileStorageUtils.sortOcFolder(mFiles);
         notifyDataSetChanged();
     }
     
@@ -441,7 +436,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         FileStorageUtils.mSortOrder = order;
         FileStorageUtils.mSortAscending = ascending;
 
-        mFiles = FileStorageUtils.sortFolder(mFiles);
+        mFiles = FileStorageUtils.sortOcFolder(mFiles);
         notifyDataSetChanged();
     }
 

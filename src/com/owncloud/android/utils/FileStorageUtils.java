@@ -20,15 +20,15 @@
 
 package com.owncloud.android.utils;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Vector;
-
-import third_parties.daveKoeller.AlphanumComparator;
+import android.accounts.Account;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.StatFs;
+import android.preference.PreferenceManager;
+import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -36,15 +36,18 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 
-import android.accounts.Account;
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.net.Uri;
-import android.os.Environment;
-import android.os.StatFs;
-import android.webkit.MimeTypeMap;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Vector;
+
+import third_parties.daveKoeller.AlphanumComparator;
 
 
 /**
@@ -198,7 +201,11 @@ public class FileStorageUtils {
     public static OCFile fillOCFile(RemoteFile remote) {
         OCFile file = new OCFile(remote.getRemotePath());
         file.setCreationTimestamp(remote.getCreationTimestamp());
-        file.setFileLength(remote.getLength());
+        if (remote.getMimeType().equalsIgnoreCase(MimeType.DIRECTORY)){
+            file.setFileLength(remote.getSize());
+        } else {
+            file.setFileLength(remote.getLength());
+        }
         file.setMimetype(remote.getMimeType());
         file.setModificationTimestamp(remote.getModifiedTimestamp());
         file.setEtag(remote.getEtag());
@@ -228,19 +235,38 @@ public class FileStorageUtils {
     /**
      * Sorts all filenames, regarding last user decision 
      */
-    public static Vector<OCFile> sortFolder(Vector<OCFile> files){
+    public static Vector<OCFile> sortOcFolder(Vector<OCFile> files){
         switch (mSortOrder){
         case 0:
-            files = FileStorageUtils.sortByName(files);
+            files = FileStorageUtils.sortOCFilesByName(files);
             break;
         case 1:
-            files = FileStorageUtils.sortByDate(files);
+            files = FileStorageUtils.sortOCFilesByDate(files);
             break;
-        case 2: 
-           // mFiles = FileStorageUtils.sortBySize(mSortAscending);
+        case 2:
+            files = FileStorageUtils.sortOCFilesBySize(files);
             break;
         }
        
+        return files;
+    }
+
+    /**
+     * Sorts all filenames, regarding last user decision
+     */
+    public static File[] sortLocalFolder(File[] files){
+        switch (mSortOrder){
+            case 0:
+                files = FileStorageUtils.sortLocalFilesByName(files);
+                break;
+            case 1:
+                files = FileStorageUtils.sortLocalFilesByDate(files);
+                break;
+            case 2:
+                files = FileStorageUtils.sortLocalFilesBySize(files);
+                break;
+        }
+
         return files;
     }
     
@@ -248,19 +274,14 @@ public class FileStorageUtils {
      * Sorts list by Date
      * @param files
      */
-    public static Vector<OCFile> sortByDate(Vector<OCFile> files){
-        final Integer val;
-        if (mSortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
+    public static Vector<OCFile> sortOCFilesByDate(Vector<OCFile> files){
+        final int multiplier = mSortAscending ? 1 : -1;
         
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
                     Long obj1 = o1.getModificationTimestamp();
-                    return val * obj1.compareTo(o2.getModificationTimestamp());
+                    return multiplier * obj1.compareTo(o2.getModificationTimestamp());
                 }
                 else if (o1.isFolder()) {
                     return -1;
@@ -270,7 +291,7 @@ public class FileStorageUtils {
                     return 0;
                 } else {
                     Long obj1 = o1.getModificationTimestamp();
-                    return val * obj1.compareTo(o2.getModificationTimestamp());
+                    return multiplier * obj1.compareTo(o2.getModificationTimestamp());
                 }
             }
         });
@@ -278,66 +299,145 @@ public class FileStorageUtils {
         return files;
     }
 
-//    /**
-//     * Sorts list by Size
-//     * @param sortAscending true: ascending, false: descending
-//     */
-//    public static Vector<OCFile> sortBySize(Vector<OCFile> files){
-//        final Integer val;
-//        if (mSortAscending){
-//            val = 1;
-//        } else {
-//            val = -1;
-//        }
-//        
-//        Collections.sort(files, new Comparator<OCFile>() {
-//            public int compare(OCFile o1, OCFile o2) {
-//                if (o1.isFolder() && o2.isFolder()) {
-//                    Long obj1 = getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o1)));
-//                    return val * obj1.compareTo(getFolderSize(new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, o2))));
-//                }
-//                else if (o1.isFolder()) {
-//                    return -1;
-//                } else if (o2.isFolder()) {
-//                    return 1;
-//                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
-//                    return 0;
-//                } else {
-//                    Long obj1 = o1.getFileLength();
-//                    return val * obj1.compareTo(o2.getFileLength());
-//                }
-//            }
-//        });
-//        
-//        return files;
-//    }
+    /**
+     * Sorts list by Date
+     * @param filesArray
+     */
+    public static File[] sortLocalFilesByDate(File[] filesArray){
+        final int multiplier = mSortAscending ? 1 : -1;
+
+        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
+
+        Collections.sort(files, new Comparator<File>() {
+            public int compare(File o1, File o2) {
+                if (o1.isDirectory() && o2.isDirectory()) {
+                    Long obj1 = o1.lastModified();
+                    return multiplier * obj1.compareTo(o2.lastModified());
+                }
+                else if (o1.isDirectory()) {
+                    return -1;
+                } else if (o2.isDirectory()) {
+                    return 1;
+                } else if (o1.lastModified() == 0 || o2.lastModified() == 0){
+                    return 0;
+                } else {
+                    Long obj1 = o1.lastModified();
+                    return multiplier * obj1.compareTo(o2.lastModified());
+                }
+            }
+        });
+
+        File[] returnArray = new File[1];
+        return files.toArray(returnArray);
+    }
+
+    /**
+     * Sorts list by Size
+     */
+    public static Vector<OCFile> sortOCFilesBySize(Vector<OCFile> files){
+        final int multiplier = mSortAscending ? 1 : -1;
+
+        Collections.sort(files, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFolder() && o2.isFolder()) {
+                    Long obj1 = o1.getFileLength();
+                    return multiplier * obj1.compareTo(o2.getFileLength());
+                }
+                else if (o1.isFolder()) {
+                    return -1;
+                } else if (o2.isFolder()) {
+                    return 1;
+                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
+                    return 0;
+                } else {
+                    Long obj1 = o1.getFileLength();
+                    return multiplier * obj1.compareTo(o2.getFileLength());
+                }
+            }
+        });
+
+        return files;
+    }
+
+    /**
+     * Sorts list by Size
+     */
+    public static File[] sortLocalFilesBySize(File[] filesArray) {
+        final int multiplier = mSortAscending ? 1 : -1;
+
+        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
+
+        Collections.sort(files, new Comparator<File>() {
+            public int compare(File o1, File o2) {
+                if (o1.isDirectory() && o2.isDirectory()) {
+                    Long obj1 = getFolderSize(o1);
+                    return multiplier * obj1.compareTo(getFolderSize(o2));
+                }
+                else if (o1.isDirectory()) {
+                    return -1;
+                } else if (o2.isDirectory()) {
+                    return 1;
+                } else if (o1.length() == 0 || o2.length() == 0){
+                    return 0;
+                } else {
+                    Long obj1 = o1.length();
+                    return multiplier * obj1.compareTo(o2.length());
+                }
+            }
+        });
+
+        File[] returnArray = new File[1];
+        return files.toArray(returnArray);
+    }
 
     /**
      * Sorts list by Name
      * @param files     files to sort
      */
-    public static Vector<OCFile> sortByName(Vector<OCFile> files){
-        final Integer val;
-        if (mSortAscending){
-            val = 1;
-        } else {
-            val = -1;
-        }
+    public static Vector<OCFile> sortOCFilesByName(Vector<OCFile> files){
+        final int multiplier = mSortAscending ? 1 : -1;
 
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
-                    return val * new AlphanumComparator().compare(o1, o2);
+                    return multiplier * new AlphanumComparator().compare(o1, o2);
                 } else if (o1.isFolder()) {
                     return -1;
                 } else if (o2.isFolder()) {
                     return 1;
                 }
-                return val * new AlphanumComparator().compare(o1, o2);
+                return multiplier * new AlphanumComparator().compare(o1, o2);
             }
         });
         
         return files;
+    }
+
+    /**
+     * Sorts list by Name
+     * @param filesArray    files to sort
+     */
+    public static File[] sortLocalFilesByName(File[] filesArray) {
+        final int multiplier = mSortAscending ? 1 : -1;
+
+        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
+
+        Collections.sort(files, new Comparator<File>() {
+            public int compare(File o1, File o2) {
+                if (o1.isDirectory() && o2.isDirectory()) {
+                    return multiplier * o1.getPath().toLowerCase().compareTo(o2.getPath().toLowerCase());
+                } else if (o1.isDirectory()) {
+                    return -1;
+                } else if (o2.isDirectory()) {
+                    return 1;
+                }
+                return multiplier * new AlphanumComparator().compare(o1.getPath().toLowerCase(),
+                                                              o2.getPath().toLowerCase());
+            }
+        });
+
+        File[] returnArray = new File[1];
+        return files.toArray(returnArray);
     }
     
     /**

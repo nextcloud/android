@@ -276,7 +276,7 @@ public class MimetypeIconUtil {
         MIMETYPE_TO_ICON_MAPPING.put("text/x-python", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("text/x-shellscript", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("web", R.drawable.file_code);
-        MIMETYPE_TO_ICON_MAPPING.put("DIR", R.drawable.ic_menu_archive);
+        MIMETYPE_TO_ICON_MAPPING.put(MimeType.DIRECTORY, R.drawable.ic_menu_archive);
     }
 
     /**

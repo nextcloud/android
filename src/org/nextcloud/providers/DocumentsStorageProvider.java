@@ -86,7 +86,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         final FileCursor result = new FileCursor(projection);
 
         final OCFile browsedDir = mCurrentStorageManager.getFileById(folderId);
-        for (OCFile file : mCurrentStorageManager.getFolderContent(browsedDir)) {
+        for (OCFile file : mCurrentStorageManager.getFolderContent(browsedDir, false)) {
             result.addFile(file);
         }
 
@@ -204,7 +204,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     Vector<OCFile> findFiles(OCFile root, String query) {
         Vector<OCFile> result = new Vector<OCFile>();
-        for (OCFile f : mCurrentStorageManager.getFolderContent(root)) {
+        for (OCFile f : mCurrentStorageManager.getFolderContent(root, false)) {
             if (f.isFolder()) {
                 result.addAll(findFiles(f, query));
             } else if (f.getFileName().contains(query)) {

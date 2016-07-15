@@ -31,11 +31,10 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -67,9 +66,9 @@ import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
+import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DisplayUtils;
@@ -312,8 +311,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        // TODO Enable when "On Device" is recovered ?
-        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
+        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile , false);
         sortFileList(tmpfiles);
 
         if (tmpfiles.size() <= 0) return;
@@ -403,7 +401,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mFile = getStorageManager().getFileByPath(full_path);
         if (mFile != null) {
             // TODO Enable when "On Device" is recovered ?
-            Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
+            Vector<OCFile> files = getStorageManager().getFolderContent(mFile, false);
             sortFileList(files);
 
             List<HashMap<String, Object>> data = new LinkedList<>();
@@ -458,7 +456,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         // Read sorting order, default to sort by name ascending
         FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(this);
         FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(this);
-        FileStorageUtils.sortFolder(files);
+        FileStorageUtils.sortOcFolder(files);
     }
 
     private String generatePath(Stack<String> dirs) {
