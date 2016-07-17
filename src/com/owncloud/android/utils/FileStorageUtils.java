@@ -279,15 +279,7 @@ public class FileStorageUtils {
         
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFolder() && o2.isFolder()) {
-                    Long obj1 = o1.getModificationTimestamp();
-                    return multiplier * obj1.compareTo(o2.getModificationTimestamp());
-                }
-                else if (o1.isFolder()) {
-                    return -1;
-                } else if (o2.isFolder()) {
-                    return 1;
-                } else if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
+                if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
                     return 0;
                 } else {
                     Long obj1 = o1.getModificationTimestamp();
