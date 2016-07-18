@@ -142,6 +142,11 @@ public class ShareFileFragment extends Fragment
      */
     private OnEditPermissionInteractionListener mOnEditPermissionInteractionListener = null;
 
+    /**
+     * Listener for user actions to set or unset hide file listing permission on public link
+     */
+    private OnHideFileListingPermissionInteractionListener mOnHideFileListingPermissionInteractionListener = null;
+
 
     /**
      * Public factory method to create new ShareFileFragment instances.
@@ -509,6 +514,40 @@ public class ShareFileFragment extends Fragment
 
     }
 
+    /**
+     * Listener for user actions that start any update on the hide file listing permissions for the public link.
+     */
+    private class OnHideFileListingPermissionInteractionListener
+            implements CompoundButton.OnCheckedChangeListener {
+
+        /**
+         * Called by R.id.shareViaLinkHideListPermissionSwitch to set or clear the edit permission.
+         *
+         * @param switchView {@link SwitchCompat} toggled by the user, R.id.shareViaLinkHideListPermissionSwitch
+         * @param isChecked  New switch state.
+         */
+        @Override
+        public void onCheckedChanged(CompoundButton switchView, boolean isChecked) {
+            if (!isResumed()) {
+                // very important, setChecked(...) is called automatically during
+                // Fragment recreation on device rotations
+                return;
+            }
+
+            ((FileActivity) getActivity()).getFileOperationsHelper().
+                    setHideFileListingPermissionsToShare(
+                            mPublicShare,
+                            isChecked
+                    );
+            ;
+
+            // undo the toggle to grant the view will be correct if the dialog is cancelled
+            switchView.setOnCheckedChangeListener(null);
+            switchView.toggle();
+            switchView.setOnCheckedChangeListener(mOnHideFileListingPermissionInteractionListener);
+        }
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -770,10 +809,9 @@ public class ShareFileFragment extends Fragment
                 }
             }
             // recover listener
-            // TODO Tobi
-//            hideFileListingPermissionSwitch.setOnCheckedChangeListener(
-//                    mOnEditPermissionInteractionListener
-//            );
+            hideFileListingPermissionSwitch.setOnCheckedChangeListener(
+                    mOnHideFileListingPermissionInteractionListener
+            );
 
         } else {
             /// no public share -> collapse section
