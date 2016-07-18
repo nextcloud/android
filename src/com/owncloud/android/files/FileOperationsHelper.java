@@ -36,6 +36,7 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
@@ -393,6 +394,35 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(
                 OperationsService.EXTRA_SHARE_PUBLIC_UPLOAD,
                 uploadPermission
+        );
+        queueShareIntent(updateShareIntent);
+    }
+
+    /**
+     * Updates a public share on a folder to set its hide file listing permission.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param share                    {@link OCShare} instance which permissions will be updated.
+     * @param hideFileListing          New state of the permission for editing the folder shared via link.
+     */
+    public void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+
+        int permission = share.getPermissions();
+        share.setPermissions(permission);
+
+        if(!hideFileListing) {
+            permission |= OCShare.READ_PERMISSION_FLAG;
+        } else {
+            permission &= ~OCShare.READ_PERMISSION_FLAG;
+        }
+
+        updateShareIntent.putExtra(
+                OperationsService.EXTRA_SHARE_PERMISSIONS,
+                permission
         );
         queueShareIntent(updateShareIntent);
     }
