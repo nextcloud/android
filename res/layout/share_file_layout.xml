@@ -191,6 +191,40 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/shareViaLinkHideListPermissionSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="invisible"
+                    android:layout_marginBottom="@dimen/standard_half_margin"
+                    >
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/shareViaLinkHideListPermissionSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:padding="@dimen/standard_half_padding"
+                        />
+
+                    <TextView
+                        android:id="@+id/shareViaLinkHideListPermissionLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_toLeftOf="@id/shareViaLinkHideListPermissionSwitch"
+                        android:layout_toStartOf="@id/shareViaLinkHideListPermissionSwitch"
+                        android:padding="@dimen/standard_half_padding"
+                        android:text="@string/share_via_link_hide_file_listing_permission_label"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/shareViaLinkPasswordSection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
