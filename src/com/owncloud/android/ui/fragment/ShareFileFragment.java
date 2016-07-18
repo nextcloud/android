@@ -674,6 +674,7 @@ public class ShareFileFragment extends Fragment
             getPasswordSection().setVisibility(View.VISIBLE);
             if (mFile.isFolder() && !mCapabilities.getFilesSharingPublicUpload().isFalse()) {
                 getEditPermissionSection().setVisibility(View.VISIBLE);
+                getFileListingPermissionSection().setVisibility(View.VISIBLE);
             } else {
                 getEditPermissionSection().setVisibility(View.GONE);
             }
@@ -754,6 +755,26 @@ public class ShareFileFragment extends Fragment
                     mOnEditPermissionInteractionListener
             );
 
+            /// update state of the hide file listing permission switch
+            SwitchCompat hideFileListingPermissionSwitch = getHideFileListingPermissionSwitch();
+
+            // set null listener before setChecked() to prevent infinite loop of calls
+            hideFileListingPermissionSwitch.setOnCheckedChangeListener(null);
+            if (mPublicShare.getPermissions() > OCShare.READ_PERMISSION_FLAG) {
+                if (!hideFileListingPermissionSwitch.isChecked()) {
+                    hideFileListingPermissionSwitch.toggle();
+                }
+            } else {
+                if (hideFileListingPermissionSwitch.isChecked()) {
+                    hideFileListingPermissionSwitch.toggle();
+                }
+            }
+            // recover listener
+            // TODO Tobi
+//            hideFileListingPermissionSwitch.setOnCheckedChangeListener(
+//                    mOnEditPermissionInteractionListener
+//            );
+
         } else {
             /// no public share -> collapse section
             SwitchCompat shareViaLinkSwitch = getShareViaLinkSwitch();
@@ -808,6 +829,14 @@ public class ShareFileFragment extends Fragment
 
     private SwitchCompat getEditPermissionSwitch() {
         return (SwitchCompat) getView().findViewById(R.id.shareViaLinkEditPermissionSwitch);
+    }
+
+    private View getFileListingPermissionSection() {
+        return getView().findViewById(R.id.shareViaLinkHideListPermissionSection);
+    }
+
+    private SwitchCompat getHideFileListingPermissionSwitch() {
+        return (SwitchCompat) getView().findViewById(R.id.shareViaLinkHideListPermissionSwitch);
     }
 
     private AppCompatButton getGetLinkButton() {
