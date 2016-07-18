@@ -17,14 +17,10 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Nejnovější - nejstarší</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
+    	<item>Největší - nejmenší</item>
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Všechny soubory</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
+    <string name="drawer_item_on_device">Na přístroji</string>
     <string name="drawer_item_settings">Nastavení</string>
     <string name="drawer_item_uploads_list">Nahrání</string>
 	<string name="drawer_close">Zavřít</string>
@@ -109,6 +105,7 @@
     <string name="about_title">O aplikaci</string>
     <string name="change_password">Změnit heslo</string>
     <string name="delete_account">Odebrat účet</string>
+    <string name="delete_account_warning">Smazat účet %s?\\n\\nTuto akci nelze vzít zpět.</string>
     <string name="create_account">Vytvořit účet</string>
     <string name="upload_chooser_title">Nahrát z ...</string>
     <string name="uploader_info_dirname">Název adresáře</string>
