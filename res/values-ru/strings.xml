@@ -3,7 +3,7 @@
 
     <string name="about_android">%1$s для Android</string>
     <string name="about_version">версия %1$s</string>
-    <string name="actionbar_sync">Обновить учетную запись</string>
+    <string name="actionbar_sync">Обновить аккаунт</string>
     <string name="actionbar_upload">Загрузить</string>
     <string name="actionbar_upload_from_apps">Содержимое из других приложений</string>
     <string name="actionbar_upload_files">Файлы</string>
@@ -12,32 +12,28 @@
     <string name="actionbar_settings">Настройки</string>
     <string name="actionbar_see_details">Подробно</string>
     <string name="actionbar_send_file">Отправить</string>
-    <string name="actionbar_sort">Упорядочить</string>
-    <string name="actionbar_sort_title">Упорядочить по</string>
+    <string name="actionbar_sort">Сортировать</string>
+    <string name="actionbar_sort_title">Сортировать по</string>
     <string-array name="actionbar_sortby">
-    	<item>А-Я</item>
-    	<item>Новое - Старое</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
+    	<item>Имени</item>
+    	<item>Дате</item>
+    	<item>Размеру</item>
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Все файлы</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
+    <string name="drawer_item_on_device">На устройстве</string>
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Загрузки</string>
 	<string name="drawer_close">Закрыть</string>
     <string name="drawer_open">Открыть</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
-    <string name="prefs_accounts">Учётные записи</string>
+    <string name="prefs_accounts">Аккаунты</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_passcode">Блокировка кодом</string>
-    <string name="prefs_instant_upload">Мгновенная загрузка фотографий</string>
-    <string name="prefs_instant_upload_summary">Немедленно загружать фотографии, сделанные камерой</string>
-    <string name="prefs_instant_video_upload">Мгновенная загрузка видео</string>
-    <string name="prefs_instant_video_upload_summary">Немедленно загружать видео, сделанные камерой</string>
+    <string name="prefs_instant_upload">Автозагрузка изображений</string>
+    <string name="prefs_instant_upload_summary">Автоматически загружать изображения, сделанные камерой</string>
+    <string name="prefs_instant_video_upload">Автозагрузка видео</string>
+    <string name="prefs_instant_video_upload_summary">Автоматически загружать видео, сделанные камерой</string>
     <string name="prefs_log_title">Включить журналирование</string>
     <string name="prefs_log_summary">Используется для регистрации ошибок</string>
     <string name="prefs_log_title_history">История журналов</string>
@@ -56,14 +52,14 @@
 
     <string name="auth_check_server">Проверить сервер</string>
     <string name="auth_host_url">Адрес сервера https://...</string>
-    <string name="auth_username">Имя пользователя</string>
+    <string name="auth_username">Логин</string>
     <string name="auth_password">Пароль</string>
     <string name="auth_register">Незнакомы с %1$s?</string>
     <string name="sync_string_files">Файлы</string>
     <string name="setup_btn_connect">Подключиться</string>
     <string name="uploader_btn_upload_text">Загрузить</string>
     <string name="uploader_top_message">Выбрать каталог для загрузки</string>
-    <string name="uploader_wrn_no_account_title">Учётная запись не найдена</string>
+    <string name="uploader_wrn_no_account_title">Аккаунт не найден</string>
     <string name="uploader_wrn_no_account_text">На вашем устройстве нет аккаунтов %1$s. Пожалуйста выполните настройку аккаунта.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Настройка</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Выход</string>
@@ -110,6 +106,7 @@
     <string name="about_title">О программе</string>
     <string name="change_password">Сменить пароль</string>
     <string name="delete_account">Удалить аккаунт</string>
+    <string name="delete_account_warning">Удалить аккаунт %s?\\n\\nУдаление не может быть отменено.</string>
     <string name="create_account">Создать учётную запись</string>
     <string name="upload_chooser_title">Загрузить из ...</string>
     <string name="uploader_info_dirname">Имя каталога</string>
@@ -137,7 +134,7 @@
     <string name="uploads_view_upload_status_conflict">Конфликт</string>
     <string name="uploads_view_upload_status_service_interrupted">Работа приложения была прекращена</string>
     <string name="uploads_view_upload_status_unknown_fail">Неизвестная ошибка</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Ожидание соединения по wifi</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Ожидание WiFi-соединения</string>
     <string name="uploads_view_later_waiting_to_upload">Ожидается загрузка</string>
     <string name="downloader_download_in_progress_ticker">Скачивание ...</string>
     <string name="downloader_download_in_progress_content">%1$d%% Скачивается %2$s</string>
@@ -182,7 +179,7 @@
     <string name="media_state_loading">%1$s (загружается)</string>
     <string name="media_event_done">%1$s воспроизведение завершено</string>
     <string name="media_err_nothing_to_play">Медиафайлы не найдены</string>
-    <string name="media_err_no_account">Учётная запись не указана</string>
+    <string name="media_err_no_account">Аккаунт не указан</string>
     <string name="media_err_not_in_owncloud">Файл в неверной учётной записи</string>
     <string name="media_err_unsupported">Неподдерживаемый кодек</string>
     <string name="media_err_io">Медиафайл не может быть прочитан</string>
@@ -231,8 +228,8 @@
 	<string name="auth_can_not_auth_against_server">Не удается авторизоваться на этом сервере</string>
     <string name="auth_account_does_not_exist">Аккаунт ещё не существует на устройстве</string>
     
-    <string name="favorite">Сделать доступным автономно</string>
-    <string name="unfavorite">Убрать доступность автономно</string>
+    <string name="favorite">Сделать доступным офлайн</string>
+    <string name="unfavorite">Убрать доступность офлайн</string>
     <string name="common_rename">Переименовать</string>
     <string name="common_remove">Удалить</string>
     <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>
@@ -294,9 +291,9 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="instant_upload_on_wifi">Загрузка изображений только через wifi</string>
-    <string name="instant_video_upload_on_wifi">Загрузка видео только через wifi</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_upload_on_wifi">Загрузка изображений только через Wi-Fi</string>
+    <string name="instant_video_upload_on_wifi">Загрузка видео только через Wi-Fi</string>
+    <string name="instant_upload_path">/Автозагрузка</string>
     <string name="conflict_title">Конфликт файлов</string>
     <string name="conflict_message">Какие файлы Вы хотите сохранить? При выборе обеих версий, к названию локального файла будет добавлена цифра</string>
     <string name="conflict_keep_both">Сохранить оба</string>
@@ -308,7 +305,10 @@
 
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
     <string name="prefs_instant_upload_path_title">Путь загрузки</string>
-    <string name="share_link_no_support_share_api">Механизм общего доступа не включен на данном сервере. Пожалуйста, свяжитесь с вашим
+    <string name="prefs_instant_upload_path_use_subfolders_title">Использовать подкаталоги</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Хранить в них, учитывая год и месяц</string>
+
+	<string name="share_link_no_support_share_api">Механизм общего доступа не включен на данном сервере. Пожалуйста, свяжитесь с вашим
 ⇥⇥администратором.</string>
 	<string name="share_link_file_no_exist">Невозможно поделиться. Убедитесь, что файл существует</string>
 	<string name="share_link_file_error">При попытке поделиться этим файлом или каталогом произошла ошибка</string>
@@ -346,7 +346,8 @@
     <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
 
     <string name="prefs_category_accounts">Учётные записи</string>
-    <string name="prefs_add_account">Добавить учетную запись</string>
+    <string name="prefs_add_account">Добавить аккаунт</string>
+    <string name="drawer_manage_accounts">Управление аккаунтами</string>
     <string name="auth_redirect_non_secure_connection_title">Безопасное соединение перенаправлено через небезопасный маршрут.</string>
 
 	<string name="actionbar_logger">Журналы</string>
@@ -374,7 +375,7 @@
     <string name="copy_file_error">Произошла ошибка во время копирования этого файла или папки</string>
     <string name="forbidden_permissions_copy">для копирования этого файла</string>
 
-    <string name="prefs_category_instant_uploading">Мгновенные загрузки</string>
+    <string name="prefs_category_instant_uploading">Автоматическая загрузка</string>
     <string name="prefs_category_details">Подробно</string>
 
 	<string name="prefs_instant_video_upload_path_title">Путь загрузки видео</string>
@@ -404,7 +405,9 @@
     <string name="prefs_instant_behaviour_title">Исходный файл будет ...</string>
     <string name="upload_copy_files">Копировать файл</string>
     <string name="upload_move_files">Переместить файл</string>
-    <string name="pref_behaviour_entries_keep_file">остался в исходной папке</string>
+    <string name="select_all">Выделить всё</string>
+
+    <string name="pref_behaviour_entries_keep_file">оставлен в исходной папке</string>
     <string name="pref_behaviour_entries_move">перемещен в папку приложения</string>
 
     <string name="share_dialog_title">Общий доступ</string>

@@ -5,7 +5,7 @@
     <string name="about_version">Version %1$s</string>
     <string name="actionbar_sync">Konto aktualisieren</string>
     <string name="actionbar_upload">Datei hochladen</string>
-    <string name="actionbar_upload_from_apps">Inhalt von anderen Apps</string>
+    <string name="actionbar_upload_from_apps">Inhalt anderer Apps</string>
     <string name="actionbar_upload_files">Dateien</string>
     <string name="actionbar_open_with">Öffnen mit</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
@@ -17,14 +17,10 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Neueste - Älteste</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
+    	<item>Größte - Kleinste</item>
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Alle Dateien</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
+    <string name="drawer_item_on_device">Auf dem Gerät</string>
     <string name="drawer_item_settings">Einstellungen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
 	<string name="drawer_close">Schließen</string>
@@ -53,8 +49,8 @@
 	<string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
 	<string name="recommend_text">Ich möchte Dich zum Benutzen von %1$s auf Deinem Smartphone einladen!\nLade es hier herunter: %2$s</string>
 
-    <string name="auth_check_server">überprüfe den Server</string>
-    <string name="auth_host_url">Serveradresse https://…</string>
+    <string name="auth_check_server">Server überprüfen</string>
+    <string name="auth_host_url">Server-Adresse https://…</string>
     <string name="auth_username">Benutzername</string>
     <string name="auth_password">Passwort</string>
     <string name="auth_register">Ist %1$s neu für dich?</string>
@@ -62,7 +58,7 @@
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
-    <string name="uploader_wrn_no_account_title">Kein Account gefunden</string>
+    <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
     <string name="uploader_wrn_no_account_text">Es sind keine %1$s Konten auf deinem Gerät eingerichtet. Bitte erstelle zuerst ein Konto.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Einrichten</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Beenden</string>
@@ -109,6 +105,7 @@
     <string name="about_title">Über</string>
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
+    <string name="delete_account_warning">Das Konto %s löschen?\\n\\nDas löschen kann nicht rückgängig gemacht werden.</string>
     <string name="create_account">Account erstellen</string>
     <string name="upload_chooser_title">Dateien hochladen von…</string>
     <string name="uploader_info_dirname">Ordnername</string>
