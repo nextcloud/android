@@ -17,14 +17,8 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Më e reja - Më e vjetra</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Krejt kartelat</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
     <string name="drawer_item_settings">Llogari</string>
     <string name="drawer_item_uploads_list">Ngarkime</string>
 	<string name="drawer_close">Mbylle</string>

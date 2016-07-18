@@ -17,14 +17,8 @@
     <string-array name="actionbar_sortby">
     	<item>par ordre alphabétique</item>
     	<item>du plus récent au plus ancien</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Tous les fichiers</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
     <string name="drawer_item_settings">Paramètres</string>
     <string name="drawer_item_uploads_list">Chargements</string>
 	<string name="drawer_close">Fermer</string>
