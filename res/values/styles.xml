@@ -46,6 +46,7 @@
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
 		<item name="android:windowBackground">@color/background_color</item>
 		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+		<item name="windowActionModeOverlay">true</item>
     </style>
 
 	<!-- separate style for Drawer activities needed for v21+ theming -->
