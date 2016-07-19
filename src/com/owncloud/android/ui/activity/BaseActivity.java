@@ -152,7 +152,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             mStorageManager = new FileDataStorageManager(getAccount(), getContentResolver());
             mCapabilities = mStorageManager.getCapability(mCurrentAccount.name);
         } else {
-            Log_OC.wtf(TAG, "onAccountChanged was called with NULL account associated!");
+            Log_OC.e(TAG, "onAccountChanged was called with NULL account associated!");
         }
     }
 
