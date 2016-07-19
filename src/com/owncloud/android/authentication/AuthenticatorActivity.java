@@ -1042,8 +1042,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (result.isSuccess()) {
             boolean success = false;
             String username;
-            if (result.getData().get(0) instanceof UserInfo) {
-                username = ((UserInfo) result.getData().get(0)).mDisplayName;
+            if (result.getData().get(0) instanceof GetRemoteUserInfoOperation.UserInfo) {
+                username = ((GetRemoteUserInfoOperation.UserInfo) result.getData().get(0)).mDisplayName;
             } else {
                 username = (String) result.getData().get(0);
             }
