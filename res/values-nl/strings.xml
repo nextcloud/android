@@ -106,6 +106,7 @@ Download hier: %2$s</string>
     <string name="about_title">Over</string>
     <string name="change_password">Wijzig wachtwoord</string>
     <string name="delete_account">Verwijder account</string>
+    <string name="delete_account_warning">Verwijderen account %s?\\n\\nVerwijdering kan niet ongedaan gemaakt worden.</string>
     <string name="create_account">Maak account aan</string>
     <string name="upload_chooser_title">Upload van ...</string>
     <string name="uploader_info_dirname">Mapnaam</string>

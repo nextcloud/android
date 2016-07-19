@@ -20,6 +20,7 @@
     	<item>El mayor - El menor</item>
     </string-array>
     <string name="drawer_item_all_files">Todos los archivos</string>
+    <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_settings">Ajustes</string>
     <string name="drawer_item_uploads_list">Subidas</string>
 	<string name="drawer_close">Cerrar</string>
@@ -104,6 +105,7 @@
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
+    <string name="delete_account_warning">Borrar cuenta %s?\\n\\nBorrado no puede revertirse.</string>
     <string name="create_account">Crear cuenta</string>
     <string name="upload_chooser_title">Subir desde...</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
