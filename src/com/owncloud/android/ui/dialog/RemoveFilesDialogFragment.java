@@ -35,11 +35,12 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class RemoveFilesDialogFragment extends ConfirmationDialogFragment
 implements ConfirmationDialogFragmentListener {
 
-    private ArrayList<OCFile> mTargetFiles;
+    private Collection<OCFile> mTargetFiles;
 
     private static final String ARG_TARGET_FILES = "TARGET_FILES";
 
@@ -58,9 +59,9 @@ implements ConfirmationDialogFragmentListener {
         boolean containsDown = false;
         boolean containsFavorite = false;
         for (OCFile file: files) {
-            if (file.isFolder()) containsFolder = true;
-            if (file.isDown()) containsDown = true;
-            if (file.isFavorite()) containsFavorite = true;
+            containsFolder |= file.isFolder();
+            containsDown |= file.isDown();
+            containsFavorite |= file.isFavorite();
         }
 
         if (files.size() == 1) {

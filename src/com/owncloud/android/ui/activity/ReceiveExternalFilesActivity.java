@@ -35,7 +35,6 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -269,19 +268,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             CharSequence dialogItems[] = new CharSequence[accounts.length];
             OwnCloudAccount oca;
             for (int i = 0; i < dialogItems.length; ++i) {
-                try {
-                    oca = new OwnCloudAccount(accounts[i], this);
-                    dialogItems[i] =
-                        oca.getDisplayName() + " @ " +
-                        DisplayUtils.convertIdn(
-                            accounts[i].name.substring(accounts[i].name.lastIndexOf("@") + 1),
-                            false
-                        );
-
-                } catch (Exception e) {
-                    Log_OC.w(TAG, "Couldn't read display name of account; using account name instead");
-                    dialogItems[i] = DisplayUtils.convertIdn(accounts[i].name, false);
-                }
+                dialogItems[i] = DisplayUtils.getAccountNameDisplayText(
+                        this, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
             }
             builder.setTitle(R.string.common_choose_account);
             builder.setItems(dialogItems, new OnClickListener() {
