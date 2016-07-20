@@ -36,7 +36,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -64,6 +63,7 @@ import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
@@ -99,8 +99,10 @@ public class OCFileListFragment extends ExtendedListFragment {
     private FileListListAdapter mAdapter;
     private boolean mJustFolders;
 
-    private int mStatusBarColorActionMode;
-    private int mStatusBarColor;
+    private int mSystemBarActionModeColor;
+    private int mSystemBarColor;
+    private int mProgressBarActionModeColor;
+    private int mProgressBarColor;
 
     private boolean mHideFab = true;
     private boolean miniFabClicked = false;
@@ -110,7 +112,10 @@ public class OCFileListFragment extends ExtendedListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
-        mStatusBarColorActionMode = getResources().getColor(R.color.action_mode_status_bar_background);
+        mSystemBarActionModeColor = getResources().getColor(R.color.action_mode_status_bar_background);
+        mSystemBarColor = getResources().getColor(R.color.primary_dark);
+        mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
+        mProgressBarColor = getResources().getColor(R.color.primary);
     }
 
     /**
@@ -119,7 +124,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log_OC.e(TAG, "onAttach");
+        Log_OC.i(TAG, "onAttach");
         try {
             mContainerActivity = (FileFragment.ContainerActivity) context;
 
@@ -166,7 +171,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Log_OC.e(TAG, "onActivityCreated() start");
+        Log_OC.i(TAG, "onActivityCreated() start");
 
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(KEY_FILE);
@@ -321,7 +326,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         // only record if it hasn't been done already at some other time
         if(!miniFabClicked) {
             final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            sp.edit().putLong(KEY_FAB_EVER_CLICKED, 1).commit();
+            sp.edit().putLong(KEY_FAB_EVER_CLICKED, 1).apply();
             miniFabClicked = true;
         }
     }
@@ -362,11 +367,8 @@ public class OCFileListFragment extends ExtendedListFragment {
                 mode.invalidate();
 
                 //set gray color
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Window w = getActivity().getWindow();
-                    mStatusBarColor = w.getStatusBarColor();
-                    w.setStatusBarColor(mStatusBarColorActionMode);
-                }
+                DisplayUtils.colorStatusBar(getActivity(), mSystemBarActionModeColor);
+                DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarActionModeColor);
 
                 // hide FAB in multi selection mode
                 setFabEnabled(false);
@@ -391,6 +393,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     getActivity()
                 );
                 mf.filter(menu);
+
                 return true;
             }
 
@@ -404,9 +407,8 @@ public class OCFileListFragment extends ExtendedListFragment {
                 mActiveActionMode = null;
 
                 // reset to previous color
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getActivity().getWindow().setStatusBarColor(mStatusBarColor);
-                }
+                DisplayUtils.colorStatusBar(getActivity(), mSystemBarColor);
+                DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarColor);
 
                 // show FAB on multi selection mode exit
                 if(!mHideFab) {
