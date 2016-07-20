@@ -677,10 +677,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                 } else {
                     if (!file.isHidden()) {
                         filesCount++;
-
-                        if (file.isImage() || file.isVideo()) {
-                            imagesCount++;
-                        }
                     }
                 }
             }
