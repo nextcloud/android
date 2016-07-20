@@ -247,6 +247,10 @@ public class ShareFileFragment extends Fragment
         // Set listener for user actions on edit permission
         initEditPermissionListener(view);
 
+        // Set listener for hide file listing
+        // TODO only if "allow editing" is true
+        initHideFileListingListener(view);
+
         // Hide share features sections that are not enabled
         hideNotEnabledShareSections(view);
 
@@ -476,6 +480,21 @@ public class ShareFileFragment extends Fragment
 
         ((SwitchCompat) shareView.findViewById(R.id.shareViaLinkEditPermissionSwitch)).
                 setOnCheckedChangeListener(mOnEditPermissionInteractionListener);
+
+    }
+
+    /**
+     * Binds listener for user actions that start any update the hide file listing permissions
+     * for the public link to the views receiving the user events.
+     *
+     * @param shareView Root view in the fragment.
+     */
+    private void initHideFileListingListener(View shareView) {
+        mOnHideFileListingPermissionInteractionListener =
+                new OnHideFileListingPermissionInteractionListener();
+
+        ((SwitchCompat) shareView.findViewById(R.id.shareViaLinkHideListPermissionSwitch)).
+                setOnCheckedChangeListener(mOnHideFileListingPermissionInteractionListener);
 
     }
 
@@ -799,15 +818,20 @@ public class ShareFileFragment extends Fragment
 
             // set null listener before setChecked() to prevent infinite loop of calls
             hideFileListingPermissionSwitch.setOnCheckedChangeListener(null);
-            if (mPublicShare.getPermissions() > OCShare.READ_PERMISSION_FLAG) {
-                if (!hideFileListingPermissionSwitch.isChecked()) {
-                    hideFileListingPermissionSwitch.toggle();
-                }
-            } else {
-                if (hideFileListingPermissionSwitch.isChecked()) {
-                    hideFileListingPermissionSwitch.toggle();
-                }
-            }
+
+            boolean readOnly = (mPublicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) != 0;
+            hideFileListingPermissionSwitch.setChecked(!readOnly);
+
+//            if ((mPublicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) != 0) {
+//                if (!hideFileListingPermissionSwitch.isChecked()) {
+//
+//                }
+//            } else {
+//                if (hideFileListingPermissionSwitch.isChecked()) {
+//                    hideFileListingPermissionSwitch.toggle();
+//                }
+//            }
+
             // recover listener
             hideFileListingPermissionSwitch.setOnCheckedChangeListener(
                     mOnHideFileListingPermissionInteractionListener
