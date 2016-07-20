@@ -47,6 +47,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.ToolbarActivity;
@@ -170,6 +171,27 @@ public class DisplayUtils {
             return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
         } else {
             return dots + url;
+        }
+    }
+
+    /**
+     * creates the display string for an account.
+     *
+     * @param context the actual activity
+     * @param savedAccount the actual, saved account
+     * @param accountName the account name
+     * @param fallbackString String to be used in case of an error
+     * @return the display string for the given account data
+     */
+    public static String getAccountNameDisplayText(Context context, Account savedAccount, String accountName, String
+            fallbackString) {
+        try {
+            return new OwnCloudAccount(savedAccount, context).getDisplayName()
+                    + " @ "
+                    + convertIdn(accountName.substring(accountName.lastIndexOf("@") + 1), false);
+        } catch (Exception e) {
+            Log_OC.w(TAG, "Couldn't get display name for account, using old style");
+            return fallbackString;
         }
     }
 

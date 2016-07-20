@@ -40,20 +40,16 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -94,9 +90,9 @@ import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
-import static com.owncloud.android.db.PreferenceManager.*;
+import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -970,9 +966,7 @@ public class FileDisplayActivity extends HookActivity
                             if (synchResult != null && !synchResult.isSuccess()) {
                                 /// TODO refactor and make common
 
-                                if (ResultCode.UNAUTHORIZED.equals(synchResult.getCode()) ||
-                                    (synchResult.isException() && synchResult.getException()
-                                        instanceof AuthenticatorException)) {
+                                if (checkForRemoteOperationError(synchResult)) {
 
                                     requestCredentialsUpdate(context);
 
@@ -1005,6 +999,12 @@ public class FileDisplayActivity extends HookActivity
                 removeStickyBroadcast(intent);
             }
         }
+    }
+
+    private boolean checkForRemoteOperationError(RemoteOperationResult syncResult) {
+        return ResultCode.UNAUTHORIZED.equals(syncResult.getCode()) ||
+                (syncResult.isException() && syncResult.getException()
+                        instanceof AuthenticatorException);
     }
 
     /**
@@ -1745,9 +1745,9 @@ public class FileDisplayActivity extends HookActivity
     /**
      * Request stopping all upload/download operations in progress over the given {@link OCFile} files.
      *
-     * @param files list of {@link OCFile} files which operations are wanted to be cancel
+     * @param files collection of {@link OCFile} files which operations are wanted to be cancel
      */
-    public void cancelTransference(List<OCFile> files) {
+    public void cancelTransference(Collection<OCFile> files) {
         for(OCFile file: files) {
             cancelTransference(file);
         }

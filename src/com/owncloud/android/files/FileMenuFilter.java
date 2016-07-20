@@ -35,6 +35,8 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -45,7 +47,7 @@ public class FileMenuFilter {
 
     private static final int SINGLE_SELECT_ITEMS = 1;
 
-    private List<OCFile> mFiles;
+    private Collection<OCFile> mFiles;
     private ComponentsGetter mComponentsGetter;
     private Account mAccount;
     private Context mContext;
@@ -53,12 +55,12 @@ public class FileMenuFilter {
     /**
      * Constructor
      *
-     * @param targetFiles       List of {@link OCFile} file targets of the action to filter in the {@link Menu}.
+     * @param targetFiles       Collection of {@link OCFile} file targets of the action to filter in the {@link Menu}.
      * @param account           ownCloud {@link Account} holding targetFile.
      * @param cg                Accessor to app components, needed to access synchronization services
      * @param context           Android {@link Context}, needed to access build setup resources.
      */
-    public FileMenuFilter(List<OCFile> targetFiles, Account account, ComponentsGetter cg,
+    public FileMenuFilter(Collection<OCFile> targetFiles, Account account, ComponentsGetter cg,
                           Context context) {
         mFiles = targetFiles;
         mAccount = account;
@@ -261,8 +263,8 @@ public class FileMenuFilter {
     private boolean anyFileSynchronizing(OperationsServiceBinder opsBinder) {
         boolean synchronizing = false;
         if (opsBinder != null) {
-            for (int i=0; !synchronizing && i < mFiles.size(); i++) {
-                synchronizing = opsBinder.isSynchronizing(mAccount, mFiles.get(i));
+            for (Iterator<OCFile> iterator = mFiles.iterator(); !synchronizing && iterator.hasNext();) {
+                synchronizing = opsBinder.isSynchronizing(mAccount, iterator.next());
             }
         }
         return synchronizing;
@@ -271,8 +273,8 @@ public class FileMenuFilter {
     private boolean anyFileDownloading(FileDownloaderBinder downloaderBinder) {
         boolean downloading = false;
         if (downloaderBinder != null) {
-            for (int i=0; !downloading && i < mFiles.size(); i++) {
-                downloading = downloaderBinder.isDownloading(mAccount, mFiles.get(i));
+            for (Iterator<OCFile> iterator = mFiles.iterator(); !downloading && iterator.hasNext();) {
+                downloading = downloaderBinder.isDownloading(mAccount, iterator.next());
             }
         }
         return downloading;
@@ -281,8 +283,8 @@ public class FileMenuFilter {
     private boolean anyFileUploading(FileUploaderBinder uploaderBinder) {
         boolean uploading = false;
         if (uploaderBinder != null) {
-            for (int i=0; !uploading && i < mFiles.size(); i++) {
-                uploading = uploaderBinder.isUploading(mAccount, mFiles.get(i));
+            for (Iterator<OCFile> iterator = mFiles.iterator(); !uploading && iterator.hasNext();) {
+                uploading = uploaderBinder.isUploading(mAccount, iterator.next());
             }
         }
         return uploading;
@@ -293,7 +295,7 @@ public class FileMenuFilter {
     }
 
     private boolean isSingleFile() {
-        return isSingleSelection() && !mFiles.get(0).isFolder();
+        return isSingleSelection() && !mFiles.iterator().next().isFolder();
     }
 
     private boolean allFiles() {
@@ -335,5 +337,4 @@ public class FileMenuFilter {
         }
         return true;
     }
-
 }
