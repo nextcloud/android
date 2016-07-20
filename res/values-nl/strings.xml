@@ -17,14 +17,10 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Nieuwste - Oudste</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
+    	<item>Grootste - Kleinste</item>
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Alle bestanden</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
+    <string name="drawer_item_on_device">Op het apparaat</string>
     <string name="drawer_item_settings">Instellingen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
 	<string name="drawer_close">Sluiten</string>
@@ -110,6 +106,7 @@ Download hier: %2$s</string>
     <string name="about_title">Over</string>
     <string name="change_password">Wijzig wachtwoord</string>
     <string name="delete_account">Verwijder account</string>
+    <string name="delete_account_warning">Verwijderen account %s?\n\nVerwijdering kan niet ongedaan gemaakt worden.</string>
     <string name="create_account">Maak account aan</string>
     <string name="upload_chooser_title">Upload van ...</string>
     <string name="uploader_info_dirname">Mapnaam</string>
