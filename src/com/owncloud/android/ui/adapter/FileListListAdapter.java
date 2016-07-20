@@ -29,8 +29,10 @@ import java.util.Vector;
 import android.accounts.Account;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.util.SparseBooleanArray;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,7 +144,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         // Find out which layout should be displayed
         ViewType viewType;
         if (parent instanceof GridView) {
-            if (file != null && file.isImage()) {
+            if (file != null && (file.isImage() || file.isVideo())) {
                 viewType = ViewType.GRID_IMAGE;
             } else {
                 viewType = ViewType.GRID_ITEM;
@@ -299,13 +301,19 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
             // No Folder
             if (!file.isFolder()) {
-                if (file.isImage() && file.getRemoteId() != null) {
+                if ((file.isImage() || file.isVideo()) && file.getRemoteId() != null) {
                     // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                             String.valueOf(file.getRemoteId())
                     );
                     if (thumbnail != null && !file.needsUpdateThumbnail()) {
-                        fileIcon.setImageBitmap(thumbnail);
+
+                        if (file.isVideo()) {
+                            Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
+                            fileIcon.setImageBitmap(withOverlay);
+                        } else {
+                            fileIcon.setImageBitmap(thumbnail);
+                        }
                     } else {
                         // generate new Thumbnail
                         if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
@@ -314,7 +322,11 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                             fileIcon, mStorageManager, mAccount
                                     );
                             if (thumbnail == null) {
-                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                if (file.isVideo()) {
+                                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                                } else {
+                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                }
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                     new ThumbnailsCacheManager.AsyncThumbnailDrawable(
