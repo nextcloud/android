@@ -17,14 +17,10 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Più recente - Più datato</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
+    	<item>Più grande - Più piccolo</item>
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Tutti i file</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
+    <string name="drawer_item_on_device">Su dispositivo</string>
     <string name="drawer_item_settings">Impostazioni</string>
     <string name="drawer_item_uploads_list">Caricamenti</string>
 	<string name="drawer_close">Chiudi</string>
@@ -109,6 +105,7 @@
     <string name="about_title">Informazioni</string>
     <string name="change_password">Modifica la password</string>
     <string name="delete_account">Rimuovi account</string>
+    <string name="delete_account_warning">Vuoi eliminare l\'account %s?\\n\\nL\'eliminazione non può essere annullata.</string>
     <string name="create_account">Crea account</string>
     <string name="upload_chooser_title">Carica file da...</string>
     <string name="uploader_info_dirname">Nome della cartella</string>
@@ -444,8 +441,8 @@
     <string name="edit_share_done">completato</string>
 
     <string name="action_retry_uploads">Nuovo tentativo non riuscito</string>
-    <string name="action_clear_failed_uploads">Cancella non riusciti</string>
-    <string name="action_clear_successful_uploads">Cancella corretti</string>
+    <string name="action_clear_failed_uploads">Cancellazione non riuscita</string>
+    <string name="action_clear_successful_uploads">Cancellazione avvenuta</string>
     <string name="action_clear_finished_uploads">Cancella tutti i completati</string>
 
     <string name="action_switch_grid_view">Vista Griglia</string>

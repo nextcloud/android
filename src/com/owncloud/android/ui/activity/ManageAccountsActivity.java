@@ -142,8 +142,12 @@ public class ManageAccountsActivity extends FileActivity
      * @return <code>true</code> if aacount list has changed, <code>false</code> if not
      */
     private boolean hasCurrentAccountChanged() {
-        String currentAccount = AccountUtils.getCurrentOwnCloudAccount(this).name;
-        return !mOriginalCurrentAccount.equals(currentAccount);
+        Account account = AccountUtils.getCurrentOwnCloudAccount(this);
+        if (account == null){
+            return true;
+        } else {
+            return !mOriginalCurrentAccount.equals(account.name);
+        }
     }
 
     /**
