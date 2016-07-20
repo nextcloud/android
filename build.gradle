@@ -17,7 +17,7 @@ buildscript {
 apply plugin: 'com.android.application'
 
 ext {
-    supportLibraryVersion = '23.1.1'
+    supportLibraryVersion = '23.4.0'
 }
 
 repositories {
@@ -53,6 +53,9 @@ dependencies {
 
     // Android JUnit Runner
     androidTestCompile 'com.android.support.test:runner:0.5'
+
+    // Android Annotation Support
+    androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
 
     // Espresso core
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
