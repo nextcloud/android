@@ -48,6 +48,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
@@ -419,7 +420,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                         fileIcon, mParentActivity.getStorageManager(), mParentActivity.getAccount()
                                 );
                         if (thumbnail == null) {
-                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            if (fakeFileToCheatThumbnailsCacheManagerInterface.isVideo()) {
+                                thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                            } else {
+                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            }
                         }
                         final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(
@@ -451,7 +456,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
                         if (thumbnail == null) {
-                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            if (BitmapUtils.isVideo(file)) {
+                                thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                            } else {
+                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            }
                         }
                         final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(
