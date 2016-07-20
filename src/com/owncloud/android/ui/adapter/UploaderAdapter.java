@@ -105,7 +105,11 @@ public class UploaderAdapter extends SimpleAdapter {
                             new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon, mStorageManager, 
                                     mAccount);
                     if (thumbnail == null) {
-                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                        if (file.isVideo()) {
+                            thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                        } else {
+                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                        }
                     }
                     final AsyncThumbnailDrawable asyncDrawable = new AsyncThumbnailDrawable(
                             mContext.getResources(), 
