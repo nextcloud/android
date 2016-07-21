@@ -19,6 +19,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Bitmap;
@@ -36,6 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
@@ -239,7 +241,11 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             uploadDateTextView.setText(dateString);
 
             TextView accountNameTextView = (TextView) view.findViewById(R.id.upload_account);
-            accountNameTextView.setText(upload.getAccountName());
+            Account account = AccountUtils.getOwnCloudAccountByName(mParentActivity, upload.getAccountName());
+            accountNameTextView.setText(
+                    DisplayUtils.getAccountNameDisplayText(
+                            mParentActivity, account, account.name, upload.getAccountName())
+            );
 
             TextView statusTextView = (TextView) view.findViewById(R.id.upload_status);
 
@@ -316,7 +322,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             ImageButton rightButton = (ImageButton) view.findViewById(R.id.upload_right_button);
             if (upload.getUploadStatus() == UploadStatus.UPLOAD_IN_PROGRESS) {
                 //Cancel
-                rightButton.setImageResource(R.drawable.ic_cancel);
+                rightButton.setImageResource(R.drawable.ic_action_cancel_grey);
                 rightButton.setVisibility(View.VISIBLE);
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override
@@ -331,7 +337,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             } else if (upload.getUploadStatus() == UploadStatus.UPLOAD_FAILED) {
                 //Delete
-                rightButton.setImageResource(R.drawable.ic_action_delete);
+                rightButton.setImageResource(R.drawable.ic_action_delete_grey);
                 rightButton.setVisibility(View.VISIBLE);
                 rightButton.setOnClickListener(new OnClickListener() {
                     @Override

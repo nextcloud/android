@@ -117,15 +117,15 @@ public class LogHistoryActivity extends ToolbarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        super.onOptionsItemSelected(item);
+        boolean retval = true;
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
             default:
-                return false;
+                retval = super.onOptionsItemSelected(item);
         }
-        return true;
+        return retval;
     }
 
 
