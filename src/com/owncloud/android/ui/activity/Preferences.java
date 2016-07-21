@@ -91,6 +91,9 @@ public class Preferences extends PreferenceActivity {
     public static final String MORE = "more";
     public static final String HELP = "help";
 
+    private static String INSTANT_UPLOAD_ACCOUNT_LABEL;
+    private static String INSTANT_UPLOAD_PATH_LABEL;
+
     private CheckBoxPreference pCode;
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
@@ -376,6 +379,9 @@ public class Preferences extends PreferenceActivity {
                pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
        }
 
+        INSTANT_UPLOAD_ACCOUNT_LABEL = getResources().getString(R.string.prefs_instant_upload_account);
+        INSTANT_UPLOAD_PATH_LABEL = getResources().getString(R.string.prefs_instant_upload_path);
+
        loadInstantUploadPath();
        loadInstantUploadVideoPath();
     }
@@ -588,7 +594,8 @@ public class Preferences extends PreferenceActivity {
      * Returns a combined string of accountName and uploadPath to be displayed to user.
      */
     private String getUploadAccountPath(String accountName, String uploadPath) {
-        return accountName + ":" + uploadPath;
+        return INSTANT_UPLOAD_ACCOUNT_LABEL + ": " + accountName + "\n"
+                + INSTANT_UPLOAD_PATH_LABEL + ": " + uploadPath;
     }
 
     /**
