@@ -349,9 +349,11 @@ public class AccountUtils {
         return getAccount(com.owncloud.android.db.PreferenceManager.instantVideoUploadPathAccount(context));
     }
 
+    /**
+     * Returns account for given account name or null, if not defined.
+     * @return account named accountNam or null
+     */
     private static Account getAccount(String accountName) {
-        Account account = AccountUtils.getOwnCloudAccountByName(MainApp.getAppContext(),
-                accountName);
-        return account;
+        return getOwnCloudAccountByName(MainApp.getAppContext(), accountName);
     }
 }
