@@ -171,7 +171,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         if (listOfFiles != null) {
             return (OCFileListFragment)listOfFiles;
         }
-        Log_OC.wtf(TAG, "Access to unexisting list of files fragment!!");
+        Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
         return null;
     }
 

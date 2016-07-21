@@ -353,12 +353,12 @@ public class FileDisplayActivity extends HookActivity
             }
 
         } else {
-            Log_OC.wtf(TAG, "initFragments() called with invalid NULLs!");
+            Log_OC.e(TAG, "initFragments() called with invalid NULLs!");
             if (getAccount() == null) {
-                Log_OC.wtf(TAG, "\t account is NULL");
+                Log_OC.e(TAG, "\t account is NULL");
             }
             if (getFile() == null) {
-                Log_OC.wtf(TAG, "\t file is NULL");
+                Log_OC.e(TAG, "\t file is NULL");
             }
         }
     }
@@ -435,7 +435,7 @@ public class FileDisplayActivity extends HookActivity
         if (listOfFiles != null) {
             return (OCFileListFragment) listOfFiles;
         }
-        Log_OC.wtf(TAG, "Access to unexisting list of files fragment!!");
+        Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
         return null;
     }
 
