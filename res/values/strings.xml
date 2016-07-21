@@ -321,6 +321,8 @@
     <string name="prefs_instant_upload_path_title">Instant upload folder</string>
     <string name="prefs_folder_sync_local_path_title">Local folder</string>
     <string name="prefs_folder_sync_remote_path_title">Remote folder</string>
+    <string name="prefs_instant_upload_account">Account</string>
+    <string name="prefs_instant_upload_path">Path</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
 
