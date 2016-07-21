@@ -20,10 +20,6 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Comparator;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
@@ -37,10 +33,16 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
+
+import java.io.File;
+import java.util.Arrays;
+import java.util.Comparator;
 
 /**
  * This Adapter populates a ListView with all files and directories contained
@@ -56,6 +58,11 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
     
     public LocalFileListAdapter(File directory, Context context) {
         mContext = context;
+
+        // Read sorting order, default to sort by name ascending
+        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(context);
+        FileStorageUtils.mSortAscending =PreferenceManager.getSortAscending(context);
+
         swapDirectory(directory);
     }
 
@@ -109,9 +116,9 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
 
             /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
-             * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
+             * {@link ThumbnailsCacheManager#cancelPotentialThumbnailWork} will NEVER cancel any task.
              **/
-            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon));
+            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon));
 
             if (!file.isDirectory()) {
                 fileIcon.setImageResource(R.drawable.file);
@@ -159,10 +166,14 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
                             if (thumbnail == null) {
-                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                if (BitmapUtils.isVideo(file)) {
+                                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                                } else {
+                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                }
                             }
-                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                        		new ThumbnailsCacheManager.AsyncDrawable(
+                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                        		new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                     mContext.getResources(), 
                                     thumbnail, 
                                     task
@@ -232,7 +243,20 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 }
             
             });
+
+            mFiles = FileStorageUtils.sortLocalFolder(mFiles);
         }
+        notifyDataSetChanged();
+    }
+
+    public void setSortOrder(Integer order, boolean ascending) {
+        PreferenceManager.setSortOrder(mContext, order);
+        PreferenceManager.setSortAscending(mContext, ascending);
+
+        FileStorageUtils.mSortOrder = order;
+        FileStorageUtils.mSortAscending = ascending;
+
+        mFiles = FileStorageUtils.sortLocalFolder(mFiles);
         notifyDataSetChanged();
     }
 }

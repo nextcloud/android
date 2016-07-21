@@ -19,17 +19,26 @@
  */
 package com.owncloud.android.utils;
 
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.graphics.BitmapFactory.Options;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.webkit.MimeTypeMap;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 /**
  * Utility class with methods for decoding Bitmaps.
@@ -70,7 +79,6 @@ public class BitmapUtils {
         // decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(srcPath, options);
-        
     }    
 
 
@@ -266,5 +274,53 @@ public class BitmapUtils {
 
         return (mimeType != null && mimeType.startsWith("image/"));
     }
-    
+
+    /**
+     * Checks if file passed is a video
+     * @param file
+     * @return true/false
+     */
+    public static boolean isVideo(File file) {
+        Uri selectedUri = Uri.fromFile(file);
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
+        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+
+        return (mimeType != null && mimeType.startsWith("video/"));
+    }
+
+    /**
+     * calculates the RGB value based on a given account name.
+     *
+     * @param accountName The account name
+     * @return corresponding RGB color
+     * @throws UnsupportedEncodingException if the charset is not supported
+     * @throws NoSuchAlgorithmException if the specified algorithm is not available
+     */
+    public static int[] calculateRGB(String accountName) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        // using adapted algorithm from /core/js/placeholder.js:50
+        String username = AccountUtils.getAccountUsername(accountName);
+        byte[] seed = username.getBytes("UTF-8");
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        Integer seedMd5Int = String.format(Locale.ROOT, "%032x",
+                new BigInteger(1, md.digest(seed))).hashCode();
+
+        double maxRange = Integer.MAX_VALUE;
+        float hue = (float) (seedMd5Int / maxRange * 360);
+
+        return BitmapUtils.HSLtoRGB(hue, 90.0f, 65.0f, 1.0f);
+    }
+
+    /**
+     * Returns a new circular bitmap drawable by creating it from a bitmap, setting initial target density based on
+     * the display metrics of the resources.
+     *
+     * @param resources the resources for initial target density
+     * @param bitmap the original bitmap
+     * @return the circular bitmap
+     */
+    public static RoundedBitmapDrawable bitmapToCircularBitmapDrawable(Resources resources, Bitmap bitmap) {
+        RoundedBitmapDrawable roundedBitmap = RoundedBitmapDrawableFactory.create(resources, bitmap);
+        roundedBitmap.setCircular(true);
+        return roundedBitmap;
+    }
 }

@@ -22,29 +22,39 @@
 
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.Display;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.activity.ToolbarActivity;
 
 import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +63,7 @@ import java.util.Map;
  * A helper class for some string operations.
  */
 public class DisplayUtils {
+    private static final String TAG = DisplayUtils.class.getSimpleName();
     
     private static final String OWNCLOUD_APP_NAME = "ownCloud";
     
@@ -160,6 +171,27 @@ public class DisplayUtils {
             return dots + urlNoDots.substring(0, hostStart) + host + urlNoDots.substring(hostEnd);
         } else {
             return dots + url;
+        }
+    }
+
+    /**
+     * creates the display string for an account.
+     *
+     * @param context the actual activity
+     * @param savedAccount the actual, saved account
+     * @param accountName the account name
+     * @param fallbackString String to be used in case of an error
+     * @return the display string for the given account data
+     */
+    public static String getAccountNameDisplayText(Context context, Account savedAccount, String accountName, String
+            fallbackString) {
+        try {
+            return new OwnCloudAccount(savedAccount, context).getDisplayName()
+                    + " @ "
+                    + convertIdn(accountName.substring(accountName.lastIndexOf("@") + 1), false);
+        } catch (Exception e) {
+            Log_OC.w(TAG, "Couldn't get display name for account, using old style");
+            return fallbackString;
         }
     }
 
@@ -277,5 +309,79 @@ public class DisplayUtils {
     public static void colorSnackbar(Context context, Snackbar snackbar) {
         // Changing action button text color
         snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.white));
+    }
+
+    /**
+     * Sets the color of the status bar to {@code color} on devices with OS version lollipop or higher.
+     *
+     * @param fragmentActivity fragment activity
+     * @param color the color
+     */
+    public static void colorStatusBar(FragmentActivity fragmentActivity, @ColorInt int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            fragmentActivity.getWindow().setStatusBarColor(color);
+        }
+    }
+
+    /**
+     * Sets the color of the progressbar to {@code color} within the given toolbar.
+     *
+     * @param activity the toolbar activity instance
+     * @param progressBarColor the color to be used for the toolbar's progress bar
+     */
+    public static void colorToolbarProgressBar(FragmentActivity activity, int progressBarColor) {
+        if(activity instanceof ToolbarActivity) {
+            ((ToolbarActivity) activity).setProgressBarBackgroundColor(progressBarColor);
+        }
+    }
+
+    public interface AvatarGenerationListener {
+        void avatarGenerated(Drawable avatarDrawable, Object callContext);
+        boolean shouldCallGeneratedCallback(String tag, Object callContext);
+    }
+
+    /**
+     * fetches and sets the avatar of the current account in the drawer in case the drawer is available.
+     *
+     * @param account        the account to be set in the drawer
+     * @param avatarRadius   the avatar radius
+     * @param resources      reference for density information
+     * @param storageManager reference for caching purposes
+     */
+    public static void setAvatar(Account account, AvatarGenerationListener listener, float avatarRadius, Resources resources,
+                           FileDataStorageManager storageManager, Object callContext) {
+        if (account != null) {
+            if (callContext instanceof View)
+                ((View)callContext).setContentDescription(account.name);
+
+            // Thumbnail in Cache?
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);
+
+            if (thumbnail != null) {
+                listener.avatarGenerated(
+                        BitmapUtils.bitmapToCircularBitmapDrawable(MainApp.getAppContext().getResources(), thumbnail),
+                        callContext);
+            } else {
+                // generate new avatar
+                if (ThumbnailsCacheManager.cancelPotentialAvatarWork(account.name, callContext)) {
+                    final ThumbnailsCacheManager.AvatarGenerationTask task =
+                            new ThumbnailsCacheManager.AvatarGenerationTask(listener, callContext, storageManager, account);
+                    if (thumbnail == null) {
+                        try {
+                            listener.avatarGenerated(TextDrawable.createAvatar(account.name, avatarRadius), callContext);
+                        } catch (Exception e) {
+                            Log_OC.e(TAG, "Error calculating RGB value for active account icon.", e);
+                            listener.avatarGenerated(resources.getDrawable(R.drawable.ic_account_circle), callContext);
+                        }
+                    } else {
+                        final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, thumbnail, task);
+                        listener.avatarGenerated(BitmapUtils.bitmapToCircularBitmapDrawable(
+                                        resources, asyncDrawable.getBitmap()), callContext);
+                    }
+                    task.execute(account.name);
+                }
+            }
+        }
     }
 }

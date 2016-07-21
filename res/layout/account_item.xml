@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2016 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="72dp"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/user_icon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:src="@drawable/ic_menu_archive"/>
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/standard_margin"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/standard_padding"
+        android:text="@string/placeholder_filename"
+        android:textColor="@color/textColor"
+        android:textSize="@dimen/two_line_primary_text_size"/>
+
+    <ImageButton
+        android:id="@+id/passwordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="@dimen/standard_half_padding"
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_half_padding"
+        android:background="?android:selectableItemBackground"
+        android:src="@drawable/ic_key"/>
+
+    <ImageButton
+        android:id="@+id/removeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="@dimen/standard_half_padding"
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:background="?android:selectableItemBackground"
+        android:src="@drawable/ic_action_delete_grey"/>
+
+</LinearLayout>         

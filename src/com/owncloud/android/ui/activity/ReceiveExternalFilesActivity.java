@@ -31,11 +31,10 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -59,6 +58,7 @@ import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -67,9 +67,9 @@ import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
+import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DisplayUtils;
@@ -156,7 +156,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             fm.beginTransaction()
                     .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
-
     }
 
     @Override
@@ -265,14 +264,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
             });
             return builder.create();
         case DIALOG_MULTIPLE_ACCOUNT:
-            CharSequence ac[] = new CharSequence[
-                    mAccountManager.getAccountsByType(MainApp.getAccountType()).length];
-            for (int i = 0; i < ac.length; ++i) {
-                ac[i] = DisplayUtils.convertIdn(
-                        mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name, false);
+            Account accounts[] = mAccountManager.getAccountsByType(MainApp.getAccountType());
+            CharSequence dialogItems[] = new CharSequence[accounts.length];
+            OwnCloudAccount oca;
+            for (int i = 0; i < dialogItems.length; ++i) {
+                dialogItems[i] = DisplayUtils.getAccountNameDisplayText(
+                        this, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
             }
             builder.setTitle(R.string.common_choose_account);
-            builder.setItems(ac, new OnClickListener() {
+            builder.setItems(dialogItems, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
@@ -313,8 +313,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        // TODO Enable when "On Device" is recovered ?
-        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
+        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile , false);
         sortFileList(tmpfiles);
 
         if (tmpfiles.size() <= 0) return;
@@ -380,9 +379,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
+        setupToolbar();
+        ActionBar actionBar = getSupportActionBar();
 
         ListView mListView = (ListView) findViewById(android.R.id.list);
-        ActionBar actionBar = getSupportActionBar();
 
         String current_dir = mParents.peek();
         if (current_dir.equals("")) {
@@ -402,8 +402,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         mFile = getStorageManager().getFileByPath(full_path);
         if (mFile != null) {
-            // TODO Enable when "On Device" is recovered ?
-            Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
+            Vector<OCFile> files = getStorageManager().getFolderContent(mFile, false);
             sortFileList(files);
 
             List<HashMap<String, Object>> data = new LinkedList<>();
@@ -454,11 +453,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
         synchFolderOp.execute(getAccount(), this, null, null);
     }
 
-    private void sortFileList(Vector<OCFile> files) {
+    private Vector<OCFile> sortFileList(Vector<OCFile> files) {
         // Read sorting order, default to sort by name ascending
         FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(this);
         FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(this);
-        FileStorageUtils.sortFolder(files);
+        return FileStorageUtils.sortOcFolder(files);
     }
 
     private String generatePath(Stack<String> dirs) {

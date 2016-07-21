@@ -64,8 +64,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      * @param storageManager    Bridge to database.
      */
     public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder,
-                                    Account account, FileDataStorageManager storageManager /*,
-                                    boolean onlyOnDevice*/) {
+                                    Account account, FileDataStorageManager storageManager,
+                                    boolean onlyOnDevice) {
         super(fragmentManager);
         
         if (fragmentManager == null) {
@@ -80,10 +80,9 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
         mAccount = account;
         mStorageManager = storageManager;
-        // TODO Enable when "On Device" is recovered ?
-        mImageFiles = mStorageManager.getFolderImages(parentFolder/*, false*/);
+        mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
         
-        mImageFiles = FileStorageUtils.sortFolder(mImageFiles);
+        mImageFiles = FileStorageUtils.sortOcFolder(mImageFiles);
         
         mObsoleteFragments = new HashSet<Object>();
         mObsoletePositions = new HashSet<Integer>();

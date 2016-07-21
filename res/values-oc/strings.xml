@@ -54,7 +54,6 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="sync_string_files">Fichièrs</string>
   <string name="setup_btn_connect">Connectar</string>
   <string name="uploader_btn_upload_text">Mandar</string>
-  <string name="uploader_top_message">Seleccionar lo dorsièr de mandadís :</string>
   <string name="uploader_wrn_no_account_title">Cap de compte es pas estat trobat</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuracion</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quitar</string>

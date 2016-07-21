@@ -51,7 +51,10 @@ import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.adapter.DiskLruImageCacheFileProvider;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
+import java.util.Collection;
 import java.util.List;
+
+import java.util.ArrayList;
 
 /**
  *
@@ -125,7 +128,7 @@ public class FileOperationsHelper {
             }
 
         } else {
-            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+            Log_OC.e(TAG, "Trying to open a NULL OCFile");
         }
     }
 
@@ -164,7 +167,7 @@ public class FileOperationsHelper {
                 mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
             } else {
-                Log_OC.wtf(TAG, "Trying to share a NULL OCFile");
+                Log_OC.e(TAG, "Trying to share a NULL OCFile");
                 // TODO user-level error?
             }
 
@@ -191,7 +194,7 @@ public class FileOperationsHelper {
                 mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
             } else {
-                Log_OC.wtf(TAG, "Trying to share a NULL OCFile");
+                Log_OC.e(TAG, "Trying to share a NULL OCFile");
             }
         } else {
             // Show a Message
@@ -227,7 +230,7 @@ public class FileOperationsHelper {
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         } else {
-            Log_OC.wtf(TAG, "Trying to share a NULL OCFile");
+            Log_OC.e(TAG, "Trying to share a NULL OCFile");
         }
     }
 
@@ -396,7 +399,7 @@ public class FileOperationsHelper {
     /**
      * @return 'True' if the server supports the Search Users API
      */
-    public boolean isSearchUsersSupportedSupported() {
+    public boolean isSearchUserSupportedSupported() {
         if (mFileActivity.getAccount() != null) {
             OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
             return (serverVersion != null && serverVersion.isSearchUsersSupported());
@@ -420,7 +423,13 @@ public class FileOperationsHelper {
             chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
         } else {
-            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+            Log_OC.e(TAG, "Trying to send a NULL OCFile");
+        }
+    }
+
+    public void syncFiles(Collection<OCFile> files) {
+        for (OCFile file: files) {
+            syncFile(file);
         }
     }
 
@@ -469,6 +478,12 @@ public class FileOperationsHelper {
         }
     }
 
+    public void toggleFavorites(Collection<OCFile> files, boolean isFavorite){
+        for (OCFile file: files) {
+            toggleFavorite(file, isFavorite);
+        }
+    }
+
     public void toggleFavorite(OCFile file, boolean isFavorite) {
         file.setFavorite(isFavorite);
         mFileActivity.getStorageManager().saveFile(file);
@@ -496,22 +511,29 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_NEWNAME, newFilename);
         mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
         
-        mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                getString(R.string.wait_a_moment));
+        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
     }
 
 
-    public void removeFile(OCFile file, boolean onlyLocalCopy) {
-        // RemoveFile
-        Intent service = new Intent(mFileActivity, OperationsService.class);
-        service.setAction(OperationsService.ACTION_REMOVE);
-        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
-        service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
-        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+    /**
+     * Start operations to delete one or several files
+     *
+     * @param files             Files to delete
+     * @param onlyLocalCopy     When 'true' only local copy of the files is removed; otherwise files are also deleted
+     *                          in the server.
+     */
+    public void removeFiles(Collection<OCFile> files, boolean onlyLocalCopy) {
+        for (OCFile file : files) {
+            // RemoveFile
+            Intent service = new Intent(mFileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_REMOVE);
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, onlyLocalCopy);
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        }
         
-        mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                getString(R.string.wait_a_moment));
+        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
     }
 
 
@@ -524,8 +546,7 @@ public class FileOperationsHelper {
         service.putExtra(OperationsService.EXTRA_CREATE_FULL_PATH, createFullPath);
         mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
         
-        mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                getString(R.string.wait_a_moment));
+        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
     }
 
     /**
@@ -554,41 +575,39 @@ public class FileOperationsHelper {
     }
 
     /**
-     * Start move file operation
+     * Start operations to move one or several files
      *
-     * @param newfile     File where it is going to be moved
-     * @param currentFile File with the previous info
+     * @param files            Files to move
+     * @param targetFolder     Folder where the files while be moved into
      */
-    public void moveFile(OCFile newfile, OCFile currentFile) {
-        // Move files
-        Intent service = new Intent(mFileActivity, OperationsService.class);
-        service.setAction(OperationsService.ACTION_MOVE_FILE);
-        service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, newfile.getRemotePath());
-        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, currentFile.getRemotePath());
-        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-        mWaitingForOpId =  mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
-
-        mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                getString(R.string.wait_a_moment));
+    public void moveFiles(Collection<OCFile> files, OCFile targetFolder) {
+        for (OCFile file : files) {
+            Intent service = new Intent(mFileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_MOVE_FILE);
+            service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        }
+        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
     }
 
     /**
-     * Start copy file operation
+     * Start operations to copy one or several files
      *
-     * @param newfile     File where it is going to be moved
-     * @param currentFile File with the previous info
+     * @param files            Files to copy
+     * @param targetFolder     Folder where the files while be copied into
      */
-    public void copyFile(OCFile newfile, OCFile currentFile) {
-        // Copy files
-        Intent service = new Intent(mFileActivity, OperationsService.class);
-        service.setAction(OperationsService.ACTION_COPY_FILE);
-        service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, newfile.getRemotePath());
-        service.putExtra(OperationsService.EXTRA_REMOTE_PATH, currentFile.getRemotePath());
-        service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
-        mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
-
-        mFileActivity.showLoadingDialog(mFileActivity.getApplicationContext().
-                getString(R.string.wait_a_moment));
+    public void copyFiles(Collection<OCFile> files, OCFile targetFolder) {
+        for (OCFile file : files) {
+            Intent service = new Intent(mFileActivity, OperationsService.class);
+            service.setAction(OperationsService.ACTION_COPY_FILE);
+            service.putExtra(OperationsService.EXTRA_NEW_PARENT_PATH, targetFolder.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
+            service.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+            mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
+        }
+        mFileActivity.showLoadingDialog(mFileActivity.getString(R.string.wait_a_moment));
     }
 
     public long getOpIdWaitingFor() {
@@ -624,7 +643,7 @@ public class FileOperationsHelper {
         mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         mFileActivity.showLoadingDialog(
-            mFileActivity.getApplicationContext().getString(R.string.wait_checking_credentials)
+            mFileActivity.getString(R.string.wait_checking_credentials)
         );
     }
 }

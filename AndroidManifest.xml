@@ -3,7 +3,8 @@
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2012-2015 ownCloud Inc.
+  Copyright (C) 2012-2016 ownCloud Inc.
+  Copyright (C) 2016 Nextcloud
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -19,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10000100"
-    android:versionName="1.0.1" >
+    android:versionCode="10020001"
+    android:versionName="1.2.0 RC1">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -59,22 +60,24 @@
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.ownCloud"
-        android:manageSpaceActivity=".ui.activity.ManageSpaceActivity">
+        android:theme="@style/Theme.ownCloud.Toolbar"
+        android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ownCloud.Toolbar.Drawer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.ManageAccountsActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
-                  android:theme="@style/Theme.ownCloud">
+                  android:theme="@style/Theme.ownCloud.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -135,14 +138,14 @@
 
         <provider
             android:name=".providers.UsersAndGroupsSearchProvider"
-            android:authorities=".providers.UsersAndGroupsSearchProvider"
+            android:authorities="com.nextcloud.android.providers.UsersAndGroupsSearchProvider"
             android:enabled="true"
             android:exported="false"
             android:label="@string/search_users_and_groups_hint" />
 
         <provider
-            android:authorities="@string/document_provider_authority"
             android:name="org.nextcloud.providers.DocumentsStorageProvider"
+            android:authorities="@string/document_provider_authority"
             android:exported="true"
             android:grantUriPermissions="true"
             android:permission="android.permission.MANAGE_DOCUMENTS"
@@ -162,7 +165,7 @@
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.ownCloud.noActionBar" >
+            android:theme="@style/Theme.ownCloud.noActionBar.Login" >
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
