@@ -1,7 +1,7 @@
 /**
  *   ownCloud Android client application
  *
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -27,7 +27,6 @@ import android.os.Looper;
 import android.os.Message;
 import android.util.Pair;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -82,7 +81,7 @@ class SyncFolderHandler extends Handler {
      */
     public boolean isSynchronizing(Account account, String remotePath) {
         if (account == null || remotePath == null) return false;
-        return (mPendingOperations.contains(account, remotePath));
+        return (mPendingOperations.contains(account.name, remotePath));
     }
 
 
@@ -100,7 +99,7 @@ class SyncFolderHandler extends Handler {
      */
     private void doOperation(Account account, String remotePath) {
 
-        mCurrentSyncOperation = mPendingOperations.get(account, remotePath);
+        mCurrentSyncOperation = mPendingOperations.get(account.name, remotePath);
 
         if (mCurrentSyncOperation != null) {
             RemoteOperationResult result = null;
@@ -127,7 +126,7 @@ class SyncFolderHandler extends Handler {
             } catch (IOException e) {
                 Log_OC.e(TAG, "Error while trying to get authorization", e);
             } finally {
-                mPendingOperations.removePayload(account, remotePath);
+                mPendingOperations.removePayload(account.name, remotePath);
 
                 mService.dispatchResultToOperationListeners(mCurrentSyncOperation, result);
 
@@ -138,15 +137,18 @@ class SyncFolderHandler extends Handler {
 
     public void add(Account account, String remotePath,
                     SynchronizeFolderOperation syncFolderOperation){
-        mPendingOperations.putIfAbsent(account, remotePath, syncFolderOperation);
-        sendBroadcastNewSyncFolder(account, remotePath);    // TODO upgrade!
+        Pair<String, String> putResult =
+                mPendingOperations.putIfAbsent(account.name, remotePath, syncFolderOperation);
+        if (putResult != null) {
+            sendBroadcastNewSyncFolder(account, remotePath);    // TODO upgrade!
+        }
     }
 
 
     /**
      * Cancels a pending or current sync' operation.
      *
-     * @param account       ownCloud account where the remote file is stored.
+     * @param account       ownCloud {@link Account} where the remote file is stored.
      * @param file          A file in the queue of pending synchronizations
      */
     public void cancel(Account account, OCFile file){
@@ -155,7 +157,7 @@ class SyncFolderHandler extends Handler {
             return;
         }
         Pair<SynchronizeFolderOperation, String> removeResult =
-                mPendingOperations.remove(account, file.getRemotePath());
+                mPendingOperations.remove(account.name, file.getRemotePath());
         SynchronizeFolderOperation synchronization = removeResult.first;
         if (synchronization != null) {
             synchronization.cancel();

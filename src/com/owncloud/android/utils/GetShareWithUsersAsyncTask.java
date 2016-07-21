@@ -64,8 +64,10 @@ public class GetShareWithUsersAsyncTask extends AsyncTask<Object, Void, Pair<Rem
             try {
                 // Get shares request
                 operation = new GetSharesForFileOperation(file.getRemotePath(), false, false);
-                OwnCloudAccount ocAccount = new OwnCloudAccount(account,
-                        MainApp.getAppContext());
+                OwnCloudAccount ocAccount = new OwnCloudAccount(
+                        account,
+                        MainApp.getAppContext()
+                );
                 OwnCloudClient client = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, MainApp.getAppContext());
                 result = operation.execute(client, fileDataStorageManager);

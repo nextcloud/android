@@ -37,6 +37,7 @@ import android.widget.ListView;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.utils.FileStorageUtils;
 
 
 /**
@@ -54,7 +55,6 @@ public class LocalFileListFragment extends ExtendedListFragment {
     /** Adapter to connect the data from the directory with the View object */
     private LocalFileListAdapter mAdapter = null;
 
-    
     /**
      * {@inheritDoc}
      */
@@ -79,6 +79,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         View v = super.onCreateView(inflater, container, savedInstanceState);
         setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         setSwipeEnabled(false); // Disable pull-to-refresh
+        setFabEnabled(false); // Disable FAB
         setMessageForEmptyList(getString(R.string.local_file_list_empty));
         Log_OC.i(TAG, "onCreateView() end");
         return v;
@@ -113,6 +114,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 listDirectory(file);
                 // notify the click to container Activity
                 mContainerActivity.onDirectoryClick(file);
+
                 // save index and top position
                 saveIndexAndTopPosition(position);
             
@@ -120,9 +122,9 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
                 if (checkBoxV != null) {
                     if (((ListView)getListView()).isItemChecked(position)) {
-                        checkBoxV.setImageResource(android.R.drawable.checkbox_on_background);
+                        checkBoxV.setImageResource(R.drawable.ic_checkbox_marked);
                     } else {
-                        checkBoxV.setImageResource(android.R.drawable.checkbox_off_background);
+                        checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
                     }
                 }
                 // notify the change to the container Activity
@@ -228,6 +230,32 @@ public class LocalFileListFragment extends ExtendedListFragment {
         return result.toArray(new String[result.size()]);
     }
 
+    public void sortByName(boolean descending) {
+        mAdapter.setSortOrder(FileStorageUtils.SORT_NAME, descending);
+    }
+
+    public void sortByDate(boolean descending) {
+        mAdapter.setSortOrder(FileStorageUtils.SORT_DATE, descending);
+    }
+
+    public void sortBySize(boolean descending) {
+        mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
+    }
+
+    /**
+     * De-/select all elements in the local file list.
+     *
+     * @param select <code>true</code> to select all, <code>false</code> to deselect all
+     */
+    public void selectAllFiles(boolean select) {
+        ListView listView = (ListView) getListView();
+        for (int position = 0; position < listView.getCount(); position++) {
+            File file = (File) mAdapter.getItem(position);
+            if (file.isFile()) {
+                listView.setItemChecked(position, select);
+            }
+        }
+    }
     
     /**
      * Interface to implement by any Activity that includes some instance of LocalFileListFragment

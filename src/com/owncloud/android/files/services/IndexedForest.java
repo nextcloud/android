@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -20,7 +20,6 @@
 
 package com.owncloud.android.files.services;
 
-import android.accounts.Account;
 import android.util.Pair;
 
 import com.owncloud.android.datamodel.OCFile;
@@ -98,59 +97,67 @@ public class IndexedForest<V> {
     }
 
 
-    public /* synchronized */ Pair<String, String> putIfAbsent(Account account, String remotePath, V value) {
-        String targetKey = buildKey(account, remotePath);
+    public /* synchronized */ Pair<String, String> putIfAbsent(String accountName, String remotePath, V value) {
+        String targetKey = buildKey(accountName, remotePath);
+
         Node<V> valuedNode = new Node(targetKey, value);
-        mMap.putIfAbsent(
-                targetKey,
-                valuedNode
+        Node<V> previousValue = mMap.putIfAbsent(
+            targetKey,
+            valuedNode
         );
+        if (previousValue != null) {
+            // remotePath already known; not replaced
+            return null;
 
-        String currentPath = remotePath, parentPath = null, parentKey = null;
-        Node<V> currentNode = valuedNode, parentNode = null;
-        boolean linked = false;
-        while (!OCFile.ROOT_PATH.equals(currentPath) && !linked) {
-            parentPath = new File(currentPath).getParent();
-            if (!parentPath.endsWith(OCFile.PATH_SEPARATOR)) {
-                parentPath += OCFile.PATH_SEPARATOR;
+        } else {
+            // value really added
+            String currentPath = remotePath, parentPath = null, parentKey = null;
+            Node<V> currentNode = valuedNode, parentNode = null;
+            boolean linked = false;
+            while (!OCFile.ROOT_PATH.equals(currentPath) && !linked) {
+                parentPath = new File(currentPath).getParent();
+                if (!parentPath.endsWith(OCFile.PATH_SEPARATOR)) {
+                    parentPath += OCFile.PATH_SEPARATOR;
+                }
+                parentKey = buildKey(accountName, parentPath);
+                parentNode = mMap.get(parentKey);
+                if (parentNode == null) {
+                    parentNode = new Node(parentKey, null);
+                    parentNode.addChild(currentNode);
+                    mMap.put(parentKey, parentNode);
+                } else {
+                    parentNode.addChild(currentNode);
+                    linked = true;
+                }
+                currentPath = parentPath;
+                currentNode = parentNode;
             }
-            parentKey = buildKey(account, parentPath);
-            parentNode = mMap.get(parentKey);
-            if (parentNode == null) {
-                parentNode = new Node(parentKey, null);
-                parentNode.addChild(currentNode);
-                mMap.put(parentKey, parentNode);
-            } else {
-                parentNode.addChild(currentNode);
-                linked = true;
-            }
-            currentPath = parentPath;
-            currentNode = parentNode;
-        }
 
-        String linkedTo = OCFile.ROOT_PATH;
-        if (linked) {
-            linkedTo = parentNode.getKey().substring(account.name.length());
+            String linkedTo = OCFile.ROOT_PATH;
+            if (linked) {
+                linkedTo = parentNode.getKey().substring(accountName.length());
+            }
+
+            return new Pair<String, String>(targetKey, linkedTo);
         }
-        return new Pair<String, String>(targetKey, linkedTo);
     };
 
 
-    public Pair<V, String> removePayload(Account account, String remotePath) {
-        String targetKey = buildKey(account, remotePath);
+    public Pair<V, String> removePayload(String accountName, String remotePath) {
+        String targetKey = buildKey(accountName, remotePath);
         Node<V> target = mMap.get(targetKey);
         if (target != null) {
             target.clearPayload();
             if (!target.hasChildren()) {
-                return remove(account, remotePath);
+                return remove(accountName, remotePath);
             }
         }
         return new Pair<V, String>(null, null);
     }
 
 
-    public /* synchronized */ Pair<V, String> remove(Account account, String remotePath) {
-        String targetKey = buildKey(account, remotePath);
+    public /* synchronized */ Pair<V, String> remove(String accountName, String remotePath) {
+        String targetKey = buildKey(accountName, remotePath);
         Node<V> firstRemoved = mMap.remove(targetKey);
         String unlinkedFrom = null;
 
@@ -173,7 +180,7 @@ public class IndexedForest<V> {
             }
 
             if (parent != null) {
-                unlinkedFrom = parent.getKey().substring(account.name.length());
+                unlinkedFrom = parent.getKey().substring(accountName.length());
             }
 
             return new Pair<V, String>(firstRemoved.getPayload(), unlinkedFrom);
@@ -192,8 +199,8 @@ public class IndexedForest<V> {
         }
     }
 
-    public boolean contains(Account account, String remotePath) {
-        String targetKey = buildKey(account, remotePath);
+    public boolean contains(String accountName, String remotePath) {
+        String targetKey = buildKey(accountName, remotePath);
         return mMap.containsKey(targetKey);
     }
 
@@ -206,22 +213,22 @@ public class IndexedForest<V> {
         }
     }
 
-    public V get(Account account, String remotePath) {
-        String key = buildKey(account, remotePath);
+    public V get(String accountName, String remotePath) {
+        String key = buildKey(accountName, remotePath);
         return get(key);
     }
 
 
     /**
      * Remove the elements that contains account as a part of its key
-     * @param account
+     * @param accountName
      */
-    public void remove(Account account){
+    public void remove(String accountName){
         Iterator<String> it = mMap.keySet().iterator();
         while (it.hasNext()) {
             String key = it.next();
             Log_OC.d("IndexedForest", "Number of pending downloads= "  + mMap.size());
-            if (key.startsWith(account.name)) {
+            if (key.startsWith(accountName)) {
                 mMap.remove(key);
             }
         }
@@ -230,11 +237,11 @@ public class IndexedForest<V> {
     /**
      * Builds a key to index files
      *
-     * @param account       Account where the file to download is stored
-     * @param remotePath    Path of the file in the server
+     * @param accountName   Local name of the ownCloud account where the file to download is stored.
+     * @param remotePath    Path of the file in the server.
      */
-    private String buildKey(Account account, String remotePath) {
-        return account.name + remotePath;
+    private String buildKey(String accountName, String remotePath) {
+        return accountName + remotePath;
     }
 
 }

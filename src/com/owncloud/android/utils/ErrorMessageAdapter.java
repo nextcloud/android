@@ -27,6 +27,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.resources.shares.UpdateRemoteShareOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
@@ -38,6 +39,8 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
+import com.owncloud.android.operations.UpdateSharePermissionsOperation;
+import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;
@@ -189,7 +192,7 @@ public class ErrorMessageAdapter {
             if (result.getData() != null && result.getData().size() > 0) {
                 message = (String) result.getData().get(0);     // share API sends its own error messages
 
-            } else  if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {
+            } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
                 message = res.getString(R.string.unshare_link_file_no_exist);
 
             } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
@@ -201,6 +204,26 @@ public class ErrorMessageAdapter {
                 // Show a Message, operation finished without success
                 message = res.getString(R.string.unshare_link_file_error);
             }
+
+        } else if (operation instanceof UpdateShareViaLinkOperation ||
+                    operation instanceof UpdateSharePermissionsOperation) {
+
+            if (result.getData() != null && result.getData().size() > 0) {
+                message = (String) result.getData().get(0);     // share API sends its own error messages
+
+            } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
+                message = res.getString(R.string.update_link_file_no_exist);
+
+            } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
+                // Error --> No permissions
+                message = String.format(res.getString(R.string.forbidden_permissions),
+                        res.getString(R.string.update_link_forbidden_permissions));
+
+            } else {    // Generic error
+                // Show a Message, operation finished without success
+                message = res.getString(R.string.update_link_file_error);
+            }
+
         } else if (operation instanceof MoveFileOperation) {
 
             if (result.getCode() == ResultCode.FILE_NOT_FOUND) {

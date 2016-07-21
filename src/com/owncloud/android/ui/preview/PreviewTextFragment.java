@@ -1,3 +1,22 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   Copyright (C) 2016 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
@@ -21,7 +40,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
-import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import java.io.BufferedWriter;
@@ -290,6 +309,20 @@ public class PreviewTextFragment extends FileFragment {
             item.setVisible(false);
             item.setEnabled(false);
         }
+
+        Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
+
+        item = menu.findItem(R.id.action_switch_view);
+        if (item != null && !dualPane){
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        item = menu.findItem(R.id.action_sort);
+        if (item != null && !dualPane) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
     }
 
     /**
@@ -299,15 +332,7 @@ public class PreviewTextFragment extends FileFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
-                return true;
-            }
-            case R.id.action_share_with_users: {
                 mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
-                return true;
-            }
-            case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -315,7 +340,7 @@ public class PreviewTextFragment extends FileFragment {
                 return true;
             }
             case R.id.action_remove_file: {
-                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
                 dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
@@ -333,7 +358,7 @@ public class PreviewTextFragment extends FileFragment {
             }
 
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -376,8 +401,10 @@ public class PreviewTextFragment extends FileFragment {
     public void onStop() {
         super.onStop();
         Log_OC.e(TAG, "onStop");
-        if (mTextLoadTask != null)
+        if (mTextLoadTask != null) {
             mTextLoadTask.cancel(Boolean.TRUE);
+            mTextLoadTask.dismissLoadingDialog();
+        }
     }
 
     /**

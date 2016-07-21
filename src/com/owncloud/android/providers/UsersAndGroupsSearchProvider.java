@@ -1,21 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * @author Juan Carlos González Cabrero
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p/>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p/>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p/>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 
@@ -29,19 +29,26 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.BaseColumns;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.GetRemoteShareesOperation;
+import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -54,9 +61,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final String TAG = UsersAndGroupsSearchProvider.class.getSimpleName();
 
     private static final String[] COLUMNS = {
-        BaseColumns._ID,
-        SearchManager.SUGGEST_COLUMN_TEXT_1,
-        SearchManager.SUGGEST_COLUMN_INTENT_DATA
+            BaseColumns._ID,
+            SearchManager.SUGGEST_COLUMN_TEXT_1,
+            SearchManager.SUGGEST_COLUMN_ICON_1,
+            SearchManager.SUGGEST_COLUMN_INTENT_DATA
     };
 
     private static final int SEARCH = 1;
@@ -64,12 +72,30 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final int RESULTS_PER_PAGE = 50;
     private static final int REQUESTED_PAGE = 1;
 
-    public static final String AUTHORITY = UsersAndGroupsSearchProvider.class.getCanonicalName();
+    public static final String AUTHORITY = "com.nextcloud.android.providers.UsersAndGroupsSearchProvider";
     public static final String ACTION_SHARE_WITH = AUTHORITY + ".action.SHARE_WITH";
+
+    public static final String CONTENT = "content";
+
     public static final String DATA_USER = AUTHORITY + ".data.user";
     public static final String DATA_GROUP = AUTHORITY + ".data.group";
+    public static final String DATA_REMOTE = AUTHORITY + ".data.remote";
 
     private UriMatcher mUriMatcher;
+
+    private static HashMap<String, ShareType> sShareTypes;
+
+    static {
+        sShareTypes = new HashMap<>();
+        sShareTypes.put(DATA_USER, ShareType.USER);
+        sShareTypes.put(DATA_GROUP, ShareType.GROUP);
+        sShareTypes.put(DATA_REMOTE, ShareType.FEDERATED);
+    }
+
+    public static ShareType getShareType(String authority) {
+
+        return sShareTypes.get(authority);
+    }
 
     @Nullable
     @Override
@@ -87,11 +113,11 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     /**
      * TODO description
-     *
+     * <p/>
      * Reference: http://developer.android.com/guide/topics/search/adding-custom-suggestions.html#CustomContentProvider
      *
      * @param uri           Content {@link Uri}, formattted as
-     *                      "content://com.owncloud.android.providers.UsersAndGroupsSearchProvider/" +
+     *                      "content://com.nextcloud.android.providers.UsersAndGroupsSearchProvider/" +
      *                      {@link android.app.SearchManager#SUGGEST_URI_PATH_QUERY} + "/" + 'userQuery'
      * @param projection    Expected to be NULL.
      * @param selection     Expected to be NULL.
@@ -136,37 +162,65 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 // Get JSonObjects from response
                 names.add((JSONObject) o);
             }
+        } else {
+            showErrorMessage(result);
         }
 
         /// convert the responses from the OC server to the expected format
         if (names.size() > 0) {
             response = new MatrixCursor(COLUMNS);
             Iterator<JSONObject> namesIt = names.iterator();
-            int count = 0;
             JSONObject item;
-            String displayName;
-            Uri dataUri;
-            Uri userBaseUri = new Uri.Builder().scheme("content").authority(DATA_USER).build();
-            Uri groupBaseUri = new Uri.Builder().scheme("content").authority(DATA_GROUP).build();
+            String displayName = null;
+            int icon = 0;
+            Uri dataUri = null;
+            int count = 0;
+
+            Uri userBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_USER).build();
+            Uri groupBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_GROUP).build();
+            Uri remoteBaseUri = new Uri.Builder().scheme(CONTENT).authority(DATA_REMOTE).build();
+
+            FileDataStorageManager manager = new FileDataStorageManager(account, getContext().getContentResolver());
+            boolean federatedShareAllowed = manager.getCapability(account.name).getFilesSharingFederationOutgoing()
+                    .isTrue();
+
             try {
                 while (namesIt.hasNext()) {
                     item = namesIt.next();
                     String userName = item.getString(GetRemoteShareesOperation.PROPERTY_LABEL);
                     JSONObject value = item.getJSONObject(GetRemoteShareesOperation.NODE_VALUE);
-                    byte type = (byte) value.getInt(GetRemoteShareesOperation.PROPERTY_SHARE_TYPE);
+                    int type = value.getInt(GetRemoteShareesOperation.PROPERTY_SHARE_TYPE);
                     String shareWith = value.getString(GetRemoteShareesOperation.PROPERTY_SHARE_WITH);
-                    if (GetRemoteShareesOperation.GROUP_TYPE.equals(type)) {
+
+                    if (ShareType.GROUP.getValue() == type) {
                         displayName = getContext().getString(R.string.share_group_clarification, userName);
+                        icon = R.drawable.ic_group;
                         dataUri = Uri.withAppendedPath(groupBaseUri, shareWith);
-                    } else {
+                    } else if (ShareType.FEDERATED.getValue() == type && federatedShareAllowed) {
+                        icon = R.drawable.ic_user;
+                        if (userName.equals(shareWith)) {
+                            displayName = getContext().getString(R.string.share_remote_clarification, userName);
+                        } else {
+                            String[] uriSplitted = shareWith.split("@");
+                            displayName = getContext().getString(R.string.share_known_remote_clarification, userName,
+                                uriSplitted[uriSplitted.length - 1]);
+                        }
+                        dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
+                    } else if (ShareType.USER.getValue() == type) {
                         displayName = userName;
+                        icon = R.drawable.ic_user;
                         dataUri = Uri.withAppendedPath(userBaseUri, shareWith);
                     }
-                    response.newRow()
+
+                    if (displayName != null && dataUri != null) {
+                        response.newRow()
                             .add(count++)             // BaseColumns._ID
                             .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
+                            .add(icon)                // SearchManager.SUGGEST_COLUMN_ICON_1
                             .add(dataUri);
+                    }
                 }
+
             } catch (JSONException e) {
                 Log_OC.e(TAG, "Exception while parsing data of users/groups", e);
             }
@@ -192,6 +246,32 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         // TODO implementation
         return 0;
+    }
+
+    /**
+     * Show error message
+     *
+     * @param result Result with the failure information.
+     */
+    public void showErrorMessage(final RemoteOperationResult result) {
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                // The Toast must be shown in the main thread to grant that will be hidden correctly; otherwise
+                // the thread may die before, an exception will occur, and the message will be left on the screen
+                // until the app dies
+                Toast.makeText(
+                        getContext().getApplicationContext(),
+                        ErrorMessageAdapter.getErrorCauseMessage(
+                                result,
+                                null,
+                                getContext().getResources()
+                        ),
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
     }
 
 }

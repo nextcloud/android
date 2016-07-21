@@ -20,24 +20,24 @@
     android:id="@+id/loadingLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    android:orientation="horizontal"
+    android:padding="@dimen/standard_padding">
 
     <ProgressBar
         android:id="@+id/loadingBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginTop="10dp" />
+        android:indeterminate="true"
+        android:indeterminateOnly="false"/>
 
     <TextView
         android:id="@+id/loadingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="@dimen/standard_margin"
         android:text="TextView" />
 
 </LinearLayout>

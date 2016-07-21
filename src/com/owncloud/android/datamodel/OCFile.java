@@ -4,7 +4,7 @@
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -22,6 +22,7 @@
 
 package com.owncloud.android.datamodel;
 
+
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.Parcel;
@@ -29,13 +30,16 @@ import android.os.Parcelable;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 
 import third_parties.daveKoeller.AlphanumComparator;
+
 public class OCFile implements Parcelable, Comparable<OCFile> {
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
+
         @Override
         public OCFile createFromParcel(Parcel source) {
             return new OCFile(source);
@@ -198,7 +202,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return true if it is a folder
      */
     public boolean isFolder() {
-        return mMimeType != null && mMimeType.equals("DIR");
+        return mMimeType != null && mMimeType.equals(MimeType.DIRECTORY);
     }
 
     /**
@@ -437,6 +441,15 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
+     * get remote path of parent file
+     * @return remote path
+     */
+    public String getParentRemotePath() {
+        String parentPath = new File(getRemotePath()).getParent();
+        return (parentPath.endsWith("/")) ? parentPath : (parentPath + "/");
+    }
+
+    /**
      * Check, if this file needs updating
      *
      * @return
@@ -625,6 +638,10 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mEtagInConflict;
     }
 
+    public boolean isInConflict() {
+        return mEtagInConflict != null && mEtagInConflict != "";
+    }
+
     public void setEtagInConflict(String etagInConflict) {
         mEtagInConflict = etagInConflict;
     }
@@ -641,4 +658,5 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         String permissions = getPermissions();
         return (permissions != null && permissions.contains(PERMISSION_SHARED_WITH_ME));
     }
+
 }
