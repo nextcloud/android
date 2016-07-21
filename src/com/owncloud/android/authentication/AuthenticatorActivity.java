@@ -1041,7 +1041,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         mWaitingForOpId = Long.MAX_VALUE;
         if (result.isSuccess()) {
             boolean success = false;
-            String username = (String) result.getData().get(0);
+            String username;
+            if (result.getData().get(0) instanceof GetRemoteUserInfoOperation.UserInfo) {
+                username = ((GetRemoteUserInfoOperation.UserInfo) result.getData().get(0)).mDisplayName;
+            } else {
+                username = (String) result.getData().get(0);
+            }
 
             if ( mAction == ACTION_CREATE) {
                 mUsernameInput.setText(username);
