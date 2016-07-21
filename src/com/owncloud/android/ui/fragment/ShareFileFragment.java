@@ -803,10 +803,12 @@ public class ShareFileFragment extends Fragment
                 if (!editPermissionSwitch.isChecked()) {
                     editPermissionSwitch.toggle();
                 }
+                getHideFileListingPermissionSection().setVisibility(View.VISIBLE);
             } else {
                 if (editPermissionSwitch.isChecked()) {
                     editPermissionSwitch.toggle();
                 }
+                getHideFileListingPermissionSection().setVisibility(View.GONE);
             }
             // recover listener
             editPermissionSwitch.setOnCheckedChangeListener(
@@ -821,16 +823,6 @@ public class ShareFileFragment extends Fragment
 
             boolean readOnly = (mPublicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) != 0;
             hideFileListingPermissionSwitch.setChecked(!readOnly);
-
-//            if ((mPublicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) != 0) {
-//                if (!hideFileListingPermissionSwitch.isChecked()) {
-//
-//                }
-//            } else {
-//                if (hideFileListingPermissionSwitch.isChecked()) {
-//                    hideFileListingPermissionSwitch.toggle();
-//                }
-//            }
 
             // recover listener
             hideFileListingPermissionSwitch.setOnCheckedChangeListener(
@@ -901,6 +893,10 @@ public class ShareFileFragment extends Fragment
         return (SwitchCompat) getView().findViewById(R.id.shareViaLinkHideListPermissionSwitch);
     }
 
+    private View getHideFileListingPermissionSection() {
+        return getView().findViewById(R.id.shareViaLinkHideListPermissionSection);
+    }
+
     private AppCompatButton getGetLinkButton() {
         return (AppCompatButton) getView().findViewById(R.id.shareViaLinkGetLinkButton);
     }
@@ -914,6 +910,7 @@ public class ShareFileFragment extends Fragment
         getPasswordSection().setVisibility(View.GONE);
         getEditPermissionSection().setVisibility(View.GONE);
         getGetLinkButton().setVisibility(View.GONE);
+        getHideFileListingPermissionSection().setVisibility(View.GONE);
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
