@@ -67,6 +67,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
@@ -342,11 +343,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 }
 
                 if (uploadTextSnippet()){
-                    LayoutInflater layout = LayoutInflater.from(Uploader.this);
+                    LayoutInflater layout = LayoutInflater.from(getBaseContext());
                     View view = layout.inflate(R.layout.edit_box_dialog, null);
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                            Uploader.this);
+                            this);
 
                     alertDialogBuilder.setView(view);
 
@@ -367,12 +368,18 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                 FileUploader.UploadRequester requester =
                                                         new FileUploader.UploadRequester();
 
+                                                // verify if file name has suffix
+                                                String filename = userInput.getText().toString();
+
+                                                if (!filename.endsWith(".txt")){
+                                                    filename += ".txt";
+                                                }
+
                                                 requester.uploadNewFile(
                                                         getBaseContext(),
                                                         getAccount(),
                                                         f.getAbsolutePath(),
-                                                        mFile.getRemotePath() + userInput.getText()
-                                                        + ".txt",
+                                                        mFile.getRemotePath() + filename,
                                                         FileUploader.LOCAL_BEHAVIOUR_COPY,
                                                         null,
                                                         true,
