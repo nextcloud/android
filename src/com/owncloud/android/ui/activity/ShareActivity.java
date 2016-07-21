@@ -117,7 +117,7 @@ public class ShareActivity extends FileActivity
             );
 
         } else {
-            Log_OC.wtf(TAG, "Unexpected intent " + intent.toString());
+            Log_OC.e(TAG, "Unexpected intent " + intent.toString());
         }
     }
 

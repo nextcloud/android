@@ -35,6 +35,8 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 public class RemoveFileDialogFragment extends ConfirmationDialogFragment 
@@ -92,7 +94,9 @@ implements ConfirmationDialogFragmentListener {
         ComponentsGetter cg = (ComponentsGetter)getActivity();
         FileDataStorageManager storageManager = cg.getStorageManager();
         if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
-            cg.getFileOperationsHelper().removeFile(mTargetFile, false);
+            ArrayList<OCFile> list = new ArrayList<>();
+            list.add(mTargetFile);
+            cg.getFileOperationsHelper().removeFiles(list, false);
         }
     }
     
@@ -102,7 +106,9 @@ implements ConfirmationDialogFragmentListener {
     @Override
     public void onCancel(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter)getActivity();
-        cg.getFileOperationsHelper().removeFile(mTargetFile, true);
+        ArrayList<OCFile> list = new ArrayList<>();
+        list.add(mTargetFile);
+        cg.getFileOperationsHelper().removeFiles(list, true);
         
         FileDataStorageManager storageManager = cg.getStorageManager();
         

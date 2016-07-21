@@ -32,28 +32,29 @@ import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.view.Display;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.activity.ToolbarActivity;
 
 import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -174,6 +175,27 @@ public class DisplayUtils {
     }
 
     /**
+     * creates the display string for an account.
+     *
+     * @param context the actual activity
+     * @param savedAccount the actual, saved account
+     * @param accountName the account name
+     * @param fallbackString String to be used in case of an error
+     * @return the display string for the given account data
+     */
+    public static String getAccountNameDisplayText(Context context, Account savedAccount, String accountName, String
+            fallbackString) {
+        try {
+            return new OwnCloudAccount(savedAccount, context).getDisplayName()
+                    + " @ "
+                    + convertIdn(accountName.substring(accountName.lastIndexOf("@") + 1), false);
+        } catch (Exception e) {
+            Log_OC.w(TAG, "Couldn't get display name for account, using old style");
+            return fallbackString;
+        }
+    }
+
+    /**
      * calculates the relative time string based on the given modificaion timestamp.
      *
      * @param context the app's context
@@ -287,6 +309,30 @@ public class DisplayUtils {
     public static void colorSnackbar(Context context, Snackbar snackbar) {
         // Changing action button text color
         snackbar.setActionTextColor(ContextCompat.getColor(context, R.color.white));
+    }
+
+    /**
+     * Sets the color of the status bar to {@code color} on devices with OS version lollipop or higher.
+     *
+     * @param fragmentActivity fragment activity
+     * @param color the color
+     */
+    public static void colorStatusBar(FragmentActivity fragmentActivity, @ColorInt int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            fragmentActivity.getWindow().setStatusBarColor(color);
+        }
+    }
+
+    /**
+     * Sets the color of the progressbar to {@code color} within the given toolbar.
+     *
+     * @param activity the toolbar activity instance
+     * @param progressBarColor the color to be used for the toolbar's progress bar
+     */
+    public static void colorToolbarProgressBar(FragmentActivity activity, int progressBarColor) {
+        if(activity instanceof ToolbarActivity) {
+            ((ToolbarActivity) activity).setProgressBarBackgroundColor(progressBarColor);
+        }
     }
 
     public interface AvatarGenerationListener {

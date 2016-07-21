@@ -52,7 +52,7 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:id="@+id/unshareButton"
-            android:src="@drawable/ic_action_delete"
+            android:src="@drawable/ic_action_delete_grey"
             android:layout_gravity="center_vertical"
             android:padding="@dimen/standard_half_padding"/>
 
