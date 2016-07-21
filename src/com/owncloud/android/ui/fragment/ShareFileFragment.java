@@ -248,7 +248,6 @@ public class ShareFileFragment extends Fragment
         initEditPermissionListener(view);
 
         // Set listener for hide file listing
-        // TODO only if "allow editing" is true
         initHideFileListingListener(view);
 
         // Hide share features sections that are not enabled
@@ -732,7 +731,7 @@ public class ShareFileFragment extends Fragment
             getPasswordSection().setVisibility(View.VISIBLE);
             if (mFile.isFolder() && !mCapabilities.getFilesSharingPublicUpload().isFalse()) {
                 getEditPermissionSection().setVisibility(View.VISIBLE);
-                getFileListingPermissionSection().setVisibility(View.VISIBLE);
+                getHideFileListingPermissionSection().setVisibility(View.VISIBLE);
             } else {
                 getEditPermissionSection().setVisibility(View.GONE);
             }
@@ -883,10 +882,6 @@ public class ShareFileFragment extends Fragment
 
     private SwitchCompat getEditPermissionSwitch() {
         return (SwitchCompat) getView().findViewById(R.id.shareViaLinkEditPermissionSwitch);
-    }
-
-    private View getFileListingPermissionSection() {
-        return getView().findViewById(R.id.shareViaLinkHideListPermissionSection);
     }
 
     private SwitchCompat getHideFileListingPermissionSwitch() {
