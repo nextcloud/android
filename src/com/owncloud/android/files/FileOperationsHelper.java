@@ -36,11 +36,8 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -52,12 +49,9 @@ import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
-import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 
 import java.util.Collection;
 import java.util.List;
-
-import java.util.ArrayList;
 
 /**
  *
