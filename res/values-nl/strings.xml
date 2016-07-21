@@ -46,7 +46,7 @@
     <string name="prefs_remember_last_share_location">Onthoud de share locatie</string>
     <string name="prefs_remember_last_upload_location_summary">Onthoud de laatste upload locatie</string>
 
-	<string name="recommend_subject">Probeer %1$s op uw smartphone!</string>
+	<string name="recommend_subject">Probeer %1$s op je smartphone!</string>
 	<string name="recommend_text">Uitnodiging om %1$s op uw smartphone uit te proberen!
 Download hier: %2$s</string>
 
