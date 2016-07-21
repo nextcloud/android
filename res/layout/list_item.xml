@@ -121,26 +121,35 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/sharedIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginBottom="4dp"
-            android:layout_marginRight="4dp"
-            android:src="@drawable/shared_via_link" />
-
-        <ImageView
-            android:id="@+id/custom_checkbox"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:gravity=""
-            android:src="@drawable/ic_checkbox_blank_outline" />
+            android:paddingRight="@dimen/standard_padding">
+
+            <ImageView
+                android:id="@+id/sharedIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/shared_via_link" />
+
+            <ImageView
+                android:id="@+id/custom_checkbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="4dp"
+
+                android:src="@drawable/ic_checkbox_blank_outline"
+                android:layout_toRightOf="@id/sharedIcon"/>
+        </RelativeLayout>
+
+
     </LinearLayout>
 
     <View

@@ -40,27 +40,22 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.GravityCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -95,6 +90,9 @@ import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
+
+import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
  * Displays, what files the user has available in his ownCloud. This is the main view.
@@ -323,6 +321,9 @@ public class FileDisplayActivity extends HookActivity
 
     private void createMinFragments() {
         OCFileListFragment listOfFiles = new OCFileListFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+        listOfFiles.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
         transaction.commit();
@@ -552,7 +553,7 @@ public class FileDisplayActivity extends HookActivity
                 break;
             }
             case R.id.action_sort: {
-                Integer sortOrder = PreferenceManager.getSortOrder(this);
+                Integer sortOrder = getSortOrder(this);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.actionbar_sort_title)
@@ -647,12 +648,11 @@ public class FileDisplayActivity extends HookActivity
 
         } else if (requestCode == REQUEST_CODE__MOVE_FILES && resultCode == RESULT_OK) {
             final Intent fData = data;
-            final int fResultCode = resultCode;
             getHandler().postDelayed(
                     new Runnable() {
                         @Override
                         public void run() {
-                            requestMoveOperation(fData, fResultCode);
+                            requestMoveOperation(fData);
                         }
                     },
                     DELAY_TO_REQUEST_OPERATIONS_LATER
@@ -666,7 +666,7 @@ public class FileDisplayActivity extends HookActivity
                     new Runnable() {
                         @Override
                         public void run() {
-                            requestCopyOperation(fData, fResultCode);
+                            requestCopyOperation(fData);
                         }
                     },
                     DELAY_TO_REQUEST_OPERATIONS_LATER
@@ -752,24 +752,22 @@ public class FileDisplayActivity extends HookActivity
      * Request the operation for moving the file/folder from one path to another
      *
      * @param data       Intent received
-     * @param resultCode Result code received
      */
-    private void requestMoveOperation(Intent data, int resultCode) {
-        OCFile folderToMoveAt = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        OCFile targetFile = (OCFile) data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
-        getFileOperationsHelper().moveFile(folderToMoveAt, targetFile);
+    private void requestMoveOperation(Intent data) {
+        OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
+        ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
+        getFileOperationsHelper().moveFiles(files, folderToMoveAt);
     }
 
     /**
      * Request the operation for copying the file/folder from one path to another
      *
      * @param data       Intent received
-     * @param resultCode Result code received
      */
-    private void requestCopyOperation(Intent data, int resultCode) {
+    private void requestCopyOperation(Intent data) {
         OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
-        OCFile targetFile = data.getParcelableExtra(FolderPickerActivity.EXTRA_FILE);
-        getFileOperationsHelper().copyFile(folderToMoveAt, targetFile);
+        ArrayList<OCFile> files = data.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
+        getFileOperationsHelper().copyFiles(files, folderToMoveAt);
     }
 
     @Override
@@ -963,30 +961,30 @@ public class FileDisplayActivity extends HookActivity
                                         .equals(event));
 
                         if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED.
-                            equals(event) &&/// TODO refactor and make common
+                            equals(event)) {
 
-                            synchResult != null && !synchResult.isSuccess()) {
+                            if (synchResult != null && !synchResult.isSuccess()) {
+                                /// TODO refactor and make common
 
-                            if(ResultCode.UNAUTHORIZED.equals(synchResult.getCode()) ||
-                                (synchResult.isException() && synchResult.getException()
-                                    instanceof AuthenticatorException)) {
+                                if (checkForRemoteOperationError(synchResult)) {
 
-                                requestCredentialsUpdate(context);
+                                    requestCredentialsUpdate(context);
 
-                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
-                                synchResult.getCode())) {
+                                } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(
+                                    synchResult.getCode())) {
 
-                                showUntrustedCertDialog(synchResult);
+                                    showUntrustedCertDialog(synchResult);
+                                }
+
                             }
 
                         }
+                        removeStickyBroadcast(intent);
+                        Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
+                        setIndeterminate(mSyncInProgress);
 
+                        setBackgroundText();
                     }
-                    removeStickyBroadcast(intent);
-                    Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
-                    setIndeterminate(mSyncInProgress);
-
-                    setBackgroundText();
                 }
 
                 if (synchResult != null) {
@@ -1001,6 +999,12 @@ public class FileDisplayActivity extends HookActivity
                 removeStickyBroadcast(intent);
             }
         }
+    }
+
+    private boolean checkForRemoteOperationError(RemoteOperationResult syncResult) {
+        return ResultCode.UNAUTHORIZED.equals(syncResult.getCode()) ||
+                (syncResult.isException() && syncResult.getException()
+                        instanceof AuthenticatorException);
     }
 
     /**
@@ -1720,6 +1724,11 @@ public class FileDisplayActivity extends HookActivity
     }
 
 
+    /**
+     * Request stopping the upload/download operation in progress over the given {@link OCFile} file.
+     *
+     * @param file {@link OCFile} file which operation are wanted to be cancel
+     */
     public void cancelTransference(OCFile file) {
         getFileOperationsHelper().cancelTransference(file);
         if (mWaitingToPreview != null &&
@@ -1731,6 +1740,17 @@ public class FileDisplayActivity extends HookActivity
             mWaitingToSend = null;
         }
         onTransferStateChanged(file, false, false);
+    }
+
+    /**
+     * Request stopping all upload/download operations in progress over the given {@link OCFile} files.
+     *
+     * @param files collection of {@link OCFile} files which operations are wanted to be cancel
+     */
+    public void cancelTransference(Collection<OCFile> files) {
+        for(OCFile file: files) {
+            cancelTransference(file);
+        }
     }
 
     @Override
@@ -1768,7 +1788,7 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private boolean isGridView() {
-        return getListOfFilesFragment().isGridView();
+        return getListOfFilesFragment().isGridEnabled();
     }
 
     public void allFilesOption() {
