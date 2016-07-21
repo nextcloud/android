@@ -72,7 +72,7 @@ public class ConflictsResolveActivity extends FileActivity implements OnConflict
                 finish();
                 return;
             default:
-                Log_OC.wtf(TAG, "Unhandled conflict decision " + decision);
+                Log_OC.e(TAG, "Unhandled conflict decision " + decision);
                 return;
         }
 

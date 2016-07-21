@@ -48,7 +48,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (!intent.getAction().equals(Intent.ACTION_BOOT_COMPLETED)) {
-            Log_OC.wtf(TAG, "Incorrect action sent " + intent.getAction());
+            Log_OC.e(TAG, "Incorrect action sent " + intent.getAction());
             return;
         }
         Log_OC.d(TAG, "Starting file observer service...");

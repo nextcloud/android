@@ -366,7 +366,7 @@ public class OperationsService extends Service {
             if (undispatched != null) {
                 listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
                 return true;
-                //Log_OC.wtf(TAG, "Sending callback later");
+                //Log_OC.e(TAG, "Sending callback later");
             } else {
                 return (!mServiceHandler.mPendingOperations.isEmpty());
             }
@@ -433,7 +433,7 @@ public class OperationsService extends Service {
          */
         private void nextOperation() {
             
-            //Log_OC.wtf(TAG, "nextOperation init" );
+            //Log_OC.e(TAG, "nextOperation init" );
             
             Pair<Target, RemoteOperation> next = null;
             synchronized(mPendingOperations) {

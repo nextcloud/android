@@ -130,7 +130,7 @@ public class FileOperationsHelper {
             }
 
         } else {
-            Log_OC.wtf(TAG, "Trying to open a NULL OCFile");
+            Log_OC.e(TAG, "Trying to open a NULL OCFile");
         }
     }
 
@@ -169,7 +169,7 @@ public class FileOperationsHelper {
                 mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
             } else {
-                Log_OC.wtf(TAG, "Trying to share a NULL OCFile");
+                Log_OC.e(TAG, "Trying to share a NULL OCFile");
                 // TODO user-level error?
             }
 
@@ -196,7 +196,7 @@ public class FileOperationsHelper {
                 mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
             } else {
-                Log_OC.wtf(TAG, "Trying to share a NULL OCFile");
+                Log_OC.e(TAG, "Trying to share a NULL OCFile");
             }
         } else {
             // Show a Message
@@ -232,7 +232,7 @@ public class FileOperationsHelper {
             mWaitingForOpId = mFileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
         } else {
-            Log_OC.wtf(TAG, "Trying to share a NULL OCFile");
+            Log_OC.e(TAG, "Trying to share a NULL OCFile");
         }
     }
 
@@ -425,7 +425,7 @@ public class FileOperationsHelper {
             chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
 
         } else {
-            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+            Log_OC.e(TAG, "Trying to send a NULL OCFile");
         }
     }
 
