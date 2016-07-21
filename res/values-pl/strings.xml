@@ -105,7 +105,7 @@
     <string name="about_title">O aplikacji</string>
     <string name="change_password">Zmień hasło</string>
     <string name="delete_account">Usuń konto</string>
-    <string name="delete_account_warning">Usuń konto %s?\\n\\nUsunięcie jest nieodwracalne.</string>
+    <string name="delete_account_warning">Usuń konto %s?\n\nUsunięcie jest nieodwracalne.</string>
     <string name="create_account">Utwórz konto</string>
     <string name="upload_chooser_title">Wyślij plik z …</string>
     <string name="uploader_info_dirname">Nazwa folderu</string>

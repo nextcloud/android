@@ -17,6 +17,7 @@
     <string-array name="actionbar_sortby">
     	<item>par ordre alphabétique</item>
     	<item>du plus récent au plus ancien</item>
+    	<item>Grand - Petit</item>
     </string-array>
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_settings">Paramètres</string>
@@ -104,6 +105,7 @@ Téléchargez-le ici : %2$s</string>
     <string name="about_title">À propos de</string>
     <string name="change_password">Changer de mot de passe</string>
     <string name="delete_account">Supprimer le compte</string>
+    <string name="delete_account_warning">Supprimer le compte %s?\\n\\nLa suppression ne peut-être annulée.</string>
     <string name="create_account">Créer un compte</string>
     <string name="upload_chooser_title">Téléverser un fichier depuis…</string>
     <string name="uploader_info_dirname">Nom du dossier</string>
