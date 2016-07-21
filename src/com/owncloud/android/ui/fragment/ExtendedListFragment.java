@@ -75,6 +75,8 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
     private static final String GRID_COLUMNS = "gridColumns";
+    public static final float minColumnSize = 2.0f;
+    public static final float maxColumnSize = 10.0f;
 
     private ScaleGestureDetector SGD = null;
 
@@ -269,7 +271,7 @@ public class ExtendedListFragment extends Fragment
                 mScale = mGridView.getNumColumns();
             }
             mScale *= 1.f - (detector.getScaleFactor() - 1.f);
-            mScale = Math.max(2.0f, Math.min(mScale, 10.0f));
+            mScale = Math.max(minColumnSize, Math.min(mScale, maxColumnSize));
             Integer scaleInt = Math.round(mScale);
             mGridView.setNumColumns(scaleInt);
             mGridView.invalidateViews();
@@ -348,6 +350,10 @@ public class ExtendedListFragment extends Fragment
         } else {
             return 0;
         }
+    }
+
+    public int getColumnSize() {
+        return Math.round(mScale);
     }
 
 
