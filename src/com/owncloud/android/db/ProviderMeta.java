@@ -2,8 +2,10 @@
  *   ownCloud Android client application
  *
  *   @author Bartek Przybylski
+ *   @author David A. Velasco
+ *   @author masensio
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -31,7 +33,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 13;
+    public static final int DB_VERSION = 14;
 
     private ProviderMeta() {
     }
@@ -40,6 +42,7 @@ public class ProviderMeta {
         public static final String FILE_TABLE_NAME = "filelist";
         public static final String OCSHARES_TABLE_NAME = "ocshares";
         public static final String CAPABILITIES_TABLE_NAME = "capabilities";
+        public static final String UPLOADS_TABLE_NAME = "list_of_uploads";
         public static final Uri CONTENT_URI = Uri.parse("content://"
                 + MainApp.getAuthority() + "/");
         public static final Uri CONTENT_URI_FILE = Uri.parse("content://"
@@ -50,6 +53,8 @@ public class ProviderMeta {
                 + MainApp.getAuthority() + "/shares");
         public static final Uri CONTENT_URI_CAPABILITIES = Uri.parse("content://"
                 + MainApp.getAuthority() + "/capabilities");
+        public static final Uri CONTENT_URI_UPLOADS = Uri.parse("content://"
+                + MainApp.getAuthority() + "/uploads");
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
         public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";
@@ -129,5 +134,22 @@ public class ProviderMeta {
 
         public static final String CAPABILITIES_DEFAULT_SORT_ORDER = CAPABILITIES_ACCOUNT_NAME
                 + " collate nocase asc";
+
+        //Columns of Uploads table
+        public static final String UPLOADS_LOCAL_PATH = "local_path";
+        public static final String UPLOADS_REMOTE_PATH = "remote_path";
+        public static final String UPLOADS_ACCOUNT_NAME = "account_name";
+        public static final String UPLOADS_FILE_SIZE = "file_size";
+        public static final String UPLOADS_STATUS = "status";
+        public static final String UPLOADS_LOCAL_BEHAVIOUR = "local_behaviour";
+        public static final String UPLOADS_UPLOAD_TIME = "upload_time";
+        public static final String UPLOADS_FORCE_OVERWRITE = "force_overwrite";
+        public static final String UPLOADS_IS_CREATE_REMOTE_FOLDER = "is_create_remote_folder";
+        public static final String UPLOADS_UPLOAD_END_TIMESTAMP = "upload_end_timestamp";
+        public static final String UPLOADS_LAST_RESULT = "last_result";
+        public static final String UPLOADS_CREATED_BY = "created_by";
+
+        public static final String UPLOADS_DEFAULT_SORT_ORDER = ProviderTableMeta._ID  + " collate nocase desc";
+
     }
 }

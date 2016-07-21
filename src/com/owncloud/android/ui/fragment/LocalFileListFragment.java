@@ -37,6 +37,7 @@ import android.widget.ListView;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.utils.FileStorageUtils;
 
 
 /**
@@ -113,6 +114,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 listDirectory(file);
                 // notify the click to container Activity
                 mContainerActivity.onDirectoryClick(file);
+
                 // save index and top position
                 saveIndexAndTopPosition(position);
             
@@ -228,6 +230,32 @@ public class LocalFileListFragment extends ExtendedListFragment {
         return result.toArray(new String[result.size()]);
     }
 
+    public void sortByName(boolean descending) {
+        mAdapter.setSortOrder(FileStorageUtils.SORT_NAME, descending);
+    }
+
+    public void sortByDate(boolean descending) {
+        mAdapter.setSortOrder(FileStorageUtils.SORT_DATE, descending);
+    }
+
+    public void sortBySize(boolean descending) {
+        mAdapter.setSortOrder(FileStorageUtils.SORT_SIZE, descending);
+    }
+
+    /**
+     * De-/select all elements in the local file list.
+     *
+     * @param select <code>true</code> to select all, <code>false</code> to deselect all
+     */
+    public void selectAllFiles(boolean select) {
+        ListView listView = (ListView) getListView();
+        for (int position = 0; position < listView.getCount(); position++) {
+            File file = (File) mAdapter.getItem(position);
+            if (file.isFile()) {
+                listView.setItemChecked(position, select);
+            }
+        }
+    }
     
     /**
      * Interface to implement by any Activity that includes some instance of LocalFileListFragment

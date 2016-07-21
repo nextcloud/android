@@ -4,7 +4,7 @@
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -48,7 +48,7 @@ import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
@@ -255,7 +255,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 return true;
             }
             case R.id.action_remove_file: {
-                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
                 dialog.show(getFragmentManager(), FTAG_CONFIRMATION);
                 return true;
             }
@@ -293,7 +293,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 return true;
             }
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -434,7 +434,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                     iv.setImageBitmap(thumbnail);
                 } else {
                     // generate new Thumbnail
-                    if (ThumbnailsCacheManager.cancelPotentialWork(file, iv)) {
+                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, iv)) {
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                         iv, mContainerActivity.getStorageManager(), mAccount
@@ -442,8 +442,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                         if (thumbnail == null) {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
                         }
-                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncDrawable(
+                        final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                         MainApp.getAppContext().getResources(),
                                         thumbnail,
                                         task
@@ -549,6 +549,8 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 mContainerActivity.getFileUploaderBinder().
                         addDatatransferProgressListener(mProgressListener, mAccount, getFile());
             }
+        } else {
+            Log_OC.d(TAG, "mProgressListener == null");
         }
     }
 

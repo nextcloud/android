@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -21,10 +21,6 @@ package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.MediaMetadataRetriever;
-import android.support.v7.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,12 +28,16 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,7 +59,7 @@ import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 
@@ -357,7 +357,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 return true;
             }
             case R.id.action_remove_file: {
-                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
                 dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
@@ -382,7 +382,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 return true;
             }
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -557,7 +557,7 @@ public class PreviewMediaFragment extends FileFragment implements
         i.putExtra(PreviewVideoActivity.EXTRA_AUTOPLAY, mVideoPreview.isPlaying());
         mVideoPreview.pause();
         i.putExtra(PreviewVideoActivity.EXTRA_START_POSITION, mVideoPreview.getCurrentPosition());
-        startActivityForResult(i, 0);
+        startActivityForResult(i, FileActivity.REQUEST_CODE__LAST_SHARED + 1);
     }
 
     @Override

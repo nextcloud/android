@@ -42,14 +42,14 @@ source_suffix = '.rst'
 # The master toctree document.
 master_doc = 'index'
 
-# The short X.Y version.
-version = '1.9.1'
+# The short X.Y.Z version.
+version = '1.0.0'
 # The full version, including alpha/beta/rc tags.
-release = '1.9.1'
+release = '1.0.0'
 
 # General information about the project.
-project = u'ownCloud Android App %s Manual' % (version)
-copyright = u'2013-2015, The ownCloud developers'
+project = u'Nextcloud Android App %s Manual' % (version)
+copyright = u'2016, The Nextcloud developers'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -186,8 +186,8 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'ownCloudAndroidAppManual.tex', u'ownCloud Android App Manual',
-   u'The ownCloud developers', 'manual'),
+  ('index', 'NextcloudAndroidAppManual.tex', u'Nextcloud Android App Manual',
+   u'The Nextcloud developers', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -216,10 +216,10 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('owncloud.1', 'owncloud', u'Android synchronisation and file management utility.',
-     [u'The ownCloud developers'], 1),
-    ('owncloudcmd.1', 'owncloudcmd', u'ownCloud Android app.',
-     [u'The ownCloud developers'], 1),
+    ('nextcloud.1', 'nextcloud', u'Android synchronisation and file management utility.',
+     [u'The Nextcloud developers'], 1),
+    ('nextcloudcmd.1', 'nextcloudcmd', u'Nextcloud Android app.',
+     [u'The Nextcloud developers'], 1),
 ]
 
 # If true, show URL addresses after external links.
@@ -232,8 +232,8 @@ man_show_urls = True
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'ownCloudClientManual', u'ownCloud Android App Manual',
-   u'The ownCloud developers', 'ownCloud', 'The ownCloud Android App Manual.',
+  ('index', 'NextcloudClientManual', u'ownCloud Android App Manual',
+   u'The Nextcloud developers', 'ownCloud', 'The ownCloud Android App Manual.',
    'Miscellaneous'),
 ]
 
@@ -250,10 +250,10 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'ownCloud Android App Manual'
-epub_author = u'The ownCloud developers'
-epub_publisher = u'The ownCloud developers'
-epub_copyright = u'2013-2015, The ownCloud developers'
+epub_title = u'Nextcloud Android App Manual'
+epub_author = u'The Nextcloud developers'
+epub_publisher = u'The Nextcloud developers'
+epub_copyright = u'2016, The Nextcloud developers'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.

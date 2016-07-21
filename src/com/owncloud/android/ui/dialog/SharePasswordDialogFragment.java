@@ -55,8 +55,9 @@ public class SharePasswordDialogFragment extends DialogFragment
      * Public factory method to create new SharePasswordDialogFragment instances.
      *
      * @param   file            OCFile bound to the public share that which password will be set or updated
-     * @param   createShare     When 'true', the public share will be created; when 'false', will be assumed
-     *                          that the public share already exists, and its state will be directly updated.
+     * @param   createShare     When 'true', the request for password will be followed by the creation of a new
+     *                          public link; when 'false', a public share is assumed to exist, and the password
+     *                          is bound to it.
      * @return                  Dialog ready to show.
      */
     public static SharePasswordDialogFragment newInstance(OCFile file, boolean createShare) {
@@ -83,7 +84,8 @@ public class SharePasswordDialogFragment extends DialogFragment
         inputText.requestFocus();
 
         // Build the dialog
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
+                R.style.Theme_ownCloud_Dialog_NoButtonBarStyle);
         builder.setView(v)
                .setPositiveButton(R.string.common_ok, this)
                .setNegativeButton(R.string.common_cancel, this)

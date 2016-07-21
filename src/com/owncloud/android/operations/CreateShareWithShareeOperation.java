@@ -60,7 +60,8 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      *                      https://doc.owncloud.org/server/8.2/developer_manual/core/ocs-share-api.html .
      */
     public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType, int permissions) {
-        if (!ShareType.USER.equals(shareType) && !ShareType.GROUP.equals(shareType)) {
+        if (!ShareType.USER.equals(shareType) && !ShareType.GROUP.equals(shareType)
+            && !ShareType.FEDERATED.equals(shareType)) {
             throw new IllegalArgumentException("Illegal share type " + shareType);
         }
         mPath = path;

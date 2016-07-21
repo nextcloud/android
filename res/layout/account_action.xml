@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2016 ownCloud Inc.
+  Copyright (C) 2016 Nextcloud
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="72dp"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <ImageView
+        android:id="@+id/user_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/list_item_avatar_icon_margin"
+        android:src="@drawable/ic_account_plus"/>
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_marginLeft="@dimen/list_item_avatar_text_margin"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:paddingRight="@dimen/standard_padding"
+        android:text="@string/placeholder_sentence"
+        android:textColor="@color/primary"
+        android:textSize="@dimen/two_line_primary_text_size"/>
+
+</LinearLayout>         

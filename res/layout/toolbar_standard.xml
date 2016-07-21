@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2016 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<android.support.design.widget.AppBarLayout
+    android:id="@+id/appbar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.ownCloud.TopProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_margin="0dp"
+        android:indeterminate="false"
+        android:indeterminateOnly="false"
+        android:padding="0dp"
+        android:visibility="visible"
+        />
+
+</android.support.design.widget.AppBarLayout>

@@ -35,6 +35,10 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+
 public class RemoveFileDialogFragment extends ConfirmationDialogFragment 
 implements ConfirmationDialogFragmentListener {
 
@@ -54,19 +58,18 @@ implements ConfirmationDialogFragmentListener {
         
         int messageStringId = R.string.confirmation_remove_alert;
         
-        int negBtn = -1;
+        int localRemoveButton = (!file.isFavorite() && (file.isFolder() || file.isDown())) ?
+            R.string.confirmation_remove_local : -1;
+
         if (file.isFolder()) {
             messageStringId = R.string.confirmation_remove_folder_alert;
-            negBtn = R.string.confirmation_remove_local;
-        } else if (file.isDown()) {
-            negBtn = R.string.confirmation_remove_local;
         }
-        
-        args.putInt(ARG_CONF_RESOURCE_ID, messageStringId);
-        args.putStringArray(ARG_CONF_ARGUMENTS, new String[]{file.getFileName()});
+
+        args.putInt(ARG_MESSAGE_RESOURCE_ID, messageStringId);
+        args.putStringArray(ARG_MESSAGE_ARGUMENTS, new String[]{file.getFileName()});
         args.putInt(ARG_POSITIVE_BTN_RES, R.string.common_yes);
         args.putInt(ARG_NEUTRAL_BTN_RES, R.string.common_no);
-        args.putInt(ARG_NEGATIVE_BTN_RES, negBtn);
+        args.putInt(ARG_NEGATIVE_BTN_RES, localRemoveButton);
         args.putParcelable(ARG_TARGET_FILE, file);
         frag.setArguments(args);
         
@@ -91,7 +94,9 @@ implements ConfirmationDialogFragmentListener {
         ComponentsGetter cg = (ComponentsGetter)getActivity();
         FileDataStorageManager storageManager = cg.getStorageManager();
         if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
-            cg.getFileOperationsHelper().removeFile(mTargetFile, false);
+            ArrayList<OCFile> list = new ArrayList<>();
+            list.add(mTargetFile);
+            cg.getFileOperationsHelper().removeFiles(list, false);
         }
     }
     
@@ -101,7 +106,36 @@ implements ConfirmationDialogFragmentListener {
     @Override
     public void onCancel(String callerTag) {
         ComponentsGetter cg = (ComponentsGetter)getActivity();
-        cg.getFileOperationsHelper().removeFile(mTargetFile, true);
+        ArrayList<OCFile> list = new ArrayList<>();
+        list.add(mTargetFile);
+        cg.getFileOperationsHelper().removeFiles(list, true);
+        
+        FileDataStorageManager storageManager = cg.getStorageManager();
+        
+        boolean containsFavorite = false;
+        if (mTargetFile.isFolder()) {
+            Vector<OCFile> files = storageManager.getFolderContent(mTargetFile, false);
+            for(OCFile file: files) {
+                containsFavorite = file.isFavorite() || containsFavorite;
+
+                if (containsFavorite)
+                    break;
+            }
+        }
+
+        // Remove etag for parent, if file is a favorite
+        // or is a folder and contains favorite
+        if (mTargetFile.isFavorite() || containsFavorite) {
+            OCFile folder = null;
+            if (mTargetFile.isFolder()) {
+                folder = mTargetFile;
+            } else {
+                folder = storageManager.getFileById(mTargetFile.getParentId());
+            }
+            
+           folder.setEtag("");
+           storageManager.saveFile(folder);
+        }
     }
 
     @Override

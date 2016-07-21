@@ -20,12 +20,6 @@
 
 package com.owncloud.android.operations;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
@@ -33,20 +27,24 @@ import android.util.Log;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.ReadRemoteFolderOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
-
+import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Vector;
 
 
 
@@ -187,7 +185,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         
         if (OCFile.ROOT_PATH.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount) {
             updateOCVersion(client);
-
+            updateUserProfile();
         }
         
         result = checkForChanges(client);
@@ -197,7 +195,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 result = fetchAndSyncRemoteFolder(client);
             } else {
                 fetchFavoritesToSyncFromLocalData();
-                mChildren = mStorageManager.getFolderContent(mLocalFolder/*, false*/);
+                mChildren = mStorageManager.getFolderContent(mLocalFolder, false);
             }
 
             if (result.isSuccess()) {
@@ -226,7 +224,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         
     }
 
-
     private void updateOCVersion(OwnCloudClient client) {
         UpdateOCVersionOperation update = new UpdateOCVersionOperation(mAccount, mContext);
         RemoteOperationResult result = update.execute(client);
@@ -235,14 +232,24 @@ public class RefreshFolderOperation extends RemoteOperation {
 
             // Update Capabilities for this account
             if (update.getOCVersion().isVersionWithCapabilitiesAPI()) {
-                updateCapabilities(client);
+                updateCapabilities();
             } else {
                 Log_OC.d(TAG, "Capabilities API disabled");
             }
         }
     }
 
-    private void updateCapabilities(OwnCloudClient client){
+    private void updateUserProfile() {
+        GetUserProfileOperation update = new GetUserProfileOperation();
+        RemoteOperationResult result = update.execute(mStorageManager, mContext);
+        if (!result.isSuccess()) {
+            Log_OC.w(TAG, "Couldn't update user profile from server");
+        } else {
+            Log_OC.i(TAG, "Got display name: " + result.getData().get(0));
+        }
+    }
+
+    private void updateCapabilities(){
         GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
         RemoteOperationResult  result = getCapabilities.execute(mStorageManager,mContext);
         if (!result.isSuccess()){
@@ -361,8 +368,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         mFilesToSyncContents.clear();
 
         // get current data about local contents of the folder to synchronize
-        // TODO Enable when "On Device" is recovered ?
-        List<OCFile> localFiles = mStorageManager.getFolderContent(mLocalFolder/*, false*/);
+        List<OCFile> localFiles = mStorageManager.getFolderContent(mLocalFolder, false);
         Map<String, OCFile> localFilesMap = new HashMap<String, OCFile>(localFiles.size());
         for (OCFile file : localFiles) {
             localFilesMap.put(file.getRemotePath(), file);
@@ -397,8 +403,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 // eTag will not be updated unless file CONTENTS are synchronized
                 updatedFile.setEtag(localFile.getEtag());
                 if (updatedFile.isFolder()) {
-                    updatedFile.setFileLength(localFile.getFileLength());
-                        // TODO move operations about size of folders to FileContentProvider
+                    updatedFile.setFileLength(remoteFile.getFileLength());
                 } else if (mRemoteFolderChanged && remoteFile.isImage() &&
                         remoteFile.getModificationTimestamp() !=
                                 localFile.getModificationTimestamp()) {
@@ -525,9 +530,9 @@ public class RefreshFolderOperation extends RemoteOperation {
 
 
     private void fetchFavoritesToSyncFromLocalData() {
-        List<OCFile> children = mStorageManager.getFolderContent(mLocalFolder);
+        List<OCFile> children = mStorageManager.getFolderContent(mLocalFolder, false);
         for (OCFile child : children) {
-            if (!child.isFolder() && child.isFavorite()) {
+            if (!child.isFolder() && child.isFavorite() && !child.isInConflict()) {
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(
                         child,
                         child,  // cheating with the remote file to get an update to server; to refactor

@@ -26,42 +26,48 @@
         android:orientation="horizontal"
         android:weightSum="1"
         android:longClickable="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/icon"
+            android:src="@drawable/ic_user"
+            android:layout_gravity="center_vertical"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="0.8"
+            android:layout_weight="1"
             android:textSize="@dimen/two_line_primary_text_size"
             android:text="@string/username"
             android:id="@+id/userOrGroupName"
-            android:layout_margin="12dp"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            android:layout_marginLeft="@dimen/standard_half_margin"
             android:textColor="@color/textColor"
             android:singleLine="true"
-            android:ellipsize="middle"/>
+            android:ellipsize="middle"
+            android:layout_gravity="center_vertical"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:id="@+id/unshareButton"
-            android:src="@drawable/ic_action_delete"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginEnd="@dimen/standard_margin"
-            android:layout_gravity="center_horizontal"/>
+            android:src="@drawable/ic_action_delete_grey"
+            android:layout_gravity="center_vertical"
+            android:padding="@dimen/standard_half_padding"/>
 
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1"
+            android:layout_height="wrap_content"
             android:id="@+id/editShareButton"
             android:src="@drawable/ic_navigate_next"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginEnd="@dimen/standard_margin"
-            android:layout_gravity="center_horizontal"/>
+            android:padding="@dimen/standard_half_padding"
+            android:layout_gravity="center_vertical"/>
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/list_divider_background"></View>
+        android:background="@color/list_divider_background" />
 </LinearLayout>

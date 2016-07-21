@@ -24,7 +24,7 @@
   <!--TODO re-enable when "On Device" is available
     <string name="drawer_item_on_device">On device</string>-->
   <string name="drawer_item_settings">Paramètres</string>
-  <string name="drawer_item_logs">Logs</string>
+  <string name="drawer_item_uploads_list">Cargaments</string>
   <string name="drawer_close">Tampar</string>
   <string name="drawer_open">Dobrir</string>
   <string name="prefs_category_general">General</string>
@@ -54,19 +54,17 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="sync_string_files">Fichièrs</string>
   <string name="setup_btn_connect">Connectar</string>
   <string name="uploader_btn_upload_text">Mandar</string>
-  <string name="uploader_btn_new_folder_text">Dorsièr novèl</string>
-  <string name="uploader_top_message">Seleccionar lo dorsièr de mandadís :</string>
   <string name="uploader_wrn_no_account_title">Cap de compte es pas estat trobat</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuracion</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Quitar</string>
-  <string name="uploader_wrn_no_content_title">Pas res a mandar</string>
-  <string name="uploader_wrn_no_content_text">Cap de contengut pas recebut. Pas res a mandar.</string>
-  <string name="uploader_error_forbidden_content">%1$s es pas autorizat a accedir al contengut partejat</string>
-  <string name="uploader_info_uploading">Mandadís...</string>
   <string name="file_list_seconds_ago">i a qualques segondas</string>
   <string name="file_list_empty">I a pas res aicí ! Mandatz doncas quicòm :)</string>
   <string name="file_list_loading">Cargament...</string>
   <string name="local_file_list_empty">Cap de fichièr es pas present dins aqueste dorsièr.</string>
+  <string name="file_list_folder">dorsièr</string>
+  <string name="file_list_folders">dorsièrs</string>
+  <string name="file_list_file">fichièr</string>
+  <string name="file_list_files">fichièrs</string>
   <string name="filedetails_select_file">Quichatz sus un fichièr per afichar las informacions suplementàrias</string>
   <string name="filedetails_size">Talha :</string>
   <string name="filedetails_type">Tipe :</string>
@@ -80,6 +78,7 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="common_no">Non</string>
   <string name="common_ok">D\'acòrdi</string>
   <string name="common_cancel">Anullar</string>
+  <string name="common_back">Retorn</string>
   <string name="common_error">Error</string>
   <string name="common_loading">Cargament…</string>
   <string name="common_error_unknown">Error desconeguda </string>
@@ -93,6 +92,16 @@ Telecargatz-lo aicí : %2$s</string>
   <string name="uploader_upload_succeeded_ticker">Mandadís capitat</string>
   <string name="uploader_upload_failed_ticker">Fracàs del mandadís</string>
   <string name="uploader_upload_failed_content_single">Lo mandadís de %1$s a fracassat</string>
+  <string name="uploads_view_title">Cargaments</string>
+  <string name="uploads_view_group_current_uploads">En cors</string>
+  <string name="uploads_view_group_finished_uploads">Mandat</string>
+  <string name="uploads_view_upload_status_succeeded">Acabat</string>
+  <string name="uploads_view_upload_status_failed_credentials_error">Error d\'identificants</string>
+  <string name="uploads_view_upload_status_failed_folder_error">Error dorsièr</string>
+  <string name="uploads_view_upload_status_failed_file_error">Error fichièr</string>
+  <string name="uploads_view_upload_status_failed_permission_error">Error d\'autorizacion</string>
+  <string name="uploads_view_upload_status_unknown_fail">Error desconeguda</string>
+  <string name="uploads_view_later_waiting_to_upload">En espèra de cargament</string>
   <string name="downloader_download_in_progress_ticker">Telecargament en cors…</string>
   <string name="downloader_download_in_progress_content">Telecargament en cors de %2$s, %1$d%% efectuats</string>
   <string name="downloader_download_succeeded_ticker">Telecargament capitat</string>
@@ -170,8 +179,6 @@ En rason d\'aquesta modificacion, totes los fichièrs mandats amb de versions an
   <string name="auth_fail_get_user_name">Vòstre servidor a tornat un identificant d\'utilizaire incorrècte. Prenètz contacte amb vòstre administrator
 </string>
   <string name="auth_account_does_not_exist">Lo compte existís pas encara sus aqueste periferic</string>
-  <string name="favorite">Apondre als favorits</string>
-  <string name="unfavorite">Suprimir dels favorits</string>
   <string name="common_rename">Renomenar</string>
   <string name="common_remove">Suprimir</string>
   <string name="confirmation_remove_alert">Sètz segur que volètz suprimir %1$s ?</string>
@@ -301,6 +308,7 @@ En rason d\'aquesta modificacion, totes los fichièrs mandats amb de versions an
   <string name="share_via_link_section_title">Partejar lo ligam</string>
   <string name="share_via_link_expiration_date_label">Especificar una data d\'expiracion</string>
   <string name="share_via_link_password_label">Protegir per un senhal</string>
+  <string name="share_via_link_edit_permission_label">Permetre la modificacion</string>
   <string name="share_search">Recercar</string>
   <string name="search_users_and_groups_hint">Recercar d\'utilizaires e de gropes</string>
   <string name="share_privilege_can_share">pòt partejar</string>

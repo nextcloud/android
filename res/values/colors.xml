@@ -20,7 +20,7 @@
 <resources>
 
     <color name="owncloud_blue">@color/actionbar_start_color</color>
-    <color name="owncloud_blue_accent">#35537A</color>
+    <color name="owncloud_blue_accent">#007CC2</color>
     <color name="owncloud_blue_bright">#00ddff</color>
 
     <color name="list_item_lastmod_and_filesize_text">@color/secondaryTextColor</color>
@@ -35,8 +35,6 @@
     <color name="list_divider_background">#eee</color>
     <color name="filelist_icon_backgorund">#DDDDDD</color>
     <color name="dark_background_text_color">#EEEEEE</color>
-    <color name="login_text_color">#757575</color>
-    <color name="login_text_hint_color">#757575</color>
     <color name="secondary_button_color">#D6D7D7</color>
     <color name="transparent">#00000000</color>
     <color name="secondaryTextColor">#a0a0a0</color>
@@ -49,7 +47,7 @@
 
     <!-- standard material color definitions -->
     <color name="primary">@color/owncloud_blue</color>
-    <color name="primary_dark">#162233</color>
+    <color name="primary_dark">#006AA3</color>
 
     <!-- special transparent action bar colors for image preview -->
     <color name="owncloud_blue_transparent">#201D2D44</color>

@@ -23,7 +23,6 @@
   <string name="auth_password">Գաղտնաբառ</string>
   <string name="sync_string_files">Ֆայլեր</string>
   <string name="uploader_btn_upload_text">Բեռնել</string>
-  <string name="uploader_btn_new_folder_text">Նոր պանակ</string>
   <string name="file_list_seconds_ago">վրկ. առաջ</string>
   <string name="filedetails_size">Չափս.</string>
   <string name="filedetails_type">Տիպ.</string>
@@ -86,6 +85,7 @@
   <string name="file_list__footer__files_and_folder">%1$d ֆայլ, 1 պանակ</string>
   <string name="file_list__footer__files_and_folders">%1$d ֆայլ, %2$d պանակ</string>
   <string name="share_via_link_section_title">Կիսվել հղմամբ</string>
+  <string name="share_via_link_edit_permission_label">Թույլատրել խմբագրումը</string>
   <string name="share_get_public_link_button">Ստանալ հղում</string>
   <string name="share_search">Փնտրել</string>
   <string name="share_privilege_can_share">կարող է տարածել</string>
