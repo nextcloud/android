@@ -23,7 +23,7 @@
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="instant_uploading"
 	                        android:title="@string/prefs_instant_upload"
 	                        android:summary="@string/prefs_instant_upload_summary"/>
-        <com.owncloud.android.ui.PreferenceWithLongSummary
+        <com.owncloud.android.ui.PreferenceWithTwoLineLongSummary
 							android:title="@string/prefs_instant_upload_path_title"
 							android:key="instant_upload_path" />
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
@@ -36,7 +36,7 @@
 	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="instant_video_uploading"
 	                        android:title="@string/prefs_instant_video_upload"
 	                        android:summary="@string/prefs_instant_video_upload_summary" />
-	    <com.owncloud.android.ui.PreferenceWithLongSummary
+	    <com.owncloud.android.ui.PreferenceWithTwoLineLongSummary
 							android:title="@string/prefs_instant_video_upload_path_title"
 							android:key="instant_video_upload_path" />
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
