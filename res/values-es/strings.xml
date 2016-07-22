@@ -105,7 +105,7 @@
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
-    <string name="delete_account_warning">Borrar cuenta %s?\\n\\nBorrado no puede revertirse.</string>
+    <string name="delete_account_warning">Borrar cuenta %s?\n\nBorrado no puede revertirse.</string>
     <string name="create_account">Crear cuenta</string>
     <string name="upload_chooser_title">Subir desde...</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
@@ -231,7 +231,6 @@
     <string name="unfavorite">Desmarcar como disponible offline</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Borrar</string>
-    <string name="confirmation_remove_alert">¿Realmente desea eliminar %1$s?</string>
     <string name="confirmation_remove_folder_alert">¿Realmente desea eliminar %1$s y todo su contenido?</string>
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="remove_success_msg">Borrado correctamente</string>
@@ -454,5 +453,4 @@
 
     <string name="permission_storage_access">Se requieren permisos adicionales para subir &amp; y descargar archivos.</string>
     <string name="local_file_not_found_toast">El archivo no se encuentra en el servidor local de archivos.</string>
-
-</resources>
+    </resources>

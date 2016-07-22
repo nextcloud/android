@@ -193,7 +193,6 @@
     
     <string name="common_rename">Endurnefna</string>
     <string name="common_remove">Fjarlægja</string>
-    <string name="confirmation_remove_alert">Ertu viss um að þú viljir fjarlægja %1$s?</string>
     <string name="confirmation_remove_folder_alert">Ertu viss um að þú viljir fjarlægja %1$s og innihald þess?</string>
     <string name="confirmation_remove_local">Einungis staðvært</string>
     <string name="remove_success_msg">Fjarlæging tókst</string>

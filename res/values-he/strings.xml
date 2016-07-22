@@ -228,7 +228,6 @@
     <string name="unfavorite">ביטול הגדרה כזמין באופן לא מקוון</string>
     <string name="common_rename">שינוי שם</string>
     <string name="common_remove">הסרה</string>
-    <string name="confirmation_remove_alert">האם באמת להסיר %1$s?</string>
     <string name="confirmation_remove_folder_alert">האם באמת להסיר %1$s ואת כל התכולה?</string>
     <string name="confirmation_remove_local">מקומי בלבד</string>
     <string name="remove_success_msg">ההסרה הצליחה</string>
@@ -446,5 +445,4 @@
 
     <string name="permission_storage_access">נדרשות הרשאות נוספות להעלאה והורדת קבצים.</string>
     <string name="local_file_not_found_toast">הקובץ לא נמצא במערכת הקבצים המקומית</string>
-
-</resources>
+    </resources>

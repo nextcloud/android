@@ -223,7 +223,6 @@
     
     <string name="common_rename">Преименуване</string>
     <string name="common_remove">Премахване</string>
-    <string name="confirmation_remove_alert">Наистина ли искате да изтриете %1$s ?</string>
     <string name="confirmation_remove_folder_alert">Наистина ли искате да премахнете %1$s и съдържанието му?</string>
     <string name="confirmation_remove_local">Само локално</string>
     <string name="remove_success_msg">Премахването успешно.</string>

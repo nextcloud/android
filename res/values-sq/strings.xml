@@ -227,7 +227,6 @@
     <string name="unfavorite">Hiqeni si të passhëm jo në linjë</string>
     <string name="common_rename">Riemërtojeni</string>
     <string name="common_remove">Hiqe</string>
-    <string name="confirmation_remove_alert">Doni vërtet të hiqet %1$s?</string>
     <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe lënda e tij?</string>
     <string name="confirmation_remove_local">Vetëm vendorja</string>
     <string name="remove_success_msg">Heqja doli me sukses</string>
@@ -444,5 +443,4 @@
 
     <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>
     <string name="local_file_not_found_toast">Kartela s’u gjet te sistemi vendor i kartelave</string>
-
-</resources>
+    </resources>
