@@ -249,6 +249,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
     }
 
+    /**
+     * show the file list to the user.
+     *
+     * @param onDeviceOnly flag to decide if all files or only the ones on the device should be shown
+     */
     public abstract void showFiles(boolean onDeviceOnly);
 
     /**
