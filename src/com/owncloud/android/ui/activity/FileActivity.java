@@ -36,6 +36,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -120,7 +121,8 @@ public abstract class FileActivity extends DrawerActivity
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
-        // must be implemented in Drawer using subclasses
+        // must be specialized in subclasses
+        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
     }
 
     /**

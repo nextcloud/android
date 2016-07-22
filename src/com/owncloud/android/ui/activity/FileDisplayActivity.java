@@ -1801,7 +1801,7 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
-        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
+        super.showFiles(onDeviceOnly);
         getListOfFilesFragment().refreshDirectory();
     }
 }
