@@ -202,16 +202,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                         switch (menuItem.getItemId()) {
                             case R.id.nav_all_files:
-                                menuItem.setChecked(true);
-                                mCheckedMenuItem = menuItem.getItemId();
-                                MainApp.showOnlyFilesOnDevice(false);
-                                refreshDirectory();
+                                refreshFileListOrOpenFileList(false, menuItem);
                                 break;
                              case R.id.nav_on_device:
-                                 menuItem.setChecked(true);
-                                 mCheckedMenuItem = menuItem.getItemId();
-                                 MainApp.showOnlyFilesOnDevice(true);
-                                 refreshDirectory();
+                                 refreshFileListOrOpenFileList(true, menuItem);
                                  break;
                             case R.id.nav_uploads:
                                 Intent uploadListIntent = new Intent(getApplicationContext(),
@@ -248,6 +242,19 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
         } else {
             mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
+        }
+    }
+
+    private void refreshFileListOrOpenFileList(boolean onDeviceOnly, MenuItem clickedItem) {
+        clickedItem.setChecked(true);
+        mCheckedMenuItem = clickedItem.getItemId();
+        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
+        if (DrawerActivity.this instanceof FileDisplayActivity) {
+            refreshDirectory();
+        } else {
+            Intent i = new Intent(getApplicationContext(), FileDisplayActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
         }
     }
 
