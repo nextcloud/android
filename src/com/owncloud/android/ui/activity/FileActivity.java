@@ -73,7 +73,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 /**
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
  */
-public class FileActivity extends DrawerActivity
+public abstract class FileActivity extends DrawerActivity
         implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
@@ -119,8 +119,8 @@ public class FileActivity extends DrawerActivity
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
 
     @Override
-    public void refreshDirectory() {
-        // implementation to be done in FileDisplayActivity
+    public void showFiles(boolean onDeviceOnly) {
+        // must be implemented in Drawer using subclasses
     }
 
     /**

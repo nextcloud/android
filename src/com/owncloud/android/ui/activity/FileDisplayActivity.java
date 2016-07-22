@@ -169,7 +169,11 @@ public class FileDisplayActivity extends HookActivity
         setupToolbar();
 
         // setup drawer
-        setupDrawer(R.id.nav_all_files);
+        if(MainApp.getOnlyOnDevice()) {
+            setupDrawer(R.id.nav_on_device);
+        } else {
+            setupDrawer(R.id.nav_all_files);
+        }
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
@@ -1795,7 +1799,9 @@ public class FileDisplayActivity extends HookActivity
         browseToRoot();
     }
 
-    public void refreshDirectory() {
+    @Override
+    public void showFiles(boolean onDeviceOnly) {
+        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
         getListOfFilesFragment().refreshDirectory();
     }
 }
