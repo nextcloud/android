@@ -34,12 +34,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
@@ -70,6 +70,14 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     private static final String TAG_UPLOAD_LIST_FRAGMENT = "UPLOAD_LIST_FRAGMENT";
 
     private UploadMessagesReceiver mUploadMessagesReceiver;
+
+    @Override
+    public void showFiles(boolean onDeviceOnly) {
+        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
+        Intent i = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
