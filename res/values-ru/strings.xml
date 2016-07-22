@@ -106,7 +106,7 @@
     <string name="about_title">О программе</string>
     <string name="change_password">Сменить пароль</string>
     <string name="delete_account">Удалить аккаунт</string>
-    <string name="delete_account_warning">Удалить аккаунт %s?\\n\\nУдаление не может быть отменено.</string>
+    <string name="delete_account_warning">Удалить аккаунт %s?\n\nУдаление не может быть отменено.</string>
     <string name="create_account">Создать учётную запись</string>
     <string name="upload_chooser_title">Загрузить из ...</string>
     <string name="uploader_info_dirname">Имя каталога</string>
@@ -232,7 +232,6 @@
     <string name="unfavorite">Убрать доступность офлайн</string>
     <string name="common_rename">Переименовать</string>
     <string name="common_remove">Удалить</string>
-    <string name="confirmation_remove_alert">Вы действительно хотите удалить %1$s?</string>
     <string name="confirmation_remove_folder_alert">Вы действительно хотите удалить %1$s и его содержимое?</string>
     <string name="confirmation_remove_local">Только локально</string>
     <string name="remove_success_msg">Удаление завершено</string>
@@ -455,5 +454,4 @@
 
     <string name="permission_storage_access">Для загрузки и скачивания файлов требуются дополнительные права.</string>
     <string name="local_file_not_found_toast">Файл не был найден в локальной файловой системе</string>
-
-</resources>
+    </resources>

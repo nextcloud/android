@@ -228,7 +228,6 @@
     <string name="unfavorite">Desaniciar como disponible ensin conexón</string>
     <string name="common_rename">Renomar</string>
     <string name="common_remove">Desaniciáu</string>
-    <string name="confirmation_remove_alert">¿De xuru quies desaniciar %1$s?</string>
     <string name="confirmation_remove_folder_alert">¿De xuru quies desaniciar %1$s y los sos conteníos?</string>
     <string name="confirmation_remove_local">Namái llocal</string>
     <string name="remove_success_msg">Desaniciu correutu</string>
@@ -445,5 +444,4 @@
 
     <string name="permission_storage_access">Ríquense permisos adicionales para xubir &amp; los ficheros descargaos.</string>
     <string name="local_file_not_found_toast">El ficheru nun s\'atopó nel sistema de ficheros llocal</string>
-
-</resources>
+    </resources>

@@ -106,7 +106,7 @@
     <string name="about_title">について</string>
     <string name="change_password">パスワードを変更</string>
     <string name="delete_account">アカウント削除</string>
-    <string name="delete_account_warning">アカウント %s を削除しますか?\\n\\nまだ削除されていません。</string>
+    <string name="delete_account_warning">アカウント %s を削除しますか?\n\nまだ削除されていません。</string>
     <string name="create_account">アカウントを作成</string>
     <string name="upload_chooser_title">アップロード …</string>
     <string name="uploader_info_dirname">フォルダー名</string>
@@ -232,7 +232,6 @@
     <string name="unfavorite">オフラインで利用不可に設定</string>
     <string name="common_rename">名前を変更</string>
     <string name="common_remove">削除</string>
-    <string name="confirmation_remove_alert">本当に %1$s を削除しますか？</string>
     <string name="confirmation_remove_folder_alert">本当に %1$s およびそのコンテンツを削除してもよろしいですか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
     <string name="remove_success_msg">削除に成功しました</string>
@@ -456,5 +455,4 @@
 
     <string name="permission_storage_access">ファイルをダウンロード &amp; アップロードする追加の権限が必要です。</string>
     <string name="local_file_not_found_toast">ローカルファイルにファイルがありません</string>
-
-</resources>
+    </resources>

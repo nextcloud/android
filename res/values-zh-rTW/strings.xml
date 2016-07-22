@@ -227,7 +227,6 @@
     <string name="unfavorite">取消設定為離線可用</string>
     <string name="common_rename">重新命名</string>
     <string name="common_remove">移除</string>
-    <string name="confirmation_remove_alert">您真的要移除 %1$s ?</string>
     <string name="confirmation_remove_folder_alert">您真的要移除 %1$s 與裡頭的檔案?</string>
     <string name="confirmation_remove_local">只有本地</string>
     <string name="remove_success_msg">成功地移除</string>
@@ -445,5 +444,4 @@
 
     <string name="permission_storage_access">需要額外的權限來上傳或下傳檔案.</string>
     <string name="local_file_not_found_toast">在本地的檔案系統中找不到這個檔案</string>
-
-</resources>
+    </resources>

@@ -103,6 +103,7 @@
     <string name="about_title">About</string>
     <string name="change_password">Change password</string>
     <string name="delete_account">Remove account</string>
+    <string name="delete_account_warning">Delete account %s?\n\nDeleting cannot be undone.</string>
     <string name="create_account">Create account</string>
     <string name="upload_chooser_title">Upload from …</string>
     <string name="uploader_info_dirname">Folder name</string>
@@ -228,7 +229,6 @@
     <string name="unfavorite">Unset as available offline</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
-    <string name="confirmation_remove_alert">Do you really want to remove %1$s?</string>
     <string name="confirmation_remove_folder_alert">Do you really want to remove %1$s and its contents?</string>
     <string name="confirmation_remove_local">Local only</string>
     <string name="remove_success_msg">Removal succeeded</string>
@@ -452,5 +452,4 @@
 
     <string name="permission_storage_access">Additional permissions required to upload &amp; download files.</string>
     <string name="local_file_not_found_toast">The file was not found in the local file system</string>
-
-</resources>
+    </resources>

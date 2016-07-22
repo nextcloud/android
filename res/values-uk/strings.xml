@@ -186,7 +186,6 @@
     
     <string name="common_rename">Перейменувати</string>
     <string name="common_remove">Видалити</string>
-    <string name="confirmation_remove_alert">Ви дійсно бажаєте видалити %1$s?</string>
     <string name="confirmation_remove_folder_alert">Ви дійсно бажаєте видалити %1$s та весь вміст?</string>
     <string name="confirmation_remove_local">Лише локально</string>
     <string name="remove_success_msg">Успішно видалено</string>

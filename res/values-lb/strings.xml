@@ -167,7 +167,6 @@
 	<string name="auth_unsupported_auth_method">De Server ënnerstëtzt dës Authentifizéierungsmethod net</string>
 	<string name="common_rename">Ëmbenennen</string>
     <string name="common_remove">Läschen</string>
-    <string name="confirmation_remove_alert">Wëlls du %1$s wierklech läschen?</string>
     <string name="confirmation_remove_folder_alert">Wëlls du %1$s an de ganzen Inhalt wierklech läschen?</string>
     <string name="confirmation_remove_local">Nemme lokal</string>
     <string name="remove_success_msg">Erfollegräich geläscht</string>
@@ -343,5 +342,4 @@
     <string name="manage_space_error">Verschidde Fichiere konnten net geläscht ginn.</string>
 
     <string name="local_file_not_found_toast">De Fichier konnt net am lokale Fichier System fonnt ginn</string>
-
-</resources>
+    </resources>

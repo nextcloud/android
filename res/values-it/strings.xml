@@ -105,7 +105,7 @@
     <string name="about_title">Informazioni</string>
     <string name="change_password">Modifica la password</string>
     <string name="delete_account">Rimuovi account</string>
-    <string name="delete_account_warning">Vuoi eliminare l\'account %s?\\n\\nL\'eliminazione non può essere annullata.</string>
+    <string name="delete_account_warning">Vuoi eliminare l\'account %s?\n\nL\'eliminazione non può essere annullata.</string>
     <string name="create_account">Crea account</string>
     <string name="upload_chooser_title">Carica file da...</string>
     <string name="uploader_info_dirname">Nome della cartella</string>
@@ -231,7 +231,6 @@
     <string name="unfavorite">Rimuovi come disponibile non in linea</string>
     <string name="common_rename">Rinomina</string>
     <string name="common_remove">Rimuovi</string>
-    <string name="confirmation_remove_alert">Vuoi davvero rimuovere %1$s?</string>
     <string name="confirmation_remove_folder_alert">Vuoi davvero rimuovere %1$s e il suo contenuto?</string>
     <string name="confirmation_remove_local">Solo localmente</string>
     <string name="remove_success_msg">Rimozione effettuata con successo</string>
@@ -455,5 +454,4 @@
 
     <string name="permission_storage_access">Permessi aggiuntivi sono richiesti per caricare e scaricare i file.</string>
     <string name="local_file_not_found_toast">Il file non è stato trovato nel file system locale</string>
-
-</resources>
+    </resources>
