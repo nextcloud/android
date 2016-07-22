@@ -40,8 +40,8 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
-import android.app.AlertDialog;
-import android.app.AlertDialog.Builder;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AlertDialog.Builder;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -100,6 +100,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
 
     private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
+    public static final String TEXT_FILE_SUFFIX = ".txt";
 
     private AccountManager mAccountManager;
     private Stack<String> mParents;
@@ -352,14 +353,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     alertDialogBuilder.setView(view);
 
                     final EditText userInput = (EditText) view.findViewById(R.id.user_input);
-                    userInput.setText(".txt");
+                    userInput.setText(TEXT_FILE_SUFFIX);
 
                     alertDialogBuilder.setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int id) {
                                             PrintWriter out;
                                             try {
-                                                File f = File.createTempFile("owncloud", ".txt");
+                                                File f = File.createTempFile("nextcloud",
+                                                                             TEXT_FILE_SUFFIX);
                                                 out = new PrintWriter(f);
                                                 out.println(getIntent().getStringExtra(
                                                             Intent.EXTRA_TEXT));
@@ -371,8 +373,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                 // verify if file name has suffix
                                                 String filename = userInput.getText().toString();
 
-                                                if (!filename.endsWith(".txt")){
-                                                    filename += ".txt";
+                                                if (!filename.endsWith(TEXT_FILE_SUFFIX)){
+                                                    filename += TEXT_FILE_SUFFIX;
                                                 }
 
                                                 requester.uploadNewFile(
@@ -386,7 +388,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                         UploadFileOperation.CREATED_BY_USER
                                                 );
                                             } catch (IOException e) {
-                                                e.printStackTrace();
+                                                Log_OC.w(TAG, e.getMessage());
                                             }
 
                                             finish();
