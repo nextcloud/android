@@ -39,7 +39,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
@@ -73,7 +72,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
-        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
+        super.showFiles(onDeviceOnly);
         Intent i = new Intent(getApplicationContext(), FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
