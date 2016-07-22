@@ -360,11 +360,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                         public void onClick(DialogInterface dialog,int id) {
                                             PrintWriter out;
                                             try {
-                                                File f = File.createTempFile("nextcloud",
-                                                                             TEXT_FILE_SUFFIX);
+                                                File f = File.createTempFile("nextcloud", TEXT_FILE_SUFFIX);
                                                 out = new PrintWriter(f);
-                                                out.println(getIntent().getStringExtra(
-                                                            Intent.EXTRA_TEXT));
+                                                out.println(getIntent().getStringExtra(Intent.EXTRA_TEXT));
                                                 out.close();
 
                                                 FileUploader.UploadRequester requester =
@@ -402,7 +400,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                     alertDialogBuilder.create().show();
                 } else {
-
                     Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
                     uploadFiles();
                 }
