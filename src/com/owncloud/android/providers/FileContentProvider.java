@@ -51,6 +51,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -127,7 +128,7 @@ public class FileContentProvider extends ContentProvider {
                     boolean isDir;
                     while (!children.isAfterLast()) {
                         childId = children.getLong(children.getColumnIndex(ProviderTableMeta._ID));
-                        isDir = "DIR".equals(children.getString(
+                        isDir = MimeType.DIRECTORY.equals(children.getString(
                                 children.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)
                         ));
                         //remotePath = children.getString(children.getColumnIndex(ProviderTableMeta.FILE_PATH));

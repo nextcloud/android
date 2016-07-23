@@ -23,8 +23,6 @@
 package com.owncloud.android.datamodel;
 
 
-import java.io.File;
-
 import android.content.ContentResolver;
 import android.net.Uri;
 import android.os.Parcel;
@@ -32,12 +30,16 @@ import android.os.Parcelable;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.MimeType;
+
+import java.io.File;
 
 import third_parties.daveKoeller.AlphanumComparator;
 
 public class OCFile implements Parcelable, Comparable<OCFile> {
 
     public static final Parcelable.Creator<OCFile> CREATOR = new Parcelable.Creator<OCFile>() {
+
         @Override
         public OCFile createFromParcel(Parcel source) {
             return new OCFile(source);
@@ -200,7 +202,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return true if it is a folder
      */
     public boolean isFolder() {
-        return mMimeType != null && mMimeType.equals("DIR");
+        return mMimeType != null && mMimeType.equals(MimeType.DIRECTORY);
     }
 
     /**

@@ -17,11 +17,14 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/upload_files_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/background_color"
     android:orientation="vertical" >
+
+    <include
+        layout="@layout/toolbar_standard" />
 
     <fragment
         android:id="@+id/local_files_list"
@@ -90,7 +93,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/common_cancel" />
+            android:text="@string/common_cancel"
+            android:layout_marginRight="@dimen/standard_half_margin"/>
 
         <android.support.v7.widget.AppCompatButton
 		    android:id="@+id/upload_files_btn_upload"

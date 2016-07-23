@@ -25,7 +25,6 @@
   <string name="sync_string_files">Archivos</string>
   <string name="setup_btn_connect">Conectar</string>
   <string name="uploader_btn_upload_text">Subir</string>
-  <string name="uploader_top_message">Elija el directorio donde subir los archivos:</string>
   <string name="uploader_wrn_no_account_title">No se encuentra la cuenta</string>
   <string name="uploader_wrn_no_account_setup_btn_text">Configuración</string>
   <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
