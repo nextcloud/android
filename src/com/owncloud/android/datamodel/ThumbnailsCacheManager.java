@@ -328,37 +328,46 @@ public class ThumbnailsCacheManager {
                         if (serverOCVersion.supportsRemoteThumbnails()) {
                             GetMethod get = null;
                             try {
-                                String uri = mClient.getBaseUri() + "" +
-                                        "/index.php/apps/files/api/v1/thumbnail/" +
-                                        pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
-                                Log_OC.d("Thumbnail", "URI: " + uri);
-                                get = new GetMethod(uri);
-                                get.setRequestHeader("Cookie",
-                                        "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
-                                int status = mClient.executeMethod(get);
-                                if (status == HttpStatus.SC_OK) {
-                                    InputStream inputStream = get.getResponseBodyAsStream();
-                                    Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                                    thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
-                                    byte[] bytes = get.getResponseBody();
-
-                                    if (mIsThumbnail) {
+                                if (mIsThumbnail) {
+                                    String uri = mClient.getBaseUri() + "" +
+                                            "/index.php/apps/files/api/v1/thumbnail/" +
+                                            pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
+                                    Log_OC.d("Thumbnail", "URI: " + uri);
+                                    get = new GetMethod(uri);
+                                    get.setRequestHeader("Cookie",
+                                            "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                                    int status = mClient.executeMethod(get);
+                                    if (status == HttpStatus.SC_OK) {
+                                        InputStream inputStream = get.getResponseBodyAsStream();
+                                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
                                         thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
-                                    } else {
-                                        thumbnail = bitmap;
-                                    }
-
-                                    // Handle PNG
-                                    if (file.getMimetype().equalsIgnoreCase("image/png")) {
-                                        thumbnail = handlePNG(thumbnail, pxW);
-                                    }
-
-                                    // Add thumbnail to cache
-                                    if (thumbnail != null) {
-                                        addBitmapToCache(imageKey, thumbnail);
                                     }
                                 } else {
-                                    mClient.exhaustResponse(get.getResponseBodyAsStream());
+                                    String uri = mClient.getBaseUri() + "" +
+                                            "/index.php/apps/gallery/api/preview/" +
+                                            Integer.parseInt(file.getRemoteId().substring(0,8)) +
+                                            "/" + pxW + "/" + pxH;
+                                    Log_OC.d("Thumbnail", "FileName: " + file.getFileName() + " Download URI: " + uri);
+                                    get = new GetMethod(uri);
+                                    get.setRequestHeader("Cookie",
+                                            "nc_sameSiteCookielax=true;nc_sameSiteCookiestrict=true");
+                                    int status = mClient.executeMethod(get);
+                                    if (status == HttpStatus.SC_OK) {
+                                        InputStream inputStream = get.getResponseBodyAsStream();
+                                        Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+                                        // Download via gallery app
+                                        thumbnail = bitmap;
+                                    }
+                                }
+
+                                // Handle PNG
+                                if (file.getMimetype().equalsIgnoreCase("image/png")) {
+                                    thumbnail = handlePNG(thumbnail, pxW);
+                                }
+
+                                // Add thumbnail to cache
+                                if (thumbnail != null) {
+                                    addBitmapToCache(imageKey, thumbnail);
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
