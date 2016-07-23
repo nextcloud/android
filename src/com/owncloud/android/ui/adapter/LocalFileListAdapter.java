@@ -27,7 +27,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -41,21 +40,24 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Vector;
 
 /**
  * This Adapter populates a ListView with all files and directories contained
  * in a local directory
  */
-public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
+public class LocalFileListAdapter extends BaseAdapter implements FilterableListAdapter {
 
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
     private Context mContext;
     private File mDirectory;
     private File[] mFiles = null;
-    
+    private Vector<File> mFilesAll = new Vector<File>();
+
     public LocalFileListAdapter(File directory, Context context) {
         mContext = context;
 
@@ -245,6 +247,12 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             });
 
             mFiles = FileStorageUtils.sortLocalFolder(mFiles);
+
+            mFilesAll.clear();
+
+            for (File mFile : mFiles) {
+                mFilesAll.add(mFile);
+            }
         }
         notifyDataSetChanged();
     }
@@ -257,6 +265,22 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
         FileStorageUtils.mSortAscending = ascending;
 
         mFiles = FileStorageUtils.sortLocalFolder(mFiles);
+        notifyDataSetChanged();
+    }
+
+    public void filter(String text){
+        if(text.isEmpty()){
+            mFiles = mFilesAll.toArray(new File[1]);
+        } else {
+            ArrayList<File> result = new ArrayList<>();
+            text = text.toLowerCase();
+            for (File file: mFilesAll) {
+                if (file.getName().toLowerCase().contains(text)) {
+                    result.add(file);
+                }
+            }
+            mFiles = result.toArray(new File[1]);
+        }
         notifyDataSetChanged();
     }
 }
