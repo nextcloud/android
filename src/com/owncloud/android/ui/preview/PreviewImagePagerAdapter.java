@@ -27,7 +27,6 @@ import java.util.Set;
 import java.util.Vector;
 
 import android.accounts.Account;
-import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -35,8 +34,6 @@ import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 

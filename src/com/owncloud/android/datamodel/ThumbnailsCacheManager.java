@@ -261,7 +261,6 @@ public class ThumbnailsCacheManager {
                             }
                         }
                         imageView.setImageBitmap(bitmap);
-                        // imageView.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -272,11 +271,12 @@ public class ThumbnailsCacheManager {
          * @param imageKey: thumb key
          * @param bitmap:   image for extracting thumbnail
          * @param path:     image path
-         * @param pxW:       thumbnail width
-         * @param pxH:       thumbnail height
+         * @param pxW:      thumbnail width in pixel
+         * @param pxH:      thumbnail height in pixel
          * @return Bitmap
          */
-        private Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int pxW, int pxH){
+        private Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path,
+                                           int pxW, int pxH){
 
             Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, pxW, pxH);
 
@@ -300,7 +300,8 @@ public class ThumbnailsCacheManager {
         }
 
         private Point getScreenDimension(){
-            WindowManager wm = (WindowManager) MainApp.getAppContext().getSystemService(Context.WINDOW_SERVICE);
+            WindowManager wm = (WindowManager) MainApp.getAppContext().
+                    getSystemService(Context.WINDOW_SERVICE);
             Display display = wm.getDefaultDisplay();
             Point test = new Point();
             display.getSize(test);
@@ -346,7 +347,8 @@ public class ThumbnailsCacheManager {
                             bitmap = handlePNG(bitmap, pxW);
                         }
 
-                        thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(), pxW, pxH);
+                        thumbnail = addThumbnailToCache(imageKey, bitmap, file.getStoragePath(),
+                                pxW, pxH);
 
                         file.setNeedsUpdateThumbnail(false);
                         mStorageManager.saveFile(file);
