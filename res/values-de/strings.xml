@@ -231,6 +231,7 @@
     <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_remove">Löschen</string>
+    <string name="confirmation_remove_file_alert">Möchten Sie %1$s wirklich löschen?</string>
     <string name="confirmation_remove_folder_alert">Soll %1$s und dessen Inhalt entfernt werden?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="remove_success_msg">Erfolgreich gelöscht</string>
@@ -454,4 +455,11 @@
 
     <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">Wollen Sie die ausgewählten Einträge wirklich löschen?</string>
+    <string name="confirmation_remove_folders_alert">Wollen Sie die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d ausgewählt</item>
+        <item quantity="other">%d ausgewählt</item>
+    </plurals>
+
+</resources>
