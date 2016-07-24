@@ -204,14 +204,12 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             case R.id.nav_all_files:
                                 menuItem.setChecked(true);
                                 mCheckedMenuItem = menuItem.getItemId();
-                                MainApp.showOnlyFilesOnDevice(false);
-                                refreshDirectory();
+                                showFiles(false);
                                 break;
                              case R.id.nav_on_device:
                                  menuItem.setChecked(true);
                                  mCheckedMenuItem = menuItem.getItemId();
-                                 MainApp.showOnlyFilesOnDevice(true);
-                                 refreshDirectory();
+                                 showFiles(true);
                                  break;
                             case R.id.nav_uploads:
                                 Intent uploadListIntent = new Intent(getApplicationContext(),
@@ -250,6 +248,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
     }
+
+    /**
+     * show the file list to the user.
+     *
+     * @param onDeviceOnly flag to decide if all files or only the ones on the device should be shown
+     */
+    public abstract void showFiles(boolean onDeviceOnly);
 
     /**
      * sets the new/current account and restarts. In case the given account equals the actual/current account the
@@ -404,11 +409,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // adding sets menu group back to visible, so safety check and setting invisible
         showMenu();
     }
-
-    /**
-     * Method that gets called on drawer menu click for 'All Files' and 'Offline Files'.
-     */
-    public abstract void refreshDirectory();
 
     /**
      * Updates title bar and home buttons (state and icon).
