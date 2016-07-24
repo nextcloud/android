@@ -231,6 +231,7 @@
     <string name="unfavorite">Rimuovi come disponibile non in linea</string>
     <string name="common_rename">Rinomina</string>
     <string name="common_remove">Rimuovi</string>
+    <string name="confirmation_remove_file_alert">Vuoi davvero rimuovere %1$s?</string>
     <string name="confirmation_remove_folder_alert">Vuoi davvero rimuovere %1$s e il suo contenuto?</string>
     <string name="confirmation_remove_local">Solo localmente</string>
     <string name="remove_success_msg">Rimozione effettuata con successo</string>
@@ -454,4 +455,11 @@
 
     <string name="permission_storage_access">Permessi aggiuntivi sono richiesti per caricare e scaricare i file.</string>
     <string name="local_file_not_found_toast">Il file non è stato trovato nel file system locale</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">Vuoi davvero rimuovere gli elementi selezionati?</string>
+    <string name="confirmation_remove_folders_alert">Vuoi davvero rimuovere gli elementi selezionati e il loro contenuto?</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d selezionato</item>
+        <item quantity="other">%d selezionati</item>
+    </plurals>
+
+</resources>
