@@ -231,6 +231,7 @@
     <string name="unfavorite">Desmarcar como disponible offline</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Borrar</string>
+    <string name="confirmation_remove_file_alert">¿Está seguro de que quiere elimintar %1$s?</string>
     <string name="confirmation_remove_folder_alert">¿Realmente desea eliminar %1$s y todo su contenido?</string>
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="remove_success_msg">Borrado correctamente</string>
@@ -453,4 +454,11 @@
 
     <string name="permission_storage_access">Se requieren permisos adicionales para subir &amp; y descargar archivos.</string>
     <string name="local_file_not_found_toast">El archivo no se encuentra en el servidor local de archivos.</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">¿Está seguro de que quiere eliminar los elementos seleccionados?</string>
+    <string name="confirmation_remove_folders_alert">¿Está sguro de que quiere eliminar los elementos seleccionados y sus contenidos?</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d seleccionado</item>
+        <item quantity="other">%d seleccionados</item>
+    </plurals>
+
+</resources>
