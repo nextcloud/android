@@ -105,7 +105,7 @@
     <string name="about_title">Über</string>
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
-    <string name="delete_account_warning">Das Konto %s löschen?\n\nDas löschen kann nicht rückgängig gemacht werden.</string>
+    <string name="delete_account_warning">Das Konto %s löschen?\n\nDas Löschen kann nicht rückgängig gemacht werden.</string>
     <string name="create_account">Account erstellen</string>
     <string name="upload_chooser_title">Dateien hochladen von...</string>
     <string name="uploader_info_dirname">Ordnername</string>
@@ -451,7 +451,7 @@
     <string name="manage_space_title">Speicher verwalten</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Server-Zertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_clear_data">Lösche Daten</string>
-    <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden</string>
+    <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden.</string>
 
     <string name="permission_storage_access">Weitere Berechtigungen erforderlich für das Hoch- und Herunterladen von Dateien</string>
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
