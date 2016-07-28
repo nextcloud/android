@@ -49,6 +49,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
@@ -63,6 +64,7 @@ import java.util.Vector;
  */
 public class FileListListAdapter extends BaseAdapter implements ListAdapter {
 
+    public static final int showFilenameColumnThreshold = 4;
     private Context mContext;
     private Vector<OCFile> mFiles = null;
     private boolean mJustFolders;
@@ -70,18 +72,21 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
+    private OCFileListFragment mListFragment;
 
     private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM}
 
     public FileListListAdapter(
             boolean justFolders,
             Context context,
-            ComponentsGetter transferServiceGetter
+            ComponentsGetter transferServiceGetter,
+            OCFileListFragment listFragment
     ) {
 
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+        mListFragment = listFragment;
 
         mTransferServiceGetter = transferServiceGetter;
 
@@ -203,8 +208,13 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 case GRID_ITEM:
                     // filename
                     fileName = (TextView) view.findViewById(R.id.Filename);
+
                     name = file.getFileName();
                     fileName.setText(name);
+
+                    if (mListFragment.getColumnSize() > showFilenameColumnThreshold && viewType == ViewType.GRID_ITEM){
+                        fileName.setVisibility(View.GONE);
+                    }
 
                 case GRID_IMAGE:
                     // sharedIcon

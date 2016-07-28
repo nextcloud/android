@@ -20,10 +20,15 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -33,6 +38,7 @@ import android.widget.GridView;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
@@ -50,7 +56,7 @@ public class ExtendedListFragment extends Fragment
 
     protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
-    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION"; 
+    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION";
 
     private static final String KEY_INDEXES = "INDEXES";
     private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
@@ -58,7 +64,11 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
+    private static final String GRID_COLUMNS = "gridColumns";
+    public static final float minColumnSize = 2.0f;
+    public static final float maxColumnSize = 10.0f;
 
+    private ScaleGestureDetector mScaleGestureDetector = null;
     protected SwipeRefreshLayout mRefreshListLayout;
     private SwipeRefreshLayout mRefreshGridLayout;
     protected SwipeRefreshLayout mRefreshEmptyLayout;
@@ -84,6 +94,8 @@ public class ExtendedListFragment extends Fragment
     private View mGridFooterView;
 
     private ListAdapter mAdapter;
+
+    private float mScale = -1f;
 
     protected void setListAdapter(ListAdapter listAdapter) {
         mAdapter = listAdapter;
@@ -154,6 +166,16 @@ public class ExtendedListFragment extends Fragment
 
         mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
+        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
+
+        mGridView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mScaleGestureDetector.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+
         // Pull-down to refresh layout
         mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
         mRefreshGridLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_grid);
@@ -190,6 +212,30 @@ public class ExtendedListFragment extends Fragment
         return v;
     }
 
+    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return true;
+        }
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            if (mScale == -1f) {
+                mGridView.setNumColumns(GridView.AUTO_FIT);
+                mScale = mGridView.getNumColumns();
+            }
+            mScale *= 1.f - (detector.getScaleFactor() - 1.f);
+            mScale = Math.max(minColumnSize, Math.min(mScale, maxColumnSize));
+            Integer scaleInt = Math.round(mScale);
+            mGridView.setNumColumns(scaleInt);
+            mGridView.invalidateViews();
+
+            return true;
+        }
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -210,7 +256,11 @@ public class ExtendedListFragment extends Fragment
             mTops = new ArrayList<Integer>();
             mHeightCell = 0;
         }
-    }    
+
+        SharedPreferences appPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getContext());
+        mScale = appPreferences.getFloat(GRID_COLUMNS, -1.0f);
+    }
     
     
     @Override
@@ -224,6 +274,10 @@ public class ExtendedListFragment extends Fragment
         savedInstanceState.putIntegerArrayList(KEY_TOPS, mTops);
         savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
+
+        SharedPreferences.Editor editor = PreferenceManager
+                .getDefaultSharedPreferences(getContext()).edit();
+        editor.putFloat(GRID_COLUMNS, mScale).apply();
     }
 
     /**
@@ -244,6 +298,10 @@ public class ExtendedListFragment extends Fragment
         } else {
             return 0;
         }
+    }
+
+    public int getColumnSize() {
+        return Math.round(mScale);
     }
 
 
