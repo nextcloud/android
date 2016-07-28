@@ -32,6 +32,7 @@ import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
@@ -167,7 +168,7 @@ public class FileStorageUtils {
         return uploadPath + OCFile.PATH_SEPARATOR + subPath
                 + (fileName == null ? "" : fileName);
     }
-
+    
     /**
      * Gets the composed path when video is or must be stored
      * @param context
