@@ -363,7 +363,7 @@ public class UploadFileOperation extends SyncOperation {
                     (new File(mFile.getStoragePath())).length() >
                             ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), mContext);
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
