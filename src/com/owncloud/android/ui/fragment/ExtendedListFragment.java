@@ -24,11 +24,16 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.GestureDetector;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -45,14 +50,14 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
-import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.ui.adapter.FilterableListAdapter;
 
 import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
 public class ExtendedListFragment extends Fragment
-        implements OnItemClickListener, OnEnforceableRefreshListener {
+        implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
 
     protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
@@ -93,11 +98,11 @@ public class ExtendedListFragment extends Fragment
     private GridViewWithHeaderAndFooter mGridView;
     private View mGridFooterView;
 
-    private ListAdapter mAdapter;
+    private FilterableListAdapter mAdapter;
 
     private float mScale = -1f;
 
-    protected void setListAdapter(ListAdapter listAdapter) {
+    protected void setListAdapter(FilterableListAdapter listAdapter) {
         mAdapter = listAdapter;
         mCurrentListView.setAdapter(listAdapter);
         mCurrentListView.invalidateViews();
@@ -146,8 +151,25 @@ public class ExtendedListFragment extends Fragment
     public boolean isGridEnabled(){
         return (mCurrentListView == mGridView);
     }
-    
-    
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        final MenuItem item = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(this);
+    }
+
+    public boolean onQueryTextChange(String query) {
+        mAdapter.filter(query);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        mAdapter.filter(query);
+        return true;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

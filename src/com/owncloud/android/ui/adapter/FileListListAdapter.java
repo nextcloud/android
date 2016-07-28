@@ -62,10 +62,11 @@ import java.util.Vector;
  * This Adapter populates a ListView with all files and folders in an ownCloud
  * instance.
  */
-public class FileListListAdapter extends BaseAdapter implements ListAdapter {
+public class FileListListAdapter extends BaseAdapter implements FilterableListAdapter {
 
     public static final int showFilenameColumnThreshold = 4;
     private Context mContext;
+    private Vector<OCFile> mFilesAll = new Vector<OCFile>();
     private Vector<OCFile> mFiles = null;
     private boolean mJustFolders;
 
@@ -411,6 +412,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
 
         mFiles = FileStorageUtils.sortOcFolder(mFiles);
+
+        mFilesAll.clear();
+        mFilesAll.addAll(mFiles);
+
         notifyDataSetChanged();
     }
 
@@ -461,4 +466,21 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return files;
     }
 
+    public void filter(String text){
+        if(text.isEmpty()){
+            mFiles.clear();
+            mFiles.addAll(mFilesAll);
+        } else {
+            ArrayList<OCFile> result = new ArrayList<>();
+            text = text.toLowerCase();
+            for(OCFile file: mFilesAll){
+                if(file.getFileName().toLowerCase().contains(text)){
+                    result.add(file);
+                }
+            }
+            mFiles.clear();
+            mFiles.addAll(result);
+        }
+        notifyDataSetChanged();
+    }
 }
