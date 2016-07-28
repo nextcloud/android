@@ -21,9 +21,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/action_search"
+          android:icon="@drawable/ic_search"
           android:title="@string/actionbar_search"
           app:actionViewClass="android.support.v7.widget.SearchView"
-          app:showAsAction="always"/>
+          app:showAsAction="always|collapseActionView"/>
     <item
         android:id="@+id/action_create_dir"
         android:icon="@drawable/ic_action_create_dir"
