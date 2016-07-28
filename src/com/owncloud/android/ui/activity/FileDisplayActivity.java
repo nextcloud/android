@@ -1627,7 +1627,7 @@ public class FileDisplayActivity extends HookActivity
                         // another window floating over
                     }
                 },
-                DELAY_TO_REQUEST_OPERATIONS_LATER
+                DELAY_TO_REQUEST_OPERATIONS_LATER + 350
         );
 
     }
