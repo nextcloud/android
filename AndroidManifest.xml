@@ -155,6 +155,12 @@
             </intent-filter>
         </provider>
 
+        <provider
+            android:name=".ui.adapter.DiskLruImageCacheFileProvider"
+            android:authorities="com.owncloud.imageCache.provider"
+            android:exported="true">
+        </provider>
+
         <activity
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
@@ -184,12 +190,12 @@
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
-        
+
         <activity android:name=".ui.activity.LogHistoryActivity"/>
 
         <activity android:name=".ui.errorhandling.ErrorShowActivity" />
         <activity android:name=".ui.activity.UploadListActivity" />
-        
+
         <receiver android:name=".files.services.ConnectivityActionReceiver"
 		    android:enabled="true" android:label="ConnectivityActionReceiver">
 		    <intent-filter>

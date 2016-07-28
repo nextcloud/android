@@ -302,10 +302,9 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                 if ((file.isImage() || file.isVideo()) && file.getRemoteId() != null) {
                     // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            String.valueOf(file.getRemoteId())
+                            "t" + String.valueOf(file.getRemoteId())
                     );
                     if (thumbnail != null && !file.needsUpdateThumbnail()) {
-
                         if (file.isVideo()) {
                             Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                             fileIcon.setImageBitmap(withOverlay);
@@ -333,7 +332,7 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                                     task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
+                            task.execute(file, true);
                         }
                     }
 
