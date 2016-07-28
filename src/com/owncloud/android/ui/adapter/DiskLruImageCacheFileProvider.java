@@ -50,7 +50,7 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
     private static String TAG = FileDataStorageManager.class.getSimpleName();
     private FileDataStorageManager mFileDataStorageManager;
 
-    public static final String AUTHORITY = "com.owncloud.imageCache.provider";
+    public static final String AUTHORITY = "org.nextcloud.beta.imageCache.provider";
 
     @Override
     public boolean onCreate() {

@@ -79,6 +79,15 @@
 		<Preference android:title="@string/actionbar_logger" android:key="logger" />
 		<Preference android:title="@string/prefs_imprint" android:key="imprint" />
 		<Preference android:title="@string/about_title" android:id="@+id/about_app" android:key="about_app" />
+
+		<Preference android:id="@+id/beta_link"
+					android:title="Download latest beta version"
+					android:key="beta_link" />
+
+		<Preference android:id="@+id/changelog_link"
+					android:title="Changelog beta version"
+					android:key="changelog_link" />
+
 	</PreferenceCategory>
     
 

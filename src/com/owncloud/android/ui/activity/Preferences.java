@@ -412,7 +412,13 @@ public class Preferences extends PreferenceActivity {
        if (pAboutApp != null) { 
                pAboutApp.setTitle(String.format(getString(R.string.about_android),
                        getString(R.string.app_name)));
-               pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
+           try {
+               Integer currentVersion = getPackageManager().getPackageInfo
+                       (getPackageName(), 0).versionCode;
+               pAboutApp.setSummary(String.format(getString(R.string.about_version),
+                       currentVersion));
+           } catch (NameNotFoundException e) {
+           }
        }
 
         INSTANT_UPLOAD_ACCOUNT_LABEL = getResources().getString(R.string.prefs_instant_upload_account);
