@@ -1,4 +1,4 @@
-## 1.2.0 (2016)
+## 1.2.0 (July 29, 2016)
 
 - Multi select capabilities
 - confirmation dialog on account removal
