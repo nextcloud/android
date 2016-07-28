@@ -22,15 +22,16 @@
     <item android:id="@+id/action_search"
           android:icon="@drawable/ic_search"
           android:title="@string/actionbar_search"
+          android:contentDescription="@string/actionbar_search"
           app:actionViewClass="android.support.v7.widget.SearchView"
-          app:showAsAction="always|collapseActionView"/>
+          app:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/action_select_all"
         android:checkable="true"
         android:contentDescription="@string/select_all"
         android:title="@string/select_all"
         android:icon="@drawable/ic_select_all"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/action_sort"
         android:icon="@drawable/ic_sort_variant"
