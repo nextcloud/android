@@ -53,6 +53,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -165,6 +166,27 @@ public class Preferences extends PreferenceActivity {
 
                     // Don't update just yet, we will decide on it in onActivityResult
                     return false;
+                }
+            });
+        }
+
+        final Preference pCacheSize = findPreference("pref_cache_size");
+        if (pCacheSize != null){
+            final SharedPreferences appPrefs =
+                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            Long cacheSize = ThumbnailsCacheManager.getMaxSize();
+            pCacheSize.setSummary(cacheSize + " Mb");
+            pCacheSize.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    int size = Integer.decode((String) newValue);
+                    if (ThumbnailsCacheManager.setMaxSize(size)){
+                        appPrefs.edit().putInt("pref_cache_size", size);
+                        pCacheSize.setSummary(size + " MB");
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
             });
         }
