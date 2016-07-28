@@ -19,7 +19,7 @@
  */
 
 
-package com.owncloud.android.providers;
+package org.nextcloud.providers;
 
 import android.accounts.Account;
 import android.app.SearchManager;
@@ -72,7 +72,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final int RESULTS_PER_PAGE = 50;
     private static final int REQUESTED_PAGE = 1;
 
-    public static final String AUTHORITY = "com.nextcloud.android.providers.UsersAndGroupsSearchProvider";
+    public static final String AUTHORITY = "org.nextcloud.beta.android.providers.UsersAndGroupsSearchProvider";
     public static final String ACTION_SHARE_WITH = AUTHORITY + ".action.SHARE_WITH";
 
     public static final String CONTENT = "content";

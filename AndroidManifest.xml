@@ -142,8 +142,8 @@
             android:syncable="true" />
 
         <provider
-            android:name=".providers.UsersAndGroupsSearchProvider"
-            android:authorities="@string/authoritySearch"
+            android:name="org.nextcloud.providers.UsersAndGroupsSearchProvider"
+            android:authorities="org.nextcloud.beta.android.providers.UsersAndGroupsSearchProvider"
             android:enabled="true"
             android:exported="false"
             android:label="@string/search_users_and_groups_hint" />
