@@ -1,32 +1,18 @@
-## 1.2.0 (July 29, 2016)
+## 2016-07-28
+Fresh start on current master with these PRs:
+- Resized images #69
+- Instant upload in the context of multi account support #98
+- mix folders and files on sort by date #135
+- Files drop #141
+- Receive text file #142
+- Pinch zoom #143
+- Resize cache #144
+- filter for oc file list and local file list #152
+- djvu is not an image #153
+- delay instant upload when metered wifi is used #161
+- rename instant upload path #162
+- Refresh when app starts #166
+- Disable suggestions in password field #167
+- resume chunked uploads #168
 
-- Multi select capabilities
-- confirmation dialog on account removal
-- offline available filter in main menu
-- sorting capability when choosing files to be uploaded
-- video thumbnails if activated on server
-- thumbnails during upload
-- fixed user agent for file firewalling
-- showing server side folder sizes
-- text in test preview can now be selected
-- search suggestions fixed for user/group search during sharing
-- minor bugfixes
-
-## 1.1.0 (July 6, 2016)
-
-- New main menu to switch accounts easily
-- Ability to open Nextcloud hosted files (read-only) from other apps that support the standard file chooser (requires Android 4.4 / KitKat or higher)
-- "Select all files" for upload within a folder
-- Optional feature to auto-create monthly folders for your instant uploads
-- Revamped login screen
-- Minor bugfixes
-
-## 1.0.1 (June 20, 2016)
-
-- Fix thumbnail preview support for new files
-- Add support for animated GIFs
-- Optimized uploader layout
-
-## 1.0.0 (June 12, 2016)
-
-- initial release of the Nextcloud Android app 
+From now on every new PR with "3. to review" will be merged to beta and published 

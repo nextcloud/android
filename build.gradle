@@ -33,7 +33,7 @@ dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
 
-    compile 'com.github.nextcloud:android-library:1.0.1'
+    compile 'com.github.nextcloud:android-library:beta-SNAPSHOT'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
@@ -84,7 +84,9 @@ android {
         testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.OCTEST_APP_PASSWORD\""
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
-        applicationId "com.nextcloud.client"
+        applicationId "com.nextcloud.android.beta"
+        versionCode 20160621
+        versionName "20160621"
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
@@ -131,4 +133,20 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
 
+    signingConfigs {
+        release
+    }
+
+     buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+if (project.hasProperty('RELEASE_STORE_FILE')) {
+    android.signingConfigs.release.storeFile     = file(RELEASE_STORE_FILE)
+    android.signingConfigs.release.storePassword = RELEASE_STORE_PASSWORD
+    android.signingConfigs.release.keyAlias      = RELEASE_KEY_ALIAS
+    android.signingConfigs.release.keyPassword   = RELEASE_KEY_PASSWORD
 }
