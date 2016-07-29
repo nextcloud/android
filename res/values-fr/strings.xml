@@ -235,6 +235,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
     <string name="common_rename">Renommer</string>
     <string name="common_remove">Supprimer</string>
+    <string name="confirmation_remove_file_alert">Voulez-vous vraiment supprimer %1$s?</string>
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et son contenu ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="remove_success_msg">Suppression effectuée avec succès</string>
@@ -457,4 +458,11 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
 
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser &amp; télécharger des fichiers.</string>
     <string name="local_file_not_found_toast">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">Voulez-vous vraiment supprimer les objets sélectionnés?</string>
+    <string name="confirmation_remove_folders_alert">Voulez-vous vraiment supprimer les objets sélectionnés et leurs contenus?</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d sélectionné</item>
+        <item quantity="other">%d sélectionnés</item>
+    </plurals>
+
+</resources>
