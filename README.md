@@ -1,20 +1,37 @@
-#This is the Android client for [ownCloud][0]
+# [Nextcloud](https://nextcloud.com) Android app
 
-The app performs file synchronization with an ownCloud server. Other ownCloud features may be added in the future, but they are not a priority right now.
+[<img src="http://www.android.com/images/brand/android_app_on_play_large.png" 
+      alt="Download from Google Play" 
+      height="80">](https://play.google.com/store/apps/details?id=com.nextcloud.client)
 
-## Build Status on
-Git master: ![Build Status](https://api.travis-ci.org/owncloud/android.svg?branch=master)
+[<img src="https://f-droid.org/badge/get-it-on.png"
+      alt="Get it on F-Droid"
+      height="80">](https://f-droid.org/repository/browse/?fdfilter=com.nextcloud)
 
-Git stable:  ![Build Status](https://api.travis-ci.org/owncloud/android.svg?branch=stable)
+**Build status:** master ![](https://api.travis-ci.org/nextcloud/android.svg?branch=master)
 
-## Development
+[![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud)
+[![irc](https://img.shields.io/badge/IRC-%23nextcloud--mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile)
 
-### Project Setup
-Make sure you read [SETUP.md][1] when you start working on this project.
+Please stay tuned while we get all the repositories up.
 
-[0]: https://github.com/owncloud/core
-[1]: https://github.com/owncloud/android/blob/master/SETUP.md
+Meanwhile check out https://nextcloud.com and follow us on https://twitter.com/nextclouders
 
-### Contributing
-Please see [Contribution Guidelines](https://owncloud.org/contribute/). Fork this repository and contribute back using
-[pull requests](https://github.com/owncloud/android/pulls). All pull requests should be based on, and targeted to, the ['master'](https://github.com/owncloud/android/tree/master) branch.
+If you want to [contribute](https://nextcloud.com/contribute/), you are very welcome: 
+
+- on our IRC channels #nextcloud & #nextcloud-mobile irc://#nextcloud-mobile@freenode.net (on freenode) and 
+- our forum at https://help.nextcloud.com
+
+Please read the [Code of Conduct](https://nextcloud.com/community/code-of-conduct/). This document offers some guidance to ensure Nextcloud participants can cooperate effectively in a positive and inspiring atmosphere, and to explain how together we can strengthen and support each other.
+
+if you want to join the Github organization just let us know and we’ll add you! :)
+
+*This is by the community, for the community. Everyone is welcome! :)*
+
+## Start contributing
+Make sure you read [SETUP.md](https://github.com/nextcloud/android/blob/master/SETUP.md) and [CONTRIBUTING.md](https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md) when you start working on this project. Basically: Fork this repository and contribute back using pull requests to the master branch.
+Easy starting points are also reviewing [pull requests](https://github.com/nextcloud/android/pulls) and working on [starter issue](https://github.com/nextcloud/android/issues?q=is%3Aopen+is%3Aissue+label%3A%22starter+issue%22).
+
+**Beta version** [beta version](https://github.com/nextcloud/android/raw/beta/apks/latest.apk)
+
+**License:** [GPLv2](https://github.com/nextcloud/android/blob/master/LICENSE.txt)

@@ -1,60 +1,32 @@
-## 1.8.0 (September 2015)
-- New MATERIAL DESIGN theme
-- Updated FILE TYPE ICONS
-- Preview TXT files within the app
-- COPY files & folders
-- Preview the full file/folder name from the long press menu
-- Set a file as FAVORITE (kept-in-sync) from the CONTEXT MENU
-- Updated CONFLICT RESOLUTION dialog (wording)
-- Updated background for images with TRANSPARENCY in GALLERY
-- Hidden files will not enforce list view instead of GRID VIEW (folders from Picasa & others)
-- Security:
-  + Updated network stack with security fixes (Jackrabbit 2.10.1)
-- Bugs fixed:
-  + Fixed crash when ETag is lost
-  + Passcode creation not restarted on device rotation
-  + Recovered share icon shown on folders 'shared with me'
-  + User name added to subject when sending a share link through e-mail (fixed on SAMLed apps)
+## 1.2.0 (July 29, 2016)
 
-## 1.7.2 (July 2015)
-- New navigation drawer
-- Improved Passcode
-- Automatic grid view just for folders full of images
-- More characters allowed in file names
-- Support for servers in same domain, different path
-- Bugs fixed:
-  + Frequent crashes in folder with several images
-  + Sync error in servers with huge quota and external storage enable
-  + Share by link error 
-  + Some other crashes and minor bugs
+- Multi select capabilities
+- confirmation dialog on account removal
+- offline available filter in main menu
+- sorting capability when choosing files to be uploaded
+- video thumbnails if activated on server
+- thumbnails during upload
+- fixed user agent for file firewalling
+- showing server side folder sizes
+- text in test preview can now be selected
+- search suggestions fixed for user/group search during sharing
+- minor bugfixes
 
-## 1.7.1 (April 2015)
+## 1.1.0 (July 6, 2016)
 
-- Share link even with password enforced by server
-- Get the app ready for oc 8.1 servers
-- Added option to create new folder in uploads from external apps
-- Improved management of deleted users
-- Bugs fixed
-  + Fixed crash on Android 2.x devices
-  + Improvements on uploads
+- New main menu to switch accounts easily
+- Ability to open Nextcloud hosted files (read-only) from other apps that support the standard file chooser (requires Android 4.4 / KitKat or higher)
+- "Select all files" for upload within a folder
+- Optional feature to auto-create monthly folders for your instant uploads
+- Revamped login screen
+- Minor bugfixes
 
-## 1.7.0 (February 2015)
+## 1.0.1 (June 20, 2016)
 
-- Download full folders
-- Grid view for images
-- Remote thumbnails (OC Server 8.0+)
-- Added number of files and folders at the end of the list
-- "Open with" in contextual menu
-- Downloads added to Media Provider
-- Uploads:
-  + Local thumbnails in section "Files"
-  + Multiple selection in "Content from other apps" (Android 4.3+)
-- Gallery: 
-  + proper handling of EXIF
-  + obey sorting in the list of files
-- Settings view updated
-- Improved subjects in e-mails
-- Bugs fixed
+- Fix thumbnail preview support for new files
+- Add support for animated GIFs
+- Optimized uploader layout
 
+## 1.0.0 (June 12, 2016)
 
-
+- initial release of the Nextcloud Android app 

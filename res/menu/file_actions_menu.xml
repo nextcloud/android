@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
@@ -16,82 +17,85 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/action_share_file"
-        android:title="@string/action_share_file"
-        android:icon="@android:drawable/ic_menu_share"
-        android:orderInCategory="1" />
-    <item
-        android:id="@+id/action_unshare_file"
-        android:title="@string/action_unshare_file"
-        android:icon="@android:drawable/ic_menu_share"
+        android:title="@string/action_share"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="ifRoom"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_open_file_with"
         android:title="@string/actionbar_open_with"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_open_in_app"
+        app:showAsAction="never"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_download_file"
         android:title="@string/filedetails_download"
         android:icon="@drawable/ic_action_download"
+        app:showAsAction="ifRoom"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_sync_file"
         android:title="@string/filedetails_sync_file"
-        android:icon="@drawable/ic_action_refresh"
+        android:icon="@drawable/ic_action_refresh_white"
+        app:showAsAction="ifRoom"
         android:orderInCategory="1" />
     <item
-        android:id="@+id/action_cancel_download"
-        android:title="@string/common_cancel_download"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
-        android:orderInCategory="1" />
-    <item
-        android:id="@+id/action_cancel_upload"
-        android:title="@string/common_cancel_upload"
-        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:id="@+id/action_cancel_sync"
+        android:title="@string/common_cancel_sync"
+        android:icon="@drawable/ic_action_cancel_sync"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_rename_file"
         android:title="@string/common_rename"
-        android:icon="@android:drawable/ic_menu_edit"
+        android:icon="@drawable/ic_edit"
+        app:showAsAction="never"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_move"
         android:title="@string/actionbar_move"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_action_move"
+        app:showAsAction="ifRoom"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_copy"
         android:title="@android:string/copy"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_action_copy"
+        app:showAsAction="ifRoom"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_remove_file"
         android:title="@string/common_remove"
-        android:icon="@android:drawable/ic_menu_delete"
+        android:icon="@drawable/ic_action_delete_white"
+        app:showAsAction="ifRoom"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_send_file"
         android:title="@string/actionbar_send_file"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_send"
+        app:showAsAction="never"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_favorite_file"
         android:title="@string/favorite"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_action_set_available_offline_white"
+        app:showAsAction="never"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_unfavorite_file"
         android:title="@string/unfavorite"
-        android:icon="@android:drawable/ic_menu_set_as"
+        android:icon="@drawable/ic_action_unset_available_offline_white"
+        app:showAsAction="never"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_see_details"
         android:title="@string/actionbar_see_details"
-        android:icon="@android:drawable/ic_menu_info_details"
+        android:icon="@drawable/ic_information"
+        app:showAsAction="never"
         android:orderInCategory="1" />
 
 </menu>

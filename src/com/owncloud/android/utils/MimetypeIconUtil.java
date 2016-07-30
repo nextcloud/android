@@ -1,3 +1,22 @@
+/**
+ *   ownCloud Android client application
+ *
+ *   Copyright (C) 2016 ownCloud Inc.
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   as published by the Free Software Foundation.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details.
+ *
+ *   You should have received a copy of the GNU General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 package com.owncloud.android.utils;
 
 import android.webkit.MimeTypeMap;
@@ -69,18 +88,33 @@ public class MimetypeIconUtil {
     /**
      * Returns the resource identifier of an image to use as icon associated to a type of folder.
      *
-     * @param isSharedWithUser flag if the folder is shared with the user
-     * @param isShareByLink flag if the folder is shared by link
+     * @param isSharedViaUsers flag if the folder is shared via the users system
+     * @param isSharedViaLink flag if the folder is publicly shared via link
      * @return Identifier of an image resource.
      */
-    public static int getFolderTypeIconId(boolean isSharedWithUser, boolean isShareByLink) {
-        if (isSharedWithUser) {
-            return R.drawable.shared_with_me_folder;
-        } else if (isShareByLink) {
+    public static int getFolderTypeIconId(boolean isSharedViaUsers, boolean isSharedViaLink) {
+        if (isSharedViaLink) {
             return R.drawable.folder_public;
+        } else if (isSharedViaUsers) {
+            return R.drawable.shared_with_me_folder;
         }
 
         return R.drawable.ic_menu_archive;
+    }
+
+    /**
+     * Returns a single MIME type of all the possible, by inspection of the file extension, and taking
+     * into account the MIME types known by ownCloud first.
+     *
+     * @param filename      Name of file
+     * @return              A single MIME type, "application/octet-stream" for unknown file extensions.
+     */
+    public static String getBestMimeTypeByFilename(String filename) {
+        List<String> candidates = determineMimeTypesByFilename(filename);
+        if (candidates == null || candidates.size() < 1) {
+            return "application/octet-stream";
+        }
+        return candidates.get(0);
     }
 
     /**
@@ -242,7 +276,7 @@ public class MimetypeIconUtil {
         MIMETYPE_TO_ICON_MAPPING.put("text/x-python", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("text/x-shellscript", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("web", R.drawable.file_code);
-        MIMETYPE_TO_ICON_MAPPING.put("DIR", R.drawable.ic_menu_archive);
+        MIMETYPE_TO_ICON_MAPPING.put(MimeType.DIRECTORY, R.drawable.ic_menu_archive);
     }
 
     /**
