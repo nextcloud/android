@@ -20,6 +20,7 @@
     	<item>Grand - Petit</item>
     </string-array>
     <string name="drawer_item_all_files">Tous les fichiers</string>
+    <string name="drawer_item_on_device">Sur le périphérique</string>
     <string name="drawer_item_settings">Paramètres</string>
     <string name="drawer_item_uploads_list">Chargements</string>
 	<string name="drawer_close">Fermer</string>
