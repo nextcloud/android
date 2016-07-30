@@ -207,6 +207,8 @@
 		    <intent-filter>
 		        <!--action android:name="android.net.conn.CONNECTIVITY_CHANGE"/-->
 		        <action android:name="android.net.wifi.STATE_CHANGE"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
 		    </intent-filter>
 		</receiver>
 		<receiver android:name=".files.InstantUploadBroadcastReceiver">

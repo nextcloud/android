@@ -72,7 +72,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * Because we support NEW_PHOTO_ACTION and NEW_PHOTO_ACTION_UNOFFICIAL it can happen that 
+     * Because we support NEW_PHOTO_ACTION and NEW_PHOTO_ACTION_UNOFFICIAL it can happen that
      * handleNewPictureAction is called twice for the same photo. Use this simple static variable to
      * remember last uploaded photo to filter duplicates. Must not be null!
      */

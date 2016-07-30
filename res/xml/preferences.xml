@@ -3,7 +3,7 @@
   ownCloud Android client application
 
   Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2015 ownCloud Inc.
+  Copyright (C) 2012-2013 ownCloud Inc.
 
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License version 2,
@@ -31,12 +31,16 @@
                             android:summary="@string/prefs_instant_upload_path_use_subfolders_summary"
 							android:key="instant_upload_path_use_subfolders" />
 	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
-	        				android:title="@string/instant_upload_on_wifi"
-	        				android:key="instant_upload_on_wifi"/>
-	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="instant_video_uploading"
-	                        android:title="@string/prefs_instant_video_upload"
-	                        android:summary="@string/prefs_instant_video_upload_summary" />
-	    <com.owncloud.android.ui.PreferenceWithTwoLineLongSummary
+	        android:title="@string/instant_upload_on_wifi"
+	        android:key="instant_upload_on_wifi"/>
+		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
+			android:title="@string/instant_upload_on_charging"
+			android:key="instant_upload_on_charging"/>
+		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
+			android:key="instant_video_uploading"
+	        android:title="@string/prefs_instant_video_upload"
+	        android:summary="@string/prefs_instant_video_upload_summary" />
+	    <com.owncloud.android.ui.PreferenceWithLongSummary
 							android:title="@string/prefs_instant_video_upload_path_title"
 							android:key="instant_video_upload_path" />
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
@@ -46,6 +50,9 @@
 	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
 	        				android:title="@string/instant_video_upload_on_wifi"
 	        				android:key="instant_video_upload_on_wifi"/>
+		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
+			android:title="@string/instant_video_upload_on_charging"
+			android:key="instant_video_upload_on_charging"/>
 		<com.owncloud.android.ui.dialog.OwnCloudListPreference android:key="prefs_instant_behaviour"
 			android:dialogTitle="@string/prefs_instant_behaviour_dialogTitle"
 			android:title="@string/prefs_instant_behaviour_title"
@@ -89,6 +96,6 @@
 					android:key="changelog_link" />
 
 	</PreferenceCategory>
-    
+
 
 </PreferenceScreen>

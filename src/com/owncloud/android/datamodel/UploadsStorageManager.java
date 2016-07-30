@@ -365,7 +365,8 @@ public class UploadsStorageManager extends Observable {
     public OCUpload[] getCurrentAndPendingUploads() {
         return getUploads(
             ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR " +
-            ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue(),
+            ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue() + " OR " +
+            ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
             null
         );
     }
@@ -388,10 +389,11 @@ public class UploadsStorageManager extends Observable {
      * Get all failed uploads, except for those that were not performed due to lack of Wifi connection
      * @return      Array of failed uploads, except for those that were not performed due to lack of Wifi connection.
      */
-    public OCUpload[] getFailedButNotDelayedForWifiUploads() {
+    public OCUpload[] getFailedButNotDelayedUploads() {
         return getUploads(
             ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + " AND " +
-                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue(),
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + " AND " +
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
             null
         );
     }
@@ -400,11 +402,12 @@ public class UploadsStorageManager extends Observable {
         return mContentResolver;
     }
 
-    public long clearFailedButNotDelayedForWifiUploads() {
+    public long clearFailedButNotDelayedUploads() {
         long result = getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
             ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + " AND " +
-                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue(),
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + " AND " +
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
             null
         );
         Log_OC.d(TAG, "delete all failed uploads but those delayed for Wifi");
@@ -426,14 +429,15 @@ public class UploadsStorageManager extends Observable {
         return result;
     }
 
-    public long clearAllFinishedButNotDelayedForWifiUploads() {
+    public long clearAllFinishedButNotDelayedUploads() {
         String[] whereArgs = new String[2];
         whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
         whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=? AND " +
-                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue(),
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + " AND " +
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
                 whereArgs
         );
         Log_OC.d(TAG, "delete all finished uploads");
