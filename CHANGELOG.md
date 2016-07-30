@@ -1,3 +1,6 @@
+## 2016-07-30
+- Upload when charging #171
+
 ## 2016-07-28
 Fresh start on current master with these PRs:
 - Resized images #69
