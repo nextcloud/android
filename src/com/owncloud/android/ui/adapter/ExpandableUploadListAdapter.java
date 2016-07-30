@@ -150,7 +150,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getFailedButNotDelayedForWifiUploads();
+                items = mUploadsStorageManager.getFailedButNotDelayedUploads();
                 Arrays.sort(items, comparator);
             }
 
@@ -550,6 +550,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         status = mParentActivity.getString(
                             R.string.uploads_view_upload_status_waiting_for_wifi
                         );
+                        break;
+                    case DELAYED_FOR_CHARGING:
+                        status = mParentActivity.getString(
+                                R.string.uploads_view_upload_status_waiting_for_charging);
                         break;
                     case CONFLICT_ERROR:
                         status = mParentActivity.getString(

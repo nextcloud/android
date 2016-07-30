@@ -82,11 +82,13 @@ public class Preferences extends PreferenceActivity {
     private Preference mPrefInstantUploadBehaviour;
     private Preference mPrefInstantUploadPath;
     private Preference mPrefInstantUploadUseSubfolders;
+    private Preference mPrefInstantPictureUploadOnlyOnCharging;
     private Preference mPrefInstantUploadPathWiFi;
     private Preference mPrefInstantVideoUpload;
     private Preference mPrefInstantVideoUploadPath;
     private Preference mPrefInstantVideoUploadUseSubfolders;
     private Preference mPrefInstantVideoUploadPathWiFi;
+    private Preference mPrefInstantVideoUploadOnlyOnCharging;
     private String mUploadVideoPath;
 
     @SuppressWarnings("deprecation")
@@ -291,6 +293,7 @@ public class Preferences extends PreferenceActivity {
 
         mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
         mPrefInstantUploadPathWiFi =  findPreference("instant_upload_on_wifi");
+        mPrefInstantPictureUploadOnlyOnCharging = findPreference("instant_upload_on_charging");
         mPrefInstantUpload = findPreference("instant_uploading");
         
         toggleInstantPictureOptions(((CheckBoxPreference) mPrefInstantUpload).isChecked());
@@ -328,6 +331,7 @@ public class Preferences extends PreferenceActivity {
         mPrefInstantVideoUploadUseSubfolders = findPreference("instant_video_upload_path_use_subfolders");
         mPrefInstantVideoUploadPathWiFi =  findPreference("instant_video_upload_on_wifi");
         mPrefInstantVideoUpload = findPreference("instant_video_uploading");
+        mPrefInstantVideoUploadOnlyOnCharging = findPreference("instant_video_upload_on_charging");
         toggleInstantVideoOptions(((CheckBoxPreference) mPrefInstantVideoUpload).isChecked());
         
         mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -364,10 +368,12 @@ public class Preferences extends PreferenceActivity {
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPath);
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadUseSubfolders);
+            mPrefInstantUploadCategory.addPreference(mPrefInstantPictureUploadOnlyOnCharging);
         } else {
             mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPathWiFi);
             mPrefInstantUploadCategory.removePreference(mPrefInstantUploadPath);
             mPrefInstantUploadCategory.removePreference(mPrefInstantUploadUseSubfolders);
+            mPrefInstantUploadCategory.removePreference(mPrefInstantPictureUploadOnlyOnCharging);
         }
     }
     
@@ -376,10 +382,12 @@ public class Preferences extends PreferenceActivity {
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPath);
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadUseSubfolders);
+            mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadOnlyOnCharging);
         } else {
             mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPathWiFi);
             mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadPath);
             mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadUseSubfolders);
+            mPrefInstantUploadCategory.removePreference(mPrefInstantVideoUploadOnlyOnCharging);
         }
     }
 
@@ -587,7 +595,7 @@ public class Preferences extends PreferenceActivity {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadVideoPath = appPrefs.getString("instant_video_upload_path", getString(R.string.instant_upload_path));
-//        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
+        mPrefInstantVideoUploadPath.setSummary(mUploadVideoPath);
     }
 
     /**
