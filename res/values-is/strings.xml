@@ -17,10 +17,13 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Nýjast - Elst</item>
+    	<item>Stærst - Minnst</item>
     </string-array>
     <string name="drawer_item_all_files">Allar skrár</string>
+    <string name="drawer_item_on_device">á tækinu</string>
     <string name="drawer_item_settings">Stillingar</string>
-    <string name="drawer_close">Loka</string>
+    <string name="drawer_item_uploads_list">Innsendingar</string>
+	<string name="drawer_close">Loka</string>
     <string name="drawer_open">Opna</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
@@ -58,11 +61,16 @@
     <string name="uploader_wrn_no_account_text">Það eru engir %1$s aðgangar á tækinu þínu. Settu fyrst upp notandaaðgang.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Uppsetning</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Hætta</string>
+    <string name="uploader_error_title_no_file_to_upload">Engin skrá til að senda inn</string>
     <string name="file_list_seconds_ago">sek.</string>
     <string name="file_list_empty">Ekkert hér. Settu eitthvað inn!</string>
     <string name="file_list_loading">Hleð inn…</string>
     <string name="file_list_no_app_for_file_type">Engin forrit fundust fyrir skráategund!</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
+    <string name="file_list_folder">mappa</string>
+    <string name="file_list_folders">möppur</string>
+    <string name="file_list_file">skrá</string>
+    <string name="file_list_files">skrár</string>
     <string name="filedetails_select_file">Bankaðu á skrá til að sjá ítarlegri upplýsingar.</string>
     <string name="filedetails_size">Stærð:</string>
     <string name="filedetails_type">Tegund:</string>
@@ -82,6 +90,7 @@
     <string name="common_save_exit">Vista &amp; fara út</string>
     <string name="common_error"><strong>Villa</strong></string>
     <string name="common_loading">Hleð inn …</string>
+    <string name="common_unknown">óþekkt</string>
     <string name="common_error_unknown">Óþekkt villa</string>
     <string name="about_title">Um</string>
     <string name="change_password">Breyta lykilorði</string>
@@ -99,7 +108,14 @@
     <string name="uploads_view_group_current_uploads">Núverandi</string>
     <string name="uploads_view_group_finished_uploads">Hlaðið inn</string>
     <string name="uploads_view_upload_status_succeeded">Lokið</string>
+    <string name="uploads_view_upload_status_cancelled">Hætt við</string>
+    <string name="uploads_view_upload_status_paused">Í bið</string>
+    <string name="uploads_view_upload_status_failed_connection_error">Villa við tengingu</string>
+    <string name="uploads_view_upload_status_failed_folder_error">Villa í möppu</string>
+    <string name="uploads_view_upload_status_failed_file_error">Villa í skrá</string>
+    <string name="uploads_view_upload_status_conflict">Árekstur</string>
     <string name="uploads_view_upload_status_unknown_fail">Óþekkt villa</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Bíð eftir þráðlausri tengingu</string>
     <string name="downloader_download_in_progress_ticker">Sæki ...</string>
     <string name="downloader_download_in_progress_content">%1$d%% Sæki %2$s</string>
     <string name="downloader_download_succeeded_ticker">Niðurhal tókst</string>
@@ -193,6 +209,7 @@
     
     <string name="common_rename">Endurnefna</string>
     <string name="common_remove">Fjarlægja</string>
+    <string name="confirmation_remove_file_alert">Ertu viss um að þú viljir fjarlægja %1$s?</string>
     <string name="confirmation_remove_folder_alert">Ertu viss um að þú viljir fjarlægja %1$s og innihald þess?</string>
     <string name="confirmation_remove_local">Einungis staðvært</string>
     <string name="remove_success_msg">Fjarlæging tókst</string>
