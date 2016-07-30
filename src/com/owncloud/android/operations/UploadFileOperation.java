@@ -300,6 +300,12 @@ public class UploadFileOperation extends SyncOperation {
                 return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
             }
 
+            // Check if charging conditions are met and delays the upload otherwise
+            if (delayForCharging()){
+                Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
+                return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
+            }
+
             /// check if the file continues existing before schedule the operation
             if (!originalFile.exists()) {
                 Log_OC.d(TAG, mOriginalStoragePath.toString() + " not exists anymore");
@@ -466,6 +472,22 @@ public class UploadFileOperation extends SyncOperation {
             (delayInstantPicture || delayInstantVideo) &&
             !ConnectivityUtils.isAppConnectedViaWiFi(mContext)
         );
+    }
+
+    /**
+     * Check if upload should be delayed due to not charging
+     *
+     * @return      'True' if the upload was delayed until device is charging, 'false' otherwise.
+     */
+    private boolean delayForCharging() {
+        boolean delayInstantPicture = isInstantPicture() &&
+                PreferenceManager.instantPictureUploadWhenChargingOnly(mContext);
+
+        boolean delayInstantVideo = isInstantVideo() &&
+                PreferenceManager.instantVideoUploadViaWiFiOnly(mContext);
+
+        return ((delayInstantPicture || delayInstantVideo)
+                && !ConnectivityUtils.isCharging(mContext));
     }
 
 

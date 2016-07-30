@@ -36,11 +36,8 @@
 	        android:title="@string/instant_upload_on_wifi"
 	        android:key="instant_upload_on_wifi"/>
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
-			android:dependency="instant_uploading"
-			android:disableDependentsState="true"
 			android:title="@string/instant_upload_on_charging"
 			android:key="instant_upload_on_charging"/>
-
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
 			android:key="instant_video_uploading"
 	        android:title="@string/prefs_instant_video_upload"
@@ -56,8 +53,6 @@
 	        				android:title="@string/instant_video_upload_on_wifi"
 	        				android:key="instant_video_upload_on_wifi"/>
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
-			android:dependency="instant_video_uploading"
-			android:disableDependentsState="true"
 			android:title="@string/instant_video_upload_on_charging"
 			android:key="instant_video_upload_on_charging"/>
 		<com.owncloud.android.ui.dialog.OwnCloudListPreference android:key="prefs_instant_behaviour"

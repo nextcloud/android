@@ -57,9 +57,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log_OC.d(TAG, "Received: " + intent.getAction());
-        if (intent.getAction().equals(android.net.ConnectivityManager.CONNECTIVITY_ACTION) || intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
-            handleConnectivityAction(context, intent);
-        } else if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
+        if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
             handleNewPictureAction(context, intent);
             Log_OC.d(TAG, "UNOFFICIAL processed: com.android.camera.NEW_PICTURE");
         } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
@@ -101,7 +99,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         }
 
         String[] CONTENT_PROJECTION = {
-                Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE};
+                Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE };
 
         int permissionCheck = ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -193,11 +191,6 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         c.close();
         date_taken = System.currentTimeMillis();
         Log_OC.d(TAG, file_path + "");
-
-        // save always temporally the picture to upload
-        DbHandler db = new DbHandler(context);
-        db.putFileForLater(file_path, account.name, null);
-        db.close();
 
         int behaviour = getUploadBehaviour(context);
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();

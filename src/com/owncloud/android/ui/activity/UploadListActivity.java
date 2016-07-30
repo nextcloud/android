@@ -203,7 +203,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
             case R.id.action_clear_failed_uploads:
                 storageManager = new UploadsStorageManager(getContentResolver());
-                storageManager.clearFailedButNotDelayedForWifiUploads();
+                storageManager.clearFailedButNotDelayedUploads();
                 uploadListFragment.updateUploads();
                 break;
 
@@ -215,7 +215,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
             case R.id.action_clear_finished_uploads:
                 storageManager = new UploadsStorageManager(getContentResolver());
-                storageManager.clearAllFinishedButNotDelayedForWifiUploads();
+                storageManager.clearAllFinishedButNotDelayedUploads();
                 uploadListFragment.updateUploads();
                 break;
 
