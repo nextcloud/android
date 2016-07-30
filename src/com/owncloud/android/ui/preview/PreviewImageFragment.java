@@ -46,7 +46,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
@@ -233,7 +233,7 @@ public class PreviewImageFragment extends FileFragment {
     public void onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
 
-        if (mContainerActivity.getStorageManager() != null) {
+        if (mContainerActivity.getStorageManager() != null && getFile() != null) {
             // Update the file
             setFile(mContainerActivity.getStorageManager().getFileById(getFile().getFileId()));
 
@@ -286,11 +286,7 @@ public class PreviewImageFragment extends FileFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share_file: {
-                mContainerActivity.getFileOperationsHelper().shareFileWithLink(getFile());
-                return true;
-            }
-            case R.id.action_unshare_file: {
-                mContainerActivity.getFileOperationsHelper().unshareFileWithLink(getFile());
+                mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
                 return true;
             }
             case R.id.action_open_file_with: {
@@ -298,7 +294,7 @@ public class PreviewImageFragment extends FileFragment {
                 return true;
             }
             case R.id.action_remove_file: {
-                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
                 dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
@@ -323,7 +319,7 @@ public class PreviewImageFragment extends FileFragment {
                 return true;
             }
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
     }
 
@@ -331,7 +327,6 @@ public class PreviewImageFragment extends FileFragment {
     private void seeDetails() {
         mContainerActivity.showDetails(getFile());
     }
-
 
     @Override
     public void onResume() {
@@ -504,12 +499,17 @@ public class PreviewImageFragment extends FileFragment {
                 Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
                         bitmap.getHeight());
 
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")){
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                     Drawable backrepeat = getResources().getDrawable(R.drawable.backrepeat);
                     imageView.setBackground(backrepeat);
                 }
 
-                imageView.setImageBitmap(bitmap);
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
+                    imageView.setGIFImageFromStoragePath(result.ocFile.getStoragePath());
+                } else {
+                    imageView.setImageBitmap(bitmap);
+                }
+
                 imageView.setVisibility(View.VISIBLE);
                 mBitmap  = bitmap;  // needs to be kept for recycling when not useful
             }

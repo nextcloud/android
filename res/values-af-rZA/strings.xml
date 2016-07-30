@@ -11,6 +11,7 @@
   <string name="auth_username">Gebruikersnaam</string>
   <string name="auth_password">Wagwoord</string>
   <string name="file_list_seconds_ago">sekondes gelede</string>
+  <string name="action_share">Deel</string>
   <string name="common_yes">Ja</string>
   <string name="common_no">Nee</string>
   <string name="common_ok">OK</string>
@@ -19,4 +20,9 @@
   <string name="activity_chooser_send_file_title">Stuur</string>
   <string name="empty"></string>
   <string name="folder_picker_choose_button_text">Kies</string>
+  <string name="share_via_link_expiration_date_label">Stel verval datum</string>
+  <string name="share_via_link_password_label">Beskerm met Wagwoord</string>
+  <string name="share_privilege_can_edit">kan wysig</string>
+  <string name="share_privilege_can_edit_create">skep</string>
+  <string name="share_privilege_can_edit_delete">uitvee</string>
 </resources>

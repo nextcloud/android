@@ -39,6 +39,7 @@ public class AccountActionsDialogFragment extends DialogFragment implements
      * Listener interface for the file action fragment.
      */
     public interface FileActionsDialogFragmentListener {
+        // TODO Tobi change to int array?
         public boolean onFileActionChosen(int menuId, int filePosition);
     }
 

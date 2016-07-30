@@ -1,7 +1,7 @@
 .. _contents:
 
-ownCloud Android App Manual
-==============================
+Nextcloud Android App Manual
+============================
 
 .. toctree::
    :maxdepth: 2

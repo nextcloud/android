@@ -74,7 +74,7 @@ public class PassCodeManager {
                 ){
 
             Intent i = new Intent(MainApp.getAppContext(), PassCodeActivity.class);
-            i.setAction(PassCodeActivity.ACTION_REQUEST);
+            i.setAction(PassCodeActivity.ACTION_CHECK);
             i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
             activity.startActivity(i);
 
@@ -109,7 +109,7 @@ public class PassCodeManager {
 
     private boolean passCodeIsEnabled() {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
-        return (appPrefs.getBoolean("set_pincode", false));
+        return (appPrefs.getBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false));
     }
 
 }

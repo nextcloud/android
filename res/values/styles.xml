@@ -24,20 +24,19 @@
 	<style name="Theme.ownCloud" parent="Theme.AppCompat.Light.DarkActionBar">
     	<item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
     	<item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
-    	<item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
+		<item name="actionModeBackground">@color/action_mode_background</item>
+		<item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat.Light</item>
 		<item name="colorPrimary">@color/primary</item>
 		<item name="colorPrimaryDark">@color/primary_dark</item>
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
-		<item name="colorButtonNormal">@color/background_color</item>
-		<item name="colorControlActivated">@color/primary_dark</item>
-		<item name="colorControlHighlight">@color/color_accent</item>
+		<item name="android:windowBackground">@color/background_color</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 	</style>
 
 	<!-- seperate action bar style for activities without an action bar -->
-	<style name="Theme.ownCloud.noActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
-		<item name="android:buttonStyle">@style/Theme.ownCloud.ButtonStyle</item>
+	<style name="Theme.ownCloud.Toolbar" parent="Theme.AppCompat.Light.NoActionBar">
 		<item name="windowNoTitle">true</item>
 		<item name="windowActionBar">false</item>
 		<item name="colorPrimary">@color/primary</item>
@@ -45,21 +44,34 @@
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
 		<item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
-		<item name="colorButtonNormal">@color/background_color</item>
-		<item name="colorControlActivated">@color/primary_dark</item>
-		<item name="colorControlHighlight">@color/color_accent</item>
+		<item name="android:windowBackground">@color/background_color</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+		<item name="windowActionModeOverlay">true</item>
     </style>
 
-	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar">
-		<item name="colorAccent">@color/white</item>
+	<!-- separate style for Drawer activities needed for v21+ theming -->
+	<style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar">
+	</style>
+
+	<style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.Toolbar">
+		<item name="android:windowBackground">@color/primary</item>
+		<item name="colorControlNormal">@color/login_text_hint_color</item>
+		<item name="colorControlActivated">@color/white</item>
+		<item name="colorControlHighlight">@color/login_text_hint_color</item>
+		<item name="colorAccent">@color/login_text_hint_color</item>
+		<item name="android:textColorHint">@color/login_text_hint_color</item>
 	</style>
 
 	<style name="ownCloud.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
 		<item name="colorAccent">@color/color_accent</item>
 		<item name="android:textColorPrimary">@color/primary</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
 	</style>
 
-	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog" />
+	<style name="ownCloud.Dialog" parent="Theme.AppCompat.Light.Dialog">
+		<item name="colorAccent">@color/color_accent</item>
+		<item name="searchViewStyle">@style/ownCloud.SearchView</item>
+	</style>
 
 	<style name="ProgressDialogTheme" parent="ownCloud.Dialog">
 		<item name="colorAccent">@color/color_accent</item>
@@ -69,18 +81,32 @@
 		<item name="android:windowTitleBackgroundStyle">@drawable/process_dialog_background</item>
 	</style>
 
+	<style name="ownCloud.SearchView" parent="Widget.AppCompat.SearchView">
+		<!-- Close button icon -->
+		<item name="closeIcon">@drawable/ic_close</item>
+		<!-- Search button icon -->
+		<item name="searchIcon">@drawable/ic_search</item>
+		<!-- Layout for query suggestion rows // unused for now, staying with the standard layout -->
+		<!--<item name="suggestionRowLayout">...</item>-->
+	</style>
+
 	<style name="ownCloud.Button" parent="Widget.AppCompat.Button">
 		<item name="colorButtonNormal">@color/primary</item>
 	</style>
 
 	<style name="Button" parent="Base.Widget.AppCompat.Button">
-		<item name="colorButtonNormal">@color/secondary_button_color</item>
-		<item name="android:textColor">@color/color_accent</item>
+		<item name="colorButtonNormal">@color/secondary_button_background_color</item>
+		<item name="android:textColor">@color/secondary_button_text_color</item>
 	</style>
 
 	<style name="Button.Primary" parent="Button">
-		<item name="colorButtonNormal">@color/primary_button_color</item>
-		<item name="android:textColor">@color/white</item>
+		<item name="colorButtonNormal">@color/primary_button_background_color</item>
+		<item name="android:textColor">@color/primary_button_text_color</item>
+	</style>
+
+	<style name="Button.Login" parent="Button">
+		<item name="colorButtonNormal">@color/white</item>
+		<item name="android:textColor">@color/owncloud_blue</item>
 	</style>
 
 	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
@@ -113,6 +139,7 @@
 
 	<style name="Theme.ownCloud.Fullscreen" parent="style/Theme.AppCompat">
         <item name="android:windowFullscreen">true</item>
+		<item name="colorAccent">@color/color_accent</item>
     </style>
 	
 	
@@ -133,6 +160,26 @@
 		<item name="colorAccent">@color/owncloud_blue_accent</item>
 		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
 		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
+	</style>
+
+	<style name="Theme.ownCloud.Dialog.NoTitle" parent="style/Theme.ownCloud.Dialog">
+		<item name="windowNoTitle">true</item>
+		<item name="colorAccent">@color/owncloud_blue_accent</item>
+	</style>
+
+	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="style/Theme.AppCompat.Light.Dialog.Alert">
+		<item name="windowNoTitle">false</item>
+		<item name="colorAccent">@color/owncloud_blue_accent</item>
+	</style>
+
+	<style name="menu_labels_style">
+		<item name="android:background">@drawable/fab_label_background</item>
+		<item name="android:textColor">@color/fab_white</item>
+	</style>
+
+	<style name="NavigationView_ItemTextAppearance">
+		<item name="android:ellipsize">end</item>
+		<item name="android:listDivider">@color/transparent</item>
 	</style>
 
 	<!-- Button Bar hack due to Lollipop bug:
@@ -224,4 +271,10 @@
 		
 	<color name="setup_text_hint">#777777</color>
 	<color name="setup_text_typed">#000000</color>
+    <style name="Theme.ownCloud.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.ownCloud.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.ownCloud.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

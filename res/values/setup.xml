@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- App name  and other strings-->
-    <string name="app_name">ownCloud</string>
-    <string name="account_type">owncloud</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
-    <string name="authority">org.owncloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
-    <string name ="db_file">owncloud.db</string>
-    <string name ="db_name">ownCloud</string>
-    <string name ="data_folder">owncloud</string>
-    <string name ="log_name">Owncloud_</string>
-    <string name ="default_display_name_for_root_folder">ownCloud</string>
+    <string name="app_name">Nextcloud</string>
+    <string name="account_type">nextcloud</string>	<!-- better if was a domain name; but changing it now would require
+    migrate accounts when the app is updated -->
+    <string name="authority">org.nextcloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="document_provider_authority">org.nextcloud.documents</string>
+    <string name ="db_file">nextcloud.db</string>
+    <string name ="db_name">nextcloud</string>
+    <string name ="data_folder">nextcloud</string>
+    <string name ="log_name">nextcloud</string>
+    <string name ="default_display_name_for_root_folder">Nextcloud</string>
     <string name ="user_agent">Mozilla/5.0 (Android) ownCloud-android/%1$s</string>
     
     <!-- URLs and flags related -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
     <bool name="show_welcome_link">true</bool>
-	<string name="welcome_link_url">"https://owncloud.com/mobile/new"</string>
+	<string name="welcome_link_url">"https://nextcloud.com"</string>
 	<string name="share_api_link"></string>
     
     <!-- Flags to setup the authentication methods available in the app -->
@@ -24,19 +26,32 @@
     
     <!-- Flags to enable/disable some features -->
     <string name = "send_files_to_other_apps">on</string>
-    <string name = "share_feature">on</string>
+    <bool name = "share_via_link_feature">true</bool>
+    <bool name = "share_with_users_feature">true</bool>
     
     
     <!-- Colors -->
+    <color name="login_text_color">@color/white</color>
+    <color name="login_text_hint_color">#7fC0E3</color>
     <color name="login_background_color">#FFFFFF</color>
     <color name="login_logo_background_color">#FFFFFF</color>
-    <color name="background_color">#F7F7F7</color>
-    <color name="actionbar_start_color">#1D2D44</color>
-    <color name="actionbar_end_color">#1D2D44</color>
-    
+    <color name="background_color">#FFFFFF</color>
+    <color name="actionbar_start_color">#0082c9</color>
+    <color name="actionbar_end_color">#0082c9</color>
+    <color name="primary_button_background_color">@color/owncloud_blue_accent</color>
+    <color name="primary_button_text_color">@color/white</color>
+    <color name="secondary_button_background_color">#D6D7D7</color>
+    <color name="secondary_button_text_color">@color/black</color>
+    <color name="drawer_header_color">@color/owncloud_blue_accent</color>
+
     <!-- Button -->
     <color name="button_text_color">#000000</color>
-    
+
+    <!-- Multiselect backgrounds -->
+    <color name="action_mode_background">#757575</color>
+    <color name="action_mode_status_bar_background">#616161</color>
+    <color name="selected_item_background">#ECECEC</color>
+
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">true</bool>
     
@@ -45,11 +60,12 @@
     <bool name="imprint_enabled">false</bool> 
     <bool name="recommend_enabled">true</bool>
     <bool name="feedback_enabled">true</bool>
-    <string name="url_help">http://owncloud.com/mobile/help</string>
+    <bool name="logger_enabled">false</bool>
+    <string name="url_help">https://help.nextcloud.com/c/feature</string>
     <string name="url_imprint"></string>
     <string name="mail_recommend">"mailto:"</string>
-    <string name="mail_feedback">"mailto:apps@owncloud.com"</string>
-    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.owncloud.android"</string>
+    <string name="mail_feedback">"mailto:android@nextcloud.com"</string>
+    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
 
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>
