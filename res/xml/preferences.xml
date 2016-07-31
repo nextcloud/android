@@ -18,6 +18,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+	<PreferenceCategory android:title="@string/prefs_category_general">
+		<ListPreference
+			android:title="@string/prefs_storage_path"
+			android:key="storage_path" />
+	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading" android:key="instant_uploading_category">
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="instant_uploading"
@@ -86,7 +91,9 @@
 		<Preference android:title="@string/actionbar_logger" android:key="logger" />
 		<Preference android:title="@string/prefs_imprint" android:key="imprint" />
 		<Preference android:title="@string/about_title" android:id="@+id/about_app" android:key="about_app" />
+	</PreferenceCategory>
 
+	<PreferenceCategory android:title="@string/prefs_category_beta" android:key="beta_category">
 		<Preference android:id="@+id/beta_link"
 					android:title="Download latest beta version"
 					android:key="beta_link" />
@@ -94,7 +101,6 @@
 		<Preference android:id="@+id/changelog_link"
 					android:title="Changelog beta version"
 					android:key="changelog_link" />
-
 	</PreferenceCategory>
 
 

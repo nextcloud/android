@@ -20,12 +20,35 @@
 
 package com.owncloud.android.utils;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Vector;
+
+import third_parties.daveKoeller.AlphanumComparator;
+
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.ui.activity.Preferences;
+
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.net.Uri;
 import android.os.StatFs;
 import android.preference.PreferenceManager;
 import android.webkit.MimeTypeMap;
@@ -80,8 +103,7 @@ public class FileStorageUtils {
      * Get local owncloud storage path for accountName.
      */
     public static final String getSavePath(String accountName) {
-        File sdCard = Environment.getExternalStorageDirectory();
-        return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/" + Uri.encode(accountName, "@");
+        return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
         // that can be in the accountName since 0.1.190B
     }
@@ -99,10 +121,9 @@ public class FileStorageUtils {
      * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
      */
     public static final String getTemporalPath(String accountName) {
-        File sdCard = Environment.getExternalStorageDirectory();
-        return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/tmp/" + Uri.encode(accountName, "@");
-            // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
-            // that can be in the accountName since 0.1.190B
+        return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "tmp" + File.separator + Uri.encode(accountName, "@");
+        // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
+        // that can be in the accountName since 0.1.190B
     }
 
     /**
@@ -112,7 +133,7 @@ public class FileStorageUtils {
      */
     @SuppressLint("NewApi")
     public static final long getUsableSpace(String accountName) {
-        File savePath = Environment.getExternalStorageDirectory();
+        File savePath = new File(MainApp.getStoragePath());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
             return savePath.getUsableSpace();
 
@@ -124,7 +145,7 @@ public class FileStorageUtils {
     }
     
     public static final String getLogPath()  {
-        return Environment.getExternalStorageDirectory() + File.separator + MainApp.getDataFolder() + File.separator + "log";
+        return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "log";
     }
 
     /**
@@ -168,7 +189,7 @@ public class FileStorageUtils {
         return uploadPath + OCFile.PATH_SEPARATOR + subPath
                 + (fileName == null ? "" : fileName);
     }
-    
+
     /**
      * Gets the composed path when video is or must be stored
      * @param context
@@ -270,14 +291,14 @@ public class FileStorageUtils {
 
         return files;
     }
-    
+
     /**
      * Sorts list by Date
      * @param files
      */
     public static Vector<OCFile> sortOCFilesByDate(Vector<OCFile> files){
         final int multiplier = mSortAscending ? 1 : -1;
-        
+
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
@@ -288,7 +309,7 @@ public class FileStorageUtils {
                 }
             }
         });
-        
+
         return files;
     }
 
@@ -432,7 +453,7 @@ public class FileStorageUtils {
         File[] returnArray = new File[1];
         return files.toArray(returnArray);
     }
-    
+
     /**
      * Local Folder size
      * @param dir File
@@ -441,13 +462,11 @@ public class FileStorageUtils {
     public static long getFolderSize(File dir) {
         if (dir.exists()) {
             long result = 0;
-            File[] fileList = dir.listFiles();
-            for(int i = 0; i < fileList.length; i++) {
-                if(fileList[i].isDirectory()) {
-                    result += getFolderSize(fileList[i]);
-                } else {
-                    result += fileList[i].length();
-                }
+            for (File f : dir.listFiles()) {
+                if (f.isDirectory())
+                    result += getFolderSize(f);
+                else
+                    result += f.length();
             }
             return result;
         }
@@ -495,6 +514,38 @@ public class FileStorageUtils {
                 file.setLastSyncDateForData(f.lastModified());
             }
         }
+    }
+
+    public static boolean copyFile(File src, File target) {
+        boolean ret = true;
+
+        InputStream in = null;
+        OutputStream out = null;
+
+        try {
+            in = new FileInputStream(src);
+            out = new FileOutputStream(target);
+            byte[] buf = new byte[1024];
+            int len;
+            while ((len = in.read(buf)) > 0) {
+                out.write(buf, 0, len);
+            }
+        } catch (IOException ex) {
+            ret = false;
+        } finally {
+            if (in != null) try {
+                in.close();
+            } catch (IOException e) {
+                e.printStackTrace(System.err);
+            }
+            if (out != null) try {
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace(System.err);
+            }
+        }
+
+        return ret;
     }
 
 }
