@@ -14,10 +14,18 @@
 	<string-array name="pref_behaviour_entries">
 		<item>@string/pref_behaviour_entries_keep_file</item>
 		<item>@string/pref_behaviour_entries_move</item>
+		<item>@string/pref_behaviour_entries_delete_file</item>
 	</string-array>
 
 	<string-array name="pref_behaviour_entryValues">
 		<item>NOTHING</item>
 		<item>MOVE</item>
+		<item>DELETE</item>
+	</string-array>
+
+	<string-array name="upload_files_behaviour">
+		<item>move to nextcloud folder</item>
+		<item>only upload</item>
+		<item>upload and delete from source</item>
 	</string-array>
 </resources>
