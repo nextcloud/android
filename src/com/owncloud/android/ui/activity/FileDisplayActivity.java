@@ -652,12 +652,16 @@ public class FileDisplayActivity extends HookActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS &&
-            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+            (resultCode == RESULT_OK ||
+            resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
 
             requestUploadOfContentFromApps(data, resultCode);
 
         } else if (requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
-            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+            (resultCode == RESULT_OK ||
+            resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE ||
+            resultCode == UploadFilesActivity.RESULT_OK_AND_DO_NOTHING ||
+            resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
 
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
@@ -702,8 +706,23 @@ public class FileDisplayActivity extends HookActivity
                 remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
             }
 
-            int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader
-                    .LOCAL_BEHAVIOUR_MOVE : FileUploader.LOCAL_BEHAVIOUR_COPY;
+            // default, as fallback
+            int behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+
+            switch (resultCode) {
+                case UploadFilesActivity.RESULT_OK_AND_MOVE:
+                    behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
+                    break;
+
+                case UploadFilesActivity.RESULT_OK_AND_DELETE:
+                    behaviour = FileUploader.LOCAL_BEHAVIOUR_DELETE;
+                    break;
+
+                case UploadFilesActivity.RESULT_OK_AND_DO_NOTHING:
+                    behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+                    break;
+            }
+
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
             requester.uploadNewFile(
                     this,

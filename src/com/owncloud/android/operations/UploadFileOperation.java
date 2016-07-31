@@ -391,6 +391,8 @@ public class UploadFileOperation extends SyncOperation {
                     }
                     mFile.setStoragePath("");
 
+                } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE) {
+                    originalFile.delete();
                 } else {
                     mFile.setStoragePath(expectedPath);
 

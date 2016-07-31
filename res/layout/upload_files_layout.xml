@@ -53,29 +53,11 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp">
 
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/drawer_radio_group"
-            android:layout_width="fill_parent"
+        <Spinner
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/upload_copy_files"
-                android:id="@+id/upload_radio_copy"
-                android:paddingRight="8dp"
-                android:checked="false" />
-
-            <RadioButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/upload_move_files"
-                android:id="@+id/upload_radio_move"
-                android:paddingRight="8dp"
-                android:checked="false" />
-        </RadioGroup>
+            android:id="@+id/upload_files_spinner_behaviour"
+            android:layout_weight="1"/>
     </LinearLayout>
 
     <LinearLayout

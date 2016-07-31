@@ -137,7 +137,7 @@ public abstract class PreferenceManager {
      */
     public static int getUploaderBehaviour(Context context) {
         return getDefaultSharedPreferences(context)
-                .getInt(AUTO_PREF__UPLOADER_BEHAVIOR, FileUploader.LOCAL_BEHAVIOUR_COPY);
+                .getInt(AUTO_PREF__UPLOADER_BEHAVIOR, 0);
     }
 
     /**
