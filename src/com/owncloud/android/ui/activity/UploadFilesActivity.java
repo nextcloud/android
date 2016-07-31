@@ -65,7 +65,7 @@ public class UploadFilesActivity extends FileActivity implements
     private boolean mSelectAll = false;
     private LocalFileListFragment mFileListFragment;
     private Button mCancelBtn;
-    private Button mUploadBtn;
+    protected Button mUploadBtn;
     private Spinner mBehaviourSpinner;
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
@@ -138,6 +138,7 @@ public class UploadFilesActivity extends FileActivity implements
         behaviourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBehaviourSpinner.setAdapter(behaviourAdapter);
         mBehaviourSpinner.setSelection(localBehaviour);
+        mBehaviourSpinner.setPrompt("Test");
 
         // setup the toolbar
         setupToolbar();
