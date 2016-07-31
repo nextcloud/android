@@ -1,6 +1,7 @@
 ## 2016-07-31
 - External SD support #92
 - move / copy updated #178
+- prevents NPE when selecting empty local folder #180
 
 ## 2016-07-30
 - Upload when charging #171
