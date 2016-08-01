@@ -449,7 +449,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                                         task
                                 );
                         iv.setImageDrawable(asyncDrawable);
-                        task.execute(file);
+                        task.execute(file, true);
                     }
                 }
             } else {

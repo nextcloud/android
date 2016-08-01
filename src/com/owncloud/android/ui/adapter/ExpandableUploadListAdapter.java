@@ -433,7 +433,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                         task
                                 );
                         fileIcon.setImageDrawable(asyncDrawable);
-                        task.execute(fakeFileToCheatThumbnailsCacheManagerInterface);
+                        task.execute(fakeFileToCheatThumbnailsCacheManagerInterface, true);
                     }
                 }
 
