@@ -384,7 +384,7 @@
 	<string name="with_you_subject_header">Mit Ihnen</string>
     
 	<string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Ihnen geteilt</string>
-    <string name="subject_shared_with_you">\"%1$s\" wurde mit dir geteilt</string>
+    <string name="subject_shared_with_you">\"%1$s\" wurde mit Ihnen geteilt</string>
 
     <string name="auth_refresh_button">Verbindung aktualisieren</string>
     <string name="auth_host_address">Serveradresse</string>
