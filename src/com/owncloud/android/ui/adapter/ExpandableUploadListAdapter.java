@@ -433,7 +433,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                         task
                                 );
                         fileIcon.setImageDrawable(asyncDrawable);
-                        task.execute(fakeFileToCheatThumbnailsCacheManagerInterface);
+                        task.execute(fakeFileToCheatThumbnailsCacheManagerInterface, true);
                     }
                 }
 
@@ -469,7 +469,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                         task
                                 );
                         fileIcon.setImageDrawable(asyncDrawable);
-                        task.execute(file);
+                        task.execute(file, true);
                         Log_OC.v(TAG, "Executing task to generate a new thumbnail");
                     }
                 }
