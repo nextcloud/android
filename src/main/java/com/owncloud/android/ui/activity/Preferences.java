@@ -25,18 +25,11 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.ContentResolver;
-import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
-import android.content.ComponentName;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -254,7 +247,6 @@ public class Preferences extends PreferenceActivity
         if (pAboutApp != null) {
             pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
             pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
-        }
         }
 
         // license
@@ -608,18 +600,17 @@ public class Preferences extends PreferenceActivity
         if (fSyncedFolderLightEnabled) {
             preferenceCategoryDetails.removePreference(mPrefTimeBetweenSynchronizations);
         } else if (mPrefTimeBetweenSynchronizations != null) {
-            mPrefTimeBetweenSynchronizations.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValueObject) {
-                    if (newValueObject instanceof String && ((String) newValueObject).length() > 0) {
-                        int newValue = Integer.parseInt((String) newValueObject);
-                        if (newValue > 0) {
-                            mPrefTimeBetweenSynchronizations.setSummary(getResources().getQuantityString(R.plurals.minutes, newValue, newValue));
-                            return true;
-                        }
+            mPrefTimeBetweenSynchronizations.setOnPreferenceChangeListener((preference, newValueObject) -> {
+                if (newValueObject instanceof String && ((String) newValueObject).length() > 0) {
+                    int newValue = Integer.parseInt((String) newValueObject);
+                    if (newValue > 0) {
+                        mPrefTimeBetweenSynchronizations.setSummary(
+                                getResources().getQuantityString(
+                                        R.plurals.minutes, newValue, newValue));
+                        return true;
                     }
-                    return false;
                 }
+                return false;
             });
         }
     }
