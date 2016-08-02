@@ -23,9 +23,6 @@
 			android:title="@string/prefs_storage_path"
 			android:key="storage_path" />
 	</PreferenceCategory>
-    <PreferenceCategory android:title="@string/prefs_category_accounts" android:key="accounts_category">
-    </PreferenceCategory>
-    
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading" android:key="instant_uploading_category">
 		<com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle android:key="instant_uploading"

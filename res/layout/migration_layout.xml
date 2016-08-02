@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   Nextcloud Android client application
 
@@ -17,35 +18,35 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:gravity="center_vertical">
+              android:gravity="center_vertical"
+              android:orientation="vertical">
 
     <ProgressBar
+        android:id="@+id/migrationProgress"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/migrationProgress"
         android:layout_gravity="center_horizontal"
-        android:progress="50"
         android:paddingLeft="30dp"
-        android:paddingRight="30dp"/>
+        android:paddingRight="30dp"
+        android:progress="50"/>
 
     <TextView
+        android:id="@+id/migrationText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_gravity="center_horizontal"
         android:text=""
-        android:id="@+id/migrationText"
-        android:layout_gravity="center_horizontal"/>
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 
     <Button
+        android:id="@+id/finishButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/drawer_close"
-        android:id="@+id/finishButton"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:text="@string/drawer_close"/>
 </LinearLayout>
