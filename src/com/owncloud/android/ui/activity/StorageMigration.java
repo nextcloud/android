@@ -394,6 +394,7 @@ public class StorageMigration {
             try {
                 manager.migrateStoredFiles(mStorageSource, mStorageTarget);
             } catch (Exception e) {
+                Log_OC.e(TAG,e.getMessage(),e);
                 throw new MigrationException(R.string.file_migration_failed_while_updating_index);
             }
         }
