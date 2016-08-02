@@ -105,7 +105,7 @@
     <string name="about_title">Tentang</string>
     <string name="change_password">Ubah sandi</string>
     <string name="delete_account">Hapus akun</string>
-    <string name="delete_account_warning">Hapus akun %s?\\n\\nPenghapusan tidak bisa dipulihkan.</string>
+    <string name="delete_account_warning">Hapus akun %s?\n\nPenghapusan tidak bisa dipulihkan.</string>
     <string name="create_account">Buat akun</string>
     <string name="upload_chooser_title">Unggah dari...</string>
     <string name="uploader_info_dirname">Nama folder</string>
@@ -303,7 +303,6 @@
     <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
 
     <string name="error__upload__local_file_not_copied">%1$s tidak dapat disalin ke folder lokal %2$s</string>
-    <string name="prefs_instant_upload_path_title">Unggah path</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gunakan subfolder</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Simpan dalam subfolder berdasarkan tahun dan bulan</string>
 
@@ -377,8 +376,7 @@
     <string name="prefs_category_instant_uploading">Unggah cepat</string>
     <string name="prefs_category_details">Rincian</string>
 
-	<string name="prefs_instant_video_upload_path_title">Unggah path video</string>
-    <string name="sync_folder_failed_content">Sinkronisasi folder %1$s tidak dapat diselesaikan</string>
+	<string name="sync_folder_failed_content">Sinkronisasi folder %1$s tidak dapat diselesaikan</string>
 
 	<string name="shared_subject_header">dibagikan</string>
 	<string name="with_you_subject_header">kepada Anda</string>
