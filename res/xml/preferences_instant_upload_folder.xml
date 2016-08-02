@@ -1,35 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ownCloud Android client application
+  Nextcloud Android client application
 
-  Copyright (C) 2014 Tobias Kaminsky
-  Copyright (C) 2012-2013 ownCloud Inc.
+  Copyright (C) 2016  Tobias Kaminsky
+  Copyright (C) 2016  Nextcloud
 
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License version 2,
-  as published by the Free Software Foundation.
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
 
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-	    <EditTextPreference android:title="@string/prefs_instant_upload_local_path_title"
-	        				android:key="instant_upload_local_path"
-	        				android:persistent="false"/>
-        <EditTextPreference android:title="@string/prefs_instant_upload_remote_path_title"
-	        				android:key="instant_upload_remote_path"
-	        				android:persistent="false"/>
-	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
-	        				android:title="@string/prefs_instant_upload_only_wifi"
-	        				android:key="instant_upload_on_wifi"
-	        				android:persistent="false"/>
-	    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
-	        				android:title="@string/prefs_instant_upload_only_charging"
-	        				android:key="instant_video_upload_on_charging"
-	        				android:persistent="false"/>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="instant_upload_local_path"
+        android:persistent="false"
+        android:title="@string/prefs_instant_upload_local_path_title"/>
+    <EditTextPreference
+        android:key="instant_upload_remote_path"
+        android:persistent="false"
+        android:title="@string/prefs_instant_upload_remote_path_title"/>
+    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
+        android:key="instant_upload_on_wifi"
+        android:persistent="false"
+        android:title="@string/prefs_instant_upload_only_wifi"/>
+    <com.owncloud.android.ui.CheckBoxPreferenceWithLongTitle
+        android:key="instant_video_upload_on_charging"
+        android:persistent="false"
+        android:title="@string/prefs_instant_upload_only_charging"/>
 </PreferenceScreen>
