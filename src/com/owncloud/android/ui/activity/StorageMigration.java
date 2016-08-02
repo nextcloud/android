@@ -1,22 +1,22 @@
 /**
- *   ownCloud Android client application
+ *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *   Copyright (C) 2015 Bartosz Przybylski
+ *   Copyright (C) 2016 Bartosz Przybylski
+ *   Copyright (C) 2016 Nextcloud
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ *   License as published by the Free Software Foundation; either
+ *   version 3 of the License, or any later version.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ *   You should have received a copy of the GNU Affero General Public
+ *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.activity;
 
@@ -170,7 +170,11 @@ public class StorageMigration {
         protected String mAuthority;
         protected Account[] mOcAccounts;
 
-        public FileMigrationTaskBase(Context context, String source, String target, ProgressDialog progressDialog, StorageMigrationProgressListener listener) {
+        public FileMigrationTaskBase(Context context,
+                                     String source,
+                                     String target,
+                                     ProgressDialog progressDialog,
+                                     StorageMigrationProgressListener listener) {
             mContext = context;
             mStorageSource = source;
             mStorageTarget = target;
@@ -183,8 +187,9 @@ public class StorageMigration {
 
         @Override
         protected void onProgressUpdate(Integer... progress) {
-            if (progress.length > 1 && progress[0] != 0)
+            if (progress.length > 1 && progress[0] != 0) {
                 mProgressDialog.setMessage(mContext.getString(progress[0]));
+            }
         }
 
         @Override
@@ -203,42 +208,52 @@ public class StorageMigration {
                 mProgressDialog.setIndeterminateDrawable(mContext.getResources().getDrawable(R.drawable.image_fail));
             }
 
-            if (mListener != null)
+            if (mListener != null) {
                 mListener.onStorageMigrationFinished(succeed ? mStorageTarget : mStorageSource, succeed);
+            }
         }
 
         protected boolean[] saveAccountsSyncStatus() {
             boolean[] syncs = new boolean[mOcAccounts.length];
-            for (int i = 0; i < mOcAccounts.length; ++i)
+            for (int i = 0; i < mOcAccounts.length; ++i) {
                 syncs[i] = ContentResolver.getSyncAutomatically(mOcAccounts[i], mAuthority);
+            }
             return syncs;
         }
 
         protected void stopAccountsSyncing() {
-            for (int i = 0; i < mOcAccounts.length; ++i)
+            for (int i = 0; i < mOcAccounts.length; ++i) {
                 ContentResolver.setSyncAutomatically(mOcAccounts[i], mAuthority, false);
+            }
         }
 
         protected void waitForUnfinishedSynchronizations() {
-            for (int i = 0; i < mOcAccounts.length; ++i)
-                while (ContentResolver.isSyncActive(mOcAccounts[i], mAuthority))
+            for (int i = 0; i < mOcAccounts.length; ++i) {
+                while (ContentResolver.isSyncActive(mOcAccounts[i], mAuthority)) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         Log_OC.w(TAG, "Thread interrupted while waiting for account to end syncing");
                         Thread.currentThread().interrupt();
                     }
+                }
+            }
         }
 
         protected void restoreAccountsSyncStatus(boolean oldSync[]) {
-            for (int i = 0; i < mOcAccounts.length; ++i)
+            for (int i = 0; i < mOcAccounts.length; ++i) {
                 ContentResolver.setSyncAutomatically(mOcAccounts[i], mAuthority, oldSync[i]);
+            }
         }
     }
 
     static private class StoragePathSwitchTask extends FileMigrationTaskBase {
 
-        public StoragePathSwitchTask(Context context, String source, String target, ProgressDialog progressDialog, StorageMigrationProgressListener listener) {
+        public StoragePathSwitchTask(Context context,
+                                     String source,
+                                     String target,
+                                     ProgressDialog progressDialog,
+                                     StorageMigrationProgressListener listener) {
             super(context, source, target, progressDialog, listener);
         }
 
@@ -277,7 +292,11 @@ public class StorageMigration {
             int getResId() { return mResId; }
         }
 
-        public FileMigrationTask(Context context, String source, String target, ProgressDialog progressDialog, StorageMigrationProgressListener listener) {
+        public FileMigrationTask(Context context,
+                                 String source,
+                                 String target,
+                                 ProgressDialog progressDialog,
+                                 StorageMigrationProgressListener listener) {
             super(context, source, target, progressDialog, listener);
         }
 
