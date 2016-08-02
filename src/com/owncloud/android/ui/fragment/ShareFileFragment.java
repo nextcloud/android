@@ -841,6 +841,7 @@ public class ShareFileFragment extends Fragment
             getExpirationDateSection().setVisibility(View.GONE);
             getPasswordSection().setVisibility(View.GONE);
             getEditPermissionSection().setVisibility(View.GONE);
+            getHideFileListingPermissionSection().setVisibility(View.GONE);
             getGetLinkButton().setVisibility(View.GONE);
         }
     }
