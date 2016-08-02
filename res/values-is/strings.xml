@@ -278,7 +278,6 @@
     <string name="preview_image_error_unknown_format">Ekki er hægt að birta myndina</string>
 
     <string name="error__upload__local_file_not_copied">%1$s var ekki hægt að afrita í staðværu %2$s möppuna</string>
-    <string name="prefs_instant_upload_path_title">Innsendingarslóð</string>
     <string name="share_link_no_support_share_api">Því miður, deiling gagna er ekki virk á þjóninum. Hafðu samband við
 		kerfisstjóra.</string>
 	<string name="share_link_file_no_exist">Get ekki deilt. Athugaðu hvort skráin sé til</string>
@@ -340,8 +339,7 @@
     <string name="prefs_category_instant_uploading">Beinar innsendingar</string>
     <string name="prefs_category_details">Nánar</string>
 
-	<string name="prefs_instant_video_upload_path_title">Innsendingarslóð myndskeiða</string>
-    <string name="sync_folder_failed_content">Ekki var hægt að ljúka samstillingu á %1$s möppunni</string>
+	<string name="sync_folder_failed_content">Ekki var hægt að ljúka samstillingu á %1$s möppunni</string>
 
 	<string name="shared_subject_header">deilt</string>
 	<string name="with_you_subject_header">með þér</string>
