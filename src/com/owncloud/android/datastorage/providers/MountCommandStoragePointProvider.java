@@ -25,6 +25,7 @@ import com.owncloud.android.datastorage.StoragePoint;
 
 import java.util.Locale;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 /**
  * @author Bartosz Przybylski
@@ -32,6 +33,8 @@ import java.util.Vector;
 public class MountCommandStoragePointProvider extends AbstractCommandLineStoragePoint {
 
     static private final String[] sCommand = new String[] { "mount" };
+
+    private static Pattern sPattern = Pattern.compile("(?i).*vold.*(vfat|ntfs|exfat|fat32|ext3|ext4).*rw.*");
 
     @Override
     protected String[] getCommand() {
@@ -51,10 +54,9 @@ public class MountCommandStoragePointProvider extends AbstractCommandLineStorage
 
     private Vector<String> getPotentialPaths(String mounted) {
         final Vector<String> result = new Vector<>();
-        final String reg = "(?i).*vold.*(vfat|ntfs|exfat|fat32|ext3|ext4).*rw.*";
 
         for (String line : mounted.split("\n"))
-            if (!line.toLowerCase(Locale.US).contains("asec") && line.matches(reg)) {
+            if (!line.toLowerCase(Locale.US).contains("asec") && sPattern.matcher(line).matches()) {
                 String parts[] = line.split(" ");
                 for (String path : parts) {
                     if (path.startsWith("/") &&
