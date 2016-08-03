@@ -68,7 +68,6 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
-    private static final String GRID_COLUMNS = "gridColumns";
     public static final float minColumnSize = 2.0f;
     public static final float maxColumnSize = 10.0f;
 
