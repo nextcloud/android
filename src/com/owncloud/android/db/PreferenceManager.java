@@ -37,6 +37,7 @@ public abstract class PreferenceManager {
     private static final String AUTO_PREF__SORT_ORDER = "sort_order";
     private static final String AUTO_PREF__SORT_ASCENDING = "sort_ascending";
     private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
+    private static final String AUTO_PREF__GRID_COLUMNS = "grid_columns";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
     private static final String PREF__INSTANT_UPLOAD_PATH_USE_SUBFOLDERS = "instant_upload_path_use_subfolders";
@@ -150,22 +151,44 @@ public abstract class PreferenceManager {
         saveIntPreference(context, AUTO_PREF__UPLOADER_BEHAVIOR, uploaderBehaviour);
     }
 
+    /**
+     * Gets the grid columns which the user has set last.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return grid columns     grid columns
+     */
+    public static float getGridColumns(Context context) {
+        return getDefaultSharedPreferences(context).getFloat(AUTO_PREF__GRID_COLUMNS, -1.0f);
+    }
+
+    /**
+     * Saves the grid columns which the user has set last.
+     *
+     * @param context   Caller {@link Context}, used to access to shared preferences manager.
+     * @param gridColumns the uploader behavior
+     */
+    public static void setGridColumns(Context context, float gridColumns) {
+        saveFloatPreference(context, AUTO_PREF__GRID_COLUMNS, gridColumns);
+    }
+
     private static void saveBooleanPreference(Context context, String key, boolean value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putBoolean(key, value);
-        appPreferences.apply();
+        appPreferences.putBoolean(key, value).apply();
     }
 
     private static void saveStringPreference(Context context, String key, String value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putString(key, value);
-        appPreferences.apply();
+        appPreferences.putString(key, value).apply();
     }
 
     private static void saveIntPreference(Context context, String key, int value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putInt(key, value);
-        appPreferences.apply();
+        appPreferences.putInt(key, value).apply();
+    }
+
+    private static void saveFloatPreference(Context context, String key, float value) {
+        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
+        appPreferences.putFloat(key, value).apply();
     }
 
     private static SharedPreferences getDefaultSharedPreferences(Context context) {

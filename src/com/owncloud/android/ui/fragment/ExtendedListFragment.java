@@ -20,10 +20,7 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -48,6 +45,7 @@ import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
@@ -74,11 +72,9 @@ public class ExtendedListFragment extends Fragment
     public static final float minColumnSize = 2.0f;
     public static final float maxColumnSize = 10.0f;
 
-    private ScaleGestureDetector SGD = null;
-
     private ScaleGestureDetector mScaleGestureDetector = null;
-    private SwipeRefreshLayout mRefreshListLayout;
-    private SwipeRefreshLayout mRefreshGridLayout;
+    protected SwipeRefreshLayout mRefreshListLayout;
+    protected SwipeRefreshLayout mRefreshGridLayout;
     protected SwipeRefreshLayout mRefreshEmptyLayout;
     protected TextView mEmptyListMessage;
 
@@ -294,9 +290,7 @@ public class ExtendedListFragment extends Fragment
             mHeightCell = 0;
         }
 
-        SharedPreferences appPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getContext());
-        mScale = appPreferences.getFloat(GRID_COLUMNS, -1.0f);
+        mScale = PreferenceManager.getGridColumns(getContext());
     }    
     
     
@@ -312,9 +306,7 @@ public class ExtendedListFragment extends Fragment
         savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
 
-        SharedPreferences.Editor editor = PreferenceManager
-                .getDefaultSharedPreferences(getContext()).edit();
-        editor.putFloat(GRID_COLUMNS, mScale).apply();
+        PreferenceManager.setGridColumns(getContext(), mScale);
     }
 
     /**
