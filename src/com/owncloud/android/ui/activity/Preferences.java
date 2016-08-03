@@ -475,6 +475,9 @@ public class Preferences extends PreferenceActivity
         INSTANT_UPLOAD_ACCOUNT_LABEL = getResources().getString(R.string.prefs_instant_upload_account);
         INSTANT_UPLOAD_PATH_LABEL = getResources().getString(R.string.prefs_instant_upload_path);
 
+        INSTANT_UPLOAD_ACCOUNT_LABEL = getResources().getString(R.string.prefs_instant_upload_account);
+        INSTANT_UPLOAD_PATH_LABEL = getResources().getString(R.string.prefs_instant_upload_path);
+
        loadInstantUploadPath();
        loadStoragePath();
        loadInstantUploadVideoPath();
