@@ -314,6 +314,7 @@
 	<string name="unshare_link_file_no_exist">Tidak dapat menghapus berbagi. Mohon periksa apakah berkas ada</string>
 	<string name="unshare_link_file_error">Terjadi kesalahan saat mencoba menghapus berbagi berkas dan folder ini</string>
     <string name="update_link_file_no_exist">Tidak dapat memperbarui. Cek apabila berkas ada</string>
+    <string name="update_link_file_error">Terjadi kesalahan saat mencoba untuk memperbarui pembagian</string>
     <string name="share_link_password_title">Masukkan sandi</string>
     <string name="share_link_empty_password">Anda harus memasukkan sandi</string>
 
