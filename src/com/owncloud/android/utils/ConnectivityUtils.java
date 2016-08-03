@@ -22,6 +22,7 @@ package com.owncloud.android.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.net.ConnectivityManagerCompat;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -29,12 +30,13 @@ public class ConnectivityUtils {
 
     private final static String TAG = ConnectivityUtils.class.getName();
 
-    public static boolean isAppConnectedViaWiFi(Context context) {
+    public static boolean isAppConnectedViaUnmeteredWiFi(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         boolean result =
                 cm != null && cm.getActiveNetworkInfo() != null
                 && cm.getActiveNetworkInfo().getType() == ConnectivityManager.TYPE_WIFI
-                && cm.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED;
+                && cm.getActiveNetworkInfo().getState() == NetworkInfo.State.CONNECTED
+                && !ConnectivityManagerCompat.isActiveNetworkMetered(cm);
         Log_OC.d(TAG, "is AppConnectedViaWifi returns " + result);
         return result;
     }
