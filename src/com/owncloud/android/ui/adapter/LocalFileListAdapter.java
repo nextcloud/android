@@ -106,7 +106,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflator.inflate(R.layout.list_item, null);
         }
-        if (mFiles != null && mFiles.length > position) {
+        if (mFiles != null && mFiles.length > position && mFiles[position] != null) {
             File file = mFiles[position];
             
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
