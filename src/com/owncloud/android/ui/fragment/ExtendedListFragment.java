@@ -38,7 +38,6 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
