@@ -55,6 +55,12 @@ public class LocalFileListFragment extends ExtendedListFragment {
     /** Adapter to connect the data from the directory with the View object */
     private LocalFileListAdapter mAdapter = null;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
     /**
      * {@inheritDoc}
      */
