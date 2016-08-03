@@ -500,8 +500,7 @@ public class ShareFileFragment extends Fragment
     /**
      * Listener for user actions that start any update on the edit permissions for the public link.
      */
-    private class OnEditPermissionInteractionListener
-            implements CompoundButton.OnCheckedChangeListener {
+    private class OnEditPermissionInteractionListener implements CompoundButton.OnCheckedChangeListener {
 
         /**
          * Called by R.id.shareViaLinkEditPermissionSwitch to set or clear the edit permission.
@@ -535,8 +534,7 @@ public class ShareFileFragment extends Fragment
     /**
      * Listener for user actions that start any update on the hide file listing permissions for the public link.
      */
-    private class OnHideFileListingPermissionInteractionListener
-            implements CompoundButton.OnCheckedChangeListener {
+    private class OnHideFileListingPermissionInteractionListener implements CompoundButton.OnCheckedChangeListener {
 
         /**
          * Called by R.id.shareViaLinkHideListPermissionSwitch to set or clear the edit permission.
@@ -599,7 +597,6 @@ public class ShareFileFragment extends Fragment
         mListener = null;
     }
 
-
     /**
      * Get known server capabilities from DB
      * <p/>
@@ -612,7 +609,6 @@ public class ShareFileFragment extends Fragment
                     getCapability(mAccount.name);
         }
     }
-
 
     /**
      * Get users and groups from the DB to fill in the "share with" list.
