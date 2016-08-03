@@ -133,6 +133,8 @@ public class FileDisplayActivity extends HookActivity
 
     private OCFile mWaitingToSend;
 
+    private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -518,9 +520,10 @@ public class FileDisplayActivity extends HookActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = isDrawerOpen();
-        menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
+
+        for (MenuItem menuItem:mDrawerMenuItemstoShowHideList) {
+            menuItem.setVisible(!drawerOpen);
+        }
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -530,6 +533,14 @@ public class FileDisplayActivity extends HookActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_create_dir).setVisible(false);
+
+        // populate list of menu items to show/hide when drawer is opened/closed
+        mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sync_account));
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_search));
+
         return true;
     }
 
