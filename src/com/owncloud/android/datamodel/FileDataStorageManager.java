@@ -45,11 +45,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -783,16 +778,10 @@ public class FileDataStorageManager {
         c.close();
 
         /// 3. apply updates in batch
-        try {
-            if (getContentResolver() != null) {
-                getContentResolver().applyBatch(MainApp.getAuthority(), operations);
-
-            } else {
-                getContentProviderClient().applyBatch(operations);
-            }
-
-        } catch (Exception e) {
-            throw e;
+        if (getContentResolver() != null) {
+            getContentResolver().applyBatch(MainApp.getAuthority(), operations);
+        } else {
+            getContentProviderClient().applyBatch(operations);
         }
     }
 

@@ -43,7 +43,6 @@ import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.ui.activity.Preferences;
 
 import android.accounts.Account;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
@@ -61,6 +60,11 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -103,7 +107,11 @@ public class FileStorageUtils {
      * Get local owncloud storage path for accountName.
      */
     public static final String getSavePath(String accountName) {
-        return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + Uri.encode(accountName, "@");
+        return MainApp.getStoragePath()
+                + File.separator
+                + MainApp.getDataFolder()
+                + File.separator
+                + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
         // that can be in the accountName since 0.1.190B
     }
@@ -121,27 +129,26 @@ public class FileStorageUtils {
      * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
      */
     public static final String getTemporalPath(String accountName) {
-        return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "tmp" + File.separator + Uri.encode(accountName, "@");
+        return MainApp.getStoragePath()
+                + File.separator
+                + MainApp.getDataFolder()
+                + File.separator
+                + "tmp"
+                + File.separator
+                + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
         // that can be in the accountName since 0.1.190B
     }
 
     /**
      * Optimistic number of bytes available on sd-card. accountName is ignored.
+     *
      * @param accountName not used. can thus be null.
      * @return Optimistic number of available bytes (can be less)
      */
-    @SuppressLint("NewApi")
     public static final long getUsableSpace(String accountName) {
         File savePath = new File(MainApp.getStoragePath());
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
-            return savePath.getUsableSpace();
-
-        } else {
-            StatFs stats = new StatFs(savePath.getAbsolutePath());
-            return stats.getAvailableBlocks() * stats.getBlockSize();
-        }
-
+        return savePath.getUsableSpace();
     }
     
     public static final String getLogPath()  {
@@ -536,12 +543,12 @@ public class FileStorageUtils {
             if (in != null) try {
                 in.close();
             } catch (IOException e) {
-                e.printStackTrace(System.err);
+                Log_OC.e(TAG, "Error closing input stream during copy", e);
             }
             if (out != null) try {
                 out.close();
             } catch (IOException e) {
-                e.printStackTrace(System.err);
+                Log_OC.e(TAG, "Error closing output stream during copy", e);
             }
         }
 

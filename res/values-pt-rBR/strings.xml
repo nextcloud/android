@@ -303,7 +303,6 @@
     <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
 
     <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
-    <string name="prefs_instant_upload_path_title">Caminho para envio</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subpastas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Armazena em subpastas com base no ano e mês</string>
 
@@ -377,8 +376,7 @@
     <string name="prefs_category_instant_uploading">Envio instantâneo</string>
     <string name="prefs_category_details">Detalhes</string>
 
-	<string name="prefs_instant_video_upload_path_title">Caminho para envio dos vídeos</string>
-    <string name="sync_folder_failed_content">A sincronização da pasta %1$s não pode ser finalizada</string>
+	<string name="sync_folder_failed_content">A sincronização da pasta %1$s não pode ser finalizada</string>
 
 	<string name="shared_subject_header">compartilhado</string>
 	<string name="with_you_subject_header">com você</string>
