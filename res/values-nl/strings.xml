@@ -306,6 +306,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="preview_image_error_unknown_format">Deze afbeelding kan niet worden getoond</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
+    <string name="prefs_instant_upload_path_title">Directe uploadmap</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseed op jaar en maand</string>
 
@@ -379,7 +380,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="prefs_category_instant_uploading">Directe uploads</string>
     <string name="prefs_category_details">Details</string>
 
-	<string name="sync_folder_failed_content">Synchronisatie van map %1$s kon niet worden voltooid</string>
+	<string name="prefs_instant_video_upload_path_title">Directe video uploadmap</string>
+    <string name="sync_folder_failed_content">Synchronisatie van map %1$s kon niet worden voltooid</string>
 
 	<string name="shared_subject_header">gedeeld</string>
 	<string name="with_you_subject_header">met je</string>
