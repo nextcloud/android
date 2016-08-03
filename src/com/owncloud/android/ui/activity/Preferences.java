@@ -57,12 +57,17 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datastorage.DataStorageProvider;
+import com.owncloud.android.datastorage.StoragePoint;
+import com.owncloud.android.files.services.FileDownloader;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.PreferenceWithLongSummary;
 import com.owncloud.android.ui.PreferenceWithLongSummary;
 import com.owncloud.android.ui.PreferenceWithTwoLineLongSummary;
 import com.owncloud.android.utils.DisplayUtils;
@@ -342,7 +347,6 @@ public class Preferences extends PreferenceActivity
             }
         }
 
-        mPrefInstantUploadPath =  findPreference(INSTANT_UPLOAD_PATH);
         mPrefStoragePath =  (ListPreference) findPreference(Keys.STORAGE_PATH);
         if (mPrefStoragePath != null) {
             StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();

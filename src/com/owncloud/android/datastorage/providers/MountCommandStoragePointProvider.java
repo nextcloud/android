@@ -1,22 +1,22 @@
 /**
- *   ownCloud Android client application
+ *   Nextcloud Android client application
  *
  *   @author Bartosz Przybylski
- *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2016 Nextcloud
  *   Copyright (C) 2016 Bartosz Przybylski
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ *   License as published by the Free Software Foundation; either
+ *   version 3 of the License, or any later version.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ *   You should have received a copy of the GNU Affero General Public
+ *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.datastorage.providers;
@@ -25,6 +25,7 @@ import com.owncloud.android.datastorage.StoragePoint;
 
 import java.util.Locale;
 import java.util.Vector;
+import java.util.regex.Pattern;
 
 /**
  * @author Bartosz Przybylski
@@ -32,6 +33,8 @@ import java.util.Vector;
 public class MountCommandStoragePointProvider extends AbstractCommandLineStoragePoint {
 
     static private final String[] sCommand = new String[] { "mount" };
+
+    private static Pattern sPattern = Pattern.compile("(?i).*vold.*(vfat|ntfs|exfat|fat32|ext3|ext4).*rw.*");
 
     @Override
     protected String[] getCommand() {
@@ -51,10 +54,9 @@ public class MountCommandStoragePointProvider extends AbstractCommandLineStorage
 
     private Vector<String> getPotentialPaths(String mounted) {
         final Vector<String> result = new Vector<>();
-        final String reg = "(?i).*vold.*(vfat|ntfs|exfat|fat32|ext3|ext4).*rw.*";
 
         for (String line : mounted.split("\n"))
-            if (!line.toLowerCase(Locale.US).contains("asec") && line.matches(reg)) {
+            if (!line.toLowerCase(Locale.US).contains("asec") && sPattern.matcher(line).matches()) {
                 String parts[] = line.split(" ");
                 for (String path : parts) {
                     if (path.startsWith("/") &&
