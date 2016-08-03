@@ -19,18 +19,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/action_search"
+          android:icon="@drawable/ic_search"
+          android:title="@string/actionbar_search"
+          android:contentDescription="@string/actionbar_search"
+          app:actionViewClass="android.support.v7.widget.SearchView"
+          app:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/action_select_all"
         android:checkable="true"
         android:contentDescription="@string/select_all"
         android:title="@string/select_all"
         android:icon="@drawable/ic_select_all"
-        app:showAsAction="always"/>
+        app:showAsAction="never"/>
     <item
         android:id="@+id/action_sort"
         android:icon="@drawable/ic_sort_variant"
         android:orderInCategory="2"
-        app:showAsAction="ifRoom"
+        app:showAsAction="never"
         android:title="@string/actionbar_sort"
         android:contentDescription="@string/actionbar_sort"/>
 </menu>
