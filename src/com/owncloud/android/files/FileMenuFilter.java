@@ -244,12 +244,11 @@ public class FileMenuFilter {
         }
 
         // SET PICTURE AS
-        if (mFile == null || !mFile.isImage()){
+        if (!isSingleImage()) {
             toHide.add(R.id.action_set_as_wallpaper);
         } else {
             toShow.add(R.id.action_set_as_wallpaper);
         }
-
     }
 
     private boolean anyFileSynchronizing() {
@@ -303,6 +302,10 @@ public class FileMenuFilter {
 
     private boolean isSingleFile() {
         return isSingleSelection() && !mFiles.iterator().next().isFolder();
+    }
+
+    private boolean isSingleImage() {
+        return isSingleSelection() && mFiles.iterator().next().isImage();
     }
 
     private boolean allFiles() {

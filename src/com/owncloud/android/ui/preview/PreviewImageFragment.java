@@ -227,8 +227,9 @@ public class PreviewImageFragment extends FileFragment {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.file_actions_menu, menu);
 
-        MenuItem item = menu.findItem(R.id.action_set_as_wallpaper);
-        item.setVisible(getFile().isDown());
+        if(getFile().isDown() && getFile().isImage()) {
+            menu.findItem(R.id.action_set_as_wallpaper).setVisible(false);
+        }
     }
 
     /**
