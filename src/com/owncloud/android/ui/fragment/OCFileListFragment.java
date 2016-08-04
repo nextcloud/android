@@ -684,6 +684,10 @@ public class OCFileListFragment extends ExtendedListFragment {
                     }
                     return true;
                 }
+                case R.id.action_set_as_wallpaper: {
+                    mContainerActivity.getFileOperationsHelper().setPictureAs(singleFile);
+                    return true;
+                }
             }
         }
 
