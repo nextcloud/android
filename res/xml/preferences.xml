@@ -66,9 +66,6 @@
 
 	<PreferenceCategory android:title="@string/prefs_category_details">
 		<android.preference.CheckBoxPreference android:title="@string/prefs_passcode" android:key="set_pincode" />
-	</PreferenceCategory>
-
-	<PreferenceCategory android:title="@string/common_category" android:key="common_category">
 		<EditTextPreference android:title="@string/pref_cache_size"
 							android:key="pref_cache_size"
 							android:digits="0123456789"/>

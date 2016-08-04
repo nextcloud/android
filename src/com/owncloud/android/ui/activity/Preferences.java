@@ -21,7 +21,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -50,13 +49,8 @@ import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.db.DbHandler;
-import com.owncloud.android.files.FileOperationsHelper;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -64,8 +58,7 @@ import com.owncloud.android.utils.DisplayUtils;
 /**
  * An Activity that allows the user to change the application's settings.
  *
- * It proxies the necessary calls via {@link android.support.v7.app.AppCompatDelegate} to be used
- * with AppCompat.
+ * It proxies the necessary calls via {@link android.support.v7.app.AppCompatDelegate} to be used with AppCompat.
  */
 public class Preferences extends PreferenceActivity {
     
@@ -80,7 +73,6 @@ public class Preferences extends PreferenceActivity {
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
 
-    private PreferenceCategory mAccountsPrefCategory = null;
     private String mUploadPath;
     private PreferenceCategory mPrefInstantUploadCategory;
     private Preference mPrefInstantUpload;
@@ -155,7 +147,7 @@ public class Preferences extends PreferenceActivity {
             final SharedPreferences appPrefs =
                     PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             Long cacheSize = ThumbnailsCacheManager.getMaxSize();
-            pCacheSize.setSummary(cacheSize + " Mb");
+            pCacheSize.setSummary(cacheSize + " MB");
             pCacheSize.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -211,8 +203,7 @@ public class Preferences extends PreferenceActivity {
                         String downloadUrl = getString(R.string.url_app_download);
 
                         String recommendSubject =
-                                String.format(getString(R.string.recommend_subject),
-                                appName);
+                                String.format(getString(R.string.recommend_subject), appName);
                         String recommendText = String.format(getString(R.string.recommend_text),
                                 appName, downloadUrl);
                         
@@ -236,8 +227,8 @@ public class Preferences extends PreferenceActivity {
                 pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String feedbackMail   =(String) getText(R.string.mail_feedback);
-                        String feedback   =(String) getText(R.string.prefs_feedback) +
+                        String feedbackMail   = (String) getText(R.string.mail_feedback);
+                        String feedback   = getText(R.string.prefs_feedback) +
                                 " - android v" + appVersion;
                         Intent intent = new Intent(Intent.ACTION_SENDTO); 
                         intent.setType("text/plain");
