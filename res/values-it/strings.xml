@@ -4,7 +4,7 @@
     <string name="about_android">Applicazione per Android di %1$s</string>
     <string name="about_version">versione %1$s</string>
     <string name="actionbar_sync">Aggiorna account</string>
-    <string name="actionbar_upload">Carica un file</string>
+    <string name="actionbar_upload">Carica</string>
     <string name="actionbar_upload_from_apps">Contenuti da altre applicazioni</string>
     <string name="actionbar_upload_files">File</string>
     <string name="actionbar_open_with">Apri con</string>
@@ -457,6 +457,7 @@
     <string name="local_file_not_found_toast">Il file non è stato trovato nel file system locale</string>
     <string name="confirmation_remove_files_alert">Vuoi davvero rimuovere gli elementi selezionati?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero rimuovere gli elementi selezionati e il loro contenuto?</string>
+    <string name="actionbar_search">Cerca</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>

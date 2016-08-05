@@ -72,7 +72,7 @@
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_list_empty">Alles leer. Laden Sie etwas hoch!</string>
     <string name="file_list_loading">Lade…</string>
-    <string name="file_list_no_app_for_file_type">Es wurde keine App für die Datei gefunden!</string>
+    <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="upload_list_empty">Keine Uploads verfügbar</string>
     <string name="file_list_folder">Ordner</string>
@@ -457,6 +457,7 @@
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Wollen Sie die ausgewählten Einträge wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Wollen Sie die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
+    <string name="actionbar_search">Suche</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
