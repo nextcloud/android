@@ -212,7 +212,7 @@
 	<string name="auth_bad_oc_version_title">Unbekannte Server-Version</string>
 	<string name="auth_wrong_connection_title">Verbindung konnte nicht aufgebaut werden</string>
 	<string name="auth_secure_connection">Sichere Verbindung hergestellt</string>
-	<string name="auth_unauthorized">Benutzername oder Passwort stimmen nicht!</string>
+	<string name="auth_unauthorized">Falscher Benutzername oder Passwort</string>
 	<string name="auth_oauth_error">Autorisierung nicht erfolgreich</string>
 	<string name="auth_oauth_error_access_denied">Zugriff durch den Autorisierungsserver abgelehnt</string>
 	<string name="auth_wtf_reenter_URL">Unerwarteter Zustand; Bitte gib die Adresse des Servers erneut ein</string>
@@ -231,7 +231,7 @@
     <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_remove">Löschen</string>
-    <string name="confirmation_remove_file_alert">Möchten Sie %1$s wirklich löschen?</string>
+    <string name="confirmation_remove_file_alert">Möchtest Du %1$s wirklich löschen?</string>
     <string name="confirmation_remove_folder_alert">Soll %1$s und dessen Inhalt entfernt werden?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="remove_success_msg">Erfolgreich gelöscht</string>
@@ -455,8 +455,8 @@
 
     <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
-    <string name="confirmation_remove_files_alert">Wollen Sie die ausgewählten Einträge wirklich löschen?</string>
-    <string name="confirmation_remove_folders_alert">Wollen Sie die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
+    <string name="confirmation_remove_files_alert">Willst Du die ausgewählten Einträge wirklich löschen?</string>
+    <string name="confirmation_remove_folders_alert">Willst Du die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
     <string name="actionbar_search">Suche</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
