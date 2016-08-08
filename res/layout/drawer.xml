@@ -24,9 +24,43 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        android:layout_weight="1"
         android:fitsSystemWindows="true"
-        app:theme="@style/NavigationView_ItemTextAppearance"
         app:headerLayout="@layout/drawer_header"
-        app:menu="@menu/drawer_menu"/>
+        app:menu="@menu/drawer_menu"
+        app:theme="@style/NavigationView_ItemTextAppearance">
+
+        <LinearLayout
+            android:id="@+id/drawer_quota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="#F5F5F5"
+            android:clickable="false"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/drawer_quota_ProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:text="@string/drawer_quota"
+                />
+
+            <TextView
+                android:id="@+id/drawer_quota_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/drawer_quota"/>
+        </LinearLayout>
+
+    </android.support.design.widget.NavigationView>
 
 </merge>
