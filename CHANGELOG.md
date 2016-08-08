@@ -1,6 +1,8 @@
 ## 2016-08-08
 - update all PR
 - search for the right ocShare with public link #197
+- Fix comparator determining order of list of uploads #199
+- generate thumbnails only if mCurrentUpload is not null #205
 
 ## 2016-07-31
 - External SD support #92
