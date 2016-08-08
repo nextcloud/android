@@ -138,7 +138,6 @@ public class UploadFilesActivity extends FileActivity implements
         behaviourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         mBehaviourSpinner.setAdapter(behaviourAdapter);
         mBehaviourSpinner.setSelection(localBehaviour);
-        mBehaviourSpinner.setPrompt("Test");
 
         // setup the toolbar
         setupToolbar();
