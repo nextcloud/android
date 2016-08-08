@@ -35,6 +35,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
@@ -117,6 +119,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * accounts for the (max) three displayed accounts in the drawer header.
      */
     private Account[] mAvatars = new Account[3];
+    private LinearLayout mQuotaView;
+    private ProgressBar mQuotaProgressBar;
+    private TextView mQuotaTextView;
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id.
@@ -141,9 +146,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
             mIsAccountChooserActive = false;
-
-            mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
-            mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
+            mAccountMiddleAccountAvatar = (ImageView) findViewById(R.id.drawer_account_middle);
+            mAccountEndAccountAvatar = (ImageView) findViewById(R.id.drawer_account_end);
 
             // on pre lollipop the light theme adds a black tint to icons with white coloring
             // ruining the generic avatars, so tinting for icons is deactivated pre lollipop
@@ -160,6 +164,12 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             toggleAccountList();
                         }
                     });
+
+            // Quota UI elements
+            mQuotaView = (LinearLayout) findNavigationViewChildById(R.id.drawer_quota);
+            mQuotaProgressBar = (ProgressBar) findNavigationViewChildById(R.id.drawer_quota_ProgressBar);
+            mQuotaTextView = (TextView) findNavigationViewChildById(R.id.drawer_quota_text);
+            DisplayUtils.colorPreLollipopHorizontalProgressBar(mQuotaProgressBar);
         }
 
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
@@ -472,6 +482,39 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, true);
             }
         }
+    }
+
+    /**
+     * shows or hides the quota UI elements.
+     *
+     * @param showQuota show/hide quota information
+     */
+    private void showQuota(boolean showQuota) {
+        if (showQuota) {
+            mQuotaView.setVisibility(View.VISIBLE);
+        } else {
+            mQuotaView.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * configured the quota to be displayed.
+     *
+     * @param usedSpace the used space
+     * @param totalSpace the total space
+     * @param percent the percentage of space already used
+     */
+    private void setQuotaInformation(long usedSpace, long totalSpace, Double percent) {
+        int progress = (int) Math.ceil(percent);
+        mQuotaProgressBar.setProgress(progress);
+        mQuotaTextView.setText(String.format(
+                getString(R.string.drawer_quota),
+                DisplayUtils.bytesToHumanReadable(usedSpace),
+                DisplayUtils.bytesToHumanReadable(totalSpace)));
+
+        // TODO Think about coloring of the progressbar at certain thresholds
+
+        showQuota(true);
     }
 
     /**
