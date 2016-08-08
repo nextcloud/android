@@ -457,6 +457,7 @@
     <string name="local_file_not_found_toast">Файл не был найден в локальной файловой системе</string>
     <string name="confirmation_remove_files_alert">Вы действительно хотите удалить выбранные элементы?</string>
     <string name="confirmation_remove_folders_alert">Вы действительно хотите удалить выбранные элементы и их содержимое?</string>
+    <string name="actionbar_search">Поиск</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>
         <item quantity="few">%d выбрано</item>
