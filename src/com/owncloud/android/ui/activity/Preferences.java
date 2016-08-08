@@ -55,6 +55,7 @@ import android.widget.Toast;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
@@ -783,33 +784,6 @@ public class Preferences extends PreferenceActivity
         mPrefStoragePath.setValue(newStoragePath);
     }
 
-    /**
-     * Load storage path set on preferences
-     */
-    private void loadStoragePath() {
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mStoragePath = appPrefs.getString(Keys.STORAGE_PATH, Environment.getExternalStorageDirectory()
-                                                         .getAbsolutePath());
-        String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
-        mPrefStoragePath.setSummary(storageDescription);
-    }
-
-    /**
-     * Save storage path
-     */
-    private void saveStoragePath(String newStoragePath) {
-        SharedPreferences appPrefs =
-                PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mStoragePath = newStoragePath;
-        MainApp.setStoragePath(mStoragePath);
-        SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString(Keys.STORAGE_PATH, mStoragePath);
-        editor.commit();
-        String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
-        mPrefStoragePath.setSummary(storageDescription);
-        mPrefStoragePath.setValue(newStoragePath);
-    }
 
     /**
      * Load storage path set on preferences
