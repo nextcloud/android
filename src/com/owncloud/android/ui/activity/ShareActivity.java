@@ -289,7 +289,18 @@ public class ShareActivity extends FileActivity
 
             // Create dialog to allow the user choose an app to send the link
             Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
-            String link = ((OCShare) (result.getData().get(0))).getShareLink();
+
+            // if share to user and share via link multiple ocshares are returned,
+            // therefore filtering for public_link
+            String link = "";
+            for (Object object : result.getData()) {
+                OCShare shareLink = (OCShare) object;
+                if (shareLink.getShareType().name().equalsIgnoreCase("PUBLIC_LINK")) {
+                    link = shareLink.getShareLink();
+                    break;
+                }
+            }
+
             intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
             intentToShareLink.setType("text/plain");
             String username = AccountUtils.getUsernameForAccount(getAccount());
