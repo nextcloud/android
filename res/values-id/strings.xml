@@ -457,6 +457,7 @@
     <string name="local_file_not_found_toast">Berkas tidak ditemukan di sistem berkas lokal</string>
     <string name="confirmation_remove_files_alert">Apakah Anda yakin ingin menghapus item terpilih?</string>
     <string name="confirmation_remove_folders_alert">Apakah Anda yakin ingin menghapus item terpilih dan isinya?</string>
+    <string name="actionbar_search">Cari</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d dipilih</item>
     </plurals>
