@@ -457,6 +457,7 @@
     <string name="local_file_not_found_toast">The file was not found in the local file system</string>
     <string name="confirmation_remove_files_alert">Do you really want to remove the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to remove the selected items and their contents?</string>
+    <string name="actionbar_search">Search</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"

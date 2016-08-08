@@ -464,7 +464,7 @@ public class UploadFileOperation extends SyncOperation {
         );
         return (
             (delayInstantPicture || delayInstantVideo) &&
-            !ConnectivityUtils.isAppConnectedViaWiFi(mContext)
+            !ConnectivityUtils.isAppConnectedViaUnmeteredWiFi(mContext)
         );
     }
 
