@@ -149,8 +149,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
             mAccountChooserToggle.setImageResource(R.drawable.ic_down);
             mIsAccountChooserActive = false;
-            mAccountMiddleAccountAvatar = (ImageView) findViewById(R.id.drawer_account_middle);
-            mAccountEndAccountAvatar = (ImageView) findViewById(R.id.drawer_account_end);
+            mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
+            mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
 
             // on pre lollipop the light theme adds a black tint to icons with white coloring
             // ruining the generic avatars, so tinting for icons is deactivated pre lollipop
@@ -169,9 +169,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     });
 
             // Quota UI elements
-            mQuotaView = (LinearLayout) findNavigationViewChildById(R.id.drawer_quota);
-            mQuotaProgressBar = (ProgressBar) findNavigationViewChildById(R.id.drawer_quota_ProgressBar);
-            mQuotaTextView = (TextView) findNavigationViewChildById(R.id.drawer_quota_text);
+            mQuotaView = (LinearLayout) findViewById(R.id.drawer_quota);
+            mQuotaProgressBar = (ProgressBar) findViewById(R.id.drawer_quota_ProgressBar);
+            mQuotaTextView = (TextView) findViewById(R.id.drawer_quota_text);
             DisplayUtils.colorPreLollipopHorizontalProgressBar(mQuotaProgressBar);
         }
 
