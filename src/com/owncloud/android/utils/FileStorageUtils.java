@@ -196,7 +196,7 @@ public class FileStorageUtils {
         return uploadPath + OCFile.PATH_SEPARATOR + subPath
                 + (fileName == null ? "" : fileName);
     }
-    
+
     /**
      * Gets the composed path when video is or must be stored
      * @param context
