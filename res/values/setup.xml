@@ -65,6 +65,7 @@
     <bool name="logger_enabled">true</bool>
     <string name="url_help">https://help.nextcloud.com/c/feature</string>
     <string name="beta_link">https://github.com/nextcloud/android/raw/beta/apks/nextcloud-beta-</string>
+    <string name="beta_latest">https://github.com/nextcloud/android/raw/beta/apks/latest</string>
     <string name="url_imprint"></string>
     <string name="mail_recommend">"mailto:"</string>
     <string name="mail_feedback">"mailto:android@nextcloud.com"</string>
