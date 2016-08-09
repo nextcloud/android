@@ -47,7 +47,10 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.users.RemoteGetUserQuotaOperation;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -459,6 +462,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             DisplayUtils.setAvatar(account, this,
                     mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),
                     findNavigationViewChildById(R.id.drawer_current_account));
+
+            // check and show quota info if available
+            getUserQuota();
         }
     }
 
@@ -505,11 +511,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      *
      * @param usedSpace the used space
      * @param totalSpace the total space
-     * @param percent the percentage of space already used
+     * @param relative the percentage of space already used
      */
-    private void setQuotaInformation(long usedSpace, long totalSpace, Double percent) {
-        int progress = (int) Math.ceil(percent);
-        mQuotaProgressBar.setProgress(progress);
+    private void setQuotaInformation(long usedSpace, long totalSpace, int relative) {
+        mQuotaProgressBar.setProgress(relative);
         mQuotaTextView.setText(String.format(
                 getString(R.string.drawer_quota),
                 DisplayUtils.bytesToHumanReadable(usedSpace),
@@ -533,6 +538,43 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         } else {
             Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
         }
+    }
+
+    /**
+     * Retrieves and shows the user quota if available
+     */
+    private void getUserQuota() {
+        // set user space information
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+
+                RemoteOperation getQuotaInfoOperation = new RemoteGetUserQuotaOperation();
+                RemoteOperationResult result = getQuotaInfoOperation.execute(
+                        AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this), DrawerActivity.this);
+
+                if (result.isSuccess() && result.getData() != null) {
+                    RemoteGetUserQuotaOperation.Quota quota = (RemoteGetUserQuotaOperation.Quota) result.getData().get
+                            (0);
+
+                    final long used = quota.getUsed();
+                    final long total = quota.getTotal();
+                    final int relative = (int) Math.ceil(quota.getRelative());
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (mQuotaView != null) {
+                                setQuotaInformation(used,total,relative);
+                            } else {
+                                showQuota(false);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        t.start();
     }
 
     @Override
