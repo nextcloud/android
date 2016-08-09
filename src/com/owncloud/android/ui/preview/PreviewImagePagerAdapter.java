@@ -27,6 +27,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import android.accounts.Account;
+import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -34,6 +35,8 @@ import android.view.ViewGroup;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -103,17 +106,15 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         Fragment fragment = null;
         if (file.isDown()) {
             fragment = PreviewImageFragment.newInstance(file,
-                    mObsoletePositions.contains(Integer.valueOf(i)));
+                    mObsoletePositions.contains(Integer.valueOf(i)), false);
             
         } else if (mDownloadErrors.contains(Integer.valueOf(i))) {
             fragment = FileDownloadFragment.newInstance(file, mAccount, true);
             ((FileDownloadFragment)fragment).setError(true);
             mDownloadErrors.remove(Integer.valueOf(i));
-            
         } else {
-            fragment = FileDownloadFragment.newInstance(
-                    file, mAccount, mObsoletePositions.contains(Integer.valueOf(i))
-            );
+            fragment = PreviewImageFragment.newInstance(file,
+                    mObsoletePositions.contains(Integer.valueOf(i)), true);
         }
         mObsoletePositions.remove(Integer.valueOf(i));
         return fragment;

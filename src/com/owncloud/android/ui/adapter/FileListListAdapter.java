@@ -303,7 +303,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                 if ((file.isImage() || file.isVideo()) && file.getRemoteId() != null) {
                     // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            String.valueOf(file.getRemoteId())
+                            "t" + String.valueOf(file.getRemoteId())
                     );
                     if (thumbnail != null && !file.needsUpdateThumbnail()) {
 
@@ -334,7 +334,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                                     task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
+                            task.execute(file, true);
                         }
                     }
 
