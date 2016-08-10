@@ -64,16 +64,16 @@ import java.util.Map;
  */
 public class DisplayUtils {
     private static final String TAG = DisplayUtils.class.getSimpleName();
-    
-    private static final String OWNCLOUD_APP_NAME = "ownCloud";
-    
+
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
     private static final int[] sizeScales = { 0, 0, 1, 1, 1, 2, 2, 2, 2 };
+    public static final int RELATIVE_THRESHOLD_WARNING = 90;
+    public static final int RELATIVE_THRESHOLD_CRITICAL = 95;
 
     private static Map<String, String> mimeType2HumanReadable;
 
     static {
-        mimeType2HumanReadable = new HashMap<String, String>();
+        mimeType2HumanReadable = new HashMap<>();
         // images
         mimeType2HumanReadable.put("image/jpeg", "JPEG image");
         mimeType2HumanReadable.put("image/jpg", "JPEG image");
@@ -155,9 +155,9 @@ public class DisplayUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.GINGERBREAD) {
             // Find host name after '//' or '@'
             int hostStart = 0;
-            if  (urlNoDots.indexOf("//") != -1) {
+            if (urlNoDots.contains("//")) {
                 hostStart = url.indexOf("//") + "//".length();
-            } else if (url.indexOf("@") != -1) {
+            } else if (url.contains("@")) {
                 hostStart = url.indexOf("@") + "@".length();
             }
 
@@ -207,17 +207,33 @@ public class DisplayUtils {
                 DateUtils.WEEK_IN_MILLIS, 0);
     }
 
-    @SuppressWarnings("deprecation")
-    public static CharSequence getRelativeDateTimeString (
-            Context c, long time, long minResolution, long transitionResolution, int flags
-            ){
-        
+    /**
+     * determines the info level color based on certain thresholds
+     * {@link #RELATIVE_THRESHOLD_WARNING} and {@link #RELATIVE_THRESHOLD_CRITICAL}.
+     *
+     * @param context  the app's context
+     * @param relative relative value for which the info level color should be looked up
+     * @return info level color
+     */
+    public static int getRelativeInfoColor(Context context, int relative) {
+        if (relative < RELATIVE_THRESHOLD_WARNING) {
+            return context.getResources().getColor(R.color.infolevel_info);
+        } else if (relative >= RELATIVE_THRESHOLD_WARNING && relative < RELATIVE_THRESHOLD_CRITICAL) {
+            return context.getResources().getColor(R.color.infolevel_warning);
+        } else {
+            return context.getResources().getColor(R.color.infolevel_critical);
+        }
+    }
+
+    public static CharSequence getRelativeDateTimeString(
+            Context c, long time, long minResolution, long transitionResolution, int flags) {
+
         CharSequence dateString = "";
-        
+
         // in Future
-        if (time > System.currentTimeMillis()){
+        if (time > System.currentTimeMillis()) {
             return DisplayUtils.unixTimeToHumanReadable(time);
-        } 
+        }
         // < 60 seconds -> seconds ago
         else if ((System.currentTimeMillis() - time) < 60 * 1000) {
             return c.getString(R.string.file_list_seconds_ago);
@@ -238,8 +254,9 @@ public class DisplayUtils {
     }
 
     /**
-     * Update the passed path removing the last "/" if it is not the root folder
-     * @param path
+     * Update the passed path removing the last "/" if it is not the root folder.
+     *
+     * @param path the path to be trimmed
      */
     public static String getPathWithoutLastSlash(String path) {
 
@@ -250,12 +267,11 @@ public class DisplayUtils {
         return path;
     }
 
-
     /**
-     * Gets the screen size in pixels in a backwards compatible way
+     * Gets the screen size in pixels in a backwards compatible way.
      *
-     * @param caller        Activity calling; needed to get access to the {@link android.view.WindowManager}
-     * @return              Size in pixels of the screen, or default {@link Point} if caller is null
+     * @param caller Activity calling; needed to get access to the {@link android.view.WindowManager}
+     * @return Size in pixels of the screen, or default {@link Point} if caller is null
      */
     public static Point getScreenSize(Activity caller) {
         Point size = new Point();
@@ -277,7 +293,18 @@ public class DisplayUtils {
      */
     public static void colorPreLollipopHorizontalProgressBar(ProgressBar progressBar) {
         if (progressBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            int color = progressBar.getResources().getColor(R.color.color_accent);
+            colorHorizontalProgressBar(progressBar, progressBar.getResources().getColor(R.color.color_accent));
+        }
+    }
+
+    /**
+     * sets the coloring of the given progress bar to color_accent.
+     *
+     * @param progressBar the progress bar to be colored
+     * @param color       the color to be used
+     */
+    public static void colorHorizontalProgressBar(ProgressBar progressBar, @ColorInt int color) {
+        if (progressBar != null) {
             progressBar.getIndeterminateDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
             progressBar.getProgressDrawable().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         }
@@ -315,7 +342,7 @@ public class DisplayUtils {
      * Sets the color of the status bar to {@code color} on devices with OS version lollipop or higher.
      *
      * @param fragmentActivity fragment activity
-     * @param color the color
+     * @param color            the color
      */
     public static void colorStatusBar(FragmentActivity fragmentActivity, @ColorInt int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -326,11 +353,11 @@ public class DisplayUtils {
     /**
      * Sets the color of the progressbar to {@code color} within the given toolbar.
      *
-     * @param activity the toolbar activity instance
+     * @param activity         the toolbar activity instance
      * @param progressBarColor the color to be used for the toolbar's progress bar
      */
     public static void colorToolbarProgressBar(FragmentActivity activity, int progressBarColor) {
-        if(activity instanceof ToolbarActivity) {
+        if (activity instanceof ToolbarActivity) {
             ((ToolbarActivity) activity).setProgressBarBackgroundColor(progressBarColor);
         }
     }
