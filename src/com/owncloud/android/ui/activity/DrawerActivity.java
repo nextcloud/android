@@ -125,8 +125,20 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * accounts for the (max) three displayed accounts in the drawer header.
      */
     private Account[] mAvatars = new Account[3];
+
+    /**
+     * container layout of the quota view.
+     */
     private LinearLayout mQuotaView;
+
+    /**
+     * progress bar of the quota view.
+     */
     private ProgressBar mQuotaProgressBar;
+
+    /**
+     * text view of the quota view.
+     */
     private TextView mQuotaTextView;
 
     /**
@@ -537,12 +549,12 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      */
     private void setQuotaInformation(long usedSpace, long totalSpace, int relative) {
         mQuotaProgressBar.setProgress(relative);
+        DisplayUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
+
         mQuotaTextView.setText(String.format(
                 getString(R.string.drawer_quota),
                 DisplayUtils.bytesToHumanReadable(usedSpace),
                 DisplayUtils.bytesToHumanReadable(totalSpace)));
-
-        // TODO Think about coloring of the progressbar at certain thresholds
 
         showQuota(true);
     }
