@@ -149,35 +149,22 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         if (mNavigationView != null) {
-            mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
-            mAccountChooserToggle.setImageResource(R.drawable.ic_down);
-            mIsAccountChooserActive = false;
-            mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
-            mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
+            setupDrawerHeader();
 
-            // on pre lollipop the light theme adds a black tint to icons with white coloring
-            // ruining the generic avatars, so tinting for icons is deactivated pre lollipop
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                mNavigationView.setItemIconTintList(null);
-            }
+            setupDrawerMenu(mNavigationView);
 
-            setupDrawerContent(mNavigationView);
-
-            findNavigationViewChildById(R.id.drawer_active_user)
-                    .setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            toggleAccountList();
-                        }
-                    });
-
-            // Quota UI elements
-            mQuotaView = (LinearLayout) findViewById(R.id.drawer_quota);
-            mQuotaProgressBar = (ProgressBar) findViewById(R.id.drawer_quota_ProgressBar);
-            mQuotaTextView = (TextView) findViewById(R.id.drawer_quota_text);
-            DisplayUtils.colorPreLollipopHorizontalProgressBar(mQuotaProgressBar);
+            setupQuotaElement();
         }
 
+        setupDrawerToggle();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    /**
+     * initializes and sets up the drawer toggle.
+     */
+    private void setupDrawerToggle() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
@@ -201,7 +188,35 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    /**
+     * initializes and sets up the drawer header.
+     */
+    private void setupDrawerHeader() {
+        mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
+        mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+        mIsAccountChooserActive = false;
+        mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
+        mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
+
+        findNavigationViewChildById(R.id.drawer_active_user)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        toggleAccountList();
+                    }
+                });
+    }
+
+    /**
+     * setup quota elements of the drawer.
+     */
+    private void setupQuotaElement() {
+        mQuotaView = (LinearLayout) findViewById(R.id.drawer_quota);
+        mQuotaProgressBar = (ProgressBar) findViewById(R.id.drawer_quota_ProgressBar);
+        mQuotaTextView = (TextView) findViewById(R.id.drawer_quota_text);
+        DisplayUtils.colorPreLollipopHorizontalProgressBar(mQuotaProgressBar);
     }
 
     /**
@@ -209,7 +224,14 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      *
      * @param navigationView the drawers navigation view
      */
-    protected void setupDrawerContent(NavigationView navigationView) {
+    protected void setupDrawerMenu(NavigationView navigationView) {
+        // on pre lollipop the light theme adds a black tint to icons with white coloring
+        // ruining the generic avatars, so tinting for icons is deactivated pre lollipop
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            navigationView.setItemIconTintList(null);
+        }
+
+        // setup actions for drawer menu items
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -259,9 +281,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         // handle correct state
         if (mIsAccountChooserActive) {
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
+            navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
         } else {
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
+            navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
     }
 
@@ -464,7 +486,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     findNavigationViewChildById(R.id.drawer_current_account));
 
             // check and show quota info if available
-            getUserQuota();
+            getAndDisplayUserQuota();
         }
     }
 
@@ -543,7 +565,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     /**
      * Retrieves and shows the user quota if available
      */
-    private void getUserQuota() {
+    private void getAndDisplayUserQuota() {
         // set user space information
         Thread t = new Thread(new Runnable() {
             public void run() {
