@@ -1,20 +1,22 @@
 /**
- *   ownCloud Android client application
+ *   Nextcloud Android client application
  *
  *   @author Andy Scherzinger
- *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2016 Andy Scherzinger
+ *   Copyright (C) 2016 Nextcloud.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ *   License as published by the Free Software Foundation; either
+ *   version 3 of the License, or any later version.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *   You should have received a copy of the GNU Affero General Public
+ *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -122,8 +124,20 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * accounts for the (max) three displayed accounts in the drawer header.
      */
     private Account[] mAvatars = new Account[3];
+
+    /**
+     * container layout of the quota view.
+     */
     private LinearLayout mQuotaView;
+
+    /**
+     * progress bar of the quota view.
+     */
     private ProgressBar mQuotaProgressBar;
+
+    /**
+     * text view of the quota view.
+     */
     private TextView mQuotaTextView;
 
     /**
@@ -534,12 +548,12 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      */
     private void setQuotaInformation(long usedSpace, long totalSpace, int relative) {
         mQuotaProgressBar.setProgress(relative);
+        DisplayUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
+
         mQuotaTextView.setText(String.format(
                 getString(R.string.drawer_quota),
                 DisplayUtils.bytesToHumanReadable(usedSpace),
                 DisplayUtils.bytesToHumanReadable(totalSpace)));
-
-        // TODO Think about coloring of the progressbar at certain thresholds
 
         showQuota(true);
     }
