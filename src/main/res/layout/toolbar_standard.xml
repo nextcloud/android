@@ -3,8 +3,7 @@
   Nextcloud Android client application
 
   Copyright (C) 2016 Andy Scherzinger
-  Copyright (C) 2016 Nextcloud
-  Copyright (C) 2016 ownCloud
+  Copyright (C) 2016 Nextcloud.
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -19,32 +18,35 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<android.support.design.widget.AppBarLayout
-    android:id="@+id/appbar"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+<android.support.design.widget.AppBarLayout android:id="@+id/appbar"
+                                            xmlns:android="http://schemas.android.com/apk/res/android"
+                                            xmlns:app="http://schemas.android.com/apk/res-auto"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:layout_scrollFlags="scroll|enterAlways|snap"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        app:layout_scrollFlags="scroll|enterAlways">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        style="@style/Widget.ownCloud.TopProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/standard_quarter_margin"
-        android:layout_margin="@dimen/zero"
-        android:indeterminate="false"
-        android:indeterminateOnly="false"
-        android:padding="@dimen/zero"
-        android:visibility="visible"
-        />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="@style/Widget.ownCloud.TopProgressBar"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:layout_gravity="bottom"
+            android:layout_margin="0dp"
+            android:indeterminate="false"
+            android:indeterminateOnly="false"
+            android:padding="0dp"
+            android:visibility="visible"/>
+    </FrameLayout>
 </android.support.design.widget.AppBarLayout>
