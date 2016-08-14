@@ -67,6 +67,7 @@ public class DisplayUtils {
 
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
     private static final int[] sizeScales = { 0, 0, 1, 1, 1, 2, 2, 2, 2 };
+    private static final int[] quotaSizeScales = { 0, 0, 0, 1, 1, 2, 2, 2, 2 };
     public static final int RELATIVE_THRESHOLD_WARNING = 90;
     public static final int RELATIVE_THRESHOLD_CRITICAL = 95;
 
@@ -95,18 +96,48 @@ public class DisplayUtils {
      * </ul>
      *
      * @param bytes Input file size
-     * @return Like something readable like "12 MB"
+     * @return something readable like "12 MB"
      */
     public static String bytesToHumanReadable(long bytes) {
+        return bytesToHumanReadable(bytes, sizeScales, sizeSuffixes);
+    }
+
+    /**
+     * Converts the file size in bytes to human readable output.
+     * <ul>
+     *     <li>appends a size suffix, e.g. B, KB, MB etc.</li>
+     *     <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
+     * </ul>
+     *
+     * @param bytes Input file size
+     * @return something readable like "12 MB"
+     */
+    public static String quotaBytesToHumanReadable(long bytes) {
+        return bytesToHumanReadable(bytes, quotaSizeScales, sizeSuffixes);
+    }
+
+    /**
+     * Converts the file size in bytes to human readable output.
+     * <ul>
+     *     <li>appends a size suffix, e.g. B, KB, MB etc.</li>
+     *     <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
+     * </ul>
+     *
+     * @param bytes        Input file size
+     * @param sizeScales   scales for the different size units
+     * @param sizeSuffixes suffixes for the different size units
+     * @return something readable like "12 MB"
+     */
+    private static String bytesToHumanReadable(long bytes, int[] sizeScales, String[] sizeSuffixes) {
         double result = bytes;
-        int attachedSuff = 0;
-        while (result > 1024 && attachedSuff < sizeSuffixes.length) {
+        int suffixIndex = 0;
+        while (result > 1024 && suffixIndex < sizeSuffixes.length) {
             result /= 1024.;
-            attachedSuff++;
+            suffixIndex++;
         }
 
         return new BigDecimal(result).setScale(
-                sizeScales[attachedSuff], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[attachedSuff];
+                sizeScales[suffixIndex], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[suffixIndex];
     }
 
     /**
