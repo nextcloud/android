@@ -35,7 +35,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:background="#F5F5F5"
             android:clickable="false"
             android:orientation="vertical"
             android:paddingBottom="@dimen/standard_half_padding"
