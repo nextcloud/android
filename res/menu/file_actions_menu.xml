@@ -32,7 +32,8 @@
     <item
         android:id="@+id/action_stream_file"
         android:title="@string/action_stream_file"
-        android:icon="@android:drawable/ic_menu_view"
+        android:icon="@drawable/ic_view"
+        app:showAsAction="never"
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_open_file_with"

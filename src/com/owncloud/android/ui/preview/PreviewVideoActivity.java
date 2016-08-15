@@ -206,9 +206,9 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
                     mVideoPlayer.setVideoURI(file.getStorageUri());
 
                 } else {
-                    String url;
-                    url = PreviewMediaFragment.generateUrlWithCredentials(getAccount(), getApplicationContext(), getFile());
-                    mVideoPlayer.setVideoURI(Uri.parse(url));
+                    Uri uri = PreviewMediaFragment.generateUrlWithCredentials(getAccount(), getApplicationContext(),
+                            getFile());
+                    mVideoPlayer.setVideoURI(uri);
                 }
 
                 // create and prepare control panel for the user
