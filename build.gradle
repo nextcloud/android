@@ -20,7 +20,7 @@ apply plugin: 'pmd'
 apply plugin: 'findbugs'
 
 ext {
-    supportLibraryVersion = '23.4.0'
+    supportLibraryVersion = '24.1.1'
 }
 
 repositories {
@@ -82,8 +82,8 @@ android {
         htmlReport true
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
     }
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.0"
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -94,6 +94,11 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
         applicationId "com.nextcloud.client"
+
+        // Enable the experimental Jack build tools.
+        jackOptions {
+            enabled true
+        }
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
@@ -126,8 +131,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
@@ -137,7 +142,6 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
     }
-
     task checkstyle(type: Checkstyle) {
         configFile = file("${rootProject.projectDir}/checkstyle.xml")
         configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
