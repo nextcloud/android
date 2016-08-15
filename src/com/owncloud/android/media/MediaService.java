@@ -515,7 +515,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
                     Toast.LENGTH_LONG).show();
             processStopRequest(true);
         } catch (AccountUtils.AccountNotFoundException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "playMedia - Account missing",e);
         }
     }
 
