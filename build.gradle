@@ -68,7 +68,6 @@ dependencies {
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
-
 }
 
 tasks.withType(Test) {
