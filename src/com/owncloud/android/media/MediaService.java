@@ -22,7 +22,6 @@ package com.owncloud.android.media;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -220,14 +219,14 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         return context.getString(messageId);
     }
 
-    public static AlertDialog.Builder streamWithExternalApp(final String uri, final Activity activity){
+    public static AlertDialog.Builder streamWithExternalApp(final Uri uri, final Activity activity){
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage(activity.getString(R.string.stream_expose_password))
                 .setPositiveButton(activity.getString(R.string.common_yes),
                                    new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int id) {
                                             Intent i = new Intent(Intent.ACTION_VIEW);
-                                            i.setData(Uri.parse(uri));
+                                            i.setData(uri);
                                             activity.startActivity(i);
                                         }
                                     })

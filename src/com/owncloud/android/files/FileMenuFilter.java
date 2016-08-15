@@ -244,12 +244,11 @@ public class FileMenuFilter {
         }
 
         // STREAM
-        if (mFile != null && !mFile.isDown() && (mFile.isAudio() || mFile.isVideo())){
+        if (isSingleFile() && !anyFileDown() && (anyFileAudio() || anyFileVideo())){
             toShow.add(R.id.action_stream_file);
         } else {
             toHide.add(R.id.action_stream_file);
         }
-
     }
 
     private boolean anyFileSynchronizing() {
@@ -321,6 +320,24 @@ public class FileMenuFilter {
     private boolean anyFileDown() {
         for(OCFile file: mFiles) {
             if(file.isDown()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean anyFileAudio() {
+        for(OCFile file: mFiles) {
+            if(file.isAudio()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean anyFileVideo() {
+        for(OCFile file: mFiles) {
+            if(file.isVideo()) {
                 return true;
             }
         }
