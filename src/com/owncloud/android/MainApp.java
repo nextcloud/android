@@ -89,8 +89,7 @@ public class MainApp extends Application {
             // Set folder for store logs
             Log_OC.setLogDataFolder(dataFolder);
 
-            //TODO: to be changed/fixed whenever SD card support gets merged.
-            Log_OC.startLogging(Environment.getExternalStorageDirectory().getAbsolutePath());
+            Log_OC.startLogging(MainApp.storagePath);
             Log_OC.d("Debug", "start logging");
         }
 
