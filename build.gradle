@@ -99,6 +99,11 @@ android {
         applicationId "com.nextcloud.android.beta"
         versionCode 20161012
         versionName "20161012"
+
+        // Enable the experimental Jack build tools.
+        jackOptions {
+            enabled true
+        }
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
@@ -141,8 +146,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     lintOptions {
@@ -152,6 +157,7 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
     }
+
     signingConfigs {
         release
     }
