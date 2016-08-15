@@ -427,7 +427,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
         Uri videoUri;
 
-        // load the video file in the video player ; 
+        // load the video file in the video player ;
         // when done, VideoHelper#onPrepared() will be called
         if (getFile().isDown()) {
             videoUri = getFile().getStorageUri();
