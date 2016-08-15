@@ -27,12 +27,10 @@ import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.accounts.Account;
-import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,8 +40,6 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
-import android.view.ContextMenu;
 import android.util.SparseBooleanArray;import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -873,6 +869,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     }
                     return true;
                 }
+                case R.id.action_stream_file: {
+                    Account account = ((FileActivity)mContainerActivity).getAccount();
+                    Context context = MainApp.getAppContext();
+                    Uri uri = PreviewMediaFragment.generateUrlWithCredentials(account, context, singleFile);
+                    MediaService.streamWithExternalApp(uri, getActivity()).show();
+
+                    return true;
+                }
             }
         }
 
@@ -898,37 +902,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             }
             case R.id.action_unset_keep_files_offline: {
                 mContainerActivity.getFileOperationsHelper().toogleOfflineFiles(checkedFiles, false);
-                return true;
-            }
-            case R.id.action_send_file: {
-                // Obtain the file
-                if (!mTargetFile.isDown()) {  // Download the file
-                    Log_OC.d(TAG, mTargetFile.getRemotePath() + " : File must be downloaded");
-                    ((FileDisplayActivity) mContainerActivity).startDownloadForSending(mTargetFile);
-
-                } else {
-                    mContainerActivity.getFileOperationsHelper().sendDownloadedFile(mTargetFile);
-                } catch (ActivityNotFoundException e) {
-                    // VLC
-                    Uri uri = Uri.parse("http://play.google.com/store/apps/details?id=org.videolan.vlc.betav7neon");
-                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                    startActivity(intent);
-                } catch (AuthenticatorException e) {
-                    e.printStackTrace();
-                } catch (OperationCanceledException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-//                }
-                return true;
-            }
-            case R.id.action_stream_file: {
-                Account account = ((FileActivity)mContainerActivity).getAccount();
-                Context context = MainApp.getAppContext();
-                String uri = PreviewMediaFragment.generateUrlWithCredentials(account, context, mTargetFile);
-                MediaService.streamWithExternalApp(uri, getActivity()).show();
-
                 return true;
             }
             case R.id.action_favorite: {
