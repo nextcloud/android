@@ -8,6 +8,13 @@ buildscript {
 }
 apply plugin: 'com.android.application'
 
+ext {
+    travisBuild = System.getenv("TRAVIS") == "true"
+
+    // allows for -Dpre-dex=false to be set
+    preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
 }
@@ -38,6 +45,11 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !travisBuild
     }
 
     compileOptions {
