@@ -94,11 +94,9 @@ public class UploadFilesActivity extends FileActivity implements
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null) {
-            mCurrentDir = new File(savedInstanceState.getString(
-                    UploadFilesActivity.KEY_DIRECTORY_PATH));
-            mSelectAll = savedInstanceState.getBoolean(
-                    UploadFilesActivity.KEY_ALL_SELECTED, false);
-
+            mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.KEY_DIRECTORY_PATH, Environment
+                    .getExternalStorageDirectory().getAbsolutePath()));
+            mSelectAll = savedInstanceState.getBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
         } else {
             mCurrentDir = Environment.getExternalStorageDirectory();
         }
@@ -354,8 +352,7 @@ public class UploadFilesActivity extends FileActivity implements
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
-    
-    
+
     /**
      * {@inheritDoc}
      */
@@ -371,7 +368,6 @@ public class UploadFilesActivity extends FileActivity implements
     public File getInitialDirectory() {
         return mCurrentDir;
     }
-
 
     /**
      * Performs corresponding action when user presses 'Cancel' or 'Upload' button
@@ -389,7 +385,6 @@ public class UploadFilesActivity extends FileActivity implements
             new CheckAvailableSpaceTask().execute();
         }
     }
-
 
     /**
      * Asynchronous task checking if there is space enough to copy all the files chosen
@@ -409,7 +404,6 @@ public class UploadFilesActivity extends FileActivity implements
             mCurrentDialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
         }
         
-        
         /**
          * Checks the available space
          * 
@@ -424,21 +418,23 @@ public class UploadFilesActivity extends FileActivity implements
                 File localFile = new File(localPath);
                 total += localFile.length();
             }
-            return (new Boolean(FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total));
+            return FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total;
         }
 
         /**
          * Updates the activity UI after the check of space is done.
-         * 
+         *
          * If there is not space enough. shows a new dialog to query the user if wants to move the
          * files instead of copy them.
-         * 
+         *
          * @param result        'True' when there is space enough to copy all the selected files.
          */
         @Override
         protected void onPostExecute(Boolean result) {
-            mCurrentDialog.dismiss();
-            mCurrentDialog = null;
+            if(mCurrentDialog != null) {
+                mCurrentDialog.dismiss();
+                mCurrentDialog = null;
+            }
             
             if (result) {
                 // return the list of selected files (success)
@@ -480,19 +476,16 @@ public class UploadFilesActivity extends FileActivity implements
         }
     }
 
-
     @Override
     public void onNeutral(String callerTag) {
         Log_OC.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
     }
-
 
     @Override
     public void onCancel(String callerTag) {
         /// nothing to do; don't finish, let the user change the selection
         Log_OC.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
     }
-
 
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {
