@@ -10,9 +10,10 @@ android:
   - tools
   - platform-tools
   - build-tools-24.0.1
+  - android-23
   - android-24
   - extra-android-m2repository
-  - sys-img-armeabi-v7a-android-24
+  - sys-img-armeabi-v7a-android-23
 before_install:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
   - emulator -avd test -no-skin -no-audio -no-window &
@@ -36,4 +37,4 @@ env:
   - secure: o9L6lXWpXowhQSdiUSmajliBUkQ6n7NrBUqhC09lqe7yXSGhEsgGRXqHoT3q2B4uIqGSiLCa9HQbW0dfDQCs+pADmzHIl3zbTViR88TSaIhOiTrqMUUl5iaO++pneZ2TzgU9bbGHbl6Ixjc6iALH2+F7P+RUM6vLTNPcfnCJa3g=
   - secure: ydxZrS7+1ht3p1tC6DE9W9bjLQGjMkwFBwyhNmcdEM6538kN8ZCBQe7NxSsCrC1nSDBLQ17Cziv0XJHl/pCfPrbkrPPgVFpjDfPeqC2zcGcCNcFQUEylXCvQ4uRU2hKL6dPqCsOQ57Pv3qwpPoprl/usoN5Wh8V7BKplU88ZaYM=
   matrix:
-  - ANDROID_TARGET=android-24 ANDROID_ABI=armeabi-v7a
+  - ANDROID_TARGET=android-23 ANDROID_ABI=armeabi-v7a
