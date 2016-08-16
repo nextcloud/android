@@ -84,7 +84,7 @@ android {
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
     }
     compileSdkVersion 24
-    buildToolsVersion "24.0.0"
+    buildToolsVersion "24.0.1"
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -95,11 +95,6 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
         applicationId "com.nextcloud.client"
-
-        // Enable the experimental Jack build tools.
-        jackOptions {
-            enabled true
-        }
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
@@ -134,8 +129,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
     lintOptions {
