@@ -122,6 +122,8 @@ public class FileDisplayActivity extends HookActivity
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
 
+    protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
+
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
 
     private static final String TAG_LIST_OF_FILES = "LIST_OF_FILES";
@@ -1638,7 +1640,7 @@ public class FileDisplayActivity extends HookActivity
                         // another window floating over
                     }
                 },
-                DELAY_TO_REQUEST_OPERATIONS_LATER
+                DELAY_TO_REQUEST_REFRESH_OPERATION_LATER
         );
 
     }
