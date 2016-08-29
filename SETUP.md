@@ -16,8 +16,8 @@ The [Android SDK][3] is necessary to build the app. There are different options 
 Open a terminal and type 'android' to start the Android SDK Manager. To build the Nextcloud for Android app you will need to install at least the next SDK packages:
 
 * Android SDK Tools and Android SDK Platform-tools (already installed); upgrade to their last versions is usually a good idea.
-* Android SDK Build-Tools; any version from 23 or later should work fine; avoid preview versions, if any available.
-* Android 6.0 (API 23), SDK Platform; needed to build the nextcloud app.
+* Android SDK Build-Tools 24.0.2.
+* Android 7.0 (API 24), SDK Platform; needed to build the nextcloud app.
 
 Install any other package you consider interesting, such as emulators.
 
