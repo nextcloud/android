@@ -89,7 +89,7 @@ android {
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
     }
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
