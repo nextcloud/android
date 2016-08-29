@@ -18,6 +18,8 @@ before_install:
   - chmod +x ./wait_for_emulator.sh
   - ./wait_for_emulator.sh
 script:
+# force init of adb way before any Gradle task that uses ADB; prevents a timeout error that skips emulators of android-24
+  - adb devices
 # build app and assemble APK, in debug mode
   - ./gradlew assembleDebug
 # run all the local unit tests of app module
@@ -28,11 +30,11 @@ script:
   - ./gradlew :installDebug
   - ./gradlew :installDebugAndroidTest
 # run sample instrumented unit test
-  - adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
+#  - adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
 env:
   global:
   - secure: h4Y7ZvgbvOj5T71ubRcw3Fy3KXF8qHugRFLGK3q2R9YuRsDAf8XH+Y/UiXyH8sac2QSj7Zlny1kA1DEJgwhTXs9wsAVKVJCQNTJGEvhm/4uQgPeNMzMv07Lqe8V+KUBsFH5qhfPJO357ERW0k2f2qljoLSHtHStclt7iGvFdynA=
   - secure: o9L6lXWpXowhQSdiUSmajliBUkQ6n7NrBUqhC09lqe7yXSGhEsgGRXqHoT3q2B4uIqGSiLCa9HQbW0dfDQCs+pADmzHIl3zbTViR88TSaIhOiTrqMUUl5iaO++pneZ2TzgU9bbGHbl6Ixjc6iALH2+F7P+RUM6vLTNPcfnCJa3g=
   - secure: ydxZrS7+1ht3p1tC6DE9W9bjLQGjMkwFBwyhNmcdEM6538kN8ZCBQe7NxSsCrC1nSDBLQ17Cziv0XJHl/pCfPrbkrPPgVFpjDfPeqC2zcGcCNcFQUEylXCvQ4uRU2hKL6dPqCsOQ57Pv3qwpPoprl/usoN5Wh8V7BKplU88ZaYM=
   matrix:
-  - ANDROID_API_LEVEL=24 ANDROID_ABI=armeabi-v7a EMULATOR_TARGET=23
+  - ANDROID_API_LEVEL=24 ANDROID_ABI=armeabi-v7a EMULATOR_TARGET=24
