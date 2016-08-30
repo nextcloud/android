@@ -9,7 +9,7 @@ android:
   - tools # to install Android SDK tools 25.1.x (x = 7 right now)
   - build-tools-24.0.2
   - android-$EMULATOR_TARGET
-  - android-$ANDROID_API_LEVEL
+#  - android-$ANDROID_API_LEVEL
   - extra-android-m2repository
   - sys-img-armeabi-v7a-android-$EMULATOR_TARGET
 before_install:
