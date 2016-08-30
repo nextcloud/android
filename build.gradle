@@ -17,7 +17,12 @@ buildscript {
 apply plugin: 'com.android.application'
 
 ext {
-    supportLibraryVersion = '23.4.0'
+    supportLibraryVersion = '24.2.0'
+
+    travisBuild = System.getenv("TRAVIS") == "true"
+
+    // allows for -Dpre-dex=false to be set
+    preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 }
 
 repositories {
@@ -73,8 +78,8 @@ tasks.withType(Test) {
 }
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -119,6 +124,11 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
+	
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !travisBuild
+    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -132,7 +142,6 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
     }
-
     signingConfigs {
         release
     }
