@@ -30,7 +30,7 @@ script:
   - ./gradlew :installDebug
   - ./gradlew :installDebugAndroidTest
 # run sample instrumented unit test
-  - adb shell am instrument -w -e debug false -e class com.owncloud.android.uiautomator.InitialTest com.nextcloud.android.beta.test/android.support.test.runner.AndroidJUnitRunner
+#  - adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
 env:
   global:
   - secure: h4Y7ZvgbvOj5T71ubRcw3Fy3KXF8qHugRFLGK3q2R9YuRsDAf8XH+Y/UiXyH8sac2QSj7Zlny1kA1DEJgwhTXs9wsAVKVJCQNTJGEvhm/4uQgPeNMzMv07Lqe8V+KUBsFH5qhfPJO357ERW0k2f2qljoLSHtHStclt7iGvFdynA=
