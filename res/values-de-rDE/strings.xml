@@ -177,9 +177,9 @@
     <string name="media_state_playing">%1$s (abspielend)</string>
     <string name="media_state_loading">%1$s (lädt)</string>
     <string name="media_event_done">%1$s Wiedergabe beendet</string>
-    <string name="media_err_nothing_to_play">Keine Mediadatei gefunden</string>
+    <string name="media_err_nothing_to_play">Keine Mediendatei gefunden</string>
     <string name="media_err_no_account">Kein Account angegeben</string>
-    <string name="media_err_not_in_owncloud">Datei nicht in einem gültigen Account</string>
+    <string name="media_err_not_in_owncloud">Datei ist nicht in einem gültigen Account</string>
     <string name="media_err_unsupported">Nicht unterstützter Media-codec</string>
     <string name="media_err_io">Mediendatei konnte nicht gelesen werden</string>
     <string name="media_err_malformed">Mediendatei nicht korrekt kodiert</string>
