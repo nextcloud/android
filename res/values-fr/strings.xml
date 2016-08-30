@@ -13,7 +13,7 @@
     <string name="actionbar_see_details">Détails</string>
     <string name="actionbar_send_file">Envoyer</string>
     <string name="actionbar_sort">Trier</string>
-    <string name="actionbar_sort_title">Trier</string>
+    <string name="actionbar_sort_title">Trier par</string>
     <string-array name="actionbar_sortby">
     	<item>par ordre alphabétique</item>
     	<item>du plus récent au plus ancien</item>
@@ -22,20 +22,20 @@
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_on_device">Sur le périphérique</string>
     <string name="drawer_item_settings">Paramètres</string>
-    <string name="drawer_item_uploads_list">Chargements</string>
+    <string name="drawer_item_uploads_list">Téléversements</string>
 	<string name="drawer_close">Fermer</string>
     <string name="drawer_open">Ouvrir</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
     <string name="prefs_accounts">Comptes</string>
-    <string name="prefs_manage_accounts">Gestion des comptes utilisateur</string>
+    <string name="prefs_manage_accounts">Gestion des comptes</string>
     <string name="prefs_passcode">Code de sécurité</string>
     <string name="prefs_instant_upload">Téléversement immédiat des photos</string>
     <string name="prefs_instant_upload_summary">Téléverser immédiatement les photos prises par la caméra</string>
     <string name="prefs_instant_video_upload">Téléversement immédiat des vidéos</string>
     <string name="prefs_instant_video_upload_summary">Téléverser immédiatement les vidéos prises par la caméra</string>
     <string name="prefs_log_title">Activer la journalisation</string>
-    <string name="prefs_log_summary">Utilisé pour enregistrer les problèmes dans les logs</string>
+    <string name="prefs_log_summary">Utilisé pour la journalisation des problèmes</string>
     <string name="prefs_log_title_history">Historique de la journalisation</string>
     <string name="prefs_log_summary_history">Cela affiche les logs enregistrés</string>
     <string name="prefs_log_delete_history_button">Supprimer l\'historique</string>
