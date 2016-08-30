@@ -46,7 +46,7 @@ import static org.junit.Assert.assertThat;
 @SdkSuppress(minSdkVersion = 18)
 public class InitialTest {
 
-    private static final String OWNCLOUD_APP_PACKAGE = "com.owncloud.android";
+    private static final String OWNCLOUD_APP_PACKAGE = "com.nextcloud.client";
     private static final String ANDROID_SETTINGS_PACKAGE = "com.android.settings";
     private static final String SETTINGS_DATA_USAGE_OPTION = "Data usage";
 
