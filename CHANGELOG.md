@@ -1,3 +1,7 @@
+## 2016-09-05
+- bugfix for empty folder display #229
+- Update Toolchain/Android-Target to v24 #214
+
 ## 2016-08-08
 - update all PR
 - search for the right ocShare with public link #197
