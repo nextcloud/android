@@ -327,7 +327,7 @@ public class FileStorageUtils {
             }
         });
 
-        File[] returnArray = new File[1];
+        File[] returnArray = new File[files.size()];
         return files.toArray(returnArray);
     }
 
@@ -386,7 +386,7 @@ public class FileStorageUtils {
             }
         });
 
-        File[] returnArray = new File[1];
+        File[] returnArray = new File[files.size()];
         return files.toArray(returnArray);
     }
 
@@ -436,7 +436,7 @@ public class FileStorageUtils {
             }
         });
 
-        File[] returnArray = new File[1];
+        File[] returnArray = new File[files.size()];
         return files.toArray(returnArray);
     }
     
