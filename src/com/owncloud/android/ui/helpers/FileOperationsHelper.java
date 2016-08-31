@@ -20,7 +20,7 @@
  *
  */
 
-package com.owncloud.android.files;
+package com.owncloud.android.ui.helpers;
 
 import android.accounts.Account;
 import android.content.ActivityNotFoundException;
@@ -76,15 +76,16 @@ public class FileOperationsHelper {
         mFileActivity = fileActivity;
     }
 
-
     public void openFile(OCFile file) {
         if (file != null) {
             String storagePath = file.getStoragePath();
-            String encodedStoragePath = WebdavUtils.encodePath(storagePath);
 
             Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
-            intentForSavedMimeType.setDataAndType(Uri.parse("file://"+ encodedStoragePath),
-                    file.getMimetype());
+            intentForSavedMimeType.setDataAndType(
+                file.getExposedFileUri(mFileActivity),
+                file.getMimetype()
+            );
+
             intentForSavedMimeType.setFlags(
                     Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
             );
@@ -96,8 +97,10 @@ public class FileOperationsHelper {
                 );
                 if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
                     intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
-                    intentForGuessedMimeType.setDataAndType(Uri.parse("file://" +
-                            encodedStoragePath), guessedMimeType);
+                    intentForGuessedMimeType.setDataAndType(
+                        file.getExposedFileUri(mFileActivity),
+                        guessedMimeType
+                    );
                     intentForGuessedMimeType.setFlags(
                             Intent.FLAG_GRANT_READ_URI_PERMISSION |
                                     Intent.FLAG_GRANT_WRITE_URI_PERMISSION
@@ -412,11 +415,13 @@ public class FileOperationsHelper {
     public void sendDownloadedFile(OCFile file) {
         if (file != null) {
             String storagePath = file.getStoragePath();
-            String encodedStoragePath = WebdavUtils.encodePath(storagePath);
             Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
             // set MimeType
             sendIntent.setType(file.getMimetype());
-            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://" + encodedStoragePath));
+            sendIntent.putExtra(
+                Intent.EXTRA_STREAM,
+                file.getExposedFileUri(mFileActivity)
+            );
             sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
 
             // Show dialog, without the own app
