@@ -156,6 +156,17 @@
             </intent-filter>
         </provider>
 
+        <!-- new provider used to generate URIs without file:// scheme (forbidden from Android 7) -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="@string/file_provider_authority"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/exposed_filepaths" />
+        </provider>
+
         <activity
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
