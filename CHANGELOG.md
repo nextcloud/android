@@ -1,4 +1,5 @@
 ## 2016-09-05
+- Display quota if configured/available in navigation drawer #204
 - bugfix for empty folder display #229
 - Update Toolchain/Android-Target to v24 #214
 
