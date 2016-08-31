@@ -94,11 +94,8 @@ public class FileStorageUtils {
      * Get local owncloud storage path for accountName.
      */
     public static String getSavePath(String accountName) {
-        return MainApp.getStoragePath()
-                + File.separator
-                + MainApp.getDataFolder()
-                + File.separator
-                + Uri.encode(accountName, "@");
+        File sdCard = Environment.getExternalStorageDirectory();
+        return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/" + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
         // that can be in the accountName since 0.1.190B
     }
@@ -116,15 +113,10 @@ public class FileStorageUtils {
      * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
      */
     public static String getTemporalPath(String accountName) {
-        return MainApp.getStoragePath()
-                + File.separator
-                + MainApp.getDataFolder()
-                + File.separator
-                + "tmp"
-                + File.separator
-                + Uri.encode(accountName, "@");
-        // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
-        // that can be in the accountName since 0.1.190B
+        File sdCard = Environment.getExternalStorageDirectory();
+        return sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/tmp/" + Uri.encode(accountName, "@");
+            // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
+            // that can be in the accountName since 0.1.190B
     }
 
     /**
@@ -133,13 +125,21 @@ public class FileStorageUtils {
      * @param accountName not used. can thus be null.
      * @return Optimistic number of available bytes (can be less)
      */
+    @SuppressLint("NewApi")
     public static long getUsableSpace(String accountName) {
-        File savePath = new File(MainApp.getStoragePath());
-        return savePath.getUsableSpace();
+        File savePath = Environment.getExternalStorageDirectory();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
+            return savePath.getUsableSpace();
+
+        } else {
+            StatFs stats = new StatFs(savePath.getAbsolutePath());
+            return stats.getAvailableBlocks() * stats.getBlockSize();
+        }
+
     }
     
     public static String getLogPath()  {
-        return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "log";
+        return Environment.getExternalStorageDirectory() + File.separator + MainApp.getDataFolder() + File.separator + "log";
     }
 
     /**
