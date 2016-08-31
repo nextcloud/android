@@ -67,4 +67,15 @@
             android:icon="@drawable/ic_settings"
             android:title="@string/actionbar_settings"/>
     </group>
+
+    <!--
+      dummy group/element as a workaround to see
+      the whole menu in case of quota being displayed
+    -->
+    <group>
+        <item
+            android:enabled="false"
+            android:orderInCategory="200"
+            android:title=""/>
+    </group>
 </menu>
