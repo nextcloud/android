@@ -24,11 +24,16 @@ package com.owncloud.android.datamodel;
 
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.v4.content.FileProvider;
 import android.webkit.MimeTypeMap;
 
+import com.owncloud.android.R;
+import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.MimeType;
 
@@ -93,6 +98,14 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * to {@link #getStorageUri()}
      */
     private Uri mLocalUri;
+
+
+    /**
+     * Exportable URI to the local path of the file contents, if stored in the device.
+     *
+     * Cached after first call, until changed.
+     */
+    private Uri mExposedFileUri;
 
 
     /**
@@ -245,6 +258,32 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mLocalUri;
     }
 
+    public Uri getExposedFileUri(Context context) {
+        if (mLocalPath == null || mLocalPath.length() == 0) {
+            return null;
+        }
+        if (mExposedFileUri == null) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                // TODO - use FileProvider with any Android version, with deeper testing -> 2.2.0
+                mExposedFileUri = Uri.parse(
+                    ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath)
+                );
+            } else {
+                // Use the FileProvider to get a content URI
+                try {
+                    mExposedFileUri = FileProvider.getUriForFile(
+                        context,
+                        context.getString(R.string.file_provider_authority),
+                        new File(mLocalPath)
+                    );
+                } catch (IllegalArgumentException e) {
+                    Log_OC.e(TAG, "File can't be exported");
+                }
+            }
+        }
+        return mExposedFileUri;
+    }
+
     /**
      * Can be used to set the path where the file is stored
      *
@@ -253,6 +292,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     public void setStoragePath(String storage_path) {
         mLocalPath = storage_path;
         mLocalUri = null;
+        mExposedFileUri = null;
     }
 
     /**
