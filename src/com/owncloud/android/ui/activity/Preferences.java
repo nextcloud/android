@@ -21,7 +21,6 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -50,13 +49,7 @@ import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PreferenceManager.InstantUploadsConfiguration;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
 

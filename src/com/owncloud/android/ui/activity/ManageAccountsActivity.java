@@ -45,13 +45,13 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.AccountListAdapter;
 import com.owncloud.android.ui.adapter.AccountListItem;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
