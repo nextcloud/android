@@ -104,6 +104,7 @@
     <string name="common_loading">Loading &#8230;</string>
     <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
+    <string name="common_pending">Pending</string>
     <string name="about_title">About</string>
     <string name="change_password">Change password</string>
     <string name="delete_account">Remove account</string>
