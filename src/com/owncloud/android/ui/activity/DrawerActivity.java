@@ -25,9 +25,12 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -41,18 +44,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.RemoteGetUserQuotaOperation;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.utils.DisplayUtils;
+
+import java.io.IOException;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -140,6 +147,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * text view of the quota view.
      */
     private TextView mQuotaTextView;
+    /**
+     * The user's server base uri.
+     */
+    private Uri mUri;
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id.
@@ -267,9 +278,17 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                                 uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(uploadListIntent);
                                 break;
+                            case R.id.nav_dav_client:
+                                try {
+                                    launchDavDroidLogin();
+                                } catch (Throwable t) {
+                                    Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
+                                    // TODO create string resource
+                                    Toast.makeText(MainApp.getAppContext(), "TODO - Base Uri for account could not be resolved to call DAVdroid!", Toast.LENGTH_SHORT).show();
+                                }
+                                break;
                             case R.id.nav_settings:
-                                Intent settingsIntent = new Intent(getApplicationContext(),
-                                        Preferences.class);
+                                Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
                                 startActivity(settingsIntent);
                                 break;
                             case R.id.nav_participate:
@@ -301,6 +320,38 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
         } else {
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
+        }
+    }
+
+    private void launchDavDroidLogin()
+            throws com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException,
+            OperationCanceledException,
+            AuthenticatorException,
+            IOException {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+
+        Intent davDroidLoginIntent = new Intent();
+        davDroidLoginIntent.setClassName("at.bitfire.davdroid", "at.bitfire.davdroid.ui.setup.LoginActivity");
+        if (getPackageManager().resolveActivity(davDroidLoginIntent, 0) != null) {
+            // arguments
+            if(mUri!=null) {
+                davDroidLoginIntent.putExtra("url", mUri.toString());
+            }
+            davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(account.name));
+            //loginIntent.putExtra("password", "12345");
+            startActivity(davDroidLoginIntent);
+        } else {
+            // DAVdroid not installed
+            Intent installIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("market://details?id=at.bitfire.davdroid"));
+            if (installIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(installIntent);
+            } else {
+                // show error message:
+                // "no market available (e.g. custom ROM without Play Store and F-Droid)"
+                // TODO show markets popup for DAVdroid
+                Toast.makeText(MainApp.getAppContext(), "TODO show markets popup for DAVdroid", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -505,6 +556,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),
                     findNavigationViewChildById(R.id.drawer_current_account));
 
+            // retrieve base uri
+            setupBaseUri();
+
             // check and show quota info if available
             getAndDisplayUserQuota();
         }
@@ -582,6 +636,23 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         } else {
             Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
         }
+    }
+
+    private void setupBaseUri() {
+        // retrieve and set user's base URI
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
+                    mUri = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, getApplicationContext()).getBaseUri();
+                } catch (Throwable t) {
+
+                }
+            }
+        });
+        t.start();
     }
 
     /**
