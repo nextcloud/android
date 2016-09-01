@@ -52,4 +52,10 @@
     <!-- special transparent action bar colors for image preview -->
     <color name="owncloud_blue_transparent">#201D2D44</color>
     <color name="owncloud_blue_dark_transparent">#40162233</color>
+
+    <!-- level colors for info notifications/visualisations -->
+    <color name="infolevel_info">@color/color_accent</color>
+    <color name="infolevel_warning">#fdd835</color>
+    <color name="infolevel_critical">#e57373</color>
+
 </resources>
