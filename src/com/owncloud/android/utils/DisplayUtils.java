@@ -96,19 +96,24 @@ public class DisplayUtils {
      *     <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
      * </ul>
      *
-     * @param bytes        Input file size
-     * @return something readable like "12 MB"
+     * @param bytes Input file size
+     * @return something readable like "12 MB", {@link com.owncloud.android.R.string#common_pending} for negative
+     * byte values
      */
     public static String bytesToHumanReadable(long bytes) {
-        double result = bytes;
-        int suffixIndex = 0;
-        while (result > 1024 && suffixIndex < sizeSuffixes.length) {
-            result /= 1024.;
-            suffixIndex++;
-        }
+        if (bytes < 0) {
+            return MainApp.getAppContext().getString(R.string.common_pending);
+        } else {
+            double result = bytes;
+            int suffixIndex = 0;
+            while (result > 1024 && suffixIndex < sizeSuffixes.length) {
+                result /= 1024.;
+                suffixIndex++;
+            }
 
-        return new BigDecimal(result).setScale(
-                sizeScales[suffixIndex], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[suffixIndex];
+            return new BigDecimal(result).setScale(
+                    sizeScales[suffixIndex], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[suffixIndex];
+        }
     }
 
     /**
