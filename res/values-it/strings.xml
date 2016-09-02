@@ -23,7 +23,7 @@
     <string name="drawer_item_on_device">Su dispositivo</string>
     <string name="drawer_item_settings">Impostazioni</string>
     <string name="drawer_item_uploads_list">Caricamenti</string>
-	<string name="drawer_close">Chiudi</string>
+    <string name="drawer_close">Chiudi</string>
     <string name="drawer_open">Apri</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>

@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">Krejt kartelat</string>
     <string name="drawer_item_settings">Llogari</string>
     <string name="drawer_item_uploads_list">Ngarkime</string>
-	<string name="drawer_close">Mbylle</string>
+    <string name="drawer_close">Mbylle</string>
     <string name="drawer_open">Hape</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
