@@ -23,7 +23,7 @@
     <string name="drawer_item_on_device">á tækinu</string>
     <string name="drawer_item_settings">Stillingar</string>
     <string name="drawer_item_uploads_list">Innsendingar</string>
-	<string name="drawer_close">Loka</string>
+    <string name="drawer_close">Loka</string>
     <string name="drawer_open">Opna</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>

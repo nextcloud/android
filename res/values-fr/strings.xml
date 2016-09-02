@@ -23,7 +23,7 @@
     <string name="drawer_item_on_device">Sur le périphérique</string>
     <string name="drawer_item_settings">Paramètres</string>
     <string name="drawer_item_uploads_list">Téléversements</string>
-	<string name="drawer_close">Fermer</string>
+    <string name="drawer_close">Fermer</string>
     <string name="drawer_open">Ouvrir</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>

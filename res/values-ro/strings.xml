@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">Toate fișierele</string>
     <string name="drawer_item_settings">Setări</string>
     <string name="drawer_item_uploads_list">Încărcări</string>
-	<string name="drawer_close">Închide</string>
+    <string name="drawer_close">Închide</string>
     <string name="drawer_open">Deschide</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Mai mult</string>

@@ -23,7 +23,7 @@
     <string name="drawer_item_on_device">Dalam perangkat</string>
     <string name="drawer_item_settings">Pengaturan</string>
     <string name="drawer_item_uploads_list">Unggah</string>
-	<string name="drawer_close">Tutup</string>
+    <string name="drawer_close">Tutup</string>
     <string name="drawer_open">Buka</string>
     <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>

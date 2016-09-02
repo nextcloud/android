@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">Tolos ficheros</string>
     <string name="drawer_item_settings">Axustes</string>
     <string name="drawer_item_uploads_list">Xubes </string>
-	<string name="drawer_close">Zarrar</string>
+    <string name="drawer_close">Zarrar</string>
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">Xeneral</string>
     <string name="prefs_category_more">Más</string>

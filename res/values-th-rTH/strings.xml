@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">ไฟล์ทั้งหมด</string>
     <string name="drawer_item_settings">ตั้งค่า</string>
     <string name="drawer_item_uploads_list">อัพโหลด</string>
-	<string name="drawer_close">ปิด</string>
+    <string name="drawer_close">ปิด</string>
     <string name="drawer_open">เปิด</string>
     <string name="prefs_category_general">ทั่วไป</string>
     <string name="prefs_category_more">เพิ่มเติม</string>

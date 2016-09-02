@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">Kaikki tiedostot</string>
     <string name="drawer_item_settings">Asetukset</string>
     <string name="drawer_item_uploads_list">Lataukset</string>
-	<string name="drawer_close">Sulje</string>
+    <string name="drawer_close">Sulje</string>
     <string name="drawer_open">Avaa</string>
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>

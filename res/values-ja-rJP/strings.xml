@@ -23,7 +23,7 @@
     <string name="drawer_item_on_device">デバイス上</string>
     <string name="drawer_item_settings">設定</string>
     <string name="drawer_item_uploads_list">アップロード</string>
-	<string name="drawer_close">閉じる</string>
+    <string name="drawer_close">閉じる</string>
     <string name="drawer_open">開く</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>

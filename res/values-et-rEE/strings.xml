@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">Kõik failid</string>
     <string name="drawer_item_settings">Seaded</string>
     <string name="drawer_item_uploads_list">Üleslaadimised</string>
-	<string name="drawer_close">Sulge</string>
+    <string name="drawer_close">Sulge</string>
     <string name="drawer_open">Ava</string>
     <string name="prefs_category_general">Üldine</string>
     <string name="prefs_category_more">Rohkem</string>
