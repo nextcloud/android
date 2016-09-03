@@ -4,7 +4,7 @@
     <string name="about_android">Applicazione per Android di %1$s</string>
     <string name="about_version">versione %1$s</string>
     <string name="actionbar_sync">Aggiorna account</string>
-    <string name="actionbar_upload">Carica un file</string>
+    <string name="actionbar_upload">Carica</string>
     <string name="actionbar_upload_from_apps">Contenuti da altre applicazioni</string>
     <string name="actionbar_upload_files">File</string>
     <string name="actionbar_open_with">Apri con</string>
@@ -23,7 +23,7 @@
     <string name="drawer_item_on_device">Su dispositivo</string>
     <string name="drawer_item_settings">Impostazioni</string>
     <string name="drawer_item_uploads_list">Caricamenti</string>
-	<string name="drawer_close">Chiudi</string>
+    <string name="drawer_close">Chiudi</string>
     <string name="drawer_open">Apri</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
@@ -57,6 +57,7 @@
     <string name="sync_string_files">File</string>
     <string name="setup_btn_connect">Connetti</string>
     <string name="uploader_btn_upload_text">Carica</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Crea file di testo</string>
     <string name="uploader_top_message">Scegli la cartella di caricamento</string>
     <string name="uploader_wrn_no_account_title">Nessun account trovato</string>
     <string name="uploader_wrn_no_account_text">Non ci sono account %1$s sul tuo dispositivo. Configura prima un account.</string>
@@ -303,7 +304,7 @@
     <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
 
     <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
-    <string name="prefs_instant_upload_path_title">Percorso di caricamento</string>
+    <string name="prefs_instant_upload_path_title">Cartella caricamenti istantanei</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
 
@@ -377,7 +378,7 @@
     <string name="prefs_category_instant_uploading">Caricamenti istantanei</string>
     <string name="prefs_category_details">Dettagli</string>
 
-	<string name="prefs_instant_video_upload_path_title">Percorso di caricamento dei video</string>
+	<string name="prefs_instant_video_upload_path_title">Cartella caricamenti istantanei dei video</string>
     <string name="sync_folder_failed_content">La sincronizzazione della cartella %1$s non può essere completata</string>
 
 	<string name="shared_subject_header">condiviso</string>
@@ -457,6 +458,7 @@
     <string name="local_file_not_found_toast">Il file non è stato trovato nel file system locale</string>
     <string name="confirmation_remove_files_alert">Vuoi davvero rimuovere gli elementi selezionati?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero rimuovere gli elementi selezionati e il loro contenuto?</string>
+    <string name="actionbar_search">Cerca</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>

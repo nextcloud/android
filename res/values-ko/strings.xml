@@ -20,7 +20,7 @@
     <string name="drawer_item_all_files">모든 파일</string>
     <string name="drawer_item_settings">설정</string>
     <string name="drawer_item_uploads_list">업로드</string>
-	<string name="drawer_close">닫기</string>
+    <string name="drawer_close">닫기</string>
     <string name="drawer_open">열기</string>
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
