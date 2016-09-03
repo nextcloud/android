@@ -36,7 +36,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -195,11 +194,6 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                     fileSizeSeparatorV.setVisibility(View.VISIBLE);
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-
-                    if (file.isFolder()) {
-                        fileSizeSeparatorV.setVisibility(View.GONE);
-                        fileSizeV.setVisibility(View.GONE);
-                    }
 
                 case GRID_ITEM:
                     // filename
