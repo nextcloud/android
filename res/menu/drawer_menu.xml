@@ -66,6 +66,11 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/actionbar_settings"/>
+        <item
+            android:orderInCategory="3"
+            android:id="@+id/nav_participate"
+            android:icon="@drawable/file_vcard"
+            android:title="@string/actionbar_participate"/>
     </group>
 
     <!--
