@@ -272,6 +272,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                                         Preferences.class);
                                 startActivity(settingsIntent);
                                 break;
+                            case R.id.nav_participate:
+                                Intent participateIntent = new Intent(getApplicationContext(),
+                                        ParticipateActivity.class);
+                                startActivity(participateIntent);
+                                break;
                             case R.id.drawer_menu_account_add:
                                 createAccount();
                                 break;
