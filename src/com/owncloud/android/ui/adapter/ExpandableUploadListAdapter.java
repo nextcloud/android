@@ -98,6 +98,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     if (!upload2.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
                         return -1;
                     }
+                    // both are in progress
                     FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
                     if (binder != null) {
                         if (binder.isUploadingNow(upload1)) {
@@ -109,7 +110,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 } else if (upload2.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
                     return 1;
                 }
-                if (upload1.getUploadEndTimestamp() == 0) {
+                if (upload1.getUploadEndTimestamp() == 0 || upload2.getUploadEndTimestamp() == 0) {
                     return compareUploadId(upload1, upload2);
                 } else {
                     return compareUpdateTime(upload1, upload2);

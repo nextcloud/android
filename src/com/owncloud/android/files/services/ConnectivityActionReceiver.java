@@ -158,7 +158,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
                     networkType == ConnectivityManager.TYPE_WIFI;
 
             if (couldBeWifiAction) {
-                if (ConnectivityUtils.isAppConnectedViaWiFi(context)) {
+                if (ConnectivityUtils.isAppConnectedViaUnmeteredWiFi(context)) {
                     Log_OC.d(TAG, "WiFi connected");
                     wifiConnected(context);
                 } else {

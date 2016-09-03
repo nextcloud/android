@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">Всички файлове</string>
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Качено</string>
-	<string name="drawer_close">Затвори</string>
+    <string name="drawer_close">Затвори</string>
     <string name="drawer_open">Отвори</string>
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
@@ -293,7 +293,6 @@
     <string name="preview_image_error_unknown_format">Изображението не може да бъде показано</string>
 
     <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
-    <string name="prefs_instant_upload_path_title">Път за качване</string>
     <string name="share_link_no_support_share_api">За съжаление споделянето не е включено на сървъра ви. 
 Моля, свържете се с администратора.</string>
 	<string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, провери дали файла съществува.</string>

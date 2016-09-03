@@ -122,6 +122,8 @@ public class FileDisplayActivity extends HookActivity
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
 
+    protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
+
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
 
     private static final String TAG_LIST_OF_FILES = "LIST_OF_FILES";
@@ -132,6 +134,8 @@ public class FileDisplayActivity extends HookActivity
     private boolean mSyncInProgress = false;
 
     private OCFile mWaitingToSend;
+
+    private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
 
 
     @Override
@@ -518,9 +522,10 @@ public class FileDisplayActivity extends HookActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = isDrawerOpen();
-        menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
+
+        for (MenuItem menuItem:mDrawerMenuItemstoShowHideList) {
+            menuItem.setVisible(!drawerOpen);
+        }
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -530,6 +535,14 @@ public class FileDisplayActivity extends HookActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_create_dir).setVisible(false);
+
+        // populate list of menu items to show/hide when drawer is opened/closed
+        mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sync_account));
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_search));
+
         return true;
     }
 
@@ -1627,7 +1640,7 @@ public class FileDisplayActivity extends HookActivity
                         // another window floating over
                     }
                 },
-                DELAY_TO_REQUEST_OPERATIONS_LATER
+                DELAY_TO_REQUEST_REFRESH_OPERATION_LATER
         );
 
     }

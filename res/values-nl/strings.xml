@@ -23,7 +23,7 @@
     <string name="drawer_item_on_device">Op het apparaat</string>
     <string name="drawer_item_settings">Instellingen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
-	<string name="drawer_close">Sluiten</string>
+    <string name="drawer_close">Sluiten</string>
     <string name="drawer_open">Open</string>
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
@@ -58,6 +58,7 @@ Download hier: %2$s</string>
     <string name="sync_string_files">Bestanden</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Uploaden</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Creëren tekstbestand</string>
     <string name="uploader_top_message">Kies een uploadmap</string>
     <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
     <string name="uploader_wrn_no_account_text">Er zijn geen %1$s accounts op dit apparaat. Stel eerst een account in.</string>
@@ -306,7 +307,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="preview_image_error_unknown_format">Deze afbeelding kan niet worden getoond</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
-    <string name="prefs_instant_upload_path_title">Upload pad</string>
+    <string name="prefs_instant_upload_path_title">Directe uploadmap</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseed op jaar en maand</string>
 
@@ -380,7 +381,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="prefs_category_instant_uploading">Directe uploads</string>
     <string name="prefs_category_details">Details</string>
 
-	<string name="prefs_instant_video_upload_path_title">Upload video pad</string>
+	<string name="prefs_instant_video_upload_path_title">Directe video uploadmap</string>
     <string name="sync_folder_failed_content">Synchronisatie van map %1$s kon niet worden voltooid</string>
 
 	<string name="shared_subject_header">gedeeld</string>
@@ -460,6 +461,7 @@ Neem contact op met je beheerder</string>
     <string name="local_file_not_found_toast">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
+    <string name="actionbar_search">Zoeken</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
