@@ -36,7 +36,7 @@
     <string name="prefs_instant_video_upload_summary">Lade Videos von der Kamera sofort hoch</string>
     <string name="prefs_log_title">Protokollierung aktivieren</string>
     <string name="prefs_log_summary">Dies wird zur Protokollierung von Problemen genutzt</string>
-    <string name="prefs_log_title_history">Log Historie</string>
+    <string name="prefs_log_title_history">Protokollierungs-Historie</string>
     <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
     <string name="prefs_help">Hilfe</string>
@@ -57,6 +57,7 @@
     <string name="sync_string_files">Dateien</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Erstelle Textdatei</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
     <string name="uploader_wrn_no_account_text">Es sind keine %1$s Konten auf deinem Gerät eingerichtet. Bitte erstelle zuerst ein Konto.</string>
@@ -74,7 +75,7 @@
     <string name="file_list_loading">Lade…</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
-    <string name="upload_list_empty">Es</string>
+    <string name="upload_list_empty">Keine Uploads verfügbar.</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_folders">Ordner</string>
     <string name="file_list_file">Datei</string>
@@ -93,7 +94,7 @@
     <string name="common_no">Nein</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">Upload entfernen</string>
-    <string name="common_retry_upload">hochladen erneut versuchen</string>
+    <string name="common_retry_upload">Hochladen erneut versuchen</string>
     <string name="common_cancel_sync">Synchronisation abbrechen</string>
     <string name="common_cancel">Abbrechen</string>
     <string name="common_back">Zurück</string>
@@ -143,7 +144,7 @@
     <string name="downloader_download_failed_content">Herunterladen von %1$s konnte nicht abgeschlossen werden</string>
     <string name="downloader_not_downloaded_yet">Noch nicht Heruntergeladen</string>
     <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
-    <string name="common_choose_account">Account auswählen</string>
+    <string name="common_choose_account">Konto auswählen</string>
     <string name="sync_fail_ticker">Synchronisation fehlgeschlagen</string>
     <string name="sync_fail_ticker_unauthorized">Synchronisation fehlgeschlagen, erneute Anmeldung erforderlich.</string>
     <string name="sync_fail_content">Synchronisation von %1$s konnte nicht abgeschlossen werden</string>
@@ -166,7 +167,7 @@
     
     <string name="pass_code_configure_your_pass_code">Bitte PIN eingeben</string>
     <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal beim Start der App abgefragt</string>
-    <string name="pass_code_reenter_your_pass_code">Bitte den PIN nochmals eingeben</string>
+    <string name="pass_code_reenter_your_pass_code">Bitte Deine PIN nochmals eingeben</string>
     <string name="pass_code_remove_your_pass_code">PIN entfernen</string>
     <string name="pass_code_mismatch">Die PINs stimmen nicht überein</string>
     <string name="pass_code_wrong">PIN nicht korrekt</string>
@@ -174,24 +175,24 @@
     <string name="pass_code_stored">PIN gespeichert</string>
     
     <string name="media_notif_ticker">%1$s Musik Player</string>
-    <string name="media_state_playing">%1$s (playing)</string>
-    <string name="media_state_loading">%1$s (loading)</string>
+    <string name="media_state_playing">%1$s (wird abgespielt)</string>
+    <string name="media_state_loading">%1$s (wird geladen)</string>
     <string name="media_event_done">%1$s Beendet</string>
-    <string name="media_err_nothing_to_play">Keine Meidendatei gefunden</string>
-    <string name="media_err_no_account">Kein Konto angeben</string>
-    <string name="media_err_not_in_owncloud">Datei ist nicht in einem gültigen Account</string>
-    <string name="media_err_unsupported">Codierung wird nicht unterstützt</string>
-    <string name="media_err_io">Fehler beim Lesen der Datei</string>
+    <string name="media_err_nothing_to_play">Keine Mediendatei gefunden</string>
+    <string name="media_err_no_account">Kein Konto angegeben</string>
+    <string name="media_err_not_in_owncloud">Datei ist nicht in einem gültigen Konto</string>
+    <string name="media_err_unsupported">Medien-Codec wird nicht unterstützt</string>
+    <string name="media_err_io">Mediendatei konnte nicht gelesen werden</string>
     <string name="media_err_malformed">Mediendatei nicht korrekt encodiert</string>
     <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
     <string name="media_err_invalid_progressive_playback">Mediendatei konnte nicht gestreamt werden</string>
     <string name="media_err_unknown">Diese Mediendatei konnte nicht mit dem Standardplayer geöffnet werden</string>
     <string name="media_err_security_ex">Sicherheitsfehler beim Versuch %1$s zu spielen</string>
-    <string name="media_err_io_ex">Eingabefehler beim Versuch %1$s zu spielen</string>
+    <string name="media_err_io_ex">Eingabefehler beim Versuch %1$s wiederzugeben</string>
     <string name="media_err_unexpected">Ein unerwarteter Fehler ist aufgetreten beim Versuch %1$s abzuspielen</string>
-    <string name="media_rewind_description">Zurückspielen Knopf</string>
-    <string name="media_play_pause_description">Play-/Pause Knopf</string>
-    <string name="media_forward_description">Vorspulen Knopf</string>
+    <string name="media_rewind_description">Rückspulknopf</string>
+    <string name="media_play_pause_description">Wiedergabe-/Pause Knopf</string>
+    <string name="media_forward_description">Vorspul Knopf</string>
 
 	<string name="auth_getting_authorization">Genehmigung bekommen ...</string>
 	<string name="auth_trying_to_login">Der Versuch, sich anzumelden ...</string>

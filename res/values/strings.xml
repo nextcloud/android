@@ -23,6 +23,7 @@
     <string name="drawer_item_on_device">On device</string>
     <string name="drawer_item_settings">Settings</string>
     <string name="drawer_item_uploads_list">Uploads</string>
+    <string name="drawer_quota">%1$s of %2$s used</string>
 	<string name="drawer_close">Close</string>
     <string name="drawer_open">Open</string>
     <string name="prefs_category_general">General</string>
@@ -57,6 +58,7 @@
     <string name="sync_string_files">Files</string>
     <string name="setup_btn_connect">Connect</string>
     <string name="uploader_btn_upload_text">Upload</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Create text file</string>
     <string name="uploader_top_message">Choose upload folder</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
