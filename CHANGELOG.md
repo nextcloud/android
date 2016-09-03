@@ -1,3 +1,6 @@
+## 2016-08-16
+- Display quota if configured/available in navigation drawer #204
+
 ## 2016-08-08
 - update all PR
 - search for the right ocShare with public link #197
