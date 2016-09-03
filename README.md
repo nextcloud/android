@@ -1,14 +1,11 @@
-# [Nextcloud](https://nextcloud.com) Android app
+# [Nextcloud](https://nextcloud.com) Android app ![](https://api.travis-ci.org/nextcloud/android.svg?branch=master)
 
-[<img src="http://www.android.com/images/brand/android_app_on_play_large.png" 
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" 
       alt="Download from Google Play" 
       height="80">](https://play.google.com/store/apps/details?id=com.nextcloud.client)
-
 [<img src="https://f-droid.org/badge/get-it-on.png"
       alt="Get it on F-Droid"
       height="80">](https://f-droid.org/repository/browse/?fdfilter=com.nextcloud)
-
-**Build status:** master ![](https://api.travis-ci.org/nextcloud/android.svg?branch=master)
 
 [![irc](https://img.shields.io/badge/IRC-%23nextcloud%20on%20freenode-orange.svg)](https://webchat.freenode.net/?channels=nextcloud)
 [![irc](https://img.shields.io/badge/IRC-%23nextcloud--mobile%20on%20freenode-blue.svg)](https://webchat.freenode.net/?channels=nextcloud-mobile)

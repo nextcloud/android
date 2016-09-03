@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path name="file" path="/" />
+    <!-- yes, valid for ALL external storage and not only our app folder, since we can't use @string/data_folder
+    as a value for 'path' attribute; in practice, we will only generate URIs in our folders, of course -->
+</paths>

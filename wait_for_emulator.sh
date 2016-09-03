@@ -1,19 +1,26 @@
 #!/bin/bash
 
+# Originally written by Ralf Kistner <ralf@embarkmobile.com>, but placed in the public domain
+
+set +e
+
 bootanim=""
 failcounter=0
-checkcounter=0
+timeout_in_sec=360
+
 until [[ "$bootanim" =~ "stopped" ]]; do
-   bootanim=`adb -e shell getprop init.svc.bootanim 2>&1`
-   echo "($checkcounter) $bootanim"
-   if [[ "$bootanim" =~ "not found" ]]; then
-      let "failcounter += 1"
-      if [[ $failcounter -gt 30 ]]; then
-        echo "Failed to start emulator"
-        exit 1
-      fi
-   fi
-   let "checkcounter += 1"
-   sleep 10
+  bootanim=`adb -e shell getprop init.svc.bootanim 2>&1 &`
+  if [[ "$bootanim" =~ "device not found" || "$bootanim" =~ "device offline" ]]; then
+    let "failcounter += 1"
+    echo "($failcounter) Waiting for emulator to start - $bootanim"
+    if [[ $failcounter -gt timeout_in_sec ]]; then
+      echo "Timeout ($timeout_in_sec seconds) reached; failed to start emulator"
+      exit 1
+    fi
+  elif [[ "$bootanim" =~ "running" ]]; then
+    echo "Emulator is ready"
+    exit 0
+  fi
+  sleep 1
 done
 echo "Done"

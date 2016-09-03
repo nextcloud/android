@@ -36,7 +36,7 @@
     <string name="prefs_instant_video_upload_summary">Lade Videos von der Kamera sofort hoch</string>
     <string name="prefs_log_title">Protokollierung aktivieren</string>
     <string name="prefs_log_summary">Dies wird zur Protokollierung von Problemen genutzt</string>
-    <string name="prefs_log_title_history">Log Historie</string>
+    <string name="prefs_log_title_history">Protokollierungs-Historie</string>
     <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
     <string name="prefs_help">Hilfe</string>
@@ -57,6 +57,7 @@
     <string name="sync_string_files">Dateien</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Erstelle Textdatei</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
     <string name="uploader_wrn_no_account_text">Es sind keine %1$s Konten auf deinem Gerät eingerichtet. Bitte erstelle zuerst ein Konto.</string>
@@ -174,8 +175,8 @@
     <string name="pass_code_stored">PIN gespeichert</string>
     
     <string name="media_notif_ticker">%1$s Musik Player</string>
-    <string name="media_state_playing">%1$s (playing)</string>
-    <string name="media_state_loading">%1$s (loading)</string>
+    <string name="media_state_playing">%1$s (wird abgespielt)</string>
+    <string name="media_state_loading">%1$s (wird geladen)</string>
     <string name="media_event_done">%1$s Beendet</string>
     <string name="media_err_nothing_to_play">Keine Mediendatei gefunden</string>
     <string name="media_err_no_account">Kein Konto angegeben</string>
@@ -189,9 +190,9 @@
     <string name="media_err_security_ex">Sicherheitsfehler beim Versuch %1$s zu spielen</string>
     <string name="media_err_io_ex">Eingabefehler beim Versuch %1$s wiederzugeben</string>
     <string name="media_err_unexpected">Ein unerwarteter Fehler ist aufgetreten beim Versuch %1$s abzuspielen</string>
-    <string name="media_rewind_description">Zurückspielen Knopf</string>
-    <string name="media_play_pause_description">Play-/Pause Knopf</string>
-    <string name="media_forward_description">Vorspulen Knopf</string>
+    <string name="media_rewind_description">Rückspulknopf</string>
+    <string name="media_play_pause_description">Wiedergabe-/Pause Knopf</string>
+    <string name="media_forward_description">Vorspul Knopf</string>
 
 	<string name="auth_getting_authorization">Genehmigung bekommen ...</string>
 	<string name="auth_trying_to_login">Der Versuch, sich anzumelden ...</string>
