@@ -105,13 +105,15 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             fragment = PreviewImageFragment.newInstance(file,
                     mObsoletePositions.contains(Integer.valueOf(i)), false);
             
-        } else if (mDownloadErrors.contains(Integer.valueOf(i))) {
-            fragment = FileDownloadFragment.newInstance(file, mAccount, true);
-            ((FileDownloadFragment)fragment).setError(true);
-            mDownloadErrors.remove(Integer.valueOf(i));
         } else {
-            fragment = PreviewImageFragment.newInstance(file,
-                    mObsoletePositions.contains(Integer.valueOf(i)), true);
+            if (mDownloadErrors.contains(Integer.valueOf(i))) {
+                fragment = FileDownloadFragment.newInstance(file, mAccount, true);
+                ((FileDownloadFragment)fragment).setError(true);
+                mDownloadErrors.remove(Integer.valueOf(i));
+            } else {
+                fragment = PreviewImageFragment.newInstance(file,
+                        mObsoletePositions.contains(Integer.valueOf(i)), true);
+            }
         }
         mObsoletePositions.remove(Integer.valueOf(i));
         return fragment;
