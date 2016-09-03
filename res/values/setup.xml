@@ -71,6 +71,9 @@
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>
 
+    <!-- Participate links -->
+    <string name="beta_apk_link">https://github.com/nextcloud/android/raw/beta/apks/latest.apk</string>
+
 </resources>
 
 
