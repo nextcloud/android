@@ -457,4 +457,10 @@ správce systému.</string>
     <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
     <string name="actionbar_search">Hledat</string>
-    </resources>
+    <plurals name="items_selected_count">
+        <item quantity="one">vybráno %d</item>
+        <item quantity="few">vybráno %d</item>
+        <item quantity="other">vybráno %d</item>
+    </plurals>
+
+</resources>
