@@ -1,23 +1,25 @@
 /**
- *   ownCloud Android client application
+ *   Nextcloud Android client application
  *
+ *   @author Andy Scherzinger
  *   @author Bartek Przybylski
  *   @author David A. Velasco
  *   Copyright (C) 2011  Bartek Przybylski
  *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2016 Andy Scherzinger
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ *   License as published by the Free Software Foundation; either
+ *   version 3 of the License, or any later version.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ *   You should have received a copy of the GNU Affero General Public
+ *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.utils;
@@ -37,7 +39,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
-import android.view.Display;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -60,7 +61,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * A helper class for some string operations.
+ * A helper class for UI/display related operations.
  */
 public class DisplayUtils {
     private static final String TAG = DisplayUtils.class.getSimpleName();
@@ -70,6 +71,7 @@ public class DisplayUtils {
     private static final int[] quotaSizeScales = { 0, 0, 0, 1, 1, 2, 2, 2, 2 };
     public static final int RELATIVE_THRESHOLD_WARNING = 90;
     public static final int RELATIVE_THRESHOLD_CRITICAL = 95;
+    public static final String MIME_TYPE_UNKNOWN = "Unknown type";
 
     private static Map<String, String> mimeType2HumanReadable;
 
@@ -96,7 +98,8 @@ public class DisplayUtils {
      * </ul>
      *
      * @param bytes Input file size
-     * @return something readable like "12 MB"
+     * @return something readable like "12 MB", {@link com.owncloud.android.R.string#common_pending} for negative
+     * byte values
      */
     public static String bytesToHumanReadable(long bytes) {
         return bytesToHumanReadable(bytes, sizeScales, sizeSuffixes);
@@ -145,7 +148,7 @@ public class DisplayUtils {
      * like "JPG image".
      * 
      * @param mimetype MIME type to convert
-     * @return A human friendly version of the MIME type
+     * @return A human friendly version of the MIME type, {@link #MIME_TYPE_UNKNOWN} if it can't be converted
      */
     public static String convertMIMEtoPrettyPrint(String mimetype) {
         if (mimeType2HumanReadable.containsKey(mimetype)) {
@@ -153,11 +156,12 @@ public class DisplayUtils {
         }
         if (mimetype.split("/").length >= 2)
             return mimetype.split("/")[1].toUpperCase() + " file";
-        return "Unknown type";
+        return MIME_TYPE_UNKNOWN;
     }
 
     /**
      * Converts Unix time to human readable format
+     *
      * @param milliseconds that have passed since 01/01/1970
      * @return The human readable time for the users locale
      */
@@ -169,6 +173,7 @@ public class DisplayUtils {
     
     /**
      * Converts an internationalized domain name (IDN) in an URL to and from ASCII/Unicode.
+     *
      * @param url the URL where the domain name should be converted
      * @param toASCII if true converts from Unicode to ASCII, if false converts from ASCII to Unicode
      * @return the URL containing the converted domain name
@@ -307,12 +312,7 @@ public class DisplayUtils {
     public static Point getScreenSize(Activity caller) {
         Point size = new Point();
         if (caller != null) {
-            Display display = caller.getWindowManager().getDefaultDisplay();
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB_MR2) {
-                display.getSize(size);
-            } else {
-                size.set(display.getWidth(), display.getHeight());
-            }
+            caller.getWindowManager().getDefaultDisplay().getSize(size);
         }
         return size;
     }
@@ -359,9 +359,9 @@ public class DisplayUtils {
     }
 
     /**
-     * set the owncloud standard colors for the snackbar.
+     * set the Nextcloud standard colors for the snackbar.
      *
-     * @param context the context relevant for setting the color according to the context's theme
+     * @param context  the context relevant for setting the color according to the context's theme
      * @param snackbar the snackbar to be colored
      */
     public static void colorSnackbar(Context context, Snackbar snackbar) {

@@ -3,7 +3,8 @@
  *
  *   @author Andy Scherzinger
  *   Copyright (C) 2016 Andy Scherzinger
- *   Copyright (C) 2016 Nextcloud.
+ *   Copyright (C) 2016 Nextcloud
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE

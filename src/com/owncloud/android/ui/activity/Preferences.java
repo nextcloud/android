@@ -23,7 +23,6 @@
 package com.owncloud.android.ui.activity;
 
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -57,18 +56,10 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datastorage.DataStorageProvider;
-import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.PreferenceWithLongSummary;
-import com.owncloud.android.ui.PreferenceWithLongSummary;
 import com.owncloud.android.ui.PreferenceWithTwoLineLongSummary;
 import com.owncloud.android.utils.DisplayUtils;
 
