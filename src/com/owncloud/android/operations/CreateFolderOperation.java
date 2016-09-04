@@ -121,4 +121,8 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             Log_OC.d(TAG, "Create directory " + mRemotePath + " in Database");
         }
     }
+
+    public String getRemotePath() {
+        return mRemotePath;
+    }
 }
