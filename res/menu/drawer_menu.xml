@@ -60,7 +60,7 @@
     <!--
       all items in this group MUST have orderInCategory="3" set
     -->
-    <group>
+    <group android:id="@+id/drawer_menu_bottom" android:checkableBehavior="single">
         <item
             android:orderInCategory="3"
             android:id="@+id/nav_settings"
