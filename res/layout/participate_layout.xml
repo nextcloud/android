@@ -55,7 +55,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/participate_beta"
                     android:id="@+id/participate_betaView"
                     android:layout_margin="5dp"
                     android:layout_marginBottom="10dp"/>
@@ -64,7 +63,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/participate_release_candidate"
                     android:id="@+id/participate_rcView"
                     android:layout_margin="5dp"
                     android:layout_marginBottom="10dp"/>
@@ -73,7 +71,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/participate_participate"
                     android:id="@+id/participate_participateView"
                     android:layout_margin="5dp"
                     android:layout_marginBottom="10dp"/>
@@ -82,7 +79,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="@string/participate_contribute"
                     android:id="@+id/participate_contributeView"
                     android:layout_margin="5dp"
                     android:layout_marginBottom="10dp"/>

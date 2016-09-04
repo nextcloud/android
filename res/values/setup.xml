@@ -71,7 +71,13 @@
     <string name="mail_logger"></string>
 
     <!-- Participate links -->
+    <string name="fdroid_beta_link">https://f-droid.org/repository/browse/?fdid=com.nextcloud.android.beta</string>
     <string name="beta_apk_link">https://github.com/nextcloud/android/raw/beta/apks/latest.apk</string>
+    <string name="play_store_register_beta">https://play.google.com/apps/testing/com.nextcloud.client</string>
+    <string name="fdroid_link">https://f-droid.org/repository/browse/?fdid=com.nextcloud.client</string>
+    <string name="irc_weblink">http://webchat.freenode.net?channels=nextcloud-mobile</string>
+    <string name="help_link">https://help.nextcloud.com/c/clients/android</string>
+    <string name="contributing_link">https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md</string>
 
 </resources>
 
