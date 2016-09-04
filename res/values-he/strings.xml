@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">כל הקבצים</string>
     <string name="drawer_item_settings">הגדרות</string>
     <string name="drawer_item_uploads_list">העלאות</string>
-	<string name="drawer_close">סגירה</string>
+    <string name="drawer_close">סגירה</string>
     <string name="drawer_open">פתיחה</string>
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>

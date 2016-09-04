@@ -23,7 +23,7 @@
     <string name="drawer_item_on_device">Op het apparaat</string>
     <string name="drawer_item_settings">Instellingen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
-	<string name="drawer_close">Sluiten</string>
+    <string name="drawer_close">Sluiten</string>
     <string name="drawer_open">Open</string>
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
