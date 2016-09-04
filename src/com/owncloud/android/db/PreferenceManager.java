@@ -22,6 +22,9 @@ package com.owncloud.android.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
@@ -52,7 +55,8 @@ public abstract class PreferenceManager {
     }
 
     public static String instantPictureUploadPathAccount(Context context) {
-        return getDefaultSharedPreferences(context).getString(PREF__INSTANT_UPLOAD_PATH_ACCOUNT, null);
+        return getDefaultSharedPreferences(context).getString(PREF__INSTANT_UPLOAD_PATH_ACCOUNT,
+                AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()).name);
     }
 
     public static boolean instantVideoUploadEnabled(Context context) {
@@ -68,7 +72,8 @@ public abstract class PreferenceManager {
     }
 
     public static String instantVideoUploadPathAccount(Context context) {
-        return getDefaultSharedPreferences(context).getString(PREF__INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT, null);
+        return getDefaultSharedPreferences(context).getString(PREF__INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT,
+                AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()).name);
     }
 
     public static boolean instantVideoUploadPathUseSubfolders(Context context) {
