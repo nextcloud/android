@@ -17,14 +17,8 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Nou - Vechi</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Toate fișierele</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
     <string name="drawer_item_settings">Setări</string>
     <string name="drawer_item_uploads_list">Încărcări</string>
 	<string name="drawer_close">Închide</string>
@@ -213,7 +207,6 @@
     
     <string name="common_rename">Redenumește</string>
     <string name="common_remove">Elimină</string>
-    <string name="confirmation_remove_alert">Doriti sigur sa stergeti %1$s?</string>
     <string name="confirmation_remove_folder_alert">Sigur vrei să elimini %1$s și conținutul său?</string>
     <string name="confirmation_remove_local">Doar local</string>
     <string name="remove_success_msg">Eliminat cu succes</string>

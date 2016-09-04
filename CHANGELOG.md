@@ -1,3 +1,17 @@
+## 1.2.0 (July 29, 2016)
+
+- Multi select capabilities
+- confirmation dialog on account removal
+- offline available filter in main menu
+- sorting capability when choosing files to be uploaded
+- video thumbnails if activated on server
+- thumbnails during upload
+- fixed user agent for file firewalling
+- showing server side folder sizes
+- text in test preview can now be selected
+- search suggestions fixed for user/group search during sharing
+- minor bugfixes
+
 ## 1.1.0 (July 6, 2016)
 
 - New main menu to switch accounts easily

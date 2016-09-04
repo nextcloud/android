@@ -20,6 +20,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/action_search"
+          android:icon="@drawable/ic_search"
+          android:title="@string/actionbar_search"
+          android:contentDescription="@string/actionbar_search"
+          app:actionViewClass="android.support.v7.widget.SearchView"
+          app:showAsAction="ifRoom|collapseActionView"/>
     <item
         android:id="@+id/action_create_dir"
         android:icon="@drawable/ic_action_create_dir"
@@ -35,7 +41,7 @@
         android:title="@string/action_switch_grid_view" />
     <item
         android:id="@+id/action_sync_account"
-        android:icon="@drawable/ic_action_refresh"
+        android:icon="@drawable/ic_action_refresh_white"
         android:orderInCategory="1"
         app:showAsAction="never"
         android:title="@string/actionbar_sync"

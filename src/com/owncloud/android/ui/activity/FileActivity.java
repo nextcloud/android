@@ -34,11 +34,9 @@ import android.os.IBinder;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -76,7 +74,7 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 /**
  * Activity with common behaviour for activities handling {@link OCFile}s in ownCloud {@link Account}s .
  */
-public class FileActivity extends DrawerActivity
+public abstract class FileActivity extends DrawerActivity
         implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
@@ -120,6 +118,12 @@ public class FileActivity extends DrawerActivity
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+
+    @Override
+    public void showFiles(boolean onDeviceOnly) {
+        // must be specialized in subclasses
+        MainApp.showOnlyFilesOnDevice(onDeviceOnly);
+    }
 
     /**
      * Loads the ownCloud {@link Account} and main {@link OCFile} to be handled by the instance of
@@ -373,8 +377,7 @@ public class FileActivity extends DrawerActivity
                 account = getAccount();
             }
             OwnCloudClient client;
-            OwnCloudAccount ocAccount =
-                    new OwnCloudAccount(account, context);
+            OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
             client = (OwnCloudClientManagerFactory.getDefaultSingleton().
                     removeClientFor(ocAccount));
             if (client != null) {
@@ -459,11 +462,15 @@ public class FileActivity extends DrawerActivity
         // grant that only one waiting dialog is shown
         dismissLoadingDialog();
         // Construct dialog
-        LoadingDialog loading = new LoadingDialog(message);
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        loading.show(ft, DIALOG_WAIT_TAG);
-
+        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+        if (frag == null) {
+            Log_OC.d(TAG, "show loading dialog");
+            LoadingDialog loading = new LoadingDialog(message);
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            loading.show(ft, DIALOG_WAIT_TAG);
+            fm.executePendingTransactions();
+        }
     }
 
 
@@ -473,6 +480,7 @@ public class FileActivity extends DrawerActivity
     public void dismissLoadingDialog() {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag != null) {
+            Log_OC.d(TAG, "dismiss loading dialog");
             LoadingDialog loading = (LoadingDialog) frag;
             loading.dismiss();
         }
@@ -539,11 +547,6 @@ public class FileActivity extends DrawerActivity
         Intent i = new Intent(this, FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-    }
-
-    @Override
-    public void allFilesOption(){
-        restart();
     }
 
     protected OCFile getCurrentDir() {

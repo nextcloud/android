@@ -17,14 +17,10 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Terbaru - Terlawas</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
+    	<item>Terbesar - Terkecil</item>
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Semua berkas</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
+    <string name="drawer_item_on_device">Dalam perangkat</string>
     <string name="drawer_item_settings">Pengaturan</string>
     <string name="drawer_item_uploads_list">Unggah</string>
 	<string name="drawer_close">Tutup</string>
@@ -38,7 +34,9 @@
     <string name="prefs_instant_upload_summary">Unggah gambar yang diambil kamera dengan cepat</string>
     <string name="prefs_instant_video_upload">Unggah video cepat</string>
     <string name="prefs_instant_video_upload_summary">Unggah video yang direkam kamera dengan cepat</string>
+    <string name="prefs_log_title">Aktifkan pencatatan</string>
     <string name="prefs_log_summary">Ini digunakan untuk mencatat masalah</string>
+    <string name="prefs_log_title_history">Sejarah pencatatan</string>
     <string name="prefs_log_summary_history">Ini menampilkan catatan yang disimpan</string>
     <string name="prefs_log_delete_history_button">Hapus riwayat</string>
     <string name="prefs_help">Bantuan</string>
@@ -59,13 +57,24 @@
     <string name="sync_string_files">Berkas</string>
     <string name="setup_btn_connect">Sambungkan</string>
     <string name="uploader_btn_upload_text">Unggah</string>
+    <string name="uploader_top_message">Pilih folder untuk mengunggah</string>
     <string name="uploader_wrn_no_account_title">Tidak ada akun yang ditemukan</string>
+    <string name="uploader_wrn_no_account_text">Tidak ada akun %1$s dalam perangkat Anda. Silakan membuat akun terlebih dahulu.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Pengaturan</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Keluar</string>
+    <string name="uploader_error_title_no_file_to_upload">Tidak ada berkas untuk diunggah</string>
+    <string name="uploader_error_message_received_piece_of_text">%1$s tidak dapat mengunggah teks sebagai berkas.</string>
+    <string name="uploader_error_message_no_file_to_upload">Data yang diterima tidak mengandung berkas yang valid.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Berkas tidak dapat diunggah</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s tidak diizinkan untuk membaca berkas yang diterima</string>
+    <string name="uploader_error_message_source_file_not_found">Berkas untuk diunggah tidak ditemukan. Silakan cek apabila berkasnya ada.</string>
+    <string name="uploader_error_message_source_file_not_copied">Terjadi kesalahan saat menyalin berkas ke folder sementara. Silakan mencoba kembali.</string>
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
     <string name="file_list_empty">Tidak ada apa-apa di sini. Unggah sesuatu!</string>
     <string name="file_list_loading">Memuat...</string>
+    <string name="file_list_no_app_for_file_type">Tidak ditemukan aplikasi untuk tipe berkas!</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
+    <string name="upload_list_empty">Tidak ada unggahan yang tersedia.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">folder</string>
     <string name="file_list_file">berkas</string>
@@ -78,37 +87,53 @@
     <string name="filedetails_download">Unduh</string>
     <string name="filedetails_sync_file">Sinkronisasi</string>
     <string name="filedetails_renamed_in_upload_msg">Berkas diubah namanya menjadi %1$s saat pengunggahan</string>
+    <string name="list_layout">Tata letak lis</string>
     <string name="action_share">Bagikan</string>
     <string name="common_yes">Ya</string>
     <string name="common_no">Tidak</string>
     <string name="common_ok">Oke</string>
+    <string name="common_remove_upload">Hapus unggahan</string>
+    <string name="common_retry_upload">Unggah lagi</string>
     <string name="common_cancel_sync">Batalkan sinkron</string>
     <string name="common_cancel">Batal</string>
     <string name="common_back">Kembali</string>
+    <string name="common_save_exit">Simpan &amp; keluar</string>
     <string name="common_error">Kesalahan</string>
     <string name="common_loading">Memuat ...</string>
+    <string name="common_unknown">tidak diketahui</string>
     <string name="common_error_unknown">Kesalahan tidak diketahui</string>
     <string name="about_title">Tentang</string>
     <string name="change_password">Ubah sandi</string>
     <string name="delete_account">Hapus akun</string>
+    <string name="delete_account_warning">Hapus akun %s?\n\nPenghapusan tidak bisa dipulihkan.</string>
     <string name="create_account">Buat akun</string>
     <string name="upload_chooser_title">Unggah dari...</string>
     <string name="uploader_info_dirname">Nama folder</string>
     <string name="uploader_upload_in_progress_ticker">Mengungggah...</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Mengunggah %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Berhasil mengunggah</string>
+    <string name="uploader_upload_succeeded_content_single">%1$s terunggah</string>
     <string name="uploader_upload_failed_ticker">Gagal mengunggah</string>
     <string name="uploader_upload_failed_content_single">Unggah %1$s tidak selesai</string>
     <string name="uploader_upload_failed_credentials_error">Mungunggah gagal, kamu harus masuk log lagi</string>
     <string name="uploads_view_title">Unggah</string>
     <string name="uploads_view_group_current_uploads">Saat ini</string>
+    <string name="uploads_view_group_failed_uploads">Gagal (tap untuk mencoba lagi)</string>
     <string name="uploads_view_group_finished_uploads">Terunggah</string>
     <string name="uploads_view_upload_status_succeeded">Selesai</string>
+    <string name="uploads_view_upload_status_cancelled">Dibatalkan</string>
+    <string name="uploads_view_upload_status_paused">Dihentikan</string>
+    <string name="uploads_view_upload_status_failed_connection_error">Terjadi kesalahan koneksi</string>
+    <string name="uploads_view_upload_status_failed_retry">Pengunggahan akan dicoba lagi</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Kesalahan Kredensial</string>
     <string name="uploads_view_upload_status_failed_folder_error">Kesalahan folder</string>
     <string name="uploads_view_upload_status_failed_file_error">Kesalahaan berkas</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">Berkas lokal tidak ditemukan</string>
     <string name="uploads_view_upload_status_failed_permission_error">Kesalahan hak akses</string>
+    <string name="uploads_view_upload_status_conflict">Konflik</string>
+    <string name="uploads_view_upload_status_service_interrupted">Aplikasi ditutup</string>
     <string name="uploads_view_upload_status_unknown_fail">Kesalahan tidak diketahui</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Menunggu koneksi wifi</string>
     <string name="uploads_view_later_waiting_to_upload">Menunggu unggahan</string>
     <string name="downloader_download_in_progress_ticker">Mengunduh...</string>
     <string name="downloader_download_in_progress_content">%1$d%% Mengunduh %2$s</string>
@@ -117,8 +142,11 @@
     <string name="downloader_download_failed_ticker">Gagal Mengunduh</string>
     <string name="downloader_download_failed_content">Mengunduh %1$s tidak selesai</string>
     <string name="downloader_not_downloaded_yet">Belum diunduh</string>
+    <string name="downloader_download_failed_credentials_error">Pengunduhan gagal, mohon log masuk lagi</string>
     <string name="common_choose_account">Pilih akun</string>
     <string name="sync_fail_ticker">Sinkron gagal</string>
+    <string name="sync_fail_ticker_unauthorized">Sinkronisasi gagal, mohon log masuk lagi</string>
+    <string name="sync_fail_content">Sinkronisasi %1$s tidak dapat diselesaikan</string>
     <string name="sync_fail_content_unauthorized">Sandi salah untuk %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflik ditemukan</string>
     <string name="sync_conflicts_in_favourites_content">%1$d berkas kept-in-sync tidak dapat disinkronkan</string>
@@ -133,8 +161,12 @@
     <string name="foreign_files_fail">Beberapa berkas tidak dapat dipindahkan</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Remote: %1$s</string>
+    <string name="upload_query_move_foreign_files">Ruang tidak cukup untuk menyalin berkas terpilih ke folder %1$s. Apakah Anda ingin memindahkannya saja?</string>
+    <string name="pass_code_enter_pass_code">Masukkan kode kunci Anda</string>
+    
     <string name="pass_code_configure_your_pass_code">Masukkan kode sandi Anda</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kode sandi akan diminta setiap kali apl dijalankan.</string>
+    <string name="pass_code_reenter_your_pass_code">Masukkan lagi kode kunci Anda</string>
     <string name="pass_code_remove_your_pass_code">Hapus kode sandi Anda</string>
     <string name="pass_code_mismatch">Kode sandi tidak sama</string>
     <string name="pass_code_wrong">Kode sandi salah</string>
@@ -161,6 +193,8 @@
     <string name="media_play_pause_description">Tombol main dan jeda</string>
     <string name="media_forward_description">Tombol maju</string>
 
+	<string name="auth_getting_authorization">Mendapatkan otorisasi &#8230;</string>
+	<string name="auth_trying_to_login">Mencoba log masuk &#8230;</string>
 	<string name="auth_no_net_conn_title">Tidak ada koneksi internet</string>
 	<string name="auth_nossl_plain_ok_title">Sambungan aman tidak tersedia</string>
 	<string name="auth_connection_established">Sambungan dibuat</string>
@@ -172,6 +206,7 @@
 	<string name="auth_unknown_host_title">Tidak menemukan host</string>
 	<string name="auth_incorrect_path_title">Instansi server tidak ditemukan</string>
 	<string name="auth_timeout_title">Server terlalu lama merespon</string>
+	<string name="auth_incorrect_address_title">Format alamat server salah</string>
 	<string name="auth_ssl_general_error_title">Menginisiasi SSL gagal</string>
 	<string name="auth_ssl_unverified_server_title">Tidak dapat memverifikasi identitas server SSL</string>
 	<string name="auth_bad_oc_version_title">Versi server tidak dikenal</string>
@@ -180,17 +215,23 @@
 	<string name="auth_unauthorized">Nama pengguna dan sandi salah</string>
 	<string name="auth_oauth_error">Otorisasi tidak berhasil</string>
 	<string name="auth_oauth_error_access_denied">Akses ditolak oleh server otorisasi</string>
+	<string name="auth_wtf_reenter_URL">Masalah tidak terduga; masukkan almat server lagi</string>
 	<string name="auth_expired_oauth_token_toast">Otorisasi Anda telah berakhir. Silakan mengotorisasi lagi</string>
+	<string name="auth_expired_basic_auth_toast">Masukkan kata sandi</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesi Anda telah berakhir. Silakan masuk kembali</string>
+	<string name="auth_connecting_auth_server">Menyambungkan ke server otentikasi ...</string>
 	<string name="auth_unsupported_auth_method">Server tidak mendukung medote otentikasi ini</string>
 	<string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
 	<string name="auth_fail_get_user_name">Server Anda tidak membalas id pengguna dengan banar, Sialakn hubungi Administrator
 	</string>
-	<string name="auth_account_does_not_exist">Akun tidak ada di perangkat ini</string>
+	<string name="auth_can_not_auth_against_server">Tidak terotentikasi ke server ini</string>
+    <string name="auth_account_does_not_exist">Akun tidak ada di perangkat ini</string>
     
+    <string name="favorite">Atur untuk tersedia luring</string>
+    <string name="unfavorite">Batal atur untuk tersedia luring</string>
     <string name="common_rename">Ubah nama</string>
     <string name="common_remove">Hapus</string>
-    <string name="confirmation_remove_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
+    <string name="confirmation_remove_file_alert">Apakah Anda yakin ingin menghapus %1$s?</string>
     <string name="confirmation_remove_folder_alert">Apakah Anda yakin ingin menghapus %1$s dan isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
     <string name="remove_success_msg">Penghapusan berhasil</string>
@@ -205,6 +246,7 @@
     <string name="filename_forbidden_charaters_from_server">Nama berkas berisi setidaknya satu karakter yang tidak sah</string>
     <string name="filename_empty">Nama berkas tidak boleh kosong</string>
     <string name="wait_a_moment">Tunggu sebentar</string>
+    <string name="wait_checking_credentials">Mengecek kredensial yang tersimpan</string>
     <string name="filedisplay_unexpected_bad_get_content">Masalah tidak terduga, silahkan pilih berkas dari apl yang berbeda</string>
     <string name="filedisplay_no_file_selected">Tidak ada berkas yang terpilih</string>
     <string name="activity_chooser_title">Kirim taukan ke</string>
@@ -235,6 +277,9 @@
     <string name="ssl_validator_label_validity_to">Untuk:</string>
     <string name="ssl_validator_label_signature">Tanda tangan:</string>
     <string name="ssl_validator_label_signature_algorithm">Algoritma:</string>
+    <string name="digest_algorithm_not_available">Algoritma ini tidak tersedia di ponsel Anda.</string>
+    <string name="ssl_validator_label_certificate_fingerprint">Sidik jari:</string>
+    <string name="certificate_load_problem">Terjadi permasalahan memuat sertifikat.</string>
     <string name="ssl_validator_null_cert">Sertifikat tidak dapat ditampilkan.</string>
     <string name="ssl_validator_no_info_about_error">- Tidak ada informasi tantang error</string>
 
@@ -245,6 +290,8 @@
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="instant_upload_on_wifi">Unggah gambar melalui wifi saja</string>
+    <string name="instant_video_upload_on_wifi">Unggah video melalui wifi saja</string>
     <string name="instant_upload_path">/UnggahInstan</string>
     <string name="conflict_title">Berkas konflik</string>
     <string name="conflict_message">Berkas mana yang ingin Anda simpan? Jika Anda memilih kedua versi, berkas lokal akan memiliki angka yang ditambahkan pada namanya.</string>
@@ -256,12 +303,18 @@
     <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
 
     <string name="error__upload__local_file_not_copied">%1$s tidak dapat disalin ke folder lokal %2$s</string>
-    <string name="share_link_no_support_share_api">Maaf, berbagi tidak diaktifkan pada server Anda. Silakan hubungi
+    <string name="prefs_instant_upload_path_title">Folder unggah cepat</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Gunakan subfolder</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Simpan dalam subfolder berdasarkan tahun dan bulan</string>
+
+	<string name="share_link_no_support_share_api">Maaf, berbagi tidak diaktifkan pada server Anda. Silakan hubungi
 		administrator Anda.</string>
 	<string name="share_link_file_no_exist">Tidak dapat berbagi. Mohon periksa apakah berkas ada</string>
 	<string name="share_link_file_error">Terjadi kesalahan saat mencoba membagikan berkas atau folder ini</string>
 	<string name="unshare_link_file_no_exist">Tidak dapat menghapus berbagi. Mohon periksa apakah berkas ada</string>
 	<string name="unshare_link_file_error">Terjadi kesalahan saat mencoba menghapus berbagi berkas dan folder ini</string>
+    <string name="update_link_file_no_exist">Tidak dapat memperbarui. Cek apabila berkas ada</string>
+    <string name="update_link_file_error">Terjadi kesalahan saat mencoba untuk memperbarui pembagian</string>
     <string name="share_link_password_title">Masukkan sandi</string>
     <string name="share_link_empty_password">Anda harus memasukkan sandi</string>
 
@@ -269,6 +322,10 @@
 
     <string name="copy_link">Salin tautan</string>
     <string name="clipboard_text_copied">Disalin ke papan klip</string>
+    <string name="clipboard_no_text_to_copy">Tidak ada teks diterima dari papan klip</string>
+    <string name="clipboard_uxexpected_error">Kesalahan tak terduga saat menyalin ke papan klip</string>
+    <string name="clipboard_label">Teks tersalin dari %1$s</string>
+
     <string name="error_cant_bind_to_operations_service">Kesalahan fatal: tidak dapat melakukan operasi</string>
 
     <string name="network_error_socket_exception">Terjadi kesalahan saat menghubungkan dengan server.</string>
@@ -282,16 +339,22 @@
     <string name="forbidden_permissions_delete">untuk menghapus berkas ini</string>
     <string name="share_link_forbidden_permissions">untuk membagikan berkas ini</string>
     <string name="unshare_link_forbidden_permissions">untuk batal membagikan berkas ini</string>
+    <string name="update_link_forbidden_permissions">untuk memperbarui pembagian ini</string>
     <string name="forbidden_permissions_create">untuk membuat berkas</string>
     <string name="uploader_upload_forbidden_permissions">untuk mengunggah kedalam folder ini</string>
     <string name="downloader_download_file_not_found">Berkas tidak lagi tersedia pada server</string>
 
     <string name="prefs_category_accounts">Akun</string>
     <string name="prefs_add_account">Tambah akun</string>
+    <string name="drawer_manage_accounts">Kelola akun</string>
     <string name="auth_redirect_non_secure_connection_title">Sambungan aman dialihkan melalui rute yang tidak aman.</string>
 
 	<string name="actionbar_logger">Log</string>
+	<string name="log_send_history_button">Kirim riwayat</string>
+	<string name="log_send_no_mail_app">Tidak ada aplikasi untuk mengirim riwayat. Pasang aplikasi surel.</string>
 	<string name="log_send_mail_subject">%1$s Android apl log</string>
+	<string name="log_progress_dialog_text">Memuat data &#8230;</string>
+
 	<string name="saml_authentication_required_text">Diperlukan otentikasi</string>
 	<string name="saml_authentication_wrong_pass">Sandi salah</string>
 	<string name="actionbar_move">Pindah</string>
@@ -311,7 +374,11 @@
     <string name="copy_file_error">Terjadi kesalahan ketika mencoba menyalin berkas atau folder ini</string>
     <string name="forbidden_permissions_copy">untuk menyalin berkas ini</string>
 
+    <string name="prefs_category_instant_uploading">Unggah cepat</string>
     <string name="prefs_category_details">Rincian</string>
+
+	<string name="prefs_instant_video_upload_path_title">Folder unggah video cepat</string>
+    <string name="sync_folder_failed_content">Sinkronisasi folder %1$s tidak dapat diselesaikan</string>
 
 	<string name="shared_subject_header">dibagikan</string>
 	<string name="with_you_subject_header">kepada Anda</string>
@@ -333,17 +400,66 @@
     <string name="file_list__footer__files">%1$d berkas</string>
     <string name="file_list__footer__files_and_folder">%1$d berkas, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d berkas, %2$d folder</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Berkas asli akan menjadi...</string>
+    <string name="prefs_instant_behaviour_title">Berkas asli akan menjadi...</string>
+    <string name="upload_copy_files">Salin berkas</string>
+    <string name="upload_move_files">Pindahkan berkas</string>
+    <string name="select_all">Pilih semua</string>
+
+    <string name="pref_behaviour_entries_keep_file">Tersimpan di folder asli</string>
+    <string name="pref_behaviour_entries_move">Dipindahkan ke folder aplikasi</string>
+
     <string name="share_dialog_title">Berbagi</string>
+    <string name="share_file">Bagikan %1$s</string>
+    <string name="share_with_user_section_title">Bagikan dengan pengguna atau grup</string>
     <string name="share_no_users">Tidak ada data yang dibagikan dengan pengguna</string>
+    <string name="share_add_user_or_group">Tambah pengguna atau grup</string>
     <string name="share_via_link_section_title">Bagikan tautan</string>
     <string name="share_via_link_expiration_date_label">Atur tanggal kedaluwarsa</string>
     <string name="share_via_link_password_label">Lindungi dengan sandi</string>
+    <string name="share_via_link_password_title">Diamankan</string>
     <string name="share_via_link_edit_permission_label">Izinkan penyuntingan</string>
+    <string name="share_get_public_link_button">Dapatkan tautan</string>
+    <string name="share_with_title">Bagikan kepada &#8230;</string>
+    <string name="share_with_edit_title">Bagikan dengan %1$s</string>
+
     <string name="share_search">Cari</string>
 
+    <string name="search_users_and_groups_hint">Cari pengguna dan grup</string>
+    <string name="share_group_clarification">%1$s (grup)</string>
+    <string name="share_remote_clarification">%1$s (remote)</string>
+    <string name="share_known_remote_clarification">%1$s ( di %2$s )</string>
+
+    <string name="share_sharee_unavailable">Maaf, server Anda tidak mengizinkan untuk berbagi dengan pengguna didalam klien
+\\nHubungi administrator Anda</string>
     <string name="share_privilege_can_share">dapat berbagi</string>
     <string name="share_privilege_can_edit">dapat disunting</string>
     <string name="share_privilege_can_edit_create">buat</string>
     <string name="share_privilege_can_edit_change">ubah</string>
     <string name="share_privilege_can_edit_delete">hapus</string>
-    </resources>
+    <string name="edit_share_unshare">Berhenti berbagi</string>
+    <string name="edit_share_done">selesai</string>
+
+    <string name="action_retry_uploads">Gagal lagi</string>
+    <string name="action_clear_failed_uploads">Gagal membersihkan</string>
+    <string name="action_clear_successful_uploads">Sukses dibersihkan</string>
+    <string name="action_clear_finished_uploads">Bersihkan semua yang telah selesai</string>
+
+    <string name="action_switch_grid_view">Tampilan kotak</string>
+    <string name="action_switch_list_view">Tampilan lis</string>
+
+    <string name="manage_space_title">Kelola ruang</string>
+    <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \\n\\nBerkas terunduh akan tetap terjaga.\\n\\nProses ini dapat memakan waktu.</string>
+    <string name="manage_space_clear_data">Bersihkan data</string>
+    <string name="manage_space_error">Beberapa berkas tidak dapat dihapus.</string>
+
+    <string name="permission_storage_access">Izin lainnya dibutuhkan untuk mengunggah &amp; mengunduh berkas.</string>
+    <string name="local_file_not_found_toast">Berkas tidak ditemukan di sistem berkas lokal</string>
+    <string name="confirmation_remove_files_alert">Apakah Anda yakin ingin menghapus item terpilih?</string>
+    <string name="confirmation_remove_folders_alert">Apakah Anda yakin ingin menghapus item terpilih dan isinya?</string>
+    <string name="actionbar_search">Cari</string>
+    <plurals name="items_selected_count">
+        <item quantity="other">%d dipilih</item>
+    </plurals>
+
+</resources>

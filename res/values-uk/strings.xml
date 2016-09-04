@@ -17,14 +17,8 @@
     <string-array name="actionbar_sortby">
     	<item>А-Я</item>
     	<item>Новіші-Старіші</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Усі файли</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
     <string name="drawer_item_settings">Налаштування</string>
     <string name="drawer_item_uploads_list">Завантаженнь</string>
 	<string name="drawer_close">Закрити</string>
@@ -192,7 +186,6 @@
     
     <string name="common_rename">Перейменувати</string>
     <string name="common_remove">Видалити</string>
-    <string name="confirmation_remove_alert">Ви дійсно бажаєте видалити %1$s?</string>
     <string name="confirmation_remove_folder_alert">Ви дійсно бажаєте видалити %1$s та весь вміст?</string>
     <string name="confirmation_remove_local">Лише локально</string>
     <string name="remove_success_msg">Успішно видалено</string>
@@ -260,7 +253,6 @@
     <string name="preview_image_error_unknown_format">Не вдалося показати зображення</string>
 
     <string name="error__upload__local_file_not_copied">%1$s неможливо скопіювати до %2$s</string>
-    <string name="prefs_instant_upload_path_title">Шлях завантаження</string>
     <string name="share_link_no_support_share_api">На жаль, обмін не включений на вашому сервері. Будь ласка, зв\'яжіться з вашим адмінистратором.</string>
 	<string name="share_link_file_no_exist">Неможливо поділитися. Будь ласка, перевірте, чи існує файл</string>
 	<string name="share_link_file_error">Виникла помилка при спробі поділитися файлом або текою</string>

@@ -17,14 +17,8 @@
     <string-array name="actionbar_sortby">
     	<item>A-Ö</item>
     	<item>Uusimmasta vanhimpaan</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Kaikki tiedostot</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
     <string name="drawer_item_settings">Asetukset</string>
     <string name="drawer_item_uploads_list">Lataukset</string>
 	<string name="drawer_close">Sulje</string>
@@ -210,7 +204,6 @@
     
     <string name="common_rename">Nimeä uudelleen</string>
     <string name="common_remove">Poista</string>
-    <string name="confirmation_remove_alert">Haluatko varmasti poistaa kohteen %1$s?</string>
     <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
     <string name="confirmation_remove_local">Vain paikallinen</string>
     <string name="remove_success_msg">Poistettu onnistuneesti</string>
@@ -402,5 +395,4 @@
 
     <string name="permission_storage_access">Tiedostojen lataaminen ja lähetys vaatii lisäoikeuksia.</string>
     <string name="local_file_not_found_toast">Tiedostoa ei löytynyt paikallisesta tiedostojärjestelmästä</string>
-
-</resources>
+    </resources>

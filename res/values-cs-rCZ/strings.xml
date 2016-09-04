@@ -17,14 +17,10 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Nejnovější - nejstarší</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
+    	<item>Největší - nejmenší</item>
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Všechny soubory</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
+    <string name="drawer_item_on_device">Na přístroji</string>
     <string name="drawer_item_settings">Nastavení</string>
     <string name="drawer_item_uploads_list">Nahrání</string>
 	<string name="drawer_close">Zavřít</string>
@@ -61,6 +57,7 @@
     <string name="sync_string_files">Soubory</string>
     <string name="setup_btn_connect">Připojit</string>
     <string name="uploader_btn_upload_text">Nahrát</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Vytvořit textový soubor</string>
     <string name="uploader_top_message">Vybrat adresář k nahrávání</string>
     <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
     <string name="uploader_wrn_no_account_text">Na tomto přístroji nejsou žádné %1$s účty. Nejdříve prosím zadejte účet.</string>
@@ -109,6 +106,7 @@
     <string name="about_title">O aplikaci</string>
     <string name="change_password">Změnit heslo</string>
     <string name="delete_account">Odebrat účet</string>
+    <string name="delete_account_warning">Smazat účet %s?\n\nTuto akci nelze vzít zpět.</string>
     <string name="create_account">Vytvořit účet</string>
     <string name="upload_chooser_title">Nahrát z ...</string>
     <string name="uploader_info_dirname">Název adresáře</string>
@@ -233,7 +231,7 @@
     <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
     <string name="common_rename">Přejmenovat</string>
     <string name="common_remove">Odstranit</string>
-    <string name="confirmation_remove_alert">Opravdu chcete odstranit %1$s ?</string>
+    <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s?</string>
     <string name="confirmation_remove_folder_alert">Opravdu chcete odstranit %1$s a jeho obsah?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
     <string name="remove_success_msg">Úspěšně odstraněno</string>
@@ -305,7 +303,7 @@
     <string name="preview_image_error_unknown_format">Obrázek nelze zobrazit</string>
 
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
-    <string name="prefs_instant_upload_path_title">Cesta pro nahrání</string>
+    <string name="prefs_instant_upload_path_title">Složka pro okamžité nahrání</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podadresáře</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podadresářích podle roku a měsíce</string>
 
@@ -379,7 +377,7 @@ správce systému.</string>
     <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="prefs_instant_video_upload_path_title">Cesta pro nahrání videí</string>
+	<string name="prefs_instant_video_upload_path_title">Složka pro okamžité nahrání videa</string>
     <string name="sync_folder_failed_content">Synchronizaci adresáře %1$s nelze dokončit</string>
 
 	<string name="shared_subject_header">sdílené</string>
@@ -457,5 +455,13 @@ správce systému.</string>
 
     <string name="permission_storage_access">Vyžadována dodatečná oprávnění pro nahrávání &amp; stahování souborů.</string>
     <string name="local_file_not_found_toast">Soubor nebyl nalezen v místním souborovém systému</string>
+    <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
+    <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
+    <string name="actionbar_search">Hledat</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">vybráno %d</item>
+        <item quantity="few">vybráno %d</item>
+        <item quantity="other">vybráno %d</item>
+    </plurals>
 
 </resources>

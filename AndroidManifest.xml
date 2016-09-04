@@ -20,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10010099"
-    android:versionName="1.1.0">
+    android:versionCode="10020099"
+    android:versionName="1.2.0">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -138,14 +138,14 @@
 
         <provider
             android:name=".providers.UsersAndGroupsSearchProvider"
-            android:authorities=".providers.UsersAndGroupsSearchProvider"
+            android:authorities="com.nextcloud.android.providers.UsersAndGroupsSearchProvider"
             android:enabled="true"
             android:exported="false"
             android:label="@string/search_users_and_groups_hint" />
 
         <provider
-            android:authorities="@string/document_provider_authority"
             android:name="org.nextcloud.providers.DocumentsStorageProvider"
+            android:authorities="@string/document_provider_authority"
             android:exported="true"
             android:grantUriPermissions="true"
             android:permission="android.permission.MANAGE_DOCUMENTS"

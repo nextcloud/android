@@ -1,20 +1,23 @@
 /**
- *   ownCloud Android client application
+ *   Nextcloud Android client application
  *
  *   @author Andy Scherzinger
+ *   Copyright (C) 2016 Andy Scherzinger
+ *   Copyright (C) 2016 Nextcloud
  *   Copyright (C) 2016 ownCloud Inc.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ *   License as published by the Free Software Foundation; either
+ *   version 3 of the License, or any later version.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *   You should have received a copy of the GNU Affero General Public
+ *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -24,9 +27,7 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -37,17 +38,20 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.users.RemoteGetUserQuotaOperation;
 import com.owncloud.android.ui.TextDrawable;
-import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
 /**
@@ -123,6 +127,21 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private Account[] mAvatars = new Account[3];
 
     /**
+     * container layout of the quota view.
+     */
+    private LinearLayout mQuotaView;
+
+    /**
+     * progress bar of the quota view.
+     */
+    private ProgressBar mQuotaProgressBar;
+
+    /**
+     * text view of the quota view.
+     */
+    private TextView mQuotaTextView;
+
+    /**
      * Initializes the drawer, its content and highlights the menu item with the given id.
      * This method needs to be called after the content view has been set.
      *
@@ -142,30 +161,22 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
         if (mNavigationView != null) {
-            mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
-            mAccountChooserToggle.setImageResource(R.drawable.ic_down);
-            mIsAccountChooserActive = false;
+            setupDrawerHeader();
 
-            mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
-            mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
+            setupDrawerMenu(mNavigationView);
 
-            // on pre lollipop the light theme adds a black tint to icons with white coloring
-            // ruining the generic avatars, so tinting for icons is deactivated pre lollipop
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-                mNavigationView.setItemIconTintList(null);
-            }
-
-            setupDrawerContent(mNavigationView);
-
-            findNavigationViewChildById(R.id.drawer_active_user)
-                    .setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            toggleAccountList();
-                        }
-                    });
+            setupQuotaElement();
         }
 
+        setupDrawerToggle();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    /**
+     * initializes and sets up the drawer toggle.
+     */
+    private void setupDrawerToggle() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
             /** Called when a drawer has settled in a completely closed state. */
@@ -189,7 +200,35 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    /**
+     * initializes and sets up the drawer header.
+     */
+    private void setupDrawerHeader() {
+        mAccountChooserToggle = (ImageView) findNavigationViewChildById(R.id.drawer_account_chooser_toogle);
+        mAccountChooserToggle.setImageResource(R.drawable.ic_down);
+        mIsAccountChooserActive = false;
+        mAccountMiddleAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_middle);
+        mAccountEndAccountAvatar = (ImageView) findNavigationViewChildById(R.id.drawer_account_end);
+
+        findNavigationViewChildById(R.id.drawer_active_user)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        toggleAccountList();
+                    }
+                });
+    }
+
+    /**
+     * setup quota elements of the drawer.
+     */
+    private void setupQuotaElement() {
+        mQuotaView = (LinearLayout) findViewById(R.id.drawer_quota);
+        mQuotaProgressBar = (ProgressBar) findViewById(R.id.drawer_quota_ProgressBar);
+        mQuotaTextView = (TextView) findViewById(R.id.drawer_quota_text);
+        DisplayUtils.colorPreLollipopHorizontalProgressBar(mQuotaProgressBar);
     }
 
     /**
@@ -197,7 +236,14 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      *
      * @param navigationView the drawers navigation view
      */
-    protected void setupDrawerContent(NavigationView navigationView) {
+    protected void setupDrawerMenu(NavigationView navigationView) {
+        // on pre lollipop the light theme adds a black tint to icons with white coloring
+        // ruining the generic avatars, so tinting for icons is deactivated pre lollipop
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            navigationView.setItemIconTintList(null);
+        }
+
+        // setup actions for drawer menu items
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -208,19 +254,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                             case R.id.nav_all_files:
                                 menuItem.setChecked(true);
                                 mCheckedMenuItem = menuItem.getItemId();
-
-                                allFilesOption();
-                                // TODO activate when On Device branch is merged
-                                // MainApp.showOnlyFilesOnDevice(false);
-                                // refreshDirectory();
+                                showFiles(false);
                                 break;
-                            // TODO activate when On Device branch is merged
-                            // case R.id.nav_on_device:
-                            //     menuItem.setChecked(true);
-                            //     mCheckedMenuItem = menuItem.getItemId();
-                            //     MainApp.showOnlyFilesOnDevice(true);
-                            //     refreshDirectory();
-                            //     break;
+                             case R.id.nav_on_device:
+                                 menuItem.setChecked(true);
+                                 mCheckedMenuItem = menuItem.getItemId();
+                                 showFiles(true);
+                                 break;
                             case R.id.nav_uploads:
                                 Intent uploadListIntent = new Intent(getApplicationContext(),
                                         UploadListActivity.class);
@@ -253,11 +293,18 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         // handle correct state
         if (mIsAccountChooserActive) {
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
+            navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
         } else {
-            mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
+            navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
     }
+
+    /**
+     * show the file list to the user.
+     *
+     * @param onDeviceOnly flag to decide if all files or only the ones on the device should be shown
+     */
+    public abstract void showFiles(boolean onDeviceOnly);
 
     /**
      * sets the new/current account and restarts. In case the given account equals the actual/current account the
@@ -414,11 +461,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     }
 
     /**
-     * Method that gets called on drawer menu click for 'All Files'.
-     */
-    public abstract void allFilesOption();
-
-    /**
      * Updates title bar and home buttons (state and icon).
      * <p/>
      * Assumes that navigation drawer is NOT visible.
@@ -454,6 +496,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             DisplayUtils.setAvatar(account, this,
                     mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),
                     findNavigationViewChildById(R.id.drawer_current_account));
+
+            // check and show quota info if available
+            getAndDisplayUserQuota();
         }
     }
 
@@ -483,6 +528,38 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     }
 
     /**
+     * shows or hides the quota UI elements.
+     *
+     * @param showQuota show/hide quota information
+     */
+    private void showQuota(boolean showQuota) {
+        if (showQuota) {
+            mQuotaView.setVisibility(View.VISIBLE);
+        } else {
+            mQuotaView.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * configured the quota to be displayed.
+     *
+     * @param usedSpace the used space
+     * @param totalSpace the total space
+     * @param relative the percentage of space already used
+     */
+    private void setQuotaInformation(long usedSpace, long totalSpace, int relative) {
+        mQuotaProgressBar.setProgress(relative);
+        DisplayUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
+
+        mQuotaTextView.setText(String.format(
+                getString(R.string.drawer_quota),
+                DisplayUtils.bytesToHumanReadable(usedSpace),
+                DisplayUtils.bytesToHumanReadable(totalSpace)));
+
+        showQuota(true);
+    }
+
+    /**
      * checks/highlights the provided menu item if the drawer has been initialized and the menu item exists.
      *
      * @param menuItemId the menu item to be highlighted
@@ -495,6 +572,57 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         } else {
             Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
         }
+    }
+
+    /**
+     * Retrieves and shows the user quota if available
+     */
+    private void getAndDisplayUserQuota() {
+        // set user space information
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+
+                RemoteOperation getQuotaInfoOperation = new RemoteGetUserQuotaOperation();
+                RemoteOperationResult result = getQuotaInfoOperation.execute(
+                        AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this), DrawerActivity.this);
+
+                if (result.isSuccess() && result.getData() != null) {
+                    final RemoteGetUserQuotaOperation.Quota quota =
+                            (RemoteGetUserQuotaOperation.Quota) result.getData().get(0);
+
+                    final long used = quota.getUsed();
+                    final long total = quota.getTotal();
+                    final int relative = (int) Math.ceil(quota.getRelative());
+                    final long quotaValue = quota.getQuota();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (quotaValue > 0
+                                    || quotaValue == RemoteGetUserQuotaOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
+                                /**
+                                 * show quota in case
+                                 * it is available and calculated (> 0) or
+                                 * in case of legacy servers (==QUOTA_LIMIT_INFO_NOT_AVAILABLE)
+                                 */
+                                setQuotaInformation(used, total, relative);
+                            } else {
+                                /**
+                                 * quotaValue < 0 means special cases like
+                                 * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
+                                 * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
+                                 * {@link RemoteGetUserQuotaOperation.SPACE_UNLIMITED}
+                                 * thus don't display any quota information.
+                                 */
+                                showQuota(false);
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        t.start();
     }
 
     @Override

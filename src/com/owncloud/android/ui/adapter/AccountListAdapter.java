@@ -20,19 +20,17 @@
 package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
-import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.utils.DisplayUtils;
@@ -57,10 +55,6 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         this.mAccountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
     }
 
-    public void setAccountList(List<AccountListItem> values) {
-        this.mValues = values;
-    }
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         AccountViewHolderItem viewHolder;
@@ -72,8 +66,8 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             viewHolder = new AccountViewHolderItem();
             viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.user_name);
             viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.user_icon);
-            viewHolder.passwordButtonItem = (ImageView) convertView.findViewById(R.id.passwordButton);
-            viewHolder.removeButtonItem = (ImageView) convertView.findViewById(R.id.removeButton);
+            viewHolder.passwordButtonItem = (ImageButton) convertView.findViewById(R.id.passwordButton);
+            viewHolder.removeButtonItem = (ImageButton) convertView.findViewById(R.id.removeButton);
 
             convertView.setTag(viewHolder);
         } else {
@@ -111,9 +105,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
                 viewHolder.removeButtonItem.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mListener.removeAccount(mValues.get(position).getAccount());
-                        mValues.remove(position);
-                        AccountListAdapter.this.notifyDataSetChanged();
+                        mListener.performAccountRemoval(mValues.get(position).getAccount());
                     }
                 });
             } // create add account action item
@@ -152,7 +144,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
      * Listener interface for Activities using the {@link AccountListAdapter}
      */
     public interface AccountListAdapterListener {
-        void removeAccount(Account account);
+        void performAccountRemoval(Account account);
 
         void changePasswordOfAccount(Account account);
 
@@ -166,7 +158,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         TextView textViewItem;
         ImageView imageViewItem;
 
-        ImageView passwordButtonItem;
-        ImageView removeButtonItem;
+        ImageButton passwordButtonItem;
+        ImageButton removeButtonItem;
     }
 }

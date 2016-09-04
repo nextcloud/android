@@ -22,12 +22,12 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
@@ -41,6 +41,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -93,11 +94,9 @@ public class UploadFilesActivity extends FileActivity implements
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null) {
-            mCurrentDir = new File(savedInstanceState.getString(
-                    UploadFilesActivity.KEY_DIRECTORY_PATH));
-            mSelectAll = savedInstanceState.getBoolean(
-                    UploadFilesActivity.KEY_ALL_SELECTED, false);
-
+            mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.KEY_DIRECTORY_PATH, Environment
+                    .getExternalStorageDirectory().getAbsolutePath()));
+            mSelectAll = savedInstanceState.getBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
         } else {
             mCurrentDir = Environment.getExternalStorageDirectory();
         }
@@ -129,10 +128,7 @@ public class UploadFilesActivity extends FileActivity implements
         mUploadBtn = (Button) findViewById(R.id.upload_files_btn_upload);
         mUploadBtn.setOnClickListener(this);
 
-        SharedPreferences appPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getApplicationContext());
-
-        Integer localBehaviour = appPreferences.getInt("prefs_uploader_behaviour", FileUploader.LOCAL_BEHAVIOUR_COPY);
+        int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
 
         mRadioBtnMoveFiles = (RadioButton) findViewById(R.id.upload_radio_move);
         if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE){
@@ -179,6 +175,7 @@ public class UploadFilesActivity extends FileActivity implements
         activity.startActivityForResult(action, requestCode);
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         mOptionsMenu = menu;
@@ -203,6 +200,30 @@ public class UploadFilesActivity extends FileActivity implements
                 mSelectAll = item.isChecked();
                 setSelectAllMenuItem(item, mSelectAll);
                 mFileListFragment.selectAllFiles(item.isChecked());
+                break;
+            }
+            case R.id.action_sort: {
+                // Read sorting order, default to sort by name ascending
+                Integer sortOrder = PreferenceManager.getSortOrder(this);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.actionbar_sort_title)
+                        .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder ,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        switch (which){
+                                            case 0:
+                                                mFileListFragment.sortByName(true);
+                                                break;
+                                            case 1:
+                                                mFileListFragment.sortByDate(false);
+                                                break;
+                                        }
+
+                                        dialog.dismiss();
+                                    }
+                                });
+                builder.create().show();
                 break;
             }
             default:
@@ -331,8 +352,7 @@ public class UploadFilesActivity extends FileActivity implements
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
-    
-    
+
     /**
      * {@inheritDoc}
      */
@@ -348,7 +368,6 @@ public class UploadFilesActivity extends FileActivity implements
     public File getInitialDirectory() {
         return mCurrentDir;
     }
-
 
     /**
      * Performs corresponding action when user presses 'Cancel' or 'Upload' button
@@ -366,7 +385,6 @@ public class UploadFilesActivity extends FileActivity implements
             new CheckAvailableSpaceTask().execute();
         }
     }
-
 
     /**
      * Asynchronous task checking if there is space enough to copy all the files chosen
@@ -386,7 +404,6 @@ public class UploadFilesActivity extends FileActivity implements
             mCurrentDialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
         }
         
-        
         /**
          * Checks the available space
          * 
@@ -401,41 +418,36 @@ public class UploadFilesActivity extends FileActivity implements
                 File localFile = new File(localPath);
                 total += localFile.length();
             }
-            return (new Boolean(FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total));
+            return FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total;
         }
 
         /**
          * Updates the activity UI after the check of space is done.
-         * 
+         *
          * If there is not space enough. shows a new dialog to query the user if wants to move the
          * files instead of copy them.
-         * 
+         *
          * @param result        'True' when there is space enough to copy all the selected files.
          */
         @Override
         protected void onPostExecute(Boolean result) {
-            mCurrentDialog.dismiss();
-            mCurrentDialog = null;
+            if(mCurrentDialog != null) {
+                mCurrentDialog.dismiss();
+                mCurrentDialog = null;
+            }
             
             if (result) {
                 // return the list of selected files (success)
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
 
-                SharedPreferences.Editor appPreferencesEditor = PreferenceManager
-                        .getDefaultSharedPreferences(getApplicationContext()).edit();
-
-
                 if (mRadioBtnMoveFiles.isChecked()){
                     setResult(RESULT_OK_AND_MOVE, data);
-                    appPreferencesEditor.putInt("prefs_uploader_behaviour",
-                            FileUploader.LOCAL_BEHAVIOUR_MOVE);
+                    PreferenceManager.setUploaderBehaviour(getApplicationContext(), FileUploader.LOCAL_BEHAVIOUR_MOVE);
                 } else {
                     setResult(RESULT_OK, data);
-                    appPreferencesEditor.putInt("prefs_uploader_behaviour",
-                            FileUploader.LOCAL_BEHAVIOUR_COPY);
+                    PreferenceManager.setUploaderBehaviour(getApplicationContext(), FileUploader.LOCAL_BEHAVIOUR_COPY);
                 }
-                appPreferencesEditor.apply();
                 finish();
             } else {
                 // show a dialog to query the user if wants to move the selected files
@@ -464,19 +476,16 @@ public class UploadFilesActivity extends FileActivity implements
         }
     }
 
-
     @Override
     public void onNeutral(String callerTag) {
         Log_OC.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
     }
-
 
     @Override
     public void onCancel(String callerTag) {
         /// nothing to do; don't finish, let the user change the selection
         Log_OC.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
     }
-
 
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {

@@ -22,6 +22,7 @@ package com.owncloud.android.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
@@ -35,6 +36,7 @@ public abstract class PreferenceManager {
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
     private static final String AUTO_PREF__SORT_ORDER = "sort_order";
     private static final String AUTO_PREF__SORT_ASCENDING = "sort_ascending";
+    private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_UPLOAD_PATH_ACCOUNT = "instant_upload_path_account";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
@@ -135,6 +137,27 @@ public abstract class PreferenceManager {
      */
     public static void setSortAscending(Context context, boolean ascending) {
         saveBooleanPreference(context, AUTO_PREF__SORT_ASCENDING, ascending);
+    }
+
+    /**
+     * Gets the uploader behavior which the user has set last.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return uploader behavior     the uploader behavior
+     */
+    public static int getUploaderBehaviour(Context context) {
+        return getDefaultSharedPreferences(context)
+                .getInt(AUTO_PREF__UPLOADER_BEHAVIOR, FileUploader.LOCAL_BEHAVIOUR_COPY);
+    }
+
+    /**
+     * Saves the uploader behavior which the user has set last.
+     *
+     * @param context   Caller {@link Context}, used to access to shared preferences manager.
+     * @param uploaderBehaviour the uploader behavior
+     */
+    public static void setUploaderBehaviour(Context context, int uploaderBehaviour) {
+        saveIntPreference(context, AUTO_PREF__UPLOADER_BEHAVIOR, uploaderBehaviour);
     }
 
     private static void saveBooleanPreference(Context context, String key, boolean value) {

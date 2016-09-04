@@ -27,18 +27,16 @@
             android:id="@+id/nav_all_files"
             android:icon="@drawable/ic_folder_open"
             android:title="@string/drawer_item_all_files"/>
-        <!-- TODO activate when On Device branch is merged
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_on_device"
-            android:icon="@drawable/ic_action_download_grey"
+            android:icon="@drawable/ic_action_available_offline"
             android:title="@string/drawer_item_on_device"/>
-         -->
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_uploads"
             android:icon="@drawable/ic_uploads"
-            android:title="Uploads"/>
+            android:title="@string/drawer_item_uploads_list"/>
     </group>
 
     <!--
@@ -68,5 +66,16 @@
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
             android:title="@string/actionbar_settings"/>
+    </group>
+
+    <!--
+      dummy group/element as a workaround to see
+      the whole menu in case of quota being displayed
+    -->
+    <group>
+        <item
+            android:enabled="false"
+            android:orderInCategory="200"
+            android:title=""/>
     </group>
 </menu>

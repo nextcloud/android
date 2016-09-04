@@ -17,14 +17,8 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Nyeste - Eldste</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Alle filer</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
     <string name="drawer_item_settings">Innstillinger</string>
     <string name="drawer_item_uploads_list">Opplastinger</string>
 	<string name="drawer_close">Lukk</string>
@@ -224,7 +218,6 @@
     
     <string name="common_rename">Endre navn</string>
     <string name="common_remove">Fjern</string>
-    <string name="confirmation_remove_alert">Vil du virkelig fjerne %1$s?</string>
     <string name="confirmation_remove_folder_alert">Vil du virkelig fjerne %1$s inkludert innholdet?</string>
     <string name="confirmation_remove_local">Kun lokalt</string>
     <string name="remove_success_msg">Fjerning var vellykket</string>
@@ -296,7 +289,6 @@
     <string name="preview_image_error_unknown_format">Dette bildet kan ikke vises</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til lokal mappe %2$s</string>
-    <string name="prefs_instant_upload_path_title">Opplastings-sti</string>
     <string name="share_link_no_support_share_api">Beklager, deling er ikke skrudd på for din tjener. Ta kontakt med
 		administratoren.</string>
 	<string name="share_link_file_no_exist">Kan ikke dele. Sjekk om filen eksisterer.</string>
@@ -362,8 +354,7 @@
     <string name="prefs_category_instant_uploading">Umiddelbare opplastinger</string>
     <string name="prefs_category_details">Detaljer</string>
 
-	<string name="prefs_instant_video_upload_path_title">Sti til video-opplasting</string>
-    <string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke fullføres</string>
+	<string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke fullføres</string>
 
 	<string name="shared_subject_header">delte</string>
 	<string name="with_you_subject_header">med deg</string>

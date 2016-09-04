@@ -48,10 +48,12 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -67,6 +69,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
+import java.io.File;
 import java.util.AbstractList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -907,7 +910,10 @@ public class FileUploader extends Service
                 }   // else, reuse storage manager from previous operation
 
                 // always get client from client manager, to get fresh credentials in case of update
-                OwnCloudAccount ocAccount = new OwnCloudAccount(mCurrentAccount, this);
+                OwnCloudAccount ocAccount = new OwnCloudAccount(
+                        mCurrentAccount,
+                        this
+                );
                 mUploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                         getClientFor(ocAccount, this);
 
@@ -944,8 +950,16 @@ public class FileUploader extends Service
 
             }
 
-        }
+            // generate new Thumbnail
+            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                    new ThumbnailsCacheManager.ThumbnailGenerationTask(mStorageManager, mCurrentAccount);
 
+            Object[] params = new Object[2];
+            params[0] = new File(mCurrentUpload.getOriginalStoragePath());
+            params[1] = mCurrentUpload.getFile().getRemoteId();
+
+            task.execute(params);
+        }
     }
 
 

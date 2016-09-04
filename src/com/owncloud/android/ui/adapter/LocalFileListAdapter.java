@@ -27,35 +27,44 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Vector;
 
 /**
  * This Adapter populates a ListView with all files and directories contained
  * in a local directory
  */
-public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
+public class LocalFileListAdapter extends BaseAdapter implements FilterableListAdapter {
 
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
     private Context mContext;
     private File mDirectory;
     private File[] mFiles = null;
-    
+    private Vector<File> mFilesAll = new Vector<File>();
+
     public LocalFileListAdapter(File directory, Context context) {
         mContext = context;
+
+        // Read sorting order, default to sort by name ascending
+        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(context);
+        FileStorageUtils.mSortAscending =PreferenceManager.getSortAscending(context);
+
         swapDirectory(directory);
     }
 
@@ -99,7 +108,7 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflator.inflate(R.layout.list_item, null);
         }
-        if (mFiles != null && mFiles.length > position) {
+        if (mFiles != null && mFiles.length > position && mFiles[position] != null) {
             File file = mFiles[position];
             
             TextView fileName = (TextView) view.findViewById(R.id.Filename);
@@ -159,7 +168,11 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
                             if (thumbnail == null) {
-                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                if (BitmapUtils.isVideo(file)) {
+                                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                                } else {
+                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                }
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                         		new ThumbnailsCacheManager.AsyncThumbnailDrawable(
@@ -232,6 +245,41 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 }
             
             });
+
+            mFiles = FileStorageUtils.sortLocalFolder(mFiles);
+
+            mFilesAll.clear();
+
+            for (File mFile : mFiles) {
+                mFilesAll.add(mFile);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setSortOrder(Integer order, boolean ascending) {
+        PreferenceManager.setSortOrder(mContext, order);
+        PreferenceManager.setSortAscending(mContext, ascending);
+
+        FileStorageUtils.mSortOrder = order;
+        FileStorageUtils.mSortAscending = ascending;
+
+        mFiles = FileStorageUtils.sortLocalFolder(mFiles);
+        notifyDataSetChanged();
+    }
+
+    public void filter(String text){
+        if(text.isEmpty()){
+            mFiles = mFilesAll.toArray(new File[1]);
+        } else {
+            ArrayList<File> result = new ArrayList<>();
+            text = text.toLowerCase();
+            for (File file: mFilesAll) {
+                if (file.getName().toLowerCase().contains(text)) {
+                    result.add(file);
+                }
+            }
+            mFiles = result.toArray(new File[1]);
         }
         notifyDataSetChanged();
     }

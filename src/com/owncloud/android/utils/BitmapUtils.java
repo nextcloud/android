@@ -276,6 +276,19 @@ public class BitmapUtils {
     }
 
     /**
+     * Checks if file passed is a video
+     * @param file
+     * @return true/false
+     */
+    public static boolean isVideo(File file) {
+        Uri selectedUri = Uri.fromFile(file);
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
+        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+
+        return (mimeType != null && mimeType.startsWith("video/"));
+    }
+
+    /**
      * calculates the RGB value based on a given account name.
      *
      * @param accountName The account name

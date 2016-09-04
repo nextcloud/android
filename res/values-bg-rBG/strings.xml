@@ -17,14 +17,8 @@
     <string-array name="actionbar_sortby">
     	<item>А-Я</item>
     	<item>Нови - Стари</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Всички файлове</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Качено</string>
 	<string name="drawer_close">Затвори</string>
@@ -229,7 +223,6 @@
     
     <string name="common_rename">Преименуване</string>
     <string name="common_remove">Премахване</string>
-    <string name="confirmation_remove_alert">Наистина ли искате да изтриете %1$s ?</string>
     <string name="confirmation_remove_folder_alert">Наистина ли искате да премахнете %1$s и съдържанието му?</string>
     <string name="confirmation_remove_local">Само локално</string>
     <string name="remove_success_msg">Премахването успешно.</string>
@@ -300,7 +293,6 @@
     <string name="preview_image_error_unknown_format">Изображението не може да бъде показано</string>
 
     <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
-    <string name="prefs_instant_upload_path_title">Път за качване</string>
     <string name="share_link_no_support_share_api">За съжаление споделянето не е включено на сървъра ви. 
 Моля, свържете се с администратора.</string>
 	<string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, провери дали файла съществува.</string>

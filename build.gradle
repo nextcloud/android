@@ -7,21 +7,21 @@
 
 buildscript {
     repositories {
-        mavenCentral()
+        jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath 'com.android.tools.build:gradle:2.1.3'
     }
 }
 
 apply plugin: 'com.android.application'
 
 ext {
-    supportLibraryVersion = '23.1.1'
+    supportLibraryVersion = '23.4.0'
 }
 
 repositories {
-    mavenCentral()
+    jcenter()
     maven { url "https://jitpack.io" }
 
     flatDir {
@@ -33,7 +33,7 @@ dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
 
-    compile 'com.github.nextcloud:android-library:1.0.1'
+    compile 'com.github.nextcloud:android-library:1.0.6'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
@@ -53,6 +53,9 @@ dependencies {
 
     // Android JUnit Runner
     androidTestCompile 'com.android.support.test:runner:0.5'
+
+    // Android Annotation Support
+    androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
 
     // Espresso core
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'

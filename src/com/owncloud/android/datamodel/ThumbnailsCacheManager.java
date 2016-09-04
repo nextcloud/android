@@ -21,12 +21,22 @@
 
 package com.owncloud.android.datamodel;
 
+import java.io.File;
+import java.io.InputStream;
+import java.lang.ref.WeakReference;
+import java.net.FileNameMap;
+import java.net.URLConnection;
+
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.methods.GetMethod;
+
 import android.accounts.Account;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
@@ -55,6 +65,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * Manager for concurrent access to thumbnails cache.
@@ -78,6 +89,12 @@ public class ThumbnailsCacheManager {
             BitmapFactory.decodeResource(
                     MainApp.getAppContext().getResources(),
                     R.drawable.file_image
+            );
+
+    public static Bitmap mDefaultVideo =
+            BitmapFactory.decodeResource(
+                    MainApp.getAppContext().getResources(),
+                    R.drawable.file_movie
             );
 
     
@@ -146,6 +163,7 @@ public class ThumbnailsCacheManager {
         private final WeakReference<ImageView> mImageViewReference;
         private static Account mAccount;
         private Object mFile;
+        private String mImageKey = null;
         private FileDataStorageManager mStorageManager;
 
 
@@ -159,6 +177,14 @@ public class ThumbnailsCacheManager {
             mAccount = account;
         }
 
+        public ThumbnailGenerationTask(FileDataStorageManager storageManager, Account account){
+            if (storageManager == null)
+                throw new IllegalArgumentException("storageManager must not be NULL");
+            mStorageManager = storageManager;
+            mAccount = account;
+            mImageViewReference = null;
+        }
+
         public ThumbnailGenerationTask(ImageView imageView) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<ImageView>(imageView);
@@ -170,18 +196,34 @@ public class ThumbnailsCacheManager {
 
             try {
                 if (mAccount != null) {
-                    OwnCloudAccount ocAccount = new OwnCloudAccount(mAccount,
-                            MainApp.getAppContext());
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(
+                            mAccount,
+                            MainApp.getAppContext()
+                    );
                     mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                 }
 
                 mFile = params[0];
+                if (params.length == 2){
+                    mImageKey = (String) params[1];
+                }
                 
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground();
+
+                    if (((OCFile) mFile).isVideo() && thumbnail != null){
+                        thumbnail = addVideoOverlay(thumbnail);
+                    }
                 }  else if (mFile instanceof File) {
                     thumbnail = doFileInBackground();
+
+                    String url = ((File) mFile).getAbsolutePath();
+                    String mMimeType = FileStorageUtils.getMimeTypeFromName(url);
+
+                    if (mMimeType != null && mMimeType.startsWith("video/") && thumbnail != null){
+                        thumbnail = addVideoOverlay(thumbnail);
+                    }
                 //} else {  do nothing
                 }
 
@@ -197,7 +239,7 @@ public class ThumbnailsCacheManager {
         }
 
         protected void onPostExecute(Bitmap bitmap){
-            if (bitmap != null) {
+            if (bitmap != null && mImageViewReference != null) {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
                 if (this == bitmapWorkerTask) {
@@ -328,7 +370,12 @@ public class ThumbnailsCacheManager {
         private Bitmap doFileInBackground() {
             File file = (File)mFile;
 
-            final String imageKey = String.valueOf(file.hashCode());
+            final String imageKey;
+            if (mImageKey != null) {
+                imageKey = mImageKey;
+            } else {
+                imageKey = String.valueOf(file.hashCode());
+            }
 
             // Check disk cache in background thread
             Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
@@ -565,6 +612,51 @@ public class ThumbnailsCacheManager {
             }
         }
         return null;
+    }
+
+    public static Bitmap addVideoOverlay(Bitmap thumbnail){
+        Bitmap playButton = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
+                R.drawable.view_play);
+
+        Bitmap resizedPlayButton = Bitmap.createScaledBitmap(playButton,
+                (int) (thumbnail.getWidth() * 0.3),
+                (int) (thumbnail.getHeight() * 0.3), true);
+
+        Bitmap resultBitmap = Bitmap.createBitmap(thumbnail.getWidth(),
+                thumbnail.getHeight(),
+                Bitmap.Config.ARGB_8888);
+
+        Canvas c = new Canvas(resultBitmap);
+
+        // compute visual center of play button, according to resized image
+        int x1 = resizedPlayButton.getWidth();
+        int y1 = resizedPlayButton.getHeight() / 2;
+        int x2 = 0;
+        int y2 = resizedPlayButton.getWidth();
+        int x3 = 0;
+        int y3 = 0;
+
+        double ym = ( ((Math.pow(x3,2) - Math.pow(x1,2) + Math.pow(y3,2) - Math.pow(y1,2)) *
+                (x2 - x1)) - (Math.pow(x2,2) - Math.pow(x1,2) + Math.pow(y2,2) -
+                Math.pow(y1,2)) * (x3 - x1) )  /  (2 * ( ((y3 - y1) * (x2 - x1)) -
+                ((y2 - y1) * (x3 - x1)) ));
+        double xm = ( (Math.pow(x2,2) - Math.pow(x1,2)) + (Math.pow(y2,2) - Math.pow(y1,2)) -
+                (2*ym*(y2 - y1)) ) / (2*(x2 - x1));
+
+        // offset to top left
+        double ox = - xm;
+        double oy = thumbnail.getHeight() - ym;
+
+
+        c.drawBitmap(thumbnail, 0, 0, null);
+
+        Paint p = new Paint();
+        p.setAlpha(230);
+
+        c.drawBitmap(resizedPlayButton, (float) ((thumbnail.getWidth() / 2) + ox),
+                (float) ((thumbnail.getHeight() / 2) - ym), p);
+
+        return resultBitmap;
     }
 
     public static AvatarGenerationTask getAvatarWorkerTask(Object callContext) {

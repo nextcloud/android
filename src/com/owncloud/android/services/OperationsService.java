@@ -71,6 +71,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 
 import java.io.IOException;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ConcurrentMap;
@@ -365,7 +366,7 @@ public class OperationsService extends Service {
             if (undispatched != null) {
                 listener.onRemoteOperationFinish(undispatched.first, undispatched.second);
                 return true;
-                //Log_OC.wtf(TAG, "Sending callback later");
+                //Log_OC.e(TAG, "Sending callback later");
             } else {
                 return (!mServiceHandler.mPendingOperations.isEmpty());
             }
@@ -380,11 +381,11 @@ public class OperationsService extends Service {
          * or waiting to download.
          * 
          * @param account       ownCloud account where the remote file is stored.
-         * @param remotePath    Path of the folder to check if something is synchronizing
+         * @param file          File to check if something is synchronizing
          *                      / downloading / uploading inside.
          */
-        public boolean isSynchronizing(Account account, String remotePath) {
-            return mSyncFolderHandler.isSynchronizing(account, remotePath);
+        public boolean isSynchronizing(Account account, OCFile file) {
+            return mSyncFolderHandler.isSynchronizing(account, file.getRemotePath());
         }
 
     }
@@ -432,7 +433,7 @@ public class OperationsService extends Service {
          */
         private void nextOperation() {
             
-            //Log_OC.wtf(TAG, "nextOperation init" );
+            //Log_OC.e(TAG, "nextOperation init" );
             
             Pair<Target, RemoteOperation> next = null;
             synchronized(mPendingOperations) {
@@ -448,8 +449,7 @@ public class OperationsService extends Service {
                     if (mLastTarget == null || !mLastTarget.equals(next.first)) {
                         mLastTarget = next.first;
                         if (mLastTarget.mAccount != null) {
-                            OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount,
-                                    mService);
+                            OwnCloudAccount ocAccount = new OwnCloudAccount(mLastTarget.mAccount, mService);
                             mOwnCloudClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                                     getClientFor(ocAccount, mService);
 

@@ -17,14 +17,8 @@
     <string-array name="actionbar_sortby">
     	<item>A-Z</item>
     	<item>Më e reja - Më e vjetra</item>
-    	<!-- TODO re-enable when server-side folder size calculation is available   
-    	<item>Biggest - Smallest</item>  -->
     </string-array>
-    <!-- TODO re-enable when "Accounts" is available in Navigation Drawer -->
-    <!--<string name="drawer_item_accounts">Accounts</string>-->
     <string name="drawer_item_all_files">Krejt kartelat</string>
-    <!-- TODO re-enable when "On Device" is available
-    <string name="drawer_item_on_device">On device</string>-->
     <string name="drawer_item_settings">Llogari</string>
     <string name="drawer_item_uploads_list">Ngarkime</string>
 	<string name="drawer_close">Mbylle</string>
@@ -233,7 +227,6 @@
     <string name="unfavorite">Hiqeni si të passhëm jo në linjë</string>
     <string name="common_rename">Riemërtojeni</string>
     <string name="common_remove">Hiqe</string>
-    <string name="confirmation_remove_alert">Doni vërtet të hiqet %1$s?</string>
     <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe lënda e tij?</string>
     <string name="confirmation_remove_local">Vetëm vendorja</string>
     <string name="remove_success_msg">Heqja doli me sukses</string>
@@ -305,7 +298,6 @@
     <string name="preview_image_error_unknown_format">Kjo figurë nuk mund të shfaqet</string>
 
     <string name="error__upload__local_file_not_copied">%1$s s\’u kopjua dot te dosja vendore %2$s</string>
-    <string name="prefs_instant_upload_path_title">Shteg ngarkimesh</string>
     <string name="share_link_no_support_share_api">Na ndjeni, ndarja me të tjerët s\’është e aktivizuar te shërbyesi juaj. Ju lutemi, lidhuni me përgjegjësin tuaj.</string>
 	<string name="share_link_file_no_exist">S\’arrin të ndajë me të tjerët. Ju lutemi, kontrolloni nëse kartela ekziston apo jo</string>
 	<string name="share_link_file_error">Ndodhi një gabim teksa përpiqej të ndahej me të tjerët kjo kartelë apo dosje</string>
@@ -374,8 +366,7 @@
     <string name="prefs_category_instant_uploading">Ngarkime të atypëratyshme</string>
     <string name="prefs_category_details">Hollësi</string>
 
-	<string name="prefs_instant_video_upload_path_title">Shteg ngarkimi videosh</string>
-    <string name="sync_folder_failed_content">Njëkohësimi i dosjes %1$s s’u plotësua dot</string>
+	<string name="sync_folder_failed_content">Njëkohësimi i dosjes %1$s s’u plotësua dot</string>
 
 	<string name="shared_subject_header">ndarë</string>
 	<string name="with_you_subject_header">me ju</string>
@@ -450,5 +441,4 @@
 
     <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>
     <string name="local_file_not_found_toast">Kartela s’u gjet te sistemi vendor i kartelave</string>
-
-</resources>
+    </resources>
