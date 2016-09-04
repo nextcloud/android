@@ -19,9 +19,11 @@
     	<item>Νεότερο - Παλαιότερο</item>
     </string-array>
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
+    <string name="drawer_item_on_device">Στην συσκευή</string>
     <string name="drawer_item_settings">Ρυθμίσεις</string>
     <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
-    <string name="drawer_close">Κλείσιμο</string>
+    <string name="drawer_quota">%1$s από %2$s χρησιμοποιούνται</string>
+	<string name="drawer_close">Κλείσιμο</string>
     <string name="drawer_open">Άνοιγμα</string>
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
@@ -55,6 +57,7 @@
     <string name="sync_string_files">Αρχεία</string>
     <string name="setup_btn_connect">Σύνδεση</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Δημιουργία αρχείου κειμένου</string>
     <string name="uploader_wrn_no_account_title">Δεν βρέθηκε λογαριασμός</string>
     <string name="uploader_wrn_no_account_text">Δεν υπάρχουν λογαριασμοί %1$s στη συσκευή σας. Παρακαλώ ρυθμίστε πρώτα ένα λογαριασμό.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Ρύθμιση</string>

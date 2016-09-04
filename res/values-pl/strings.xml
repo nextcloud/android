@@ -57,6 +57,7 @@
     <string name="sync_string_files">Pliki</string>
     <string name="setup_btn_connect">Połącz</string>
     <string name="uploader_btn_upload_text">Wyślij</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Utwórz plik tekstowy</string>
     <string name="uploader_top_message">Wybierz folder do wgrywania plików</string>
     <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
     <string name="uploader_wrn_no_account_text">Brak kont %1$s na Twoim urządzeniu. Załóż konto.</string>
@@ -231,6 +232,7 @@
     <string name="unfavorite">Wyłącz udostępnianie w trybie offline</string>
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_remove">Usuń</string>
+    <string name="confirmation_remove_file_alert">Czy naprawdę chcesz usunąć %1$s?</string>
     <string name="confirmation_remove_folder_alert">Czy naprawdę chcesz usunąć %1$s i jego zawartość?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="remove_success_msg">Usunięto</string>
@@ -452,4 +454,5 @@
 
     <string name="permission_storage_access">Dodatkowe uprawnienia do wysyłania i ściągania plików.</string>
     <string name="local_file_not_found_toast">Plik nie został znaleziony w lokalnym systemie plików</string>
+    <string name="actionbar_search">Wyszukaj</string>
     </resources>
