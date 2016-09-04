@@ -1,4 +1,8 @@
-## 2016-09-05
+## 2016-09-04
+- descend into folder after creating it in uploader #206
+- Motivate more users #239
+
+## 2016-09-03
 - Display quota if configured/available in navigation drawer #204
 - bugfix for empty folder display #229
 - Update Toolchain/Android-Target to v24 #214
