@@ -21,7 +21,7 @@
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
     <string name="drawer_item_settings">Ρυθμίσεις</string>
     <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
-	<string name="drawer_close">Κλείσιμο</string>
+    <string name="drawer_close">Κλείσιμο</string>
     <string name="drawer_open">Άνοιγμα</string>
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>

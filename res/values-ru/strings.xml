@@ -23,7 +23,7 @@
     <string name="drawer_item_on_device">На устройстве</string>
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Загрузки</string>
-	<string name="drawer_close">Закрыть</string>
+    <string name="drawer_close">Закрыть</string>
     <string name="drawer_open">Открыть</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
