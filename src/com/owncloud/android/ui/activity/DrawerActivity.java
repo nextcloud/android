@@ -557,8 +557,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         mQuotaTextView.setText(String.format(
                 getString(R.string.drawer_quota),
-                DisplayUtils.quotaBytesToHumanReadable(usedSpace),
-                DisplayUtils.quotaBytesToHumanReadable(totalSpace)));
+                DisplayUtils.bytesToHumanReadable(usedSpace),
+                DisplayUtils.bytesToHumanReadable(totalSpace)));
 
         showQuota(true);
     }
