@@ -34,7 +34,8 @@ public enum UploadResult {
     CANCELLED(7),
     FILE_NOT_FOUND(8),
     DELAYED_FOR_WIFI(9),
-    SERVICE_INTERRUPTED(10);
+    SERVICE_INTERRUPTED(10),
+    DELAYED_FOR_CHARGING(11);
 
     private final int value;
 
@@ -71,6 +72,8 @@ public enum UploadResult {
                 return DELAYED_FOR_WIFI;
             case 10:
                 return SERVICE_INTERRUPTED;
+            case 11:
+                return DELAYED_FOR_CHARGING;
         }
         return null;
     }
@@ -105,6 +108,8 @@ public enum UploadResult {
                 return CANCELLED;
             case DELAYED_FOR_WIFI:
                 return DELAYED_FOR_WIFI;
+            case DELAYED_FOR_CHARGING:
+                return DELAYED_FOR_CHARGING;
             case UNKNOWN_ERROR:
                 if (result.getException() instanceof java.io.FileNotFoundException) {
                     return FILE_ERROR;
