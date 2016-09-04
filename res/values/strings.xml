@@ -469,7 +469,7 @@
     <string name="participate_release_candidate">&lt;b>Release candidate&lt;/b>&lt;br>A release candidate is a snapshot of the upcoming release. It is expected to be stable and has no bugs.&lt;br>To ensure this, we need your help testing it on a vary of server versions/settings.&lt;br>Get it&lt;br>&lt;a href="%1$s">via Play Store&lt;/a> (Sign up for testing)&lt;br>&lt;a href="%2$s">via F-Droid&lt;/a> (Manually look in the \"versions\" section.)</string>
     <string name="participate_participate">&lt;b>Participate&lt;/b>&lt;br>Report issues on &lt;a href="https://github.com/nextcloud/android/issues">Github&lt;/a>&lt;br>Join the chat on IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a>&lt;br>Help others on the &lt;a href="%2$s">forum&lt;/a></string>
     <string name="participate_contribute">&lt;b>Contribute as a developer&lt;/b>&lt;br>Everybody is welcome to help us build this app. Just have a look at the open issues, read &lt;a href="%1$s">Contributing.md&lt;/a> or talk to us at &lt;a href="%2$s">#nextcloud-mobile&lt;/a> on IRC about what can be enhanced.</string>
-    <string name="participate_header"><b>Help us testing</b><br/>We offer two different previews of the upcoming version:</string>
+    <string name="participate_header"><b>Help us testing</b>\nWe offer two different previews of the upcoming version:</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"
