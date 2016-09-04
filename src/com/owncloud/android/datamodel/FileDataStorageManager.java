@@ -483,9 +483,8 @@ public class FileDataStorageManager {
                     }
                 }
             }
-        } else {
-            success = false;
         }
+
         return success;
     }
 
@@ -500,6 +499,7 @@ public class FileDataStorageManager {
                 success = removeLocalFolder(folder);
             }
         }
+
         return success;
     }
 
