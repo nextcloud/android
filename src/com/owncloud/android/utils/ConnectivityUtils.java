@@ -24,8 +24,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.BatteryManager;
 import android.support.v4.net.ConnectivityManagerCompat;
+import android.os.BatteryManager;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
