@@ -54,7 +54,6 @@ import android.widget.Toast;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
@@ -74,8 +73,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * An Activity that allows the user to change the application's settings.
  *
- * It proxies the necessary calls via {@link android.support.v7.app.AppCompatDelegate} to be used
- * with AppCompat.
+ * It proxies the necessary calls via {@link android.support.v7.app.AppCompatDelegate} to be used with AppCompat.
  */
 public class Preferences extends PreferenceActivity
         implements StorageMigration.StorageMigrationProgressListener {
@@ -193,6 +191,7 @@ public class Preferences extends PreferenceActivity
             });
         }
 
+
         PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(MORE);
 
         final Preference pCacheSize = findPreference("pref_cache_size");
@@ -254,8 +253,7 @@ public class Preferences extends PreferenceActivity
                         String downloadUrl = getString(R.string.url_app_download);
 
                         String recommendSubject =
-                                String.format(getString(R.string.recommend_subject),
-                                appName);
+                                String.format(getString(R.string.recommend_subject), appName);
                         String recommendText = String.format(getString(R.string.recommend_text),
                                 appName, downloadUrl);
 
@@ -279,8 +277,8 @@ public class Preferences extends PreferenceActivity
                 pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String feedbackMail   =(String) getText(R.string.mail_feedback);
-                        String feedback   =(String) getText(R.string.prefs_feedback) +
+                        String feedbackMail   = (String) getText(R.string.mail_feedback);
+                        String feedback   = getText(R.string.prefs_feedback) +
                                 " - android v" + appVersion;
                         Intent intent = new Intent(Intent.ACTION_SENDTO); 
                         intent.setType("text/plain");
