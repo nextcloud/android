@@ -1030,7 +1030,8 @@ public class FileUploader extends Service
 
         // Show the result: success or fail notification
         if (!uploadResult.isCancelled() &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI)) {
+            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
+            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING)) {
 
             int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker :
                     R.string.uploader_upload_failed_ticker;
