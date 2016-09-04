@@ -22,7 +22,6 @@ package com.owncloud.android.ui.fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -40,13 +39,13 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
@@ -75,7 +74,7 @@ public class ExtendedListFragment extends Fragment
 
     private ScaleGestureDetector mScaleGestureDetector = null;
     protected SwipeRefreshLayout mRefreshListLayout;
-    private SwipeRefreshLayout mRefreshGridLayout;
+    protected SwipeRefreshLayout mRefreshGridLayout;
     protected SwipeRefreshLayout mRefreshEmptyLayout;
     protected TextView mEmptyListMessage;
 
@@ -189,6 +188,7 @@ public class ExtendedListFragment extends Fragment
         mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
+//        gestureDetector = new GestureDetector(MainApp.getAppContext(), new SingleTapConfirm());
 
         mGridView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -197,6 +197,17 @@ public class ExtendedListFragment extends Fragment
                 return false;
             }
         });
+
+        if (savedInstanceState != null) {
+            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
+            if (mCurrentListView == mListView) {
+                Log_OC.v(TAG, "Setting and centering around list position " + referencePosition);
+                mListView.setAndCenterSelection(referencePosition);
+            } else {
+                Log_OC.v(TAG, "Setting grid position " + referencePosition);
+                mGridView.setSelection(referencePosition);
+            }
+        }
 
         // Pull-down to refresh layout
         mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
@@ -279,9 +290,7 @@ public class ExtendedListFragment extends Fragment
             mHeightCell = 0;
         }
 
-        SharedPreferences appPreferences = PreferenceManager
-                .getDefaultSharedPreferences(getContext());
-        mScale = appPreferences.getFloat(GRID_COLUMNS, -1.0f);
+        mScale = PreferenceManager.getGridColumns(getContext());
     }
     
     
@@ -297,9 +306,7 @@ public class ExtendedListFragment extends Fragment
         savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
 
-        SharedPreferences.Editor editor = PreferenceManager
-                .getDefaultSharedPreferences(getContext()).edit();
-        editor.putFloat(GRID_COLUMNS, mScale).apply();
+        PreferenceManager.setGridColumns(getContext(), mScale);
     }
 
     /**
