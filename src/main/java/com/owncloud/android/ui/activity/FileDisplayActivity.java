@@ -110,6 +110,8 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
+import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
+import com.owncloud.android.ui.dialog.UploadSourceDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -199,6 +201,9 @@ public class FileDisplayActivity extends HookActivity
     private OCFile mWaitingToPreview;
 
     private boolean mSyncInProgress;
+
+    private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
+    private static String DIALOG_UPLOAD_SOURCE = "DIALOG_UPLOAD_SOURCE";
 
     private OCFile mWaitingToSend;
 
@@ -413,25 +418,7 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    @Override
-    protected void onStart() {
-        Log_OC.v(TAG, "onStart() start");
-        super.onStart();
 
-        // Widget Actions
-        if (mUploadFromWidget) {
-            UploadSourceDialogFragment dialog =
-                    UploadSourceDialogFragment.newInstance(getAccount());
-            dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
-        }
-        if (mNewFromWidget) {
-            CreateFolderDialogFragment dialog =
-                    CreateFolderDialogFragment.newInstance(getCurrentDir());
-            dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
-        }
-
-        Log_OC.v(TAG, "onStart() end");
-    }
 
     @Override
     protected void onStop() {
@@ -2569,13 +2556,27 @@ public class FileDisplayActivity extends HookActivity
     }
 
     @Override
-    public void onStart() {
+    protected void onStart() {
+        Log_OC.v(TAG, "onStart() start");
         super.onStart();
         EventBus.getDefault().post(new TokenPushEvent());
 
         checkForNewDevVersionNecessary(findViewById(R.id.root_layout), getApplicationContext());
-    }
 
+        // Widget Actions
+        if (mUploadFromWidget) {
+            UploadSourceDialogFragment dialog =
+                    UploadSourceDialogFragment.newInstance(getAccount());
+            dialog.show(getSupportFragmentManager(), DIALOG_UPLOAD_SOURCE);
+        }
+        if (mNewFromWidget) {
+            CreateFolderDialogFragment dialog =
+                    CreateFolderDialogFragment.newInstance(getCurrentDir());
+            dialog.show(getSupportFragmentManager(), DIALOG_CREATE_FOLDER);
+        }
+
+        Log_OC.v(TAG, "onStart() end");
+    }
     @Override
     protected void onRestart() {
         super.onRestart();
