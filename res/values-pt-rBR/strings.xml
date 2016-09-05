@@ -23,7 +23,8 @@
     <string name="drawer_item_on_device">No aparelho</string>
     <string name="drawer_item_settings">Configurações</string>
     <string name="drawer_item_uploads_list">Envios</string>
-    <string name="drawer_close">Fechar</string>
+    <string name="drawer_quota">%1$s de %2$s usados</string>
+	<string name="drawer_close">Fechar</string>
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
@@ -57,6 +58,7 @@
     <string name="sync_string_files">Arquivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Enviar</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Criar arquivo texto</string>
     <string name="uploader_top_message">Escolher pasta para envio</string>
     <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
     <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu aparelho. Por favor, configure uma conta primeiro.</string>
@@ -102,6 +104,7 @@
     <string name="common_loading">Carregando ...</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>
+    <string name="common_pending">Pendente</string>
     <string name="about_title">Sobre</string>
     <string name="change_password">Alterar senha</string>
     <string name="delete_account">Remover conta</string>

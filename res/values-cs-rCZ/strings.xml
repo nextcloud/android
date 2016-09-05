@@ -104,6 +104,7 @@
     <string name="common_loading">Načítání ...</string>
     <string name="common_unknown">neznámý</string>
     <string name="common_error_unknown">Neznámá chyba</string>
+    <string name="common_pending">Čekající</string>
     <string name="about_title">O aplikaci</string>
     <string name="change_password">Změnit heslo</string>
     <string name="delete_account">Odebrat účet</string>
