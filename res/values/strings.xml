@@ -465,6 +465,8 @@
     <string name="confirmation_remove_folders_alert">Do you really want to remove the selected items and their contents?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Waiting for device charging</string>
     <string name="actionbar_search">Search</string>
+    <string name="files_drop_not_supported">This is a Nextcloud feature, please update.</string>
+    <string name="learn_more">Learn more</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"
