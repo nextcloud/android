@@ -58,6 +58,7 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue.
 
 # Contributing to Source Code
 Thanks for wanting to contribute source code to Nextcloud. That's great!
+
 New contributions are addded under AGPL version 3.
 
 ## Developing process
