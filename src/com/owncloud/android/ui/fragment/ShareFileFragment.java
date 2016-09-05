@@ -23,8 +23,11 @@ package com.owncloud.android.ui.fragment;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.SwitchCompat;
@@ -548,12 +551,25 @@ public class ShareFileFragment extends Fragment
                 return;
             }
 
-            ((FileActivity) getActivity()).getFileOperationsHelper().
-                    setHideFileListingPermissionsToShare(
-                            mPublicShare,
-                            isChecked
-                    );
-            ;
+            if (mCapabilities.getFilesFileDrop().isTrue()) {
+                ((FileActivity) getActivity()).getFileOperationsHelper().
+                        setHideFileListingPermissionsToShare(
+                                mPublicShare,
+                                isChecked
+                        );
+            } else {
+                // not supported in ownCloud
+                Snackbar.make(getView(), R.string.files_drop_not_supported, Snackbar.LENGTH_LONG)
+                        .setAction(R.string.learn_more, new View.OnClickListener(){
+                            @Override
+                            public void onClick(View v) {
+                                Intent i = new Intent(Intent.ACTION_VIEW);
+                                i.setData(Uri.parse(getString(R.string.url_server_install)));
+                                startActivity(i);
+                            }
+                        })
+                        .show();
+            }
 
             // undo the toggle to grant the view will be correct if the dialog is cancelled
             switchView.setOnCheckedChangeListener(null);

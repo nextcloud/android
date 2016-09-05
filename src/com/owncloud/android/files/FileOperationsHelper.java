@@ -408,10 +408,10 @@ public class FileOperationsHelper {
         int permission = share.getPermissions();
         share.setPermissions(permission);
 
-        if(!hideFileListing) {
-            permission |= OCShare.READ_PERMISSION_FLAG;
+        if(hideFileListing) {
+            permission = OCShare.CREATE_PERMISSION_FLAG;
         } else {
-            permission &= ~OCShare.READ_PERMISSION_FLAG;
+            permission = OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER;
         }
 
         updateShareIntent.putExtra(
