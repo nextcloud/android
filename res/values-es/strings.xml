@@ -23,7 +23,8 @@
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_settings">Ajustes</string>
     <string name="drawer_item_uploads_list">Subidas</string>
-    <string name="drawer_close">Cerrar</string>
+    <string name="drawer_quota">%1$s de %2$s utilizado</string>
+	<string name="drawer_close">Cerrar</string>
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
@@ -103,6 +104,7 @@
     <string name="common_loading">Cargando...</string>
     <string name="common_unknown">desconocido</string>
     <string name="common_error_unknown">Error desconocido</string>
+    <string name="common_pending">Pendiente</string>
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>

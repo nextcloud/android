@@ -23,7 +23,8 @@
     <string name="drawer_item_on_device">Op het apparaat</string>
     <string name="drawer_item_settings">Instellingen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
-    <string name="drawer_close">Sluiten</string>
+    <string name="drawer_quota">%1$s van %2$s gebruikt</string>
+	<string name="drawer_close">Sluiten</string>
     <string name="drawer_open">Open</string>
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
@@ -104,6 +105,7 @@ Download hier: %2$s</string>
     <string name="common_loading">Laden...</string>
     <string name="common_unknown">onbekend</string>
     <string name="common_error_unknown">Onbekende fout</string>
+    <string name="common_pending">In behandeling</string>
     <string name="about_title">Over</string>
     <string name="change_password">Wijzig wachtwoord</string>
     <string name="delete_account">Verwijder account</string>

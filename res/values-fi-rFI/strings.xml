@@ -19,6 +19,7 @@
     	<item>Uusimmasta vanhimpaan</item>
     </string-array>
     <string name="drawer_item_all_files">Kaikki tiedostot</string>
+    <string name="drawer_item_on_device">Laitteessa</string>
     <string name="drawer_item_settings">Asetukset</string>
     <string name="drawer_item_uploads_list">Lataukset</string>
     <string name="drawer_close">Sulje</string>
@@ -55,11 +56,17 @@
     <string name="sync_string_files">Tiedostot</string>
     <string name="setup_btn_connect">Yhdistä</string>
     <string name="uploader_btn_upload_text">Lähetä</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Luo tekstitiedosto</string>
+    <string name="uploader_top_message">Valitse lähetyskansio</string>
     <string name="uploader_wrn_no_account_title">Tiliä ei löytynyt</string>
     <string name="uploader_wrn_no_account_text">Laitteellasi ei ole %1$s-tilejä. Määritä tilin asetukset ensin.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Asetukset</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Lopeta</string>
+    <string name="uploader_error_title_no_file_to_upload">Ei lähetettävää tiedostoa</string>
+    <string name="uploader_error_message_received_piece_of_text">%1$s ei voi lähettää tekstiotetta tiedostona.</string>
     <string name="uploader_error_message_no_file_to_upload">Vastaanotettu data ei sisällä yhtäkään kelvollista tiedostoa.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Tiedostoa ei voi lähettää</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s ei saa lukea vastaanotettua tiedostoa</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
     <string name="file_list_empty">Täällä ei ole mitään. Lähetä tänne jotakin!</string>
     <string name="file_list_loading">Ladataan…</string>
@@ -82,6 +89,7 @@
     <string name="common_yes">Kyllä</string>
     <string name="common_no">Ei</string>
     <string name="common_ok">OK</string>
+    <string name="common_retry_upload">Yritä lähettää uudelleen</string>
     <string name="common_cancel_sync">Peru synkronointi</string>
     <string name="common_cancel">Peru</string>
     <string name="common_back">Takaisin</string>
@@ -90,6 +98,7 @@
     <string name="common_loading">Ladataan…</string>
     <string name="common_unknown">tuntematon</string>
     <string name="common_error_unknown">Tuntematon virhe</string>
+    <string name="common_pending">Odottaa</string>
     <string name="about_title">Tietoja</string>
     <string name="change_password">Vaihda salasana</string>
     <string name="delete_account">Poista tili</string>
@@ -116,6 +125,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Paikallista tiedostoa ei löydy</string>
     <string name="uploads_view_upload_status_failed_permission_error">Oikeusvirhe</string>
     <string name="uploads_view_upload_status_conflict">Ristiriita</string>
+    <string name="uploads_view_upload_status_service_interrupted">Sovellus suljettiin</string>
     <string name="uploads_view_upload_status_unknown_fail">Tuntematon virhe</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Odotetaan wifi-yhteyttä</string>
     <string name="uploads_view_later_waiting_to_upload">Odottaa siirtoa</string>

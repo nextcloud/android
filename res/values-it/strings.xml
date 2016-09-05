@@ -104,6 +104,7 @@
     <string name="common_loading">Caricamento in corso...</string>
     <string name="common_unknown">sconosciuto</string>
     <string name="common_error_unknown">Errore sconosciuto</string>
+    <string name="common_pending">In corso</string>
     <string name="about_title">Informazioni</string>
     <string name="change_password">Modifica la password</string>
     <string name="delete_account">Rimuovi account</string>
