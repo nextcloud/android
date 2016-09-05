@@ -32,3 +32,5 @@ Easy starting points are also reviewing [pull requests](https://github.com/nextc
 **Beta version** [beta version](https://github.com/nextcloud/android/raw/beta/apks/latest.apk)
 
 **License:** [GPLv2](https://github.com/nextcloud/android/blob/master/LICENSE.txt)
+
+New contributions are addded under [AGPLv3](https://www.gnu.org/licenses/agpl.txt).
