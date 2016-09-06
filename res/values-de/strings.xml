@@ -295,6 +295,8 @@
 
     <string name="instant_upload_on_wifi">Bilder nur über Wifi hochladen</string>
     <string name="instant_video_upload_on_wifi">Videos nur über Wifi hochladen</string>
+    <string name="instant_video_upload_on_charging">Hochladen nur während des Ladens</string>
+    <string name="instant_upload_on_charging">Hochladen nur während des Ladens</string>
     <string name="instant_upload_path">/SofortUpload</string>
     <string name="conflict_title">Dateikonfilikt</string>
     <string name="conflict_message">Welche Datei soll behalten werden? Wenn du beide Versionen wählst, wird der lokalen Datei eine Zahl am Ende des Dateinamens angefügt.</string>
@@ -460,6 +462,7 @@
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Willst Du die ausgewählten Einträge wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Willst Du die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des gerätes</string>
     <string name="actionbar_search">Suche</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
