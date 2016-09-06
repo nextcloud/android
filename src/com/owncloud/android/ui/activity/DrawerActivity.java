@@ -272,6 +272,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                                         Preferences.class);
                                 startActivity(settingsIntent);
                                 break;
+                            case R.id.nav_participate:
+                                Intent participateIntent = new Intent(getApplicationContext(),
+                                        ParticipateActivity.class);
+                                startActivity(participateIntent);
+                                break;
                             case R.id.drawer_menu_account_add:
                                 createAccount();
                                 break;
@@ -427,16 +432,19 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // add all accounts to list
         for (int i = 0; i < accounts.length; i++) {
             try {
-                MenuItem accountMenuItem = mNavigationView.getMenu().add(
-                        R.id.drawer_menu_accounts,
-                        Menu.NONE,
-                        MENU_ORDER_ACCOUNT,
-                        accounts[i].name)
-                        .setIcon(TextDrawable.createAvatar(
-                                accounts[i].name,
-                                mMenuAccountAvatarRadiusDimension)
-                        );
-                DisplayUtils.setAvatar(accounts[i], this, mMenuAccountAvatarRadiusDimension, getResources(), getStorageManager(), accountMenuItem);
+                // show all accounts except the currently active one
+                if (!getAccount().name.equals(accounts[i].name)) {
+                    MenuItem accountMenuItem = mNavigationView.getMenu().add(
+                            R.id.drawer_menu_accounts,
+                            Menu.NONE,
+                            MENU_ORDER_ACCOUNT,
+                            accounts[i].name)
+                            .setIcon(TextDrawable.createAvatar(
+                                    accounts[i].name,
+                                    mMenuAccountAvatarRadiusDimension)
+                            );
+                    DisplayUtils.setAvatar(accounts[i], this, mMenuAccountAvatarRadiusDimension, getResources(), getStorageManager(), accountMenuItem);
+                }
             } catch (Exception e) {
                 Log_OC.e(TAG, "Error calculating RGB value for account menu item.", e);
                 mNavigationView.getMenu().add(
@@ -519,10 +527,12 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 mAccountChooserToggle.setImageResource(R.drawable.ic_up);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, false);
+                mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_bottom, false);
             } else {
                 mAccountChooserToggle.setImageResource(R.drawable.ic_down);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, true);
+                mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_bottom, true);
             }
         }
     }
