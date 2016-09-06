@@ -764,6 +764,21 @@ public class FileContentProvider extends ContentProvider {
                 }
             }
 
+            if (oldVersion < 15 && newVersion >= 15) {
+                Log_OC.i("SQL", "Entering in the #15 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    // drop old capabilities table
+                    db.execSQL("DROP TABLE IF EXISTS " + "capabilities" + ";");
+                    // Create uploads table
+                    createCapabilitiesTable(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
             if (!upgraded)
                 Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
                         ", newVersion == " + newVersion);
@@ -844,7 +859,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING + " INTEGER, "     // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING + " INTEGER, "   // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_UNDELETE + " INTEGER, "  // boolean
-                + ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + " INTEGER );" );   // boolean
+                + ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + " INTEGER, "   // boolean
+                + ProviderTableMeta.CAPABILITIES_FILES_DROP + " INTEGER );" );   // boolean
     }
 
     private void createUploadsTable(SQLiteDatabase db){

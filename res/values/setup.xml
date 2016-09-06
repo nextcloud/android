@@ -66,6 +66,7 @@
     <string name="mail_recommend">"mailto:"</string>
     <string name="mail_feedback">"mailto:android@nextcloud.com"</string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
+    <string name="url_server_install">https://nextcloud.com/install</string>
 
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>
