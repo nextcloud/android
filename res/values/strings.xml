@@ -469,12 +469,21 @@
     <string name="actionbar_search">Search</string>
     <string name="files_drop_not_supported">This is a Nextcloud feature, please update.</string>
     <string name="learn_more">Learn more</string>
-    <string name="actionbar_participate">Participate</string>
-    <string name="participate_beta">&lt;b>Beta version&lt;/b>&lt;br/>This includes all upcoming features and is very bleeding edge. Bugs/errors can occur and if they do, please report them to us.&lt;br>Get it&lt;br>&lt;a href="%1$s">via F-Droid&lt;/a>&lt;br>&lt;a href="%2$s">via APK&lt;/a></string>
-    <string name="participate_release_candidate">&lt;b>Release candidate&lt;/b>&lt;br>A release candidate is a snapshot of the upcoming release. It is expected to be stable and has no bugs.&lt;br>To ensure this, we need your help testing it on a vary of server versions/settings.&lt;br>Get it&lt;br>&lt;a href="%1$s">via Play Store&lt;/a> (Sign up for testing)&lt;br>&lt;a href="%2$s">via F-Droid&lt;/a> (Manually look in the \"versions\" section.)</string>
-    <string name="participate_participate">&lt;b>Participate&lt;/b>&lt;br>Report issues on &lt;a href="https://github.com/nextcloud/android/issues">Github&lt;/a>&lt;br>Join the chat on IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a>&lt;br>Help others on the &lt;a href="%2$s">forum&lt;/a></string>
-    <string name="participate_contribute">&lt;b>Contribute as a developer&lt;/b>&lt;br>Everybody is welcome to help us build this app. Just have a look at the open issues, read &lt;a href="%1$s">Contributing.md&lt;/a> or talk to us at &lt;a href="%2$s">#nextcloud-mobile&lt;/a> on IRC about what can be enhanced.</string>
-    <string name="participate_header"><b>Help us testing</b>\nWe offer two different previews of the upcoming version:</string>
+    <string name="drawer_participate">Participate</string>
+    <string name="participate_testing_headline">Help us testing</string>
+    <string name="participate_testing_bug_text">Found a bug? Something is odd?</string>
+    <string name="participate_testing_report_text">Report an issue on Github</string>
+    <string name="participate_testing_version_text">Interested in helping us testing the next Version?</string>
+    <string name="participate_beta_headline">Test the Beta version</string>
+    <string name="participate_beta_text">This includes all upcoming features and is very bleeding edge. Bugs/errors can occur and if they do, please report them to us. &lt;a href="%2$s">Download the APK&lt;/a> or</string>
+    <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming
+        release and it is expected to be stable. Testing your individual setup could help to ensure this. Sign up for testing on the Play store or manually look in the \"versions\" section on F-Droid.</string>
+    <string name="participate_contribute_headline">Actively Contribute</string>
+    <string name="participate_contribute_text">&lt;ul>&lt;li>Join the chat on IRC: &lt;a
+        href="%1$s">#nextcloud-mobile&lt;/a>&lt;/li>&lt;li>Help others on the &lt;a
+        href="%2$s>forum&lt;/a>&lt;/li>&lt;li>Be part of the Team and contribute as a developer: &lt;a
+        href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">Github CONTRIBUTING.md&lt;/a>&lt;/li&lt;/ul></string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"
