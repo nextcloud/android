@@ -378,9 +378,8 @@ public class UploadFilesActivity extends FileActivity implements
             setResult(RESULT_CANCELED);
             finish();
 
-        } else if (v.getId() == R.id.upload_files_btn_upload &&
-                mBehaviourSpinner.getSelectedItemPosition() == 0) {
-            new CheckAvailableSpaceTask().execute();
+        } else if (v.getId() == R.id.upload_files_btn_upload) {
+            new CheckAvailableSpaceTask().execute(mBehaviourSpinner.getSelectedItemPosition()==0);
         }
     }
 
@@ -390,7 +389,7 @@ public class UploadFilesActivity extends FileActivity implements
      * 
      * Maybe an AsyncTask is not strictly necessary, but who really knows.
      */
-    private class CheckAvailableSpaceTask extends AsyncTask<Void, Void, Boolean> {
+    private class CheckAvailableSpaceTask extends AsyncTask<Boolean, Void, Boolean> {
 
         /**
          * Updates the UI before trying the movement
@@ -401,22 +400,27 @@ public class UploadFilesActivity extends FileActivity implements
             mCurrentDialog = IndeterminateProgressDialog.newInstance(R.string.wait_a_moment, false);
             mCurrentDialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
         }
-        
+
         /**
-         * Checks the available space
-         * 
-         * @return     'True' if there is space enough.
+         * Checks the available space.
+         *
+         * @param params boolean flag if storage calculation should be done.
+         * @return 'True' if there is space enough or doesn't have to be calculated
          */
         @Override
-        protected Boolean doInBackground(Void... params) {
-            String[] checkedFilePaths = mFileListFragment.getCheckedFilePaths();
-            long total = 0;
-            for (int i=0; checkedFilePaths != null && i < checkedFilePaths.length ; i++) {
-                String localPath = checkedFilePaths[i];
-                File localFile = new File(localPath);
-                total += localFile.length();
+        protected Boolean doInBackground(Boolean... params) {
+            if(params[0]) {
+                String[] checkedFilePaths = mFileListFragment.getCheckedFilePaths();
+                long total = 0;
+                for (int i = 0; checkedFilePaths != null && i < checkedFilePaths.length; i++) {
+                    String localPath = checkedFilePaths[i];
+                    File localFile = new File(localPath);
+                    total += localFile.length();
+                }
+                return FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total;
             }
-            return FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total;
+
+            return true;
         }
 
         /**
