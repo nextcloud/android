@@ -49,7 +49,7 @@
 	</string>
 
     <string name="auth_check_server">Szerver ellenörzés</string>
-    <string name="auth_host_url">Kiszolgáló címe https://...</string>
+    <string name="auth_host_url">Szerver címe https://...</string>
     <string name="auth_username">Felhasználói név</string>
     <string name="auth_password">Jelszó</string>
     <string name="auth_register">Új vagy a %1$s területen?</string>
@@ -197,17 +197,17 @@
 	<string name="auth_nossl_plain_ok_title">Nem érhető el biztonságos kapcsolat.</string>
 	<string name="auth_connection_established">A kapcsolat létrejött</string>
 	<string name="auth_testing_connection">Kapcsolat ellenőrzése</string>
-	<string name="auth_not_configured_title">Hibás a kiszolgáló beállítása</string>
-	<string name="auth_account_not_new">Egy bejelentkezési beállítás már létezik ugyanehhez a kiszolgálóhoz és felhasználóhoz</string>
+	<string name="auth_not_configured_title">Hibás a szerver beállítása</string>
+	<string name="auth_account_not_new">Egy bejelentkezési beállítás már létezik ugyanehhez a szerverhez és felhasználóhoz</string>
 	<string name="auth_account_not_the_same">A megadott felhasználó nem azonos ezzel a belépési jogosultsággal</string>
 	<string name="auth_unknown_error_title">Ismeretlen hiba történt!</string>
 	<string name="auth_unknown_host_title">A kiszolgáló nem található</string>
-	<string name="auth_incorrect_path_title">Kiszolgáló nem található</string>
-	<string name="auth_timeout_title">A kiszolgáló túl sokára válaszolt</string>
+	<string name="auth_incorrect_path_title">A szerver példány nem található</string>
+	<string name="auth_timeout_title">A szerver túl sokára válaszolt</string>
 	<string name="auth_incorrect_address_title">Rossz a szerver cím formátuma</string>
 	<string name="auth_ssl_general_error_title">Nem sikerült az SSL kapcsolat felépítése</string>
-	<string name="auth_ssl_unverified_server_title">Az SSL kiszolgáló tanúsítványát nem sikerült ellenőrizni</string>
-	<string name="auth_bad_oc_version_title">Ismeretlen változat a kiszolgálón</string>
+	<string name="auth_ssl_unverified_server_title">Az SSL szerver tanúsítványát nem sikerült ellenőrizni</string>
+	<string name="auth_bad_oc_version_title">Ismeretlen változat a szerveren</string>
 	<string name="auth_wrong_connection_title">A kapcsolat nem hozható létre</string>
 	<string name="auth_secure_connection">Létrejött a titkosított kapcsolat</string>
 	<string name="auth_unauthorized">Hibás felhasználónév vagy jelszó</string>
@@ -217,8 +217,8 @@
 	<string name="auth_expired_oauth_token_toast">A jogosultsága lejárt. Kérjük jelentkezzen be ismét!</string>
 	<string name="auth_expired_basic_auth_toast">Kérem adja meg a jelenlegi jelszavát</string>
 	<string name="auth_expired_saml_sso_token_toast">Lejárt a munkamenetének érvényessége. Kérjük jelentkezzen be ismét!</string>
-	<string name="auth_connecting_auth_server">Kapcsolódás a hitelesítő kiszolgálóhoz ...</string>
-	<string name="auth_unsupported_auth_method">A kiszolgáló nem támogatja ezt a felhasználóazonosítási módszert</string>
+	<string name="auth_connecting_auth_server">Kapcsolódás a hitelesítő szerverhez...</string>
+	<string name="auth_unsupported_auth_method">A szerver nem támogatja ezt a felhasználóazonosítási módszert</string>
 	<string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
 	<string name="auth_fail_get_user_name">Az Ön szervere nem küld megfelelő felhasználói azonosítót, kérem lépjen kapcsolatba a rendszergazdával.</string>
 	<string name="auth_can_not_auth_against_server">Nem lehet hitelesíteni a szerverhez</string>
@@ -252,9 +252,9 @@
     <string name="oauth_login_connection">Kapcsolódás az oAuth2 szerverhez...</string>    
         
     <string name="ssl_validator_header">A kiszolgálót nem sikerült azonosítani</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- A kiszolgáló tanúsítványa nem megbízható</string>
-    <string name="ssl_validator_reason_cert_expired">- A kiszolgáló tanúsítványának lejárt az érvényessége</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- A kiszolgáló tanúsítványa most még nem érvényes</string>
+    <string name="ssl_validator_reason_cert_not_trusted">- A szerver tanúsítványa nem megbízható</string>
+    <string name="ssl_validator_reason_cert_expired">- A szerver tanúsítványának lejárt az érvényessége</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- A szerver tanúsítványa most még nem érvényes</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Az URL nem egyezik a tanúsítványban szereplő kiszolgálónévvel</string>
     <string name="ssl_validator_question">Mégis megbízik ebben a tanúsítványban?</string>
     <string name="ssl_validator_not_saved">A tanúsítvány nem menthető el</string>
@@ -333,7 +333,7 @@
 	<string name="shared_subject_header">megosztva</string>
 	<string name="with_you_subject_header">veled</string>
     
-	<string name="auth_host_address">A kiszolgáló címe</string>
+	<string name="auth_host_address">A szerver címe</string>
     <string name="common_error_out_memory">Nincs elég memória</string>
 
     <string name="username">Felhasználónév</string>

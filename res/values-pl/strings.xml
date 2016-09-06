@@ -103,6 +103,7 @@
     <string name="common_loading">Wczytuję ...</string>
     <string name="common_unknown">nieznane</string>
     <string name="common_error_unknown">Nieznany błąd</string>
+    <string name="common_pending">Oczekujące</string>
     <string name="about_title">O aplikacji</string>
     <string name="change_password">Zmień hasło</string>
     <string name="delete_account">Usuń konto</string>
@@ -293,6 +294,8 @@
 
     <string name="instant_upload_on_wifi">Wysyłaj zdjęcia tylko przez WiFi</string>
     <string name="instant_video_upload_on_wifi">Wysyłaj filmy tylko przez WiFi</string>
+    <string name="instant_video_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
+    <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Konflikt pliku</string>
     <string name="conflict_message">Które pliki chcesz zachować? Jeśli wybierzesz obie wersje, do nazwy pliku lokalnego zostanie dodana liczba.</string>
