@@ -78,6 +78,8 @@ public class Preferences extends PreferenceActivity {
     private static final int ACTION_REQUEST_PASSCODE = 5;
     private static final int ACTION_CONFIRM_PASSCODE = 6;
 
+    private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
+
     /**
      * The user's server base uri.
      */
@@ -419,7 +421,7 @@ public class Preferences extends PreferenceActivity {
             }
             davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(account.name));
             //loginIntent.putExtra("password", "...");
-            startActivity(davDroidLoginIntent);
+            startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
         } else {
             // DAVdroid not installed
             Intent installIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=at.bitfire.davdroid"));
@@ -569,7 +571,7 @@ public class Preferences extends PreferenceActivity {
                     appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i-1, i));
                 }
                 appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, true);
-                appPrefs.commit();
+                appPrefs.apply();
                 Toast.makeText(this, R.string.pass_code_stored, Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == ACTION_CONFIRM_PASSCODE && resultCode == RESULT_OK) {
@@ -578,10 +580,12 @@ public class Preferences extends PreferenceActivity {
                 SharedPreferences.Editor appPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
                 appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
-                appPrefs.commit();
+                appPrefs.apply();
 
                 Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
             }
+        } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
+            Toast.makeText(this, R.string.prefs_calendar_contacts_sync_setup_successful, Toast.LENGTH_LONG).show();
         }
     }
 
