@@ -559,40 +559,6 @@ public class ShareFileFragment extends Fragment
         }
     }
 
-    /**
-     * Listener for user actions that start any update on the hide file listing permissions for the public link.
-     */
-    private class OnHideFileListingPermissionInteractionListener implements CompoundButton.OnCheckedChangeListener {
-
-        /**
-         * Called by R.id.shareViaLinkHideListPermissionSwitch to set or clear the edit permission.
-         *
-         * @param switchView {@link SwitchCompat} toggled by the user, R.id.shareViaLinkHideListPermissionSwitch
-         * @param isChecked  New switch state.
-         */
-        @Override
-        public void onCheckedChanged(CompoundButton switchView, boolean isChecked) {
-            if (!isResumed()) {
-                // very important, setChecked(...) is called automatically during
-                // Fragment recreation on device rotations
-                return;
-            }
-
-            ((FileActivity) getActivity()).getFileOperationsHelper().
-                    setHideFileListingPermissionsToShare(
-                            mPublicShare,
-                            isChecked
-                    );
-            ;
-
-            // undo the toggle to grant the view will be correct if the dialog is cancelled
-            switchView.setOnCheckedChangeListener(null);
-            switchView.toggle();
-            switchView.setOnCheckedChangeListener(mOnHideFileListingPermissionInteractionListener);
-        }
-    }
-
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -832,20 +798,6 @@ public class ShareFileFragment extends Fragment
 
             // recover listener
             editPermissionSwitch.setOnCheckedChangeListener(mOnEditPermissionInteractionListener);
-
-            /// update state of the hide file listing permission switch
-            SwitchCompat hideFileListingPermissionSwitch = getHideFileListingPermissionSwitch();
-
-            // set null listener before setChecked() to prevent infinite loop of calls
-            hideFileListingPermissionSwitch.setOnCheckedChangeListener(null);
-
-            boolean readOnly = (mPublicShare.getPermissions() & OCShare.READ_PERMISSION_FLAG) != 0;
-            hideFileListingPermissionSwitch.setChecked(!readOnly);
-
-            // recover listener
-            hideFileListingPermissionSwitch.setOnCheckedChangeListener(
-                    mOnHideFileListingPermissionInteractionListener
-            );
 
             /// update state of the hide file listing permission switch
             SwitchCompat hideFileListingPermissionSwitch = getHideFileListingPermissionSwitch();
