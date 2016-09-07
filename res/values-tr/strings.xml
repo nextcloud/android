@@ -14,11 +14,6 @@
     <string name="actionbar_send_file">Gönder</string>
     <string name="actionbar_sort">Sırala</string>
     <string name="actionbar_sort_title">Şuna göre sırala</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Yeniden - Eskiye</item>
-    	<item>En Büyük - En Küçük</item>
-    </string-array>
     <string name="drawer_item_all_files">Tüm dosyalar</string>
     <string name="drawer_item_on_device">Aygıtta</string>
     <string name="drawer_item_settings">Ayarlar</string>
@@ -408,7 +403,6 @@
 
     <string name="pref_behaviour_entries_keep_file">özgün klasöründe tutuldu</string>
     <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
-
     <string name="share_dialog_title">Paylaşım</string>
     <string name="share_file">%1$s paylaş</string>
     <string name="share_with_user_section_title">Kullanıcı ve Gruplarla paylaş</string>

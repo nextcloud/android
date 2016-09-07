@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">发送</string>
     <string name="actionbar_sort">排序</string>
     <string name="actionbar_sort_title">排序方式</string>
-    <string-array name="actionbar_sortby">
-    	<item>A - Z</item>
-    	<item>新 - 旧</item>
-    </string-array>
     <string name="drawer_item_all_files">全部文件</string>
     <string name="drawer_item_settings">设置</string>
     <string name="drawer_item_uploads_list">上传</string>
@@ -377,7 +373,6 @@
     <string name="upload_move_files">移动文件</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
-
     <string name="share_dialog_title">共享</string>
     <string name="share_file">分享 %1$s</string>
     <string name="share_with_user_section_title">分享给其他用户或组</string>

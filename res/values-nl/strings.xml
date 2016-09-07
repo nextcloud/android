@@ -14,11 +14,6 @@
     <string name="actionbar_send_file">Versturen</string>
     <string name="actionbar_sort">Sorteren</string>
     <string name="actionbar_sort_title">Sorteer op</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Nieuwste - Oudste</item>
-    	<item>Grootste - Kleinste</item>
-    </string-array>
     <string name="drawer_item_all_files">Alle bestanden</string>
     <string name="drawer_item_on_device">Op het apparaat</string>
     <string name="drawer_item_settings">Instellingen</string>
@@ -298,6 +293,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
 
     <string name="instant_upload_on_wifi">Upload afbeeldingen alleen via WiFi</string>
     <string name="instant_video_upload_on_wifi">Upload videos alleen via WiFi</string>
+    <string name="instant_video_upload_on_charging">Upload alleen tijdens opladen</string>
+    <string name="instant_upload_on_charging">Upload alleen tijdens opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Bestandsconflict</string>
     <string name="conflict_message">Welke bestanden wil je bewaren? Als je beide versies selecteert zal het lokale bestand een volgnummer aan de naam toegevoegd krijgen.</string>
@@ -414,7 +411,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
 
     <string name="pref_behaviour_entries_keep_file">bewaard in originele map</string>
     <string name="pref_behaviour_entries_move">verplaatst naar app map</string>
-
     <string name="share_dialog_title">Delen</string>
     <string name="share_file">Deel %1$s</string>
     <string name="share_with_user_section_title">Delen met gebruikers en groepen</string>
@@ -463,6 +459,7 @@ Neem contact op met je beheerder</string>
     <string name="local_file_not_found_toast">Het bestand is niet te vinden binnen het lokale bestandssysteem.</string>
     <string name="confirmation_remove_files_alert">Wil je de geselecteerde objecten echt verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat word opgeladen</string>
     <string name="actionbar_search">Zoeken</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>

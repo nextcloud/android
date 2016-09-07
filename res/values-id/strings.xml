@@ -14,11 +14,6 @@
     <string name="actionbar_send_file">Kirim</string>
     <string name="actionbar_sort">Urutkan</string>
     <string name="actionbar_sort_title">Urutan</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Terbaru - Terlawas</item>
-    	<item>Terbesar - Terkecil</item>
-    </string-array>
     <string name="drawer_item_all_files">Semua berkas</string>
     <string name="drawer_item_on_device">Dalam perangkat</string>
     <string name="drawer_item_settings">Pengaturan</string>
@@ -408,7 +403,6 @@
 
     <string name="pref_behaviour_entries_keep_file">Tersimpan di folder asli</string>
     <string name="pref_behaviour_entries_move">Dipindahkan ke folder aplikasi</string>
-
     <string name="share_dialog_title">Berbagi</string>
     <string name="share_file">Bagikan %1$s</string>
     <string name="share_with_user_section_title">Bagikan dengan pengguna atau grup</string>

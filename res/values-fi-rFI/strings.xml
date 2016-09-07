@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">Lähetä</string>
     <string name="actionbar_sort">Lajittele</string>
     <string name="actionbar_sort_title">Lajittelujärjestys</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Ö</item>
-    	<item>Uusimmasta vanhimpaan</item>
-    </string-array>
     <string name="drawer_item_all_files">Kaikki tiedostot</string>
     <string name="drawer_item_on_device">Laitteessa</string>
     <string name="drawer_item_settings">Asetukset</string>
@@ -364,7 +360,6 @@
     <string name="upload_move_files">Siirrä tiedosto</string>
     <string name="pref_behaviour_entries_keep_file">pidetään alkuperäisessä kansiossa</string>
     <string name="pref_behaviour_entries_move">siirretään sovelluskansioon</string>
-
     <string name="share_dialog_title">Jakaminen</string>
     <string name="share_file">Jaa %1$s</string>
     <string name="share_with_user_section_title">Jaa käyttäjien ja ryhmien kanssa</string>

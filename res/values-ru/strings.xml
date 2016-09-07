@@ -14,11 +14,6 @@
     <string name="actionbar_send_file">Отправить</string>
     <string name="actionbar_sort">Сортировать</string>
     <string name="actionbar_sort_title">Сортировать по</string>
-    <string-array name="actionbar_sortby">
-    	<item>Имени</item>
-    	<item>Дате</item>
-    	<item>Размеру</item>
-    </string-array>
     <string name="drawer_item_all_files">Все файлы</string>
     <string name="drawer_item_on_device">На устройстве</string>
     <string name="drawer_item_settings">Настройки</string>
@@ -409,7 +404,6 @@
 
     <string name="pref_behaviour_entries_keep_file">оставлен в исходной папке</string>
     <string name="pref_behaviour_entries_move">перемещен в папку приложения</string>
-
     <string name="share_dialog_title">Общий доступ</string>
     <string name="share_file">Поделиться %1$s</string>
     <string name="share_with_user_section_title">Поделиться с пользователями и группами</string>

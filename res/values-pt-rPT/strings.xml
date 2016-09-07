@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
     <string name="actionbar_sort_title">Ordenar por</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Mais Recente - Mais Antigo</item>
-    </string-array>
     <string name="drawer_item_all_files">Todos os ficheiros</string>
     <string name="drawer_item_settings">Definições</string>
     <string name="drawer_item_uploads_list">Carregamentos</string>
@@ -391,7 +387,6 @@
     <string name="upload_move_files">Mover ficheiro</string>
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para pasta da aplicação</string>
-
     <string name="share_dialog_title">Partilha</string>
     <string name="share_file">Partilhar %1$s</string>
     <string name="share_with_user_section_title">Partilhar com utilizadores e grupos</string>
