@@ -67,7 +67,6 @@ public class UploadFilesActivity extends FileActivity implements
     private Button mCancelBtn;
     protected Button mUploadBtn;
     private Spinner mBehaviourSpinner;
-    private Spinner mBehaviourSpinner;
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     private Menu mOptionsMenu;
