@@ -145,11 +145,27 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"/>
 
                 <TextView
-                    android:id="@+id/participate_contribute_text"
+                    android:id="@+id/participate_contribute_irc_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/participate_contribute_text"
-                    android:paddingLeft="@dimen/standard_half_padding"
+                    android:text="@string/participate_contribute_irc_text"
+                    android:padding="@dimen/standard_half_padding"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <TextView
+                    android:id="@+id/participate_contribute_forum_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participate_contribute_forum_text"
+                    android:padding="@dimen/standard_half_padding"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <TextView
+                    android:id="@+id/participate_contribute_github_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participate_contribute_github_text"
+                    android:padding="@dimen/standard_half_padding"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
         </ScrollView>
