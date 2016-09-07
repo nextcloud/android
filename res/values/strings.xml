@@ -38,6 +38,10 @@
     <string name="prefs_log_title_history">Logging history</string>
     <string name="prefs_log_summary_history">This shows the recorded logs</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
+    <string name="prefs_calendar_contacts">Setup calendar &amp; contacts sync</string>
+    <string name="prefs_calendar_contacts_summary">Setup DAVdroid (>v1.3.0) for currently used account</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Server address for account could not be resolved for DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">No Google Play store or F-Droid app installed</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_feedback">Feedback</string>
@@ -353,7 +357,6 @@
     <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Add account</string>
     <string name="drawer_manage_accounts">Manage accounts</string>
-    <string name="drawer_calendar_contacts">Calendar &amp; Contacts</string>
     <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
 
 	<string name="actionbar_logger">Logs</string>
