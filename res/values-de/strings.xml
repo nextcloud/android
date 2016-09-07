@@ -14,11 +14,6 @@
     <string name="actionbar_send_file">Senden</string>
     <string name="actionbar_sort">Sortieren</string>
     <string name="actionbar_sort_title">Sortieren nach</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Neueste - Älteste</item>
-    	<item>Größte - Kleinste</item>
-    </string-array>
     <string name="drawer_item_all_files">Alle Dateien</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
     <string name="drawer_item_settings">Einstellungen</string>
@@ -104,6 +99,7 @@
     <string name="common_loading">Lade…</string>
     <string name="common_unknown">unbekannt</string>
     <string name="common_error_unknown">Unbekannter Fehler</string>
+    <string name="common_pending">Ausstehend</string>
     <string name="about_title">Über</string>
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
@@ -294,6 +290,8 @@
 
     <string name="instant_upload_on_wifi">Bilder nur über Wifi hochladen</string>
     <string name="instant_video_upload_on_wifi">Videos nur über Wifi hochladen</string>
+    <string name="instant_video_upload_on_charging">Hochladen nur während des Ladens</string>
+    <string name="instant_upload_on_charging">Hochladen nur während des Ladens</string>
     <string name="instant_upload_path">/SofortUpload</string>
     <string name="conflict_title">Dateikonfilikt</string>
     <string name="conflict_message">Welche Datei soll behalten werden? Wenn du beide Versionen wählst, wird der lokalen Datei eine Zahl am Ende des Dateinamens angefügt.</string>
@@ -410,7 +408,6 @@
 
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
-
     <string name="share_dialog_title">Teilen</string>
     <string name="share_file">Teile %1$s</string>
     <string name="share_with_user_section_title">Mit Benutzern oder Gruppen teilen</string>
@@ -459,6 +456,7 @@
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Willst Du die ausgewählten Einträge wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Willst Du die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des gerätes</string>
     <string name="actionbar_search">Suche</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>

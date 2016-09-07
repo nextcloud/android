@@ -70,7 +70,7 @@
             android:orderInCategory="3"
             android:id="@+id/nav_participate"
             android:icon="@drawable/ic_participate"
-            android:title="@string/actionbar_participate"/>
+            android:title="@string/drawer_participate"/>
     </group>
 
     <!--

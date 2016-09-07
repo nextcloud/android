@@ -14,11 +14,9 @@
     <string name="actionbar_send_file">Send</string>
     <string name="actionbar_sort">Sort</string>
     <string name="actionbar_sort_title">Sort by</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Newest - Oldest</item>
-    	<item>Biggest - Smallest</item>
-    </string-array>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Newest - Oldest</string>
+    <string name="menu_item_sort_by_size">Biggest - Smallest</string>
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_on_device">On device</string>
     <string name="drawer_item_settings">Settings</string>
@@ -40,6 +38,11 @@
     <string name="prefs_log_title_history">Logging history</string>
     <string name="prefs_log_summary_history">This shows the recorded logs</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
+    <string name="prefs_calendar_contacts">Setup calendar &amp; contacts sync</string>
+    <string name="prefs_calendar_contacts_summary">Setup DAVdroid (v1.3.0+) for currently used account</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Server address for account could not be resolved for DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">No Google Play store or F-Droid app installed</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up successfully</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Recommend to a friend</string>
     <string name="prefs_feedback">Feedback</string>
@@ -71,6 +74,9 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s is not allowed to read a received file</string>
     <string name="uploader_error_message_source_file_not_found">File to upload was not found in its location. Please check whether the file exists.</string>
     <string name="uploader_error_message_source_file_not_copied">An error occurred while copying the file to a temporary folder. Please try to send again.</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">move to nextcloud folder</string>
+    <string name="uploader_upload_files_behaviour_only_upload">only upload</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">upload and delete from source</string>
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty">Nothing in here. Upload something!</string>
     <string name="file_list_loading">Loading&#8230;</string>
@@ -499,12 +505,23 @@
     <string name="confirmation_remove_folders_alert">Do you really want to remove the selected items and their contents?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Waiting for device charging</string>
     <string name="actionbar_search">Search</string>
-    <string name="actionbar_participate">Participate</string>
-    <string name="participate_beta">&lt;b>Beta version&lt;/b>&lt;br/>This includes all upcoming features and is very bleeding edge. Bugs/errors can occur and if they do, please report them to us.&lt;br>Get it&lt;br>&lt;a href="%1$s">via F-Droid&lt;/a>&lt;br>&lt;a href="%2$s">via APK&lt;/a></string>
-    <string name="participate_release_candidate">&lt;b>Release candidate&lt;/b>&lt;br>A release candidate is a snapshot of the upcoming release. It is expected to be stable and has no bugs.&lt;br>To ensure this, we need your help testing it on a vary of server versions/settings.&lt;br>Get it&lt;br>&lt;a href="%1$s">via Play Store&lt;/a> (Sign up for testing)&lt;br>&lt;a href="%2$s">via F-Droid&lt;/a> (Manually look in the \"versions\" section.)</string>
-    <string name="participate_participate">&lt;b>Participate&lt;/b>&lt;br>Report issues on &lt;a href="https://github.com/nextcloud/android/issues">Github&lt;/a>&lt;br>Join the chat on IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a>&lt;br>Help others on the &lt;a href="%2$s">forum&lt;/a></string>
-    <string name="participate_contribute">&lt;b>Contribute as a developer&lt;/b>&lt;br>Everybody is welcome to help us build this app. Just have a look at the open issues, read &lt;a href="%1$s">Contributing.md&lt;/a> or talk to us at &lt;a href="%2$s">#nextcloud-mobile&lt;/a> on IRC about what can be enhanced.</string>
-    <string name="participate_header"><b>Help us testing</b>\nWe offer two different previews of the upcoming version:</string>
+    <string name="files_drop_not_supported">This is a Nextcloud feature, please update.</string>
+    <string name="learn_more">Learn more</string>
+    <string name="drawer_participate">Participate</string>
+    <string name="participate_testing_headline">Help us testing</string>
+    <string name="participate_testing_bug_text">Found a bug? Something is odd?</string>
+    <string name="participate_testing_report_text">Report an issue on Github</string>
+    <string name="participate_testing_version_text">Interested in helping us testing the next Version?</string>
+    <string name="participate_beta_headline">Test the Beta version</string>
+    <string name="participate_beta_text">This includes all upcoming features and is very bleeding edge. Bugs/errors can occur and if they do, please report them to us. &lt;a href="%2$s">Download the APK&lt;/a> or</string>
+    <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming
+        release and it is expected to be stable. Testing your individual setup could help to ensure this. Sign up for testing on the Play store or manually look in the \"versions\" section on F-Droid.</string>
+    <string name="participate_contribute_headline">Actively Contribute</string>
+    <string name="participate_contribute_text">&lt;ul>&lt;li>Join the chat on IRC: &lt;a
+        href="%1$s">#nextcloud-mobile&lt;/a>&lt;/li>&lt;li>Help others on the &lt;a
+        href="%2$s>forum&lt;/a>&lt;/li>&lt;li>Be part of the Team and contribute as a developer: &lt;a
+        href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">Github CONTRIBUTING.md&lt;/a>&lt;/li&lt;/ul></string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"

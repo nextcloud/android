@@ -409,22 +409,15 @@ public class FileOperationsHelper {
         updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
         updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
 
-        int permission = share.getPermissions();
-        share.setPermissions(permission);
-
-        if(!hideFileListing) {
-            permission |= OCShare.READ_PERMISSION_FLAG;
+        if (hideFileListing) {
+            updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.CREATE_PERMISSION_FLAG);
         } else {
-            permission &= ~OCShare.READ_PERMISSION_FLAG;
+            updateShareIntent.
+                    putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER);
         }
 
-        updateShareIntent.putExtra(
-                OperationsService.EXTRA_SHARE_PERMISSIONS,
-                permission
-        );
         queueShareIntent(updateShareIntent);
     }
-
 
     /**
      * @return 'True' if the server supports the Search Users API

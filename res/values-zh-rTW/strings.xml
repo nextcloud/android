@@ -14,11 +14,6 @@
     <string name="actionbar_send_file">寄出</string>
     <string name="actionbar_sort">排序</string>
     <string name="actionbar_sort_title">排序依照</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>最新 - 最舊</item>
-    	<item>最大 - 最小</item>
-    </string-array>
     <string name="drawer_item_all_files">所有檔案</string>
     <string name="drawer_item_on_device">在裝置上</string>
     <string name="drawer_item_settings">設定</string>
@@ -406,7 +401,6 @@
 
     <string name="pref_behaviour_entries_keep_file">保留在原先的資料夾</string>
     <string name="pref_behaviour_entries_move">移動到應用程式資料夾</string>
-
     <string name="share_dialog_title">分享</string>
     <string name="share_file">分享 %1$s</string>
     <string name="share_with_user_section_title">分享給其他使用者或群組</string>

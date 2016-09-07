@@ -17,7 +17,6 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/upload_files_layout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -49,12 +48,10 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingTop="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp">
+        android:padding="@dimen/standard_padding">
 
         <Spinner
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/upload_files_spinner_behaviour"
             android:layout_weight="1"/>
@@ -65,9 +62,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingBottom="16dp">
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
+        android:paddingBottom="@dimen/standard_padding">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/upload_files_btn_cancel"

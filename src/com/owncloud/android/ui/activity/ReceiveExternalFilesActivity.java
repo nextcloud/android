@@ -356,7 +356,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     userInput.setText(TEXT_FILE_SUFFIX);
 
                     alertDialogBuilder.setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int id) {
                                             PrintWriter out;
                                             try {
@@ -392,7 +392,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                             finish();
                                         }
                                     })
-                            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int id) {
                                             dialog.cancel();
                                         }

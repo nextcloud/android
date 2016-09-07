@@ -574,7 +574,7 @@ public class FileDisplayActivity extends HookActivity
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.actionbar_sort_title)
-                        .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder,
+                        .setSingleChoiceItems(R.array.menu_items_sort_by_options, sortOrder,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         switch (which) {

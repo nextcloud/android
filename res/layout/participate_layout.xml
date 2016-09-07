@@ -46,42 +46,110 @@
                 android:padding="@dimen/standard_padding">
 
                 <TextView
-                    android:id="@+id/participate_header"
+                    android:id="@+id/participate_headline"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:text="@string/participate_header"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+                    android:layout_height="wrap_content"
+                    android:text="@string/participate_testing_headline"
+                    android:textAppearance="?android:attr/textAppearanceLarge"/>
 
                 <TextView
-                    android:id="@+id/participate_betaView"
+                    android:id="@+id/participate_testing_bug_text"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
+                    android:layout_height="wrap_content"
                     android:paddingBottom="@dimen/standard_half_padding"
-                    android:text="@string/participate_beta"
+                    android:text="@string/participate_testing_bug_text"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-                <TextView
-                    android:id="@+id/participate_rcView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:text="@string/participate_release_candidate"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-                <TextView
-                    android:id="@+id/participate_participateView"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:paddingBottom="@dimen/standard_half_padding"
-                    android:text="@string/participate_participate"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-                <TextView
-                    android:id="@+id/participate_contributeView"
+                <android.support.v7.widget.AppCompatButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/participate_contribute"
+                    android:onClick="onReportIssueClick"
+                    android:text="@string/participate_testing_report_text"
+                    android:theme="@style/Button.Primary"/>
+
+                <TextView
+                    android:id="@+id/participate_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/standard_half_padding"
+                    android:paddingTop="@dimen/standard_half_padding"
+                    android:text="@string/participate_testing_version_text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <TextView
+                    android:id="@+id/participate_release_candidate_headline"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participate_release_candidate_headline"
+                    android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                <TextView
+                    android:id="@+id/participate_release_candidate_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participate_release_candidate_text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageButton
+                        android:id="@+id/participate_release_candidate_playstore"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:onClick="onGetRCPlayStoreClick"
+                        android:padding="0dp"
+                        android:src="@drawable/playstore"/>
+
+                    <ImageButton
+                        android:id="@+id/participate_release_candidate_fdroid"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:onClick="onGetRCFDroidClick"
+                        android:padding="0dp"
+                        android:src="@drawable/fdroid"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/participate_beta_headline"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participate_beta_headline"
+                    android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                <TextView
+                    android:id="@+id/participate_beta_text"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participate_beta_text"
+                    android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+                <ImageButton
+                    android:id="@+id/participate_beta_fdroid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:onClick="onGetBetaFDroidClick"
+                    android:padding="0dp"
+                    android:src="@drawable/fdroid"/>
+
+                <TextView
+                    android:id="@+id/participate_contribute_headline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participate_contribute_headline"
+                    android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+                <TextView
+                    android:id="@+id/participate_contribute_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/participate_contribute_text"
+                    android:paddingLeft="@dimen/standard_half_padding"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
         </ScrollView>
