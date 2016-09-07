@@ -1,4 +1,4 @@
-## 2016-09-0X
+## 2016-09-07
 - update Motivate more users #239
 - DAVdroid login screen prefilled launch #236
 
