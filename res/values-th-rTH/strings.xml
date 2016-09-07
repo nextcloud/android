@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">ส่ง</string>
     <string name="actionbar_sort">จัดเรียง</string>
     <string name="actionbar_sort_title">เรียงตาม</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>ใหม่ที่สุด - เก่าที่สุด</item>
-    </string-array>
     <string name="drawer_item_all_files">ไฟล์ทั้งหมด</string>
     <string name="drawer_item_settings">ตั้งค่า</string>
     <string name="drawer_item_uploads_list">อัพโหลด</string>
@@ -383,7 +379,6 @@
     <string name="upload_move_files">ย้ายไฟล์</string>
     <string name="pref_behaviour_entries_keep_file">เก็บไว้ในโฟลเดอร์ต้นฉบับ</string>
     <string name="pref_behaviour_entries_move">ถูกย้ายไปยังโฟลเดอร์แอพพลิเคชัน</string>
-
     <string name="share_dialog_title">แชร์ข้อมูล</string>
     <string name="share_with_user_section_title">แชร์กับผู้ใช้และกลุ่ม</string>
     <string name="share_no_users">ยังไม่มีข้อมูลที่แชร์กับผู้ใช้ในตอนนี้</string>

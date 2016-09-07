@@ -14,16 +14,12 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Classificar</string>
     <string name="actionbar_sort_title">Classificar por</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Mais recente - Mais antigo</item>
-    	<item>Maior - Menor</item>
-    </string-array>
     <string name="drawer_item_all_files">Todos os arquivos</string>
     <string name="drawer_item_on_device">No aparelho</string>
     <string name="drawer_item_settings">Configurações</string>
     <string name="drawer_item_uploads_list">Envios</string>
-    <string name="drawer_close">Fechar</string>
+    <string name="drawer_quota">%1$s de %2$s usados</string>
+	<string name="drawer_close">Fechar</string>
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
@@ -57,6 +53,7 @@
     <string name="sync_string_files">Arquivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Enviar</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Criar arquivo texto</string>
     <string name="uploader_top_message">Escolher pasta para envio</string>
     <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
     <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu aparelho. Por favor, configure uma conta primeiro.</string>
@@ -102,6 +99,7 @@
     <string name="common_loading">Carregando ...</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>
+    <string name="common_pending">Pendente</string>
     <string name="about_title">Sobre</string>
     <string name="change_password">Alterar senha</string>
     <string name="delete_account">Remover conta</string>
@@ -292,6 +290,8 @@
 
     <string name="instant_upload_on_wifi">Envio de fotos apenas por Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Envio de vídeos apenas por Wi-Fi</string>
+    <string name="instant_video_upload_on_charging">Enviar apenas quando solicitado</string>
+    <string name="instant_upload_on_charging">Enviar apenas quando solicitado</string>
     <string name="instant_upload_path">/Upload instantâneo</string>
     <string name="conflict_title">Conflito de arquivo</string>
     <string name="conflict_message">Quais arquivos você deseja manter? Se você selecionar ambas as versões, o arquivo local terá um número adicionado ao seu nome.</string>
@@ -408,7 +408,6 @@
 
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para a pasta app</string>
-
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_file">Compartilhar %1$s</string>
     <string name="share_with_user_section_title">Compartilhar com usuários e grupos</string>
@@ -457,6 +456,7 @@
     <string name="local_file_not_found_toast">O arquivo não foi encontrado no sistema de arquivos local</string>
     <string name="confirmation_remove_files_alert">Deseja realmente remover os itens selecionados?</string>
     <string name="confirmation_remove_folders_alert">Deseja realmente remover os itens selecionados e seus conteúdos?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">À espera de carregamento do dispositivo</string>
     <string name="actionbar_search">Pesquisar</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selecionado</item>

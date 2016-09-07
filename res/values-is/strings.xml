@@ -14,16 +14,12 @@
     <string name="actionbar_send_file">Senda</string>
     <string name="actionbar_sort">Raða</string>
     <string name="actionbar_sort_title">Raða sem</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Nýjast - Elst</item>
-    	<item>Stærst - Minnst</item>
-    </string-array>
     <string name="drawer_item_all_files">Allar skrár</string>
     <string name="drawer_item_on_device">á tækinu</string>
     <string name="drawer_item_settings">Stillingar</string>
     <string name="drawer_item_uploads_list">Innsendingar</string>
-    <string name="drawer_close">Loka</string>
+    <string name="drawer_quota">%1$s af %2$s notað</string>
+	<string name="drawer_close">Loka</string>
     <string name="drawer_open">Opna</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
@@ -97,9 +93,11 @@
     <string name="common_loading">Hleð inn …</string>
     <string name="common_unknown">óþekkt</string>
     <string name="common_error_unknown">Óþekkt villa</string>
+    <string name="common_pending">Í bið</string>
     <string name="about_title">Um</string>
     <string name="change_password">Breyta lykilorði</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
+    <string name="delete_account_warning">Eyða aðgangi %s?\\n\\nEyðing er óafturkræf.</string>
     <string name="create_account">Stofna aðgang</string>
     <string name="upload_chooser_title">Senda inn frá ...</string>
     <string name="uploader_info_dirname">Nafn möppu</string>
@@ -120,10 +118,12 @@
     <string name="uploads_view_upload_status_failed_credentials_error">Villa í auðkennum</string>
     <string name="uploads_view_upload_status_failed_folder_error">Villa í möppu</string>
     <string name="uploads_view_upload_status_failed_file_error">Villa í skrá</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">Skrá finnst ekki á tækinu</string>
     <string name="uploads_view_upload_status_failed_permission_error">Villa í heimildum</string>
     <string name="uploads_view_upload_status_conflict">Árekstur</string>
     <string name="uploads_view_upload_status_unknown_fail">Óþekkt villa</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Bíð eftir þráðlausri tengingu</string>
+    <string name="uploads_view_later_waiting_to_upload">Bíð eftir að senda inn</string>
     <string name="downloader_download_in_progress_ticker">Sæki ...</string>
     <string name="downloader_download_in_progress_content">%1$d%% Sæki %2$s</string>
     <string name="downloader_download_succeeded_ticker">Niðurhal tókst</string>
@@ -384,7 +384,6 @@
 
     <string name="pref_behaviour_entries_keep_file">áfram í upprunalegri möppu</string>
     <string name="pref_behaviour_entries_move">færð í forritsmöppu</string>
-
     <string name="share_dialog_title">Deiling</string>
     <string name="share_file">Deila %1$s</string>
     <string name="share_with_user_section_title">Deila með notendum eða hópum</string>
@@ -432,6 +431,7 @@
     <string name="local_file_not_found_toast">Skráin fannst ekki á staðværu skráakerfi</string>
     <string name="confirmation_remove_files_alert">Ertu viss um að þú viljir fjarlægja valin atriði?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir fjarlægja valin atriði og innihald þeirra?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir að tækið hlaðist</string>
     <string name="actionbar_search">Leita</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valið</item>

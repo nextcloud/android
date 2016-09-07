@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">שליחה</string>
     <string name="actionbar_sort">מיון</string>
     <string name="actionbar_sort_title">מיון על בסיס</string>
-    <string-array name="actionbar_sortby">
-    	<item>א-ת</item>
-    	<item>חדש - ישן</item>
-    </string-array>
     <string name="drawer_item_all_files">כל הקבצים</string>
     <string name="drawer_item_settings">הגדרות</string>
     <string name="drawer_item_uploads_list">העלאות</string>
@@ -396,7 +392,6 @@
     <string name="upload_move_files">העברת קובץ</string>
     <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>
     <string name="pref_behaviour_entries_move">הועבר לתיקיית ישומים</string>
-
     <string name="share_dialog_title">שיתוף</string>
     <string name="share_file">שיתוף %1$s</string>
     <string name="share_with_user_section_title">שיתוף עם משתמשים וקבוצות</string>
