@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">Dërgoje</string>
     <string name="actionbar_sort">Renditi</string>
     <string name="actionbar_sort_title">Renditi sipas</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Më e reja - Më e vjetra</item>
-    </string-array>
     <string name="drawer_item_all_files">Krejt kartelat</string>
     <string name="drawer_item_settings">Llogari</string>
     <string name="drawer_item_uploads_list">Ngarkime</string>
@@ -394,7 +390,6 @@
     <string name="upload_move_files">Lëvize kartelën</string>
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
     <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
-
     <string name="share_dialog_title">Ndarje me të tjerët</string>
     <string name="share_file">Ndajeni %1$s</string>
     <string name="share_with_user_section_title">Ndajeni me përdorues dhe grupe</string>

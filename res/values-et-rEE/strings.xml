@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">Saada</string>
     <string name="actionbar_sort">Sorteeri</string>
     <string name="actionbar_sort_title">Sorteeri</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Uuem - vanem</item>
-    </string-array>
     <string name="drawer_item_all_files">Kõik failid</string>
     <string name="drawer_item_settings">Seaded</string>
     <string name="drawer_item_uploads_list">Üleslaadimised</string>
@@ -352,7 +348,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
     <string name="upload_move_files">Liiguta fail</string>
     <string name="pref_behaviour_entries_keep_file">hoitakse algses kaustas</string>
     <string name="pref_behaviour_entries_move">liigutatakse rakenduse kausta</string>
-
     <string name="share_dialog_title">Jagamine</string>
     <string name="share_with_user_section_title">Jaga kasutajate ja gruppidega</string>
     <string name="share_no_users">Kasutajatega pole veel midagi jagatud</string>

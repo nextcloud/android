@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">Envia</string>
     <string name="actionbar_sort">Ordena</string>
     <string name="actionbar_sort_title">Ordena per</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Més nou - Més antic</item>
-    </string-array>
     <string name="drawer_item_all_files">Tots els fitxers</string>
     <string name="drawer_item_settings">Configuració</string>
     <string name="drawer_item_uploads_list">Fitxers carregats</string>

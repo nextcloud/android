@@ -14,11 +14,6 @@
     <string name="actionbar_send_file">Odeslat</string>
     <string name="actionbar_sort">Seřadit</string>
     <string name="actionbar_sort_title">Seřadit podle</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Nejnovější - nejstarší</item>
-    	<item>Největší - nejmenší</item>
-    </string-array>
     <string name="drawer_item_all_files">Všechny soubory</string>
     <string name="drawer_item_on_device">Na přístroji</string>
     <string name="drawer_item_settings">Nastavení</string>
@@ -410,7 +405,6 @@ správce systému.</string>
 
     <string name="pref_behaviour_entries_keep_file">ponechán ve výchozím adresáři</string>
     <string name="pref_behaviour_entries_move">přesunut do adresáře aplikace</string>
-
     <string name="share_dialog_title">Sdílení</string>
     <string name="share_file">Sdílet %1$s</string>
     <string name="share_with_user_section_title">Sdílet s uživateli a skupinami</string>

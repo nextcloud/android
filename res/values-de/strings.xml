@@ -14,11 +14,6 @@
     <string name="actionbar_send_file">Senden</string>
     <string name="actionbar_sort">Sortieren</string>
     <string name="actionbar_sort_title">Sortieren nach</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Neueste - Älteste</item>
-    	<item>Größte - Kleinste</item>
-    </string-array>
     <string name="drawer_item_all_files">Alle Dateien</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
     <string name="drawer_item_settings">Einstellungen</string>
@@ -413,7 +408,6 @@
 
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
-
     <string name="share_dialog_title">Teilen</string>
     <string name="share_file">Teile %1$s</string>
     <string name="share_with_user_section_title">Mit Benutzern oder Gruppen teilen</string>

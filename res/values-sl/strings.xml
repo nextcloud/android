@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">Pošlji</string>
     <string name="actionbar_sort">Razvrsti</string>
     <string name="actionbar_sort_title">Razvrsti ...</string>
-    <string-array name="actionbar_sortby">
-    	<item>naraščajoče od A – Z</item>
-    	<item>najprej novejše nato starejše</item>
-    </string-array>
     <string name="drawer_item_all_files">Vse datoteke</string>
     <string name="drawer_item_settings">Nastavitve</string>
     <string name="drawer_item_uploads_list">Poslano</string>
@@ -402,7 +398,6 @@
 
     <string name="pref_behaviour_entries_keep_file">ohrani v izvorni mapi</string>
     <string name="pref_behaviour_entries_move">premakni v mapo programa</string>
-
     <string name="share_dialog_title">Souporaba</string>
     <string name="share_file">Omogoči souporabo %1$s</string>
     <string name="share_with_user_section_title">Omogoči souporabo s skupino ali z uporabnikom</string>

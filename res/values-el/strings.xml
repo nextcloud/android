@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">Αποστολή</string>
     <string name="actionbar_sort">Ταξινόμηση</string>
     <string name="actionbar_sort_title">Ταξινόμηση κατά</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Ω</item>
-    	<item>Νεότερο - Παλαιότερο</item>
-    </string-array>
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
     <string name="drawer_item_on_device">Στην συσκευή</string>
     <string name="drawer_item_settings">Ρυθμίσεις</string>
@@ -375,7 +371,6 @@
 
     <string name="pref_behaviour_entries_keep_file">κρατήθηκε στον πρωτότυπο φάκελο</string>
     <string name="pref_behaviour_entries_move">μετακινήθηκε στον φάκελο εφαρμογών</string>
-
     <string name="share_dialog_title">Διαμοιρασμός</string>
     <string name="share_file">Διαμοιρασμός %1$s</string>
     <string name="share_with_user_section_title">Διαμοιρασμός με χρήστες και ομάδες</string>

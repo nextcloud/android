@@ -14,10 +14,6 @@
     <string name="actionbar_send_file">Пошаљи</string>
     <string name="actionbar_sort">Разврставање</string>
     <string name="actionbar_sort_title">Разврставање</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>новији - старији</item>
-    </string-array>
     <string name="drawer_item_all_files">Сви фајлови</string>
     <string name="drawer_item_settings">Поставке</string>
     <string name="drawer_item_uploads_list">Отпремања</string>
@@ -366,7 +362,6 @@
     <string name="upload_move_files">Премести фајл</string>
     <string name="pref_behaviour_entries_keep_file">остављен у изворној фасцикли</string>
     <string name="pref_behaviour_entries_move">премештен у фасциклу апликације</string>
-
     <string name="share_dialog_title">Дељење</string>
     <string name="share_with_user_section_title">Дељење са корисницима и групама</string>
     <string name="share_add_user_or_group">Додај корисника или групу</string>
