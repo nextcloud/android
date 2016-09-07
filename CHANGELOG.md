@@ -1,3 +1,7 @@
+## 2016-09-0X
+- update Motivate more users #239
+- DAVdroid login screen prefilled launch #236
+
 ## 2016-09-04
 - descend into folder after creating it in uploader #206
 - Motivate more users #239
