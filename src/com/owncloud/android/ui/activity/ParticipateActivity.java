@@ -28,6 +28,7 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -36,6 +37,7 @@ import com.owncloud.android.R;
  * Activity providing information about ways to participate in the app's development.
  */
 public class ParticipateActivity extends FileActivity {
+    private Button mReportBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,17 +66,31 @@ public class ParticipateActivity extends FileActivity {
         TextView rcView = (TextView) findViewById(R.id.participate_release_candidate_text);
         rcView.setMovementMethod(LinkMovementMethod.getInstance());
 
-        TextView contributeView = (TextView) findViewById(R.id.participate_contribute_text);
-        contributeView.setMovementMethod(LinkMovementMethod.getInstance());
-        contributeView.setText(Html.fromHtml(
-                getString(R.string.participate_contribute_text,
-                        getString(R.string.irc_weblink),
+        TextView contributeIrcView = (TextView) findViewById(R.id.participate_contribute_irc_text);
+        contributeIrcView.setMovementMethod(LinkMovementMethod.getInstance());
+        contributeIrcView.setText(Html.fromHtml(
+                getString(R.string.participate_contribute_irc_text,
+                        getString(R.string.irc_weblink)
+                )));
+
+        TextView contributeForumView = (TextView) findViewById(R.id.participate_contribute_forum_text);
+        contributeForumView.setMovementMethod(LinkMovementMethod.getInstance());
+        contributeForumView.setText(Html.fromHtml(
+                getString(R.string.participate_contribute_forum_text,
                         getString(R.string.help_link)
                 )));
-    }
 
-    public void onReportIssueClick(View view) {
-        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.report_issue_link))));
+        TextView contributeGithubView = (TextView) findViewById(R.id.participate_contribute_github_text);
+        contributeGithubView.setMovementMethod(LinkMovementMethod.getInstance());
+        contributeGithubView.setText(Html.fromHtml(getString(R.string.participate_contribute_github_text)));
+
+        mReportBtn = (Button) findViewById(R.id.participate_testing_report);
+        mReportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.report_issue_link))));
+            }
+        });
     }
 
     public void onGetBetaFDroidClick(View view) {
