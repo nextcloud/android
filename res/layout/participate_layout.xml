@@ -61,9 +61,9 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/participate_testing_report"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="onReportIssueClick"
                     android:text="@string/participate_testing_report_text"
                     android:theme="@style/Button.Primary"/>
 
