@@ -38,9 +38,6 @@ import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
-import android.database.Cursor;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
@@ -77,7 +74,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
-
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.operations.CopyFileOperation;
@@ -171,6 +167,7 @@ public class FileDisplayActivity extends HookActivity
     private OCFile mWaitingToSend;
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
+
     private MediaServiceBinder mMediaServiceBinder =  null;
     private MediaServiceConnection mMediaServiceConnection = null;
 
@@ -1640,14 +1637,6 @@ public class FileDisplayActivity extends HookActivity
         }
     };
 
-
-
-
-    @Override
-    public void onSavedCertificate() {
-        startSyncFolderOperation(getCurrentDir(), false);
-    }
-
     /**
      * Updates the view associated to the activity after the finish of some operation over files
      * in the current account.
@@ -1745,7 +1734,7 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private void tryStopPlaying(OCFile file){
-        if (mMediaServiceConnection != null && file.isAudio()){
+        if (mMediaServiceConnection != null && MimeTypeUtil.isAudio(file)){
             if (mMediaServiceBinder.isPlaying(file)){
                 mMediaServiceBinder.pause();
             }
