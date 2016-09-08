@@ -178,19 +178,19 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="@string/login_data_own_scheme" android:host="@string/login_data_own_scheme_host" android:path="/" />
+                <data android:scheme="@string/login_data_own_scheme" android:host="@string/login_data_own_scheme_host"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="http" android:host="@string/login_data_standard_url" android:path="/"/>
+                <data android:scheme="http" android:host="@string/login_data_standard_url"/>
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="https" android:host="@string/login_data_standard_url" android:path="/"/>
+                <data android:scheme="https" android:host="@string/login_data_standard_url"/>
             </intent-filter>
         </activity>
 
