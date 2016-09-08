@@ -14,10 +14,15 @@
     <string name="actionbar_send_file">Pošlji</string>
     <string name="actionbar_sort">Razvrsti</string>
     <string name="actionbar_sort_title">Razvrsti ...</string>
+    <string name="menu_item_sort_by_name">A - Ž</string>
+    <string name="menu_item_sort_by_date">Novo - Staro</string>
+    <string name="menu_item_sort_by_size">Večje - Manjše</string>
     <string name="drawer_item_all_files">Vse datoteke</string>
+    <string name="drawer_item_on_device">Na napravi</string>
     <string name="drawer_item_settings">Nastavitve</string>
     <string name="drawer_item_uploads_list">Poslano</string>
-    <string name="drawer_close">Zapri</string>
+    <string name="drawer_quota">%1$s od %2$s uporabljeno</string>
+	<string name="drawer_close">Zapri</string>
     <string name="drawer_open">Odpri</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
@@ -51,6 +56,7 @@
     <string name="sync_string_files">Datoteke</string>
     <string name="setup_btn_connect">Poveži</string>
     <string name="uploader_btn_upload_text">Pošlji</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Nova besedilna datoteka</string>
     <string name="uploader_top_message">Izberi mapo za nalaganje</string>
     <string name="uploader_wrn_no_account_title">Uporabniškega računa ni mogoče najti</string>
     <string name="uploader_wrn_no_account_text">Za %1$s ni določenega računa. Pred nadaljevanjem ga je treba ustvariti.</string>
@@ -63,6 +69,9 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nima ustreznih dovoljen za prejemanje datoteke</string>
     <string name="uploader_error_message_source_file_not_found">Datoteke za pošiljanje ni mogoče najti na določenem mestu. Preverite, ali datoteka obstaja.</string>
     <string name="uploader_error_message_source_file_not_copied">Prišlo je do napake med kopiranjem datoteke v začasno mapo. Poskusite znova poslati kasneje.</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">premakni v Nextcloud mapo</string>
+    <string name="uploader_upload_files_behaviour_only_upload">samo naloži</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">naloži in zbriši iz naprave</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
     <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
     <string name="file_list_loading">Poteka nalaganje ...</string>
@@ -96,9 +105,11 @@
     <string name="common_loading">Nalaganje ...</string>
     <string name="common_unknown">neznano</string>
     <string name="common_error_unknown">Neznana napaka</string>
+    <string name="common_pending">V teku</string>
     <string name="about_title">O oblaku %1$s</string>
     <string name="change_password">Spremeni geslo</string>
     <string name="delete_account">Odstrani račun</string>
+    <string name="delete_account_warning">Pobrišem račun %s?\n\nBrisanja ne moreš preklicati.</string>
     <string name="create_account">Ustvari račun</string>
     <string name="upload_chooser_title">Pošlji datoteko iz …</string>
     <string name="uploader_info_dirname">Ime mape</string>
@@ -224,6 +235,7 @@
     <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_remove">Odstrani</string>
+    <string name="confirmation_remove_file_alert">Ali resnično želiš odstraniti %1$s?</string>
     <string name="confirmation_remove_folder_alert">Ali res želite odstraniti %1$s skupaj s celotno vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
     <string name="remove_success_msg">Odstranitev je uspešno končana</string>
@@ -284,6 +296,8 @@
 
     <string name="instant_upload_on_wifi">Pošiljaj slike le prek WiFi</string>
     <string name="instant_video_upload_on_wifi">Pošiljaj posnetke le prek Wifi</string>
+    <string name="instant_video_upload_on_charging">Nalagaj samo med polnjenjem</string>
+    <string name="instant_upload_on_charging">Nalagaj samo med polnjenjem</string>
     <string name="instant_upload_path">/Poslano</string>
     <string name="conflict_title">Neskladje datotek</string>
     <string name="conflict_message">Katere datoteke želite ohraniti? Če izberete obe različici, bo krajevni datoteki dodatna k imenu še številka.</string>
@@ -295,6 +309,7 @@
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
 
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
+    <string name="prefs_instant_upload_path_title">Mapa za hipno nalaganje</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Shrani v podmape kot leto in mesec</string>
 
@@ -368,7 +383,8 @@
     <string name="prefs_category_instant_uploading">Hipno pošiljanje</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče zaključiti</string>
+	<string name="prefs_instant_video_upload_path_title">Mapa za hipno nalaganje videov</string>
+    <string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče zaključiti</string>
 
 	<string name="shared_subject_header">v souporabi</string>
 	<string name="with_you_subject_header">z vami</string>
@@ -398,6 +414,8 @@
 
     <string name="pref_behaviour_entries_keep_file">ohrani v izvorni mapi</string>
     <string name="pref_behaviour_entries_move">premakni v mapo programa</string>
+    <string name="pref_behaviour_entries_delete_file">pobrisano</string>
+
     <string name="share_dialog_title">Souporaba</string>
     <string name="share_file">Omogoči souporabo %1$s</string>
     <string name="share_with_user_section_title">Omogoči souporabo s skupino ali z uporabnikom</string>
@@ -408,6 +426,7 @@
     <string name="share_via_link_password_label">Zaščiti z geslom</string>
     <string name="share_via_link_password_title">Varovano</string>
     <string name="share_via_link_edit_permission_label">Dovoli urejanje</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>
     <string name="share_get_public_link_button">Pridobi povezavo</string>
     <string name="share_with_title">Omogoči souporabo z ...</string>
     <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>
@@ -444,4 +463,31 @@
 
     <string name="permission_storage_access">Za prejemanje oziroma pošiljanje datotek v oblak so zahtevana dodatna dovoljenja.</string>
     <string name="local_file_not_found_toast">Datoteke ni mogoče najti na krajevnem sistemu</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">Ali resnično želiš odstraniti izbrane elemente?</string>
+    <string name="confirmation_remove_folders_alert">Ali resnično želiš odstraniti izbrane elemente in njihovo vsebino?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Čakam na polnjenje naprave</string>
+    <string name="actionbar_search">Iskanje</string>
+    <string name="files_drop_not_supported">To je Nexcloud funkcija, prosim posodobi.</string>
+    <string name="learn_more">Prikaži več</string>
+    <string name="drawer_participate">Sodeluj</string>
+    <string name="participate_testing_headline">Pomaja pri testiranju</string>
+    <string name="participate_testing_bug_text">Napaka? Je kaj čudno?</string>
+    <string name="participate_testing_report_text">Prijavi napako na Github</string>
+    <string name="participate_testing_version_text">Te zanima pomoč in testiranje naslednje verzije?</string>
+    <string name="participate_beta_headline">Testiraj beta verzijo</string>
+    <string name="participate_beta_text">To vključuje vse prihajajoče funkcije. Hrošči/napake se lahko pojavijo in če se, prosim prijavi jih nam. &lt;a href=\"%2$s\">Prenesi APK&lt;/a> or</string>
+    <string name="participate_release_candidate_headline">Kandidat za objavo</string>
+    <string name="participate_release_candidate_text">Kandidat za objavo (RC) je predogled naslednje verzije in je po pričakovanjih stabilen. Tvoje testiranje lahko pomaga, da to zagotovimo. prijavi se v testiranje v Play Store ali sam poglej v \"versions\" sekcijo na F-Droid.</string>
+    <string name="participate_contribute_headline">Aktivni prispevek</string>
+    <string name="participate_contribute_text">&lt;ul>&lt;li>pridruži se diskusiji na IRC: &lt;a
+        href=\"%1$s\">#nextcloud-mobile&lt;/a>&lt;/li>&lt;li>pomagaj drugim na &lt;a
+        href=\"%2$s>forumu&lt;/a>&lt;/li>&lt;li>Body del ekipe in prispevaj kot razvijalec: &lt;a
+        href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">Github CONTRIBUTING.md&lt;/a>&lt;/li&lt;/ul></string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d izbran</item>
+        <item quantity="two">%d izbrana</item>
+        <item quantity="few">%d izbranih</item>
+        <item quantity="other">%d izbranih</item>
+    </plurals>
+
+</resources>
