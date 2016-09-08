@@ -149,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/participate_contribute_irc_text"
-                    android:padding="@dimen/standard_half_padding"
+                    android:paddingBottom="@dimen/standard_quarter_padding"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <TextView
@@ -157,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/participate_contribute_forum_text"
-                    android:padding="@dimen/standard_half_padding"
+                    android:paddingBottom="@dimen/standard_quarter_padding"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
                 <TextView
@@ -165,7 +165,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/participate_contribute_github_text"
-                    android:padding="@dimen/standard_half_padding"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
             </LinearLayout>
         </ScrollView>
