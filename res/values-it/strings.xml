@@ -14,6 +14,9 @@
     <string name="actionbar_send_file">Invia</string>
     <string name="actionbar_sort">Ordina</string>
     <string name="actionbar_sort_title">Ordina per</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Più recente - Più datato</string>
+    <string name="menu_item_sort_by_size">Più grande - Più piccolo</string>
     <string name="drawer_item_all_files">Tutti i file</string>
     <string name="drawer_item_on_device">Su dispositivo</string>
     <string name="drawer_item_settings">Impostazioni</string>
@@ -66,6 +69,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s non ha il permesso di leggere un file ricevuto</string>
     <string name="uploader_error_message_source_file_not_found">Il file da caricare non è stato trovato nella sua posizione. Controlla che il file esista.</string>
     <string name="uploader_error_message_source_file_not_copied">Si è verificato un errore durante il tentativo di copiare il file in una cartella temporanea. Prova a inviarlo ancora.</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">sposta nella cartella di nextcloud</string>
     <string name="file_list_seconds_ago">secondi fa</string>
     <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
     <string name="file_list_loading">Caricamento in corso...</string>
@@ -406,6 +410,8 @@
 
     <string name="pref_behaviour_entries_keep_file">lasciato nella cartella originale</string>
     <string name="pref_behaviour_entries_move">spostato nella cartella dell\'applicazione</string>
+    <string name="pref_behaviour_entries_delete_file">eliminato</string>
+
     <string name="share_dialog_title">Condivisione</string>
     <string name="share_file">Condividi %1$s</string>
     <string name="share_with_user_section_title">Condividi con utenti e gruppi</string>
@@ -416,6 +422,7 @@
     <string name="share_via_link_password_label">Proteggi con password</string>
     <string name="share_via_link_password_title">Protetto</string>
     <string name="share_via_link_edit_permission_label">Consenti la modifica</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Nascondi elenco dei file</string>
     <string name="share_get_public_link_button">Ottieni collegamento</string>
     <string name="share_with_title">Condividi con...</string>
     <string name="share_with_edit_title">Condividi con %1$s</string>
@@ -454,7 +461,20 @@
     <string name="local_file_not_found_toast">Il file non è stato trovato nel file system locale</string>
     <string name="confirmation_remove_files_alert">Vuoi davvero rimuovere gli elementi selezionati?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero rimuovere gli elementi selezionati e il loro contenuto?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">In attesa della ricarica del dispositivo</string>
     <string name="actionbar_search">Cerca</string>
+    <string name="files_drop_not_supported">Questa è una funzionalità di Nextcloud, aggiorna.</string>
+    <string name="learn_more">Scopri altro</string>
+    <string name="drawer_participate">Partecipa</string>
+    <string name="participate_testing_headline">Aiutaci nella fase di test</string>
+    <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
+    <string name="participate_beta_headline">Prova la versione beta</string>
+    <string name="participate_release_candidate_headline">Candidata al rilascio</string>
+    <string name="participate_contribute_headline">Contribuisci attivamente</string>
+    <string name="participate_contribute_text">&lt;ul>&lt;li>Unisciti alla chat su IRC: &lt;a
+        href=\"%1$s\">#nextcloud-mobile&lt;/a>&lt;/li>&lt;li>Aiuta gli altri sul &lt;a
+        href=\"%2$s>forum&lt;/a>&lt;/li>&lt;li>Entra a far parte della squadra e contribuisci come sviluppatore: &lt;a
+        href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">Github CONTRIBUTING.md&lt;/a>&lt;/li&lt;/ul></string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>

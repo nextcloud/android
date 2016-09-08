@@ -516,12 +516,11 @@
     <string name="participate_beta_headline">Test the Beta version</string>
     <string name="participate_beta_text">This includes all upcoming features and is very bleeding edge. Bugs/errors can occur and if they do, please report them to us. &lt;a href="%2$s">Download the APK&lt;/a> or</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
-    <string name="participate_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming
-        release and it is expected to be stable. Testing your individual setup could help to ensure this. Sign up for testing on the Play store or manually look in the \"versions\" section on F-Droid.</string>
+    <string name="participate_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming release and it is expected to be stable. Testing your individual setup could help to ensure this. Sign up for testing on the Play store or manually look in the \"versions\" section on F-Droid.</string>
     <string name="participate_contribute_headline">Actively Contribute</string>
     <string name="participate_contribute_irc_text">Join the chat on IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Help others on the &lt;a href="%1$s>forum&lt;/a></string>
-    <string name="participate_contribute_github_text">Be part of the Team and contribute as a developer: &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">Github CONTRIBUTING.md&lt;/a></string>
+    <string name="participate_contribute_github_text">Contribute as a developer, see &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a> for details</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"

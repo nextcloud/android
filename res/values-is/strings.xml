@@ -97,7 +97,7 @@
     <string name="about_title">Um</string>
     <string name="change_password">Breyta lykilorði</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
-    <string name="delete_account_warning">Eyða aðgangi %s?\\n\\nEyðing er óafturkræf.</string>
+    <string name="delete_account_warning">Eyða aðgangi %s?\n\nEyðing er óafturkræf.</string>
     <string name="create_account">Stofna aðgang</string>
     <string name="upload_chooser_title">Senda inn frá ...</string>
     <string name="uploader_info_dirname">Nafn möppu</string>
