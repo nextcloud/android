@@ -14,6 +14,9 @@
     <string name="actionbar_send_file">Odeslat</string>
     <string name="actionbar_sort">Seřadit</string>
     <string name="actionbar_sort_title">Seřadit podle</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Nejnovější - nejstarší</string>
+    <string name="menu_item_sort_by_size">Největší - nejmenší</string>
     <string name="drawer_item_all_files">Všechny soubory</string>
     <string name="drawer_item_on_device">Na přístroji</string>
     <string name="drawer_item_settings">Nastavení</string>
@@ -66,6 +69,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nemá oprávnění číst přijatý soubor</string>
     <string name="uploader_error_message_source_file_not_found">Soubor k nahrání nebyl v tomto umístění nalezen. Zkontrolujte prosím zda soubor existuje.</string>
     <string name="uploader_error_message_source_file_not_copied">Došlo k chybě při kopírování souboru do dočasného adresáře. Zkuste prosím zopakovat odeslání.</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">přesunout do nextcloud adresáře</string>
     <string name="file_list_seconds_ago">před pár sekundami</string>
     <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
     <string name="file_list_loading">Načítání...</string>
@@ -405,6 +409,8 @@ správce systému.</string>
 
     <string name="pref_behaviour_entries_keep_file">ponechán ve výchozím adresáři</string>
     <string name="pref_behaviour_entries_move">přesunut do adresáře aplikace</string>
+    <string name="pref_behaviour_entries_delete_file">smazáno</string>
+
     <string name="share_dialog_title">Sdílení</string>
     <string name="share_file">Sdílet %1$s</string>
     <string name="share_with_user_section_title">Sdílet s uživateli a skupinami</string>
@@ -415,6 +421,7 @@ správce systému.</string>
     <string name="share_via_link_password_label">Chránit heslem</string>
     <string name="share_via_link_password_title">Zabezpečeno</string>
     <string name="share_via_link_edit_permission_label">Povolit úpravy</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Skrýt seznam souborů</string>
     <string name="share_get_public_link_button">Vytvořit odkaz</string>
     <string name="share_with_title">Sdílet s ...</string>
     <string name="share_with_edit_title">Sdílet s %1$s</string>

@@ -14,6 +14,9 @@
     <string name="actionbar_send_file">Wyślij</string>
     <string name="actionbar_sort">Sortuj</string>
     <string name="actionbar_sort_title">Sortuj według</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Nowsze - Starsze</string>
+    <string name="menu_item_sort_by_size">Największe - Najmniejsze</string>
     <string name="drawer_item_all_files">Wszystkie pliki</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_settings">Ustawienia</string>
