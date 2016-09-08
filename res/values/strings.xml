@@ -482,7 +482,7 @@
     <string name="participate_contribute_headline">Actively Contribute</string>
     <string name="participate_contribute_irc_text">Join the chat on IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Help others on the &lt;a href="%1$s>forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">Translate the app on &lt;a href="%1$s>transifex&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href="%1$s>Translate&lt;/a> the app</string>
     <string name="participate_contribute_github_text">Contribute as a developer, see &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a> for details</string>
     <plurals name="items_selected_count">
         <!--
