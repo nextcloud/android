@@ -14,6 +14,9 @@
     <string name="actionbar_send_file">Versturen</string>
     <string name="actionbar_sort">Sorteren</string>
     <string name="actionbar_sort_title">Sorteer op</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Nieuwste - Oudste</string>
+    <string name="menu_item_sort_by_size">Grootste - Kleinste</string>
     <string name="drawer_item_all_files">Alle bestanden</string>
     <string name="drawer_item_on_device">Op het apparaat</string>
     <string name="drawer_item_settings">Instellingen</string>
