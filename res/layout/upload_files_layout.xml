@@ -45,14 +45,25 @@
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/standard_padding">
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingBottom="@dimen/standard_padding"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/uploader_upload_files_behaviour"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:paddingBottom="@dimen/standard_half_padding"/>
 
         <Spinner
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:id="@+id/upload_files_spinner_behaviour"
             android:layout_weight="1"/>
     </LinearLayout>
