@@ -14,6 +14,7 @@
     <string name="actionbar_send_file">Envoyer</string>
     <string name="actionbar_sort">Trier</string>
     <string name="actionbar_sort_title">Trier par</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_on_device">Sur le périphérique</string>
     <string name="drawer_item_settings">Paramètres</string>
