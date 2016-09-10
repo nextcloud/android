@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="about_android">%1$s aplikace pro Android</string>
@@ -69,7 +68,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nemá oprávnění číst přijatý soubor</string>
     <string name="uploader_error_message_source_file_not_found">Soubor k nahrání nebyl v tomto umístění nalezen. Zkontrolujte prosím zda soubor existuje.</string>
     <string name="uploader_error_message_source_file_not_copied">Došlo k chybě při kopírování souboru do dočasného adresáře. Zkuste prosím zopakovat odeslání.</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">přesunout do nextcloud adresáře</string>
     <string name="file_list_seconds_ago">před pár sekundami</string>
     <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
     <string name="file_list_loading">Načítání...</string>

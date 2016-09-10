@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="about_android">%1$s Android alkalmazás</string>
@@ -70,9 +69,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nem olvashatja a fogadott fáljt</string>
     <string name="uploader_error_message_source_file_not_found">A feltöltendő fálj nem található a helyén. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
     <string name="uploader_error_message_source_file_not_copied">Hiba történt a fájl ideiglenes mappába másolása közben. Kérem próbálja újra küldeni.</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">áthelyezés a Nextcloud mappába</string>
-    <string name="uploader_upload_files_behaviour_only_upload">csak feltöltés</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">feltöltés és a forrás törlése</string>
     <string name="file_list_seconds_ago">pár másodperce</string>
     <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
     <string name="file_list_loading">Betöltés...</string>
