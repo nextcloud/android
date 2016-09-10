@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="about_android">Applicazione per Android di %1$s</string>
@@ -69,7 +68,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s non ha il permesso di leggere un file ricevuto</string>
     <string name="uploader_error_message_source_file_not_found">Il file da caricare non è stato trovato nella sua posizione. Controlla che il file esista.</string>
     <string name="uploader_error_message_source_file_not_copied">Si è verificato un errore durante il tentativo di copiare il file in una cartella temporanea. Prova a inviarlo ancora.</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">sposta nella cartella di nextcloud</string>
     <string name="file_list_seconds_ago">secondi fa</string>
     <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
     <string name="file_list_loading">Caricamento in corso...</string>
@@ -471,10 +469,6 @@
     <string name="participate_beta_headline">Prova la versione beta</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
-    <string name="participate_contribute_text">&lt;ul>&lt;li>Unisciti alla chat su IRC: &lt;a
-        href=\"%1$s\">#nextcloud-mobile&lt;/a>&lt;/li>&lt;li>Aiuta gli altri sul &lt;a
-        href=\"%2$s>forum&lt;/a>&lt;/li>&lt;li>Entra a far parte della squadra e contribuisci come sviluppatore: &lt;a
-        href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">Github CONTRIBUTING.md&lt;/a>&lt;/li&lt;/ul></string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>

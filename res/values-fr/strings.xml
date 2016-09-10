@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="about_android">Application Android %1$s</string>
@@ -101,6 +100,7 @@ Téléchargez-le ici : %2$s</string>
     <string name="common_loading">Chargement…</string>
     <string name="common_unknown">Inconnu</string>
     <string name="common_error_unknown">Erreur inconnue </string>
+    <string name="common_pending">En attente</string>
     <string name="about_title">À propos de</string>
     <string name="change_password">Changer de mot de passe</string>
     <string name="delete_account">Supprimer le compte</string>
@@ -420,6 +420,7 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
     <string name="share_via_link_password_label">Protéger par un mot de passe</string>
     <string name="share_via_link_password_title">Sécurisé</string>
     <string name="share_via_link_edit_permission_label">Permettre la modification</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Masquer les fichiers cachés</string>
     <string name="share_get_public_link_button">Obtenir le lien</string>
     <string name="share_with_title">Partager avec ...</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>
@@ -459,6 +460,10 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
     <string name="confirmation_remove_files_alert">Voulez-vous vraiment supprimer les objets sélectionnés?</string>
     <string name="confirmation_remove_folders_alert">Voulez-vous vraiment supprimer les objets sélectionnés et leurs contenus?</string>
     <string name="actionbar_search">Rechercher</string>
+    <string name="learn_more">En apprendre plus</string>
+    <string name="drawer_participate">Participer</string>
+    <string name="participate_testing_report_text">Signaler un problème sur Github</string>
+    <string name="participate_contribute_headline">Contribuer activement</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="about_android">%1$s na Android</string>
@@ -69,7 +68,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s jest nieautoryzowany do odczytu odebranego pliku</string>
     <string name="uploader_error_message_source_file_not_found">Plik do wysłania nie został znaleziony w swojej własnej lokalizacji. Proszę sprawdzić, czy w ogóle istnieje.</string>
     <string name="uploader_error_message_source_file_not_copied">Wystąpił błąd podczas kopiowania pliku do folderu tymczasowego. Proszę spróbować go przesłać ponownie.</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">wyślij oraz usuń ze źródła</string>
     <string name="file_list_seconds_ago">sekund temu</string>
     <string name="file_list_empty">Pusto. Wyślij coś!</string>
     <string name="file_list_loading">Wczytywanie...</string>
