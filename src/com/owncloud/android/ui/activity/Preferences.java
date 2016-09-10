@@ -22,6 +22,8 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -49,11 +51,16 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.owncloud.android.BuildConfig;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
+
+import java.io.IOException;
 
 
 /**
@@ -70,6 +77,13 @@ public class Preferences extends PreferenceActivity {
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
     private static final int ACTION_REQUEST_PASSCODE = 5;
     private static final int ACTION_CONFIRM_PASSCODE = 6;
+
+    private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
+
+    /**
+     * The user's server base uri.
+     */
+    private Uri mUri;
 
     private CheckBoxPreference pCode;
     private Preference pAboutApp;
@@ -102,6 +116,9 @@ public class Preferences extends PreferenceActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setTitle(R.string.actionbar_settings);
+
+        // retrieve user's base uri
+        setupBaseUri();
 
         // For adding content description tag to a title field in the action bar
         int actionBarTitleId = getResources().getIdentifier("action_bar_title", "id", "android");
@@ -148,6 +165,31 @@ public class Preferences extends PreferenceActivity {
         }
 
         PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
+
+        boolean calendarContactsEnabled = getResources().getBoolean(R.bool.calendar_contacts_enabled);
+        Preference pCalendarContacts = findPreference("calendar_contacts");
+        if (pCalendarContacts != null) {
+            if (calendarContactsEnabled) {
+                pCalendarContacts.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    @Override
+                    public boolean onPreferenceClick(Preference preference) {
+                        try {
+                            launchDavDroidLogin();
+                        } catch (Throwable t) {
+                            Log_OC.e(TAG, "Base Uri for account could not be resolved to call DAVdroid!", t);
+                            Toast.makeText(
+                                    MainApp.getAppContext(),
+                                    R.string.prefs_calendar_contacts_address_resolve_error,
+                                    Toast.LENGTH_SHORT)
+                                    .show();
+                        }
+                        return true;
+                    }
+                });
+            } else {
+                preferenceCategory.removePreference(pCalendarContacts);
+            }
+        }
         
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
         Preference pHelp =  findPreference("help");
@@ -362,6 +404,62 @@ public class Preferences extends PreferenceActivity {
        loadInstantUploadPath();
        loadInstantUploadVideoPath();
     }
+
+    private void launchDavDroidLogin()
+            throws com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException,
+            OperationCanceledException,
+            AuthenticatorException,
+            IOException {
+        Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+
+        Intent davDroidLoginIntent = new Intent();
+        davDroidLoginIntent.setClassName("at.bitfire.davdroid", "at.bitfire.davdroid.ui.setup.LoginActivity");
+        if (getPackageManager().resolveActivity(davDroidLoginIntent, 0) != null) {
+            // arguments
+            if (mUri != null) {
+                davDroidLoginIntent.putExtra("url", mUri.toString());
+            }
+            davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(account.name));
+            //loginIntent.putExtra("password", "...");
+            startActivityForResult(davDroidLoginIntent, ACTION_REQUEST_CODE_DAVDROID_SETUP);
+        } else {
+            // DAVdroid not installed
+            Intent installIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=at.bitfire.davdroid"));
+
+            // launch market(s)
+            if (installIntent.resolveActivity(getPackageManager()) != null) {
+                startActivity(installIntent);
+            } else {
+                // no f-droid market app or Play store installed --> launch browser for f-droid url
+                Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
+                startActivity(downloadIntent);
+
+                Toast.makeText(
+                        MainApp.getAppContext(),
+                        R.string.prefs_calendar_contacts_no_store_error,
+                        Toast.LENGTH_SHORT)
+                        .show();
+            }
+        }
+    }
+
+    private void setupBaseUri() {
+        // retrieve and set user's base URI
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try {
+                    Account account = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
+                    OwnCloudAccount ocAccount = new OwnCloudAccount(account, MainApp.getAppContext());
+                    mUri = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, getApplicationContext()).getBaseUri();
+                } catch (Throwable t) {
+                    Log_OC.e(TAG,"Error retrieving user's base URI", t);
+                }
+            }
+        });
+        t.start();
+    }
     
     private void toggleInstantPictureOptions(Boolean value){
         if (value){
@@ -473,7 +571,7 @@ public class Preferences extends PreferenceActivity {
                     appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i-1, i));
                 }
                 appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, true);
-                appPrefs.commit();
+                appPrefs.apply();
                 Toast.makeText(this, R.string.pass_code_stored, Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == ACTION_CONFIRM_PASSCODE && resultCode == RESULT_OK) {
@@ -482,10 +580,12 @@ public class Preferences extends PreferenceActivity {
                 SharedPreferences.Editor appPrefs = PreferenceManager
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
                 appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);
-                appPrefs.commit();
+                appPrefs.apply();
 
                 Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
             }
+        } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
+            Toast.makeText(this, R.string.prefs_calendar_contacts_sync_setup_successful, Toast.LENGTH_LONG).show();
         }
     }
 
