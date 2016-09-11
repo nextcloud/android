@@ -4,6 +4,7 @@
 - Display quota if configured/available in navigation drawer
 - Resume chunked uploads instead of complete restarts
 - Filter remote and local file lists
+- Simple integration with DAVdroid for calender and contacts sync
 - Mix folders and files on sort by date
 - Upload when charging option
 - Revamp upload options Move/Copy/Just-Upload
