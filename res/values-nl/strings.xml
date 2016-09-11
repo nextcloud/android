@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">versie %1$s</string>
     <string name="actionbar_sync">Account verversen</string>
@@ -69,6 +69,10 @@ Download hier: %2$s</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s is niet toegestaan om een ontvangen bestand te lezen</string>
     <string name="uploader_error_message_source_file_not_found">Het te uploaden bestand is hier niet. Controleer of het bestand wel bestaat.</string>
     <string name="uploader_error_message_source_file_not_copied">Er trad een fout op bij het kopiëren van het bestand naar een tijdelijke map. Probeer het opnieuw te versturen.</string>
+    <string name="uploader_upload_files_behaviour">Upload optie:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Verplaats bestand naar Nextcloud map</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Bewaar het bestand in de bronmap</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Verwijder bestand uit bronmap</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
     <string name="file_list_loading">Laden...</string>
@@ -405,14 +409,14 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="file_list__footer__files">%1$d bestanden</string>
     <string name="file_list__footer__files_and_folder">%1$d bestanden, 1 map</string>
     <string name="file_list__footer__files_and_folders">%1$d bestanden, %2$d mappen</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Originele bestand zal zijn...</string>
-    <string name="prefs_instant_behaviour_title">Originele bestand zal zijn...</string>
     <string name="upload_copy_files">Kopiëren bestand</string>
     <string name="upload_move_files">Verplaatsen bestand</string>
     <string name="select_all">Selecteer alles</string>
 
     <string name="pref_behaviour_entries_keep_file">bewaard in originele map</string>
     <string name="pref_behaviour_entries_move">verplaatst naar app map</string>
+    <string name="pref_behaviour_entries_delete_file">verwijderd</string>
+
     <string name="share_dialog_title">Delen</string>
     <string name="share_file">Deel %1$s</string>
     <string name="share_with_user_section_title">Delen met gebruikers en groepen</string>
@@ -423,6 +427,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="share_via_link_password_label">Wachtwoord beveiligd</string>
     <string name="share_via_link_password_title">Beveiligd</string>
     <string name="share_via_link_edit_permission_label">Toestaan bewerken</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Verberg bestandsoverzicht</string>
     <string name="share_get_public_link_button">Ophalen link</string>
     <string name="share_with_title">Deel met ...</string>
     <string name="share_with_edit_title">Deel met %1$s</string>
@@ -463,6 +468,19 @@ Neem contact op met je beheerder</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Wachten to apparaat word opgeladen</string>
     <string name="actionbar_search">Zoeken</string>
+    <string name="files_drop_not_supported">Dit is een Nextcloud optie, graag bijwerken.</string>
+    <string name="learn_more">Meer weten</string>
+    <string name="drawer_participate">Meedoen</string>
+    <string name="participate_testing_headline">Help ons testen</string>
+    <string name="participate_testing_bug_text">Foutje gevonden? Of iets raars?</string>
+    <string name="participate_testing_report_text">Meld het op Github</string>
+    <string name="participate_testing_version_text">Geïnteresseerd om ons te helpen de volgende versie te testen?</string>
+    <string name="participate_beta_headline">Test de Beta versie</string>
+    <string name="participate_contribute_headline">Actief meedoen</string>
+    <string name="participate_contribute_irc_text">Doe mee met de chat op IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Help anderen op het &lt;a href=\"%1$s>forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Vertaal&lt;/a> de app</string>
+    <string name="participate_contribute_github_text">Doe mee als ontwikkelaar, zie &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> voor details</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>

@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s Android App</string>
     <string name="about_version">Version %1$s</string>
     <string name="actionbar_sync">Konto aktualisieren</string>
@@ -68,6 +68,10 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s darf eine empfangene Datei nicht lesen</string>
     <string name="uploader_error_message_source_file_not_found">Hochzuladende Datei wurde an seinem Ort nicht gefunden. Prüfe, dass die Datei existiert.</string>
     <string name="uploader_error_message_source_file_not_copied">Es ist ein Fehler beim Kopieren dieser Datei in einen temporären Ordner aufgetreten. Bitte nochmals versuchen, die Datei zu senden.</string>
+    <string name="uploader_upload_files_behaviour">Upload Option:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">In Nextcloud Ordner verschieben</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Nur hochladen</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hochladen und Quelle löschen</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
     <string name="file_list_loading">Lade…</string>
@@ -402,8 +406,6 @@
     <string name="file_list__footer__files">%1$d Dateien</string>
     <string name="file_list__footer__files_and_folder">%1$d Dateien, 1 Ordner</string>
     <string name="file_list__footer__files_and_folders">%1$d Dateien, %2$d Ordner</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird...</string>
-    <string name="prefs_instant_behaviour_title">Originaldatei wird...</string>
     <string name="upload_copy_files">kopiere Datei</string>
     <string name="upload_move_files">verschiebe Datei</string>
     <string name="select_all">Alle auswählen</string>
@@ -471,8 +473,14 @@
     <string name="participate_testing_report_text">Fehler melden auf Github</string>
     <string name="participate_testing_version_text">Interessiert uns beim Test der nächsten Version zu unterstützen?</string>
     <string name="participate_beta_headline">Teste die Beta Version</string>
+    <string name="participate_beta_text">Dies beinhaltet alle kommenden Funktionen und ist nicht vollumfänglich qualitätsgesichert. Es können Fehler auftreten und wenn das passiert meldet uns diese bitte.&lt;br/>&lt;a href=\"%2$s\">APK herunterladen&lt;/a> oder</string>
     <string name="participate_release_candidate_headline">Vorabversion</string>
+    <string name="participate_release_candidate_text">Die Vorabversion auch Release Candidate (RC) genannt ist ein stabiler Stand der kommenden, finalen Version. Ein Test auf der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melde dich als Tester im Play Store an oder suche und installiere die passende Version von F-Droid unter \"Versionen\".</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
+    <string name="participate_contribute_irc_text">An Chats teilnehmen auf IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Hilf anderen im &lt;a href="%1$s>Forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href="%1$s>Übersetze&lt;/a> die App</string>
+    <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
