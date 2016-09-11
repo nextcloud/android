@@ -1,5 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s na Android</string>
     <string name="about_version">wersja %1$s</string>
     <string name="actionbar_sync">Odśwież konto</string>
@@ -28,7 +28,7 @@
     <string name="prefs_accounts">Konta</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
     <string name="prefs_passcode">Blokada hasłem</string>
-    <string name="prefs_instant_upload">natychmiastowa wysyłka obrazków</string>
+    <string name="prefs_instant_upload">Natychmiastowa wysyłka obrazów</string>
     <string name="prefs_instant_upload_summary">Wysyłaj od razu zdjęcia zrobione aparatem</string>
     <string name="prefs_instant_video_upload">Natychmiastowa wysyłka wideo</string>
     <string name="prefs_instant_video_upload_summary">Wysyłaj od razu filmy nakręcone aparatem</string>
@@ -68,6 +68,8 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s jest nieautoryzowany do odczytu odebranego pliku</string>
     <string name="uploader_error_message_source_file_not_found">Plik do wysłania nie został znaleziony w swojej własnej lokalizacji. Proszę sprawdzić, czy w ogóle istnieje.</string>
     <string name="uploader_error_message_source_file_not_copied">Wystąpił błąd podczas kopiowania pliku do folderu tymczasowego. Proszę spróbować go przesłać ponownie.</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Zachowaj plik w katalogu źródłowym</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Skasuj plik z katalogu źródłowego</string>
     <string name="file_list_seconds_ago">sekund temu</string>
     <string name="file_list_empty">Pusto. Wyślij coś!</string>
     <string name="file_list_loading">Wczytywanie...</string>
@@ -306,7 +308,7 @@
 
     <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach oparty na roku oraz miesiąca</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach opartych na roku oraz miesiącu</string>
 
 	<string name="share_link_no_support_share_api">Przepraszamy, ale współdzielenie nie jest włączone na Twoim serwerze. Proszę skontaktuj się z
 		administratorem.</string>
@@ -400,8 +402,6 @@
     <string name="file_list__footer__files">%1$d plików</string>
     <string name="file_list__footer__files_and_folder">%1$d plików, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d plików, %2$d folderów</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie...</string>
-    <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie...</string>
     <string name="upload_copy_files">Kopiuj plik</string>
     <string name="upload_move_files">Przenieś plik</string>
     <string name="select_all">Wybierz wszystko</string>
