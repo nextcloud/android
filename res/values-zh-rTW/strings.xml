@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s 安卓軟體</string>
     <string name="about_version">版本 %1$s</string>
     <string name="actionbar_sync">更新檔案列表</string>
@@ -393,8 +392,8 @@
     <string name="file_list__footer__files">%1$d 個檔案</string>
     <string name="file_list__footer__files_and_folder">%1$d 個檔案, 1 個資料夾</string>
     <string name="file_list__footer__files_and_folders">%1$d 個檔案, %2$d 個資料夾</string>
-    <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會...</string>
-    <string name="prefs_instant_behaviour_title">原始的檔案將會...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會&#8230;</string>
+    <string name="prefs_instant_behaviour_title">原始的檔案將會&#8230;</string>
     <string name="upload_copy_files">複製檔案</string>
     <string name="upload_move_files">移動檔案</string>
     <string name="select_all">全選</string>

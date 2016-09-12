@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s za Android</string>
     <string name="about_version">različica %1$s</string>
     <string name="actionbar_sync">Osveži račun</string>
@@ -69,9 +68,6 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nima ustreznih dovoljen za prejemanje datoteke</string>
     <string name="uploader_error_message_source_file_not_found">Datoteke za pošiljanje ni mogoče najti na določenem mestu. Preverite, ali datoteka obstaja.</string>
     <string name="uploader_error_message_source_file_not_copied">Prišlo je do napake med kopiranjem datoteke v začasno mapo. Poskusite znova poslati kasneje.</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">premakni v Nextcloud mapo</string>
-    <string name="uploader_upload_files_behaviour_only_upload">samo naloži</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">naloži in zbriši iz naprave</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
     <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
     <string name="file_list_loading">Poteka nalaganje ...</string>
@@ -406,8 +402,8 @@
     <string name="file_list__footer__files">%1$d datotek</string>
     <string name="file_list__footer__files_and_folder">%1$d datotek, 1 mapa</string>
     <string name="file_list__footer__files_and_folders">%1$d datotek, %2$d map</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Izvorno datoteko ...</string>
-    <string name="prefs_instant_behaviour_title">Izvorno datoteko ...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Izvorno datoteko&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Izvorno datoteko&#8230;</string>
     <string name="upload_copy_files">Kopiraj datoteko</string>
     <string name="upload_move_files">Premakni datoteko</string>
     <string name="select_all">Izberi vse</string>
@@ -475,14 +471,8 @@
     <string name="participate_testing_report_text">Prijavi napako na Github</string>
     <string name="participate_testing_version_text">Te zanima pomoč in testiranje naslednje verzije?</string>
     <string name="participate_beta_headline">Testiraj beta verzijo</string>
-    <string name="participate_beta_text">To vključuje vse prihajajoče funkcije. Hrošči/napake se lahko pojavijo in če se, prosim prijavi jih nam. &lt;a href=\"%2$s\">Prenesi APK&lt;/a> or</string>
     <string name="participate_release_candidate_headline">Kandidat za objavo</string>
-    <string name="participate_release_candidate_text">Kandidat za objavo (RC) je predogled naslednje verzije in je po pričakovanjih stabilen. Tvoje testiranje lahko pomaga, da to zagotovimo. prijavi se v testiranje v Play Store ali sam poglej v \"versions\" sekcijo na F-Droid.</string>
     <string name="participate_contribute_headline">Aktivni prispevek</string>
-    <string name="participate_contribute_text">&lt;ul>&lt;li>pridruži se diskusiji na IRC: &lt;a
-        href=\"%1$s\">#nextcloud-mobile&lt;/a>&lt;/li>&lt;li>pomagaj drugim na &lt;a
-        href=\"%2$s>forumu&lt;/a>&lt;/li>&lt;li>Body del ekipe in prispevaj kot razvijalec: &lt;a
-        href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">Github CONTRIBUTING.md&lt;/a>&lt;/li&lt;/ul></string>
     <plurals name="items_selected_count">
         <item quantity="one">%d izbran</item>
         <item quantity="two">%d izbrana</item>

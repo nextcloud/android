@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s na Android</string>
     <string name="about_version">wersja %1$s</string>
     <string name="actionbar_sync">Odśwież konto</string>
@@ -21,14 +20,15 @@
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_settings">Ustawienia</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
-    <string name="drawer_close">Zamknij</string>
+    <string name="drawer_quota">%1$s z %2$s zajęte</string>
+	<string name="drawer_close">Zamknij</string>
     <string name="drawer_open">Otwórz</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
     <string name="prefs_accounts">Konta</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
     <string name="prefs_passcode">Blokada hasłem</string>
-    <string name="prefs_instant_upload">natychmiastowa wysyłka obrazków</string>
+    <string name="prefs_instant_upload">Natychmiastowa wysyłka obrazów</string>
     <string name="prefs_instant_upload_summary">Wysyłaj od razu zdjęcia zrobione aparatem</string>
     <string name="prefs_instant_video_upload">Natychmiastowa wysyłka wideo</string>
     <string name="prefs_instant_video_upload_summary">Wysyłaj od razu filmy nakręcone aparatem</string>
@@ -68,6 +68,8 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s jest nieautoryzowany do odczytu odebranego pliku</string>
     <string name="uploader_error_message_source_file_not_found">Plik do wysłania nie został znaleziony w swojej własnej lokalizacji. Proszę sprawdzić, czy w ogóle istnieje.</string>
     <string name="uploader_error_message_source_file_not_copied">Wystąpił błąd podczas kopiowania pliku do folderu tymczasowego. Proszę spróbować go przesłać ponownie.</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Zachowaj plik w katalogu źródłowym</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Skasuj plik z katalogu źródłowego</string>
     <string name="file_list_seconds_ago">sekund temu</string>
     <string name="file_list_empty">Pusto. Wyślij coś!</string>
     <string name="file_list_loading">Wczytywanie...</string>
@@ -77,7 +79,7 @@
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">foldery</string>
     <string name="file_list_file">plik</string>
-    <string name="file_list_files">plik</string>
+    <string name="file_list_files">pliki</string>
     <string name="filedetails_select_file">Dotknij plik aby wyświetlić dodatkowe informacje</string>
     <string name="filedetails_size">Rozmiar:</string>
     <string name="filedetails_type">Typ:</string>
@@ -305,8 +307,8 @@
     <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
 
     <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
-    <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfoldery</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach oparty na roku oraz miesiąca</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach opartych na roku oraz miesiącu</string>
 
 	<string name="share_link_no_support_share_api">Przepraszamy, ale współdzielenie nie jest włączone na Twoim serwerze. Proszę skontaktuj się z
 		administratorem.</string>
@@ -400,14 +402,16 @@
     <string name="file_list__footer__files">%1$d plików</string>
     <string name="file_list__footer__files_and_folder">%1$d plików, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d plików, %2$d folderów</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie...</string>
-    <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie&#8230;</string>
     <string name="upload_copy_files">Kopiuj plik</string>
     <string name="upload_move_files">Przenieś plik</string>
     <string name="select_all">Wybierz wszystko</string>
 
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym folderze</string>
     <string name="pref_behaviour_entries_move">przeniesiony do folderu aplikacji</string>
+    <string name="pref_behaviour_entries_delete_file">usunięty</string>
+
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_file">Współdziel %1$s</string>
     <string name="share_with_user_section_title">Współdziel z użytkownikami i grupami</string>
@@ -454,5 +458,18 @@
 
     <string name="permission_storage_access">Dodatkowe uprawnienia do wysyłania i ściągania plików.</string>
     <string name="local_file_not_found_toast">Plik nie został znaleziony w lokalnym systemie plików</string>
+    <string name="confirmation_remove_files_alert">Czy naprawdę chcesz usunąć zaznaczone elementy?</string>
+    <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
     <string name="actionbar_search">Wyszukaj</string>
-    </resources>
+    <string name="participate_testing_headline">Pomóż nam testować</string>
+    <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
+    <string name="participate_beta_headline">Testuj wersję Beta</string>
+    <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d zaznaczony</item>
+        <item quantity="few">%d zaznaczone</item>
+        <item quantity="other">%d zaznaczonych</item>
+    </plurals>
+
+</resources>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Refresh account</string>
@@ -514,7 +513,9 @@
     <string name="participate_testing_report_text">Report an issue on Github</string>
     <string name="participate_testing_version_text">Interested in helping us testing the next Version?</string>
     <string name="participate_beta_headline">Test the Beta version</string>
-    <string name="participate_beta_text">This includes all upcoming features and is very bleeding edge. Bugs/errors can occur and if they do, please report them to us. &lt;a href="%2$s">Download the APK&lt;/a> or</string>
+    <string name="participate_beta_text">This includes all upcoming features and is very bleeding edge. Bugs/errors
+        can occur and if they do, please report them to us. &lt;br/>&lt;a href="%2$s">Download the APK&lt;/a>
+        or</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming release and it is expected to be stable. Testing your individual setup could help to ensure this. Sign up for testing on the Play store or manually look in the \"versions\" section on F-Droid.</string>
     <string name="participate_contribute_headline">Actively Contribute</string>
