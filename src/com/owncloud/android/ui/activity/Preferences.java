@@ -233,7 +233,6 @@ public class Preferences extends PreferenceActivity
                 preferenceCategory.removePreference(pCalendarContacts);
             }
         }
-        
 
         final Preference pCacheSize = findPreference("pref_cache_size");
         if (pCacheSize != null){

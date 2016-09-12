@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s Aplicação Android</string>
     <string name="about_version">versão %1$s</string>
     <string name="actionbar_sync">Atualizar conta</string>
@@ -381,8 +380,8 @@
     <string name="file_list__footer__files">%1$d ficheiros</string>
     <string name="file_list__footer__files_and_folder">%1$d ficheiros, 1 pasta</string>
     <string name="file_list__footer__files_and_folders">%1$d ficheiros, %2$d pastas</string>
-    <string name="prefs_instant_behaviour_dialogTitle">O ficheiro original será...</string>
-    <string name="prefs_instant_behaviour_title">O ficheiro original será...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">O ficheiro original será&#8230;</string>
+    <string name="prefs_instant_behaviour_title">O ficheiro original será&#8230;</string>
     <string name="upload_copy_files">Copiar ficheiro</string>
     <string name="upload_move_files">Mover ficheiro</string>
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>

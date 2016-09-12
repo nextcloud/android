@@ -1,3 +1,6 @@
+## 2016-09-12
+- update to latest 1.3.0 RC2 functionality
+
 ## 2016-09-07
 - update Motivate more users #239
 - DAVdroid login screen prefilled launch #236

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s Android alkalmazás</string>
     <string name="about_version">verzió %1$s</string>
     <string name="actionbar_sync">Fiók frissítése</string>
@@ -70,9 +69,10 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nem olvashatja a fogadott fáljt</string>
     <string name="uploader_error_message_source_file_not_found">A feltöltendő fálj nem található a helyén. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
     <string name="uploader_error_message_source_file_not_copied">Hiba történt a fájl ideiglenes mappába másolása közben. Kérem próbálja újra küldeni.</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">áthelyezés a Nextcloud mappába</string>
-    <string name="uploader_upload_files_behaviour_only_upload">csak feltöltés</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">feltöltés és a forrás törlése</string>
+    <string name="uploader_upload_files_behaviour">Feltöltési lehetőségek:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Helyezd át fájlt a Nextcoud mappába</string>
+    <string name="uploader_upload_files_behaviour_only_upload">A fájl maradjon az eredeti mappában</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">A fájl törlése az eredeti mappábó</string>
     <string name="file_list_seconds_ago">pár másodperce</string>
     <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
     <string name="file_list_loading">Betöltés...</string>
@@ -405,8 +405,8 @@
     <string name="file_list__footer__files">%1$d fájl</string>
     <string name="file_list__footer__files_and_folder">%1$d fájl, 1 mappa</string>
     <string name="file_list__footer__files_and_folders">%1$d fájl, %2$d mappa</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Az eredeti fájl...</string>
-    <string name="prefs_instant_behaviour_title">Az eredeti fájl...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Az eredeti fájl&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Az eredeti fájl&#8230;</string>
     <string name="upload_copy_files">Fájl másolás</string>
     <string name="upload_move_files">Fájl áthelyezés</string>
     <string name="select_all">Összes kijelölése</string>
@@ -473,6 +473,10 @@
     <string name="participate_beta_headline">Teszteld a Béta verziót</string>
     <string name="participate_release_candidate_headline">Kiadásra jelölt</string>
     <string name="participate_contribute_headline">Aktívan hozzájárul</string>
+    <string name="participate_contribute_irc_text">Csatlakozz a beszélgetéshez az IRC-n: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Segíts másokat a &lt;a href=\"%1$s>fórumban&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Fordítsd&lt;/a> az alkalmazást</string>
+    <string name="participate_contribute_github_text">Működj közre fejlesztőként, részletek: &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <plurals name="items_selected_count">
         <item quantity="one">%d kiválasztott</item>
         <item quantity="other">%d kiválasztott</item>
