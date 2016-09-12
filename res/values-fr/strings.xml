@@ -402,6 +402,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
     <string name="file_list__footer__files">%1$d fichiers</string>
     <string name="file_list__footer__files_and_folder">%1$d fichiers, 1 dossier</string>
     <string name="file_list__footer__files_and_folders">%1$d fichiers, %2$d dossiers</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Le fichier original sera&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Le fichier original sera&#8230;</string>
     <string name="upload_copy_files">Copier le fichier</string>
     <string name="upload_move_files">Déplacer le fichier</string>
     <string name="select_all">Tout sélectionner</string>

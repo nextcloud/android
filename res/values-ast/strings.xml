@@ -384,6 +384,8 @@
     <string name="file_list__footer__files">%1$d ficheros</string>
     <string name="file_list__footer__files_and_folder">%1$d ficheros, 1 carpeta</string>
     <string name="file_list__footer__files_and_folders">%1$d ficheros, %2$d carpetes</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Ficheru orixinal será&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Ficheru orixinal será&#8230;</string>
     <string name="upload_copy_files">Copiar ficheru</string>
     <string name="upload_move_files">Mover ficheru</string>
     <string name="pref_behaviour_entries_keep_file">guardáu en carpeta orixinal</string>

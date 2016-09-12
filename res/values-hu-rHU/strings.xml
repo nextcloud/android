@@ -405,6 +405,8 @@
     <string name="file_list__footer__files">%1$d fájl</string>
     <string name="file_list__footer__files_and_folder">%1$d fájl, 1 mappa</string>
     <string name="file_list__footer__files_and_folders">%1$d fájl, %2$d mappa</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Az eredeti fájl&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Az eredeti fájl&#8230;</string>
     <string name="upload_copy_files">Fájl másolás</string>
     <string name="upload_move_files">Fájl áthelyezés</string>
     <string name="select_all">Összes kijelölése</string>

@@ -402,6 +402,8 @@
     <string name="file_list__footer__files">%1$d plików</string>
     <string name="file_list__footer__files_and_folder">%1$d plików, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d plików, %2$d folderów</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie&#8230;</string>
     <string name="upload_copy_files">Kopiuj plik</string>
     <string name="upload_move_files">Przenieś plik</string>
     <string name="select_all">Wybierz wszystko</string>

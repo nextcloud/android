@@ -383,6 +383,8 @@
     <string name="file_list__footer__files">%1$d kartelë</string>
     <string name="file_list__footer__files_and_folder">%1$d kartela, 1 dosje</string>
     <string name="file_list__footer__files_and_folders">%1$d kartela, %2$d dosje</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Kartela origjinale do të jetë&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Kartela origjinale do të jetë&#8230;</string>
     <string name="upload_copy_files">Kopjoje kartelën</string>
     <string name="upload_move_files">Lëvize kartelën</string>
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>

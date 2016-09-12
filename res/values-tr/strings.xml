@@ -394,6 +394,8 @@
     <string name="file_list__footer__files">%1$d dosya</string>
     <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
     <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Özgün dosya&#8230;</string>
     <string name="upload_copy_files">Dosyayı kopyala</string>
     <string name="upload_move_files">Dosyayı taşı</string>
     <string name="select_all">Tümünü seç</string>

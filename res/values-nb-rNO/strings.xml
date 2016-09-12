@@ -371,6 +371,8 @@
     <string name="file_list__footer__files">%1$d filer</string>
     <string name="file_list__footer__files_and_folder">%1$d filer, 1 mappe</string>
     <string name="file_list__footer__files_and_folders">%1$d filer, %2$d mapper</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli&#8230;</string>
     <string name="upload_copy_files">Kopier fil</string>
     <string name="upload_move_files">Flytt fil</string>
     <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>

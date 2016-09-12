@@ -37,6 +37,11 @@
     <string name="prefs_log_title_history">Protokollierungs-Historie</string>
     <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
+    <string name="prefs_calendar_contacts">Kalender &amp; Kontakte Synchronisierung konfigurieren</string>
+    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto konfigurieren</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
+    <string name="prefs_calendar_contacts_no_store_error">Kein Google Play Store oder F-Droid App installiert</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; Kontakte Sychronisierung erfolgreich konfiguriert</string>
     <string name="prefs_help">Hilfe</string>
     <string name="prefs_recommend">Empfehle dies einem Freund</string>
     <string name="prefs_feedback">Rückmeldungen</string>
@@ -406,6 +411,8 @@
     <string name="file_list__footer__files">%1$d Dateien</string>
     <string name="file_list__footer__files_and_folder">%1$d Dateien, 1 Ordner</string>
     <string name="file_list__footer__files_and_folders">%1$d Dateien, %2$d Ordner</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Originaldatei wird&#8230;</string>
     <string name="upload_copy_files">kopiere Datei</string>
     <string name="upload_move_files">verschiebe Datei</string>
     <string name="select_all">Alle auswählen</string>
@@ -466,7 +473,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des gerätes</string>
     <string name="actionbar_search">Suche</string>
     <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten.</string>
-    <string name="learn_more">Mehr erfahren</string>
+    <string name="learn_more">Mehr</string>
     <string name="drawer_participate">Mitmachen</string>
     <string name="participate_testing_headline">Hilf uns Testen</string>
     <string name="participate_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
