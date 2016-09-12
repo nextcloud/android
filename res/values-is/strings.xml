@@ -375,6 +375,8 @@
     <string name="file_list__footer__files">%1$d skrár</string>
     <string name="file_list__footer__files_and_folder">%1$d skrár, 1 mappa</string>
     <string name="file_list__footer__files_and_folders">%1$d skrár, %2$d möppur</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Upprunaleg skrá verður&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Upprunaleg skrá verður&#8230;</string>
     <string name="upload_copy_files">Afrita skrá</string>
     <string name="upload_move_files">Færa skrá</string>
     <string name="select_all">Velja allt</string>

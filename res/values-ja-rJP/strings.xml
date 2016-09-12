@@ -392,6 +392,8 @@
     <string name="file_list__footer__files">%1$d ファイル</string>
     <string name="file_list__footer__files_and_folder">%1$d ファイル、1 フォルダー</string>
     <string name="file_list__footer__files_and_folders">%1$d ファイル、%2$d フォルダー</string>
+    <string name="prefs_instant_behaviour_dialogTitle">オリジナルファイルは、&#8230; になります。</string>
+    <string name="prefs_instant_behaviour_title">オリジナルファイルは、&#8230; になります。</string>
     <string name="upload_copy_files">ファイルをコピー</string>
     <string name="upload_move_files">ファイルを移動</string>
     <string name="select_all">すべて選択</string>

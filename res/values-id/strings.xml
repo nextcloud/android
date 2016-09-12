@@ -394,6 +394,8 @@
     <string name="file_list__footer__files">%1$d berkas</string>
     <string name="file_list__footer__files_and_folder">%1$d berkas, 1 folder</string>
     <string name="file_list__footer__files_and_folders">%1$d berkas, %2$d folder</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Berkas asli akan menjadi&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Berkas asli akan menjadi&#8230;</string>
     <string name="upload_copy_files">Salin berkas</string>
     <string name="upload_move_files">Pindahkan berkas</string>
     <string name="select_all">Pilih semua</string>

@@ -37,6 +37,11 @@
     <string name="prefs_log_title_history">Logging geschiedenis</string>
     <string name="prefs_log_summary_history">Dit toont de bijgehouden logs</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
+    <string name="prefs_calendar_contacts">Instellen agenda &amp; contactspersonen sync</string>
+    <string name="prefs_calendar_contacts_summary">Instellen DAVdroid (v1.3.0+) voor huidige gebruikte account</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Serveradres voor dit account kon niet worden gevonden voor DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Geen Google Play store of F-Droid app geïnstalleerd</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Agenda &amp; contactpersonen sync succesvol ingesteld</string>
     <string name="prefs_help">Help</string>
     <string name="prefs_recommend">Aanbevelen bij een vriend</string>
     <string name="prefs_feedback">Feedback</string>
@@ -409,6 +414,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="file_list__footer__files">%1$d bestanden</string>
     <string name="file_list__footer__files_and_folder">%1$d bestanden, 1 map</string>
     <string name="file_list__footer__files_and_folders">%1$d bestanden, %2$d mappen</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Origineel bestand zal zijn&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Origineel bestand zal zijn&#8230;</string>
     <string name="upload_copy_files">Kopiëren bestand</string>
     <string name="upload_move_files">Verplaatsen bestand</string>
     <string name="select_all">Selecteer alles</string>
@@ -476,6 +483,11 @@ Neem contact op met je beheerder</string>
     <string name="participate_testing_report_text">Meld het op Github</string>
     <string name="participate_testing_version_text">Geïnteresseerd om ons te helpen de volgende versie te testen?</string>
     <string name="participate_beta_headline">Test de Beta versie</string>
+    <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten
+kunnen voorkomen en in dat geval vragen we je die aan ons te melden. &lt;br/>&lt;a href=\"%2$s\">Download de APK&lt;/a>
+of</string>
+    <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_release_candidate_text">De Release Candidate (RC) is een kopie van de komende release en zou stabiel moeten zijn. Testen van jouw installatie kan ons helpen om dit te bevestigen. Meld je aan om te testen op de Play store en bekijk handmatig de \"versions\" sectie op F-Droid. </string>
     <string name="participate_contribute_headline">Actief meedoen</string>
     <string name="participate_contribute_irc_text">Doe mee met de chat op IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Help anderen op het &lt;a href=\"%1$s>forum&lt;/a></string>

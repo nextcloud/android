@@ -385,6 +385,8 @@
     <string name="file_list__footer__files">%1$d קבצים</string>
     <string name="file_list__footer__files_and_folder">%1$d קבצים, 1 תיקייה</string>
     <string name="file_list__footer__files_and_folders">%1$d קבצים, %2$d תיקיות</string>
+    <string name="prefs_instant_behaviour_dialogTitle">&#8230;קובץ מקורי יהיה</string>
+    <string name="prefs_instant_behaviour_title">&#8230;קובץ מקורי יהיה</string>
     <string name="upload_copy_files">העתקת קובץ</string>
     <string name="upload_move_files">העברת קובץ</string>
     <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>
