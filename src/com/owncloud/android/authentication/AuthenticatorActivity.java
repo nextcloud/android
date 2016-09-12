@@ -323,10 +323,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void populateLoginFields(LoginUrlInfo loginUrlInfo) {
-        if(loginUrlInfo != null) {
+        if (loginUrlInfo != null) {
             mHostUrlInput.setText(loginUrlInfo.serverAddress);
             mUsernameInput.setText(loginUrlInfo.username);
             mPasswordInput.setText(loginUrlInfo.password);
+
+            if (loginUrlInfo.serverAddress != null) {
+                onUrlInputFocusLost();
+            }
         }
     }
 
