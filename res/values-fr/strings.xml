@@ -37,7 +37,7 @@
     <string name="prefs_log_title_history">Historique de la journalisation</string>
     <string name="prefs_log_summary_history">Cela affiche les logs enregistrés</string>
     <string name="prefs_log_delete_history_button">Supprimer l\'historique</string>
-    <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda & des contacts</string>
+    <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda &amp; des contacts</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuellement utilisé</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Une  adresse de serveur pour le compte pourrait ne pas être résolue par DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play store ou F-Droid installée</string>
@@ -50,8 +50,7 @@
     <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement de téléversement</string>
 
 	<string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
-	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !
-Téléchargez-le ici : %2$s</string>
+	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone!\\nTéléchargez-le ici : %2$s</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_host_url">Adresse du serveur https://…</string>
@@ -95,7 +94,7 @@ Téléchargez-le ici : %2$s</string>
     <string name="filedetails_modified">Modifié le :</string>
     <string name="filedetails_download">Télécharger</string>
     <string name="filedetails_sync_file">Synchroniser</string>
-    <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
+    <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant le téléversement</string>
     <string name="list_layout">Affichage en liste</string>
     <string name="action_share">Partager</string>
     <string name="common_yes">Oui</string>
@@ -164,11 +163,7 @@ Téléchargez-le ici : %2$s</string>
     <string name="sync_fail_in_favourites_content">Le contenu de %1$d fichiers n\'a pu être synchronisé (%2$d conflits)</string>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été oubliés</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fichiers du dossier %2$s n\'ont pas pu être copiés dans</string>
-    <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.
-
-En raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.
-
-Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\\n\\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\\n\\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
     <string name="foreign_files_move">Tout déplacer</string>
     <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
@@ -486,15 +481,15 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
     <string name="participate_beta_headline">Testez la version bêta</string>
     <string name="participate_beta_text">Ceci inclut toutes les fonctionnalités à venir qui sont encore toutes fraîches.
 Des erreurs peuvent se produire et si c\'est le cas, veuillez nous les reporter s\'il vous plaît.
-<br/><a href=\"%2$s\">Télécharger l\'APK</a>
+&lt;br/>&lt;a href=\"%2$s\">Télécharger l\'APK&lt;/a>
 ou</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">La version « release candidate » (RC) est un instantanné de la dernière version supposée stable. Le test de votre configuration pourrait nous aider à nous assurer que cette version est entièrement stable. Inscrivez vous pour être testeur sur le Play store ou allez jeter un œil dans la section \"versions\" de F-Droid.</string>
     <string name="participate_contribute_headline">Contribuer activement</string>
-    <string name="participate_contribute_irc_text">Rejoingez la discussion sur IRC: <a href=\"%1$s\">#nextcloud-mobile</a></string>
-    <string name="participate_contribute_forum_text">Aidez les autres sur le <a href=\"%1$s>forum</a></string>
-    <string name="participate_contribute_translate_text"><a href=\"%1$s>Traduisez</a> l\'application</string>
-    <string name="participate_contribute_github_text">Développeurs ? Contribuez ! Plus de détails sur la page <a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md</a></string>
+    <string name="participate_contribute_irc_text">Rejoingez la discussion sur IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Aidez les autres sur le &lt;a href=\"%1$s>forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduisez&lt;/a> l\'application</string>
+    <string name="participate_contribute_github_text">Développeurs ? Contribuez ! Plus de détails sur la page &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
