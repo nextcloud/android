@@ -13,6 +13,9 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Classificar</string>
     <string name="actionbar_sort_title">Classificar por</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Mais novo - Mais antigo</string>
+    <string name="menu_item_sort_by_size">Maior - Menor</string>
     <string name="drawer_item_all_files">Todos os arquivos</string>
     <string name="drawer_item_on_device">No aparelho</string>
     <string name="drawer_item_settings">Configurações</string>
@@ -34,6 +37,11 @@
     <string name="prefs_log_title_history">Histórico de logins</string>
     <string name="prefs_log_summary_history">Mostra os registros gravados</string>
     <string name="prefs_log_delete_history_button">Excluir histórico</string>
+    <string name="prefs_calendar_contacts">Configurar a sincronização do calendário e dos contatos</string>
+    <string name="prefs_calendar_contacts_summary">Configurar o DAVdroid (v1.3.0+) para a conta em uso</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor da conta não pôde ser reconhecido pelo DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Não há um aplicativo F-Droid ou Google Play instalado</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">A sincronização do calendário e dos contatos foi configurada com sucesso</string>
     <string name="prefs_help">Ajuda</string>
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_feedback">Feedback</string>
@@ -65,6 +73,10 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s não tem permissão para ler um arquivo recebido</string>
     <string name="uploader_error_message_source_file_not_found">Arquivo para envio não foi encontrado em sua localização. Verifique se o arquivo existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Ocorreu um erro ao copiar o arquivo para uma pasta temporária. Por favor, tente enviar novamente.</string>
+    <string name="uploader_upload_files_behaviour">Opção de envio:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover o arquivo para a pasta do Nextcoud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Manter o arquivo na pasta de origem</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Excluir o arquivo da pasta de origem</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
     <string name="file_list_loading">Carregando...</string>
@@ -407,6 +419,8 @@
 
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para a pasta app</string>
+    <string name="pref_behaviour_entries_delete_file">excluído</string>
+
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_file">Compartilhar %1$s</string>
     <string name="share_with_user_section_title">Compartilhar com usuários e grupos</string>
@@ -417,6 +431,7 @@
     <string name="share_via_link_password_label">Proteger com senha</string>
     <string name="share_via_link_password_title">Asegurado</string>
     <string name="share_via_link_edit_permission_label">Permitir edição</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Ocultar a listagem de arquivos</string>
     <string name="share_get_public_link_button">Obter link</string>
     <string name="share_with_title">Compartilhar com …</string>
     <string name="share_with_edit_title">Compartilhar com %1$s</string>
@@ -457,6 +472,19 @@
     <string name="confirmation_remove_folders_alert">Deseja realmente remover os itens selecionados e seus conteúdos?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">À espera de carregamento do dispositivo</string>
     <string name="actionbar_search">Pesquisar</string>
+    <string name="files_drop_not_supported">Este é um recurso do Nextcloud, atualize.</string>
+    <string name="learn_more">Aprender mais</string>
+    <string name="drawer_participate">Participar</string>
+    <string name="participate_testing_headline">Ajude-nos a testar</string>
+    <string name="participate_testing_bug_text">Encontrou um erro? Algo está estranho?</string>
+    <string name="participate_testing_report_text">Relate o problema no Github</string>
+    <string name="participate_testing_version_text">Está interessado em ajudar-nos a testar a próxima versão?</string>
+    <string name="participate_beta_headline">Testar a versão beta</string>
+    <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_contribute_headline">Contribuir ativamente</string>
+    <string name="participate_contribute_irc_text">Participe de uma conversa no IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Ajude as outras pessoas no &lt;a href=\"%1$s>fórum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduzir&lt;/a> o aplicativo</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selecionado</item>
         <item quantity="other">%d selecionados</item>
