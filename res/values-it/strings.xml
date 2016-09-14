@@ -37,6 +37,10 @@
     <string name="prefs_log_title_history">Cronologia di registrazione</string>
     <string name="prefs_log_summary_history">Mostra i log registrati</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>
+    <string name="prefs_calendar_contacts">Configura sincronizzazione calendario e contatti</string>
+    <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) per l\'account utilizzato attualmente</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">L\'indirizzo del server per l\'account non può essere risolto da DAVdroid</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata correttamente</string>
     <string name="prefs_help">Aiuto</string>
     <string name="prefs_recommend">Consiglia a un amico</string>
     <string name="prefs_feedback">Segnalazioni</string>
@@ -68,6 +72,10 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s non ha il permesso di leggere un file ricevuto</string>
     <string name="uploader_error_message_source_file_not_found">Il file da caricare non è stato trovato nella sua posizione. Controlla che il file esista.</string>
     <string name="uploader_error_message_source_file_not_copied">Si è verificato un errore durante il tentativo di copiare il file in una cartella temporanea. Prova a inviarlo ancora.</string>
+    <string name="uploader_upload_files_behaviour">Opzione di caricamento:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Sposta file nella cartella di Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Mantieni il file nella cartella di origine</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina il file dalla cartella di origine</string>
     <string name="file_list_seconds_ago">secondi fa</string>
     <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
     <string name="file_list_loading">Caricamento in corso...</string>
@@ -292,6 +300,8 @@
 
     <string name="instant_upload_on_wifi">Carica le immagini solo tramite wifi</string>
     <string name="instant_video_upload_on_wifi">Carica i video solo tramite wifi</string>
+    <string name="instant_video_upload_on_charging">Carica solo in fase di ricarica</string>
+    <string name="instant_upload_on_charging">Carica solo in fase di ricarica</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">File in conflitto</string>
     <string name="conflict_message">Quali file vuoi tenere? Se selezioni entrambi le versioni, il file locale avrà un numero aggiunto al suo nome.</string>
@@ -465,10 +475,14 @@
     <string name="learn_more">Scopri altro</string>
     <string name="drawer_participate">Partecipa</string>
     <string name="participate_testing_headline">Aiutaci nella fase di test</string>
+    <string name="participate_testing_bug_text">Hai trovato un bug? Qualcosa di strano?</string>
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
+    <string name="participate_testing_version_text">Sei interessato ad aiutarci a provare la nostra prossima versione?</string>
     <string name="participate_beta_headline">Prova la versione beta</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
+    <string name="participate_contribute_irc_text">Unisciti alla chat su IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduci&lt;/a> l\'applicazione</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
