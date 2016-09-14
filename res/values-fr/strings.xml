@@ -41,7 +41,7 @@
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuellement utilisé</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Une  adresse de serveur pour le compte pourrait ne pas être résolue par DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play store ou F-Droid installée</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">La synchronisation de l\'agenda & des contacts a bien été configurée.</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">La synchronisation de l\'agenda &amp; des contacts a bien été configurée.</string>
     <string name="prefs_help">Aide</string>
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_feedback">Commentaires</string>
@@ -202,8 +202,8 @@
     <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
     <string name="media_forward_description">Bouton d\'avance rapide</string>
 
-	<string name="auth_getting_authorization">Contrôle d\'autorisation ...</string>
-	<string name="auth_trying_to_login">Tentative de connexion ...</string>
+	<string name="auth_getting_authorization">Contrôle d\'autorisation &#8230;</string>
+	<string name="auth_trying_to_login">Tentative de connexion &#8230;</string>
 	<string name="auth_no_net_conn_title">Pas de connexion réseau</string>
 	<string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
 	<string name="auth_connection_established">Connexion établie</string>
