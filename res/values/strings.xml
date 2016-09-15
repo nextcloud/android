@@ -507,8 +507,8 @@
 
 
     <!-- What's new feature and texts to show -->
-    <string name="welcome_to_nc_title">Welcome to nextCloud!</string>
-    <string name="whats_new_title">What\'s new in nextCloud</string>
+    <string name="welcome_to_nc_title">Welcome to Nextcloud!</string>
+    <string name="whats_new_title">What\'s new in Nextcloud</string>
 
     <!-- Welcome to oC intro features -->
     <string name="welcome_feature_1_title">Instant upload</string>
