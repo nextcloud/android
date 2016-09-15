@@ -1,5 +1,6 @@
-## 2016-09-12
+## 2016-09-15
 - update to latest 1.3.0 RC2 functionality
+- What's new #84
 
 ## 2016-09-07
 - update Motivate more users #239

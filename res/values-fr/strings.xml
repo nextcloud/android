@@ -14,6 +14,8 @@
     <string name="actionbar_sort">Trier</string>
     <string name="actionbar_sort_title">Trier par</string>
     <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">du plus récent au plus ancien</string>
+    <string name="menu_item_sort_by_size">du plus grand au plus petit</string>
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_on_device">Sur le périphérique</string>
     <string name="drawer_item_settings">Paramètres</string>
@@ -31,10 +33,15 @@
     <string name="prefs_instant_video_upload">Téléversement immédiat des vidéos</string>
     <string name="prefs_instant_video_upload_summary">Téléverser immédiatement les vidéos prises par la caméra</string>
     <string name="prefs_log_title">Activer la journalisation</string>
-    <string name="prefs_log_summary">Utilisé pour la journalisation des problèmes</string>
+    <string name="prefs_log_summary">Cela est utilisé pour la journalisation des problèmes</string>
     <string name="prefs_log_title_history">Historique de la journalisation</string>
     <string name="prefs_log_summary_history">Cela affiche les logs enregistrés</string>
     <string name="prefs_log_delete_history_button">Supprimer l\'historique</string>
+    <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda &amp; des contacts</string>
+    <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuellement utilisé</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Une  adresse de serveur pour le compte pourrait ne pas être résolue par DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play store ou F-Droid installée</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">La synchronisation de l\'agenda &amp; des contacts a bien été configurée.</string>
     <string name="prefs_help">Aide</string>
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_feedback">Commentaires</string>
@@ -43,8 +50,7 @@
     <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement de téléversement</string>
 
 	<string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
-	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !
-Téléchargez-le ici : %2$s</string>
+	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone!\\nTéléchargez-le ici : %2$s</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_host_url">Adresse du serveur https://…</string>
@@ -67,9 +73,13 @@ Téléchargez-le ici : %2$s</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s n\'est pas autorisé à lire un fichier reçu</string>
     <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé dans son emplacement. Merci de vérifier si ce fichier existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Une erreur est survenue lors de la copie du fichier vers un dossier temporaire. Merci de recommencer votre envoi.</string>
-    <string name="file_list_seconds_ago">il y a quelques secondes</string>
-    <string name="file_list_empty">Il n\'y a rien ici ! Envoyez donc quelque chose :)</string>
-    <string name="file_list_loading">Chargement...</string>
+    <string name="uploader_upload_files_behaviour">Option de téléversement :</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Déplacer le fichier dans le dossier Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Garder le fichier dans le dossier original</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
+    <string name="file_list_seconds_ago">à l\'instant</string>
+    <string name="file_list_empty">Il n\'y a rien ici ! Téléversez donc quelque chose :)</string>
+    <string name="file_list_loading">Chargement&#8230;</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
     <string name="upload_list_empty">Aucun téléversement disponible.</string>
@@ -84,7 +94,7 @@ Téléchargez-le ici : %2$s</string>
     <string name="filedetails_modified">Modifié le :</string>
     <string name="filedetails_download">Télécharger</string>
     <string name="filedetails_sync_file">Synchroniser</string>
-    <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %s pendant le téléversement</string>
+    <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant le téléversement</string>
     <string name="list_layout">Affichage en liste</string>
     <string name="action_share">Partager</string>
     <string name="common_yes">Oui</string>
@@ -153,11 +163,7 @@ Téléchargez-le ici : %2$s</string>
     <string name="sync_fail_in_favourites_content">Le contenu de %1$d fichiers n\'a pu être synchronisé (%2$d conflits)</string>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été oubliés</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fichiers du dossier %2$s n\'ont pas pu être copiés dans</string>
-    <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.
-
-En raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.
-
-Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\\n\\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\\n\\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
     <string name="foreign_files_move">Tout déplacer</string>
     <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
@@ -196,8 +202,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
     <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
     <string name="media_forward_description">Bouton d\'avance rapide</string>
 
-	<string name="auth_getting_authorization">Contrôle d\'autorisation ...</string>
-	<string name="auth_trying_to_login">Tentative de connexion ...</string>
+	<string name="auth_getting_authorization">Contrôle d\'autorisation &#8230;</string>
+	<string name="auth_trying_to_login">Tentative de connexion &#8230;</string>
 	<string name="auth_no_net_conn_title">Pas de connexion réseau</string>
 	<string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
 	<string name="auth_connection_established">Connexion établie</string>
@@ -295,6 +301,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
 
     <string name="instant_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
     <string name="instant_video_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
+    <string name="instant_video_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
+    <string name="instant_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Conflit de fichiers</string>
     <string name="conflict_message">Quel(s) fichier(s) voulez-vous garder ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
@@ -410,6 +418,8 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
 
     <string name="pref_behaviour_entries_keep_file">gardé dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
+    <string name="pref_behaviour_entries_delete_file">Supprimé</string>
+
     <string name="share_dialog_title">Partage</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_with_user_section_title">Partager avec des utilisateurs et des groupes</string>
@@ -459,11 +469,27 @@ Ci-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxq
     <string name="local_file_not_found_toast">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
     <string name="confirmation_remove_files_alert">Voulez-vous vraiment supprimer les objets sélectionnés?</string>
     <string name="confirmation_remove_folders_alert">Voulez-vous vraiment supprimer les objets sélectionnés et leurs contenus?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
+    <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud ; veuillez mettre à jour..</string>
     <string name="learn_more">En apprendre plus</string>
     <string name="drawer_participate">Participer</string>
+    <string name="participate_testing_headline">Aidez nous à tester</string>
+    <string name="participate_testing_bug_text">Vous avez trouvé un bug ? Quelque chose est étrange ?</string>
     <string name="participate_testing_report_text">Signaler un problème sur Github</string>
+    <string name="participate_testing_version_text">Interessé par nous aider à tester la future Version ?</string>
+    <string name="participate_beta_headline">Testez la version bêta</string>
+    <string name="participate_beta_text">Ceci inclut toutes les fonctionnalités à venir qui sont encore toutes fraîches.
+Des erreurs peuvent se produire et si c\'est le cas, veuillez nous les reporter s\'il vous plaît.
+&lt;br/>&lt;a href=\"%2$s\">Télécharger l\'APK&lt;/a>
+ou</string>
+    <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_release_candidate_text">La version « release candidate » (RC) est un instantanné de la dernière version supposée stable. Le test de votre configuration pourrait nous aider à nous assurer que cette version est entièrement stable. Inscrivez vous pour être testeur sur le Play store ou allez jeter un œil dans la section \"versions\" de F-Droid.</string>
     <string name="participate_contribute_headline">Contribuer activement</string>
+    <string name="participate_contribute_irc_text">Rejoingez la discussion sur IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Aidez les autres sur le &lt;a href=\"%1$s>forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduisez&lt;/a> l\'application</string>
+    <string name="participate_contribute_github_text">Développeurs ? Contribuez ! Plus de détails sur la page &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>

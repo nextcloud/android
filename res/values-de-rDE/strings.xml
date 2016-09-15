@@ -40,7 +40,7 @@
     <string name="prefs_calendar_contacts">Kalender &amp; Kontakte Synchronisierung konfigurieren</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto konfigurieren</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
-    <string name="prefs_calendar_contacts_no_store_error">Kein Google Play Store oder F-Droid App installiert</string>
+    <string name="prefs_calendar_contacts_no_store_error">Weder Google Play Store noch F-Droid App installiert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; Kontakte Sychronisierung erfolgreich konfiguriert</string>
     <string name="prefs_help">Hilfe</string>
     <string name="prefs_recommend">Dies einem Freund empfehlen</string>
@@ -50,7 +50,7 @@
     <string name="prefs_remember_last_upload_location_summary">Geteilten Upload-Speicherort merken</string>
 
 	<string name="recommend_subject">%1$s auf Ihrem Smartphone ausprobieren!</string>
-	<string name="recommend_text">Ich möchte Sie einladen, %1$s auf Ihrem Smartphone zu verwenden!\nHier herunterladen: %2$s</string>
+	<string name="recommend_text">Ich empfehle Ihnen die Nutzung von %1$s auf Ihrem Smartphone!\\nSie können die App hier herunterladen: %2$s</string>
 
     <string name="auth_check_server">Server überprüfen</string>
     <string name="auth_host_url">Server-Adresse https://…</string>
@@ -72,10 +72,10 @@
     <string name="uploader_error_title_file_cannot_be_uploaded">Datei kann nicht hochgeladen werden</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s darf eine empfangene Datei nicht lesen</string>
     <string name="uploader_error_message_source_file_not_found">Hochzuladende Datei wurde an seinem Ort nicht gefunden. Prüfen Sie, dass die Datei existiert.</string>
-    <string name="uploader_error_message_source_file_not_copied">Es ist ein Fehler beim Kopieren dieser Datei in einen temporären Ordner aufgetreten. Bitte nochmals versuchen, die Datei zu senden.</string>
+    <string name="uploader_error_message_source_file_not_copied">Es ist ein Fehler beim Kopieren dieser Datei in einen temporären Ordner aufgetreten. Bitte versuchen Sie erneut die Datei zu senden.</string>
     <string name="uploader_upload_files_behaviour">Upload Option:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">In Nextcloud Ordner verschieben</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Nur hochladen</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Hochladen und Datei im Quellordner behalten</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hochladen und Quelle löschen</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_list_empty">Alles leer. Laden Sie etwas hoch!</string>
@@ -101,7 +101,7 @@
     <string name="common_no">Nein</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">Upload entfernen</string>
-    <string name="common_retry_upload">Upload wiederholen</string>
+    <string name="common_retry_upload">Hochladen wiederholen</string>
     <string name="common_cancel_sync">Synchronisation abbrechen</string>
     <string name="common_cancel">Abbrechen</string>
     <string name="common_back">Zurück</string>
