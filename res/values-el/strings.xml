@@ -274,6 +274,7 @@
     <string name="preview_image_error_unknown_format">Αυτή η εικόνα δεν μπορεί να προβληθεί</string>
 
     <string name="error__upload__local_file_not_copied">Το %1$s δεν μπόρεσε να αντιγραφεί στον τοπικό φάκελο %2$s</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Χρήση υποφακέλων</string>
     <string name="share_link_no_support_share_api">Λυπούμαστε, ο διαμοιρασμός δεν επιτρέπεται στο διακομιστή σας. Παρακαλούμε επικοινωνείστε με το
 		διαχειριστή σας.</string>
 	<string name="share_link_file_no_exist">Αδύνατη η κοινή χρήση. Παρακαλώ ελέγξτε αν ο φάκελος υπάρχει</string>
@@ -409,6 +410,9 @@
     <string name="manage_space_error">Μερικά αρχεία δεν μπορούν να διαγραφούν.</string>
 
     <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση &amp; λήψη αρχείων.</string>
+    <string name="actionbar_search">Αναζήτηση</string>
+    <string name="participate_testing_headline">Βοηθήστε μας στις δοκιμές</string>
+    <string name="participate_beta_headline">Δοκιμάστε την έκδοση Beta</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d επιλέχθηκε</item>
         <item quantity="other">%d επιλέχθηκαν</item>
