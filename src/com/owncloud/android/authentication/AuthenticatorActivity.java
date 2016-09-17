@@ -632,7 +632,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         outState.putBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG, mIsFirstAuthAttempt);
 
         /// AsyncTask (User and password)
-        outState.putString(KEY_USERNAME, mUsernameInput.getText().toString());
+        outState.putString(KEY_USERNAME, mUsernameInput.getText().toString().trim());
         outState.putString(KEY_PASSWORD, mPasswordInput.getText().toString());
 
         if (mAsyncTask != null) {
@@ -886,14 +886,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void showPassword() {
         mPasswordInput.setInputType(
-                InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+                InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD |
+                InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         );
         showViewPasswordButton();
     }
 
     private void hidePassword() {
         mPasswordInput.setInputType(
-                InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD
+                InputType.TYPE_CLASS_TEXT |
+                InputType.TYPE_TEXT_VARIATION_PASSWORD |
+                InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS
         );
         showViewPasswordButton();
     }
@@ -944,7 +948,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     private void checkBasicAuthorization() {
         /// get basic credentials entered by user
-        String username = mUsernameInput.getText().toString();
+        String username = mUsernameInput.getText().toString().trim();
         String password = mPasswordInput.getText().toString();
 
         /// be gentle with the user
@@ -1053,7 +1057,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 success = createAccount(result);
             } else {
 
-                if (!mUsernameInput.getText().toString().equals(username)) {
+                if (!mUsernameInput.getText().toString().trim().equals(username)) {
                     // fail - not a new account, but an existing one; disallow
                     result = new RemoteOperationResult(ResultCode.ACCOUNT_NOT_THE_SAME);
                     mAuthToken = "";

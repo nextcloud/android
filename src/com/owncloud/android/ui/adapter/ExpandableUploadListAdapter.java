@@ -98,6 +98,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     if (!upload2.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
                         return -1;
                     }
+                    // both are in progress
                     FileUploader.FileUploaderBinder binder = mParentActivity.getFileUploaderBinder();
                     if (binder != null) {
                         if (binder.isUploadingNow(upload1)) {
@@ -109,7 +110,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 } else if (upload2.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
                     return 1;
                 }
-                if (upload1.getUploadEndTimestamp() == 0) {
+                if (upload1.getUploadEndTimestamp() == 0 || upload2.getUploadEndTimestamp() == 0) {
                     return compareUploadId(upload1, upload2);
                 } else {
                     return compareUpdateTime(upload1, upload2);
@@ -150,7 +151,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
         mUploadGroups[1] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_failed_uploads)) {
             @Override
             public void refresh() {
-                items = mUploadsStorageManager.getFailedButNotDelayedForWifiUploads();
+                items = mUploadsStorageManager.getFailedButNotDelayedUploads();
                 Arrays.sort(items, comparator);
             }
 
@@ -550,6 +551,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         status = mParentActivity.getString(
                             R.string.uploads_view_upload_status_waiting_for_wifi
                         );
+                        break;
+                    case DELAYED_FOR_CHARGING:
+                        status = mParentActivity.getString(
+                                R.string.uploads_view_upload_status_waiting_for_charging);
                         break;
                     case CONFLICT_ERROR:
                         status = mParentActivity.getString(

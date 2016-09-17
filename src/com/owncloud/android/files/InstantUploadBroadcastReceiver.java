@@ -72,7 +72,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
     }
 
     /**
-     * Because we support NEW_PHOTO_ACTION and NEW_PHOTO_ACTION_UNOFFICIAL it can happen that 
+     * Because we support NEW_PHOTO_ACTION and NEW_PHOTO_ACTION_UNOFFICIAL it can happen that
      * handleNewPictureAction is called twice for the same photo. Use this simple static variable to
      * remember last uploaded photo to filter duplicates. Must not be null!
      */
@@ -154,6 +154,9 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         } else if (behaviour.equalsIgnoreCase("MOVE")) {
             Log_OC.d(TAG, "upload file and move file to oc folder");
             return FileUploader.LOCAL_BEHAVIOUR_MOVE;
+        } else if (behaviour.equalsIgnoreCase("DELETE")) {
+            Log_OC.d(TAG, "upload file and delete original file");
+            return FileUploader.LOCAL_BEHAVIOUR_DELETE;
         }
         return null;
     }

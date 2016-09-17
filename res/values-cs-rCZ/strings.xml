@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s aplikace pro Android</string>
     <string name="about_version">verze %1$s</string>
     <string name="actionbar_sync">Obnovit účet</string>
@@ -14,15 +13,14 @@
     <string name="actionbar_send_file">Odeslat</string>
     <string name="actionbar_sort">Seřadit</string>
     <string name="actionbar_sort_title">Seřadit podle</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Nejnovější - nejstarší</item>
-    	<item>Největší - nejmenší</item>
-    </string-array>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Nejnovější - nejstarší</string>
+    <string name="menu_item_sort_by_size">Největší - nejmenší</string>
     <string name="drawer_item_all_files">Všechny soubory</string>
     <string name="drawer_item_on_device">Na přístroji</string>
     <string name="drawer_item_settings">Nastavení</string>
     <string name="drawer_item_uploads_list">Nahrání</string>
+    <string name="drawer_quota">%1$s z %2$s použito</string>
 	<string name="drawer_close">Zavřít</string>
     <string name="drawer_open">Otevřít</string>
     <string name="prefs_category_general">Obecné</string>
@@ -39,6 +37,11 @@
     <string name="prefs_log_title_history">Historie logu</string>
     <string name="prefs_log_summary_history">Zobrazuje zaznamenané logy</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
+    <string name="prefs_calendar_contacts">Konfigurace kalendáře &amp; kontaktů a jejich synchronizace</string>
+    <string name="prefs_calendar_contacts_summary">Konfigurace DAVdroid (v1.3.0+) pro aktuálně používané konto</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Počítačová adresa konta pro DAVdroid nebyla nalezena</string>
+    <string name="prefs_calendar_contacts_no_store_error">Nenainstalován Google Play store nebo F-Droid app</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizace kalendáře &amp; kontaktů úspěšně dokončena</string>
     <string name="prefs_help">Nápověda</string>
     <string name="prefs_recommend">Doporučit přátelům</string>
     <string name="prefs_feedback">Odezva</string>
@@ -57,6 +60,7 @@
     <string name="sync_string_files">Soubory</string>
     <string name="setup_btn_connect">Připojit</string>
     <string name="uploader_btn_upload_text">Nahrát</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Vytvořit textový soubor</string>
     <string name="uploader_top_message">Vybrat adresář k nahrávání</string>
     <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
     <string name="uploader_wrn_no_account_text">Na tomto přístroji nejsou žádné %1$s účty. Nejdříve prosím zadejte účet.</string>
@@ -69,6 +73,10 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nemá oprávnění číst přijatý soubor</string>
     <string name="uploader_error_message_source_file_not_found">Soubor k nahrání nebyl v tomto umístění nalezen. Zkontrolujte prosím zda soubor existuje.</string>
     <string name="uploader_error_message_source_file_not_copied">Došlo k chybě při kopírování souboru do dočasného adresáře. Zkuste prosím zopakovat odeslání.</string>
+    <string name="uploader_upload_files_behaviour">Nahrát možnost:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Přesunout soubor do Nextcloud adresáře</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Jen uploadovat</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Uploadovat a vymazat ze zdroje</string>
     <string name="file_list_seconds_ago">před pár sekundami</string>
     <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
     <string name="file_list_loading">Načítání...</string>
@@ -102,6 +110,7 @@
     <string name="common_loading">Načítání ...</string>
     <string name="common_unknown">neznámý</string>
     <string name="common_error_unknown">Neznámá chyba</string>
+    <string name="common_pending">Čekající</string>
     <string name="about_title">O aplikaci</string>
     <string name="change_password">Změnit heslo</string>
     <string name="delete_account">Odebrat účet</string>
@@ -230,6 +239,7 @@
     <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
     <string name="common_rename">Přejmenovat</string>
     <string name="common_remove">Odstranit</string>
+    <string name="confirmation_remove_file_alert">Opravdu chcete odstranit %1$s?</string>
     <string name="confirmation_remove_folder_alert">Opravdu chcete odstranit %1$s a jeho obsah?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
     <string name="remove_success_msg">Úspěšně odstraněno</string>
@@ -289,7 +299,9 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="instant_upload_on_wifi">Nahrávat obrázky pouze přes wifi</string>
-    <string name="instant_video_upload_on_wifi">Odesílat videa pouze přes wifi</string>
+    <string name="instant_video_upload_on_wifi">Nahrávat videa pouze přes wifi</string>
+    <string name="instant_video_upload_on_charging">Nahrávat pouze při nabíjení</string>
+    <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Konflikt souboru</string>
     <string name="conflict_message">Které soubory chcete ponechat? Pokud zvolíte obě verze, zkopírovaný soubor bude mít název doplněný o číslo.</string>
@@ -301,7 +313,7 @@
     <string name="preview_image_error_unknown_format">Obrázek nelze zobrazit</string>
 
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
-    <string name="prefs_instant_upload_path_title">Cesta pro nahrání</string>
+    <string name="prefs_instant_upload_path_title">Složka pro okamžité nahrání</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podadresáře</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podadresářích podle roku a měsíce</string>
 
@@ -375,7 +387,7 @@ správce systému.</string>
     <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="prefs_instant_video_upload_path_title">Cesta pro nahrání videí</string>
+	<string name="prefs_instant_video_upload_path_title">Složka pro okamžité nahrání videa</string>
     <string name="sync_folder_failed_content">Synchronizaci adresáře %1$s nelze dokončit</string>
 
 	<string name="shared_subject_header">sdílené</string>
@@ -398,14 +410,15 @@ správce systému.</string>
     <string name="file_list__footer__files">%1$d soubory(ů)</string>
     <string name="file_list__footer__files_and_folder">%1$d soubory(ů), 1 adresář</string>
     <string name="file_list__footer__files_and_folders">%1$d soubory(ů), %2$d adresáře(ů)</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Originální soubor bude...</string>
-    <string name="prefs_instant_behaviour_title">Originální soubor bude...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Originální soubor bude&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Originální soubor bude&#8230;</string>
     <string name="upload_copy_files">Zkopírovat soubor</string>
     <string name="upload_move_files">Přesunout soubor</string>
     <string name="select_all">Vybrat vše</string>
 
     <string name="pref_behaviour_entries_keep_file">ponechán ve výchozím adresáři</string>
     <string name="pref_behaviour_entries_move">přesunut do adresáře aplikace</string>
+    <string name="pref_behaviour_entries_delete_file">smazáno</string>
 
     <string name="share_dialog_title">Sdílení</string>
     <string name="share_file">Sdílet %1$s</string>
@@ -417,6 +430,7 @@ správce systému.</string>
     <string name="share_via_link_password_label">Chránit heslem</string>
     <string name="share_via_link_password_title">Zabezpečeno</string>
     <string name="share_via_link_edit_permission_label">Povolit úpravy</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Skrýt seznam souborů</string>
     <string name="share_get_public_link_button">Vytvořit odkaz</string>
     <string name="share_with_title">Sdílet s ...</string>
     <string name="share_with_edit_title">Sdílet s %1$s</string>
@@ -453,4 +467,30 @@ správce systému.</string>
 
     <string name="permission_storage_access">Vyžadována dodatečná oprávnění pro nahrávání &amp; stahování souborů.</string>
     <string name="local_file_not_found_toast">Soubor nebyl nalezen v místním souborovém systému</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">Opravdu chcete odstranit vybrané položky?</string>
+    <string name="confirmation_remove_folders_alert">Opravdu chcete odstranit vybrané položky a jejich obsah?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Čekání na zahájení nabíjení</string>
+    <string name="actionbar_search">Hledat</string>
+    <string name="files_drop_not_supported">Toto je Nextcloud funkce, prosím nahrát</string>
+    <string name="learn_more">Více</string>
+    <string name="drawer_participate">Zúčastnit se</string>
+    <string name="participate_testing_headline">Pomoz nám testovat</string>
+    <string name="participate_testing_bug_text">Našel jsi chybu? Něco nefunguje?</string>
+    <string name="participate_testing_report_text">Nahlásit chybu na Github</string>
+    <string name="participate_testing_version_text">Chceš nám pomoci testovat další verzi?</string>
+    <string name="participate_beta_headline">Vyzkoušej beta verzi</string>
+    <string name="participate_beta_text">Toto obsahuje všechny připravované funkce a není plnohodnotně přezkoušeno. Může dojít k chybám. Pokud se tak stane, nahlas nám je, prosím.&lt;br/>&lt;a href="%2$s">Download APK&lt;/a> nebo</string>
+    <string name="participate_release_candidate_headline">Předběžná verze</string>
+    <string name="participate_release_candidate_text">Předběžná verze nebo také Release Candidate (RC) je stabilní stav připravované, finální verze. Přihlas se jako tester v Play store nebo si najdi a instaluj hodící se verzi z F-Droid pod \"Verze\".</string>
+    <string name="participate_contribute_headline">Aktivně něčím přispět</string>
+    <string name="participate_contribute_irc_text">Diskutovat na IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Pomoz ostatním v &lt;a href="%1$s>fóru&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href="%1$s>Přelož&lt;/a> aplikaci</string>
+    <string name="participate_contribute_github_text">Přispět jako vývojář, detaily pod &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
+    <plurals name="items_selected_count">
+        <item quantity="one">vybráno %d</item>
+        <item quantity="few">vybráno %d</item>
+        <item quantity="other">vybráno %d</item>
+    </plurals>
+
+</resources>

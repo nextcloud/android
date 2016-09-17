@@ -37,6 +37,7 @@
     <dimen name="file_avatar_size">128dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
     <dimen name="standard_half_padding">8dp</dimen>
+    <dimen name="standard_quarter_padding">4dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="min_list_item_size">56dp</dimen>

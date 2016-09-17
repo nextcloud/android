@@ -20,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10020001"
-    android:versionName="1.2.0 RC1">
+    android:versionCode="10030099"
+    android:versionName="1.3.0">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -73,6 +73,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.ManageAccountsActivity" />
+        <activity android:name=".ui.activity.ParticipateActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
                   android:taskAffinity=""
@@ -201,6 +202,8 @@
 		    <intent-filter>
 		        <!--action android:name="android.net.conn.CONNECTIVITY_CHANGE"/-->
 		        <action android:name="android.net.wifi.STATE_CHANGE"/>
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
 		    </intent-filter>
 		</receiver>
 		<receiver android:name=".files.InstantUploadBroadcastReceiver">

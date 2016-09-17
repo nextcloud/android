@@ -37,12 +37,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.db.PreferenceManager;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
@@ -67,6 +66,7 @@ public class UploadFilesActivity extends FileActivity implements
     private LocalFileListFragment mFileListFragment;
     private Button mCancelBtn;
     private Button mUploadBtn;
+    private Spinner mBehaviourSpinner;
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     private Menu mOptionsMenu;
@@ -74,8 +74,10 @@ public class UploadFilesActivity extends FileActivity implements
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
 
-    public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER; 
-    
+    public static final int RESULT_OK_AND_MOVE = RESULT_FIRST_USER;
+    public static final int RESULT_OK_AND_DO_NOTHING = 2;
+    public static final int RESULT_OK_AND_DELETE = 3;
+
     private static final String KEY_DIRECTORY_PATH =
             UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
     private static final String KEY_ALL_SELECTED =
@@ -84,9 +86,6 @@ public class UploadFilesActivity extends FileActivity implements
     private static final String TAG = "UploadFilesActivity";
     private static final String WAIT_DIALOG_TAG = "WAIT";
     private static final String QUERY_TO_MOVE_DIALOG_TAG = "QUERY_TO_MOVE";
-    private RadioButton mRadioBtnCopyFiles;
-    private RadioButton mRadioBtnMoveFiles;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,11 +93,9 @@ public class UploadFilesActivity extends FileActivity implements
         super.onCreate(savedInstanceState);
 
         if(savedInstanceState != null) {
-            mCurrentDir = new File(savedInstanceState.getString(
-                    UploadFilesActivity.KEY_DIRECTORY_PATH));
-            mSelectAll = savedInstanceState.getBoolean(
-                    UploadFilesActivity.KEY_ALL_SELECTED, false);
-
+            mCurrentDir = new File(savedInstanceState.getString(UploadFilesActivity.KEY_DIRECTORY_PATH, Environment
+                    .getExternalStorageDirectory().getAbsolutePath()));
+            mSelectAll = savedInstanceState.getBoolean(UploadFilesActivity.KEY_ALL_SELECTED, false);
         } else {
             mCurrentDir = Environment.getExternalStorageDirectory();
         }
@@ -132,15 +129,13 @@ public class UploadFilesActivity extends FileActivity implements
 
         int localBehaviour = PreferenceManager.getUploaderBehaviour(this);
 
-        mRadioBtnMoveFiles = (RadioButton) findViewById(R.id.upload_radio_move);
-        if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE){
-            mRadioBtnMoveFiles.setChecked(true);
-        }
-
-        mRadioBtnCopyFiles = (RadioButton) findViewById(R.id.upload_radio_copy);
-        if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY){
-            mRadioBtnCopyFiles.setChecked(true);
-        }
+        // file upload spinner
+        mBehaviourSpinner = (Spinner) findViewById(R.id.upload_files_spinner_behaviour);
+        ArrayAdapter<CharSequence> behaviourAdapter = ArrayAdapter.createFromResource(this,
+                R.array.upload_files_behaviour, android.R.layout.simple_spinner_item);
+        behaviourAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mBehaviourSpinner.setAdapter(behaviourAdapter);
+        mBehaviourSpinner.setSelection(localBehaviour);
 
         // setup the toolbar
         setupToolbar();
@@ -354,8 +349,7 @@ public class UploadFilesActivity extends FileActivity implements
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
     }
-    
-    
+
     /**
      * {@inheritDoc}
      */
@@ -372,7 +366,6 @@ public class UploadFilesActivity extends FileActivity implements
         return mCurrentDir;
     }
 
-
     /**
      * Performs corresponding action when user presses 'Cancel' or 'Upload' button
      * 
@@ -384,12 +377,11 @@ public class UploadFilesActivity extends FileActivity implements
         if (v.getId() == R.id.upload_files_btn_cancel) {
             setResult(RESULT_CANCELED);
             finish();
-            
+
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            new CheckAvailableSpaceTask().execute();
+            new CheckAvailableSpaceTask().execute(mBehaviourSpinner.getSelectedItemPosition()==0);
         }
     }
-
 
     /**
      * Asynchronous task checking if there is space enough to copy all the files chosen
@@ -397,7 +389,7 @@ public class UploadFilesActivity extends FileActivity implements
      * 
      * Maybe an AsyncTask is not strictly necessary, but who really knows.
      */
-    private class CheckAvailableSpaceTask extends AsyncTask<Void, Void, Boolean> {
+    private class CheckAvailableSpaceTask extends AsyncTask<Boolean, Void, Boolean> {
 
         /**
          * Updates the UI before trying the movement
@@ -408,50 +400,68 @@ public class UploadFilesActivity extends FileActivity implements
             mCurrentDialog = IndeterminateProgressDialog.newInstance(R.string.wait_a_moment, false);
             mCurrentDialog.show(getSupportFragmentManager(), WAIT_DIALOG_TAG);
         }
-        
-        
+
         /**
-         * Checks the available space
-         * 
-         * @return     'True' if there is space enough.
+         * Checks the available space.
+         *
+         * @param params boolean flag if storage calculation should be done.
+         * @return 'True' if there is space enough or doesn't have to be calculated
          */
         @Override
-        protected Boolean doInBackground(Void... params) {
-            String[] checkedFilePaths = mFileListFragment.getCheckedFilePaths();
-            long total = 0;
-            for (int i=0; checkedFilePaths != null && i < checkedFilePaths.length ; i++) {
-                String localPath = checkedFilePaths[i];
-                File localFile = new File(localPath);
-                total += localFile.length();
+        protected Boolean doInBackground(Boolean... params) {
+            if(params[0]) {
+                String[] checkedFilePaths = mFileListFragment.getCheckedFilePaths();
+                long total = 0;
+                for (int i = 0; checkedFilePaths != null && i < checkedFilePaths.length; i++) {
+                    String localPath = checkedFilePaths[i];
+                    File localFile = new File(localPath);
+                    total += localFile.length();
+                }
+                return FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total;
             }
-            return (new Boolean(FileStorageUtils.getUsableSpace(mAccountOnCreation.name) >= total));
+
+            return true;
         }
 
         /**
          * Updates the activity UI after the check of space is done.
-         * 
+         *
          * If there is not space enough. shows a new dialog to query the user if wants to move the
          * files instead of copy them.
-         * 
+         *
          * @param result        'True' when there is space enough to copy all the selected files.
          */
         @Override
         protected void onPostExecute(Boolean result) {
-            mCurrentDialog.dismiss();
-            mCurrentDialog = null;
+            if(mCurrentDialog != null) {
+                mCurrentDialog.dismiss();
+                mCurrentDialog = null;
+            }
             
             if (result) {
                 // return the list of selected files (success)
                 Intent data = new Intent();
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
 
-                if (mRadioBtnMoveFiles.isChecked()){
-                    setResult(RESULT_OK_AND_MOVE, data);
-                    PreferenceManager.setUploaderBehaviour(getApplicationContext(), FileUploader.LOCAL_BEHAVIOUR_MOVE);
-                } else {
-                    setResult(RESULT_OK, data);
-                    PreferenceManager.setUploaderBehaviour(getApplicationContext(), FileUploader.LOCAL_BEHAVIOUR_COPY);
+                // set result code
+                switch (mBehaviourSpinner.getSelectedItemPosition()) {
+                    case 0: // move to nextcloud folder
+                        setResult(RESULT_OK_AND_MOVE, data);
+                        break;
+
+                    case 1: // only upload
+                        setResult(RESULT_OK_AND_DO_NOTHING, data);
+                        break;
+
+                    case 2: // upload and delete from source
+                        setResult(RESULT_OK_AND_DELETE, data);
+                        break;
                 }
+
+                // store behaviour
+                PreferenceManager.setUploaderBehaviour(getApplicationContext(),
+                        mBehaviourSpinner.getSelectedItemPosition());
+
                 finish();
             } else {
                 // show a dialog to query the user if wants to move the selected files
@@ -480,19 +490,16 @@ public class UploadFilesActivity extends FileActivity implements
         }
     }
 
-
     @Override
     public void onNeutral(String callerTag) {
         Log_OC.d(TAG, "Phantom neutral button in dialog was clicked; dialog tag is " + callerTag);
     }
-
 
     @Override
     public void onCancel(String callerTag) {
         /// nothing to do; don't finish, let the user change the selection
         Log_OC.d(TAG, "Negative button in dialog was clicked; dialog tag is " + callerTag);
     }
-
 
     @Override
     protected void onAccountSet(boolean stateWasRecovered) {

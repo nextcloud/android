@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s Aplicació d\'Android</string>
     <string name="about_version">versió %1$s</string>
     <string name="actionbar_sync">Actualitza compte</string>
@@ -14,14 +13,10 @@
     <string name="actionbar_send_file">Envia</string>
     <string name="actionbar_sort">Ordena</string>
     <string name="actionbar_sort_title">Ordena per</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Més nou - Més antic</item>
-    </string-array>
     <string name="drawer_item_all_files">Tots els fitxers</string>
     <string name="drawer_item_settings">Configuració</string>
     <string name="drawer_item_uploads_list">Fitxers carregats</string>
-	<string name="drawer_close">Tanca</string>
+    <string name="drawer_close">Tanca</string>
     <string name="drawer_open">Obre</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>

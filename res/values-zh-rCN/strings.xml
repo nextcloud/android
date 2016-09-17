@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">版本：%1$s</string>
     <string name="actionbar_sync">刷新帐户</string>
@@ -14,14 +13,10 @@
     <string name="actionbar_send_file">发送</string>
     <string name="actionbar_sort">排序</string>
     <string name="actionbar_sort_title">排序方式</string>
-    <string-array name="actionbar_sortby">
-    	<item>A - Z</item>
-    	<item>新 - 旧</item>
-    </string-array>
     <string name="drawer_item_all_files">全部文件</string>
     <string name="drawer_item_settings">设置</string>
     <string name="drawer_item_uploads_list">上传</string>
-	<string name="drawer_close">关闭</string>
+    <string name="drawer_close">关闭</string>
     <string name="drawer_open">打开</string>
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
@@ -285,7 +280,6 @@
     <string name="preview_image_error_unknown_format">无法显示图片</string>
 
     <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
-    <string name="prefs_instant_upload_path_title">上传路径</string>
     <string name="share_link_no_support_share_api">抱歉，共享功能未启用。请联系管理员。</string>
 	<string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
 	<string name="share_link_file_error">共享文件或目录出错</string>
@@ -350,8 +344,7 @@
     <string name="prefs_category_instant_uploading">即时上传</string>
     <string name="prefs_category_details">详细信息</string>
 
-	<string name="prefs_instant_video_upload_path_title">上传视频路径</string>
-    <string name="sync_folder_failed_content"> %1$s同步未完成。</string>
+	<string name="sync_folder_failed_content"> %1$s同步未完成。</string>
 
 	<string name="shared_subject_header">已共享</string>
 	<string name="with_you_subject_header">与你</string>
@@ -373,13 +366,12 @@
     <string name="file_list__footer__files">%1$d 个文件</string>
     <string name="file_list__footer__files_and_folder">%1$d 个文件，1 个文件夹</string>
     <string name="file_list__footer__files_and_folders">%1$d 个文件，%2$d 个文件夹</string>
-    <string name="prefs_instant_behaviour_dialogTitle">原始文件将会...</string>
-    <string name="prefs_instant_behaviour_title">原始文件将会...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">原始文件将会&#8230;</string>
+    <string name="prefs_instant_behaviour_title">原始文件将会&#8230;</string>
     <string name="upload_copy_files">复制文件</string>
     <string name="upload_move_files">移动文件</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
-
     <string name="share_dialog_title">共享</string>
     <string name="share_file">分享 %1$s</string>
     <string name="share_with_user_section_title">分享给其他用户或组</string>

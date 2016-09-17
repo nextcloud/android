@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <string name="about_android">%1$s Android Alkalmazás</string>
+    <string name="about_android">%1$s Android alkalmazás</string>
     <string name="about_version">verzió %1$s</string>
     <string name="actionbar_sync">Fiók frissítése</string>
     <string name="actionbar_upload">Feltöltés</string>
@@ -14,20 +13,21 @@
     <string name="actionbar_send_file">Küldjük el</string>
     <string name="actionbar_sort">Rendezés</string>
     <string name="actionbar_sort_title">Rendezés elve</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Újabb - régebbi</item>
-    </string-array>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Újabb - régebbi</string>
+    <string name="menu_item_sort_by_size">Nagyobb - kisebb</string>
     <string name="drawer_item_all_files">Összes fájl</string>
+    <string name="drawer_item_on_device">Az eszközön</string>
     <string name="drawer_item_settings">Beállítások</string>
     <string name="drawer_item_uploads_list">Feltöltések</string>
+    <string name="drawer_quota">%1$s felhasználva ennyiből: %2$s</string>
 	<string name="drawer_close">Bezárás</string>
     <string name="drawer_open">Megnyitás</string>
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
     <string name="prefs_accounts">Fiókok</string>
     <string name="prefs_manage_accounts">Fiókok kezelése</string>
-    <string name="prefs_passcode">Jelszavas lezárás</string>
+    <string name="prefs_passcode">Számkódos lezárás</string>
     <string name="prefs_instant_upload">Azonnali képfeltöltések</string>
     <string name="prefs_instant_upload_summary">Kamera által készítette képek azonnali feltöltése</string>
     <string name="prefs_instant_video_upload">Azonnali video feltöltések</string>
@@ -37,6 +37,11 @@
     <string name="prefs_log_title_history">Naplózás előzménye</string>
     <string name="prefs_log_summary_history">Ez megjeleníti a rögzitett eseményeket</string>
     <string name="prefs_log_delete_history_button">Elözmények törlése</string>
+    <string name="prefs_calendar_contacts">Naptár és Névjegy szinkronizálás</string>
+    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) beállítása az aktuális fiókhoz</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">A fiók szerver címe nem feloldható a DAVdroid számára</string>
+    <string name="prefs_calendar_contacts_no_store_error">Nincs telepítve Google Play vagy F-Droid alkalmazás</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Naptár és Névjegy szinkronizálás sikeresen beállítva</string>
     <string name="prefs_help">Súgó</string>
     <string name="prefs_recommend">Ajánlja egy barátjának</string>
     <string name="prefs_feedback">Visszajelzés</string>
@@ -49,13 +54,14 @@
 	</string>
 
     <string name="auth_check_server">Szerver ellenörzés</string>
-    <string name="auth_host_url">Kiszolgáló címe https://...</string>
+    <string name="auth_host_url">Szerver címe https://...</string>
     <string name="auth_username">Felhasználói név</string>
     <string name="auth_password">Jelszó</string>
     <string name="auth_register">Új vagy a %1$s területen?</string>
     <string name="sync_string_files">Fájlok</string>
     <string name="setup_btn_connect">Kapcsolódás</string>
     <string name="uploader_btn_upload_text">Feltöltés</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Szövegfájl létrehozás</string>
     <string name="uploader_top_message">Válassz feltöltési mappát</string>
     <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
     <string name="uploader_wrn_no_account_text">Nem található %1$s fiók az eszközén. Kérem állítson be egy fiókot előszőr.</string>
@@ -67,7 +73,11 @@
     <string name="uploader_error_title_file_cannot_be_uploaded">Fájlt nem lehet feltölteni</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nem olvashatja a fogadott fáljt</string>
     <string name="uploader_error_message_source_file_not_found">A feltöltendő fálj nem található a helyén. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
-    <string name="uploader_error_message_source_file_not_copied">Hiba történt a fájl ideiglenes tárhelyre másolása közben. Kérem próbálja újra küldeni.</string>
+    <string name="uploader_error_message_source_file_not_copied">Hiba történt a fájl ideiglenes mappába másolása közben. Kérem próbálja újra küldeni.</string>
+    <string name="uploader_upload_files_behaviour">Feltöltési lehetőségek:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Helyezd át fájlt a Nextcoud mappába</string>
+    <string name="uploader_upload_files_behaviour_only_upload">A fájl maradjon az eredeti mappában</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">A fájl törlése az eredeti mappábó</string>
     <string name="file_list_seconds_ago">pár másodperce</string>
     <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
     <string name="file_list_loading">Betöltés...</string>
@@ -101,12 +111,14 @@
     <string name="common_loading">Betöltés ...</string>
     <string name="common_unknown">ismeretlen</string>
     <string name="common_error_unknown">Ismeretlen hiba</string>
+    <string name="common_pending">Folyamatban</string>
     <string name="about_title">Rólunk</string>
     <string name="change_password">A jelszó megváltoztatása</string>
     <string name="delete_account">Fiók eltávolítása</string>
+    <string name="delete_account_warning">Törlöd a fiókot: %s?\n\nA törlés nem vonható vissza.</string>
     <string name="create_account">Fiók létrehozása</string>
     <string name="upload_chooser_title">Feltöltés innen ...</string>
-    <string name="uploader_info_dirname">Mappanév</string>
+    <string name="uploader_info_dirname">Mappa neve</string>
     <string name="uploader_upload_in_progress_ticker">Feltöltés ...</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Feltöltés %2$s</string>
     <string name="uploader_upload_succeeded_ticker">A feltöltés sikerült</string>
@@ -124,12 +136,12 @@
     <string name="uploads_view_upload_status_failed_connection_error">Kapcsolat hiba</string>
     <string name="uploads_view_upload_status_failed_retry">A feltöltés hamarosan újraindul</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Belépési azonosító hiba</string>
-    <string name="uploads_view_upload_status_failed_folder_error">Könyvtár hiba</string>
+    <string name="uploads_view_upload_status_failed_folder_error">Mappa hiba</string>
     <string name="uploads_view_upload_status_failed_file_error">Fájl hiba</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Helyi fájl nem található</string>
     <string name="uploads_view_upload_status_failed_permission_error">Hozzáférés hiba</string>
     <string name="uploads_view_upload_status_conflict">Ütközés</string>
-    <string name="uploads_view_upload_status_service_interrupted">Applikáció leállt</string>
+    <string name="uploads_view_upload_status_service_interrupted">Az alkalmazás leállt</string>
     <string name="uploads_view_upload_status_unknown_fail">Ismeretlen hiba</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Vezetéknélküli kapcsolatra várakozás</string>
     <string name="uploads_view_later_waiting_to_upload">Feltöltésre várakozás</string>
@@ -147,12 +159,12 @@
     <string name="sync_fail_content">A %1$s szinkronizálása nem fejezhető be</string>
     <string name="sync_fail_content_unauthorized">Érvénytelen jelszó a következőhöz %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d szinkronizálandó állományokat nem sikerült szinkronizálni</string>
+    <string name="sync_conflicts_in_favourites_content">%1$d szinkronizálandó fájlokat nem sikerült szinkronizálni</string>
     <string name="sync_fail_in_favourites_ticker">A szinkronizálandó fájlokat nem sikerült szinkronizálni</string>
     <string name="sync_fail_in_favourites_content">%1$d fájl szinkronizálása nem sikerült (%2$d ütközés)</string>
     <string name="sync_foreign_files_forgotten_ticker">Néhány helyi fájlt figyelmen kívül hagytunk</string>
-    <string name="sync_foreign_files_forgotten_content">Összesen a %2$s fileból  %1$d filet nem lehetett másolni </string>
-    <string name="sync_foreign_files_forgotten_explanation">Az 1.3.16-os verzió óta, erről az eszközről feltöltött fájlok átmásolódnak a helyi %1$s könyvtárba, hogy az adatvesztést megakadályozzuk, amikor egyetlen egy fájl több eszközre van szinkronizálva. \\n\\nEnnek a változásnak köszönhetően, minden olyan fájlt ami az alkalmazás előző verzióival lett feltöltve átmásolódnak a %2$s könyvtárba. Azonban a szinkronizálás alatt fellépő hiba megakadályozta ennek a folyamatnak a befelyezését. Két lehetősége van. Hagyhatja a fájlt(okat) ahogy vannak és eltávolíthatja a link-et a %3$s-hez, vagy mozgassa át a fájlt(okat) a %1$s könyvtárba, és tartsa meg a link-et a %4$s-hez. \\n\\nAz alábbi listában megtalálja a helyi fájlt(okat) és a távoli fájlt(okat) amik a %5$s-hez voltak linkelve.</string>
+    <string name="sync_foreign_files_forgotten_content">%2$s mappából %1$d fájlt nem lehetett másolni</string>
+    <string name="sync_foreign_files_forgotten_explanation">Az 1.3.16-os verzió óta, erről az eszközről feltöltött fájlok átmásolódnak a helyi %1$s könyvtárba, hogy az adatvesztést megakadályozzuk, amikor egyetlen egy fájl több eszközre van szinkronizálva. \\n\\nEnnek a változásnak köszönhetően, minden olyan fájlt ami az alkalmazás előző verzióival lett feltöltve átmásolódnak a %2$s könyvtárba. Azonban a szinkronizálás alatt fellépő hiba megakadályozta ennek a folyamatnak a befejezését. Két lehetősége van. Hagyhatja a fájlt(okat) ahogy vannak és eltávolíthatja a hivatkozást a %3$s-hez, vagy mozgassa át a fájlt(okat) a %1$s könyvtárba, és tartsa meg a hivatkozást a %4$s-hez. \\n\\nAz alábbi listában megtalálja a helyi fájlt(okat) és a távoli fájlt(okat) amik a %5$s-hez voltak linkelve.</string>
     <string name="sync_current_folder_was_removed">A %1$s mappa már nem létezik</string>
     <string name="foreign_files_move">Helyezzük át mindet</string>
     <string name="foreign_files_success">Az összes fájlt áthelyeztük</string>
@@ -160,11 +172,11 @@
     <string name="foreign_files_local_text">Helyi: %1$s</string>
     <string name="foreign_files_remote_text">Távoli: %1$s</string>
     <string name="upload_query_move_foreign_files">Nincs elég hely ahoz, hogy a kiválasztott fileokat átmásoljuk a %1$s mappába. Ezért ehelyett átmozgassuk inkább ide a fileokat? </string>
-    <string name="pass_code_enter_pass_code">Kérem adja meg a jelszavát</string>
+    <string name="pass_code_enter_pass_code">Kérlek add meg a számkódot</string>
     
     <string name="pass_code_configure_your_pass_code">Írd be a számkódodat</string>
-    <string name="pass_code_configure_your_pass_code_explanation">A számkódra minden alkalommal szükség lesz az applikáció indításához</string>
-    <string name="pass_code_reenter_your_pass_code">Kérem ismételje meg a jelszavát</string>
+    <string name="pass_code_configure_your_pass_code_explanation">A számkódra minden alkalommal szükség lesz az alkalmazás indításakor</string>
+    <string name="pass_code_reenter_your_pass_code">Kérlek add meg újra a számkódot</string>
     <string name="pass_code_remove_your_pass_code">Számkódod eltávolítása</string>
     <string name="pass_code_mismatch">A számkódok nem egyeznek</string>
     <string name="pass_code_wrong">Hibás számkód</string>
@@ -197,17 +209,17 @@
 	<string name="auth_nossl_plain_ok_title">Nem érhető el biztonságos kapcsolat.</string>
 	<string name="auth_connection_established">A kapcsolat létrejött</string>
 	<string name="auth_testing_connection">Kapcsolat ellenőrzése</string>
-	<string name="auth_not_configured_title">Hibás a kiszolgáló beállítása</string>
-	<string name="auth_account_not_new">Egy bejelentkezési beállítás már létezik ugyanehhez a kiszolgálóhoz és felhasználóhoz</string>
+	<string name="auth_not_configured_title">Hibás a szerver beállítása</string>
+	<string name="auth_account_not_new">Egy bejelentkezési beállítás már létezik ugyanehhez a szerverhez és felhasználóhoz</string>
 	<string name="auth_account_not_the_same">A megadott felhasználó nem azonos ezzel a belépési jogosultsággal</string>
 	<string name="auth_unknown_error_title">Ismeretlen hiba történt!</string>
 	<string name="auth_unknown_host_title">A kiszolgáló nem található</string>
-	<string name="auth_incorrect_path_title">Kiszolgáló nem található</string>
-	<string name="auth_timeout_title">A kiszolgáló túl sokára válaszolt</string>
+	<string name="auth_incorrect_path_title">A szerver példány nem található</string>
+	<string name="auth_timeout_title">A szerver túl sokára válaszolt</string>
 	<string name="auth_incorrect_address_title">Rossz a szerver cím formátuma</string>
 	<string name="auth_ssl_general_error_title">Nem sikerült az SSL kapcsolat felépítése</string>
-	<string name="auth_ssl_unverified_server_title">Az SSL kiszolgáló tanúsítványát nem sikerült ellenőrizni</string>
-	<string name="auth_bad_oc_version_title">Ismeretlen változat a kiszolgálón</string>
+	<string name="auth_ssl_unverified_server_title">Az SSL szerver tanúsítványát nem sikerült ellenőrizni</string>
+	<string name="auth_bad_oc_version_title">Ismeretlen változat a szerveren</string>
 	<string name="auth_wrong_connection_title">A kapcsolat nem hozható létre</string>
 	<string name="auth_secure_connection">Létrejött a titkosított kapcsolat</string>
 	<string name="auth_unauthorized">Hibás felhasználónév vagy jelszó</string>
@@ -217,8 +229,8 @@
 	<string name="auth_expired_oauth_token_toast">A jogosultsága lejárt. Kérjük jelentkezzen be ismét!</string>
 	<string name="auth_expired_basic_auth_toast">Kérem adja meg a jelenlegi jelszavát</string>
 	<string name="auth_expired_saml_sso_token_toast">Lejárt a munkamenetének érvényessége. Kérjük jelentkezzen be ismét!</string>
-	<string name="auth_connecting_auth_server">Kapcsolódás a hitelesítő kiszolgálóhoz ...</string>
-	<string name="auth_unsupported_auth_method">A kiszolgáló nem támogatja ezt a felhasználóazonosítási módszert</string>
+	<string name="auth_connecting_auth_server">Kapcsolódás a hitelesítő szerverhez...</string>
+	<string name="auth_unsupported_auth_method">A szerver nem támogatja ezt a felhasználóazonosítási módszert</string>
 	<string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
 	<string name="auth_fail_get_user_name">Az Ön szervere nem küld megfelelő felhasználói azonosítót, kérem lépjen kapcsolatba a rendszergazdával.</string>
 	<string name="auth_can_not_auth_against_server">Nem lehet hitelesíteni a szerverhez</string>
@@ -228,6 +240,7 @@
     <string name="unfavorite">Törölje a kapcsolat nélküli elérhetőséget</string>
     <string name="common_rename">Átnevezés</string>
     <string name="common_remove">Eltávolítás</string>
+    <string name="confirmation_remove_file_alert">Tényleg el akarod távolítani ezt: %1$s?</string>
     <string name="confirmation_remove_folder_alert">Tényleg el akarod távolítani a %1$s és tartalmát?</string>
     <string name="confirmation_remove_local">Csak a helyi példány</string>
     <string name="remove_success_msg">Az eltávolítás sikerült</string>
@@ -236,14 +249,14 @@
     <string name="rename_local_fail_msg">A helyi példány nem nevezhető át, adjon másik nevet</string>
     <string name="rename_server_fail_msg">Az átnevezés nem sikerült</string>
     <string name="sync_file_fail_msg">A távoli fájl nem volt ellenőrizhető</string>
-    <string name="sync_file_nothing_to_do_msg">Az állományok már szinkonizálva vannak</string>
-    <string name="create_dir_fail_msg">A könyvtárt nem lehet létrehozni</string>
+    <string name="sync_file_nothing_to_do_msg">Az fájlok már szinkronizálva vannak</string>
+    <string name="create_dir_fail_msg">A mappát nem lehet létrehozni</string>
     <string name="filename_forbidden_characters">Nem megendedett karakterek: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">A fájlnév legalább egy érvénytelen karaktert tartalmaz!</string>
     <string name="filename_empty">A fájl név nem lehet üres</string>
     <string name="wait_a_moment">Egy pillanat...</string>
     <string name="wait_checking_credentials">Tárolt azonosítók ellenőrzése</string>
-    <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba; válassza ki a fájlt más programból</string>
+    <string name="filedisplay_unexpected_bad_get_content">Váratlan hiba; válassza ki a fájlt más alkalmazásból</string>
     <string name="filedisplay_no_file_selected">Egy fájl sincs kiválasztva</string>
     <string name="activity_chooser_title">Hivatkozás küldése ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl átmásolása a privát tárolóról</string>
@@ -252,9 +265,9 @@
     <string name="oauth_login_connection">Kapcsolódás az oAuth2 szerverhez...</string>    
         
     <string name="ssl_validator_header">A kiszolgálót nem sikerült azonosítani</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- A kiszolgáló tanúsítványa nem megbízható</string>
-    <string name="ssl_validator_reason_cert_expired">- A kiszolgáló tanúsítványának lejárt az érvényessége</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- A kiszolgáló tanúsítványa most még nem érvényes</string>
+    <string name="ssl_validator_reason_cert_not_trusted">- A szerver tanúsítványa nem megbízható</string>
+    <string name="ssl_validator_reason_cert_expired">- A szerver tanúsítványának lejárt az érvényessége</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- A szerver tanúsítványa most még nem érvényes</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Az URL nem egyezik a tanúsítványban szereplő kiszolgálónévvel</string>
     <string name="ssl_validator_question">Mégis megbízik ebben a tanúsítványban?</string>
     <string name="ssl_validator_not_saved">A tanúsítvány nem menthető el</string>
@@ -288,6 +301,8 @@
 
     <string name="instant_upload_on_wifi">Képek feltöltése csak Wifi-n keresztül</string>
     <string name="instant_video_upload_on_wifi">Videók feltöltése csak Wifi-n keresztül</string>
+    <string name="instant_video_upload_on_charging">Feltöltés csak töltés közben</string>
+    <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Fájl ütközés</string>
     <string name="conflict_message">Melyik fájlokat akarja megtartani? Ha mindkét verziót kiválasztja, akkor a helyi fájl neve egy számmal lesz kibővítve.</string>
@@ -298,10 +313,10 @@
     <string name="preview_image_description">Előnézeti kép</string>
     <string name="preview_image_error_unknown_format">Ez a kép nem jeleníthető meg</string>
 
-    <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi könyvtárba</string>
-    <string name="prefs_instant_upload_path_title">Feltöltési útvonal</string>
-    <string name="prefs_instant_upload_path_use_subfolders_title">Alkönyvtárak használata</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Évet és hónapot tartalmazó alkönyvtárakban tárolja</string>
+    <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi mappába</string>
+    <string name="prefs_instant_upload_path_title">Azonnali feltöltés mappa</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
 
 	<string name="share_link_no_support_share_api">Sajnáljuk, de a megosztás nincs engedélyezve a szerveren. Kérem lépjen kapcsolatba a rendszergazdával.</string>
 	<string name="share_link_file_no_exist">Nem lehet megosztani. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
@@ -317,52 +332,159 @@
 
     <string name="copy_link">Link másolása</string>
     <string name="clipboard_text_copied">Bemásolva a vágólapra</string>
+    <string name="clipboard_no_text_to_copy">Nincs vágólapra másolható szöveg</string>
+    <string name="clipboard_uxexpected_error">Váratlan hiba történ a vágólapra másolás közben</string>
+    <string name="clipboard_label">Szöveg másolva innen: %1$s</string>
+
+    <string name="error_cant_bind_to_operations_service">Végzetes hiba: nem lehet végrehajtani a műveleteket</string>
+
+    <string name="network_error_socket_exception">Hiba történt a szerverhez való csatlakozás közben.</string>
+    <string name="network_error_socket_timeout_exception">Hiba történt a szerverre való várakozás közben, a művelet nem lett befejezve</string>
+    <string name="network_error_connect_timeout_exception">Hiba történt a szerverre való várakozás közben, a művelet nem lett befejezve</string>
+    <string name="network_host_not_available">A műveletet nem lehet befejezni, a szerver nem érhető el</string>
+    <string name="empty" />
+
+    <string name="forbidden_permissions">Nincs jogosultságod ehhez: %s</string>
+    <string name="forbidden_permissions_rename">fájl átnevezés</string>
+    <string name="forbidden_permissions_delete">fájl törlés</string>
+    <string name="share_link_forbidden_permissions">fájl megosztás</string>
+    <string name="unshare_link_forbidden_permissions">fájl megosztás visszavonás</string>
+    <string name="update_link_forbidden_permissions">megosztás frissítés</string>
+    <string name="forbidden_permissions_create">fájl létrehozás</string>
+    <string name="uploader_upload_forbidden_permissions">ebbe a mappába feltölteni</string>
+    <string name="downloader_download_file_not_found">A fájl már nem érhető el a szerveren</string>
+
     <string name="prefs_category_accounts">Fiókok</string>
     <string name="prefs_add_account">Fiók hozzáadása</string>
-    <string name="actionbar_logger">Naplók</string>
+    <string name="drawer_manage_accounts">Fiókok kezelése</string>
+    <string name="auth_redirect_non_secure_connection_title">Biztonságos kapcsolat egy nem biztonságos útvonalon van átirányítva</string>
+
+	<string name="actionbar_logger">Naplók</string>
+	<string name="log_send_history_button">Előzmények elküldése</string>
+	<string name="log_send_no_mail_app">Nincs alkalmazás a naplók elküldéséhez. Kérlek telepíts egy levelező alkalmazást.</string>
+	<string name="log_send_mail_subject">%1$s Android alkalmazás naplók</string>
+	<string name="log_progress_dialog_text">Adatok betöltése &#8230;</string>
+
 	<string name="saml_authentication_required_text">Felhasználóazonosítás szükséges</string>
 	<string name="saml_authentication_wrong_pass">Hibás jelszó</string>
 	<string name="actionbar_move">Mozgatás</string>
-	<string name="file_list_empty_moving">Itt nincs semmi! Adj hozzá egy mappát!</string>
+	<string name="file_list_empty_moving">Itt nincs semmi. Adj hozzá egy mappát!</string>
 	<string name="folder_picker_choose_button_text">Válasszon</string>
 
+    <string name="move_file_not_found">Nem lehet áthelyezni. Kérlek ellenőrizd, hogy fájl létezik-e</string>
+    <string name="move_file_invalid_into_descendent">Egy mappát nem lehet áthelyezni az almappájába</string>
+    <string name="move_file_invalid_overwrite">A fájl már létezik a cél mappában</string>
+    <string name="move_file_error">Hiba történt a fájl vagy mappa áthelyezése közben</string>
     <string name="forbidden_permissions_move">mozgatni ezt a filet</string>
 
 
+    <string name="copy_file_not_found">Nem lehet másolni. Kérlek ellenőrizd, hogy fájl létezik-e</string>
+    <string name="copy_file_invalid_into_descendent">Egy mappát nem lehet áthelyezni az almappájába</string>
+    <string name="copy_file_invalid_overwrite">A fájl már létezik a cél mappában</string>
+    <string name="copy_file_error">Hiba történt a fájl vagy mappa másolása közben</string>
+    <string name="forbidden_permissions_copy">a fájl másolása</string>
+
+    <string name="prefs_category_instant_uploading">Azonnali feltöltések</string>
     <string name="prefs_category_details">Részletek</string>
+
+	<string name="prefs_instant_video_upload_path_title">Azonnali videó feltöltési mappa</string>
+    <string name="sync_folder_failed_content">%1$s mappa szinkronizációját nem lehet végrehajtani</string>
 
 	<string name="shared_subject_header">megosztva</string>
 	<string name="with_you_subject_header">veled</string>
     
-	<string name="auth_host_address">A kiszolgáló címe</string>
+	<string name="subject_user_shared_with_you">%1$s megosztotta veled: \"%2$s\"</string>
+    <string name="subject_shared_with_you">\"%1$s\" meg lett osztva veled</string>
+
+    <string name="auth_refresh_button">Kapcsolat frissítése</string>
+    <string name="auth_host_address">A szerver címe</string>
     <string name="common_error_out_memory">Nincs elég memória</string>
 
     <string name="username">Felhasználónév</string>
 
-    <string name="file_list__footer__folder">1 könyvtár</string>
-    <string name="file_list__footer__folders">%1$d könyvtár</string>
+    <string name="file_list__footer__folder">1 mappa</string>
+    <string name="file_list__footer__folders">%1$d mappa</string>
     <string name="file_list__footer__file">1 fájl</string>
-    <string name="file_list__footer__file_and_folder">1 fájl, 1 könyvtár</string>
-    <string name="file_list__footer__file_and_folders">1 fájl, %1$d könyvtár</string>
+    <string name="file_list__footer__file_and_folder">1 fájl, 1 mappa</string>
+    <string name="file_list__footer__file_and_folders">1 fájl, %1$d mappa</string>
     <string name="file_list__footer__files">%1$d fájl</string>
-    <string name="file_list__footer__files_and_folder">%1$d fájl, 1 könyvtár</string>
-    <string name="file_list__footer__files_and_folders">%1$d fájl, %2$d könyvtár</string>
+    <string name="file_list__footer__files_and_folder">%1$d fájl, 1 mappa</string>
+    <string name="file_list__footer__files_and_folders">%1$d fájl, %2$d mappa</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Az eredeti fájl&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Az eredeti fájl&#8230;</string>
+    <string name="upload_copy_files">Fájl másolás</string>
+    <string name="upload_move_files">Fájl áthelyezés</string>
+    <string name="select_all">Összes kijelölése</string>
+
+    <string name="pref_behaviour_entries_keep_file">megtartani az eredeti mappában</string>
+    <string name="pref_behaviour_entries_move">áthelyezve az alkalmazás mappába</string>
+    <string name="pref_behaviour_entries_delete_file">törölt</string>
+
     <string name="share_dialog_title">Megosztás</string>
+    <string name="share_file">%1$s megosztása</string>
+    <string name="share_with_user_section_title">Megosztás felhasználókkal és csoportokkal...</string>
     <string name="share_no_users">Nincs még semmi megosztva a felhasználókkal</string>
+    <string name="share_add_user_or_group">Felhasználó vagy csoport hozzáadás</string>
     <string name="share_via_link_section_title">Megosztás hivatkozással</string>
     <string name="share_via_link_expiration_date_label">Legyen lejárati idő</string>
     <string name="share_via_link_password_label">Jelszóval is védem</string>
+    <string name="share_via_link_password_title">Biztonságos</string>
     <string name="share_via_link_edit_permission_label">Szerkesztés engedélyezése</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Fájl lista elrejtése</string>
+    <string name="share_get_public_link_button">Hivatkozás beszerzése</string>
+    <string name="share_with_title">Megosztás vele &#8230;</string>
+    <string name="share_with_edit_title">Megosztás vele: %1$s</string>
+
     <string name="share_search">Keresés</string>
+
+    <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>
+    <string name="share_group_clarification">%1$s (csoport)</string>
+    <string name="share_remote_clarification">%1$s (távoli)</string>
+    <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
 
     <string name="share_privilege_can_share">megosztható</string>
     <string name="share_privilege_can_edit">módosíthat</string>
     <string name="share_privilege_can_edit_create">létrehoz</string>
     <string name="share_privilege_can_edit_change">változtatás</string>
     <string name="share_privilege_can_edit_delete">törlés</string>
+    <string name="edit_share_unshare">Megosztás befejezése</string>
     <string name="edit_share_done">kész</string>
+
+    <string name="action_retry_uploads">Újbóli próbálkozás sikertelen</string>
+    <string name="action_clear_failed_uploads">Törlés sikertelen</string>
+    <string name="action_clear_successful_uploads">Sikeres törlés</string>
+    <string name="action_clear_finished_uploads">Minden bejezett törlése</string>
 
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
 
-    </resources>
+    <string name="manage_space_title">Tárhely kezelés</string>
+    <string name="manage_space_clear_data">Adatok törlése</string>
+    <string name="manage_space_error">Néhány fájl nem volt törölhető</string>
+
+    <string name="permission_storage_access">A fájlok letöltéséhez &amp; feltöltéséhez további jogosultságok szükségesek.</string>
+    <string name="local_file_not_found_toast">A fájl nem található a helyi fájlrendszerben</string>
+    <string name="confirmation_remove_files_alert">Biztos, hogy el akarod távolítani a kiválasztott elemeket?</string>
+    <string name="confirmation_remove_folders_alert">Biztos, hogy el akarod távolítani a kiválasztott elemeket és azok tartalmát?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Várakozás az eszköz töltésére</string>
+    <string name="actionbar_search">Keresés</string>
+    <string name="files_drop_not_supported">Ez egy Nextcloud funkció, kérlek frissíts.</string>
+    <string name="learn_more">Tudj meg többet</string>
+    <string name="drawer_participate">Részvétel</string>
+    <string name="participate_testing_headline">Segíts tesztelni</string>
+    <string name="participate_testing_bug_text">Hibát találtál? Valami furcsa?</string>
+    <string name="participate_testing_report_text">Jelentsd a problémát a Githubon</string>
+    <string name="participate_testing_version_text">Érdekel a következő verzió tesztelési lehetősége?</string>
+    <string name="participate_beta_headline">Teszteld a Béta verziót</string>
+    <string name="participate_release_candidate_headline">Kiadásra jelölt</string>
+    <string name="participate_contribute_headline">Aktívan hozzájárul</string>
+    <string name="participate_contribute_irc_text">Csatlakozz a beszélgetéshez az IRC-n: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Segíts másokat a &lt;a href=\"%1$s>fórumban&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Fordítsd&lt;/a> az alkalmazást</string>
+    <string name="participate_contribute_github_text">Működj közre fejlesztőként, részletek: &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d kiválasztott</item>
+        <item quantity="other">%d kiválasztott</item>
+    </plurals>
+
+</resources>

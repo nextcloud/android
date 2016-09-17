@@ -122,6 +122,8 @@ public class FileDisplayActivity extends HookActivity
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__COPY_FILES = REQUEST_CODE__LAST_SHARED + 4;
 
+    protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
+
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
 
     private static final String TAG_LIST_OF_FILES = "LIST_OF_FILES";
@@ -132,6 +134,8 @@ public class FileDisplayActivity extends HookActivity
     private boolean mSyncInProgress = false;
 
     private OCFile mWaitingToSend;
+
+    private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
 
 
     @Override
@@ -169,7 +173,11 @@ public class FileDisplayActivity extends HookActivity
         setupToolbar();
 
         // setup drawer
-        setupDrawer(R.id.nav_all_files);
+        if(MainApp.getOnlyOnDevice()) {
+            setupDrawer(R.id.nav_on_device);
+        } else {
+            setupDrawer(R.id.nav_all_files);
+        }
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
@@ -514,9 +522,10 @@ public class FileDisplayActivity extends HookActivity
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = isDrawerOpen();
-        menu.findItem(R.id.action_sort).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_sync_account).setVisible(!drawerOpen);
-        menu.findItem(R.id.action_switch_view).setVisible(!drawerOpen);
+
+        for (MenuItem menuItem:mDrawerMenuItemstoShowHideList) {
+            menuItem.setVisible(!drawerOpen);
+        }
 
         return super.onPrepareOptionsMenu(menu);
     }
@@ -526,6 +535,14 @@ public class FileDisplayActivity extends HookActivity
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_create_dir).setVisible(false);
+
+        // populate list of menu items to show/hide when drawer is opened/closed
+        mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sync_account));
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_search));
+
         return true;
     }
 
@@ -557,7 +574,7 @@ public class FileDisplayActivity extends HookActivity
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.actionbar_sort_title)
-                        .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder,
+                        .setSingleChoiceItems(R.array.menu_items_sort_by_options, sortOrder,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         switch (which) {
@@ -637,12 +654,16 @@ public class FileDisplayActivity extends HookActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS &&
-            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+            (resultCode == RESULT_OK ||
+            resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
 
             requestUploadOfContentFromApps(data, resultCode);
 
         } else if (requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
-            (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+            (resultCode == RESULT_OK ||
+            resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE ||
+            resultCode == UploadFilesActivity.RESULT_OK_AND_DO_NOTHING ||
+            resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
 
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
@@ -687,8 +708,23 @@ public class FileDisplayActivity extends HookActivity
                 remotePaths[j] = remotePathBase + (new File(filePaths[j])).getName();
             }
 
-            int behaviour = (resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE) ? FileUploader
-                    .LOCAL_BEHAVIOUR_MOVE : FileUploader.LOCAL_BEHAVIOUR_COPY;
+            // default, as fallback
+            int behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+
+            switch (resultCode) {
+                case UploadFilesActivity.RESULT_OK_AND_MOVE:
+                    behaviour = FileUploader.LOCAL_BEHAVIOUR_MOVE;
+                    break;
+
+                case UploadFilesActivity.RESULT_OK_AND_DELETE:
+                    behaviour = FileUploader.LOCAL_BEHAVIOUR_DELETE;
+                    break;
+
+                case UploadFilesActivity.RESULT_OK_AND_DO_NOTHING:
+                    behaviour = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+                    break;
+            }
+
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
             requester.uploadNewFile(
                     this,
@@ -1623,7 +1659,7 @@ public class FileDisplayActivity extends HookActivity
                         // another window floating over
                     }
                 },
-                DELAY_TO_REQUEST_OPERATIONS_LATER
+                DELAY_TO_REQUEST_REFRESH_OPERATION_LATER
         );
 
     }
@@ -1795,7 +1831,9 @@ public class FileDisplayActivity extends HookActivity
         browseToRoot();
     }
 
-    public void refreshDirectory() {
+    @Override
+    public void showFiles(boolean onDeviceOnly) {
+        super.showFiles(onDeviceOnly);
         getListOfFilesFragment().refreshDirectory();
     }
 }

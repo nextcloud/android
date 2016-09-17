@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s для Android</string>
     <string name="about_version">версия %1$s</string>
     <string name="actionbar_sync">Обновить аккаунт</string>
@@ -14,16 +13,13 @@
     <string name="actionbar_send_file">Отправить</string>
     <string name="actionbar_sort">Сортировать</string>
     <string name="actionbar_sort_title">Сортировать по</string>
-    <string-array name="actionbar_sortby">
-    	<item>Имени</item>
-    	<item>Дате</item>
-    	<item>Размеру</item>
-    </string-array>
+    <string name="menu_item_sort_by_name">А - Я</string>
+    <string name="menu_item_sort_by_date">Новые - старые</string>
     <string name="drawer_item_all_files">Все файлы</string>
     <string name="drawer_item_on_device">На устройстве</string>
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Загрузки</string>
-	<string name="drawer_close">Закрыть</string>
+    <string name="drawer_close">Закрыть</string>
     <string name="drawer_open">Открыть</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
@@ -39,6 +35,7 @@
     <string name="prefs_log_title_history">История журналов</string>
     <string name="prefs_log_summary_history">Здесь показаны записи в журнал</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
+    <string name="prefs_calendar_contacts_no_store_error">Не установлен магазин Google Play  или приложение F-Droid</string>
     <string name="prefs_help">Помощь</string>
     <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_feedback">Обратная связь</string>
@@ -58,6 +55,7 @@
     <string name="sync_string_files">Файлы</string>
     <string name="setup_btn_connect">Подключиться</string>
     <string name="uploader_btn_upload_text">Загрузить</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Создать текстовый файл</string>
     <string name="uploader_top_message">Выбрать каталог для загрузки</string>
     <string name="uploader_wrn_no_account_title">Аккаунт не найден</string>
     <string name="uploader_wrn_no_account_text">На вашем устройстве нет аккаунтов %1$s. Пожалуйста выполните настройку аккаунта.</string>
@@ -70,6 +68,9 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s не позволено читать принятый файл</string>
     <string name="uploader_error_message_source_file_not_found">Файл для загрузки не был найден в положенном месте. Пожалуйста проверьте, существует ли файл.</string>
     <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временную папку. Пожалуйста попробуйте послать заново.</string>
+    <string name="uploader_upload_files_behaviour">Опции загрузки:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в папку Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходной папки</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
     <string name="file_list_loading">Загрузка...</string>
@@ -232,6 +233,7 @@
     <string name="unfavorite">Убрать доступность офлайн</string>
     <string name="common_rename">Переименовать</string>
     <string name="common_remove">Удалить</string>
+    <string name="confirmation_remove_file_alert">Вы действительно хотите удалить %1$s?</string>
     <string name="confirmation_remove_folder_alert">Вы действительно хотите удалить %1$s и его содержимое?</string>
     <string name="confirmation_remove_local">Только локально</string>
     <string name="remove_success_msg">Удаление завершено</string>
@@ -292,6 +294,7 @@
 
     <string name="instant_upload_on_wifi">Загрузка изображений только через Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Загрузка видео только через Wi-Fi</string>
+    <string name="instant_video_upload_on_charging">Загрузить только при зарядке</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="conflict_title">Конфликт файлов</string>
     <string name="conflict_message">Какие файлы Вы хотите сохранить? При выборе обеих версий, к названию локального файла будет добавлена цифра</string>
@@ -303,7 +306,7 @@
     <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
 
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
-    <string name="prefs_instant_upload_path_title">Путь загрузки</string>
+    <string name="prefs_instant_upload_path_title">Каталог для автоматической загрузки</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Использовать подкаталоги</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Хранить в них, учитывая год и месяц</string>
 
@@ -377,7 +380,7 @@
     <string name="prefs_category_instant_uploading">Автоматическая загрузка</string>
     <string name="prefs_category_details">Подробно</string>
 
-	<string name="prefs_instant_video_upload_path_title">Путь загрузки видео</string>
+	<string name="prefs_instant_video_upload_path_title">Каталог для автоматической загрузки видео</string>
     <string name="sync_folder_failed_content">Синхронизация папки %1$s не может быть завершена</string>
 
 	<string name="shared_subject_header">поделился</string>
@@ -400,14 +403,15 @@
     <string name="file_list__footer__files">%1$d файлов</string>
     <string name="file_list__footer__files_and_folder">%1$d файлов, 1 каталог</string>
     <string name="file_list__footer__files_and_folders">%1$d файлов, %2$d каталогов</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Исходный файл будет ...</string>
-    <string name="prefs_instant_behaviour_title">Исходный файл будет ...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Исходный файл будет&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Исходный файл будет&#8230;</string>
     <string name="upload_copy_files">Копировать файл</string>
     <string name="upload_move_files">Переместить файл</string>
     <string name="select_all">Выделить всё</string>
 
     <string name="pref_behaviour_entries_keep_file">оставлен в исходной папке</string>
     <string name="pref_behaviour_entries_move">перемещен в папку приложения</string>
+    <string name="pref_behaviour_entries_delete_file">Удалён</string>
 
     <string name="share_dialog_title">Общий доступ</string>
     <string name="share_file">Поделиться %1$s</string>
@@ -419,6 +423,7 @@
     <string name="share_via_link_password_label">Защитить паролем</string>
     <string name="share_via_link_password_title">Безопасный</string>
     <string name="share_via_link_edit_permission_label">Разрешить редактирование</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Скрыть список файлов</string>
     <string name="share_get_public_link_button">Получить ссылку</string>
     <string name="share_with_title">Поделиться с …</string>
     <string name="share_with_edit_title">Поделиться с %1$s</string>
@@ -454,4 +459,20 @@
 
     <string name="permission_storage_access">Для загрузки и скачивания файлов требуются дополнительные права.</string>
     <string name="local_file_not_found_toast">Файл не был найден в локальной файловой системе</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">Вы действительно хотите удалить выбранные элементы?</string>
+    <string name="confirmation_remove_folders_alert">Вы действительно хотите удалить выбранные элементы и их содержимое?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Ожидание зарядки устройства</string>
+    <string name="actionbar_search">Поиск</string>
+    <string name="participate_testing_bug_text">Нашли ошибку? Что-то необычное?</string>
+    <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>
+    <string name="participate_testing_version_text">Вам интересно участие в тестировании следующих версий?</string>
+    <string name="participate_beta_headline">Тестирование бета-версии</string>
+    <string name="participate_contribute_irc_text">Присоединиться к IRC-чату: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d выбран</item>
+        <item quantity="few">%d выбрано</item>
+        <item quantity="many">%d выбраны</item>
+        <item quantity="other">%d выбрано</item>
+    </plurals>
+
+</resources>

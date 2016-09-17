@@ -56,6 +56,7 @@
     <bool name="multiaccount_support">true</bool>
     
     <!-- Help, imprint and feedback -->
+    <bool name="calendar_contacts_enabled">true</bool>
     <bool name="help_enabled">true</bool>
     <bool name="imprint_enabled">false</bool> 
     <bool name="recommend_enabled">true</bool>
@@ -66,9 +67,21 @@
     <string name="mail_recommend">"mailto:"</string>
     <string name="mail_feedback">"mailto:android@nextcloud.com"</string>
     <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
+    <string name="url_server_install">https://nextcloud.com/install</string>
 
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>
+
+    <!-- Participate links -->
+    <string name="fdroid_beta_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.android.beta</string>
+    <string name="beta_apk_link" translatable="false">https://github.com/nextcloud/android/raw/beta/apks/latest.apk</string>
+    <string name="play_store_register_beta" translatable="false">https://play.google.com/apps/testing/com.nextcloud.client</string>
+    <string name="fdroid_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.client</string>
+    <string name="irc_weblink" translatable="false">http://webchat.freenode.net?channels=nextcloud-mobile</string>
+    <string name="help_link" translatable="false">https://help.nextcloud.com/c/clients/android</string>
+    <string name="translation_link" translatable="false">https://www.transifex.com/nextcloud/nextcloud/android/</string>
+    <string name="contributing_link" translatable="false">https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md</string>
+    <string name="report_issue_link" translatable="false">https://github.com/nextcloud/android/issues</string>
 
 </resources>
 

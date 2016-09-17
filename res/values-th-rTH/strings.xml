@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">แอปสำหรับแอนดรอยด์ %1$s</string>
     <string name="about_version">รุ่น %1$s</string>
     <string name="actionbar_sync">ฟื้นฟูบัญชี</string>
@@ -14,14 +13,10 @@
     <string name="actionbar_send_file">ส่ง</string>
     <string name="actionbar_sort">จัดเรียง</string>
     <string name="actionbar_sort_title">เรียงตาม</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>ใหม่ที่สุด - เก่าที่สุด</item>
-    </string-array>
     <string name="drawer_item_all_files">ไฟล์ทั้งหมด</string>
     <string name="drawer_item_settings">ตั้งค่า</string>
     <string name="drawer_item_uploads_list">อัพโหลด</string>
-	<string name="drawer_close">ปิด</string>
+    <string name="drawer_close">ปิด</string>
     <string name="drawer_open">เปิด</string>
     <string name="prefs_category_general">ทั่วไป</string>
     <string name="prefs_category_more">เพิ่มเติม</string>
@@ -291,7 +286,6 @@
     <string name="preview_image_error_unknown_format">ไม่สามารถแสดงรูปภาพนี้ได้</string>
 
     <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถคัดลอกไปยังโฟลเดอร์ %2$s ในเครื่อง</string>
-    <string name="prefs_instant_upload_path_title">ตำแหน่งพาธสำหรับอัพโหลด</string>
     <string name="share_link_no_support_share_api">ขออภัยการแชร์ไม่ได้เปิดใช้งานบนเซิร์ฟเวอร์ของคุณ กรุณาติดต่อผู้ดูแลระบบ</string>
 	<string name="share_link_file_no_exist">ไม่สามารถแชร์ กรุณาตรวจสอบว่ายังมีไฟล์นั้นอยู่</string>
 	<string name="share_link_file_error">เกิดข้อผิดพลาดในขณะที่พยายามจะแชร์ไฟล์หรือโฟลเดอร์นี้</string>
@@ -356,8 +350,7 @@
     <string name="prefs_category_instant_uploading">อัพโหลดทันที</string>
     <string name="prefs_category_details">รายละเอียด</string>
 
-	<string name="prefs_instant_video_upload_path_title">ตำแหน่งพาธวีดีโอที่อัพโหลด</string>
-    <string name="sync_folder_failed_content">ประสานข้อมูลโฟลเดอร์ %1$s ไม่สำเร็จ</string>
+	<string name="sync_folder_failed_content">ประสานข้อมูลโฟลเดอร์ %1$s ไม่สำเร็จ</string>
 
 	<string name="shared_subject_header">ถูกแชร์</string>
 	<string name="with_you_subject_header">กับคุณ</string>
@@ -379,13 +372,12 @@
     <string name="file_list__footer__files">%1$d ไฟล์</string>
     <string name="file_list__footer__files_and_folder">%1$d ไฟล์, 1 โฟลเดอร์</string>
     <string name="file_list__footer__files_and_folders">%1$d ไฟล์, %2$d โฟลเดอร์</string>
-    <string name="prefs_instant_behaviour_dialogTitle">ไฟล์ต้นฉบับ...</string>
-    <string name="prefs_instant_behaviour_title">ไฟล์ต้นฉบับ...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">ไฟล์ต้นฉบับ&#8230;</string>
+    <string name="prefs_instant_behaviour_title">ไฟล์ต้นฉบับ&#8230;</string>
     <string name="upload_copy_files">คัดลอกไฟล์</string>
     <string name="upload_move_files">ย้ายไฟล์</string>
     <string name="pref_behaviour_entries_keep_file">เก็บไว้ในโฟลเดอร์ต้นฉบับ</string>
     <string name="pref_behaviour_entries_move">ถูกย้ายไปยังโฟลเดอร์แอพพลิเคชัน</string>
-
     <string name="share_dialog_title">แชร์ข้อมูล</string>
     <string name="share_with_user_section_title">แชร์กับผู้ใช้และกลุ่ม</string>
     <string name="share_no_users">ยังไม่มีข้อมูลที่แชร์กับผู้ใช้ในตอนนี้</string>

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s 安卓軟體</string>
     <string name="about_version">版本 %1$s</string>
     <string name="actionbar_sync">更新檔案列表</string>
@@ -14,14 +13,11 @@
     <string name="actionbar_send_file">寄出</string>
     <string name="actionbar_sort">排序</string>
     <string name="actionbar_sort_title">排序依照</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>最新 - 最舊</item>
-    </string-array>
     <string name="drawer_item_all_files">所有檔案</string>
+    <string name="drawer_item_on_device">在裝置上</string>
     <string name="drawer_item_settings">設定</string>
     <string name="drawer_item_uploads_list">上傳</string>
-	<string name="drawer_close"> 關閉</string>
+    <string name="drawer_close"> 關閉</string>
     <string name="drawer_open">開啟</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
@@ -55,6 +51,7 @@
     <string name="sync_string_files">檔案</string>
     <string name="setup_btn_connect">連線</string>
     <string name="uploader_btn_upload_text">上傳</string>
+    <string name="uploader_top_message">選擇上傳檔案夾</string>
     <string name="uploader_wrn_no_account_title">找不到帳號</string>
     <string name="uploader_wrn_no_account_text">無%1$s帳號，請先建立帳號。</string>
     <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
@@ -102,6 +99,7 @@
     <string name="about_title">關於</string>
     <string name="change_password">變更密碼</string>
     <string name="delete_account">刪除帳號</string>
+    <string name="delete_account_warning">刪除帳號%s?\\n\\n刪除後將無法回復</string>
     <string name="create_account">建立帳號</string>
     <string name="upload_chooser_title">更新自 ...</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
@@ -227,6 +225,7 @@
     <string name="unfavorite">取消設定為離線可用</string>
     <string name="common_rename">重新命名</string>
     <string name="common_remove">移除</string>
+    <string name="confirmation_remove_file_alert">您真的要移除 %1$s？</string>
     <string name="confirmation_remove_folder_alert">您真的要移除 %1$s 與裡頭的檔案?</string>
     <string name="confirmation_remove_local">只有本地</string>
     <string name="remove_success_msg">成功地移除</string>
@@ -298,8 +297,10 @@
     <string name="preview_image_error_unknown_format">無法顯示圖片</string>
 
     <string name="error__upload__local_file_not_copied">%1$s 無法被複製到本地資料夾 %2$s</string>
-    <string name="prefs_instant_upload_path_title">上傳路徑</string>
-    <string name="share_link_no_support_share_api">很抱歉, 您的伺服器並未開啟分享的功能. 請聯絡您的
+    <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">依據年月存在子資料夾內</string>
+
+	<string name="share_link_no_support_share_api">很抱歉, 您的伺服器並未開啟分享的功能. 請聯絡您的
 		伺服器管理員.</string>
 	<string name="share_link_file_no_exist">無法分享. 請檢查檔案是否存在</string>
 	<string name="share_link_file_error">在分享檔案或資料夾時發生了錯誤</string>
@@ -338,6 +339,7 @@
 
     <string name="prefs_category_accounts">帳號</string>
     <string name="prefs_add_account">新增帳號</string>
+    <string name="drawer_manage_accounts">管理帳號</string>
     <string name="auth_redirect_non_secure_connection_title">加密的連線是由一個未加密的連線轉向過來的.</string>
 
 	<string name="actionbar_logger">紀錄</string>
@@ -368,8 +370,7 @@
     <string name="prefs_category_instant_uploading">即時上傳</string>
     <string name="prefs_category_details">詳細資料</string>
 
-	<string name="prefs_instant_video_upload_path_title">影像上傳路徑</string>
-    <string name="sync_folder_failed_content">%1$s 資料夾的同步作業未完成</string>
+	<string name="sync_folder_failed_content">%1$s 資料夾的同步作業未完成</string>
 
 	<string name="shared_subject_header">以分享的</string>
 	<string name="with_you_subject_header">與你</string>
@@ -391,13 +392,14 @@
     <string name="file_list__footer__files">%1$d 個檔案</string>
     <string name="file_list__footer__files_and_folder">%1$d 個檔案, 1 個資料夾</string>
     <string name="file_list__footer__files_and_folders">%1$d 個檔案, %2$d 個資料夾</string>
-    <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會...</string>
-    <string name="prefs_instant_behaviour_title">原始的檔案將會...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會&#8230;</string>
+    <string name="prefs_instant_behaviour_title">原始的檔案將會&#8230;</string>
     <string name="upload_copy_files">複製檔案</string>
     <string name="upload_move_files">移動檔案</string>
+    <string name="select_all">全選</string>
+
     <string name="pref_behaviour_entries_keep_file">保留在原先的資料夾</string>
     <string name="pref_behaviour_entries_move">移動到應用程式資料夾</string>
-
     <string name="share_dialog_title">分享</string>
     <string name="share_file">分享 %1$s</string>
     <string name="share_with_user_section_title">分享給其他使用者或群組</string>
@@ -444,4 +446,10 @@
 
     <string name="permission_storage_access">需要額外的權限來上傳或下傳檔案.</string>
     <string name="local_file_not_found_toast">在本地的檔案系統中找不到這個檔案</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">確認移除已選項目？</string>
+    <string name="confirmation_remove_folders_alert">確認移除已選項目及內容？</string>
+    <plurals name="items_selected_count">
+        <item quantity="other">%d 已選</item>
+    </plurals>
+
+</resources>

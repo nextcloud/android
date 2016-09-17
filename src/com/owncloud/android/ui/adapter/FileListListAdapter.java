@@ -36,7 +36,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -61,9 +60,10 @@ import java.util.Vector;
  * This Adapter populates a ListView with all files and folders in an ownCloud
  * instance.
  */
-public class FileListListAdapter extends BaseAdapter implements ListAdapter {
+public class FileListListAdapter extends BaseAdapter implements FilterableListAdapter {
 
     private Context mContext;
+    private Vector<OCFile> mFilesAll = new Vector<OCFile>();
     private Vector<OCFile> mFiles = null;
     private boolean mJustFolders;
 
@@ -194,11 +194,6 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
                     fileSizeSeparatorV.setVisibility(View.VISIBLE);
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
-
-                    if (file.isFolder()) {
-                        fileSizeSeparatorV.setVisibility(View.GONE);
-                        fileSizeV.setVisibility(View.GONE);
-                    }
 
                 case GRID_ITEM:
                     // filename
@@ -401,6 +396,10 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         }
 
         mFiles = FileStorageUtils.sortOcFolder(mFiles);
+
+        mFilesAll.clear();
+        mFilesAll.addAll(mFiles);
+
         notifyDataSetChanged();
     }
 
@@ -451,4 +450,21 @@ public class FileListListAdapter extends BaseAdapter implements ListAdapter {
         return files;
     }
 
+    public void filter(String text){
+        if(text.isEmpty()){
+            mFiles.clear();
+            mFiles.addAll(mFilesAll);
+        } else {
+            ArrayList<OCFile> result = new ArrayList<>();
+            text = text.toLowerCase();
+            for(OCFile file: mFilesAll){
+                if(file.getFileName().toLowerCase().contains(text)){
+                    result.add(file);
+                }
+            }
+            mFiles.clear();
+            mFiles.addAll(result);
+        }
+        notifyDataSetChanged();
+    }
 }

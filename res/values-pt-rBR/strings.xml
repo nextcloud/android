@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">Aplicativo Android %1$s</string>
     <string name="about_version">versão %1$s</string>
     <string name="actionbar_sync">Atualizar conta</string>
@@ -14,15 +13,14 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Classificar</string>
     <string name="actionbar_sort_title">Classificar por</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Mais recente - Mais antigo</item>
-    	<item>Maior - Menor</item>
-    </string-array>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Mais novo - Mais antigo</string>
+    <string name="menu_item_sort_by_size">Maior - Menor</string>
     <string name="drawer_item_all_files">Todos os arquivos</string>
     <string name="drawer_item_on_device">No aparelho</string>
     <string name="drawer_item_settings">Configurações</string>
     <string name="drawer_item_uploads_list">Envios</string>
+    <string name="drawer_quota">%1$s de %2$s usados</string>
 	<string name="drawer_close">Fechar</string>
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">Geral</string>
@@ -30,7 +28,7 @@
     <string name="prefs_accounts">Contas</string>
     <string name="prefs_manage_accounts">Gerenciar contas</string>
     <string name="prefs_passcode">Bloqueio com senha</string>
-    <string name="prefs_instant_upload">Envio instantâneo de imagem</string>
+    <string name="prefs_instant_upload">Envio instantâneo de imagens</string>
     <string name="prefs_instant_upload_summary">Envia instantaneamente as fotos tiradas com a câmera</string>
     <string name="prefs_instant_video_upload">Envio instantâneo de vídeos</string>
     <string name="prefs_instant_video_upload_summary">Envia instantaneamente os vídeos feitos com a câmera</string>
@@ -39,6 +37,11 @@
     <string name="prefs_log_title_history">Histórico de logins</string>
     <string name="prefs_log_summary_history">Mostra os registros gravados</string>
     <string name="prefs_log_delete_history_button">Excluir histórico</string>
+    <string name="prefs_calendar_contacts">Configurar a sincronização do calendário e dos contatos</string>
+    <string name="prefs_calendar_contacts_summary">Configurar o DAVdroid (v1.3.0+) para a conta em uso</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor da conta não pôde ser reconhecido pelo DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Não há um aplicativo F-Droid ou Google Play instalado</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">A sincronização do calendário e dos contatos foi configurada com sucesso</string>
     <string name="prefs_help">Ajuda</string>
     <string name="prefs_recommend">Recomendar a um amigo</string>
     <string name="prefs_feedback">Feedback</string>
@@ -53,10 +56,11 @@
     <string name="auth_host_url">Endereço do servidor https://...</string>
     <string name="auth_username">Nome de usuário</string>
     <string name="auth_password">Senha</string>
-    <string name="auth_register">Novo no %1$s?</string>
+    <string name="auth_register">Novo usuário do %1$s?</string>
     <string name="sync_string_files">Arquivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Enviar</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Criar arquivo texto</string>
     <string name="uploader_top_message">Escolher pasta para envio</string>
     <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
     <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu aparelho. Por favor, configure uma conta primeiro.</string>
@@ -69,6 +73,10 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s não tem permissão para ler um arquivo recebido</string>
     <string name="uploader_error_message_source_file_not_found">Arquivo para envio não foi encontrado em sua localização. Verifique se o arquivo existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Ocorreu um erro ao copiar o arquivo para uma pasta temporária. Por favor, tente enviar novamente.</string>
+    <string name="uploader_upload_files_behaviour">Opção de envio:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover o arquivo para a pasta do Nextcoud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Manter o arquivo na pasta de origem</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Excluir o arquivo da pasta de origem</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
     <string name="file_list_loading">Carregando...</string>
@@ -102,6 +110,7 @@
     <string name="common_loading">Carregando ...</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>
+    <string name="common_pending">Pendente</string>
     <string name="about_title">Sobre</string>
     <string name="change_password">Alterar senha</string>
     <string name="delete_account">Remover conta</string>
@@ -231,6 +240,7 @@
     <string name="unfavorite">Definir como não disponível offline</string>
     <string name="common_rename">Renomear</string>
     <string name="common_remove">Remover</string>
+    <string name="confirmation_remove_file_alert">Deseja realmente remover %1$s?</string>
     <string name="confirmation_remove_folder_alert">Você realmente deseja remover %1$s e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
     <string name="remove_success_msg">Removido com sucesso</string>
@@ -289,8 +299,10 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="instant_upload_on_wifi">Envio de fotos apenas por wifi</string>
-    <string name="instant_video_upload_on_wifi">Envio de vídeos apenas por wifi</string>
+    <string name="instant_upload_on_wifi">Envio de fotos apenas por Wi-Fi</string>
+    <string name="instant_video_upload_on_wifi">Envio de vídeos apenas por Wi-Fi</string>
+    <string name="instant_video_upload_on_charging">Enviar apenas quando solicitado</string>
+    <string name="instant_upload_on_charging">Enviar apenas quando solicitado</string>
     <string name="instant_upload_path">/Upload instantâneo</string>
     <string name="conflict_title">Conflito de arquivo</string>
     <string name="conflict_message">Quais arquivos você deseja manter? Se você selecionar ambas as versões, o arquivo local terá um número adicionado ao seu nome.</string>
@@ -302,9 +314,9 @@
     <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
 
     <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
-    <string name="prefs_instant_upload_path_title">Caminho para envio</string>
-    <string name="prefs_instant_upload_path_use_subfolders_title">Use subpastas</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Guarde em subpastas baseadas em ano e mês</string>
+    <string name="prefs_instant_upload_path_title">Pasta de envio instantâneo</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Usar subpastas</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Armazena em subpastas com base no ano e mês</string>
 
 	<string name="share_link_no_support_share_api">Desculpe, o compartilhamento não está habilitado em seu servidor. Entre em contato com seu 
 ⇥⇥ administrador.</string>
@@ -350,24 +362,24 @@
 
 	<string name="actionbar_logger">Logs</string>
 	<string name="log_send_history_button">Enviar histórico</string>
-	<string name="log_send_no_mail_app">Nenhum aplicativo para envio de logs foi encontrado. Por favor instale um aplicativo de e-mail</string>
-	<string name="log_send_mail_subject">%1$s logs do Android app</string>
+	<string name="log_send_no_mail_app">Nenhum aplicativo para envio de logs foi encontrado. Por favor, instale um aplicativo de e-mail.</string>
+	<string name="log_send_mail_subject">%1$s logs do aplicativo Android</string>
 	<string name="log_progress_dialog_text">Carregando dados ...</string>
 
-	<string name="saml_authentication_required_text">Autenticação é requerida</string>
+	<string name="saml_authentication_required_text">Autenticação obrigatória</string>
 	<string name="saml_authentication_wrong_pass">Senha incorreta</string>
 	<string name="actionbar_move">Mover</string>
 	<string name="file_list_empty_moving">Nada aqui. Você pode adicionar uma pasta!</string>
 	<string name="folder_picker_choose_button_text">Escolher</string>
 
-    <string name="move_file_not_found">Não é possível mover. Por favor verifique se o arquivo existe</string>
+    <string name="move_file_not_found">Não é possível mover. Por favor, verifique se o arquivo existe</string>
     <string name="move_file_invalid_into_descendent">Não é possível mover a pasta para uma descendente</string>
     <string name="move_file_invalid_overwrite">O arquivo já existe na pasta de destino</string>
     <string name="move_file_error">Ocorreu um erro ao tentar mover este arquivo ou pasta</string>
     <string name="forbidden_permissions_move">mover este arquivo</string>
 
 
-    <string name="copy_file_not_found">Não é possível copiar. Por favor verifique se o arquivo existe</string>
+    <string name="copy_file_not_found">Não é possível copiar. Por favor, verifique se o arquivo existe</string>
     <string name="copy_file_invalid_into_descendent">Não é possível copiar uma pasta em uma descendente</string>
     <string name="copy_file_invalid_overwrite">O arquivo já existe na pasta de destino</string>
     <string name="copy_file_error">Ocorreu um erro ao tentar copiar este arquivo ou pasta</string>
@@ -376,7 +388,7 @@
     <string name="prefs_category_instant_uploading">Envio instantâneo</string>
     <string name="prefs_category_details">Detalhes</string>
 
-	<string name="prefs_instant_video_upload_path_title">Enviar caminho do vídeo</string>
+	<string name="prefs_instant_video_upload_path_title">Pasta de envio instantâneo de vídeos</string>
     <string name="sync_folder_failed_content">A sincronização da pasta %1$s não pode ser finalizada</string>
 
 	<string name="shared_subject_header">compartilhado</string>
@@ -399,14 +411,15 @@
     <string name="file_list__footer__files">%1$d arquivos</string>
     <string name="file_list__footer__files_and_folder">%1$d arquivos, 1 pasta</string>
     <string name="file_list__footer__files_and_folders">%1$d arquivos, %2$d pastas</string>
-    <string name="prefs_instant_behaviour_dialogTitle">O arquivo original será...</string>
-    <string name="prefs_instant_behaviour_title">O arquivo original será...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">O arquivo original será&#8230;</string>
+    <string name="prefs_instant_behaviour_title">O arquivo original será&#8230;</string>
     <string name="upload_copy_files">Copiar o arquivo</string>
     <string name="upload_move_files">Mover o arquivo</string>
     <string name="select_all">Selecionar tudo</string>
 
     <string name="pref_behaviour_entries_keep_file">mantido na pasta original</string>
     <string name="pref_behaviour_entries_move">movido para a pasta app</string>
+    <string name="pref_behaviour_entries_delete_file">excluído</string>
 
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_file">Compartilhar %1$s</string>
@@ -418,6 +431,7 @@
     <string name="share_via_link_password_label">Proteger com senha</string>
     <string name="share_via_link_password_title">Asegurado</string>
     <string name="share_via_link_edit_permission_label">Permitir edição</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Ocultar a listagem de arquivos</string>
     <string name="share_get_public_link_button">Obter link</string>
     <string name="share_with_title">Compartilhar com …</string>
     <string name="share_with_edit_title">Compartilhar com %1$s</string>
@@ -450,8 +464,30 @@
     <string name="manage_space_title">Gerenciar o espaço</string>
     <string name="manage_space_description">Definições, certificados de banco de dados e servidor de dados %1$s serão excluído permanentemente. \n\nArquivos baixados serão mantidos inalterados. \n\nEste processo pode demorar algum tempo.</string>
     <string name="manage_space_clear_data">Limpar dados</string>
-    <string name="manage_space_error">Alguns arquivos não puderam ser excluído.</string>
+    <string name="manage_space_error">Alguns arquivos não puderam ser excluídos.</string>
 
     <string name="permission_storage_access">Permissões adicionais são necessárias para se enviar e baixar arquivos &amp; .</string>
     <string name="local_file_not_found_toast">O arquivo não foi encontrado no sistema de arquivos local</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">Deseja realmente remover os itens selecionados?</string>
+    <string name="confirmation_remove_folders_alert">Deseja realmente remover os itens selecionados e seus conteúdos?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">À espera de carregamento do dispositivo</string>
+    <string name="actionbar_search">Pesquisar</string>
+    <string name="files_drop_not_supported">Este é um recurso do Nextcloud, atualize.</string>
+    <string name="learn_more">Aprender mais</string>
+    <string name="drawer_participate">Participar</string>
+    <string name="participate_testing_headline">Ajude-nos a testar</string>
+    <string name="participate_testing_bug_text">Encontrou um erro? Algo está estranho?</string>
+    <string name="participate_testing_report_text">Relate o problema no Github</string>
+    <string name="participate_testing_version_text">Está interessado em ajudar-nos a testar a próxima versão?</string>
+    <string name="participate_beta_headline">Testar a versão beta</string>
+    <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_contribute_headline">Contribuir ativamente</string>
+    <string name="participate_contribute_irc_text">Participe de uma conversa no IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Ajude as outras pessoas no &lt;a href=\"%1$s>fórum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduzir&lt;/a> o aplicativo</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d selecionado</item>
+        <item quantity="other">%d selecionados</item>
+    </plurals>
+
+</resources>

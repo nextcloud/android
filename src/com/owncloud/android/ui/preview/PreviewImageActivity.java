@@ -577,9 +577,4 @@ public class PreviewImageActivity extends FileActivity implements
         }
         return false;
     }
-
-    @Override
-    public void refreshDirectory() {
-        backToDisplayActivity();
-    }
 }

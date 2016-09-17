@@ -1,16 +1,31 @@
-## 1.2.0 (2016)
+## 1.3.0 (September 17, 2016)
+
+- Files drop permission in share viewe
+- Display quota if configured/available in navigation drawer
+- Resume chunked uploads instead of complete restarts
+- Filter remote and local file lists
+- Simple integration with DAVdroid for calender and contacts sync
+- Mix folders and files on sort by date
+- Upload when charging option
+- Revamp upload options Move/Copy/Just-Upload
+- Text can be selected and shared to Nextcloud
+- Respect metered wifi and block instant uploads
+- Proper handling of .djvu files
+- Bugfixes and design improvements
+
+## 1.2.0 (July 29, 2016)
 
 - Multi select capabilities
-- confirmation dialog on account removal
-- offline available filter in main menu
-- sorting capability when choosing files to be uploaded
-- video thumbnails if activated on server
-- thumbnails during upload
-- fixed user agent for file firewalling
-- showing server side folder sizes
-- text in test preview can now be selected
-- search suggestions fixed for user/group search during sharing
-- minor bugfixes
+- Confirmation dialog on account removal
+- Offline available filter in main menu
+- Sorting capability when choosing files to be uploaded
+- Video thumbnails if activated on server
+- Thumbnails during upload
+- Fixed user agent for file firewalling
+- Showing server side folder sizes
+- Text in test preview can now be selected
+- Search suggestions fixed for user/group search during sharing
+- Minor bugfixes
 
 ## 1.1.0 (July 6, 2016)
 

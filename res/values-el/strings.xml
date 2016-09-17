@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">Εφαρμογή %1$s Android</string>
     <string name="about_version">έκδοση %1$s</string>
     <string name="actionbar_sync">Ανανέωση λογαριασμού</string>
@@ -14,13 +13,11 @@
     <string name="actionbar_send_file">Αποστολή</string>
     <string name="actionbar_sort">Ταξινόμηση</string>
     <string name="actionbar_sort_title">Ταξινόμηση κατά</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Ω</item>
-    	<item>Νεότερο - Παλαιότερο</item>
-    </string-array>
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
+    <string name="drawer_item_on_device">Στην συσκευή</string>
     <string name="drawer_item_settings">Ρυθμίσεις</string>
     <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
+    <string name="drawer_quota">%1$s από %2$s χρησιμοποιούνται</string>
 	<string name="drawer_close">Κλείσιμο</string>
     <string name="drawer_open">Άνοιγμα</string>
     <string name="prefs_category_general">Γενικά</string>
@@ -55,6 +52,7 @@
     <string name="sync_string_files">Αρχεία</string>
     <string name="setup_btn_connect">Σύνδεση</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Δημιουργία αρχείου κειμένου</string>
     <string name="uploader_wrn_no_account_title">Δεν βρέθηκε λογαριασμός</string>
     <string name="uploader_wrn_no_account_text">Δεν υπάρχουν λογαριασμοί %1$s στη συσκευή σας. Παρακαλώ ρυθμίστε πρώτα ένα λογαριασμό.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Ρύθμιση</string>
@@ -276,7 +274,7 @@
     <string name="preview_image_error_unknown_format">Αυτή η εικόνα δεν μπορεί να προβληθεί</string>
 
     <string name="error__upload__local_file_not_copied">Το %1$s δεν μπόρεσε να αντιγραφεί στον τοπικό φάκελο %2$s</string>
-    <string name="prefs_instant_upload_path_title">Διαδρομή Μεταφόρτωσης</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Χρήση υποφακέλων</string>
     <string name="share_link_no_support_share_api">Λυπούμαστε, ο διαμοιρασμός δεν επιτρέπεται στο διακομιστή σας. Παρακαλούμε επικοινωνείστε με το
 		διαχειριστή σας.</string>
 	<string name="share_link_file_no_exist">Αδύνατη η κοινή χρήση. Παρακαλώ ελέγξτε αν ο φάκελος υπάρχει</string>
@@ -312,6 +310,7 @@
 
     <string name="prefs_category_accounts">Λογαριασμοί</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
+    <string name="drawer_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται μέσω μιας μη ασφαλούς διαδρομής.</string>
 
 	<string name="actionbar_logger">Αρχεία καταγραφών</string>
@@ -342,8 +341,7 @@
     <string name="prefs_category_instant_uploading">Στιγμιαίες μεταφορτώσεις</string>
     <string name="prefs_category_details">Λεπτομέρειες</string>
 
-	<string name="prefs_instant_video_upload_path_title">Διαδρομή μεταφόρτωσης Βίντεο</string>
-    <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
+	<string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
 
 	<string name="shared_subject_header">διαμοιρασμένα</string>
 	<string name="with_you_subject_header">με εσάς</string>
@@ -365,13 +363,14 @@
     <string name="file_list__footer__files">%1$d αρχεία</string>
     <string name="file_list__footer__files_and_folder">%1$d αρχεία, 1 φάκελος</string>
     <string name="file_list__footer__files_and_folders">%1$d αρχεία, %2$d φάκελοι</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Το πρωτότυπο αρχείο θα είναι</string>
-    <string name="prefs_instant_behaviour_title">Το πρωτότυπο αρχείο θα είναι</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Το πρωτότυπο αρχείο θα είναι&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Το πρωτότυπο αρχείο θα είναι&#8230;</string>
     <string name="upload_copy_files">Αντιγραφή αρχείου</string>
     <string name="upload_move_files">Μετακίνηση αρχείου</string>
+    <string name="select_all">Επιλογή όλων</string>
+
     <string name="pref_behaviour_entries_keep_file">κρατήθηκε στον πρωτότυπο φάκελο</string>
     <string name="pref_behaviour_entries_move">μετακινήθηκε στον φάκελο εφαρμογών</string>
-
     <string name="share_dialog_title">Διαμοιρασμός</string>
     <string name="share_file">Διαμοιρασμός %1$s</string>
     <string name="share_with_user_section_title">Διαμοιρασμός με χρήστες και ομάδες</string>
@@ -411,4 +410,12 @@
     <string name="manage_space_error">Μερικά αρχεία δεν μπορούν να διαγραφούν.</string>
 
     <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση &amp; λήψη αρχείων.</string>
-    </resources>
+    <string name="actionbar_search">Αναζήτηση</string>
+    <string name="participate_testing_headline">Βοηθήστε μας στις δοκιμές</string>
+    <string name="participate_beta_headline">Δοκιμάστε την έκδοση Beta</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d επιλέχθηκε</item>
+        <item quantity="other">%d επιλέχθηκαν</item>
+    </plurals>
+
+</resources>

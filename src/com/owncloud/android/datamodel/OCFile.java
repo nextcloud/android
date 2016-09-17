@@ -580,8 +580,14 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * @return 'True' if the file contains an image
      */
     public boolean isImage() {
-        return ((mMimeType != null && mMimeType.startsWith("image/")) ||
-                getMimeTypeFromName().startsWith("image/"));
+        String mimeType;
+        if (mMimeType != null) {
+            mimeType = mMimeType;
+        } else {
+            mimeType = getMimeTypeFromName();
+        }
+
+        return (mimeType.startsWith("image/") && !mimeType.contains("djvu"));
     }
 
     /**

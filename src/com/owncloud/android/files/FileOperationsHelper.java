@@ -54,8 +54,6 @@ import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import java.util.Collection;
 import java.util.List;
 
-import java.util.ArrayList;
-
 /**
  *
  */
@@ -395,6 +393,28 @@ public class FileOperationsHelper {
         queueShareIntent(updateShareIntent);
     }
 
+    /**
+     * Updates a public share on a folder to set its hide file listing permission.
+     * Starts a request to do it in {@link OperationsService}
+     *
+     * @param share                    {@link OCShare} instance which permissions will be updated.
+     * @param hideFileListing          New state of the permission for editing the folder shared via link.
+     */
+    public void setHideFileListingPermissionsToShare(OCShare share, boolean hideFileListing) {
+        Intent updateShareIntent = new Intent(mFileActivity, OperationsService.class);
+        updateShareIntent.setAction(OperationsService.ACTION_UPDATE_SHARE);
+        updateShareIntent.putExtra(OperationsService.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+
+        if (hideFileListing) {
+            updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.CREATE_PERMISSION_FLAG);
+        } else {
+            updateShareIntent.
+                    putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER);
+        }
+
+        queueShareIntent(updateShareIntent);
+    }
 
     /**
      * @return 'True' if the server supports the Search Users API

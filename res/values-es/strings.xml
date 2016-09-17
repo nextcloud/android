@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s Aplicación de Android</string>
     <string name="about_version">versión %1$s</string>
     <string name="actionbar_sync">Actualizar cuenta</string>
@@ -14,15 +13,11 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
     <string name="actionbar_sort_title">Ordenar por</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Más nuevo - Más viejo</item>
-    	<item>El mayor - El menor</item>
-    </string-array>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_settings">Ajustes</string>
     <string name="drawer_item_uploads_list">Subidas</string>
+    <string name="drawer_quota">%1$s de %2$s utilizado</string>
 	<string name="drawer_close">Cerrar</string>
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">General</string>
@@ -57,6 +52,7 @@
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Subir</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Crear archivo de texto</string>
     <string name="uploader_top_message">Elige carpeta de subida</string>
     <string name="uploader_wrn_no_account_title">No se encontró la cuenta</string>
     <string name="uploader_wrn_no_account_text">No hay %1$s cuentas en tu dispositivo. Por favor añade una cuenta primero.</string>
@@ -102,6 +98,7 @@
     <string name="common_loading">Cargando...</string>
     <string name="common_unknown">desconocido</string>
     <string name="common_error_unknown">Error desconocido</string>
+    <string name="common_pending">Pendiente</string>
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
@@ -231,6 +228,7 @@
     <string name="unfavorite">Desmarcar como disponible offline</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Borrar</string>
+    <string name="confirmation_remove_file_alert">¿Está seguro de que quiere elimintar %1$s?</string>
     <string name="confirmation_remove_folder_alert">¿Realmente desea eliminar %1$s y todo su contenido?</string>
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="remove_success_msg">Borrado correctamente</string>
@@ -302,7 +300,7 @@
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
 
     <string name="error__upload__local_file_not_copied">%1$s se pudo copiar a la carpeta local %2$s</string>
-    <string name="prefs_instant_upload_path_title">Ruta de subida</string>
+    <string name="prefs_instant_upload_path_title">Carpeta para subida instantánea</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpeta</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivar en subcarpetas basadas en año y mes.</string>
 
@@ -376,7 +374,7 @@
     <string name="prefs_category_instant_uploading">Subidas instantáneas</string>
     <string name="prefs_category_details">Detalles</string>
 
-	<string name="prefs_instant_video_upload_path_title">Ruta de subida de vídeo </string>
+	<string name="prefs_instant_video_upload_path_title">Carpeta para subida instantáneo de vídeos</string>
     <string name="sync_folder_failed_content">La sincronización de la carpeta %1$s no se pudo completar</string>
 
 	<string name="shared_subject_header">compartido</string>
@@ -399,15 +397,14 @@
     <string name="file_list__footer__files">%1$d archivos</string>
     <string name="file_list__footer__files_and_folder">%1$d archivos, 1 carpeta</string>
     <string name="file_list__footer__files_and_folders">%1$d archivos, %2$d carpetas</string>
-    <string name="prefs_instant_behaviour_dialogTitle">El archivo original será...</string>
-    <string name="prefs_instant_behaviour_title">El archivo original será...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">El archivo original será&#8230;</string>
+    <string name="prefs_instant_behaviour_title">El archivo original será&#8230;</string>
     <string name="upload_copy_files">Copiar archivo</string>
     <string name="upload_move_files">Mover archivo</string>
     <string name="select_all">Seleccionar todo</string>
 
     <string name="pref_behaviour_entries_keep_file">dejado en la carpeta original</string>
     <string name="pref_behaviour_entries_move">movido a la carpeta apps</string>
-
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_file">Compartir %1$s</string>
     <string name="share_with_user_section_title">Compartir con usuarios y grupos</string>
@@ -453,4 +450,12 @@
 
     <string name="permission_storage_access">Se requieren permisos adicionales para subir &amp; y descargar archivos.</string>
     <string name="local_file_not_found_toast">El archivo no se encuentra en el servidor local de archivos.</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">¿Está seguro de que quiere eliminar los elementos seleccionados?</string>
+    <string name="confirmation_remove_folders_alert">¿Está sguro de que quiere eliminar los elementos seleccionados y sus contenidos?</string>
+    <string name="actionbar_search">Buscar</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d seleccionado</item>
+        <item quantity="other">%d seleccionados</item>
+    </plurals>
+
+</resources>

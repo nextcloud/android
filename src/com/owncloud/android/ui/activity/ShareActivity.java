@@ -65,6 +65,7 @@ public class ShareActivity extends FileActivity
     private static final String TAG_SHARE_FRAGMENT = "SHARE_FRAGMENT";
     private static final String TAG_SEARCH_FRAGMENT = "SEARCH_USER_AND_GROUPS_FRAGMENT";
     private static final String TAG_EDIT_SHARE_FRAGMENT = "EDIT_SHARE_FRAGMENT";
+    private static final String TAG_PUBLIC_LINK = "PUBLIC_LINK";
 
     /// Tags for dialog fragments
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
@@ -289,7 +290,18 @@ public class ShareActivity extends FileActivity
 
             // Create dialog to allow the user choose an app to send the link
             Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
-            String link = ((OCShare) (result.getData().get(0))).getShareLink();
+
+            // if share to user and share via link multiple ocshares are returned,
+            // therefore filtering for public_link
+            String link = "";
+            for (Object object : result.getData()) {
+                OCShare shareLink = (OCShare) object;
+                if (TAG_PUBLIC_LINK.equalsIgnoreCase(shareLink.getShareType().name())) {
+                    link = shareLink.getShareLink();
+                    break;
+                }
+            }
+
             intentToShareLink.putExtra(Intent.EXTRA_TEXT, link);
             intentToShareLink.setType("text/plain");
             String username = AccountUtils.getUsernameForAccount(getAccount());

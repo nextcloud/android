@@ -42,6 +42,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -49,6 +50,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -65,6 +67,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
@@ -76,6 +79,9 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -94,6 +100,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
 
     private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
+    public static final String TEXT_FILE_SUFFIX = ".txt";
 
     private AccountManager mAccountManager;
     private Stack<String> mParents;
@@ -175,13 +182,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     setAccount(accounts[0]);
                 }
             }
-
-        } else if (getIntent().getStringExtra(Intent.EXTRA_TEXT) != null) {
-            showErrorDialog(
-                R.string.uploader_error_message_received_piece_of_text,
-                R.string.uploader_error_title_no_file_to_upload
-            );
-
         } else {
             showErrorDialog(
                 R.string.uploader_error_message_no_file_to_upload,
@@ -342,8 +342,67 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 for (String p : mParents) {
                     mUploadPath += p + OCFile.PATH_SEPARATOR;
                 }
-                Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
-                uploadFiles();
+
+                if (uploadTextSnippet()){
+                    LayoutInflater layout = LayoutInflater.from(getBaseContext());
+                    View view = layout.inflate(R.layout.edit_box_dialog, null);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            this);
+
+                    alertDialogBuilder.setView(view);
+
+                    final EditText userInput = (EditText) view.findViewById(R.id.user_input);
+                    userInput.setText(TEXT_FILE_SUFFIX);
+
+                    alertDialogBuilder.setCancelable(false)
+                            .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            PrintWriter out;
+                                            try {
+                                                File f = File.createTempFile("nextcloud", TEXT_FILE_SUFFIX);
+                                                out = new PrintWriter(f);
+                                                out.println(getIntent().getStringExtra(Intent.EXTRA_TEXT));
+                                                out.close();
+
+                                                FileUploader.UploadRequester requester =
+                                                        new FileUploader.UploadRequester();
+
+                                                // verify if file name has suffix
+                                                String filename = userInput.getText().toString();
+
+                                                if (!filename.endsWith(TEXT_FILE_SUFFIX)){
+                                                    filename += TEXT_FILE_SUFFIX;
+                                                }
+
+                                                requester.uploadNewFile(
+                                                        getBaseContext(),
+                                                        getAccount(),
+                                                        f.getAbsolutePath(),
+                                                        mFile.getRemotePath() + filename,
+                                                        FileUploader.LOCAL_BEHAVIOUR_COPY,
+                                                        null,
+                                                        true,
+                                                        UploadFileOperation.CREATED_BY_USER
+                                                );
+                                            } catch (IOException e) {
+                                                Log_OC.w(TAG, e.getMessage());
+                                            }
+
+                                            finish();
+                                        }
+                                    })
+                            .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                    alertDialogBuilder.create().show();
+                } else {
+                    Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
+                    uploadFiles();
+                }
                 break;
 
             case R.id.uploader_cancel:
@@ -423,6 +482,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
 
+            if (uploadTextSnippet()){
+                btnChooseFolder.setText(R.string.uploader_btn_uploadTextSnippet_text);
+            }
+
             Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
             btnNewFolder.setOnClickListener(this);
 
@@ -478,7 +541,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private boolean somethingToUpload() {
-        return (mStreamsToUpload != null && mStreamsToUpload.get(0) != null);
+        return (mStreamsToUpload != null && mStreamsToUpload.get(0) != null || uploadTextSnippet());
+    }
+
+    private boolean uploadTextSnippet(){
+        return getIntent().getStringExtra(Intent.EXTRA_TEXT) != null;
     }
 
     @SuppressLint("NewApi")

@@ -67,6 +67,12 @@ public abstract class PreferenceManager {
     public static boolean instantVideoUploadViaWiFiOnly(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI, false);
     }
+    public static boolean instantPictureUploadWhenChargingOnly(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_charging", false);
+    }
+    public static boolean instantVideoUploadWhenChargingOnly(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_charging", false);
+    }
 
     /**
      * Gets the path where the user selected to do the last upload of a file shared from other app.
@@ -137,7 +143,7 @@ public abstract class PreferenceManager {
      */
     public static int getUploaderBehaviour(Context context) {
         return getDefaultSharedPreferences(context)
-                .getInt(AUTO_PREF__UPLOADER_BEHAVIOR, FileUploader.LOCAL_BEHAVIOUR_COPY);
+                .getInt(AUTO_PREF__UPLOADER_BEHAVIOR, 1);
     }
 
     /**

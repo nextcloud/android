@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">יישום אנדרואיד %1$s</string>
     <string name="about_version">גרסה %1$s</string>
     <string name="actionbar_sync">רענון חשבון</string>
@@ -14,14 +13,10 @@
     <string name="actionbar_send_file">שליחה</string>
     <string name="actionbar_sort">מיון</string>
     <string name="actionbar_sort_title">מיון על בסיס</string>
-    <string-array name="actionbar_sortby">
-    	<item>א-ת</item>
-    	<item>חדש - ישן</item>
-    </string-array>
     <string name="drawer_item_all_files">כל הקבצים</string>
     <string name="drawer_item_settings">הגדרות</string>
     <string name="drawer_item_uploads_list">העלאות</string>
-	<string name="drawer_close">סגירה</string>
+    <string name="drawer_close">סגירה</string>
     <string name="drawer_open">פתיחה</string>
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>
@@ -299,7 +294,6 @@
     <string name="preview_image_error_unknown_format">תמונה זו לא ניתנת לצפייה</string>
 
     <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
-    <string name="prefs_instant_upload_path_title">נתיב העלאה</string>
     <string name="share_link_no_support_share_api">מצטערים, שיתוף אינו מורשה על השרת שלך. יש ליצור קשר עם
 ⇥⇥מנהל.</string>
 	<string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
@@ -369,8 +363,7 @@
     <string name="prefs_category_instant_uploading">העלאות מיידיות</string>
     <string name="prefs_category_details">פרטים</string>
 
-	<string name="prefs_instant_video_upload_path_title">נתיב העלאת סרט</string>
-    <string name="sync_folder_failed_content">לא ניתן להשלים סנכרון של %1$s תיקיות</string>
+	<string name="sync_folder_failed_content">לא ניתן להשלים סנכרון של %1$s תיקיות</string>
 
 	<string name="shared_subject_header">משותף</string>
 	<string name="with_you_subject_header">אתך</string>
@@ -392,13 +385,12 @@
     <string name="file_list__footer__files">%1$d קבצים</string>
     <string name="file_list__footer__files_and_folder">%1$d קבצים, 1 תיקייה</string>
     <string name="file_list__footer__files_and_folders">%1$d קבצים, %2$d תיקיות</string>
-    <string name="prefs_instant_behaviour_dialogTitle">קובץ מקורי יהיה...</string>
-    <string name="prefs_instant_behaviour_title">תיקייה מקורית תהיה...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">&#8230;קובץ מקורי יהיה</string>
+    <string name="prefs_instant_behaviour_title">&#8230;קובץ מקורי יהיה</string>
     <string name="upload_copy_files">העתקת קובץ</string>
     <string name="upload_move_files">העברת קובץ</string>
     <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>
     <string name="pref_behaviour_entries_move">הועבר לתיקיית ישומים</string>
-
     <string name="share_dialog_title">שיתוף</string>
     <string name="share_file">שיתוף %1$s</string>
     <string name="share_with_user_section_title">שיתוף עם משתמשים וקבוצות</string>

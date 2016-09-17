@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="about_android">%1$s Android-App</string>
     <string name="about_version">Version %1$s</string>
     <string name="actionbar_sync">Konto aktualisieren</string>
@@ -14,15 +13,14 @@
     <string name="actionbar_send_file">Senden</string>
     <string name="actionbar_sort">Sortieren</string>
     <string name="actionbar_sort_title">Sortieren nach</string>
-    <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Neueste - Älteste</item>
-    	<item>Größte - Kleinste</item>
-    </string-array>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Neueste - Älteste</string>
+    <string name="menu_item_sort_by_size">Größte - Kleinste</string>
     <string name="drawer_item_all_files">Alle Dateien</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
     <string name="drawer_item_settings">Einstellungen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
+    <string name="drawer_quota">%1$s von %2$s verwendet</string>
 	<string name="drawer_close">Schließen</string>
     <string name="drawer_open">Öffnen</string>
     <string name="prefs_category_general">Allgemein</string>
@@ -39,6 +37,11 @@
     <string name="prefs_log_title_history">Protokollverlauf</string>
     <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokolle</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
+    <string name="prefs_calendar_contacts">Kalender &amp; Kontakte Synchronisierung konfigurieren</string>
+    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto konfigurieren</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
+    <string name="prefs_calendar_contacts_no_store_error">Weder Google Play Store noch F-Droid App installiert</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; Kontakte Sychronisierung erfolgreich konfiguriert</string>
     <string name="prefs_help">Hilfe</string>
     <string name="prefs_recommend">Dies einem Freund empfehlen</string>
     <string name="prefs_feedback">Rückmeldungen</string>
@@ -47,7 +50,7 @@
     <string name="prefs_remember_last_upload_location_summary">Geteilten Upload-Speicherort merken</string>
 
 	<string name="recommend_subject">%1$s auf Ihrem Smartphone ausprobieren!</string>
-	<string name="recommend_text">Ich möchte Sie einladen, %1$s auf Ihrem Smartphone zu verwenden!\nHier herunterladen: %2$s</string>
+	<string name="recommend_text">Ich empfehle Ihnen die Nutzung von %1$s auf Ihrem Smartphone!\\nSie können die App hier herunterladen: %2$s</string>
 
     <string name="auth_check_server">Server überprüfen</string>
     <string name="auth_host_url">Server-Adresse https://…</string>
@@ -57,6 +60,7 @@
     <string name="sync_string_files">Dateien</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Erstelle Textdatei</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
     <string name="uploader_wrn_no_account_text">Es sind keine %1$s-Konten auf Ihrem Gerät eingerichtet. Bitte richten Sie zuerst ein Konto ein.</string>
@@ -68,11 +72,15 @@
     <string name="uploader_error_title_file_cannot_be_uploaded">Datei kann nicht hochgeladen werden</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s darf eine empfangene Datei nicht lesen</string>
     <string name="uploader_error_message_source_file_not_found">Hochzuladende Datei wurde an seinem Ort nicht gefunden. Prüfen Sie, dass die Datei existiert.</string>
-    <string name="uploader_error_message_source_file_not_copied">Es ist ein Fehler beim Kopieren dieser Datei in einen temporären Ordner aufgetreten. Bitte nochmals versuchen, die Datei zu senden.</string>
+    <string name="uploader_error_message_source_file_not_copied">Es ist ein Fehler beim Kopieren dieser Datei in einen temporären Ordner aufgetreten. Bitte versuchen Sie erneut die Datei zu senden.</string>
+    <string name="uploader_upload_files_behaviour">Upload Option:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">In Nextcloud Ordner verschieben</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Hochladen und Datei im Quellordner behalten</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hochladen und Quelle löschen</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_list_empty">Alles leer. Laden Sie etwas hoch!</string>
     <string name="file_list_loading">Lade…</string>
-    <string name="file_list_no_app_for_file_type">Es wurde keine App für die Datei gefunden!</string>
+    <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="upload_list_empty">Keine Uploads verfügbar</string>
     <string name="file_list_folder">Ordner</string>
@@ -93,7 +101,7 @@
     <string name="common_no">Nein</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">Upload entfernen</string>
-    <string name="common_retry_upload">Upload wiederholen</string>
+    <string name="common_retry_upload">Hochladen wiederholen</string>
     <string name="common_cancel_sync">Synchronisation abbrechen</string>
     <string name="common_cancel">Abbrechen</string>
     <string name="common_back">Zurück</string>
@@ -102,11 +110,12 @@
     <string name="common_loading">Lade …</string>
     <string name="common_unknown">unbekannt</string>
     <string name="common_error_unknown">Unbekannter Fehler</string>
+    <string name="common_pending">Ausstehend</string>
     <string name="about_title">Über</string>
     <string name="change_password">Passwort ändern</string>
     <string name="delete_account">Benutzerkonto löschen</string>
-    <string name="delete_account_warning">Das Konto %s löschen?\n\nDas löschen kann nicht rückgängig gemacht werden.</string>
-    <string name="create_account">Account erstellen</string>
+    <string name="delete_account_warning">Das Konto %s löschen?\n\nDas Löschen kann nicht rückgängig gemacht werden.</string>
+    <string name="create_account">Konto erstellen</string>
     <string name="upload_chooser_title">Dateien hochladen von...</string>
     <string name="uploader_info_dirname">Ordnername</string>
     <string name="uploader_upload_in_progress_ticker">Hochladen...</string>
@@ -177,9 +186,9 @@
     <string name="media_state_playing">%1$s (abspielend)</string>
     <string name="media_state_loading">%1$s (lädt)</string>
     <string name="media_event_done">%1$s Wiedergabe beendet</string>
-    <string name="media_err_nothing_to_play">Keine Mediadatei gefunden</string>
+    <string name="media_err_nothing_to_play">Keine Mediendatei gefunden</string>
     <string name="media_err_no_account">Kein Account angegeben</string>
-    <string name="media_err_not_in_owncloud">Datei nicht in einem gültigen Account</string>
+    <string name="media_err_not_in_owncloud">Datei ist nicht in einem gültigen Account</string>
     <string name="media_err_unsupported">Nicht unterstützter Media-codec</string>
     <string name="media_err_io">Mediendatei konnte nicht gelesen werden</string>
     <string name="media_err_malformed">Mediendatei nicht korrekt kodiert</string>
@@ -228,9 +237,10 @@
     <string name="auth_account_does_not_exist">Das Benutzerkonto ist bis jetzt noch nicht auf dem Gerät vorhanden</string>
     
     <string name="favorite">Als Offline verfügbar markieren</string>
-    <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
+    <string name="unfavorite">Markierung Offline verfügbar entfernen</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_remove">Löschen</string>
+    <string name="confirmation_remove_file_alert">Möchten Sie %1$s wirklich löschen?</string>
     <string name="confirmation_remove_folder_alert">Möchten Sie wirklich %1$s und dessen Inhalte entfernen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="remove_success_msg">Erfolgreich gelöscht</string>
@@ -291,6 +301,8 @@
 
     <string name="instant_upload_on_wifi">Fotos nur über WiFi hochladen</string>
     <string name="instant_video_upload_on_wifi">Videos nur über WiFi hochladen</string>
+    <string name="instant_video_upload_on_charging">Hochladen nur während des Ladens</string>
+    <string name="instant_upload_on_charging">Hochladen nur während des Ladens</string>
     <string name="instant_upload_path">/SofortUpload</string>
     <string name="conflict_title">Dateikonflikt</string>
     <string name="conflict_message">Welche Datei möchten Sie behalten? Wenn Sie beide Versionen auswählen, wird der lokalen Datei eine Zahl ans Ende ihres Dateinamens angehängt.</string>
@@ -302,7 +314,7 @@
     <string name="preview_image_error_unknown_format">Dieses Bild kann nicht angezeigt werden</string>
 
     <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
-    <string name="prefs_instant_upload_path_title">Upload Pfad</string>
+    <string name="prefs_instant_upload_path_title">Pfad zum sofortigen Bilder-Upload</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Verwende Unterordner</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Speichere in Unterordnern basierend auf Jahr und Monat</string>
 
@@ -376,14 +388,14 @@
     <string name="prefs_category_instant_uploading">Sofortiges Hochladen</string>
     <string name="prefs_category_details">Details</string>
 
-	<string name="prefs_instant_video_upload_path_title">Pfad zum Hochladen von Videos</string>
+	<string name="prefs_instant_video_upload_path_title">Pfad zum sofortigen Video-Upload</string>
     <string name="sync_folder_failed_content">Bei der Synchronisation konnte %1$s Ordner nicht fertig gestellt werden</string>
 
 	<string name="shared_subject_header">geteilt</string>
 	<string name="with_you_subject_header">Mit Ihnen</string>
     
 	<string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Ihnen geteilt</string>
-    <string name="subject_shared_with_you">\"%1$s\" wurde mit dir geteilt</string>
+    <string name="subject_shared_with_you">\"%1$s\" wurde mit Ihnen geteilt</string>
 
     <string name="auth_refresh_button">Verbindung aktualisieren</string>
     <string name="auth_host_address">Serveradresse</string>
@@ -399,14 +411,15 @@
     <string name="file_list__footer__files">%1$d Dateien</string>
     <string name="file_list__footer__files_and_folder">%1$d Dateien, 1 Ordner</string>
     <string name="file_list__footer__files_and_folders">%1$d Dateien, %2$d Ordner</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird...</string>
-    <string name="prefs_instant_behaviour_title">Originaldatei wird...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Originaldatei wird&#8230;</string>
     <string name="upload_copy_files">Datei kopieren</string>
     <string name="upload_move_files">Datei verschieben</string>
     <string name="select_all">Alle auswählen</string>
 
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
+    <string name="pref_behaviour_entries_delete_file">gelöscht</string>
 
     <string name="share_dialog_title">Teilen</string>
     <string name="share_file">%1$s teilen</string>
@@ -418,6 +431,7 @@
     <string name="share_via_link_password_label">Passwortschutz</string>
     <string name="share_via_link_password_title">Gesichert</string>
     <string name="share_via_link_edit_permission_label">Bearbeitung erlauben</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Dateiliste verbergen</string>
     <string name="share_get_public_link_button">Link erstellen</string>
     <string name="share_with_title">Teilen mit ...</string>
     <string name="share_with_edit_title">Teilen mit %1$s</string>
@@ -450,8 +464,33 @@
     <string name="manage_space_title">Speicher verwalten</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Server-Zertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_clear_data">Lösche Daten</string>
-    <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden</string>
+    <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden.</string>
 
     <string name="permission_storage_access">Weitere Berechtigungen erforderlich für das Hoch- und Herunterladen von Dateien</string>
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">Wollen Sie die ausgewählten Einträge wirklich löschen?</string>
+    <string name="confirmation_remove_folders_alert">Wollen Sie die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des gerätes</string>
+    <string name="actionbar_search">Suche</string>
+    <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten.</string>
+    <string name="learn_more">Mehr</string>
+    <string name="drawer_participate">Mitmachen</string>
+    <string name="participate_testing_headline">Helfen Sie uns beim Test</string>
+    <string name="participate_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
+    <string name="participate_testing_report_text">Fehler melden auf Github</string>
+    <string name="participate_testing_version_text">Interessiert uns beim Test der nächsten Version zu unterstützen?</string>
+    <string name="participate_beta_headline">Testen Sie die Beta Version</string>
+    <string name="participate_beta_text">Dies beinhaltet alle kommenden Funktionen und ist nicht vollumfänglich qualitätsgesichert. Es können Fehler auftreten und wenn das passiert melden Sie uns diese bitte.&lt;br/>&lt;a href=\"%2$s\">APK herunterladen&lt;/a> oder</string>
+    <string name="participate_release_candidate_headline">Vorabversion</string>
+    <string name="participate_release_candidate_text">Die Vorabversion auch Release Candidate (RC) genannt ist ein stabiler Stand der kommenden, finalen Version. Ein Test auf der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version von F-Droid unter \"Versionen\".</string>
+    <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
+    <string name="participate_contribute_irc_text">An Unterhaltungen teilnehmen im IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Helfen Sie anderen im &lt;a href="%1$s>Forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href="%1$s>Übersetzen&lt;/a> Sie die App</string>
+    <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d ausgewählt</item>
+        <item quantity="other">%d ausgewählt</item>
+    </plurals>
+
+</resources>
