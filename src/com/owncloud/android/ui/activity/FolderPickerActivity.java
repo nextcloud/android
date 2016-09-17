@@ -64,6 +64,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                                             + ".EXTRA_FOLDER";
     public static final String EXTRA_FILES = FolderPickerActivity.class.getCanonicalName()
             + ".EXTRA_FILES";
+    public static final String EXTRA_ACTION = FolderPickerActivity.class.getCanonicalName()
+            + ".EXTRA_ACTION";
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
@@ -75,6 +77,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
 
     protected Button mCancelBtn;
     protected Button mChooseBtn;
+    private String caption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +97,12 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         // Action bar setup
         setupToolbar();
         getSupportActionBar().setDisplayShowTitleEnabled(true);
+        if (getIntent().getStringExtra(EXTRA_ACTION) != null) {
+            caption = getIntent().getStringExtra(EXTRA_ACTION);
+        } else {
+            caption = getString(R.string.default_display_name_for_root_folder);
+        };
+        getSupportActionBar().setTitle(caption);
 
         setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) ; to work around bug in its implementation
@@ -337,7 +346,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         actionBar.setHomeButtonEnabled(!atRoot);
         actionBar.setTitle(
             atRoot
-                ? getString(R.string.default_display_name_for_root_folder)
+                ? caption
                 : currentDir.getFileName()
         );
     }
