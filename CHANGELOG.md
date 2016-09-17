@@ -1,4 +1,4 @@
-## 1.3.0 (September, 2016)
+## 1.3.0 (September 17, 2016)
 
 - Files drop permission in share viewe
 - Display quota if configured/available in navigation drawer
