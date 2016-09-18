@@ -7,7 +7,7 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:id="@+id/whatsNewImage"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
@@ -16,15 +16,19 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="@style/NextcloudTextAppearanceHeadline"
         android:textStyle="bold"
+        android:text="@string/placeholder_sentence"
         android:id="@+id/whatsNewTitle"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="@style/NextcloudTextAppearanceMedium"
+        android:text="@string/placeholder_sentence"
         android:id="@+id/whatsNewText"
         android:layout_margin="@dimen/standard_margin"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"/>
 </LinearLayout>
