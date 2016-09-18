@@ -286,16 +286,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         /// initialize block to be moved to single Fragment to retrieve and validate credentials 
         initAuthorizationPreFragment(savedInstanceState);
-
-        String dataString = getIntent().getDataString();
-        if (dataString != null) {
-            try {
-                populateLoginFields(dataString);
-            } catch (IllegalArgumentException e) {
-                Toast.makeText(this,"Illegal login data URL used",Toast.LENGTH_SHORT).show();
-                Log_OC.e(TAG, "Illegal login data URL used, no Login pre-fill!", e);
-            }
-        }
     }
 
     private void populateLoginFields(String dataString) throws IllegalArgumentException {
@@ -779,10 +769,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             getOAuth2AccessTokenFromCapturedRedirection();
         }
 
+        String dataString = getIntent().getDataString();
+        if (dataString != null) {
+            try {
+                populateLoginFields(dataString);
+            } catch (IllegalArgumentException e) {
+                Toast.makeText(this,"Illegal login data URL used",Toast.LENGTH_SHORT).show();
+                Log_OC.e(TAG, "Illegal login data URL used, no Login pre-fill!", e);
+            }
+        }
+
         if (mOperationsServiceBinder != null) {
             doOnResumeAndBound();
         }
-
     }
 
 
