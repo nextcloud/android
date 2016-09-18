@@ -223,18 +223,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         mIsFirstAuthAttempt = true;
 
-        // bind to Operations Service
-        mOperationsServiceConnection = new OperationsServiceConnection();
-        if (!bindService(new Intent(this, OperationsService.class),
-                mOperationsServiceConnection,
-                Context.BIND_AUTO_CREATE)) {
-            Toast.makeText(this,
-                    R.string.error_cant_bind_to_operations_service,
-                    Toast.LENGTH_LONG)
-                        .show();
-            finish();
-        }
-
         /// init activity state
         mAccountMgr = AccountManager.get(this);
         mNewCapturedUriFromOAuth2Redirection = null;
@@ -318,7 +306,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mUsernameInput.setText(loginUrlInfo.username);
             mPasswordInput.setText(loginUrlInfo.password);
 
-            if (loginUrlInfo.serverAddress != null) {
+            if (loginUrlInfo.serverAddress != null && !mServerIsChecked) {
                 onUrlInputFocusLost();
             }
         }
@@ -718,6 +706,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
+        mServerIsChecked = savedInstanceState.getBoolean(KEY_SERVER_CHECKED, false);
+
         // AsyncTask
         boolean inProgress = savedInstanceState.getBoolean(KEY_ASYNC_TASK_IN_PROGRESS);
         if (inProgress){
@@ -777,6 +767,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 Toast.makeText(this,"Illegal login data URL used",Toast.LENGTH_SHORT).show();
                 Log_OC.e(TAG, "Illegal login data URL used, no Login pre-fill!", e);
             }
+        }
+
+        // bind to Operations Service
+        mOperationsServiceConnection = new OperationsServiceConnection();
+        if (!bindService(new Intent(this, OperationsService.class),
+                mOperationsServiceConnection,
+                Context.BIND_AUTO_CREATE)) {
+            Toast.makeText(this,
+                    R.string.error_cant_bind_to_operations_service,
+                    Toast.LENGTH_LONG)
+                    .show();
+            finish();
         }
 
         if (mOperationsServiceBinder != null) {
@@ -1974,7 +1976,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mOperationsServiceBinder.dispatchResultIfFinished((int)mWaitingForOpId, this);
         }
 
-        if (mPendingAutoCheck) {
+        if (mHostUrlInput.getText() != null && mHostUrlInput.getText().length() > 0 && !mServerIsChecked) {
             checkOcServer();
         }
     }
