@@ -343,7 +343,7 @@
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
     <string name="network_host_not_available">The operation couldn\'t be completed, server is unavailable</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">You do not have permission %s</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
@@ -507,7 +507,6 @@
 
 
     <!-- What's new feature and texts to show -->
-    <string name="welcome_to_nc_title">Welcome to Nextcloud!</string>
     <string name="whats_new_title">What\'s new in Nextcloud</string>
 
     <!-- Welcome to oC intro features -->
@@ -524,4 +523,5 @@
     <string name="welcome_feature_4_text">Connect to all your clouds</string>
 
     <string name="welcome_feature_5_title">Your private files synced anywhere</string>
+    <string name="whats_new_skip">Skip</string>
 </resources>
