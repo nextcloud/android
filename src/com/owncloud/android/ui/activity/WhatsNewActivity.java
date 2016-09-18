@@ -99,7 +99,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         });
 
         TextView tv = (TextView)findViewById(R.id.welcomeText);
-        tv.setText(isFirstRun() ? R.string.welcome_to_nc_title : R.string.whats_new_title);
+        tv.setText(isFirstRun() ? R.string.empty : R.string.whats_new_title);
 
         updateNextButtonIfNeeded();
     }
