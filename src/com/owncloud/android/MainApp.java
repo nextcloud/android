@@ -28,6 +28,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.preference.PreferenceManager;
 
 import com.owncloud.android.authentication.PassCodeManager;
@@ -128,6 +129,7 @@ public class MainApp extends Application {
             @Override
             public void onActivityStopped(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending" );
+                WhatsNewActivity.runIfNeeded(activity);
                 PassCodeManager.getPassCodeManager().onActivityStopped(activity);
             }
 
@@ -173,7 +175,7 @@ public class MainApp extends Application {
         }
     }
 
-    //  From AccountAuthenticator 
+    //  From AccountAuthenticator
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {
         return getAppContext().getResources().getString(R.string.authority);
