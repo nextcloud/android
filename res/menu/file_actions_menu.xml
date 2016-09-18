@@ -63,7 +63,7 @@
         android:orderInCategory="1" />
     <item
         android:id="@+id/action_copy"
-        android:title="@android:string/copy"
+        android:title="@string/actionbar_copy"
         android:icon="@drawable/ic_action_copy"
         app:showAsAction="ifRoom"
         android:orderInCategory="1" />
