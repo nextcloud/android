@@ -544,8 +544,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
         return (mStreamsToUpload != null && mStreamsToUpload.get(0) != null || uploadTextSnippet());
     }
 
-    private boolean uploadTextSnippet(){
-        return getIntent().getStringExtra(Intent.EXTRA_TEXT) != null;
+    private boolean uploadTextSnippet() {
+        return getIntent().getStringExtra(Intent.EXTRA_TEXT) != null && getIntent().getExtras().keySet().size() == 1;
     }
 
     @SuppressLint("NewApi")
