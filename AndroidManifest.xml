@@ -74,8 +74,10 @@
         </activity>
         <activity android:name=".ui.activity.ManageAccountsActivity" />
         <activity android:name=".ui.activity.ParticipateActivity" />
+        <activity android:name=".ui.activity.FolderSyncActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
+                  
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
                   android:theme="@style/Theme.ownCloud.NoActionBar">
