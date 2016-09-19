@@ -22,6 +22,3 @@ pipeline:
       - ANDROID_TARGET=android-23
       - ANDROID_ABI=armeabi-v7a
       - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:/opt/android-sdk-linux/tools/lib64/gles_mesa/
-
-branches:
-  - master
