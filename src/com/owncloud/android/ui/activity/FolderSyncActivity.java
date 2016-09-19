@@ -30,8 +30,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -49,8 +47,6 @@ public class FolderSyncActivity extends DrawerActivity {
     private static final String TAG = FolderSyncActivity.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private FolderSyncAdapter mAdapter;
-    private ProgressBar mProgress;
-    private TextView mEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
