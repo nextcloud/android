@@ -535,6 +535,8 @@ public class FileContentProvider extends ContentProvider {
             // Create uploads table
             createUploadsTable(db);
 
+            // Create synced folders table
+            createSyncedFoldersTable(db);
         }
 
         @Override
@@ -779,6 +781,19 @@ public class FileContentProvider extends ContentProvider {
                 }
             }
 
+            if (oldVersion < 16 && newVersion >= 16) {
+                Log_OC.i("SQL", "Entering in the #16 ADD synced folders table");
+                db.beginTransaction();
+                try {
+                    // Create synced folders table
+                    createSyncedFoldersTable(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
             if (!upgraded)
                 Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
                         ", newVersion == " + newVersion);
@@ -890,6 +905,20 @@ public class FileContentProvider extends ContentProvider {
         // uploadStatus is used to easy filtering, it has precedence over
         // uploadObject.getUploadStatus()
         */
+    }
+
+    private void createSyncedFoldersTable(SQLiteDatabase db){
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME + "("
+        + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "                          // id
+                + ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH  + " TEXT, "           // local path
+                + ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH + " TEXT, "           // remote path
+                + ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY + " INTEGER, "          // wifi_only
+                + ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY + " INTEGER, "      // charging only
+                + ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "            // enabled
+                + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, "  // subfolder by date
+                + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " INTEGER, "            // account
+                + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_OPTION + " INTEGER );"     // upload action
+        );
     }
 
     /**
