@@ -475,6 +475,7 @@
     <string name="actionbar_search">Search</string>
     <string name="files_drop_not_supported">This is a Nextcloud feature, please update.</string>
     <string name="learn_more">Learn more</string>
+    <string name="drawer_folder_sync">Folder Sync</string>
     <string name="drawer_participate">Participate</string>
     <string name="participate_testing_headline">Help us testing</string>
     <string name="participate_testing_bug_text">Found a bug? Something is odd?</string>
