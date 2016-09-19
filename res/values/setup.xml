@@ -84,10 +84,7 @@
     <string name="report_issue_link" translatable="false">https://github.com/nextcloud/android/issues</string>
 
     <!-- login data links -->
-    <string name="login_data_standard_url" translatable="false">logindata.nextcloud.com</string>
-    <string name="login_data_own_scheme" translatable="false">nextcloud</string>
-    <string name="login_data_own_scheme_host" translatable="false">login</string>
-
+    <string name="login_data_own_scheme" translatable="false">cloud</string>
 </resources>
 
 
