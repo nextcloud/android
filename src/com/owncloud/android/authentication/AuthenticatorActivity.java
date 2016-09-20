@@ -6,16 +6,16 @@
  * @author masensio
  * Copyright (C) 2012  Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
- * <p>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -140,7 +140,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_USERNAME = "USERNAME";
     private static final String KEY_PASSWORD = "PASSWORD";
     private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
-    public static final String PROTOCOLL_SUFFIX = "://";
+    public static final String PROTOCOL_SUFFIX = "://";
     public static final String LOGIN_URL_DATA_KEY_VALUE_SEPARATOR = ":";
 
     /// parameters from EXTRAs in starter Intent
@@ -197,7 +197,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * {@inheritDoc}
-     * <p>
+     *
      * IMPORTANT ENTRY POINT 1: activity is shown to the user
      */
     @Override
@@ -272,8 +272,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void populateLoginFields(String dataString) throws IllegalArgumentException {
         // check if it is cloud://login/
-        if (dataString.startsWith(getString(R.string.login_data_own_scheme) + PROTOCOLL_SUFFIX + "login/")) {
-            String prefix = getString(R.string.login_data_own_scheme) + PROTOCOLL_SUFFIX + "login/";
+        if (dataString.startsWith(getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/")) {
+            String prefix = getString(R.string.login_data_own_scheme) + PROTOCOL_SUFFIX + "login/";
             LoginUrlInfo loginUrlInfo = parseLoginDataUrl(prefix, dataString);
 
             if (loginUrlInfo != null) {
@@ -289,11 +289,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     /**
-     * parsess a URI string and returns a login data object with the information from the URI string.
+     * parses a URI string and returns a login data object with the information from the URI string.
      *
      * @param prefix URI beginning, e.g. cloud://login/
      * @param dataString the complete URI
-     * @return login data.
+     * @return login data
      * @throws IllegalArgumentException when
      */
     public static LoginUrlInfo parseLoginDataUrl(String prefix, String dataString) throws IllegalArgumentException {
@@ -302,7 +302,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
         LoginUrlInfo loginUrlInfo = new LoginUrlInfo();
 
-        //format is basically xxx://login/server:xxx&user:xxx&password while all variables are optional
+        // format is basically xxx://login/server:xxx&user:xxx&password while all variables are optional
         String data = dataString.substring(prefix.length());
 
         // parse data
@@ -315,11 +315,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         for (String value : values) {
             if (value.startsWith("user" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {
-                loginUrlInfo.username = value.substring("user:".length());
+                loginUrlInfo.username = value.substring(("user" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length());
             } else if (value.startsWith("password" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {
-                loginUrlInfo.password = value.substring("password:".length());
+                loginUrlInfo.password = value.substring(("password" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length());
             } else if (value.startsWith("server" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR)) {
-                loginUrlInfo.serverAddress = value.substring("server:".length());
+                loginUrlInfo.serverAddress = value.substring(("server" + LOGIN_URL_DATA_KEY_VALUE_SEPARATOR).length());
             } else {
                 // error illegal URL element detected
                 throw new IllegalArgumentException("Illegal magic login URL element detected: " + value);
@@ -330,8 +330,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void initAuthTokenType() {
-        mAuthTokenType =
-                getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
+        mAuthTokenType = getIntent().getExtras().getString(AccountAuthenticator.KEY_AUTH_TOKEN_TYPE);
         if (mAuthTokenType == null) {
             if (mAccount != null) {
                 boolean oAuthRequired = (mAccountMgr.getUserData(mAccount, Constants.KEY_SUPPORTS_OAUTH2) != null);
@@ -370,8 +369,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         String instructionsMessageText = null;
         if (mAction == ACTION_UPDATE_EXPIRED_TOKEN) {
-            if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType())
-                    .equals(mAuthTokenType)) {
+            if (AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType()).equals(mAuthTokenType)) {
                 instructionsMessageText = getString(R.string.auth_expired_oauth_token_toast);
 
             } else if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType())
@@ -386,8 +384,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         /// step 2 - set properties of UI elements (text, visibility, enabled...)
         Button welcomeLink = (Button) findViewById(R.id.welcome_link);
         welcomeLink.setVisibility(isWelcomeLinkVisible ? View.VISIBLE : View.GONE);
-        welcomeLink.setText(
-                String.format(getString(R.string.auth_register), getString(R.string.app_name)));
+        welcomeLink.setText(String.format(getString(R.string.auth_register), getString(R.string.app_name)));
 
         TextView instructionsView = (TextView) findViewById(R.id.instructions_message);
         if (instructionsMessageText != null) {
@@ -534,11 +531,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         boolean isPasswordExposed = false;
         if (savedInstanceState == null) {
             if (mAccount != null) {
-                presetUserName =
-                        com.owncloud.android.lib.common.accounts.AccountUtils.
-                                getUsernameForAccount(mAccount);
+                presetUserName = com.owncloud.android.lib.common.accounts.AccountUtils.getUsernameForAccount(mAccount);
             }
-
         } else {
             isPasswordExposed = savedInstanceState.getBoolean(KEY_PASSWORD_EXPOSED, false);
             mAuthStatusText = savedInstanceState.getInt(KEY_AUTH_STATUS_TEXT);
@@ -628,11 +622,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Saves relevant state before {@link #onPause()}
-     * <p>
+     *
      * Do NOT save {@link #mNewCapturedUriFromOAuth2Redirection}; it keeps a temporal flag,
      * intended to defer the processing of the redirection caught in
      * {@link #onNewIntent(Intent)} until {@link #onResume()}
-     * <p>
+     *
      * See {@link super#onSaveInstanceState(Bundle)}
      */
     @Override
@@ -707,7 +701,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     /**
      * The redirection triggered by the OAuth authentication server as response to the
      * GET AUTHORIZATION request is caught here.
-     * <p>
+     *
      * To make this possible, this activity needs to be qualified with android:launchMode =
      * "singleTask" in the AndroidManifest.xml file.
      */
@@ -842,11 +836,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Handles changes in focus on the text input for the server URL.
-     * <p>
+     *
      * IMPORTANT ENTRY POINT 2: When (!hasFocus), user wrote the server URL and changed to
      * other field. The operation to check the existence of the server in the entered URL is
      * started.
-     * <p>
+     *
      * When hasFocus:    user 'comes back' to write again the server URL.
      */
     private void onUrlInputFocusLost() {
@@ -905,9 +899,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Handles changes in focus on the text input for the password (basic authorization).
-     * <p>
+     *
      * When (hasFocus), the button to toggle password visibility is shown.
-     * <p>
+     *
      * When (!hasFocus), the button is made invisible and the password is hidden.
      *
      * @param hasFocus 'True' if focus is received, 'false' if is lost
@@ -960,13 +954,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     /**
      * Checks the credentials of the user in the root of the ownCloud server
      * before creating a new local account.
-     * <p>
+     *
      * For basic authorization, a check of existence of the root folder is
      * performed.
-     * <p>
+     *
      * For OAuth, starts the flow to get an access token; the credentials test
      * is postponed until it is available.
-     * <p>
+     *
      * IMPORTANT ENTRY POINT 4
      */
     public void onOkClick() {
@@ -1075,7 +1069,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Callback method invoked when a RemoteOperation executed by this Activity finishes.
-     * <p>
+     *
      * Dispatches the operation flow to the right method.
      */
     @Override
@@ -1460,7 +1454,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Processes the result of the access check performed to try the user credentials.
-     * <p>
+     *
      * Creates a new account through the AccountManager.
      *
      * @param result Result of the operation.
@@ -1529,10 +1523,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Updates the authentication token.
-     * <p>
+     *
      * Sets the proper response so that the AccountAuthenticator that started this activity
      * saves a new authorization token for mAccount.
-     * <p>
+     *
      * Kills the session kept by OwnCloudClientManager so that a new one will created with
      * the new credentials when needed.
      */
@@ -1577,9 +1571,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Creates a new account through the Account Authenticator that started this activity.
-     * <p>
+     *
      * This makes the account permanent.
-     * <p>
+     *
      * TODO Decide how to name the OAuth accounts
      */
     private boolean createAccount(RemoteOperationResult authResult) {
@@ -1740,7 +1734,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Called when the eye icon in the password field is clicked.
-     * <p>
+     *
      * Toggles the visibility of the password in the field.
      */
     public void onViewPasswordClick() {
@@ -1757,7 +1751,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Called when the checkbox for OAuth authorization is clicked.
-     * <p>
+     *
      * Hides or shows the input fields for user & password.
      *
      * @param view 'View password' 'button'
@@ -1775,7 +1769,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     /**
      * Called when the 'action' button in an IME is pressed ('enter' in software keyboard).
-     * <p>
+     *
      * Used to trigger the authentication check when the user presses 'enter' after writing the
      * password, or to throw the server test when the only field on screen is the URL input field.
      */
@@ -1990,7 +1984,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mOperationsServiceBinder = null;
             }
         }
-
     }
 
     /**
@@ -2002,8 +1995,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void createAuthenticationDialog(WebView webView, HttpAuthHandler handler) {
 
         // Show a dialog with the certificate info
-        CredentialsDialogFragment dialog =
-                CredentialsDialogFragment.newInstanceForCredentials(webView, handler);
+        CredentialsDialogFragment dialog = CredentialsDialogFragment.newInstanceForCredentials(webView, handler);
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
@@ -2027,5 +2019,4 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void doNegativeAuthenticatioDialogClick() {
         mIsFirstAuthAttempt = true;
     }
-
 }
