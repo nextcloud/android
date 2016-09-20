@@ -482,7 +482,7 @@ public abstract class FileActivity extends DrawerActivity
         if (frag != null) {
             Log_OC.d(TAG, "dismiss loading dialog");
             LoadingDialog loading = (LoadingDialog) frag;
-            loading.dismiss();
+            loading.dismissAllowingStateLoss();
         }
     }
 
