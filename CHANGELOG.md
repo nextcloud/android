@@ -3,7 +3,7 @@
 - Move action hard to discover - difference between single/multi selection
 - Show move/copy context in toolbar title
 - Share file with dictadroid to Nextcloud
-- Don't show upload failure notification for deleted files
+- Don't show upload failure notification for already deleted files
 
 ## 1.3.0 (September 17, 2016)
 
