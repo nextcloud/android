@@ -368,6 +368,7 @@
 	<string name="saml_authentication_required_text">Autenticazione richiesta</string>
 	<string name="saml_authentication_wrong_pass">Password errata</string>
 	<string name="actionbar_move">Sposta</string>
+    <string name="actionbar_copy">Copia</string>
 	<string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella.</string>
 	<string name="folder_picker_choose_button_text">Scegli</string>
 
@@ -482,7 +483,10 @@
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
     <string name="participate_contribute_irc_text">Unisciti alla chat su IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Aiuta gli altri sul &lt;a href=\"%1$s>forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduci&lt;/a> l\'applicazione</string>
+    <string name="move_to">Sposta in&#8230;</string>
+    <string name="copy_to">Copia in&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>

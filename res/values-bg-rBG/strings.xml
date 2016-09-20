@@ -338,7 +338,7 @@
 	<string name="saml_authentication_required_text">Нужна е идентификация</string>
 	<string name="saml_authentication_wrong_pass">Грешна парола</string>
 	<string name="actionbar_move">Премести</string>
-	<string name="file_list_empty_moving">Тук няма нищо. Можеш да добавиш папка!</string>
+    <string name="file_list_empty_moving">Тук няма нищо. Можеш да добавиш папка!</string>
 	<string name="folder_picker_choose_button_text">Избери</string>
 
     <string name="move_file_not_found">Неуспешно преместване. Моля, провери дали файла съществува.</string>

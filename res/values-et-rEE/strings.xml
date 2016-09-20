@@ -302,7 +302,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
 	<string name="saml_authentication_required_text">Autentimine on vajalik</string>
 	<string name="saml_authentication_wrong_pass">Vale parool</string>
 	<string name="actionbar_move">Tõsta ümber</string>
-	<string name="file_list_empty_moving">Siin pole midagi. Sa võid lisada kausta!</string>
+    <string name="file_list_empty_moving">Siin pole midagi. Sa võid lisada kausta!</string>
 	<string name="folder_picker_choose_button_text">Vali</string>
 
     <string name="move_file_not_found">Liigutamine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>
