@@ -174,19 +174,19 @@ public class EditShareFragment extends Fragment {
             boolean areEditOptionsAvailable = !isFederated || isNotReshareableFederatedSupported;
 
             if (mFile.isFolder() && areEditOptionsAvailable) {
-                /// TODO change areEditOptionsAvailable in order to delete !isFederated
+                /// TODO change areEditOptionsAllowed in order to delete !isFederated
                 // from checking when iOS is ready
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditCreateCheckBox);
                 compound.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
-                compound.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
+                compound.setVisibility((canEdit && areEditOptionsAvailable) ? View.VISIBLE : View.GONE);
 
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditChangeCheckBox);
                 compound.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
-                compound.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
+                compound.setVisibility((canEdit && areEditOptionsAvailable) ? View.VISIBLE : View.GONE);
 
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditDeleteCheckBox);
                 compound.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
-                compound.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
+                compound.setVisibility((canEdit && areEditOptionsAvailable) ? View.VISIBLE : View.GONE);
             }
 
             setPermissionsListening(editShareView, true);
