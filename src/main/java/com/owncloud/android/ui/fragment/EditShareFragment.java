@@ -164,7 +164,7 @@ public class EditShareFragment extends Fragment {
             boolean areEditOptionsAvailable = !isFederated || isNotReshareableFederatedSupported;
 
             if (mFile.isFolder() && areEditOptionsAvailable) {
-                /// TODO change areEditOptionsAllowed in order to delete !isFederated
+                /// TODO change areEditOptionsAvailable in order to delete !isFederated
                 // from checking when iOS is ready
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditCreateCheckBox);
                 compound.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
