@@ -91,6 +91,8 @@
     <string name="contributing_link" translatable="false">https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md</string>
     <string name="report_issue_link" translatable="false">https://github.com/nextcloud/android/issues</string>
 
+    <!-- login data links -->
+    <string name="login_data_own_scheme" translatable="false">cloud</string>
 </resources>
 
 
