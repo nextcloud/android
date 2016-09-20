@@ -1,4 +1,4 @@
-# [Nextcloud](https://nextcloud.com) Android app ![](https://api.travis-ci.org/nextcloud/android.svg?branch=master)
+# [Nextcloud](https://nextcloud.com) Android app [![Build Status](https://drone.weasel.rocks/api/badges/nextcloud/android/status.svg)](https://drone.weasel.rocks/nextcloud/android)
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" 
       alt="Download from Google Play" 
