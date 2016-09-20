@@ -13,6 +13,9 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
     <string name="actionbar_sort_title">Ordenar por</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Más nuevo - Más viejo</string>
+    <string name="menu_item_sort_by_size">El mayor - El menor</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_settings">Ajustes</string>
@@ -355,7 +358,7 @@
 	<string name="saml_authentication_required_text">Se necesita autenticación</string>
 	<string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
 	<string name="actionbar_move">Mover</string>
-	<string name="file_list_empty_moving">Aquí no hay nada. ¡Puede agregar una carpeta!</string>
+    <string name="file_list_empty_moving">Aquí no hay nada. ¡Puede agregar una carpeta!</string>
 	<string name="folder_picker_choose_button_text">Elegir</string>
 
     <string name="move_file_not_found">No se puede mover. Revise si el archivo existe</string>

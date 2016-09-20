@@ -339,7 +339,7 @@
 	<string name="saml_authentication_required_text">Autenticação necessária</string>
 	<string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
 	<string name="actionbar_move">Mover</string>
-	<string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta!</string>
+    <string name="file_list_empty_moving">Não está aqui nada. Pode adicionar uma pasta!</string>
 	<string name="folder_picker_choose_button_text">Escolher</string>
 
     <string name="move_file_not_found">Não é possível mover. Por favor, verifique se o ficheiro existe</string>

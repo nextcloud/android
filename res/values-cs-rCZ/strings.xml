@@ -368,7 +368,7 @@ správce systému.</string>
 	<string name="saml_authentication_required_text">Vyžadováno přihlášení</string>
 	<string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
 	<string name="actionbar_move">Přesunout</string>
-	<string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>
+    <string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>
 	<string name="folder_picker_choose_button_text">Vybrat</string>
 
     <string name="move_file_not_found">Nelze přesunout. Zkontrolujte prosím že soubor existuje</string>

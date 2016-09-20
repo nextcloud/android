@@ -342,7 +342,7 @@
 	<string name="saml_authentication_required_text">Lypset mirëfilltësim</string>
 	<string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
 	<string name="actionbar_move">Zhvendose</string>
-	<string name="file_list_empty_moving">S\’ka gjë këtu. Mund të shtoni një dosje!</string>
+    <string name="file_list_empty_moving">S\’ka gjë këtu. Mund të shtoni një dosje!</string>
 	<string name="folder_picker_choose_button_text">Zgjidhni</string>
 
     <string name="move_file_not_found">S\’arrin të zhvendosë. Ju lutemi, kontrolloni nëse ekziston apo jo kartela</string>
