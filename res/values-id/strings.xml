@@ -352,7 +352,7 @@
 	<string name="saml_authentication_required_text">Diperlukan otentikasi</string>
 	<string name="saml_authentication_wrong_pass">Sandi salah</string>
 	<string name="actionbar_move">Pindah</string>
-	<string name="file_list_empty_moving">Tdak ada apapun disini. Anda dapat menambahkan sebuah folder!</string>
+    <string name="file_list_empty_moving">Tdak ada apapun disini. Anda dapat menambahkan sebuah folder!</string>
 	<string name="folder_picker_choose_button_text">Pilih</string>
 
     <string name="move_file_not_found">Tidak dapat memindahkan. Silakan periksa apakah berkas ada</string>

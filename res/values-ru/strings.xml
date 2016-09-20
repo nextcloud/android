@@ -361,7 +361,7 @@
 	<string name="saml_authentication_required_text">Требуется аутентификация </string>
 	<string name="saml_authentication_wrong_pass">Неправильный пароль</string>
 	<string name="actionbar_move">Переместить</string>
-	<string name="file_list_empty_moving">Здесь ничего нет. Вы можете создать каталог!</string>
+    <string name="file_list_empty_moving">Здесь ничего нет. Вы можете создать каталог!</string>
 	<string name="folder_picker_choose_button_text">Выбрать</string>
 
     <string name="move_file_not_found">Невозможно переместить. Убедитесь, что файл существует</string>

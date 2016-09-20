@@ -369,7 +369,7 @@
 	<string name="saml_authentication_required_text">Authentication required</string>
 	<string name="saml_authentication_wrong_pass">Incorrect password</string>
 	<string name="actionbar_move">Move</string>
-	<string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
+    <string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
 	<string name="folder_picker_choose_button_text">Choose</string>
 
     <string name="move_file_not_found">Unable to move. Please check whether the file exists</string>

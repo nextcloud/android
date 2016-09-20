@@ -369,6 +369,7 @@
 	<string name="saml_authentication_required_text">Legitimierung benötigt</string>
 	<string name="saml_authentication_wrong_pass">Falsches Passwort</string>
 	<string name="actionbar_move">Verschieben</string>
+    <string name="actionbar_copy">Kopieren</string>
 	<string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen!</string>
 	<string name="folder_picker_choose_button_text">Auswählen</string>
 
@@ -470,7 +471,7 @@
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Willst Du die ausgewählten Einträge wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Willst Du die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
-    <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des gerätes</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des Gerätes</string>
     <string name="actionbar_search">Suche</string>
     <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten.</string>
     <string name="learn_more">Mehr</string>
@@ -488,6 +489,8 @@
     <string name="participate_contribute_forum_text">Hilf anderen im &lt;a href="%1$s>Forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href="%1$s>Übersetze&lt;/a> die App</string>
     <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
+    <string name="move_to">Verschieben nach&#8230;</string>
+    <string name="copy_to">Kopieren nach&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>

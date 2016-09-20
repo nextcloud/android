@@ -320,7 +320,7 @@
 	<string name="saml_authentication_required_text">Tunnistautuminen vaaditaan</string>
 	<string name="saml_authentication_wrong_pass">Väärä salasana</string>
 	<string name="actionbar_move">Siirrä</string>
-	<string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion!</string>
+    <string name="file_list_empty_moving">Täällä ei ole mitään. Voit lisätä kansion!</string>
 	<string name="folder_picker_choose_button_text">Valitse</string>
 
     <string name="move_file_not_found">Siirto ei onnistu. Tarkista, ettei tiedostoa ole jo olemassa</string>
