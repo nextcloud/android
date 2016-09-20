@@ -1,3 +1,10 @@
+## 2016-09-21
+- update to latest 1.3.1 functionality
+- updated What's new #84
+- fix crash in dismissLoadingDialog #279
+- Provisioning Links to launch and prefill app with login data #248
+- fix remove failed #241 
+
 ## 2016-09-18
 - update to latest 1.3.0 functionality
 - change caption for move and copy action #265
