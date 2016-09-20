@@ -344,7 +344,7 @@
 	<string name="saml_authentication_required_text">נדרש אימות</string>
 	<string name="saml_authentication_wrong_pass">סיסמא שגוייה</string>
 	<string name="actionbar_move">העברה</string>
-	<string name="file_list_empty_moving">אין כאן כלום. ניתן להוסיף תיקייה!</string>
+    <string name="file_list_empty_moving">אין כאן כלום. ניתן להוסיף תיקייה!</string>
 	<string name="folder_picker_choose_button_text">בחירה</string>
 
     <string name="move_file_not_found">לא ניתן להעביר. יש לבדוק אם הקובץ קיים</string>
