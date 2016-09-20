@@ -1,3 +1,24 @@
+/**
+ *   Nextcloud Android client application
+ *
+ *   @author Andy Scherzinger
+ *   Copyright (C) 2016 Andy Scherzinger
+ *   Copyright (C) 2016 Nextcloud
+ *
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ *   License as published by the Free Software Foundation; either
+ *   version 3 of the License, or any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ *   You should have received a copy of the GNU Affero General Public
+ *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.owncloud.android.authentication;
 
 import org.junit.Assert;
@@ -10,20 +31,19 @@ import org.junit.runners.BlockJUnit4ClassRunner;
  */
 @RunWith(BlockJUnit4ClassRunner.class)
 public class AuthenticatorDataUrlTest {
-    String StandardUrl = "://logindata.nextcloud.com/";
-    String schemeUrl = "nextcloud://login/";
-    String plus = "&";
+    private String schemeUrl = "nextcloud://login/";
+    private String plus = "&";
 
-    String userValue = "testuser123";
-    String userUrlPart = "user:" + userValue;
+    private String userValue = "testuser123";
+    private String userUrlPart = "user:" + userValue;
 
-    String passwordValue = "testpassword123";
-    String passwordUrlPart = "password:" + passwordValue;
+    private String passwordValue = "testpassword123";
+    private String passwordUrlPart = "password:" + passwordValue;
 
-    String addressValue = "testserver123";
-    String addressUrlPart = "server:" + addressValue;
+    private String addressValue = "testserver123";
+    private String addressUrlPart = "server:" + addressValue;
 
-    String[] urlStarts = new String[]{"http" + StandardUrl, "https" + StandardUrl, schemeUrl};
+    private String[] urlStarts = new String[]{schemeUrl};
 
     @Test
     public void allDataUrlElements() {
@@ -136,8 +156,6 @@ public class AuthenticatorDataUrlTest {
 
     @Test
     public void tooLittleDataUrlElements() {
-        String dataUrl = "https" + StandardUrl;
-
         for (String urlStart : urlStarts) {
             try {
                 System.out.println(urlStart);
