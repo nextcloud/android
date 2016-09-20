@@ -1,6 +1,6 @@
 pipeline:
   test:
-    image: nextcloudci/android:android-2
+    image: nextcloudci/android:android-5
     commands:
       - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
       - emulator -avd test -no-skin -no-audio -no-window &
@@ -19,6 +19,6 @@ pipeline:
       #- adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
 
     environment:
-      - ANDROID_TARGET=android-23
-      - ANDROID_ABI=armeabi-v7a
+      - ANDROID_TARGET=android-24
+      - ANDROID_ABI=x86
       - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:/opt/android-sdk-linux/tools/lib64/gles_mesa/
