@@ -32,17 +32,10 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.MediaFolder;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
