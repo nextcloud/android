@@ -541,7 +541,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private boolean somethingToUpload() {
-        return (mStreamsToUpload != null && mStreamsToUpload.get(0) != null || uploadTextSnippet());
+        return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
+                uploadTextSnippet());
     }
 
     private boolean uploadTextSnippet() {
