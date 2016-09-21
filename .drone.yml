@@ -1,0 +1,24 @@
+pipeline:
+  test:
+    image: nextcloudci/android:android-2
+    commands:
+      - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
+      - emulator -avd test -no-skin -no-audio -no-window &
+      - ./wait_for_emulator.sh
+      # build app and assemble APK, in debug mode
+      - ./gradlew assembleDebug
+      # run all the local unit tests of app module
+      - ./gradlew :testDebug
+      # run all the instrumented tests of app module - DISABLED until we get an stable setup for Espresso in Travis
+      # - ./gradlew connectedDebugAndroidTest --info
+      # install app, then assemble and install instrumented tests of app module
+      - ./gradlew :installDebug
+      - ./gradlew :installDebugAndroidTest
+      # run sample instrumented unit test
+      # TODO fails because test runner is not available
+      #- adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
+
+    environment:
+      - ANDROID_TARGET=android-23
+      - ANDROID_ABI=armeabi-v7a
+      - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:/opt/android-sdk-linux/tools/lib64/gles_mesa/

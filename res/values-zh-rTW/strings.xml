@@ -351,7 +351,7 @@
 	<string name="saml_authentication_required_text">必須驗證</string>
 	<string name="saml_authentication_wrong_pass">密碼錯誤</string>
 	<string name="actionbar_move">移動</string>
-	<string name="file_list_empty_moving">找不到任何檔案. 你可以新增一個資料夾!</string>
+    <string name="file_list_empty_moving">找不到任何檔案. 你可以新增一個資料夾!</string>
 	<string name="folder_picker_choose_button_text">選擇</string>
 
     <string name="move_file_not_found">無法搬移. 請檢查該檔案是否存在</string>

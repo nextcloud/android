@@ -1031,6 +1031,7 @@ public class FileUploader extends Service
 
         // Show the result: success or fail notification
         if (!uploadResult.isCancelled() &&
+            !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
             !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
             !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING)) {
 

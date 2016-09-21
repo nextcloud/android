@@ -67,7 +67,7 @@
     <string name="uploader_wrn_no_account_text">Nem található %1$s fiók az eszközén. Kérem állítson be egy fiókot előszőr.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Beállítás</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Kilépés</string>
-    <string name="uploader_error_title_no_file_to_upload">Nincs file amit fel lehet tölteni</string>
+    <string name="uploader_error_title_no_file_to_upload">Nincs feltölthető fájl</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s nem tudja feltölteni a szövegrészt fájlként.</string>
     <string name="uploader_error_message_no_file_to_upload">A fogadott adatt nem tartalmaz semmilyen valós fájlt.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Fájlt nem lehet feltölteni</string>
@@ -171,7 +171,7 @@
     <string name="foreign_files_fail">Egyes fájlokat nem sikerült áthelyezni</string>
     <string name="foreign_files_local_text">Helyi: %1$s</string>
     <string name="foreign_files_remote_text">Távoli: %1$s</string>
-    <string name="upload_query_move_foreign_files">Nincs elég hely ahoz, hogy a kiválasztott fileokat átmásoljuk a %1$s mappába. Ezért ehelyett átmozgassuk inkább ide a fileokat? </string>
+    <string name="upload_query_move_foreign_files">Nincs elég hely ahhoz, hogy a kiválasztott fájlokat átmásoljuk a %1$s mappába. Ezért ehelyett átmozgassuk inkább ide a fájlokat? </string>
     <string name="pass_code_enter_pass_code">Kérlek add meg a számkódot</string>
     
     <string name="pass_code_configure_your_pass_code">Írd be a számkódodat</string>
@@ -199,9 +199,9 @@
     <string name="media_err_security_ex">Biztonsági hiba amikor megpróbálja lejátszani a %1$s</string>
     <string name="media_err_io_ex">Bemeneteli hiba amikor megpróbálja lejátszani a %1$s</string>
     <string name="media_err_unexpected">Váratlan hiba amikor megpróbálja lejátszani a %1$s</string>
-    <string name="media_rewind_description">Következő button</string>
+    <string name="media_rewind_description">Vissza gomb</string>
     <string name="media_play_pause_description">Lejátszás vagy pillanat állj gomb</string>
-    <string name="media_forward_description">Gyors előre gomb</string>
+    <string name="media_forward_description">Előre gomb</string>
 
 	<string name="auth_getting_authorization">Hozzáférés kérése &#8230;</string>
 	<string name="auth_trying_to_login">Belépés ide &#8230;</string>
@@ -368,6 +368,7 @@
 	<string name="saml_authentication_required_text">Felhasználóazonosítás szükséges</string>
 	<string name="saml_authentication_wrong_pass">Hibás jelszó</string>
 	<string name="actionbar_move">Mozgatás</string>
+    <string name="actionbar_copy">Másol</string>
 	<string name="file_list_empty_moving">Itt nincs semmi. Adj hozzá egy mappát!</string>
 	<string name="folder_picker_choose_button_text">Válasszon</string>
 
@@ -375,7 +376,7 @@
     <string name="move_file_invalid_into_descendent">Egy mappát nem lehet áthelyezni az almappájába</string>
     <string name="move_file_invalid_overwrite">A fájl már létezik a cél mappában</string>
     <string name="move_file_error">Hiba történt a fájl vagy mappa áthelyezése közben</string>
-    <string name="forbidden_permissions_move">mozgatni ezt a filet</string>
+    <string name="forbidden_permissions_move">áthelyezni ezt a fájlt</string>
 
 
     <string name="copy_file_not_found">Nem lehet másolni. Kérlek ellenőrizd, hogy fájl létezik-e</string>
@@ -442,6 +443,8 @@
     <string name="share_remote_clarification">%1$s (távoli)</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
 
+    <string name="share_sharee_unavailable">Sajnáljuk, de az Ön szerver verziója nem engedi a kliensen belüli megosztást felhasználók között.
+Kérem keresse a rendszergazdát.</string>
     <string name="share_privilege_can_share">megosztható</string>
     <string name="share_privilege_can_edit">módosíthat</string>
     <string name="share_privilege_can_edit_create">létrehoz</string>
@@ -459,6 +462,7 @@
     <string name="action_switch_list_view">Lista nézet</string>
 
     <string name="manage_space_title">Tárhely kezelés</string>
+    <string name="manage_space_description">A beállítások, az adatbázis és a szerver tanusítványok véglegesen törölve lesznek a(z) %1$s adatai közül.\\n\\nA letöltött fájlok változatlanok maradnak.\\n\\nA folyamat eltarthat egy ideig.</string>
     <string name="manage_space_clear_data">Adatok törlése</string>
     <string name="manage_space_error">Néhány fájl nem volt törölhető</string>
 
@@ -476,12 +480,17 @@
     <string name="participate_testing_report_text">Jelentsd a problémát a Githubon</string>
     <string name="participate_testing_version_text">Érdekel a következő verzió tesztelési lehetősége?</string>
     <string name="participate_beta_headline">Teszteld a Béta verziót</string>
+    <string name="participate_beta_text">Ez tartalmazza az összes közelgő tulajdonságot és nagyon újszerű. Bugok és hibák felléphetnek, ha ilyeneket tapasztal. Kérem jelentse nekünk. &lt;br/>&lt;a href=\"%2$s\">APK letöltése&lt;/a>
+vagy</string>
     <string name="participate_release_candidate_headline">Kiadásra jelölt</string>
+    <string name="participate_release_candidate_text">A kiadásra jelölt (RC) változat az egy pillanatképe a közelgő új változatnak, és stabilnak mondható. Az egyedi telepítésekkel segíthet nekünk, hogy ezt biztosítsuk. Jelentkezzen tesztelésre a Play Áruházban vagy manuálisan nézzen bele a verziók részbe F-Droid-on.</string>
     <string name="participate_contribute_headline">Aktívan hozzájárul</string>
     <string name="participate_contribute_irc_text">Csatlakozz a beszélgetéshez az IRC-n: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Segíts másokat a &lt;a href=\"%1$s>fórumban&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Fordítsd&lt;/a> az alkalmazást</string>
     <string name="participate_contribute_github_text">Működj közre fejlesztőként, részletek: &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
+    <string name="move_to">Áthelyezés ide...&#8230;</string>
+    <string name="copy_to">Másolás ide...&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d kiválasztott</item>
         <item quantity="other">%d kiválasztott</item>

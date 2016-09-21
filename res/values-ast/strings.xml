@@ -343,7 +343,7 @@
 	<string name="saml_authentication_required_text">Necesítase autenticación</string>
 	<string name="saml_authentication_wrong_pass">Contraseña incorreuta</string>
 	<string name="actionbar_move">Mover</string>
-	<string name="file_list_empty_moving">Ensín nada dientro. ¡Pues amestar una carpeta!</string>
+    <string name="file_list_empty_moving">Ensín nada dientro. ¡Pues amestar una carpeta!</string>
 	<string name="folder_picker_choose_button_text">Esbillar</string>
 
     <string name="move_file_not_found">Nun pue movese. Por favor, comprueba si\'l ficheru esiste</string>

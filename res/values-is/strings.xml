@@ -336,7 +336,7 @@
 	<string name="saml_authentication_required_text">Auðkenningar krafist</string>
 	<string name="saml_authentication_wrong_pass">Rangt lykilorð</string>
 	<string name="actionbar_move">Færa</string>
-	<string name="file_list_empty_moving">Ekkert hér. Þú getur bætt við möppu!</string>
+    <string name="file_list_empty_moving">Ekkert hér. Þú getur bætt við möppu!</string>
 	<string name="folder_picker_choose_button_text">Veldu</string>
 
     <string name="move_file_not_found">Get ekki fært. Athugaðu hvort skráin sé til</string>
