@@ -28,6 +28,8 @@ import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -39,6 +41,7 @@ import com.owncloud.android.ui.adapter.FolderSyncAdapter;
 
 import java.util.List;
 import java.util.TimerTask;
+import com.owncloud.android.ui.adapter.FolderSyncAdapter;
 
 /**
  * Activity displaying all auto-synced folders and/or instant upload media folders.
