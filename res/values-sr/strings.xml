@@ -315,7 +315,7 @@
 	<string name="saml_authentication_required_text">Неопходна аутентификација</string>
 	<string name="saml_authentication_wrong_pass">Погрешна лозинка</string>
 	<string name="actionbar_move">Премести</string>
-	<string name="file_list_empty_moving">Овде нема ничега. Можете додати фасциклу!</string>
+    <string name="file_list_empty_moving">Овде нема ничега. Можете додати фасциклу!</string>
 	<string name="folder_picker_choose_button_text">Одабери</string>
 
     <string name="move_file_not_found">Не могу да преместим. Проверите да ли фајл постоји</string>

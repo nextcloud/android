@@ -331,7 +331,7 @@
 	<string name="saml_authentication_required_text">จำเป็นต้องยืนยันตัวตน</string>
 	<string name="saml_authentication_wrong_pass">รหัสผ่านไม่ถูกต้อง</string>
 	<string name="actionbar_move">ย้าย</string>
-	<string name="file_list_empty_moving">ไม่มีสิ่งใดในที่นี่ คุณสามารถสร้างโฟลเดอร์!</string>
+    <string name="file_list_empty_moving">ไม่มีสิ่งใดในที่นี่ คุณสามารถสร้างโฟลเดอร์!</string>
 	<string name="folder_picker_choose_button_text">เลือก</string>
 
     <string name="move_file_not_found">ไม่สามารถย้ายไฟล์ กรุณาตรวจสอบว่ายังมีไฟล์นั้นอยู่</string>

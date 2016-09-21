@@ -366,6 +366,7 @@
 	<string name="saml_authentication_required_text">Wymagana autoryzacja</string>
 	<string name="saml_authentication_wrong_pass">Złe hasło</string>
 	<string name="actionbar_move">Przenieś</string>
+    <string name="actionbar_copy">Skopiuj</string>
 	<string name="file_list_empty_moving">Nic tu nie ma. Możesz dodać folder!</string>
 	<string name="folder_picker_choose_button_text">Wybierz</string>
 
@@ -473,6 +474,8 @@
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
     <string name="participate_beta_headline">Testuj wersję Beta</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
+    <string name="move_to">Przenieś do&#8230;</string>
+    <string name="copy_to">Skopiuj do&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d zaznaczony</item>
         <item quantity="few">%d zaznaczone</item>

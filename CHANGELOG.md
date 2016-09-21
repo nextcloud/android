@@ -1,3 +1,10 @@
+## 1.3.1 (September 20, 2016)
+
+- Move action hard to discover - difference between single/multi selection
+- Show move/copy context in toolbar title
+- Share file with dictadroid to Nextcloud
+- Don't show upload failure notification for already deleted files
+
 ## 1.3.0 (September 17, 2016)
 
 - Files drop permission in share viewe
