@@ -334,7 +334,7 @@
 	<string name="saml_authentication_required_text">Es requereix autenticació</string>
 	<string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
 	<string name="actionbar_move">Moure</string>
-	<string name="file_list_empty_moving">Res per aquí. Pots afegir una carpeta!</string>
+    <string name="file_list_empty_moving">Res per aquí. Pots afegir una carpeta!</string>
 	<string name="folder_picker_choose_button_text">Escull</string>
 
     <string name="move_file_not_found">No es pot moure. Assegureu-vos que el fitxer existeix</string>

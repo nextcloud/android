@@ -325,7 +325,7 @@
 	<string name="saml_authentication_required_text">需要认证</string>
 	<string name="saml_authentication_wrong_pass">错误密码</string>
 	<string name="actionbar_move">移动</string>
-	<string name="file_list_empty_moving">这里还什么都没有。上传些东西吧！</string>
+    <string name="file_list_empty_moving">这里还什么都没有。上传些东西吧！</string>
 	<string name="folder_picker_choose_button_text">选择</string>
 
     <string name="move_file_not_found">无法移动。请检查文件是否存在</string>

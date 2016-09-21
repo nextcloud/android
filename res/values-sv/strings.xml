@@ -344,7 +344,7 @@
 	<string name="saml_authentication_required_text">Autentisering krävs</string>
 	<string name="saml_authentication_wrong_pass">Fel lösenord</string>
 	<string name="actionbar_move">Flytta</string>
-	<string name="file_list_empty_moving">Ingenting här. Du kan skapa en mapp!</string>
+    <string name="file_list_empty_moving">Ingenting här. Du kan skapa en mapp!</string>
 	<string name="folder_picker_choose_button_text">Välj</string>
 
     <string name="move_file_not_found">Gick inte att flytta. Vänligen kontrollera att filen existerar</string>
