@@ -24,14 +24,23 @@ package com.owncloud.android.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.ui.adapter.FolderSyncAdapter;
+
+import java.util.List;
+import java.util.TimerTask;
 
 /**
  * Activity displaying all auto-synced folders and/or instant upload media folders.
@@ -40,6 +49,8 @@ public class FolderSyncActivity extends DrawerActivity {
     private static final String TAG = FolderSyncActivity.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private FolderSyncAdapter mAdapter;
+    private ProgressBar mProgress;
+    private TextView mEmpty;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +68,7 @@ public class FolderSyncActivity extends DrawerActivity {
         setupContent();
     }
 
+
     private void setupContent() {
         // TODO setup/initialize UI
         mRecyclerView = (RecyclerView) findViewById(android.R.id.list);
@@ -73,10 +85,52 @@ public class FolderSyncActivity extends DrawerActivity {
         mAdapter.setLayoutManager(lm);
         mRecyclerView.setLayoutManager(lm);
         mRecyclerView.setAdapter(mAdapter);
+
+        load();
     }
 
     public static void selectItem(final Activity context) {
+        // TODO implement selectItem()
         return;
+    }
+
+    private void load() {
+        if (mAdapter.getItemCount() > 0) return;
+        setListShown(false);
+        final Handler mHandler = new Handler();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final List<MediaFolder> mediaFolders = MediaProvider.getAllShownImagesPath(FolderSyncActivity.this);
+
+                for (MediaFolder mediaFolder : mediaFolders) {
+                    Log.d(TAG, mediaFolder.path);
+                }
+
+                mHandler.post(new TimerTask() {
+                    @Override
+                    public void run() {
+                        mAdapter.setMediaFolders(mediaFolders);
+                        setListShown(true);
+                    }
+                });
+            }
+        }).start();
+    }
+
+    void setListShown(boolean shown) {
+        if (mRecyclerView != null) {
+            mRecyclerView.setVisibility(shown ?
+                    View.VISIBLE : View.GONE);
+
+            // TODO show/hide loading visuals
+            /**
+            mProgress.setVisibility(shown ?
+                    View.GONE : View.VISIBLE);
+            mEmpty.setVisibility(shown && mAdapter.getItemCount() == 0 ?
+                    View.VISIBLE : View.GONE);
+             **/
+        }
     }
 
     @Override
