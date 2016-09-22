@@ -21,7 +21,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding">
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_padding"
+                android:paddingBottom="@dimen/standard_padding">
 
     <TextView
         android:id="@+id/title"
@@ -45,21 +47,22 @@
         android:id="@+id/syncStatusButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_half_margin"
+        android:padding="@dimen/standard_half_padding"
         android:background="@color/transparent"
         android:clickable="true"
         android:src="@drawable/ic_cloud_sync_off"/>
 
-    <ImageButton
-        android:id="@+id/settingsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/standard_half_margin"
-        android:layout_marginTop="@dimen/standard_half_margin"
-        android:layout_marginBottom="@dimen/standard_half_margin"
-        android:background="@color/transparent"
-        android:clickable="true"
-        android:src="@drawable/ic_dots_vertical"/>
+        <ImageButton
+            android:id="@+id/settingsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/standard_half_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:src="@drawable/ic_dots_vertical"/>
     </LinearLayout>
 
 </RelativeLayout>
