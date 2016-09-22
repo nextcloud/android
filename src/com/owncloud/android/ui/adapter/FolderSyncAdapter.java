@@ -32,6 +32,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
@@ -95,14 +96,30 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     @Override
     public void onBindHeaderViewHolder(MainViewHolder holder, int section) {
+        final int sectionId = section;
         holder.title.setText(mMediaFolders.get(section).folder.substring(mMediaFolders.get(section).folder
                 .lastIndexOf("/") + 1, mMediaFolders.get(section).folder.length()));
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
-        holder.syncStatusButton.setOnTouchListener(this);
+        holder.syncStatusButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Toast.makeText(mContext, "Sync Status Clicked for " + mMediaFolders.get(sectionId).folder, Toast
+                        .LENGTH_SHORT)
+                        .show();
+                return true;
+            }
+        });
         holder.menuButton.setVisibility(View.VISIBLE);
         holder.menuButton.setTag(section);
-        holder.menuButton.setOnTouchListener(this);
+        holder.menuButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Toast.makeText(mContext, "Menu Clicked for " + mMediaFolders.get(sectionId).folder, Toast.LENGTH_SHORT)
+                        .show();
+                return true;
+            }
+        });
     }
 
     @Override
@@ -199,8 +216,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.thumbnail);
             title = (TextView) itemView.findViewById(R.id.title);
-            menuButton = (ImageButton) itemView.findViewById(R.id.syncStatusButton);
-            syncStatusButton = (ImageButton) itemView.findViewById(R.id.settingsButton);
+            menuButton = (ImageButton) itemView.findViewById(R.id.settingsButton);
+            syncStatusButton = (ImageButton) itemView.findViewById(R.id.syncStatusButton);
             counterBar = (LinearLayout) itemView.findViewById(R.id.counterLayout);
             counterValue = (TextView) itemView.findViewById(R.id.counter);
             thumbnailDarkener = (ImageView) itemView.findViewById(R.id.thumbnailDarkener);
