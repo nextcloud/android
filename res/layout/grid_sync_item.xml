@@ -40,6 +40,15 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_menu_archive"/>
 
+        <ImageView
+            android:id="@+id/thumbnailDarkener"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:scaleType="centerCrop"
+            android:background="#99000000"/>
+
         <LinearLayout
             android:id="@+id/counterLayout"
             android:layout_width="wrap_content"
@@ -54,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/checkbox_off_background"
                 android:text="127"
-                android:textColor="#ccffffff"
+                android:textColor="#ffffff"
                 android:textSize="22dp"
                 android:textStyle="bold"/>
 
@@ -65,7 +74,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="4dp"
                 android:text=">"
-                android:textColor="#cccccccc"
+                android:textColor="#dedede"
                 android:textSize="22dp"
                 android:textStyle="bold"/>
         </LinearLayout>

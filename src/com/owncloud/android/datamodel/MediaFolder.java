@@ -1,7 +1,7 @@
 package com.owncloud.android.datamodel;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by scherzia on 22.09.2016.
@@ -10,5 +10,6 @@ import java.util.Collection;
 public class MediaFolder {
     public String folder;
     public String path;
-    public Collection<String> filePaths = new ArrayList<>();
+    public List<String> filePaths = new ArrayList<>();
+    public long numberOfFiles;
 }
