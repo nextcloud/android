@@ -20,27 +20,33 @@
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_padding">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/syncStatusButton"
+        android:layout_alignBottom="@+id/buttonBar"
         android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/syncStatusButton"
-        android:layout_toLeftOf="@+id/syncStatusButton"
+        android:layout_alignTop="@+id/buttonBar"
+        android:layout_toLeftOf="@+id/buttonBar"
         android:gravity="start|center_vertical"
         android:text="Header Text"
+        android:textStyle="bold"
+        android:ellipsize="middle"
         android:textColor="?android:textColorPrimary"/>
 
+    <LinearLayout android:id="@+id/buttonBar"
+        android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true">
     <ImageButton
         android:id="@+id/syncStatusButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/standard_half_margin"
-        android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_margin="@dimen/standard_half_margin"
+        android:background="@color/transparent"
         android:clickable="true"
         android:src="@drawable/ic_cloud_sync_off"/>
 
@@ -48,10 +54,12 @@
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:layout_marginLeft="@dimen/standard_half_margin"
         android:layout_marginTop="@dimen/standard_half_margin"
+        android:layout_marginBottom="@dimen/standard_half_margin"
+        android:background="@color/transparent"
         android:clickable="true"
-        android:src="@drawable/ic_settings"/>
+        android:src="@drawable/ic_dots_vertical"/>
+    </LinearLayout>
 
 </RelativeLayout>
