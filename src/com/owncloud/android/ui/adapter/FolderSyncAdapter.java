@@ -23,6 +23,8 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,8 +34,10 @@ import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.MediaFolder;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
@@ -46,20 +50,26 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     private final Context mContext;
     private final int mGridWidth;
     private final ClickListener mListener;
-    private final ArrayList<Object> mCategories;
+    private final List<MediaFolder> mMediaFolders;
     private final RecyclerView mRecyclerView;
 
     public FolderSyncAdapter(Context context, int gridWidth, ClickListener listener, RecyclerView recyclerView) {
         mContext = context;
         mGridWidth = gridWidth * 2;
         mListener = listener;
-        mCategories = new ArrayList<>();
+        mMediaFolders = new ArrayList<>();
         mRecyclerView = recyclerView;
+    }
+
+    public void setMediaFolders(List<MediaFolder> mediaFolders) {
+        mMediaFolders.clear();
+        mMediaFolders.addAll(mediaFolders);
+        notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View v) {
-
+        Log.d(TAG, v.getTag().toString());
     }
 
     @Override
@@ -69,46 +79,107 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     @Override
     public int getSectionCount() {
-        return 0;
+        return mMediaFolders.size();
     }
 
     @Override
     public int getItemCount(int section) {
-        return 0;
+        return mMediaFolders.get(section).filePaths.size();
     }
 
     @Override
     public void onBindHeaderViewHolder(MainViewHolder holder, int section) {
-
+        holder.title.setText(mMediaFolders.get(section).folder);
+        holder.syncStatusButton.setVisibility(View.VISIBLE);
+        holder.syncStatusButton.setTag(section);
+        holder.syncStatusButton.setOnTouchListener(this);
+        holder.menuButton.setVisibility(View.VISIBLE);
+        holder.menuButton.setTag(section);
+        holder.menuButton.setOnTouchListener(this);
     }
 
     @Override
     public void onBindViewHolder(MainViewHolder holder, int section, int relativePosition, int absolutePosition) {
+        final Context c = holder.itemView.getContext();
 
+        /**
+        if (BitmapUtils.isImage(file)){
+            // Thumbnail in Cache?
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                    String.valueOf(file.hashCode())
+            );
+            if (thumbnail != null){
+                fileIcon.setImageBitmap(thumbnail);
+            } else {
+
+                // generate new Thumbnail
+                if (allowedToCreateNewThumbnail) {
+                    final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                            new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
+                    if (thumbnail == null) {
+                        if (BitmapUtils.isVideo(file)) {
+                            thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                        } else {
+                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                        }
+                    }
+                    final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                            new ThumbnailsCacheManager.AsyncThumbnailDrawable(
+                                    mContext.getResources(),
+                                    thumbnail,
+                                    task
+                            );
+                    fileIcon.setImageDrawable(asyncDrawable);
+                    task.execute(file);
+                    Log_OC.v(TAG, "Executing task to generate a new thumbnail");
+
+                } // else, already being generated, don't restart it
+            }
+        } else {
+            fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
+        }
+        */
+        holder.image.setImageResource(R.drawable.file_image);
+
+        /**
+        if (res == 0) {
+            holder.image.setBackgroundColor(Color.parseColor("#40000000"));
+        } else {
+            Glide.with(c)
+                    .fromResource()
+                    .load(res)
+                    .into(holder.image);
+        }
+         */
+
+        //holder.itemView.setTag(String.format(Locale.getDefault(), "%d:%d:%d", section, relativePos, absolutePos));
+        holder.itemView.setOnClickListener(this);
     }
 
     @Override
     public MainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        View v = LayoutInflater.from(parent.getContext()).inflate(
+                viewType == VIEW_TYPE_HEADER ? R.layout.folder_sync_item_header : R.layout.grid_image, parent, false);
+        return new MainViewHolder(v);
     }
 
     public interface ClickListener {
         void onClick(View view, int section, int relative, int absolute);
     }
 
-    public static class MainViewHolder extends RecyclerView.ViewHolder {
+    static class MainViewHolder extends RecyclerView.ViewHolder {
 
         public MainViewHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.image);
+            image = (ImageView) itemView.findViewById(R.id.thumbnail);
             title = (TextView) itemView.findViewById(R.id.title);
             menuButton = (ImageButton) itemView.findViewById(R.id.syncStatusButton);
-            mSyncStatusButton = (ImageButton) itemView.findViewById(R.id.settingsButton);
+            syncStatusButton = (ImageButton) itemView.findViewById(R.id.settingsButton);
         }
 
         final ImageView image;
         final TextView title;
         final ImageButton menuButton;
-        final ImageButton mSyncStatusButton;
+        final ImageButton syncStatusButton;
     }
 }
