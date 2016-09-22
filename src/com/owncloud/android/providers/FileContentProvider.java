@@ -919,6 +919,18 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " INTEGER, "            // account
                 + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_OPTION + " INTEGER );"     // upload action
         );
+
+        // TODO Tobi remove after testing
+        db.execSQL("INSERT INTO " + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME + "("
+                + ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH  + ", "            // local path
+                + ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH + ", "            // remote path
+                + ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY + ", "              // wifi_only
+                + ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY + ", "          // charging only
+                + ProviderTableMeta.SYNCED_FOLDER_ENABLED + ", "                // enabled
+                + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + ", "      // subfolder by date
+                + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + ", "                // account
+                + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_OPTION + ") "          // upload action
+                + "VALUES ('/sdcard/DCIM/', 'syncTest', 0, 0, 1, 1, 'tobi', 1)");
     }
 
     /**
