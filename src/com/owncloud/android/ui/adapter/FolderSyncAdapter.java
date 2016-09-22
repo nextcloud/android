@@ -23,7 +23,6 @@ package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -69,7 +68,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     @Override
     public void onClick(View v) {
-        Log.d(TAG, v.getTag().toString());
+
     }
 
     @Override
@@ -89,7 +88,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     @Override
     public void onBindHeaderViewHolder(MainViewHolder holder, int section) {
-        holder.title.setText(mMediaFolders.get(section).folder);
+        holder.title.setText(mMediaFolders.get(section).folder.substring(mMediaFolders.get(section).folder
+                .lastIndexOf("/")+1, mMediaFolders.get(section).folder.length()));
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
         holder.syncStatusButton.setOnTouchListener(this);
@@ -159,7 +159,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     @Override
     public MainViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(
-                viewType == VIEW_TYPE_HEADER ? R.layout.folder_sync_item_header : R.layout.grid_image, parent, false);
+                viewType == VIEW_TYPE_HEADER ?
+                        R.layout.folder_sync_item_header : R.layout.grid_sync_item, parent, false);
         return new MainViewHolder(v);
     }
 
