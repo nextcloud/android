@@ -23,6 +23,7 @@ package com.owncloud.android;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.services.observer.SyncedFolderObserverService;
 
 
 /**
@@ -84,6 +86,10 @@ public class MainApp extends Application {
             Log_OC.startLogging(Environment.getExternalStorageDirectory().getAbsolutePath());
             Log_OC.d("Debug", "start logging");
         }
+
+        Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
+        Intent i = new Intent(this, SyncedFolderObserverService.class);
+        startService(i);
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks( new ActivityLifecycleCallbacks() {
