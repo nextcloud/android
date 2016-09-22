@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -29,12 +30,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.BitmapUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +96,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     @Override
     public void onBindHeaderViewHolder(MainViewHolder holder, int section) {
         holder.title.setText(mMediaFolders.get(section).folder.substring(mMediaFolders.get(section).folder
-                .lastIndexOf("/")+1, mMediaFolders.get(section).folder.length()));
+                .lastIndexOf("/") + 1, mMediaFolders.get(section).folder.length()));
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
         holder.syncStatusButton.setOnTouchListener(this);
@@ -102,20 +109,35 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     public void onBindViewHolder(MainViewHolder holder, int section, int relativePosition, int absolutePosition) {
         final Context c = holder.itemView.getContext();
 
-        /**
-        if (BitmapUtils.isImage(file)){
+        File file = new File(mMediaFolders.get(section).filePaths.get(relativePosition));
+
+        /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
+         * {@link ThumbnailsCacheManager#cancelPotentialThumbnailWork} will NEVER cancel any task.
+         **/
+        boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, holder.image));
+
+        if (!file.isDirectory()) {
+            holder.image.setImageResource(R.drawable.file);
+        } else {
+            holder.image.setImageResource(R.drawable.ic_menu_archive);
+        }
+        // set proper tag
+        holder.image.setTag(file.hashCode());
+
+        // get Thumbnail if file is image
+        if (BitmapUtils.isImage(file)) {
             // Thumbnail in Cache?
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     String.valueOf(file.hashCode())
             );
-            if (thumbnail != null){
-                fileIcon.setImageBitmap(thumbnail);
+            if (thumbnail != null) {
+                holder.image.setImageBitmap(thumbnail);
             } else {
 
                 // generate new Thumbnail
                 if (allowedToCreateNewThumbnail) {
                     final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                            new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
+                            new ThumbnailsCacheManager.ThumbnailGenerationTask(holder.image);
                     if (thumbnail == null) {
                         if (BitmapUtils.isVideo(file)) {
                             thumbnail = ThumbnailsCacheManager.mDefaultVideo;
@@ -129,28 +151,24 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
                                     thumbnail,
                                     task
                             );
-                    fileIcon.setImageDrawable(asyncDrawable);
+                    holder.image.setImageDrawable(asyncDrawable);
                     task.execute(file);
                     Log_OC.v(TAG, "Executing task to generate a new thumbnail");
 
                 } // else, already being generated, don't restart it
             }
         } else {
-            fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
+            holder.image.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
         }
-        */
-        holder.image.setImageResource(R.drawable.file_image);
 
-        /**
-        if (res == 0) {
-            holder.image.setBackgroundColor(Color.parseColor("#40000000"));
+        if(mMediaFolders.get(section).numberOfFiles > 8 && relativePosition >= 8-1) {
+            holder.counterValue.setText(Long.toString(mMediaFolders.get(section).numberOfFiles-8));
+            holder.counterBar.setVisibility(View.VISIBLE);
+            holder.thumbnailDarkener.setVisibility(View.VISIBLE);
         } else {
-            Glide.with(c)
-                    .fromResource()
-                    .load(res)
-                    .into(holder.image);
+            holder.counterBar.setVisibility(View.GONE);
+            holder.thumbnailDarkener.setVisibility(View.GONE);
         }
-         */
 
         //holder.itemView.setTag(String.format(Locale.getDefault(), "%d:%d:%d", section, relativePos, absolutePos));
         holder.itemView.setOnClickListener(this);
@@ -169,6 +187,13 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     }
 
     static class MainViewHolder extends RecyclerView.ViewHolder {
+        final ImageView image;
+        final TextView title;
+        final ImageButton menuButton;
+        final ImageButton syncStatusButton;
+        final LinearLayout counterBar;
+        final TextView counterValue;
+        final ImageView thumbnailDarkener;
 
         public MainViewHolder(View itemView) {
             super(itemView);
@@ -176,11 +201,9 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
             title = (TextView) itemView.findViewById(R.id.title);
             menuButton = (ImageButton) itemView.findViewById(R.id.syncStatusButton);
             syncStatusButton = (ImageButton) itemView.findViewById(R.id.settingsButton);
+            counterBar = (LinearLayout) itemView.findViewById(R.id.counterLayout);
+            counterValue = (TextView) itemView.findViewById(R.id.counter);
+            thumbnailDarkener = (ImageView) itemView.findViewById(R.id.thumbnailDarkener);
         }
-
-        final ImageView image;
-        final TextView title;
-        final ImageButton menuButton;
-        final ImageButton syncStatusButton;
     }
 }

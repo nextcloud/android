@@ -76,14 +76,22 @@ public class MediaProvider {
             mediaFolder.folder = absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(folderName) + folderName.length());
             mediaFolder.filePaths = new ArrayList<>();
 
+            // TODO: This can be done with one query, no limit, but only adding the 8 to the list and still get the
+            // total count
+
             Cursor cursorImages = activity.getContentResolver().query(MEDIA_URI, fileProjection, fileSelection + "'" +
-                    absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf("/")) + "/%'", null,
+                            absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf("/")) + "/%'", null,
                     fileSortOrder);
             column_index_data_image = cursorImages.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
             Log.e("READ IMAGES", "Reading images for --> " + mediaFolder.folder);
             while (cursorImages.moveToNext()) {
                 mediaFolder.filePaths.add(cursorImages.getString(column_index_data_image));
             }
+
+            mediaFolder.numberOfFiles = activity.getContentResolver().query(MEDIA_URI, fileProjection, fileSelection +
+                            "'" +
+                            absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf("/")) + "/%'", null,
+                    null).getCount();
 
             mediaFolders.add(mediaFolder);
         }
