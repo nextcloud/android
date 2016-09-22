@@ -494,4 +494,9 @@ eller</string>
     <string name="participate_contribute_github_text">Bidra som en utvikler, se &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> for detaljer</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
-    </resources>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d valgt</item>
+        <item quantity="other">%d valgte</item>
+    </plurals>
+
+</resources>
