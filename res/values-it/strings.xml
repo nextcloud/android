@@ -40,6 +40,7 @@
     <string name="prefs_calendar_contacts">Configura sincronizzazione calendario e contatti</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) per l\'account utilizzato attualmente</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'indirizzo del server per l\'account non può essere risolto da DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Nessuna applicazione Google Play o F-Droid installata</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata correttamente</string>
     <string name="prefs_help">Aiuto</string>
     <string name="prefs_recommend">Consiglia a un amico</string>
@@ -480,11 +481,17 @@
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_testing_version_text">Sei interessato ad aiutarci a provare la nostra prossima versione?</string>
     <string name="participate_beta_headline">Prova la versione beta</string>
+    <string name="participate_beta_text">Ciò include tutte le nuove funzionalità ed è molto rischioso.
+Bug/errori
+possono verificarsi e se accade, inviaci una segnalazione. &lt;br/>&lt;a href=\"%2$s\">Scarica l\'APK&lt;/a>
+o</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
+    <string name="participate_release_candidate_text">Questa candidata al rilascio (RC) è uno snapshot della prossima versione e dovrebbe essere stabile. La prova della tua specifica configurazione potrebbe aiutare ad assicurare che lo sia. Registrati per i test su Google Play o controlla manualmente nella sezione \"versioni\" su F-Droid.</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
     <string name="participate_contribute_irc_text">Unisciti alla chat su IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Aiuta gli altri sul &lt;a href=\"%1$s>forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduci&lt;/a> l\'applicazione</string>
+    <string name="participate_contribute_github_text">Contribuisci come sviluppatore, vedi &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> per i dettagli</string>
     <string name="move_to">Sposta in&#8230;</string>
     <string name="copy_to">Copia in&#8230;</string>
     <plurals name="items_selected_count">
