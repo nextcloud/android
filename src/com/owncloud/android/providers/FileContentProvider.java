@@ -69,6 +69,7 @@ public class FileContentProvider extends ContentProvider {
     private static final int SHARES = 4;
     private static final int CAPABILITIES = 5;
     private static final int UPLOADS = 6;
+    private static final int SYNCED_FOLDERS = 7;
 
     private static final String TAG = FileContentProvider.class.getSimpleName();
 
@@ -335,6 +336,7 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "capabilities/#", CAPABILITIES);
         mUriMatcher.addURI(authority, "uploads/", UPLOADS);
         mUriMatcher.addURI(authority, "uploads/#", UPLOADS);
+        mUriMatcher.addURI(authority, "synced_folders", SYNCED_FOLDERS);
 
         return true;
     }
@@ -409,6 +411,13 @@ public class FileContentProvider extends ContentProvider {
                             + uri.getPathSegments().get(1));
                 }
                 break;
+            case SYNCED_FOLDERS:
+                sqlQuery.setTables(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME);
+                if (uri.getPathSegments().size() > 1) {
+                    sqlQuery.appendWhere(ProviderTableMeta._ID + "="
+                            + uri.getPathSegments().get(1));
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -424,6 +433,9 @@ public class FileContentProvider extends ContentProvider {
                     break;
                 case UPLOADS:
                     order = ProviderTableMeta.UPLOADS_DEFAULT_SORT_ORDER;
+                    break;
+                case SYNCED_FOLDERS:
+                    order = ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH;
                     break;
                 default: // Files
                     order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
@@ -916,7 +928,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY + " INTEGER, "      // charging only
                 + ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "            // enabled
                 + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, "  // subfolder by date
-                + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " INTEGER, "            // account
+                + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "              // account
                 + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_OPTION + " INTEGER );"     // upload action
         );
 
@@ -930,7 +942,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + ", "      // subfolder by date
                 + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + ", "                // account
                 + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_OPTION + ") "          // upload action
-                + "VALUES ('/sdcard/DCIM/', 'syncTest', 0, 0, 1, 1, 'tobi', 1)");
+                + "VALUES ('/sdcard/DCIM/', '/syncTest', 0, 0, 1, 1, 'tobi', 1)");
     }
 
     /**

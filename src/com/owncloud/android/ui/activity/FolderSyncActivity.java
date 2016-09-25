@@ -46,7 +46,7 @@ import com.owncloud.android.ui.adapter.FolderSyncAdapter;
 /**
  * Activity displaying all auto-synced folders and/or instant upload media folders.
  */
-public class FolderSyncActivity extends DrawerActivity {
+public class FolderSyncActivity extends FileActivity {
     private static final String TAG = FolderSyncActivity.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private FolderSyncAdapter mAdapter;

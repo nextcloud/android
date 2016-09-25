@@ -56,6 +56,8 @@ public class ProviderMeta {
                 + MainApp.getAuthority() + "/capabilities");
         public static final Uri CONTENT_URI_UPLOADS = Uri.parse("content://"
                 + MainApp.getAuthority() + "/uploads");
+        public static final Uri CONTENT_URI_SYNCED_FOLDERS = Uri.parse("content://"
+                + MainApp.getAuthority() + "/synced_folders");
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
         public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";

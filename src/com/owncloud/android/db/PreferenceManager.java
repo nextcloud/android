@@ -174,7 +174,7 @@ public abstract class PreferenceManager {
         appPreferences.apply();
     }
 
-    private static SharedPreferences getDefaultSharedPreferences(Context context) {
+    public static SharedPreferences getDefaultSharedPreferences(Context context) {
         return android.preference.PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
     }
 }
