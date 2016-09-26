@@ -34,13 +34,55 @@
         <include
             layout="@layout/toolbar_standard"/>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@android:id/list"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            android:scrollbarStyle="outsideOverlay"
-            android:scrollbars="vertical"/>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@android:id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical"
+                android:visibility="visible"/>
+
+            <LinearLayout
+                android:id="@android:id/progress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/folderSyncProgressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"/>
+
+                <TextView
+                    android:id="@+id/progressText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="@dimen/standard_half_margin"
+                    android:text="@string/folder_sync_loading_folders"
+                    android:textColor="@color/secondaryTextColor"
+                    android:textStyle="italic"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@android:id/empty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/standard_margin"
+                android:gravity="center"
+                android:textColor="@color/secondaryTextColor"
+                android:text="@string/folder_sync_no_results"
+                android:visibility="gone" />
+        </FrameLayout>
 
     </LinearLayout>
 
