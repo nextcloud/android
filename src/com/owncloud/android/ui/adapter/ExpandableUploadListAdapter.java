@@ -243,10 +243,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             TextView accountNameTextView = (TextView) view.findViewById(R.id.upload_account);
             Account account = AccountUtils.getOwnCloudAccountByName(mParentActivity, upload.getAccountName());
-            accountNameTextView.setText(
-                    DisplayUtils.getAccountNameDisplayText(
-                            mParentActivity, account, account.name, upload.getAccountName())
-            );
+            if (account != null) {
+                accountNameTextView.setText(
+                        DisplayUtils.getAccountNameDisplayText(
+                                mParentActivity, account, account.name, upload.getAccountName())
+                );
+            } else {
+                accountNameTextView.setText(upload.getAccountName());
+            }
 
             TextView statusTextView = (TextView) view.findViewById(R.id.upload_status);
 
