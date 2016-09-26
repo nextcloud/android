@@ -1,4 +1,8 @@
-## 2016-09-21
+## 2016-09-26
+- update fix crash in dismissLoadingDialog #279
+- fix crash when sending non-existing log #284
+
+## 2016-09-22
 - update to latest 1.3.1 functionality
 - updated What's new #84
 - fix crash in dismissLoadingDialog #279
