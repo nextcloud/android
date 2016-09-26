@@ -494,6 +494,8 @@
     <string name="participate_contribute_github_text">Contribute as a developer, see &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a> for details</string>
     <string name="move_to">Move to&#8230;</string>
     <string name="copy_to">Copy to&#8230;</string>
+    <string name="folder_sync_loading_folders">Loading folders&#8230;</string>
+    <string name="folder_sync_no_results">No results</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"

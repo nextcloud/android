@@ -8,8 +8,8 @@ import java.util.List;
  */
 
 public class MediaFolder {
-    public String folder;
-    public String path;
+    public String folderName;
+    public String absolutePath;
     public List<String> filePaths = new ArrayList<>();
     public long numberOfFiles;
 }
