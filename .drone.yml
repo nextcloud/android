@@ -1,7 +1,6 @@
 pipeline:
   test:
-    image: nextcloudci/android:android-5
-    privileged: true
+    image: nextcloudci/android:android-6
     commands:
       - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
       - emulator -avd test -no-skin -no-audio -no-window &
@@ -21,5 +20,5 @@ pipeline:
 
     environment:
       - ANDROID_TARGET=android-24
-      - ANDROID_ABI=x86
+      - ANDROID_ABI=armeabi-v7a
       - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:/opt/android-sdk-linux/tools/lib64/gles_mesa/
