@@ -25,14 +25,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
@@ -49,8 +47,7 @@ import java.util.List;
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
  */
-public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAdapter.MainViewHolder>
-        implements View.OnClickListener, View.OnTouchListener {
+public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAdapter.MainViewHolder> {
 
     private static final String TAG = FolderSyncAdapter.class.getSimpleName();
 
@@ -75,16 +72,6 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     }
 
     @Override
-    public void onClick(View v) {
-
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        return false;
-    }
-
-    @Override
     public int getSectionCount() {
         return mMediaFolders.size();
     }
@@ -95,29 +82,22 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     }
 
     @Override
-    public void onBindHeaderViewHolder(MainViewHolder holder, int section) {
-        final int sectionId = section;
-        holder.title.setText(mMediaFolders.get(section).folder.substring(mMediaFolders.get(section).folder
-                .lastIndexOf("/") + 1, mMediaFolders.get(section).folder.length()));
+    public void onBindHeaderViewHolder(MainViewHolder holder, final int section) {
+        holder.title.setText(mMediaFolders.get(section).folderName);
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
-        holder.syncStatusButton.setOnTouchListener(new View.OnTouchListener() {
+        holder.syncStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Toast.makeText(mContext, "Sync Status Clicked for " + mMediaFolders.get(sectionId).folder, Toast
-                        .LENGTH_SHORT)
-                        .show();
-                return true;
+            public void onClick(View v) {
+                mListener.onSyncStatusToggleClick(section,mMediaFolders.get(section));
             }
         });
         holder.menuButton.setVisibility(View.VISIBLE);
         holder.menuButton.setTag(section);
-        holder.menuButton.setOnTouchListener(new View.OnTouchListener() {
+        holder.menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Toast.makeText(mContext, "Menu Clicked for " + mMediaFolders.get(sectionId).folder, Toast.LENGTH_SHORT)
-                        .show();
-                return true;
+            public void onClick(View v) {
+                mListener.onSyncFolderSettingsClick(section,mMediaFolders.get(section));
             }
         });
     }
@@ -188,7 +168,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         }
 
         //holder.itemView.setTag(String.format(Locale.getDefault(), "%d:%d:%d", section, relativePos, absolutePos));
-        holder.itemView.setOnClickListener(this);
+        //holder.itemView.setOnClickListener(this);
     }
 
     @Override
@@ -200,7 +180,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     }
 
     public interface ClickListener {
-        void onClick(View view, int section, int relative, int absolute);
+        void onSyncStatusToggleClick(int section, MediaFolder mediaFolder);
+        void onSyncFolderSettingsClick(int section, MediaFolder mediaFolder);
     }
 
     static class MainViewHolder extends RecyclerView.ViewHolder {
