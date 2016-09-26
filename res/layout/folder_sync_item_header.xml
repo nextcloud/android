@@ -21,9 +21,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="@dimen/standard_padding"
-                android:paddingTop="@dimen/standard_padding"
-                android:paddingBottom="@dimen/standard_padding">
+                android:paddingTop="@dimen/standard_half_padding"
+                android:paddingBottom="@dimen/standard_half_padding"
+                android:paddingLeft="@dimen/standard_padding">
 
     <TextView
         android:id="@+id/title"
@@ -33,35 +33,37 @@
         android:layout_alignParentLeft="true"
         android:layout_alignTop="@+id/buttonBar"
         android:layout_toLeftOf="@+id/buttonBar"
+        android:ellipsize="middle"
         android:gravity="start|center_vertical"
         android:text="Header Text"
-        android:textStyle="bold"
-        android:ellipsize="middle"
-        android:textColor="?android:textColorPrimary"/>
+        android:textColor="?android:textColorPrimary"
+        android:textStyle="bold"/>
 
-    <LinearLayout android:id="@+id/buttonBar"
-        android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentRight="true">
-    <ImageButton
-        android:id="@+id/syncStatusButton"
+    <LinearLayout
+        android:id="@+id/buttonBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/standard_half_padding"
-        android:background="@color/transparent"
-        android:clickable="true"
-        android:src="@drawable/ic_cloud_sync_off"/>
+        android:layout_alignParentRight="true">
+
+        <ImageButton
+            android:id="@+id/syncStatusButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:clickable="true"
+            android:padding="@dimen/standard_half_padding"
+            android:src="@drawable/ic_cloud_sync_off"/>
 
         <ImageButton
             android:id="@+id/settingsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/standard_half_padding"
-            android:paddingTop="@dimen/standard_half_padding"
-            android:paddingBottom="@dimen/standard_half_padding"
-            android:paddingRight="@dimen/standard_padding"
             android:background="@color/transparent"
             android:clickable="true"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:paddingLeft="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding"
             android:src="@drawable/ic_dots_vertical"/>
     </LinearLayout>
 

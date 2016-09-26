@@ -34,6 +34,7 @@ import java.util.List;
  * media queries to gain access to media lists for the device.
  */
 public class MediaProvider {
+    private static final String TAG = MediaProvider.class.getSimpleName();
     private static final Uri MEDIA_URI = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
     /**
@@ -72,8 +73,10 @@ public class MediaProvider {
             MediaFolder mediaFolder = new MediaFolder();
             absolutePathOfImage = cursor.getString(column_index_data);
             folderName = cursor.getString(column_index_folder_name);
-            mediaFolder.path = folderName;
-            mediaFolder.folder = absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(folderName) + folderName.length());
+            mediaFolder.folderName = folderName;
+            mediaFolder.absolutePath = absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(folderName) +
+                    folderName
+                    .length());
             mediaFolder.filePaths = new ArrayList<>();
 
             // TODO: This can be done with one query, no limit, but only adding the 8 to the list and still get the
@@ -83,7 +86,7 @@ public class MediaProvider {
                             absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf("/")) + "/%'", null,
                     fileSortOrder);
             column_index_data_image = cursorImages.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-            Log.e("READ IMAGES", "Reading images for --> " + mediaFolder.folder);
+            Log.d(TAG, "Reading images for --> " + mediaFolder.absolutePath);
             while (cursorImages.moveToNext()) {
                 mediaFolder.filePaths.add(cursorImages.getString(column_index_data_image));
             }
