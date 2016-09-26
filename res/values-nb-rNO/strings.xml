@@ -39,7 +39,7 @@
     <string name="prefs_log_delete_history_button">Slett historikk</string>
     <string name="prefs_calendar_contacts">Sett opp kalender &amp; kalendersynkronisering</string>
     <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for denne brukerkontoen</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Serveradressen for kontoen ble ikke funnet for DAVdroid</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Tjeneradressen for kontoen ble ikke funnet for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Ingen Google Play butikk eller F-Droid app er installert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
     <string name="prefs_help">Hjelp</string>
@@ -52,8 +52,8 @@
 	<string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
 	<string name="recommend_text">Jeg ønsker å invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>
 
-    <string name="auth_check_server">Sjekk server</string>
-    <string name="auth_host_url">Serveradresse https://...</string>
+    <string name="auth_check_server">Sjekk tjener</string>
+    <string name="auth_host_url">Tjeneradresse https://...</string>
     <string name="auth_username">Brukernavn</string>
     <string name="auth_password">Passord</string>
     <string name="auth_register">Ny med %1$s?</string>
@@ -208,32 +208,32 @@
 	<string name="auth_nossl_plain_ok_title">Sikker tilkobling ikke tilgjengelig.</string>
 	<string name="auth_connection_established">Tilkobling opprettet</string>
 	<string name="auth_testing_connection">Tester forbindelsen</string>
-	<string name="auth_not_configured_title">Feil i server konfigurasjon</string>
-	<string name="auth_account_not_new">En konto for samme bruker og server finnes allerede på enheten</string>
+	<string name="auth_not_configured_title">Feil i tjenerkonfigurasjon</string>
+	<string name="auth_account_not_new">En konto for samme bruker og tjener finnes allerede på enheten</string>
 	<string name="auth_account_not_the_same">Den innskrevne brukeren matcher ikke brukeren av denne kontoen</string>
 	<string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
 	<string name="auth_unknown_host_title">Fant ikke tjener</string>
-	<string name="auth_incorrect_path_title">Finner ikke server instans</string>
-	<string name="auth_timeout_title">Serveren brukte for lang tid på å svare</string>
-	<string name="auth_incorrect_address_title">Feil format på server-adresse</string>
+	<string name="auth_incorrect_path_title">Finner ikke tjenerinstans</string>
+	<string name="auth_timeout_title">Tjeneren brukte for lang tid på å svare</string>
+	<string name="auth_incorrect_address_title">Feil format på tjeneradresse</string>
 	<string name="auth_ssl_general_error_title">Oppstart av SSL feilet</string>
-	<string name="auth_ssl_unverified_server_title">Kunne ikke verifisere SSL-serverens identitet</string>
-	<string name="auth_bad_oc_version_title">Ukjent server versjon</string>
+	<string name="auth_ssl_unverified_server_title">Kunne ikke verifisere SSL-tjenerens identitet</string>
+	<string name="auth_bad_oc_version_title">Ukjent tjenerversjon</string>
 	<string name="auth_wrong_connection_title">Klarte ikke å opprette tilkobling</string>
 	<string name="auth_secure_connection">Sikker tilkobling opprettet</string>
 	<string name="auth_unauthorized">Feil brukernavn eller passord</string>
 	<string name="auth_oauth_error">Mislykket autorisasjon</string>
-	<string name="auth_oauth_error_access_denied">Tilgang nektet av autorisasjonsserver</string>
-	<string name="auth_wtf_reenter_URL">Uventet tilstand. Legg inn server-adressen på nytt</string>
+	<string name="auth_oauth_error_access_denied">Tilgang nektet av autorisasjonstjener</string>
+	<string name="auth_wtf_reenter_URL">Uventet tilstand. Legg inn tjeneradressen på nytt</string>
 	<string name="auth_expired_oauth_token_toast">Autorisasjonen din har gått ut. Vennligt autoriser igjen</string>
 	<string name="auth_expired_basic_auth_toast">Legg inn nåværende passord</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesjonen din har gått ut. Vennligst koble til igjen</string>
-	<string name="auth_connecting_auth_server">Kobler til autentiserings-server ..</string>
-	<string name="auth_unsupported_auth_method">Serveren støtter ikke denne autorisasjonsmetoden</string>
+	<string name="auth_connecting_auth_server">Kobler til autentiseringstjener..</string>
+	<string name="auth_unsupported_auth_method">Tjeneren støtter ikke denne autorisasjonsmetoden</string>
 	<string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
 	<string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, vennligst ta kontakt med en administrator
 	</string>
-	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne serveren</string>
+	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne tjeneren</string>
     <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
     
     <string name="favorite">Sett som tilgjengelig frakoblet</string>
@@ -262,12 +262,12 @@
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
     
     <string name="oauth_check_onoff">Logg inn med oAuth2</string> 
-    <string name="oauth_login_connection">Kobler til oAuth2 server...</string>    
+    <string name="oauth_login_connection">Kobler til oAuth2 tjener...</string>    
         
     <string name="ssl_validator_header">Identiteten til siden kunne ikke verifiseres</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- Serverens sertifikat er ikke til å stole på</string>
-    <string name="ssl_validator_reason_cert_expired">- Serverens sertifikat er utløpt</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- Server-sertifikatets gyldige datoer er i fremtiden</string>
+    <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
+    <string name="ssl_validator_reason_cert_expired">- Tjenerens sertifikat er utløpt</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- Tjenersertifikatets gyldige datoer er i fremtiden</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Nettadressen samsvarer ikke med vertsnavnet i sertifikatet</string>
     <string name="ssl_validator_question">Vil du stole på dette sertifikatet likevel?</string>
     <string name="ssl_validator_not_saved">Sertifikatet kunne ikke lagres</string>
@@ -308,7 +308,7 @@
     <string name="conflict_message">Hvilke filer ønsker du å beholder? Hvis du velger begge versjonene, får den lokale filen lagt til et tall i navnet.</string>
     <string name="conflict_keep_both">Behold begge</string>
     <string name="conflict_use_local_version">lokal versjon</string>
-    <string name="conflict_use_server_version">server-versjon</string>
+    <string name="conflict_use_server_version">tjenerversjon</string>
     
     <string name="preview_image_description">Bildeforhåndsvisning</string>
     <string name="preview_image_error_unknown_format">Dette bildet kan ikke vises</string>
@@ -339,10 +339,10 @@
 
     <string name="error_cant_bind_to_operations_service">Kritisk feil: kan ikke utføre operasjonene</string>
 
-    <string name="network_error_socket_exception">En feil oppstod ved oppretting av forbindelse til serveren.</string>
-    <string name="network_error_socket_timeout_exception">En feil oppstod ved venting på svar fra serveren. Operasjonen kunne ikke utføres</string>
-    <string name="network_error_connect_timeout_exception">En feil oppstod ved venting på svar fra serveren. Operasjonen kunne ikke utføres</string>
-    <string name="network_host_not_available">Operasjonen kunne ikke fullføres. Server utilgjengelig</string>
+    <string name="network_error_socket_exception">En feil oppstod ved oppretting av forbindelse til tjeneren.</string>
+    <string name="network_error_socket_timeout_exception">En feil oppstod ved venting på svar fra tjeneren. Operasjonen kunne ikke utføres</string>
+    <string name="network_error_connect_timeout_exception">En feil oppstod ved venting på svar fra tjeneren. Operasjonen kunne ikke utføres</string>
+    <string name="network_host_not_available">Operasjonen kunne ikke fullføres. Tjeneren er utilgjengelig</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Du har ikke tillatelse til %s</string>
@@ -353,7 +353,7 @@
     <string name="update_link_forbidden_permissions">å oppdatere denne delingen</string>
     <string name="forbidden_permissions_create">å opprette filen</string>
     <string name="uploader_upload_forbidden_permissions">å laste opp i denne mappen</string>
-    <string name="downloader_download_file_not_found">Filen finnes ikke på serveren lenger</string>
+    <string name="downloader_download_file_not_found">Filen finnes ikke på tjeneren lenger</string>
 
     <string name="prefs_category_accounts">Kontoer</string>
     <string name="prefs_add_account">Legg til en konto</string>
@@ -399,7 +399,7 @@
     <string name="subject_shared_with_you">\"%1$s\" er blitt delt med deg</string>
 
     <string name="auth_refresh_button">Oppfrisk forbindelse</string>
-    <string name="auth_host_address">Server-adresse</string>
+    <string name="auth_host_address">Tjeneradresse</string>
     <string name="common_error_out_memory">Ikke nok minne</string>
 
     <string name="username">Brukernavn</string>
@@ -444,8 +444,8 @@
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
-    <string name="share_sharee_unavailable">Beklager, server-versjonen din tillater ikke klienter å dele med brukere.
-        \nKontakt systemadministratoren</string>
+    <string name="share_sharee_unavailable">Beklager, tjenerversjonen din tillater ikke klienter å dele med brukere.
+        \\nKontakt systemadministratoren</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan endre</string>
     <string name="share_privilege_can_edit_create">opprette</string>
@@ -463,7 +463,7 @@
     <string name="action_switch_list_view">Listevisning</string>
 
     <string name="manage_space_title">Håndter plass</string>
-    <string name="manage_space_description">Innstillinger, database og serversertifikater fra %1$s\'s filer vil bli slettet. \\n\\nNedlastede filer blir urørt.\\n\\nDette kan ta noe tid.</string>
+    <string name="manage_space_description">Innstillinger, database og tjenersertifikater fra %1$s\'s filer vil bli slettet. \\n\\nNedlastede filer blir urørt.\\n\\nDette kan ta noe tid.</string>
     <string name="manage_space_clear_data">Nullstill data</string>
     <string name="manage_space_error">Noen filer kunne ikke fjernes.</string>
 
@@ -494,4 +494,9 @@ eller</string>
     <string name="participate_contribute_github_text">Bidra som en utvikler, se &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> for detaljer</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
-    </resources>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d valgt</item>
+        <item quantity="other">%d valgte</item>
+    </plurals>
+
+</resources>

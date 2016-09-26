@@ -13,6 +13,9 @@
     <string name="actionbar_send_file">Senda</string>
     <string name="actionbar_sort">Raða</string>
     <string name="actionbar_sort_title">Raða sem</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Nýjast - Elst</string>
+    <string name="menu_item_sort_by_size">Stærst - Minnst</string>
     <string name="drawer_item_all_files">Allar skrár</string>
     <string name="drawer_item_on_device">á tækinu</string>
     <string name="drawer_item_settings">Stillingar</string>
@@ -34,6 +37,10 @@
     <string name="prefs_log_title_history">Ferill annálsskráningar</string>
     <string name="prefs_log_summary_history">Þetta sýnir skráningar í annála</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
+    <string name="prefs_calendar_contacts">Uppsetning samstillingar dagatals og tengiliða</string>
+    <string name="prefs_calendar_contacts_summary">Setja upp DAVdroid (v1.3.0+) fyrir þann aðgang sem er í notkun</string>
+    <string name="prefs_calendar_contacts_no_store_error">Hvorki Google Play né F-Droid appið eru uppsett</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Tókst að setja upp samstillingu dagatals og tengiliða</string>
     <string name="prefs_help">Hjálp</string>
     <string name="prefs_recommend">Mæla með við vin</string>
     <string name="prefs_feedback">Umsögn</string>
@@ -60,11 +67,16 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Hætta</string>
     <string name="uploader_error_title_no_file_to_upload">Engin skrá til að senda inn</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ekki tókst að senda inn skrá</string>
+    <string name="uploader_upload_files_behaviour">Valkostir innsendingar:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytja skrá í Nextcloud-möppu</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Halda skrá í upprunamöppu</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eyða skrá úr upprunamöppu</string>
     <string name="file_list_seconds_ago">sek.</string>
     <string name="file_list_empty">Ekkert hér. Settu eitthvað inn!</string>
     <string name="file_list_loading">Hleð inn…</string>
     <string name="file_list_no_app_for_file_type">Engin forrit fundust fyrir skráategund!</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
+    <string name="upload_list_empty">Engar innsendingar tiltækar</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_folders">möppur</string>
     <string name="file_list_file">skrá</string>
@@ -285,6 +297,7 @@
     <string name="preview_image_error_unknown_format">Ekki er hægt að birta myndina</string>
 
     <string name="error__upload__local_file_not_copied">%1$s var ekki hægt að afrita í staðværu %2$s möppuna</string>
+    <string name="prefs_instant_upload_path_title">Mappa fyrir beinar innsendingar</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
 
@@ -336,7 +349,8 @@
 	<string name="saml_authentication_required_text">Auðkenningar krafist</string>
 	<string name="saml_authentication_wrong_pass">Rangt lykilorð</string>
 	<string name="actionbar_move">Færa</string>
-    <string name="file_list_empty_moving">Ekkert hér. Þú getur bætt við möppu!</string>
+    <string name="actionbar_copy">Afrita</string>
+	<string name="file_list_empty_moving">Ekkert hér. Þú getur bætt við möppu!</string>
 	<string name="folder_picker_choose_button_text">Veldu</string>
 
     <string name="move_file_not_found">Get ekki fært. Athugaðu hvort skráin sé til</string>
@@ -383,6 +397,8 @@
 
     <string name="pref_behaviour_entries_keep_file">áfram í upprunalegri möppu</string>
     <string name="pref_behaviour_entries_move">færð í forritsmöppu</string>
+    <string name="pref_behaviour_entries_delete_file">eytt</string>
+
     <string name="share_dialog_title">Deiling</string>
     <string name="share_file">Deila %1$s</string>
     <string name="share_with_user_section_title">Deila með notendum eða hópum</string>
@@ -393,6 +409,7 @@
     <string name="share_via_link_password_label">Verja með lykilorði</string>
     <string name="share_via_link_password_title">Öruggt</string>
     <string name="share_via_link_edit_permission_label">Leyfa breytingar</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Fela skráalista</string>
     <string name="share_get_public_link_button">Ná í tengil</string>
     <string name="share_with_title">Deila með ...</string>
     <string name="share_with_edit_title">Deila með %1$s</string>
@@ -432,6 +449,21 @@
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir fjarlægja valin atriði og innihald þeirra?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Bíð eftir að tækið hlaðist</string>
     <string name="actionbar_search">Leita</string>
+    <string name="learn_more">Læra meira</string>
+    <string name="drawer_participate">Taka þátt</string>
+    <string name="participate_testing_headline">Hjálpa okkur við prófanir</string>
+    <string name="participate_testing_bug_text">Fannstu villu? Eitthvað er skrýtið?</string>
+    <string name="participate_testing_report_text">Tilkynna um vandamál á Github</string>
+    <string name="participate_testing_version_text">Hefurðu þahuga á að hjálpa okkur með næstu útgáfu?</string>
+    <string name="participate_beta_headline">Prufukeyra Beta-prófunarútgáfuna</string>
+    <string name="participate_release_candidate_headline">Forútgáfa</string>
+    <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
+    <string name="participate_contribute_irc_text">Taktu þátt í spjalli á IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Hjálpaðu öðrum á &lt;a href=\"%1$s>spjallvefnum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Þýddu&lt;/a> forritið</string>
+    <string name="participate_contribute_github_text">Leggðu þitt af mörkum sem forritari, skoðaðu &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> fyrir nánari upplýsingar</string>
+    <string name="move_to">Færa í&#8230;</string>
+    <string name="copy_to">Afrita í&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
