@@ -24,7 +24,6 @@ package com.owncloud.android.features;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -48,7 +47,6 @@ public class FeatureList {
             new FeatureItem(R.drawable.whats_new_files, R.string.welcome_feature_2_title,  R.string.welcome_feature_2_text, "1.0.0", "0", SHOW_ON_FIRST_RUN),
             new FeatureItem(R.drawable.whats_new_share, R.string.welcome_feature_3_title,  R.string.welcome_feature_3_text, "1.0.0", "0" ,SHOW_ON_FIRST_RUN),
             new FeatureItem(R.drawable.whats_new_accounts, R.string.welcome_feature_4_title,  R.string.welcome_feature_4_text, "1.0.0", "0", SHOW_ON_FIRST_RUN),
-            new FeatureItem(R.drawable.whats_new_oc_files, R.string.welcome_feature_5_title,  FeatureItem.DO_NOT_SHOW, "1.0.0", "0", SHOW_ON_FIRST_RUN),
             // Features introduced in certain point in time
     };
 
