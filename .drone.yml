@@ -1,6 +1,6 @@
 pipeline:
   test:
-    image: nextcloudci/android:android-6
+    image: nextcloudci/android:android-7
     commands:
       - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
       - emulator -avd test -no-skin -no-audio -no-window &
