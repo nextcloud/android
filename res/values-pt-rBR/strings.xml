@@ -369,7 +369,8 @@
 	<string name="saml_authentication_required_text">Autenticação obrigatória</string>
 	<string name="saml_authentication_wrong_pass">Senha incorreta</string>
 	<string name="actionbar_move">Mover</string>
-    <string name="file_list_empty_moving">Nada aqui. Você pode adicionar uma pasta!</string>
+    <string name="actionbar_copy">Copiar</string>
+	<string name="file_list_empty_moving">Nada aqui. Você pode adicionar uma pasta!</string>
 	<string name="folder_picker_choose_button_text">Escolher</string>
 
     <string name="move_file_not_found">Não é possível mover. Por favor, verifique se o arquivo existe</string>
@@ -485,6 +486,8 @@
     <string name="participate_contribute_irc_text">Participe de uma conversa no IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Ajude as outras pessoas no &lt;a href=\"%1$s>fórum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduzir&lt;/a> o aplicativo</string>
+    <string name="move_to">Mover para&#8230;</string>
+    <string name="copy_to">Copiar para&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selecionado</item>
         <item quantity="other">%d selecionados</item>

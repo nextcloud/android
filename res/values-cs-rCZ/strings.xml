@@ -368,7 +368,8 @@ správce systému.</string>
 	<string name="saml_authentication_required_text">Vyžadováno přihlášení</string>
 	<string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
 	<string name="actionbar_move">Přesunout</string>
-    <string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>
+    <string name="actionbar_copy">Kopírovat</string>
+	<string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>
 	<string name="folder_picker_choose_button_text">Vybrat</string>
 
     <string name="move_file_not_found">Nelze přesunout. Zkontrolujte prosím že soubor existuje</string>
@@ -487,6 +488,8 @@ správce systému.</string>
     <string name="participate_contribute_forum_text">Pomoz ostatním v &lt;a href="%1$s>fóru&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href="%1$s>Přelož&lt;/a> aplikaci</string>
     <string name="participate_contribute_github_text">Přispět jako vývojář, detaily pod &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
+    <string name="move_to">Přesunout do&#8230;</string>
+    <string name="copy_to">Kopírovat do&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">vybráno %d</item>
         <item quantity="few">vybráno %d</item>
