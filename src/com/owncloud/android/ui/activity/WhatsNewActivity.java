@@ -57,6 +57,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     private static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
 
     private ImageButton mForwardFinishButton;
+    private Button mSkipButton;
     private ProgressIndicator mProgress;
     private ViewPager mPager;
 
@@ -90,8 +91,15 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
                 updateNextButtonIfNeeded();
             }
         });
-        Button skipButton = (Button) findViewById(R.id.skip);
-        skipButton.setOnClickListener(new View.OnClickListener() {
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            mForwardFinishButton.setBackground(null);
+        } else {
+            mForwardFinishButton.setBackgroundDrawable(null);
+        }
+
+        mSkipButton = (Button) findViewById(R.id.skip);
+        mSkipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onFinish();
@@ -115,13 +123,10 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     private void updateNextButtonIfNeeded() {
         if (!mProgress.hasNextStep()) {
             mForwardFinishButton.setImageResource(R.drawable.ic_done_white);
+            mSkipButton.setVisibility(View.INVISIBLE);
         } else {
             mForwardFinishButton.setImageResource(R.drawable.arrow_right);
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                mForwardFinishButton.setBackground(null);
-            } else {
-                mForwardFinishButton.setBackgroundDrawable(null);
-            }
+            mSkipButton.setVisibility(View.VISIBLE);
         }
     }
 
