@@ -65,6 +65,31 @@ public class SyncedFolderProvider {
         }
     }
 
+    public SyncedFolder[] getSyncedFolders() {
+        Cursor c = mContentResolver.query(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                null,
+                "1=1",
+                null,
+                null
+        );
+        SyncedFolder[] list = new SyncedFolder[c.getCount()];
+        if (c.moveToFirst()) {
+            do {
+                SyncedFolder syncedFolder = createSyncedFolderFromCursor(c);
+                if (syncedFolder == null) {
+                    Log_OC.e(TAG, "SyncedFolder could not be created from cursor");
+                } else {
+                    list[c.getPosition()] = syncedFolder;
+                }
+            } while (c.moveToNext());
+
+        }
+        c.close();
+
+        return list;
+    }
+
     /**
      * Update upload status of file uniquely referenced by id.
      *
