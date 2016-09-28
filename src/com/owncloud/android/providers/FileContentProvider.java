@@ -929,7 +929,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "            // enabled
                 + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, "  // subfolder by date
                 + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "              // account
-                + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_OPTION + " INTEGER );"     // upload action
+                + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER );"     // upload action
         );
 
         // TODO Tobi remove after testing
@@ -941,7 +941,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.SYNCED_FOLDER_ENABLED + ", "                // enabled
                 + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + ", "      // subfolder by date
                 + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + ", "                // account
-                + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_OPTION + ") "          // upload action
+                + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + ") "          // upload action
                 + "VALUES ('/sdcard/DCIM/', '/syncTest', 0, 0, 1, 1, 'tobi', 1)");
     }
 
