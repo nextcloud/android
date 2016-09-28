@@ -162,6 +162,6 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_ENABLED = "enabled";
         public static final String SYNCED_FOLDER_SUBFOLDER_BY_DATE = "subfolder_by_date";
         public static final String SYNCED_FOLDER_ACCOUNT = "account";
-        public static final String SYNCED_FOLDER_UPLOAD_OPTION = "upload_option";
+        public static final String SYNCED_FOLDER_UPLOAD_ACTION = "upload_option";
     }
 }
