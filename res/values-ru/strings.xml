@@ -19,7 +19,8 @@
     <string name="drawer_item_on_device">На устройстве</string>
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Загрузки</string>
-    <string name="drawer_close">Закрыть</string>
+    <string name="drawer_quota">%1$s of %2$s использовано</string>
+	<string name="drawer_close">Закрыть</string>
     <string name="drawer_open">Открыть</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
@@ -35,7 +36,11 @@
     <string name="prefs_log_title_history">История журналов</string>
     <string name="prefs_log_summary_history">Здесь показаны записи в журнал</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
+    <string name="prefs_calendar_contacts">Настройки календаря &amp; синхронизации контактов</string>
+    <string name="prefs_calendar_contacts_summary">Установить DAVdroid (v1.3.0+) для используемого аккаунта</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Адрес сервера не может быть разрешён для DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Не установлен магазин Google Play  или приложение F-Droid</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Календарь &amp; контакты успешно синхронизированы</string>
     <string name="prefs_help">Помощь</string>
     <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_feedback">Обратная связь</string>
@@ -70,6 +75,7 @@
     <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временную папку. Пожалуйста попробуйте послать заново.</string>
     <string name="uploader_upload_files_behaviour">Опции загрузки:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в папку Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Хранить файл в исходной папке</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходной папки</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
@@ -295,6 +301,7 @@
     <string name="instant_upload_on_wifi">Загрузка изображений только через Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Загрузка видео только через Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Загрузить только при зарядке</string>
+    <string name="instant_upload_on_charging">Загружать только при зарядке</string>
     <string name="instant_upload_path">/Автозагрузка</string>
     <string name="conflict_title">Конфликт файлов</string>
     <string name="conflict_message">Какие файлы Вы хотите сохранить? При выборе обеих версий, к названию локального файла будет добавлена цифра</string>
@@ -361,7 +368,8 @@
 	<string name="saml_authentication_required_text">Требуется аутентификация </string>
 	<string name="saml_authentication_wrong_pass">Неправильный пароль</string>
 	<string name="actionbar_move">Переместить</string>
-    <string name="file_list_empty_moving">Здесь ничего нет. Вы можете создать каталог!</string>
+    <string name="actionbar_copy">Копировать</string>
+	<string name="file_list_empty_moving">Здесь ничего нет. Вы можете создать каталог!</string>
 	<string name="folder_picker_choose_button_text">Выбрать</string>
 
     <string name="move_file_not_found">Невозможно переместить. Убедитесь, что файл существует</string>
@@ -463,11 +471,17 @@
     <string name="confirmation_remove_folders_alert">Вы действительно хотите удалить выбранные элементы и их содержимое?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Ожидание зарядки устройства</string>
     <string name="actionbar_search">Поиск</string>
+    <string name="files_drop_not_supported">Это есть в новой версии Nextcloud, пожалуйста обновитесь</string>
+    <string name="learn_more">Узнать больше</string>
+    <string name="drawer_participate">Участвовать</string>
+    <string name="participate_testing_headline">Помогите нам в тестировании</string>
     <string name="participate_testing_bug_text">Нашли ошибку? Что-то необычное?</string>
     <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>
     <string name="participate_testing_version_text">Вам интересно участие в тестировании следующих версий?</string>
     <string name="participate_beta_headline">Тестирование бета-версии</string>
     <string name="participate_contribute_irc_text">Присоединиться к IRC-чату: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="move_to">Переместить в&#8230;</string>
+    <string name="copy_to">Копировать в&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>
         <item quantity="few">%d выбрано</item>
