@@ -84,7 +84,7 @@ public class SyncedFolderObserverService extends Service {
             Boolean chargingOnly = c.getInt(c.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY)) == 1;
             Boolean subfolderByDate = c.getInt(c.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE)) == 1;
             String accountName = c.getString(c.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT));
-            Integer uploadAction = c.getInt(c.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_OPTION));
+            Integer uploadAction = c.getInt(c.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION));
             Boolean enabled = c.getInt(c.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED)) == 1;
 
             syncedFolder = new SyncedFolder(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate,
