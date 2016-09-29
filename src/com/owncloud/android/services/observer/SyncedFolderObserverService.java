@@ -9,11 +9,12 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SyncedFolderObserverService extends Service {
     private static final String TAG = "SyncedFolderObserverService";
     private SyncedFolderProvider mProvider;
-    private ArrayList<SyncedFolderObserver> syncedFolderObservers = new ArrayList<>();
+    private List<SyncedFolderObserver> syncedFolderObservers = new ArrayList<>();
 
     @Override
     public void onCreate() {

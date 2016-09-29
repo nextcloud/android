@@ -105,6 +105,7 @@
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_back">Back</string>
+    <string name="common_save">Save</string>
     <string name="common_save_exit">Save &amp; exit</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading &#8230;</string>
@@ -496,6 +497,8 @@
     <string name="copy_to">Copy to&#8230;</string>
     <string name="folder_sync_loading_folders">Loading folders&#8230;</string>
     <string name="folder_sync_no_results">No results</string>
+    <string name="folder_sync_preferences">Folder Sync Preferences</string>
+    <string name="folder_sync_settings">Settings</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"
