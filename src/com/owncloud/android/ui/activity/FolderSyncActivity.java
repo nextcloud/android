@@ -24,6 +24,8 @@ package com.owncloud.android.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,22 +37,35 @@ import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaProvider;
+import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.datamodel.SyncedFolderItem;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.ui.adapter.FolderSyncAdapter;
+import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimerTask;
 
 /**
  * Activity displaying all auto-synced folders and/or instant upload media folders.
  */
-public class FolderSyncActivity extends FileActivity implements FolderSyncAdapter.ClickListener {
+public class FolderSyncActivity extends FileActivity implements FolderSyncAdapter.ClickListener, SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener {
     private static final String TAG = FolderSyncActivity.class.getSimpleName();
+
+    private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
+
     private RecyclerView mRecyclerView;
     private FolderSyncAdapter mAdapter;
     private LinearLayout mProgress;
     private TextView mEmpty;
+    private SyncedFolderProvider mSyncedFolderProvider;
+    private List<SyncedFolderItem> syncFolderItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +92,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
         final int gridWidth = 4;
         mAdapter = new FolderSyncAdapter(this, gridWidth, this, mRecyclerView);
+        mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver());
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
         mAdapter.setLayoutManager(lm);
@@ -93,7 +109,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final List<MediaFolder> mediaFolders = MediaProvider.getAllShownImagesPath(FolderSyncActivity.this);
+                final List<MediaFolder> mediaFolders = MediaProvider.getAllShownImagesPath(getContentResolver());
+                syncFolderItems = mergeFolderData(mSyncedFolderProvider.getSyncedFolders(),
+                        mediaFolders);
 
                 for (MediaFolder mediaFolder : mediaFolders) {
                     Log.d(TAG, mediaFolder.absolutePath);
@@ -102,7 +120,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 mHandler.post(new TimerTask() {
                     @Override
                     public void run() {
-                        mAdapter.setMediaFolders(mediaFolders);
+                        mAdapter.setSyncFolderItems(syncFolderItems);
                         setListShown(true);
                     }
                 });
@@ -110,7 +128,65 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }).start();
     }
 
-    void setListShown(boolean shown) {
+    private List<SyncedFolderItem> mergeFolderData(List<SyncedFolder> syncedFolders, List<MediaFolder> mediaFolders) {
+        Map<String, SyncedFolder> syncedFoldersMap = createSyncedFoldersMap(syncedFolders);
+        List<SyncedFolderItem> result = new ArrayList<>();
+
+        for (MediaFolder mediaFolder : mediaFolders) {
+            if (syncedFoldersMap.containsKey(mediaFolder.absolutePath)) {
+                SyncedFolder syncedFolder = syncedFoldersMap.get(mediaFolder.absolutePath);
+                result.add(createSyncedFolder(syncedFolder,mediaFolder));
+            } else {
+                result.add(createSyncedFolderFromMediaFolder(mediaFolder));
+            }
+        }
+
+        return result;
+    }
+
+    private SyncedFolderItem createSyncedFolder(SyncedFolder syncedFolder, MediaFolder mediaFolder) {
+        return new SyncedFolderItem(
+                syncedFolder.getId(),
+                syncedFolder.getLocalPath(),
+                syncedFolder.getRemotePath(),
+                syncedFolder.getWifiOnly(),
+                syncedFolder.getChargingOnly(),
+                syncedFolder.getSubfolderByDate(),
+                syncedFolder.getAccount(),
+                syncedFolder.getUploadAction(),
+                syncedFolder.isEnabled(),
+                mediaFolder.filePaths,
+                mediaFolder.folderName,
+                mediaFolder.numberOfFiles);
+    }
+
+    private SyncedFolderItem createSyncedFolderFromMediaFolder(MediaFolder mediaFolder) {
+        return new SyncedFolderItem(
+                0,
+                mediaFolder.absolutePath,
+                getString(R.string.instant_upload_path) + "/" + mediaFolder.folderName,
+                true,
+                false,
+                false,
+                AccountUtils.getCurrentOwnCloudAccount(this).name,
+                1,
+                false,
+                mediaFolder.filePaths,
+                mediaFolder.folderName,
+                mediaFolder.numberOfFiles);
+    }
+
+    private Map<String,SyncedFolder> createSyncedFoldersMap(List<SyncedFolder> syncFolders) {
+        Map<String, SyncedFolder> result = new HashMap<>();
+        if (syncFolders != null) {
+            for (SyncedFolder syncFolder : syncFolders) {
+                result.put(syncFolder.getLocalPath(), syncFolder);
+            }
+        }
+        return result;
+    }
+
+    private void setListShown(boolean shown) {
         if (mRecyclerView != null) {
             mRecyclerView.setVisibility(shown ? View.VISIBLE : View.GONE);
             mProgress.setVisibility(shown ? View.GONE : View.VISIBLE);
@@ -152,12 +228,22 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     }
 
     @Override
-    public void onSyncStatusToggleClick(int section, MediaFolder mediaFolder) {
-        Toast.makeText(this,"Sync Status Clicked for " + mediaFolder.absolutePath,Toast.LENGTH_SHORT).show();
+    public void onSyncStatusToggleClick(int section, SyncedFolderItem syncedFolderItem) {
+        Toast.makeText(this, "Sync Status Clicked for " + syncedFolderItem.getLocalPath(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onSyncFolderSettingsClick(int section, MediaFolder mediaFolder) {
-        Toast.makeText(this,"Menu Clicked for " + mediaFolder.absolutePath,Toast.LENGTH_SHORT).show();
+    public void onSyncFolderSettingsClick(int section, SyncedFolderItem syncedFolderItem) {
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.addToBackStack(null);
+
+        SyncedFolderPreferencesDialogFragment.newInstance(syncedFolderItem)
+                .show(ft, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG);
+    }
+
+    @Override
+    public void onSaveSyncedFolderPreference() {
+        Toast.makeText(this, "onSaveSyncedFolderPreference clicked", Toast.LENGTH_SHORT).show();
     }
 }

@@ -34,7 +34,7 @@ import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.SyncedFolderItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.BitmapUtils;
@@ -54,42 +54,42 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     private final Context mContext;
     private final int mGridWidth;
     private final ClickListener mListener;
-    private final List<MediaFolder> mMediaFolders;
+    private final List<SyncedFolderItem> mSyncFolderItems;
     private final RecyclerView mRecyclerView;
 
     public FolderSyncAdapter(Context context, int gridWidth, ClickListener listener, RecyclerView recyclerView) {
         mContext = context;
         mGridWidth = gridWidth * 2;
         mListener = listener;
-        mMediaFolders = new ArrayList<>();
+        mSyncFolderItems = new ArrayList<>();
         mRecyclerView = recyclerView;
     }
 
-    public void setMediaFolders(List<MediaFolder> mediaFolders) {
-        mMediaFolders.clear();
-        mMediaFolders.addAll(mediaFolders);
+    public void setSyncFolderItems(List<SyncedFolderItem> syncFolderItems) {
+        mSyncFolderItems.clear();
+        mSyncFolderItems.addAll(syncFolderItems);
         notifyDataSetChanged();
     }
 
     @Override
     public int getSectionCount() {
-        return mMediaFolders.size();
+        return mSyncFolderItems.size();
     }
 
     @Override
     public int getItemCount(int section) {
-        return mMediaFolders.get(section).filePaths.size();
+        return mSyncFolderItems.get(section).getFilePaths().size();
     }
 
     @Override
     public void onBindHeaderViewHolder(MainViewHolder holder, final int section) {
-        holder.title.setText(mMediaFolders.get(section).folderName);
+        holder.title.setText(mSyncFolderItems.get(section).getFolderName());
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
         holder.syncStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onSyncStatusToggleClick(section,mMediaFolders.get(section));
+                mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
             }
         });
         holder.menuButton.setVisibility(View.VISIBLE);
@@ -97,7 +97,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         holder.menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onSyncFolderSettingsClick(section,mMediaFolders.get(section));
+                mListener.onSyncFolderSettingsClick(section, mSyncFolderItems.get(section));
             }
         });
     }
@@ -106,7 +106,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     public void onBindViewHolder(MainViewHolder holder, int section, int relativePosition, int absolutePosition) {
         final Context c = holder.itemView.getContext();
 
-        File file = new File(mMediaFolders.get(section).filePaths.get(relativePosition));
+        File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
         /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
          * {@link ThumbnailsCacheManager#cancelPotentialThumbnailWork} will NEVER cancel any task.
@@ -158,8 +158,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
             holder.image.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
         }
 
-        if(mMediaFolders.get(section).numberOfFiles > 8 && relativePosition >= 8-1) {
-            holder.counterValue.setText(Long.toString(mMediaFolders.get(section).numberOfFiles-8));
+        if (mSyncFolderItems.get(section).getNumberOfFiles() > 8 && relativePosition >= 8 - 1) {
+            holder.counterValue.setText(Long.toString(mSyncFolderItems.get(section).getNumberOfFiles() - 8));
             holder.counterBar.setVisibility(View.VISIBLE);
             holder.thumbnailDarkener.setVisibility(View.VISIBLE);
         } else {
@@ -180,8 +180,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     }
 
     public interface ClickListener {
-        void onSyncStatusToggleClick(int section, MediaFolder mediaFolder);
-        void onSyncFolderSettingsClick(int section, MediaFolder mediaFolder);
+        void onSyncStatusToggleClick(int section, SyncedFolderItem syncedFolderItem);
+        void onSyncFolderSettingsClick(int section, SyncedFolderItem syncedFolderItem);
     }
 
     static class MainViewHolder extends RecyclerView.ViewHolder {

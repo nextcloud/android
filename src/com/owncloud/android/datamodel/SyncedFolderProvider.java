@@ -28,6 +28,8 @@ import android.support.annotation.NonNull;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -77,7 +79,7 @@ public class SyncedFolderProvider extends Observable {
      *
      * @return all synced folder entries, empty if none have been found
      */
-    public SyncedFolder[] getSyncedFolders() {
+    public List<SyncedFolder> getSyncedFolders() {
         Cursor cursor = mContentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 null,
@@ -87,14 +89,14 @@ public class SyncedFolderProvider extends Observable {
         );
 
         if (cursor != null) {
-            SyncedFolder[] list = new SyncedFolder[cursor.getCount()];
+            List<SyncedFolder> list = new ArrayList<>(cursor.getCount());
             if (cursor.moveToFirst()) {
                 do {
                     SyncedFolder syncedFolder = createSyncedFolderFromCursor(cursor);
                     if (syncedFolder == null) {
                         Log_OC.e(TAG, "SyncedFolder could not be created from cursor");
                     } else {
-                        list[cursor.getPosition()] = syncedFolder;
+                        list.add(cursor.getPosition(), syncedFolder);
                     }
                 } while (cursor.moveToNext());
 
@@ -105,7 +107,7 @@ public class SyncedFolderProvider extends Observable {
             Log_OC.e(TAG, "DB error creating read all cursor for synced folders.");
         }
 
-        return new SyncedFolder[0];
+        return new ArrayList<>(0);
     }
 
     /**

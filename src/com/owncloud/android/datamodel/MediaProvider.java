@@ -21,7 +21,7 @@
 
 package com.owncloud.android.datamodel;
 
-import android.app.Activity;
+import android.content.ContentResolver;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -41,18 +41,18 @@ public class MediaProvider {
      * TODO rewrite
      * Getting All Images Path
      *
-     * @param activity
+     * @param contentResolver the content resolver
      * @return List with images folders
      */
-    public static List<MediaFolder> getAllShownImagesPath(Activity activity) {
+    public static List<MediaFolder> getAllShownImagesPath(ContentResolver contentResolver) {
         Cursor cursor;
+        List<MediaFolder> mediaFolders = new ArrayList<>();
         int column_index_data, column_index_folder_name, column_index_data_image;
         ArrayList<String> listOfAllImages = new ArrayList<>();
-        String absolutePathOfImage = null;
-        String folderName = null;
+        String absolutePathOfImage;
+        String folderName;
 
         String[] projectionTest = {MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
-        //String[] projection = {MediaStore.Images.Media.BUCKET_DISPLAY_NAME,MediaStore.Images.Media.BUCKET_ID};
         String[] folderProjection = new String[]{"Distinct " + MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore
                 .MediaColumns.DATA};
         String[] fileProjection = new String[]{MediaStore.MediaColumns.DATA};
@@ -63,41 +63,52 @@ public class MediaProvider {
         String folderSortOrder = "MAX(" + MediaStore.Images.Media.DISPLAY_NAME + ") DESC";
         String fileSortOrder = MediaStore.MediaColumns.DATA + " DESC LIMIT 8"; //  LIMIT 8
 
-        cursor = activity.getContentResolver().query(MEDIA_URI, folderProjection, folderSelection, null, folderSortOrder);
+        cursor = contentResolver.query(MEDIA_URI, folderProjection, folderSelection, null, folderSortOrder);
+
+        if (cursor == null) {
+            return mediaFolders;
+        }
 
         column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
         column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
+        Cursor cursorImages;
 
-        List<MediaFolder> mediaFolders = new ArrayList<>();
         while (cursor.moveToNext()) {
-            MediaFolder mediaFolder = new MediaFolder();
             absolutePathOfImage = cursor.getString(column_index_data);
-            folderName = cursor.getString(column_index_folder_name);
-            mediaFolder.folderName = folderName;
-            mediaFolder.absolutePath = absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(folderName) +
-                    folderName
-                    .length());
-            mediaFolder.filePaths = new ArrayList<>();
 
-            // TODO: This can be done with one query, no limit, but only adding the 8 to the list and still get the
-            // total count
-
-            Cursor cursorImages = activity.getContentResolver().query(MEDIA_URI, fileProjection, fileSelection + "'" +
+            cursorImages = contentResolver.query(MEDIA_URI, fileProjection, fileSelection + "'" +
                             absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf("/")) + "/%'", null,
                     fileSortOrder);
-            column_index_data_image = cursorImages.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-            Log.d(TAG, "Reading images for --> " + mediaFolder.absolutePath);
-            while (cursorImages.moveToNext()) {
-                mediaFolder.filePaths.add(cursorImages.getString(column_index_data_image));
+
+            if (cursorImages != null) {
+
+                MediaFolder mediaFolder = new MediaFolder();
+                folderName = cursor.getString(column_index_folder_name);
+                mediaFolder.folderName = folderName;
+                mediaFolder.absolutePath = absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(folderName) +
+                        folderName
+                                .length());
+                mediaFolder.filePaths = new ArrayList<>();
+
+                column_index_data_image = cursorImages.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+                Log.d(TAG, "Reading images for --> " + mediaFolder.absolutePath);
+                while (cursorImages.moveToNext()) {
+                    mediaFolder.filePaths.add(cursorImages.getString(column_index_data_image));
+                }
+                cursorImages.close();
+
+                mediaFolder.numberOfFiles = contentResolver.query(
+                        MEDIA_URI,
+                        fileProjection,
+                        fileSelection + "'"
+                                + absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf("/")) + "/%'",
+                        null,
+                        null).getCount();
+
+                mediaFolders.add(mediaFolder);
             }
-
-            mediaFolder.numberOfFiles = activity.getContentResolver().query(MEDIA_URI, fileProjection, fileSelection +
-                            "'" +
-                            absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf("/")) + "/%'", null,
-                    null).getCount();
-
-            mediaFolders.add(mediaFolder);
         }
+        cursor.close();
 
         return mediaFolders;
     }
