@@ -180,6 +180,9 @@ public class FileContentProvider extends ContentProvider {
             case UPLOADS:
                 count = db.delete(ProviderTableMeta.UPLOADS_TABLE_NAME, where, whereArgs);
                 break;
+            case SYNCED_FOLDERS:
+                count = db.delete(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, where, whereArgs);
+                break;
             default:
                 //Log_OC.e(TAG, "Unknown uri " + uri);
                 throw new IllegalArgumentException("Unknown uri: " + uri.toString());
@@ -289,6 +292,19 @@ public class FileContentProvider extends ContentProvider {
 
                 }
                 return insertedUploadUri;
+
+            case SYNCED_FOLDERS:
+                Uri insertedSyncedFolderUri = null;
+                long syncedFolderId = db.insert(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, null, values);
+                if (syncedFolderId > 0) {
+                    insertedSyncedFolderUri =
+                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS, syncedFolderId);
+                } else {
+                    throw new SQLException("ERROR " + uri);
+
+                }
+                return insertedSyncedFolderUri;
+
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -494,6 +510,8 @@ public class FileContentProvider extends ContentProvider {
                 );
                 trimSuccessfulUploads(db);
                 return ret;
+            case SYNCED_FOLDERS:
+                return db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, values, selection, selectionArgs);
             default:
                 return db.update(
                         ProviderTableMeta.FILE_TABLE_NAME, values, selection, selectionArgs

@@ -197,7 +197,7 @@ public class SyncedFolderProvider extends Observable {
         ContentValues cv = createContentValuesFromSyncedFolder(syncedFolder);
 
         int result = mContentResolver.update(
-                ProviderMeta.ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 cv,
                 ProviderMeta.ProviderTableMeta._ID + "=?",
                 new String[]{String.valueOf(syncedFolder.getId())}

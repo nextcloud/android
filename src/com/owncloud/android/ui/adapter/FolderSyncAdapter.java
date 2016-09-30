@@ -82,7 +82,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     }
 
     @Override
-    public void onBindHeaderViewHolder(MainViewHolder holder, final int section) {
+    public void onBindHeaderViewHolder(final MainViewHolder holder, final int section) {
         holder.title.setText(mSyncFolderItems.get(section).getFolderName());
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
@@ -90,8 +90,12 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
             @Override
             public void onClick(View v) {
                 mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
+                mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled());
+                setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
             }
         });
+        setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+
         holder.menuButton.setVisibility(View.VISIBLE);
         holder.menuButton.setTag(section);
         holder.menuButton.setOnClickListener(new View.OnClickListener() {
@@ -202,6 +206,14 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
             counterBar = (LinearLayout) itemView.findViewById(R.id.counterLayout);
             counterValue = (TextView) itemView.findViewById(R.id.counter);
             thumbnailDarkener = (ImageView) itemView.findViewById(R.id.thumbnailDarkener);
+        }
+    }
+
+    private void setSyncButtonActiveIcon(ImageButton syncStatusButton, boolean enabled) {
+        if(enabled) {
+            syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_on);
+        } else {
+            syncStatusButton.setImageResource(R.drawable.ic_cloud_sync_off);
         }
     }
 }
