@@ -27,6 +27,7 @@ import java.util.List;
  * TODO javadoc
  */
 public class SyncedFolderItem extends SyncedFolder {
+    public static final long UNPERSISTED_ID = Long.MIN_VALUE;
     private List<String> filePaths;
     private String folderName;
     private long numberOfFiles;

@@ -24,11 +24,11 @@ package com.owncloud.android.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -83,13 +83,13 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         setupContent();
     }
 
-
     private void setupContent() {
         mRecyclerView = (RecyclerView) findViewById(android.R.id.list);
 
         mProgress = (LinearLayout) findViewById(android.R.id.progress);
         mEmpty = (TextView) findViewById(android.R.id.empty);
 
+        // TODO implement "dynamic" grid count via xml-value for tablet vs. phone
         final int gridWidth = 4;
         mAdapter = new FolderSyncAdapter(this, gridWidth, this, mRecyclerView);
         mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver());
@@ -113,9 +113,12 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 syncFolderItems = mergeFolderData(mSyncedFolderProvider.getSyncedFolders(),
                         mediaFolders);
 
+                // TODO remove before mergeing to master, keeping it for debugging atm
+                /**
                 for (MediaFolder mediaFolder : mediaFolders) {
                     Log.d(TAG, mediaFolder.absolutePath);
                 }
+                 */
 
                 mHandler.post(new TimerTask() {
                     @Override
@@ -128,7 +131,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }).start();
     }
 
-    private List<SyncedFolderItem> mergeFolderData(List<SyncedFolder> syncedFolders, List<MediaFolder> mediaFolders) {
+    @NonNull
+    private List<SyncedFolderItem> mergeFolderData(List<SyncedFolder> syncedFolders,
+                                                   @NonNull List<MediaFolder> mediaFolders) {
         Map<String, SyncedFolder> syncedFoldersMap = createSyncedFoldersMap(syncedFolders);
         List<SyncedFolderItem> result = new ArrayList<>();
 
@@ -144,7 +149,8 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         return result;
     }
 
-    private SyncedFolderItem createSyncedFolder(SyncedFolder syncedFolder, MediaFolder mediaFolder) {
+    @NonNull
+    private SyncedFolderItem createSyncedFolder(@NonNull SyncedFolder syncedFolder, @NonNull MediaFolder mediaFolder) {
         return new SyncedFolderItem(
                 syncedFolder.getId(),
                 syncedFolder.getLocalPath(),
@@ -160,9 +166,10 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 mediaFolder.numberOfFiles);
     }
 
-    private SyncedFolderItem createSyncedFolderFromMediaFolder(MediaFolder mediaFolder) {
+    @NonNull
+    private SyncedFolderItem createSyncedFolderFromMediaFolder(@NonNull MediaFolder mediaFolder) {
         return new SyncedFolderItem(
-                0,
+                SyncedFolderItem.UNPERSISTED_ID,
                 mediaFolder.absolutePath,
                 getString(R.string.instant_upload_path) + "/" + mediaFolder.folderName,
                 true,
@@ -176,6 +183,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 mediaFolder.numberOfFiles);
     }
 
+    @NonNull
     private Map<String,SyncedFolder> createSyncedFoldersMap(List<SyncedFolder> syncFolders) {
         Map<String, SyncedFolder> result = new HashMap<>();
         if (syncFolders != null) {
@@ -229,7 +237,11 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     @Override
     public void onSyncStatusToggleClick(int section, SyncedFolderItem syncedFolderItem) {
-        Toast.makeText(this, "Sync Status Clicked for " + syncedFolderItem.getLocalPath(), Toast.LENGTH_SHORT).show();
+        if(syncedFolderItem.getId() > SyncedFolderItem.UNPERSISTED_ID) {
+            mSyncedFolderProvider.updateFolderSyncEnabled(syncedFolderItem.getId(),!syncedFolderItem.isEnabled());
+        } else {
+            mSyncedFolderProvider.storeFolderSync(syncedFolderItem);
+        }
     }
 
     @Override
