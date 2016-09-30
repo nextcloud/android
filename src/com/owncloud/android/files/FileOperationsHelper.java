@@ -73,26 +73,24 @@ public class FileOperationsHelper {
     /// Identifier of operation in progress which result shouldn't be lost 
     private long mWaitingForOpId = Long.MAX_VALUE;
 
+	private static final Pattern mPatternUrl = Pattern.compile("^URL=(.+)$");
+	private static final Pattern mPatternString = Pattern.compile("<string>(.+)</string>");
+
     public FileOperationsHelper(FileActivity fileActivity) {
         mFileActivity = fileActivity;
     }
 
-    /**
-     * Windows internet shortcut file .url
-	 * Ubuntu internet shortcut file .desktop
-	 */
-    @Nullable
-    private String getUrlFromUrlFile(String file) {
+	@Nullable
+    private String getUrlFromFile(String storagePath, Pattern pattern) {
         String url = null;
-        Pattern p = Pattern.compile("^URL=(.+)$");
 
         try {
-            FileReader fr = new FileReader(file);
+            FileReader fr = new FileReader(storagePath);
             BufferedReader br = new BufferedReader(fr);
 
             String line;
             while ((line = br.readLine()) != null) {
-                Matcher m = p.matcher(line);
+                Matcher m = pattern.matcher(line);
                 if (m.find()) {
                     url = m.group(1);
                     break;
@@ -100,40 +98,13 @@ public class FileOperationsHelper {
             }
             br.close();
             fr.close();
-        } catch (IOException ex) {
+        } catch (IOException e) {
+			Log_OC.d(TAG, e.getMessage());
             return null;
         }
         return url;
-    }
-
-    /**
-     * mac internet shortcut file .webloc
-	 */
-    @Nullable
-    private String getUrlFromWeblocFile(String file) {
-        String url = null;
-        Pattern p = Pattern.compile("<string>(.+)</string>");
-
-        try {
-            FileReader fr = new FileReader(file);
-            BufferedReader br = new BufferedReader(fr);
-
-            String line;
-            while ((line = br.readLine()) != null) {
-                Matcher m = p.matcher(line);
-                if (m.find()) {
-                    url = m.group(1);
-                    break;
-                }
-            }
-            br.close();
-            fr.close();
-        } catch (IOException ex) {
-            return null;
-        }
-        return url;
-    }
-
+	}
+	
     @Nullable
     private Intent createIntentFromFile(String storagePath) {
         String url = null;
@@ -141,9 +112,12 @@ public class FileOperationsHelper {
         if (lastIndexOfDot >= 0) {
             String fileExt = storagePath.substring(lastIndexOfDot + 1);
             if (fileExt.equalsIgnoreCase("url") ||fileExt.equalsIgnoreCase("desktop")) {
-                url = getUrlFromUrlFile(storagePath);
+				// Windows internet shortcut file .url
+				// Ubuntu internet shortcut file .desktop
+                url = getUrlFromFile(storagePath, mPatternUrl);
             } else if (fileExt.equalsIgnoreCase("webloc")) {
-                url = getUrlFromWeblocFile(storagePath);
+				// mac internet shortcut file .webloc
+                url = getUrlFromFile(storagePath, mPatternString);
             }
         }
         if (url == null) {
