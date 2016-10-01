@@ -25,6 +25,7 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -141,8 +142,8 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 fileSizeV.setVisibility(View.VISIBLE);
                 fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
 
-                ListView parentList = (ListView) parent;
-                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
+                AbsListView parentList = (AbsListView) parent;
+                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) {
                     checkBoxV.setVisibility(View.GONE);
                 } else {
                     if (parentList.isItemChecked(position)) {
