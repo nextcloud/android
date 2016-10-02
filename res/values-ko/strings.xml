@@ -418,6 +418,13 @@
     <string name="manage_space_error">몇몇 파일을 삭제할 수 없음</string>
 
     <string name="actionbar_search">검색</string>
+    <string name="learn_more">자세히 알아보기</string>
+    <string name="drawer_participate">참여</string>
+    <string name="participate_testing_bug_text">버그를 발견하셨습니까? 뭔가 이상한가요?</string>
+    <string name="participate_testing_report_text">Github에 문제 신고</string>
+    <string name="participate_beta_headline">베타 버전 테스트</string>
+    <string name="participate_release_candidate_headline">릴리스 후보</string>
+    <string name="participate_contribute_headline">적극적으로 기여</string>
     <string name="move_to">(으)로 이동</string>
     <string name="copy_to">(으)로 복사</string>
     <plurals name="items_selected_count">
