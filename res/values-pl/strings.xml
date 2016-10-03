@@ -169,7 +169,7 @@
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
     <string name="upload_query_move_foreign_files">Nie ma wystarczającej ilości wolnej przestrzeni by skopiować zaznaczone pliki do folderu %1$s. Chcesz je przenieść?</string>
     <string name="pass_code_enter_pass_code">Wymyśl kod PIN.</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Wpisz kod PIN.</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji.</string>
     <string name="pass_code_reenter_your_pass_code">Wpisz kod PIN ponownie.</string>
@@ -178,7 +178,7 @@
     <string name="pass_code_wrong">Kod PIN nieprawidłowy.</string>
     <string name="pass_code_removed">Kod PIN został usunięty.</string>
     <string name="pass_code_stored">Kod PIN został zapisany.</string>
-    
+
     <string name="media_notif_ticker">%1$s odtwarzacz muzyki</string>
     <string name="media_state_playing">%1$s (odtwarzany)</string>
     <string name="media_state_loading">%1$s (wczytywany)</string>
@@ -232,7 +232,7 @@
 	</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_account_does_not_exist">Konto jeszcze nie istnieje na tym urządzeniu.</string>
-    
+
     <string name="favorite">Udostępnij w trybie offline</string>
     <string name="unfavorite">Wyłącz udostępnianie w trybie offline</string>
     <string name="common_rename">Zmień nazwę</string>
@@ -257,10 +257,10 @@
     <string name="filedisplay_no_file_selected">Nie wybrano żadnych plików</string>
     <string name="activity_chooser_title">Wyślij link do ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
-    
-    <string name="oauth_check_onoff">Loguj przez oAuth2</string> 
-    <string name="oauth_login_connection">Łączenie z serwerem oAuth2...</string>    
-        
+
+    <string name="oauth_check_onoff">Loguj przez oAuth2</string>
+    <string name="oauth_login_connection">Łączenie z serwerem oAuth2...</string>
+
     <string name="ssl_validator_header">Nie można zweryfikować tożsamości strony</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certyfikat serwera jest niezaufany</string>
     <string name="ssl_validator_reason_cert_expired">- Certyfikat serwera wygasł</string>
@@ -306,7 +306,7 @@
     <string name="conflict_keep_both">Zatrzymaj oba</string>
     <string name="conflict_use_local_version">wersja lokalna</string>
     <string name="conflict_use_server_version">wersja zdalna</string>
-    
+
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
 
@@ -391,7 +391,7 @@
 
 	<string name="shared_subject_header">udostępniony</string>
 	<string name="with_you_subject_header">z tobą</string>
-    
+
 	<string name="subject_user_shared_with_you">%1$s wspólne \"%2$s\" z tobą</string>
     <string name="subject_shared_with_you">Udostępniono Ci \"%1$s\"</string>
 
@@ -450,10 +450,10 @@
     <string name="edit_share_unshare">Cofnij udostępnianie</string>
     <string name="edit_share_done">zakończono</string>
 
-    <string name="action_retry_uploads">Wystąpił błąd podczas ponawiania</string>
-    <string name="action_clear_failed_uploads">Wystąpił błąd podczas czyszczenia</string>
-    <string name="action_clear_successful_uploads">Czyszczenie zakończone pomyślnie</string>
-    <string name="action_clear_finished_uploads">Wyczyszczono wszystkie</string>
+    <string name="action_retry_uploads">Wyślij ponownie nieudane</string>
+    <string name="action_clear_failed_uploads">Wyczyść nieudane</string>
+    <string name="action_clear_successful_uploads">Wyczyść udane</string>
+    <string name="action_clear_finished_uploads">Wyszyczść wszystkie zakończone</string>
 
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
