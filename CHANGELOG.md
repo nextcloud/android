@@ -1,3 +1,8 @@
+## 2016-10-05
+- put cursor close in finally block to make sure no resource leak occurrs #306
+- change wordings for davdroid integration #293
+- added logging to gain information about upload issues
+
 ## 2016-09-26
 - update fix crash in dismissLoadingDialog #279
 - fix crash when sending non-existing log #284
