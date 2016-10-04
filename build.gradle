@@ -17,7 +17,7 @@ buildscript {
 apply plugin: 'com.android.application'
 
 ext {
-    supportLibraryVersion = '24.2.0'
+    supportLibraryVersion = '24.2.1'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -39,7 +39,6 @@ dependencies {
     compile name: 'touch-image-view'
 
     compile 'com.github.nextcloud:android-library:beta-SNAPSHOT'
-    compile 'com.github.nextcloud:android-library:1.0.7'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
@@ -124,6 +123,11 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+	
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !travisBuild
     }
 
     dexOptions {
