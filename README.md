@@ -1,4 +1,4 @@
-# [Nextcloud](https://nextcloud.com) Android app [![Build Status](https://drone.weasel.rocks/api/badges/nextcloud/android/status.svg)](https://drone.weasel.rocks/nextcloud/android)
+# [Nextcloud](https://nextcloud.com) Android app [![Build Status](https://drone.nextcloud.com/api/badges/nextcloud/android/status.svg)](https://drone.nextcloud.com/nextcloud/android)
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" 
       alt="Download from Google Play" 
