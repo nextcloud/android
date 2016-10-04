@@ -151,7 +151,7 @@ public class UploadFilesActivity extends FileActivity implements
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setListNavigationCallbacks(mDirectories, this);
-        
+
         // wait dialog
         if (mCurrentDialog != null) {
             mCurrentDialog.dismiss();
@@ -182,6 +182,8 @@ public class UploadFilesActivity extends FileActivity implements
         getMenuInflater().inflate(R.menu.upload_files_picker, menu);
         MenuItem selectAll = menu.findItem(R.id.action_select_all);
         setSelectAllMenuItem(selectAll, mSelectAll);
+        MenuItem switchView = menu.findItem(R.id.action_switch_view);
+        switchView.setTitle(isGridView() ? R.string.action_switch_list_view : R.string.action_switch_grid_view);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -229,13 +231,11 @@ public class UploadFilesActivity extends FileActivity implements
             case R.id.action_switch_view: {
                 if (isGridView()) {
                     item.setTitle(getString(R.string.action_switch_grid_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
-                            R.drawable.ic_view_module));
+                    item.setIcon(R.drawable.ic_view_module);
                     mFileListFragment.switchToListView();
                 } else {
                     item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
-                    item.setIcon(ContextCompat.getDrawable(getApplicationContext(),
-                            R.drawable.ic_view_list));
+                    item.setIcon(R.drawable.ic_view_list);
                     mFileListFragment.switchToGridView();
                 }
                 return true;
