@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -104,10 +105,12 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
+        boolean isGridView = parent instanceof GridView;
         if (view == null) {
             LayoutInflater inflator = (LayoutInflater) mContext
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflator.inflate(R.layout.list_item, null);
+            view = isGridView ? inflator.inflate(R.layout.grid_item, null) :
+                    inflator.inflate(R.layout.list_item, null);
         }
         if (mFiles != null && mFiles.length > position && mFiles[position] != null) {
             File file = mFiles[position];
@@ -130,17 +133,21 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
             }
             fileIcon.setTag(file.hashCode());
 
+            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
-            TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
-            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            lastModV.setVisibility(View.VISIBLE);
-            lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.lastModified()));
+            if (!isGridView) {
+                TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
+                lastModV.setVisibility(View.VISIBLE);
+                lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.lastModified()));
+            }
 
             if (!file.isDirectory()) {
-                fileSizeSeparatorV.setVisibility(View.VISIBLE);
-                fileSizeV.setVisibility(View.VISIBLE);
-                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+                if (!isGridView) {
+                    fileSizeSeparatorV.setVisibility(View.VISIBLE);
+                    fileSizeV.setVisibility(View.VISIBLE);
+                    fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+                }
 
                 AbsListView parentList = (AbsListView) parent;
                 if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) {
@@ -192,8 +199,10 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 }  
 
             } else {
-                fileSizeSeparatorV.setVisibility(View.GONE);
-                fileSizeV.setVisibility(View.GONE);
+                if (!isGridView) {
+                    fileSizeSeparatorV.setVisibility(View.GONE);
+                    fileSizeV.setVisibility(View.GONE);
+                }
                 checkBoxV.setVisibility(View.GONE);
             }
 
