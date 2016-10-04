@@ -17,7 +17,7 @@ buildscript {
 apply plugin: 'com.android.application'
 
 ext {
-    supportLibraryVersion = '24.2.0'
+    supportLibraryVersion = '24.2.1'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
