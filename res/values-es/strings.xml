@@ -358,7 +358,8 @@
 	<string name="saml_authentication_required_text">Se necesita autenticación</string>
 	<string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
 	<string name="actionbar_move">Mover</string>
-    <string name="file_list_empty_moving">Aquí no hay nada. ¡Puede agregar una carpeta!</string>
+    <string name="actionbar_copy">Copiar</string>
+	<string name="file_list_empty_moving">Aquí no hay nada. ¡Puede agregar una carpeta!</string>
 	<string name="folder_picker_choose_button_text">Elegir</string>
 
     <string name="move_file_not_found">No se puede mover. Revise si el archivo existe</string>
@@ -408,6 +409,8 @@
 
     <string name="pref_behaviour_entries_keep_file">dejado en la carpeta original</string>
     <string name="pref_behaviour_entries_move">movido a la carpeta apps</string>
+    <string name="pref_behaviour_entries_delete_file">borrado</string>
+
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_file">Compartir %1$s</string>
     <string name="share_with_user_section_title">Compartir con usuarios y grupos</string>
@@ -418,6 +421,7 @@
     <string name="share_via_link_password_label">Protección con contraseña</string>
     <string name="share_via_link_password_title">Asegurado</string>
     <string name="share_via_link_edit_permission_label">Permitir edición</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Ocultar la lista de archivos.</string>
     <string name="share_get_public_link_button">Obtener enlace</string>
     <string name="share_with_title">Compartir con...</string>
     <string name="share_with_edit_title">Compartir con %1$s</string>
