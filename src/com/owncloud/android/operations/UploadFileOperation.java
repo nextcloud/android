@@ -433,7 +433,7 @@ public class UploadFileOperation extends SyncOperation {
                 if (result.getException() != null) {
                     if(result.isCancelled()){
                         Log_OC.w(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
-                                ": " + result.getLogMessage());
+                                " has been canceled: " + result.getLogMessage());
                     } else {
                         Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
                                 ": " + result.getLogMessage(), result.getException());
