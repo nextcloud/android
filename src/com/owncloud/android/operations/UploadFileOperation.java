@@ -438,10 +438,9 @@ public class UploadFileOperation extends SyncOperation {
                         Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
                                 ": " + result.getLogMessage(), result.getException());
                     }
-
                 } else {
-                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
-                            ": " + result.getLogMessage());
+                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + "ResultCode(" +
+                            result.getCode().name() + "): " + result.getLogMessage());
                 }
             }
         }
