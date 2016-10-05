@@ -84,9 +84,11 @@ public class FileOperationsHelper {
     private String getUrlFromFile(String storagePath, Pattern pattern) {
         String url = null;
 
+        FileReader fr = null;
+        BufferedReader br = null;
         try {
-            FileReader fr = new FileReader(storagePath);
-            BufferedReader br = new BufferedReader(fr);
+            fr = new FileReader(storagePath);
+            br = new BufferedReader(fr);
 
             String line;
             while ((line = br.readLine()) != null) {
@@ -96,11 +98,25 @@ public class FileOperationsHelper {
                     break;
                 }
             }
-            br.close();
-            fr.close();
         } catch (IOException e) {
 			Log_OC.d(TAG, e.getMessage());
             return null;
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Error closing buffered reader for URL file", e);
+                }
+            }
+
+            if (br != null) {
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Error closing file reader for URL file", e);
+                }
+            }
         }
         return url;
 	}
