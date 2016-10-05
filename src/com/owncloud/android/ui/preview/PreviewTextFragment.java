@@ -246,7 +246,7 @@ public class PreviewTextFragment extends FileFragment {
             final Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
             if (frag != null) {
                 LoadingDialog loading = (LoadingDialog) frag;
-                loading.dismiss();
+                loading.dismissAllowingStateLoss();
             }
         }
     }
