@@ -450,10 +450,10 @@
     <string name="edit_share_unshare">Cofnij udostępnianie</string>
     <string name="edit_share_done">zakończono</string>
 
-    <string name="action_retry_uploads">Wystąpił błąd podczas ponawiania</string>
-    <string name="action_clear_failed_uploads">Wystąpił błąd podczas czyszczenia</string>
-    <string name="action_clear_successful_uploads">Czyszczenie zakończone pomyślnie</string>
-    <string name="action_clear_finished_uploads">Wyczyszczono wszystkie</string>
+    <string name="action_retry_uploads">Wyślij ponownie nieudane</string>
+    <string name="action_clear_failed_uploads">Wyczyść nieudane</string>
+    <string name="action_clear_successful_uploads">Wyczyść udane</string>
+    <string name="action_clear_finished_uploads">Wyszyczść wszystkie zakończone</string>
 
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
