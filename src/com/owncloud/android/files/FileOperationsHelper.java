@@ -110,7 +110,7 @@ public class FileOperationsHelper {
                 }
             }
 
-            if (br != null) {
+            if (fr != null) {
                 try {
                     fr.close();
                 } catch (IOException e) {
