@@ -29,6 +29,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +48,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
+import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -148,7 +151,7 @@ public class UploadFilesActivity extends FileActivity implements
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setListNavigationCallbacks(mDirectories, this);
-        
+
         // wait dialog
         if (mCurrentDialog != null) {
             mCurrentDialog.dismiss();
@@ -179,6 +182,8 @@ public class UploadFilesActivity extends FileActivity implements
         getMenuInflater().inflate(R.menu.upload_files_picker, menu);
         MenuItem selectAll = menu.findItem(R.id.action_select_all);
         setSelectAllMenuItem(selectAll, mSelectAll);
+        MenuItem switchView = menu.findItem(R.id.action_switch_view);
+        switchView.setTitle(isGridView() ? R.string.action_switch_list_view : R.string.action_switch_grid_view);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -222,6 +227,18 @@ public class UploadFilesActivity extends FileActivity implements
                                 });
                 builder.create().show();
                 break;
+            }
+            case R.id.action_switch_view: {
+                if (isGridView()) {
+                    item.setTitle(getString(R.string.action_switch_grid_view));
+                    item.setIcon(R.drawable.ic_view_module);
+                    mFileListFragment.switchToListView();
+                } else {
+                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+                    item.setIcon(R.drawable.ic_view_list);
+                    mFileListFragment.switchToGridView();
+                }
+                return true;
             }
             default:
                 retval = super.onOptionsItemSelected(item);
@@ -514,5 +531,18 @@ public class UploadFilesActivity extends FileActivity implements
             setResult(RESULT_CANCELED);
             finish();
         }
+    }
+
+    private boolean isGridView() {
+        return getListOfFilesFragment().isGridEnabled();
+    }
+
+    private ExtendedListFragment getListOfFilesFragment() {
+        Fragment listOfFiles = mFileListFragment;
+        if (listOfFiles != null) {
+            return (ExtendedListFragment) listOfFiles;
+        }
+        Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
+        return null;
     }
 }

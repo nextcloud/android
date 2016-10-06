@@ -484,11 +484,9 @@ public class UploadFileOperation extends SyncOperation {
         boolean delayInstantPicture = isInstantPicture() &&
                 PreferenceManager.instantPictureUploadWhenChargingOnly(mContext);
 
-        boolean delayInstantVideo = isInstantVideo() &&
-                PreferenceManager.instantVideoUploadViaWiFiOnly(mContext);
+        boolean delayInstantVideo = isInstantVideo() && PreferenceManager.instantVideoUploadWhenChargingOnly(mContext);
 
-        return ((delayInstantPicture || delayInstantVideo)
-                && !ConnectivityUtils.isCharging(mContext));
+        return ((delayInstantPicture || delayInstantVideo) && !ConnectivityUtils.isCharging(mContext));
     }
 
 
