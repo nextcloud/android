@@ -36,8 +36,6 @@
     <string name="prefs_log_title_history">История журналов</string>
     <string name="prefs_log_summary_history">Здесь показаны записи в журнал</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
-    <string name="prefs_calendar_contacts">Настройки календаря &amp; синхронизации контактов</string>
-    <string name="prefs_calendar_contacts_summary">Установить DAVdroid (v1.3.0+) для используемого аккаунта</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Адрес сервера не может быть разрешён для DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Не установлен магазин Google Play  или приложение F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Календарь &amp; контакты успешно синхронизированы</string>

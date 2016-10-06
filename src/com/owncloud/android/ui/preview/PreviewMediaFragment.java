@@ -248,17 +248,21 @@ public class PreviewMediaFragment extends FileFragment implements
         outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
 
         if (getFile().isVideo()) {
-            mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
-            mAutoplay = mVideoPreview.isPlaying();
-            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mSavedPlaybackPosition);
-            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mAutoplay);
+            if (mVideoPreview != null) {
+                mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
+                mAutoplay = mVideoPreview.isPlaying();
+                outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mSavedPlaybackPosition);
+                outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mAutoplay);
+            }
         }
         else {
-            outState.putInt(
-                    PreviewMediaFragment.EXTRA_PLAY_POSITION,
-                    mMediaServiceBinder.getCurrentPosition());
-            outState.putBoolean(
-                    PreviewMediaFragment.EXTRA_PLAYING, mMediaServiceBinder.isPlaying());
+            if (mMediaServiceBinder != null) {
+                outState.putInt(
+                        PreviewMediaFragment.EXTRA_PLAY_POSITION,
+                        mMediaServiceBinder.getCurrentPosition());
+                outState.putBoolean(
+                        PreviewMediaFragment.EXTRA_PLAYING, mMediaServiceBinder.isPlaying());
+            }
         }
     }
 
