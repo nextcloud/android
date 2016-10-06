@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -47,6 +48,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     public static final String SYNCED_FOLDER_PARCELABLE = "SyncedFolderParcelable";
 
     protected View mView = null;
+    private CheckBox mUploadOnWifiCheckbox;
+    private CheckBox mUploadOnChargingCheckbox;
+    private CheckBox mUploadUseSubfoldersCheckbox;
 
     private SyncedFolderParcelable mSyncedFolder;
 
@@ -104,6 +108,39 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         ((TextView) mView.findViewById(R.id.local_folder_summary)).setText(mSyncedFolder.getLocalPath());
         ((TextView) mView.findViewById(R.id.remote_folder_summary)).setText(mSyncedFolder.getRemotePath());
+
+        // TODO add all necessary listeners and fields
+
+        mUploadOnWifiCheckbox = (CheckBox) mView.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
+        mUploadOnChargingCheckbox = (CheckBox) mView.findViewById(R.id.setting_instant_upload_on_charging_checkbox);
+        mUploadUseSubfoldersCheckbox = (CheckBox) mView.findViewById(R.id
+                .setting_instant_upload_path_use_subfolders_checkbox);
+
+        // TODO create separate setup methods to keep code easy to read
+
+        mView.findViewById(R.id.setting_instant_upload_on_wifi_container).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO save checkbox state to boolean
+                mUploadOnWifiCheckbox.toggle();
+            }
+        });
+
+        mView.findViewById(R.id.setting_instant_upload_on_charging_container).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO save checkbox state to boolean
+                mUploadOnChargingCheckbox.toggle();
+            }
+        });
+
+        mView.findViewById(R.id.setting_instant_upload_path_use_subfolders_container).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO save checkbox state to boolean
+                mUploadUseSubfoldersCheckbox.toggle();
+            }
+        });
 
         return mView;
     }
