@@ -25,7 +25,9 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -103,18 +105,54 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        if (view == null) {
-            LayoutInflater inflator = (LayoutInflater) mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflator.inflate(R.layout.list_item, null);
-        }
+        File file = null;
+        boolean isGridView = true;
+        LayoutInflater inflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
         if (mFiles != null && mFiles.length > position && mFiles[position] != null) {
-            File file = mFiles[position];
-            
-            TextView fileName = (TextView) view.findViewById(R.id.Filename);
-            String name = file.getName();
-            fileName.setText(name);
-            
+            file = mFiles[position];
+        }
+
+        if (file != null) {
+            // Find out which layout should be displayed
+            ViewType viewType;
+            if (parent instanceof GridView) {
+                String mimeType = MimetypeIconUtil.getBestMimeTypeByFilename(file.getName());
+                if (MimetypeIconUtil.isImage(mimeType) || MimetypeIconUtil.isVideo(mimeType)) {
+                    viewType = ViewType.GRID_IMAGE;
+                } else {
+                    viewType = ViewType.GRID_ITEM;
+                }
+            } else {
+                viewType = ViewType.LIST_ITEM;
+                isGridView = false;
+            }
+
+            // create view only if differs, otherwise reuse
+            if (convertView == null || convertView.getTag() != viewType) {
+                switch (viewType) {
+                    case GRID_IMAGE:
+                        view = inflater.inflate(R.layout.grid_image, parent, false);
+                        view.setTag(ViewType.GRID_IMAGE);
+                        break;
+                    case GRID_ITEM:
+                        view = inflater.inflate(R.layout.grid_item, parent, false);
+                        view.setTag(ViewType.GRID_ITEM);
+                        break;
+                    case LIST_ITEM:
+                        view = inflater.inflate(R.layout.list_item, parent, false);
+                        view.setTag(ViewType.LIST_ITEM);
+                        break;
+                }
+            }
+
+            if(!ViewType.GRID_IMAGE.equals(viewType)) {
+                TextView fileName = (TextView) view.findViewById(R.id.Filename);
+                String name = file.getName();
+                fileName.setText(name);
+            }
+
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
 
             /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
@@ -129,20 +167,24 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
             }
             fileIcon.setTag(file.hashCode());
 
+            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
-            TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
-            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            lastModV.setVisibility(View.VISIBLE);
-            lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.lastModified()));
+            if (!isGridView) {
+                TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
+                lastModV.setVisibility(View.VISIBLE);
+                lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.lastModified()));
+            }
 
             if (!file.isDirectory()) {
-                fileSizeSeparatorV.setVisibility(View.VISIBLE);
-                fileSizeV.setVisibility(View.VISIBLE);
-                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+                if (!isGridView) {
+                    fileSizeSeparatorV.setVisibility(View.VISIBLE);
+                    fileSizeV.setVisibility(View.VISIBLE);
+                    fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+                }
 
-                ListView parentList = (ListView) parent;
-                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
+                AbsListView parentList = (AbsListView) parent;
+                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) {
                     checkBoxV.setVisibility(View.GONE);
                 } else {
                     if (parentList.isItemChecked(position)) {
@@ -167,19 +209,17 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                         if (allowedToCreateNewThumbnail) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
-                            if (thumbnail == null) {
-                                if (BitmapUtils.isVideo(file)) {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                                } else {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                                }
+                            if (BitmapUtils.isVideo(file)) {
+                                thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                            } else {
+                                thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                        		new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                    mContext.getResources(), 
-                                    thumbnail, 
-                                    task
-                		        );
+                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(
+                                            mContext.getResources(),
+                                            thumbnail,
+                                            task
+                                    );
                             fileIcon.setImageDrawable(asyncDrawable);
                             task.execute(file, true);
                             Log_OC.v(TAG, "Executing task to generate a new thumbnail");
@@ -191,8 +231,10 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 }  
 
             } else {
-                fileSizeSeparatorV.setVisibility(View.GONE);
-                fileSizeV.setVisibility(View.GONE);
+                if (!isGridView) {
+                    fileSizeSeparatorV.setVisibility(View.GONE);
+                    fileSizeV.setVisibility(View.GONE);
+                }
                 checkBoxV.setVisibility(View.GONE);
             }
 
