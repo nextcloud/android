@@ -90,8 +90,8 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
         applicationId "com.nextcloud.android.beta"
-        versionCode 20160926
-        versionName "20160926"
+        versionCode 20161006
+        versionName "20161006"
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
