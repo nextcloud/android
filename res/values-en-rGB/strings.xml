@@ -37,8 +37,6 @@
     <string name="prefs_log_title_history">Logging history</string>
     <string name="prefs_log_summary_history">This shows the recorded logs</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
-    <string name="prefs_calendar_contacts">Setup calendar &amp; contacts sync</string>
-    <string name="prefs_calendar_contacts_summary">Setup DAVdroid (v1.3.0+) for currently used account</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Server address for account could not be resolved for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">No Google Play store or F-Droid app installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up successfully</string>
@@ -369,7 +367,8 @@
 	<string name="saml_authentication_required_text">Authentication required</string>
 	<string name="saml_authentication_wrong_pass">Incorrect password</string>
 	<string name="actionbar_move">Move</string>
-    <string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
+    <string name="actionbar_copy">Copy</string>
+	<string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
 	<string name="folder_picker_choose_button_text">Choose</string>
 
     <string name="move_file_not_found">Unable to move. Please check whether the file exists</string>
@@ -488,6 +487,8 @@
     <string name="participate_contribute_forum_text">Help others on the &lt;a href="%1$s>forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href="%1$s>Translate&lt;/a> the app</string>
     <string name="participate_contribute_github_text">Contribute as a developer, see &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a> for details</string>
+    <string name="move_to">Move to&#8230;</string>
+    <string name="copy_to">Copy to&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>

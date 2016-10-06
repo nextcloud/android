@@ -37,8 +37,6 @@
     <string name="prefs_log_title_history">Historie logu</string>
     <string name="prefs_log_summary_history">Zobrazuje zaznamenané logy</string>
     <string name="prefs_log_delete_history_button">Smazat historii</string>
-    <string name="prefs_calendar_contacts">Konfigurace kalendáře &amp; kontaktů a jejich synchronizace</string>
-    <string name="prefs_calendar_contacts_summary">Konfigurace DAVdroid (v1.3.0+) pro aktuálně používané konto</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Počítačová adresa konta pro DAVdroid nebyla nalezena</string>
     <string name="prefs_calendar_contacts_no_store_error">Nenainstalován Google Play store nebo F-Droid app</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizace kalendáře &amp; kontaktů úspěšně dokončena</string>

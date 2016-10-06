@@ -37,8 +37,6 @@
     <string name="prefs_log_title_history">Ferill annálsskráningar</string>
     <string name="prefs_log_summary_history">Þetta sýnir skráningar í annála</string>
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
-    <string name="prefs_calendar_contacts">Uppsetning samstillingar dagatals og tengiliða</string>
-    <string name="prefs_calendar_contacts_summary">Setja upp DAVdroid (v1.3.0+) fyrir þann aðgang sem er í notkun</string>
     <string name="prefs_calendar_contacts_no_store_error">Hvorki Google Play né F-Droid appið eru uppsett</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Tókst að setja upp samstillingu dagatals og tengiliða</string>
     <string name="prefs_help">Hjálp</string>
