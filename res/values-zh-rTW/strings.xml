@@ -37,8 +37,6 @@
     <string name="prefs_log_title_history">記錄檔</string>
     <string name="prefs_log_summary_history">顯示之前的記錄檔</string>
     <string name="prefs_log_delete_history_button">刪除記錄</string>
-    <string name="prefs_calendar_contacts">設定日曆與聯絡人同步</string>
-    <string name="prefs_calendar_contacts_summary">設定目前帳號所使用的 DAVdroid (V1.3.0+)</string>
     <string name="prefs_calendar_contacts_address_resolve_error">帳號的伺服器位址無法被 DAVdroid 辨認</string>
     <string name="prefs_calendar_contacts_no_store_error">未安裝 Google Play 商店或是 F-Droid 應用程式</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">成功設定日曆與聯絡人同步</string>

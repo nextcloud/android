@@ -263,6 +263,8 @@ public class FileStorageUtils {
             files = FileStorageUtils.sortOCFilesBySize(files);
             break;
         }
+
+        files = FileStorageUtils.sortOCFilesByFavourite(files);
        
         return files;
     }
@@ -440,6 +442,27 @@ public class FileStorageUtils {
         return files.toArray(returnArray);
     }
 
+    /**
+     * Sorts list by Favourites
+     * @param files     files to sort
+     */
+    public static Vector<OCFile> sortOCFilesByFavourite(Vector<OCFile> files){
+        Collections.sort(files, new Comparator<OCFile>() {
+            public int compare(OCFile o1, OCFile o2) {
+                if (o1.isFavorite() && o2.isFavorite()) {
+                    return 0;
+                } else if (o1.isFavorite()) {
+                    return -1;
+                } else if (o2.isFavorite()) {
+                    return 1;
+                }
+                return 0;
+            }
+        });
+
+        return files;
+    }
+    
     /**
      * Local Folder size
      * @param dir File

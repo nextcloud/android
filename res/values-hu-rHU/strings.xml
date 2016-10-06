@@ -37,8 +37,6 @@
     <string name="prefs_log_title_history">Naplózás előzménye</string>
     <string name="prefs_log_summary_history">Ez megjeleníti a rögzített eseményeket</string>
     <string name="prefs_log_delete_history_button">Előzmények törlése</string>
-    <string name="prefs_calendar_contacts">Naptár és Névjegy szinkronizálás</string>
-    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) beállítása az aktuális fiókhoz</string>
     <string name="prefs_calendar_contacts_address_resolve_error">A fiók szerver címe nem feloldható a DAVdroid számára</string>
     <string name="prefs_calendar_contacts_no_store_error">Nincs telepítve Google Play vagy F-Droid alkalmazás</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Naptár és Névjegy szinkronizálás sikeresen beállítva</string>

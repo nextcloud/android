@@ -30,6 +30,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
@@ -51,8 +52,13 @@ import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.adapter.DiskLruImageCacheFileProvider;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -68,48 +74,104 @@ public class FileOperationsHelper {
     /// Identifier of operation in progress which result shouldn't be lost 
     private long mWaitingForOpId = Long.MAX_VALUE;
 
+	private static final Pattern mPatternUrl = Pattern.compile("^URL=(.+)$");
+	private static final Pattern mPatternString = Pattern.compile("<string>(.+)</string>");
+
     public FileOperationsHelper(FileActivity fileActivity) {
         mFileActivity = fileActivity;
+    }
+
+	@Nullable
+    private String getUrlFromFile(String storagePath, Pattern pattern) {
+        String url = null;
+
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            fr = new FileReader(storagePath);
+            br = new BufferedReader(fr);
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                Matcher m = pattern.matcher(line);
+                if (m.find()) {
+                    url = m.group(1);
+                    break;
+                }
+            }
+        } catch (IOException e) {
+			Log_OC.d(TAG, e.getMessage());
+            return null;
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Error closing buffered reader for URL file", e);
+                }
+            }
+
+            if (fr != null) {
+                try {
+                    fr.close();
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Error closing file reader for URL file", e);
+                }
+            }
+        }
+        return url;
+	}
+	
+    @Nullable
+    private Intent createIntentFromFile(String storagePath) {
+        String url = null;
+        int lastIndexOfDot = storagePath.lastIndexOf('.');
+        if (lastIndexOfDot >= 0) {
+            String fileExt = storagePath.substring(lastIndexOfDot + 1);
+            if (fileExt.equalsIgnoreCase("url") ||fileExt.equalsIgnoreCase("desktop")) {
+				// Windows internet shortcut file .url
+				// Ubuntu internet shortcut file .desktop
+                url = getUrlFromFile(storagePath, mPatternUrl);
+            } else if (fileExt.equalsIgnoreCase("webloc")) {
+				// mac internet shortcut file .webloc
+                url = getUrlFromFile(storagePath, mPatternString);
+            }
+        }
+        if (url == null) {
+            return null;
+        }
+        return new Intent(Intent.ACTION_VIEW, Uri.parse(url));
     }
 
     public void openFile(OCFile file) {
         if (file != null) {
             String storagePath = file.getStoragePath();
+			Uri uri = Uri.parse("file://" + encodedStoragePath);
 
-            Intent intentForSavedMimeType = new Intent(Intent.ACTION_VIEW);
-            intentForSavedMimeType.setDataAndType(
-                file.getExposedFileUri(mFileActivity),
-                file.getMimetype()
-            );
-
-            intentForSavedMimeType.setFlags(
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-            );
-            
-            Intent intentForGuessedMimeType = null;
-            if (storagePath.lastIndexOf('.') >= 0) {
-                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
-                        storagePath.substring(storagePath.lastIndexOf('.') + 1)
-                );
-                if (guessedMimeType != null && !guessedMimeType.equals(file.getMimetype())) {
-                    intentForGuessedMimeType = new Intent(Intent.ACTION_VIEW);
-                    intentForGuessedMimeType.setDataAndType(
-                        file.getExposedFileUri(mFileActivity),
-                        guessedMimeType
-                    );
-                    intentForGuessedMimeType.setFlags(
-                            Intent.FLAG_GRANT_READ_URI_PERMISSION |
-                                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-                    );
+            Intent openFileWithIntent = null;
+            int lastIndexOfDot = storagePath.lastIndexOf('.');
+            if (lastIndexOfDot >= 0) {
+                String fileExt = storagePath.substring(lastIndexOfDot + 1);
+                String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
+                if (guessedMimeType != null) {
+                    openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+                    openFileWithIntent.setDataAndType(uri, guessedMimeType);
                 }
             }
 
-            Intent openFileWithIntent;
-            if (intentForGuessedMimeType != null) {
-                openFileWithIntent = intentForGuessedMimeType;
-            } else {
-                openFileWithIntent = intentForSavedMimeType;
+            if(openFileWithIntent == null) {
+                openFileWithIntent = createIntentFromFile(storagePath);
             }
+
+            if (openFileWithIntent == null) {
+                openFileWithIntent = new Intent(Intent.ACTION_VIEW);
+                openFileWithIntent.setDataAndType(uri, file.getMimetype());
+            }
+
+            openFileWithIntent.setFlags(
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION |
+							Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+            );
 
             List<ResolveInfo> launchables = mFileActivity.getPackageManager().
                     queryIntentActivities(openFileWithIntent, PackageManager.GET_INTENT_FILTERS);
