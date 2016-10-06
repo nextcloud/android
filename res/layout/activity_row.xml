@@ -21,11 +21,11 @@
     			android:id="@+id/list_item"
 				android:layout_width="match_parent"
 				android:layout_height="48dp"
-				android:paddingStart="16dip"
-				android:paddingEnd="16dip"
-				android:paddingRight="16dip"
-				android:paddingLeft="16dip"
-				android:minWidth="196dip"
+				android:paddingStart="@dimen/standard_padding_independent"
+				android:paddingEnd="@dimen/standard_padding_independent"
+				android:paddingRight="@dimen/standard_padding_independent"
+				android:paddingLeft="@dimen/standard_padding_independent"
+				android:minWidth="@dimen/activity_row_layout_min_width_independent"
 				android:background="?android:attr/activatedBackgroundIndicator"
     			android:orientation="vertical" >
 
@@ -36,11 +36,11 @@
 
 		<ImageView
 			android:id="@+id/icon"
-			android:layout_width="40dip"
-			android:layout_height="40dip"
+			android:layout_width="@dimen/user_icon_size_independent"
+			android:layout_height="@dimen/user_icon_size_independent"
 			android:layout_gravity="center_vertical"
-			android:layout_marginEnd="8dip"
-			android:layout_marginRight="8dip"
+			android:layout_marginEnd="@dimen/standard_half_padding_independent"
+			android:layout_marginRight="@dimen/standard_half_padding_independent"
 			android:duplicateParentState="true" />
 
         <TextView
