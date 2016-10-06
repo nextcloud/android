@@ -36,8 +36,6 @@
     <string name="prefs_log_title_history">로깅 내역</string>
     <string name="prefs_log_summary_history">여기서 기록된 로그를 보여줍니다</string>
     <string name="prefs_log_delete_history_button">내역 삭제</string>
-    <string name="prefs_calendar_contacts">달력 설정 &amp; 연락처 동기화</string>
-    <string name="prefs_calendar_contacts_summary">현재 사용중인 계정 설정 DAVdroid (v1.3.0+)</string>
     <string name="prefs_help">도움말</string>
     <string name="prefs_recommend">친구에게 추천하기</string>
     <string name="prefs_feedback">피드백</string>
