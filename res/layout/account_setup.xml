@@ -55,7 +55,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/alternate_margin"
             android:theme="@style/Button"
             android:text="@string/auth_check_server"
             android:visibility="gone"
@@ -68,7 +68,7 @@
             android:layout_gravity="fill_horizontal"
             android:text="@string/auth_expired_basic_auth_toast"
             android:visibility="gone"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/alternate_margin"
             android:textColor="@color/login_text_color"
             android:contentDescription="@string/auth_expired_basic_auth_toast"/>
 
@@ -76,7 +76,7 @@
 	        android:id="@+id/hostUrlFrame"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-            android:layout_marginBottom="0dp">
+            android:layout_marginBottom="@dimen/zero">
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/input_layout_hostUrl"
@@ -89,10 +89,10 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:contentDescription="@string/auth_host_address"
-                    android:drawablePadding="5dp"
+                    android:drawablePadding="@dimen/alternate_half_padding"
                     android:hint="@string/auth_host_url"
                     android:inputType="textUri"
-                    android:paddingRight="55dp"
+                    android:paddingRight="@dimen/alternate_padding_right"
                     android:textColor="@color/login_text_color"
                     android:textColorHint="@color/login_text_color">
 
@@ -106,8 +106,8 @@
 			    android:layout_width="wrap_content"
 			    android:layout_height="wrap_content"
 			    android:layout_gravity="center_vertical|right"
-			    android:layout_marginRight="5dp"
-			    android:padding="0dp"
+			    android:layout_marginRight="@dimen/alternate_half_padding"
+			    android:padding="@dimen/zero"
 			    android:scaleType="fitCenter"
 			    android:src="@drawable/ic_action_refresh"
 				android:visibility="gone"
@@ -120,13 +120,13 @@
             android:id="@+id/server_status_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/alternate_margin"
             android:drawableLeft="@android:drawable/stat_notify_sync"
-            android:drawablePadding="5dp"
+            android:drawablePadding="@dimen/alternate_half_padding"
             android:gravity="center_vertical"
             android:textColor="@color/login_text_color"
             android:text="@string/auth_testing_connection"
-            android:minHeight="32dp"
+            android:minHeight="@dimen/display_text_min_height"
             android:contentDescription="@string/auth_testing_connection"/>
 
         <CheckBox
@@ -209,7 +209,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:contentDescription="@string/auth_password"
-                android:drawablePadding="5dp"
+                android:drawablePadding="@dimen/alternate_half_padding"
                 android:ems="10"
                 android:hint="@string/auth_password"
                 android:inputType="textPassword"
@@ -222,9 +222,9 @@
             android:id="@+id/auth_status_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/alternate_margin"
             android:drawableLeft="@android:drawable/stat_notify_sync"
-            android:drawablePadding="5dp"
+            android:drawablePadding="@dimen/alternate_half_padding"
             android:gravity="center_vertical"
             android:text="@string/auth_unauthorized"
             android:textColor="@color/login_text_color"
@@ -253,8 +253,8 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:onClick="onRegisterClick"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
+                android:paddingBottom="@dimen/alternate_half_padding"
+                android:paddingTop="@dimen/alternate_half_padding"
                 android:text="@string/auth_register"
                 android:textColor="@color/login_text_hint_color"
                 android:contentDescription="@string/auth_register"/>
