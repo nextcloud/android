@@ -71,8 +71,6 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
 
-    private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM}
-
     public FileListListAdapter(
             boolean justFolders,
             Context context,
