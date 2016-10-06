@@ -1,7 +1,14 @@
-## 2016-10-05
+## 2016-10-06
 - put cursor close in finally block to make sure no resource leak occurrs #306
 - change wordings for davdroid integration #293
 - added logging to gain information about upload issues
+- Sorts favourite files first in list #302
+- Add open URL file feature #298
+- fix remove failed #241
+- Crash when sending non-existing log #284
+- Fix NPE in ExpandableUploadListAdapter...setText #290
+- change wordings for davdroid integration #293
+- Fix NullPointerException in PreviewMediaFragment. #295
 
 ## 2016-09-26
 - update fix crash in dismissLoadingDialog #279
