@@ -40,7 +40,6 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -100,7 +99,6 @@ public class FileOperationsHelper {
             }
         } catch (IOException e) {
 			Log_OC.d(TAG, e.getMessage());
-            return null;
         } finally {
             if (br != null) {
                 try {
@@ -145,7 +143,6 @@ public class FileOperationsHelper {
     public void openFile(OCFile file) {
         if (file != null) {
             String storagePath = file.getStoragePath();
-			Uri uri = Uri.parse("file://" + encodedStoragePath);
 
             Intent openFileWithIntent = null;
             int lastIndexOfDot = storagePath.lastIndexOf('.');
@@ -154,7 +151,10 @@ public class FileOperationsHelper {
                 String guessedMimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExt);
                 if (guessedMimeType != null) {
                     openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                    openFileWithIntent.setDataAndType(uri, guessedMimeType);
+                    openFileWithIntent.setDataAndType(
+                            file.getExposedFileUri(mFileActivity),
+                            guessedMimeType
+                    );
                 }
             }
 
@@ -164,13 +164,13 @@ public class FileOperationsHelper {
 
             if (openFileWithIntent == null) {
                 openFileWithIntent = new Intent(Intent.ACTION_VIEW);
-                openFileWithIntent.setDataAndType(uri, file.getMimetype());
+                openFileWithIntent.setDataAndType(
+                        file.getExposedFileUri(mFileActivity),
+                        file.getMimetype()
+                );
             }
 
-            openFileWithIntent.setFlags(
-                    Intent.FLAG_GRANT_READ_URI_PERMISSION |
-							Intent.FLAG_GRANT_WRITE_URI_PERMISSION
-            );
+            openFileWithIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
             List<ResolveInfo> launchables = mFileActivity.getPackageManager().
                     queryIntentActivities(openFileWithIntent, PackageManager.GET_INTENT_FILTERS);
