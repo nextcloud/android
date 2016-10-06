@@ -37,8 +37,6 @@
     <string name="prefs_log_title_history">Zgodovina beleženja</string>
     <string name="prefs_log_summary_history">Pokaže shranjene dnevnike</string>
     <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>
-    <string name="prefs_calendar_contacts">Nastavi sinhronizacijo koledarja in kontaktov</string>
-    <string name="prefs_calendar_contacts_summary">Nastavi DAVdroid (v1.3.0+) za trenutno uporabljen račun</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Naslov strežnika za račun ne more biti razrešena za DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Ne Google Play, ne F-Droid nista nameščena</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sinhronizacija koledarja in kontaktov uspešno nastavljena</string>

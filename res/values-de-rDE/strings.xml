@@ -37,8 +37,6 @@
     <string name="prefs_log_title_history">Protokollverlauf</string>
     <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokolle</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
-    <string name="prefs_calendar_contacts">Kalender &amp; Kontakte Synchronisierung konfigurieren</string>
-    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto konfigurieren</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder Google Play Store noch F-Droid App installiert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; Kontakte Sychronisierung erfolgreich konfiguriert</string>
@@ -94,7 +92,7 @@
     <string name="filedetails_modified">Geändert:</string>
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_sync_file">Synchronisieren</string>
-    <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads zu %1$s umbenannt</string>
+    <string name="filedetails_renamed_in_upload_msg">Datei wurde während des Uploads zu %1$s umbenannt</string>
     <string name="list_layout">Listenlayout</string>
     <string name="action_share">Teilen</string>
     <string name="common_yes">Ja</string>
