@@ -37,8 +37,6 @@
     <string name="prefs_log_title_history">Histórico de logins</string>
     <string name="prefs_log_summary_history">Mostra os registros gravados</string>
     <string name="prefs_log_delete_history_button">Excluir histórico</string>
-    <string name="prefs_calendar_contacts">Configurar a sincronização do calendário e dos contatos</string>
-    <string name="prefs_calendar_contacts_summary">Configurar o DAVdroid (v1.3.0+) para a conta em uso</string>
     <string name="prefs_calendar_contacts_address_resolve_error">O endereço do servidor da conta não pôde ser reconhecido pelo DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Não há um aplicativo F-Droid ou Google Play instalado</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">A sincronização do calendário e dos contatos foi configurada com sucesso</string>
@@ -481,11 +479,16 @@
     <string name="participate_testing_report_text">Relate o problema no Github</string>
     <string name="participate_testing_version_text">Está interessado em ajudar-nos a testar a próxima versão?</string>
     <string name="participate_beta_headline">Testar a versão beta</string>
+    <string name="participate_beta_text">Isso inclui todos os recursos programados e está muito atualizado. Bugs/erros
+        podem ocorrer e se ocorrerem, por favor, nos comunique. &lt;br/>&lt;a href=\"%2$s\">Baixar o APK&lt;/a>
+        ou</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_release_candidate_text">O release candidate (RC) é um instantâneo do lançamento e espera-se que seja estável. Testar a sua configuração individual pode contribuir para assegurar-la. Registe-se para testar na Play Store ou procurar manualmente na seção \"versões\" na F-Droid.</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
     <string name="participate_contribute_irc_text">Participe de uma conversa no IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Ajude as outras pessoas no &lt;a href=\"%1$s>fórum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduzir&lt;/a> o aplicativo</string>
+    <string name="participate_contribute_github_text">Contribuir como desenvolvedor, veja &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> para detalhes</string>
     <string name="move_to">Mover para&#8230;</string>
     <string name="copy_to">Copiar para&#8230;</string>
     <plurals name="items_selected_count">

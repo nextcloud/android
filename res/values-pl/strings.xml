@@ -37,8 +37,6 @@
     <string name="prefs_log_title_history">Historia logowania</string>
     <string name="prefs_log_summary_history">To pokazuje zapisane logi</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
-    <string name="prefs_calendar_contacts">Konfiguracja synchronizacji kalendarza i kontaktów</string>
-    <string name="prefs_calendar_contacts_summary">konfiguracja DAVdroid (v1.3.0+) dla aktualnie używanego konta</string>
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_feedback">Wsparcie</string>
@@ -450,10 +448,10 @@
     <string name="edit_share_unshare">Cofnij udostępnianie</string>
     <string name="edit_share_done">zakończono</string>
 
-    <string name="action_retry_uploads">Wystąpił błąd podczas ponawiania</string>
-    <string name="action_clear_failed_uploads">Wystąpił błąd podczas czyszczenia</string>
-    <string name="action_clear_successful_uploads">Czyszczenie zakończone pomyślnie</string>
-    <string name="action_clear_finished_uploads">Wyczyszczono wszystkie</string>
+    <string name="action_retry_uploads">Wyślij ponownie nieudane</string>
+    <string name="action_clear_failed_uploads">Wyczyść nieudane</string>
+    <string name="action_clear_successful_uploads">Wyczyść udane</string>
+    <string name="action_clear_finished_uploads">Wyszyczść wszystkie zakończone</string>
 
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
