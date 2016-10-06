@@ -31,7 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/folder_sync_preferences"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        android:visibility="gone"/>
 
     <ScrollView
         android:id="@+id/details_scroll"
@@ -67,7 +68,7 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingBottom="16dip"
@@ -100,7 +101,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeightSmall">
+                android:minHeight="?android:attr/listPreferredItemHeightSmall"
+                android:baselineAligned="false">
 
                 <LinearLayout
                     android:id="@+id/remote_folder_icon_frame"
