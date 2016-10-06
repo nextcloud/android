@@ -51,4 +51,7 @@
 
     <dimen name="account_action_layout_height">72dp</dimen>
     <dimen name="zero">0dp</dimen>
+
+    <dimen name="account_item_layout_height">72dp</dimen>
+    <dimen name="user_icon_size">40dp</dimen>
 </resources>
