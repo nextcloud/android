@@ -81,4 +81,8 @@
     <dimen name="file_actions_view_height">2dp</dimen>
 
     <dimen name="fragment_margin">12dp</dimen>
+
+    <dimen name="file_download_fragment_layout_padding">20dp</dimen>
+    <dimen name="alternate_fragment_margin">15dp</dimen>
+    <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
 </resources>
