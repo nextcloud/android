@@ -98,4 +98,5 @@
     <dimen name="list_fragment_spacing">2dp</dimen>
 
     <dimen name="listrow_group_text_size">16dp</dimen>
+    <dimen name="log_item_text_size">22dp</dimen>
 </resources>
