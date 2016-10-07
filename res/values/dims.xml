@@ -109,4 +109,7 @@
     <dimen name="standard_quarter_margin_negative_independent">-4dip</dimen>
 
     <dimen name="preview_image_fragment_display_text_margin">40dp</dimen>
+
+    <dimen name="search_users_groups_layout_width">200dp</dimen>
+    <dimen name="search_users_groups_layout_list_view_margin">20dp</dimen>
 </resources>
