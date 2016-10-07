@@ -99,4 +99,6 @@
 
     <dimen name="listrow_group_text_size">16dp</dimen>
     <dimen name="log_item_text_size">22dp</dimen>
+
+    <dimen name="seek_bar_height">32dp</dimen>
 </resources>
