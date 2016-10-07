@@ -89,7 +89,7 @@
     <dimen name="alternate_fragment_margin">15dp</dimen>
     <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
 
-    <dimen name="files_drawer_width">240dp</dimen>
+    <dimen name="drawer_width">240dp</dimen>
 
     <dimen name="favorite_icon_size">15dp</dimen>
     <dimen name="elevation">30dp</dimen>
