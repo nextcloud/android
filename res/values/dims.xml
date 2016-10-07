@@ -80,4 +80,5 @@
     <dimen name="edit_share_layout_view_height">2dp</dimen>
     <dimen name="file_actions_view_height">2dp</dimen>
 
+    <dimen name="fragment_margin">12dp</dimen>
 </resources>
