@@ -42,6 +42,7 @@
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
     <dimen name="standard_eighth_margin">2dp</dimen>
+    <dimen name="standard_eighth_margin_negative">-2dp</dimen>
     <dimen name="min_list_item_size">56dp</dimen>
     <dimen name="standard_list_item_size">72dp</dimen>
 
@@ -101,4 +102,6 @@
     <dimen name="log_item_text_size">22dp</dimen>
 
     <dimen name="seek_bar_height">32dp</dimen>
+    <dimen name="notification_with_progress_bar_layout">12dp</dimen>
+    <dimen name="notification_with_progress_bar_layout_height">64dp</dimen>
 </resources>
