@@ -89,7 +89,7 @@
     <dimen name="preview_image_fragment_display_text_margin">40dp</dimen>
     <dimen name="search_users_groups_layout_width">200dp</dimen>
     <dimen name="search_users_groups_layout_list_view_margin">20dp</dimen>
-    <dimen name="share_file_layout_text_size"></dimen>
+    <dimen name="share_file_layout_text_size">12sp</dimen>
     <dimen name="unshare_icon_size">36dp</dimen>
     <dimen name="simple_dialog_list_item_layout_size">48dp</dimen>
     <dimen name="ssl_untrusted_cert_layout_padding">20dp</dimen>
