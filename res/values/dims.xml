@@ -107,4 +107,6 @@
 
     <dimen name="standard_margin_independent">16dip</dimen>
     <dimen name="standard_quarter_margin_negative_independent">-4dip</dimen>
+
+    <dimen name="preview_image_fragment_display_text_margin">40dp</dimen>
 </resources>
