@@ -76,4 +76,6 @@
     <dimen name="shadow_radius">2</dimen>
     <dimen name="drawer_header_text">14sp</dimen>
     <dimen name="drawer_header_subtext">12sp</dimen>
+
+    <dimen name="edit_share_layout_view_height">2dp</dimen>
 </resources>
