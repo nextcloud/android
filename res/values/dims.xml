@@ -65,9 +65,6 @@
     <dimen name="standard_half_padding_independent">8dip</dimen>
     <dimen name="activity_row_layout_min_width_independent">196dip</dimen>
     <dimen name="user_icon_size_independent">40dip</dimen>
-    <dimen name="shadow_dx">0.5</dimen>
-    <dimen name="shadow_dy">0</dimen>
-    <dimen name="shadow_radius">2</dimen>
     <dimen name="drawer_header_text">14sp</dimen>
     <dimen name="drawer_header_subtext">12sp</dimen>
     <dimen name="edit_share_layout_view_height">2dp</dimen>
