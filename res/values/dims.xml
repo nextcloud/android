@@ -104,4 +104,7 @@
     <dimen name="seek_bar_height">32dp</dimen>
     <dimen name="notification_with_progress_bar_layout">12dp</dimen>
     <dimen name="notification_with_progress_bar_layout_height">64dp</dimen>
+
+    <dimen name="standard_margin_independent">16dip</dimen>
+    <dimen name="standard_quarter_margin_negative_independent">-4dip</dimen>
 </resources>
