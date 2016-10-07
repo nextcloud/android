@@ -93,4 +93,7 @@
     <dimen name="favorite_icon_size">15dp</dimen>
     <dimen name="elevation">30dp</dimen>
     <dimen name="grid_item_text_size">16dip</dimen>
+
+    <dimen name="list_fragment_column_width">100dp</dimen>
+    <dimen name="list_fragment_spacing">2dp</dimen>
 </resources>
