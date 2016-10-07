@@ -120,4 +120,6 @@
     <dimen name="simple_dialog_list_item_layout_size">48dp</dimen>
 
     <dimen name="ssl_untrusted_cert_layout_padding">20dp</dimen>
+
+    <dimen name="scroll_view_height">180dp</dimen>
 </resources>
