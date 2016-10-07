@@ -40,6 +40,7 @@
     <dimen name="standard_quarter_padding">4dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
+    <dimen name="standard_quarter_margin">4dp</dimen>
     <dimen name="min_list_item_size">56dp</dimen>
     <dimen name="standard_list_item_size">72dp</dimen>
 
@@ -87,4 +88,6 @@
     <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
 
     <dimen name="files_drawer_width">240dp</dimen>
+
+    <dimen name="favorite_icon_size">15dp</dimen>
 </resources>
