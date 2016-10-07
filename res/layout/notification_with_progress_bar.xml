@@ -28,10 +28,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:minHeight="64dp"
+        android:minHeight="@dimen/notification_with_progress_bar_layout_height"
         android:orientation="vertical"
-        android:paddingRight="12dp"
-        android:paddingLeft="12dp"
+        android:paddingRight="@dimen/notification_with_progress_bar_layout"
+        android:paddingLeft="@dimen/notification_with_progress_bar_layout"
         >
 		<TextView android:id="@+id/title"
 			android:layout_width="match_parent"
@@ -44,8 +44,8 @@
         <TextView android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="-2dp"
-            android:layout_marginBottom="-2dp"
+            android:layout_marginTop="@dimen/standard_eighth_margin_negative"
+            android:layout_marginBottom="@dimen/standard_eighth_margin_negative"
             android:singleLine="true"
             android:fadingEdge="horizontal"
             android:ellipsize="marquee"
@@ -53,7 +53,7 @@
             />
         <FrameLayout android:id="@+id/progressHolder"
             android:layout_width="match_parent"
-            android:layout_height="12dp"
+            android:layout_height="@dimen/notification_with_progress_bar_layout"
             >
             <!--  the FrameLayout is needed to change visibility of the
             	progress bar in Android 2.2, even though 
