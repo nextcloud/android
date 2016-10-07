@@ -82,13 +82,13 @@
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:shadowColor="@color/black"
-                    android:shadowDx="0.5"
-                    android:shadowDy="0"
-                    android:shadowRadius="2"
+                    android:shadowDx="@dimen/shadow_dx"
+                    android:shadowDy="@dimen/shadow_dy"
+                    android:shadowRadius="@dimen/shadow_radius"
                     android:singleLine="true"
                     android:text="@string/app_name"
                     android:textColor="@android:color/white"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/drawer_header_text"
                     android:textStyle="bold"/>
 
                 <TextView
@@ -99,12 +99,12 @@
                     android:lines="1"
                     android:maxLines="1"
                     android:shadowColor="@color/black"
-                    android:shadowDx="0.5"
-                    android:shadowDy="0"
-                    android:shadowRadius="2"
+                    android:shadowDx="@dimen/shadow_dx"
+                    android:shadowDy="@dimen/shadow_dy"
+                    android:shadowRadius="@dimen/shadow_radius"
                     android:text="@string/app_name"
                     android:textColor="@android:color/white"
-                    android:textSize="12sp"/>
+                    android:textSize="@dimen/drawer_header_subtext"/>
 
             </LinearLayout>
 
