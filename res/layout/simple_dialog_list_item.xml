@@ -5,8 +5,8 @@
     android:layout_height="wrap_content"
     android:textAppearance="?android:attr/textAppearanceListItemSmall"
     android:textColor="@color/dialog_list_item"
-    android:textSize="16sp"
+    android:textSize="@dimen/two_line_primary_text_size"
     android:gravity="center_vertical"
     android:paddingLeft="@dimen/standard_padding"
     android:paddingRight="@dimen/standard_padding"
-    android:minHeight="48dp"/>
+    android:minHeight="@dimen/simple_dialog_list_item_layout_size"/>
