@@ -78,4 +78,6 @@
     <dimen name="drawer_header_subtext">12sp</dimen>
 
     <dimen name="edit_share_layout_view_height">2dp</dimen>
+    <dimen name="file_actions_view_height">2dp</dimen>
+
 </resources>
