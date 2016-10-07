@@ -116,4 +116,6 @@
     <dimen name="share_file_layout_text_size"></dimen>
 
     <dimen name="unshare_icon_size">36dp</dimen>
+
+    <dimen name="simple_dialog_list_item_layout_size">48dp</dimen>
 </resources>
