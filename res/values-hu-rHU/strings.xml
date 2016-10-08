@@ -79,7 +79,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">A fájl maradjon az eredeti mappában</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">A fájl törlése az eredeti mappábó</string>
     <string name="file_list_seconds_ago">pár másodperce</string>
-    <string name="file_list_empty">Itt nincs semmi. Töltsön fel valamit!</string>
+    <string name="file_list_empty">Itt nincs semmi. Tölts fel valamit!</string>
     <string name="file_list_loading">Betöltés...</string>
     <string name="file_list_no_app_for_file_type">Nem található alkalmazás a fálj típushoz.</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
@@ -112,7 +112,7 @@
     <string name="common_unknown">ismeretlen</string>
     <string name="common_error_unknown">Ismeretlen hiba</string>
     <string name="common_pending">Folyamatban</string>
-    <string name="about_title">Rólunk</string>
+    <string name="about_title">Névjegy</string>
     <string name="change_password">A jelszó megváltoztatása</string>
     <string name="delete_account">Fiók eltávolítása</string>
     <string name="delete_account_warning">Törlöd a fiókot: %s?\n\nA törlés nem vonható vissza.</string>
