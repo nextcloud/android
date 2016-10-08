@@ -15,6 +15,9 @@ buildscript {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+apply plugin: 'findbugs'
 
 ext {
     supportLibraryVersion = '24.2.1'
@@ -46,11 +49,9 @@ dependencies {
     compile "com.android.support:cardview-v7:${supportLibraryVersion}"
     compile 'com.getbase:floatingactionbutton:1.10.1'
 
-
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
-
 
     /// dependencies for instrumented tests
     // JUnit4 Rules
@@ -78,6 +79,12 @@ tasks.withType(Test) {
 }
 
 android {
+    lintOptions {
+        abortOnError true
+        lintConfig file("${project.rootDir}/lint.xml")
+        htmlReport true
+        htmlOutput file("$project.buildDir/reports/lint/lint.html")
+    }
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
 
@@ -107,13 +114,11 @@ android {
             assets.srcDirs = ['assets']
         }
 
-
         // move whole local unit tests structure as a whole from src/test/* to test/*
         test.setRoot('test')
 
         // move whole instrumented tests structure as a whole from src/androidTest/* to androidTest/*
         androidTest.setRoot('androidTest')
-
 
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
@@ -124,7 +129,7 @@ android {
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
     }
-	
+
     dexOptions {
         // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries = preDexEnabled && !travisBuild
@@ -150,6 +155,57 @@ android {
     signingConfigs {
         release
     }
+
+    task checkstyle(type: Checkstyle) {
+        configFile = file("${rootProject.projectDir}/checkstyle.xml")
+        configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
+        source 'src'
+        include '**/*.java'
+        exclude '**/gen/**'
+        classpath = files()
+    }
+
+    task pmd(type: Pmd) {
+        ruleSetFiles = files("${project.rootDir}/pmd-ruleset.xml")
+        ignoreFailures = false
+        ruleSets = []
+
+        source 'src'
+        include '**/*.java'
+        exclude '**/gen/**'
+
+        reports {
+            xml.enabled = false
+            html.enabled = true
+            xml {
+                destination "$project.buildDir/reports/pmd/pmd.xml"
+            }
+            html {
+                destination "$project.buildDir/reports/pmd/pmd.html"
+            }
+        }
+    }
+
+    task findbugs(type: FindBugs) {
+        ignoreFailures = false
+        effort = "max"
+        reportLevel = "high"
+        classes = files("$project.buildDir/intermediates/classes")
+        excludeFilter = new File("${project.rootDir}/findbugs-filter.xml")
+        source 'src'
+        include '**/*.java'
+        exclude '**/gen/**'
+
+        reports {
+            xml.enabled = false
+            html.enabled = true
+            html {
+                destination "$project.buildDir/reports/findbugs/findbugs.html"
+            }
+        }
+        classpath = files()
+    }
+    check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
 
      buildTypes {
         release {
