@@ -22,7 +22,8 @@
 package com.owncloud.android.datamodel;
 
 public class SyncedFolder {
-    private long id;
+    public static final long UNPERSISTED_ID = Long.MIN_VALUE;
+    private long id = UNPERSISTED_ID;
     private String localPath;
     private String remotePath;
     private Boolean wifiOnly;
@@ -45,36 +46,80 @@ public class SyncedFolder {
         this.enabled = enabled;
     }
 
+    public SyncedFolder(String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
+                        Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled) {
+        this.localPath = localPath;
+        this.remotePath = remotePath;
+        this.wifiOnly = wifiOnly;
+        this.chargingOnly = chargingOnly;
+        this.subfolderByDate = subfolderByDate;
+        this.account = account;
+        this.uploadAction = uploadAction;
+        this.enabled = enabled;
+    }
+
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getLocalPath() {
         return localPath;
     }
 
+    public void setLocalPath(String localPath) {
+        this.localPath = localPath;
+    }
+
     public String getRemotePath() {
         return remotePath;
+    }
+
+    public void setRemotePath(String remotePath) {
+        this.remotePath = remotePath;
     }
 
     public Boolean getWifiOnly() {
         return wifiOnly;
     }
 
+    public void setWifiOnly(Boolean wifiOnly) {
+        this.wifiOnly = wifiOnly;
+    }
+
     public Boolean getChargingOnly() {
         return chargingOnly;
+    }
+
+    public void setChargingOnly(Boolean chargingOnly) {
+        this.chargingOnly = chargingOnly;
     }
 
     public Boolean getSubfolderByDate() {
         return subfolderByDate;
     }
 
+    public void setSubfolderByDate(Boolean subfolderByDate) {
+        this.subfolderByDate = subfolderByDate;
+    }
+
     public String getAccount() {
         return account;
     }
 
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
     public Integer getUploadAction() {
         return uploadAction;
+    }
+
+    public void setUploadAction(Integer uploadAction) {
+        this.uploadAction = uploadAction;
     }
 
     public boolean isEnabled() {
