@@ -33,7 +33,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -268,13 +267,12 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             mSyncedFolderPreferencesDialogFragment.setRemoteFolderSummary(chosenFolder.getRemotePath());
 
         } else {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
     public void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder) {
-        Toast.makeText(this, "onSaveSyncedFolderPreference clicked", Toast.LENGTH_SHORT).show();
         SyncedFolderItem item = syncFolderItems.get(syncedFolder.getSection());
         item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
                 .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
