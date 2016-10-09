@@ -77,10 +77,10 @@
                         android:id="@+id/local_folder_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/prefs_folder_sync_local_path_title"
                         android:maxLines="1"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:textAppearance="?android:attr/textAppearanceListItem"/>
+                        android:text="@string/prefs_folder_sync_local_path_title"
+                        android:textAppearance="?android:attr/textAppearanceListItem"
+                        android:textColor="?android:attr/textColorSecondary"/>
 
                     <TextView
                         android:id="@+id/local_folder_summary"
@@ -88,6 +88,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@id/local_folder_title"
                         android:layout_below="@id/local_folder_title"
+                        android:ellipsize="middle"
                         android:maxLines="2"
                         android:text="@string/placeholder_filename"
                         android:textColor="?android:attr/textColorSecondary"/>
@@ -110,9 +111,9 @@
                 android:id="@+id/remote_folder_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:baselineAligned="false"
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                android:baselineAligned="false">
+                android:minHeight="?android:attr/listPreferredItemHeightSmall">
 
                 <LinearLayout
                     android:id="@+id/remote_folder_icon_frame"
@@ -141,10 +142,9 @@
                         android:id="@+id/remote_folder_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/prefs_folder_sync_remote_path_title"
                         android:maxLines="1"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:textAppearance="?android:attr/textAppearanceListItem"/>
+                        android:text="@string/prefs_folder_sync_remote_path_title"
+                        android:textAppearance="?attr/textAppearanceListItem"/>
 
                     <TextView
                         android:id="@+id/remote_folder_summary"
@@ -152,6 +152,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignLeft="@id/remote_folder_title"
                         android:layout_below="@id/remote_folder_title"
+                        android:ellipsize="middle"
                         android:maxLines="2"
                         android:text="@string/placeholder_filename"
                         android:textColor="?android:attr/textColorSecondary"/>
@@ -356,21 +357,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right" >
+        android:gravity="right">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/cancel"
             style="@style/Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/common_cancel" />
+            android:text="@string/common_cancel"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/save"
             style="@style/Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/common_save" />
+            android:text="@string/common_save"/>
 
     </LinearLayout>
 
