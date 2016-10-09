@@ -9,11 +9,11 @@
        android:layout_height="wrap_content"
        android:layout_gravity="center_vertical"
        android:divider="@null"
-       android:dividerHeight="0dp"
+       android:dividerHeight="@dimen/zero"
        android:ellipsize="middle"
        android:showDividers="none"
        android:textColor="@color/color_accent"
-       android:paddingLeft="16dp"
+       android:paddingLeft="@dimen/standard_padding"
 	/>
 
 </RelativeLayout>

@@ -37,6 +37,8 @@
     <string name="prefs_log_title_history">Cronologia di registrazione</string>
     <string name="prefs_log_summary_history">Mostra i log registrati</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>
+    <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
+    <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) per l\'account corrente</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'indirizzo del server per l\'account non può essere risolto da DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Nessuna applicazione Google Play o F-Droid installata</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata correttamente</string>

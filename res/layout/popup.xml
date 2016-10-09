@@ -25,11 +25,11 @@
       
   <ScrollView 
     android:id="@+id/scroller"
-    android:layout_marginTop="16dip"
+    android:layout_marginTop="@dimen/standard_margin_independent"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:background="@drawable/popup"
-      android:fadingEdgeLength="5dip"
+      android:fadingEdgeLength="@dimen/alternate_half_padding_independent"
       android:scrollbars="none">
         
       <LinearLayout
@@ -38,7 +38,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:padding="10dip"/>
+          android:padding="@dimen/alternate_padding_independent"/>
        
   </ScrollView >
   
@@ -52,7 +52,7 @@
         android:id="@+id/arrow_down"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-4dip"
+        android:layout_marginTop="@dimen/standard_quarter_margin_negative_independent"
         android:src="@drawable/arrow_down" android:layout_below="@+id/scroller"/>
 
 </RelativeLayout>

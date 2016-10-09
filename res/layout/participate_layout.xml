@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:onClick="onGetRCPlayStoreClick"
-                        android:padding="0dp"
+                        android:padding="@dimen/zero"
                         android:src="@drawable/playstore"/>
 
                     <ImageButton
@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:onClick="onGetRCFDroidClick"
-                        android:padding="0dp"
+                        android:padding="@dimen/zero"
                         android:src="@drawable/fdroid"/>
 
                 </LinearLayout>
@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:onClick="onGetBetaFDroidClick"
-                    android:padding="0dp"
+                    android:padding="@dimen/zero"
                     android:src="@drawable/fdroid"/>
 
                 <TextView
@@ -181,7 +181,7 @@
 
     <include
         layout="@layout/drawer"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 

@@ -37,6 +37,8 @@
     <string name="prefs_log_title_history">Logging geschiedenis</string>
     <string name="prefs_log_summary_history">Dit toont de bijgehouden logs</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
+    <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
+    <string name="prefs_calendar_contacts_summary">Instellen DAVdroid (v1.3.0+) voor huidige account</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradres voor dit account kon niet worden gevonden voor DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Geen Google Play store of F-Droid app geïnstalleerd</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Agenda &amp; contactpersonen sync succesvol ingesteld</string>

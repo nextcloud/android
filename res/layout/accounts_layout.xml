@@ -32,7 +32,7 @@
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
 		android:divider="@color/list_divider_background"
-		android:dividerHeight="1dip">
+		android:dividerHeight="@dimen/divider_height_independent">
 	</ListView>
 
 </LinearLayout>
