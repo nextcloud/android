@@ -19,21 +19,21 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="72dp"
+    android:layout_height="@dimen/account_item_layout_height"
     android:orientation="horizontal"
     android:weightSum="1">
 
     <ImageView
         android:id="@+id/user_icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/user_icon_size"
+        android:layout_height="@dimen/user_icon_size"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/standard_margin"
         android:src="@drawable/ic_menu_archive"/>
 
     <TextView
         android:id="@+id/user_name"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero"
         android:layout_height="fill_parent"
         android:layout_marginLeft="@dimen/standard_margin"
         android:layout_weight="1"
