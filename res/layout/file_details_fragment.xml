@@ -81,7 +81,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_below="@+id/fdTypeLabel"
-					android:layout_marginTop="12dp"
+					android:layout_marginTop="@dimen/fragment_margin"
 					android:text="@string/filedetails_size"
 					android:textAppearance="?android:attr/textAppearanceMedium" />
 					
@@ -90,7 +90,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_below="@+id/fdSizeLabel"
-					android:layout_marginTop="12dp"
+					android:layout_marginTop="@dimen/fragment_margin"
 					android:text="@string/filedetails_created"
 					android:visibility="gone"
 					android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -100,7 +100,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_below="@+id/fdCreatedLabel"
-					android:layout_marginTop="12dp"
+					android:layout_marginTop="@dimen/fragment_margin"
 					android:text="@string/filedetails_modified"
 					android:textAppearance="?android:attr/textAppearanceMedium" />
 			</RelativeLayout>
@@ -125,7 +125,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_below="@+id/fdType"
-					android:layout_marginTop="12dp"
+					android:layout_marginTop="@dimen/fragment_margin"
 					android:text="@string/placeholder_filesize"
 					android:textAppearance="?android:attr/textAppearanceMedium" />
 					
@@ -134,7 +134,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_below="@+id/fdSize"
-					android:layout_marginTop="12dp"
+					android:layout_marginTop="@dimen/fragment_margin"
 					android:visibility="gone"
 					android:text="@string/placeholder_timestamp"
 					android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -144,7 +144,7 @@
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					android:layout_below="@+id/fdCreated"
-					android:layout_marginTop="12dp"
+					android:layout_marginTop="@dimen/fragment_margin"
 					android:text="@string/placeholder_timestamp"
 					android:textAppearance="?android:attr/textAppearanceMedium" />
 		
@@ -187,14 +187,14 @@
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
 					android:gravity="center"
-					android:layout_marginTop="12dp"
-					android:layout_marginBottom="12dp"
+					android:layout_marginTop="@dimen/fragment_margin"
+					android:layout_marginBottom="@dimen/fragment_margin"
 					android:orientation="horizontal"
 					>
 				    				
     				<ProgressBar 
     				    android:id="@+id/fdProgressBar"
-						android:layout_width="0dp"
+						android:layout_width="@dimen/zero"
 						android:layout_height="wrap_content"
 						android:layout_weight="1"
                         style="?android:attr/progressBarStyleHorizontal"
@@ -206,7 +206,7 @@
 						android:id="@+id/fdCancelBtn"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:layout_marginLeft="12dp"
+						android:layout_marginLeft="@dimen/fragment_margin"
 						android:src="@drawable/ic_action_cancel_grey"
 						android:background="@android:color/transparent"
 						/>

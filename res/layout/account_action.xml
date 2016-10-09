@@ -20,7 +20,7 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="72dp"
+    android:layout_height="@dimen/account_action_layout_height"
     android:orientation="horizontal"
     android:weightSum="1">
 
@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/user_name"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/zero"
         android:layout_height="fill_parent"
         android:layout_marginLeft="@dimen/list_item_avatar_text_margin"
         android:layout_weight="1"

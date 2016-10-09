@@ -57,11 +57,11 @@
             android:id="@+id/grid_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:columnWidth="100dp"
+            android:columnWidth="@dimen/list_fragment_column_width"
             android:gravity="center"
-            android:horizontalSpacing="2dp"
+            android:horizontalSpacing="@dimen/list_fragment_spacing"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="2dp"
+            android:verticalSpacing="@dimen/list_fragment_spacing"
             android:visibility="visible" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
