@@ -56,7 +56,7 @@ public class SyncedFolderProvider extends Observable {
      * Stores an media folder sync object in database.
      *
      * @param syncedFolder synced folder to store
-     * @return upload id, -1 if the insert process fails.
+     * @return synced folder id, -1 if the insert process fails.
      */
     public long storeFolderSync(SyncedFolder syncedFolder) {
         Log_OC.v(TAG, "Inserting " + syncedFolder.getLocalPath() + " with enabled=" + syncedFolder.isEnabled());
@@ -191,7 +191,7 @@ public class SyncedFolderProvider extends Observable {
      * @param syncedFolder the synced folder to be updated.
      * @return the number of rows updated.
      */
-    private int updateSyncFolder(SyncedFolder syncedFolder) {
+    public int updateSyncFolder(SyncedFolder syncedFolder) {
         Log_OC.v(TAG, "Updating " + syncedFolder.getLocalPath() + " with enabled=" + syncedFolder.isEnabled());
 
         ContentValues cv = createContentValuesFromSyncedFolder(syncedFolder);

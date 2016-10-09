@@ -31,18 +31,19 @@ import com.owncloud.android.datamodel.SyncedFolderItem;
 public class SyncedFolderParcelable implements Parcelable {
     private String mLocalPath;
     private String mRemotePath;
-    private Boolean mWifiOnly;
-    private Boolean mChargingOnly;
-    private boolean mEnabled;
-    private Boolean mSubfolderByDate;
+    private Boolean mWifiOnly = false;
+    private Boolean mChargingOnly = false;
+    private Boolean mEnabled = false;
+    private Boolean mSubfolderByDate = false;
     private Integer mUploadAction;
     private long mId;
     private String mAccount;
+    private int mSection;
 
     public SyncedFolderParcelable() {
     }
 
-    public SyncedFolderParcelable(SyncedFolderItem syncedFolderItem) {
+    public SyncedFolderParcelable(SyncedFolderItem syncedFolderItem, int section) {
         mId = syncedFolderItem.getId();
         mLocalPath = syncedFolderItem.getLocalPath();
         mRemotePath = syncedFolderItem.getRemotePath();
@@ -52,6 +53,7 @@ public class SyncedFolderParcelable implements Parcelable {
         mSubfolderByDate = syncedFolderItem.getSubfolderByDate();
         mAccount = syncedFolderItem.getAccount();
         mUploadAction = syncedFolderItem.getUploadAction();
+        mSection = section;
     }
 
     public SyncedFolderParcelable(Parcel read) {
@@ -64,6 +66,7 @@ public class SyncedFolderParcelable implements Parcelable {
         mSubfolderByDate = read.readInt() != 0;
         mAccount = read.readString();
         mUploadAction = read.readInt();
+        mSection = read.readInt();
     }
 
     @Override
@@ -77,6 +80,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(mSubfolderByDate ? 1 : 0);
         dest.writeString(mAccount);
         dest.writeInt(mUploadAction);
+        dest.writeInt(mSection);
     }
 
     public static final Creator<SyncedFolderParcelable> CREATOR =
@@ -130,7 +134,7 @@ public class SyncedFolderParcelable implements Parcelable {
         this.mChargingOnly = mChargingOnly;
     }
 
-    public boolean isEnabled() {
+    public boolean getEnabled() {
         return mEnabled;
     }
 
@@ -168,5 +172,13 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setAccount(String mAccount) {
         this.mAccount = mAccount;
+    }
+
+    public int getSection() {
+        return mSection;
+    }
+
+    public void setSection(int mSection) {
+        this.mSection = mSection;
     }
 }

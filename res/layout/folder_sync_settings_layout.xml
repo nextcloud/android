@@ -31,8 +31,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/folder_sync_preferences"
-        android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        android:visibility="gone"/>
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
 
     <ScrollView
         android:id="@+id/details_scroll"
@@ -78,7 +77,7 @@
                         android:id="@+id/local_folder_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/prefs_instant_upload_path_title"
+                        android:text="@string/prefs_folder_sync_local_path_title"
                         android:maxLines="1"
                         android:textColor="?android:attr/textColorSecondary"
                         android:textAppearance="?android:attr/textAppearanceListItem"/>
@@ -97,7 +96,18 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/settings_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dip"
+                android:paddingTop="@dimen/standard_padding"
+                android:text="@string/folder_sync_settings"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/color_accent"/>
+
             <LinearLayout
+                android:id="@+id/remote_folder_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
@@ -121,7 +131,7 @@
                 </LinearLayout>
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingBottom="16dip"
@@ -131,7 +141,7 @@
                         android:id="@+id/remote_folder_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/prefs_instant_upload_path_title"
+                        android:text="@string/prefs_folder_sync_remote_path_title"
                         android:maxLines="1"
                         android:textColor="?android:attr/textColorSecondary"
                         android:textAppearance="?android:attr/textAppearanceListItem"/>
@@ -149,16 +159,6 @@
                 </RelativeLayout>
 
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/settings_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dip"
-                android:paddingTop="@dimen/standard_padding"
-                android:text="@string/folder_sync_settings"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/color_accent"/>
 
             <LinearLayout
                 android:id="@+id/setting_instant_upload_on_wifi_container"
@@ -311,6 +311,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/setting_instant_behaviour_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
