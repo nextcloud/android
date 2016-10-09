@@ -22,7 +22,7 @@
 	android:orientation="vertical" 
 	android:layout_gravity="center"
 	android:gravity="center_vertical"
-	android:padding="20dp"
+	android:padding="@dimen/file_download_fragment_layout_padding"
 	android:background="@color/black"
 	>
 	
@@ -32,7 +32,7 @@
 		android:layout_height="wrap_content"
 		android:textColor="@color/dark_background_text_color"
 		android:text="@string/downloader_not_downloaded_yet"
-		android:layout_marginBottom="15dp"
+		android:layout_marginBottom="@dimen/alternate_fragment_margin"
 	/>
 	
     <LinearLayout
@@ -40,13 +40,13 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center"
-		android:layout_marginTop="12dp"
-		android:layout_marginBottom="15dp"
+		android:layout_marginTop="@dimen/fragment_margin"
+		android:layout_marginBottom="@dimen/alternate_fragment_margin"
 		android:orientation="horizontal"
 		>
 	    				
 		<ProgressBar android:id="@+id/progressBar"
-			android:layout_width="0dp"
+			android:layout_width="@dimen/zero"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
 			style="?android:attr/progressBarStyleHorizontal"
@@ -59,7 +59,7 @@
 			android:id="@+id/cancelBtn"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_marginLeft="12dp"
+			android:layout_marginLeft="@dimen/fragment_margin"
 			android:src="@drawable/ic_action_cancel_grey"
 			android:background="@android:color/transparent"
 		/>
@@ -70,7 +70,7 @@
 		android:id="@+id/error_image"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_margin="0dp"
+		android:layout_margin="@dimen/zero"
 		android:layout_gravity="center_horizontal"
 		android:contentDescription="@string/downloader_download_failed_ticker"
 		android:src="@drawable/image_fail" />
@@ -80,7 +80,7 @@
 	    android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
 		android:layout_gravity="center_horizontal"
-		android:layout_margin="40dp"
+		android:layout_margin="@dimen/file_download_fragment_display_text_margin"
 		android:textColor="@color/dark_background_text_color"
 		android:text="@string/downloader_download_failed_ticker"
 	/>

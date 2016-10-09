@@ -18,7 +18,7 @@
     <View
         android:id="@+id/file_actions_header_divider"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="@dimen/file_actions_view_height"
         android:background="@color/owncloud_blue"
         android:visibility="gone"
         />
@@ -26,7 +26,7 @@
     <ListView
         android:id="@+id/file_actions_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/zero"
         android:layout_weight="1"
         />
 
