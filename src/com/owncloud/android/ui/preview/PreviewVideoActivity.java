@@ -20,13 +20,7 @@
 
 package com.owncloud.android.ui.preview;
 
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.media.MediaService;
-import com.owncloud.android.ui.activity.FileActivity;
-
 import android.accounts.Account;
-import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -35,12 +29,18 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.media.MediaService;
+import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 /**
  *  Activity implementing a basic video player.
@@ -197,7 +197,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
             if (file == null) {
                 throw new IllegalStateException("Instanced with a NULL OCFile");
             }
-            if (!file.isVideo()) {
+            if (!MimeTypeUtil.isVideo(file)) {
                 throw new IllegalArgumentException("Non-video file passed as argument");
             }
             file = getStorageManager().getFileById(file.getFileId()); 

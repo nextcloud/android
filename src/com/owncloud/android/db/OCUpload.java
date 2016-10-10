@@ -34,7 +34,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 
@@ -235,7 +235,7 @@ public class OCUpload implements Parcelable {
      * @return the mimeType
      */
     public String getMimeType() {
-        return MimetypeIconUtil.getBestMimeTypeByFilename(mLocalPath);
+        return MimeTypeUtil.getBestMimeTypeByFilename(mLocalPath);
     }
 
     /**

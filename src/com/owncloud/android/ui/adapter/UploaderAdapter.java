@@ -36,7 +36,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncThumbnailDrawable;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -91,7 +91,7 @@ public class UploaderAdapter extends SimpleAdapter {
         }
         
         // get Thumbnail if file is image
-        if (file.isImage() && file.getRemoteId() != null){
+        if (MimeTypeUtil.isImage(file) && file.getRemoteId() != null) {
              // Thumbnail in Cache?
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     String.valueOf(file.getRemoteId())
@@ -105,7 +105,7 @@ public class UploaderAdapter extends SimpleAdapter {
                             new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon, mStorageManager, 
                                     mAccount);
                     if (thumbnail == null) {
-                        if (file.isVideo()) {
+                        if (MimeTypeUtil.isVideo(file)) {
                             thumbnail = ThumbnailsCacheManager.mDefaultVideo;
                         } else {
                             thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -122,7 +122,7 @@ public class UploaderAdapter extends SimpleAdapter {
             }
         } else {
             fileIcon.setImageResource(
-                    MimetypeIconUtil.getFileTypeIconId(file.getMimetype(), file.getFileName())
+                    MimeTypeUtil.getFileTypeIconId(file.getMimetype(), file.getFileName())
             );
         }
         return vi;
