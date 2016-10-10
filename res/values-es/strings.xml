@@ -69,6 +69,7 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s No está autorizado a leer el arcivo.</string>
     <string name="uploader_error_message_source_file_not_found">El archivo a subir no se localiza. Compruebe que el archivo existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Ha ocurrido un error al copiar a la carpeta temporal. Por favor intentelo de nuevo.</string>
+    <string name="uploader_upload_files_behaviour">Configuraciones de subida:</string>
     <string name="file_list_seconds_ago">hace segundos</string>
     <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
     <string name="file_list_loading">Cargando...</string>
@@ -462,6 +463,8 @@
     <string name="confirmation_remove_folders_alert">¿Está sguro de que quiere eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="actionbar_search">Buscar</string>
     <string name="learn_more">Aprender mas</string>
+    <string name="participate_testing_headline">Ayúdanos a hacer pruebas</string>
+    <string name="participate_testing_report_text">Informa de un problema en Github</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <plurals name="items_selected_count">
