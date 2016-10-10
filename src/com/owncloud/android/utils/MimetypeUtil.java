@@ -19,10 +19,13 @@
 
 package com.owncloud.android.utils;
 
+import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -38,28 +41,27 @@ import java.util.Map;
  * In order to add further mappings, there are up to three look up maps that need further values:
  * <ol>
  *     <li>
- *         {@link MimetypeIconUtil#FILE_EXTENSION_TO_MIMETYPE_MAPPING}<br/>
+ *         {@link MimeTypeUtil#FILE_EXTENSION_TO_MIMETYPE_MAPPING}<br/>
  *         to add a new file extension to mime type mapping
  *     </li>
  *     <li>
- *         {@link MimetypeIconUtil#MIMETYPE_TO_ICON_MAPPING}<br/>
+ *         {@link MimeTypeUtil#MIMETYPE_TO_ICON_MAPPING}<br/>
  *         to add a new mapping of a mime type to an icon mapping
  *     </li>
  *     <li>
- *         {@link MimetypeIconUtil#MAINMIMETYPE_TO_ICON_MAPPING}<br/>
+ *         {@link MimeTypeUtil#MAINMIMETYPE_TO_ICON_MAPPING}<br/>
  *         to add a new mapping for the main part of a mime type.
  *         This is a list of fallback mappings in case there is no mapping for the complete mime type
  *     </li>
  * </ol>
  */
-public class MimetypeIconUtil {
+public class MimeTypeUtil {
     /** Mapping: icon for mime type */
-    private static final Map<String, Integer> MIMETYPE_TO_ICON_MAPPING = new HashMap<String, Integer>();
+    private static final Map<String, Integer> MIMETYPE_TO_ICON_MAPPING = new HashMap<>();
     /** Mapping: icon for main mime type (first part of a mime type declaration). */
-    private static final Map<String, Integer> MAINMIMETYPE_TO_ICON_MAPPING = new HashMap<String, Integer>();
+    private static final Map<String, Integer> MAINMIMETYPE_TO_ICON_MAPPING = new HashMap<>();
     /** Mapping: mime type for file extension. */
-    private static final Map<String, List<String>> FILE_EXTENSION_TO_MIMETYPE_MAPPING =
-            new HashMap<String, List<String>>();
+    private static final Map<String, List<String>> FILE_EXTENSION_TO_MIMETYPE_MAPPING = new HashMap<>();
 
     static {
         populateFileExtensionMimeTypeMapping();
@@ -121,28 +123,95 @@ public class MimetypeIconUtil {
      * @return 'True' if the mime type defines image
      */
     public static boolean isImage(String mimeType) {
-        return (mimeType.startsWith("image/") && !mimeType.contains("djvu"));
+        return (mimeType!=null && mimeType.toLowerCase().startsWith("image/") && !mimeType.toLowerCase().contains
+                ("djvu"));
     }
 
     /**
      * @return 'True' the mime type defines video
      */
     public static boolean isVideo(String mimeType) {
-        return (mimeType != null && mimeType.startsWith("video/"));
+        return (mimeType != null && mimeType.toLowerCase().startsWith("video/"));
     }
 
     /**
      * @return 'True' the mime type defines audio
      */
-    public boolean isAudio(String mimeType) {
-        return (mimeType != null && mimeType.startsWith("audio/"));
+    public static boolean isAudio(String mimeType) {
+        return (mimeType != null && mimeType.toLowerCase().startsWith("audio/"));
     }
 
     /**
      * @return 'True' if mime type defines text
      */
-    public boolean isText(String mimeType) {
-        return (mimeType != null && mimeType.startsWith("text/"));
+    public static boolean isText(String mimeType) {
+        return (mimeType != null && mimeType.toLowerCase().startsWith("text/"));
+    }
+
+    /**
+     * Checks if file passed is a video.
+     *
+     * @param file the file to be checked
+     * @return 'True' the mime type defines video
+     */
+    public static boolean isVideo(File file) {
+        return isVideo(extractMimeType(file));
+    }
+
+    /**
+     * Checks if file passed is an image.
+     *
+     * @param file the file to be checked
+     * @return 'True' the mime type defines video
+     */
+    public static boolean isImage(File file) {
+        return isImage(extractMimeType(file));
+    }
+
+    /**
+     * @param file the file to be analyzed
+     * @return 'True' if the file contains audio
+     */
+    public static boolean isAudio(OCFile file) {
+        return MimeTypeUtil.isAudio(file.getMimetype());
+    }
+
+    /**
+     * @param file the file to be analyzed
+     * @return 'True' if the file contains video
+     */
+    public static boolean isVideo(OCFile file) {
+        return MimeTypeUtil.isVideo(file.getMimetype());
+    }
+
+    /**
+     * @param file the file to be analyzed
+     * @return 'True' if the file contains an image
+     */
+    public static boolean isImage(OCFile file) {
+        return (MimeTypeUtil.isImage(file.getMimetype())
+                || MimeTypeUtil.isImage(getMimeTypeFromPath(file.getRemotePath())));
+    }
+
+    /**
+     * @param file the file to be analyzed
+     * @return 'True' if the file is simple text (e.g. not application-dependent, like .doc or .docx)
+     */
+    public static boolean isText(OCFile file) {
+        return (MimeTypeUtil.isText(file.getMimetype())
+                || MimeTypeUtil.isText(getMimeTypeFromPath(file.getRemotePath())));
+    }
+
+    /**
+     * Extracts the mime type for the given file.
+     *
+     * @param file the file to be analyzed
+     * @return the file's mime type
+     */
+    private static String extractMimeType(File file) {
+        Uri selectedUri = Uri.fromFile(file);
+        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
+        return MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
     }
 
     /**
@@ -200,9 +269,19 @@ public class MimetypeIconUtil {
             if (mimeType != null) {
                 return Collections.singletonList(mimeType);
             } else {
-                return new ArrayList<String>();
+                return new ArrayList<>();
             }
         }
+    }
+
+    public static String getMimeTypeFromPath(String path) {
+        String extension = "";
+        int pos = path.lastIndexOf('.');
+        if (pos >= 0) {
+            extension = path.substring(pos + 1);
+        }
+        String result = MimeTypeMap.getSingleton().getMimeTypeFromExtension(extension.toLowerCase());
+        return (result != null) ? result : "";
     }
 
     /**
@@ -212,8 +291,7 @@ public class MimetypeIconUtil {
      * @return the file extension
      */
     private static String getExtension(String filename) {
-        String extension = filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
-        return extension;
+        return filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
     }
 
     /**
