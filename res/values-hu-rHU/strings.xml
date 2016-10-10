@@ -106,7 +106,7 @@
     <string name="common_cancel_sync">Szinkronizálás megszakítása</string>
     <string name="common_cancel">Mégsem</string>
     <string name="common_back">Vissza</string>
-    <string name="common_save_exit">Mentés &amp; kilépés</string>
+    <string name="common_save_exit">Mentés és kilépés</string>
     <string name="common_error">Hiba</string>
     <string name="common_loading">Betöltés ...</string>
     <string name="common_unknown">ismeretlen</string>
@@ -466,7 +466,7 @@ Kérem keresse a rendszergazdát.</string>
     <string name="manage_space_clear_data">Adatok törlése</string>
     <string name="manage_space_error">Néhány fájl nem volt törölhető</string>
 
-    <string name="permission_storage_access">A fájlok letöltéséhez &amp; feltöltéséhez további jogosultságok szükségesek.</string>
+    <string name="permission_storage_access">A fájlok letöltéséhez és feltöltéséhez további jogosultságok szükségesek.</string>
     <string name="local_file_not_found_toast">A fájl nem található a helyi fájlrendszerben</string>
     <string name="confirmation_remove_files_alert">Biztos, hogy el akarod távolítani a kiválasztott elemeket?</string>
     <string name="confirmation_remove_folders_alert">Biztos, hogy el akarod távolítani a kiválasztott elemeket és azok tartalmát?</string>
