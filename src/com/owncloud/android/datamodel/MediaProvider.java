@@ -38,8 +38,8 @@ public class MediaProvider {
     private static final Uri MEDIA_URI = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
     /**
-     * TODO rewrite
-     * Getting All Images Path
+     * TODO rewrite/beautify
+     * Getting All Images Paths.
      *
      * @param contentResolver the content resolver
      * @return List with images folders

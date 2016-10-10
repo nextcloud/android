@@ -48,6 +48,8 @@ import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +89,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         setupContent();
     }
 
+    /**
+     * sets up the UI elements and loads all media/synced folders.
+     */
     private void setupContent() {
         mRecyclerView = (RecyclerView) findViewById(android.R.id.list);
 
@@ -106,6 +111,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         load();
     }
 
+    /**
+     * loads all media/synced folders, adds them to the recycler view adapter and shows the list.
+     */
     private void load() {
         if (mAdapter.getItemCount() > 0) return;
         setListShown(false);
@@ -114,8 +122,8 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             @Override
             public void run() {
                 final List<MediaFolder> mediaFolders = MediaProvider.getAllShownImagesPath(getContentResolver());
-                syncFolderItems = mergeFolderData(mSyncedFolderProvider.getSyncedFolders(),
-                        mediaFolders);
+                syncFolderItems = sortSyncedFolderItem(mergeFolderData(mSyncedFolderProvider.getSyncedFolders(),
+                        mediaFolders));
 
                 // TODO remove before merging to master, keeping it for debugging atm
                 /**
@@ -135,6 +143,13 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }).start();
     }
 
+    /**
+     * merges two lists of SyncedFolder and MediaFolder items into one of SyncedFolderItems.
+     *
+     * @param syncedFolders the synced folders
+     * @param mediaFolders  the media folders
+     * @return the merged list of SyncedFolderItems
+     */
     @NonNull
     private List<SyncedFolderItem> mergeFolderData(List<SyncedFolder> syncedFolders,
                                                    @NonNull List<MediaFolder> mediaFolders) {
@@ -153,6 +168,48 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         return result;
     }
 
+    /**
+     * Sorts list by SyncedFolderItems.
+     *
+     * @param syncFolderItemList SyncedFolderItems to sort
+     */
+    public static List<SyncedFolderItem> sortSyncedFolderItem(List<SyncedFolderItem> syncFolderItemList) {
+        Collections.sort(syncFolderItemList, new Comparator<SyncedFolderItem>() {
+            public int compare(SyncedFolderItem f1, SyncedFolderItem f2) {
+                if (f1 == null && f2 == null) {
+                    return 0;
+                } else if (f1 == null) {
+                    return -1;
+                } else if (f2 == null) {
+                    return 1;
+                } else if (f1.isEnabled() && f2.isEnabled()) {
+                    return f1.getFolderName().compareTo(f2.getFolderName());
+                } else if (f1.isEnabled()) {
+                    return -1;
+                } else if (f2.isEnabled()) {
+                    return 1;
+                } else if (f1.getFolderName() == null && f2.getFolderName() == null) {
+                    return 0;
+                } else if (f1.getFolderName() == null) {
+                    return -1;
+                } else if (f2.getFolderName() == null) {
+                    return 1;
+                } else {
+                    return f1.getFolderName().compareTo(f2.getFolderName());
+                }
+            }
+        });
+
+        return syncFolderItemList;
+    }
+
+    /**
+     * creates a SyncedFolderItem merging a SyncedFolder and MediaFolder object instance.
+     *
+     * @param syncedFolder the synced folder object
+     * @param mediaFolder  the media folder object
+     * @return the created SyncedFolderItem
+     */
     @NonNull
     private SyncedFolderItem createSyncedFolder(@NonNull SyncedFolder syncedFolder, @NonNull MediaFolder mediaFolder) {
         return new SyncedFolderItem(
@@ -170,6 +227,12 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 mediaFolder.numberOfFiles);
     }
 
+    /**
+     * creates a SyncedFolderItem based on a MediaFolder object instance.
+     *
+     * @param mediaFolder the media folder object
+     * @return the created SyncedFolderItem
+     */
     @NonNull
     private SyncedFolderItem createSyncedFolderFromMediaFolder(@NonNull MediaFolder mediaFolder) {
         return new SyncedFolderItem(
@@ -187,6 +250,12 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 mediaFolder.numberOfFiles);
     }
 
+    /**
+     * creates a lookup map for a list of given synced folders with their local path as the key.
+     *
+     * @param syncFolders list of synced folders
+     * @return the lookup map for synced folders
+     */
     @NonNull
     private Map<String, SyncedFolder> createSyncedFoldersMap(List<SyncedFolder> syncFolders) {
         Map<String, SyncedFolder> result = new HashMap<>();
@@ -198,6 +267,11 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         return result;
     }
 
+    /**
+     * show/hide recycler view list or the empty message / progress info.
+     *
+     * @param shown flag if list should be shown
+     */
     private void setListShown(boolean shown) {
         if (mRecyclerView != null) {
             mRecyclerView.setVisibility(shown ? View.VISIBLE : View.GONE);
