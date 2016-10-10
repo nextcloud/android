@@ -26,7 +26,7 @@ import android.os.Build;
 import android.provider.DocumentsContract.Document;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 @TargetApi(Build.VERSION_CODES.KITKAT)
 public class FileCursor extends MatrixCursor {
@@ -44,9 +44,9 @@ public class FileCursor extends MatrixCursor {
     public void addFile(OCFile file) {
         if (file == null) return;
 
-        final int iconRes = MimetypeIconUtil.getFileTypeIconId(file.getMimetype(), file.getFileName());
+        final int iconRes = MimeTypeUtil.getFileTypeIconId(file.getMimetype(), file.getFileName());
         final String mimeType = file.isFolder() ? Document.MIME_TYPE_DIR : file.getMimetype();
-        final String imagePath = file.isImage() && file.isDown() ? file.getStoragePath() : null;
+        final String imagePath = MimeTypeUtil.isImage(file) && file.isDown() ? file.getStoragePath() : null;
         int flags = imagePath != null ? Document.FLAG_SUPPORTS_THUMBNAIL : 0;
 
         newRow().add(Document.COLUMN_DOCUMENT_ID, Long.toString(file.getFileId()))

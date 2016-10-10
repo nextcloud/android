@@ -36,10 +36,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -119,8 +118,8 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
             // Find out which layout should be displayed
             ViewType viewType;
             if (parent instanceof GridView) {
-                String mimeType = MimetypeIconUtil.getBestMimeTypeByFilename(file.getName());
-                if (MimetypeIconUtil.isImage(mimeType) || MimetypeIconUtil.isVideo(mimeType)) {
+                String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getName());
+                if (MimeTypeUtil.isImage(mimeType) || MimeTypeUtil.isVideo(mimeType)) {
                     viewType = ViewType.GRID_IMAGE;
                 } else {
                     viewType = ViewType.GRID_ITEM;
@@ -197,7 +196,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 }
                 
              // get Thumbnail if file is image
-                if (BitmapUtils.isImage(file)){
+                if (MimeTypeUtil.isImage(file)){
                 // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                             String.valueOf(file.hashCode())
@@ -210,7 +209,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                         if (allowedToCreateNewThumbnail) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
-                            if (BitmapUtils.isVideo(file)) {
+                            if (MimeTypeUtil.isVideo(file)) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultVideo;
                             } else {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -228,7 +227,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                         } // else, already being generated, don't restart it
                     }
                 } else {
-                    fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
+                    fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(null, file.getName()));
                 }  
 
             } else {
