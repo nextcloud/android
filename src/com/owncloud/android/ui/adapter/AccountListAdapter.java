@@ -103,6 +103,20 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
                     viewHolder.checkViewItem.setVisibility(View.INVISIBLE);
                 }
 
+                viewHolder.imageViewItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mListener.switchAccount(mValues.get(position).getAccount());
+                    }
+                });
+
+                viewHolder.accountViewItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mListener.switchAccount(mValues.get(position).getAccount());
+                    }
+                });
+
                 /// bind listener to change password
                 viewHolder.passwordButtonItem.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -159,6 +173,8 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         void changePasswordOfAccount(Account account);
 
         void createAccount();
+
+        void switchAccount(Account account);
     }
 
     /**
