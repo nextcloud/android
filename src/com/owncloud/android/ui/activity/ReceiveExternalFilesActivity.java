@@ -79,8 +79,9 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -100,6 +101,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
     public static final String TEXT_FILE_SUFFIX = ".txt";
+    public static final String URL_FILE_SUFFIX = ".url";
 
     private AccountManager mAccountManager;
     private Stack<String> mParents;
@@ -124,6 +126,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private static final String DIALOG_WAIT_COPY_FILE = "DIALOG_WAIT_COPY_FILE";
 
+	private boolean mUploadFromTmpFile = false;
+	private String mServerFilename;
+	private String mTmpFilename;
+	private String mTmpFileSuffix;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         prepareStreamsToUpload();
@@ -344,7 +351,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     mUploadPath += p + OCFile.PATH_SEPARATOR;
                 }
 
-                if (uploadTextSnippet()){
+                if (mUploadFromTmpFile){
                     LayoutInflater layout = LayoutInflater.from(getBaseContext());
                     View view = layout.inflate(R.layout.edit_box_dialog, null);
 
@@ -354,42 +361,31 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     alertDialogBuilder.setView(view);
 
                     final EditText userInput = (EditText) view.findViewById(R.id.user_input);
-                    userInput.setText(TEXT_FILE_SUFFIX);
+					userInput.setText(mServerFilename);
 
                     alertDialogBuilder.setCancelable(false)
                             .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog,int id) {
-                                            PrintWriter out;
-                                            try {
-                                                File f = File.createTempFile("nextcloud", TEXT_FILE_SUFFIX);
-                                                out = new PrintWriter(f, "UTF8");
-                                                out.println(getIntent().getStringExtra(Intent.EXTRA_TEXT));
-                                                out.close();
-
-                                                FileUploader.UploadRequester requester =
+											FileUploader.UploadRequester requester =
                                                         new FileUploader.UploadRequester();
 
-                                                // verify if file name has suffix
-                                                String filename = userInput.getText().toString();
+											// verify if file name has suffix
+											String filename = userInput.getText().toString();
 
-                                                if (!filename.endsWith(TEXT_FILE_SUFFIX)){
-                                                    filename += TEXT_FILE_SUFFIX;
-                                                }
+											if (!filename.endsWith(mTmpFileSuffix)){
+												filename += mTmpFileSuffix;
+											}
 
-                                                requester.uploadNewFile(
+											requester.uploadNewFile(
                                                         getBaseContext(),
                                                         getAccount(),
-                                                        f.getAbsolutePath(),
+                                                        mTmpFilename,
                                                         mFile.getRemotePath() + filename,
                                                         FileUploader.LOCAL_BEHAVIOUR_COPY,
                                                         null,
                                                         true,
                                                         UploadFileOperation.CREATED_BY_USER
                                                 );
-                                            } catch (IOException e) {
-                                                Log_OC.w(TAG, e.getMessage());
-                                            }
-
                                             finish();
                                         }
                                     })
@@ -483,7 +479,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
 
-            if (uploadTextSnippet()){
+            if (mUploadFromTmpFile){
                 btnChooseFolder.setText(R.string.uploader_btn_uploadTextSnippet_text);
             }
 
@@ -534,21 +530,113 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void prepareStreamsToUpload() {
-        if (getIntent().getAction().equals(Intent.ACTION_SEND)) {
+        Intent intent = getIntent();
+        if (intent.getAction().equals(Intent.ACTION_SEND)) {
             mStreamsToUpload = new ArrayList<>();
-            mStreamsToUpload.add(getIntent().getParcelableExtra(Intent.EXTRA_STREAM));
-        } else if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
-            mStreamsToUpload = getIntent().getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+            mStreamsToUpload.add(intent.getParcelableExtra(Intent.EXTRA_STREAM));
+        } else if (intent.getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
+            mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+        }
+
+        if (mStreamsToUpload == null || mStreamsToUpload.get(0) == null) {
+			mStreamsToUpload = null;
+            if (intent.getType().equals("text/plain")) {
+                String extraText = intent.getStringExtra(Intent.EXTRA_TEXT);
+                String subjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+                if (subjectText == null) {
+                    subjectText = intent.getStringExtra(Intent.EXTRA_TITLE);
+                }
+                if (extraText.startsWith("http://")||extraText.startsWith("https://")) {
+                    // share from web brouser
+                    if (subjectText == null) {
+                        subjectText = "url";
+                    }
+                    String filename = renameSafeFilename(subjectText) + URL_FILE_SUFFIX;
+					if (filename != null) {
+						File file = createTempUrlFile("tmp.url", extraText);
+						if (file != null) {
+							mTmpFilename = file.getAbsolutePath();
+							mTmpFileSuffix = URL_FILE_SUFFIX;
+							mServerFilename = filename;
+							mUploadFromTmpFile = true;
+						}
+					}
+                } else {
+                    // simply text meybe
+                    if (subjectText == null) {
+                        subjectText = "snipettext";
+                    }
+                    String filename = renameSafeFilename(subjectText) + TEXT_FILE_SUFFIX;
+					if (filename != null) {
+						File file = createTempTextFile("tmp.txt", extraText);
+						if (file != null) {
+							mTmpFilename = file.getAbsolutePath();
+							mTmpFileSuffix = TEXT_FILE_SUFFIX;
+							mServerFilename = filename;
+							mUploadFromTmpFile = true;
+						}
+					}
+                }
+            }
         }
     }
 
+	private String renameSafeFilename(String filename) {
+		filename = filename.replaceAll("[?]", "_");
+		filename = filename.replaceAll("\"", "_");
+		filename = filename.replaceAll("/", "_");
+		filename = filename.replaceAll("<", "_");
+		filename = filename.replaceAll(">", "_");
+		filename = filename.replaceAll("[*]", "_");
+		filename = filename.replaceAll("[|]", "_");
+		filename = filename.replaceAll(";", "_");
+		filename = filename.replaceAll("=", "_");
+		filename = filename.replaceAll(",", "_");
+
+        try {
+			int maxlength = 128;
+            if (filename.getBytes("UTF-8").length > maxlength) {
+                filename = new String(filename.getBytes("UTF-8"), 0, maxlength, "UTF-8");
+            }
+        } catch (UnsupportedEncodingException e) {
+			Log_OC.e(TAG, "rename fail ", e);
+            return null;
+        }
+        return filename;
+	}
+
+	private File createTempUrlFile(String filename, String url) {
+		String text;
+		text = "[InternetShortcut]\r\n";
+		text += "URL=" + url + "\r\n";
+		return createTempTextFile(filename,text);
+	}
+	
+	private File createTempTextFile(String filename, String text) {
+		File file = new File(this.getCacheDir(), filename);
+        FileWriter fw = null;
+        try {
+            fw = new FileWriter(file);
+            fw.write(text + "\n");
+            fw.close();
+        } catch (IOException e) {
+			Log_OC.d(TAG, "Error ", e);
+            return null;
+        } finally {
+            if (fw != null) {
+				try {
+					fw.close();
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Error closing file writer ", e);
+                }
+			}
+		}
+		return file;
+	}
+
     private boolean somethingToUpload() {
         return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
-                uploadTextSnippet());
-    }
-
-    private boolean uploadTextSnippet() {
-        return getIntent().getStringExtra(Intent.EXTRA_TEXT) != null && getIntent().getExtras().keySet().size() == 1;
+                mUploadFromTmpFile);
     }
 
     @SuppressLint("NewApi")
