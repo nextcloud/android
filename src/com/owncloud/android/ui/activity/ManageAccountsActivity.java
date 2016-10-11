@@ -108,35 +108,7 @@ public class ManageAccountsActivity extends FileActivity
 
         mListView.setAdapter(mAccountListAdapter);
 
-        // added click listener to switch account
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switchAccount(position);
-            }
-        });
-
         initializeComponentGetters();
-    }
-
-    /**
-     * Switch current account to that contained in the received position of the list adapter.
-     *
-     * @param position A position of the account adapter containing an account.
-     */
-    private void switchAccount(int position) {
-        Account clickedAccount = mAccountListAdapter.getItem(position).getAccount();
-        if (getAccount().name.equals(clickedAccount.name)) {
-            // current account selected, just go back
-            finish();
-        } else {
-            // restart list of files with new account
-            AccountUtils.setCurrentOwnCloudAccount(ManageAccountsActivity.this, clickedAccount.name);
-            Intent i = new Intent(ManageAccountsActivity.this, FileDisplayActivity.class);
-            i.putExtra(FileActivity.EXTRA_ACCOUNT, clickedAccount);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        }
     }
 
     /**
@@ -289,6 +261,21 @@ public class ManageAccountsActivity extends FileActivity
                         }
                     }
                 }, mHandler);
+    }
+
+    @Override
+    public void switchAccount(Account account) {
+        if (getAccount().name.equals(account.name)) {
+            // current account selected, just go back
+            finish();
+        } else {
+            // restart list of files with new account
+            AccountUtils.setCurrentOwnCloudAccount(ManageAccountsActivity.this, account.name);
+            Intent i = new Intent(ManageAccountsActivity.this, FileDisplayActivity.class);
+            i.putExtra(FileActivity.EXTRA_ACCOUNT, account);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
     }
 
     @Override
