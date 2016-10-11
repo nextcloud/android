@@ -38,6 +38,8 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.owncloud.android.MainApp;
@@ -98,7 +100,35 @@ public class ManageAccountsActivity extends FileActivity
 
         mListView.setAdapter(mAccountListAdapter);
 
+        // added click listener to switch account
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switchAccount(position);
+            }
+        });
+
         initializeComponentGetters();
+    }
+
+    /**
+     * Switch current account to that contained in the received position of the list adapter.
+     *
+     * @param position A position of the account adapter containing an account.
+     */
+    private void switchAccount(int position) {
+        Account clickedAccount = mAccountListAdapter.getItem(position).getAccount();
+        if (getAccount().name.equals(clickedAccount.name)) {
+            // current account selected, just go back
+            finish();
+        } else {
+            // restart list of files with new account
+            AccountUtils.setCurrentOwnCloudAccount(ManageAccountsActivity.this, clickedAccount.name);
+            Intent i = new Intent(ManageAccountsActivity.this, FileDisplayActivity.class);
+            i.putExtra(FileActivity.EXTRA_ACCOUNT, clickedAccount);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
     }
 
     /**
@@ -108,7 +138,7 @@ public class ManageAccountsActivity extends FileActivity
      * @return set of account names
      */
     private Set<String> toAccountNameSet(Account[] accountList) {
-        Set<String> actualAccounts = new HashSet<String>(accountList.length);
+        Set<String> actualAccounts = new HashSet<>(accountList.length);
         for (Account account : accountList) {
             actualAccounts.add(account.name);
         }
@@ -143,7 +173,7 @@ public class ManageAccountsActivity extends FileActivity
      */
     private boolean hasCurrentAccountChanged() {
         Account account = AccountUtils.getCurrentOwnCloudAccount(this);
-        if (account == null){
+        if (account == null) {
             return true;
         } else {
             return !mOriginalCurrentAccount.equals(account.name);
