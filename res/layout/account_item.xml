@@ -29,7 +29,23 @@
         android:layout_height="@dimen/user_icon_size"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/standard_margin"
-        android:src="@drawable/ic_menu_archive"/>
+        android:src="@drawable/ic_menu_archive"
+        />
+
+    <ImageView
+        android:id="@+id/ticker"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_alignRight="@id/icon"
+        android:layout_alignEnd="@id/icon"
+        android:layout_alignTop="@id/icon"
+        android:layout_marginRight="-8dp"
+        android:layout_marginEnd="-8dp"
+        android:layout_marginTop="-8dp"
+        android:src="@drawable/ic_current"
+        />
+        <!-- drawable will be replaced by ic_current_white + tint in runtime;
+        ic_current here as a placeholder -->
 
     <TextView
         android:id="@+id/user_name"
