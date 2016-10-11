@@ -108,6 +108,13 @@ public class ManageAccountsActivity extends FileActivity
 
         mListView.setAdapter(mAccountListAdapter);
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switchAccount(mAccountListAdapter.getItem(position).getAccount());
+            }
+        });
+
         initializeComponentGetters();
     }
 
@@ -263,7 +270,6 @@ public class ManageAccountsActivity extends FileActivity
                 }, mHandler);
     }
 
-    @Override
     public void switchAccount(Account account) {
         if (getAccount().name.equals(account.name)) {
             // current account selected, just go back
