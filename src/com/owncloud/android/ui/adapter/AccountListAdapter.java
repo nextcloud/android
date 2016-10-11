@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
 import com.owncloud.android.ui.activity.ManageAccountsActivity;
@@ -46,13 +47,15 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     private final BaseActivity mContext;
     private List<AccountListItem> mValues;
     private AccountListAdapterListener mListener;
+    private Drawable mTintedCheck;
 
-    public AccountListAdapter(BaseActivity context, List<AccountListItem> values) {
+    public AccountListAdapter(BaseActivity context, List<AccountListItem> values, Drawable tintedCheck) {
         super(context, -1, values);
         this.mContext = context;
         this.mValues = values;
         this.mListener = (AccountListAdapterListener) context;
         this.mAccountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
+        this.mTintedCheck = tintedCheck;
     }
 
     @Override
@@ -64,8 +67,10 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             convertView = inflater.inflate(R.layout.account_item, parent, false);
 
             viewHolder = new AccountViewHolderItem();
-            viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.user_name);
             viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.user_icon);
+            viewHolder.checkViewItem = (ImageView) convertView.findViewById(R.id.ticker);
+            viewHolder.checkViewItem.setImageDrawable(mTintedCheck);
+            viewHolder.accountViewItem = (TextView) convertView.findViewById(R.id.user_name);
             viewHolder.passwordButtonItem = (ImageButton) convertView.findViewById(R.id.passwordButton);
             viewHolder.removeButtonItem = (ImageButton) convertView.findViewById(R.id.removeButton);
 
@@ -81,8 +86,8 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             // create account item
             if (AccountListItem.TYPE_ACCOUNT == accountListItem.getType()) {
                 Account account = accountListItem.getAccount();
-                viewHolder.textViewItem.setText(account.name);
-                viewHolder.textViewItem.setTag(account.name);
+                viewHolder.accountViewItem.setText(account.name);
+                viewHolder.accountViewItem.setTag(account.name);
 
                 try {
                     DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension,
@@ -91,6 +96,12 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
                     Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
                     // use user icon as a fallback
                     viewHolder.imageViewItem.setImageResource(R.drawable.ic_user);
+                }
+
+                if (AccountUtils.getCurrentOwnCloudAccount(getContext()).name.equals(account.name)) {
+                    viewHolder.checkViewItem.setVisibility(View.VISIBLE);
+                } else {
+                    viewHolder.checkViewItem.setVisibility(View.INVISIBLE);
                 }
 
                 /// bind listener to change password
@@ -110,7 +121,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
                 });
             } // create add account action item
             else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType()) {
-                LayoutInflater inflater = ((ManageAccountsActivity) mContext).getLayoutInflater();
+                LayoutInflater inflater = mContext.getLayoutInflater();
                 View actionView = inflater.inflate(R.layout.account_action, parent, false);
                 ((TextView) actionView.findViewById(R.id.user_name)).setText(R.string.prefs_add_account);
                 ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
@@ -154,9 +165,11 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     /**
      * Account ViewHolderItem to get smooth scrolling.
      */
-    static class AccountViewHolderItem {
-        TextView textViewItem;
+    private static class AccountViewHolderItem {
         ImageView imageViewItem;
+        ImageView checkViewItem;
+
+        TextView accountViewItem;
 
         ImageButton passwordButtonItem;
         ImageButton removeButtonItem;
