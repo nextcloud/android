@@ -86,8 +86,8 @@ public class ManageAccountsActivity extends FileActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_current_white));
-        int tint = ContextCompat.getColor(this, R.color.actionbar_start_color);
+        mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_account_circle_white_18dp));
+        int tint = ContextCompat.getColor(this, R.color.primary);
         DrawableCompat.setTint(mTintedCheck, tint);
 
         setContentView(R.layout.accounts_layout);
