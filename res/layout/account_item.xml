@@ -16,55 +16,109 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="@dimen/account_item_layout_height"
     android:orientation="horizontal"
     android:weightSum="1">
 
+    <FrameLayout
+        android:id="@+id/avatar_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"
+            android:layout_gravity="top|left"
+            android:layout_marginBottom="@dimen/alternate_half_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/alternate_half_margin"
+            android:layout_marginTop="@dimen/alternate_half_margin"
+            android:src="@drawable/ic_menu_archive"/>
+
+        <ImageView
+            android:id="@+id/ticker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:background="@drawable/round_bgnd"
+            android:src="@drawable/ic_account_circle_white_18dp"
+            android:tint="@color/actionbar_start_color"/>
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_toEndOf="@id/avatar_container"
+        android:layout_toLeftOf="@+id/passwordButton"
+        android:layout_toRightOf="@id/avatar_container"
+        android:layout_toStartOf="@id/passwordButton"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_half_margin"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:gravity="bottom"
+            android:maxLines="1"
+            android:text="@string/placeholder_filename"
+            android:textAppearance="?attr/textAppearanceListItem"/>
+
+        <TextView
+            android:id="@+id/account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_half_margin"
+            android:layout_marginStart="@dimen/standard_margin"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="2"
+            android:text="@string/placeholder_sentence"
+            android:textColor="?android:attr/textColorSecondary"/>
+    </LinearLayout>
+
     <ImageView
-        android:id="@+id/user_icon"
-        android:layout_width="@dimen/user_icon_size"
-        android:layout_height="@dimen/user_icon_size"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/standard_margin"
-        android:src="@drawable/ic_menu_archive"/>
-
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="@dimen/zero"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="@dimen/standard_margin"
-        android:layout_weight="1"
-        android:gravity="center_vertical"
-        android:paddingRight="@dimen/standard_padding"
-        android:text="@string/placeholder_filename"
-        android:textColor="@color/textColor"
-        android:textSize="@dimen/two_line_primary_text_size"/>
-
-    <ImageButton
         android:id="@+id/passwordButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
-        android:paddingLeft="@dimen/standard_half_padding"
-        android:paddingTop="@dimen/standard_padding"
+        android:layout_toLeftOf="@+id/removeButton"
+        android:layout_toStartOf="@id/removeButton"
         android:paddingBottom="@dimen/standard_padding"
+        android:paddingLeft="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_half_padding"
-        android:background="?android:selectableItemBackground"
+        android:paddingTop="@dimen/standard_padding"
         android:src="@drawable/ic_key"/>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/removeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
         android:layout_gravity="center_vertical"
-        android:paddingLeft="@dimen/standard_half_padding"
-        android:paddingTop="@dimen/standard_padding"
         android:paddingBottom="@dimen/standard_padding"
+        android:paddingLeft="@dimen/standard_half_padding"
         android:paddingRight="@dimen/standard_padding"
-        android:background="?android:selectableItemBackground"
+        android:paddingTop="@dimen/standard_padding"
         android:src="@drawable/ic_action_delete_grey"/>
 
-</LinearLayout>         
+</RelativeLayout>

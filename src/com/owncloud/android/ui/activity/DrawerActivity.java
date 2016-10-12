@@ -276,7 +276,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                                 startActivity(participateIntent);
                                 break;
                             case R.id.drawer_menu_account_add:
-                                createAccount();
+                                createAccount(false);
                                 break;
                             case R.id.drawer_menu_account_manage:
                                 Intent manageAccountsIntent = new Intent(getApplicationContext(),
