@@ -37,6 +37,11 @@
     <string name="prefs_log_title_history">Historia logowania</string>
     <string name="prefs_log_summary_history">To pokazuje zapisane logi</string>
     <string name="prefs_log_delete_history_button">Wyczyść historię</string>
+    <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
+    <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVdroid (v1.3.0+) dla obecnego konta</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera dla konta nie mógł został przekonwertowany do DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Brak aplikacji Google Play lub F-Droida</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów i kalendarza została skonfigurowana</string>
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_feedback">Wsparcie</string>
@@ -427,6 +432,7 @@
     <string name="share_via_link_password_label">Zabezpieczone hasłem</string>
     <string name="share_via_link_password_title">Zabezpieczone</string>
     <string name="share_via_link_edit_permission_label">Pozwól na edycję</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>
     <string name="share_get_public_link_button">Pobierz link</string>
     <string name="share_with_title">Współdziel z ...</string>
     <string name="share_with_edit_title">Współdziel z %1$s</string>
@@ -467,11 +473,20 @@
     <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
     <string name="actionbar_search">Wyszukaj</string>
+    <string name="files_drop_not_supported">Ta funkcja jest dostępna w Nextcloud, prosimy wykonać aktualizację</string>
     <string name="learn_more">Dowiedz się więcej</string>
+    <string name="drawer_participate">Wspieraj</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
+    <string name="participate_testing_report_text">Zgłoś błąd na GitHubie</string>
+    <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
     <string name="participate_beta_headline">Testuj wersję Beta</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
+    <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
+    <string name="participate_contribute_irc_text">Dołącz do chatu (IRC): &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Pomoż innym na &lt;a href=\"%1$s>forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Tłumacz&lt;/a> aplikację</string>
+    <string name="participate_contribute_github_text">Wspomóż nas jako programista, po więcej szczegółów odwiedź &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> </string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
     <plurals name="items_selected_count">

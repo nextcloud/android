@@ -26,6 +26,6 @@
     android:gravity="left"
     android:paddingLeft="@dimen/standard_padding"
     android:paddingTop="@dimen/standard_half_padding"
-    android:textSize="16dp"
+    android:textSize="@dimen/listrow_group_text_size"
     android:groupIndicator="@android:color/transparent"
 /> 

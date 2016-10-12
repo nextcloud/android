@@ -49,8 +49,8 @@
             android:layout_gravity="center_vertical"/>
 
         <ImageView
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="@dimen/unshare_icon_size"
+            android:layout_height="@dimen/unshare_icon_size"
             android:id="@+id/unshareButton"
             android:src="@drawable/ic_action_delete_grey"
             android:layout_gravity="center_vertical"
