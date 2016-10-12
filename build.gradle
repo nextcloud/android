@@ -10,7 +10,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:2.2.1'
     }
 }
 
@@ -90,8 +90,8 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
         applicationId "com.nextcloud.android.beta"
-        versionCode 20161006
-        versionName "20161006"
+        versionCode 20161012
+        versionName "20161012"
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;

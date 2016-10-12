@@ -356,7 +356,7 @@ public class PreviewImageFragment extends FileFragment {
                 return true;
             }
             case R.id.action_send_file: {
-                if (getFile().isImage() && !getFile().isDown()){
+                if (MimeTypeUtil.isImage(getFile()) && !getFile().isDown()){
                     mContainerActivity.getFileOperationsHelper().sendCachedImage(getFile());
                     return true;
                 } else {
