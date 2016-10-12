@@ -27,19 +27,19 @@
         android:id="@+id/avatar_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerInParent="true">
+        android:layout_alignParentStart="true">
 
         <ImageView
             android:id="@+id/user_icon"
             android:layout_width="@dimen/user_icon_size"
             android:layout_height="@dimen/user_icon_size"
             android:layout_gravity="top|left"
-            android:layout_marginBottom="@dimen/alternate_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/alternate_half_margin"
-            android:layout_marginTop="@dimen/alternate_half_margin"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginTop="1dp"
             android:src="@drawable/ic_menu_archive"/>
 
         <ImageView
@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginLeft="11dp"
             android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginTop="4dp"
@@ -75,7 +75,7 @@
             android:gravity="bottom"
             android:maxLines="1"
             android:text="@string/placeholder_filename"
-            android:textAppearance="?attr/textAppearanceListItem"/>
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
 
         <TextView
             android:id="@+id/account"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginLeft="11dp"
             android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginStart="@dimen/standard_margin"
             android:ellipsize="end"
