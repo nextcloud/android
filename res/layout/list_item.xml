@@ -49,7 +49,7 @@
 
             <ImageView
                 android:id="@+id/thumbnail"
-                android:layout_width="@dimen/file_icon_size"
+                android:layout_width="32dp"
                 android:layout_height="@dimen/file_icon_size"
                 android:layout_gravity="left|center_vertical"
                 android:src="@drawable/ic_menu_archive" />
