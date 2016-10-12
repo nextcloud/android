@@ -128,7 +128,7 @@ public class FileStorageUtils {
      */
     @SuppressLint("NewApi")
     public static long getUsableSpace(String accountName) {
-        File savePath = Environment.getExternalStorageDirectory();
+        File savePath = new File(MainApp.getStoragePath());
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
             return savePath.getUsableSpace();
 
@@ -140,7 +140,7 @@ public class FileStorageUtils {
     }
     
     public static String getLogPath()  {
-        return Environment.getExternalStorageDirectory() + File.separator + MainApp.getDataFolder() + File.separator + "log";
+        return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "log";
     }
 
     /**
