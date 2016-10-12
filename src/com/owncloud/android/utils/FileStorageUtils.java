@@ -43,6 +43,7 @@ import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.ui.activity.Preferences;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
