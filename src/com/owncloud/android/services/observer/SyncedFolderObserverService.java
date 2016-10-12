@@ -24,8 +24,7 @@ public class SyncedFolderObserverService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
-            SyncedFolderObserver observer = new SyncedFolderObserver(syncedFolder.getLocalPath(),
-                    syncedFolder.getRemotePath());
+            SyncedFolderObserver observer = new SyncedFolderObserver(syncedFolder);
 
             observer.startWatching();
             syncedFolderObservers.add(observer);
