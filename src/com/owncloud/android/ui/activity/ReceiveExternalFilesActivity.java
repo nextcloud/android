@@ -126,11 +126,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private static final String DIALOG_WAIT_COPY_FILE = "DIALOG_WAIT_COPY_FILE";
 
-	private boolean mUploadFromTmpFile = false;
-	private String mServerFilename;
-	private String mTmpFilename;
-	private String mTmpFileSuffix;
-	
+    private boolean mUploadFromTmpFile = false;
+    private String mServerFilename;
+    private String mTmpFilename;
+    private String mTmpFileSuffix;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         prepareStreamsToUpload();
@@ -361,39 +361,38 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     alertDialogBuilder.setView(view);
 
                     final EditText userInput = (EditText) view.findViewById(R.id.user_input);
-					userInput.setText(mServerFilename);
+                    userInput.setText(mServerFilename);
 
                     alertDialogBuilder.setCancelable(false)
                             .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
-											FileUploader.UploadRequester requester =
-                                                        new FileUploader.UploadRequester();
+                                public void onClick(DialogInterface dialog,int id) {
+                                    FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
 
-											// verify if file name has suffix
-											String filename = userInput.getText().toString();
+                                    // verify if file name has suffix
+                                    String filename = userInput.getText().toString();
 
-											if (!filename.endsWith(mTmpFileSuffix)){
-												filename += mTmpFileSuffix;
-											}
+                                    if (!filename.endsWith(mTmpFileSuffix)){
+                                        filename += mTmpFileSuffix;
+                                    }
 
-											requester.uploadNewFile(
-                                                        getBaseContext(),
-                                                        getAccount(),
-                                                        mTmpFilename,
-                                                        mFile.getRemotePath() + filename,
-                                                        FileUploader.LOCAL_BEHAVIOUR_COPY,
-                                                        null,
-                                                        true,
-                                                        UploadFileOperation.CREATED_BY_USER
-                                                );
-                                            finish();
-                                        }
-                                    })
+                                    requester.uploadNewFile(
+                                            getBaseContext(),
+                                            getAccount(),
+                                            mTmpFilename,
+                                            mFile.getRemotePath() + filename,
+                                            FileUploader.LOCAL_BEHAVIOUR_COPY,
+                                            null,
+                                            true,
+                                            UploadFileOperation.CREATED_BY_USER
+                                    );
+                                    finish();
+                                }
+                            })
                             .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
+                                public void onClick(DialogInterface dialog,int id) {
+                                    dialog.cancel();
+                                }
+                            });
 
                     alertDialogBuilder.create().show();
                 } else {
@@ -479,7 +478,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
 
-            if (mUploadFromTmpFile){
+            if (mUploadFromTmpFile) {
                 btnChooseFolder.setText(R.string.uploader_btn_uploadTextSnippet_text);
             }
 
@@ -539,7 +538,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         if (mStreamsToUpload == null || mStreamsToUpload.get(0) == null) {
-			mStreamsToUpload = null;
+            mStreamsToUpload = null;
             if (intent.getType().equals("text/plain")) {
                 String extraText = intent.getStringExtra(Intent.EXTRA_TEXT);
                 String subjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
@@ -552,87 +551,86 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         subjectText = "url";
                     }
                     String filename = renameSafeFilename(subjectText) + URL_FILE_SUFFIX;
-					if (filename != null) {
-						File file = createTempUrlFile("tmp.url", extraText);
-						if (file != null) {
-							mTmpFilename = file.getAbsolutePath();
-							mTmpFileSuffix = URL_FILE_SUFFIX;
-							mServerFilename = filename;
-							mUploadFromTmpFile = true;
-						}
-					}
+                    if (filename != null) {
+                        File file = createTempUrlFile("tmp.url", extraText);
+                        if (file != null) {
+                            mTmpFilename = file.getAbsolutePath();
+                            mTmpFileSuffix = URL_FILE_SUFFIX;
+                            mServerFilename = filename;
+                            mUploadFromTmpFile = true;
+                        }
+                    }
                 } else {
                     // simply text meybe
                     if (subjectText == null) {
                         subjectText = "snipettext";
                     }
                     String filename = renameSafeFilename(subjectText) + TEXT_FILE_SUFFIX;
-					if (filename != null) {
-						File file = createTempTextFile("tmp.txt", extraText);
-						if (file != null) {
-							mTmpFilename = file.getAbsolutePath();
-							mTmpFileSuffix = TEXT_FILE_SUFFIX;
-							mServerFilename = filename;
-							mUploadFromTmpFile = true;
-						}
-					}
+                    if (filename != null) {
+                        File file = createTempTextFile("tmp.txt", extraText);
+                        if (file != null) {
+                            mTmpFilename = file.getAbsolutePath();
+                            mTmpFileSuffix = TEXT_FILE_SUFFIX;
+                            mServerFilename = filename;
+                            mUploadFromTmpFile = true;
+                        }
+                    }
                 }
             }
         }
     }
 
-	private String renameSafeFilename(String filename) {
-		filename = filename.replaceAll("[?]", "_");
-		filename = filename.replaceAll("\"", "_");
-		filename = filename.replaceAll("/", "_");
-		filename = filename.replaceAll("<", "_");
-		filename = filename.replaceAll(">", "_");
-		filename = filename.replaceAll("[*]", "_");
-		filename = filename.replaceAll("[|]", "_");
-		filename = filename.replaceAll(";", "_");
-		filename = filename.replaceAll("=", "_");
-		filename = filename.replaceAll(",", "_");
+    private String renameSafeFilename(String filename) {
+        filename = filename.replaceAll("[?]", "_");
+        filename = filename.replaceAll("\"", "_");
+        filename = filename.replaceAll("/", "_");
+        filename = filename.replaceAll("<", "_");
+        filename = filename.replaceAll(">", "_");
+        filename = filename.replaceAll("[*]", "_");
+        filename = filename.replaceAll("[|]", "_");
+        filename = filename.replaceAll(";", "_");
+        filename = filename.replaceAll("=", "_");
+        filename = filename.replaceAll(",", "_");
 
         try {
-			int maxlength = 128;
+            int maxlength = 128;
             if (filename.getBytes("UTF-8").length > maxlength) {
                 filename = new String(filename.getBytes("UTF-8"), 0, maxlength, "UTF-8");
             }
         } catch (UnsupportedEncodingException e) {
-			Log_OC.e(TAG, "rename fail ", e);
+            Log_OC.e(TAG, "rename fail ", e);
             return null;
         }
         return filename;
-	}
+    }
 
-	private File createTempUrlFile(String filename, String url) {
-		String text;
-		text = "[InternetShortcut]\r\n";
-		text += "URL=" + url + "\r\n";
-		return createTempTextFile(filename,text);
-	}
-	
-	private File createTempTextFile(String filename, String text) {
-		File file = new File(this.getCacheDir(), filename);
+    private File createTempUrlFile(String filename, String url) {
+        String text;
+        text = "[InternetShortcut]\r\n";
+        text += "URL=" + url + "\r\n";
+        return createTempTextFile(filename,text);
+    }
+
+    private File createTempTextFile(String filename, String text) {
+        File file = new File(this.getCacheDir(), filename);
         FileWriter fw = null;
         try {
             fw = new FileWriter(file);
             fw.write(text + "\n");
-            fw.close();
         } catch (IOException e) {
-			Log_OC.d(TAG, "Error ", e);
+            Log_OC.d(TAG, "Error ", e);
             return null;
         } finally {
             if (fw != null) {
-				try {
-					fw.close();
+                try {
+                    fw.close();
                 } catch (IOException e) {
                     Log_OC.d(TAG, "Error closing file writer ", e);
                 }
-			}
-		}
-		return file;
-	}
+            }
+        }
+        return file;
+    }
 
     private boolean somethingToUpload() {
         return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
