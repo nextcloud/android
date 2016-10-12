@@ -23,35 +23,6 @@
     android:orientation="horizontal"
     android:weightSum="1">
 
-    <FrameLayout
-        android:id="@+id/avatar_container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_centerInParent="true">
-
-        <ImageView
-            android:id="@+id/user_icon"
-            android:layout_width="@dimen/user_icon_size"
-            android:layout_height="@dimen/user_icon_size"
-            android:layout_gravity="top|left"
-            android:layout_marginBottom="@dimen/alternate_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_marginRight="@dimen/alternate_half_margin"
-            android:layout_marginTop="@dimen/alternate_half_margin"
-            android:src="@drawable/ic_menu_archive"/>
-
-        <ImageView
-            android:id="@+id/ticker"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|right"
-            android:background="@drawable/round_bgnd"
-            android:src="@drawable/ic_account_circle_white_18dp"
-            android:tint="@color/actionbar_start_color"/>
-    </FrameLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginLeft="11dp"
             android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginStart="@dimen/standard_margin"
             android:layout_marginTop="4dp"
@@ -83,7 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:layout_marginEnd="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginLeft="11dp"
             android:layout_marginRight="@dimen/standard_half_margin"
             android:layout_marginStart="@dimen/standard_margin"
             android:ellipsize="end"
@@ -120,5 +91,34 @@
         android:paddingRight="@dimen/standard_padding"
         android:paddingTop="@dimen/standard_padding"
         android:src="@drawable/ic_action_delete_grey"/>
+
+    <FrameLayout
+        android:id="@+id/avatar_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/user_icon"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"
+            android:layout_gravity="top|left"
+            android:layout_marginBottom="@dimen/alternate_half_margin"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/alternate_half_margin"
+            android:layout_marginTop="@dimen/alternate_half_margin"
+            android:src="@drawable/ic_menu_archive"/>
+
+        <ImageView
+            android:id="@+id/ticker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:background="@drawable/round_bgnd"
+            android:src="@drawable/ic_account_circle_white_18dp"
+            android:tint="@color/actionbar_start_color"/>
+    </FrameLayout>
 
 </RelativeLayout>
