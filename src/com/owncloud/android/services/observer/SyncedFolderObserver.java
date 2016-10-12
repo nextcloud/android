@@ -11,6 +11,7 @@ import android.os.PersistableBundle;
 import android.util.Log;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.SyncedFolderJobService;
 import com.owncloud.android.utils.RecursiveFileObserver;
@@ -24,15 +25,15 @@ class SyncedFolderObserver extends RecursiveFileObserver {
 
     private static final int MY_BACKGROUND_JOB = 0;
     public static final String TAG = "SyncedFolderObserver";
-    private String remoteFolder;
+    private SyncedFolder syncedFolder;
 
 
-    public SyncedFolderObserver(String path, String remoteFolder) {
-        super(path, FileObserver.CREATE + FileObserver.MOVED_TO);
+    public SyncedFolderObserver(SyncedFolder syncedFolder) {
+        super(syncedFolder.getLocalPath(), FileObserver.CREATE + FileObserver.MOVED_TO);
 
         context = MainApp.getAppContext();
-        this.remoteFolder = remoteFolder;
-        Log_OC.d("SyncedFolderObserver", "Started watching: " + path);
+        this.syncedFolder = syncedFolder;
+        Log_OC.d("SyncedFolderObserver", "Started watching: " + syncedFolder.getLocalPath());
     }
 
 
@@ -40,15 +41,20 @@ class SyncedFolderObserver extends RecursiveFileObserver {
     @Override
     public void onEvent(int event, String path) {
         PersistableBundle bundle = new PersistableBundle();
+        // TODO extract
         bundle.putString("filePath", path);
-        bundle.putString("remoteFolder", remoteFolder);
+        bundle.putString("remotePath", syncedFolder.getRemotePath());
         bundle.putLong("dateTaken", new Date().getTime());
+        bundle.putString("account", syncedFolder.getAccount());
+        bundle.putInt("uploadBehaviour", syncedFolder.getUploadAction());
+        bundle.putInt("subfolderByDate", syncedFolder.getSubfolderByDate() ? 1 : 0);
 
         JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
         JobInfo job = new JobInfo.Builder(
                 MY_BACKGROUND_JOB,
                 new ComponentName(context, SyncedFolderJobService.class))
-                .setRequiresCharging(false)
+                .setRequiresCharging(syncedFolder.getChargingOnly())
+                // TODO change to UNMETERED after developing
                 .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setExtras(bundle)
                 .build();

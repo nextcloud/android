@@ -40,6 +40,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.io.File;
 import java.util.Date;
@@ -51,12 +52,9 @@ import java.util.Date;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class SyncedFolderJobService extends JobService {
     private static final String TAG = "SyncedFolderJobService";
-    private Context mContext;
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // TODO Tobi why is this null?
-        mContext = MainApp.getAppContext();
         return START_NOT_STICKY;
     }
 
@@ -64,17 +62,17 @@ public class SyncedFolderJobService extends JobService {
     public boolean onStartJob(JobParameters params) {
         Log_OC.d(TAG, "startJob: " + params.getJobId());
 
-        // TODO Tobi just for testing!
         Context context = MainApp.getAppContext();
-        Account account = AccountUtils.getCurrentOwnCloudAccount(context);
-
         PersistableBundle bundle = params.getExtras();
         String filePath = bundle.getString("filePath");
-        String remoteFolder = bundle.getString("remoteFolder");
+        String remoteFolder = bundle.getString("remotePath");
         Long dateTaken = bundle.getLong("dateTaken");
         Boolean subfolderByDate = bundle.getInt("subfolderByDate") == 1;
+        Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString("account"));
+        Integer uploadBehaviour = bundle.getInt("uploadBehaviour");
 
         File file = new File(filePath);
+        String mimeType = MimetypeIconUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
 
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         requester.uploadNewFile(
@@ -82,8 +80,8 @@ public class SyncedFolderJobService extends JobService {
                 account,
                 filePath,
                 FileStorageUtils.getInstantUploadFilePath(remoteFolder, file.getName(), dateTaken, subfolderByDate),
-                FileUploader.LOCAL_BEHAVIOUR_FORGET,
-                "image/jpg",
+                uploadBehaviour,
+                mimeType,
                 true,           // create parent folder if not existent
                 UploadFileOperation.CREATED_AS_INSTANT_PICTURE
         );
