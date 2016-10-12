@@ -238,13 +238,13 @@ public class UriUtils {
         String mimeType = context.getContentResolver().getType(uri);
         if (mimeType != null) {
             String displayNameColumn;
-            if (mimeType.toLowerCase().startsWith("image/")) {
+            if (MimeTypeUtil.isImage(mimeType)) {
                 displayNameColumn = MediaStore.Images.ImageColumns.DISPLAY_NAME;
 
-            } else if (mimeType.toLowerCase().startsWith("video/")) {
+            } else if (MimeTypeUtil.isVideo(mimeType)) {
                 displayNameColumn = MediaStore.Video.VideoColumns.DISPLAY_NAME;
 
-            } else if (mimeType.toLowerCase().startsWith("audio/")) {
+            } else if (MimeTypeUtil.isAudio(mimeType)) {
                 displayNameColumn = MediaStore.Audio.AudioColumns.DISPLAY_NAME;
 
             } else {

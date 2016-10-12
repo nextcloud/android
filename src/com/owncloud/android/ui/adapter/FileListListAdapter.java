@@ -51,7 +51,7 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -145,7 +145,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
         // Find out which layout should be displayed
         ViewType viewType;
         if (parent instanceof GridView) {
-            if (file != null && (file.isImage() || file.isVideo())) {
+            if (file != null && (MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file))) {
                 viewType = ViewType.GRID_IMAGE;
             } else {
                 viewType = ViewType.GRID_ITEM;
@@ -302,13 +302,13 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
 
             // No Folder
             if (!file.isFolder()) {
-                if ((file.isImage() || file.isVideo()) && file.getRemoteId() != null) {
+                if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                     // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                             "t" + String.valueOf(file.getRemoteId())
                     );
                     if (thumbnail != null && !file.needsUpdateThumbnail()) {
-                        if (file.isVideo()) {
+                        if (MimeTypeUtil.isVideo(file)) {
                             Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                             fileIcon.setImageBitmap(withOverlay);
                         } else {
@@ -322,7 +322,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                                             fileIcon, mStorageManager, mAccount
                                     );
                             if (thumbnail == null) {
-                                if (file.isVideo()) {
+                                if (MimeTypeUtil.isVideo(file)) {
                                     thumbnail = ThumbnailsCacheManager.mDefaultVideo;
                                 } else {
                                     thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -346,7 +346,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
 
 
                 } else {
-                    fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(file.getMimetype(),
+                    fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(file.getMimetype(),
                             file.getFileName()));
                 }
 
@@ -354,7 +354,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
             } else {
                 // Folder
                 fileIcon.setImageResource(
-                        MimetypeIconUtil.getFolderTypeIconId(
+                        MimeTypeUtil.getFolderTypeIconId(
                                 file.isSharedWithMe() || file.isSharedWithSharee(),
                                 file.isSharedViaLink()
                         )
