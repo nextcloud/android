@@ -42,6 +42,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -430,9 +431,9 @@ public class PreviewTextFragment extends FileFragment {
         unsupportedTypes.add("text/vnd.rn-realtext");
         unsupportedTypes.add("text/vnd.wap.wml");
         unsupportedTypes.add("text/vnd.wap.wmlscript");
-        return (file != null && file.isDown() && file.isText() &&
+        return (file != null && file.isDown() && MimeTypeUtil.isText(file) &&
                 !unsupportedTypes.contains(file.getMimetype()) &&
-                !unsupportedTypes.contains(file.getMimeTypeFromName())
+                !unsupportedTypes.contains(MimeTypeUtil.getMimeTypeFromPath(file.getRemotePath()))
         );
     }
 

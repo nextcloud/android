@@ -48,9 +48,8 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -408,7 +407,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             );
 
             // TODO this code is duplicated; refactor to a common place
-            if ((fakeFileToCheatThumbnailsCacheManagerInterface.isImage()
+            if ((MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)
                     && fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId() != null &&
                     upload.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED)) {
                 // Thumbnail in Cache?
@@ -425,7 +424,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                         fileIcon, mParentActivity.getStorageManager(), mParentActivity.getAccount()
                                 );
                         if (thumbnail == null) {
-                            if (fakeFileToCheatThumbnailsCacheManagerInterface.isVideo()) {
+                            if (MimeTypeUtil.isVideo(fakeFileToCheatThumbnailsCacheManagerInterface)) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultVideo;
                             } else {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -448,7 +447,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 }
 
 
-            } else if (fakeFileToCheatThumbnailsCacheManagerInterface.isImage()) {
+            } else if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)) {
                 File file = new File(upload.getLocalPath());
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
@@ -461,7 +460,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
                         if (thumbnail == null) {
-                            if (BitmapUtils.isVideo(file)) {
+                            if (MimeTypeUtil.isVideo(file)) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultVideo;
                             } else {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -484,7 +483,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                             .getColor(R.color.background_color));
                 }
             } else {
-                fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(
+                fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(
                         upload.getMimeType(),
                         fileName
                 ));

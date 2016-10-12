@@ -47,7 +47,7 @@ import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.UriUtils;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -80,7 +80,7 @@ public class UploadFileOperation extends SyncOperation {
 
         // MIME type
         if (mimeType == null || mimeType.length() <= 0) {
-            mimeType = MimetypeIconUtil.getBestMimeTypeByFilename(localPath);
+            mimeType = MimeTypeUtil.getBestMimeTypeByFilename(localPath);
         }
 
         OCFile newFile = new OCFile(remotePath);

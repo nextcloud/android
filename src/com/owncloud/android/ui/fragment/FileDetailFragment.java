@@ -51,7 +51,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
 
@@ -426,7 +426,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             Bitmap thumbnail;
             iv.setTag(file.getFileId());
 
-            if (file.isImage()) {
+            if (MimeTypeUtil.isImage(file)) {
                 String tagId = String.valueOf(file.getRemoteId());
                 thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(tagId);
 
@@ -455,7 +455,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             } else {
 				// Name of the file, to deduce the icon to use in case the MIME type is not precise enough
 				String filename = file.getFileName();
-                iv.setImageResource(MimetypeIconUtil.getFileTypeIconId(mimetype, filename));
+                iv.setImageResource(MimeTypeUtil.getFileTypeIconId(mimetype, filename));
 			}
         }
     }
