@@ -41,7 +41,7 @@
         <View
             android:id="@+id/share_header_divider"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/edit_share_layout_view_height"
             android:background="@color/owncloud_blue"
             />
     <LinearLayout
@@ -60,7 +60,7 @@
             android:layout_gravity="start"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:textColor="@color/color_accent"
-            android:paddingLeft="0dp"
+            android:paddingLeft="@dimen/zero"
             style="?android:attr/listSeparatorTextViewStyle"
             />
 
@@ -96,7 +96,7 @@
             android:layout_gravity="start"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:textColor="@color/color_accent"
-            android:paddingLeft="0dp"
+            android:paddingLeft="@dimen/zero"
             style="?android:attr/listSeparatorTextViewStyle"
             />
     </LinearLayout>

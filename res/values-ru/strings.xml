@@ -36,6 +36,8 @@
     <string name="prefs_log_title_history">История журналов</string>
     <string name="prefs_log_summary_history">Здесь показаны записи в журнал</string>
     <string name="prefs_log_delete_history_button">Удалить историю</string>
+    <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
+    <string name="prefs_calendar_contacts_summary">Настроить DAVdroid (v1.3.0+) для текущего аккаунта</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Адрес сервера не может быть разрешён для DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Не установлен магазин Google Play  или приложение F-Droid</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Календарь &amp; контакты успешно синхронизированы</string>
@@ -477,7 +479,11 @@
     <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>
     <string name="participate_testing_version_text">Вам интересно участие в тестировании следующих версий?</string>
     <string name="participate_beta_headline">Тестирование бета-версии</string>
+    <string name="participate_release_candidate_headline">Кандидат в релизы</string>
+    <string name="participate_contribute_headline">Активное участие</string>
     <string name="participate_contribute_irc_text">Присоединиться к IRC-чату: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Помочь другим &lt;a href=\"%1$s>на форуме&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Перевести&lt;/a> приложение</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
     <plurals name="items_selected_count">

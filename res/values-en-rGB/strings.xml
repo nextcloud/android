@@ -37,6 +37,8 @@
     <string name="prefs_log_title_history">Logging history</string>
     <string name="prefs_log_summary_history">This shows the recorded logs</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
+    <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
+    <string name="prefs_calendar_contacts_summary">Set up DAVdroid (v1.3.0+) for current account</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Server address for account could not be resolved for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">No Google Play store or F-Droid app installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up successfully</string>

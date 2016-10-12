@@ -37,6 +37,8 @@
     <string name="prefs_log_title_history">Loggføringshistorikk</string>
     <string name="prefs_log_summary_history">Denne viser de lagrede loggene</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
+    <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
+    <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Tjeneradressen for kontoen ble ikke funnet for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Ingen Google Play butikk eller F-Droid app er installert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
