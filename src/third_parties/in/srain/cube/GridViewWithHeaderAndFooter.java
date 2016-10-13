@@ -45,7 +45,7 @@ import java.util.ArrayList;
  */
 public class GridViewWithHeaderAndFooter extends GridView {
 
-    public static boolean DEBUG = false;
+    public static final boolean DEBUG = false;
 
     /**
      * A class that represents a fixed view in a list, for example a header at the top

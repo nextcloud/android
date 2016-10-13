@@ -1091,7 +1091,7 @@ public class FileDataStorageManager {
      * @return              First {@OCShare} instance found in DB bound to the file in 'path'
      */
     public OCShare getFirstShareByPathAndType(String path, ShareType type, String shareWith) {
-        Cursor c = null;
+        Cursor cursor = null;
         if (shareWith == null) {
             shareWith = "";
         }
@@ -1120,14 +1120,14 @@ public class FileDataStorageManager {
         }
 
         if (getContentResolver() != null) {
-            c = getContentResolver().query(
+            cursor = getContentResolver().query(
                     ProviderTableMeta.CONTENT_URI_SHARE,
                     null,
                     selection, selectionArgs,
                     null);
         } else {
             try {
-                c = getContentProviderClient().query(
+                cursor = getContentProviderClient().query(
                         ProviderTableMeta.CONTENT_URI_SHARE,
                         null,
                         selection, selectionArgs,
@@ -1135,14 +1135,14 @@ public class FileDataStorageManager {
 
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Could not get file details: " + e.getMessage());
-                c = null;
+                cursor = null;
             }
         }
         OCShare share = null;
-        if (c.moveToFirst()) {
-            share = createShareInstance(c);
+        if (cursor != null && cursor.moveToFirst()) {
+            share = createShareInstance(cursor);
+            cursor.close();
         }
-        c.close();
         return share;
     }
 
@@ -1646,32 +1646,31 @@ public class FileDataStorageManager {
                 Integer.toString(ShareType.GROUP.getValue()),
                 Integer.toString(ShareType.FEDERATED.getValue())};
 
-        Cursor c = null;
+        Cursor cursor = null;
         if (getContentResolver() != null) {
-            c = getContentResolver().query(
+            cursor = getContentResolver().query(
                     ProviderTableMeta.CONTENT_URI_SHARE,
                     null, where, whereArgs, null);
         } else {
             try {
-                c = getContentProviderClient().query(
+                cursor = getContentProviderClient().query(
                         ProviderTableMeta.CONTENT_URI_SHARE,
                         null, where, whereArgs, null);
 
             } catch (RemoteException e) {
                 Log_OC.e(TAG, "Could not get list of shares with: " + e.getMessage());
-                c = null;
+                cursor = null;
             }
         }
         ArrayList<OCShare> shares = new ArrayList<OCShare>();
         OCShare share = null;
-        if (c.moveToFirst()) {
+        if (cursor != null && cursor.moveToFirst()) {
             do {
-                share = createShareInstance(c);
+                share = createShareInstance(cursor);
                 shares.add(share);
-                // }
-            } while (c.moveToNext());
+            } while (cursor.moveToNext());
+            cursor.close();
         }
-        c.close();
 
         return shares;
     }

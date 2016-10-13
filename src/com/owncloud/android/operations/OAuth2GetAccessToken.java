@@ -141,7 +141,6 @@ public class OAuth2GetAccessToken extends RemoteOperation {
         int i = 0;
         String key = "";
         String value = "";
-        StringBuilder sb = new StringBuilder();
         while (pairs.length > i) {
             int j = 0;
             String[] part = pairs[i].split("=");
@@ -149,13 +148,10 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                 String p = part[j];
                 if (j == 0) {
                     key = p;
-                    sb.append(key + " = ");
                 } else if (j == 1) {
                     value = p;
                     mOAuth2ParsedAuthorizationResponse.put(key, value);
-                    sb.append(value + "\n");
                 }
-
                 Log_OC.v(TAG, "[" + i + "," + j + "] = " + p);
                 j++;
             }
