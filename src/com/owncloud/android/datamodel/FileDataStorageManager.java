@@ -1112,10 +1112,8 @@ public class FileDataStorageManager {
         }
 
         OCShare share = null;
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                share = createShareInstance(cursor);
-            }
+        if (cursor != null && cursor.moveToFirst()) {
+            share = createShareInstance(cursor);
             cursor.close();
         }
         return share;
@@ -1605,14 +1603,11 @@ public class FileDataStorageManager {
         }
         ArrayList<OCShare> shares = new ArrayList<OCShare>();
         OCShare share = null;
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                do {
-                    share = createShareInstance(cursor);
-                    shares.add(share);
-                } while (cursor.moveToNext());
-            }
-
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                share = createShareInstance(cursor);
+                shares.add(share);
+            } while (cursor.moveToNext());
             cursor.close();
         }
 
