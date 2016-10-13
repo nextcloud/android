@@ -89,9 +89,9 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         holder.syncStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
                 mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled());
                 setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+                mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
             }
         });
         setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
