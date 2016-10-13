@@ -91,7 +91,7 @@ import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.DisplayUtils;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.cert.X509Certificate;
 import java.util.Map;
 
@@ -1576,6 +1576,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      *
      * TODO Decide how to name the OAuth accounts
      */
+    @SuppressFBWarnings("DMI")
     private boolean createAccount(RemoteOperationResult authResult) {
         /// create and save new ownCloud account
         boolean isOAuth = AccountTypeUtils.

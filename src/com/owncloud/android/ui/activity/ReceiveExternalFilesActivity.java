@@ -361,7 +361,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                             PrintWriter out;
                                             try {
                                                 File f = File.createTempFile("nextcloud", TEXT_FILE_SUFFIX);
-                                                out = new PrintWriter(f);
+                                                out = new PrintWriter(f, "UTF8");
                                                 out.println(getIntent().getStringExtra(Intent.EXTRA_TEXT));
                                                 out.close();
 
