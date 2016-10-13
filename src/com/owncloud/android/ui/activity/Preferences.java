@@ -86,6 +86,7 @@ public class Preferences extends PreferenceActivity {
     private Uri mUri;
 
     private CheckBoxPreference pCode;
+    private CheckBoxPreference mShowHiddenFiles;
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
 
@@ -163,6 +164,19 @@ public class Preferences extends PreferenceActivity {
                 }
             });
         }
+
+        mShowHiddenFiles = (CheckBoxPreference) findPreference("show_hidden_files");
+        mShowHiddenFiles.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                SharedPreferences appPrefs =
+                        PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = appPrefs.edit();
+                editor.putBoolean("show_hidden_files_pref", mShowHiddenFiles.isChecked());
+                editor.commit();
+                return true;
+            }
+        });
 
         PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
 

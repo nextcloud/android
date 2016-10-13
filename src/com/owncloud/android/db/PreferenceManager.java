@@ -74,6 +74,10 @@ public abstract class PreferenceManager {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_charging", false);
     }
 
+    public static boolean showHiddenFilesEnabled(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("show_hidden_files_pref", false);
+    }
+
     /**
      * Gets the path where the user selected to do the last upload of a file shared from other app.
      *
