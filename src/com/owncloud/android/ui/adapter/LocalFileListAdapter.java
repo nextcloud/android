@@ -346,6 +346,6 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 ret.add(file);
             }
         }
-        return ret.toArray(new File[0]);
+        return ret.toArray(new File[ret.size()]);
     }
 }
