@@ -37,6 +37,8 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.Preferences;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Main Application of the project
@@ -61,7 +63,7 @@ public class MainApp extends Application {
 
     private static boolean mOnlyOnDevice = false;
 
-    
+    @SuppressFBWarnings("ST")
     public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();

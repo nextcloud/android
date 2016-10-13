@@ -57,6 +57,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Manager for concurrent access to thumbnails cache.
  */
@@ -75,13 +77,13 @@ public class ThumbnailsCacheManager {
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient = null;
 
-    public static Bitmap mDefaultImg = 
+    public static final Bitmap mDefaultImg =
             BitmapFactory.decodeResource(
                     MainApp.getAppContext().getResources(),
                     R.drawable.file_image
             );
 
-    public static Bitmap mDefaultVideo =
+    public static final Bitmap mDefaultVideo =
             BitmapFactory.decodeResource(
                     MainApp.getAppContext().getResources(),
                     R.drawable.file_movie
@@ -180,6 +182,7 @@ public class ThumbnailsCacheManager {
             mImageViewReference = new WeakReference<ImageView>(imageView);
         }
 
+        @SuppressFBWarnings("Dm")
         @Override
         protected Bitmap doInBackground(Object... params) {
             Bitmap thumbnail = null;
@@ -403,6 +406,7 @@ public class ThumbnailsCacheManager {
             mAccount = account;
         }
 
+        @SuppressFBWarnings("Dm")
         @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap thumbnail = null;
