@@ -18,7 +18,7 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout android:id="@+id/ListItemLayout"
+<LinearLayout android:id="@+id/grid_item_container"
               xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
@@ -29,14 +29,12 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <com.owncloud.android.ui.SquareImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_menu_archive"/>
 
@@ -44,8 +42,6 @@
             android:id="@+id/thumbnailDarkener"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
             android:scaleType="centerCrop"
             android:background="#99000000"/>
 

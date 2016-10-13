@@ -44,6 +44,7 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderItem;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.ui.adapter.FolderSyncAdapter;
+import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 
@@ -105,6 +106,8 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
         mAdapter.setLayoutManager(lm);
+        int spacing = getResources().getDimensionPixelSize(R.dimen.mediaGridSpacing);
+        mRecyclerView.addItemDecoration(new MediaGridItemDecoration(spacing));
         mRecyclerView.setLayoutManager(lm);
         mRecyclerView.setAdapter(mAdapter);
 

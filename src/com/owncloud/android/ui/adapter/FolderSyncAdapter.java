@@ -162,6 +162,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
             holder.image.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
         }
 
+        holder.itemView.setTag(relativePosition % (mGridWidth/2));
+
         if (mSyncFolderItems.get(section).getNumberOfFiles() > 8 && relativePosition >= 8 - 1) {
             holder.counterValue.setText(Long.toString(mSyncFolderItems.get(section).getNumberOfFiles() - 8));
             holder.counterBar.setVisibility(View.VISIBLE);
