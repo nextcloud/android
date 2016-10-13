@@ -265,14 +265,12 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         @Override
         public void handleMessage(Message msg) {
             int pos;
-            switch (msg.what) {
-                case SHOW_PROGRESS:
-                    pos = setProgress();
-                    if (!mDragging) {
-                        msg = obtainMessage(SHOW_PROGRESS);
-                        sendMessageDelayed(msg, 1000 - (pos % 1000));
-                    }
-                    break;
+            if (msg.what == SHOW_PROGRESS) {
+                pos = setProgress();
+                if (!mDragging) {
+                    msg = obtainMessage(SHOW_PROGRESS);
+                    sendMessageDelayed(msg, 1000 - (pos % 1000));
+                }
             }
         }
     };
@@ -417,7 +415,6 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
             if (!playing) mPlayer.pause(); // necessary in some 2.3.x devices
             setProgress();
             break;
-        
         }
     }
     

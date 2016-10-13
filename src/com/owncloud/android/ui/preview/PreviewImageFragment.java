@@ -52,6 +52,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.lang.ref.WeakReference;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.michaelOrtiz.TouchImageViewCustom;
 
 
@@ -340,6 +341,7 @@ public class PreviewImageFragment extends FileFragment {
         super.onPause();
     }
 
+    @SuppressFBWarnings("Dm")
     @Override
     public void onDestroy() {
         if (mBitmap != null) {
