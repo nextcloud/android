@@ -394,18 +394,15 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
             if (mJustFolders) {
                 mFiles = getFolders(mFiles);
             }
-
             if (!mShowHiddenFiles) {
                 mFiles = filterHiddenFiles(mFiles);
             }
+            mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            mFilesAll.addAll(mFiles);
         } else {
             mFiles = null;
+            mFilesAll.clear();
         }
-
-        mFiles = FileStorageUtils.sortOcFolder(mFiles);
-
-        mFilesAll.clear();
-        mFilesAll.addAll(mFiles);
 
         notifyDataSetChanged();
     }

@@ -33,6 +33,8 @@ import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * A helper class for some Uri operations.
@@ -123,6 +125,7 @@ public class UriUtils {
      * @return          The path in the file system to the content or null if it could not be found (not a file)
      */
     @TargetApi(Build.VERSION_CODES.KITKAT)
+    @SuppressFBWarnings("Bx")
     public static String getLocalPath(Uri uri, Context context) {
         final boolean isKitKatOrLater = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
 
@@ -246,7 +249,6 @@ public class UriUtils {
 
             } else if (MimeTypeUtil.isAudio(mimeType)) {
                 displayNameColumn = MediaStore.Audio.AudioColumns.DISPLAY_NAME;
-
             } else {
                 displayNameColumn = MediaStore.Files.FileColumns.DISPLAY_NAME;
             }
