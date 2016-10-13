@@ -58,6 +58,8 @@ import java.util.Comparator;
 import java.util.Observable;
 import java.util.Observer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * This Adapter populates a ListView with following types of uploads: pending,
  * active, completed. Filtering possible.
@@ -116,10 +118,12 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 }
             }
 
+            @SuppressFBWarnings("Bx")
             private int compareUploadId(OCUpload upload1, OCUpload upload2) {
                 return Long.valueOf(upload1.getUploadId()).compareTo(upload2.getUploadId());
             }
 
+            @SuppressFBWarnings("Bx")
             private int compareUpdateTime(OCUpload upload1, OCUpload upload2) {
                 return Long.valueOf(upload2.getUploadEndTimestamp()).compareTo(upload1.getUploadEndTimestamp());
             }
