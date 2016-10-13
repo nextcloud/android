@@ -39,6 +39,8 @@ import com.owncloud.android.ui.activity.Preferences;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Main Application of the project
