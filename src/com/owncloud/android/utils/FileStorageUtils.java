@@ -327,7 +327,7 @@ public class FileStorageUtils {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
                     Long obj1 = o1.getFileLength();
-                    return multiplier * obj1.compareTo(o2.getFileLength());
+                    return multiplier * obj1., o2.getFileLength());
                 }
                 else if (o1.isFolder()) {
                     return -1;
@@ -337,7 +337,7 @@ public class FileStorageUtils {
                     return 0;
                 } else {
                     Long obj1 = o1.getFileLength();
-                    return multiplier * obj1.compareTo(o2.getFileLength());
+                    return multiplier * Long.compare(obj1, o2.getFileLength());
                 }
             }
         });
