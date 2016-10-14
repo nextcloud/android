@@ -42,7 +42,9 @@ public class FileCursor extends MatrixCursor {
     }
 
     public void addFile(OCFile file) {
-        if (file == null) return;
+        if (file == null) {
+            return;
+        }
 
         final int iconRes = MimeTypeUtil.getFileTypeIconId(file.getMimetype(), file.getFileName());
         final String mimeType = file.isFolder() ? Document.MIME_TYPE_DIR : file.getMimetype();

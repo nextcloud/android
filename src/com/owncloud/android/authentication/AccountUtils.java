@@ -119,7 +119,7 @@ public class AccountUtils {
      */
     public static String getAccountUsername(String accountName) {
         if (accountName != null) {
-            return accountName.substring(0, accountName.lastIndexOf("@"));
+            return accountName.substring(0, accountName.lastIndexOf('@'));
         } else {
             return null;
         }
@@ -135,8 +135,9 @@ public class AccountUtils {
         Account[] ocAccounts = AccountManager.get(context).getAccountsByType(
                 MainApp.getAccountType());
         for (Account account : ocAccounts) {
-            if(account.name.equals(accountName))
+            if(account.name.equals(accountName)) {
                 return account;
+            }
         }
         return null;
     }
@@ -241,15 +242,13 @@ public class AccountUtils {
                         );
 
                         // copy type of authentication
-                        String isSamlStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_SAML_WEB_SSO);
-                        boolean isSaml = "TRUE".equals(isSamlStr);
-                        if (isSaml) {
+                        final String isSamlStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_SAML_WEB_SSO);
+                        if (Boolean.parseBoolean(isSamlStr)) {
                             accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_SAML_WEB_SSO, "TRUE");
                         }
 
-                        String isOauthStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_OAUTH2);
-                        boolean isOAuth = "TRUE".equals(isOauthStr);
-                        if (isOAuth) {
+                        final String isOauthStr = accountMgr.getUserData(account, Constants.KEY_SUPPORTS_OAUTH2);
+                        if (Boolean.parseBoolean(isOauthStr)) {
                             accountMgr.setUserData(newAccount, Constants.KEY_SUPPORTS_OAUTH2, "TRUE");
                         }
                         /* TODO - study if it's possible to run this method in a background thread to copy the authToken

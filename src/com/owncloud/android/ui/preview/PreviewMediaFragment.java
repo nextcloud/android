@@ -543,7 +543,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN && v == mVideoPreview) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN && v.equals(mVideoPreview)) {
             // added a margin on the left to avoid interfering with gesture to open navigation drawer
             if (event.getX() / Resources.getSystem().getDisplayMetrics().density > 24.0) {
                 startFullScreenVideo();
@@ -614,21 +614,18 @@ public class PreviewMediaFragment extends FileFragment implements
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-            if (getActivity() != null) {
-                if (component.equals(
-                        new ComponentName(getActivity(), MediaService.class))) {
-                    Log_OC.d(TAG, "Media service connected");
-                    mMediaServiceBinder = (MediaServiceBinder) service;
-                    if (mMediaServiceBinder != null) {
-                        prepareMediaController();
-                        playAudio();    // do not wait for the touch of nobody to play audio
+            if (getActivity() != null
+                    && component.equals(new ComponentName(getActivity(), MediaService.class))) {
+                Log_OC.d(TAG, "Media service connected");
+                mMediaServiceBinder = (MediaServiceBinder) service;
+                if (mMediaServiceBinder != null) {
+                    prepareMediaController();
+                    playAudio();    // do not wait for the touch of nobody to play audio
 
-                        Log_OC.d(TAG, "Successfully bound to MediaService, MediaController ready");
+                    Log_OC.d(TAG, "Successfully bound to MediaService, MediaController ready");
 
-                    }
-                    else {
-                        Log_OC.e(TAG, "Unexpected response from MediaService while binding");
-                    }
+                } else {
+                    Log_OC.e(TAG, "Unexpected response from MediaService while binding");
                 }
             }
         }

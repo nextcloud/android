@@ -156,7 +156,7 @@ public class PreviewTextFragment extends FileFragment {
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
      */
     private class TextLoadAsyncTask extends AsyncTask<Object, Void, StringWriter> {
-        private final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
+        private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
         private final WeakReference<TextView> mTextViewReference;
 
         private TextLoadAsyncTask(WeakReference<TextView> textView) {
@@ -185,11 +185,15 @@ public class PreviewTextFragment extends FileFragment {
                 sc = new Scanner(inputStream);
                 while (sc.hasNextLine()) {
                     bufferedWriter.append(sc.nextLine());
-                    if (sc.hasNextLine()) bufferedWriter.append("\n");
+                    if (sc.hasNextLine()) {
+                        bufferedWriter.append("\n");
+                    }
                 }
                 bufferedWriter.close();
                 IOException exc = sc.ioException();
-                if (exc != null) throw exc;
+                if (exc != null) {
+                    throw exc;
+                }
             } catch (IOException e) {
                 Log_OC.e(TAG, e.getMessage(), e);
                 finish();

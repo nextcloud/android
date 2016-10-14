@@ -292,7 +292,7 @@ public class FileStorageUtils {
         List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
 
         Collections.sort(files, new Comparator<File>() {
-            @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
+            @SuppressFBWarnings(value = "Bx")
             public int compare(File o1, File o2) {
             Long obj1 = o1.lastModified();
             return multiplier * obj1.compareTo(o2.lastModified());
@@ -310,7 +310,7 @@ public class FileStorageUtils {
         final int multiplier = mSortAscending ? 1 : -1;
 
         Collections.sort(files, new Comparator<OCFile>() {
-            @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
+            @SuppressFBWarnings(value = "Bx")
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
                     Long obj1 = o1.getFileLength();
@@ -339,7 +339,7 @@ public class FileStorageUtils {
         List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
 
         Collections.sort(files, new Comparator<File>() {
-            @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
+            @SuppressFBWarnings(value = "Bx")
             public int compare(File o1, File o2) {
                 if (o1.isDirectory() && o2.isDirectory()) {
                     Long obj1 = getFolderSize(o1);
@@ -363,7 +363,7 @@ public class FileStorageUtils {
      * Sorts list by Name
      * @param files     files to sort
      */
-    @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
+    @SuppressFBWarnings(value = "Bx")
     public static Vector<OCFile> sortOCFilesByName(Vector<OCFile> files){
         final int multiplier = mSortAscending ? 1 : -1;
 

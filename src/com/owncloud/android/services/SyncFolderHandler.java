@@ -79,8 +79,10 @@ class SyncFolderHandler extends Handler {
      * @param account       ownCloud account where the remote folder is stored.
      * @param remotePath    The path to a folder that could be in the queue of synchronizations.
      */
-    public boolean isSynchronizing(Account account, String remotePath) {
-        if (account == null || remotePath == null) return false;
+    boolean isSynchronizing(Account account, String remotePath) {
+        if (account == null || remotePath == null) {
+            return false;
+        }
         return (mPendingOperations.contains(account.name, remotePath));
     }
 

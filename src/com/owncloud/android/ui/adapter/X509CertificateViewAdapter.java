@@ -128,7 +128,7 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
            final int loVal = b & 0x0F;
            hex.append((char) ('0' + (hiVal + (hiVal / 10 * 7))));
            hex.append((char) ('0' + (loVal + (loVal / 10 * 7))));
-           hex.append(":");
+           hex.append(':');
         }
         return digestType + ":" + newLine + hex.toString().replaceFirst("\\:$","") + newLine + newLine;
      }    
