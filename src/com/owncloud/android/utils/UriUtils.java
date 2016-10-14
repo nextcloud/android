@@ -70,8 +70,9 @@ public class UriUtils {
                 return cursor.getString(column_index);
             }
         } finally {
-            if (cursor != null)
+            if (cursor != null) {
                 cursor.close();
+            }
         }
         return null;
     }
@@ -179,8 +180,9 @@ public class UriUtils {
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
 
             // Return the remote address
-            if (UriUtils.isGooglePhotosUri(uri))
+            if (UriUtils.isGooglePhotosUri(uri)) {
                 return uri.getLastPathSegment();
+            }
 
             return UriUtils.getDataColumn(context, uri, null, null);
         }
@@ -216,7 +218,7 @@ public class UriUtils {
                 }
 
                 // Add best possible extension
-                int index = displayName.lastIndexOf(".");
+                int index = displayName.lastIndexOf('.');
                 if (index == -1 || MimeTypeMap.getSingleton().
                     getMimeTypeFromExtension(displayName.substring(index + 1)) == null) {
                     String mimeType = context.getContentResolver().getType(uri);

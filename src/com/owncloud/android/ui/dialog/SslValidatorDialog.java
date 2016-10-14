@@ -71,8 +71,7 @@ public class SslValidatorDialog extends Dialog {
      */
     public static SslValidatorDialog newInstance(Context context, RemoteOperationResult result, OnSslValidatorListener listener) {
         if (result != null && result.isSslRecoverableException()) {
-            SslValidatorDialog dialog = new SslValidatorDialog(context, listener);
-            return dialog;
+            return new SslValidatorDialog(context, listener);
         } else {
             return null;
         }
@@ -109,22 +108,19 @@ public class SslValidatorDialog extends Dialog {
                         try {
                             saveServerCert();
                             dismiss();
-                            if (mListener != null)
+                            if (mListener != null) {
                                 mListener.onSavedCertificate();
-                            else
+                            } else {
                                 Log_OC.d(TAG, "Nobody there to notify the certificate was saved");
+                            }
                             
-                        } catch (GeneralSecurityException e) {
+                        } catch (GeneralSecurityException | IOException e) {
                             dismiss();
-                            if (mListener != null)
+                            if (mListener != null) {
                                 mListener.onFailedSavingCertificate();
+                            }
                             Log_OC.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
                             
-                        } catch (IOException e) {
-                            dismiss();
-                            if (mListener != null)
-                                mListener.onFailedSavingCertificate();
-                            Log_OC.e(TAG, "Server certificate could not be saved in the known servers trust store ", e);
                         }
                     }
                 });
@@ -145,7 +141,6 @@ public class SslValidatorDialog extends Dialog {
                        if (detailsScroll.getVisibility() == View.VISIBLE) {
                            detailsScroll.setVisibility(View.GONE);
                            ((Button) v).setText(R.string.ssl_validator_btn_details_see);
-                           
                        } else {
                            detailsScroll.setVisibility(View.VISIBLE);
                            ((Button) v).setText(R.string.ssl_validator_btn_details_hide);
@@ -198,8 +193,8 @@ public class SslValidatorDialog extends Dialog {
             showSignature(cert);
             
         } else {
-            // this should not happen
-            // TODO
+            // this should not happen, TODO
+            Log_OC.d("certNull", "This should not happen");
         }
     }
 

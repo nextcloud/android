@@ -57,8 +57,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         final RootCursor result = new RootCursor(projection);
 
-        for (Account account : AccountUtils.getAccounts(getContext()))
+        for (Account account : AccountUtils.getAccounts(getContext())) {
             result.addRoot(account, getContext());
+        }
 
         return result;
     }
@@ -70,8 +71,9 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         final FileCursor result = new FileCursor(projection);
         OCFile file = mCurrentStorageManager.getFileById(docId);
-        if (file != null)
+        if (file != null) {
             result.addFile(file);
+        }
 
         return result;
     }
@@ -167,10 +169,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     }
 
     private void updateCurrentStorageManagerIfNeeded(String rootId) {
-        for (FileDataStorageManager data : mRootIdToStorageManager.values())
+        for (FileDataStorageManager data : mRootIdToStorageManager.values()) {
             if (data.getAccount().name.equals(rootId)) {
                 mCurrentStorageManager = data;
             }
+        }
     }
 
     private void initiateStorageMap() {

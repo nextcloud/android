@@ -43,6 +43,7 @@ public class IndexedForest<V> {
 
     private ConcurrentMap<String, Node<V>> mMap = new ConcurrentHashMap<String, Node<V>>();
 
+    @SuppressWarnings("PMD.ShortClassName")
     private class Node<V> {
         String mKey = null;
         Node<V> mParent = null;
@@ -168,7 +169,6 @@ public class IndexedForest<V> {
             /// remove ancestors if only here due to firstRemoved
             Node<V> removed = firstRemoved;
             Node<V> parent = removed.getParent();
-            boolean unlinked = false;
             while (parent != null) {
                 parent.removeChild(removed);
                 if (!parent.hasChildren()) {

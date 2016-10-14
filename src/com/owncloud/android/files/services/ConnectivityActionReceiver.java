@@ -70,22 +70,20 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
             Log_OC.v(TAG, "no extras");
         }
 
-        if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
+        if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED) &&
+                (PreferenceManager.instantPictureUploadEnabled(context) &&
+                        PreferenceManager.instantPictureUploadWhenChargingOnly(context)) ||
+                (PreferenceManager.instantVideoUploadEnabled(context) &&
+                        PreferenceManager.instantVideoUploadWhenChargingOnly(context))
+                ) {
             // for the moment, only recovery of instant uploads, similar to behaviour in release 1.9.1
-            if (
-                    (PreferenceManager.instantPictureUploadEnabled(context) &&
-                            PreferenceManager.instantPictureUploadWhenChargingOnly(context)) ||
-                            (PreferenceManager.instantVideoUploadEnabled(context) &&
-                                    PreferenceManager.instantVideoUploadWhenChargingOnly(context))
-                    ) {
-                Log_OC.d(TAG, "Requesting retry of instant uploads (& friends) due to charging");
-                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                requester.retryFailedUploads(
-                        context,
-                        null,
-                        UploadResult.DELAYED_FOR_CHARGING   // for the rest of enqueued when Wifi fell
-                );
-            }
+            Log_OC.d(TAG, "Requesting retry of instant uploads (& friends) due to charging");
+            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+            requester.retryFailedUploads(
+                    context,
+                    null,
+                    UploadResult.DELAYED_FOR_CHARGING   // for the rest of enqueued when Wifi fell
+            );
         }
 
         /**
