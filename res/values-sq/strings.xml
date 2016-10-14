@@ -1,57 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">Aplikacion %1$s Android</string>
+    <string name="about_android">Aplikacioni %1$s Android</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Rifreskoni llogarinë</string>
     <string name="actionbar_upload">Ngarkoni</string>
     <string name="actionbar_upload_from_apps">Lëndë nga aplikacione të tjera</string>
     <string name="actionbar_upload_files">Kartela</string>
-    <string name="actionbar_open_with">Hape me</string>
+    <string name="actionbar_open_with">Hapeni me</string>
     <string name="actionbar_mkdir">Dosje e re</string>
-    <string name="actionbar_settings">Rregullime</string>
+    <string name="actionbar_settings">Rregullimet</string>
     <string name="actionbar_see_details">Hollësi</string>
-    <string name="actionbar_send_file">Dërgoje</string>
-    <string name="actionbar_sort">Renditi</string>
-    <string name="actionbar_sort_title">Renditi sipas</string>
+    <string name="actionbar_send_file">Dërgojeni</string>
+    <string name="actionbar_sort">Renditni</string>
+    <string name="actionbar_sort_title">Renditni sipas</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Më e reja - Më e vjetra</string>
+    <string name="menu_item_sort_by_size">Më i madh - Më i vogël</string>
     <string name="drawer_item_all_files">Krejt kartelat</string>
-    <string name="drawer_item_settings">Llogari</string>
-    <string name="drawer_item_uploads_list">Ngarkime</string>
-    <string name="drawer_close">Mbylle</string>
+    <string name="drawer_item_on_device">Në pajisjen</string>
+    <string name="drawer_item_settings">Rregullime</string>
+    <string name="drawer_item_uploads_list">Ngarkimet</string>
+    <string name="drawer_quota">%1$s e %2$s përdorur</string>
+	<string name="drawer_close">Mbylle</string>
     <string name="drawer_open">Hape</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
-    <string name="prefs_accounts">Llogari</string>
-    <string name="prefs_manage_accounts">Administroni llogari</string>
+    <string name="prefs_accounts">Llogaritë</string>
+    <string name="prefs_manage_accounts">Administroni llogaritë</string>
     <string name="prefs_passcode">Kyçje kodkalimi</string>
     <string name="prefs_instant_upload">Ngarkime të menjëhershme fotosh</string>
     <string name="prefs_instant_upload_summary">Ngarkoni menjëherë foto të bëra nga kamera</string>
     <string name="prefs_instant_video_upload">Ngarkime të menjëhershme videosh</string>
     <string name="prefs_instant_video_upload_summary">Ngarkoni menjëherë video të bëra nga kamera</string>
-    <string name="prefs_log_title">Aktivizo regjistrimet</string>
+    <string name="prefs_log_title">Aktivizoni regjistrimet</string>
     <string name="prefs_log_summary">Kjo përdoret për të regjistruar probleme</string>
-    <string name="prefs_log_title_history">Historik regjistrimesh</string>
+    <string name="prefs_log_title_history">Historiku i regjistrimeve</string>
     <string name="prefs_log_summary_history">Kjo shfaq regjistrimet e bëra</string>
-    <string name="prefs_log_delete_history_button">Fshije historikun</string>
+    <string name="prefs_log_delete_history_button">Fshini historikun</string>
+    <string name="prefs_calendar_contacts">Sinkronizoni kalendarin &amp; kontaktet</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Adresa e serverit për llogari nuk mund të zgjidhet për DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Nuk ka asnjë aplikacion të Google Play Store apo F-Droid të instaluar</string>
     <string name="prefs_help">Ndihmë</string>
     <string name="prefs_recommend">Këshillojani një shoku</string>
     <string name="prefs_feedback">Përshtypje</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="prefs_remember_last_share_location">Mba mend vend ndarjeje me të tjerët</string>
+    <string name="prefs_remember_last_share_location">Mbani mend vend ndarjejen me të tjerët</string>
     <string name="prefs_remember_last_upload_location_summary">Mba mend vendin e fundit të ngarkimit për ndarje me të tjerët</string>
 
 	<string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
 	<string name="recommend_text">Dua t\’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarkojeni prej këtu: %2$s</string>
 
     <string name="auth_check_server">Kontrollo shërbyesin</string>
-    <string name="auth_host_url">Adresë https://… e shërbyesit</string>
+    <string name="auth_host_url">Adresë https://… e serverit</string>
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_password">Fjalëkalim</string>
     <string name="auth_register">Rishtar te %1$s?</string>
     <string name="sync_string_files">Kartela</string>
     <string name="setup_btn_connect">Lidhuni</string>
     <string name="uploader_btn_upload_text">Ngarkoni</string>
-    <string name="uploader_top_message">Zgjidhni dosje ngarkimi</string>
-    <string name="uploader_wrn_no_account_title">S\’u gjet llogari</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Krijoni një kartele tekst</string>
+    <string name="uploader_top_message">Zgjidhni një dosje ngarkimi</string>
+    <string name="uploader_wrn_no_account_title">S’u gjet llogari</string>
     <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Rregullim</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Dilni</string>
@@ -62,6 +71,10 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s s’është lejuar të lexojë një kartelë të marrë</string>
     <string name="uploader_error_message_source_file_not_found">Kartela për ngarkim s’u gjet te vendi i saj. Ju lutemi, shihni nëse ekziston apo jo kartela.</string>
     <string name="uploader_error_message_source_file_not_copied">Ndodhi një gabim teksa kopjohej kartela te një dosje e përkohshme. Ju lutemi, provoni ta ridërgoni.</string>
+    <string name="uploader_upload_files_behaviour">Mundësitë e ngarkimit:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Lëviz kartelën tek dosja e Nextcloud-it</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Mbani kartelën tek dosja burim</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Fshij kartelën nga dosja burim</string>
     <string name="file_list_seconds_ago">sekonda më parë</string>
     <string name="file_list_empty">Këtu nuk ka gjë. Ngarkoni diçka!</string>
     <string name="file_list_loading">Po ngarkohet…</string>
@@ -95,9 +108,11 @@
     <string name="common_loading">Po ngarkohet …</string>
     <string name="common_unknown">panjohur</string>
     <string name="common_error_unknown">Gabim i panjohur</string>
+    <string name="common_pending">Në pritje</string>
     <string name="about_title">Rreth</string>
     <string name="change_password">Ndryshoni fjalëkalimin</string>
     <string name="delete_account">Hiqe llogarinë</string>
+    <string name="delete_account_warning">Fshij llogarinë %s?\\n\\nFshirja nuk mund të zhbëhet.</string>
     <string name="create_account">Krijoni llogari</string>
     <string name="upload_chooser_title">Ngarkojeni prej …</string>
     <string name="uploader_info_dirname">Emër dosjeje</string>
@@ -222,6 +237,7 @@
     <string name="unfavorite">Hiqeni si të passhëm jo në linjë</string>
     <string name="common_rename">Riemërtojeni</string>
     <string name="common_remove">Hiqe</string>
+    <string name="confirmation_remove_file_alert">Doni vërtet të hiqni %1$s?</string>
     <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe lënda e tij?</string>
     <string name="confirmation_remove_local">Vetëm vendorja</string>
     <string name="remove_success_msg">Heqja doli me sukses</string>
@@ -282,6 +298,8 @@
 
     <string name="instant_upload_on_wifi">Fotot ngarkoji vetëm përmes wifi-it</string>
     <string name="instant_video_upload_on_wifi">Videot ngarkoji vetëm përmes wifi-it</string>
+    <string name="instant_video_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
+    <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Përplasje kartelash</string>
     <string name="conflict_message">Cilat kartela doni të mbani? Nëse përzgjidhni të dy versionet, kartelës vendore do t\’i shtohet një numër te emri.</string>
@@ -293,7 +311,11 @@
     <string name="preview_image_error_unknown_format">Kjo figurë nuk mund të shfaqet</string>
 
     <string name="error__upload__local_file_not_copied">%1$s s\’u kopjua dot te dosja vendore %2$s</string>
-    <string name="share_link_no_support_share_api">Na ndjeni, ndarja me të tjerët s\’është e aktivizuar te shërbyesi juaj. Ju lutemi, lidhuni me përgjegjësin tuaj.</string>
+    <string name="prefs_instant_upload_path_title">Dosja e ngarkimit të çastit </string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Përdorni nëndosjet</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Ruani në nëndosjet në bazë të vitit dhe muajit</string>
+
+	<string name="share_link_no_support_share_api">Na ndjeni, ndarja me të tjerët s\’është e aktivizuar te shërbyesi juaj. Ju lutemi, lidhuni me përgjegjësin tuaj.</string>
 	<string name="share_link_file_no_exist">S\’arrin të ndajë me të tjerët. Ju lutemi, kontrolloni nëse kartela ekziston apo jo</string>
 	<string name="share_link_file_error">Ndodhi një gabim teksa përpiqej të ndahej me të tjerët kjo kartelë apo dosje</string>
 	<string name="unshare_link_file_no_exist">S\’arrin të zhbëjë ndarjen me të tjerët. Ju lutemi, kontrolloni nëse kartela ekziston</string>
@@ -331,6 +353,7 @@
 
     <string name="prefs_category_accounts">Llogari</string>
     <string name="prefs_add_account">Shtoni llogari</string>
+    <string name="drawer_manage_accounts">Menaxhoni llogaritë</string>
     <string name="auth_redirect_non_secure_connection_title">Lidhja e sigurt është ridrejtuar përmes një rruge të pasigurt.</string>
 
 	<string name="actionbar_logger">Regjistra</string>
@@ -342,7 +365,8 @@
 	<string name="saml_authentication_required_text">Lypset mirëfilltësim</string>
 	<string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
 	<string name="actionbar_move">Zhvendose</string>
-    <string name="file_list_empty_moving">S\’ka gjë këtu. Mund të shtoni një dosje!</string>
+    <string name="actionbar_copy">Kopjoni</string>
+	<string name="file_list_empty_moving">S\’ka gjë këtu. Mund të shtoni një dosje!</string>
 	<string name="folder_picker_choose_button_text">Zgjidhni</string>
 
     <string name="move_file_not_found">S\’arrin të zhvendosë. Ju lutemi, kontrolloni nëse ekziston apo jo kartela</string>
@@ -361,7 +385,8 @@
     <string name="prefs_category_instant_uploading">Ngarkime të atypëratyshme</string>
     <string name="prefs_category_details">Hollësi</string>
 
-	<string name="sync_folder_failed_content">Njëkohësimi i dosjes %1$s s’u plotësua dot</string>
+	<string name="prefs_instant_video_upload_path_title">Dosja e ngarkimit të videove të çastit </string>
+    <string name="sync_folder_failed_content">Njëkohësimi i dosjes %1$s s’u plotësua dot</string>
 
 	<string name="shared_subject_header">ndarë</string>
 	<string name="with_you_subject_header">me ju</string>
@@ -387,8 +412,12 @@
     <string name="prefs_instant_behaviour_title">Kartela origjinale do të jetë&#8230;</string>
     <string name="upload_copy_files">Kopjoje kartelën</string>
     <string name="upload_move_files">Lëvize kartelën</string>
+    <string name="select_all">Zgjidhi të gjitha</string>
+
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
     <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
+    <string name="pref_behaviour_entries_delete_file">të fshira</string>
+
     <string name="share_dialog_title">Ndarje me të tjerët</string>
     <string name="share_file">Ndajeni %1$s</string>
     <string name="share_with_user_section_title">Ndajeni me përdorues dhe grupe</string>
@@ -399,6 +428,7 @@
     <string name="share_via_link_password_label">Mbroje me fjalëkalim</string>
     <string name="share_via_link_password_title">E siguruar</string>
     <string name="share_via_link_edit_permission_label">Lejo përpunim</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Fshihni listën e kartelave</string>
     <string name="share_get_public_link_button">Merreni lidhjen</string>
     <string name="share_with_title">Ndajeni me …</string>
     <string name="share_with_edit_title">Ndajeni me %1$s</string>
@@ -435,4 +465,30 @@
 
     <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>
     <string name="local_file_not_found_toast">Kartela s’u gjet te sistemi vendor i kartelave</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">A doni ju vërtetë të hiqni artikujt e zgjedhur?</string>
+    <string name="confirmation_remove_folders_alert">A doni ju vërtet  të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
+    <string name="actionbar_search">Kërkoni</string>
+    <string name="files_drop_not_supported">Ky është një tipar i Nextcloud-it, ju lutemi përditësojeni.</string>
+    <string name="learn_more">Mësoni më shumë</string>
+    <string name="drawer_participate">Merni pjesë</string>
+    <string name="participate_testing_headline">Na ndihmoni me testimin</string>
+    <string name="participate_testing_bug_text">Gjetet një defekt? Diçka është e çuditshme?</string>
+    <string name="participate_testing_report_text">Raportoni një problem në Github</string>
+    <string name="participate_testing_version_text">Jeni të interesuar për të na ndihmuar në testimin e versionit të ardhshëm?</string>
+    <string name="participate_beta_headline">Testoni versionin Beta</string>
+    <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
+    <string name="participate_release_candidate_text">Lëshimi i kandidatit  (RC) është një fragment i lëshimit të ardhshme dhe pritet të jetë i qëndrueshëm. Testimi i setup-it tuaj individuale mund të ndihmojë për ta siguruar këtë. Regjistrohuni për testimin në Play Store ose manualisht  shikoni në seksionin \"versionet\" në F-Droid.</string>
+    <string name="participate_contribute_headline">Kontribim aktiv</string>
+    <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;a href=\"%1$s>forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Translate&lt;/a> aplikacioni</string>
+    <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih&lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> për detaje</string>
+    <string name="move_to">Levizni tek&#8230;</string>
+    <string name="copy_to">Kopjojeni tek&#8230;</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d të përzgjedhura</item>
+        <item quantity="other">%d të përzgjedhura</item>
+    </plurals>
+
+</resources>
