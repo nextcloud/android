@@ -113,16 +113,16 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 if (upload1.getUploadEndTimestamp() == 0 || upload2.getUploadEndTimestamp() == 0) {
                     return compareUploadId(upload1, upload2);
                 } else {
-                    return compareUpdateTime(upload1, upload2);
+                     return compareUpdateTime(upload1, upload2);
                 }
             }
 
             private int compareUploadId(OCUpload upload1, OCUpload upload2) {
-                return Long.valueOf(upload1.getUploadId()).compareTo(upload2.getUploadId());
+                return Long.compare(upload1.getUploadId(), upload2.getUploadId());
             }
 
             private int compareUpdateTime(OCUpload upload1, OCUpload upload2) {
-                return Long.valueOf(upload2.getUploadEndTimestamp()).compareTo(upload1.getUploadEndTimestamp());
+                return Long.compare(upload2.getUploadEndTimestamp(), upload1.getUploadEndTimestamp());
             }
         };
 
