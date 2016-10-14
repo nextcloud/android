@@ -256,8 +256,9 @@ public class UploadFilesActivity extends FileActivity implements
         // the next operation triggers a new call to this method, but it's necessary to 
         // ensure that the name exposed in the action bar is the current directory when the 
         // user selected it in the navigation list
-        if (itemPosition != 0)
+        if (itemPosition != 0) {
             getSupportActionBar().setSelectedNavigationItem(0);
+        }
         return true;
     }
 

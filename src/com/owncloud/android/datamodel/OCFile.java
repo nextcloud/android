@@ -508,8 +508,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         OCFile ocFile = (OCFile) o;
 
@@ -602,7 +606,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     public boolean isInConflict() {
-        return mEtagInConflict != null && mEtagInConflict != "";
+        return mEtagInConflict != null && !mEtagInConflict.equals("");
     }
 
     public void setEtagInConflict(String etagInConflict) {

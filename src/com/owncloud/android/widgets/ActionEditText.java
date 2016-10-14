@@ -24,6 +24,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -45,6 +46,7 @@ public class ActionEditText extends EditText {
 
     private String badgeClickCallback;
     private Rect btn_rect;
+    private static final String TAG = ActionEditText.class.getSimpleName();
 
     public ActionEditText(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -77,10 +79,11 @@ public class ActionEditText extends EditText {
         mButtonRect.right = getWidth() - 10;
         btn_rect = mButtonRect;
 
-        if (s.equals(optionOneString))
+        if (s.equals(optionOneString)) {
             p.setColor(optionOneColor);
-        else
+        } else {
             p.setColor(optionTwoColor);
+        }
         canvas.drawRect(mButtonRect, p);
         p.setColor(Color.GRAY);
 
@@ -95,36 +98,29 @@ public class ActionEditText extends EditText {
         int touchX = (int) event.getX();
         int touchY = (int) event.getY();
         boolean r = super.onTouchEvent(event);
-        if (event.getAction() == MotionEvent.ACTION_UP) {
-            if (btn_rect.contains(touchX, touchY)) {
-                if (s.equals(optionTwoString))
-                    s = optionOneString;
-                else
-                    s = optionTwoString;
-                if (badgeClickCallback != null) {
-                    @SuppressWarnings("rawtypes")
-                    Class[] paramtypes = new Class[2];
-                    paramtypes[0] = android.view.View.class;
-                    paramtypes[1] = String.class;
-                    Method method;
-                    try {
+        if (event.getAction() == MotionEvent.ACTION_UP && btn_rect.contains(touchX, touchY)) {
+            if (s.equals(optionTwoString)) {
+                s = optionOneString;
+            } else {
+                s = optionTwoString;
+            }
+            if (badgeClickCallback != null) {
+                @SuppressWarnings("rawtypes")
+                Class[] paramtypes = new Class[2];
+                paramtypes[0] = android.view.View.class;
+                paramtypes[1] = String.class;
+                Method method;
+                try {
 
-                        method = getContext().getClass().getMethod(
-                                badgeClickCallback, paramtypes);
-                        method.invoke(getContext(), this, s);
+                    method = getContext().getClass().getMethod(
+                            badgeClickCallback, paramtypes);
+                    method.invoke(getContext(), this, s);
 
-                    } catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    } catch (IllegalArgumentException e) {
-                        e.printStackTrace();
-                    } catch (IllegalAccessException e) {
-                        e.printStackTrace();
-                    } catch (InvocationTargetException e) {
-                        e.printStackTrace();
-                    }
-
-                    invalidate();
+                } catch (NoSuchMethodException | IllegalArgumentException | InvocationTargetException | IllegalAccessException e) {
+                    Log_OC.d(TAG, e.getMessage(), e);
                 }
+
+                invalidate();
             }
         }
         return r;

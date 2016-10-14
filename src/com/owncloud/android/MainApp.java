@@ -181,7 +181,7 @@ public class MainApp extends Application {
         mOnlyOnDevice = state;
     }
 
-    public static boolean getOnlyOnDevice(){
+    public static boolean isOnlyOnDevice(){
         return mOnlyOnDevice;
     }
 

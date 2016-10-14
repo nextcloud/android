@@ -111,7 +111,7 @@ public class DisplayUtils {
                 suffixIndex++;
             }
 
-            return new BigDecimal(result).setScale(
+            return new BigDecimal(String.valueOf(result)).setScale(
                     sizeScales[suffixIndex], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[suffixIndex];
         }
     }
@@ -127,8 +127,9 @@ public class DisplayUtils {
         if (mimeType2HumanReadable.containsKey(mimetype)) {
             return mimeType2HumanReadable.get(mimetype);
         }
-        if (mimetype.split("/").length >= 2)
+        if (mimetype.split("/").length >= 2) {
             return mimetype.split("/")[1].toUpperCase() + " file";
+        }
         return MIME_TYPE_UNKNOWN;
     }
 
@@ -167,7 +168,7 @@ public class DisplayUtils {
             if (urlNoDots.contains("//")) {
                 hostStart = url.indexOf("//") + "//".length();
             } else if (url.contains("@")) {
-                hostStart = url.indexOf("@") + "@".length();
+                hostStart = url.indexOf('@') + "@".length();
             }
 
             int hostEnd = url.substring(hostStart).indexOf("/");
@@ -197,7 +198,7 @@ public class DisplayUtils {
         try {
             return new OwnCloudAccount(savedAccount, context).getDisplayName()
                     + " @ "
-                    + convertIdn(accountName.substring(accountName.lastIndexOf("@") + 1), false);
+                    + convertIdn(accountName.substring(accountName.lastIndexOf('@') + 1), false);
         } catch (Exception e) {
             Log_OC.w(TAG, "Couldn't get display name for account, using old style");
             return fallbackString;
@@ -382,8 +383,9 @@ public class DisplayUtils {
     public static void setAvatar(Account account, AvatarGenerationListener listener, float avatarRadius, Resources resources,
                            FileDataStorageManager storageManager, Object callContext) {
         if (account != null) {
-            if (callContext instanceof View)
-                ((View)callContext).setContentDescription(account.name);
+            if (callContext instanceof View) {
+                ((View) callContext).setContentDescription(account.name);
+            }
 
             // Thumbnail in Cache?
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache("a_" + account.name);

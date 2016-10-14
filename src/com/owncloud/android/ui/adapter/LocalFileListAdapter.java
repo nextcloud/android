@@ -43,6 +43,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Vector;
@@ -56,7 +57,6 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
     private Context mContext;
-    private File mDirectory;
     private File[] mFiles = null;
     private Vector<File> mFilesAll = new Vector<File>();
 
@@ -87,8 +87,9 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
 
     @Override
     public Object getItem(int position) {
-        if (mFiles == null || mFiles.length <= position)
+        if (mFiles == null || mFiles.length <= position) {
             return null;
+        }
         return mFiles[position];
     }
 
@@ -267,9 +268,8 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
      * Change the adapted directory for a new one
      * @param directory     New file to adapt. Can be NULL, meaning "no content to adapt".
      */
-    public void swapDirectory(File directory) {
-        mDirectory = directory;
-        mFiles = (mDirectory != null ? mDirectory.listFiles() : null);
+    public void swapDirectory(final File directory) {
+        mFiles = (directory != null ? directory.listFiles() : null);
         if (mFiles != null) {
             Arrays.sort(mFiles, new Comparator<File>() {
                 @Override
@@ -298,9 +298,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
 
             mFilesAll.clear();
 
-            for (File mFile : mFiles) {
-                mFilesAll.add(mFile);
-            }
+            Collections.addAll(mFilesAll, mFiles);
         }
         notifyDataSetChanged();
     }

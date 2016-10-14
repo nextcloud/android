@@ -107,8 +107,9 @@ public class UpdateOCVersionOperation extends RemoteOperation {
             Log_OC.e(TAG, "Check for update of ownCloud server version at " + client.getWebdavUri() + ": " + result.getLogMessage(), e);
             
         } finally {
-            if (get != null) 
+            if (get != null) {
                 get.releaseConnection();
+            }
         }
         return result;
     }

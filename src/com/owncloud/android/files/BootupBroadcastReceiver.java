@@ -35,7 +35,7 @@ import android.content.Intent;
  */
 public class BootupBroadcastReceiver extends BroadcastReceiver {
 
-    private static String TAG = BootupBroadcastReceiver.class.getSimpleName();
+    private static final String TAG = BootupBroadcastReceiver.class.getSimpleName();
     
     /**
      * Receives broadcast intent reporting that the system was just boot up.
