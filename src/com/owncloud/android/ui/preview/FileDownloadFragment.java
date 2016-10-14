@@ -279,26 +279,22 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
 
     public void listenForTransferProgress() {
-        if (mProgressListener != null && !mListening) {
-            if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(
-                        mProgressListener, mAccount, getFile()
-                );
-                mListening = true;
-                setButtonsForTransferring();
-            }
+        if (mProgressListener != null && !mListening && mContainerActivity.getFileDownloaderBinder() != null) {
+            mContainerActivity.getFileDownloaderBinder().addDatatransferProgressListener(
+                    mProgressListener, mAccount, getFile()
+            );
+            mListening = true;
+            setButtonsForTransferring();
         }
     }
 
 
     public void leaveTransferProgress() {
-        if (mProgressListener != null) {
-            if (mContainerActivity.getFileDownloaderBinder() != null) {
-                mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(
-                        mProgressListener, mAccount, getFile()
-                );
-                mListening = false;
-            }
+        if (mProgressListener != null && mContainerActivity.getFileDownloaderBinder() != null) {
+            mContainerActivity.getFileDownloaderBinder().removeDatatransferProgressListener(
+                    mProgressListener, mAccount, getFile()
+            );
+            mListening = false;
         }
     }
 

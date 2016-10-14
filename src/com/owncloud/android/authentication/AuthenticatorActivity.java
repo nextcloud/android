@@ -142,6 +142,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
     public static final String PROTOCOL_SUFFIX = "://";
     public static final String LOGIN_URL_DATA_KEY_VALUE_SEPARATOR = ":";
+    private static final String HTTPS_PROTOCOL = "https://";
+    private static final String HTTP_PROTOCOL = "http://";
 
     /// parameters from EXTRAs in starter Intent
     private byte mAction;
@@ -167,7 +169,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private boolean mServerIsChecked = false;
     private boolean mServerIsValid = false;
-    private boolean mPendingAutoCheck = false;
 
     private GetServerInfoOperation.ServerInfo mServerInfo = new GetServerInfoOperation.ServerInfo();
 
@@ -408,11 +409,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             if (mAccount != null) {
                 mServerInfo.mBaseUrl = mAccountMgr.getUserData(mAccount, Constants.KEY_OC_BASE_URL);
                 // TODO do next in a setter for mBaseUrl
-                mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith("https://");
+                mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith(HTTPS_PROTOCOL);
                 mServerInfo.mVersion = AccountUtils.getServerVersion(mAccount);
             } else {
                 mServerInfo.mBaseUrl = getString(R.string.server_url).trim();
-                mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith("https://");
+                mServerInfo.mIsSslConn = mServerInfo.mBaseUrl.startsWith(HTTPS_PROTOCOL);
             }
         } else {
             mServerStatusText = savedInstanceState.getInt(KEY_SERVER_STATUS_TEXT);
@@ -492,24 +493,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         findViewById(R.id.scroll).setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (
-                            AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(
-                                    MainApp.getAccountType()
-                            ).equals(mAuthTokenType) &&
-                                    mHostUrlInput.hasFocus()
-                            ) {
-                        checkOcServer();
-                    }
+                if (event.getAction() == MotionEvent.ACTION_DOWN &&
+                        AccountTypeUtils
+                                .getAuthTokenTypeSamlSessionCookie(MainApp
+                                        .getAccountType()).equals(mAuthTokenType) &&
+                        mHostUrlInput.hasFocus()) {
+                    checkOcServer();
                 }
                 return false;
             }
         });
-
-
-        /// step 4 - mark automatic check to be started when OperationsService is ready
-        mPendingAutoCheck = (savedInstanceState == null &&
-                (mAction != ACTION_CREATE || checkHostUrl));
     }
 
 
@@ -1127,8 +1120,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             }
 
-            if (success)
+            if (success) {
                 finish();
+            }
         } else {
             updateStatusIconFailUserName();
             showAuthStatus();
@@ -1197,14 +1191,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     // TODO remove, if possible
     private String normalizeUrl(String url, boolean sslWhenUnprefixed) {
+
         if (url != null && url.length() > 0) {
             url = url.trim();
-            if (!url.toLowerCase().startsWith("http://") &&
-                    !url.toLowerCase().startsWith("https://")) {
+            if (!url.toLowerCase().startsWith(HTTP_PROTOCOL) &&
+                    !url.toLowerCase().startsWith(HTTP_PROTOCOL)) {
                 if (sslWhenUnprefixed) {
-                    url = "https://" + url;
+                    url = HTTPS_PROTOCOL + url;
                 } else {
-                    url = "http://" + url;
+                    url = HTTP_PROTOCOL + url;
                 }
             }
 
@@ -1259,7 +1254,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             case OK_NO_SSL:
             case OK:
-                if (mHostUrlInput.getText().toString().trim().toLowerCase().startsWith("http://")) {
+                if (mHostUrlInput.getText().toString().trim().toLowerCase().startsWith(HTTP_PROTOCOL)) {
                     mServerStatusText = R.string.auth_connection_established;
                     mServerStatusIcon = R.drawable.ic_ok;
                 } else {
@@ -1340,7 +1335,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             case OK_NO_SSL:
             case OK:
-                if (mHostUrlInput.getText().toString().trim().toLowerCase().startsWith("http://")) {
+                if (mHostUrlInput.getText().toString().trim().toLowerCase().startsWith(HTTP_PROTOCOL)) {
                     mAuthStatusText = R.string.auth_connection_established;
                     mAuthStatusIcon = R.drawable.ic_ok;
                 } else {
@@ -1783,11 +1778,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
         } else if (actionId == EditorInfo.IME_ACTION_NEXT && inputField != null &&
-                inputField.equals(mHostUrlInput)) {
-            if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).
-                    equals(mAuthTokenType)) {
+                inputField.equals(mHostUrlInput) &&
+                AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).
+                        equals(mAuthTokenType)) {
                 checkOcServer();
-            }
         }
         return false;   // always return false to grant that the software keyboard is hidden anyway
     }
@@ -1848,7 +1842,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mAuthToken = sessionCookie;
             getRemoteUserNameOperation(sessionCookie);
             Fragment fd = getSupportFragmentManager().findFragmentByTag(SAML_DIALOG_TAG);
-            if (fd != null && fd instanceof DialogFragment) {
+            if (fd instanceof DialogFragment) {
                 Dialog d = ((DialogFragment) fd).getDialog();
                 if (d != null && d.isShowing()) {
                     d.dismiss();
@@ -1951,7 +1945,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void dismissDialog(String dialogTag) {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(dialogTag);
-        if (frag != null && frag instanceof DialogFragment) {
+        if (frag instanceof DialogFragment) {
             DialogFragment dialog = (DialogFragment) frag;
             dialog.dismiss();
         }
