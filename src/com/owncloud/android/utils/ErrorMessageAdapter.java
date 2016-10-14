@@ -312,5 +312,6 @@ public class ErrorMessageAdapter {
                 code == ResultCode.TIMEOUT ||
                 code == ResultCode.HOST_NOT_AVAILABLE;
         }
+        }
     }
 }
