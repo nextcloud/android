@@ -43,6 +43,7 @@ import java.util.Observable;
 public class UploadsStorageManager extends Observable {
 
     private ContentResolver mContentResolver;
+    private static final String AND = " AND ";
 
     static private final String TAG = UploadsStorageManager.class.getSimpleName();
 
@@ -391,8 +392,8 @@ public class UploadsStorageManager extends Observable {
      */
     public OCUpload[] getFailedButNotDelayedUploads() {
         return getUploads(
-            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + " AND " +
-                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + " AND " +
+            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
             null
         );
@@ -405,8 +406,8 @@ public class UploadsStorageManager extends Observable {
     public long clearFailedButNotDelayedUploads() {
         long result = getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
-            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + " AND " +
-                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + " AND " +
+            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
             null
         );
@@ -436,7 +437,7 @@ public class UploadsStorageManager extends Observable {
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=? AND " +
-                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + " AND " +
+                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
                 whereArgs
         );

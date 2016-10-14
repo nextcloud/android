@@ -413,7 +413,9 @@ public class PreviewImageFragment extends FileFragment {
         @Override
         protected LoadImage doInBackground(OCFile... params) {
             Bitmap result = null;
-            if (params.length != 1) return null;
+            if (params.length != 1) {
+                return null;
+            }
             OCFile ocFile = params[0];
             String storagePath = ocFile.getStoragePath();
             try {
@@ -423,12 +425,16 @@ public class PreviewImageFragment extends FileFragment {
                 int minWidth = screenSize.x;
                 int minHeight = screenSize.y;
                 for (int i = 0; i < maxDownScale && result == null; i++) {
-                    if (isCancelled()) return null;
+                    if (isCancelled()) {
+                        return null;
+                    }
                     try {
                         result = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
                                 minHeight);
 
-                        if (isCancelled()) return new LoadImage(result, ocFile);
+                        if (isCancelled()) {
+                            return new LoadImage(result, ocFile);
+                        }
 
                         if (result == null) {
                             mErrorMessageId = R.string.preview_image_error_unknown_format;

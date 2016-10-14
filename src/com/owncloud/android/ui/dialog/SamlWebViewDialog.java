@@ -51,8 +51,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  */
 public class SamlWebViewDialog extends DialogFragment {
 
-    public final String SAML_DIALOG_TAG = "SamlWebViewDialog";
-    
     private final static String TAG =  SamlWebViewDialog.class.getSimpleName();
 
     private static final String ARG_INITIAL_URL = "INITIAL_URL";
@@ -63,8 +61,6 @@ public class SamlWebViewDialog extends DialogFragment {
     
     private String mInitialUrl;
     private String mTargetUrl;
-    
-    private Handler mHandler;
 
     private SsoWebViewClientListener mSsoWebViewClientListener;
 
@@ -97,7 +93,7 @@ public class SamlWebViewDialog extends DialogFragment {
         super.onAttach(activity);
         try {
             mSsoWebViewClientListener = (SsoWebViewClientListener) activity;
-            mHandler = new Handler();
+            Handler mHandler = new Handler();
             mWebViewClient = new SsoWebViewClient(activity, mHandler, mSsoWebViewClientListener);
             
        } catch (ClassCastException e) {

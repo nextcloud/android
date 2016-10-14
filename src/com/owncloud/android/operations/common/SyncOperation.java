@@ -85,9 +85,10 @@ public abstract class SyncOperation extends RemoteOperation {
 	 */
 	public RemoteOperationResult execute(OwnCloudClient client,
                                          FileDataStorageManager storageManager) {
-        if (storageManager == null)
+        if (storageManager == null) {
             throw new IllegalArgumentException("Trying to execute a sync operation with a " +
                     "NULL storage manager");
+        }
         mStorageManager = storageManager;
 		return super.execute(client);
 	}

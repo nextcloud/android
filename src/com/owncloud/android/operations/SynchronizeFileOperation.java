@@ -24,6 +24,7 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -43,7 +44,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 public class SynchronizeFileOperation extends SyncOperation {
 
-    private String TAG = SynchronizeFileOperation.class.getSimpleName();
+    private static final String TAG = SynchronizeFileOperation.class.getSimpleName();
 
     private OCFile mLocalFile;
     private String mRemotePath;
@@ -234,6 +235,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                         // So, an instance of SynchronizeFileOperation created with
                         // syncFileContents == false is completely useless when we suspect
                         // that an upload is necessary (for instance, in FileObserverService).
+                        Log_OC.d(TAG, "Nothing to do here");
                     }
                     result = new RemoteOperationResult(ResultCode.OK);
 
