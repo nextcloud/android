@@ -88,17 +88,15 @@ public class MainApp extends Application {
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
-        
-        if (BuildConfig.DEBUG) {
 
-            String dataFolder = getDataFolder();
 
-            // Set folder for store logs
-            Log_OC.setLogDataFolder(dataFolder);
+        String dataFolder = getDataFolder() + getAppContext().getResources().getString(R.string.log_name);
 
-            Log_OC.startLogging(MainApp.storagePath);
-            Log_OC.d("Debug", "start logging");
-        }
+        // Set folder for store logs
+        Log_OC.setLogDataFolder(dataFolder);
+
+        Log_OC.startLogging(MainApp.storagePath);
+        Log_OC.d("Debug", "start logging");
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks( new ActivityLifecycleCallbacks() {
