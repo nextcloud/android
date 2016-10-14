@@ -88,7 +88,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             account,
             sourceUris,
             remotePaths,
-            new Integer(behaviour),
+            Integer.valueOf(behaviour),
             contentResolver
         };
     }
@@ -193,10 +193,8 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             // clean
             if (fullTempPath != null) {
                 File f = new File(fullTempPath);
-                if (f.exists()) {
-                    if (!f.delete()) {
-                        Log_OC.e(TAG, "Could not delete temporary file " + fullTempPath);
-                    }
+                if (f.exists() && !f.delete()) {
+                    Log_OC.e(TAG, "Could not delete temporary file " + fullTempPath);
                 }
             }
 

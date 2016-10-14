@@ -297,7 +297,9 @@ public class FileDownloader extends Service
          * @param file    A file that could be in the queue of downloads.
          */
         public boolean isDownloading(Account account, OCFile file) {
-            if (account == null || file == null) return false;
+            if (account == null || file == null) {
+                return false;
+            }
             return (mPendingDownloads.contains(account.name, file.getRemotePath()));
         }
 
@@ -312,7 +314,9 @@ public class FileDownloader extends Service
         public void addDatatransferProgressListener(
                 OnDatatransferProgressListener listener, Account account, OCFile file
         ) {
-            if (account == null || file == null || listener == null) return;
+            if (account == null || file == null || listener == null) {
+                return;
+            }
             mBoundListeners.put(file.getFileId(), listener);
         }
 
@@ -327,7 +331,9 @@ public class FileDownloader extends Service
         public void removeDatatransferProgressListener(
                 OnDatatransferProgressListener listener, Account account, OCFile file
         ) {
-            if (account == null || file == null || listener == null) return;
+            if (account == null || file == null || listener == null) {
+                return;
+            }
             Long fileId = file.getFileId();
             if (mBoundListeners.get(fileId) == listener) {
                 mBoundListeners.remove(fileId);
@@ -359,8 +365,9 @@ public class FileDownloader extends Service
 
         public ServiceHandler(Looper looper, FileDownloader service) {
             super(looper);
-            if (service == null)
+            if (service == null) {
                 throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
+            }
             mService = service;
         }
 

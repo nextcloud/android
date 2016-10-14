@@ -621,16 +621,18 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             // focus gain; check AudioManager.AUDIOFOCUS_* values
             mAudioFocus = AudioFocus.FOCUS;
             // restart media player with new focus settings
-            if (mState == State.PLAYING)
+            if (mState == State.PLAYING) {
                 configAndStartMediaPlayer();
+            }
             
         } else if (focusChange < 0) {
             // focus loss; check AudioManager.AUDIOFOCUS_* values
             boolean canDuck = AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK == focusChange;
                 mAudioFocus = canDuck ? AudioFocus.NO_FOCUS_CAN_DUCK : AudioFocus.NO_FOCUS;
                 // start/restart/pause media player with new focus settings
-                if (mPlayer != null && mPlayer.isPlaying())
+                if (mPlayer != null && mPlayer.isPlaying()) {
                     configAndStartMediaPlayer();
+                }
         }
         
     }

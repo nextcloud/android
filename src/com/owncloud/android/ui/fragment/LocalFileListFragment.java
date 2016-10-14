@@ -195,7 +195,9 @@ public class LocalFileListFragment extends ExtendedListFragment {
             } else {
                 directory = Environment.getExternalStorageDirectory();
                 // TODO be careful with the state of the storage; could not be available
-                if (directory == null) return; // no files to show
+                if (directory == null) {
+                    return; // no files to show
+                }
             }
         }
         

@@ -43,7 +43,7 @@ public class PassCodeManager {
         // other activities may be exempted, if needed
     }
 
-    private static int PASS_CODE_TIMEOUT = 1000;
+    private static final int PASS_CODE_TIMEOUT = 1000;
         // keeping a "low" positive value is the easiest way to prevent the pass code is requested on rotations
 
     public static PassCodeManager mPassCodeManagerInstance = null;

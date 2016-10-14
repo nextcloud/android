@@ -43,6 +43,7 @@ public class DiskLruImageCache {
     private static final int CACHE_VERSION = 1;
     private static final int VALUE_COUNT = 1;
     private static final int IO_BUFFER_SIZE = 8 * 1024;
+    private static final String CACHE_TEST_DISK = "cache_test_DISK_";
             
     private static final String TAG = DiskLruImageCache.class.getSimpleName();
 
@@ -85,17 +86,17 @@ public class DiskLruImageCache {
                 mDiskCache.flush();
                 editor.commit();
                 if ( BuildConfig.DEBUG ) {
-                   Log_OC.d( "cache_test_DISK_", "image put on disk cache " + validKey );
+                   Log_OC.d( CACHE_TEST_DISK, "image put on disk cache " + validKey );
                 }
             } else {
                 editor.abort();
                 if ( BuildConfig.DEBUG ) {
-                    Log_OC.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + validKey );
+                    Log_OC.d( CACHE_TEST_DISK, "ERROR on: image put on disk cache " + validKey );
                 }
             }   
         } catch (IOException e) {
             if ( BuildConfig.DEBUG ) {
-                Log_OC.d( "cache_test_DISK_", "ERROR on: image put on disk cache " + validKey );
+                Log_OC.d( CACHE_TEST_DISK, "ERROR on: image put on disk cache " + validKey );
             }
             try {
                 if ( editor != null ) {
@@ -125,15 +126,15 @@ public class DiskLruImageCache {
                 bitmap = BitmapFactory.decodeStream( buffIn );              
             }   
         } catch ( IOException e ) {
-            e.printStackTrace();
+            Log_OC.d(TAG, e.getMessage(), e);
         } finally {
-            if ( snapshot != null ) {
+            if (snapshot != null) {
                 snapshot.close();
             }
         }
 
         if ( BuildConfig.DEBUG ) {
-            Log_OC.d("cache_test_DISK_", bitmap == null ? 
+            Log_OC.d(CACHE_TEST_DISK, bitmap == null ?
                     "not found" : "image read from disk " + validKey);
         }
 
@@ -150,9 +151,9 @@ public class DiskLruImageCache {
             snapshot = mDiskCache.get( validKey );
             contained = snapshot != null;
         } catch (IOException e) {
-            e.printStackTrace();
+            Log_OC.d(TAG, e.getMessage(), e);
         } finally {
-            if ( snapshot != null ) {
+            if (snapshot != null) {
                 snapshot.close();
             }
         }
@@ -163,12 +164,12 @@ public class DiskLruImageCache {
 
     public void clearCache() {
         if ( BuildConfig.DEBUG ) {
-            Log_OC.d( "cache_test_DISK_", "disk cache CLEARED");
+            Log_OC.d( CACHE_TEST_DISK, "disk cache CLEARED");
         }
         try {
             mDiskCache.delete();
         } catch ( IOException e ) {
-            e.printStackTrace();
+            Log_OC.d(TAG, e.getMessage(), e);
         }
     }
 
@@ -190,7 +191,7 @@ public class DiskLruImageCache {
             mDiskCache.remove(validKey);
             Log_OC.d(TAG, "removeKey from cache: " + validKey);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log_OC.d(TAG, e.getMessage(), e);
         }
     }
 }

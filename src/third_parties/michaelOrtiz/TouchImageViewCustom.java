@@ -386,7 +386,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
     		return;
     	}
     	
-    	if (scaleType != mScaleType) {
+    	if (!scaleType.equals(mScaleType)) {
     		setScaleType(scaleType);
     	}
     	resetZoom();
@@ -489,10 +489,12 @@ public class TouchImageViewCustom extends ImageViewCustom {
             maxTrans = 0;
         }
 
-        if (trans < minTrans)
+        if (trans < minTrans) {
             return -trans + minTrans;
-        if (trans > maxTrans)
+        }
+        if (trans > maxTrans) {
             return -trans + maxTrans;
+        }
         return 0;
     }
     
@@ -832,8 +834,9 @@ public class TouchImageViewCustom extends ImageViewCustom {
 	            switch (event.getAction()) {
 	                case MotionEvent.ACTION_DOWN:
 	                	last.set(curr);
-	                    if (fling != null)
-	                    	fling.cancelFling();
+	                    if (fling != null) {
+                            fling.cancelFling();
+                        }
 	                    setState(State.DRAG);
 	                    break;
 	                    
