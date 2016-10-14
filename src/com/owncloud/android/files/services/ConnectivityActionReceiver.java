@@ -70,6 +70,24 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
             Log_OC.v(TAG, "no extras");
         }
 
+        if (intent.getAction().equals(Intent.ACTION_POWER_CONNECTED)) {
+            // for the moment, only recovery of instant uploads, similar to behaviour in release 1.9.1
+            if (
+                    (PreferenceManager.instantPictureUploadEnabled(context) &&
+                            PreferenceManager.instantPictureUploadWhenChargingOnly(context)) ||
+                            (PreferenceManager.instantVideoUploadEnabled(context) &&
+                                    PreferenceManager.instantVideoUploadWhenChargingOnly(context))
+                    ) {
+                Log_OC.d(TAG, "Requesting retry of instant uploads (& friends) due to charging");
+                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+                requester.retryFailedUploads(
+                        context,
+                        null,
+                        UploadResult.DELAYED_FOR_CHARGING   // for the rest of enqueued when Wifi fell
+                );
+            }
+        }
+
         /**
          * There is an interesting mess to process WifiManager.NETWORK_STATE_CHANGED_ACTION and
          * ConnectivityManager.CONNECTIVITY_ACTION in a simple and reliable way.
@@ -140,7 +158,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
                     networkType == ConnectivityManager.TYPE_WIFI;
 
             if (couldBeWifiAction) {
-                if (ConnectivityUtils.isAppConnectedViaWiFi(context)) {
+                if (ConnectivityUtils.isAppConnectedViaUnmeteredWiFi(context)) {
                     Log_OC.d(TAG, "WiFi connected");
                     wifiConnected(context);
                 } else {

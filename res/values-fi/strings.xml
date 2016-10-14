@@ -20,7 +20,6 @@
   <string name="file_list_folders">kansiot</string>
   <string name="file_list_file">tiedosto</string>
   <string name="file_list_files">Tiedostot</string>
-  <string name="action_share_file">Jaa linkki</string>
   <string name="action_unshare_file">Poista linkin jako</string>
   <string name="common_yes">KYLLÄ</string>
   <string name="common_no">EI</string>

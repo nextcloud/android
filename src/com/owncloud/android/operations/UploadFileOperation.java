@@ -26,6 +26,7 @@ import android.net.Uri;
 
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
@@ -45,6 +46,7 @@ import com.owncloud.android.lib.resources.files.UploadRemoteFileOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.ConnectivityUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimetypeIconUtil;
 import com.owncloud.android.utils.UriUtils;
 
@@ -298,6 +300,12 @@ public class UploadFileOperation extends SyncOperation {
                 return new RemoteOperationResult(ResultCode.DELAYED_FOR_WIFI);
             }
 
+            // Check if charging conditions are met and delays the upload otherwise
+            if (delayForCharging()){
+                Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
+                return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
+            }
+
             /// check if the file continues existing before schedule the operation
             if (!originalFile.exists()) {
                 Log_OC.d(TAG, mOriginalStoragePath.toString() + " not exists anymore");
@@ -360,7 +368,7 @@ public class UploadFileOperation extends SyncOperation {
             if ( mChunked &&
                     (new File(mFile.getStoragePath())).length() >
                             ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
-                mUploadOperation = new ChunkedUploadRemoteFileOperation(mFile.getStoragePath(),
+                mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
@@ -389,6 +397,8 @@ public class UploadFileOperation extends SyncOperation {
                     }
                     mFile.setStoragePath("");
 
+                } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE) {
+                    originalFile.delete();
                 } else {
                     mFile.setStoragePath(expectedPath);
 
@@ -462,8 +472,22 @@ public class UploadFileOperation extends SyncOperation {
         );
         return (
             (delayInstantPicture || delayInstantVideo) &&
-            !ConnectivityUtils.isAppConnectedViaWiFi(mContext)
+            !ConnectivityUtils.isAppConnectedViaUnmeteredWiFi(mContext)
         );
+    }
+
+    /**
+     * Check if upload should be delayed due to not charging
+     *
+     * @return      'True' if the upload was delayed until device is charging, 'false' otherwise.
+     */
+    private boolean delayForCharging() {
+        boolean delayInstantPicture = isInstantPicture() &&
+                PreferenceManager.instantPictureUploadWhenChargingOnly(mContext);
+
+        boolean delayInstantVideo = isInstantVideo() && PreferenceManager.instantVideoUploadWhenChargingOnly(mContext);
+
+        return ((delayInstantPicture || delayInstantVideo) && !ConnectivityUtils.isCharging(mContext));
     }
 
 
@@ -509,7 +533,7 @@ public class UploadFileOperation extends SyncOperation {
         }
         if (parent != null) {
             OCFile createdFolder = new OCFile(remotePath);
-            createdFolder.setMimetype("DIR");
+            createdFolder.setMimetype(MimeType.DIRECTORY);
             createdFolder.setParentId(parent.getFileId());
             getStorageManager().saveFile(createdFolder);
             return createdFolder;
@@ -792,6 +816,11 @@ public class UploadFileOperation extends SyncOperation {
         getStorageManager().saveConflict(file, null);
 
         FileDataStorageManager.triggerMediaScan(file.getStoragePath());
+
+        // generate new Thumbnail
+        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+            new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), mAccount);
+        task.execute(file);
     }
 
     private void updateOCFile(OCFile file, RemoteFile remoteFile) {

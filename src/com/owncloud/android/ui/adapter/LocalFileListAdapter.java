@@ -20,42 +20,53 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import java.io.File;
-import java.util.Arrays;
-import java.util.Comparator;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Vector;
 
 /**
  * This Adapter populates a ListView with all files and directories contained
  * in a local directory
  */
-public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
+public class LocalFileListAdapter extends BaseAdapter implements FilterableListAdapter {
 
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
     private Context mContext;
     private File mDirectory;
     private File[] mFiles = null;
-    
+    private Vector<File> mFilesAll = new Vector<File>();
+
     public LocalFileListAdapter(File directory, Context context) {
         mContext = context;
+
+        // Read sorting order, default to sort by name ascending
+        FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(context);
+        FileStorageUtils.mSortAscending =PreferenceManager.getSortAscending(context);
+
         swapDirectory(directory);
     }
 
@@ -94,24 +105,60 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
-        if (view == null) {
-            LayoutInflater inflator = (LayoutInflater) mContext
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflator.inflate(R.layout.list_item, null);
+        File file = null;
+        boolean isGridView = true;
+        LayoutInflater inflater = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        if (mFiles != null && mFiles.length > position && mFiles[position] != null) {
+            file = mFiles[position];
         }
-        if (mFiles != null && mFiles.length > position) {
-            File file = mFiles[position];
-            
-            TextView fileName = (TextView) view.findViewById(R.id.Filename);
-            String name = file.getName();
-            fileName.setText(name);
-            
+
+        if (file != null) {
+            // Find out which layout should be displayed
+            ViewType viewType;
+            if (parent instanceof GridView) {
+                String mimeType = MimetypeIconUtil.getBestMimeTypeByFilename(file.getName());
+                if (MimetypeIconUtil.isImage(mimeType) || MimetypeIconUtil.isVideo(mimeType)) {
+                    viewType = ViewType.GRID_IMAGE;
+                } else {
+                    viewType = ViewType.GRID_ITEM;
+                }
+            } else {
+                viewType = ViewType.LIST_ITEM;
+                isGridView = false;
+            }
+
+            // create view only if differs, otherwise reuse
+            if (convertView == null || convertView.getTag() != viewType) {
+                switch (viewType) {
+                    case GRID_IMAGE:
+                        view = inflater.inflate(R.layout.grid_image, parent, false);
+                        view.setTag(ViewType.GRID_IMAGE);
+                        break;
+                    case GRID_ITEM:
+                        view = inflater.inflate(R.layout.grid_item, parent, false);
+                        view.setTag(ViewType.GRID_ITEM);
+                        break;
+                    case LIST_ITEM:
+                        view = inflater.inflate(R.layout.list_item, parent, false);
+                        view.setTag(ViewType.LIST_ITEM);
+                        break;
+                }
+            }
+
+            if(!ViewType.GRID_IMAGE.equals(viewType)) {
+                TextView fileName = (TextView) view.findViewById(R.id.Filename);
+                String name = file.getName();
+                fileName.setText(name);
+            }
+
             ImageView fileIcon = (ImageView) view.findViewById(R.id.thumbnail);
 
             /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
-             * {@link ThumbnailsCacheManager#cancelPotentialWork} will NEVER cancel any task.
+             * {@link ThumbnailsCacheManager#cancelPotentialThumbnailWork} will NEVER cancel any task.
              **/
-            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon));
+            boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon));
 
             if (!file.isDirectory()) {
                 fileIcon.setImageResource(R.drawable.file);
@@ -120,20 +167,24 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
             }
             fileIcon.setTag(file.hashCode());
 
+            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
             TextView fileSizeSeparatorV = (TextView) view.findViewById(R.id.file_separator);
-            TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
-            ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
-            lastModV.setVisibility(View.VISIBLE);
-            lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.lastModified()));
+            if (!isGridView) {
+                TextView lastModV = (TextView) view.findViewById(R.id.last_mod);
+                lastModV.setVisibility(View.VISIBLE);
+                lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.lastModified()));
+            }
 
             if (!file.isDirectory()) {
-                fileSizeSeparatorV.setVisibility(View.VISIBLE);
-                fileSizeV.setVisibility(View.VISIBLE);
-                fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+                if (!isGridView) {
+                    fileSizeSeparatorV.setVisibility(View.VISIBLE);
+                    fileSizeV.setVisibility(View.VISIBLE);
+                    fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.length()));
+                }
 
-                ListView parentList = (ListView) parent;
-                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) { 
+                AbsListView parentList = (AbsListView) parent;
+                if (parentList.getChoiceMode() == ListView.CHOICE_MODE_NONE) {
                     checkBoxV.setVisibility(View.GONE);
                 } else {
                     if (parentList.isItemChecked(position)) {
@@ -158,15 +209,17 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                         if (allowedToCreateNewThumbnail) {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                     new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
-                            if (thumbnail == null) {
+                            if (BitmapUtils.isVideo(file)) {
+                                thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                            } else {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
                             }
-                            final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                        		new ThumbnailsCacheManager.AsyncDrawable(
-                                    mContext.getResources(), 
-                                    thumbnail, 
-                                    task
-                		        );
+                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(
+                                            mContext.getResources(),
+                                            thumbnail,
+                                            task
+                                    );
                             fileIcon.setImageDrawable(asyncDrawable);
                             task.execute(file);
                             Log_OC.v(TAG, "Executing task to generate a new thumbnail");
@@ -178,8 +231,10 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 }  
 
             } else {
-                fileSizeSeparatorV.setVisibility(View.GONE);
-                fileSizeV.setVisibility(View.GONE);
+                if (!isGridView) {
+                    fileSizeSeparatorV.setVisibility(View.GONE);
+                    fileSizeV.setVisibility(View.GONE);
+                }
                 checkBoxV.setVisibility(View.GONE);
             }
 
@@ -232,6 +287,41 @@ public class LocalFileListAdapter extends BaseAdapter implements ListAdapter {
                 }
             
             });
+
+            mFiles = FileStorageUtils.sortLocalFolder(mFiles);
+
+            mFilesAll.clear();
+
+            for (File mFile : mFiles) {
+                mFilesAll.add(mFile);
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    public void setSortOrder(Integer order, boolean ascending) {
+        PreferenceManager.setSortOrder(mContext, order);
+        PreferenceManager.setSortAscending(mContext, ascending);
+
+        FileStorageUtils.mSortOrder = order;
+        FileStorageUtils.mSortAscending = ascending;
+
+        mFiles = FileStorageUtils.sortLocalFolder(mFiles);
+        notifyDataSetChanged();
+    }
+
+    public void filter(String text){
+        if(text.isEmpty()){
+            mFiles = mFilesAll.toArray(new File[1]);
+        } else {
+            ArrayList<File> result = new ArrayList<>();
+            text = text.toLowerCase();
+            for (File file: mFilesAll) {
+                if (file.getName().toLowerCase().contains(text)) {
+                    result.add(file);
+                }
+            }
+            mFiles = result.toArray(new File[1]);
         }
         notifyDataSetChanged();
     }

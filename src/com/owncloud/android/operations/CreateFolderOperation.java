@@ -21,16 +21,16 @@
 
 package com.owncloud.android.operations;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.resources.files.CreateRemoteFolderOperation;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.CreateRemoteFolderOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 
 
 /**
@@ -111,7 +111,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             }
         } else { // Create directory on DB
             OCFile newDir = new OCFile(mRemotePath);
-            newDir.setMimetype("DIR");
+            newDir.setMimetype(MimeType.DIRECTORY);
             long parentId = getStorageManager().
                     getFileByPath(FileStorageUtils.getParentPath(mRemotePath)).getFileId();
             newDir.setParentId(parentId);
@@ -120,5 +120,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
             Log_OC.d(TAG, "Create directory " + mRemotePath + " in Database");
         }
+    }
+
+    public String getRemotePath() {
+        return mRemotePath;
     }
 }

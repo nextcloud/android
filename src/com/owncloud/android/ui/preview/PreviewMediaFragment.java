@@ -59,7 +59,7 @@ import com.owncloud.android.media.MediaService;
 import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 
@@ -248,17 +248,21 @@ public class PreviewMediaFragment extends FileFragment implements
         outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
 
         if (getFile().isVideo()) {
-            mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
-            mAutoplay = mVideoPreview.isPlaying();
-            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mSavedPlaybackPosition);
-            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mAutoplay);
+            if (mVideoPreview != null) {
+                mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
+                mAutoplay = mVideoPreview.isPlaying();
+                outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mSavedPlaybackPosition);
+                outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mAutoplay);
+            }
         }
         else {
-            outState.putInt(
-                    PreviewMediaFragment.EXTRA_PLAY_POSITION,
-                    mMediaServiceBinder.getCurrentPosition());
-            outState.putBoolean(
-                    PreviewMediaFragment.EXTRA_PLAYING, mMediaServiceBinder.isPlaying());
+            if (mMediaServiceBinder != null) {
+                outState.putInt(
+                        PreviewMediaFragment.EXTRA_PLAY_POSITION,
+                        mMediaServiceBinder.getCurrentPosition());
+                outState.putBoolean(
+                        PreviewMediaFragment.EXTRA_PLAYING, mMediaServiceBinder.isPlaying());
+            }
         }
     }
 
@@ -357,7 +361,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 return true;
             }
             case R.id.action_remove_file: {
-                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
                 dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
@@ -382,7 +386,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 return true;
             }
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
     }
 

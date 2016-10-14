@@ -32,7 +32,7 @@
         android:text="@string/pass_code_enter_pass_code"
         android:textColor="@android:color/black"
         android:gravity="center_horizontal"
-        android:textSize="16sp"
+        android:textSize="@dimen/two_line_primary_text_size"
          />
 
     <TextView
@@ -42,7 +42,7 @@
         android:text="@string/pass_code_configure_your_pass_code_explanation"
         android:textAppearance="@android:style/TextAppearance.Small"
         android:gravity="center_horizontal"
-        android:textSize="14sp"
+        android:textSize="@dimen/two_line_secondary_text_size"
          />
     
     <LinearLayout

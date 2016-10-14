@@ -22,10 +22,13 @@
     android:orientation="vertical"
     android:weightSum="1" >
 
+    <include
+        layout="@layout/toolbar_standard" />
+
     <ScrollView
         android:id="@+id/scrollView1"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/zero"
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_weight="1">
 

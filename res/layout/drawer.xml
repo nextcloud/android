@@ -16,88 +16,51 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
-    <RelativeLayout
-        android:id="@+id/left_drawer"
-        android:layout_width="240dp"
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:gravity="center"
-        android:orientation="vertical"
+        android:layout_weight="1"
         android:fitsSystemWindows="true"
-        android:background="@color/background_color"
-        >
-
-        <!--TODO re-enable when "Accounts" is available in Navigation Drawer-->
-        <!--<LinearLayout-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_margin="5dp">-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/drawer_userIcon"-->
-                <!--android:layout_width="40dp"-->
-                <!--android:layout_height="40dp"-->
-                <!--android:src="@drawable/abc_ab_bottom_solid_dark_holo" />-->
-
-            <!--<TextView-->
-                <!--android:id="@+id/drawer_username"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_vertical"-->
-                <!--android:layout_marginLeft="5dp"-->
-                <!--android:layout_marginStart="5dp"-->
-                <!--android:textAppearance="?android:attr/textAppearanceLarge" />-->
-
-        <!--</LinearLayout>-->
-
-        <!--<TextView-->
-            <!--android:layout_width="fill_parent"-->
-            <!--android:layout_height="2dip"-->
-            <!--android:background="@color/list_item_lastmod_and_filesize_text" />-->
-
-        <ListView
-            android:id="@+id/drawer_list"
-            android:choiceMode="singleChoice"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:background="@color/background_color"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:paddingTop="100dp" />
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer_menu"
+        app:theme="@style/NavigationView_ItemTextAppearance">
 
         <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:paddingTop="@dimen/standard_padding"
-            android:paddingBottom="@dimen/standard_padding"
-            android:background="@color/drawer_header_color">
+            android:id="@+id/drawer_quota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@color/white"
+            android:clickable="false"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            android:visibility="gone">
 
-            <ImageView
-                android:id="@+id/itemIcon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="@dimen/standard_padding"
-                android:layout_marginBottom="3dp"
-                android:layout_gravity="bottom"
-                android:src="@drawable/ic_account_circle"
+            <ProgressBar
+                android:id="@+id/drawer_quota_ProgressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:text="@string/drawer_quota"
                 />
 
             <TextView
-                android:id="@+id/drawer_username"
-                android:layout_width="wrap_content"
+                android:id="@+id/drawer_quota_text"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="bottom"
-                android:orientation="vertical"
-                android:text="@string/app_name"
-                android:textColor="#FFF"
-                android:paddingLeft="22dp"
-                android:paddingRight="@dimen/standard_padding"
-                android:textSize="24sp"
-                android:ellipsize="end"
-                android:singleLine="true"
-                />
+                android:text="@string/drawer_quota"/>
         </LinearLayout>
-    </RelativeLayout>
+
+    </android.support.design.widget.NavigationView>
+
 </merge>

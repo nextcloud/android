@@ -118,6 +118,34 @@ public class MimetypeIconUtil {
     }
 
     /**
+     * @return 'True' if the mime type defines image
+     */
+    public static boolean isImage(String mimeType) {
+        return (mimeType.startsWith("image/") && !mimeType.contains("djvu"));
+    }
+
+    /**
+     * @return 'True' the mime type defines video
+     */
+    public static boolean isVideo(String mimeType) {
+        return (mimeType != null && mimeType.startsWith("video/"));
+    }
+
+    /**
+     * @return 'True' the mime type defines audio
+     */
+    public boolean isAudio(String mimeType) {
+        return (mimeType != null && mimeType.startsWith("audio/"));
+    }
+
+    /**
+     * @return 'True' if mime type defines text
+     */
+    public boolean isText(String mimeType) {
+        return (mimeType != null && mimeType.startsWith("text/"));
+    }
+
+    /**
      * determines the icon based on the mime type.
      *
      * @param mimetypes the mimetypes
@@ -276,7 +304,7 @@ public class MimetypeIconUtil {
         MIMETYPE_TO_ICON_MAPPING.put("text/x-python", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("text/x-shellscript", R.drawable.file_code);
         MIMETYPE_TO_ICON_MAPPING.put("web", R.drawable.file_code);
-        MIMETYPE_TO_ICON_MAPPING.put("DIR", R.drawable.ic_menu_archive);
+        MIMETYPE_TO_ICON_MAPPING.put(MimeType.DIRECTORY, R.drawable.ic_menu_archive);
     }
 
     /**

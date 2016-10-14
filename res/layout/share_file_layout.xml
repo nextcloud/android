@@ -48,16 +48,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/standard_half_margin"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="@dimen/standard_quarter_margin"
                 android:layout_marginRight="@dimen/standard_half_margin"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="@dimen/standard_quarter_margin"
                 android:layout_toEndOf="@+id/shareFileIcon"
                 android:layout_toRightOf="@+id/shareFileIcon"
                 android:ellipsize="middle"
                 android:singleLine="true"
                 android:text="@string/placeholder_filename"
                 android:textColor="@color/black"
-                android:textSize="16sp"/>
+                android:textSize="@dimen/two_line_primary_text_size"/>
 
             <TextView
                 android:id="@+id/shareFileSize"
@@ -65,18 +65,18 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/shareFileName"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="4dp"
+                android:layout_marginLeft="@dimen/standard_quarter_margin"
                 android:layout_toEndOf="@+id/shareFileIcon"
                 android:layout_toRightOf="@+id/shareFileIcon"
                 android:text="@string/placeholder_filesize"
-                android:textSize="12sp"/>
+                android:textSize="@dimen/share_file_layout_text_size"/>
 
         </RelativeLayout>
 
         <View
             android:id="@+id/share_header_divider"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="@dimen/standard_eighth_margin"
             android:background="@color/owncloud_blue"
             />
 
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/standard_half_padding"
                 android:text="@string/share_no_users"
-                android:textSize="12sp"/>
+                android:textSize="@dimen/share_file_layout_text_size"/>
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/addUserButton"
@@ -191,6 +191,40 @@
                 </RelativeLayout>
 
                 <RelativeLayout
+                    android:id="@+id/shareViaLinkHideFileListingPermissionSection"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/standard_half_margin"
+                    android:visibility="invisible"
+                    >
+
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/shareViaLinkFileListingPermissionSwitch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:padding="@dimen/standard_half_padding"
+                        />
+
+                    <TextView
+                        android:id="@+id/shareViaLinkFileListingPermissionLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_toLeftOf="@id/shareViaLinkFileListingPermissionSwitch"
+                        android:layout_toStartOf="@id/shareViaLinkFileListingPermissionSwitch"
+                        android:padding="@dimen/standard_half_padding"
+                        android:text="@string/share_via_link_hide_file_listing_permission_label"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/two_line_secondary_text_size"
+                        />
+
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:id="@+id/shareViaLinkPasswordSection"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -219,7 +253,7 @@
                         android:paddingTop="@dimen/standard_half_padding"
                         android:text="@string/share_via_link_password_label"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/two_line_secondary_text_size"
                         />
 
                     <TextView
@@ -235,7 +269,7 @@
                         android:paddingLeft="@dimen/standard_half_padding"
                         android:paddingRight="@dimen/standard_half_padding"
                         android:text="@string/share_via_link_password_title"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/share_file_layout_text_size"
                         android:visibility="invisible"
                         />
 
@@ -270,7 +304,7 @@
                         android:paddingTop="@dimen/standard_half_padding"
                         android:text="@string/share_via_link_expiration_date_label"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/two_line_secondary_text_size"
                         />
 
                     <TextView
@@ -285,7 +319,7 @@
                         android:paddingBottom="@dimen/standard_half_padding"
                         android:paddingLeft="@dimen/standard_half_padding"
                         android:paddingRight="@dimen/standard_half_padding"
-                        android:textSize="12sp"
+                        android:textSize="@dimen/share_file_layout_text_size"
                         />
 
                 </RelativeLayout>

@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.os.Environment;
 
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -53,9 +54,7 @@ public class MainApp extends Application {
 
     private static Context mContext;
 
-    // TODO Enable when "On Device" is recovered?
-    // TODO better place
-    // private static boolean mOnlyOnDevice = false;
+    private static boolean mOnlyOnDevice = false;
 
     
     public void onCreate(){
@@ -81,7 +80,8 @@ public class MainApp extends Application {
             // Set folder for store logs
             Log_OC.setLogDataFolder(dataFolder);
 
-            Log_OC.startLogging();
+            //TODO: to be changed/fixed whenever SD card support gets merged.
+            Log_OC.startLogging(Environment.getExternalStorageDirectory().getAbsolutePath());
             Log_OC.d("Debug", "start logging");
         }
 
@@ -175,14 +175,13 @@ public class MainApp extends Application {
         return getAppContext().getResources().getString(R.string.log_name);
     }
 
-    // TODO Enable when "On Device" is recovered ?
-//    public static void showOnlyFilesOnDevice(boolean state){
-//        mOnlyOnDevice = state;
-//    }
-//
-//    public static boolean getOnlyOnDevice(){
-//        return mOnlyOnDevice;
-//    }
+    public static void showOnlyFilesOnDevice(boolean state){
+        mOnlyOnDevice = state;
+    }
+
+    public static boolean getOnlyOnDevice(){
+        return mOnlyOnDevice;
+    }
 
     // user agent
     public static String getUserAgent() {

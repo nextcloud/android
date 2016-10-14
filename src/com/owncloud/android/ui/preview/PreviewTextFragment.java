@@ -40,7 +40,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
-import com.owncloud.android.ui.dialog.RemoveFileDialogFragment;
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import java.io.BufferedWriter;
@@ -246,7 +246,7 @@ public class PreviewTextFragment extends FileFragment {
             final Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
             if (frag != null) {
                 LoadingDialog loading = (LoadingDialog) frag;
-                loading.dismiss();
+                loading.dismissAllowingStateLoss();
             }
         }
     }
@@ -340,7 +340,7 @@ public class PreviewTextFragment extends FileFragment {
                 return true;
             }
             case R.id.action_remove_file: {
-                RemoveFileDialogFragment dialog = RemoveFileDialogFragment.newInstance(getFile());
+                RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
                 dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
             }
@@ -358,7 +358,7 @@ public class PreviewTextFragment extends FileFragment {
             }
 
             default:
-                return false;
+                return super.onOptionsItemSelected(item);
         }
     }
 

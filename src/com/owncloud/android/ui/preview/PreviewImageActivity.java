@@ -31,7 +31,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -40,6 +39,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.ortiz.touch.ExtendedViewPager;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -85,7 +85,6 @@ public class PreviewImageActivity extends FileActivity implements
     private DownloadFinishReceiver mDownloadFinishReceiver;
     
     private View mFullScreenAnchorView;
-    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +95,7 @@ public class PreviewImageActivity extends FileActivity implements
         setContentView(R.layout.preview_image_activity);
 
         // Navigation Drawer
-        initDrawer();
+        setupDrawer();
 
         // ActionBar
         ActionBar actionBar = getSupportActionBar();
@@ -120,10 +119,10 @@ public class PreviewImageActivity extends FileActivity implements
                     ActionBar actionBar = getSupportActionBar();
                     if (visible) {
                         actionBar.show();
-                        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                        setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
                     } else {
                         actionBar.hide();
-                        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                        setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
                     }
                 }
             });
@@ -151,9 +150,8 @@ public class PreviewImageActivity extends FileActivity implements
             parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         }
 
-        // TODO Enable when "On Device" is recovered ?
         mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                parentFolder, getAccount(), getStorageManager()/*, MainApp.getOnlyOnDevice()*/);
+                parentFolder, getAccount(), getStorageManager(), MainApp.getOnlyOnDevice());
 
         mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
         int position = mHasSavedPosition ? mSavedPosition :
@@ -304,8 +302,8 @@ public class PreviewImageActivity extends FileActivity implements
         
         switch(item.getItemId()){
         case android.R.id.home:
-            if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
-                mDrawerLayout.closeDrawer(GravityCompat.START);
+            if (isDrawerOpen()) {
+                closeDrawer();
             } else {
                 backToDisplayActivity();
             }
@@ -391,7 +389,7 @@ public class PreviewImageActivity extends FileActivity implements
         } else {
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
-            mDrawerToggle.setDrawerIndicatorEnabled(false);
+            setDrawerIndicatorEnabled(false);
             if (!currentFile.isDown()) {
                 if (!mPreviewImagePagerAdapter.pendingErrorAt(position)) {
                     requestForDownload(currentFile);
@@ -496,11 +494,11 @@ public class PreviewImageActivity extends FileActivity implements
             ActionBar actionBar = getSupportActionBar();
             if (!actionBar.isShowing()) {
                 actionBar.show();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
 
             } else {
                 actionBar.hide();
-                mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
             }
 
@@ -583,11 +581,5 @@ public class PreviewImageActivity extends FileActivity implements
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void allFilesOption(){
-        backToDisplayActivity();
-        super.allFilesOption();
     }
 }

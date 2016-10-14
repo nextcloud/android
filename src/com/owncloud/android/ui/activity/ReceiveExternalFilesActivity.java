@@ -31,11 +31,10 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -43,6 +42,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -50,6 +50,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -59,23 +60,28 @@ import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.adapter.UploaderAdapter;
+import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
-import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -94,6 +100,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
 
     private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
+    public static final String TEXT_FILE_SUFFIX = ".txt";
 
     private AccountManager mAccountManager;
     private Stack<String> mParents;
@@ -156,7 +163,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             fm.beginTransaction()
                     .add(taskRetainerFragment, TaskRetainerFragment.FTAG_TASK_RETAINER_FRAGMENT).commit();
         }   // else, Fragment already created and retained across configuration change
-
     }
 
     @Override
@@ -176,13 +182,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     setAccount(accounts[0]);
                 }
             }
-
-        } else if (getIntent().getStringExtra(Intent.EXTRA_TEXT) != null) {
-            showErrorDialog(
-                R.string.uploader_error_message_received_piece_of_text,
-                R.string.uploader_error_title_no_file_to_upload
-            );
-
         } else {
             showErrorDialog(
                 R.string.uploader_error_message_no_file_to_upload,
@@ -265,14 +264,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
             });
             return builder.create();
         case DIALOG_MULTIPLE_ACCOUNT:
-            CharSequence ac[] = new CharSequence[
-                    mAccountManager.getAccountsByType(MainApp.getAccountType()).length];
-            for (int i = 0; i < ac.length; ++i) {
-                ac[i] = DisplayUtils.convertIdn(
-                        mAccountManager.getAccountsByType(MainApp.getAccountType())[i].name, false);
+            Account accounts[] = mAccountManager.getAccountsByType(MainApp.getAccountType());
+            CharSequence dialogItems[] = new CharSequence[accounts.length];
+            OwnCloudAccount oca;
+            for (int i = 0; i < dialogItems.length; ++i) {
+                dialogItems[i] = DisplayUtils.getAccountNameDisplayText(
+                        this, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
             }
             builder.setTitle(R.string.common_choose_account);
-            builder.setItems(ac, new OnClickListener() {
+            builder.setItems(dialogItems, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
@@ -313,8 +313,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        // TODO Enable when "On Device" is recovered ?
-        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile /*, false*/);
+        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile , false);
         sortFileList(tmpfiles);
 
         if (tmpfiles.size() <= 0) return;
@@ -343,8 +342,67 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 for (String p : mParents) {
                     mUploadPath += p + OCFile.PATH_SEPARATOR;
                 }
-                Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
-                uploadFiles();
+
+                if (uploadTextSnippet()){
+                    LayoutInflater layout = LayoutInflater.from(getBaseContext());
+                    View view = layout.inflate(R.layout.edit_box_dialog, null);
+
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                            this);
+
+                    alertDialogBuilder.setView(view);
+
+                    final EditText userInput = (EditText) view.findViewById(R.id.user_input);
+                    userInput.setText(TEXT_FILE_SUFFIX);
+
+                    alertDialogBuilder.setCancelable(false)
+                            .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            PrintWriter out;
+                                            try {
+                                                File f = File.createTempFile("nextcloud", TEXT_FILE_SUFFIX);
+                                                out = new PrintWriter(f);
+                                                out.println(getIntent().getStringExtra(Intent.EXTRA_TEXT));
+                                                out.close();
+
+                                                FileUploader.UploadRequester requester =
+                                                        new FileUploader.UploadRequester();
+
+                                                // verify if file name has suffix
+                                                String filename = userInput.getText().toString();
+
+                                                if (!filename.endsWith(TEXT_FILE_SUFFIX)){
+                                                    filename += TEXT_FILE_SUFFIX;
+                                                }
+
+                                                requester.uploadNewFile(
+                                                        getBaseContext(),
+                                                        getAccount(),
+                                                        f.getAbsolutePath(),
+                                                        mFile.getRemotePath() + filename,
+                                                        FileUploader.LOCAL_BEHAVIOUR_COPY,
+                                                        null,
+                                                        true,
+                                                        UploadFileOperation.CREATED_BY_USER
+                                                );
+                                            } catch (IOException e) {
+                                                Log_OC.w(TAG, e.getMessage());
+                                            }
+
+                                            finish();
+                                        }
+                                    })
+                            .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                    alertDialogBuilder.create().show();
+                } else {
+                    Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
+                    uploadFiles();
+                }
                 break;
 
             case R.id.uploader_cancel:
@@ -380,9 +438,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void populateDirectoryList() {
         setContentView(R.layout.uploader_layout);
+        setupToolbar();
+        ActionBar actionBar = getSupportActionBar();
 
         ListView mListView = (ListView) findViewById(android.R.id.list);
-        ActionBar actionBar = getSupportActionBar();
 
         String current_dir = mParents.peek();
         if (current_dir.equals("")) {
@@ -402,8 +461,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         mFile = getStorageManager().getFileByPath(full_path);
         if (mFile != null) {
-            // TODO Enable when "On Device" is recovered ?
-            Vector<OCFile> files = getStorageManager().getFolderContent(mFile/*, false*/);
+            Vector<OCFile> files = getStorageManager().getFolderContent(mFile, false);
             sortFileList(files);
 
             List<HashMap<String, Object>> data = new LinkedList<>();
@@ -423,6 +481,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
+
+            if (uploadTextSnippet()){
+                btnChooseFolder.setText(R.string.uploader_btn_uploadTextSnippet_text);
+            }
 
             Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
             btnNewFolder.setOnClickListener(this);
@@ -454,11 +516,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
         synchFolderOp.execute(getAccount(), this, null, null);
     }
 
-    private void sortFileList(Vector<OCFile> files) {
+    private Vector<OCFile> sortFileList(Vector<OCFile> files) {
         // Read sorting order, default to sort by name ascending
         FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(this);
         FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(this);
-        FileStorageUtils.sortFolder(files);
+        return FileStorageUtils.sortOcFolder(files);
     }
 
     private String generatePath(Stack<String> dirs) {
@@ -479,7 +541,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private boolean somethingToUpload() {
-        return (mStreamsToUpload != null && mStreamsToUpload.get(0) != null);
+        return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
+                uploadTextSnippet());
+    }
+
+    private boolean uploadTextSnippet() {
+        return getIntent().getStringExtra(Intent.EXTRA_TEXT) != null && getIntent().getExtras().keySet().size() == 1;
     }
 
     @SuppressLint("NewApi")
@@ -544,6 +611,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
         if (result.isSuccess()) {
+            String remotePath = operation.getRemotePath().substring(0, operation.getRemotePath().length() - 1);
+            String newFolder = remotePath.substring(remotePath.lastIndexOf("/") + 1);
+            mParents.push(newFolder);
             populateDirectoryList();
         } else {
             try {

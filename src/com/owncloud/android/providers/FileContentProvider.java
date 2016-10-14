@@ -51,6 +51,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -97,19 +98,26 @@ public class FileContentProvider extends ContentProvider {
             case SINGLE_FILE:
                 Cursor c = query(db, uri, null, where, whereArgs, null);
                 String remoteId = "";
-                if (c != null && c.moveToFirst()) {
-                    remoteId = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID));
-                    //ThumbnailsCacheManager.removeFileFromCache(remoteId);
-                    c.close();
-                }
-                Log_OC.d(TAG, "Removing FILE " + remoteId);
+                try {
+                    if (c != null && c.moveToFirst()) {
+                        remoteId = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID));
+                        //ThumbnailsCacheManager.removeFileFromCache(remoteId);
+                    }
+                    Log_OC.d(TAG, "Removing FILE " + remoteId);
 
-                count = db.delete(ProviderTableMeta.FILE_TABLE_NAME,
-                        ProviderTableMeta._ID
-                                + "="
-                                + uri.getPathSegments().get(1)
-                                + (!TextUtils.isEmpty(where) ? " AND (" + where
-                                + ")" : ""), whereArgs);
+                    count = db.delete(ProviderTableMeta.FILE_TABLE_NAME,
+                            ProviderTableMeta._ID
+                                    + "="
+                                    + uri.getPathSegments().get(1)
+                                    + (!TextUtils.isEmpty(where) ? " AND (" + where + ")" : ""),
+                            whereArgs);
+                } catch (Exception e) {
+                    Log_OC.d(TAG, "DB-Error removing file!", e);
+                } finally {
+                    if (c != null) {
+                        c.close();
+                    }
+                }
                 break;
             case DIRECTORY:
                 // deletion of folder is recursive
@@ -127,7 +135,7 @@ public class FileContentProvider extends ContentProvider {
                     boolean isDir;
                     while (!children.isAfterLast()) {
                         childId = children.getLong(children.getColumnIndex(ProviderTableMeta._ID));
-                        isDir = "DIR".equals(children.getString(
+                        isDir = MimeType.DIRECTORY.equals(children.getString(
                                 children.getColumnIndex(ProviderTableMeta.FILE_CONTENT_TYPE)
                         ));
                         //remotePath = children.getString(children.getColumnIndex(ProviderTableMeta.FILE_PATH));
@@ -763,6 +771,21 @@ public class FileContentProvider extends ContentProvider {
                 }
             }
 
+            if (oldVersion < 15 && newVersion >= 15) {
+                Log_OC.i("SQL", "Entering in the #15 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    // drop old capabilities table
+                    db.execSQL("DROP TABLE IF EXISTS " + "capabilities" + ";");
+                    // Create uploads table
+                    createCapabilitiesTable(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
             if (!upgraded)
                 Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
                         ", newVersion == " + newVersion);
@@ -843,7 +866,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_SHARING_FEDERATION_INCOMING + " INTEGER, "     // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING + " INTEGER, "   // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_UNDELETE + " INTEGER, "  // boolean
-                + ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + " INTEGER );" );   // boolean
+                + ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + " INTEGER, "   // boolean
+                + ProviderTableMeta.CAPABILITIES_FILES_DROP + " INTEGER );" );   // boolean
     }
 
     private void createUploadsTable(SQLiteDatabase db){
