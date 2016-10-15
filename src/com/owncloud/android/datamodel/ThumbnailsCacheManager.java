@@ -476,8 +476,8 @@ public class ThumbnailsCacheManager {
                         tagId = String.valueOf(mFile.hashCode());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
-                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
-                                new ThumbnailsCacheManager.AsyncDrawable(
+                        final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncThumbnailDrawable(
                                         imageView.getResources(),
                                         bitmap,
                                         this
@@ -944,18 +944,5 @@ public class ThumbnailsCacheManager {
         public AvatarGenerationTask getAvatarWorkerTask() {
             return avatarWorkerTaskReference.get();
         }
-    }
-
-    private static Bitmap handlePNG(Bitmap bitmap, int px){
-        Bitmap resultBitmap = Bitmap.createBitmap(px,
-                px,
-                Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(resultBitmap);
-
-        c.drawColor(MainApp.getAppContext().getResources().
-                getColor(R.color.background_color));
-        c.drawBitmap(bitmap, 0, 0, null);
-
-        return resultBitmap;
     }
 }

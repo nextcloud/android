@@ -296,7 +296,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                     // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.mDefaultImg; // ThumbnailsCacheManager.getBitmapFromDiskCache(String.valueOf(file.getRemoteId()));
                     // request Thumbnail in background task
-                    if (ThumbnailsCacheManager.cancelPotentialWork(file, fileIcon)) {
+                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
 
                         ThumbnailsCacheManager.GenerateThumbnail(
                                 file,
