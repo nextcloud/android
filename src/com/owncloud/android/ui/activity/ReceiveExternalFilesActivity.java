@@ -47,6 +47,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -357,26 +358,26 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     LayoutInflater layout = LayoutInflater.from(getBaseContext());
                     View view = layout.inflate(R.layout.edit_box_dialog, null);
 
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                            this);
-
-                    alertDialogBuilder.setView(view);
-
                     final EditText userInput = (EditText) view.findViewById(R.id.user_input);
                     userInput.setText(mServerFilename);
+                    userInput.requestFocus();
 
-                    alertDialogBuilder.setCancelable(false)
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+                    alertDialogBuilder.setView(view)
+                            .setTitle("Input upload filename")
+                            .setMessage("file type is " +
+                                    (mTmpFileSuffix.equals(TEXT_FILE_SUFFIX) ? "Snipet text file" :
+                                            mTmpFileSuffix.equals(URL_FILE_SUFFIX) ? "Internet shortcut file" : "?") + "(" + mTmpFileSuffix + ")")
                             .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
-                                    FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-
                                     // verify if file name has suffix
                                     String filename = userInput.getText().toString();
-
                                     if (!filename.endsWith(mTmpFileSuffix)){
                                         filename += mTmpFileSuffix;
                                     }
 
+                                    FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
                                     requester.uploadNewFile(
                                             getBaseContext(),
                                             getAccount(),
@@ -390,13 +391,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                     finish();
                                 }
                             })
+                            .setCancelable(false)
                             .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
                                     dialog.cancel();
                                 }
                             });
 
-                    alertDialogBuilder.create().show();
+                    Dialog d = alertDialogBuilder.create();
+                    d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                    d.show();
                 } else {
                     Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
                     uploadFiles();
@@ -479,10 +483,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
-
-            if (mUploadFromTmpFile) {
-                btnChooseFolder.setText(R.string.uploader_btn_uploadTextSnippet_text);
-            }
 
             Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
             btnNewFolder.setOnClickListener(this);
