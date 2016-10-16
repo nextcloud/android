@@ -131,6 +131,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private String mTmpFilename;
     private String mTmpFileSuffix;
 
+    private final static String FILENAME_ENCODING="UTF-8";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         prepareStreamsToUpload();
@@ -594,11 +596,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         try {
             int maxlength = 128;
-            if (filename.getBytes("UTF-8").length > maxlength) {
-                filename = new String(filename.getBytes("UTF-8"), 0, maxlength, "UTF-8");
+            if (filename.getBytes(FILENAME_ENCODING).length > maxlength) {
+                filename = new String(filename.getBytes(FILENAME_ENCODING), 0, maxlength, FILENAME_ENCODING);
             }
         } catch (UnsupportedEncodingException e) {
-            Log_OC.e(TAG, "rename fail ", e);
+            Log_OC.e(TAG, "rename failed ", e);
             return null;
         }
         return filename;
