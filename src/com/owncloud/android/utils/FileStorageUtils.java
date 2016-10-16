@@ -281,12 +281,8 @@ public class FileStorageUtils {
         
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
-                if (o1.getModificationTimestamp() == 0 || o2.getModificationTimestamp() == 0){
-                    return 0;
-                } else {
-                    Long obj1 = o1.getModificationTimestamp();
-                    return multiplier * obj1.compareTo(o2.getModificationTimestamp());
-                }
+            Long obj1 = o1.getModificationTimestamp();
+            return multiplier * obj1.compareTo(o2.getModificationTimestamp());
             }
         });
         
@@ -304,12 +300,8 @@ public class FileStorageUtils {
 
         Collections.sort(files, new Comparator<File>() {
             public int compare(File o1, File o2) {
-                if (o1.lastModified() == 0 || o2.lastModified() == 0){
-                    return 0;
-                } else {
-                    Long obj1 = o1.lastModified();
-                    return multiplier * obj1.compareTo(o2.lastModified());
-                }
+            Long obj1 = o1.lastModified();
+            return multiplier * obj1.compareTo(o2.lastModified());
             }
         });
 
@@ -327,17 +319,14 @@ public class FileStorageUtils {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFolder() && o2.isFolder()) {
                     Long obj1 = o1.getFileLength();
-                    return multiplier * obj1., o2.getFileLength());
-                }
-                else if (o1.isFolder()) {
+                    return multiplier * obj1.compareTo(o2.getFileLength());
+                } else if (o1.isFolder()) {
                     return -1;
                 } else if (o2.isFolder()) {
                     return 1;
-                } else if (o1.getFileLength() == 0 || o2.getFileLength() == 0){
-                    return 0;
                 } else {
                     Long obj1 = o1.getFileLength();
-                    return multiplier * Long.compare(obj1, o2.getFileLength());
+                    return multiplier * obj1.compareTo(o2.getFileLength());
                 }
             }
         });
@@ -358,13 +347,10 @@ public class FileStorageUtils {
                 if (o1.isDirectory() && o2.isDirectory()) {
                     Long obj1 = getFolderSize(o1);
                     return multiplier * obj1.compareTo(getFolderSize(o2));
-                }
-                else if (o1.isDirectory()) {
+                } else if (o1.isDirectory()) {
                     return -1;
                 } else if (o2.isDirectory()) {
                     return 1;
-                } else if (o1.length() == 0 || o2.length() == 0){
-                    return 0;
                 } else {
                     Long obj1 = o1.length();
                     return multiplier * obj1.compareTo(o2.length());
