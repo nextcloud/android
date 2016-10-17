@@ -83,7 +83,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -359,7 +361,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     View view = layout.inflate(R.layout.edit_box_dialog, null);
 
                     final EditText userInput = (EditText) view.findViewById(R.id.user_input);
-                    userInput.setText(mServerFilename);
+                    userInput.setText(mServerFilename + mTmpFileSuffix);
                     userInput.requestFocus();
 
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
@@ -541,44 +543,59 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         if (mStreamsToUpload == null || mStreamsToUpload.get(0) == null) {
             mStreamsToUpload = null;
-            if (intent.getType().equals("text/plain")) {
-                String extraText = intent.getStringExtra(Intent.EXTRA_TEXT);
-                String subjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
-                if (subjectText == null) {
-                    subjectText = intent.getStringExtra(Intent.EXTRA_TITLE);
-                }
-                if (extraText.startsWith("http://")||extraText.startsWith("https://")) {
-                    // share from web brouser
-                    if (subjectText == null) {
-                        subjectText = "url";
-                    }
-                    String filename = renameSafeFilename(subjectText) + URL_FILE_SUFFIX;
-                    if (filename != null) {
-                        File file = createTempUrlFile("tmp.url", extraText);
-                        if (file != null) {
-                            mTmpFilename = file.getAbsolutePath();
-                            mTmpFileSuffix = URL_FILE_SUFFIX;
-                            mServerFilename = filename;
-                            mUploadFromTmpFile = true;
-                        }
-                    }
-                } else {
-                    // simply text meybe
-                    if (subjectText == null) {
-                        subjectText = "snipettext";
-                    }
-                    String filename = renameSafeFilename(subjectText) + TEXT_FILE_SUFFIX;
-                    if (filename != null) {
-                        File file = createTempTextFile("tmp.txt", extraText);
-                        if (file != null) {
-                            mTmpFilename = file.getAbsolutePath();
-                            mTmpFileSuffix = TEXT_FILE_SUFFIX;
-                            mServerFilename = filename;
-                            mUploadFromTmpFile = true;
-                        }
-                    }
-                }
+            createTempfileFromIntent(intent);
+        }
+    }
+
+    private void createTempfileFromIntent(Intent intent) {
+        if (!intent.getType().equals("text/plain")) {
+            return;
+        }
+
+        String extraText = intent.getStringExtra(Intent.EXTRA_TEXT);
+        String subjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        if (subjectText == null) {
+            subjectText = intent.getStringExtra(Intent.EXTRA_TITLE);
+            if (subjectText == null) {
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd'_'HHmmss");
+                subjectText = sdf.format(date);
             }
+        }
+
+        // simple internet shortcut, share from web brouser
+        if (extraText.startsWith("http://") || extraText.startsWith("https://")) {
+            File file = createTempUrlFile("tmp.url", extraText);
+            if (file != null) {
+                mTmpFilename = file.getAbsolutePath();
+                mTmpFileSuffix = URL_FILE_SUFFIX;
+                mServerFilename = renameSafeFilename(subjectText);
+                mUploadFromTmpFile = true;
+            }
+            return;
+        }
+
+        // google map shortcut, share from google map
+        String texts[] = extraText.split("\n");
+        if (texts[0].length() > 0 && texts.length == 3 && texts[2].startsWith("https://goo.gl/maps/")) {
+            File file = createTempUrlFile("tmp.url", texts[2]);
+            if (file != null) {
+                mTmpFilename = file.getAbsolutePath();
+                mTmpFileSuffix = URL_FILE_SUFFIX;
+                mServerFilename = renameSafeFilename(texts[0]);
+                mUploadFromTmpFile = true;
+            }
+            return;
+        }
+
+        // simply text meybe
+        subjectText = "snipettext_" + subjectText;
+        File file = createTempTextFile("tmp.txt", extraText + "\n");
+        if (file != null) {
+            mTmpFilename = file.getAbsolutePath();
+            mTmpFileSuffix = TEXT_FILE_SUFFIX;
+            mServerFilename = renameSafeFilename(subjectText);
+            mUploadFromTmpFile = true;
         }
     }
 
@@ -618,7 +635,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         FileWriter fw = null;
         try {
             fw = new FileWriter(file);
-            fw.write(text + "\n");
+            fw.write(text);
         } catch (IOException e) {
             Log_OC.d(TAG, "Error ", e);
             return null;
