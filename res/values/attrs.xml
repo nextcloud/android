@@ -32,4 +32,9 @@
 		<item>@string/menu_item_sort_by_date</item>
 		<item>@string/menu_item_sort_by_size</item>
 	</string-array>
+
+	<string-array name="menu_items_sort_by_options_local" translatable="false">
+		<item>@string/menu_item_sort_by_name</item>
+		<item>@string/menu_item_sort_by_date</item>
+	</string-array>
 </resources>
