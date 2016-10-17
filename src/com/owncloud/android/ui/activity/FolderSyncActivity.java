@@ -319,7 +319,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     @Override
     public void onSyncStatusToggleClick(int section, SyncedFolderItem syncedFolderItem) {
         if (syncedFolderItem.getId() > UNPERSISTED_ID) {
-            mSyncedFolderProvider.updateFolderSyncEnabled(syncedFolderItem.getId(), !syncedFolderItem.isEnabled());
+            mSyncedFolderProvider.updateFolderSyncEnabled(syncedFolderItem.getId(), syncedFolderItem.isEnabled());
         } else {
             mSyncedFolderProvider.storeFolderSync(syncedFolderItem);
         }
