@@ -15,7 +15,7 @@
     <string name ="db_file">nextcloud.db</string>
     <string name ="db_name">nextcloud</string>
     <string name ="data_folder">nextcloud</string>
-    <string name ="log_name">nextcloud</string>
+    <string name ="log_name">beta</string>
     <string name ="default_display_name_for_root_folder">Nextcloud</string>
     <string name ="user_agent">Mozilla/5.0 (Android) nextcloud-android/%1$s</string>
     
