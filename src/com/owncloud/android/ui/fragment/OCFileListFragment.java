@@ -63,7 +63,6 @@ import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
-import com.owncloud.android.ui.preview.PreviewAudioFragment;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -443,11 +442,8 @@ public class OCFileListFragment extends ExtendedListFragment {
             mode.invalidate();
 
             //set gray color
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Window w = getActivity().getWindow();
-                mStatusBarColor = w.getStatusBarColor();
-                w.setStatusBarColor(mStatusBarColorActionMode);
-            }
+            DisplayUtils.colorStatusBar(getActivity(), mSystemBarActionModeColor);
+            DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarActionModeColor);
 
             // hide FAB in multi selection mode
             setFabEnabled(false);
@@ -494,9 +490,8 @@ public class OCFileListFragment extends ExtendedListFragment {
             mActiveActionMode = null;
 
             // reset to previous color
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getActivity().getWindow().setStatusBarColor(mStatusBarColor);
-            }
+            DisplayUtils.colorStatusBar(getActivity(), mSystemBarColor);
+            DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarColor);
 
             // show FAB on multi selection mode exit
             if(!mHideFab) {
