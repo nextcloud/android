@@ -21,15 +21,20 @@ package com.owncloud.android.ui.adapter;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.ref.SoftReference;
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
+import android.util.LruCache;
 
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.owncloud.android.BuildConfig;
@@ -43,6 +48,13 @@ public class DiskLruImageCache {
     private static final int CACHE_VERSION = 1;
     private static final int VALUE_COUNT = 1;
     private static final int IO_BUFFER_SIZE = 8 * 1024;
+    private static final int RUNTIME_MAX_MEMORY = (int) (Runtime.getRuntime().maxMemory() / 1024);
+    private static final int MEMORY_LRU_CACHE_SIZE = RUNTIME_MAX_MEMORY / 8;
+    private LruCache<String, Bitmap> memoryLruCache = new LruCache<String, Bitmap>(MEMORY_LRU_CACHE_SIZE) {
+        protected int sizeOf(String key, Bitmap value) {
+            return value.getByteCount() / 1024;
+        }
+    };
             
     private static final String TAG = DiskLruImageCache.class.getSimpleName();
 
@@ -76,6 +88,11 @@ public class DiskLruImageCache {
         DiskLruCache.Editor editor = null;
         String validKey = convertToValidKey(key);
         try {
+            // store in memoryLruCache
+            synchronized (memoryLruCache) {
+                memoryLruCache.put(validKey, data);
+            }
+
             editor = mDiskCache.edit( validKey );
             if ( editor == null ) {
                 return;
@@ -108,11 +125,21 @@ public class DiskLruImageCache {
     }
 
     public Bitmap getBitmap( String key ) {
-
         Bitmap bitmap = null;
         DiskLruCache.Snapshot snapshot = null;
         String validKey = convertToValidKey(key);
         try {
+            Bitmap memCachedBitmap = null;
+            synchronized (memoryLruCache) {
+                memCachedBitmap = memoryLruCache.get(validKey);
+            }
+            if(memCachedBitmap != null) {
+                Log_OC.d("cache_test_MEM_", "Hit for " + validKey);
+                return memCachedBitmap;
+            }
+            else {
+                Log_OC.d("cache_test_MEM_", "Miss for " + validKey);
+            }
 
             snapshot = mDiskCache.get( validKey );
             if ( snapshot == null ) {
@@ -123,7 +150,12 @@ public class DiskLruImageCache {
                 final BufferedInputStream buffIn = 
                 new BufferedInputStream( in, IO_BUFFER_SIZE );
                 bitmap = BitmapFactory.decodeStream( buffIn );              
-            }   
+            }
+
+            // store in memoryLruCache
+            synchronized (memoryLruCache) {
+                memoryLruCache.put(validKey, bitmap);
+            }
         } catch ( IOException e ) {
             e.printStackTrace();
         } finally {
@@ -138,7 +170,6 @@ public class DiskLruImageCache {
         }
 
         return bitmap;
-
     }
 
     public boolean containsKey( String key ) {

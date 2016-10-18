@@ -294,42 +294,32 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
             if (!file.isFolder()) {
                 if ((file.isImage() || file.isVideo()) && file.getRemoteId() != null) {
                     // Thumbnail in Cache?
-                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            String.valueOf(file.getRemoteId())
-                    );
-                    if (thumbnail != null && !file.needsUpdateThumbnail()) {
+                    Bitmap thumbnail = ThumbnailsCacheManager.mDefaultImg; // ThumbnailsCacheManager.getBitmapFromDiskCache(String.valueOf(file.getRemoteId()));
+                    // request Thumbnail in background task
+                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
 
-                        if (file.isVideo()) {
-                            Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
-                            fileIcon.setImageBitmap(withOverlay);
-                        } else {
-                            fileIcon.setImageBitmap(thumbnail);
-                        }
-                    } else {
-                        // generate new Thumbnail
-                        if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                            fileIcon, mStorageManager, mAccount
-                                    );
-                            if (thumbnail == null) {
-                                if (file.isVideo()) {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                                } else {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                                }
-                            }
-                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                    mContext.getResources(), 
-                                    thumbnail, 
-                                    task
-                                    );
-                            fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
-                        }
+                        ThumbnailsCacheManager.GenerateThumbnail(
+                                file,
+                                fileIcon,
+                                mStorageManager,
+                                mAccount
+                        );
+
+                        /*
+                        final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                        fileIcon, mStorageManager, mAccount
+                                );
+                        final ThumbnailsCacheManager.AsyncDrawable asyncDrawable =
+                                new ThumbnailsCacheManager.AsyncDrawable(
+                                        mContext.getResources(),
+                                        thumbnail,
+                                        task
+                                );
+                        fileIcon.setImageDrawable(asyncDrawable);
+                        task.execute(file);
+                        */
                     }
-
                     if (file.getMimetype().equalsIgnoreCase("image/png")) {
                         fileIcon.setBackgroundColor(mContext.getResources()
                                 .getColor(R.color.background_color));
