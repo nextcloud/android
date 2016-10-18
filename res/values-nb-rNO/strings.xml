@@ -361,7 +361,7 @@
     <string name="auth_redirect_non_secure_connection_title">Sikker tilkobling videresendes gjennom en usikker rute.</string>
 
 	<string name="actionbar_logger">Logger</string>
-	<string name="log_send_history_button">Send historik</string>
+	<string name="log_send_history_button">Send historikk </string>
 	<string name="log_send_no_mail_app">Ingen app for sending av logger funnet. Installer epost-app.</string>
 	<string name="log_send_mail_subject">%1$s Android app logger</string>
 	<string name="log_progress_dialog_text">Laster data ...</string>
@@ -392,7 +392,7 @@
 	<string name="prefs_instant_video_upload_path_title">Mappe for umiddelbar opplasting av filmer</string>
     <string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke fullføres</string>
 
-	<string name="shared_subject_header">delte</string>
+	<string name="shared_subject_header">delt</string>
 	<string name="with_you_subject_header">med deg</string>
     
 	<string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
