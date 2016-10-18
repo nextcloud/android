@@ -463,8 +463,10 @@
     <string name="confirmation_remove_folders_alert">¿Está sguro de que quiere eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="actionbar_search">Buscar</string>
     <string name="learn_more">Aprender mas</string>
+    <string name="drawer_participate">Participar</string>
     <string name="participate_testing_headline">Ayúdanos a hacer pruebas</string>
     <string name="participate_testing_report_text">Informa de un problema en Github</string>
+    <string name="participate_beta_headline">Probar la versión Beta</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <plurals name="items_selected_count">
