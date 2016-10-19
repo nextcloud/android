@@ -1,3 +1,12 @@
+## 2016-10-19
+- Fix user info route (https://github.com/nextcloud/android-library/pull/21)
+- Begin debug logs when build type is debug #335
+- Account switcher optimizations #326
+- Fix TimSort #339
+- add preference to show hidden files #328
+- tune grid view of images #316
+- add grid view option when choosing a file from within the app #301
+
 ## 2016-10-06
 - put cursor close in finally block to make sure no resource leak occurrs #306
 - change wordings for davdroid integration #293
