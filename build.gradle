@@ -48,6 +48,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile 'com.getbase:floatingactionbutton:1.10.1'
 
+
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
@@ -121,11 +122,13 @@ android {
             assets.srcDirs = ['assets']
         }
 
+
         // move whole local unit tests structure as a whole from src/test/* to test/*
         test.setRoot('test')
 
         // move whole instrumented tests structure as a whole from src/androidTest/* to androidTest/*
         androidTest.setRoot('androidTest')
+
 
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
@@ -135,6 +138,11 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !travisBuild
     }
 
     dexOptions {
