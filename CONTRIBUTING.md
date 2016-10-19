@@ -74,7 +74,6 @@ We are all about quality while not sacrificing speed so we use a very pragmatic 
 * to assure the quality of the app, any PR gets reviewed, approved and tested by [two developers](https://github.com/nextcloud/android/blob/master/MAINTAINERS) before it will be merged to master
 
 ### Android Studio formatter setup
-
 Our formatter setup is rather simple:
 * Standard Android Studio
 * Line length 120 characters (Settings->Editor->Code Style->Right margin(columns): 120)
@@ -121,21 +120,22 @@ At the moment we are releasing the app in two app stores:
 We do differentiate between three different kinds of releases:
 
 ### Stable
-Play store and f-droid releases for the masses
-stable: as described, PRs that have been tested and reviewed can go to master. After the last stable beta published PR is out in the wild for ~2 weeks and no errors get reported (by users or in the developer console) the master branch is ready for the stable release. So when we decide to go for a new release we freeze the master feature wise.
+Play store and f-droid releases for the masses.
+Pull Requests that have been tested and reviewed can go to master. After the last release candidate is out in the wild for ~2 weeks and no errors get reported (by users or in the developer console) the master branch is ready for the stable release. 
+So when we decide to go for a new release we freeze the master feature wise.
 
 ### Release Candidate
-* _stable beta_ releases done via the Beta program of the Google Play store
-stable beta: whenever a PR is reviewed/approved we put it on master and do a stable beta release
-release candidate = tested PRs, merged to to master between stable releases, published on the Play store beta channel
+_stable beta_ releases done via the Beta program of the Google Play store and f-droid.
+Whenever a PR is reviewed/approved we put it on master.
+Before releasing a new stable version there is at least one release candidate. It is based on the current master and during this phase the master is feature freezed. After ~2 weeks with no error a stable version will be releaded, which is identically to the latest release candidate. 
 
 ### Development Beta
-* _development beta_ releases done as a standalone app that can be installed in parallel to the stable app
-beta: anything that has a certain maturity as in a PR that can be used already but might lack some on top features or polishing
-beta = your awesome beta application that can be installed in parallel and contains PRs that are done in development but not necessarily to be considered stable enough for master or might even still have known bugs
+Done as a standalone app that can be installed in parallel to the stable app
+Any PR which is labelled "3. to review" or "4. to release" will be included in the beta app. The update interval depends on the speed of new/updated PRs.
 
 
-##Version Name and number
+## Version Name and number
+### Stable / Release candidate
 For _stable_ and _release candidate_ the version name follows the [semantic versioning schema](http://semver.org/) and the version number has several digits reserved to parts of the versioning schema inspired by the [jayway version numbering](https://www.jayway.com/2015/03/11/automatic-versioncode-generation-in-android-gradle/), where:
 
 * 2 digits for beta code as in release candidates starting at '01'
@@ -152,27 +152,29 @@ Examples for different versions:
 
 beware, that beta releases for an upcoming version will always use the minor and hotfix version of the release they are targeting. So to make sure the version code of the upcoming stable release will always be higher stable releases set the 2 beta digits to '99' as seen above in the examples.
 
+### Development Beta
+For development beta the version name is in format YYYYMMDD. It is mainly as a reference for reporting bugs and is not related to stable/release candidates as it is an independent app.
 
 ## Release cycle
 * for each release we choose several PRs that will be included in the next release. Currently there are many open PRs from ownCloud, but after merging them, the intention is to choose the PRs that are ready (reviewed, tested) to get them merged very soon.
 * these will be merged into master, tested heavily, maybe automatic testing
-* after feature freeze a public play store beta is released
+* after feature freeze a public release candidate on play store and f-droid is released
 * ~2 weeks testing, bug fixing
 * release final version on f-droid and play store
 
 To get an idea which PRs and issues will be part of the next release simply check our [milestone plan](https://github.com/nextcloud/android/milestones)
 
-##Release process
+## Release process
 
 
-###Stable Release
+### Stable Release
 Stable releases are based on the git [master](https://github.com/nextcloud/android).
 
 1. Bump the version name and version code in the [AndroidManifest.xml](https://github.com/nextcloud/android/blob/master/AndroidManifest.xml), see chapter 'Version Name and number'.
 2. Create a [release/tag](https://github.com/nextcloud/android/releases) in git. Tag name following the naming schema: ```stable-Mayor.Minor.Hotfix``` (e.g. stable-1.2.0) naming the version number following the [semantic versioning schema](http://semver.org/)
 
 
-###Release Candidate Release
+### Release Candidate Release
 Release Candidate releases are based on the git [master](https://github.com/nextcloud/android) and are done between stable releases.
 
 1. Bump the version name and version code in the [AndroidManifest.xml](https://github.com/nextcloud/android/blob/master/AndroidManifest.xml), see below the version name and code concept.

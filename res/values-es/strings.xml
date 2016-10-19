@@ -37,7 +37,9 @@
     <string name="prefs_log_title_history">Historial del registro</string>
     <string name="prefs_log_summary_history">Esto muestra los registros grabados</string>
     <string name="prefs_log_delete_history_button">Eliminar Historial</string>
+    <string name="prefs_calendar_contacts">Sincronizar calendario &amp; contactos</string>
     <string name="prefs_calendar_contacts_no_store_error">No esta instalado ni la aplicación de Google Play o F-Droid</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Calendario &amp; contactos se ha sincronizado exitosamente</string>
     <string name="prefs_help">Ayuda</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Mensajes de retroalimentación</string>
@@ -69,6 +71,10 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s No está autorizado a leer el arcivo.</string>
     <string name="uploader_error_message_source_file_not_found">El archivo a subir no se localiza. Compruebe que el archivo existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Ha ocurrido un error al copiar a la carpeta temporal. Por favor intentelo de nuevo.</string>
+    <string name="uploader_upload_files_behaviour">Configuraciones de subida:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mover el fichero a la carpeta de Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Mantener el fichero en la carpeta original</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar fichero de la carpeta original</string>
     <string name="file_list_seconds_ago">hace segundos</string>
     <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
     <string name="file_list_loading">Cargando...</string>
@@ -460,8 +466,13 @@
     <string name="local_file_not_found_toast">El archivo no se encuentra en el servidor local de archivos.</string>
     <string name="confirmation_remove_files_alert">¿Está seguro de que quiere eliminar los elementos seleccionados?</string>
     <string name="confirmation_remove_folders_alert">¿Está sguro de que quiere eliminar los elementos seleccionados y sus contenidos?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Esperando a la carga del dispositivo</string>
     <string name="actionbar_search">Buscar</string>
     <string name="learn_more">Aprender mas</string>
+    <string name="drawer_participate">Participar</string>
+    <string name="participate_testing_headline">Ayúdanos a hacer pruebas</string>
+    <string name="participate_testing_report_text">Informa de un problema en Github</string>
+    <string name="participate_beta_headline">Probar la versión Beta</string>
     <string name="move_to">Mover a&#8230;</string>
     <string name="copy_to">Copiar a&#8230;</string>
     <plurals name="items_selected_count">
