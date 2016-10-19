@@ -44,6 +44,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Vector;
 
 /**
@@ -289,6 +290,12 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
 
             mFiles = FileStorageUtils.sortLocalFolder(mFiles);
 
+            // Fetch preferences for showing hidden files
+            boolean showHiddenFiles = PreferenceManager.showHiddenFilesEnabled(mContext);
+            if (!showHiddenFiles) {
+                mFiles = filterHiddenFiles(mFiles);
+            }
+
             mFilesAll.clear();
 
             for (File mFile : mFiles) {
@@ -323,5 +330,21 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
             mFiles = result.toArray(new File[1]);
         }
         notifyDataSetChanged();
+    }
+
+    /**
+     * Filter for hidden files
+     *
+     * @param files             Array of files to filter
+     * @return                  Non-hidden files as an array
+     */
+    public File[] filterHiddenFiles(File[] files) {
+        List<File> ret = new ArrayList<>();
+        for (File file: files) {
+            if (!file.isHidden()) {
+                ret.add(file);
+            }
+        }
+        return ret.toArray(new File[ret.size()]);
     }
 }
