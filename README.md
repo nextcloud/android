@@ -1,4 +1,4 @@
-# [Nextcloud](https://nextcloud.com) Android app [![Build Status](https://drone.nextcloud.com/api/badges/nextcloud/android/status.svg)](https://drone.nextcloud.com/nextcloud/android)
+# [Nextcloud](https://nextcloud.com) Android app [![Build Status](https://drone.nextcloud.com/api/badges/nextcloud/android/status.svg)](https://drone.nextcloud.com/nextcloud/android) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/bbf503cdfec6441e853160135706723e)](https://www.codacy.com/app/Nextcloud/android?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nextcloud/android&amp;utm_campaign=Badge_Grade)
 
 [<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" 
       alt="Download from Google Play" 
@@ -33,4 +33,4 @@ Easy starting points are also reviewing [pull requests](https://github.com/nextc
 
 **License:** [GPLv2](https://github.com/nextcloud/android/blob/master/LICENSE.txt)
 
-New contributions are addded under [AGPLv3](https://www.gnu.org/licenses/agpl.txt).
+New contributions are added under [AGPLv3](https://www.gnu.org/licenses/agpl.txt).

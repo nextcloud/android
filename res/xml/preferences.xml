@@ -75,6 +75,7 @@
 
 	<PreferenceCategory android:title="@string/prefs_category_details">
 		<android.preference.CheckBoxPreference android:title="@string/prefs_passcode" android:key="set_pincode" />
+		<android.preference.CheckBoxPreference android:title="@string/prefs_show_hidden_files" android:key="show_hidden_files" />
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
