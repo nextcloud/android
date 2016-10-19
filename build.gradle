@@ -210,6 +210,12 @@ android {
     }
     check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
 
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
 }
 
 if (project.hasProperty('RELEASE_STORE_FILE')) {
