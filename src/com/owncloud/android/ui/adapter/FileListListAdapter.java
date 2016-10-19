@@ -312,6 +312,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                             "t" + String.valueOf(file.getRemoteId())
                     );
                     if (thumbnail != null && !file.needsUpdateThumbnail()) {
+
                         if (MimeTypeUtil.isVideo(file)) {
                             Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                             fileIcon.setImageBitmap(withOverlay);
