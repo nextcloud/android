@@ -54,8 +54,7 @@ class SyncedFolderObserver extends RecursiveFileObserver {
                 MY_BACKGROUND_JOB,
                 new ComponentName(context, SyncedFolderJobService.class))
                 .setRequiresCharging(syncedFolder.getChargingOnly())
-                // TODO change to UNMETERED after developing
-                .setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
+                .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
                 .setExtras(bundle)
                 .build();
 
