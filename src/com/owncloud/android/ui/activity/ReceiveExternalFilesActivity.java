@@ -42,6 +42,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -83,9 +84,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -119,6 +119,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private final static int DIALOG_NO_ACCOUNT = 0;
     private final static int DIALOG_MULTIPLE_ACCOUNT = 1;
+    private final static int DIALOG_INPUT_UPLOAD_FILENAME = 2;
 
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
@@ -126,8 +127,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private final static String KEY_FILE = "FILE";
     private final static String KEY_ACCOUNT_SELECTED = "ACCOUNT_SELECTED";
     private final static String KEY_ACCOUNT_SELECTION_SHOWING = "ACCOUNT_SELECTION_SHOWING";
-
-    private static final String DIALOG_WAIT_COPY_FILE = "DIALOG_WAIT_COPY_FILE";
 
     private boolean mUploadFromTmpFile = false;
     private String mServerFilename;
@@ -234,76 +233,126 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Override
     protected Dialog onCreateDialog(final int id) {
-        final AlertDialog.Builder builder = new Builder(this);
+        AlertDialog.Builder builder;
         switch (id) {
-        case DIALOG_NO_ACCOUNT:
-            builder.setIcon(R.drawable.ic_warning);
-            builder.setTitle(R.string.uploader_wrn_no_account_title);
-            builder.setMessage(String.format(
-                    getString(R.string.uploader_wrn_no_account_text),
-                    getString(R.string.app_name)));
-            builder.setCancelable(false);
-            builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    if (android.os.Build.VERSION.SDK_INT >
-                            android.os.Build.VERSION_CODES.ECLAIR_MR1) {
-                        // using string value since in API7 this
-                        // constatn is not defined
-                        // in API7 < this constatant is defined in
-                        // Settings.ADD_ACCOUNT_SETTINGS
-                        // and Settings.EXTRA_AUTHORITIES
-                        Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-                        intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
-                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
-                    } else {
-                        // since in API7 there is no direct call for
-                        // account setup, so we need to
-                        // show our own AccountSetupAcricity, get
-                        // desired results and setup
-                        // everything for ourself
-                        Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
-                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
+            case DIALOG_NO_ACCOUNT:
+                builder = new Builder(this);
+                builder.setIcon(R.drawable.ic_warning);
+                builder.setTitle(R.string.uploader_wrn_no_account_title);
+                builder.setMessage(String.format(
+                        getString(R.string.uploader_wrn_no_account_text),
+                        getString(R.string.app_name)));
+                builder.setCancelable(false);
+                builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (android.os.Build.VERSION.SDK_INT >
+                                android.os.Build.VERSION_CODES.ECLAIR_MR1) {
+                            // using string value since in API7 this
+                            // constatn is not defined
+                            // in API7 < this constatant is defined in
+                            // Settings.ADD_ACCOUNT_SETTINGS
+                            // and Settings.EXTRA_AUTHORITIES
+                            Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+                            intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
+                            startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
+                        } else {
+                            // since in API7 there is no direct call for
+                            // account setup, so we need to
+                            // show our own AccountSetupAcricity, get
+                            // desired results and setup
+                            // everything for ourself
+                            Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
+                            startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
+                        }
                     }
+                });
+                builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                return builder.create();
+            case DIALOG_MULTIPLE_ACCOUNT:
+                builder = new Builder(this);
+                Account accounts[] = mAccountManager.getAccountsByType(MainApp.getAccountType());
+                CharSequence dialogItems[] = new CharSequence[accounts.length];
+                OwnCloudAccount oca;
+                for (int i = 0; i < dialogItems.length; ++i) {
+                    dialogItems[i] = DisplayUtils.getAccountNameDisplayText(
+                            this, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
                 }
-            });
-            builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            return builder.create();
-        case DIALOG_MULTIPLE_ACCOUNT:
-            Account accounts[] = mAccountManager.getAccountsByType(MainApp.getAccountType());
-            CharSequence dialogItems[] = new CharSequence[accounts.length];
-            for (int i = 0; i < dialogItems.length; ++i) {
-                dialogItems[i] = DisplayUtils.getAccountNameDisplayText(
-                        this, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
-            }
-            builder.setTitle(R.string.common_choose_account);
-            builder.setItems(dialogItems, new OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
-                    onAccountSet(mAccountWasRestored);
-                    dialog.dismiss();
-                    mAccountSelected = true;
-                    mAccountSelectionShowing = false;
-                }
-            });
-            builder.setCancelable(true);
-            builder.setOnCancelListener(new OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    mAccountSelectionShowing = false;
-                    dialog.cancel();
-                    finish();
-                }
-            });
-            return builder.create();
-        default:
-            throw new IllegalArgumentException("Unknown dialog id: " + id);
+                builder.setTitle(R.string.common_choose_account);
+                builder.setItems(dialogItems, new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
+                        onAccountSet(mAccountWasRestored);
+                        dialog.dismiss();
+                        mAccountSelected = true;
+                        mAccountSelectionShowing = false;
+                    }
+                });
+                builder.setCancelable(true);
+                builder.setOnCancelListener(new OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        mAccountSelectionShowing = false;
+                        dialog.cancel();
+                        finish();
+                    }
+                });
+                return builder.create();
+            case DIALOG_INPUT_UPLOAD_FILENAME:
+                builder = new AlertDialog.Builder(this);
+
+                LayoutInflater layout = LayoutInflater.from(getBaseContext());
+                View view = layout.inflate(R.layout.edit_box_dialog, null);
+
+                final EditText userInput = (EditText) view.findViewById(R.id.user_input);
+                userInput.setText(mServerFilename + mTmpFileSuffix);
+                userInput.requestFocus();
+
+                builder.setView(view)
+                        .setTitle("Input upload filename")
+                        .setMessage("file type is " +
+                                (mTmpFileSuffix.equals(TEXT_FILE_SUFFIX) ? "Snipet text file" :
+                                        mTmpFileSuffix.equals(URL_FILE_SUFFIX) ? "Internet shortcut file" : "?") + "(" + mTmpFileSuffix + ")")
+                        .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // verify if file name has suffix
+                                String filename = userInput.getText().toString();
+                                if (!filename.endsWith(mTmpFileSuffix)){
+                                    filename += mTmpFileSuffix;
+                                }
+
+                                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+                                requester.uploadNewFile(
+                                        getBaseContext(),
+                                        getAccount(),
+                                        mTmpFilename,
+                                        mFile.getRemotePath() + filename,
+                                        FileUploader.LOCAL_BEHAVIOUR_COPY,
+                                        null,
+                                        true,
+                                        UploadFileOperation.CREATED_BY_USER
+                                );
+                                finish();
+                            }
+                        })
+                        .setCancelable(false)
+                        .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        });
+
+                Dialog d = builder.create();
+                d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+                return d;
+            default:
+                throw new IllegalArgumentException("Unknown dialog id: " + id);
         }
     }
 
@@ -357,52 +406,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 }
 
                 if (mUploadFromTmpFile){
-                    LayoutInflater layout = LayoutInflater.from(getBaseContext());
-                    View view = layout.inflate(R.layout.edit_box_dialog, null);
-
-                    final EditText userInput = (EditText) view.findViewById(R.id.user_input);
-                    userInput.setText(mServerFilename + mTmpFileSuffix);
-                    userInput.requestFocus();
-
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-                    alertDialogBuilder.setView(view)
-                            .setTitle("Input upload filename")
-                            .setMessage("file type is " +
-                                    (mTmpFileSuffix.equals(TEXT_FILE_SUFFIX) ? "Snipet text file" :
-                                            mTmpFileSuffix.equals(URL_FILE_SUFFIX) ? "Internet shortcut file" : "?") + "(" + mTmpFileSuffix + ")")
-                            .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
-                                    // verify if file name has suffix
-                                    String filename = userInput.getText().toString();
-                                    if (!filename.endsWith(mTmpFileSuffix)){
-                                        filename += mTmpFileSuffix;
-                                    }
-
-                                    FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                                    requester.uploadNewFile(
-                                            getBaseContext(),
-                                            getAccount(),
-                                            mTmpFilename,
-                                            mFile.getRemotePath() + filename,
-                                            FileUploader.LOCAL_BEHAVIOUR_COPY,
-                                            null,
-                                            true,
-                                            UploadFileOperation.CREATED_BY_USER
-                                    );
-                                    finish();
-                                }
-                            })
-                            .setCancelable(false)
-                            .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog,int id) {
-                                    dialog.cancel();
-                                }
-                            });
-
-                    Dialog d = alertDialogBuilder.create();
-                    d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                    d.show();
+                    showDialog(DIALOG_INPUT_UPLOAD_FILENAME);
                 } else {
                     Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
                     uploadFiles();
@@ -557,9 +561,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (subjectText == null) {
             subjectText = intent.getStringExtra(Intent.EXTRA_TITLE);
             if (subjectText == null) {
-                Date date = new Date();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd'_'HHmmss");
-                subjectText = sdf.format(date);
+                subjectText = DateFormat.format("yyyyMMdd_kkmmss", Calendar.getInstance()).toString();
             }
         }
 
