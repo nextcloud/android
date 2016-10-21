@@ -7,6 +7,7 @@ import android.os.IBinder;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ public class SyncedFolderObserverService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log_OC.d(TAG, "start");
         for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
             SyncedFolderObserver observer = new SyncedFolderObserver(syncedFolder);
 
