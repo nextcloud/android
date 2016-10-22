@@ -31,13 +31,13 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -117,10 +117,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private boolean mAccountSelected;
     private boolean mAccountSelectionShowing;
 
-    private final static int DIALOG_NO_ACCOUNT = 0;
-    private final static int DIALOG_MULTIPLE_ACCOUNT = 1;
-    private final static int DIALOG_INPUT_UPLOAD_FILENAME = 2;
-
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
     private final static String KEY_PARENTS = "PARENTS";
@@ -182,10 +178,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
             if (accounts.length == 0) {
                 Log_OC.i(TAG, "No ownCloud account is available");
-                showDialog(DIALOG_NO_ACCOUNT);
+                DialogNoAccount dialog = new DialogNoAccount();
+                dialog.show(getSupportFragmentManager(), "dialog");
             } else if (accounts.length > 1 && !mAccountSelected && !mAccountSelectionShowing) {
                 Log_OC.i(TAG, "More than one ownCloud is available");
-                showDialog(DIALOG_MULTIPLE_ACCOUNT);
+                DialogMultipleAccount dialog = new DialogMultipleAccount();
+                dialog.show(getSupportFragmentManager(), "dialog");
                 mAccountSelectionShowing = true;
             } else {
                 if (!savedAccount) {
@@ -231,128 +229,134 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onDestroy();
     }
 
-    @Override
-    protected Dialog onCreateDialog(final int id) {
-        AlertDialog.Builder builder;
-        switch (id) {
-            case DIALOG_NO_ACCOUNT:
-                builder = new Builder(this);
-                builder.setIcon(R.drawable.ic_warning);
-                builder.setTitle(R.string.uploader_wrn_no_account_title);
-                builder.setMessage(String.format(
-                        getString(R.string.uploader_wrn_no_account_text),
-                        getString(R.string.app_name)));
-                builder.setCancelable(false);
-                builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (android.os.Build.VERSION.SDK_INT >
-                                android.os.Build.VERSION_CODES.ECLAIR_MR1) {
-                            // using string value since in API7 this
-                            // constatn is not defined
-                            // in API7 < this constatant is defined in
-                            // Settings.ADD_ACCOUNT_SETTINGS
-                            // and Settings.EXTRA_AUTHORITIES
-                            Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
-                            intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
-                            startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
-                        } else {
-                            // since in API7 there is no direct call for
-                            // account setup, so we need to
-                            // show our own AccountSetupAcricity, get
-                            // desired results and setup
-                            // everything for ourself
-                            Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
-                            startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
-                        }
+    private class DialogNoAccount extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
+            AlertDialog.Builder builder = new Builder(ReceiveExternalFilesActivity.this);
+            builder.setIcon(R.drawable.ic_warning);
+            builder.setTitle(R.string.uploader_wrn_no_account_title);
+            builder.setMessage(String.format(
+                                   getString(R.string.uploader_wrn_no_account_text),
+                                   getString(R.string.app_name)));
+            builder.setCancelable(false);
+            builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    if (android.os.Build.VERSION.SDK_INT >
+                        android.os.Build.VERSION_CODES.ECLAIR_MR1) {
+                        // using string value since in API7 this
+                        // constatn is not defined
+                        // in API7 < this constatant is defined in
+                        // Settings.ADD_ACCOUNT_SETTINGS
+                        // and Settings.EXTRA_AUTHORITIES
+                        Intent intent = new Intent(android.provider.Settings.ACTION_ADD_ACCOUNT);
+                        intent.putExtra("authorities", new String[]{MainApp.getAuthTokenType()});
+                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
+                    } else {
+                        // since in API7 there is no direct call for
+                        // account setup, so we need to
+                        // show our own AccountSetupAcricity, get
+                        // desired results and setup
+                        // everything for ourself
+                        Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
+                        startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
                     }
-                });
-                builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                });
-                return builder.create();
-            case DIALOG_MULTIPLE_ACCOUNT:
-                builder = new Builder(this);
-                Account accounts[] = mAccountManager.getAccountsByType(MainApp.getAccountType());
-                CharSequence dialogItems[] = new CharSequence[accounts.length];
-                OwnCloudAccount oca;
-                for (int i = 0; i < dialogItems.length; ++i) {
-                    dialogItems[i] = DisplayUtils.getAccountNameDisplayText(
-                            this, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
                 }
-                builder.setTitle(R.string.common_choose_account);
-                builder.setItems(dialogItems, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
-                        onAccountSet(mAccountWasRestored);
-                        dialog.dismiss();
-                        mAccountSelected = true;
-                        mAccountSelectionShowing = false;
+            });
+            builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            return builder.create();
+        }
+    }
+
+    private class DialogMultipleAccount extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
+            final ReceiveExternalFilesActivity parent = ReceiveExternalFilesActivity.this;
+            AlertDialog.Builder builder = new Builder(parent);
+            Account accounts[] = parent.mAccountManager.getAccountsByType(MainApp.getAccountType());
+            CharSequence dialogItems[] = new CharSequence[accounts.length];
+            OwnCloudAccount oca;
+            for (int i = 0; i < dialogItems.length; ++i) {
+                dialogItems[i] = DisplayUtils.getAccountNameDisplayText(
+                        parent, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
+            }
+            builder.setTitle(R.string.common_choose_account);
+            builder.setItems(dialogItems, new OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    final ReceiveExternalFilesActivity parent = ReceiveExternalFilesActivity.this;
+                    parent.setAccount(parent.mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
+                    parent.onAccountSet(parent.mAccountWasRestored);
+                    dialog.dismiss();
+                    parent.mAccountSelected = true;
+                    parent.mAccountSelectionShowing = false;
+                }
+            });
+            builder.setCancelable(true);
+            return builder.create();
+        }
+
+        public void onCancel(DialogInterface dialog) {
+            super.onCancel(dialog);
+            final ReceiveExternalFilesActivity parent = ReceiveExternalFilesActivity.this;
+            parent.mAccountSelectionShowing = false;
+            parent.finish();
+        }
+    }
+
+    private class DialogInputUploadFilename extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(ReceiveExternalFilesActivity.this);
+
+            LayoutInflater layout = LayoutInflater.from(getBaseContext());
+            View view = layout.inflate(R.layout.edit_box_dialog, null);
+
+            final EditText userInput = (EditText) view.findViewById(R.id.user_input);
+            userInput.setText(mServerFilename + mTmpFileSuffix);
+            userInput.requestFocus();
+
+            builder.setView(view);
+            builder.setTitle("Input upload filename");
+            builder.setMessage("file type is " +
+                    (mTmpFileSuffix.equals(TEXT_FILE_SUFFIX) ? "Snipet text file" :
+                            mTmpFileSuffix.equals(URL_FILE_SUFFIX) ? "Internet shortcut file" : "?") + "(" + mTmpFileSuffix + ")");
+            builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    // verify if file name has suffix
+                    String filename = userInput.getText().toString();
+                    if (!filename.endsWith(mTmpFileSuffix)){
+                        filename += mTmpFileSuffix;
                     }
-                });
-                builder.setCancelable(true);
-                builder.setOnCancelListener(new OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialog) {
-                        mAccountSelectionShowing = false;
-                        dialog.cancel();
-                        finish();
-                    }
-                });
-                return builder.create();
-            case DIALOG_INPUT_UPLOAD_FILENAME:
-                builder = new AlertDialog.Builder(this);
 
-                LayoutInflater layout = LayoutInflater.from(getBaseContext());
-                View view = layout.inflate(R.layout.edit_box_dialog, null);
+                    FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+                    requester.uploadNewFile(
+                            getBaseContext(),
+                            getAccount(),
+                            mTmpFilename,
+                            mFile.getRemotePath() + filename,
+                            FileUploader.LOCAL_BEHAVIOUR_COPY,
+                            null,
+                            true,
+                            UploadFileOperation.CREATED_BY_USER
+                    );
+                    finish();
+                }
+            });
+            builder.setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    dialog.cancel();
+                }
+            });
 
-                final EditText userInput = (EditText) view.findViewById(R.id.user_input);
-                userInput.setText(mServerFilename + mTmpFileSuffix);
-                userInput.requestFocus();
-
-                builder.setView(view)
-                        .setTitle("Input upload filename")
-                        .setMessage("file type is " +
-                                (mTmpFileSuffix.equals(TEXT_FILE_SUFFIX) ? "Snipet text file" :
-                                        mTmpFileSuffix.equals(URL_FILE_SUFFIX) ? "Internet shortcut file" : "?") + "(" + mTmpFileSuffix + ")")
-                        .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // verify if file name has suffix
-                                String filename = userInput.getText().toString();
-                                if (!filename.endsWith(mTmpFileSuffix)){
-                                    filename += mTmpFileSuffix;
-                                }
-
-                                FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                                requester.uploadNewFile(
-                                        getBaseContext(),
-                                        getAccount(),
-                                        mTmpFilename,
-                                        mFile.getRemotePath() + filename,
-                                        FileUploader.LOCAL_BEHAVIOUR_COPY,
-                                        null,
-                                        true,
-                                        UploadFileOperation.CREATED_BY_USER
-                                );
-                                finish();
-                            }
-                        })
-                        .setCancelable(false)
-                        .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                Dialog d = builder.create();
-                d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-                return d;
-            default:
-                throw new IllegalArgumentException("Unknown dialog id: " + id);
+            Dialog d = builder.create();
+            d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            return d;
         }
     }
 
@@ -406,7 +410,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 }
 
                 if (mUploadFromTmpFile){
-                    showDialog(DIALOG_INPUT_UPLOAD_FILENAME);
+                    DialogInputUploadFilename dialog = new  DialogInputUploadFilename();
+                    dialog.show(getSupportFragmentManager(), "dialog");
                 } else {
                     Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
                     uploadFiles();
@@ -427,13 +432,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onActivityResult(requestCode, resultCode, data);
         Log_OC.i(TAG, "result received. req: " + requestCode + " res: " + resultCode);
         if (requestCode == REQUEST_CODE__SETUP_ACCOUNT) {
-            dismissDialog(DIALOG_NO_ACCOUNT);
             if (resultCode == RESULT_CANCELED) {
                 finish();
             }
             Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAuthTokenType());
             if (accounts.length == 0) {
-                showDialog(DIALOG_NO_ACCOUNT);
+                DialogNoAccount dialog = new DialogNoAccount();
+                dialog.show(getSupportFragmentManager(), "dialog");
             } else {
                 // there is no need for checking for is there more then one
                 // account at this point
