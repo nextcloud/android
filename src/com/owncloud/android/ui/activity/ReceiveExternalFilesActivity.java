@@ -51,9 +51,11 @@ import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -312,22 +314,32 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private class DialogInputUploadFilename extends DialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(ReceiveExternalFilesActivity.this);
-
             LayoutInflater layout = LayoutInflater.from(getBaseContext());
-            View view = layout.inflate(R.layout.edit_box_dialog, null);
+            View view = layout.inflate(R.layout.upload_file_dialog, null);
 
             final EditText userInput = (EditText) view.findViewById(R.id.user_input);
             userInput.setText(mServerFilename + mTmpFileSuffix);
             userInput.requestFocus();
 
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            adapter.add("Snipet text file(.txt)");
+            adapter.add("Internet shortcut file(.url)");
+
+            final Spinner spinner = (Spinner) view.findViewById(R.id.file_type);
+            spinner.setAdapter(adapter);
+            spinner.setSelection(1, false);
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(ReceiveExternalFilesActivity.this);
             builder.setView(view);
-            builder.setTitle("Input upload filename");
+            builder.setTitle("Input upload filename and filetype");
             builder.setMessage("file type is " +
                     (mTmpFileSuffix.equals(TEXT_FILE_SUFFIX) ? "Snipet text file" :
                             mTmpFileSuffix.equals(URL_FILE_SUFFIX) ? "Internet shortcut file" : "?") + "(" + mTmpFileSuffix + ")");
             builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
+                    int n = spinner.getSelectedItemPosition();
+
                     // verify if file name has suffix
                     String filename = userInput.getText().toString();
                     if (!filename.endsWith(mTmpFileSuffix)){
