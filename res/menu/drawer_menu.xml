@@ -40,7 +40,7 @@
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_folder_sync"
-            android:icon="@drawable/ic_cloud_check"
+            android:icon="@drawable/ic_cloud_upload"
             android:title="@string/drawer_folder_sync"/>
     </group>
 

@@ -101,32 +101,34 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         mProgress = (LinearLayout) findViewById(android.R.id.progress);
         mEmpty = (TextView) findViewById(android.R.id.empty);
 
-        // TODO implement "dynamic" grid count via xml-value for tablet vs. phone
-        final int gridWidth = 4;
-        mAdapter = new FolderSyncAdapter(this, gridWidth, this, mRecyclerView);
+        final int gridWidth = getResources().getInteger(R.integer.media_grid_width);
+        mAdapter = new FolderSyncAdapter(this, gridWidth, this);
         mSyncedFolderProvider = new SyncedFolderProvider(getContentResolver());
 
         final GridLayoutManager lm = new GridLayoutManager(this, gridWidth);
         mAdapter.setLayoutManager(lm);
-        int spacing = getResources().getDimensionPixelSize(R.dimen.mediaGridSpacing);
+        int spacing = getResources().getDimensionPixelSize(R.dimen.media_grid_spacing);
         mRecyclerView.addItemDecoration(new MediaGridItemDecoration(spacing));
         mRecyclerView.setLayoutManager(lm);
         mRecyclerView.setAdapter(mAdapter);
 
-        load();
+        load(gridWidth * 2);
     }
 
     /**
      * loads all media/synced folders, adds them to the recycler view adapter and shows the list.
+     *
+     * @param perFolderMediaItemLimit the amount of media items to be loaded/shown per media folder
      */
-    private void load() {
+    private void load(final int perFolderMediaItemLimit) {
         if (mAdapter.getItemCount() > 0) return;
         setListShown(false);
         final Handler mHandler = new Handler();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final List<MediaFolder> mediaFolders = MediaProvider.getMediaFolders(getContentResolver());
+                final List<MediaFolder> mediaFolders = MediaProvider.getMediaFolders(getContentResolver(),
+                        perFolderMediaItemLimit);
                 syncFolderItems = sortSyncedFolderItems(mergeFolderData(mSyncedFolderProvider.getSyncedFolders(),
                         mediaFolders));
 

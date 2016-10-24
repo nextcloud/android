@@ -53,16 +53,16 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     private final Context mContext;
     private final int mGridWidth;
+    private final int mGridTotal;
     private final ClickListener mListener;
     private final List<SyncedFolderDisplayItem> mSyncFolderItems;
-    private final RecyclerView mRecyclerView;
 
-    public FolderSyncAdapter(Context context, int gridWidth, ClickListener listener, RecyclerView recyclerView) {
+    public FolderSyncAdapter(Context context, int gridWidth, ClickListener listener) {
         mContext = context;
-        mGridWidth = gridWidth * 2;
+        mGridWidth = gridWidth;
+        mGridTotal = gridWidth * 2;
         mListener = listener;
         mSyncFolderItems = new ArrayList<>();
-        mRecyclerView = recyclerView;
     }
 
     public void setSyncFolderItems(List<SyncedFolderDisplayItem> syncFolderItems) {
@@ -108,7 +108,6 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     @Override
     public void onBindViewHolder(MainViewHolder holder, int section, int relativePosition, int absolutePosition) {
-        final Context c = holder.itemView.getContext();
 
         File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
@@ -162,10 +161,10 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
             holder.image.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
         }
 
-        holder.itemView.setTag(relativePosition % (mGridWidth/2));
+        holder.itemView.setTag(relativePosition % mGridWidth);
 
-        if (mSyncFolderItems.get(section).getNumberOfFiles() > 8 && relativePosition >= 8 - 1) {
-            holder.counterValue.setText(Long.toString(mSyncFolderItems.get(section).getNumberOfFiles() - 8));
+        if (mSyncFolderItems.get(section).getNumberOfFiles() > mGridTotal && relativePosition >= mGridTotal - 1) {
+            holder.counterValue.setText(Long.toString(mSyncFolderItems.get(section).getNumberOfFiles() - mGridTotal));
             holder.counterBar.setVisibility(View.VISIBLE);
             holder.thumbnailDarkener.setVisibility(View.VISIBLE);
         } else {
@@ -199,7 +198,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         final TextView counterValue;
         final ImageView thumbnailDarkener;
 
-        public MainViewHolder(View itemView) {
+        private MainViewHolder(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.thumbnail);
             title = (TextView) itemView.findViewById(R.id.title);
