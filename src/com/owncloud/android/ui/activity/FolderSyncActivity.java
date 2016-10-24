@@ -252,7 +252,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 false,
                 false,
                 AccountUtils.getCurrentOwnCloudAccount(this).name,
-                1,
+                0,
                 false,
                 mediaFolder.filePaths,
                 mediaFolder.folderName,
