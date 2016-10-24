@@ -61,10 +61,12 @@ import static com.owncloud.android.datamodel.SyncedFolderItem.UNPERSISTED_ID;
 /**
  * Activity displaying all auto-synced folders and/or instant upload media folders.
  */
-public class FolderSyncActivity extends FileActivity implements FolderSyncAdapter.ClickListener, SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener {
+public class FolderSyncActivity extends FileActivity implements FolderSyncAdapter.ClickListener,
+        SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener {
     private static final String TAG = FolderSyncActivity.class.getSimpleName();
 
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
+    public static final String PRIORITIZED_FOLDER = "Camera";
 
     private RecyclerView mRecyclerView;
     private FolderSyncAdapter mAdapter;
@@ -196,6 +198,10 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 } else if (f1.getFolderName() == null) {
                     return -1;
                 } else if (f2.getFolderName() == null) {
+                    return 1;
+                } else if (PRIORITIZED_FOLDER.equals(f1.getFolderName())) {
+                    return -1;
+                } else if (PRIORITIZED_FOLDER.equals(f2.getFolderName())) {
                     return 1;
                 } else {
                     return f1.getFolderName().compareTo(f2.getFolderName());
