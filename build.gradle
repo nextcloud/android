@@ -88,8 +88,8 @@ android {
         htmlReport true
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
     }
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -105,7 +105,7 @@ android {
 
         // Enable the experimental Jack build tools.
         jackOptions {
-            enabled true
+            enabled false
         }
     }
 
@@ -158,6 +158,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+        incremental false
     }
 
     lintOptions {
