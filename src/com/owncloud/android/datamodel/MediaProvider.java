@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * media queries to gain access to media lists for the device.
+ * Media queries to gain access to media lists for the device.
  */
 public class MediaProvider {
     private static final String TAG = MediaProvider.class.getSimpleName();
@@ -44,15 +44,13 @@ public class MediaProvider {
      * @param contentResolver the content resolver
      * @return List with images folders
      */
-    public static List<MediaFolder> getAllShownImagesPath(ContentResolver contentResolver) {
+    public static List<MediaFolder> getMediaFolders(ContentResolver contentResolver) {
         Cursor cursor;
         List<MediaFolder> mediaFolders = new ArrayList<>();
         int column_index_data, column_index_folder_name, column_index_data_image;
-        ArrayList<String> listOfAllImages = new ArrayList<>();
         String absolutePathOfImage;
         String folderName;
 
-        String[] projectionTest = {MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media.DATE_TAKEN};
         String[] folderProjection = new String[]{"Distinct " + MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore
                 .MediaColumns.DATA, MediaStore.Images.Media.DATE_TAKEN};
         String[] fileProjection = new String[]{MediaStore.MediaColumns.DATA};
@@ -91,7 +89,7 @@ public class MediaProvider {
                 mediaFolder.filePaths = new ArrayList<>();
 
                 column_index_data_image = cursorImages.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-                Log.d(TAG, "Reading images for --> " + mediaFolder.absolutePath);
+                Log.d(TAG, "Reading images for " + mediaFolder.absolutePath);
                 while (cursorImages.moveToNext()) {
                     mediaFolder.filePaths.add(cursorImages.getString(column_index_data_image));
                 }
