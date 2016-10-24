@@ -33,6 +33,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.content.SyncRequest;
 import android.content.pm.PackageManager;
 import android.content.res.Resources.NotFoundException;
@@ -250,8 +251,21 @@ public class FileDisplayActivity extends HookActivity
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if (PreferenceManager.instantPictureUploadEnabled(this) || PreferenceManager.instantPictureUploadEnabled
                     (this)) {
-                PreferenceManager.saveBooleanPreference(this, "instant_uploading", false);
-                PreferenceManager.saveBooleanPreference(this, "instant_video_uploading", false);
+
+                // remove legacy shared preferences
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+                editor.remove("instant_uploading")
+                        .remove("instant_video_uploading")
+                        .remove("instant_upload_path")
+                        .remove("instant_upload_path_use_subfolders")
+                        .remove("instant_upload_on_wifi")
+                        .remove("instant_upload_on_charging")
+                        .remove("instant_video_upload_path")
+                        .remove("instant_video_upload_path_use_subfolders")
+                        .remove("instant_video_upload_on_wifi")
+                        .remove("instant_video_uploading")
+                        .remove("instant_video_upload_on_charging")
+                        .remove("prefs_instant_behaviour").apply();
 
                 // show info pop-up
                 new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
