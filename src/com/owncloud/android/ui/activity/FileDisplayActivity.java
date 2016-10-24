@@ -56,6 +56,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -236,6 +237,43 @@ public class FileDisplayActivity extends HookActivity
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
 
         setBackgroundText();
+
+        upgradeNotificationForInstantUpload();
+    }
+
+    /**
+     * For Android 5+.
+     * Opens a pop up info for the new instant upload and disabled the old instant upload.
+     */
+    private void upgradeNotificationForInstantUpload() {
+        // check for Android 5+ if legacy instant upload is activated --> disable + show info
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (PreferenceManager.instantPictureUploadEnabled(this) || PreferenceManager.instantPictureUploadEnabled
+                    (this)) {
+                PreferenceManager.saveBooleanPreference(this, "instant_uploading", false);
+                PreferenceManager.saveBooleanPreference(this, "instant_video_uploading", false);
+
+                // show info pop-up
+                new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
+                        .setTitle(R.string.drawer_folder_sync)
+                        .setMessage(R.string.folder_sync_new_info)
+                        .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // show instant upload
+                                Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
+                                dialog.dismiss();
+                                startActivity(folderSyncIntent);
+                            }
+                        })
+                        .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setIcon(R.drawable.ic_cloud_upload)
+                        .show();
+            }
+        }
     }
 
     @Override

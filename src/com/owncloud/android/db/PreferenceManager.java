@@ -22,7 +22,6 @@ package com.owncloud.android.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
@@ -160,7 +159,7 @@ public abstract class PreferenceManager {
         saveIntPreference(context, AUTO_PREF__UPLOADER_BEHAVIOR, uploaderBehaviour);
     }
 
-    private static void saveBooleanPreference(Context context, String key, boolean value) {
+    public static void saveBooleanPreference(Context context, String key, boolean value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putBoolean(key, value);
         appPreferences.apply();
