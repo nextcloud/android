@@ -503,6 +503,7 @@
     <string name="folder_sync_no_results">No media folders found.</string>
     <string name="folder_sync_preferences">Folder Sync Preferences</string>
     <string name="folder_sync_settings">Settings</string>
+    <string name="folder_sync_new_info">Instant upload has been revamped completely. Please see the main menu and re-configure your instant upload. Sorry for the inconvenience.\n\nEnjoy the new and extended instant upload capabilities!</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"
