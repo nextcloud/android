@@ -52,16 +52,16 @@ public class MediaProvider {
         String absolutePathOfImage;
         String folderName;
 
-        String[] projectionTest = {MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME};
+        String[] projectionTest = {MediaStore.MediaColumns.DATA, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media.DATE_TAKEN};
         String[] folderProjection = new String[]{"Distinct " + MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore
-                .MediaColumns.DATA};
+                .MediaColumns.DATA, MediaStore.Images.Media.DATE_TAKEN};
         String[] fileProjection = new String[]{MediaStore.MediaColumns.DATA};
         String folderSelection = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + " IS NOT NULL) GROUP BY (" + MediaStore
                 .Images.Media
                 .BUCKET_DISPLAY_NAME;
         String fileSelection = MediaStore.MediaColumns.DATA + " LIKE ";
-        String folderSortOrder = "MAX(" + MediaStore.Images.Media.DISPLAY_NAME + ") DESC";
-        String fileSortOrder = MediaStore.MediaColumns.DATA + " DESC LIMIT 8"; //  LIMIT 8
+        String folderSortOrder = "MAX(" + MediaStore.MediaColumns.DATA + ") DESC";
+        String fileSortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC LIMIT 8"; //  LIMIT 8
 
         cursor = contentResolver.query(MEDIA_URI, folderProjection, folderSelection, null, folderSortOrder);
 
