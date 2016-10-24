@@ -24,16 +24,33 @@ package com.owncloud.android.datamodel;
 import java.util.List;
 
 /**
- * TODO javadoc
+ * Display item specialization for synced folder objects to be displayed in a list/grid view adding further
+ * information to be displayed in the UI but not part of the persisted underlying {@link SyncedFolder} object.
  */
-public class SyncedFolderItem extends SyncedFolder {
+public class SyncedFolderDisplayItem extends SyncedFolder {
     private List<String> filePaths;
     private String folderName;
     private long numberOfFiles;
 
-    public SyncedFolderItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
-                            Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                            List<String> filePaths, String folderName, long numberOfFiles) {
+    /**
+     * constructor for the display item specialization for a synced folder object.
+     *
+     * @param id              id
+     * @param localPath       local path
+     * @param remotePath      remote path
+     * @param wifiOnly        upload on wifi only flag
+     * @param chargingOnly    upload on charging only
+     * @param subfolderByDate create sub-folders by date (month)
+     * @param account         the account owning the synced folder
+     * @param uploadAction    the action to be done after the upload
+     * @param enabled         flag if synced folder config is active
+     * @param filePaths       the UI info for the file path
+     * @param folderName      the UI info for the folder's name
+     * @param numberOfFiles   the UI info for number of files within the folder
+     */
+    public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
+                                   Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
+                                   List<String> filePaths, String folderName, long numberOfFiles) {
         super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled);
         this.filePaths = filePaths;
         this.folderName = folderName;

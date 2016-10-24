@@ -36,7 +36,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.SyncedFolderItem;
+import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
@@ -65,7 +65,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private SyncedFolderParcelable mSyncedFolder;
     private int mSection;
 
-    public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderItem syncedFolder, int section) {
+    public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderDisplayItem syncedFolder, int section) {
         SyncedFolderPreferencesDialogFragment dialogFragment = new SyncedFolderPreferencesDialogFragment();
 
         if (syncedFolder == null) {

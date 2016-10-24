@@ -41,7 +41,7 @@ import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
-import com.owncloud.android.datamodel.SyncedFolderItem;
+import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.ui.adapter.FolderSyncAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
@@ -56,7 +56,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TimerTask;
 
-import static com.owncloud.android.datamodel.SyncedFolderItem.UNPERSISTED_ID;
+import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED_ID;
 
 /**
  * Activity displaying all auto-synced folders and/or instant upload media folders.
@@ -73,7 +73,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     private LinearLayout mProgress;
     private TextView mEmpty;
     private SyncedFolderProvider mSyncedFolderProvider;
-    private List<SyncedFolderItem> syncFolderItems;
+    private List<SyncedFolderDisplayItem> syncFolderItems;
     private SyncedFolderPreferencesDialogFragment mSyncedFolderPreferencesDialogFragment;
 
     @Override
@@ -126,16 +126,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final List<MediaFolder> mediaFolders = MediaProvider.getAllShownImagesPath(getContentResolver());
-                syncFolderItems = sortSyncedFolderItem(mergeFolderData(mSyncedFolderProvider.getSyncedFolders(),
+                final List<MediaFolder> mediaFolders = MediaProvider.getMediaFolders(getContentResolver());
+                syncFolderItems = sortSyncedFolderItems(mergeFolderData(mSyncedFolderProvider.getSyncedFolders(),
                         mediaFolders));
-
-                // TODO remove before merging to master, keeping it for debugging atm
-                /**
-                 for (MediaFolder mediaFolder : mediaFolders) {
-                 Log.d(TAG, mediaFolder.absolutePath);
-                 }
-                 */
 
                 mHandler.post(new TimerTask() {
                     @Override
@@ -149,17 +142,17 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     }
 
     /**
-     * merges two lists of SyncedFolder and MediaFolder items into one of SyncedFolderItems.
+     * merges two lists of {@link SyncedFolder} and {@link MediaFolder} items into one of SyncedFolderItems.
      *
      * @param syncedFolders the synced folders
      * @param mediaFolders  the media folders
      * @return the merged list of SyncedFolderItems
      */
     @NonNull
-    private List<SyncedFolderItem> mergeFolderData(List<SyncedFolder> syncedFolders,
-                                                   @NonNull List<MediaFolder> mediaFolders) {
+    private List<SyncedFolderDisplayItem> mergeFolderData(List<SyncedFolder> syncedFolders,
+                                                          @NonNull List<MediaFolder> mediaFolders) {
         Map<String, SyncedFolder> syncedFoldersMap = createSyncedFoldersMap(syncedFolders);
-        List<SyncedFolderItem> result = new ArrayList<>();
+        List<SyncedFolderDisplayItem> result = new ArrayList<>();
 
         for (MediaFolder mediaFolder : mediaFolders) {
             if (syncedFoldersMap.containsKey(mediaFolder.absolutePath)) {
@@ -174,13 +167,15 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     }
 
     /**
-     * Sorts list by SyncedFolderItems.
+     * Sorts list of {@link SyncedFolderDisplayItem}s.
      *
-     * @param syncFolderItemList SyncedFolderItems to sort
+     * @param syncFolderItemList list of items to be sorted
+     * @return sorted list of items
      */
-    public static List<SyncedFolderItem> sortSyncedFolderItem(List<SyncedFolderItem> syncFolderItemList) {
-        Collections.sort(syncFolderItemList, new Comparator<SyncedFolderItem>() {
-            public int compare(SyncedFolderItem f1, SyncedFolderItem f2) {
+    public static List<SyncedFolderDisplayItem> sortSyncedFolderItems(List<SyncedFolderDisplayItem>
+                                                                              syncFolderItemList) {
+        Collections.sort(syncFolderItemList, new Comparator<SyncedFolderDisplayItem>() {
+            public int compare(SyncedFolderDisplayItem f1, SyncedFolderDisplayItem f2) {
                 if (f1 == null && f2 == null) {
                     return 0;
                 } else if (f1 == null) {
@@ -213,15 +208,15 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     }
 
     /**
-     * creates a SyncedFolderItem merging a SyncedFolder and MediaFolder object instance.
+     * creates a SyncedFolderDisplayItem merging a {@link SyncedFolder} and a {@link MediaFolder} object instance.
      *
      * @param syncedFolder the synced folder object
      * @param mediaFolder  the media folder object
-     * @return the created SyncedFolderItem
+     * @return the created SyncedFolderDisplayItem
      */
     @NonNull
-    private SyncedFolderItem createSyncedFolder(@NonNull SyncedFolder syncedFolder, @NonNull MediaFolder mediaFolder) {
-        return new SyncedFolderItem(
+    private SyncedFolderDisplayItem createSyncedFolder(@NonNull SyncedFolder syncedFolder, @NonNull MediaFolder mediaFolder) {
+        return new SyncedFolderDisplayItem(
                 syncedFolder.getId(),
                 syncedFolder.getLocalPath(),
                 syncedFolder.getRemotePath(),
@@ -237,14 +232,14 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     }
 
     /**
-     * creates a SyncedFolderItem based on a MediaFolder object instance.
+     * creates a {@link SyncedFolderDisplayItem} based on a {@link MediaFolder} object instance.
      *
      * @param mediaFolder the media folder object
-     * @return the created SyncedFolderItem
+     * @return the created SyncedFolderDisplayItem
      */
     @NonNull
-    private SyncedFolderItem createSyncedFolderFromMediaFolder(@NonNull MediaFolder mediaFolder) {
-        return new SyncedFolderItem(
+    private SyncedFolderDisplayItem createSyncedFolderFromMediaFolder(@NonNull MediaFolder mediaFolder) {
+        return new SyncedFolderDisplayItem(
                 UNPERSISTED_ID,
                 mediaFolder.absolutePath,
                 getString(R.string.instant_upload_path) + "/" + mediaFolder.folderName,
@@ -260,10 +255,10 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     }
 
     /**
-     * creates a lookup map for a list of given synced folders with their local path as the key.
+     * creates a lookup map for a list of given {@link SyncedFolder}s with their local path as the key.
      *
-     * @param syncFolders list of synced folders
-     * @return the lookup map for synced folders
+     * @param syncFolders list of {@link SyncedFolder}s
+     * @return the lookup map for {@link SyncedFolder}s
      */
     @NonNull
     private Map<String, SyncedFolder> createSyncedFoldersMap(List<SyncedFolder> syncFolders) {
@@ -291,7 +286,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval;
+        boolean result;
         switch (item.getItemId()) {
             case android.R.id.home: {
                 if (isDrawerOpen()) {
@@ -302,9 +297,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             }
 
             default:
-                retval = super.onOptionsItemSelected(item);
+                result = super.onOptionsItemSelected(item);
         }
-        return retval;
+        return result;
     }
 
     @Override
@@ -323,21 +318,21 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     }
 
     @Override
-    public void onSyncStatusToggleClick(int section, SyncedFolderItem syncedFolderItem) {
-        if (syncedFolderItem.getId() > UNPERSISTED_ID) {
-            mSyncedFolderProvider.updateFolderSyncEnabled(syncedFolderItem.getId(), syncedFolderItem.isEnabled());
+    public void onSyncStatusToggleClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem) {
+        if (syncedFolderDisplayItem.getId() > UNPERSISTED_ID) {
+            mSyncedFolderProvider.updateFolderSyncEnabled(syncedFolderDisplayItem.getId(), syncedFolderDisplayItem.isEnabled());
         } else {
-            mSyncedFolderProvider.storeFolderSync(syncedFolderItem);
+            mSyncedFolderProvider.storeFolderSync(syncedFolderDisplayItem);
         }
     }
 
     @Override
-    public void onSyncFolderSettingsClick(int section, SyncedFolderItem syncedFolderItem) {
+    public void onSyncFolderSettingsClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem) {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        mSyncedFolderPreferencesDialogFragment = SyncedFolderPreferencesDialogFragment.newInstance(syncedFolderItem,
+        mSyncedFolderPreferencesDialogFragment = SyncedFolderPreferencesDialogFragment.newInstance(syncedFolderDisplayItem,
                 section);
         mSyncedFolderPreferencesDialogFragment.show(ft, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG);
     }
@@ -356,7 +351,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     @Override
     public void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder) {
-        SyncedFolderItem item = syncFolderItems.get(syncedFolder.getSection());
+        SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection());
         item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
                 .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
                 .getUploadAction());
@@ -388,13 +383,13 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
      * @param uploadAction    upload action
      * @return the updated item
      */
-    private SyncedFolderItem updateSyncedFolderItem(SyncedFolderItem item,
-                                                    String localPath,
-                                                    String remotePath,
-                                                    Boolean wifiOnly,
-                                                    Boolean chargingOnly,
-                                                    Boolean subfolderByDate,
-                                                    Integer uploadAction) {
+    private SyncedFolderDisplayItem updateSyncedFolderItem(SyncedFolderDisplayItem item,
+                                                           String localPath,
+                                                           String remotePath,
+                                                           Boolean wifiOnly,
+                                                           Boolean chargingOnly,
+                                                           Boolean subfolderByDate,
+                                                           Integer uploadAction) {
         item.setLocalPath(localPath);
         item.setRemotePath(remotePath);
         item.setWifiOnly(wifiOnly);

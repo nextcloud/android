@@ -23,10 +23,10 @@ package com.owncloud.android.ui.dialog.parcel;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.owncloud.android.datamodel.SyncedFolderItem;
+import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 
 /**
- * Parceble for SyncedFolder objects to transport them from/to dialog fragments.
+ * Parcelable for {@link SyncedFolderDisplayItem} objects to transport them from/to dialog fragments.
  */
 public class SyncedFolderParcelable implements Parcelable {
     private String mLocalPath;
@@ -43,20 +43,20 @@ public class SyncedFolderParcelable implements Parcelable {
     public SyncedFolderParcelable() {
     }
 
-    public SyncedFolderParcelable(SyncedFolderItem syncedFolderItem, int section) {
-        mId = syncedFolderItem.getId();
-        mLocalPath = syncedFolderItem.getLocalPath();
-        mRemotePath = syncedFolderItem.getRemotePath();
-        mWifiOnly = syncedFolderItem.getWifiOnly();
-        mChargingOnly = syncedFolderItem.getChargingOnly();
-        mEnabled = syncedFolderItem.isEnabled();
-        mSubfolderByDate = syncedFolderItem.getSubfolderByDate();
-        mAccount = syncedFolderItem.getAccount();
-        mUploadAction = syncedFolderItem.getUploadAction();
+    public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
+        mId = syncedFolderDisplayItem.getId();
+        mLocalPath = syncedFolderDisplayItem.getLocalPath();
+        mRemotePath = syncedFolderDisplayItem.getRemotePath();
+        mWifiOnly = syncedFolderDisplayItem.getWifiOnly();
+        mChargingOnly = syncedFolderDisplayItem.getChargingOnly();
+        mEnabled = syncedFolderDisplayItem.isEnabled();
+        mSubfolderByDate = syncedFolderDisplayItem.getSubfolderByDate();
+        mAccount = syncedFolderDisplayItem.getAccount();
+        mUploadAction = syncedFolderDisplayItem.getUploadAction();
         mSection = section;
     }
 
-    public SyncedFolderParcelable(Parcel read) {
+    private SyncedFolderParcelable(Parcel read) {
         mId = read.readLong();
         mLocalPath = read.readString();
         mRemotePath = read.readString();

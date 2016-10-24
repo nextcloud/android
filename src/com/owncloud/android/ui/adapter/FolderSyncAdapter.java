@@ -34,7 +34,7 @@ import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.SyncedFolderItem;
+import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.BitmapUtils;
@@ -54,7 +54,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     private final Context mContext;
     private final int mGridWidth;
     private final ClickListener mListener;
-    private final List<SyncedFolderItem> mSyncFolderItems;
+    private final List<SyncedFolderDisplayItem> mSyncFolderItems;
     private final RecyclerView mRecyclerView;
 
     public FolderSyncAdapter(Context context, int gridWidth, ClickListener listener, RecyclerView recyclerView) {
@@ -65,7 +65,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         mRecyclerView = recyclerView;
     }
 
-    public void setSyncFolderItems(List<SyncedFolderItem> syncFolderItems) {
+    public void setSyncFolderItems(List<SyncedFolderDisplayItem> syncFolderItems) {
         mSyncFolderItems.clear();
         mSyncFolderItems.addAll(syncFolderItems);
         notifyDataSetChanged();
@@ -186,8 +186,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     }
 
     public interface ClickListener {
-        void onSyncStatusToggleClick(int section, SyncedFolderItem syncedFolderItem);
-        void onSyncFolderSettingsClick(int section, SyncedFolderItem syncedFolderItem);
+        void onSyncStatusToggleClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem);
+        void onSyncFolderSettingsClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem);
     }
 
     static class MainViewHolder extends RecyclerView.ViewHolder {
