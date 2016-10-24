@@ -38,18 +38,20 @@ public class MediaProvider {
     private static final Uri MEDIA_URI = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
 
     /**
-     * TODO rewrite/beautify
      * Getting All Images Paths.
      *
      * @param contentResolver the content resolver
-     * @return List with images folders
+     * @param itemLimit       the number of media items (usually images) to be returned per media folder.
+     * @return list with media folders
      */
-    public static List<MediaFolder> getMediaFolders(ContentResolver contentResolver) {
+    public static List<MediaFolder> getMediaFolders(ContentResolver contentResolver, int itemLimit) {
         Cursor cursor;
         List<MediaFolder> mediaFolders = new ArrayList<>();
         int column_index_data, column_index_folder_name, column_index_data_image;
         String absolutePathOfImage;
         String folderName;
+
+        // TODO rewrite/beautify
 
         String[] folderProjection = new String[]{"Distinct " + MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore
                 .MediaColumns.DATA, MediaStore.Images.Media.DATE_TAKEN};
@@ -59,7 +61,7 @@ public class MediaProvider {
                 .BUCKET_DISPLAY_NAME;
         String fileSelection = MediaStore.MediaColumns.DATA + " LIKE ";
         String folderSortOrder = "MAX(" + MediaStore.MediaColumns.DATA + ") DESC";
-        String fileSortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC LIMIT 8"; //  LIMIT 8
+        String fileSortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC LIMIT "+ itemLimit;
 
         cursor = contentResolver.query(MEDIA_URI, folderProjection, folderSelection, null, folderSortOrder);
 
