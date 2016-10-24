@@ -334,8 +334,8 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        mSyncedFolderPreferencesDialogFragment = SyncedFolderPreferencesDialogFragment.newInstance(syncedFolderDisplayItem,
-                section);
+        mSyncedFolderPreferencesDialogFragment = SyncedFolderPreferencesDialogFragment.newInstance(
+                syncedFolderDisplayItem, section);
         mSyncedFolderPreferencesDialogFragment.show(ft, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG);
     }
 

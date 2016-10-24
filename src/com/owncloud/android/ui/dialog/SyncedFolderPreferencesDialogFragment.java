@@ -42,8 +42,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 
 /**
- * Dialog to show the preferences/configuration of a synced folder allowing the user
- * to change the different parameters.
+ * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different parameters.
  */
 public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
@@ -52,7 +51,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     public static final int REQUEST_CODE__SELECT_REMOTE_FOLDER = 0;
 
     private CharSequence[] mUploadBehaviorItemStrings;
-    private CharSequence[] mUploadBehaviorItemValues;
 
     protected View mView = null;
     private CheckBox mUploadOnWifiCheckbox;
@@ -63,7 +61,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private TextView mRemoteFolderSummary;
 
     private SyncedFolderParcelable mSyncedFolder;
-    private int mSection;
 
     public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderDisplayItem syncedFolder, int section) {
         SyncedFolderPreferencesDialogFragment dialogFragment = new SyncedFolderPreferencesDialogFragment();
@@ -75,6 +72,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         Bundle args = new Bundle();
         args.putParcelable(SYNCED_FOLDER_PARCELABLE, new SyncedFolderParcelable(syncedFolder, section));
         dialogFragment.setArguments(args);
+        dialogFragment.setStyle(STYLE_NORMAL,R.style.Theme_ownCloud_Dialog);
 
         return dialogFragment;
     }
@@ -99,7 +97,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         mSyncedFolder = getArguments().getParcelable(SYNCED_FOLDER_PARCELABLE);
         mUploadBehaviorItemStrings = getResources().getTextArray(R.array.pref_behaviour_entries);
-        mUploadBehaviorItemValues = getResources().getTextArray(R.array.pref_behaviour_entryValues);
     }
 
     @Override
@@ -124,15 +121,15 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      */
     private void setupDialogElements(View view) {
         // find/saves UI elements
-        mLocalFolderSummary = (TextView) mView.findViewById(R.id.local_folder_summary);
-        mRemoteFolderSummary = (TextView) mView.findViewById(R.id.remote_folder_summary);
+        mLocalFolderSummary = (TextView) view.findViewById(R.id.local_folder_summary);
+        mRemoteFolderSummary = (TextView) view.findViewById(R.id.remote_folder_summary);
 
-        mUploadOnWifiCheckbox = (CheckBox) mView.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
-        mUploadOnChargingCheckbox = (CheckBox) mView.findViewById(R.id.setting_instant_upload_on_charging_checkbox);
-        mUploadUseSubfoldersCheckbox = (CheckBox) mView.findViewById(R.id
+        mUploadOnWifiCheckbox = (CheckBox) view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
+        mUploadOnChargingCheckbox = (CheckBox) view.findViewById(R.id.setting_instant_upload_on_charging_checkbox);
+        mUploadUseSubfoldersCheckbox = (CheckBox) view.findViewById(R.id
                 .setting_instant_upload_path_use_subfolders_checkbox);
 
-        mUploadBehaviorSummary = (TextView) mView.findViewById(R.id.setting_instant_behaviour_summary);
+        mUploadBehaviorSummary = (TextView) view.findViewById(R.id.setting_instant_behaviour_summary);
 
         // Set values
         mLocalFolderSummary.setText(mSyncedFolder.getLocalPath());
@@ -258,8 +255,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     }
 
     public interface OnSyncedFolderPreferenceListener {
-        public void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder);
+        void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder);
 
-        public void onCancelSyncedFolderPreference();
+        void onCancelSyncedFolderPreference();
     }
 }
