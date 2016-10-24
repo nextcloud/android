@@ -30,6 +30,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -327,10 +328,14 @@ public class Preferences extends PreferenceActivity {
             }
         }
 
-        mPrefInstantUploadPath =  findPreference("instant_upload_path");
-        if (mPrefInstantUploadPath != null){
+        mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
 
-            mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            // Instant upload via preferences on pre Android Lollipop
+            mPrefInstantUploadPath = findPreference("instant_upload_path");
+            if (mPrefInstantUploadPath != null) {
+
+                mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         if (!mUploadPath.endsWith(OCFile.PATH_SEPARATOR)) {
@@ -342,34 +347,31 @@ public class Preferences extends PreferenceActivity {
                         return true;
                     }
                 });
-        }
-        
-        mPrefInstantUploadCategory =
-                (PreferenceCategory) findPreference("instant_uploading_category");
-
-        mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
-        mPrefInstantUploadPathWiFi =  findPreference("instant_upload_on_wifi");
-        mPrefInstantPictureUploadOnlyOnCharging = findPreference("instant_upload_on_charging");
-        mPrefInstantUpload = findPreference("instant_uploading");
-        
-        toggleInstantPictureOptions(((CheckBoxPreference) mPrefInstantUpload).isChecked());
-        
-        mPrefInstantUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                toggleInstantPictureOptions((Boolean) newValue);
-                toggleInstantUploadBehaviour(
-                        ((CheckBoxPreference)mPrefInstantVideoUpload).isChecked(),
-                        (Boolean) newValue);
-                return true;
             }
-        });
-       
-        mPrefInstantVideoUploadPath =  findPreference("instant_video_upload_path");
-        if (mPrefInstantVideoUploadPath != null){
 
-            mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
+            mPrefInstantUploadPathWiFi = findPreference("instant_upload_on_wifi");
+            mPrefInstantPictureUploadOnlyOnCharging = findPreference("instant_upload_on_charging");
+            mPrefInstantUpload = findPreference("instant_uploading");
+
+            toggleInstantPictureOptions(((CheckBoxPreference) mPrefInstantUpload).isChecked());
+
+            mPrefInstantUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    toggleInstantPictureOptions((Boolean) newValue);
+                    toggleInstantUploadBehaviour(
+                            ((CheckBoxPreference) mPrefInstantVideoUpload).isChecked(),
+                            (Boolean) newValue);
+                    return true;
+                }
+            });
+
+            mPrefInstantVideoUploadPath = findPreference("instant_video_upload_path");
+            if (mPrefInstantVideoUploadPath != null) {
+
+                mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         if (!mUploadVideoPath.endsWith(OCFile.PATH_SEPARATOR)) {
@@ -382,30 +384,37 @@ public class Preferences extends PreferenceActivity {
                         return true;
                     }
                 });
-        }
-
-        mPrefInstantVideoUploadUseSubfolders = findPreference("instant_video_upload_path_use_subfolders");
-        mPrefInstantVideoUploadPathWiFi =  findPreference("instant_video_upload_on_wifi");
-        mPrefInstantVideoUpload = findPreference("instant_video_uploading");
-        mPrefInstantVideoUploadOnlyOnCharging = findPreference("instant_video_upload_on_charging");
-        toggleInstantVideoOptions(((CheckBoxPreference) mPrefInstantVideoUpload).isChecked());
-        
-        mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                toggleInstantVideoOptions((Boolean) newValue);
-                toggleInstantUploadBehaviour(
-                        (Boolean) newValue,
-                        ((CheckBoxPreference) mPrefInstantUpload).isChecked());
-                return true;
             }
-        });
 
-        mPrefInstantUploadBehaviour = findPreference("prefs_instant_behaviour");
-        toggleInstantUploadBehaviour(
-                ((CheckBoxPreference)mPrefInstantVideoUpload).isChecked(),
-                ((CheckBoxPreference)mPrefInstantUpload).isChecked());
+            mPrefInstantVideoUploadUseSubfolders = findPreference("instant_video_upload_path_use_subfolders");
+            mPrefInstantVideoUploadPathWiFi = findPreference("instant_video_upload_on_wifi");
+            mPrefInstantVideoUpload = findPreference("instant_video_uploading");
+            mPrefInstantVideoUploadOnlyOnCharging = findPreference("instant_video_upload_on_charging");
+            toggleInstantVideoOptions(((CheckBoxPreference) mPrefInstantVideoUpload).isChecked());
+
+            mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    toggleInstantVideoOptions((Boolean) newValue);
+                    toggleInstantUploadBehaviour(
+                            (Boolean) newValue,
+                            ((CheckBoxPreference) mPrefInstantUpload).isChecked());
+                    return true;
+                }
+            });
+
+            mPrefInstantUploadBehaviour = findPreference("prefs_instant_behaviour");
+            toggleInstantUploadBehaviour(
+                    ((CheckBoxPreference) mPrefInstantVideoUpload).isChecked(),
+                    ((CheckBoxPreference) mPrefInstantUpload).isChecked());
+
+            loadInstantUploadPath();
+            loadInstantUploadVideoPath();
+        } else {
+            // Instant upload is handled via synced folders on Android Lollipop and up
+            getPreferenceScreen().removePreference(mPrefInstantUploadCategory);
+        }
 
         /* About App */
        pAboutApp = (Preference) findPreference("about_app");
@@ -414,9 +423,6 @@ public class Preferences extends PreferenceActivity {
                        getString(R.string.app_name)));
                pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
        }
-
-       loadInstantUploadPath();
-       loadInstantUploadVideoPath();
     }
 
     private void launchDavDroidLogin()
