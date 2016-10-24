@@ -10,7 +10,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:2.2.2'
     }
 }
 
@@ -20,7 +20,7 @@ apply plugin: 'pmd'
 apply plugin: 'findbugs'
 
 ext {
-    supportLibraryVersion = '24.2.1'
+    supportLibraryVersion = '25.0.0'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -68,7 +68,7 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
 
 }
 
@@ -86,8 +86,8 @@ android {
         htmlReport true
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
     }
-    compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.0"
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
