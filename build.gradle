@@ -103,7 +103,7 @@ android {
         versionCode 20161019
         versionName "20161019"
 
-        // Enable the experimental Jack build tools.
+        // disable the experimental Jack build tools.
         jackOptions {
             enabled false
         }
