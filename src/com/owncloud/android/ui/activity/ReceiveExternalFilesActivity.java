@@ -130,6 +130,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private String mServerFilename;
     private String mTmpFilename;
     private String mTmpFileSuffix;
+    private String mSubjectText;
+    private String mExtraText;
 
     private final static String FILENAME_ENCODING="UTF-8";
 
@@ -318,33 +320,97 @@ public class ReceiveExternalFilesActivity extends FileActivity
             View view = layout.inflate(R.layout.upload_file_dialog, null);
 
             final EditText userInput = (EditText) view.findViewById(R.id.user_input);
-            userInput.setText(mServerFilename + mTmpFileSuffix);
+            userInput.setText(mSubjectText);
             userInput.requestFocus();
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            adapter.add("Snipet text file(.txt)");
-            adapter.add("Internet shortcut file(.url)");
+            adapter.add("Snippet text file(.txt)");
+			if (isIntentStartWithUrl(mExtraText) || isIntentFromGoogleMap(mExtraText)) {
+				adapter.add("Internet shortcut file(.url)");
+				adapter.add("Internet shortcut file(.webloc)");
+			}
 
             final Spinner spinner = (Spinner) view.findViewById(R.id.file_type);
             spinner.setAdapter(adapter);
             spinner.setSelection(1, false);
+			spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+				public void onItemSelected(AdapterView parent,View view, int position,long id) {
+					Spinner spinner = (Spinner) parent;   
+					// 選択されたアイテムのテキストを取得   
+					int n = spinner.getSelectedItemPosition();
+                    String s;
+					switch (n) {
+					case 0:
+						s = userInput.getText().toString();
+						userInput.setText(s + ".txt");
+						break;
+					case 1:
+						s = userInput.getText().toString();
+						//mServerFilename = renameSafeFilename(texts[0]);	// google map
+						userInput.setText(s + ".url");
+						break;
+					case 2:
+						s = userInput.getText().toString();
+						userInput.setText(s + ".webloc");
+						break;
+					}
+				}
+
+                public void onNothingSelected(AdapterView<?> parent) {
+                }
+
+            } );
+			
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ReceiveExternalFilesActivity.this);
             builder.setView(view);
             builder.setTitle("Input upload filename and filetype");
-            builder.setMessage("file type is " +
-                    (mTmpFileSuffix.equals(TEXT_FILE_SUFFIX) ? "Snipet text file" :
-                            mTmpFileSuffix.equals(URL_FILE_SUFFIX) ? "Internet shortcut file" : "?") + "(" + mTmpFileSuffix + ")");
+            // builder.setMessage("file type is " +
+            //         (mTmpFileSuffix.equals(TEXT_FILE_SUFFIX) ? "Snippet text file" :
+            //                 mTmpFileSuffix.equals(URL_FILE_SUFFIX) ? "Internet shortcut file" : "?") + "(" + mTmpFileSuffix + ")");
             builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
-                    int n = spinner.getSelectedItemPosition();
-
                     // verify if file name has suffix
                     String filename = userInput.getText().toString();
                     if (!filename.endsWith(mTmpFileSuffix)){
                         filename += mTmpFileSuffix;
                     }
+
+                    File file = null;
+                    int n = spinner.getSelectedItemPosition();
+					switch (n) {
+					case 0:
+						// snipet text
+						mSubjectText = "snipettext_" + mSubjectText;
+						file = createTempTextFile("tmp.txt", mExtraText + "\n");
+						if (file == null) {
+							Log_OC.d(TAG, "error");
+							finish();
+						}
+						break;
+					case 1:
+					case 2:
+						if (isIntentFromGoogleMap(mExtraText)) {
+							// google map shortcut, share from google map
+							String texts[] = mExtraText.split("\n");
+							file = createTempUrlFile("tmp.url", texts[2]);
+							if (file == null) {
+								Log_OC.d(TAG, "error");
+								finish();
+							}
+						} else {
+							// simple internet shortcut, share from web brouser
+							file = createTempUrlFile("tmp.url", mExtraText);
+							if (file == null) {
+								Log_OC.d(TAG, "error");
+								finish();
+							}
+						}
+						break;
+					}
+                    String tmpname = file.getAbsolutePath();
+
 
                     FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
                     requester.uploadNewFile(
@@ -568,7 +634,38 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
     }
 
+	private boolean isIntentFromGoogleMap(String text) {
+        String texts[] = text.split("\n");
+        if (texts[0].length() > 0 && texts.length == 3 && texts[2].startsWith("https://goo.gl/maps/")) {
+			return true;
+		}
+		return false;
+	}
+		
+	private boolean isIntentStartWithUrl(String text) {
+        if (text.startsWith("http://") || text.startsWith("https://")) {
+			return true;
+		}
+		return false;
+	}
+		
     private void createTempfileFromIntent(Intent intent) {
+        if (!intent.getType().equals("text/plain")) {
+            return;
+        }
+		mUploadFromTmpFile = true;
+
+		mSubjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        if (mSubjectText == null) {
+            mSubjectText = intent.getStringExtra(Intent.EXTRA_TITLE);
+            if (mSubjectText == null) {
+                mSubjectText = DateFormat.format("yyyyMMdd_kkmmss", Calendar.getInstance()).toString();
+            }
+        }
+		mExtraText = intent.getStringExtra(Intent.EXTRA_TEXT);
+	}
+
+	private void createTempfileFromIntent_org(Intent intent) {
         if (!intent.getType().equals("text/plain")) {
             return;
         }
