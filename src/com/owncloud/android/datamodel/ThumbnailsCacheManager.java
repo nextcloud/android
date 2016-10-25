@@ -21,15 +21,6 @@
 
 package com.owncloud.android.datamodel;
 
-import java.io.File;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.net.FileNameMap;
-import java.net.URLConnection;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.GetMethod;
-
 import android.accounts.Account;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -39,7 +30,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -56,8 +46,9 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimetypeIconUtil;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -65,7 +56,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * Manager for concurrent access to thumbnails cache.
@@ -131,7 +121,37 @@ public class ThumbnailsCacheManager {
             return null;
         }
     }
-    
+
+    /**
+     * Converts size of file icon from dp to pixel
+     * @return int
+     */
+    private static int getThumbnailDimension(){
+        // Converts dp to pixel
+        Resources r = MainApp.getAppContext().getResources();
+        return Math.round(r.getDimension(R.dimen.file_icon_size_grid));
+    }
+
+    /**
+     * Add thumbnail to cache
+     * @param imageKey: thumb key
+     * @param bitmap:   image for extracting thumbnail
+     * @param path:     image path
+     * @param px:       thumbnail dp
+     * @return Bitmap
+     */
+    private static Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int px){
+
+        Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
+
+        // Rotate image, obeying exif tag
+        thumbnail = BitmapUtils.rotateImage(thumbnail,path);
+
+        // Add thumbnail to cache
+        addBitmapToCache(imageKey, thumbnail);
+
+        return thumbnail;
+    }
     
     public static void addBitmapToCache(String key, Bitmap bitmap) {
         synchronized (mThumbnailsDiskCacheLock) {
@@ -140,7 +160,6 @@ public class ThumbnailsCacheManager {
             }
         }
     }
-
 
     public static Bitmap getBitmapFromDiskCache(String key) {
         synchronized (mThumbnailsDiskCacheLock) {
@@ -254,27 +273,6 @@ public class ThumbnailsCacheManager {
                     }
                 }
             }
-        }
-
-        /**
-         * Add thumbnail to cache
-         * @param imageKey: thumb key
-         * @param bitmap:   image for extracting thumbnail
-         * @param path:     image path
-         * @param px:       thumbnail dp
-         * @return Bitmap
-         */
-        private Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int px){
-
-            Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
-
-            // Rotate image, obeying exif tag
-            thumbnail = BitmapUtils.rotateImage(thumbnail,path);
-
-            // Add thumbnail to cache
-            addBitmapToCache(imageKey, thumbnail);
-
-            return thumbnail;
         }
 
         /**
@@ -395,6 +393,97 @@ public class ThumbnailsCacheManager {
             return thumbnail;
         }
 
+    }
+
+    public static class MediaThumbnailGenerationTask extends AsyncTask<Object, Void, Bitmap> {
+        private final WeakReference<ImageView> mImageViewReference;
+        private File mFile;
+        private String mImageKey = null;
+
+        public MediaThumbnailGenerationTask(ImageView imageView) {
+            // Use a WeakReference to ensure the ImageView can be garbage collected
+            mImageViewReference = new WeakReference<>(imageView);
+        }
+
+        @Override
+        protected Bitmap doInBackground(Object... params) {
+            Bitmap thumbnail = null;
+
+            try {
+                if (params[0] instanceof File) {
+                    mFile = (File) params[0];
+                    if (params.length == 2) {
+                        mImageKey = (String) params[1];
+                    }
+
+                    if (BitmapUtils.isImage(mFile)) {
+                        thumbnail = doFileInBackground(mFile);
+                    }
+                }
+            } catch (Throwable t) {
+                // the app should never break due to a problem with thumbnails
+                Log_OC.e(TAG, "Generation of thumbnail for " + mFile.getAbsolutePath() + " failed", t);
+                if (t instanceof OutOfMemoryError) {
+                    System.gc();
+                }
+            }
+
+            return thumbnail;
+        }
+
+        protected void onPostExecute(Bitmap bitmap) {
+            String tagId = "";
+            final ImageView imageView = mImageViewReference.get();
+            if (imageView != null) {
+                if (mFile != null) {
+                    tagId = String.valueOf(mFile.hashCode());
+                }
+
+                if (bitmap != null) {
+                    if (tagId.equals(String.valueOf(imageView.getTag()))) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                } else {
+                    if (mFile != null) {
+                        if (mFile.isDirectory()) {
+                            imageView.setImageResource(R.drawable.ic_menu_archive);
+                        } else {
+                            if (BitmapUtils.isVideo(mFile)) {
+                                imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo);
+                            } else {
+                                imageView.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, mFile.getName()));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private Bitmap doFileInBackground(File file) {
+            final String imageKey;
+
+            if (mImageKey != null) {
+                imageKey = mImageKey;
+            } else {
+                imageKey = String.valueOf(file.hashCode());
+            }
+
+            // Check disk cache in background thread
+            Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
+
+            // Not found in disk cache
+            if (thumbnail == null) {
+
+                int px = getThumbnailDimension();
+
+                Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getAbsolutePath(), px, px);
+
+                if (bitmap != null) {
+                    thumbnail = addThumbnailToCache(imageKey, bitmap, file.getPath(), px);
+                }
+            }
+            return thumbnail;
+        }
     }
 
     public static class AvatarGenerationTask extends AsyncTask<String, Void, Bitmap> {
@@ -688,6 +777,22 @@ public class ThumbnailsCacheManager {
         }
 
         public ThumbnailGenerationTask getBitmapWorkerTask() {
+            return bitmapWorkerTaskReference.get();
+        }
+    }
+
+    public static class AsyncMediaThumbnailDrawable extends BitmapDrawable {
+        private final WeakReference<MediaThumbnailGenerationTask> bitmapWorkerTaskReference;
+
+        public AsyncMediaThumbnailDrawable(
+                Resources res, Bitmap bitmap, MediaThumbnailGenerationTask bitmapWorkerTask
+        ) {
+
+            super(res, bitmap);
+            bitmapWorkerTaskReference = new WeakReference<>(bitmapWorkerTask);
+        }
+
+        public MediaThumbnailGenerationTask getBitmapWorkerTask() {
             return bitmapWorkerTaskReference.get();
         }
     }
