@@ -15,6 +15,7 @@
     <string name="actionbar_sort_title">Сортировать по</string>
     <string name="menu_item_sort_by_name">А - Я</string>
     <string name="menu_item_sort_by_date">Новые - старые</string>
+    <string name="menu_item_sort_by_size">Размеру</string>
     <string name="drawer_item_all_files">Все файлы</string>
     <string name="drawer_item_on_device">На устройстве</string>
     <string name="drawer_item_settings">Настройки</string>
