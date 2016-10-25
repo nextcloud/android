@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,9 +35,6 @@ import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -116,50 +112,21 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
          **/
         boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, holder.image));
 
-        if (!file.isDirectory()) {
-            holder.image.setImageResource(R.drawable.file);
-        } else {
-            holder.image.setImageResource(R.drawable.ic_menu_archive);
-        }
+        final ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
+                new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image);
+
+        final ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
+                new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
+                        mContext.getResources(),
+                        ThumbnailsCacheManager.mDefaultImg,
+                        task
+                );
+        holder.image.setImageDrawable(asyncDrawable);
+
+        task.execute(file);
+
         // set proper tag
         holder.image.setTag(file.hashCode());
-
-        // get Thumbnail if file is image
-        if (BitmapUtils.isImage(file)) {
-            // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    String.valueOf(file.hashCode())
-            );
-            if (thumbnail != null) {
-                holder.image.setImageBitmap(thumbnail);
-            } else {
-
-                // generate new Thumbnail
-                if (allowedToCreateNewThumbnail) {
-                    final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                            new ThumbnailsCacheManager.ThumbnailGenerationTask(holder.image);
-                    if (thumbnail == null) {
-                        if (BitmapUtils.isVideo(file)) {
-                            thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                        } else {
-                            thumbnail = ThumbnailsCacheManager.mDefaultImg;
-                        }
-                    }
-                    final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                            new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                    mContext.getResources(),
-                                    thumbnail,
-                                    task
-                            );
-                    holder.image.setImageDrawable(asyncDrawable);
-                    task.execute(file);
-                    Log_OC.v(TAG, "Executing task to generate a new thumbnail");
-
-                } // else, already being generated, don't restart it
-            }
-        } else {
-            holder.image.setImageResource(MimetypeIconUtil.getFileTypeIconId(null, file.getName()));
-        }
 
         holder.itemView.setTag(relativePosition % mGridWidth);
 
