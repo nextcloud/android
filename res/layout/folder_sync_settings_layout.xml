@@ -45,26 +45,12 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/local_folder_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:baselineAligned="false"
                 android:gravity="center_vertical"
                 android:minHeight="?android:attr/listPreferredItemHeightSmall">
-
-                <LinearLayout
-                    android:id="@+id/local_folder_icon_frame"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="start|center_vertical"
-                    android:minWidth="58dip"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/local_folder_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/standard_half_margin"
-                        android:src="@drawable/ic_cellphone"/>
-                </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -95,17 +81,23 @@
 
                 </RelativeLayout>
 
-            </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/local_folder_frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/standard_padding">
 
-            <TextView
-                android:id="@+id/settings_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dip"
-                android:paddingTop="@dimen/standard_padding"
-                android:text="@string/folder_sync_settings"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="@color/color_accent"/>
+                    <ImageView
+                        android:id="@+id/local_folder_status_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_cloud_sync_off"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/remote_folder_container"
@@ -114,22 +106,6 @@
                 android:baselineAligned="false"
                 android:gravity="center_vertical"
                 android:minHeight="?android:attr/listPreferredItemHeightSmall">
-
-                <LinearLayout
-                    android:id="@+id/remote_folder_icon_frame"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="start|center_vertical"
-                    android:minWidth="58dip"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/remote_folder_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/standard_half_margin"
-                        android:src="@drawable/ic_cloud_outline"/>
-                </LinearLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"

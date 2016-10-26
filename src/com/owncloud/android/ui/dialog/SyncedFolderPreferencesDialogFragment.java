@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -53,6 +54,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private CharSequence[] mUploadBehaviorItemStrings;
 
     protected View mView = null;
+    private boolean mEnabled;
+    private ImageView mEnabledIcon;
     private CheckBox mUploadOnWifiCheckbox;
     private CheckBox mUploadOnChargingCheckbox;
     private CheckBox mUploadUseSubfoldersCheckbox;
@@ -105,9 +108,6 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         mView = inflater.inflate(R.layout.folder_sync_settings_layout, container, false);
 
-        ((TextView) mView.findViewById(R.id.local_folder_summary)).setText(mSyncedFolder.getLocalPath());
-        ((TextView) mView.findViewById(R.id.remote_folder_summary)).setText(mSyncedFolder.getRemotePath());
-
         setupDialogElements(mView);
         setupListeners(mView);
 
@@ -121,6 +121,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      */
     private void setupDialogElements(View view) {
         // find/saves UI elements
+        mEnabledIcon = (ImageView) view.findViewById(R.id.local_folder_status_icon);
         mLocalFolderSummary = (TextView) view.findViewById(R.id.local_folder_summary);
         mRemoteFolderSummary = (TextView) view.findViewById(R.id.remote_folder_summary);
 
@@ -132,6 +133,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mUploadBehaviorSummary = (TextView) view.findViewById(R.id.setting_instant_behaviour_summary);
 
         // Set values
+        setEnabled(mSyncedFolder.getEnabled());
         mLocalFolderSummary.setText(mSyncedFolder.getLocalPath());
         mRemoteFolderSummary.setText(mSyncedFolder.getRemotePath());
 
@@ -140,6 +142,20 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.getSubfolderByDate());
 
         mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadAction()]);
+    }
+
+    /**
+     * set correct icon/flag.
+     *
+     * @param enabled if enabled or disabled
+     */
+    private void setEnabled(boolean enabled) {
+        mSyncedFolder.setEnabled(enabled);
+        if(enabled) {
+            mEnabledIcon.setImageResource(R.drawable.ic_cloud_sync_on);
+        } else {
+            mEnabledIcon.setImageResource(R.drawable.ic_cloud_sync_off);
+        }
     }
 
     /**
@@ -197,6 +213,13 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                 action.putExtra(
                         FolderPickerActivity.EXTRA_ACTION, getResources().getText(R.string.choose_remote_folder));
                 getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_REMOTE_FOLDER);
+            }
+        });
+
+        view.findViewById(R.id.local_folder_container).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setEnabled(!mSyncedFolder.getEnabled());
             }
         });
 
