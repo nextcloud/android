@@ -37,6 +37,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
@@ -107,6 +108,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
     public static final String TEXT_FILE_SUFFIX = ".txt";
     public static final String URL_FILE_SUFFIX = ".url";
+    public static final String WEBLOC_FILE_SUFFIX = ".weboc";
 
     private AccountManager mAccountManager;
     private Stack<String> mParents;
@@ -127,9 +129,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private final static String KEY_ACCOUNT_SELECTION_SHOWING = "ACCOUNT_SELECTION_SHOWING";
 
     private boolean mUploadFromTmpFile = false;
-    private String mServerFilename;
-    private String mTmpFilename;
-    private String mTmpFileSuffix;
     private String mSubjectText;
     private String mExtraText;
 
@@ -314,115 +313,111 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private class DialogInputUploadFilename extends DialogFragment {
+        List<String> mFilenameBase;
+        List<String> mFilenameSuffix;
+        List<String> mText;
+
+        DialogInputUploadFilename() {
+            mFilenameBase = new ArrayList<String>();
+            mFilenameSuffix = new ArrayList<String>();
+            mText = new ArrayList<String>();
+        }
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
             LayoutInflater layout = LayoutInflater.from(getBaseContext());
             View view = layout.inflate(R.layout.upload_file_dialog, null);
 
-            final EditText userInput = (EditText) view.findViewById(R.id.user_input);
-            userInput.setText(mSubjectText);
-            userInput.requestFocus();
-
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            int selectPos = 0;
+            String filename = renameSafeFilename(mSubjectText);
+            if (filename == null) {
+                filename = "";
+            }
             adapter.add("Snippet text file(.txt)");
-			if (isIntentStartWithUrl(mExtraText) || isIntentFromGoogleMap(mExtraText)) {
+            mText.add(mExtraText);
+            mFilenameBase.add(filename);
+            mFilenameSuffix.add(TEXT_FILE_SUFFIX);
+			if (isIntentStartWithUrl()) {
+                mText.add(InternetShortcutUrlText(mExtraText));
+                mFilenameBase.add(filename);
+                mFilenameSuffix.add(URL_FILE_SUFFIX);
 				adapter.add("Internet shortcut file(.url)");
+                selectPos = adapter.getCount()-1;
+
+                mText.add(InternetShortcutWeblocText(mExtraText));
+                mFilenameBase.add(filename);
+                mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
 				adapter.add("Internet shortcut file(.webloc)");
+            }
+            if (isIntentFromGoogleMap()) {
+                String texts[] = mExtraText.split("\n");
+                mText.add(InternetShortcutUrlText(texts[2]));
+                mFilenameBase.add(texts[0]);
+                mFilenameSuffix.add(URL_FILE_SUFFIX);
+				adapter.add("googlemap shortcut file(.url)");
+                selectPos = adapter.getCount()-1;
+
+                mText.add(InternetShortcutWeblocText(texts[2]));
+                mFilenameBase.add(texts[0]);
+                mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
+				adapter.add("googlemap shortcut file(.webloc)");
 			}
+
+            final EditText userInput = (EditText) view.findViewById(R.id.user_input);
+            setFilename(userInput, selectPos);
+            userInput.requestFocus();
 
             final Spinner spinner = (Spinner) view.findViewById(R.id.file_type);
             spinner.setAdapter(adapter);
-            spinner.setSelection(1, false);
+            spinner.setSelection(selectPos, false);
 			spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-				public void onItemSelected(AdapterView parent,View view, int position,long id) {
+				public void onItemSelected(AdapterView parent, View view, int position, long id) {
 					Spinner spinner = (Spinner) parent;   
-					// 選択されたアイテムのテキストを取得   
-					int n = spinner.getSelectedItemPosition();
-                    String s;
-					switch (n) {
-					case 0:
-						s = userInput.getText().toString();
-						userInput.setText(s + ".txt");
-						break;
-					case 1:
-						s = userInput.getText().toString();
-						//mServerFilename = renameSafeFilename(texts[0]);	// google map
-						userInput.setText(s + ".url");
-						break;
-					case 2:
-						s = userInput.getText().toString();
-						userInput.setText(s + ".webloc");
-						break;
-					}
+					int selectPos = spinner.getSelectedItemPosition();
+                    setFilename(userInput, selectPos);
 				}
 
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
-
-            } );
-			
+            });
+            if (adapter.getCount() == 1) {
+                spinner.setEnabled(false);
+            }
 
             AlertDialog.Builder builder = new AlertDialog.Builder(ReceiveExternalFilesActivity.this);
             builder.setView(view);
             builder.setTitle("Input upload filename and filetype");
-            // builder.setMessage("file type is " +
-            //         (mTmpFileSuffix.equals(TEXT_FILE_SUFFIX) ? "Snippet text file" :
-            //                 mTmpFileSuffix.equals(URL_FILE_SUFFIX) ? "Internet shortcut file" : "?") + "(" + mTmpFileSuffix + ")");
             builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
+					int selectPos = spinner.getSelectedItemPosition();
+
                     // verify if file name has suffix
                     String filename = userInput.getText().toString();
-                    if (!filename.endsWith(mTmpFileSuffix)){
-                        filename += mTmpFileSuffix;
+                    String suffix = mFilenameSuffix.get(selectPos);
+                    if (!filename.endsWith(suffix)){
+                        filename += suffix;
                     }
 
-                    File file = null;
-                    int n = spinner.getSelectedItemPosition();
-					switch (n) {
-					case 0:
-						// snipet text
-						mSubjectText = "snipettext_" + mSubjectText;
-						file = createTempTextFile("tmp.txt", mExtraText + "\n");
-						if (file == null) {
-							Log_OC.d(TAG, "error");
-							finish();
-						}
-						break;
-					case 1:
-					case 2:
-						if (isIntentFromGoogleMap(mExtraText)) {
-							// google map shortcut, share from google map
-							String texts[] = mExtraText.split("\n");
-							file = createTempUrlFile("tmp.url", texts[2]);
-							if (file == null) {
-								Log_OC.d(TAG, "error");
-								finish();
-							}
-						} else {
-							// simple internet shortcut, share from web brouser
-							file = createTempUrlFile("tmp.url", mExtraText);
-							if (file == null) {
-								Log_OC.d(TAG, "error");
-								finish();
-							}
-						}
-						break;
-					}
+                    File file = createTempFile("tmp.tmp", mText.get(selectPos));
+                    if (file == null) {
+                        finish();
+                    }
                     String tmpname = file.getAbsolutePath();
-
 
                     FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
                     requester.uploadNewFile(
-                            getBaseContext(),
-                            getAccount(),
-                            mTmpFilename,
-                            mFile.getRemotePath() + filename,
-                            FileUploader.LOCAL_BEHAVIOUR_COPY,
-                            null,
-                            true,
-                            UploadFileOperation.CREATED_BY_USER
-                    );
+                        getBaseContext(),
+                        getAccount(),
+                        tmpname,
+                        mFile.getRemotePath() + filename,
+                        FileUploader.LOCAL_BEHAVIOUR_COPY,
+                        null,
+                        true,
+                        UploadFileOperation.CREATED_BY_USER
+                        );
                     finish();
                 }
             });
@@ -435,6 +430,103 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Dialog d = builder.create();
             d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             return d;
+        }
+
+        private void setFilename(EditText inputText, int selectPos)
+        {
+            String filename = mFilenameBase.get(selectPos) + mFilenameSuffix.get(selectPos);
+            inputText.setText(filename);
+            int selectionStart = 0;
+            int extensionStart = filename.lastIndexOf(".");
+            int selectionEnd = (extensionStart >= 0) ? extensionStart : filename.length();
+            if (selectionEnd >= 0) {
+                inputText.setSelection(
+                    Math.min(selectionStart, selectionEnd), 
+                    Math.max(selectionStart, selectionEnd));
+            }
+        }
+
+        private boolean isIntentFromGoogleMap() {
+            String texts[] = mExtraText.split("\n");
+            if (texts.length != 3)
+                return false;
+            if (texts[0].length() == 0 || !mSubjectText.equals(texts[0]))
+                return false;
+            if (!texts[2].startsWith("https://goo.gl/maps/")) {
+                return false;
+            }
+            return true;
+        }
+		
+        private boolean isIntentStartWithUrl() {
+            return (mExtraText.startsWith("http://") || mExtraText.startsWith("https://"));
+        }
+
+        @Nullable
+        private String renameSafeFilename(String filename) {
+            filename = filename.replaceAll("[?]", "_");
+            filename = filename.replaceAll("\"", "_");
+            filename = filename.replaceAll("/", "_");
+            filename = filename.replaceAll("<", "_");
+            filename = filename.replaceAll(">", "_");
+            filename = filename.replaceAll("[*]", "_");
+            filename = filename.replaceAll("[|]", "_");
+            filename = filename.replaceAll(";", "_");
+            filename = filename.replaceAll("=", "_");
+            filename = filename.replaceAll(",", "_");
+
+            try {
+                int maxlength = 128;
+                if (filename.getBytes(FILENAME_ENCODING).length > maxlength) {
+                    filename = new String(filename.getBytes(FILENAME_ENCODING), 0, maxlength, FILENAME_ENCODING);
+                }
+            } catch (UnsupportedEncodingException e) {
+                Log_OC.e(TAG, "rename failed ", e);
+                return null;
+            }
+            return filename;
+        }
+
+        private String InternetShortcutUrlText(String url) {
+            String text;
+            text = "[InternetShortcut]\r\n";
+            text += "URL=" + url + "\r\n";
+            return text;
+        }
+
+        private String InternetShortcutWeblocText(String url) {
+            String text;
+            text = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+            text += "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n";
+            text += "<plist version=\"1.0\">\n";
+            text += "<dict>\n";
+            text += "<key>URL</key>\n";
+            text += "<string>" + url + "</string>\n";
+            text += "</dict>\n";
+            text += "</plist>\n";
+            return text;
+        }
+
+        @Nullable
+        private File createTempFile(String filename, String text) {
+            File file = new File(ReceiveExternalFilesActivity.this.getCacheDir(), filename);
+            FileWriter fw = null;
+            try {
+                fw = new FileWriter(file);
+                fw.write(text);
+            } catch (IOException e) {
+                Log_OC.d(TAG, "Error ", e);
+                return null;
+            } finally {
+                if (fw != null) {
+                    try {
+                        fw.close();
+                    } catch (IOException e) {
+                        Log_OC.d(TAG, "Error closing file writer ", e);
+                    }
+                }
+            }
+            return file;
         }
     }
 
@@ -488,7 +580,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 }
 
                 if (mUploadFromTmpFile){
-                    DialogInputUploadFilename dialog = new  DialogInputUploadFilename();
+                    DialogInputUploadFilename dialog = new DialogInputUploadFilename();
                     dialog.show(getSupportFragmentManager(), "dialog");
                 } else {
                     Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
@@ -630,26 +722,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         if (mStreamsToUpload == null || mStreamsToUpload.get(0) == null) {
             mStreamsToUpload = null;
-            createTempfileFromIntent(intent);
+            saveTextsFromIntent(intent);
         }
     }
 
-	private boolean isIntentFromGoogleMap(String text) {
-        String texts[] = text.split("\n");
-        if (texts[0].length() > 0 && texts.length == 3 && texts[2].startsWith("https://goo.gl/maps/")) {
-			return true;
-		}
-		return false;
-	}
-		
-	private boolean isIntentStartWithUrl(String text) {
-        if (text.startsWith("http://") || text.startsWith("https://")) {
-			return true;
-		}
-		return false;
-	}
-		
-    private void createTempfileFromIntent(Intent intent) {
+    private void saveTextsFromIntent(Intent intent) {
         if (!intent.getType().equals("text/plain")) {
             return;
         }
@@ -664,108 +741,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 		mExtraText = intent.getStringExtra(Intent.EXTRA_TEXT);
 	}
-
-	private void createTempfileFromIntent_org(Intent intent) {
-        if (!intent.getType().equals("text/plain")) {
-            return;
-        }
-
-        String extraText = intent.getStringExtra(Intent.EXTRA_TEXT);
-        String subjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
-        if (subjectText == null) {
-            subjectText = intent.getStringExtra(Intent.EXTRA_TITLE);
-            if (subjectText == null) {
-                subjectText = DateFormat.format("yyyyMMdd_kkmmss", Calendar.getInstance()).toString();
-            }
-        }
-
-        // simple internet shortcut, share from web brouser
-        if (extraText.startsWith("http://") || extraText.startsWith("https://")) {
-            File file = createTempUrlFile("tmp.url", extraText);
-            if (file != null) {
-                mTmpFilename = file.getAbsolutePath();
-                mTmpFileSuffix = URL_FILE_SUFFIX;
-                mServerFilename = renameSafeFilename(subjectText);
-                mUploadFromTmpFile = true;
-            }
-            return;
-        }
-
-        // google map shortcut, share from google map
-        String texts[] = extraText.split("\n");
-        if (texts[0].length() > 0 && texts.length == 3 && texts[2].startsWith("https://goo.gl/maps/")) {
-            File file = createTempUrlFile("tmp.url", texts[2]);
-            if (file != null) {
-                mTmpFilename = file.getAbsolutePath();
-                mTmpFileSuffix = URL_FILE_SUFFIX;
-                mServerFilename = renameSafeFilename(texts[0]);
-                mUploadFromTmpFile = true;
-            }
-            return;
-        }
-
-        // simply text meybe
-        subjectText = "snipettext_" + subjectText;
-        File file = createTempTextFile("tmp.txt", extraText + "\n");
-        if (file != null) {
-            mTmpFilename = file.getAbsolutePath();
-            mTmpFileSuffix = TEXT_FILE_SUFFIX;
-            mServerFilename = renameSafeFilename(subjectText);
-            mUploadFromTmpFile = true;
-        }
-    }
-
-    private String renameSafeFilename(String filename) {
-        filename = filename.replaceAll("[?]", "_");
-        filename = filename.replaceAll("\"", "_");
-        filename = filename.replaceAll("/", "_");
-        filename = filename.replaceAll("<", "_");
-        filename = filename.replaceAll(">", "_");
-        filename = filename.replaceAll("[*]", "_");
-        filename = filename.replaceAll("[|]", "_");
-        filename = filename.replaceAll(";", "_");
-        filename = filename.replaceAll("=", "_");
-        filename = filename.replaceAll(",", "_");
-
-        try {
-            int maxlength = 128;
-            if (filename.getBytes(FILENAME_ENCODING).length > maxlength) {
-                filename = new String(filename.getBytes(FILENAME_ENCODING), 0, maxlength, FILENAME_ENCODING);
-            }
-        } catch (UnsupportedEncodingException e) {
-            Log_OC.e(TAG, "rename failed ", e);
-            return null;
-        }
-        return filename;
-    }
-
-    private File createTempUrlFile(String filename, String url) {
-        String text;
-        text = "[InternetShortcut]\r\n";
-        text += "URL=" + url + "\r\n";
-        return createTempTextFile(filename,text);
-    }
-
-    private File createTempTextFile(String filename, String text) {
-        File file = new File(this.getCacheDir(), filename);
-        FileWriter fw = null;
-        try {
-            fw = new FileWriter(file);
-            fw.write(text);
-        } catch (IOException e) {
-            Log_OC.d(TAG, "Error ", e);
-            return null;
-        } finally {
-            if (fw != null) {
-                try {
-                    fw.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Error closing file writer ", e);
-                }
-            }
-        }
-        return file;
-    }
 
     private boolean somethingToUpload() {
         return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
