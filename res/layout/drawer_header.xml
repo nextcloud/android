@@ -2,9 +2,8 @@
 <!--
   Nextcloud Android client application
 
-  Copyright (C) 2015 Andy Scherzinger
-  Copyright (C) 2016 Nextcloud
-  Copyright (C) 2015 ownCloud
+  Copyright (C) 2016 Andy Scherzinger
+  Copyright (C) 2016 Nextcloud.
 
   This program is free software; you can redistribute it and/or
   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -18,7 +17,7 @@
 
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  -->
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="@dimen/nav_drawer_header_height"

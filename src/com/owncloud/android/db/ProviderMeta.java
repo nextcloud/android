@@ -33,7 +33,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 15;
+    public static final int DB_VERSION = 16;
 
     private ProviderMeta() {
     }
@@ -43,6 +43,7 @@ public class ProviderMeta {
         public static final String OCSHARES_TABLE_NAME = "ocshares";
         public static final String CAPABILITIES_TABLE_NAME = "capabilities";
         public static final String UPLOADS_TABLE_NAME = "list_of_uploads";
+        public static final String SYNCED_FOLDERS_TABLE_NAME = "synced_folders";
         public static final Uri CONTENT_URI = Uri.parse("content://"
                 + MainApp.getAuthority() + "/");
         public static final Uri CONTENT_URI_FILE = Uri.parse("content://"
@@ -55,6 +56,8 @@ public class ProviderMeta {
                 + MainApp.getAuthority() + "/capabilities");
         public static final Uri CONTENT_URI_UPLOADS = Uri.parse("content://"
                 + MainApp.getAuthority() + "/uploads");
+        public static final Uri CONTENT_URI_SYNCED_FOLDERS = Uri.parse("content://"
+                + MainApp.getAuthority() + "/synced_folders");
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
         public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";
@@ -149,8 +152,16 @@ public class ProviderMeta {
         public static final String UPLOADS_UPLOAD_END_TIMESTAMP = "upload_end_timestamp";
         public static final String UPLOADS_LAST_RESULT = "last_result";
         public static final String UPLOADS_CREATED_BY = "created_by";
-
         public static final String UPLOADS_DEFAULT_SORT_ORDER = ProviderTableMeta._ID  + " collate nocase desc";
 
+        // Columns of synced folder table
+        public static final String SYNCED_FOLDER_LOCAL_PATH = "local_path";
+        public static final String SYNCED_FOLDER_REMOTE_PATH = "remote_path";
+        public static final String SYNCED_FOLDER_WIFI_ONLY = "wifi_only";
+        public static final String SYNCED_FOLDER_CHARGING_ONLY = "charging_only";
+        public static final String SYNCED_FOLDER_ENABLED = "enabled";
+        public static final String SYNCED_FOLDER_SUBFOLDER_BY_DATE = "subfolder_by_date";
+        public static final String SYNCED_FOLDER_ACCOUNT = "account";
+        public static final String SYNCED_FOLDER_UPLOAD_ACTION = "upload_option";
     }
 }

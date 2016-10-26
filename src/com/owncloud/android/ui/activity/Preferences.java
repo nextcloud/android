@@ -31,6 +31,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
@@ -403,28 +404,32 @@ public class Preferences extends PreferenceActivity
             mPrefStoragePath.setEntryValues(values);
 
             mPrefStoragePath.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        String newPath = (String)newValue;
-                        if (mStoragePath.equals(newPath))
-                            return true;
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String newPath = (String)newValue;
+                    if (mStoragePath.equals(newPath))
+                        return true;
 
-                        StorageMigration storageMigration = new StorageMigration(Preferences.this, mStoragePath, newPath);
+                    StorageMigration storageMigration = new StorageMigration(Preferences.this, mStoragePath, newPath);
 
-                        storageMigration.setStorageMigrationProgressListener(Preferences.this);
+                    storageMigration.setStorageMigrationProgressListener(Preferences.this);
 
-                        storageMigration.migrate();
+                    storageMigration.migrate();
 
-                        return false;
-                    }
-                });
+                    return false;
+                }
+            });
 
         }
 
-        mPrefInstantUploadPath = (PreferenceWithTwoLineLongSummary)findPreference(Keys.INSTANT_UPLOAD_PATH);
-        if (mPrefInstantUploadPath != null){
+        mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
 
-            mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            // Instant upload via preferences on pre Android Lollipop
+            mPrefInstantUploadPath = findPreference("instant_upload_path");
+            if (mPrefInstantUploadPath != null) {
+
+                mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         if (!mUploadPath.endsWith(OCFile.PATH_SEPARATOR)) {
@@ -445,7 +450,7 @@ public class Preferences extends PreferenceActivity
         mPrefInstantUploadPathWiFi =  findPreference(INSTANT_UPLOAD_ON_WIFI);
         mPrefInstantUpload = findPreference(INSTANT_UPLOADING);
         mPrefInstantPictureUploadOnlyOnCharging = findPreference("instant_upload_on_charging");
-        
+
         toggleInstantPictureOptions(((CheckBoxPreference) mPrefInstantUpload).isChecked());
 
         mPrefInstantUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -463,7 +468,7 @@ public class Preferences extends PreferenceActivity
         mPrefInstantVideoUploadPath =  findPreference(Keys.INSTANT_VIDEO_UPLOAD_PATH);
         if (mPrefInstantVideoUploadPath != null){
 
-            mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
                         if (!mUploadVideoPath.endsWith(OCFile.PATH_SEPARATOR)) {
@@ -476,7 +481,7 @@ public class Preferences extends PreferenceActivity
                         return true;
                     }
                 });
-        }
+            }
 
         mPrefInstantVideoUploadUseSubfolders = findPreference(INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS);
         mPrefInstantVideoUploadPathWiFi =  findPreference(INSTANT_VIDEO_UPLOAD_ON_WIFI);
@@ -486,20 +491,27 @@ public class Preferences extends PreferenceActivity
 
         mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
 
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                toggleInstantVideoOptions((Boolean) newValue);
-                toggleInstantUploadBehaviour(
-                        (Boolean) newValue,
-                        ((CheckBoxPreference) mPrefInstantUpload).isChecked());
-                return true;
-            }
-        });
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    toggleInstantVideoOptions((Boolean) newValue);
+                    toggleInstantUploadBehaviour(
+                            (Boolean) newValue,
+                            ((CheckBoxPreference) mPrefInstantUpload).isChecked());
+                    return true;
+                }
+            });
 
         mPrefInstantUploadBehaviour = findPreference(PREFS_INSTANT_BEHAVIOUR);
         toggleInstantUploadBehaviour(
                 ((CheckBoxPreference)mPrefInstantVideoUpload).isChecked(),
                 ((CheckBoxPreference)mPrefInstantUpload).isChecked());
+
+            loadInstantUploadPath();
+            loadInstantUploadVideoPath();
+        } else {
+            // Instant upload is handled via synced folders on Android Lollipop and up
+            getPreferenceScreen().removePreference(mPrefInstantUploadCategory);
+        }
 
         /* About App */
        pAboutApp = (Preference) findPreference(ABOUT_APP);

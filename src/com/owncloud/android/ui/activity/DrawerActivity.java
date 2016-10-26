@@ -165,6 +165,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             setupDrawerMenu(mNavigationView);
 
             setupQuotaElement();
+
+            // show folder sync menu item only for Android 5+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+                mNavigationView.getMenu().removeItem(R.id.nav_folder_sync);
+            }
         }
 
         setupDrawerToggle();
@@ -265,6 +270,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                                         UploadListActivity.class);
                                 uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(uploadListIntent);
+                                break;
+                            case R.id.nav_folder_sync:
+                                Intent folderSyncIntent = new Intent(getApplicationContext(),FolderSyncActivity.class);
+                                startActivity(folderSyncIntent);
                                 break;
                             case R.id.nav_settings:
                                 Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
