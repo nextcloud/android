@@ -1,3 +1,6 @@
+## 2016-10-26
+- New Instant Upload (Android 5+) #358
+
 ## 2016-10-19
 - Fix user info route (https://github.com/nextcloud/android-library/pull/21)
 - Begin debug logs when build type is debug #335
