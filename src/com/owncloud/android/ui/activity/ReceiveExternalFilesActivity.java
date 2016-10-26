@@ -340,31 +340,31 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mText.add(mExtraText);
             mFilenameBase.add(filename);
             mFilenameSuffix.add(TEXT_FILE_SUFFIX);
-			if (isIntentStartWithUrl()) {
+            if (isIntentStartWithUrl()) {
                 mText.add(InternetShortcutUrlText(mExtraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
-				adapter.add("Internet shortcut file(.url)");
+                adapter.add("Internet shortcut file(.url)");
                 selectPos = adapter.getCount()-1;
 
                 mText.add(InternetShortcutWeblocText(mExtraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
-				adapter.add("Internet shortcut file(.webloc)");
+                adapter.add("Internet shortcut file(.webloc)");
             }
             if (isIntentFromGoogleMap()) {
                 String texts[] = mExtraText.split("\n");
                 mText.add(InternetShortcutUrlText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
-				adapter.add("googlemap shortcut file(.url)");
+                adapter.add("googlemap shortcut file(.url)");
                 selectPos = adapter.getCount()-1;
 
                 mText.add(InternetShortcutWeblocText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
-				adapter.add("googlemap shortcut file(.webloc)");
-			}
+                adapter.add("googlemap shortcut file(.webloc)");
+            }
 
             final EditText userInput = (EditText) view.findViewById(R.id.user_input);
             setFilename(userInput, selectPos);
@@ -373,12 +373,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
             final Spinner spinner = (Spinner) view.findViewById(R.id.file_type);
             spinner.setAdapter(adapter);
             spinner.setSelection(selectPos, false);
-			spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-				public void onItemSelected(AdapterView parent, View view, int position, long id) {
-					Spinner spinner = (Spinner) parent;   
-					int selectPos = spinner.getSelectedItemPosition();
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                public void onItemSelected(AdapterView parent, View view, int position, long id) {
+                    Spinner spinner = (Spinner) parent;
+                    int selectPos = spinner.getSelectedItemPosition();
                     setFilename(userInput, selectPos);
-				}
+                }
 
                 public void onNothingSelected(AdapterView<?> parent) {
                 }
@@ -392,7 +392,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setTitle("Input upload filename and filetype");
             builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
-					int selectPos = spinner.getSelectedItemPosition();
+                    int selectPos = spinner.getSelectedItemPosition();
 
                     // verify if file name has suffix
                     String filename = userInput.getText().toString();
@@ -409,15 +409,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                     FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
                     requester.uploadNewFile(
-                        getBaseContext(),
-                        getAccount(),
-                        tmpname,
-                        mFile.getRemotePath() + filename,
-                        FileUploader.LOCAL_BEHAVIOUR_COPY,
-                        null,
-                        true,
-                        UploadFileOperation.CREATED_BY_USER
-                        );
+                            getBaseContext(),
+                            getAccount(),
+                            tmpname,
+                            mFile.getRemotePath() + filename,
+                            FileUploader.LOCAL_BEHAVIOUR_COPY,
+                            null,
+                            true,
+                            UploadFileOperation.CREATED_BY_USER
+                    );
                     finish();
                 }
             });
@@ -441,8 +441,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             int selectionEnd = (extensionStart >= 0) ? extensionStart : filename.length();
             if (selectionEnd >= 0) {
                 inputText.setSelection(
-                    Math.min(selectionStart, selectionEnd), 
-                    Math.max(selectionStart, selectionEnd));
+                        Math.min(selectionStart, selectionEnd),
+                        Math.max(selectionStart, selectionEnd));
             }
         }
 
@@ -457,7 +457,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
             return true;
         }
-		
+
         private boolean isIntentStartWithUrl() {
             return (mExtraText.startsWith("http://") || mExtraText.startsWith("https://"));
         }
@@ -730,17 +730,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (!intent.getType().equals("text/plain")) {
             return;
         }
-		mUploadFromTmpFile = true;
+        mUploadFromTmpFile = true;
 
-		mSubjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        mSubjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
         if (mSubjectText == null) {
             mSubjectText = intent.getStringExtra(Intent.EXTRA_TITLE);
             if (mSubjectText == null) {
                 mSubjectText = DateFormat.format("yyyyMMdd_kkmmss", Calendar.getInstance()).toString();
             }
         }
-		mExtraText = intent.getStringExtra(Intent.EXTRA_TEXT);
-	}
+        mExtraText = intent.getStringExtra(Intent.EXTRA_TEXT);
+    }
 
     private boolean somethingToUpload() {
         return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
