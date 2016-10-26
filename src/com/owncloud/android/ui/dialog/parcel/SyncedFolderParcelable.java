@@ -29,6 +29,7 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
  * Parcelable for {@link SyncedFolderDisplayItem} objects to transport them from/to dialog fragments.
  */
 public class SyncedFolderParcelable implements Parcelable {
+    private String mFolderName;
     private String mLocalPath;
     private String mRemotePath;
     private Boolean mWifiOnly = false;
@@ -45,6 +46,7 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         mId = syncedFolderDisplayItem.getId();
+        mFolderName = syncedFolderDisplayItem.getFolderName();
         mLocalPath = syncedFolderDisplayItem.getLocalPath();
         mRemotePath = syncedFolderDisplayItem.getRemotePath();
         mWifiOnly = syncedFolderDisplayItem.getWifiOnly();
@@ -58,6 +60,7 @@ public class SyncedFolderParcelable implements Parcelable {
 
     private SyncedFolderParcelable(Parcel read) {
         mId = read.readLong();
+        mFolderName = read.readString();
         mLocalPath = read.readString();
         mRemotePath = read.readString();
         mWifiOnly = read.readInt()!= 0;
@@ -72,6 +75,7 @@ public class SyncedFolderParcelable implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(mId);
+        dest.writeString(mFolderName);
         dest.writeString(mLocalPath);
         dest.writeString(mRemotePath);
         dest.writeInt(mWifiOnly ? 1 : 0);
@@ -100,6 +104,14 @@ public class SyncedFolderParcelable implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
+    }
+
+    public String getFolderName() {
+        return mFolderName;
+    }
+
+    public void setFolderName(String mFolderName) {
+        this.mFolderName = mFolderName;
     }
 
     public String getLocalPath() {
