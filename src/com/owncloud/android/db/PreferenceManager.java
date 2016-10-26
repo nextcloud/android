@@ -22,6 +22,8 @@ package com.owncloud.android.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**

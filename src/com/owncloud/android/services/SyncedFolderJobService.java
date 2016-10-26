@@ -63,7 +63,7 @@ public class SyncedFolderJobService extends JobService {
         Integer uploadBehaviour = bundle.getInt("uploadBehaviour");
 
         File file = new File(filePath);
-        String mimeType = MimetypeIconUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
+        String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
 
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         requester.uploadNewFile(
