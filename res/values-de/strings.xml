@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Konten</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_passcode">PIN gesperrt</string>
+    <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_instant_upload">Sofortiger Bilder-Upload</string>
     <string name="prefs_instant_upload_summary">Lade Fotos von der Kamera sofort hoch</string>
     <string name="prefs_instant_video_upload">Sofortiger Video-Upload</string>
