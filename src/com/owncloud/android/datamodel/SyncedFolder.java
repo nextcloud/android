@@ -21,6 +21,9 @@
 
 package com.owncloud.android.datamodel;
 
+/**
+ * Synced folder entity containing all information per synced folder.
+ */
 public class SyncedFolder {
     public static final long UNPERSISTED_ID = Long.MIN_VALUE;
     private long id = UNPERSISTED_ID;
@@ -33,6 +36,19 @@ public class SyncedFolder {
     private Integer uploadAction;
     private boolean enabled;
 
+    /**
+     * constructor for already persisted entity.
+     *
+     * @param id              the primary key
+     * @param localPath       local path
+     * @param remotePath      remote path
+     * @param wifiOnly        upload on wifi only flag
+     * @param chargingOnly    upload on charging only
+     * @param subfolderByDate create sub-folders by date (month)
+     * @param account         the account owning the synced folder
+     * @param uploadAction    the action to be done after the upload
+     * @param enabled         flag if synced folder config is active
+     */
     public SyncedFolder(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
                         Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled) {
         this.id = id;
@@ -46,6 +62,18 @@ public class SyncedFolder {
         this.enabled = enabled;
     }
 
+    /**
+     * constructor for new, to be persisted entity.
+     *
+     * @param localPath       local path
+     * @param remotePath      remote path
+     * @param wifiOnly        upload on wifi only flag
+     * @param chargingOnly    upload on charging only
+     * @param subfolderByDate create sub-folders by date (month)
+     * @param account         the account owning the synced folder
+     * @param uploadAction    the action to be done after the upload
+     * @param enabled         flag if synced folder config is active
+     */
     public SyncedFolder(String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
                         Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled) {
         this.localPath = localPath;
