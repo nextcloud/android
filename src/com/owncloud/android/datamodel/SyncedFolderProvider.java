@@ -25,6 +25,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -66,7 +67,7 @@ public class SyncedFolderProvider extends Observable {
         Uri result = mContentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS, cv);
 
         if (result != null) {
-            notifyFolderSyncObservers();
+            notifyFolderSyncObservers(syncedFolder);
             return Long.parseLong(result.getPathSegments().get(1));
         } else {
             Log_OC.e(TAG, "Failed to insert item " + syncedFolder.getLocalPath() + " into folder sync db.");
@@ -204,7 +205,7 @@ public class SyncedFolderProvider extends Observable {
         );
 
         if (result > 0) {
-            notifyFolderSyncObservers();
+            notifyFolderSyncObservers(syncedFolder);
         }
 
         return result;
@@ -258,9 +259,8 @@ public class SyncedFolderProvider extends Observable {
     /**
      * Inform all observers about data change.
      */
-    private void notifyFolderSyncObservers() {
-        Log_OC.d(TAG, "notifying folder sync data observers");
-        setChanged();
-        notifyObservers();
+    private void notifyFolderSyncObservers(SyncedFolder syncedFolder) {
+        MainApp.getSyncedFolderObserverService().restartObserver(syncedFolder);
+        Log_OC.d(TAG, "notifying folder sync data observers for changed/added: " + syncedFolder.getLocalPath());
     }
 }

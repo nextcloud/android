@@ -22,12 +22,15 @@ package com.owncloud.android;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
 
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -57,6 +60,9 @@ public class MainApp extends Application {
     private static Context mContext;
 
     private static boolean mOnlyOnDevice = false;
+
+    private static SyncedFolderObserverService mObserverService;
+    private boolean mBound;
 
     
     public void onCreate(){
@@ -90,6 +96,7 @@ public class MainApp extends Application {
         Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
         Intent i = new Intent(this, SyncedFolderObserverService.class);
         startService(i);
+        bindService(i, syncedFolderObserverServiceConnection, Context.BIND_AUTO_CREATE);
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks( new ActivityLifecycleCallbacks() {
@@ -189,6 +196,10 @@ public class MainApp extends Application {
         return mOnlyOnDevice;
     }
 
+    public static SyncedFolderObserverService getSyncedFolderObserverService() {
+        return mObserverService;
+    }
+
     // user agent
     public static String getUserAgent() {
         String appString = getAppContext().getResources().getString(R.string.user_agent);
@@ -210,4 +221,21 @@ public class MainApp extends Application {
 
         return userAgent;
     }
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection syncedFolderObserverServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            SyncedFolderObserverService.SyncedFolderObserverBinder binder = (SyncedFolderObserverService.SyncedFolderObserverBinder) service;
+            mObserverService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
+
 }
