@@ -112,15 +112,10 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
         File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
-        /** Cancellation needs do be checked and done before changing the drawable in fileIcon, or
-         * {@link ThumbnailsCacheManager#cancelPotentialThumbnailWork} will NEVER cancel any task.
-         **/
-        boolean allowedToCreateNewThumbnail = (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, holder.image));
-
-        final ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
+        ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
                 new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image);
 
-        final ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
+        ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
                 new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
                         mContext.getResources(),
                         ThumbnailsCacheManager.mDefaultImg,
