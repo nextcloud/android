@@ -28,11 +28,7 @@ import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Message;
-import android.os.Messenger;
 import android.os.PersistableBundle;
-import android.os.RemoteException;
-import android.util.Log;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
@@ -43,11 +39,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimetypeIconUtil;
 
 import java.io.File;
-import java.util.Date;
-
-/**
- * Created by tobi on 25.09.16.
- */
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class SyncedFolderJobService extends JobService {
