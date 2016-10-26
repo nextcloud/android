@@ -354,9 +354,10 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     @Override
     public void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder) {
         SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection());
+        boolean dirty = !(item.isEnabled() == syncedFolder.getEnabled());
         item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
                 .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
-                .getUploadAction());
+                .getUploadAction(), syncedFolder.getEnabled());
 
         if (syncedFolder.getId() == UNPERSISTED_ID) {
             // newly set up folder sync config
@@ -366,6 +367,10 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             mSyncedFolderProvider.updateSyncFolder(item);
         }
         mSyncedFolderPreferencesDialogFragment = null;
+
+        if(dirty) {
+            mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
+        }
     }
 
     @Override
@@ -383,6 +388,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
      * @param chargingOnly    upload on charging only
      * @param subfolderByDate created sub folders
      * @param uploadAction    upload action
+     * @param enabled         is sync enabled
      * @return the updated item
      */
     private SyncedFolderDisplayItem updateSyncedFolderItem(SyncedFolderDisplayItem item,
@@ -391,13 +397,15 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                                                            Boolean wifiOnly,
                                                            Boolean chargingOnly,
                                                            Boolean subfolderByDate,
-                                                           Integer uploadAction) {
+                                                           Integer uploadAction,
+                                                           Boolean enabled) {
         item.setLocalPath(localPath);
         item.setRemotePath(remotePath);
         item.setWifiOnly(wifiOnly);
         item.setChargingOnly(chargingOnly);
         item.setSubfolderByDate(subfolderByDate);
         item.setUploadAction(uploadAction);
+        item.setEnabled(enabled);
         return item;
     }
 }
