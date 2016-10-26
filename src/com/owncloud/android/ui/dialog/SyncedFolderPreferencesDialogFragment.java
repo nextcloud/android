@@ -54,12 +54,12 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private CharSequence[] mUploadBehaviorItemStrings;
 
     protected View mView = null;
-    private boolean mEnabled;
     private ImageView mEnabledIcon;
     private CheckBox mUploadOnWifiCheckbox;
     private CheckBox mUploadOnChargingCheckbox;
     private CheckBox mUploadUseSubfoldersCheckbox;
     private TextView mUploadBehaviorSummary;
+    private TextView mLocalFolderName;
     private TextView mLocalFolderSummary;
     private TextView mRemoteFolderSummary;
 
@@ -121,6 +121,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      */
     private void setupDialogElements(View view) {
         // find/saves UI elements
+        mLocalFolderName = (TextView )view.findViewById(R.id.folder_sync_settings_subtitle);
         mEnabledIcon = (ImageView) view.findViewById(R.id.local_folder_status_icon);
         mLocalFolderSummary = (TextView) view.findViewById(R.id.local_folder_summary);
         mRemoteFolderSummary = (TextView) view.findViewById(R.id.remote_folder_summary);
@@ -134,6 +135,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         // Set values
         setEnabled(mSyncedFolder.getEnabled());
+        mLocalFolderName.setText(mSyncedFolder.getFolderName());
         mLocalFolderSummary.setText(mSyncedFolder.getLocalPath());
         mRemoteFolderSummary.setText(mSyncedFolder.getRemotePath());
 
