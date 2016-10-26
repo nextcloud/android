@@ -22,12 +22,15 @@ package com.owncloud.android;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
 import android.util.Log;
 import android.preference.PreferenceManager;
 
@@ -36,6 +39,8 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.services.observer.SyncedFolderObserverService;
+
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.utils.ExceptionHandler;
 import com.owncloud.android.ui.activity.Preferences;
@@ -63,7 +68,10 @@ public class MainApp extends Application {
 
     private static boolean mOnlyOnDevice = false;
 
-    
+    private static SyncedFolderObserverService mObserverService;
+    private boolean mBound;
+
+
     public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();
@@ -97,6 +105,11 @@ public class MainApp extends Application {
 
         Log_OC.startLogging(MainApp.storagePath);
         Log_OC.d("Debug", "start logging");
+
+        Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
+        Intent i = new Intent(this, SyncedFolderObserverService.class);
+        startService(i);
+        bindService(i, syncedFolderObserverServiceConnection, Context.BIND_AUTO_CREATE);
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks( new ActivityLifecycleCallbacks() {
@@ -216,6 +229,10 @@ public class MainApp extends Application {
         return mOnlyOnDevice;
     }
 
+    public static SyncedFolderObserverService getSyncedFolderObserverService() {
+        return mObserverService;
+    }
+
     // user agent
     public static String getUserAgent() {
         String appString = getAppContext().getResources().getString(R.string.user_agent);
@@ -237,4 +254,21 @@ public class MainApp extends Application {
 
         return userAgent;
     }
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection syncedFolderObserverServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            SyncedFolderObserverService.SyncedFolderObserverBinder binder = (SyncedFolderObserverService.SyncedFolderObserverBinder) service;
+            mObserverService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
+
 }

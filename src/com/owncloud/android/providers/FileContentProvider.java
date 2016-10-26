@@ -69,6 +69,7 @@ public class FileContentProvider extends ContentProvider {
     private static final int SHARES = 4;
     private static final int CAPABILITIES = 5;
     private static final int UPLOADS = 6;
+    private static final int SYNCED_FOLDERS = 7;
 
     private static final String TAG = FileContentProvider.class.getSimpleName();
 
@@ -186,6 +187,9 @@ public class FileContentProvider extends ContentProvider {
             case UPLOADS:
                 count = db.delete(ProviderTableMeta.UPLOADS_TABLE_NAME, where, whereArgs);
                 break;
+            case SYNCED_FOLDERS:
+                count = db.delete(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, where, whereArgs);
+                break;
             default:
                 //Log_OC.e(TAG, "Unknown uri " + uri);
                 throw new IllegalArgumentException("Unknown uri: " + uri.toString());
@@ -295,6 +299,19 @@ public class FileContentProvider extends ContentProvider {
 
                 }
                 return insertedUploadUri;
+
+            case SYNCED_FOLDERS:
+                Uri insertedSyncedFolderUri = null;
+                long syncedFolderId = db.insert(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, null, values);
+                if (syncedFolderId > 0) {
+                    insertedSyncedFolderUri =
+                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS, syncedFolderId);
+                } else {
+                    throw new SQLException("ERROR " + uri);
+
+                }
+                return insertedSyncedFolderUri;
+
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -342,6 +359,7 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "capabilities/#", CAPABILITIES);
         mUriMatcher.addURI(authority, "uploads/", UPLOADS);
         mUriMatcher.addURI(authority, "uploads/#", UPLOADS);
+        mUriMatcher.addURI(authority, "synced_folders", SYNCED_FOLDERS);
 
         return true;
     }
@@ -416,6 +434,13 @@ public class FileContentProvider extends ContentProvider {
                             + uri.getPathSegments().get(1));
                 }
                 break;
+            case SYNCED_FOLDERS:
+                sqlQuery.setTables(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME);
+                if (uri.getPathSegments().size() > 1) {
+                    sqlQuery.appendWhere(ProviderTableMeta._ID + "="
+                            + uri.getPathSegments().get(1));
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -431,6 +456,9 @@ public class FileContentProvider extends ContentProvider {
                     break;
                 case UPLOADS:
                     order = ProviderTableMeta.UPLOADS_DEFAULT_SORT_ORDER;
+                    break;
+                case SYNCED_FOLDERS:
+                    order = ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH;
                     break;
                 default: // Files
                     order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
@@ -489,6 +517,8 @@ public class FileContentProvider extends ContentProvider {
                 );
                 trimSuccessfulUploads(db);
                 return ret;
+            case SYNCED_FOLDERS:
+                return db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, values, selection, selectionArgs);
             default:
                 return db.update(
                         ProviderTableMeta.FILE_TABLE_NAME, values, selection, selectionArgs
@@ -542,6 +572,8 @@ public class FileContentProvider extends ContentProvider {
             // Create uploads table
             createUploadsTable(db);
 
+            // Create synced folders table
+            createSyncedFoldersTable(db);
         }
 
         @Override
@@ -786,6 +818,19 @@ public class FileContentProvider extends ContentProvider {
                 }
             }
 
+            if (oldVersion < 16 && newVersion >= 16) {
+                Log_OC.i("SQL", "Entering in the #16 ADD synced folders table");
+                db.beginTransaction();
+                try {
+                    // Create synced folders table
+                    createSyncedFoldersTable(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
             if (!upgraded)
                 Log_OC.i("SQL", "OUT of the ADD in onUpgrade; oldVersion == " + oldVersion +
                         ", newVersion == " + newVersion);
@@ -897,6 +942,20 @@ public class FileContentProvider extends ContentProvider {
         // uploadStatus is used to easy filtering, it has precedence over
         // uploadObject.getUploadStatus()
         */
+    }
+
+    private void createSyncedFoldersTable(SQLiteDatabase db){
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME + "("
+        + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "                          // id
+                + ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH  + " TEXT, "           // local path
+                + ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH + " TEXT, "           // remote path
+                + ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY + " INTEGER, "          // wifi_only
+                + ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY + " INTEGER, "      // charging only
+                + ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "            // enabled
+                + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, "  // subfolder by date
+                + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "              // account
+                + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER );"     // upload action
+        );
     }
 
     /**

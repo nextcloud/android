@@ -78,8 +78,10 @@
         </activity>
         <activity android:name=".ui.activity.ManageAccountsActivity" />
         <activity android:name=".ui.activity.ParticipateActivity" />
+        <activity android:name=".ui.activity.FolderSyncActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
+                  
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
                   android:label="Nextcloud beta"
@@ -124,6 +126,7 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
         </service>
+        <service android:name=".services.observer.SyncedFolderObserverService"/>
         <service
             android:name=".syncadapter.FileSyncService"
             android:exported="true" >
@@ -135,6 +138,10 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter_files" />
         </service>
+        <service
+            android:name=".services.SyncedFolderJobService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            android:exported="true"/>
 
         <provider
             android:name=".providers.FileContentProvider"
