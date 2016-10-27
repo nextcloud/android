@@ -132,7 +132,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private String mSubjectText;
     private String mExtraText;
 
-    private final static String FILENAME_ENCODING="UTF-8";
+    private final static String FILENAME_ENCODING = "UTF-8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -182,11 +182,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
             if (accounts.length == 0) {
                 Log_OC.i(TAG, "No ownCloud account is available");
                 DialogNoAccount dialog = new DialogNoAccount();
-                dialog.show(getSupportFragmentManager(), "dialog");
+                dialog.show(getSupportFragmentManager(), null);
             } else if (accounts.length > 1 && !mAccountSelected && !mAccountSelectionShowing) {
                 Log_OC.i(TAG, "More than one ownCloud is available");
                 DialogMultipleAccount dialog = new DialogMultipleAccount();
-                dialog.show(getSupportFragmentManager(), "dialog");
+                dialog.show(getSupportFragmentManager(), null);
                 mAccountSelectionShowing = true;
             } else {
                 if (!savedAccount) {
@@ -215,7 +215,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
         Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putSerializable(KEY_PARENTS, mParents);
-        //outState.putParcelable(KEY_ACCOUNT, mAccount);
         outState.putParcelable(KEY_FILE, mFile);
         outState.putBoolean(KEY_ACCOUNT_SELECTED, mAccountSelected);
         outState.putBoolean(KEY_ACCOUNT_SELECTION_SHOWING, mAccountSelectionShowing);
@@ -232,10 +231,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onDestroy();
     }
 
-    private class DialogNoAccount extends DialogFragment {
+    public static class DialogNoAccount extends DialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
-            AlertDialog.Builder builder = new Builder(ReceiveExternalFilesActivity.this);
+            AlertDialog.Builder builder = new Builder(getActivity());
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
             builder.setMessage(String.format(
@@ -261,7 +260,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         // show our own AccountSetupAcricity, get
                         // desired results and setup
                         // everything for ourself
-                        Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
+                        Intent intent = new Intent(getActivity().getBaseContext(), AccountAuthenticator.class);
                         startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
                     }
                 }
@@ -269,17 +268,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    finish();
+                    ((ReceiveExternalFilesActivity)getActivity()).finish();
                 }
             });
             return builder.create();
         }
     }
 
-    private class DialogMultipleAccount extends DialogFragment {
+    public static class DialogMultipleAccount extends DialogFragment {
         @Override
         public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
-            final ReceiveExternalFilesActivity parent = ReceiveExternalFilesActivity.this;
+            final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
             AlertDialog.Builder builder = new Builder(parent);
             Account accounts[] = parent.mAccountManager.getAccountsByType(MainApp.getAccountType());
             CharSequence dialogItems[] = new CharSequence[accounts.length];
@@ -292,7 +291,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setItems(dialogItems, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    final ReceiveExternalFilesActivity parent = ReceiveExternalFilesActivity.this;
+                    final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
                     parent.setAccount(parent.mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
                     parent.onAccountSet(parent.mAccountWasRestored);
                     dialog.dismiss();
@@ -306,56 +305,71 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         public void onCancel(DialogInterface dialog) {
             super.onCancel(dialog);
-            final ReceiveExternalFilesActivity parent = ReceiveExternalFilesActivity.this;
+            final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
             parent.mAccountSelectionShowing = false;
             parent.finish();
         }
     }
 
-    private class DialogInputUploadFilename extends DialogFragment {
-        List<String> mFilenameBase;
-        List<String> mFilenameSuffix;
-        List<String> mText;
+    public static class DialogInputUploadFilename extends DialogFragment {
+        private final static String KEY_SUBJECT_TEXT = "SUBJECT_TEXT";
+        private final static String KEY_EXTRA_TEXT = "EXTRA_TEXT";
 
-        DialogInputUploadFilename() {
+        private List<String> mFilenameBase;
+        private List<String> mFilenameSuffix;
+        private List<String> mText;
+
+        public static DialogInputUploadFilename newInstance(
+            String subjectText, String extraText
+        ) {
+            DialogInputUploadFilename dialog = new DialogInputUploadFilename();
+            Bundle args = new Bundle();
+            args.putString(KEY_SUBJECT_TEXT, subjectText);
+            args.putString(KEY_EXTRA_TEXT, extraText);
+            dialog.setArguments(args);
+            return dialog;
+        }
+        
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
             mFilenameBase = new ArrayList<String>();
             mFilenameSuffix = new ArrayList<String>();
             mText = new ArrayList<String>();
-        }
 
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
-            LayoutInflater layout = LayoutInflater.from(getBaseContext());
+            String subjectText = getArguments().getString(KEY_SUBJECT_TEXT);
+            String extraText = getArguments().getString(KEY_EXTRA_TEXT);
+
+            LayoutInflater layout = LayoutInflater.from(getActivity().getBaseContext());
             View view = layout.inflate(R.layout.upload_file_dialog, null);
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getBaseContext(), android.R.layout.simple_spinner_item);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             int selectPos = 0;
-            String filename = renameSafeFilename(mSubjectText);
+            String filename = renameSafeFilename(subjectText);
             if (filename == null) {
                 filename = "";
             }
-            adapter.add("Snippet text file(.txt)");
-            mText.add(mExtraText);
+            adapter.add(getString(R.string.upload_file_dialog_filetype_snippet_text));
+            mText.add(extraText);
             mFilenameBase.add(filename);
             mFilenameSuffix.add(TEXT_FILE_SUFFIX);
-            if (isIntentStartWithUrl()) {
-                String str = "Internet shortcut file(%s)";
-                mText.add(InternetShortcutUrlText(mExtraText));
+            if (isIntentStartWithUrl(extraText)) {
+                String str = getString(R.string.upload_file_dialog_filetype_internet_shortcut);
+                mText.add(InternetShortcutUrlText(extraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
                 adapter.add(String.format(str,URL_FILE_SUFFIX));
                 selectPos = adapter.getCount()-1;
 
-                mText.add(InternetShortcutWeblocText(mExtraText));
+                mText.add(InternetShortcutWeblocText(extraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
                 adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
             }
-            if (isIntentFromGoogleMap()) {
-                String str = "googlemap shortcut file(%s)";
-                String texts[] = mExtraText.split("\n");
+            if (isIntentFromGoogleMap(subjectText, extraText)) {
+                String str = getString(R.string.upload_file_dialog_filetype_googlemap_shortcut);
+                String texts[] = extraText.split("\n");
                 mText.add(InternetShortcutUrlText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
@@ -389,9 +403,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 spinner.setEnabled(false);
             }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(ReceiveExternalFilesActivity.this);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setView(view);
-            builder.setTitle("Input upload filename and filetype");
+            builder.setTitle(R.string.upload_file_dialog_title);
             builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
                     int selectPos = spinner.getSelectedItemPosition();
@@ -405,22 +419,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                     File file = createTempFile("tmp.tmp", mText.get(selectPos));
                     if (file == null) {
-                        finish();
+                        ((ReceiveExternalFilesActivity)getActivity()).finish();
                     }
                     String tmpname = file.getAbsolutePath();
 
-                    FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-                    requester.uploadNewFile(
-                            getBaseContext(),
-                            getAccount(),
-                            tmpname,
-                            mFile.getRemotePath() + filename,
-                            FileUploader.LOCAL_BEHAVIOUR_COPY,
-                            null,
-                            true,
-                            UploadFileOperation.CREATED_BY_USER
-                    );
-                    finish();
+                    ((ReceiveExternalFilesActivity)getActivity()).uploadFile(tmpname, filename);
                 }
             });
             builder.setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
@@ -448,11 +451,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
         }
 
-        private boolean isIntentFromGoogleMap() {
-            String texts[] = mExtraText.split("\n");
+        private boolean isIntentFromGoogleMap(String subjectText, String extraText) {
+            String texts[] = extraText.split("\n");
             if (texts.length != 3)
                 return false;
-            if (texts[0].length() == 0 || !mSubjectText.equals(texts[0]))
+            if (texts[0].length() == 0 || !subjectText.equals(texts[0]))
                 return false;
             if (!texts[2].startsWith("https://goo.gl/maps/")) {
                 return false;
@@ -460,8 +463,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             return true;
         }
 
-        private boolean isIntentStartWithUrl() {
-            return (mExtraText.startsWith("http://") || mExtraText.startsWith("https://"));
+        private boolean isIntentStartWithUrl(String extraText) {
+            return (extraText.startsWith("http://") || extraText.startsWith("https://"));
         }
 
         @Nullable
@@ -511,7 +514,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         @Nullable
         private File createTempFile(String filename, String text) {
-            File file = new File(ReceiveExternalFilesActivity.this.getCacheDir(), filename);
+            File file = new File(((ReceiveExternalFilesActivity)getActivity()).getCacheDir(), filename);
             FileWriter fw = null;
             try {
                 fw = new FileWriter(file);
@@ -582,8 +585,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 }
 
                 if (mUploadFromTmpFile){
-                    DialogInputUploadFilename dialog = new DialogInputUploadFilename();
-                    dialog.show(getSupportFragmentManager(), "dialog");
+                    DialogInputUploadFilename dialog = DialogInputUploadFilename.newInstance(mSubjectText, mExtraText);
+                    dialog.show(getSupportFragmentManager(), null);
                 } else {
                     Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
                     uploadFiles();
@@ -610,7 +613,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAuthTokenType());
             if (accounts.length == 0) {
                 DialogNoAccount dialog = new DialogNoAccount();
-                dialog.show(getSupportFragmentManager(), "dialog");
+                dialog.show(getSupportFragmentManager(), null);
             } else {
                 // there is no need for checking for is there more then one
                 // account at this point
@@ -747,6 +750,21 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private boolean somethingToUpload() {
         return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
                 mUploadFromTmpFile);
+    }
+
+    public void uploadFile(String tmpname, String filename) {
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadNewFile(
+            getBaseContext(),
+            getAccount(),
+            tmpname,
+            mFile.getRemotePath() + filename,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            null,
+            true,
+            UploadFileOperation.CREATED_BY_USER
+            );
+        finish();
     }
 
     @SuppressLint("NewApi")
