@@ -28,12 +28,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -54,7 +54,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private CharSequence[] mUploadBehaviorItemStrings;
 
     protected View mView = null;
-    private ImageView mEnabledIcon;
+    private SwitchCompat mEnabledSwitch;
     private CheckBox mUploadOnWifiCheckbox;
     private CheckBox mUploadOnChargingCheckbox;
     private CheckBox mUploadUseSubfoldersCheckbox;
@@ -122,7 +122,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private void setupDialogElements(View view) {
         // find/saves UI elements
         mLocalFolderName = (TextView )view.findViewById(R.id.folder_sync_settings_subtitle);
-        mEnabledIcon = (ImageView) view.findViewById(R.id.local_folder_status_icon);
+        mEnabledSwitch = (SwitchCompat) view.findViewById(R.id.sync_enabled);
         mLocalFolderSummary = (TextView) view.findViewById(R.id.local_folder_summary);
         mRemoteFolderSummary = (TextView) view.findViewById(R.id.remote_folder_summary);
 
@@ -153,11 +153,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      */
     private void setEnabled(boolean enabled) {
         mSyncedFolder.setEnabled(enabled);
-        if(enabled) {
-            mEnabledIcon.setImageResource(R.drawable.ic_cloud_sync_on);
-        } else {
-            mEnabledIcon.setImageResource(R.drawable.ic_cloud_sync_off);
-        }
+        mEnabledSwitch.setChecked(enabled);
     }
 
     /**
@@ -218,7 +214,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
             }
         });
 
-        view.findViewById(R.id.local_folder_container).setOnClickListener(new OnClickListener() {
+        view.findViewById(R.id.sync_enabled).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 setEnabled(!mSyncedFolder.getEnabled());
