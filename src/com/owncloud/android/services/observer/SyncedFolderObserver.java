@@ -40,29 +40,33 @@ class SyncedFolderObserver extends RecursiveFileObserver {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onEvent(int event, String path) {
-        PersistableBundle bundle = new PersistableBundle();
-        // TODO extract
-        bundle.putString("filePath", path);
-        bundle.putString("remotePath", syncedFolder.getRemotePath());
-        bundle.putLong("dateTaken", new Date().getTime());
-        bundle.putString("account", syncedFolder.getAccount());
-        bundle.putInt("uploadBehaviour", syncedFolder.getUploadAction());
-        bundle.putInt("subfolderByDate", syncedFolder.getSubfolderByDate() ? 1 : 0);
+        File temp = new File(path);
 
-        JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
-        JobInfo job = new JobInfo.Builder(
-                MY_BACKGROUND_JOB,
-                new ComponentName(context, SyncedFolderJobService.class))
-                .setRequiresCharging(syncedFolder.getChargingOnly())
-                .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
-                .setExtras(bundle)
-                .build();
+        if (!temp.getName().equalsIgnoreCase("null")) {
+            PersistableBundle bundle = new PersistableBundle();
+            // TODO extract
+            bundle.putString("filePath", path);
+            bundle.putString("remotePath", syncedFolder.getRemotePath());
+            bundle.putLong("dateTaken", new Date().getTime());
+            bundle.putString("account", syncedFolder.getAccount());
+            bundle.putInt("uploadBehaviour", syncedFolder.getUploadAction());
+            bundle.putInt("subfolderByDate", syncedFolder.getSubfolderByDate() ? 1 : 0);
 
-        Integer result = js.schedule(job);
-        if (result <= 0) {
-            Log_OC.d(TAG, "Job failed to start: " + result);
+            JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+            JobInfo job = new JobInfo.Builder(
+                    MY_BACKGROUND_JOB,
+                    new ComponentName(context, SyncedFolderJobService.class))
+                    .setRequiresCharging(syncedFolder.getChargingOnly())
+                    .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
+                    .setExtras(bundle)
+                    .build();
+
+            Integer result = js.schedule(job);
+            if (result <= 0) {
+                Log_OC.d(TAG, "Job failed to start: " + result);
+            }
+
+            Log.d(TAG, "Event: " + event + " Path: " + path);
         }
-
-        Log.d(TAG, "Event: " + event + " Path: " + path);
     }
 }
