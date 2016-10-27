@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Observable;
 
 /**
- * Database provider for handling the persistence aspects of synced folders.
+ * Database provider for handling the persistence aspects of {@link SyncedFolder}s.
  */
 public class SyncedFolderProvider extends Observable {
     static private final String TAG = SyncedFolderProvider.class.getSimpleName();

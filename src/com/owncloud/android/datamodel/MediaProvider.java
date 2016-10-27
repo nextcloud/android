@@ -35,7 +35,22 @@ import java.util.List;
  */
 public class MediaProvider {
     private static final String TAG = MediaProvider.class.getSimpleName();
+
+    // fixed query parameters
     private static final Uri MEDIA_URI = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+    private static final String[] FOLDER_PROJECTION = new String[] {
+            "Distinct " + MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
+            MediaStore.MediaColumns.DATA, MediaStore.Images.Media.DATE_TAKEN
+    };
+    private static final String[] FILE_PROJECTION = new String[] {
+            MediaStore.MediaColumns.DATA
+    };
+    private static final String FOLDER_SELECTION = MediaStore.Images.Media.BUCKET_DISPLAY_NAME +
+            " IS NOT NULL) GROUP BY (" + MediaStore.Images.Media.BUCKET_DISPLAY_NAME;
+    private static final String FILE_SELECTION = MediaStore.MediaColumns.DATA + " LIKE ";
+    private static final String FOLDER_SORT_ORDER = "MAX(" + MediaStore.MediaColumns.DATA + ") DESC";
+    private static final String SEPARATOR = "/";
+    private static final String WILDCARD = "%";
 
     /**
      * Getting All Images Paths.
@@ -51,19 +66,9 @@ public class MediaProvider {
         String absolutePathOfImage;
         String folderName;
 
-        // TODO rewrite/beautify
+        String fileSortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC LIMIT " + itemLimit;
 
-        String[] folderProjection = new String[]{"Distinct " + MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore
-                .MediaColumns.DATA, MediaStore.Images.Media.DATE_TAKEN};
-        String[] fileProjection = new String[]{MediaStore.MediaColumns.DATA};
-        String folderSelection = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + " IS NOT NULL) GROUP BY (" + MediaStore
-                .Images.Media
-                .BUCKET_DISPLAY_NAME;
-        String fileSelection = MediaStore.MediaColumns.DATA + " LIKE ";
-        String folderSortOrder = "MAX(" + MediaStore.MediaColumns.DATA + ") DESC";
-        String fileSortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC LIMIT "+ itemLimit;
-
-        cursor = contentResolver.query(MEDIA_URI, folderProjection, folderSelection, null, folderSortOrder);
+        cursor = contentResolver.query(MEDIA_URI, FOLDER_PROJECTION, FOLDER_SELECTION, null, FOLDER_SORT_ORDER);
 
         if (cursor == null) {
             return mediaFolders;
@@ -76,8 +81,9 @@ public class MediaProvider {
         while (cursor.moveToNext()) {
             absolutePathOfImage = cursor.getString(column_index_data);
 
-            cursorImages = contentResolver.query(MEDIA_URI, fileProjection, fileSelection + "'" +
-                            absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf("/")) + "/%'", null,
+            cursorImages = contentResolver.query(MEDIA_URI, FILE_PROJECTION, FILE_SELECTION + "'" +
+                            absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(SEPARATOR)) + SEPARATOR +
+                            WILDCARD + "'", null,
                     fileSortOrder);
 
             if (cursorImages != null) {
@@ -85,9 +91,8 @@ public class MediaProvider {
                 MediaFolder mediaFolder = new MediaFolder();
                 folderName = cursor.getString(column_index_folder_name);
                 mediaFolder.folderName = folderName;
-                mediaFolder.absolutePath = absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(folderName) +
-                        folderName
-                                .length());
+                mediaFolder.absolutePath = absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(folderName)
+                        + folderName.length());
                 mediaFolder.filePaths = new ArrayList<>();
 
                 column_index_data_image = cursorImages.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
@@ -99,9 +104,10 @@ public class MediaProvider {
 
                 mediaFolder.numberOfFiles = contentResolver.query(
                         MEDIA_URI,
-                        fileProjection,
-                        fileSelection + "'"
-                                + absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf("/")) + "/%'",
+                        FILE_PROJECTION,
+                        FILE_SELECTION + "'"
+                                + absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(SEPARATOR)) +
+                                SEPARATOR + WILDCARD + "'",
                         null,
                         null).getCount();
 
