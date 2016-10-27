@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s Android приложение</string>
+    <string name="about_android">Android приложение за %1$s</string>
     <string name="about_version">версия %1$s</string>
     <string name="actionbar_sync">Обновяви профила</string>
     <string name="actionbar_upload">Качване</string>
@@ -27,6 +27,7 @@
     <string name="prefs_accounts">Профили</string>
     <string name="prefs_manage_accounts">Управление на профилите</string>
     <string name="prefs_passcode">Код за достъп</string>
+    <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_instant_upload">Незабавно качване на снимки</string>
     <string name="prefs_instant_upload_summary">Незабавно качване на направените снимки</string>
     <string name="prefs_instant_video_upload">Незабавно качване на видео</string>
@@ -123,8 +124,9 @@
     <string name="uploader_upload_failed_ticker">Неуспешно качване</string>
     <string name="uploader_upload_failed_content_single">Качването на %1$s не може да бъде завършено</string>
     <string name="uploader_upload_failed_credentials_error">Неуспешно качване, нужно е да се впишете отново</string>
-    <string name="uploads_view_title">Качено</string>
+    <string name="uploads_view_title">Качени</string>
     <string name="uploads_view_group_current_uploads">Текущ</string>
+    <string name="uploads_view_group_failed_uploads">Некачени (докоснете за нов опит)</string>
     <string name="uploads_view_group_finished_uploads">Качени</string>
     <string name="uploads_view_upload_status_succeeded">Завършено</string>
     <string name="uploads_view_upload_status_cancelled">Отказано</string>
@@ -134,7 +136,7 @@
     <string name="uploads_view_upload_status_failed_credentials_error">Грешка при удостоверение</string>
     <string name="uploads_view_upload_status_failed_folder_error">Грешка в папката</string>
     <string name="uploads_view_upload_status_failed_file_error">Грешка във файла</string>
-    <string name="uploads_view_upload_status_failed_localfile_error">Локалния фаил не е намерен</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">Локалният фаил не е намерен</string>
     <string name="uploads_view_upload_status_failed_permission_error">Грешка в правата</string>
     <string name="uploads_view_upload_status_conflict">Конфликт</string>
     <string name="uploads_view_upload_status_service_interrupted">Приложението бе терминирано</string>
@@ -436,6 +438,11 @@
     <string name="share_privilege_can_edit_create">създаване</string>
     <string name="share_privilege_can_edit_change">промяна</string>
     <string name="share_privilege_can_edit_delete">изтриване</string>
+    <string name="action_retry_uploads">Нов опит</string>
+    <string name="action_clear_failed_uploads">Изчисти некачените</string>
+    <string name="action_clear_successful_uploads">Изчисти качените</string>
+    <string name="action_clear_finished_uploads">Изчисти всички</string>
+
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
 
