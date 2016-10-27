@@ -341,29 +341,31 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mFilenameBase.add(filename);
             mFilenameSuffix.add(TEXT_FILE_SUFFIX);
             if (isIntentStartWithUrl()) {
+                String str = "Internet shortcut file(%s)";
                 mText.add(InternetShortcutUrlText(mExtraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
-                adapter.add("Internet shortcut file(.url)");
+                adapter.add(String.format(str,URL_FILE_SUFFIX));
                 selectPos = adapter.getCount()-1;
 
                 mText.add(InternetShortcutWeblocText(mExtraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
-                adapter.add("Internet shortcut file(.webloc)");
+                adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
             }
             if (isIntentFromGoogleMap()) {
+                String str = "googlemap shortcut file(%s)";
                 String texts[] = mExtraText.split("\n");
                 mText.add(InternetShortcutUrlText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
-                adapter.add("googlemap shortcut file(.url)");
+                adapter.add(String.format(str,URL_FILE_SUFFIX));
                 selectPos = adapter.getCount()-1;
 
                 mText.add(InternetShortcutWeblocText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
-                adapter.add("googlemap shortcut file(.webloc)");
+                adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
             }
 
             final EditText userInput = (EditText) view.findViewById(R.id.user_input);
@@ -488,22 +490,22 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         private String InternetShortcutUrlText(String url) {
-            String text;
-            text = "[InternetShortcut]\r\n";
-            text += "URL=" + url + "\r\n";
+            String text =
+                "[InternetShortcut]\r\n" +
+                "URL=" + url + "\r\n";
             return text;
         }
 
         private String InternetShortcutWeblocText(String url) {
-            String text;
-            text = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-            text += "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n";
-            text += "<plist version=\"1.0\">\n";
-            text += "<dict>\n";
-            text += "<key>URL</key>\n";
-            text += "<string>" + url + "</string>\n";
-            text += "</dict>\n";
-            text += "</plist>\n";
+            String text =
+                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n" +
+                "<plist version=\"1.0\">\n" +
+                "<dict>\n" +
+                "<key>URL</key>\n" +
+                "<string>" + url + "</string>\n" +
+                "</dict>\n" +
+                "</plist>\n";
             return text;
         }
 
