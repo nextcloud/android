@@ -504,6 +504,7 @@
     <string name="folder_sync_preferences">Instant Upload Preferences</string>
     <string name="folder_sync_settings">Settings</string>
     <string name="folder_sync_new_info">Instant upload has been revamped completely. Please see the main menu and re-configure your instant upload. Sorry for the inconvenience.\n\nEnjoy the new and extended instant upload capabilities!</string>
+    <string name="folder_sync_preferences_folder_path">For %1$s</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"

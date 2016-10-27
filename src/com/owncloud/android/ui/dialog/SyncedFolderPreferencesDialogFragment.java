@@ -24,11 +24,13 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.SwitchCompat;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +43,7 @@ import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
+import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different parameters.
@@ -59,8 +62,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     private CheckBox mUploadOnChargingCheckbox;
     private CheckBox mUploadUseSubfoldersCheckbox;
     private TextView mUploadBehaviorSummary;
-    private TextView mLocalFolderName;
-    private TextView mLocalFolderSummary;
+    private TextView mLocalFolderPath;
     private TextView mRemoteFolderSummary;
 
     private SyncedFolderParcelable mSyncedFolder;
@@ -121,9 +123,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
      */
     private void setupDialogElements(View view) {
         // find/saves UI elements
-        mLocalFolderName = (TextView )view.findViewById(R.id.folder_sync_settings_subtitle);
         mEnabledSwitch = (SwitchCompat) view.findViewById(R.id.sync_enabled);
-        mLocalFolderSummary = (TextView) view.findViewById(R.id.local_folder_summary);
+        mLocalFolderPath = (TextView) view.findViewById(R.id.folder_sync_settings_local_folder_path);
+
         mRemoteFolderSummary = (TextView) view.findViewById(R.id.remote_folder_summary);
 
         mUploadOnWifiCheckbox = (CheckBox) view.findViewById(R.id.setting_instant_upload_on_wifi_checkbox);
@@ -135,8 +137,14 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
 
         // Set values
         setEnabled(mSyncedFolder.getEnabled());
-        mLocalFolderName.setText(mSyncedFolder.getFolderName());
-        mLocalFolderSummary.setText(mSyncedFolder.getLocalPath());
+        mLocalFolderPath.setText(
+                DisplayUtils.createTextWithSpan(
+                        String.format(
+                                getString(R.string.folder_sync_preferences_folder_path),
+                                mSyncedFolder.getLocalPath()),
+                        mSyncedFolder.getFolderName(),
+                        new StyleSpan(Typeface.BOLD)));
+
         mRemoteFolderSummary.setText(mSyncedFolder.getRemotePath());
 
         mUploadOnWifiCheckbox.setChecked(mSyncedFolder.getWifiOnly());
