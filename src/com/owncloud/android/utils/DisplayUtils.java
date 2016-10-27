@@ -38,7 +38,10 @@ import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -68,9 +71,9 @@ public class DisplayUtils {
 
     private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
     private static final int[] sizeScales = { 0, 0, 1, 1, 1, 2, 2, 2, 2 };
-    public static final int RELATIVE_THRESHOLD_WARNING = 90;
-    public static final int RELATIVE_THRESHOLD_CRITICAL = 95;
-    public static final String MIME_TYPE_UNKNOWN = "Unknown type";
+    private static final int RELATIVE_THRESHOLD_WARNING = 90;
+    private static final int RELATIVE_THRESHOLD_CRITICAL = 95;
+    private static final String MIME_TYPE_UNKNOWN = "Unknown type";
 
     private static Map<String, String> mimeType2HumanReadable;
 
@@ -352,6 +355,21 @@ public class DisplayUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             fragmentActivity.getWindow().setStatusBarColor(color);
         }
+    }
+
+    /**
+     * styling of given spanText within a given text.
+     *
+     * @param text the non styled complete text
+     * @param spanText the to be styled text
+     * @param style the style to be applied
+     */
+    public static SpannableStringBuilder createTextWithSpan(String text, String spanText, StyleSpan style) {
+        SpannableStringBuilder sb = new SpannableStringBuilder(text);
+        int start = text.lastIndexOf(spanText);
+        int end = start + spanText.length();
+        sb.setSpan(style, start, end, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        return sb;
     }
 
     /**
