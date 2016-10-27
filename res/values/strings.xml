@@ -61,7 +61,6 @@
     <string name="sync_string_files">Files</string>
     <string name="setup_btn_connect">Connect</string>
     <string name="uploader_btn_upload_text">Upload</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Create text file</string>
     <string name="uploader_top_message">Choose upload folder</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
@@ -540,6 +539,12 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
+    <string name="upload_file_dialog_title">Input upload filename and filetype</string>
+    <string name="upload_file_dialog_filename">Filename</string>
+    <string name="upload_file_dialog_filetype">Filetype</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Snippet text file(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet shortcut file(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">googlemap shortcut file(%s)</string>
 
     <string name="storage_description_default">Default</string>
     <string name="storage_description_sd_no">SD card %1$d</string>
