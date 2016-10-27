@@ -360,9 +360,9 @@ public class DisplayUtils {
     /**
      * styling of given spanText within a given text.
      *
-     * @param text the non styled complete text
+     * @param text     the non styled complete text
      * @param spanText the to be styled text
-     * @param style the style to be applied
+     * @param style    the style to be applied
      */
     public static SpannableStringBuilder createTextWithSpan(String text, String spanText, StyleSpan style) {
         SpannableStringBuilder sb = new SpannableStringBuilder(text);
