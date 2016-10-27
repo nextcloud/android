@@ -28,6 +28,7 @@ public class SyncedFolderObserverService extends Service {
         Log_OC.d(TAG, "start");
         for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled()) {
+                Log_OC.d(TAG, "stop observer: " + syncedFolder.getLocalPath());
                 SyncedFolderObserver observer = new SyncedFolderObserver(syncedFolder);
                 observer.startWatching();
                 syncedFolderMap.put(syncedFolder.getLocalPath(), observer);
