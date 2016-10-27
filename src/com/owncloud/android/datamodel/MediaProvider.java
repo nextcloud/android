@@ -38,19 +38,12 @@ public class MediaProvider {
 
     // fixed query parameters
     private static final Uri MEDIA_URI = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-    private static final String[] FOLDER_PROJECTION = new String[] {
-            "Distinct " + MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
-            MediaStore.MediaColumns.DATA, MediaStore.Images.Media.DATE_TAKEN
-    };
-    private static final String[] FILE_PROJECTION = new String[] {
-            MediaStore.MediaColumns.DATA
-    };
-    private static final String FOLDER_SELECTION = MediaStore.Images.Media.BUCKET_DISPLAY_NAME +
-            " IS NOT NULL) GROUP BY (" + MediaStore.Images.Media.BUCKET_DISPLAY_NAME;
-    private static final String FILE_SELECTION = MediaStore.MediaColumns.DATA + " LIKE ";
-    private static final String FOLDER_SORT_ORDER = "MAX(" + MediaStore.MediaColumns.DATA + ") DESC";
-    private static final String SEPARATOR = "/";
-    private static final String WILDCARD = "%";
+    private static final String[] FILE_PROJECTION = new String[]{MediaStore.MediaColumns.DATA};
+    private static final String FILE_SELECTION = MediaStore.Images.Media.BUCKET_ID + "=";
+    private static final Uri uri1 = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+    private static final String[] FOLDER_PROJECTION = { "Distinct " + MediaStore.Images.Media.BUCKET_ID,
+            MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
+    private static final String FOLDER_SORT_ORDER = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + " ASC";
 
     /**
      * Getting All Images Paths.
@@ -60,61 +53,58 @@ public class MediaProvider {
      * @return list with media folders
      */
     public static List<MediaFolder> getMediaFolders(ContentResolver contentResolver, int itemLimit) {
-        Cursor cursor;
+        // query media/image folders
+        Cursor cursorFolders = contentResolver.query(MEDIA_URI, FOLDER_PROJECTION, null, null, FOLDER_SORT_ORDER);
         List<MediaFolder> mediaFolders = new ArrayList<>();
-        int column_index_data, column_index_folder_name, column_index_data_image;
-        String absolutePathOfImage;
-        String folderName;
 
-        String fileSortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC LIMIT " + itemLimit;
+        if (cursorFolders != null) {
+            String folderName;
+            String fileSortOrder = MediaStore.Images.Media.DATE_TAKEN + " DESC LIMIT " + itemLimit;
+            Cursor cursorImages;
 
-        cursor = contentResolver.query(MEDIA_URI, FOLDER_PROJECTION, FOLDER_SELECTION, null, FOLDER_SORT_ORDER);
-
-        if (cursor == null) {
-            return mediaFolders;
-        }
-
-        column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-        column_index_folder_name = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
-        Cursor cursorImages;
-
-        while (cursor.moveToNext()) {
-            absolutePathOfImage = cursor.getString(column_index_data);
-
-            cursorImages = contentResolver.query(MEDIA_URI, FILE_PROJECTION, FILE_SELECTION + "'" +
-                            absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(SEPARATOR)) + SEPARATOR +
-                            WILDCARD + "'", null,
-                    fileSortOrder);
-
-            if (cursorImages != null) {
+            while (cursorFolders.moveToNext()) {
+                String folderId = cursorFolders.getString(cursorFolders.getColumnIndex(MediaStore.Images.Media
+                        .BUCKET_ID));
 
                 MediaFolder mediaFolder = new MediaFolder();
-                folderName = cursor.getString(column_index_folder_name);
+                folderName = cursorFolders.getString(cursorFolders.getColumnIndex(
+                        MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
                 mediaFolder.folderName = folderName;
-                mediaFolder.absolutePath = absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(folderName)
-                        + folderName.length());
                 mediaFolder.filePaths = new ArrayList<>();
 
-                column_index_data_image = cursorImages.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
-                Log.d(TAG, "Reading images for " + mediaFolder.absolutePath);
-                while (cursorImages.moveToNext()) {
-                    mediaFolder.filePaths.add(cursorImages.getString(column_index_data_image));
+                // query images
+                cursorImages = contentResolver.query(MEDIA_URI, FILE_PROJECTION, FILE_SELECTION + folderId, null,
+                        fileSortOrder);
+                Log.d(TAG, "Reading images for " + mediaFolder.folderName);
+
+                if (cursorImages != null) {
+                    String filePath;
+                    while (cursorImages.moveToNext()) {
+                        filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
+                                MediaStore.MediaColumns.DATA));
+                        mediaFolder.filePaths.add(filePath);
+                        mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf(folderName)
+                                + folderName.length());
+                    }
+                    cursorImages.close();
+
+                    // count images
+                    Cursor count = contentResolver.query(
+                            MEDIA_URI,
+                            FILE_PROJECTION,
+                            FILE_SELECTION + folderId,
+                            null,
+                            null);
+
+                    if (count != null) {
+                        mediaFolder.numberOfFiles = count.getCount();
+                        count.close();
+                    }
                 }
-                cursorImages.close();
-
-                mediaFolder.numberOfFiles = contentResolver.query(
-                        MEDIA_URI,
-                        FILE_PROJECTION,
-                        FILE_SELECTION + "'"
-                                + absolutePathOfImage.substring(0, absolutePathOfImage.lastIndexOf(SEPARATOR)) +
-                                SEPARATOR + WILDCARD + "'",
-                        null,
-                        null).getCount();
-
                 mediaFolders.add(mediaFolder);
             }
+            cursorFolders.close();
         }
-        cursor.close();
 
         return mediaFolders;
     }
