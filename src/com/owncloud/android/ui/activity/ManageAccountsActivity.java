@@ -104,7 +104,7 @@ public class ManageAccountsActivity extends FileActivity
         setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
         onAccountSet(false);
 
-        mAccountListAdapter = new AccountListAdapter(this, getAccountListItems(),mTintedCheck);
+        mAccountListAdapter = new AccountListAdapter(this, getAccountListItems(), mTintedCheck);
 
         mListView.setAdapter(mAccountListAdapter);
 
