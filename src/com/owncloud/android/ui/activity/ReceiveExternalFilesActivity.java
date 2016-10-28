@@ -87,6 +87,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -319,6 +320,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
         private List<String> mFilenameSuffix;
         private List<String> mText;
 
+        private Spinner mSpinner;
+
         public static DialogInputUploadFilename newInstance(
             String subjectText, String extraText
         ) {
@@ -329,7 +332,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             dialog.setArguments(args);
             return dialog;
         }
-        
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
             mFilenameBase = new ArrayList<String>();
@@ -387,6 +390,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             userInput.requestFocus();
 
             final Spinner spinner = (Spinner) view.findViewById(R.id.file_type);
+            mSpinner = spinner;
             spinner.setAdapter(adapter);
             spinner.setSelection(selectPos, false);
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -435,6 +439,21 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Dialog d = builder.create();
             d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             return d;
+        }
+
+        public void onPause() {
+            hideSpinnerDropDown(mSpinner);
+            super.onPause();
+        }
+
+        private void hideSpinnerDropDown(Spinner spinner) {
+            try {
+                Method method = Spinner.class.getDeclaredMethod("onDetachedFromWindow");
+                method.setAccessible(true);
+                method.invoke(spinner);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "onDetachedFromWindow", e);
+            }
         }
 
         private void setFilename(EditText inputText, int selectPos)
@@ -1053,3 +1072,4 @@ public class ReceiveExternalFilesActivity extends FileActivity
         errorDialog.show(getSupportFragmentManager(), FTAG_ERROR_FRAGMENT);
     }
 }
+
