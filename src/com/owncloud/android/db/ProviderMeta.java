@@ -107,7 +107,7 @@ public class ProviderMeta {
 
         // Columns of capabilities table
         public static final String CAPABILITIES_ACCOUNT_NAME = "account";
-        public static final String CAPABILITIES_VERSION_MAYOR = "version_mayor";
+        public static final String CAPABILITIES_VERSION_MAJOR = "version_major";
         public static final String CAPABILITIES_VERSION_MINOR = "version_minor";
         public static final String CAPABILITIES_VERSION_MICRO = "version_micro";
         public static final String CAPABILITIES_VERSION_STRING = "version_string";

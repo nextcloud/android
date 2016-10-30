@@ -846,7 +846,7 @@ public class FileContentProvider extends ContentProvider {
         db.execSQL("CREATE TABLE " + ProviderTableMeta.CAPABILITIES_TABLE_NAME + "("
                 + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "
                 + ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + " TEXT, "
-                + ProviderTableMeta.CAPABILITIES_VERSION_MAYOR + " INTEGER, "
+                + ProviderTableMeta.CAPABILITIES_VERSION_MAJOR + " INTEGER, "
                 + ProviderTableMeta.CAPABILITIES_VERSION_MINOR + " INTEGER, "
                 + ProviderTableMeta.CAPABILITIES_VERSION_MICRO + " INTEGER, "
                 + ProviderTableMeta.CAPABILITIES_VERSION_STRING + " TEXT, "

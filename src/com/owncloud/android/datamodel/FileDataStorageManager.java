@@ -1880,7 +1880,7 @@ public class FileDataStorageManager {
         // Prepare capabilities data
         ContentValues cv = new ContentValues();
         cv.put(ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME, mAccount.name);
-        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MAYOR, capability.getVersionMayor());
+        cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MAJOR, capability.getVersionMajor());
         cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MINOR, capability.getVersionMinor());
         cv.put(ProviderTableMeta.CAPABILITIES_VERSION_MICRO, capability.getVersionMicro());
         cv.put(ProviderTableMeta.CAPABILITIES_VERSION_STRING, capability.getVersionString());
@@ -2010,8 +2010,8 @@ public class FileDataStorageManager {
             capability.setId(c.getLong(c.getColumnIndex(ProviderTableMeta._ID)));
             capability.setAccountName(c.getString(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME)));
-            capability.setVersionMayor(c.getInt(c
-                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_MAYOR)));
+            capability.setVersionMajor(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_MAJOR)));
             capability.setVersionMinor(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_VERSION_MINOR)));
             capability.setVersionMicro(c.getInt(c
