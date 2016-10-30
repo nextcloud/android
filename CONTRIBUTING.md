@@ -141,7 +141,7 @@ For _stable_ and _release candidate_ the version name follows the [semantic vers
 * 2 digits for beta code as in release candidates starting at '01'
 * 2 digits for hot fix code
 * 3 digits for minor version code
-* n digits for mayor version code
+* n digits for major version code
 
 ![Version code schema](https://cloud.githubusercontent.com/assets/1315170/15992040/e4e05442-30c2-11e6-88e2-84e77fa1653d.png)
 
@@ -171,14 +171,14 @@ To get an idea which PRs and issues will be part of the next release simply chec
 Stable releases are based on the git [master](https://github.com/nextcloud/android).
 
 1. Bump the version name and version code in the [AndroidManifest.xml](https://github.com/nextcloud/android/blob/master/AndroidManifest.xml), see chapter 'Version Name and number'.
-2. Create a [release/tag](https://github.com/nextcloud/android/releases) in git. Tag name following the naming schema: ```stable-Mayor.Minor.Hotfix``` (e.g. stable-1.2.0) naming the version number following the [semantic versioning schema](http://semver.org/)
+2. Create a [release/tag](https://github.com/nextcloud/android/releases) in git. Tag name following the naming schema: ```stable-Major.Minor.Hotfix``` (e.g. stable-1.2.0) naming the version number following the [semantic versioning schema](http://semver.org/)
 
 
 ### Release Candidate Release
 Release Candidate releases are based on the git [master](https://github.com/nextcloud/android) and are done between stable releases.
 
 1. Bump the version name and version code in the [AndroidManifest.xml](https://github.com/nextcloud/android/blob/master/AndroidManifest.xml), see below the version name and code concept.
-2. Create a [release/tag](https://github.com/nextcloud/android/releases) in git. Tag name following the naming schema: ```rc-Mayor.Minor.Hotfix-betaIncrement``` (e.g. rc-1.2.0-12) naming the version number following the [semantic versioning schema](http://semver.org/)
+2. Create a [release/tag](https://github.com/nextcloud/android/releases) in git. Tag name following the naming schema: ```rc-Major.Minor.Hotfix-betaIncrement``` (e.g. rc-1.2.0-12) naming the version number following the [semantic versioning schema](http://semver.org/)
 
 
 ###Development Beta Release
