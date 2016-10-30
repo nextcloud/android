@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Konta</string>
     <string name="prefs_manage_accounts">Zarządzaj kontami</string>
     <string name="prefs_passcode">Blokada hasłem</string>
+    <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_instant_upload">Natychmiastowa wysyłka obrazów</string>
     <string name="prefs_instant_upload_summary">Wysyłaj od razu zdjęcia zrobione aparatem</string>
     <string name="prefs_instant_video_upload">Natychmiastowa wysyłka wideo</string>
@@ -482,6 +483,7 @@
     <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
     <string name="participate_beta_headline">Testuj wersję Beta</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
+    <string name="participate_release_candidate_text">Release Candidate (RC) jest zarysem nadchodzącego wydania i oczekujemy że będzie stabilne. Testowanie indywidualnej konfiguracji może pomóc, aby to zapewnić. Zapisz się do testowania w sklepie Play lub ręcznie szukaj w sekcji \"wersje\" na F-Droid.</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
     <string name="participate_contribute_irc_text">Dołącz do chatu (IRC): &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Pomoż innym na &lt;a href=\"%1$s>forum&lt;/a></string>
