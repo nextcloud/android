@@ -13,16 +13,22 @@
     <string name="actionbar_send_file">Skicka</string>
     <string name="actionbar_sort">Sortera</string>
     <string name="actionbar_sort_title">Sortera efter</string>
+    <string name="menu_item_sort_by_name">A - Ö</string>
+    <string name="menu_item_sort_by_date">Nyast - Äldst</string>
+    <string name="menu_item_sort_by_size">Störst - Minst</string>
     <string name="drawer_item_all_files">Alla filer</string>
+    <string name="drawer_item_on_device">På enheten</string>
     <string name="drawer_item_settings">Inställningar</string>
     <string name="drawer_item_uploads_list">Uppladdningar</string>
-    <string name="drawer_close">Stäng</string>
+    <string name="drawer_quota">%1$s av %2$s använt</string>
+	<string name="drawer_close">Stäng</string>
     <string name="drawer_open">Öppna</string>
     <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_accounts">Konton</string>
     <string name="prefs_manage_accounts">Hantera konton</string>
     <string name="prefs_passcode">Lösenordslås</string>
+    <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_instant_upload">Direktuppladdning av kamerabilder</string>
     <string name="prefs_instant_upload_summary">Direktuppladning av bilder tagna med kameran</string>
     <string name="prefs_instant_video_upload">Direktuppladning av video</string>
@@ -32,6 +38,10 @@
     <string name="prefs_log_title_history">Logghistorik</string>
     <string name="prefs_log_summary_history">Visar sparade loggar</string>
     <string name="prefs_log_delete_history_button">Radera historik</string>
+    <string name="prefs_calendar_contacts">Synkronisera kalender &amp; kontakter</string>
+    <string name="prefs_calendar_contacts_summary">Sätt upp DAVdroid (v1.3.0+) för nuvarande konto</string>
+    <string name="prefs_calendar_contacts_no_store_error">Ingen Google Play eller F-Droid app installerad</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynk har satts upp korrekt</string>
     <string name="prefs_help">Hjälp</string>
     <string name="prefs_recommend">Rekommendera till en vän</string>
     <string name="prefs_feedback">Feedback</string>
@@ -50,6 +60,7 @@
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Anslut</string>
     <string name="uploader_btn_upload_text">Ladda upp</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Skapa en textfil</string>
     <string name="uploader_top_message">Välj mapp för uppladdning</string>
     <string name="uploader_wrn_no_account_title">Hittade inget konto</string>
     <string name="uploader_wrn_no_account_text">Det finns inga %1$s-konton på din enhet. Lägg till ett konto först</string>
@@ -57,11 +68,12 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Avsluta</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil att ladda upp</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s kan inte ladda upp text som en fil.</string>
-    <string name="uploader_error_message_no_file_to_upload">Mottagen data innehåller ingen giltig fil.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Fil kan inte laddas upp</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s har inte tillåtelse att läsa en mottagen fil</string>
     <string name="uploader_error_message_source_file_not_found">Filen som skulle laddas upp hittades inte på sin plats. Vänligen kontrollera att filen existerar.</string>
     <string name="uploader_error_message_source_file_not_copied">Ett fel uppstod när filen kopierades till en temporär mapp. Vänligen försök skicka den igen.</string>
+    <string name="uploader_upload_files_behaviour">Uppladdningsalternativ:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytta filen till Nextcloud mappen</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
     <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
     <string name="file_list_loading">Laddar...</string>
@@ -95,6 +107,7 @@
     <string name="common_loading">Laddar...</string>
     <string name="common_unknown">okänt</string>
     <string name="common_error_unknown">Okänt fel</string>
+    <string name="common_pending">Väntar</string>
     <string name="about_title">Om</string>
     <string name="change_password">Ändra lösenord</string>
     <string name="delete_account">Radera konto</string>
@@ -137,7 +150,6 @@
     <string name="downloader_download_failed_credentials_error">Nedladdningen misslyckades, du måste logga in igen</string>
     <string name="common_choose_account">Välj konto</string>
     <string name="sync_fail_ticker">Synkronisering misslyckades</string>
-    <string name="sync_fail_ticker_unauthorized">Synkronisering misslyckades, du måste logga in igen</string>
     <string name="sync_fail_content">Synkronisering av %1$s kunde inte slutföras</string>
     <string name="sync_fail_content_unauthorized">Felaktigt lösenord för %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
@@ -154,8 +166,6 @@
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Fjärr: %1$s</string>
     <string name="upload_query_move_foreign_files">Det finns inte tillräckligt med utrymme för att kopiera filerna till målmappen %1$s. Vill du flytta filerna istället?</string>
-    <string name="pass_code_enter_pass_code">Var god ange ditt lösenord</string>
-    
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
     <string name="pass_code_configure_your_pass_code_explanation">Lösenordet kommer efterfrågas varje gång du startar appen</string>
     <string name="pass_code_reenter_your_pass_code">Var god ange ditt lösenord igen</string>
@@ -223,6 +233,7 @@
     <string name="unfavorite">Ta bort som tillgänglig offline</string>
     <string name="common_rename">Byt namn</string>
     <string name="common_remove">Radera</string>
+    <string name="confirmation_remove_file_alert">Vill du verkligen radera %1$s?</string>
     <string name="confirmation_remove_folder_alert">Vill du verkligen ta bort %1$s och dess innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="remove_success_msg">Lyckad radering</string>
@@ -238,7 +249,6 @@
     <string name="filename_empty">Filnamnet får inte lämnas blankt</string>
     <string name="wait_a_moment">Var god vänta</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
-    <string name="filedisplay_unexpected_bad_get_content">Oväntat problem; prova annat program för aktuell fil</string>
     <string name="filedisplay_no_file_selected">Ingen fil vald</string>
     <string name="activity_chooser_title">Sänd länk till ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
@@ -283,6 +293,8 @@
 
     <string name="instant_upload_on_wifi">Ladda upp bilder endast via wifi</string>
     <string name="instant_video_upload_on_wifi">Ladda upp videor endast via wifi</string>
+    <string name="instant_video_upload_on_charging">Ladda enbart upp när enheten laddas</string>
+    <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/DirektUppladdning</string>
     <string name="conflict_title">Filkonflikt</string>
     <string name="conflict_message">Vilka filer vill du behålla? Om du markerar båda kommer den lokala filen få ett nummer tillagt i slutet på filnamnet.</string>
@@ -294,7 +306,10 @@
     <string name="preview_image_error_unknown_format">Denna bild kan inte visas</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>
-    <string name="share_link_no_support_share_api">Ledsen, delning är inte aktiverat på din server. Vänligen kontakta din
+    <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserad på år och månad</string>
+
+	<string name="share_link_no_support_share_api">Ledsen, delning är inte aktiverat på din server. Vänligen kontakta din
 		administratör.</string>
 	<string name="share_link_file_no_exist">Lyckades ej dela. Vänligen kontrollera om filen eisterar</string>
 	<string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
@@ -316,9 +331,6 @@
     <string name="error_cant_bind_to_operations_service">Kritiskt fel: kan inte utföra åtgärden</string>
 
     <string name="network_error_socket_exception">Ett fel uppstod vid anslutning till servern.</string>
-    <string name="network_error_socket_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
-    <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
-    <string name="network_host_not_available">Åtgärden kunte inte slutföras, servern är ej tillgänglig</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Du har inga rättigheter %s</string>
@@ -333,6 +345,7 @@
 
     <string name="prefs_category_accounts">Konton</string>
     <string name="prefs_add_account">Lägg till konto</string>
+    <string name="drawer_manage_accounts">Hantera konton</string>
     <string name="auth_redirect_non_secure_connection_title">Den säkra kopplingen omdirigeras via en osäker rutt.</string>
 
 	<string name="actionbar_logger">Loggar</string>
@@ -344,7 +357,8 @@
 	<string name="saml_authentication_required_text">Autentisering krävs</string>
 	<string name="saml_authentication_wrong_pass">Fel lösenord</string>
 	<string name="actionbar_move">Flytta</string>
-    <string name="file_list_empty_moving">Ingenting här. Du kan skapa en mapp!</string>
+    <string name="actionbar_copy">Kopiera</string>
+	<string name="file_list_empty_moving">Ingenting här. Du kan skapa en mapp!</string>
 	<string name="folder_picker_choose_button_text">Välj</string>
 
     <string name="move_file_not_found">Gick inte att flytta. Vänligen kontrollera att filen existerar</string>
@@ -389,8 +403,12 @@
     <string name="prefs_instant_behaviour_title">Originalfilen kommer att&#8230;</string>
     <string name="upload_copy_files">Kopiera fil</string>
     <string name="upload_move_files">Flytta fil</string>
+    <string name="select_all">Välj alla</string>
+
     <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
-    <string name="pref_behaviour_entries_move">flyttas till ownCloudmapp</string>
+    <string name="pref_behaviour_entries_move">flyttas till Nextcloudmapp</string>
+    <string name="pref_behaviour_entries_delete_file">raderad</string>
+
     <string name="share_dialog_title">Dela</string>
     <string name="share_file">Dela %1$s</string>
     <string name="share_with_user_section_title">Dela med användare och grupper</string>
@@ -401,6 +419,7 @@
     <string name="share_via_link_password_label">Lösenordsskydda</string>
     <string name="share_via_link_password_title">Säkrad</string>
     <string name="share_via_link_edit_permission_label">Tillåt redigering</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Göm fillistning</string>
     <string name="share_get_public_link_button">Hämta länk</string>
     <string name="share_with_title">Dela med</string>
     <string name="share_with_edit_title">Dela med %1$s</string>
@@ -436,4 +455,17 @@
 
     <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp &amp; ner filer.</string>
     <string name="local_file_not_found_toast">Filen hittades inte i det lokala filsystemet</string>
+    <string name="confirmation_remove_files_alert">Vill du verkligen radera de valda objekten?</string>
+    <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Väntar på att enheten ska laddas</string>
+    <string name="actionbar_search">Sök</string>
+    <string name="learn_more">Lär dig mer</string>
+    <string name="drawer_participate">Delta</string>
+    <string name="participate_testing_headline">Hjälp oss att testa</string>
+    <string name="participate_testing_bug_text">Har du hittat en bugg? Är det något som är fel?</string>
+    <string name="participate_testing_report_text">Rapportera ett problem på Github</string>
+    <string name="participate_testing_version_text">Är du intresserad utav att hjälpa oss testa nästa version?</string>
+    <string name="participate_beta_headline">Testa betaversionen</string>
+    <string name="move_to">Fllytta till&#8230;</string>
+    <string name="copy_to">Kopiera till&#8230;</string>
     </resources>
