@@ -69,7 +69,6 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Выход</string>
     <string name="uploader_error_title_no_file_to_upload">Не выбран файл для загрузки</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s не может загрузить часть текста как файл.</string>
-    <string name="uploader_error_message_no_file_to_upload">Принятые данные не включают в себя никакой исправный файл.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Файл не может быть загружен</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s не позволено читать принятый файл</string>
     <string name="uploader_error_message_source_file_not_found">Файл для загрузки не был найден в положенном месте. Пожалуйста проверьте, существует ли файл.</string>
@@ -155,7 +154,6 @@
     <string name="downloader_download_failed_credentials_error">Скачивание не удалось, вам необходимо войти повторно</string>
     <string name="common_choose_account">Выберите учётную запись</string>
     <string name="sync_fail_ticker">Синхронизация не удалась</string>
-    <string name="sync_fail_ticker_unauthorized">Синхронизация не удалась, вам нужно войти повторно</string>
     <string name="sync_fail_content">Синхронизация %1$s не может быть завершена</string>
     <string name="sync_fail_content_unauthorized">Неверный пароль для %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
@@ -172,16 +170,14 @@
     <string name="foreign_files_local_text">Локальные: %1$s</string>
     <string name="foreign_files_remote_text">Удаленные: %1$s</string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку %1$s. Вы хотите их переместить?</string>
-    <string name="pass_code_enter_pass_code">Пожалуйста укажите ваш код</string>
-    
     <string name="pass_code_configure_your_pass_code">Укажите ваш код</string>
     <string name="pass_code_configure_your_pass_code_explanation">Код будет запрашиваться каждый раз при запуске приложения</string>
-    <string name="pass_code_reenter_your_pass_code">Пожалуйста укажите ваш код еще раз</string>
+    <string name="pass_code_reenter_your_pass_code">Пожалуйста укажите ваш код ещё раз</string>
     <string name="pass_code_remove_your_pass_code">Убрать код</string>
     <string name="pass_code_mismatch">Коды не совпадают</string>
-    <string name="pass_code_wrong">Некоррентный код</string>
-    <string name="pass_code_removed">Код удален</string>
-    <string name="pass_code_stored">Код сохранен</string>
+    <string name="pass_code_wrong">Некорректный код</string>
+    <string name="pass_code_removed">Код удалён</string>
+    <string name="pass_code_stored">Код сохранён</string>
     
     <string name="media_notif_ticker">%1$s аудиоплеер</string>
     <string name="media_state_playing">%1$s (проигрывается)</string>
@@ -249,7 +245,7 @@
     <string name="rename_dialog_title">Введите новое имя</string>
     <string name="rename_local_fail_msg">Локальная копия не может быть переименована; попробуйте другое имя</string>
     <string name="rename_server_fail_msg">Переименование не может быть завершено</string>
-    <string name="sync_file_fail_msg">Удаленный файл не может быть проверен</string>
+    <string name="sync_file_fail_msg">Удалённый файл не может быть проверен</string>
     <string name="sync_file_nothing_to_do_msg">Содержимое файла уже синхронизировано</string>
     <string name="create_dir_fail_msg">Не удалось создать каталог</string>
     <string name="filename_forbidden_characters">Недопустимые символы: / \\ &lt; &gt; : \" | ? *</string>
@@ -257,7 +253,6 @@
     <string name="filename_empty">Имя файла не может быть пустым</string>
     <string name="wait_a_moment">Подождите немного</string>
     <string name="wait_checking_credentials">Проверка сохранённых учётных данных</string>
-    <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; выберите этот файл из другого приложения</string>
     <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
     <string name="activity_chooser_title">Отправить ссылку ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частной хранилища</string>
@@ -341,9 +336,6 @@
     <string name="error_cant_bind_to_operations_service">Критическая ошибка: невозможно выполнить действия</string>
 
     <string name="network_error_socket_exception">При подключении к серверу возникла ошибка</string>
-    <string name="network_error_socket_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть выполнено</string>
-    <string name="network_error_connect_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть выполнено</string>
-    <string name="network_host_not_available">Действие не может быть выполнено, сервер недоступен</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">У вас нет прав %s</string>
