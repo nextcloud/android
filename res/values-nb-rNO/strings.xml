@@ -68,7 +68,6 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Avslutt</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil å laste opp</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s kan ikke laste opp tekst som en fil.</string>
-    <string name="uploader_error_message_no_file_to_upload">Mottatte data inneholder ingen gyldig fil.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan ikke lastes opp</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s er har ikke tilgang til å se mottatt fil</string>
     <string name="uploader_error_message_source_file_not_found">Filen som skulle lastes opp ble ikke funnet der den skulle være. Vennligst sjekk at filen finnes.</string>
@@ -154,7 +153,6 @@
     <string name="downloader_download_failed_credentials_error">Nedlasting feilet, du må logge inn på nytt</string>
     <string name="common_choose_account">Velg konto</string>
     <string name="sync_fail_ticker">Synkronisering feilet</string>
-    <string name="sync_fail_ticker_unauthorized">Synkronisering feilet, du må logge inn på nytt</string>
     <string name="sync_fail_content">Synkronisering av %1$s kunne ikke fullføres</string>
     <string name="sync_fail_content_unauthorized">Ugyldig passord for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
@@ -171,8 +169,6 @@
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Ekstern: %1$s</string>
     <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
-    <string name="pass_code_enter_pass_code">Sett inn passordet ditt</string>
-    
     <string name="pass_code_configure_your_pass_code">Skriv inn passordet ditt</string>
     <string name="pass_code_configure_your_pass_code_explanation">Passordet vil bli krevd hver gang appen startes</string>
     <string name="pass_code_reenter_your_pass_code">Skriv inn passordet på nytt</string>
@@ -256,7 +252,6 @@
     <string name="filename_empty">Filnavn kan ikke være tomt</string>
     <string name="wait_a_moment">Vent et øyeblikk</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
-    <string name="filedisplay_unexpected_bad_get_content">Uventet problem; vennligst velg filen fra en annen applikasjon</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
     <string name="activity_chooser_title">Send lenke til ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
@@ -340,9 +335,6 @@
     <string name="error_cant_bind_to_operations_service">Kritisk feil: kan ikke utføre operasjonene</string>
 
     <string name="network_error_socket_exception">En feil oppstod ved oppretting av forbindelse til tjeneren.</string>
-    <string name="network_error_socket_timeout_exception">En feil oppstod ved venting på svar fra tjeneren. Operasjonen kunne ikke utføres</string>
-    <string name="network_error_connect_timeout_exception">En feil oppstod ved venting på svar fra tjeneren. Operasjonen kunne ikke utføres</string>
-    <string name="network_host_not_available">Operasjonen kunne ikke fullføres. Tjeneren er utilgjengelig</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Du har ikke tillatelse til %s</string>

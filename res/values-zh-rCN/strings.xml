@@ -126,7 +126,6 @@
     <string name="downloader_download_failed_credentials_error">下载失败，你需要重新登录</string>
     <string name="common_choose_account">选择账户</string>
     <string name="sync_fail_ticker">同步失败</string>
-    <string name="sync_fail_ticker_unauthorized">同步失败，你需要重新登录</string>
     <string name="sync_fail_content">%1$s 的同步无法完成</string>
     <string name="sync_fail_content_unauthorized">%1$s 的密码错误</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
@@ -143,8 +142,6 @@
     <string name="foreign_files_local_text">本地: %1$s</string>
     <string name="foreign_files_remote_text">远程:%1$s</string>
     <string name="upload_query_move_foreign_files">没有足够的空间复制文件夹 %1$s，是否使用剪切？</string>
-    <string name="pass_code_enter_pass_code">请输入你的密码</string>
-    
     <string name="pass_code_configure_your_pass_code">输入您的密码</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次应用启动将会请求密码</string>
     <string name="pass_code_reenter_your_pass_code">请再次输入你的密码</string>
@@ -224,7 +221,6 @@
     <string name="filename_forbidden_charaters_from_server">文件名中存在至少一个非法字符</string>
     <string name="filename_empty">文件名不能为空</string>
     <string name="wait_a_moment">请稍候</string>
-    <string name="filedisplay_unexpected_bad_get_content">未知问题；请试试用其他程序选择此文件</string>
     <string name="filedisplay_no_file_selected">未选择文件</string>
     <string name="activity_chooser_title">发送链接给 …</string>
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
@@ -297,9 +293,6 @@
     <string name="error_cant_bind_to_operations_service">严重错误：无法执行操作</string>
 
     <string name="network_error_socket_exception">连接到服务器时发生了一个错误。</string>
-    <string name="network_error_socket_timeout_exception">等待服务器响应时发生了一个错误，此操作无法完成</string>
-    <string name="network_error_connect_timeout_exception">等待服务器响应时发生了一个错误，此操作无法完成</string>
-    <string name="network_host_not_available">服务器不可用，此操作无法完成</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">你没有权限%s</string>
