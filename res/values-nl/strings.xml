@@ -70,7 +70,6 @@ Download hier: %2$s</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Afsluiten</string>
     <string name="uploader_error_title_no_file_to_upload">Niets te uploaden</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s kan niet een stuk tekst als bestand uploaden.</string>
-    <string name="uploader_error_message_no_file_to_upload">Ontvangen data bevat geen geldig bestand.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Bestand kan niet worden geüpload</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s is niet toegestaan om een ontvangen bestand te lezen</string>
     <string name="uploader_error_message_source_file_not_found">Het te uploaden bestand is hier niet. Controleer of het bestand wel bestaat.</string>
@@ -156,7 +155,6 @@ Download hier: %2$s</string>
     <string name="downloader_download_failed_credentials_error">Download mislukt, u moet opnieuw inloggen</string>
     <string name="common_choose_account">Kies account</string>
     <string name="sync_fail_ticker">Sync mislukt</string>
-    <string name="sync_fail_ticker_unauthorized">Synchronisatie mislukt, je moet opnieuw inloggen</string>
     <string name="sync_fail_content">Synchronisatie van %1$s kon niet worden voltooid</string>
     <string name="sync_fail_content_unauthorized">Ongeldig wachtwoord voor %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
@@ -175,8 +173,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="foreign_files_local_text">Lokaal: %1$s</string>
     <string name="foreign_files_remote_text">Extern: %1$s</string>
     <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopieren naar %1$s. Wilt u ze in plaats daarvan verplaatsen? </string>
-    <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
-    
     <string name="pass_code_configure_your_pass_code">Invoeren toegangscode</string>
     <string name="pass_code_configure_your_pass_code_explanation">De toegangscode wordt elke keer gevraagd bij opstarten van de app</string>
     <string name="pass_code_reenter_your_pass_code">Voer nogmaals je toegangscodein</string>
@@ -260,7 +256,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="filename_empty">Bestandsnaam mag niet leeg zijn</string>
     <string name="wait_a_moment">Even geduld</string>
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
-    <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer een andere app om het bestand te selecteren</string>
     <string name="filedisplay_no_file_selected">Er werd geen bestand geselecteerd</string>
     <string name="activity_chooser_title">Verstuur link naar ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiëren bestand vanaf privéopslag</string>
@@ -344,9 +339,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="error_cant_bind_to_operations_service">Kritieke fout: kan de acties niet uitvoeren</string>
 
     <string name="network_error_socket_exception">Er trad een fout op bij het verbinden met de server.</string>
-    <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
-    <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
-    <string name="network_host_not_available">De verwerking kon niet plaatsvinden, de server is niet beschikbaar</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Je mist autorisatie %s</string>

@@ -57,7 +57,6 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Colar</string>
     <string name="uploader_error_title_no_file_to_upload">Ensin ficheru pa xubir</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s nun puede xubir un cachu de testu como un ficheru.</string>
-    <string name="uploader_error_message_no_file_to_upload">Los datos recibíos nun inclúin nengún ficheru válidu.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ficheru nun puede xubise</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nun ta permitíu lleer un ficheru recibíu</string>
     <string name="uploader_error_message_source_file_not_found">Ficheru pa xubir nun s\'atopó nel so allugamientu . Por favor, compruebe si esiste\'l ficheru.</string>
@@ -137,7 +136,6 @@
     <string name="downloader_download_failed_credentials_error">Descarga fallida, necesites aniciar sesión de nueves</string>
     <string name="common_choose_account">Esbillar cuenta</string>
     <string name="sync_fail_ticker">Sincronización fallida</string>
-    <string name="sync_fail_ticker_unauthorized">Falló la sincronización, tienes que reconeutate</string>
     <string name="sync_fail_content">La sincronización de %1$s nun pudo completase</string>
     <string name="sync_fail_content_unauthorized">Contraseña inválida pa %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflictos alcontraos</string>
@@ -154,8 +152,6 @@
     <string name="foreign_files_local_text">Llocal: %1$s</string>
     <string name="foreign_files_remote_text">Remotu: %1$s</string>
     <string name="upload_query_move_foreign_files">Nun hai espaciu abondo pa copiar los ficheros esbillaos a la carpeta %1$s. ¿En cuenta d\'ello, prestaríate movelos?</string>
-    <string name="pass_code_enter_pass_code">Por favor, inxerta la to contraseña</string>
-    
     <string name="pass_code_configure_your_pass_code">Introduz la contraseña</string>
     <string name="pass_code_configure_your_pass_code_explanation">La contraseña va ser solicitada cada vegada que s\'anicie l\'aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, vuelvi inxertar la contraseña</string>
@@ -238,7 +234,6 @@
     <string name="filename_empty">El nome de ficheru nun pue tar baleru</string>
     <string name="wait_a_moment">Espera un momentu</string>
     <string name="wait_checking_credentials">Comprobación de credenciales almacenaes</string>
-    <string name="filedisplay_unexpected_bad_get_content">Problema inesperáu, por favor esbilla\'l ficheru dende otra aplicación</string>
     <string name="filedisplay_no_file_selected">Nun s\'esbilló dengún ficheru</string>
     <string name="activity_chooser_title">Unviar enllaz a ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando ficheru dende l\'almacenamientu priváu</string>
@@ -315,9 +310,6 @@
     <string name="error_cant_bind_to_operations_service">Fallu críticu: nun puen facese les operaciones</string>
 
     <string name="network_error_socket_exception">Asocedió un fallu cuando se coneutaba col sirvidor.</string>
-    <string name="network_error_socket_timeout_exception">Asocedió un fallu cuando s\'esperaba pol sirvidor, la operación nun pudo facese</string>
-    <string name="network_error_connect_timeout_exception">Asocedió un fallu cuando s\'esperaba pol sirvidor, la operación nun pudo facese</string>
-    <string name="network_host_not_available">La operación nun pudo completase, el sirvidor nun ta disponible</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Nun tienes permisu %s</string>

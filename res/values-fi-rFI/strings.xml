@@ -59,7 +59,6 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Lopeta</string>
     <string name="uploader_error_title_no_file_to_upload">Ei lähetettävää tiedostoa</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s ei voi lähettää tekstiotetta tiedostona.</string>
-    <string name="uploader_error_message_no_file_to_upload">Vastaanotettu data ei sisällä yhtäkään kelvollista tiedostoa.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Tiedostoa ei voi lähettää</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s ei saa lukea vastaanotettua tiedostoa</string>
     <string name="file_list_seconds_ago">sekuntia sitten</string>
@@ -134,7 +133,6 @@
     <string name="downloader_download_failed_credentials_error">Lataus epäonnistui, kirjaudu sisään uudelleen</string>
     <string name="common_choose_account">Valitse tili</string>
     <string name="sync_fail_ticker">Synkronointi epäonnistui</string>
-    <string name="sync_fail_ticker_unauthorized">Synkronointi epäonnistui, kirjaudu sisään uudelleen</string>
     <string name="sync_fail_content">Kohteen %1$s synkronointia ei saatu valmiiksi</string>
     <string name="sync_fail_content_unauthorized">Virheellinen salasana tilille %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
@@ -147,8 +145,6 @@
     <string name="foreign_files_fail">Joidenkin tiedostojen siirtäminen epäonnistui</string>
     <string name="foreign_files_local_text">Paikallinen: %1$s</string>
     <string name="foreign_files_remote_text">Etä: %1$s</string>
-    <string name="pass_code_enter_pass_code">Anna suojakoodisi</string>
-    
     <string name="pass_code_configure_your_pass_code">Anna suojakoodisi</string>
     <string name="pass_code_configure_your_pass_code_explanation">Suojakoodi kysytään joka kerta, kun sovellus käynnistetään</string>
     <string name="pass_code_reenter_your_pass_code">Anna suojakoodisi uudelleen</string>
@@ -224,7 +220,6 @@
     <string name="filename_empty">Tiedoston nimi ei voi olla tyhjä</string>
     <string name="wait_a_moment">Odota hetki</string>
     <string name="wait_checking_credentials">Tarkistetaan tallennettuja tilitietoja</string>
-    <string name="filedisplay_unexpected_bad_get_content">Odottamaton ongelma; kokeile valita tiedosto toisella sovelluksella</string>
     <string name="filedisplay_no_file_selected">Tiedostoa ei valittu</string>
     <string name="activity_chooser_title">Lähetä linkki…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopioidaan tiedostoa yksityisestä tallennustilasta</string>
@@ -293,9 +288,6 @@
     <string name="error_cant_bind_to_operations_service">Kriittinen virhe: toimintoja ei voi suorittaa</string>
 
     <string name="network_error_socket_exception">Virhe palvelimeen yhdistäessä</string>
-    <string name="network_error_socket_timeout_exception">Virhe palvelimen vastausta odottaessa, toimintoa ei voitu suorittaa</string>
-    <string name="network_error_connect_timeout_exception">Virhe palvelimen vastausta odottaessa, toimintoa ei voitu suorittaa</string>
-    <string name="network_host_not_available">Toimintoa ei voi suorittaa loppuun, palvelin ei ole käytettävissä</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Sinulla ei ole oikeutta %s</string>
