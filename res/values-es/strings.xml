@@ -68,7 +68,6 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Salir</string>
     <string name="uploader_error_title_no_file_to_upload">Ningún archivo para subir</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s  No puedo subir un texto como si fuera un archivo.</string>
-    <string name="uploader_error_message_no_file_to_upload">No hay ningún archivo válido en los datos recibidos.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">No se puede subir el archivo</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s No está autorizado a leer el arcivo.</string>
     <string name="uploader_error_message_source_file_not_found">El archivo a subir no se localiza. Compruebe que el archivo existe.</string>
@@ -154,7 +153,6 @@
     <string name="downloader_download_failed_credentials_error">La descarga falló, necesita volver a iniciar sesión</string>
     <string name="common_choose_account">Elija una cuenta</string>
     <string name="sync_fail_ticker">Sincronización fallida</string>
-    <string name="sync_fail_ticker_unauthorized">Sincronización fallida, necesita volver a iniciar sesión</string>
     <string name="sync_fail_content">La sincronización de %1$s no pudo ser completada</string>
     <string name="sync_fail_content_unauthorized">Contraseña no válida para %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
@@ -171,8 +169,6 @@
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
     <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados en la carpeta %1$s. ¿Te gustaría moverlos entonces?</string>
-    <string name="pass_code_enter_pass_code">Por favor introduzca su código</string>
-    
     <string name="pass_code_configure_your_pass_code">Introduzca su contraseña</string>
     <string name="pass_code_configure_your_pass_code_explanation">La contraseña será requerida cada vez que la aplicación sea iniciada</string>
     <string name="pass_code_reenter_your_pass_code">Por favor reintroduzca su código</string>
@@ -256,7 +252,6 @@
     <string name="filename_empty">El nombre de archivo no puede estar vacío</string>
     <string name="wait_a_moment">Espere un momento</string>
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
-    <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, pruebe otra app para seleccionar el archivo</string>
     <string name="filedisplay_no_file_selected">No hay ficheros seleccionados.</string>
     <string name="activity_chooser_title">Enviar enlace a...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
@@ -338,9 +333,6 @@
     <string name="error_cant_bind_to_operations_service">Error crítico: no es posible realizar operaciones</string>
 
     <string name="network_error_socket_exception">Ocurrió un error al conectarse con el servidor.</string>
-    <string name="network_error_socket_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
-    <string name="network_error_connect_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
-    <string name="network_host_not_available">La operación no se pudo completar; el servidor no está disponible</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">No tiene permiso %s</string>

@@ -143,7 +143,6 @@
     <string name="downloader_download_failed_credentials_error">Niðurhal mistókst, þú verður að skrá þig inn aftur</string>
     <string name="common_choose_account">Veldu aðgang</string>
     <string name="sync_fail_ticker">Samstilling mistókst</string>
-    <string name="sync_fail_ticker_unauthorized">Samstilling mistókst, þú verður að skrá þig inn aftur</string>
     <string name="sync_fail_content">Ekki var hægt að ljúka samstillingu á %1$s</string>
     <string name="sync_fail_content_unauthorized">Ógilt lykilorð fyrir %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Árekstrar fundust</string>
@@ -159,8 +158,6 @@
     <string name="foreign_files_local_text">Staðvært: %1$s</string>
     <string name="foreign_files_remote_text">Fjartengt: %1$s</string>
     <string name="upload_query_move_foreign_files">Það er ekki nægilegt pláss til að afrita völdu skrárnar í %1$s möppuna. Vilt þú kannski færa þær í staðinn? </string>
-    <string name="pass_code_enter_pass_code">Settu inn lykilorðið þitt</string>
-    
     <string name="pass_code_configure_your_pass_code">Settu inn lykilorð</string>
     <string name="pass_code_configure_your_pass_code_explanation">Lykilorðsins verður krafist í hvert skipti sem appið er ræst</string>
     <string name="pass_code_reenter_your_pass_code">Settu aftur inn lykilorðið þitt</string>
@@ -241,7 +238,6 @@
     <string name="filename_forbidden_charaters_from_server">Skráarheitið inniheldur að minnsta kosti einn ógildan staf</string>
     <string name="filename_empty">Skráarheiti má ekki vera tómt</string>
     <string name="wait_a_moment">Bíddu aðeins</string>
-    <string name="filedisplay_unexpected_bad_get_content">Óvænt vandamál; veldu skrána úr öðru forriti</string>
     <string name="filedisplay_no_file_selected">Engin skrá var valin</string>
     <string name="activity_chooser_title">Senda tengil til ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
@@ -320,7 +316,6 @@
     <string name="error_cant_bind_to_operations_service">Alvarleg villa: get ekki framkvæmt aðgerðir</string>
 
     <string name="network_error_socket_exception">Villa kom upp við að tengjast við þjóninn.</string>
-    <string name="network_host_not_available">Ekki er hægt að ljúka aðgerðinni, þjónninn er ekki tiltækur</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Þú hefur ekki heimild %s</string>

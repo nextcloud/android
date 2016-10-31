@@ -69,7 +69,6 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Ukončit</string>
     <string name="uploader_error_title_no_file_to_upload">Žádný soubor k nahrání</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s neumí nahrát text jako soubor.</string>
-    <string name="uploader_error_message_no_file_to_upload">Obdržená data neobsahují žádný platný soubor.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Soubor nelze nahrát</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nemá oprávnění číst přijatý soubor</string>
     <string name="uploader_error_message_source_file_not_found">Soubor k nahrání nebyl v tomto umístění nalezen. Zkontrolujte prosím zda soubor existuje.</string>
@@ -155,7 +154,6 @@
     <string name="downloader_download_failed_credentials_error">Stažení selhalo, je třeba se znovu přihlásit</string>
     <string name="common_choose_account">Vybrat účet</string>
     <string name="sync_fail_ticker">Synchronizace selhala</string>
-    <string name="sync_fail_ticker_unauthorized">Synchronizace selhala, je třeba se znovu přihlásit</string>
     <string name="sync_fail_content">Synchronizace %1$s nemohla být dokončena</string>
     <string name="sync_fail_content_unauthorized">Chybné heslo pro %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
@@ -172,8 +170,6 @@
     <string name="foreign_files_local_text">Místní: %1$s</string>
     <string name="foreign_files_remote_text">Vzdálené: %1$s</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do %1$s adresáře není dostatek volného místa. Chcete je místo toho přesunout?</string>
-    <string name="pass_code_enter_pass_code">Zadejte prosím svůj bezpečnostní kód</string>
-    
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>
     <string name="pass_code_configure_your_pass_code_explanation">Bezpečnostní kód bude vyžadován při každém spuštění aplikace</string>
     <string name="pass_code_reenter_your_pass_code">Zopakujte prosím svůj bezpečnostní kód</string>
@@ -256,7 +252,6 @@
     <string name="filename_empty">Název nemůže být prázdný</string>
     <string name="wait_a_moment">Počkejte chvíli</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
-    <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém - zkuste zvolit soubor jinou aplikací</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
     <string name="activity_chooser_title">Odeslat odkaz ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
@@ -314,7 +309,7 @@
     <string name="preview_image_error_unknown_format">Obrázek nelze zobrazit</string>
 
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
-    <string name="prefs_instant_upload_path_title">Složka pro okamžité nahrání</string>
+    <string name="prefs_instant_upload_path_title">Adresář pro okamžité nahrání</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podadresáře</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podadresářích podle roku a měsíce</string>
 
@@ -340,9 +335,6 @@ správce systému.</string>
     <string name="error_cant_bind_to_operations_service">Kritická chyba: operace nelze provést</string>
 
     <string name="network_error_socket_exception">Při pokusu o připojení k serveru došlo k chybě.</string>
-    <string name="network_error_socket_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
-    <string name="network_error_connect_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
-    <string name="network_host_not_available">Operace nemohla být dokončena, server je nedostupný</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Nemáte oprávnění %s</string>
@@ -389,7 +381,7 @@ správce systému.</string>
     <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="prefs_instant_video_upload_path_title">Složka pro okamžité nahrání videa</string>
+	<string name="prefs_instant_video_upload_path_title">Adresář pro okamžité nahrání videa</string>
     <string name="sync_folder_failed_content">Synchronizaci adresáře %1$s nelze dokončit</string>
 
 	<string name="shared_subject_header">sdílené</string>
