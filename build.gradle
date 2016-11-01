@@ -41,7 +41,6 @@ dependencies {
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
-    compile "com.android.support:cardview-v7:${supportLibraryVersion}"
     compile 'com.getbase:floatingactionbutton:1.10.1'
 
     /// dependencies for local unit tests
@@ -62,7 +61,10 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
-    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.1'
+    androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
+
+    // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
+    androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
 
 }
 

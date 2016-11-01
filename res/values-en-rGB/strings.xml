@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Accounts</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
     <string name="prefs_passcode">Passcode lock</string>
+    <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_instant_upload">Instant picture uploads</string>
     <string name="prefs_instant_upload_summary">Instantly upload pictures taken by camera</string>
     <string name="prefs_instant_video_upload">Instant video uploads</string>
@@ -68,6 +69,7 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
     <string name="uploader_error_title_no_file_to_upload">No file to upload</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s cannot upload a piece of text as a file.</string>
+    <string name="uploader_error_message_no_file_to_upload">Received data did not include a valid file.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">File cannot be uploaded</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s is not allowed to read a received file</string>
     <string name="uploader_error_message_source_file_not_found">File to upload was not found in its location. Please check whether the file exists.</string>
@@ -153,6 +155,7 @@
     <string name="downloader_download_failed_credentials_error">Download failed, you need to log in again</string>
     <string name="common_choose_account">Choose account</string>
     <string name="sync_fail_ticker">Sync failed</string>
+    <string name="sync_fail_ticker_unauthorized">Sync failed; you need to log in again</string>
     <string name="sync_fail_content">Sync of %1$s could not be completed</string>
     <string name="sync_fail_content_unauthorized">Invalid password for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
@@ -169,6 +172,8 @@
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="upload_query_move_foreign_files">There is not enough space to copy the selected files into the %1$s folder. Would you like to move them instead? </string>
+    <string name="pass_code_enter_pass_code">Please enter your passcode</string>
+    
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
     <string name="pass_code_reenter_your_pass_code">Please reenter your passcode</string>
@@ -252,6 +257,7 @@
     <string name="filename_empty">File name cannot be empty</string>
     <string name="wait_a_moment">Wait a moment</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
+    <string name="filedisplay_unexpected_bad_get_content">Unexpected problem; please select the file from a different app</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>
     <string name="activity_chooser_title">Send link to …</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
@@ -335,6 +341,9 @@
     <string name="error_cant_bind_to_operations_service">Critical error: cannot perform operations</string>
 
     <string name="network_error_socket_exception">An error occurred whilst connecting to the server.</string>
+    <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
+    <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
+    <string name="network_host_not_available">The operation couldn\'t be completed; server is unavailable</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">You do not have permission %s</string>
