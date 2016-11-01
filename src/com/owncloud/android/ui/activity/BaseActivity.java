@@ -116,7 +116,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         Account newAccount = AccountUtils.getCurrentOwnCloudAccount(getApplicationContext());
         if (newAccount == null) {
             /// no account available: force account creation
-            createAccount();
+            createAccount(true);
             mRedirectingToSetupAccount = true;
             mAccountWasSet = false;
             mAccountWasRestored = false;
@@ -129,16 +129,19 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * Launches the account creation activity. To use when no ownCloud account is available.
+     * Launches the account creation activity.
+     *
+     * @param mandatoryCreation     When 'true', if an account is not created by the user, the app will be closed.
+     *                              To use when no ownCloud account is available.
      */
-    protected void createAccount() {
+    protected void createAccount(boolean mandatoryCreation) {
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addAccount(MainApp.getAccountType(),
                 null,
                 null,
                 null,
                 this,
-                new AccountCreationCallback(),
+                new AccountCreationCallback(mandatoryCreation),
                 new Handler());
     }
 
@@ -216,6 +219,17 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public class AccountCreationCallback implements AccountManagerCallback<Bundle> {
 
+        boolean mMandatoryCreation;
+
+        /**
+         * Constuctor
+         *
+         * @param mandatoryCreation     When 'true', if an account was not created, the app is closed.
+         */
+        public AccountCreationCallback(boolean mandatoryCreation) {
+            mMandatoryCreation = mandatoryCreation;
+        }
+
         @Override
         public void run(AccountManagerFuture<Bundle> future) {
             BaseActivity.this.mRedirectingToSetupAccount = false;
@@ -242,7 +256,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             } else {
                 Log_OC.e(TAG, "Account creation callback with null bundle");
             }
-            if (!accountWasSet) {
+            if (mMandatoryCreation && !accountWasSet) {
                 moveTaskToBack(true);
             }
         }

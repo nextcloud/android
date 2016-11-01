@@ -21,18 +21,19 @@ package com.owncloud.android.ui.adapter;
 
 import android.accounts.Account;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.BaseActivity;
-import com.owncloud.android.ui.activity.ManageAccountsActivity;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.util.List;
@@ -46,13 +47,15 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     private final BaseActivity mContext;
     private List<AccountListItem> mValues;
     private AccountListAdapterListener mListener;
+    private Drawable mTintedCheck;
 
-    public AccountListAdapter(BaseActivity context, List<AccountListItem> values) {
+    public AccountListAdapter(BaseActivity context, List<AccountListItem> values, Drawable tintedCheck) {
         super(context, -1, values);
         this.mContext = context;
         this.mValues = values;
         this.mListener = (AccountListAdapterListener) context;
         this.mAccountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
+        this.mTintedCheck = tintedCheck;
     }
 
     @Override
@@ -64,10 +67,13 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             convertView = inflater.inflate(R.layout.account_item, parent, false);
 
             viewHolder = new AccountViewHolderItem();
-            viewHolder.textViewItem = (TextView) convertView.findViewById(R.id.user_name);
             viewHolder.imageViewItem = (ImageView) convertView.findViewById(R.id.user_icon);
-            viewHolder.passwordButtonItem = (ImageButton) convertView.findViewById(R.id.passwordButton);
-            viewHolder.removeButtonItem = (ImageButton) convertView.findViewById(R.id.removeButton);
+            viewHolder.checkViewItem = (ImageView) convertView.findViewById(R.id.ticker);
+            viewHolder.checkViewItem.setImageDrawable(mTintedCheck);
+            viewHolder.usernameViewItem = (TextView) convertView.findViewById(R.id.user_name);
+            viewHolder.accountViewItem = (TextView) convertView.findViewById(R.id.account);
+            viewHolder.passwordButtonItem = (ImageView) convertView.findViewById(R.id.passwordButton);
+            viewHolder.removeButtonItem = (ImageView) convertView.findViewById(R.id.removeButton);
 
             convertView.setTag(viewHolder);
         } else {
@@ -81,53 +87,89 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             // create account item
             if (AccountListItem.TYPE_ACCOUNT == accountListItem.getType()) {
                 Account account = accountListItem.getAccount();
-                viewHolder.textViewItem.setText(account.name);
-                viewHolder.textViewItem.setTag(account.name);
+                setAccount(viewHolder, account);
+                setUsername(viewHolder, account);
+                setAvatar(viewHolder, account);
+                setCurrentlyActiveState(viewHolder, account);
+                setupListeners(position, viewHolder);
 
-                try {
-                    DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension,
-                            mContext.getResources(), mContext.getStorageManager(), viewHolder.imageViewItem);
-                } catch (Exception e) {
-                    Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
-                    // use user icon as a fallback
-                    viewHolder.imageViewItem.setImageResource(R.drawable.ic_user);
-                }
-
-                /// bind listener to change password
-                viewHolder.passwordButtonItem.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mListener.changePasswordOfAccount(mValues.get(position).getAccount());
-                    }
-                });
-
-                /// bind listener to remove account
-                viewHolder.removeButtonItem.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mListener.performAccountRemoval(mValues.get(position).getAccount());
-                    }
-                });
             } // create add account action item
             else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType()) {
-                LayoutInflater inflater = ((ManageAccountsActivity) mContext).getLayoutInflater();
-                View actionView = inflater.inflate(R.layout.account_action, parent, false);
-                ((TextView) actionView.findViewById(R.id.user_name)).setText(R.string.prefs_add_account);
-                ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
-
-                // bind action listener
-                actionView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        mListener.createAccount();
-                    }
-                });
-
-                return actionView;
+                return setupAddAccountListItem(parent);
             }
         }
 
         return convertView;
+    }
+
+    @NonNull
+    private View setupAddAccountListItem(ViewGroup parent) {
+        LayoutInflater inflater = mContext.getLayoutInflater();
+        View actionView = inflater.inflate(R.layout.account_action, parent, false);
+        ((TextView) actionView.findViewById(R.id.user_name)).setText(R.string.prefs_add_account);
+        ((ImageView) actionView.findViewById(R.id.user_icon)).setImageResource(R.drawable.ic_account_plus);
+
+        // bind action listener
+        actionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.createAccount();
+            }
+        });
+        return actionView;
+    }
+
+    private void setAccount(AccountViewHolderItem viewHolder, Account account) {
+        viewHolder.accountViewItem.setText(DisplayUtils.convertIdn(account.name, false));
+        viewHolder.accountViewItem.setTag(account.name);
+    }
+
+    private void setupListeners(final int position, AccountViewHolderItem viewHolder) {
+        /// bind listener to change password
+        viewHolder.passwordButtonItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.changePasswordOfAccount(mValues.get(position).getAccount());
+            }
+        });
+
+        /// bind listener to remove account
+        viewHolder.removeButtonItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mListener.performAccountRemoval(mValues.get(position).getAccount());
+            }
+        });
+    }
+
+    private void setCurrentlyActiveState(AccountViewHolderItem viewHolder, Account account) {
+        if (AccountUtils.getCurrentOwnCloudAccount(getContext()).name.equals(account.name)) {
+            viewHolder.checkViewItem.setVisibility(View.VISIBLE);
+        } else {
+            viewHolder.checkViewItem.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void setAvatar(AccountViewHolderItem viewHolder, Account account) {
+        try {
+            DisplayUtils.setAvatar(account, this, mAccountAvatarRadiusDimension,
+                    mContext.getResources(), mContext.getStorageManager(), viewHolder.imageViewItem);
+        } catch (Exception e) {
+            Log_OC.e(TAG, "Error calculating RGB value for account list item.", e);
+            // use user icon as a fallback
+            viewHolder.imageViewItem.setImageResource(R.drawable.ic_user);
+        }
+    }
+
+    private void setUsername(AccountViewHolderItem viewHolder, Account account) {
+        try {
+            OwnCloudAccount oca = new OwnCloudAccount(account, mContext);
+            viewHolder.usernameViewItem.setText(oca.getDisplayName());
+        } catch (Exception e) {
+            Log_OC.w(TAG, "Account not found right after being read; using account name instead");
+            viewHolder.usernameViewItem.setText(AccountUtils.getAccountUsername(account.name));
+        }
+        viewHolder.usernameViewItem.setTag(account.name);
     }
 
     @Override
@@ -154,11 +196,14 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     /**
      * Account ViewHolderItem to get smooth scrolling.
      */
-    static class AccountViewHolderItem {
-        TextView textViewItem;
+    private static class AccountViewHolderItem {
         ImageView imageViewItem;
+        ImageView checkViewItem;
 
-        ImageButton passwordButtonItem;
-        ImageButton removeButtonItem;
+        TextView usernameViewItem;
+        TextView accountViewItem;
+
+        ImageView passwordButtonItem;
+        ImageView removeButtonItem;
     }
 }
