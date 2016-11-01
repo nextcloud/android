@@ -49,7 +49,7 @@ import java.util.Map;
  *         to add a new mapping of a mime type to an icon mapping
  *     </li>
  *     <li>
- *         {@link MimeTypeUtil#MAINMIMETYPE_TO_ICON_MAPPING}<br/>
+ *         {@link MimeTypeUtil#MAIN_MIMETYPE_TO_ICON_MAPPING}<br/>
  *         to add a new mapping for the main part of a mime type.
  *         This is a list of fallback mappings in case there is no mapping for the complete mime type
  *     </li>
@@ -59,7 +59,7 @@ public class MimeTypeUtil {
     /** Mapping: icon for mime type */
     private static final Map<String, Integer> MIMETYPE_TO_ICON_MAPPING = new HashMap<>();
     /** Mapping: icon for main mime type (first part of a mime type declaration). */
-    private static final Map<String, Integer> MAINMIMETYPE_TO_ICON_MAPPING = new HashMap<>();
+    private static final Map<String, Integer> MAIN_MIMETYPE_TO_ICON_MAPPING = new HashMap<>();
     /** Mapping: mime type for file extension. */
     private static final Map<String, List<String>> FILE_EXTENSION_TO_MIMETYPE_MAPPING = new HashMap<>();
 
@@ -123,7 +123,7 @@ public class MimeTypeUtil {
      * @return 'True' if the mime type defines image
      */
     public static boolean isImage(String mimeType) {
-        return (mimeType!=null && mimeType.toLowerCase().startsWith("image/") && !mimeType.toLowerCase().contains
+        return (mimeType != null && mimeType.toLowerCase().startsWith("image/") && !mimeType.toLowerCase().contains
                 ("djvu"));
     }
 
@@ -239,7 +239,7 @@ public class MimeTypeUtil {
             for (String mimetype : mimetypes) {
                 String mainMimetypePart = mimetype.split("/")[0];
 
-                Integer iconId = MAINMIMETYPE_TO_ICON_MAPPING.get(mainMimetypePart);
+                Integer iconId = MAIN_MIMETYPE_TO_ICON_MAPPING.get(mainMimetypePart);
                 if (iconId != null) {
                     return iconId;
                 }
@@ -389,13 +389,13 @@ public class MimeTypeUtil {
      * populates the mapping list: main mime type --> icon.
      */
     private static void populateMainMimeTypeMapping() {
-        MAINMIMETYPE_TO_ICON_MAPPING.put("audio", R.drawable.file_sound);
-        MAINMIMETYPE_TO_ICON_MAPPING.put("database", R.drawable.file);
-        MAINMIMETYPE_TO_ICON_MAPPING.put("httpd", R.drawable.file_zip);
-        MAINMIMETYPE_TO_ICON_MAPPING.put("image", R.drawable.file_image);
-        MAINMIMETYPE_TO_ICON_MAPPING.put("text", R.drawable.file_text);
-        MAINMIMETYPE_TO_ICON_MAPPING.put("video", R.drawable.file_movie);
-        MAINMIMETYPE_TO_ICON_MAPPING.put("web", R.drawable.file_code);
+        MAIN_MIMETYPE_TO_ICON_MAPPING.put("audio", R.drawable.file_sound);
+        MAIN_MIMETYPE_TO_ICON_MAPPING.put("database", R.drawable.file);
+        MAIN_MIMETYPE_TO_ICON_MAPPING.put("httpd", R.drawable.file_zip);
+        MAIN_MIMETYPE_TO_ICON_MAPPING.put("image", R.drawable.file_image);
+        MAIN_MIMETYPE_TO_ICON_MAPPING.put("text", R.drawable.file_text);
+        MAIN_MIMETYPE_TO_ICON_MAPPING.put("video", R.drawable.file_movie);
+        MAIN_MIMETYPE_TO_ICON_MAPPING.put("web", R.drawable.file_code);
     }
 
     /**
