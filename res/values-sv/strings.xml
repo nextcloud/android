@@ -68,6 +68,7 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Avsluta</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil att ladda upp</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s kan inte ladda upp text som en fil.</string>
+    <string name="uploader_error_message_no_file_to_upload">Mottagen data innehåller ingen giltig fil.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Fil kan inte laddas upp</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s har inte tillåtelse att läsa en mottagen fil</string>
     <string name="uploader_error_message_source_file_not_found">Filen som skulle laddas upp hittades inte på sin plats. Vänligen kontrollera att filen existerar.</string>
@@ -150,6 +151,7 @@
     <string name="downloader_download_failed_credentials_error">Nedladdningen misslyckades, du måste logga in igen</string>
     <string name="common_choose_account">Välj konto</string>
     <string name="sync_fail_ticker">Synkronisering misslyckades</string>
+    <string name="sync_fail_ticker_unauthorized">Synkronisering misslyckades, du måste logga in igen</string>
     <string name="sync_fail_content">Synkronisering av %1$s kunde inte slutföras</string>
     <string name="sync_fail_content_unauthorized">Felaktigt lösenord för %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
@@ -166,6 +168,8 @@
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Fjärr: %1$s</string>
     <string name="upload_query_move_foreign_files">Det finns inte tillräckligt med utrymme för att kopiera filerna till målmappen %1$s. Vill du flytta filerna istället?</string>
+    <string name="pass_code_enter_pass_code">Var god ange ditt lösenord</string>
+    
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
     <string name="pass_code_configure_your_pass_code_explanation">Lösenordet kommer efterfrågas varje gång du startar appen</string>
     <string name="pass_code_reenter_your_pass_code">Var god ange ditt lösenord igen</string>
@@ -249,6 +253,7 @@
     <string name="filename_empty">Filnamnet får inte lämnas blankt</string>
     <string name="wait_a_moment">Var god vänta</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
+    <string name="filedisplay_unexpected_bad_get_content">Oväntat problem; prova annat program för aktuell fil</string>
     <string name="filedisplay_no_file_selected">Ingen fil vald</string>
     <string name="activity_chooser_title">Sänd länk till ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
@@ -306,6 +311,7 @@
     <string name="preview_image_error_unknown_format">Denna bild kan inte visas</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>
+    <string name="prefs_instant_upload_path_title">Uppladdningssökväg</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserad på år och månad</string>
 
@@ -331,6 +337,9 @@
     <string name="error_cant_bind_to_operations_service">Kritiskt fel: kan inte utföra åtgärden</string>
 
     <string name="network_error_socket_exception">Ett fel uppstod vid anslutning till servern.</string>
+    <string name="network_error_socket_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
+    <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
+    <string name="network_host_not_available">Åtgärden kunte inte slutföras, servern är ej tillgänglig</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Du har inga rättigheter %s</string>
@@ -377,7 +386,8 @@
     <string name="prefs_category_instant_uploading">Direktuppladdningar</string>
     <string name="prefs_category_details">Detaljer</string>
 
-	<string name="sync_folder_failed_content">Synkronisering av %1$s mapp kunde inte slutföras</string>
+	<string name="prefs_instant_video_upload_path_title">Sökväg för uppladdning av video</string>
+    <string name="sync_folder_failed_content">Synkronisering av %1$s mapp kunde inte slutföras</string>
 
 	<string name="shared_subject_header">delad</string>
 	<string name="with_you_subject_header">med dig</string>

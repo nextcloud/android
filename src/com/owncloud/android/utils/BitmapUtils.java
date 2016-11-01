@@ -19,21 +19,18 @@
  */
 package com.owncloud.android.utils;
 
-import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.lib.common.utils.Log_OC;
-
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Matrix;
 import android.graphics.BitmapFactory.Options;
+import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.net.Uri;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
-import android.webkit.MimeTypeMap;
 
-import java.io.File;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.lib.common.utils.Log_OC;
+
 import java.io.UnsupportedEncodingException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -261,32 +258,6 @@ public class BitmapUtils {
 
    		return p;
 	}
-
-    /**
-     * Checks if file passed is an image
-     * @param file
-     * @return true/false
-     */
-    public static boolean isImage(File file) {
-        Uri selectedUri = Uri.fromFile(file);
-        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
-        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
-
-        return (mimeType != null && mimeType.startsWith("image/"));
-    }
-
-    /**
-     * Checks if file passed is a video
-     * @param file
-     * @return true/false
-     */
-    public static boolean isVideo(File file) {
-        Uri selectedUri = Uri.fromFile(file);
-        String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase());
-        String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
-
-        return (mimeType != null && mimeType.startsWith("video/"));
-    }
 
     /**
      * calculates the RGB value based on a given account name.

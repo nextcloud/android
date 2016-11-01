@@ -69,6 +69,7 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Wyjdź</string>
     <string name="uploader_error_title_no_file_to_upload">Brak plików do przesłania</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s: Nie można przesłać części tekstu jako pliku.</string>
+    <string name="uploader_error_message_no_file_to_upload">Odebrane dane nie zawierają jakiegokolwiek prawidłowego pliku.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Plik nie może być przesłany</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s jest nieautoryzowany do odczytu odebranego pliku</string>
     <string name="uploader_error_message_source_file_not_found">Plik do wysłania nie został znaleziony w swojej własnej lokalizacji. Proszę sprawdzić, czy w ogóle istnieje.</string>
@@ -154,6 +155,7 @@
     <string name="downloader_download_failed_credentials_error">Błąd podczas pobierania, zaloguj się ponownie</string>
     <string name="common_choose_account">Wybierz konto</string>
     <string name="sync_fail_ticker">Nieudana synchronizacja </string>
+    <string name="sync_fail_ticker_unauthorized">Nieudana synchronizacja, zaloguj się ponownie</string>
     <string name="sync_fail_content">Nie udało się zakończyć synchronizacji %1$s</string>
     <string name="sync_fail_content_unauthorized">Niepoprawne hasło dla %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
@@ -170,6 +172,8 @@
     <string name="foreign_files_local_text">Lokalnie: %1$s</string>
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
     <string name="upload_query_move_foreign_files">Nie ma wystarczającej ilości wolnej przestrzeni by skopiować zaznaczone pliki do folderu %1$s. Chcesz je przenieść?</string>
+    <string name="pass_code_enter_pass_code">Wymyśl kod PIN.</string>
+    
     <string name="pass_code_configure_your_pass_code">Wpisz kod PIN.</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kod PIN będzie wymagany przy każdym uruchomieniu aplikacji.</string>
     <string name="pass_code_reenter_your_pass_code">Wpisz kod PIN ponownie.</string>
@@ -253,6 +257,7 @@
     <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
     <string name="wait_a_moment">Poczekaj chwilę</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
+    <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany problem; spróbuj wybrać plik z innej aplikacji</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnych plików</string>
     <string name="activity_chooser_title">Wyślij link do ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
@@ -336,6 +341,9 @@
     <string name="error_cant_bind_to_operations_service">Błąd krytyczny: nie można wykonać operacji</string>
 
     <string name="network_error_socket_exception">Pojawił się błąd podczas łączenia z serwerem.</string>
+    <string name="network_error_socket_timeout_exception">Pojawił się błąd podczas oczekiwania na serwer, operacja nie mogła zostać wykonana</string>
+    <string name="network_error_connect_timeout_exception">Pojawił się błąd podczas oczekiwania na serwer, operacja nie mogła zostać wykonana</string>
+    <string name="network_host_not_available">Nie można dokończyć operacji, serwer jest niedostępny</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Nie masz uprawnień %s</string>

@@ -57,6 +57,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 
 /**
@@ -514,7 +515,7 @@ public class PreviewImageActivity extends FileActivity implements
             if (file == null) {
                 throw new IllegalStateException("Instanced with a NULL OCFile");
             }
-            if (!file.isImage()) {
+            if (!MimeTypeUtil.isImage(file)) {
                 throw new IllegalArgumentException("Non-image file passed as argument");
             }
             

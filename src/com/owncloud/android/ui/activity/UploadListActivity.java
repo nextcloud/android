@@ -52,7 +52,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.fragment.UploadListFragment;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 
@@ -161,7 +161,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     private void openFileWithDefault(String localPath) {
         Intent myIntent = new Intent(android.content.Intent.ACTION_VIEW);
         File file = new File(localPath);
-        String mimetype = MimetypeIconUtil.getBestMimeTypeByFilename(localPath);
+        String mimetype = MimeTypeUtil.getBestMimeTypeByFilename(localPath);
         if ("application/octet-stream".equals(mimetype)) {
             mimetype = "*/*";
         }

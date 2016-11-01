@@ -19,8 +19,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import java.lang.ref.WeakReference;
-
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -50,6 +48,9 @@ import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
+
+import java.lang.ref.WeakReference;
 
 import third_parties.michaelOrtiz.TouchImageViewCustom;
 
@@ -551,7 +552,7 @@ public class PreviewImageFragment extends FileFragment {
      * @return          'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
-        return (file != null && file.isImage());
+        return (file != null && MimeTypeUtil.isImage(file));
     }
 
 
