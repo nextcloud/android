@@ -36,7 +36,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 
@@ -63,7 +63,7 @@ public class SyncedFolderJobService extends JobService {
         Integer uploadBehaviour = bundle.getInt("uploadBehaviour");
 
         File file = new File(filePath);
-        String mimeType = MimetypeIconUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
+        String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
 
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         requester.uploadNewFile(
