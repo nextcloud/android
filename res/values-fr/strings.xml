@@ -37,6 +37,7 @@
     <string name="prefs_log_title_history">Historique de la journalisation</string>
     <string name="prefs_log_summary_history">Cela affiche les logs enregistrés</string>
     <string name="prefs_log_delete_history_button">Supprimer l\'historique</string>
+    <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda &amp; des contacts</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Une  adresse de serveur pour le compte pourrait ne pas être résolue par DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play store ou F-Droid installée</string>
@@ -67,6 +68,7 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Quitter</string>
     <string name="uploader_error_title_no_file_to_upload">Aucun fichier à téléverser</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s ne peut téléverser un morceau de texte comme un fichier.</string>
+    <string name="uploader_error_message_no_file_to_upload">Les données reçues n\'incluent aucun fichier valide</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Le fichier ne peut pas être téléversé</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s n\'est pas autorisé à lire un fichier reçu</string>
     <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé dans son emplacement. Merci de vérifier si ce fichier existe.</string>
@@ -154,6 +156,7 @@ La suppression est irréversible. </string>
     <string name="downloader_download_failed_credentials_error">Le téléchargement a échoué, vous devez vous reconnecter</string>
     <string name="common_choose_account">Choisissez un compte</string>
     <string name="sync_fail_ticker">La synchronisation a échoué</string>
+    <string name="sync_fail_ticker_unauthorized">La synchronisation a échoué, vous devez vous reconnecter</string>
     <string name="sync_fail_content">La synchronisation de %1$s a échoué</string>
     <string name="sync_fail_content_unauthorized">Mot de passe invalide pour %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
@@ -170,6 +173,8 @@ La suppression est irréversible. </string>
     <string name="foreign_files_local_text">Local : %1$s</string>
     <string name="foreign_files_remote_text">Distant : %1$s</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace disque pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
+    <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
+    
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
     <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
     <string name="pass_code_reenter_your_pass_code">Veuillez saisir de nouveau votre code de sécurité</string>
@@ -253,6 +258,7 @@ La suppression est irréversible. </string>
     <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
     <string name="wait_a_moment">Veuillez patienter</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
+    <string name="filedisplay_unexpected_bad_get_content">Problème inattendu ; veuillez sélectionner le fichier depuis une autre application</string>
     <string name="filedisplay_no_file_selected">Aucun fichier n\'était sélectionné</string>
     <string name="activity_chooser_title">Envoyer le lien vers…</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
@@ -335,6 +341,9 @@ La suppression est irréversible. </string>
     <string name="error_cant_bind_to_operations_service">Erreur critique : impossible de réaliser les opérations</string>
 
     <string name="network_error_socket_exception">Une erreur est survenue pendant la connexion au serveur.</string>
+    <string name="network_error_socket_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée</string>
+    <string name="network_error_connect_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée</string>
+    <string name="network_host_not_available">L\'opération n\'a pas pu être terminée, le serveur n\'est pas disponible</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Vous n\'avez pas la permission %s</string>
