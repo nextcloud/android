@@ -56,7 +56,6 @@ import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.apache.commons.httpclient.HttpStatus;
@@ -557,7 +556,7 @@ public class ThumbnailsCacheManager {
                         mImageKey = (String) params[1];
                     }
 
-                    if (BitmapUtils.isImage(mFile)) {
+                    if (MimeTypeUtil.isImage(mFile)) {
                         thumbnail = doFileInBackground(mFile);
                     }
                 }
@@ -589,7 +588,7 @@ public class ThumbnailsCacheManager {
                         if (mFile.isDirectory()) {
                             imageView.setImageResource(R.drawable.ic_menu_archive);
                         } else {
-                            if (BitmapUtils.isVideo(mFile)) {
+                            if (MimeTypeUtil.isVideo(mFile)) {
                                 imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo);
                             } else {
                                 imageView.setImageResource(MimeTypeUtil.getFileTypeIconId(null, mFile.getName()));
