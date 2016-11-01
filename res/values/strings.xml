@@ -512,7 +512,7 @@
     <string name="actionbar_search">Search</string>
     <string name="files_drop_not_supported">This is a Nextcloud feature, please update.</string>
     <string name="learn_more">Learn more</string>
-    <string name="drawer_folder_sync">Instant upload</string>
+    <string name="drawer_folder_sync">Auto upload</string>
     <string name="drawer_participate">Participate</string>
     <string name="participate_testing_headline">Help us testing</string>
     <string name="participate_testing_bug_text">Found a bug? Something is odd?</string>
@@ -534,9 +534,9 @@
     <string name="choose_remote_folder">Choose folder&#8230;</string>
     <string name="folder_sync_loading_folders">Loading folders&#8230;</string>
     <string name="folder_sync_no_results">No media folders found.</string>
-    <string name="folder_sync_preferences">Instant upload preferences</string>
+    <string name="folder_sync_preferences">Auto upload preferences</string>
     <string name="folder_sync_settings">Settings</string>
-    <string name="folder_sync_new_info">Instant upload has been revamped completely. Please see the main menu and re-configure your instant upload. Sorry for the inconvenience.\n\nEnjoy the new and extended instant upload capabilities!</string>
+    <string name="folder_sync_new_info">Instant upload has been revamped completely. Please see the main menu and re-configure your auto upload. Sorry for the inconvenience.\n\nEnjoy the new and extended auto upload capabilities!</string>
     <string name="folder_sync_preferences_folder_path">For %1$s</string>
     <plurals name="items_selected_count">
         <!--
