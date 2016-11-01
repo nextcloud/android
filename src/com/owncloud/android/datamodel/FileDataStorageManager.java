@@ -43,6 +43,7 @@ import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -161,7 +162,7 @@ public class FileDataStorageManager {
             OCFile current = null;
             for (int i=0; i<tmp.size(); i++) {
                 current = tmp.get(i);
-                if (current.isImage()) {
+                if (MimeTypeUtil.isImage(current)) {
                     ret.add(current);
                 }
             }
@@ -1689,15 +1690,15 @@ public class FileDataStorageManager {
         ContentResolver contentResolver = getContentResolver();
 
         if (contentResolver != null) {
-            if (mimetypeString.startsWith("image/")) {
+            if (MimeTypeUtil.isImage(mimetypeString)) {
                 // Images
                 contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                         MediaStore.Images.Media.DATA + "=?", new String[]{path});
-            } else if (mimetypeString.startsWith("audio/")) {
+            } else if (MimeTypeUtil.isAudio(mimetypeString)) {
                 // Audio
                 contentResolver.delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                         MediaStore.Audio.Media.DATA + "=?", new String[]{path});
-            } else if (mimetypeString.startsWith("video/")) {
+            } else if (MimeTypeUtil.isVideo(mimetypeString)) {
                 // Video
                 contentResolver.delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                         MediaStore.Video.Media.DATA + "=?", new String[]{path});
@@ -1705,15 +1706,15 @@ public class FileDataStorageManager {
         } else {
             ContentProviderClient contentProviderClient = getContentProviderClient();
             try {
-                if (mimetypeString.startsWith("image/")) {
+                if (MimeTypeUtil.isImage(mimetypeString)) {
                     // Images
                     contentProviderClient.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                             MediaStore.Images.Media.DATA + "=?", new String[]{path});
-                } else if (mimetypeString.startsWith("audio/")) {
+                } else if (MimeTypeUtil.isAudio(mimetypeString)) {
                     // Audio
                     contentProviderClient.delete(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                             MediaStore.Audio.Media.DATA + "=?", new String[]{path});
-                } else if (mimetypeString.startsWith("video/")) {
+                } else if (MimeTypeUtil.isVideo(mimetypeString)) {
                     // Video
                     contentProviderClient.delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                             MediaStore.Video.Media.DATA + "=?", new String[]{path});
@@ -1722,7 +1723,6 @@ public class FileDataStorageManager {
                 Log_OC.e(TAG, "Exception deleting media file in MediaStore " + e.getMessage());
             }
         }
-
     }
 
     public void saveConflict(OCFile file, String etagInConflict) {

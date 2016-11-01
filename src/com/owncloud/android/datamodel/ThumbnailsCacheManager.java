@@ -21,15 +21,6 @@
 
 package com.owncloud.android.datamodel;
 
-import java.io.File;
-import java.io.InputStream;
-import java.lang.ref.WeakReference;
-import java.net.FileNameMap;
-import java.net.URLConnection;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.methods.GetMethod;
-
 import android.accounts.Account;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -39,7 +30,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -56,8 +46,9 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.adapter.DiskLruImageCache;
 import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener;
+import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -65,7 +56,6 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import com.owncloud.android.utils.FileStorageUtils;
 
 /**
  * Manager for concurrent access to thumbnails cache.
@@ -212,7 +202,7 @@ public class ThumbnailsCacheManager {
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground();
 
-                    if (((OCFile) mFile).isVideo() && thumbnail != null){
+                    if (MimeTypeUtil.isVideo((OCFile) mFile) && thumbnail != null) {
                         thumbnail = addVideoOverlay(thumbnail);
                     }
                 }  else if (mFile instanceof File) {
@@ -221,7 +211,7 @@ public class ThumbnailsCacheManager {
                     String url = ((File) mFile).getAbsolutePath();
                     String mMimeType = FileStorageUtils.getMimeTypeFromName(url);
 
-                    if (mMimeType != null && mMimeType.startsWith("video/") && thumbnail != null){
+                    if (MimeTypeUtil.isVideo(mMimeType) && thumbnail != null) {
                         thumbnail = addVideoOverlay(thumbnail);
                     }
                 //} else {  do nothing
