@@ -229,8 +229,7 @@ public class FileDataStorageManager {
                             cv, ProviderTableMeta._ID + "=?",
                             new String[]{String.valueOf(file.getFileId())});
                 } catch (RemoteException e) {
-                    Log_OC.e(TAG,
-                            FAILED_TO_INSERT_MSG + e.getMessage());
+                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
                 }
             }
         } else {
@@ -243,8 +242,7 @@ public class FileDataStorageManager {
                     result_uri = getContentProviderClient().insert(
                             ProviderTableMeta.CONTENT_URI_FILE, cv);
                 } catch (RemoteException e) {
-                    Log_OC.e(TAG,
-                            FAILED_TO_INSERT_MSG + e.getMessage());
+                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
                 }
             }
             if (result_uri != null) {
@@ -417,7 +415,7 @@ public class FileDataStorageManager {
             }
 
         } catch (OperationApplicationException | RemoteException e) {
-            Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage());
+            Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
 
         }
 
@@ -608,7 +606,7 @@ public class FileDataStorageManager {
                             ProviderTableMeta.FILE_PATH + " ASC "
                     );
                 } catch (RemoteException e) {
-                    Log_OC.e(TAG, e.getMessage());
+                    Log_OC.e(TAG, e.getMessage(), e);
                 }
 
             } else {
@@ -787,7 +785,7 @@ public class FileDataStorageManager {
                         ProviderTableMeta.FILE_PARENT + "=?",
                         new String[]{String.valueOf(parentId)}, null);
             } catch (RemoteException e) {
-                Log_OC.e(TAG, e.getMessage());
+                Log_OC.e(TAG, e.getMessage(), e);
                 return ret;
             }
         } else {
@@ -839,9 +837,7 @@ public class FileDataStorageManager {
                                 + ProviderTableMeta.FILE_ACCOUNT_OWNER + "=?",
                         new String[]{value, mAccount.name}, null);
             } catch (RemoteException e) {
-                Log_OC.e(TAG,
-                        "Couldn't determine file existance, assuming non existance: "
-                                + e.getMessage());
+                Log_OC.e(TAG, "Couldn't determine file existance, assuming non existance: " + e.getMessage(), e);
                 return false;
             }
         }
@@ -869,7 +865,7 @@ public class FileDataStorageManager {
                                 + "=?", new String[]{value, mAccount.name},
                         null);
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Could not get file details: " + e.getMessage());
+                Log_OC.e(TAG, "Could not get file details: " + e.getMessage(), e);
                 c = null;
             }
         }
@@ -967,8 +963,7 @@ public class FileDataStorageManager {
                             cv, ProviderTableMeta.OCSHARES_ID_REMOTE_SHARED + "=?",
                             new String[]{String.valueOf(share.getRemoteId())});
                 } catch (RemoteException e) {
-                    Log_OC.e(TAG,
-                            FAILED_TO_INSERT_MSG + e.getMessage());
+                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
                 }
             }
         } else {
@@ -981,8 +976,7 @@ public class FileDataStorageManager {
                     result_uri = getContentProviderClient().insert(
                             ProviderTableMeta.CONTENT_URI_SHARE, cv);
                 } catch (RemoteException e) {
-                    Log_OC.e(TAG,
-                            FAILED_TO_INSERT_MSG + e.getMessage());
+                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
                 }
             }
             if (result_uri != null) {
@@ -1069,14 +1063,12 @@ public class FileDataStorageManager {
                 c = getContentProviderClient().query(
                         ProviderTableMeta.CONTENT_URI_SHARE,
                         null,
-                        key + AND
-                                + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
+                        key + AND + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + "=?",
                         new String[]{value, mAccount.name},
                         null
                 );
             } catch (RemoteException e) {
-                Log_OC.w(TAG,
-                        "Could not get details, assuming share does not exist: "+ e.getMessage());
+                Log_OC.w(TAG, "Could not get details, assuming share does not exist: "+ e.getMessage());
                 c = null;
             }
         }
@@ -1137,13 +1129,16 @@ public class FileDataStorageManager {
                         null);
 
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Could not get file details: " + e.getMessage());
+                Log_OC.e(TAG, "Could not get file details: " + e.getMessage(), e);
                 cursor = null;
             }
         }
+
         OCShare share = null;
-        if (cursor != null && cursor.moveToFirst()) {
-            share = createShareInstance(cursor);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                share = createShareInstance(cursor);
+            }
             cursor.close();
         }
         return share;
@@ -1193,10 +1188,9 @@ public class FileDataStorageManager {
 
         } else {
             try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where,
-                        whereArgs);
+                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInAllFiles" + e.getMessage());
+                Log_OC.e(TAG, "Exception in resetShareFlagsInAllFiles" + e.getMessage(), e);
             }
         }
     }
@@ -1215,10 +1209,9 @@ public class FileDataStorageManager {
 
         } else {
             try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where,
-                        whereArgs);
+                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInFolder " + e.getMessage());
+                Log_OC.e(TAG, "Exception in resetShareFlagsInFolder " + e.getMessage(), e);
             }
         }
     }
@@ -1237,10 +1230,9 @@ public class FileDataStorageManager {
 
         } else {
             try {
-                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where,
-                        whereArgs);
+                getContentProviderClient().update(ProviderTableMeta.CONTENT_URI, cv, where, whereArgs);
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in resetShareFlagsInFolder " + e.getMessage());
+                Log_OC.e(TAG, "Exception in resetShareFlagsInFolder " + e.getMessage(), e);
             }
         }
     }
@@ -1257,7 +1249,7 @@ public class FileDataStorageManager {
                 getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_SHARE, where,
                         whereArgs);
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception in cleanShares" + e.getMessage());
+                Log_OC.e(TAG, "Exception in cleanShares" + e.getMessage(), e);
             }
         }
     }
@@ -1320,11 +1312,8 @@ public class FileDataStorageManager {
                         results = getContentProviderClient().applyBatch(operations);
                     }
 
-                } catch (OperationApplicationException e) {
-                    Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage());
-
-                } catch (RemoteException e) {
-                    Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage());
+                } catch (OperationApplicationException | RemoteException e) {
+                    Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
                 }
             }
         }
@@ -1411,8 +1400,7 @@ public class FileDataStorageManager {
                     }
 
                 } catch (OperationApplicationException | RemoteException e) {
-                    Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage());
-
+                    Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
                 }
             }
         }
@@ -1463,8 +1451,7 @@ public class FileDataStorageManager {
                 }
 
             } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage());
-
+                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
             }
         }
 
@@ -1509,8 +1496,7 @@ public class FileDataStorageManager {
                 }
 
             } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage());
-
+                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
             }
         }
     }
@@ -1539,8 +1525,7 @@ public class FileDataStorageManager {
                 }
 
             } catch (OperationApplicationException | RemoteException e) {
-                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage());
-
+                Log_OC.e(TAG, EXCEPTION_MSG + e.getMessage(), e);
             }
         }
 
@@ -1651,17 +1636,20 @@ public class FileDataStorageManager {
                         null, where, whereArgs, null);
 
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Could not get list of shares with: " + e.getMessage());
+                Log_OC.e(TAG, "Could not get list of shares with: " + e.getMessage(), e);
                 cursor = null;
             }
         }
         ArrayList<OCShare> shares = new ArrayList<OCShare>();
         OCShare share = null;
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                share = createShareInstance(cursor);
-                shares.add(share);
-            } while (cursor.moveToNext());
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    share = createShareInstance(cursor);
+                    shares.add(share);
+                } while (cursor.moveToNext());
+            }
+
             cursor.close();
         }
 
@@ -1712,7 +1700,7 @@ public class FileDataStorageManager {
                             MediaStore.Video.Media.DATA + "=?", new String[]{path});
                 }
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Exception deleting media file in MediaStore " + e.getMessage());
+                Log_OC.e(TAG, "Exception deleting media file in MediaStore " + e.getMessage(), e);
             }
         }
     }
@@ -1740,7 +1728,7 @@ public class FileDataStorageManager {
                         new String[]{String.valueOf(file.getFileId())}
                 );
             } catch (RemoteException e) {
-                Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage());
+                Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage(), e);
             }
         }
 
@@ -1751,7 +1739,7 @@ public class FileDataStorageManager {
                 /// set conflict in all ancestor folders
 
                 long parentId = file.getParentId();
-                Set<String> ancestorIds = new HashSet<String>();
+                Set<String> ancestorIds = new HashSet<>();
                 while (parentId != FileDataStorageManager.ROOT_PARENT_ID) {
                     ancestorIds.add(Long.toString(parentId));
                     parentId = getFileById(parentId).getParentId();
@@ -1781,7 +1769,7 @@ public class FileDataStorageManager {
                                     ancestorIds.toArray(new String[]{})
                             );
                         } catch (RemoteException e) {
-                            Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage());
+                            Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage(), e);
                         }
                     }
                 } // else file is ROOT folder, no parent to set in conflict
@@ -1822,7 +1810,7 @@ public class FileDataStorageManager {
                                     null
                             );
                         } catch (RemoteException e) {
-                            Log_OC.e(TAG, "Failed querying for descendents in conflict " + e.getMessage());
+                            Log_OC.e(TAG, "Failed querying for descendents in conflict " + e.getMessage(), e);
                         }
                     }
                     if (descendentsInConflict == null || descendentsInConflict.getCount() == 0) {
@@ -1845,7 +1833,7 @@ public class FileDataStorageManager {
                                         , new String[]{mAccount.name, parentPath}
                                 );
                             } catch (RemoteException e) {
-                                Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage());
+                                Log_OC.e(TAG, "Failed saving conflict in database " + e.getMessage(), e);
                             }
                         }
 
@@ -1915,8 +1903,7 @@ public class FileDataStorageManager {
                             cv, ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + "=?",
                             new String[]{mAccount.name});
                 } catch (RemoteException e) {
-                    Log_OC.e(TAG,
-                            FAILED_TO_INSERT_MSG + e.getMessage());
+                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
                 }
             }
         } else {
@@ -1929,8 +1916,7 @@ public class FileDataStorageManager {
                     result_uri = getContentProviderClient().insert(
                             ProviderTableMeta.CONTENT_URI_CAPABILITIES, cv);
                 } catch (RemoteException e) {
-                    Log_OC.e(TAG,
-                            FAILED_TO_INSERT_MSG + e.getMessage());
+                    Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
                 }
             }
             if (result_uri != null) {
@@ -1970,9 +1956,7 @@ public class FileDataStorageManager {
                         ProviderTableMeta.CAPABILITIES_ACCOUNT_NAME + "=? ",
                         new String[]{accountName}, null);
             } catch (RemoteException e) {
-                Log_OC.e(TAG,
-                        "Couldn't determine capability existance, assuming non existance: "
-                                + e.getMessage());
+                Log_OC.e(TAG, "Couldn't determine capability existence, assuming non existance: " + e.getMessage(), e);
             }
         }
 
