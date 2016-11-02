@@ -20,7 +20,12 @@ apply plugin: 'pmd'
 apply plugin: 'findbugs'
 
 ext {
-    supportLibraryVersion = '23.4.0'
+    supportLibraryVersion = '24.2.1'
+
+    travisBuild = System.getenv("TRAVIS") == "true"
+
+    // allows for -Dpre-dex=false to be set
+    preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 }
 
 repositories {
@@ -36,12 +41,13 @@ dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
 
-    compile 'com.github.nextcloud:android-library:1.0.7'
+    compile 'com.github.nextcloud:android-library:1.0.8'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile 'com.getbase:floatingactionbutton:1.10.1'
+
 
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'
@@ -62,9 +68,9 @@ dependencies {
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
-
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
     androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
+
 
 }
 
@@ -82,8 +88,8 @@ android {
         htmlReport true
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
     }
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.2"
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -109,11 +115,13 @@ android {
             assets.srcDirs = ['assets']
         }
 
+
         // move whole local unit tests structure as a whole from src/test/* to test/*
         test.setRoot('test')
 
         // move whole instrumented tests structure as a whole from src/androidTest/* to androidTest/*
         androidTest.setRoot('androidTest')
+
 
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
@@ -123,6 +131,11 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+	
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !travisBuild
     }
 
     compileOptions {
@@ -137,7 +150,6 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
     }
-
     task checkstyle(type: Checkstyle) {
         configFile = file("${rootProject.projectDir}/checkstyle.xml")
         configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
