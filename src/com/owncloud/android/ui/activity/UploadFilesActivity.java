@@ -68,7 +68,7 @@ public class UploadFilesActivity extends FileActivity implements
     private boolean mSelectAll = false;
     private LocalFileListFragment mFileListFragment;
     private Button mCancelBtn;
-    private Button mUploadBtn;
+    protected Button mUploadBtn;
     private Spinner mBehaviourSpinner;
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
@@ -81,7 +81,7 @@ public class UploadFilesActivity extends FileActivity implements
     public static final int RESULT_OK_AND_DO_NOTHING = 2;
     public static final int RESULT_OK_AND_DELETE = 3;
 
-    private static final String KEY_DIRECTORY_PATH =
+    public static final String KEY_DIRECTORY_PATH =
             UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
     private static final String KEY_ALL_SELECTED =
             UploadFilesActivity.class.getCanonicalName() + ".KEY_ALL_SELECTED";
