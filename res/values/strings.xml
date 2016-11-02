@@ -359,6 +359,28 @@
     <string name="uploader_upload_forbidden_permissions">to upload in this folder</string>
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
 
+    <string name="file_migration_dialog_title">Updating storage path</string>
+    <string name="file_migration_finish_button">Finish</string>
+    <string name="file_migration_preparing">Preparing for migration&#8230;</string>
+    <string name="file_migration_checking_destination">Checking destination&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Saving accounts configuration&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Waiting for unfinished synchronizations&#8230;</string>
+    <string name="file_migration_migrating">Moving data&#8230;</string>
+    <string name="file_migration_updating_index">Updating index&#8230;</string>
+    <string name="file_migration_cleaning">Cleaning&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restoring accounts configuration&#8230;</string>
+    <string name="file_migration_ok_finished">Finished</string>
+    <string name="file_migration_failed_not_enough_space">ERROR: Not enough space</string>
+    <string name="file_migration_failed_not_writable">ERROR: File is not writable</string>
+    <string name="file_migration_failed_not_readable">ERROR: File is not readable</string>
+    <string name="file_migration_failed_dir_already_exists">ERROR: Nextcloud directory already exists</string>
+    <string name="file_migration_failed_while_coping">ERROR: While migrating</string>
+    <string name="file_migration_failed_while_updating_index">ERROR: While updating index</string>
+
+    <string name="file_migration_directory_already_exists">Data folder already exists, what to do?</string>
+    <string name="file_migration_override_data_folder">Override</string>
+    <string name="file_migration_use_data_folder">Use existing</string>
+
     <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Add account</string>
     <string name="drawer_manage_accounts">Manage accounts</string>
@@ -425,6 +447,8 @@
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
+    <string name="prefs_storage_path">Storage path</string>
+    <string name="prefs_common">Common</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_file">Share %1$s</string>
@@ -516,5 +540,9 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
+
+    <string name="storage_description_default">Default</string>
+    <string name="storage_description_sd_no">SD card %1$d</string>
+    <string name="storage_description_unknown">Unknown</string>
 
 </resources>
