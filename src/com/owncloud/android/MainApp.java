@@ -24,15 +24,12 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
-import android.util.Log;
 import android.preference.PreferenceManager;
 
 import com.owncloud.android.authentication.PassCodeManager;
@@ -41,10 +38,9 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.observer.SyncedFolderObserverService;
-
+import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.utils.ExceptionHandler;
-import com.owncloud.android.ui.activity.Preferences;
 
 /**
  * Main Application of the project

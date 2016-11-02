@@ -31,8 +31,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.net.Uri;
-import android.os.Build;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.CheckBoxPreference;
@@ -66,7 +66,6 @@ import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.PreferenceWithTwoLineLongSummary;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.BufferedReader;
@@ -75,7 +74,6 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
-
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -780,8 +778,7 @@ public class Preferences extends PreferenceActivity
                 Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
-            Toast.makeText(this, R.string.prefs_calendar_contacts_sync_setup_successful, Toast.LENGTH_LONG).show();
-        }
+            Toast.makeText(this, R.string.prefs_calendar_contacts_sync_setup_successful, Toast.LENGTH_LONG).show();        }
     }
 
     public ActionBar getSupportActionBar() {
