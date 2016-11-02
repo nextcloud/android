@@ -32,6 +32,7 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -342,7 +343,7 @@ public class FileMenuFilter {
 
     private boolean anyFileAudio() {
         for(OCFile file: mFiles) {
-            if(file.isAudio()) {
+            if(MimeTypeUtil.isAudio(file)) {
                 return true;
             }
         }
@@ -351,7 +352,7 @@ public class FileMenuFilter {
 
     private boolean anyFileVideo() {
         for(OCFile file: mFiles) {
-            if(file.isVideo()) {
+            if(MimeTypeUtil.isVideo(file)) {
                 return true;
             }
         }
