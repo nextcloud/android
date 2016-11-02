@@ -64,7 +64,6 @@ import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.PreferenceWithLongSummary;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.IOException;
@@ -72,8 +71,7 @@ import java.io.IOException;
 /**
  * An Activity that allows the user to change the application's settings.
  *
- * It proxies the necessary calls via {@link android.support.v7.app.AppCompatDelegate} to be used
- * with AppCompat.
+ * It proxies the necessary calls via {@link android.support.v7.app.AppCompatDelegate} to be used with AppCompat.
  */
 public class Preferences extends PreferenceActivity
         implements StorageMigration.StorageMigrationProgressListener {
@@ -157,7 +155,7 @@ public class Preferences extends PreferenceActivity
         registerForContextMenu(getListView());
 
         pCode = (CheckBoxPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
-        if (pCode != null){
+        if (pCode != null) {
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -217,15 +215,15 @@ public class Preferences extends PreferenceActivity
                 preferenceCategory.removePreference(pCalendarContacts);
             }
         }
-        
+
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
         Preference pHelp = findPreference("help");
-        if (pHelp != null ){
+        if (pHelp != null) {
             if (helpEnabled) {
                 pHelp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String helpWeb   =(String) getText(R.string.url_help);
+                        String helpWeb = (String) getText(R.string.url_help);
                         if (helpWeb != null && helpWeb.length() > 0) {
                             Uri uriUrl = Uri.parse(helpWeb);
                             Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -239,9 +237,9 @@ public class Preferences extends PreferenceActivity
             }
         }
 
-       boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
-       Preference pRecommend =  findPreference("recommend");
-        if (pRecommend != null){
+        boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
+        Preference pRecommend = findPreference("recommend");
+        if (pRecommend != null) {
             if (recommendEnabled) {
                 pRecommend.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -257,7 +255,7 @@ public class Preferences extends PreferenceActivity
 
                         String recommendSubject =
                                 String.format(getString(R.string.recommend_subject),
-                                appName);
+                                        appName);
                         String recommendText = String.format(getString(R.string.recommend_text),
                                 appName, downloadUrl);
 
@@ -275,16 +273,16 @@ public class Preferences extends PreferenceActivity
         }
 
         boolean feedbackEnabled = getResources().getBoolean(R.bool.feedback_enabled);
-        Preference pFeedback =  findPreference("feedback");
-        if (pFeedback != null){
+        Preference pFeedback = findPreference("feedback");
+        if (pFeedback != null) {
             if (feedbackEnabled) {
                 pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String feedbackMail   =(String) getText(R.string.mail_feedback);
-                        String feedback   =(String) getText(R.string.prefs_feedback) +
+                        String feedbackMail = (String) getText(R.string.mail_feedback);
+                        String feedback = (String) getText(R.string.prefs_feedback) +
                                 " - android v" + appVersion;
-                        Intent intent = new Intent(Intent.ACTION_SENDTO); 
+                        Intent intent = new Intent(Intent.ACTION_SENDTO);
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
 
@@ -301,8 +299,8 @@ public class Preferences extends PreferenceActivity
         }
 
         boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
-        Preference pLogger =  findPreference("logger");
-        if (pLogger != null){
+        Preference pLogger = findPreference("logger");
+        if (pLogger != null) {
             if (loggerEnabled) {
                 pLogger.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -319,7 +317,7 @@ public class Preferences extends PreferenceActivity
         }
 
         boolean imprintEnabled = getResources().getBoolean(R.bool.imprint_enabled);
-        Preference pImprint =  findPreference("imprint");
+        Preference pImprint = findPreference("imprint");
         if (pImprint != null) {
             if (imprintEnabled) {
                 pImprint.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -340,7 +338,7 @@ public class Preferences extends PreferenceActivity
             }
         }
 
-        mPrefStoragePath =  (ListPreference) findPreference(Keys.STORAGE_PATH);
+        mPrefStoragePath = (ListPreference) findPreference(Keys.STORAGE_PATH);
         if (mPrefStoragePath != null) {
             StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();
             String[] entries = new String[storageOptions.length];
@@ -353,26 +351,24 @@ public class Preferences extends PreferenceActivity
             mPrefStoragePath.setEntryValues(values);
 
             mPrefStoragePath.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        String newPath = (String)newValue;
-                        if (mStoragePath.equals(newPath))
-                            return true;
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String newPath = (String) newValue;
+                    if (mStoragePath.equals(newPath))
+                        return true;
 
-                        StorageMigration storageMigration = new StorageMigration(Preferences.this, mStoragePath, newPath);
+                    StorageMigration storageMigration = new StorageMigration(Preferences.this, mStoragePath, newPath);
 
-                        storageMigration.setStorageMigrationProgressListener(Preferences.this);
+                    storageMigration.setStorageMigrationProgressListener(Preferences.this);
 
-                        storageMigration.migrate();
+                    storageMigration.migrate();
 
-                        return false;
-                    }
-                });
+                    return false;
+                }
+            });
 
         }
 
-        mPrefInstantUploadPath = (PreferenceWithLongSummary)findPreference(Keys.INSTANT_UPLOAD_PATH);
-        if (mPrefInstantUploadPath != null){
         mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
@@ -392,32 +388,10 @@ public class Preferences extends PreferenceActivity
                         return true;
                     }
                 });
-        }
-
-        mPrefInstantUploadCategory =
-                (PreferenceCategory) findPreference("instant_uploading_category");
-
-        mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
-        mPrefInstantUploadPathWiFi =  findPreference("instant_upload_on_wifi");
-        mPrefInstantPictureUploadOnlyOnCharging = findPreference("instant_upload_on_charging");
-        mPrefInstantUpload = findPreference("instant_uploading");
-
-        toggleInstantPictureOptions(((CheckBoxPreference) mPrefInstantUpload).isChecked());
-
-        mPrefInstantUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                toggleInstantPictureOptions((Boolean) newValue);
-                toggleInstantUploadBehaviour(
-                        ((CheckBoxPreference)mPrefInstantVideoUpload).isChecked(),
-                        (Boolean) newValue);
-                return true;
             }
-        });
 
-        mPrefInstantVideoUploadPath =  findPreference(Keys.INSTANT_VIDEO_UPLOAD_PATH);
-        if (mPrefInstantVideoUploadPath != null){
+            mPrefInstantUploadCategory =
+                    (PreferenceCategory) findPreference("instant_uploading_category");
 
             mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
             mPrefInstantUploadPathWiFi = findPreference("instant_upload_on_wifi");
@@ -438,7 +412,7 @@ public class Preferences extends PreferenceActivity
                 }
             });
 
-            mPrefInstantVideoUploadPath = findPreference("instant_video_upload_path");
+            mPrefInstantVideoUploadPath = findPreference(Keys.INSTANT_VIDEO_UPLOAD_PATH);
             if (mPrefInstantVideoUploadPath != null) {
 
                 mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -461,10 +435,7 @@ public class Preferences extends PreferenceActivity
             mPrefInstantVideoUpload = findPreference("instant_video_uploading");
             mPrefInstantVideoUploadOnlyOnCharging = findPreference("instant_video_upload_on_charging");
             toggleInstantVideoOptions(((CheckBoxPreference) mPrefInstantVideoUpload).isChecked());
-        mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-
             mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
                     toggleInstantVideoOptions((Boolean) newValue);
@@ -488,16 +459,13 @@ public class Preferences extends PreferenceActivity
         }
 
         /* About App */
-       pAboutApp = findPreference("about_app");
-       if (pAboutApp != null) { 
-               pAboutApp.setTitle(String.format(getString(R.string.about_android),
-                       getString(R.string.app_name)));
-               pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
-       }
+        pAboutApp = findPreference("about_app");
+        if (pAboutApp != null) {
+            pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
+            pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
+        }
 
-       loadInstantUploadPath();
-       loadStoragePath();
-       loadInstantUploadVideoPath();
+        loadStoragePath();
     }
 
     private void launchDavDroidLogin()
@@ -678,7 +646,8 @@ public class Preferences extends PreferenceActivity
                 Toast.makeText(this, R.string.pass_code_removed, Toast.LENGTH_LONG).show();
             }
         } else if (requestCode == ACTION_REQUEST_CODE_DAVDROID_SETUP && resultCode == RESULT_OK) {
-            Toast.makeText(this, R.string.prefs_calendar_contacts_sync_setup_successful, Toast.LENGTH_LONG).show();        }
+            Toast.makeText(this, R.string.prefs_calendar_contacts_sync_setup_successful, Toast.LENGTH_LONG).show();
+        }
     }
 
     public ActionBar getSupportActionBar() {
