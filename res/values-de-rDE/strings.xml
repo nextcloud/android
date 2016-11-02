@@ -172,7 +172,7 @@
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung um die ausgewählten Dateien in den Ordner %1$s zu kopieren. Möchten Sie diese stattdessen verschieben?</string>
-    <string name="pass_code_enter_pass_code">Synchronisation fehlgeschlagen, Sie müssen sich erneut anmelden.</string>
+    <string name="pass_code_enter_pass_code">Bitte geben Sie ihre PIN ein</string>
     
     <string name="pass_code_configure_your_pass_code">Bitte PIN eingeben</string>
     <string name="pass_code_configure_your_pass_code_explanation">Die PIN wird jedes mal wenn die App gestartet wird abgefragt</string>

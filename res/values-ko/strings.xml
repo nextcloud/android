@@ -27,6 +27,7 @@
     <string name="prefs_accounts">계정</string>
     <string name="prefs_manage_accounts">계정 관리</string>
     <string name="prefs_passcode">암호 잠금</string>
+    <string name="prefs_show_hidden_files">숨겨진 파일보기</string>
     <string name="prefs_instant_upload">사진 즉시 업로드</string>
     <string name="prefs_instant_upload_summary">카메라로 찍은 사진 즉시 업로드</string>
     <string name="prefs_instant_video_upload">동영상 즉시 업로드</string>
@@ -46,6 +47,7 @@
 	<string name="recommend_subject">%1$s을(를) 스마트폰에서 사용해 보세요!</string>
 	<string name="recommend_text">%1$s을(를) 스마트폰에서 사용해 보는 것을 추천합니다!\n다운로드 링크: %2$s</string>
 
+    <string name="auth_check_server">서버 확인</string>
     <string name="auth_host_url">서버 주소 https://…</string>
     <string name="auth_username">사용자 이름</string>
     <string name="auth_password">암호</string>
@@ -53,9 +55,12 @@
     <string name="sync_string_files">파일</string>
     <string name="setup_btn_connect">접속</string>
     <string name="uploader_btn_upload_text">업로드</string>
+    <string name="uploader_btn_uploadTextSnippet_text">텍스트 파일 만들기</string>
+    <string name="uploader_top_message">업로드 폴더 선택</string>
     <string name="uploader_wrn_no_account_title">계정 없음</string>
     <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
     <string name="uploader_wrn_no_account_quit_btn_text">끝내기</string>
+    <string name="uploader_error_title_no_file_to_upload">업로드된 파일이 없음</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">파일을 업로드 할 수 없음</string>
     <string name="uploader_upload_files_behaviour">업로드 설정:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Nextcloud 폴더로 파일 이동</string>
@@ -84,6 +89,7 @@
     <string name="common_yes">예</string>
     <string name="common_no">아니요</string>
     <string name="common_ok">확인</string>
+    <string name="common_remove_upload">업로드 제거</string>
     <string name="common_retry_upload">업로드 다시 시도</string>
     <string name="common_cancel_sync">동기화 취소</string>
     <string name="common_cancel">취소</string>
@@ -135,6 +141,7 @@
     <string name="downloader_download_failed_credentials_error">다운로드 실패. 다시 로그인하세요</string>
     <string name="common_choose_account">계정 선택</string>
     <string name="sync_fail_ticker">동기화 실패</string>
+    <string name="sync_fail_ticker_unauthorized">동기화 실패; 다시 로그인하세요</string>
     <string name="sync_fail_content_unauthorized">%1$s의 암호가 올바르지 않습니다</string>
     <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>
     <string name="sync_conflicts_in_favourites_content">동기화된 파일 중 %1$d개를 동기화할 수 없습니다</string>
@@ -149,8 +156,11 @@
     <string name="foreign_files_fail">몇몇 파일을 이동할 수 없음</string>
     <string name="foreign_files_local_text">로컬: %1$s</string>
     <string name="foreign_files_remote_text">원격: %1$s</string>
+    <string name="pass_code_enter_pass_code">암호코드를 입력하십시오</string>
+    
     <string name="pass_code_configure_your_pass_code">암호를 입력하십시오</string>
     <string name="pass_code_configure_your_pass_code_explanation">앱을 시작할 때마다 암호를 물어봅니다</string>
+    <string name="pass_code_reenter_your_pass_code">암호코드를 다시 입력하십시오</string>
     <string name="pass_code_remove_your_pass_code">내 암호 삭제</string>
     <string name="pass_code_mismatch">암호가 일치하지 않습니다</string>
     <string name="pass_code_wrong">암호가 잘못됨</string>
@@ -177,6 +187,7 @@
     <string name="media_play_pause_description">재생 혹은 일시 정지 단추</string>
     <string name="media_forward_description">빨리감기 단추</string>
 
+	<string name="auth_getting_authorization">권한 얻기 &#8230;</string>
 	<string name="auth_no_net_conn_title">네트워크에 연결할 수 없습니다</string>
 	<string name="auth_nossl_plain_ok_title">암호화된 연결을 사용할 수 없습니다.</string>
 	<string name="auth_connection_established">연결됨</string>
@@ -188,6 +199,7 @@
 	<string name="auth_unknown_host_title">호스트를 찾을 수 없음</string>
 	<string name="auth_incorrect_path_title">서버 인스턴스를 찾을 수 없음</string>
 	<string name="auth_timeout_title">서버 응답 시간이 초과됨</string>
+	<string name="auth_incorrect_address_title">잘못된 서버 주소 형식</string>
 	<string name="auth_ssl_general_error_title">SSL 초기화 오류</string>
 	<string name="auth_ssl_unverified_server_title">SSL 서버의 신원을 확인할수 없습니다</string>
 	<string name="auth_bad_oc_version_title">확인할 수 없는 서버 버전</string>
@@ -196,16 +208,21 @@
 	<string name="auth_unauthorized">잘못된 사용자 이름 및 암호</string>
 	<string name="auth_oauth_error">인증 실패</string>
 	<string name="auth_oauth_error_access_denied">인증 서버 접근 거부됨</string>
+	<string name="auth_wtf_reenter_URL">예상하지 못한 오류입니다. 다시 서버 주소를 입력하십시오</string>
 	<string name="auth_expired_oauth_token_toast">인증이 만료되었습니다. 다시 인증해 주십시오</string>
+	<string name="auth_expired_basic_auth_toast">현재 암호를 입력하십시오</string>
 	<string name="auth_expired_saml_sso_token_toast">세션이 만료되었습니다. 다시 접속해 주십시오</string>
+	<string name="auth_connecting_auth_server">인증 서버에 연결 ...</string>
 	<string name="auth_unsupported_auth_method">서버에서 이 인증 방법을 지원하지 않습니다.</string>
 	<string name="auth_unsupported_multiaccount">%1$s에서 다중 계정을 지원하지 않습니다</string>
 	<string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않았습니다. 관리자에게 연락하십시오
 	</string>
-	<string name="auth_account_does_not_exist">장치에 아직 계정이 없음</string>
+	<string name="auth_can_not_auth_against_server">이 서버에 인증 할 수 없습니다</string>
+    <string name="auth_account_does_not_exist">장치에 아직 계정이 없음</string>
     
     <string name="common_rename">이름 바꾸기</string>
     <string name="common_remove">삭제</string>
+    <string name="confirmation_remove_file_alert">%1$s을(를) 삭제하시겠습니까?</string>
     <string name="confirmation_remove_folder_alert">%1$s 및 포함된 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_local">로컬만</string>
     <string name="remove_success_msg">성공적으로 삭제함</string>
@@ -220,6 +237,8 @@
     <string name="filename_forbidden_charaters_from_server">파일 이름에 하나 이상의 사용할 수 없는 문자가 포함되어 있음</string>
     <string name="filename_empty">파일 이름이 비어 있을 수 없음</string>
     <string name="wait_a_moment">잠시 기다려 주십시오</string>
+    <string name="wait_checking_credentials">저장된 인증 확인</string>
+    <string name="filedisplay_unexpected_bad_get_content">예기치 않은 문제; 다른 앱에서 파일을 선택하십시오</string>
     <string name="filedisplay_no_file_selected">선택한 파일 없음</string>
     <string name="activity_chooser_title">다음으로 링크 보내기...</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
@@ -301,6 +320,8 @@
     <string name="error_cant_bind_to_operations_service">치명적 오류: 작업을 진행할 수 없음</string>
 
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생하였습니다.</string>
+    <string name="network_error_connect_timeout_exception">서버를 기다리는 동안 오류가 발생하였습니다; 작업을 완료 할 수 없습니다</string>
+    <string name="network_host_not_available">작업을 완료 할 수 없습니다; 서버를 사용할 수 없습니다</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">%s 권한이 없습니다</string>
