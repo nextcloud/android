@@ -90,6 +90,7 @@ import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
@@ -1523,7 +1524,7 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private void tryStopPlaying(OCFile file){
-        if (mMediaServiceConnection != null && file.isAudio()){
+        if (mMediaServiceConnection != null && MimeTypeUtil.isAudio(file)){
             if (mMediaServiceBinder.isPlaying(file)){
                 mMediaServiceBinder.pause();
             }
