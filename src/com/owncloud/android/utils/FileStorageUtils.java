@@ -66,22 +66,9 @@ public class FileStorageUtils {
     public static Boolean mSortAscending = true;
 
     /**
-     * Takes a full path to owncloud file and removes beginning which is path to ownload data folder.
-     * If fullPath does not start with that folder, fullPath is returned as is.
-     */
-    public static final String removeDataFolderPath(String fullPath) {
-        File sdCard = Environment.getExternalStorageDirectory();
-        String dataFolderPath = sdCard.getAbsolutePath() + "/" + MainApp.getDataFolder() + "/";
-        if(fullPath.indexOf(dataFolderPath) == 0) {
-            return fullPath.substring(dataFolderPath.length());
-        }
-        return fullPath;
-    }
-    
-    /**
      * Get local owncloud storage path for accountName.
      */
-    public static final String getSavePath(String accountName) {
+    public static String getSavePath(String accountName) {
         return MainApp.getStoragePath()
                 + File.separator
                 + MainApp.getDataFolder()
@@ -96,14 +83,14 @@ public class FileStorageUtils {
      * corresponding local path (in local owncloud storage) to remote uploaded
      * file.
      */
-    public static final String getDefaultSavePathFor(String accountName, OCFile file) {
+    public static String getDefaultSavePathFor(String accountName, OCFile file) {
         return getSavePath(accountName) + file.getRemotePath();
     }
 
     /**
      * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
      */
-    public static final String getTemporalPath(String accountName) {
+    public static String getTemporalPath(String accountName) {
         return MainApp.getStoragePath()
                 + File.separator
                 + MainApp.getDataFolder()
@@ -121,12 +108,12 @@ public class FileStorageUtils {
      * @param accountName not used. can thus be null.
      * @return Optimistic number of available bytes (can be less)
      */
-    public static final long getUsableSpace(String accountName) {
+    public static long getUsableSpace(String accountName) {
         File savePath = new File(MainApp.getStoragePath());
         return savePath.getUsableSpace();
     }
     
-    public static final String getLogPath()  {
+    public static String getLogPath()  {
         return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "log";
     }
 
