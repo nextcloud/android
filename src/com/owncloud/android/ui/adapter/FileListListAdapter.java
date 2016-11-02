@@ -386,7 +386,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
             , boolean onlyOnDevice) {
-        if (updatedStorageManager != null && updatedStorageManager.equals(mStorageManager)) {
+        if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
