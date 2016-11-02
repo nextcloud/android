@@ -137,7 +137,7 @@ public class ExtendedListFragment extends Fragment
     }
 
     public boolean isGridEnabled(){
-        return mCurrentListView.equals(mGridView);
+        return (mCurrentListView != null && mCurrentListView.equals(mGridView));
     }
 
     @Override
@@ -283,7 +283,7 @@ public class ExtendedListFragment extends Fragment
             Log_OC.v(TAG, "Setting selection to position: " + firstPosition + "; top: "
                     + top + "; index: " + index);
 
-            if (mCurrentListView.equals(mListView)) {
+            if (mCurrentListView!= null && mCurrentListView.equals(mListView)) {
                 if (mHeightCell*index <= mListView.getHeight()) {
                     mListView.setSelectionFromTop(firstPosition, top);
                 } else {
