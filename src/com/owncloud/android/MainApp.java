@@ -29,7 +29,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
