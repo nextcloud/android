@@ -74,7 +74,8 @@ public class MainApp extends Application {
     private boolean mBound;
 
 
-    @SuppressFBWarnings("ST")    public void onCreate(){
+    @SuppressFBWarnings("ST")
+    public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();
 
@@ -85,7 +86,7 @@ public class MainApp extends Application {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, Environment.
-                              getExternalStorageDirectory().getAbsolutePath());
+                getExternalStorageDirectory().getAbsolutePath());
 
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
 
