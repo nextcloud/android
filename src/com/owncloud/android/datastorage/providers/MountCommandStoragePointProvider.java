@@ -45,9 +45,11 @@ public class MountCommandStoragePointProvider extends AbstractCommandLineStorage
     public Vector<StoragePoint> getAvailableStoragePoint() {
         Vector<StoragePoint> result = new Vector<>();
 
-        for (String p : getPotentialPaths(getCommandLineResult()))
-            if (canBeAddedToAvailableList(result, p))
+        for (String p : getPotentialPaths(getCommandLineResult())) {
+            if (canBeAddedToAvailableList(result, p)) {
                 result.add(new StoragePoint(p, p));
+            }
+        }
 
         return result;
     }
@@ -55,15 +57,16 @@ public class MountCommandStoragePointProvider extends AbstractCommandLineStorage
     private Vector<String> getPotentialPaths(String mounted) {
         final Vector<String> result = new Vector<>();
 
-        for (String line : mounted.split("\n"))
+        for (String line : mounted.split("\n")) {
             if (!line.toLowerCase(Locale.US).contains("asec") && sPattern.matcher(line).matches()) {
                 String parts[] = line.split(" ");
                 for (String path : parts) {
-                    if (path.startsWith("/") &&
-                            !path.toLowerCase(Locale.US).contains("vold"))
+                    if (path.startsWith("/") && !path.toLowerCase(Locale.US).contains("vold")) {
                         result.add(path);
+                    }
                 }
             }
+        }
         return result;
     }
 }

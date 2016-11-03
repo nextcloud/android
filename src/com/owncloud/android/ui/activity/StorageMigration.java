@@ -68,9 +68,9 @@ public class StorageMigration {
     }
 
     public void migrate() {
-        if (storageFolderAlreadyExists())
+        if (storageFolderAlreadyExists()) {
             askToOverride();
-        else {
+        } else {
             ProgressDialog progressDialog = createMigrationProgressDialog();
             progressDialog.show();
             new FileMigrationTask(
@@ -80,7 +80,7 @@ public class StorageMigration {
                     progressDialog,
                     mListener).execute();
 
-            progressDialog.getButton(progressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+            progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
         }
     }
 
@@ -97,15 +97,17 @@ public class StorageMigration {
                 .setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
-                        if (mListener != null)
+                        if (mListener != null) {
                             mListener.onCancelMigration();
+                        }
                     }
                 })
                 .setNegativeButton(R.string.common_cancel, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (mListener != null)
+                        if (mListener != null) {
                             mListener.onCancelMigration();
+                        }
                     }
                 })
                 .setNeutralButton(R.string.file_migration_use_data_folder, new OnClickListener() {
@@ -160,7 +162,7 @@ public class StorageMigration {
         return progressDialog;
     }
 
-    abstract static private class FileMigrationTaskBase extends AsyncTask<Void, Integer, Integer> {
+    private static abstract class FileMigrationTaskBase extends AsyncTask<Void, Integer, Integer> {
         protected String mStorageSource;
         protected String mStorageTarget;
         protected Context mContext;
@@ -355,17 +357,21 @@ public class StorageMigration {
             File srcFile = new File(mStorageSource);
             File dstFile = new File(mStorageTarget);
 
-            if (!dstFile.canRead() || !srcFile.canRead())
+            if (!dstFile.canRead() || !srcFile.canRead()) {
                 throw new MigrationException(R.string.file_migration_failed_not_readable);
+            }
 
-            if (!dstFile.canWrite() || !srcFile.canWrite())
+            if (!dstFile.canWrite() || !srcFile.canWrite()) {
                 throw new MigrationException(R.string.file_migration_failed_not_writable);
+            }
 
-            if (new File(dstFile, MainApp.getDataFolder()).exists())
+            if (new File(dstFile, MainApp.getDataFolder()).exists()) {
                 throw new MigrationException(R.string.file_migration_failed_dir_already_exists);
+            }
 
-            if (dstFile.getFreeSpace() < FileStorageUtils.getFolderSize(new File(srcFile, MainApp.getDataFolder())))
+            if (dstFile.getFreeSpace() < FileStorageUtils.getFolderSize(new File(srcFile, MainApp.getDataFolder()))) {
                 throw new MigrationException(R.string.file_migration_failed_not_enough_space);
+            }
         }
 
         void copyFiles() throws MigrationException {
@@ -376,14 +382,16 @@ public class StorageMigration {
         }
 
         void copyDirs(File src, File dst) throws MigrationException {
-            if (!dst.mkdirs())
+            if (!dst.mkdirs()) {
                 throw new MigrationException(R.string.file_migration_failed_while_coping);
+            }
 
             for (File f : src.listFiles()) {
-                if (f.isDirectory())
+                if (f.isDirectory()) {
                     copyDirs(f, new File(dst, f.getName()));
-                else if (!FileStorageUtils.copyFile(f, new File(dst, f.getName())))
+                } else if (!FileStorageUtils.copyFile(f, new File(dst, f.getName()))) {
                     throw new MigrationException(R.string.file_migration_failed_while_coping);
+                }
             }
 
         }
@@ -401,24 +409,27 @@ public class StorageMigration {
 
         void cleanup() {
             File srcFile = new File(mStorageSource + File.separator + MainApp.getDataFolder());
-            if (!deleteRecursive(srcFile))
+            if (!deleteRecursive(srcFile)) {
                 Log_OC.w(TAG, "Migration cleanup step failed");
+            }
             srcFile.delete();
         }
 
         boolean deleteRecursive(File f) {
             boolean res = true;
-            if (f.isDirectory())
-                for (File c : f.listFiles())
+            if (f.isDirectory()) {
+                for (File c : f.listFiles()) {
                     res = deleteRecursive(c) && res;
+                }
+            }
             return f.delete() && res;
         }
 
         void rollback() {
             File dstFile = new File(mStorageTarget + File.separator + MainApp.getDataFolder());
-            if (dstFile.exists())
-                if (!dstFile.delete())
-                    Log_OC.w(TAG, "Rollback step failed");
+            if (dstFile.exists() && !dstFile.delete()) {
+                Log_OC.w(TAG, "Rollback step failed");
+            }
         }
     }
 }
