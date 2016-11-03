@@ -422,7 +422,6 @@
     <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>
     <string name="pref_behaviour_entries_move">flyttet til app-mappe</string>
     <string name="pref_behaviour_entries_delete_file">slettet</string>
-
     <string name="share_dialog_title">Deling</string>
     <string name="share_file">Del %1$s</string>
     <string name="share_with_user_section_title">Del med brukere og grupper</string>
@@ -500,4 +499,4 @@ eller</string>
         <item quantity="other">%d valgte</item>
     </plurals>
 
-</resources>
+    </resources>

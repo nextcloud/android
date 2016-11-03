@@ -422,7 +422,6 @@
     <string name="pref_behaviour_entries_keep_file">lasciato nella cartella originale</string>
     <string name="pref_behaviour_entries_move">spostato nella cartella dell\'applicazione</string>
     <string name="pref_behaviour_entries_delete_file">eliminato</string>
-
     <string name="share_dialog_title">Condivisione</string>
     <string name="share_file">Condividi %1$s</string>
     <string name="share_with_user_section_title">Condividi con utenti e gruppi</string>
@@ -500,4 +499,4 @@ o</string>
         <item quantity="other">%d selezionati</item>
     </plurals>
 
-</resources>
+    </resources>

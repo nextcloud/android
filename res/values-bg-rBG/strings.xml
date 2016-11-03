@@ -415,7 +415,6 @@
     <string name="pref_behaviour_entries_keep_file">запазвани в оригиналната папка</string>
     <string name="pref_behaviour_entries_move">премествани в папката на приложението</string>
     <string name="pref_behaviour_entries_delete_file">изтривани</string>
-
     <string name="share_dialog_title">Споделяне</string>
     <string name="share_file">Споделяне на %1$s</string>
     <string name="share_with_user_section_title">Споделяне с потребители и групи</string>
@@ -471,4 +470,4 @@
         <item quantity="other">%d избрани</item>
     </plurals>
 
-</resources>
+    </resources>

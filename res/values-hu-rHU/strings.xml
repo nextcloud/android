@@ -421,7 +421,6 @@
     <string name="pref_behaviour_entries_keep_file">megtartani az eredeti mappában</string>
     <string name="pref_behaviour_entries_move">áthelyezve az alkalmazás mappába</string>
     <string name="pref_behaviour_entries_delete_file">törölt</string>
-
     <string name="share_dialog_title">Megosztás</string>
     <string name="share_file">%1$s megosztása</string>
     <string name="share_with_user_section_title">Megosztás felhasználókkal és csoportokkal...</string>
@@ -497,4 +496,4 @@ vagy</string>
         <item quantity="other">%d kiválasztott</item>
     </plurals>
 
-</resources>
+    </resources>
