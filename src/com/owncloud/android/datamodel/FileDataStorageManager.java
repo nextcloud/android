@@ -748,7 +748,8 @@ public class FileDataStorageManager {
             do {
                 ContentValues cv = new ContentValues();
                 long fileId = cursor.getLong(cursor.getColumnIndex(ProviderTableMeta._ID));
-                String oldFileStoragePath = cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
+                String oldFileStoragePath =
+                        cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
 
                 if (oldFileStoragePath.startsWith(srcPath)) {
 
