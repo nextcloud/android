@@ -31,6 +31,8 @@ import org.junit.runners.BlockJUnit4ClassRunner;
  */
 @RunWith(BlockJUnit4ClassRunner.class)
 public class AuthenticatorDataUrlTest {
+    public static final String URL_PARSING = " url parsing";
+    public static final String INCORRECT_USER_VALUE_IN = "Incorrect user value in ";
     private String schemeUrl = "nextcloud://login/";
     private String plus = "&";
 
@@ -52,9 +54,9 @@ public class AuthenticatorDataUrlTest {
         for (String urlStart : urlStarts) {
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
             System.out.println(urlStart + dataUrl);
-            Assert.assertEquals("Incorrect user value in " + urlStart + " url parsing", userValue, info.username);
-            Assert.assertEquals("Incorrect user value in " + urlStart + " url parsing", passwordValue, info.password);
-            Assert.assertEquals("Incorrect user value in " + urlStart + " url parsing", addressValue, info.serverAddress);
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, userValue, info.username);
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, passwordValue, info.password);
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, addressValue, info.serverAddress);
         }
     }
 
@@ -63,13 +65,13 @@ public class AuthenticatorDataUrlTest {
 
         for (String urlStart : urlStarts) {
             System.out.println(urlStart + userUrlPart);
-            Assert.assertEquals("Incorrect user value in " + urlStart + " url parsing", userValue,
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, userValue,
                     AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + userUrlPart).username);
             System.out.println(urlStart + passwordUrlPart);
-            Assert.assertEquals("Incorrect user value in " + urlStart + " url parsing", passwordValue,
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, passwordValue,
                     AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + passwordUrlPart).password);
             System.out.println(urlStart + addressUrlPart);
-            Assert.assertEquals("Incorrect user value in " + urlStart + " url parsing", addressValue,
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + URL_PARSING, addressValue,
                     AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + addressUrlPart).serverAddress);
         }
     }
@@ -81,9 +83,9 @@ public class AuthenticatorDataUrlTest {
         for (String urlStart : urlStarts) {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", userValue, info
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, userValue, info
                     .username);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", passwordValue, info
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, passwordValue, info
                     .password);
         }
 
@@ -91,9 +93,9 @@ public class AuthenticatorDataUrlTest {
         for (String urlStart : urlStarts) {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", userValue, info
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, userValue, info
                     .username);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", addressValue,
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, addressValue,
                     info.serverAddress);
         }
 
@@ -102,9 +104,9 @@ public class AuthenticatorDataUrlTest {
         for (String urlStart : urlStarts) {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", userValue, info
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, userValue, info
                     .username);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", addressValue,
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, addressValue,
                     info.serverAddress);
         }
 
@@ -112,9 +114,9 @@ public class AuthenticatorDataUrlTest {
         for (String urlStart : urlStarts) {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", passwordValue, info
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, passwordValue, info
                     .password);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", addressValue, info
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, addressValue, info
                     .serverAddress);
         }
 
@@ -122,9 +124,9 @@ public class AuthenticatorDataUrlTest {
         for (String urlStart : urlStarts) {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", userValue, info
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, userValue, info
                     .username);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", passwordValue, info
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, passwordValue, info
                     .password);
         }
 
@@ -132,9 +134,9 @@ public class AuthenticatorDataUrlTest {
         for (String urlStart : urlStarts) {
             System.out.println(urlStart + dataUrl);
             LoginUrlInfo info = AuthenticatorActivity.parseLoginDataUrl(urlStart, urlStart + dataUrl);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", passwordValue, info
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, passwordValue, info
                     .password);
-            Assert.assertEquals("Incorrect user value in " + urlStart + dataUrl + " url parsing", addressValue, info
+            Assert.assertEquals(INCORRECT_USER_VALUE_IN + urlStart + dataUrl + URL_PARSING, addressValue, info
                     .serverAddress);
         }
     }
