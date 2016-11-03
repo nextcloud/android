@@ -62,7 +62,6 @@ import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.PreferenceWithLongSummary;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.IOException;
@@ -155,7 +154,7 @@ public class Preferences extends PreferenceActivity
         registerForContextMenu(getListView());
 
         pCode = (CheckBoxPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
-        if (pCode != null){
+        if (pCode != null) {
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -218,12 +217,12 @@ public class Preferences extends PreferenceActivity
         
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
         Preference pHelp = findPreference("help");
-        if (pHelp != null ){
+        if (pHelp != null ) {
             if (helpEnabled) {
                 pHelp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String helpWeb   =(String) getText(R.string.url_help);
+                        String helpWeb = getString(R.string.url_help);
                         if (helpWeb != null && helpWeb.length() > 0) {
                             Uri uriUrl = Uri.parse(helpWeb);
                             Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -239,7 +238,7 @@ public class Preferences extends PreferenceActivity
 
        boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
        Preference pRecommend =  findPreference("recommend");
-        if (pRecommend != null){
+        if (pRecommend != null) {
             if (recommendEnabled) {
                 pRecommend.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -253,11 +252,8 @@ public class Preferences extends PreferenceActivity
                         String appName = getString(R.string.app_name);
                         String downloadUrl = getString(R.string.url_app_download);
 
-                        String recommendSubject =
-                                String.format(getString(R.string.recommend_subject),
-                                appName);
-                        String recommendText = String.format(getString(R.string.recommend_text),
-                                appName, downloadUrl);
+                        String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
+                        String recommendText = String.format(getString(R.string.recommend_text), appName, downloadUrl);
 
                         intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
                         intent.putExtra(Intent.EXTRA_TEXT, recommendText);
@@ -274,14 +270,13 @@ public class Preferences extends PreferenceActivity
 
         boolean feedbackEnabled = getResources().getBoolean(R.bool.feedback_enabled);
         Preference pFeedback =  findPreference("feedback");
-        if (pFeedback != null){
+        if (pFeedback != null) {
             if (feedbackEnabled) {
                 pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String feedbackMail   =(String) getText(R.string.mail_feedback);
-                        String feedback   =(String) getText(R.string.prefs_feedback) +
-                                " - android v" + appVersion;
+                        String feedbackMail = getString(R.string.mail_feedback);
+                        String feedback = getText(R.string.prefs_feedback) + " - android v" + appVersion;
                         Intent intent = new Intent(Intent.ACTION_SENDTO); 
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
@@ -300,7 +295,7 @@ public class Preferences extends PreferenceActivity
 
         boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
         Preference pLogger =  findPreference("logger");
-        if (pLogger != null){
+        if (pLogger != null) {
             if (loggerEnabled) {
                 pLogger.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -323,7 +318,7 @@ public class Preferences extends PreferenceActivity
                 pImprint.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String imprintWeb = (String) getText(R.string.url_imprint);
+                        String imprintWeb = getString(R.string.url_imprint);
                         if (imprintWeb != null && imprintWeb.length() > 0) {
                             Uri uriUrl = Uri.parse(imprintWeb);
                             Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -353,7 +348,7 @@ public class Preferences extends PreferenceActivity
             mPrefStoragePath.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        String newPath = (String)newValue;
+                        String newPath = (String) newValue;
                         if (mStoragePath.equals(newPath)) {
                             return true;
                         }
@@ -370,8 +365,8 @@ public class Preferences extends PreferenceActivity
 
         }
 
-        mPrefInstantUploadPath = (PreferenceWithLongSummary)findPreference(PreferenceKeys.INSTANT_UPLOAD_PATH);
-        if (mPrefInstantUploadPath != null){
+        mPrefInstantUploadPath = findPreference(PreferenceKeys.INSTANT_UPLOAD_PATH);
+        if (mPrefInstantUploadPath != null) {
 
             mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -387,9 +382,8 @@ public class Preferences extends PreferenceActivity
                 });
         }
 
-        mPrefInstantUploadCategory =
-                (PreferenceCategory) findPreference("instant_uploading_category");
-
+        mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
+        
         mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
         mPrefInstantUploadPathWiFi =  findPreference("instant_upload_on_wifi");
         mPrefInstantPictureUploadOnlyOnCharging = findPreference("instant_upload_on_charging");
@@ -520,7 +514,7 @@ public class Preferences extends PreferenceActivity
     }
     
     private void toggleInstantPictureOptions(Boolean value){
-        if (value){
+        if (value) {
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPath);
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadUseSubfolders);
@@ -534,7 +528,7 @@ public class Preferences extends PreferenceActivity
     }
 
     private void toggleInstantVideoOptions(Boolean value){
-        if (value){
+        if (value) {
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPath);
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadUseSubfolders);
@@ -548,7 +542,7 @@ public class Preferences extends PreferenceActivity
     }
 
     private void toggleInstantUploadBehaviour(Boolean video, Boolean picture){
-        if (picture || video){
+        if (picture || video) {
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadBehaviour);
         } else {
             mPrefInstantUploadCategory.removePreference(mPrefInstantUploadBehaviour);
@@ -592,7 +586,7 @@ public class Preferences extends PreferenceActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ACTION_SELECT_UPLOAD_PATH && resultCode == RESULT_OK){
+        if (requestCode == ACTION_SELECT_UPLOAD_PATH && resultCode == RESULT_OK) {
 
             OCFile folderToUpload =  data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
