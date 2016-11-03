@@ -63,8 +63,9 @@ public class UploaderAdapter extends SimpleAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
-        if (convertView == null)
+        if (convertView == null) {
             vi = inflater.inflate(R.layout.uploader_list_item_layout, null);
+        }
 
         HashMap<String, OCFile> data = (HashMap<String, OCFile>) getItem(position);
         OCFile file = data.get("dirname");

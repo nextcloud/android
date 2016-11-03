@@ -425,7 +425,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="pref_behaviour_entries_keep_file">bewaard in originele map</string>
     <string name="pref_behaviour_entries_move">verplaatst naar app map</string>
     <string name="pref_behaviour_entries_delete_file">verwijderd</string>
-
     <string name="share_dialog_title">Delen</string>
     <string name="share_file">Deel %1$s</string>
     <string name="share_with_user_section_title">Delen met gebruikers en groepen</string>
@@ -502,4 +501,4 @@ of</string>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
 
-</resources>
+    </resources>

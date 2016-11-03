@@ -60,8 +60,9 @@ public class DataStorageProvider {
     private DataStorageProvider() {}
 
     public StoragePoint[] getAvailableStoragePoints() {
-        if (mCachedStoragePoints.size() != 0)
+        if (mCachedStoragePoints.size() != 0) {
             return mCachedStoragePoints.toArray(new StoragePoint[mCachedStoragePoints.size()]);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             for (File f : MainApp.getAppContext().getExternalFilesDirs(null)) {
@@ -70,19 +71,22 @@ public class DataStorageProvider {
                 }
             }
         } else {
-            for (IStoragePointProvider p : mStorageProviders)
+            for (IStoragePointProvider p : mStorageProviders) {
                 if (p.canProvideStoragePoints()) {
                     mCachedStoragePoints.addAll(p.getAvailableStoragePoint());
                 }
+            }
         }
 
         return mCachedStoragePoints.toArray(new StoragePoint[mCachedStoragePoints.size()]);
     }
 
     public String getStorageDescriptionByPath(String path) {
-        for (StoragePoint s : getAvailableStoragePoints())
-            if (s.getPath().equals(path))
+        for (StoragePoint s : getAvailableStoragePoints()) {
+            if (s.getPath().equals(path)) {
                 return s.getDescription();
+            }
+        }
         return MainApp.getAppContext().getString(R.string.storage_description_unknown);
     }
 

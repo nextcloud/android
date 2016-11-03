@@ -422,7 +422,6 @@
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
-
     <string name="share_dialog_title">Teilen</string>
     <string name="share_file">Teile %1$s</string>
     <string name="share_with_user_section_title">Mit Benutzern oder Gruppen teilen</string>
@@ -497,4 +496,4 @@
         <item quantity="other">%d ausgewählt</item>
     </plurals>
 
-</resources>
+    </resources>

@@ -55,6 +55,7 @@ import java.util.Map;
  *     </li>
  * </ol>
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class MimeTypeUtil {
     /** Mapping: icon for mime type */
     private static final Map<String, Integer> MIMETYPE_TO_ICON_MAPPING = new HashMap<>();
@@ -291,7 +292,7 @@ public class MimeTypeUtil {
      * @return the file extension
      */
     private static String getExtension(String filename) {
-        return filename.substring(filename.lastIndexOf(".") + 1).toLowerCase();
+        return filename.substring(filename.lastIndexOf('.') + 1).toLowerCase();
     }
 
     /**

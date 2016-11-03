@@ -147,11 +147,13 @@ public class UploadFileOperation extends SyncOperation {
                                int localBehaviour,
                                Context context
     ) {
-        if (account == null)
+        if (account == null) {
             throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
                     "creation");
-        if (upload == null)
+        }
+        if (upload == null) {
             throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
+        }
         if (upload.getLocalPath() == null || upload.getLocalPath().length() <= 0) {
             throw new IllegalArgumentException(
                     "Illegal file in UploadFileOperation; storage path invalid: "
@@ -286,6 +288,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     @Override
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
@@ -308,7 +311,7 @@ public class UploadFileOperation extends SyncOperation {
 
             /// check if the file continues existing before schedule the operation
             if (!originalFile.exists()) {
-                Log_OC.d(TAG, mOriginalStoragePath.toString() + " not exists anymore");
+                Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
                 return new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
             }
 
@@ -580,7 +583,7 @@ public class UploadFileOperation extends SyncOperation {
             return remotePath;
         }
 
-        int pos = remotePath.lastIndexOf(".");
+        int pos = remotePath.lastIndexOf('.');
         String suffix = "";
         String extension = "";
         if (pos >= 0) {
@@ -708,15 +711,17 @@ public class UploadFileOperation extends SyncOperation {
 
             } finally {
                 try {
-                    if (in != null)
+                    if (in != null) {
                         in.close();
+                    }
                 } catch (Exception e) {
                     Log_OC.d(TAG, "Weird exception while closing input stream for " +
                             mOriginalStoragePath + " (ignoring)", e);
                 }
                 try {
-                    if (out != null)
+                    if (out != null) {
                         out.close();
+                    }
                 } catch (Exception e) {
                     Log_OC.d(TAG, "Weird exception while closing output stream for " +
                             targetFile.getAbsolutePath() + " (ignoring)", e);
@@ -759,8 +764,12 @@ public class UploadFileOperation extends SyncOperation {
                         // the best option could be show a warning message
                     }
                     finally {
-                        if (inChannel != null) inChannel.close();
-                        if (outChannel != null) outChannel.close();
+                        if (inChannel != null) {
+                            inChannel.close();
+                        }
+                        if (outChannel != null) {
+                            outChannel.close();
+                        }
                     }
                 }
 

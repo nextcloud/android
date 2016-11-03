@@ -47,6 +47,7 @@ dependencies {
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile 'com.getbase:floatingactionbutton:1.10.1'
+    compile 'com.google.code.findbugs:annotations:2.0.1'
 
 
     /// dependencies for local unit tests
@@ -68,9 +69,9 @@ dependencies {
 
     // UIAutomator - for cross-app UI tests, and to grant screen is turned on in Espresso tests
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'
-
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
     androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
+
 
 }
 
@@ -138,6 +139,11 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+	
+    dexOptions {
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        preDexLibraries = preDexEnabled && !travisBuild
     }
 
     dexOptions {

@@ -92,15 +92,15 @@ public class ConfirmationDialogFragment extends DialogFragment {
         int posBtn = getArguments().getInt(ARG_POSITIVE_BTN_RES, -1);
         int neuBtn = getArguments().getInt(ARG_NEUTRAL_BTN_RES, -1);
         int negBtn = getArguments().getInt(ARG_NEGATIVE_BTN_RES, -1);
-        
+
         if (messageArguments == null) {
             messageArguments = new String[]{};
         }
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
-            .setIcon(R.drawable.ic_warning)
-            .setIconAttribute(android.R.attr.alertDialogIcon)
-            .setMessage(String.format(getString(messageId), messageArguments));
+                .setIcon(R.drawable.ic_warning)
+                .setIconAttribute(android.R.attr.alertDialogIcon)
+                .setMessage(String.format(getString(messageId), messageArguments));
 
         if (titleId == 0) {
             builder.setTitle(android.R.string.dialog_alert_title);
@@ -108,7 +108,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
             builder.setTitle(titleId);
         }
 
-        if (posBtn != -1)
+        if (posBtn != -1) {
             builder.setPositiveButton(posBtn,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
@@ -118,7 +118,8 @@ public class ConfirmationDialogFragment extends DialogFragment {
                             dialog.dismiss();
                         }
                     });
-        if (neuBtn != -1)
+        }
+        if (neuBtn != -1) {
             builder.setNeutralButton(neuBtn,
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int whichButton) {
@@ -128,7 +129,8 @@ public class ConfirmationDialogFragment extends DialogFragment {
                             dialog.dismiss();
                         }
                     });
-        if (negBtn != -1)
+        }
+        if (negBtn != -1) {
             builder.setNegativeButton(negBtn,
                     new DialogInterface.OnClickListener() {
                         @Override
@@ -139,6 +141,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
                             dialog.dismiss();
                         }
                     });
+        }
       return builder.create();
     }
     
