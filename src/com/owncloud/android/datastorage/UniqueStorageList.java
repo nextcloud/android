@@ -36,8 +36,9 @@ public class UniqueStorageList extends Vector<StoragePoint> {
             for (StoragePoint s : this) {
                 String thisCanonPath = new File(s.getPath()).getCanonicalPath();
                 String otherCanonPath = new File(sp.getPath()).getCanonicalPath();
-                if (thisCanonPath.equals(otherCanonPath))
+                if (thisCanonPath.equals(otherCanonPath)) {
                     return true;
+                }
             }
         } catch (IOException e) {
             return false;
@@ -47,8 +48,9 @@ public class UniqueStorageList extends Vector<StoragePoint> {
 
     @Override
     public synchronized boolean addAll(Collection<? extends StoragePoint> collection) {
-        for (StoragePoint sp : collection)
+        for (StoragePoint sp : collection) {
             add(sp);
+        }
         return true;
     }
 }

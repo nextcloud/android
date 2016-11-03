@@ -24,6 +24,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -41,6 +43,9 @@ import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.utils.ExceptionHandler;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Main Application of the project
@@ -69,7 +74,7 @@ public class MainApp extends Application {
     private boolean mBound;
 
 
-    public void onCreate(){
+    @SuppressFBWarnings("ST")    public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();
 
@@ -79,7 +84,7 @@ public class MainApp extends Application {
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        MainApp.storagePath = appPrefs.getString(Preferences.Keys.STORAGE_PATH, Environment.
+        MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, Environment.
                               getExternalStorageDirectory().getAbsolutePath());
 
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
@@ -222,7 +227,7 @@ public class MainApp extends Application {
         mOnlyOnDevice = state;
     }
 
-    public static boolean getOnlyOnDevice(){
+    public static boolean isOnlyOnDevice(){
         return mOnlyOnDevice;
     }
 

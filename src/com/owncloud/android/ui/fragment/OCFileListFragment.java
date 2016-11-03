@@ -94,7 +94,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
 
-    private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
+    private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
 
     private FileFragment.ContainerActivity mContainerActivity;
 
@@ -587,7 +587,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             }   // exit is granted because storageManager.getFileByPath("/") never returns null
             mFile = parentDir;
 
-            listDirectory(mFile, MainApp.getOnlyOnDevice());
+            listDirectory(mFile, MainApp.isOnlyOnDevice());
 
             onRefresh(false);
 
@@ -605,7 +605,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         if (file != null) {
             if (file.isFolder()) {
                 // update state and view of this fragment
-                listDirectory(file, MainApp.getOnlyOnDevice());
+                listDirectory(file, MainApp.isOnlyOnDevice());
                 // then, notify parent activity to let it update its state and view
                 mContainerActivity.onBrowsedDownTo(file);
                 // save index and top position
@@ -646,7 +646,9 @@ public class OCFileListFragment extends ExtendedListFragment {
      */
     public boolean onFileActionChosen(int menuId) {
         final ArrayList<OCFile> checkedFiles = mAdapter.getCheckedItems(getListView());
-        if (checkedFiles.size() <= 0) return false;
+        if (checkedFiles.size() <= 0) {
+            return false;
+        }
 
         if (checkedFiles.size() == 1) {
             /// action only possible on a single file
@@ -746,7 +748,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     }
 
     public void refreshDirectory(){
-        listDirectory(getCurrentFile(), MainApp.getOnlyOnDevice());
+        listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice());
     }
 
     /**
@@ -766,7 +768,9 @@ public class OCFileListFragment extends ExtendedListFragment {
                     directory = mFile;
                 } else {
                     directory = storageManager.getFileByPath("/");
-                    if (directory == null) return; // no files, wait for sync
+                    if (directory == null) {
+                        return; // no files, wait for sync
+                    }
                 }
             }
 

@@ -44,19 +44,20 @@ public class ProviderMeta {
         public static final String CAPABILITIES_TABLE_NAME = "capabilities";
         public static final String UPLOADS_TABLE_NAME = "list_of_uploads";
         public static final String SYNCED_FOLDERS_TABLE_NAME = "synced_folders";
-        public static final Uri CONTENT_URI = Uri.parse("content://"
+        private static final String CONTENT_PREFIX = "content://";
+        public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/");
-        public static final Uri CONTENT_URI_FILE = Uri.parse("content://"
+        public static final Uri CONTENT_URI_FILE = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/file");
-        public static final Uri CONTENT_URI_DIR = Uri.parse("content://"
+        public static final Uri CONTENT_URI_DIR = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/dir");
-        public static final Uri CONTENT_URI_SHARE = Uri.parse("content://"
+        public static final Uri CONTENT_URI_SHARE = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/shares");
-        public static final Uri CONTENT_URI_CAPABILITIES = Uri.parse("content://"
+        public static final Uri CONTENT_URI_CAPABILITIES = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/capabilities");
-        public static final Uri CONTENT_URI_UPLOADS = Uri.parse("content://"
+        public static final Uri CONTENT_URI_UPLOADS = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/uploads");
-        public static final Uri CONTENT_URI_SYNCED_FOLDERS = Uri.parse("content://"
+        public static final Uri CONTENT_URI_SYNCED_FOLDERS = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/synced_folders");
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";

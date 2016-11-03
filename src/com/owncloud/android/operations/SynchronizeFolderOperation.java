@@ -233,8 +233,9 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     // should be a different result code, but will do the job
             }
         } else {
-            if (result.getCode() == ResultCode.FILE_NOT_FOUND)
+            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 removeLocalFolder();
+            }
         }
         
 

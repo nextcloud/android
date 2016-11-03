@@ -45,7 +45,7 @@ import java.util.ArrayList;
  */
 public class GridViewWithHeaderAndFooter extends GridView {
 
-    public static boolean DEBUG = false;
+    public static final boolean DEBUG = false;
 
     /**
      * A class that represents a fixed view in a list, for example a header at the top
@@ -97,7 +97,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         ListAdapter adapter = getAdapter();
-        if (adapter != null && adapter instanceof HeaderViewGridAdapter) {
+        if (adapter instanceof HeaderViewGridAdapter) {
             ((HeaderViewGridAdapter) adapter).setNumColumns(getNumColumnsCompatible());
             invalidateRowHeight();
             ((HeaderViewGridAdapter) adapter).setRowHeight(getRowHeight());
@@ -291,9 +291,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
                 Field numColumns = getClass().getSuperclass().getDeclaredField("mColumnWidth");
                 numColumns.setAccessible(true);
                 return numColumns.getInt(this);
-            } catch (NoSuchFieldException e) {
-                throw new RuntimeException(e);
-            } catch (IllegalAccessException e) {
+            } catch (NoSuchFieldException | IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
         }
@@ -407,7 +405,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
         super.setNumColumns(numColumns);
         mNumColumns = numColumns;
         ListAdapter adapter = getAdapter();
-        if (adapter != null && adapter instanceof HeaderViewGridAdapter) {
+        if (adapter instanceof HeaderViewGridAdapter) {
             ((HeaderViewGridAdapter) adapter).setNumColumns(numColumns);
         }
     }
@@ -545,8 +543,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
         }
 
         private int getAdapterAndPlaceHolderCount() {
-            final int adapterCount = (int) (Math.ceil(1f * mAdapter.getCount() / mNumColumns) * mNumColumns);
-            return adapterCount;
+            return (int) (Math.ceil(1f * mAdapter.getCount() / mNumColumns) * mNumColumns);
         }
 
         @Override
@@ -659,8 +656,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
                 adapterCount = getAdapterAndPlaceHolderCount();
                 if (adjPosition < adapterCount) {
                     if (adjPosition < mAdapter.getCount()) {
-                        View view = mAdapter.getView(adjPosition, convertView, parent);
-                        return view;
+                        return mAdapter.getView(adjPosition, convertView, parent);
                     } else {
                         if (convertView == null) {
                             convertView = new View(parent.getContext());
@@ -698,17 +694,14 @@ public class GridViewWithHeaderAndFooter extends GridView {
             final int numHeadersAndPlaceholders = getHeadersCount() * mNumColumns;
             final int adapterViewTypeStart = mAdapter == null ? 0 : mAdapter.getViewTypeCount() - 1;
             int type = AdapterView.ITEM_VIEW_TYPE_HEADER_OR_FOOTER;
-            if (mCachePlaceHoldView) {
+            if (mCachePlaceHoldView
+                    && position < numHeadersAndPlaceholders) {
                 // Header
-                if (position < numHeadersAndPlaceholders) {
-                    if (position == 0) {
-                        if (mCacheFirstHeaderView) {
-                            type = adapterViewTypeStart + mHeaderViewInfos.size() + mFooterViewInfos.size() + 1 + 1;
-                        }
-                    }
-                    if (position % mNumColumns != 0) {
-                        type = adapterViewTypeStart + (position / mNumColumns + 1);
-                    }
+                if (position == 0 && mCacheFirstHeaderView) {
+                    type = adapterViewTypeStart + mHeaderViewInfos.size() + mFooterViewInfos.size() + 1 + 1;
+                }
+                if (position % mNumColumns != 0) {
+                    type = adapterViewTypeStart + (position / mNumColumns + 1);
                 }
             }
 

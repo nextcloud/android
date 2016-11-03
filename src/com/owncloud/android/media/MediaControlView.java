@@ -65,8 +65,6 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
     private TextView            mEndTime, mCurrentTime;
     private boolean             mDragging;
     private static final int    SHOW_PROGRESS = 1;
-    StringBuilder               mFormatBuilder;
-    Formatter                   mFormatter;
     private ImageButton         mPauseButton;
     private ImageButton         mFfwdButton;
     private ImageButton         mRewButton;
@@ -231,9 +229,6 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
 
         mEndTime = (TextView) v.findViewById(R.id.totalTimeText);
         mCurrentTime = (TextView) v.findViewById(R.id.currentTimeText);
-        mFormatBuilder = new StringBuilder();
-        mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
-
     }
 
     
@@ -265,14 +260,12 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         @Override
         public void handleMessage(Message msg) {
             int pos;
-            switch (msg.what) {
-                case SHOW_PROGRESS:
-                    pos = setProgress();
-                    if (!mDragging) {
-                        msg = obtainMessage(SHOW_PROGRESS);
-                        sendMessageDelayed(msg, 1000 - (pos % 1000));
-                    }
-                    break;
+            if (msg.what == SHOW_PROGRESS) {
+                pos = setProgress();
+                if (!mDragging) {
+                    msg = obtainMessage(SHOW_PROGRESS);
+                    sendMessageDelayed(msg, 1000 - (pos % 1000));
+                }
             }
         }
     };
@@ -284,7 +277,8 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         int minutes = (totalSeconds / 60) % 60;
         int hours   = totalSeconds / 3600;
 
-        mFormatBuilder.setLength(0);
+        final StringBuilder mFormatBuilder = new StringBuilder();
+        final Formatter mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
         if (hours > 0) {
             return mFormatter.format("%d:%02d:%02d", hours, minutes, seconds).toString();
         } else {
@@ -308,11 +302,12 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
             mProgress.setSecondaryProgress(percent * 10);
         }
 
-        if (mEndTime != null)
+        if (mEndTime != null) {
             mEndTime.setText(stringForTime(duration));
-        if (mCurrentTime != null)
+        }
+        if (mCurrentTime != null) {
             mCurrentTime.setText(stringForTime(position));
-
+        }
         return position;
     }
     
@@ -355,8 +350,9 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
     }
 
     public void updatePausePlay() {
-        if (mRoot == null || mPauseButton == null)
+        if (mRoot == null || mPauseButton == null) {
             return;
+        }
 
         if (mPlayer.isPlaying()) {
             mPauseButton.setImageResource(android.R.drawable.ic_media_pause);
@@ -406,7 +402,9 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
             pos = mPlayer.getCurrentPosition();
             pos -= 5000;
             mPlayer.seekTo(pos);
-            if (!playing) mPlayer.pause();  // necessary in some 2.3.x devices 
+            if (!playing) {
+                mPlayer.pause();  // necessary in some 2.3.x devices
+            }
             setProgress();
             break;
 
@@ -414,10 +412,11 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
             pos = mPlayer.getCurrentPosition();
             pos += 15000;
             mPlayer.seekTo(pos);
-            if (!playing) mPlayer.pause(); // necessary in some 2.3.x devices
+            if (!playing) {
+                mPlayer.pause(); // necessary in some 2.3.x devices
+            }
             setProgress();
             break;
-        
         }
     }
     
@@ -433,8 +432,9 @@ public class MediaControlView extends FrameLayout /* implements OnLayoutChangeLi
         long duration = mPlayer.getDuration();
         long newposition = (duration * progress) / 1000L;
         mPlayer.seekTo( (int) newposition);
-        if (mCurrentTime != null)
-            mCurrentTime.setText(stringForTime( (int) newposition));
+        if (mCurrentTime != null) {
+            mCurrentTime.setText(stringForTime((int) newposition));
+        }
     }
     
     /**

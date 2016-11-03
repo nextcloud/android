@@ -20,20 +20,19 @@
 
 package com.owncloud.android.utils;
 
+import android.os.FileObserver;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import android.os.FileObserver;
-
 public class RecursiveFileObserver extends FileObserver {
 
-    public static int CHANGES_ONLY = CLOSE_WRITE | MOVE_SELF | MOVED_FROM;
-    
-    List<SingleFileObserver> mObservers;
-    String mPath;
-    int mMask;
+    private final List<SingleFileObserver> mObservers =  new ArrayList<>();
+    private boolean watching = false;
+    private String mPath;
+    private int mMask;
     
     public RecursiveFileObserver(String path) {
         this(path, ALL_EVENTS);
@@ -47,9 +46,11 @@ public class RecursiveFileObserver extends FileObserver {
 
     @Override
     public void startWatching() {
-        if (mObservers != null) return;
-        mObservers = new ArrayList<SingleFileObserver>();
-        Stack<String> stack = new Stack<String>();
+        if (watching) {
+            return;
+        }
+        watching = true;
+        final Stack<String> stack = new Stack<String>();
         stack.push(mPath);
         
         while (!stack.empty()) {
@@ -57,27 +58,32 @@ public class RecursiveFileObserver extends FileObserver {
             mObservers.add(new SingleFileObserver(parent, mMask));
             File path = new File(parent);
             File[] files = path.listFiles();
-            if (files == null) continue;
-            for (int i = 0; i < files.length; ++i) {
-                if (files[i].isDirectory() && !files[i].getName().equals(".")
-                    && !files[i].getName().equals("..")) {
-                    stack.push(files[i].getPath());
+            if (files == null) {
+                continue;
+            }
+            for (final File file : files) {
+                if (file.isDirectory() && !file.getName().equals(".")
+                        && !file.getName().equals("..")) {
+                    stack.push(file.getPath());
                 }
             }
         }
-        for (int i = 0; i < mObservers.size(); i++)
+        for (int i = 0; i < mObservers.size(); i++) {
             mObservers.get(i).startWatching();
+        }
     }
     
     @Override
     public void stopWatching() {
-        if (mObservers == null) return;
-        
-        for (int i = 0; i < mObservers.size(); ++i)
-            mObservers.get(i).stopWatching();
+        if (!watching) {
+            return;
+        }
 
+        for (int i = 0; i < mObservers.size(); ++i) {
+            mObservers.get(i).stopWatching();
+        }
         mObservers.clear();
-        mObservers = null;
+        watching = false;
     }
     
     @Override
@@ -88,7 +94,7 @@ public class RecursiveFileObserver extends FileObserver {
     private class SingleFileObserver extends FileObserver {
         private String mPath;
 
-        public SingleFileObserver(String path, int mask) {
+        SingleFileObserver(String path, int mask) {
             super(path, mask);
             mPath = path;
         }

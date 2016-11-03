@@ -421,7 +421,6 @@ správce systému.</string>
     <string name="pref_behaviour_entries_keep_file">ponechán ve výchozím adresáři</string>
     <string name="pref_behaviour_entries_move">přesunut do adresáře aplikace</string>
     <string name="pref_behaviour_entries_delete_file">smazáno</string>
-
     <string name="share_dialog_title">Sdílení</string>
     <string name="share_file">Sdílet %1$s</string>
     <string name="share_with_user_section_title">Sdílet s uživateli a skupinami</string>
@@ -497,4 +496,4 @@ správce systému.</string>
         <item quantity="other">vybráno %d</item>
     </plurals>
 
-</resources>
+    </resources>

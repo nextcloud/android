@@ -266,7 +266,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
         case DIALOG_MULTIPLE_ACCOUNT:
             Account accounts[] = mAccountManager.getAccountsByType(MainApp.getAccountType());
             CharSequence dialogItems[] = new CharSequence[accounts.length];
-            OwnCloudAccount oca;
             for (int i = 0; i < dialogItems.length; ++i) {
                 dialogItems[i] = DisplayUtils.getAccountNameDisplayText(
                         this, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
@@ -316,11 +315,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
         Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile , false);
         sortFileList(tmpfiles);
 
-        if (tmpfiles.size() <= 0) return;
+        if (tmpfiles.size() <= 0) {
+            return;
+        }
         // filter on dirtype
         Vector<OCFile> files = new Vector<>();
-        for (OCFile f : tmpfiles)
-                files.add(f);
+        for (OCFile f : tmpfiles) {
+            files.add(f);
+        }
         if (files.size() < position) {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
@@ -361,7 +363,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                             PrintWriter out;
                                             try {
                                                 File f = File.createTempFile("nextcloud", TEXT_FILE_SUFFIX);
-                                                out = new PrintWriter(f);
+                                                out = new PrintWriter(f, "UTF8");
                                                 out.println(getIntent().getStringExtra(Intent.EXTRA_TEXT));
                                                 out.close();
 
@@ -526,8 +528,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private String generatePath(Stack<String> dirs) {
         String full_path = "";
 
-        for (String a : dirs)
+        for (String a : dirs) {
             full_path += a + "/";
+        }
         return full_path;
     }
 
@@ -612,7 +615,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                                RemoteOperationResult result) {
         if (result.isSuccess()) {
             String remotePath = operation.getRemotePath().substring(0, operation.getRemotePath().length() - 1);
-            String newFolder = remotePath.substring(remotePath.lastIndexOf("/") + 1);
+            String newFolder = remotePath.substring(remotePath.lastIndexOf('/') + 1);
             mParents.push(newFolder);
             populateDirectoryList();
         } else {
@@ -647,8 +650,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
         } else {
             String[] dir_names = lastPath.split("/");
             mParents.clear();
-            for (String dir : dir_names)
+            for (String dir : dir_names) {
                 mParents.add(dir);
+            }
         }
         //Make sure that path still exists, if it doesn't pop the stack and try the previous path
         while (!getStorageManager().fileExists(generatePath(mParents)) && mParents.size() > 1) {
@@ -752,8 +756,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                 currentFile = currentDir;
                             }
 
-                            if (synchFolderRemotePath != null &&
-                                    currentDir.getRemotePath().equals(synchFolderRemotePath)) {
+                            if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 populateDirectoryList();
                             }
                             mFile = currentFile;

@@ -52,14 +52,14 @@ import com.owncloud.android.ui.activity.ConflictsResolveActivity;
  */
 public class FolderObserver extends FileObserver {
 
-    private static String TAG = FolderObserver.class.getSimpleName();
+    private static final String TAG = FolderObserver.class.getSimpleName();
 
-    private static int UPDATE_MASK = (
+    private static final int UPDATE_MASK = (
             FileObserver.ATTRIB | FileObserver.MODIFY | 
             FileObserver.MOVED_TO | FileObserver.CLOSE_WRITE
     ); 
     
-    private static int IN_IGNORE = 32768;
+    private static final int IN_IGNORE = 32768;
     /* 
     private static int ALL_EVENTS_EVEN_THOSE_NOT_DOCUMENTED = 0x7fffffff;   // NEVER use 0xffffffff
     */
@@ -67,7 +67,7 @@ public class FolderObserver extends FileObserver {
     private String mPath;
     private Account mAccount;
     private Context mContext;
-    private Map<String, Boolean> mObservedChildren;
+    private final Map<String, Boolean> mObservedChildren;
 
     /**
      * Constructor.
@@ -82,12 +82,15 @@ public class FolderObserver extends FileObserver {
     public FolderObserver(String path, Account account, Context context) {
         super(path, UPDATE_MASK);
         
-        if (path == null)
+        if (path == null) {
             throw new IllegalArgumentException("NULL path argument received");
-        if (account == null)
+        }
+        if (account == null) {
             throw new IllegalArgumentException("NULL account argument received");
-        if (context == null)
+        }
+        if (context == null) {
             throw new IllegalArgumentException("NULL context argument received");
+        }
         
         mPath = path;
         mAccount = account;
@@ -113,15 +116,14 @@ public class FolderObserver extends FileObserver {
                 
                 if (    ((event & FileObserver.MODIFY) != 0) ||
                         ((event & FileObserver.ATTRIB) != 0) ||
-                        ((event & FileObserver.MOVED_TO) != 0) ) {
+                        ((event & FileObserver.MOVED_TO) != 0)
+                        && !mObservedChildren.get(path)) {
                     
-                    if (mObservedChildren.get(path) != true) {
-                        mObservedChildren.put(path, Boolean.valueOf(true));
-                    }
+                        mObservedChildren.put(path, true);
                 }
                 
                 if ((event & FileObserver.CLOSE_WRITE) != 0 && mObservedChildren.get(path)) {
-                    mObservedChildren.put(path, Boolean.valueOf(false));
+                    mObservedChildren.put(path, false);
                     shouldSynchronize = true;
                 }
             }
@@ -146,7 +148,7 @@ public class FolderObserver extends FileObserver {
     public void startWatching(String fileName) {
         synchronized (mObservedChildren) {
             if (!mObservedChildren.containsKey(fileName)) {
-                mObservedChildren.put(fileName, Boolean.valueOf(false));
+                mObservedChildren.put(fileName, false);
             }
         }
         
