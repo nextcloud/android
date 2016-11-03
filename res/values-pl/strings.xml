@@ -422,7 +422,6 @@
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym folderze</string>
     <string name="pref_behaviour_entries_move">przeniesiony do folderu aplikacji</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
-
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_file">Współdziel %1$s</string>
     <string name="share_with_user_section_title">Współdziel z użytkownikami i grupami</string>
@@ -497,4 +496,4 @@
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
 
-</resources>
+    </resources>

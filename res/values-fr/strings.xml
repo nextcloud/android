@@ -422,7 +422,6 @@ La suppression est irréversible. </string>
     <string name="pref_behaviour_entries_keep_file">gardé dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
     <string name="pref_behaviour_entries_delete_file">Supprimé</string>
-
     <string name="share_dialog_title">Partage</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_with_user_section_title">Partager avec des utilisateurs et des groupes</string>
@@ -500,4 +499,4 @@ ou</string>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
 
-</resources>
+    </resources>
