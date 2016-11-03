@@ -80,7 +80,7 @@ public class MainApp extends Application {
         MainApp.mContext = getApplicationContext();
 
         // Setup handler for uncaught exceptions.
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler());
+        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
 
 
         SharedPreferences appPrefs =
