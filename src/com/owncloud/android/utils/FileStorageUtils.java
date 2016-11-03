@@ -20,39 +20,16 @@
 
 package com.owncloud.android.utils;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Vector;
-
-import third_parties.daveKoeller.AlphanumComparator;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.RemoteFile;
-import com.owncloud.android.ui.activity.Preferences;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
 import android.net.Uri;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
@@ -115,7 +92,7 @@ public class FileStorageUtils {
      * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
      */
     public static String getTemporalPath(String accountName) {
-        return MainApp.getStoragePath()
+        return Environment.getExternalStorageDirectory().getAbsolutePath()
                 + File.separator
                 + MainApp.getDataFolder()
                 + File.separator
@@ -138,7 +115,12 @@ public class FileStorageUtils {
     }
     
     public static String getLogPath()  {
-        return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "log";
+        return Environment.getExternalStorageDirectory()
+                + File.separator
+                + MainApp.getDataFolder()
+                + MainApp.getAppContext().getResources().getString(R.string.log_name)
+                + File.separator
+                + "log";
     }
 
     /**
