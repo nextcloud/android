@@ -748,7 +748,6 @@ public class FileDataStorageManager {
                 Log_OC.e(TAG, e.getMessage(), e);
                 throw e;
             }
-            }
         }
 
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(cursor.getCount());
