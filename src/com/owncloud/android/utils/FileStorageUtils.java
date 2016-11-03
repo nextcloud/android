@@ -115,7 +115,7 @@ public class FileStorageUtils {
     }
     
     public static String getLogPath()  {
-        return Environment.getExternalStorageDirectory()
+        return MainApp.getStoragePath()
                 + File.separator
                 + MainApp.getDataFolder()
                 + MainApp.getAppContext().getResources().getString(R.string.log_name)
