@@ -383,7 +383,7 @@ public class Preferences extends PreferenceActivity
         }
 
         mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
-        
+
         mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
         mPrefInstantUploadPathWiFi =  findPreference("instant_upload_on_wifi");
         mPrefInstantPictureUploadOnlyOnCharging = findPreference("instant_upload_on_charging");
