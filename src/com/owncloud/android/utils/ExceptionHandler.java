@@ -1,6 +1,6 @@
 package com.owncloud.android.utils;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
@@ -14,11 +14,11 @@ import java.io.StringWriter;
 
 // from https://stackoverflow.com/questions/23486627/catching-error-and-user-information#answer-23486834
 public class ExceptionHandler implements Thread.UncaughtExceptionHandler {
-    private final Activity mContext;
+    private final Context mContext;
 
     private static final String TAG = com.owncloud.android.ui.errorhandling.ExceptionHandler.class.getSimpleName();
 
-    public ExceptionHandler(Activity context) {
+    public ExceptionHandler(Context context) {
         mContext = context;
     }
 
