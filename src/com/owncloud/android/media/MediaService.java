@@ -65,7 +65,7 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     public static final String ACTION_PLAY_FILE = MY_PACKAGE + ".action.PLAY_FILE";
     public static final String ACTION_STOP_ALL = MY_PACKAGE + ".action.STOP_ALL";
 
-    /// Keys to add extras to the action
+    /// PreferenceKeys to add extras to the action
     public static final String EXTRA_FILE = MY_PACKAGE + ".extra.FILE";
     public static final String EXTRA_ACCOUNT = MY_PACKAGE + ".extra.ACCOUNT";
     public static final String EXTRA_START_POSITION = MY_PACKAGE + ".extra.START_POSITION";

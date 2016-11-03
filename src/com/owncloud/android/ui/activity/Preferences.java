@@ -112,7 +112,7 @@ public class Preferences extends PreferenceActivity
     private ListPreference mPrefStoragePath;
     private String mStoragePath;
 
-    public static class Keys {
+    public static class PreferenceKeys {
         public static final String STORAGE_PATH = "storage_path";
         public static final String INSTANT_UPLOAD_PATH = "instant_upload_path";
         public static final String INSTANT_VIDEO_UPLOAD_PATH = "instant_video_upload_path";
@@ -338,7 +338,7 @@ public class Preferences extends PreferenceActivity
             }
         }
 
-        mPrefStoragePath =  (ListPreference) findPreference(Keys.STORAGE_PATH);
+        mPrefStoragePath =  (ListPreference) findPreference(PreferenceKeys.STORAGE_PATH);
         if (mPrefStoragePath != null) {
             StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();
             String[] entries = new String[storageOptions.length];
@@ -354,8 +354,9 @@ public class Preferences extends PreferenceActivity
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
                         String newPath = (String)newValue;
-                        if (mStoragePath.equals(newPath))
+                        if (mStoragePath.equals(newPath)) {
                             return true;
+                        }
 
                         StorageMigration storageMigration = new StorageMigration(Preferences.this, mStoragePath, newPath);
 
@@ -369,7 +370,7 @@ public class Preferences extends PreferenceActivity
 
         }
 
-        mPrefInstantUploadPath = (PreferenceWithLongSummary)findPreference(Keys.INSTANT_UPLOAD_PATH);
+        mPrefInstantUploadPath = (PreferenceWithLongSummary)findPreference(PreferenceKeys.INSTANT_UPLOAD_PATH);
         if (mPrefInstantUploadPath != null){
 
             mPrefInstantUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -408,7 +409,7 @@ public class Preferences extends PreferenceActivity
             }
         });
 
-        mPrefInstantVideoUploadPath =  findPreference(Keys.INSTANT_VIDEO_UPLOAD_PATH);
+        mPrefInstantVideoUploadPath =  findPreference(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH);
         if (mPrefInstantVideoUploadPath != null){
 
             mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -727,7 +728,7 @@ public class Preferences extends PreferenceActivity
     private void loadInstantUploadPath() {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mUploadPath = appPrefs.getString(Keys.INSTANT_UPLOAD_PATH, getString(R.string.instant_upload_path));
+        mUploadPath = appPrefs.getString(PreferenceKeys.INSTANT_UPLOAD_PATH, getString(R.string.instant_upload_path));
         mPrefInstantUploadPath.setSummary(mUploadPath);
     }
 
@@ -740,7 +741,7 @@ public class Preferences extends PreferenceActivity
         mStoragePath = newStoragePath;
         MainApp.setStoragePath(mStoragePath);
         SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString(Keys.STORAGE_PATH, mStoragePath);
+        editor.putString(PreferenceKeys.STORAGE_PATH, mStoragePath);
         editor.commit();
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
         mPrefStoragePath.setSummary(storageDescription);
@@ -753,7 +754,7 @@ public class Preferences extends PreferenceActivity
     private void loadStoragePath() {
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        mStoragePath = appPrefs.getString(Keys.STORAGE_PATH, Environment.getExternalStorageDirectory()
+        mStoragePath = appPrefs.getString(PreferenceKeys.STORAGE_PATH, Environment.getExternalStorageDirectory()
                                                          .getAbsolutePath());
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
         mPrefStoragePath.setSummary(storageDescription);
@@ -766,7 +767,7 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString(Keys.INSTANT_UPLOAD_PATH, mUploadPath);
+        editor.putString(PreferenceKeys.INSTANT_UPLOAD_PATH, mUploadPath);
         editor.commit();
     }
 
@@ -787,14 +788,15 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString(Keys.INSTANT_VIDEO_UPLOAD_PATH, mUploadVideoPath);
+        editor.putString(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH, mUploadVideoPath);
         editor.commit();
     }
 
     @Override
     public void onStorageMigrationFinished(String storagePath, boolean succeed) {
-        if (succeed)
+        if (succeed) {
             saveStoragePath(storagePath);
+        }
     }
 
     @Override
