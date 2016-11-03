@@ -24,7 +24,6 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.webkit.MimeTypeMap;
 
@@ -430,9 +429,10 @@ public class FileStorageUtils {
 
         return files;
     }
-    
+
     /**
-     * Local Folder size
+     * Local Folder size.
+     *
      * @param dir File
      * @return Size in bytes
      */
@@ -440,10 +440,11 @@ public class FileStorageUtils {
         if (dir.exists()) {
             long result = 0;
             for (File f : dir.listFiles()) {
-                if (f.isDirectory())
+                if (f.isDirectory()) {
                     result += getFolderSize(f);
-                else
+                } else {
                     result += f.length();
+                }
             }
             return result;
         }
@@ -451,9 +452,10 @@ public class FileStorageUtils {
     }
 
     /**
-     * Mimetype String of a file
-     * @param path
-     * @return
+     * Mimetype String of a file.
+     *
+     * @param path the file path
+     * @return the mime type based on the file name
      */
     public static String getMimeTypeFromName(String path) {
         String extension = "";
@@ -510,15 +512,19 @@ public class FileStorageUtils {
         } catch (IOException ex) {
             ret = false;
         } finally {
-            if (in != null) try {
-                in.close();
-            } catch (IOException e) {
-                Log_OC.e(TAG, "Error closing input stream during copy", e);
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Error closing input stream during copy", e);
+                }
             }
-            if (out != null) try {
-                out.close();
-            } catch (IOException e) {
-                Log_OC.e(TAG, "Error closing output stream during copy", e);
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "Error closing output stream during copy", e);
+                }
             }
         }
 

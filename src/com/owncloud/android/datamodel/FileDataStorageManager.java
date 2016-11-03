@@ -729,9 +729,9 @@ public class FileDataStorageManager {
     }
 
     public void migrateStoredFiles(String srcPath, String dstPath) throws Exception {
-        Cursor c = null;
+        Cursor cursor = null;
         if (getContentResolver() != null) {
-            c = getContentResolver().query(ProviderTableMeta.CONTENT_URI_FILE,
+            cursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI_FILE,
                     null,
                     ProviderTableMeta.FILE_STORAGE_PATH  + " IS NOT NULL",
                     null,
@@ -739,41 +739,23 @@ public class FileDataStorageManager {
 
         } else {
             try {
-                c = getContentProviderClient().query(ProviderTableMeta.CONTENT_URI_FILE,
+                cursor = getContentProviderClient().query(ProviderTableMeta.CONTENT_URI_FILE,
                         new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_STORAGE_PATH},
                         ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL",
                         null,
                         null);
             } catch (RemoteException e) {
-                Log_OC.e(TAG, e.getMessage());
+                Log_OC.e(TAG, e.getMessage(), e);
                 throw e;
-            }
-        } catch (IOException ex) {
-            ret = false;
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, e.getMessage(), e);
-                }
-            }
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, e.getMessage(), e);
-                }
             }
         }
 
-        ArrayList<ContentProviderOperation> operations =
-                new ArrayList<ContentProviderOperation>(c.getCount());
-        if (c.moveToFirst()) {
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(cursor.getCount());
+        if (cursor.moveToFirst()) {
             do {
                 ContentValues cv = new ContentValues();
-                long fileId = c.getLong(c.getColumnIndex(ProviderTableMeta._ID));
-                String oldFileStoragePath = c.getString(c.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
+                long fileId = cursor.getLong(cursor.getColumnIndex(ProviderTableMeta._ID));
+                String oldFileStoragePath = cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
 
                 if (oldFileStoragePath.startsWith(srcPath)) {
 
@@ -791,9 +773,9 @@ public class FileDataStorageManager {
                                     .build());
                 }
 
-            } while (c.moveToNext());
+            } while (cursor.moveToNext());
         }
-        c.close();
+        cursor.close();
 
         /// 3. apply updates in batch
         if (getContentResolver() != null) {

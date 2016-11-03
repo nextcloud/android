@@ -30,7 +30,7 @@ import java.util.Vector;
  */
 public class HardcodedStoragePointProvider extends AbstractStoragePointProvider {
 
-    static private final String[] sPaths = {
+    private static final String[] PATHS = {
             "/mnt/external_sd/",
             "/mnt/extSdCard/",
             "/storage/extSdCard",
@@ -47,9 +47,11 @@ public class HardcodedStoragePointProvider extends AbstractStoragePointProvider 
     public Vector<StoragePoint> getAvailableStoragePoint() {
         Vector<StoragePoint> result = new Vector<>();
 
-        for (String s : sPaths)
-            if (canBeAddedToAvailableList(result, s))
+        for (String s : PATHS) {
+            if (canBeAddedToAvailableList(result, s)) {
                 result.add(new StoragePoint(s, s));
+            }
+        }
 
         return result;
     }
