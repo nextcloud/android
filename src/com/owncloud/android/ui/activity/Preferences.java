@@ -269,13 +269,13 @@ public class Preferences extends PreferenceActivity
         }
 
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
-        Preference pHelp =  findPreference(HELP);
-        if (pHelp != null) {
+        Preference pHelp = findPreference(HELP);
+        if (pHelp != null ) {
             if (helpEnabled) {
                 pHelp.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String helpWeb = (String) getText(R.string.url_help);
+                        String helpWeb = getString(R.string.url_help);
                         if (helpWeb != null && helpWeb.length() > 0) {
                             Uri uriUrl = Uri.parse(helpWeb);
                             Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -291,7 +291,7 @@ public class Preferences extends PreferenceActivity
 
        boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
        Preference pRecommend =  findPreference(RECOMMEND);
-        if (pRecommend != null){
+        if (pRecommend != null) {
             if (recommendEnabled) {
                 pRecommend.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -305,10 +305,8 @@ public class Preferences extends PreferenceActivity
                         String appName = getString(R.string.app_name);
                         String downloadUrl = getString(R.string.url_app_download);
 
-                        String recommendSubject =
-                                String.format(getString(R.string.recommend_subject), appName);
-                        String recommendText = String.format(getString(R.string.recommend_text),
-                                appName, downloadUrl);
+                        String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
+                        String recommendText = String.format(getString(R.string.recommend_text), appName, downloadUrl);
 
                         intent.putExtra(Intent.EXTRA_SUBJECT, recommendSubject);
                         intent.putExtra(Intent.EXTRA_TEXT, recommendText);
@@ -325,14 +323,13 @@ public class Preferences extends PreferenceActivity
 
         boolean feedbackEnabled = getResources().getBoolean(R.bool.feedback_enabled);
         Preference pFeedback =  findPreference(FEEDBACK);
-        if (pFeedback != null){
+        if (pFeedback != null) {
             if (feedbackEnabled) {
                 pFeedback.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String feedbackMail = (String) getText(R.string.mail_feedback);
-                        String feedback = getText(R.string.prefs_feedback) +
-                                " - android v" + appVersion;
+                        String feedbackMail = getString(R.string.mail_feedback);
+                        String feedback = getText(R.string.prefs_feedback) + " - android v" + appVersion;
                         Intent intent = new Intent(Intent.ACTION_SENDTO);
                         intent.setType("text/plain");
                         intent.putExtra(Intent.EXTRA_SUBJECT, feedback);
@@ -351,7 +348,7 @@ public class Preferences extends PreferenceActivity
 
         boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
         Preference pLogger =  findPreference(LOGGER);
-        if (pLogger != null){
+        if (pLogger != null) {
             if (loggerEnabled) {
                 pLogger.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -374,7 +371,7 @@ public class Preferences extends PreferenceActivity
                 pImprint.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
                     public boolean onPreferenceClick(Preference preference) {
-                        String imprintWeb = (String) getText(R.string.url_imprint);
+                        String imprintWeb = getString(R.string.url_imprint);
                         if (imprintWeb != null && imprintWeb.length() > 0) {
                             Uri uriUrl = Uri.parse(imprintWeb);
                             Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -404,7 +401,7 @@ public class Preferences extends PreferenceActivity
             mPrefStoragePath.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                     @Override
                     public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        String newPath = (String)newValue;
+                        String newPath = (String) newValue;
                         if (mStoragePath.equals(newPath)) {
                             return true;
                         }
@@ -421,7 +418,7 @@ public class Preferences extends PreferenceActivity
 
         }
 
-        mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
+        mPrefInstantUploadCategory = (PreferenceCategory) findPreference(INSTANT_UPLOADING_CATEGORY);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             // Instant upload via preferences on pre Android Lollipop
@@ -441,9 +438,6 @@ public class Preferences extends PreferenceActivity
                     }
                 });
         }
-
-        mPrefInstantUploadCategory =
-                (PreferenceCategory) findPreference(INSTANT_UPLOADING_CATEGORY);
 
         mPrefInstantUploadUseSubfolders = findPreference(INSTANT_UPLOAD_PATH_USE_SUBFOLDERS);
         mPrefInstantUploadPathWiFi =  findPreference(INSTANT_UPLOAD_ON_WIFI);
@@ -654,7 +648,7 @@ public class Preferences extends PreferenceActivity
     }
     
     private void toggleInstantPictureOptions(Boolean value){
-        if (value){
+        if (value) {
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPath);
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadUseSubfolders);
@@ -668,7 +662,7 @@ public class Preferences extends PreferenceActivity
     }
 
     private void toggleInstantVideoOptions(Boolean value){
-        if (value){
+        if (value) {
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPath);
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadUseSubfolders);
@@ -682,7 +676,7 @@ public class Preferences extends PreferenceActivity
     }
 
     private void toggleInstantUploadBehaviour(Boolean video, Boolean picture){
-        if (picture || video){
+        if (picture || video) {
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadBehaviour);
         } else {
             mPrefInstantUploadCategory.removePreference(mPrefInstantUploadBehaviour);
@@ -726,7 +720,7 @@ public class Preferences extends PreferenceActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ACTION_SELECT_UPLOAD_PATH && resultCode == RESULT_OK){
+        if (requestCode == ACTION_SELECT_UPLOAD_PATH && resultCode == RESULT_OK) {
 
             OCFile folderToUpload =  data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
