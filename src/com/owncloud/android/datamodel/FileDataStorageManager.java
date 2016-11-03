@@ -724,23 +724,6 @@ public class FileDataStorageManager {
                 Log_OC.e(TAG, e.getMessage(), e);
                 throw e;
             }
-        } catch (IOException ex) {
-            ret = false;
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, e.getMessage(), e);
-                }
-            }
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, e.getMessage(), e);
-                }
-            }
         }
 
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(cursor.getCount());
@@ -748,8 +731,7 @@ public class FileDataStorageManager {
             do {
                 ContentValues cv = new ContentValues();
                 long fileId = cursor.getLong(cursor.getColumnIndex(ProviderTableMeta._ID));
-                String oldFileStoragePath =
-                        cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
+                String oldFileStoragePath = cursor.getString(cursor.getColumnIndex(ProviderTableMeta.FILE_STORAGE_PATH));
 
                 if (oldFileStoragePath.startsWith(srcPath)) {
 

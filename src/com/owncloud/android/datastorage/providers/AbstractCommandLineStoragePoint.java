@@ -46,7 +46,7 @@ abstract class AbstractCommandLineStoragePoint extends AbstractStoragePointProvi
             return false;
         }
         return process != null && process.exitValue() == COMMAND_LINE_OK_RETURN_VALUE;
-    }#
+    }
 
     String getCommandLineResult() {
         StringBuilder s = new StringBuilder();
