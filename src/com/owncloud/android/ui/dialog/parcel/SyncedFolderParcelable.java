@@ -24,6 +24,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
+import com.owncloud.android.files.services.FileUploader;
 
 /**
  * Parcelable for {@link SyncedFolderDisplayItem} objects to transport them from/to dialog fragments.
@@ -166,8 +167,30 @@ public class SyncedFolderParcelable implements Parcelable {
         return mUploadAction;
     }
 
-    public void setUploadAction(Integer mUploadAction) {
-        this.mUploadAction = mUploadAction;
+    public Integer getUploadActionInteger() {
+        switch (mUploadAction) {
+            case FileUploader.LOCAL_BEHAVIOUR_FORGET:
+                return 0;
+            case FileUploader.LOCAL_BEHAVIOUR_MOVE:
+                return 1;
+            case FileUploader.LOCAL_BEHAVIOUR_DELETE:
+                return 2;
+        }
+        return 0;
+    }
+
+    public void setUploadAction(String mUploadAction) {
+        switch (mUploadAction) {
+            case "LOCAL_BEHAVIOUR_FORGET":
+                this.mUploadAction = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+                break;
+            case "LOCAL_BEHAVIOUR_MOVE":
+                this.mUploadAction = FileUploader.LOCAL_BEHAVIOUR_MOVE;
+                break;
+            case "LOCAL_BEHAVIOUR_DELETE":
+                this.mUploadAction = FileUploader.LOCAL_BEHAVIOUR_DELETE;
+                break;
+        }
     }
 
     public long getId() {
