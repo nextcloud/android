@@ -20,10 +20,6 @@
 
 package com.owncloud.android.services.observer;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +32,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.ConflictsResolveActivity;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Observer watching a folder to request the synchronization of kept-in-sync files
@@ -119,11 +119,13 @@ public class FolderObserver extends FileObserver {
                         ((event & FileObserver.MOVED_TO) != 0)
                         && !mObservedChildren.get(path)) {
                     
-                        mObservedChildren.put(path, true);
+                    if (mObservedChildren.get(path) != true) {
+                        mObservedChildren.put(path, Boolean.TRUE);
+                    }
                 }
                 
                 if ((event & FileObserver.CLOSE_WRITE) != 0 && mObservedChildren.get(path)) {
-                    mObservedChildren.put(path, false);
+                    mObservedChildren.put(path, Boolean.FALSE);
                     shouldSynchronize = true;
                 }
             }
