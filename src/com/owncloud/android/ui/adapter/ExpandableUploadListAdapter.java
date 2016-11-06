@@ -61,7 +61,6 @@ import java.util.Observer;
 /**
  * This Adapter populates a ListView with following types of uploads: pending,
  * active, completed. Filtering possible.
- *
  */
 public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
 
