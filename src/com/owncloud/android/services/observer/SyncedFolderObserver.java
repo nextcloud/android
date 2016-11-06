@@ -40,6 +40,8 @@ class SyncedFolderObserver extends RecursiveFileObserver {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onEvent(int event, String path) {
+        Log.d(TAG, "Event: " + event + " Path: " + path);
+
         File temp = new File(path);
 
         if (!temp.getName().equalsIgnoreCase("null")) {
@@ -65,8 +67,6 @@ class SyncedFolderObserver extends RecursiveFileObserver {
             if (result <= 0) {
                 Log_OC.d(TAG, "Job failed to start: " + result);
             }
-
-            Log.d(TAG, "Event: " + event + " Path: " + path);
         }
     }
 }
