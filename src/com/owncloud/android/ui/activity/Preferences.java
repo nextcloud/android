@@ -517,6 +517,7 @@ public class Preferences extends PreferenceActivity
                pAboutApp.setSummary(String.format(getString(R.string.about_version),
                        currentVersion));
            } catch (NameNotFoundException e) {
+               Log_OC.e(TAG, "Error setting about app summary", e);
            }
        }
 
@@ -544,10 +545,8 @@ public class Preferences extends PreferenceActivity
                         LoadingVersionNumberTask loadTask = new LoadingVersionNumberTask();
                         loadTask.execute();
                         latestVersion = loadTask.get();
-                    } catch (InterruptedException | ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (NameNotFoundException e) {
-                        e.printStackTrace();
+                    } catch (InterruptedException | ExecutionException | NameNotFoundException e) {
+                        Log_OC.e(TAG, "Error detecting app version", e);
                     }
                     if (latestVersion == -1 || currentVersion == -1) {
                         Toast.makeText(getApplicationContext(), "No information available!",
@@ -968,10 +967,8 @@ public class Preferences extends PreferenceActivity
 
                 return latestVersion;
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log_OC.e(TAG, "Error loading version number", e);
             }
             return -1;
         }
