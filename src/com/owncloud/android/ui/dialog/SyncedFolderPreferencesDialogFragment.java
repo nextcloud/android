@@ -151,7 +151,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         mUploadOnChargingCheckbox.setChecked(mSyncedFolder.getChargingOnly());
         mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.getSubfolderByDate());
 
-        mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadAction()]);
+        mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
     }
 
     /**
@@ -236,11 +236,13 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                         builder.setTitle(R.string.prefs_instant_behaviour_dialogTitle)
                                 .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
-                                        mSyncedFolder.getUploadAction(),
+                                        mSyncedFolder.getUploadActionInteger(),
                                         new
                                                 DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        mSyncedFolder.setUploadAction(which);
+                                                        mSyncedFolder.setUploadAction(
+                                                        getResources().getTextArray(
+                                                                R.array.pref_behaviour_entryValues)[which].toString());
                                                         mUploadBehaviorSummary.setText(SyncedFolderPreferencesDialogFragment
                                                                 .this.mUploadBehaviorItemStrings[which]);
                                                         dialog.dismiss();

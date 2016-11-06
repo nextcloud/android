@@ -23,10 +23,12 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.FileProvider;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -150,11 +152,18 @@ public class LogHistoryActivity extends ToolbarActivity {
         ArrayList<Uri> uris = new ArrayList<Uri>();
 
         // Convert from paths to Android friendly Parcelable Uri's
-        for (String file : Log_OC.getLogFileNames())
-        {
+        for (String file : Log_OC.getLogFileNames()) {
             File logFile = new File(mLogPath, file);
             if (logFile.exists()) {
-                uris.add(Uri.fromFile(logFile));
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                    uris.add(Uri.fromFile(logFile));
+                } else {
+                    uris.add(FileProvider.getUriForFile(
+                            this,
+                            getString(R.string.file_provider_authority),
+                            logFile
+                    ));
+                }
             }
         }
 
