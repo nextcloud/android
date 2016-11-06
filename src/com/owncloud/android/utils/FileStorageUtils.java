@@ -24,6 +24,7 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.webkit.MimeTypeMap;
 
