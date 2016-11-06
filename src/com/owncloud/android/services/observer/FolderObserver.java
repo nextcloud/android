@@ -115,7 +115,7 @@ public class FolderObserver extends FileObserver {
                         ((event & FileObserver.ATTRIB) != 0) ||
                         ((event & FileObserver.MOVED_TO) != 0) ) {
                     
-                    if (mObservedChildren.get(path) != true) {
+                    if (!mObservedChildren.get(path)) {
                         mObservedChildren.put(path, Boolean.TRUE);
                     }
                 }
