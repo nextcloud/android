@@ -24,7 +24,6 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.webkit.MimeTypeMap;
 
@@ -337,14 +336,15 @@ public class FileStorageUtils {
     public static File[] sortLocalFilesBySize(File[] filesArray) {
         final int multiplier = mSortAscending ? 1 : -1;
 
-        List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
+        List<File> files = new ArrayList<>(Arrays.asList(filesArray));
 
         Collections.sort(files, new Comparator<File>() {
             @SuppressFBWarnings(value = "Bx")
             public int compare(File o1, File o2) {
                 if (o1.isDirectory() && o2.isDirectory()) {
-                    Long obj1 = getFolderSize(o1);
-                    return multiplier * obj1.compareTo(getFolderSize(o2));
+                    // Long obj1 = getFolderSize(o1);
+                    // return multiplier * obj1.compareTo(getFolderSize(o2));
+                    return o1.getPath().toLowerCase().compareTo(o2.getPath().toLowerCase());
                 } else if (o1.isDirectory()) {
                     return -1;
                 } else if (o2.isDirectory()) {
