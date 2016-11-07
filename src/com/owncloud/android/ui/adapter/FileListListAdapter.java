@@ -311,7 +311,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                 if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                     // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            "t" + String.valueOf(file.getRemoteId())
+                            "t" + file.getRemoteId()
                     );
                     if (thumbnail != null && !file.needsUpdateThumbnail()) {
 
