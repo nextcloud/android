@@ -1,22 +1,23 @@
 /**
- *   ownCloud Android client application
+ *   Nextcloud Android client application
  *
- *   Copyright (C) 2015-2016 Bartosz Przybylski
+ *   @author Bartosz Przybylski
+ *   Copyright (C) 2015 Bartosz Przybylski
  *   Copyright (C) 2015 ownCloud Inc.
- *   Copyright (C) 2016 nextCloud
+ *   Copyright (C) 2016 Nextcloud.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ *   License as published by the Free Software Foundation; either
+ *   version 3 of the License, or any later version.
  *
  *   This program is distributed in the hope that it will be useful,
  *   but WITHOUT ANY WARRANTY; without even the implied warranty of
  *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ *   You should have received a copy of the GNU Affero General Public
+ *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -50,13 +51,14 @@ import com.owncloud.android.features.FeatureList.FeatureItem;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 
 /**
- * @author Bartosz Przybylski
+ * Activity displaying general feature after a fresh install and new features after an update.
  */
 public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
 
     private static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
 
     private ImageButton mForwardFinishButton;
+    private Button mSkipButton;
     private ProgressIndicator mProgress;
     private ViewPager mPager;
 
@@ -68,7 +70,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
         mPager = (ViewPager)findViewById(R.id.contentPanel);
         final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
-        FeaturesViewAdapter adapter = new FeaturesViewAdapter(getSupportFragmentManager(), FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta));
+        FeaturesViewAdapter adapter = new FeaturesViewAdapter(getSupportFragmentManager(),
+                FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta));
 
         mProgress.setNumberOfSteps(adapter.getCount());
         mPager.setAdapter(adapter);
@@ -89,8 +92,15 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
                 updateNextButtonIfNeeded();
             }
         });
-        Button skipButton = (Button) findViewById(R.id.skip);
-        skipButton.setOnClickListener(new View.OnClickListener() {
+
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            mForwardFinishButton.setBackground(null);
+        } else {
+            mForwardFinishButton.setBackgroundDrawable(null);
+        }
+
+        mSkipButton = (Button) findViewById(R.id.skip);
+        mSkipButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onFinish();
@@ -114,18 +124,10 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     private void updateNextButtonIfNeeded() {
         if (!mProgress.hasNextStep()) {
             mForwardFinishButton.setImageResource(R.drawable.ic_done_white);
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                mForwardFinishButton.setBackground(getResources().getDrawable(R.drawable.round_button));
-            } else {
-                mForwardFinishButton.setBackgroundDrawable(getResources().getDrawable(R.drawable.round_button));
-            }
+            mSkipButton.setVisibility(View.INVISIBLE);
         } else {
             mForwardFinishButton.setImageResource(R.drawable.arrow_right);
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                mForwardFinishButton.setBackground(null);
-            } else {
-                mForwardFinishButton.setBackgroundDrawable(null);
-            }
+            mSkipButton.setVisibility(View.VISIBLE);
         }
     }
 
