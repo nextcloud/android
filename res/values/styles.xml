@@ -113,6 +113,10 @@
 		<item name="android:textColor">@color/color_accent</item>
 	</style>
 
+	<style name="Button.Borderless.Login" parent="Base.Widget.AppCompat.Button.Borderless">
+		<item name="android:textColor">@color/white</item>
+	</style>
+
 	<!-- separat translucent action bar style -->
 	<style name="Theme.ownCloud.Overlay" parent="style/Theme.ownCloud">
 		<item name="android:actionBarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>

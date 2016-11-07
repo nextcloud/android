@@ -555,7 +555,6 @@
     <string name="storage_description_unknown">Unknown</string>
     <string name="prefs_category_beta">Beta</string>
 
-
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">What\'s new in Nextcloud</string>
 
