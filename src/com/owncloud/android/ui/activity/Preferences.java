@@ -87,11 +87,8 @@ public class Preferences extends PreferenceActivity
     public static final String INSTANT_UPLOAD_PATH_USE_SUBFOLDERS = "instant_upload_path_use_subfolders";
     public static final String INSTANT_UPLOAD_ON_WIFI = "instant_upload_on_wifi";
     public static final String INSTANT_UPLOADING = "instant_uploading";
-    public static final String INSTANT_UPLOAD_PATH_ACCOUNT = "instant_upload_path_account";
-    public static final String INSTANT_UPLOAD_PATH = "instant_upload_path";
     public static final String INSTANT_UPLOAD_ON_CHARGING = "instant_upload_on_charging";
     public static final String INSTANT_VIDEO_UPLOAD_PATH = "instant_video_upload_path";
-    public static final String INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT = "instant_video_upload_path_account";
     public static final String INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS = "instant_video_upload_path_use_subfolders";
     public static final String INSTANT_VIDEO_UPLOAD_ON_WIFI = "instant_video_upload_on_wifi";
     public static final String INSTANT_VIDEO_UPLOAD_ON_CHARGING = "instant_video_upload_on_charging";
@@ -141,6 +138,8 @@ public class Preferences extends PreferenceActivity
         public static final String STORAGE_PATH = "storage_path";
         public static final String INSTANT_UPLOAD_PATH = "instant_upload_path";
         public static final String INSTANT_VIDEO_UPLOAD_PATH = "instant_video_upload_path";
+        public static final String INSTANT_UPLOAD_PATH_ACCOUNT = "instant_upload_path_account";
+        public static final String INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT = "instant_video_upload_path_account";
     }
 
     @SuppressWarnings("deprecation")
@@ -777,7 +776,7 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadPath = appPrefs.getString(PreferenceKeys.INSTANT_UPLOAD_PATH, getString(R.string.instant_upload_path));
-        mUploadPathAccount = appPrefs.getString(INSTANT_UPLOAD_PATH_ACCOUNT,
+        mUploadPathAccount = appPrefs.getString(Keys.INSTANT_UPLOAD_PATH_ACCOUNT,
                 AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()).name);
         mPrefInstantUploadPath.setSummary(getUploadAccountPath(mUploadPathAccount, mUploadPath));
     }
@@ -829,7 +828,7 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadVideoPath = appPrefs.getString(INSTANT_VIDEO_UPLOAD_PATH, getString(R.string.instant_upload_path));
-        mUploadVideoPathAccount = appPrefs.getString(INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT,
+        mUploadVideoPathAccount = appPrefs.getString(Keys.INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT,
                 AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()).name);
         mPrefInstantVideoUploadPath.setSummary(getUploadAccountPath(mUploadVideoPathAccount, mUploadVideoPath));
     }
@@ -857,5 +856,4 @@ public class Preferences extends PreferenceActivity
     public void onCancelMigration() {
         // Migration was canceled so we don't do anything
     }
-
 }
