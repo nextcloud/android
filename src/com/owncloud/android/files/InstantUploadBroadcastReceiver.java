@@ -132,7 +132,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         new FileUploader.UploadRequester();
 
         int behaviour = getUploadBehaviour(context);
-        Boolean subfolderByDate = com.owncloud.android.db.PreferenceManager.instantPictureUploadPathUseSubfolders(context);
+        Boolean subfolderByDate = PreferenceManager.instantPictureUploadPathUseSubfolders(context);
             SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String uploadPathdef = context.getString(R.string.instant_upload_path);
         String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
