@@ -147,7 +147,7 @@ public class SyncedFolderParcelable implements Parcelable {
         this.mChargingOnly = mChargingOnly;
     }
 
-    public boolean getEnabled() {
+    public Boolean getEnabled() {
         return mEnabled;
     }
 

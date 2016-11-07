@@ -111,13 +111,12 @@ public class FolderObserver extends FileObserver {
         synchronized(mObservedChildren) {
             if (path != null && path.length() > 0 && mObservedChildren.containsKey(path)) {
                 
-                if (    ((event & FileObserver.MODIFY) != 0) ||
+                if (    (((event & FileObserver.MODIFY) != 0) ||
                         ((event & FileObserver.ATTRIB) != 0) ||
-                        ((event & FileObserver.MOVED_TO) != 0) ) {
-                    
-                    if (!mObservedChildren.get(path)) {
+                        ((event & FileObserver.MOVED_TO) != 0)) &&
+                        !mObservedChildren.get(path)) {
+
                         mObservedChildren.put(path, Boolean.TRUE);
-                    }
                 }
                 
                 if ((event & FileObserver.CLOSE_WRITE) != 0 && mObservedChildren.get(path)) {
@@ -134,7 +133,6 @@ public class FolderObserver extends FileObserver {
                 (path == null || path.length() == 0)) {
             Log_OC.d(TAG, "Stopping the observance on " + mPath);
         }
-        
     }
     
 
@@ -212,5 +210,4 @@ public class FolderObserver extends FileObserver {
         // or maybe just toast them;
         // or nothing, very strange fails
     }
-
 }
