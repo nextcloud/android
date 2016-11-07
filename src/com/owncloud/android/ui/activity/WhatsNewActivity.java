@@ -168,9 +168,19 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        // unused but to be implemented due to abstract parent
+    }
+
+    @Override
     public void onPageSelected(int position) {
         mProgress.animateToStep(position+1);
         updateNextButtonIfNeeded();
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+        // unused but to be implemented due to abstract parent
     }
 
     private final class FeaturesViewAdapter extends FragmentPagerAdapter {
