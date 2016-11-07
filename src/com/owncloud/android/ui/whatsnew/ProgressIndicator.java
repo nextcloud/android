@@ -74,7 +74,9 @@ public class ProgressIndicator extends FrameLayout {
     }
 
     public void animateToStep(int step) {
-        if (step < 1 || step > mNumberOfSteps) return;
+        if (step < 1 || step > mNumberOfSteps) {
+            return;
+        }
 
         if (mCurrentStep != -1) {
             ImageView prevDot = (ImageView) mDotsContainer.getChildAt(mCurrentStep-1);
