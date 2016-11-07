@@ -144,18 +144,17 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     static private boolean isFirstRun() {
-        if (getLastSeenVersionCode() != 0)
-            return false;
-        return AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()) == null;
-
+        return getLastSeenVersionCode() == 0 && AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()) == null;
     }
 
     static public void runIfNeeded(Context context) {
-        if (context instanceof WhatsNewActivity)
+        if (context instanceof WhatsNewActivity) {
             return;
+        }
 
-        if (shouldShow(context))
+        if (shouldShow(context)) {
             context.startActivity(new Intent(context, WhatsNewActivity.class));
+        }
     }
 
     static private boolean shouldShow(Context context) {
@@ -226,16 +225,19 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             View v = inflater.inflate(R.layout.whats_new_element, container, false);
 
             ImageView iv = (ImageView)v.findViewById(R.id.whatsNewImage);
-            if (mItem.shouldShowImage())
+            if (mItem.shouldShowImage()) {
                 iv.setImageResource(mItem.getImage());
+            }
 
             TextView tv2 = (TextView)v.findViewById(R.id.whatsNewTitle);
-            if (mItem.shouldShowTitleText())
+            if (mItem.shouldShowTitleText()) {
                 tv2.setText(mItem.getTitleText());
+            }
 
             tv2 = (TextView)v.findViewById(R.id.whatsNewText);
-            if (mItem.shouldShowContentText())
+            if (mItem.shouldShowContentText()) {
                 tv2.setText(mItem.getContentText());
+            }
 
             return v;
         }
