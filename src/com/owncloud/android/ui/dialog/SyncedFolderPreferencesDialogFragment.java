@@ -264,8 +264,9 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
     @Override
     public void onDestroyView() {
         Log_OC.d(TAG, "destroy SyncedFolderPreferencesDialogFragment view");
-        if (getDialog() != null && getRetainInstance())
+        if (getDialog() != null && getRetainInstance()) {
             getDialog().setDismissMessage(null);
+        }
         super.onDestroyView();
     }
 
