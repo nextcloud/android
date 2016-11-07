@@ -356,7 +356,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     @Override
     public void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder) {
         SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection());
-        boolean dirty = !(item.isEnabled() == syncedFolder.getEnabled());
+        boolean dirty = item.isEnabled() != syncedFolder.getEnabled();
         item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
                 .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
                 .getUploadAction(), syncedFolder.getEnabled());
