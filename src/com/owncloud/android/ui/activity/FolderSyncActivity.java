@@ -121,7 +121,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
      * @param perFolderMediaItemLimit the amount of media items to be loaded/shown per media folder
      */
     private void load(final int perFolderMediaItemLimit) {
-        if (mAdapter.getItemCount() > 0) return;
+        if (mAdapter.getItemCount() > 0) {
+            return;
+        }
         setListShown(false);
         final Handler mHandler = new Handler();
         new Thread(new Runnable() {
