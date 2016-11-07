@@ -20,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="20161107"
-    android:versionName="20161107" >
+    android:versionCode="20161108"
+    android:versionName="20161108" >
 
     <uses-sdk
         android:minSdkVersion="14"
