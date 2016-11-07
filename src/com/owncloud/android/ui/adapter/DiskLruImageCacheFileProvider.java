@@ -22,7 +22,6 @@ package com.owncloud.android.ui.adapter;
 import android.accounts.Account;
 import android.content.ContentProvider;
 import android.content.ContentValues;
-import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.graphics.Bitmap;
@@ -85,14 +84,14 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
             try {
                 fos = new FileOutputStream(f);
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                Log_OC.e(TAG, "Error opening file output stream", e);
             }
             fos.write(bitmapdata);
             fos.flush();
             fos.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "Error opening file", e);
         }
 
         return ParcelFileDescriptor.open(f, ParcelFileDescriptor.MODE_READ_ONLY);

@@ -200,7 +200,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 if (MimeTypeUtil.isImage(file)){
                 // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                            "t" + String.valueOf(file.hashCode())
+                            "t" + file.hashCode()
                     );
                     if (thumbnail != null){
                         fileIcon.setImageBitmap(thumbnail);
