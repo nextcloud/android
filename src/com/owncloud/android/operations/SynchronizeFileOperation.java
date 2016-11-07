@@ -24,7 +24,6 @@ package com.owncloud.android.operations;
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
@@ -41,7 +40,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 /**
  * Remote operation performing the read of remote file in the ownCloud server.
  */
-
 public class SynchronizeFileOperation extends SyncOperation {
 
     private static final String TAG = SynchronizeFileOperation.class.getSimpleName();
@@ -71,7 +69,7 @@ public class SynchronizeFileOperation extends SyncOperation {
      * <p/>
      * Useful for direct synchronization of a single file.
      *
-     * @param
+     * @param remotePath       remote path of the file
      * @param account          ownCloud account holding the file.
      * @param syncFileContents When 'true', transference of data will be started by the
      *                         operation if needed and no conflict is detected.
@@ -206,7 +204,7 @@ public class SynchronizeFileOperation extends SyncOperation {
             if (mServerFile != null) {
 
                 /// check changes in server and local file
-                boolean serverChanged = false;
+                boolean serverChanged;
                 if (mLocalFile.getEtag() == null || mLocalFile.getEtag().length() == 0) {
                     // file uploaded (null) or downloaded ("") before upgrade to version 1.8.0; check the old condition
                     serverChanged = mServerFile.getModificationTimestamp() !=
