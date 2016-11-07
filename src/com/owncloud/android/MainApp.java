@@ -71,6 +71,7 @@ public class MainApp extends Application {
     private static boolean mOnlyOnDevice = false;
 
     private static SyncedFolderObserverService mObserverService;
+    @SuppressWarnings("unused")
     private boolean mBound;
 
 
