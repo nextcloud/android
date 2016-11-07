@@ -248,45 +248,44 @@ public class FileDisplayActivity extends HookActivity
      */
     private void upgradeNotificationForInstantUpload() {
         // check for Android 5+ if legacy instant upload is activated --> disable + show info
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (PreferenceManager.instantPictureUploadEnabled(this) || PreferenceManager.instantPictureUploadEnabled
-                    (this)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP &&
+                (PreferenceManager.instantPictureUploadEnabled(this) ||
+                        PreferenceManager.instantPictureUploadEnabled(this))) {
 
-                // remove legacy shared preferences
-                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
-                editor.remove("instant_uploading")
-                        .remove("instant_video_uploading")
-                        .remove("instant_upload_path")
-                        .remove("instant_upload_path_use_subfolders")
-                        .remove("instant_upload_on_wifi")
-                        .remove("instant_upload_on_charging")
-                        .remove("instant_video_upload_path")
-                        .remove("instant_video_upload_path_use_subfolders")
-                        .remove("instant_video_upload_on_wifi")
-                        .remove("instant_video_uploading")
-                        .remove("instant_video_upload_on_charging")
-                        .remove("prefs_instant_behaviour").apply();
+            // remove legacy shared preferences
+            SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+            editor.remove("instant_uploading")
+                    .remove("instant_video_uploading")
+                    .remove("instant_upload_path")
+                    .remove("instant_upload_path_use_subfolders")
+                    .remove("instant_upload_on_wifi")
+                    .remove("instant_upload_on_charging")
+                    .remove("instant_video_upload_path")
+                    .remove("instant_video_upload_path_use_subfolders")
+                    .remove("instant_video_upload_on_wifi")
+                    .remove("instant_video_uploading")
+                    .remove("instant_video_upload_on_charging")
+                    .remove("prefs_instant_behaviour").apply();
 
-                // show info pop-up
-                new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
-                        .setTitle(R.string.drawer_folder_sync)
-                        .setMessage(R.string.folder_sync_new_info)
-                        .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                // show instant upload
-                                Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
-                                dialog.dismiss();
-                                startActivity(folderSyncIntent);
-                            }
-                        })
-                        .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        })
-                        .setIcon(R.drawable.ic_cloud_upload)
-                        .show();
-            }
+            // show info pop-up
+            new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog)
+                    .setTitle(R.string.drawer_folder_sync)
+                    .setMessage(R.string.folder_sync_new_info)
+                    .setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            // show instant upload
+                            Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
+                            dialog.dismiss();
+                            startActivity(folderSyncIntent);
+                        }
+                    })
+                    .setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    })
+                    .setIcon(R.drawable.ic_cloud_upload)
+                    .show();
         }
     }
 
