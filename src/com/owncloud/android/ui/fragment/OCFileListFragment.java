@@ -22,9 +22,11 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -52,6 +54,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -617,15 +620,13 @@ public class OCFileListFragment extends ExtendedListFragment {
                     ((FileDisplayActivity)mContainerActivity).startImagePreview(file);
                 } else if (PreviewTextFragment.canBePreviewed(file)){
                     ((FileDisplayActivity)mContainerActivity).startTextPreview(file);
-                } else if (file.isDown()) {
-                    if (PreviewMediaFragment.canBePreviewed(file)) {
+                } else if (PreviewMediaFragment.canBePreviewed(file)) {
                         // media preview
                         ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true);
-                    } else {
+                    } else if (file.isDown()) {
                         mContainerActivity.getFileOperationsHelper().openFile(file);
                     }
-
-                } else {
+                else {
                     // automatic download, preview on finish
                     ((FileDisplayActivity) mContainerActivity).startDownloadForPreview(file);
                 }
@@ -683,6 +684,14 @@ public class OCFileListFragment extends ExtendedListFragment {
                     } else {
                         mContainerActivity.getFileOperationsHelper().sendDownloadedFile(singleFile);
                     }
+                    return true;
+                }
+                case R.id.action_stream_file: {
+                    Account account = ((FileActivity)mContainerActivity).getAccount();
+                    Context context = MainApp.getAppContext();
+                    Uri uri = PreviewMediaFragment.generateUrlWithCredentials(account, context, singleFile);
+                    MediaService.streamWithExternalApp(uri, getActivity()).show();
+
                     return true;
                 }
             }

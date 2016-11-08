@@ -20,6 +20,8 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
@@ -35,6 +37,8 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AlertDialog;
@@ -50,9 +54,15 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.OwnCloudCredentials;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaControlView;
 import com.owncloud.android.media.MediaService;
@@ -62,6 +72,8 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
+
+import java.io.IOException;
 
 
 /**
@@ -73,8 +85,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
  * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is
  * generated on instantiation too.
  */
-public class PreviewMediaFragment extends FileFragment implements
-        OnTouchListener {
+public class PreviewMediaFragment extends FileFragment implements OnTouchListener {
 
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
@@ -95,7 +106,6 @@ public class PreviewMediaFragment extends FileFragment implements
     public boolean mPrepared;
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
-
 
     /**
      * Creates a fragment to preview a file.
@@ -133,7 +143,6 @@ public class PreviewMediaFragment extends FileFragment implements
         mAutoplay = true;
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -142,7 +151,6 @@ public class PreviewMediaFragment extends FileFragment implements
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
 
     /**
      * {@inheritDoc}
@@ -165,7 +173,6 @@ public class PreviewMediaFragment extends FileFragment implements
         return mView;
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -182,10 +189,6 @@ public class PreviewMediaFragment extends FileFragment implements
             if (mAccount == null) {
                 throw new IllegalStateException("Instanced with a NULL ownCloud Account");
             }
-            if (!file.isDown()) {
-                throw new IllegalStateException("There is no local file to preview");
-            }
-
         }
         else {
             file = (OCFile) savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
@@ -196,7 +199,7 @@ public class PreviewMediaFragment extends FileFragment implements
             mAutoplay = savedInstanceState.getBoolean(PreviewMediaFragment.EXTRA_PLAYING);
 
         }
-        if (file != null && file.isDown()) {
+        if (file != null) {
             if (MimeTypeUtil.isVideo(file)) {
                 mVideoPreview.setVisibility(View.VISIBLE);
                 mImagePreview.setVisibility(View.GONE);
@@ -235,7 +238,6 @@ public class PreviewMediaFragment extends FileFragment implements
         }
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -266,14 +268,13 @@ public class PreviewMediaFragment extends FileFragment implements
         }
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
         Log_OC.v(TAG, "onStart");
 
         OCFile file = getFile();
-        if (file != null && file.isDown()) {
+        if (file != null) {
             if (MimeTypeUtil.isAudio(file)) {
                 bindMediaService();
 
@@ -287,13 +288,11 @@ public class PreviewMediaFragment extends FileFragment implements
         }
     }
 
-
     private void stopAudio() {
         Intent i = new Intent(getActivity(), MediaService.class);
         i.setAction(MediaService.ACTION_STOP_ALL);
         getActivity().startService(i);
     }
-
 
     /**
      * {@inheritDoc}
@@ -303,7 +302,6 @@ public class PreviewMediaFragment extends FileFragment implements
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.file_actions_menu, menu);
     }
-
 
     /**
      * {@inheritDoc}
@@ -344,7 +342,6 @@ public class PreviewMediaFragment extends FileFragment implements
             item.setEnabled(false);
         }
     }
-
 
     /**
      * {@inheritDoc}
@@ -390,7 +387,6 @@ public class PreviewMediaFragment extends FileFragment implements
         }
     }
 
-
     /**
      * Update the file of the fragment with file value
      *
@@ -429,11 +425,67 @@ public class PreviewMediaFragment extends FileFragment implements
         // create and prepare control panel for the user
         mMediaController.setMediaPlayer(mVideoPreview);
 
-        // load the video file in the video player ; 
+        Uri videoUri;
+
+        // load the video file in the video player ;
         // when done, VideoHelper#onPrepared() will be called
-        mVideoPreview.setVideoURI(getFile().getStorageUri());
+        if (getFile().isDown()) {
+            videoUri = getFile().getStorageUri();
+        } else {
+            Context context = MainApp.getAppContext();
+            videoUri = generateUrlWithCredentials(mAccount, context, getFile());
+        }
+
+        mVideoPreview.setVideoURI(videoUri);
     }
 
+    public static Uri generateUrlWithCredentials(Account account, Context context, OCFile file){
+        OwnCloudAccount ocAccount = null;
+        try {
+            ocAccount = new OwnCloudAccount(account, context);
+
+            final ClientGenerationTask task = new ClientGenerationTask();
+            task.execute(ocAccount);
+
+            OwnCloudClient mClient = task.get();
+            String url = AccountUtils.constructFullURLForAccount(context, account)
+                    + Uri.encode(file.getRemotePath(), "/");
+            OwnCloudCredentials credentials = mClient.getCredentials();
+
+            return Uri.parse(url.replace("//", "//" + credentials.getUsername() + ":" + credentials.getAuthToken() +
+                    "@"));
+        } catch (AccountUtils.AccountNotFoundException e) {
+            Log_OC.e(TAG,"Couldn't create streaming URI - Account missing", e);
+        } catch (Exception e) {
+            Log_OC.e(TAG,"Couldn't create streaming URI", e);
+        }
+
+        return null;
+    }
+
+    public static class ClientGenerationTask extends AsyncTask<Object, Void, OwnCloudClient> {
+        @Override
+        protected OwnCloudClient doInBackground(Object... params) {
+            Object account = params[0];
+            if (account instanceof OwnCloudAccount){
+                try {
+                    OwnCloudAccount ocAccount = (OwnCloudAccount) account;
+                    return OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, MainApp.getAppContext());
+                } catch (AccountUtils.AccountNotFoundException e) {
+                    Log_OC.e(TAG,"Couldn't create Nc client - Account missing", e);
+                } catch (OperationCanceledException e) {
+                    Log_OC.e(TAG,"Couldn't create Nc client - Operation canceled", e);
+                } catch (AuthenticatorException e) {
+                    Log_OC.e(TAG,"Couldn't create Nc client - Authentication error", e);
+                } catch (IOException e) {
+                    Log_OC.e(TAG,"Couldn't create Nc client - I/O error", e);
+                }
+            }
+
+            return null;
+        }
+    }
 
     private class VideoHelper implements OnCompletionListener, OnPreparedListener, OnErrorListener {
 
@@ -456,7 +508,6 @@ public class PreviewMediaFragment extends FileFragment implements
             mPrepared = true;
         }
 
-
         /**
          * Called when the file is finished playing.
          * <p/>
@@ -473,7 +524,6 @@ public class PreviewMediaFragment extends FileFragment implements
             mMediaController.updatePausePlay();
         }
 
-
         /**
          * Called when an error in playback occurs.
          *
@@ -483,7 +533,6 @@ public class PreviewMediaFragment extends FileFragment implements
          */
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
-            Log_OC.e(TAG, "Error in video playback, what = " + what + ", extra = " + extra);
             if (mVideoPreview.getWindowToken() != null) {
                 String message = MediaService.getMessageForMediaError(
                         getActivity(), what, extra);
@@ -501,9 +550,7 @@ public class PreviewMediaFragment extends FileFragment implements
             }
             return true;
         }
-
     }
-
 
     @Override
     public void onPause() {
@@ -553,7 +600,6 @@ public class PreviewMediaFragment extends FileFragment implements
         return false;
     }
 
-
     private void startFullScreenVideo() {
         Intent i = new Intent(getActivity(), PreviewVideoActivity.class);
         i.putExtra(FileActivity.EXTRA_ACCOUNT, mAccount);
@@ -586,7 +632,6 @@ public class PreviewMediaFragment extends FileFragment implements
         if (!mMediaServiceBinder.isPlaying(file)) {
             Log_OC.d(TAG, "starting playback of " + file.getStoragePath());
             mMediaServiceBinder.start(mAccount, file, mAutoplay, mSavedPlaybackPosition);
-
         }
         else {
             if (!mMediaServiceBinder.isPlaying() && mAutoplay) {
@@ -602,11 +647,12 @@ public class PreviewMediaFragment extends FileFragment implements
         if (mMediaServiceConnection == null) {
             mMediaServiceConnection = new MediaServiceConnection();
         }
-        getActivity().bindService(  new Intent(getActivity(),
-                                    MediaService.class),
-                                    mMediaServiceConnection, 
-                                    Context.BIND_AUTO_CREATE);
-            // follow the flow in MediaServiceConnection#onServiceConnected(...)
+        getActivity().bindService(
+                new Intent(getActivity(), MediaService.class),
+                mMediaServiceConnection,
+                Context.BIND_AUTO_CREATE
+        );
+        // follow the flow in MediaServiceConnection#onServiceConnected(...)
     }
     
     /** Defines callbacks for service binding, passed to bindService() */
@@ -658,7 +704,6 @@ public class PreviewMediaFragment extends FileFragment implements
         }
     }
 
-
     /**
      * Opens the previewed file with an external application.
      */
@@ -679,7 +724,6 @@ public class PreviewMediaFragment extends FileFragment implements
         return (file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file)));
     }
 
-
     public void stopPreview(boolean stopAudio) {
         OCFile file = getFile();
         if (MimeTypeUtil.isAudio(file) && stopAudio) {
@@ -693,14 +737,12 @@ public class PreviewMediaFragment extends FileFragment implements
         }
     }
 
-
     /**
      * Finishes the preview
      */
     private void finish() {
         getActivity().onBackPressed();
     }
-
 
     public int getPosition() {
         if (mPrepared) {
@@ -716,5 +758,4 @@ public class PreviewMediaFragment extends FileFragment implements
         }
         return mAutoplay;
     }
-
 }
