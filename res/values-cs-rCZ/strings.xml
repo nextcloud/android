@@ -357,6 +357,15 @@ správce systému.</string>
 
     <string name="file_migration_dialog_title">Aktualizace cesty k úložišti</string>
     <string name="file_migration_finish_button">Dokončit</string>
+    <string name="file_migration_preparing">Příprava na migraci&#8230;</string>
+    <string name="file_migration_checking_destination">Prověřování cílového umístění&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Ukládání konfigurace účtů&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Čekání na nedokončené synchronizace&#8230;</string>
+    <string name="file_migration_migrating">Přesun dat&#8230;</string>
+    <string name="file_migration_updating_index">Aktualizace indexu&#8230;</string>
+    <string name="file_migration_cleaning">Čištění&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Obnovování konfigurace účtů&#8230;</string>
+    <string name="file_migration_ok_finished">Dokončeno</string>
     <string name="file_migration_failed_not_enough_space">CHYBA: Nedostatek volného prostoru</string>
     <string name="file_migration_failed_not_writable">CHYBA: Do souboru nelze zapisovat</string>
     <string name="file_migration_failed_not_readable">CHYBA: Soubor nelze číst</string>
