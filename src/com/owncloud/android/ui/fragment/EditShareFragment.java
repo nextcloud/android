@@ -104,7 +104,7 @@ public class EditShareFragment extends Fragment {
             mShare = getArguments().getParcelable(ARG_SHARE);
             mFile = getArguments().getParcelable(ARG_FILE);
             /* OC account holding the shared file, received as a parameter in construction time */
-            Account mAccount = getArguments().getParcelable(ARG_ACCOUNT);
+            //Account mAccount = getArguments().getParcelable(ARG_ACCOUNT);
         }
     }
 
