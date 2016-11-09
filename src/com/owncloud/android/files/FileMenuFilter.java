@@ -32,6 +32,7 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -305,7 +306,7 @@ public class FileMenuFilter {
     }
 
     private boolean isSingleImage() {
-        return isSingleSelection() && mFiles.iterator().next().isImage();
+        return isSingleSelection() && MimeTypeUtil.isImage(mFiles.iterator().next());
     }
 
     private boolean allFiles() {
