@@ -705,42 +705,25 @@ public class FileDataStorageManager {
     }
 
     public void migrateStoredFiles(String srcPath, String dstPath) throws Exception {
-        Cursor cursor = null;
-        if (getContentResolver() != null) {
-            cursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI_FILE,
-                    null,
-                    ProviderTableMeta.FILE_STORAGE_PATH  + " IS NOT NULL",
-                    null,
-                    null);
+        Cursor cursor;
+        try {
+            if (getContentResolver() != null) {
+                cursor = getContentResolver().query(ProviderTableMeta.CONTENT_URI_FILE,
+                        null,
+                        ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL",
+                        null,
+                        null);
 
-        } else {
-            try {
+            } else {
                 cursor = getContentProviderClient().query(ProviderTableMeta.CONTENT_URI_FILE,
                         new String[]{ProviderTableMeta._ID, ProviderTableMeta.FILE_STORAGE_PATH},
                         ProviderTableMeta.FILE_STORAGE_PATH + " IS NOT NULL",
                         null,
                         null);
-            } catch (RemoteException e) {
-                Log_OC.e(TAG, e.getMessage(), e);
-                throw e;
             }
-        } catch (IOException ex) {
-            ret = false;
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, e.getMessage(), e);
-                }
-            }
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, e.getMessage(), e);
-                }
-            }
+        } catch (RemoteException e) {
+            Log_OC.e(TAG, e.getMessage(), e);
+            throw e;
         }
 
         ArrayList<ContentProviderOperation> operations = new ArrayList<>(cursor.getCount());

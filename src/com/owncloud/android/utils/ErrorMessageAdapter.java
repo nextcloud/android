@@ -311,7 +311,5 @@ public class ErrorMessageAdapter {
         return code == ResultCode.WRONG_CONNECTION ||
                 code == ResultCode.TIMEOUT ||
                 code == ResultCode.HOST_NOT_AVAILABLE;
-        }
-        }
     }
 }
