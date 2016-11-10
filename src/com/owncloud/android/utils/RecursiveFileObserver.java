@@ -20,12 +20,12 @@
 
 package com.owncloud.android.utils;
 
+import android.os.FileObserver;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-
-import android.os.FileObserver;
 
 public class RecursiveFileObserver extends FileObserver {
 
@@ -38,7 +38,7 @@ public class RecursiveFileObserver extends FileObserver {
         this(path, ALL_EVENTS);
     }
     
-    RecursiveFileObserver(String path, int mask) {
+    public RecursiveFileObserver(String path, int mask) {
         super(path, mask);
         mPath = path;
         mMask = mask;
