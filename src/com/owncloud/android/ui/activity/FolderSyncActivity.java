@@ -121,7 +121,9 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
      * @param perFolderMediaItemLimit the amount of media items to be loaded/shown per media folder
      */
     private void load(final int perFolderMediaItemLimit) {
-        if (mAdapter.getItemCount() > 0) return;
+        if (mAdapter.getItemCount() > 0) {
+            return;
+        }
         setListShown(false);
         final Handler mHandler = new Handler();
         new Thread(new Runnable() {
@@ -354,7 +356,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     @Override
     public void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder) {
         SyncedFolderDisplayItem item = syncFolderItems.get(syncedFolder.getSection());
-        boolean dirty = !(item.isEnabled() == syncedFolder.getEnabled());
+        boolean dirty = item.isEnabled() != syncedFolder.getEnabled();
         item = updateSyncedFolderItem(item, syncedFolder.getLocalPath(), syncedFolder.getRemotePath(), syncedFolder
                 .getWifiOnly(), syncedFolder.getChargingOnly(), syncedFolder.getSubfolderByDate(), syncedFolder
                 .getUploadAction(), syncedFolder.getEnabled());
