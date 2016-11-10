@@ -50,9 +50,12 @@ public class EnvironmentStoragePointProvider extends AbstractStoragePointProvide
 
     private void addEntriesFromEnv(Vector<StoragePoint> result, String envName) {
         String env = System.getenv(envName);
-        if (env != null)
-            for (String p : env.split(":"))
-                if (canBeAddedToAvailableList(result, p))
+        if (env != null) {
+            for (String p : env.split(":")) {
+                if (canBeAddedToAvailableList(result, p)) {
                     result.add(new StoragePoint(p, p));
+                }
+            }
+        }
     }
 }

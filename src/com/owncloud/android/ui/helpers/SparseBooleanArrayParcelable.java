@@ -30,6 +30,7 @@ import android.util.SparseBooleanArray;
  */
 public class SparseBooleanArrayParcelable implements Parcelable {
 
+    @SuppressWarnings("PMD.SuspiciousConstantFieldName")
     public static Parcelable.Creator<SparseBooleanArrayParcelable> CREATOR =
         new Parcelable.Creator<SparseBooleanArrayParcelable>() {
 

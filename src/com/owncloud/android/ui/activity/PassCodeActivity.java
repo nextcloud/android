@@ -70,9 +70,9 @@ public class PassCodeActivity extends AppCompatActivity {
     private EditText[] mPassCodeEditTexts = new EditText[4];
 
     private String [] mPassCodeDigits = {"","","",""};
-    private static String KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS";
+    private static final String KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS";
     private boolean mConfirmingPassCode = false;
-    private static String KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE";
+    private static final String KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE";
 
     private boolean mBChange = true; // to control that only one blocks jump
 
@@ -185,8 +185,9 @@ public class PassCodeActivity extends AppCompatActivity {
                 // used to control what's exactly happening with DEL, not any custom field...
                     mPassCodeEditTexts[0].setText("");
                     mPassCodeEditTexts[0].requestFocus();
-                    if (!mConfirmingPassCode)
+                    if (!mConfirmingPassCode) {
                         mPassCodeDigits[0] = "";
+                    }
                     mBChange = false;
 
                 } else if (!mBChange) {
@@ -221,8 +222,9 @@ public class PassCodeActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_DEL && mBChange) {
                     mPassCodeEditTexts[1].requestFocus();
-                    if (!mConfirmingPassCode)
+                    if (!mConfirmingPassCode) {
                         mPassCodeDigits[1] = "";
+                    }
                     mPassCodeEditTexts[1].setText("");
                     mBChange = false;
 
@@ -258,8 +260,9 @@ public class PassCodeActivity extends AppCompatActivity {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if (keyCode == KeyEvent.KEYCODE_DEL && mBChange) {
                     mPassCodeEditTexts[2].requestFocus();
-                    if (!mConfirmingPassCode)
+                    if (!mConfirmingPassCode) {
                         mPassCodeDigits[2] = "";
+                    }
                     mPassCodeEditTexts[2].setText("");
                     mBChange = false;
 

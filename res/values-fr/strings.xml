@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Comptes</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
     <string name="prefs_passcode">Code de sécurité</string>
+    <string name="prefs_show_hidden_files">Afficher les fichiers cachés</string>
     <string name="prefs_instant_upload">Téléversement immédiat des photos</string>
     <string name="prefs_instant_upload_summary">Téléverser immédiatement les photos prises par la caméra</string>
     <string name="prefs_instant_video_upload">Téléversement immédiat des vidéos</string>
@@ -356,6 +357,15 @@ La suppression est irréversible. </string>
     <string name="uploader_upload_forbidden_permissions">de téléverser dans ce dossier</string>
     <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
 
+    <string name="file_migration_finish_button">Terminer</string>
+    <string name="file_migration_ok_finished">Terminé</string>
+    <string name="file_migration_failed_not_enough_space">ERREUR : Pas assez d\'espace</string>
+    <string name="file_migration_failed_not_writable">ERREUR : Le fichier n\'est pas modifiable</string>
+    <string name="file_migration_failed_not_readable">ERREUR : Le fichier n\'est pas lisible</string>
+    <string name="file_migration_failed_dir_already_exists">ERREUR : Le répertoire Nextcloud existe déjà</string>
+    <string name="file_migration_failed_while_coping">ERREUR : Lors de la migration</string>
+    <string name="file_migration_failed_while_updating_index">ERREUR : Lors de la mise à jour de l\'index</string>
+
     <string name="prefs_category_accounts">Comptes</string>
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="drawer_manage_accounts">Gestion des comptes</string>
@@ -422,7 +432,6 @@ La suppression est irréversible. </string>
     <string name="pref_behaviour_entries_keep_file">gardé dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
     <string name="pref_behaviour_entries_delete_file">Supprimé</string>
-
     <string name="share_dialog_title">Partage</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_with_user_section_title">Partager avec des utilisateurs et des groupes</string>
@@ -499,5 +508,8 @@ ou</string>
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
+
+    <string name="storage_description_sd_no">Carte SD %1$d</string>
+    <string name="storage_description_unknown">Inconnu</string>
 
 </resources>

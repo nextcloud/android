@@ -65,10 +65,10 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
     public static final String ACTION_PLAY_FILE = MY_PACKAGE + ".action.PLAY_FILE";
     public static final String ACTION_STOP_ALL = MY_PACKAGE + ".action.STOP_ALL";
 
-    /// Keys to add extras to the action
+    /// PreferenceKeys to add extras to the action
     public static final String EXTRA_FILE = MY_PACKAGE + ".extra.FILE";
     public static final String EXTRA_ACCOUNT = MY_PACKAGE + ".extra.ACCOUNT";
-    public static String EXTRA_START_POSITION = MY_PACKAGE + ".extra.START_POSITION";
+    public static final String EXTRA_START_POSITION = MY_PACKAGE + ".extra.START_POSITION";
     public static final String EXTRA_PLAY_ON_LOAD = MY_PACKAGE + ".extra.PLAY_ON_LOAD";
 
 
@@ -621,16 +621,18 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
             // focus gain; check AudioManager.AUDIOFOCUS_* values
             mAudioFocus = AudioFocus.FOCUS;
             // restart media player with new focus settings
-            if (mState == State.PLAYING)
+            if (mState == State.PLAYING) {
                 configAndStartMediaPlayer();
+            }
             
         } else if (focusChange < 0) {
             // focus loss; check AudioManager.AUDIOFOCUS_* values
             boolean canDuck = AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK == focusChange;
                 mAudioFocus = canDuck ? AudioFocus.NO_FOCUS_CAN_DUCK : AudioFocus.NO_FOCUS;
                 // start/restart/pause media player with new focus settings
-                if (mPlayer != null && mPlayer.isPlaying())
+                if (mPlayer != null && mPlayer.isPlaying()) {
                     configAndStartMediaPlayer();
+                }
         }
         
     }

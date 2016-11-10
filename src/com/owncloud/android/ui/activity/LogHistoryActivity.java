@@ -43,8 +43,10 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -200,7 +202,7 @@ public class LogHistoryActivity extends ToolbarActivity {
         }
 
         protected void onPostExecute(String result) {
-            if (textViewReference != null && result != null) {
+            if (result != null) {
                 final TextView logTV = textViewReference.get();
                 if (logTV != null) {
                     mLogText = result;
@@ -228,8 +230,9 @@ public class LogHistoryActivity extends ToolbarActivity {
                     File file = new File(mLogPath,logFileName[i]);
                     if (file.exists()) {
                         // Check if FileReader is ready
-                        if (new FileReader(file).ready()) {
-                            br = new BufferedReader(new FileReader(file));
+                        final InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file), "UTF8");
+                        if (inputStreamReader.ready()) {
+                            br = new BufferedReader(inputStreamReader);
                             while ((line = br.readLine()) != null) {
                                 // Append the log info
                                 text.append(line);
@@ -240,7 +243,7 @@ public class LogHistoryActivity extends ToolbarActivity {
                 }
             }
             catch (IOException e) {
-                Log_OC.d(TAG, e.getMessage().toString());
+                Log_OC.d(TAG, e.getMessage());
                 
             } finally {
                 if (br != null) {

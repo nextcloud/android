@@ -400,7 +400,6 @@
     <string name="pref_behaviour_entries_keep_file">원래 폴더에 유지</string>
     <string name="pref_behaviour_entries_move">앱 폴더로 이동되었습니다.</string>
     <string name="pref_behaviour_entries_delete_file">삭제됨</string>
-
     <string name="share_dialog_title">공유</string>
     <string name="share_file">공유 %1$s</string>
     <string name="share_with_user_section_title">유저와 그룹에 공유하기</string>
@@ -467,4 +466,4 @@
         <item quantity="other">%d 선택</item>
     </plurals>
 
-</resources>
+    </resources>

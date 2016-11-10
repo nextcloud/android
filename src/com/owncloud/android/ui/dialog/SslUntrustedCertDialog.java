@@ -179,8 +179,9 @@ public class SslUntrustedCertDialog extends DialogFragment {
     @Override
     public void onDestroyView() {
         Log_OC.d(TAG, "onDestroyView");
-        if (getDialog() != null && getRetainInstance())
+        if (getDialog() != null && getRetainInstance()) {
             getDialog().setDismissMessage(null);
+        }
         super.onDestroyView();
     }
     
