@@ -27,7 +27,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
-
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import com.owncloud.android.R;
 
 public class NotificationUtils {
@@ -52,7 +52,7 @@ public class NotificationUtils {
             setColor(context.getResources().getColor(R.color.primary));
     }
 
-
+    @SuppressFBWarnings("DMI")
     public static void cancelWithDelay(
             final NotificationManager notificationManager,
             final int notificationId,

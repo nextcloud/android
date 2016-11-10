@@ -37,6 +37,10 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.Preferences;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Main Application of the project
@@ -61,14 +65,14 @@ public class MainApp extends Application {
 
     private static boolean mOnlyOnDevice = false;
 
-    
+    @SuppressFBWarnings("ST")
     public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        MainApp.storagePath = appPrefs.getString(Preferences.Keys.STORAGE_PATH, Environment.
+        MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, Environment.
                               getExternalStorageDirectory().getAbsolutePath());
 
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
@@ -196,7 +200,7 @@ public class MainApp extends Application {
         mOnlyOnDevice = state;
     }
 
-    public static boolean getOnlyOnDevice(){
+    public static boolean isOnlyOnDevice(){
         return mOnlyOnDevice;
     }
 

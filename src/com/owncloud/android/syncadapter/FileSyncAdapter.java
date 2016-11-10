@@ -89,11 +89,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     
     /** Flag made 'true' when a request to cancel the synchronization is received */
     private boolean mCancellation;
-    
-    /** When 'true' the process was requested by the user through the user interface;
-     *  when 'false', it was requested automatically by the system */
-    private boolean mIsManualSync;
-    
+
     /** Counter for failed operations in the synchronization process */
     private int mFailedResultsCounter;
     
@@ -146,7 +142,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             SyncResult syncResult) {
 
         mCancellation = false;
-        mIsManualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
+        /* When 'true' the process was requested by the user through the user interface;
+       when 'false', it was requested automatically by the system */
+        boolean mIsManualSync = extras.getBoolean(ContentResolver.SYNC_EXTRAS_MANUAL, false);
         mFailedResultsCounter = 0;
         mLastFailedResult = null;
         mConflictsFound = 0;
@@ -162,20 +160,14 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         
         try {
             this.initClientForCurrentAccount();
-        } catch (IOException e) {
-            /// the account is unknown for the Synchronization Manager, unreachable this context,
-            // or can not be authenticated; don't try this again
-            mSyncResult.tooManyRetries = true;
-            notifyFailedSynchronization();
-            return;
-        } catch (AccountsException e) {
+        } catch (IOException | AccountsException e) {
             /// the account is unknown for the Synchronization Manager, unreachable this context,
             // or can not be authenticated; don't try this again
             mSyncResult.tooManyRetries = true;
             notifyFailedSynchronization();
             return;
         }
-        
+
         Log_OC.d(TAG, "Synchronization of ownCloud account " + account.name + " starting");
         sendLocalBroadcast(EVENT_FULL_SYNC_START, null, null);  // message to signal the start
                                                                 // of the synchronization to the UI
@@ -262,8 +254,9 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
      */
     private void synchronizeFolder(OCFile folder) {
         
-        if (mFailedResultsCounter > MAX_FAILED_RESULTS || isFinisher(mLastFailedResult))
+        if (mFailedResultsCounter > MAX_FAILED_RESULTS || isFinisher(mLastFailedResult)) {
             return;
+        }
         
         // folder synchronization
         RefreshFolderOperation synchFolderOp = new RefreshFolderOperation( folder,
@@ -355,9 +348,11 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             }
         }
        
-        if (mCancellation && i <files.size()) Log_OC.d(TAG,
-                "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() +
-                        " due to cancelation request");
+        if (mCancellation && i <files.size()) {
+            Log_OC.d(TAG,
+                    "Leaving synchronization before synchronizing " + files.get(i).getRemotePath() +
+                            " due to cancelation request");
+        }
     }
 
     

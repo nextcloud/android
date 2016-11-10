@@ -9,6 +9,7 @@
     </description>
     <exclude-pattern>.*/R.java</exclude-pattern>
     <exclude-pattern>.*/gen/.*</exclude-pattern>
+    <exclude-pattern>.*/third_parties/.*</exclude-pattern>
 
     <rule ref="rulesets/java/logging-java.xml" />
     <rule ref="rulesets/java/braces.xml" />
