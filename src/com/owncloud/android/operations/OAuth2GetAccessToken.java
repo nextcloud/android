@@ -65,6 +65,7 @@ public class OAuth2GetAccessToken extends RemoteOperation {
     */
     
     @Override
+    @SuppressWarnings("PMD.AvoidDuplicateLiterals")
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         PostMethod postMethod = null;
@@ -115,20 +116,20 @@ public class OAuth2GetAccessToken extends RemoteOperation {
             result = new RemoteOperationResult(e);
             
         } finally {
-            if (postMethod != null)
+            if (postMethod != null) {
                 postMethod.releaseConnection();    // let the connection available for other methods
-            
-            if (result.isSuccess()) {
-                Log_OC.i(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getWebdavUri() + ": " + result.getLogMessage());
-            
+            }
+
+            final String code = "code";
+            final String oauth_token_request = "OAuth2 TOKEN REQUEST with auth code ";
+            if (result !=  null && result.isSuccess()) {
+                Log_OC.i(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + result.getLogMessage());
             } else if (result.getException() != null) {
-                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getWebdavUri() + ": " + result.getLogMessage(), result.getException());
-                
+                Log_OC.e(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + result.getLogMessage(), result.getException());
             } else if (result.getCode() == ResultCode.OAUTH2_ERROR) {
-                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getWebdavUri() + ": " + ((mResultTokenMap != null) ? mResultTokenMap.get(OAuth2Constants.KEY_ERROR) : "NULL"));
-                    
+                Log_OC.e(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + ((mResultTokenMap != null) ? mResultTokenMap.get(OAuth2Constants.KEY_ERROR) : "NULL"));
             } else {
-                Log_OC.e(TAG, "OAuth2 TOKEN REQUEST with auth code " + mOAuth2ParsedAuthorizationResponse.get("code") + " to " + client.getWebdavUri() + ": " + result.getLogMessage());
+                Log_OC.e(TAG, oauth_token_request + mOAuth2ParsedAuthorizationResponse.get(code) + " to " + client.getWebdavUri() + ": " + result.getLogMessage());
             }
         }
         
@@ -141,7 +142,6 @@ public class OAuth2GetAccessToken extends RemoteOperation {
         int i = 0;
         String key = "";
         String value = "";
-        StringBuilder sb = new StringBuilder();
         while (pairs.length > i) {
             int j = 0;
             String[] part = pairs[i].split("=");
@@ -149,13 +149,10 @@ public class OAuth2GetAccessToken extends RemoteOperation {
                 String p = part[j];
                 if (j == 0) {
                     key = p;
-                    sb.append(key + " = ");
                 } else if (j == 1) {
                     value = p;
                     mOAuth2ParsedAuthorizationResponse.put(key, value);
-                    sb.append(value + "\n");
                 }
-
                 Log_OC.v(TAG, "[" + i + "," + j + "] = " + p);
                 j++;
             }

@@ -51,8 +51,9 @@ import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -83,10 +84,10 @@ public class FileOperationsHelper {
     private String getUrlFromFile(String storagePath, Pattern pattern) {
         String url = null;
 
-        FileReader fr = null;
+        InputStreamReader fr = null;
         BufferedReader br = null;
         try {
-            fr = new FileReader(storagePath);
+            fr =  new InputStreamReader(new FileInputStream(storagePath), "UTF8");
             br = new BufferedReader(fr);
 
             String line;
@@ -493,8 +494,7 @@ public class FileOperationsHelper {
 
     public void sendDownloadedFile(OCFile file) {
         if (file != null) {
-            String storagePath = file.getStoragePath();
-            Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
             // set MimeType
             sendIntent.setType(file.getMimetype());
             sendIntent.putExtra(

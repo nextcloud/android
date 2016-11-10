@@ -68,7 +68,7 @@ public class FileObserverService extends Service {
     private final static String ARG_FILE = "ARG_FILE";
     private final static String ARG_ACCOUNT = "ARG_ACCOUNT";
 
-    private static String TAG = FileObserverService.class.getSimpleName();
+    private static final String TAG = FileObserverService.class.getSimpleName();
 
     private Map<String, FolderObserver> mFolderObserversMap;
     private DownloadCompletedReceiver mDownloadReceiver;

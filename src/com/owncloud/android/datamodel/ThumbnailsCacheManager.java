@@ -57,6 +57,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * Manager for concurrent access to thumbnails cache.
  */
@@ -75,13 +77,13 @@ public class ThumbnailsCacheManager {
     private static final int mCompressQuality = 70;
     private static OwnCloudClient mClient = null;
 
-    public static Bitmap mDefaultImg = 
+    public static final Bitmap mDefaultImg =
             BitmapFactory.decodeResource(
                     MainApp.getAppContext().getResources(),
                     R.drawable.file_image
             );
 
-    public static Bitmap mDefaultVideo =
+    public static final Bitmap mDefaultVideo =
             BitmapFactory.decodeResource(
                     MainApp.getAppContext().getResources(),
                     R.drawable.file_movie
@@ -161,15 +163,17 @@ public class ThumbnailsCacheManager {
                                        Account account) {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<ImageView>(imageView);
-            if (storageManager == null)
+            if (storageManager == null) {
                 throw new IllegalArgumentException("storageManager must not be NULL");
+            }
             mStorageManager = storageManager;
             mAccount = account;
         }
 
         public ThumbnailGenerationTask(FileDataStorageManager storageManager, Account account){
-            if (storageManager == null)
+            if (storageManager == null) {
                 throw new IllegalArgumentException("storageManager must not be NULL");
+            }
             mStorageManager = storageManager;
             mAccount = account;
             mImageViewReference = null;
@@ -180,6 +184,7 @@ public class ThumbnailsCacheManager {
             mImageViewReference = new WeakReference<ImageView>(imageView);
         }
 
+        @SuppressFBWarnings("Dm")
         @Override
         protected Bitmap doInBackground(Object... params) {
             Bitmap thumbnail = null;
@@ -195,17 +200,17 @@ public class ThumbnailsCacheManager {
                 }
 
                 mFile = params[0];
-                if (params.length == 2){
+                if (params.length == 2) {
                     mImageKey = (String) params[1];
                 }
-                
+
                 if (mFile instanceof OCFile) {
                     thumbnail = doOCFileInBackground();
 
                     if (MimeTypeUtil.isVideo((OCFile) mFile) && thumbnail != null) {
                         thumbnail = addVideoOverlay(thumbnail);
                     }
-                }  else if (mFile instanceof File) {
+                } else if (mFile instanceof File) {
                     thumbnail = doFileInBackground();
 
                     String url = ((File) mFile).getAbsolutePath();
@@ -214,16 +219,15 @@ public class ThumbnailsCacheManager {
                     if (MimeTypeUtil.isVideo(mMimeType) && thumbnail != null) {
                         thumbnail = addVideoOverlay(thumbnail);
                     }
-                //} else {  do nothing
+                    //} else {  do nothing
                 }
 
-                }catch(Throwable t){
-                    // the app should never break due to a problem with thumbnails
-                    Log_OC.e(TAG, "Generation of thumbnail for " + mFile + " failed", t);
-                    if (t instanceof OutOfMemoryError) {
-                        System.gc();
-                    }
-                }
+            } catch(OutOfMemoryError oome) {
+                System.gc();
+            } catch (Throwable t) {
+                // the app should never break due to a problem with thumbnails
+                Log_OC.e(TAG, "Generation of thumbnail for " + mFile + " failed", t);
+            }
 
             return thumbnail;
         }
@@ -340,7 +344,7 @@ public class ThumbnailsCacheManager {
                                     mClient.exhaustResponse(get.getResponseBodyAsStream());
                                 }
                             } catch (Exception e) {
-                                e.printStackTrace();
+                                Log_OC.d(TAG, e.getMessage(), e);
                             } finally {
                                 if (get != null) {
                                     get.releaseConnection();
@@ -398,11 +402,13 @@ public class ThumbnailsCacheManager {
                                     FileDataStorageManager storageManager, Account account) {
             mAvatarGenerationListener = new WeakReference<>(avatarGenerationListener);
             mCallContext = callContext;
-            if (storageManager == null)
+            if (storageManager == null) {
                 throw new IllegalArgumentException("storageManager must not be NULL");
+            }
             mAccount = account;
         }
 
+        @SuppressFBWarnings("Dm")
         @Override
         protected Bitmap doInBackground(String... params) {
             Bitmap thumbnail = null;
@@ -418,12 +424,11 @@ public class ThumbnailsCacheManager {
                 mUsername = params[0];
                 thumbnail = doAvatarInBackground();
 
+            } catch(OutOfMemoryError oome) {
+                System.gc(); // todo, does this really make sense?
             } catch(Throwable t){
                 // the app should never break due to a problem with avatars
                 Log_OC.e(TAG, "Generation of avatar for " + mUsername + " failed", t);
-                if (t instanceof OutOfMemoryError) {
-                    System.gc();
-                }
             }
 
             return thumbnail;
@@ -431,15 +436,12 @@ public class ThumbnailsCacheManager {
 
         protected void onPostExecute(Bitmap bitmap) {
             if (bitmap != null) {
-                if (mAvatarGenerationListener != null) {
-                    AvatarGenerationListener listener = mAvatarGenerationListener.get();
-                    AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
-                    if (this == avatarWorkerTask) {
-                        if (listener.shouldCallGeneratedCallback(mUsername, mCallContext)) {
-                            listener.avatarGenerated(new BitmapDrawable(bitmap), mCallContext);
-                        }
+                AvatarGenerationListener listener = mAvatarGenerationListener.get();
+                AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
+                if (this == avatarWorkerTask
+                        && listener.shouldCallGeneratedCallback(mUsername, mCallContext)) {
+                        listener.avatarGenerated(new BitmapDrawable(bitmap), mCallContext);
                     }
-                }
             }
         }
 
@@ -533,7 +535,7 @@ public class ThumbnailsCacheManager {
         if (bitmapWorkerTask != null) {
             final Object bitmapData = bitmapWorkerTask.mFile;
             // If bitmapData is not yet set or it differs from the new data
-            if (bitmapData == null || bitmapData != file) {
+            if (bitmapData == null || !bitmapData.equals(file)) {
                 // Cancel previous task
                 bitmapWorkerTask.cancel(true);
                 Log_OC.v(TAG, "Cancelled generation of thumbnail for a reused imageView");
@@ -547,10 +549,11 @@ public class ThumbnailsCacheManager {
     }
 
     public static boolean cancelPotentialAvatarWork(Object file, Object callContext) {
-        if (callContext instanceof ImageView)
-            return cancelPotentialAvatarWork(file, (ImageView)callContext);
-        else if (callContext instanceof MenuItem)
+        if (callContext instanceof ImageView) {
+            return cancelPotentialAvatarWork(file, (ImageView) callContext);
+        } else if (callContext instanceof MenuItem) {
             return cancelPotentialAvatarWork(file, (MenuItem)callContext);
+        }
 
         return false;
     }
@@ -561,7 +564,7 @@ public class ThumbnailsCacheManager {
         if (avatarWorkerTask != null) {
             final Object usernameData = avatarWorkerTask.mUsername;
             // If usernameData is not yet set or it differs from the new data
-            if (usernameData == null || usernameData != file) {
+            if (usernameData == null || !usernameData.equals(file)) {
                 // Cancel previous task
                 avatarWorkerTask.cancel(true);
                 Log_OC.v(TAG, "Cancelled generation of avatar for a reused imageView");
@@ -580,7 +583,7 @@ public class ThumbnailsCacheManager {
         if (avatarWorkerTask != null) {
             final Object usernameData = avatarWorkerTask.mUsername;
             // If usernameData is not yet set or it differs from the new data
-            if (usernameData == null || usernameData != file) {
+            if (usernameData == null || !usernameData.equals(file)) {
                 // Cancel previous task
                 avatarWorkerTask.cancel(true);
                 Log_OC.v(TAG, "Cancelled generation of avatar for a reused imageView");
@@ -635,7 +638,6 @@ public class ThumbnailsCacheManager {
 
         // offset to top left
         double ox = - xm;
-        double oy = thumbnail.getHeight() - ym;
 
 
         c.drawBitmap(thumbnail, 0, 0, null);
@@ -650,10 +652,11 @@ public class ThumbnailsCacheManager {
     }
 
     public static AvatarGenerationTask getAvatarWorkerTask(Object callContext) {
-        if (callContext instanceof ImageView)
+        if (callContext instanceof ImageView) {
             return getAvatarWorkerTask(((ImageView)callContext).getDrawable());
-        else if (callContext instanceof MenuItem)
+        } else if (callContext instanceof MenuItem) {
             return getAvatarWorkerTask(((MenuItem)callContext).getIcon());
+        }
 
         return null;
     }
