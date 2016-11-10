@@ -63,7 +63,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * This Adapter populates a ListView with following types of uploads: pending,
  * active, completed. Filtering possible.
- *
  */
 public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
 
