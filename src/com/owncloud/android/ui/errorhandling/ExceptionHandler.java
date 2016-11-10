@@ -29,7 +29,6 @@ import android.util.Log;
 
 public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandler {
 	private final Activity mContext;
-	private final String LINE_SEPARATOR = "\n";
 
 	private static final String TAG = ExceptionHandler.class.getSimpleName();
 
@@ -41,36 +40,34 @@ public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandl
 	    Log.e(TAG, "ExceptionHandler caught UncaughtException", exception);
 		StringWriter stackTrace = new StringWriter();
 		exception.printStackTrace(new PrintWriter(stackTrace));
-		StringBuilder errorReport = new StringBuilder();
-		errorReport.append("************ CAUSE OF ERROR ************\n\n");
-		errorReport.append(stackTrace.toString());
-
-		errorReport.append("\n************ DEVICE INFORMATION ***********\n");
-		errorReport.append("Brand: ");
-		errorReport.append(Build.BRAND);
-		errorReport.append(LINE_SEPARATOR);
-		errorReport.append("Device: ");
-		errorReport.append(Build.DEVICE);
-		errorReport.append(LINE_SEPARATOR);
-		errorReport.append("Model: ");
-		errorReport.append(Build.MODEL);
-		errorReport.append(LINE_SEPARATOR);
-		errorReport.append("Id: ");
-		errorReport.append(Build.ID);
-		errorReport.append(LINE_SEPARATOR);
-		errorReport.append("Product: ");
-		errorReport.append(Build.PRODUCT);
-		errorReport.append(LINE_SEPARATOR);
-		errorReport.append("\n************ FIRMWARE ************\n");
-		errorReport.append("SDK: ");
-		errorReport.append(Build.VERSION.SDK_INT);
-		errorReport.append(LINE_SEPARATOR);
-		errorReport.append("Release: ");
-		errorReport.append(Build.VERSION.RELEASE);
-		errorReport.append(LINE_SEPARATOR);
-		errorReport.append("Incremental: ");
-		errorReport.append(Build.VERSION.INCREMENTAL);
-		errorReport.append(LINE_SEPARATOR);
+		final StringBuilder errorReport = new StringBuilder(192);
+		final String LINE_SEPARATOR = "\n";
+		errorReport.append("************ CAUSE OF ERROR ************\n\n")
+				.append(stackTrace.toString())
+				.append("\n************ DEVICE INFORMATION ***********\nBrand: ")
+				.append(Build.BRAND)
+				.append(LINE_SEPARATOR)
+				.append("Device: ")
+				.append(Build.DEVICE)
+				.append(LINE_SEPARATOR)
+				.append("Model: ")
+				.append(Build.MODEL)
+				.append(LINE_SEPARATOR)
+				.append("Id: ")
+				.append(Build.ID)
+				.append(LINE_SEPARATOR)
+				.append("Product: ")
+				.append(Build.PRODUCT)
+				.append(LINE_SEPARATOR)
+				.append("\n************ FIRMWARE ************\nSDK: ")
+				.append(Build.VERSION.SDK_INT)
+				.append(LINE_SEPARATOR)
+				.append("Release: ")
+				.append(Build.VERSION.RELEASE)
+				.append(LINE_SEPARATOR)
+				.append("Incremental: ")
+				.append(Build.VERSION.INCREMENTAL)
+				.append(LINE_SEPARATOR);
 
 		Log.e(TAG, "An exception was thrown and handled by ExceptionHandler:", exception);
 

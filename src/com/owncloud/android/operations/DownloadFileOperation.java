@@ -58,16 +58,17 @@ public class DownloadFileOperation extends RemoteOperation {
 
     
     public DownloadFileOperation(Account account, OCFile file) {
-        if (account == null)
+        if (account == null) {
             throw new IllegalArgumentException("Illegal null account in DownloadFileOperation " +
                     "creation");
-        if (file == null)
+        }
+        if (file == null) {
             throw new IllegalArgumentException("Illegal null file in DownloadFileOperation " +
                     "creation");
+        }
         
         mAccount = account;
         mFile = file;
-        
     }
 
 
@@ -162,9 +163,10 @@ public class DownloadFileOperation extends RemoteOperation {
             newFile = new File(getSavePath());
             newFile.getParentFile().mkdirs();
             moved = tmpFile.renameTo(newFile);
-            if (!moved)
+            if (!moved) {
                 result = new RemoteOperationResult(
                         RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
+            }
         }
         Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " +
                 result.getLogMessage());

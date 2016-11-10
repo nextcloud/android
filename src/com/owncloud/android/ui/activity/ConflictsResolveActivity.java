@@ -39,7 +39,7 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionM
  */
 public class ConflictsResolveActivity extends FileActivity implements OnConflictDecisionMadeListener {
 
-    private String TAG = ConflictsResolveActivity.class.getSimpleName();
+    private static final String TAG = ConflictsResolveActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

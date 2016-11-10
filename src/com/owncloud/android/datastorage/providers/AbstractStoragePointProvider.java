@@ -29,13 +29,19 @@ import java.util.Vector;
 /**
  * @author Bartosz Przybylski
  */
-abstract public class AbstractStoragePointProvider implements IStoragePointProvider {
+abstract class AbstractStoragePointProvider implements IStoragePointProvider {
 
-    protected boolean canBeAddedToAvailableList(Vector<StoragePoint> currentList, String path) {
-        if (path == null) return false;
-        for (StoragePoint storage : currentList)
-            if (storage.getPath().equals(path))
+    boolean canBeAddedToAvailableList(Vector<StoragePoint> currentList, String path) {
+        if (path == null) {
+            return false;
+        }
+
+        for (StoragePoint storage : currentList) {
+            if (storage.getPath().equals(path)) {
                 return false;
+            }
+        }
+
         File f = new File(path);
         return f.exists() && f.isDirectory() && f.canRead() && f.canWrite();
     }

@@ -60,8 +60,9 @@ public class AlphanumComparator implements Comparator<OCFile>
             while (marker < slength)
             {
                 c = s.charAt(marker);
-                if (!isDigit(c))
+                if (!isDigit(c)) {
                     break;
+                }
                 chunk.append(c);
                 marker++;
             }
@@ -70,8 +71,9 @@ public class AlphanumComparator implements Comparator<OCFile>
             while (marker < slength)
             {
                 c = s.charAt(marker);
-                if (isDigit(c))
+                if (isDigit(c)) {
                     break;
+                }
                 chunk.append(c);
                 marker++;
             }
@@ -131,8 +133,9 @@ public class AlphanumComparator implements Comparator<OCFile>
                 result = thisChunk.compareTo(thatChunk);
             }
 
-            if (result != 0)
+            if (result != 0) {
                 return result;
+            }
         }
 
         return s1Length - s2Length;
