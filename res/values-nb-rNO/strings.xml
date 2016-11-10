@@ -356,6 +356,15 @@
     <string name="uploader_upload_forbidden_permissions">å laste opp i denne mappen</string>
     <string name="downloader_download_file_not_found">Filen finnes ikke på tjeneren lenger</string>
 
+    <string name="file_migration_finish_button">Fullfør</string>
+    <string name="file_migration_preparing">Forebereder migrering&#8230;</string>
+    <string name="file_migration_checking_destination">Sjekker mål&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Lagrer kontokonfigurasjon&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Venter på uferdig synkronisering&#8230;</string>
+    <string name="file_migration_migrating">Flytter data&#8230;</string>
+    <string name="file_migration_updating_index">Oppdaterer index&#8230;</string>
+    <string name="file_migration_cleaning">Rydder&#8230;</string>
+    <string name="file_migration_ok_finished">Fullført</string>
     <string name="file_migration_failed_not_enough_space">FEIL: Ikke nok plass</string>
     <string name="file_migration_failed_not_writable">FEIL: Filen er skrivebeskyttet</string>
     <string name="file_migration_failed_not_readable">FEIL: er ikke lesbar</string>
@@ -432,6 +441,7 @@
     <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>
     <string name="pref_behaviour_entries_move">flyttet til app-mappe</string>
     <string name="pref_behaviour_entries_delete_file">slettet</string>
+    <string name="prefs_storage_path">Lagrings-sti</string>
     <string name="prefs_common">Felles</string>
 
     <string name="share_dialog_title">Deling</string>
