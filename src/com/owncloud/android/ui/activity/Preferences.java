@@ -776,7 +776,7 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadPath = appPrefs.getString(PreferenceKeys.INSTANT_UPLOAD_PATH, getString(R.string.instant_upload_path));
-        mUploadPathAccount = appPrefs.getString(Keys.INSTANT_UPLOAD_PATH_ACCOUNT,
+        mUploadPathAccount = appPrefs.getString(PreferenceKeys.INSTANT_UPLOAD_PATH_ACCOUNT,
                 AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()).name);
         mPrefInstantUploadPath.setSummary(getUploadAccountPath(mUploadPathAccount, mUploadPath));
     }
@@ -816,8 +816,8 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString(PreferenceKeys.INSTANT_UPLOAD_PATH, mUploadPath);
-                .putString(INSTANT_UPLOAD_PATH_ACCOUNT, mUploadPathAccount);
+        editor.putString(PreferenceKeys.INSTANT_UPLOAD_PATH, mUploadPath)
+                .putString(PreferenceKeys.INSTANT_UPLOAD_PATH_ACCOUNT, mUploadPathAccount);
         editor.apply();
     }
 
@@ -828,7 +828,7 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mUploadVideoPath = appPrefs.getString(INSTANT_VIDEO_UPLOAD_PATH, getString(R.string.instant_upload_path));
-        mUploadVideoPathAccount = appPrefs.getString(Keys.INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT,
+        mUploadVideoPathAccount = appPrefs.getString(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT,
                 AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()).name);
         mPrefInstantVideoUploadPath.setSummary(getUploadAccountPath(mUploadVideoPathAccount, mUploadVideoPath));
     }
@@ -840,8 +840,8 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
-        editor.putString(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH, mUploadVideoPath);
-                .putString(INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT, mUploadVideoPathAccount);
+        editor.putString(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH, mUploadVideoPath)
+                .putString(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT, mUploadVideoPathAccount);
         editor.apply();
     }
 
