@@ -51,8 +51,6 @@ public class SyncedFolderJobService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        Log_OC.d(TAG, "startJob: " + params.getJobId());
-
         Context context = MainApp.getAppContext();
         PersistableBundle bundle = params.getExtras();
         String filePath = bundle.getString("filePath");
@@ -61,6 +59,8 @@ public class SyncedFolderJobService extends JobService {
         Boolean subfolderByDate = bundle.getInt("subfolderByDate") == 1;
         Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString("account"));
         Integer uploadBehaviour = bundle.getInt("uploadBehaviour");
+
+        Log_OC.d(TAG, "startJob: " + params.getJobId() + ", filePath: " + filePath);
 
         File file = new File(filePath);
         String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
