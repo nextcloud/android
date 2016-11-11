@@ -65,7 +65,6 @@ import com.owncloud.android.authentication.AccountAuthenticator;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
@@ -284,7 +283,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             AlertDialog.Builder builder = new Builder(parent);
             Account accounts[] = parent.mAccountManager.getAccountsByType(MainApp.getAccountType());
             CharSequence dialogItems[] = new CharSequence[accounts.length];
-            OwnCloudAccount oca;
             for (int i = 0; i < dialogItems.length; ++i) {
                 dialogItems[i] = DisplayUtils.getAccountNameDisplayText(
                         parent, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
