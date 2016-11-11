@@ -234,7 +234,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     public static class DialogNoAccount extends DialogFragment {
         @Override
-        public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
             AlertDialog.Builder builder = new Builder(getActivity());
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
@@ -278,7 +278,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     public static class DialogMultipleAccount extends DialogFragment {
         @Override
-        public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
             final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
             AlertDialog.Builder builder = new Builder(parent);
             Account accounts[] = parent.mAccountManager.getAccountsByType(MainApp.getAccountType());
@@ -334,7 +334,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         }
 
         @Override
-        public Dialog onCreateDialog(Bundle savedInstamParentnceState) {
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
             mFilenameBase = new ArrayList<String>();
             mFilenameSuffix = new ArrayList<String>();
             mText = new ArrayList<String>();
@@ -359,13 +359,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
             mFilenameSuffix.add(TEXT_FILE_SUFFIX);
             if (isIntentStartWithUrl(extraText)) {
                 String str = getString(R.string.upload_file_dialog_filetype_internet_shortcut);
-                mText.add(InternetShortcutUrlText(extraText));
+                mText.add(internetShortcutUrlText(extraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
                 adapter.add(String.format(str,URL_FILE_SUFFIX));
                 selectPos = adapter.getCount()-1;
 
-                mText.add(InternetShortcutWeblocText(extraText));
+                mText.add(internetShortcutWeblocText(extraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
                 adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
@@ -373,13 +373,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
             if (isIntentFromGoogleMap(subjectText, extraText)) {
                 String str = getString(R.string.upload_file_dialog_filetype_googlemap_shortcut);
                 String texts[] = extraText.split("\n");
-                mText.add(InternetShortcutUrlText(texts[2]));
+                mText.add(internetShortcutUrlText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
                 adapter.add(String.format(str,URL_FILE_SUFFIX));
                 selectPos = adapter.getCount()-1;
 
-                mText.add(InternetShortcutWeblocText(texts[2]));
+                mText.add(internetShortcutWeblocText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
                 adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
@@ -394,13 +394,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
             spinner.setAdapter(adapter);
             spinner.setSelection(selectPos, false);
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
                 public void onItemSelected(AdapterView parent, View view, int position, long id) {
                     Spinner spinner = (Spinner) parent;
                     int selectPos = spinner.getSelectedItemPosition();
                     setFilename(userInput, selectPos);
                 }
 
+                @Override
                 public void onNothingSelected(AdapterView<?> parent) {
+                    // nothing to do
                 }
             });
             if (adapter.getCount() == 1) {
@@ -476,10 +479,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 return false;
             if (texts[0].length() == 0 || !subjectText.equals(texts[0]))
                 return false;
-            if (!texts[2].startsWith("https://goo.gl/maps/")) {
-                return false;
-            }
-            return true;
+            return texts[2].startsWith("https://goo.gl/maps/");
         }
 
         private boolean isIntentStartWithUrl(String extraText) {
@@ -488,47 +488,44 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         @Nullable
         private String renameSafeFilename(String filename) {
-            filename = filename.replaceAll("[?]", "_");
-            filename = filename.replaceAll("\"", "_");
-            filename = filename.replaceAll("/", "_");
-            filename = filename.replaceAll("<", "_");
-            filename = filename.replaceAll(">", "_");
-            filename = filename.replaceAll("[*]", "_");
-            filename = filename.replaceAll("[|]", "_");
-            filename = filename.replaceAll(";", "_");
-            filename = filename.replaceAll("=", "_");
-            filename = filename.replaceAll(",", "_");
+            String safeFilename = filename;
+            safeFilename = safeFilename.replaceAll("[?]", "_");
+            safeFilename = safeFilename.replaceAll("\"", "_");
+            safeFilename = safeFilename.replaceAll("/", "_");
+            safeFilename = safeFilename.replaceAll("<", "_");
+            safeFilename = safeFilename.replaceAll(">", "_");
+            safeFilename = safeFilename.replaceAll("[*]", "_");
+            safeFilename = safeFilename.replaceAll("[|]", "_");
+            safeFilename = safeFilename.replaceAll(";", "_");
+            safeFilename = safeFilename.replaceAll("=", "_");
+            safeFilename = safeFilename.replaceAll(",", "_");
 
             try {
-                int maxlength = 128;
-                if (filename.getBytes(FILENAME_ENCODING).length > maxlength) {
-                    filename = new String(filename.getBytes(FILENAME_ENCODING), 0, maxlength, FILENAME_ENCODING);
+                int maxLength = 128;
+                if (safeFilename.getBytes(FILENAME_ENCODING).length > maxLength) {
+                    safeFilename = new String(safeFilename.getBytes(FILENAME_ENCODING), 0, maxLength, FILENAME_ENCODING);
                 }
             } catch (UnsupportedEncodingException e) {
                 Log_OC.e(TAG, "rename failed ", e);
                 return null;
             }
-            return filename;
+            return safeFilename;
         }
 
-        private String InternetShortcutUrlText(String url) {
-            String text =
-                "[InternetShortcut]\r\n" +
-                "URL=" + url + "\r\n";
-            return text;
+        private String internetShortcutUrlText(String url) {
+            return "[InternetShortcut]\r\n" +
+                    "URL=" + url + "\r\n";
         }
 
-        private String InternetShortcutWeblocText(String url) {
-            String text =
-                "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n" +
-                "<plist version=\"1.0\">\n" +
-                "<dict>\n" +
-                "<key>URL</key>\n" +
-                "<string>" + url + "</string>\n" +
-                "</dict>\n" +
-                "</plist>\n";
-            return text;
+        private String internetShortcutWeblocText(String url) {
+            return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                    "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n" +
+                    "<plist version=\"1.0\">\n" +
+                    "<dict>\n" +
+                    "<key>URL</key>\n" +
+                    "<string>" + url + "</string>\n" +
+                    "</dict>\n" +
+                    "</plist>\n";
         }
 
         @Nullable
