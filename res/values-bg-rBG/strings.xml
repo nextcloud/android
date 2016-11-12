@@ -45,7 +45,6 @@
     <string name="prefs_help">Помощ</string>
     <string name="prefs_recommend">Препоръчайте на приятел</string>
     <string name="prefs_feedback">Обратна връзка</string>
-    <string name="prefs_imprint">Imprint</string>
     <string name="prefs_remember_last_share_location">Запомни мястото за споделяне</string>
     <string name="prefs_remember_last_upload_location_summary">Запомни мястото на последната споделена папка</string>
 
@@ -141,7 +140,7 @@
     <string name="uploads_view_upload_status_conflict">Конфликт</string>
     <string name="uploads_view_upload_status_service_interrupted">Приложението бе терминирано</string>
     <string name="uploads_view_upload_status_unknown_fail">Непозната грешка.</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Изчакване на уайрлес връзка</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Изчакване на WiFi връзка</string>
     <string name="uploads_view_later_waiting_to_upload">Изчакване за качване</string>
     <string name="downloader_download_in_progress_ticker">Изтегляне...</string>
     <string name="downloader_download_in_progress_content">%1$d%% Сваляне %2$s</string>
@@ -281,7 +280,7 @@
     <string name="ssl_validator_label_validity">Валидност:</string>
     <string name="ssl_validator_label_validity_from">От:</string>
     <string name="ssl_validator_label_validity_to">До:</string>
-    <string name="ssl_validator_label_signature">Електронен подпис:</string>
+    <string name="ssl_validator_label_signature">Подпис:</string>
     <string name="ssl_validator_label_signature_algorithm">Алгоритъм:</string>
     <string name="digest_algorithm_not_available">Алгоритъмът не се поддържа от вашия телефон.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Отпечатък:</string>
@@ -290,7 +289,6 @@
     <string name="ssl_validator_no_info_about_error">- Няма информация за грешката.</string>
 
     <string name="placeholder_sentence">Това е за запазване на място</string>
-    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_filetype">PNG изображение</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -300,7 +298,6 @@
     <string name="instant_video_upload_on_wifi">Качване на видео само през WiFi</string>
     <string name="instant_video_upload_on_charging">Качване само по време на зареждане</string>
     <string name="instant_upload_on_charging">Качване само по време на зареждане</string>
-    <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Файлов конфликт</string>
     <string name="conflict_message">Кои файлове желаете да запазите? Ако изберете и двете версии, към името на локалния файл ще бъде добавено число.</string>
     <string name="conflict_keep_both">Запазване и на двата</string>
@@ -396,7 +393,7 @@
     <string name="auth_host_address">Адрес на сървъра</string>
     <string name="common_error_out_memory">Няма достатъчно памет</string>
 
-    <string name="username">Потребителско име</string>
+    <string name="username">Потребител</string>
 
     <string name="file_list__footer__folder">1 папка</string>
     <string name="file_list__footer__folders">%1$d папки</string>
@@ -437,6 +434,8 @@
     <string name="share_privilege_can_edit_create">създаване</string>
     <string name="share_privilege_can_edit_change">промяна</string>
     <string name="share_privilege_can_edit_delete">изтриване</string>
+    <string name="edit_share_done">готово</string>
+
     <string name="action_retry_uploads">Нов опит</string>
     <string name="action_clear_failed_uploads">Изчисти некачените</string>
     <string name="action_clear_successful_uploads">Изчисти качените</string>
@@ -470,4 +469,5 @@
         <item quantity="other">%d избрани</item>
     </plurals>
 
+    <string name="storage_description_sd_no">SD карта%1$d</string>
     </resources>

@@ -357,6 +357,8 @@
     <string name="uploader_upload_forbidden_permissions">для загрузки в этот каталог</string>
     <string name="downloader_download_file_not_found">Этот файл больше недоступен на сервере</string>
 
+    <string name="file_migration_migrating">Перемещение данных&#8230;</string>
+    <string name="file_migration_updating_index">Обновление индекса&#8230;</string>
     <string name="file_migration_ok_finished">Завершено</string>
     <string name="file_migration_failed_not_enough_space">ОШИБКА: Недостаточно места</string>
     <string name="file_migration_failed_not_writable">ОШИБКА: Файл недоступен для записи</string>
