@@ -100,7 +100,7 @@
     <string name="common_save_exit">Запис и излизане</string>
     <string name="common_error">Грешка</string>
     <string name="common_loading">Зареждане...</string>
-    <string name="common_error_unknown">Непозната грешка</string>
+    <string name="common_error_unknown">Неизвестна грешка</string>
     <string name="about_title">Относно</string>
     <string name="change_password">Промяна на парола</string>
     <string name="delete_account">Изтриване</string>
@@ -131,7 +131,7 @@
     <string name="uploads_view_upload_status_failed_permission_error">Грешка в правата</string>
     <string name="uploads_view_upload_status_conflict">Конфликт</string>
     <string name="uploads_view_upload_status_service_interrupted">Приложението бе терминирано</string>
-    <string name="uploads_view_upload_status_unknown_fail">Непозната грешка.</string>
+    <string name="uploads_view_upload_status_unknown_fail">Неизвестна грешка</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Изчакване на WiFi връзка</string>
     <string name="uploads_view_later_waiting_to_upload">Изчакване за качване</string>
     <string name="downloader_download_in_progress_ticker">Изтегляне...</string>
@@ -304,8 +304,8 @@
 Моля, свържете се с администратора.</string>
 	<string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, проверете съществува ли файла</string>
 	<string name="share_link_file_error">Възникна грешка при опита за споделяне на файл или папка</string>
-	<string name="unshare_link_file_no_exist">Неуспешен опит за премахване на споделянето. Моля, проверете съществува ли файла</string>
-	<string name="unshare_link_file_error">Настъпи грешка при опита за премахване на споделянето на файл или папка</string>
+	<string name="unshare_link_file_no_exist">Неуспешен опит за прекратяване на споделянето. Проверете съществува ли файла</string>
+	<string name="unshare_link_file_error">Възникна грешка при опита за прекратяване на споделянето на файл или папка</string>
     <string name="update_link_file_no_exist">Не може да се актуализира. Моля, проверете дали файлът съществува</string>
     <string name="update_link_file_error">Възникна грешка при опита за обновяване на споделянето</string>
     <string name="share_link_password_title">Въведете парола</string>
@@ -368,7 +368,7 @@
     <string name="move_file_not_found">Неуспешно преместване. Моля, провери дали файла съществува</string>
     <string name="move_file_invalid_into_descendent">Не може да премествате папка в нейна подпапка</string>
     <string name="move_file_invalid_overwrite">Файлът вече съществува в отдалечената папка</string>
-    <string name="move_file_error">Настъпи грешка при опита за преместване на файла или папката</string>
+    <string name="move_file_error">Възникна грешка при опита за преместване на файла или папката</string>
     <string name="forbidden_permissions_move">за да преместите файла</string>
 
 
