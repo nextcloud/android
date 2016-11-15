@@ -109,7 +109,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
     public static final String TEXT_FILE_SUFFIX = ".txt";
     public static final String URL_FILE_SUFFIX = ".url";
-    public static final String WEBLOC_FILE_SUFFIX = ".weboc";
+    public static final String WEBLOC_FILE_SUFFIX = ".webloc";
 
     private AccountManager mAccountManager;
     private Stack<String> mParents;
