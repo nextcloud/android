@@ -54,6 +54,11 @@ class SyncedFolderObserver extends RecursiveFileObserver {
             bundle.putInt("subfolderByDate", syncedFolder.getSubfolderByDate() ? 1 : 0);
 
             JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+
+            for (JobInfo job: js.getAllPendingJobs()){
+                Log_OC.d(TAG, "pending job: " + job.getExtras().get("filePath"));
+            }
+
             Long date = new Date().getTime();
             JobInfo job = new JobInfo.Builder(
                     date.intValue(),
@@ -61,6 +66,7 @@ class SyncedFolderObserver extends RecursiveFileObserver {
                     .setRequiresCharging(syncedFolder.getChargingOnly())
                     .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
                     .setExtras(bundle)
+                    .setPersisted(true)
                     .build();
 
             Integer result = js.schedule(job);
