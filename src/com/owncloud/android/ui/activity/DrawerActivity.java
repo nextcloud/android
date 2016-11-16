@@ -248,6 +248,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.setItemIconTintList(null);
         }
 
+        // hide Auto Sync for pre Nougat version
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            navigationView.getMenu().removeItem(R.id.nav_folder_sync);
+        }
+
         // setup actions for drawer menu items
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
