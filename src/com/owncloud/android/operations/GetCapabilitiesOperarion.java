@@ -35,14 +35,13 @@ public class GetCapabilitiesOperarion extends SyncOperation {
         GetRemoteCapabilitiesOperation getCapabilities = new GetRemoteCapabilitiesOperation();
         RemoteOperationResult result = getCapabilities.execute(client);
 
-        if (result.isSuccess()){
+        if (result.isSuccess()
+                && result.getData() != null && result.getData().size() > 0) {
             // Read data from the result
-            if( result.getData()!= null && result.getData().size() > 0) {
-                OCCapability capability = (OCCapability) result.getData().get(0);
+            OCCapability capability = (OCCapability) result.getData().get(0);
 
-                // Save the capabilities into database
-                getStorageManager().saveCapabilities(capability);
-            }
+            // Save the capabilities into database
+            getStorageManager().saveCapabilities(capability);
         }
 
         return result;

@@ -43,17 +43,17 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
-    private static String TAG = InstantUploadBroadcastReceiver.class.getName();
+    private static final String TAG = InstantUploadBroadcastReceiver.class.getName();
     // Image action
     // Unofficial action, works for most devices but not HTC. See: https://github.com/owncloud/android/issues/6
-    private static String NEW_PHOTO_ACTION_UNOFFICIAL = "com.android.camera.NEW_PICTURE";
+    private static final String NEW_PHOTO_ACTION_UNOFFICIAL = "com.android.camera.NEW_PICTURE";
     // Officially supported action since SDK 14:
     // http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_PICTURE
-    private static String NEW_PHOTO_ACTION = "android.hardware.action.NEW_PICTURE";
+    private static final String NEW_PHOTO_ACTION = "android.hardware.action.NEW_PICTURE";
     // Video action
     // Officially supported action since SDK 14:
     // http://developer.android.com/reference/android/hardware/Camera.html#ACTION_NEW_VIDEO
-    private static String NEW_VIDEO_ACTION = "android.hardware.action.NEW_VIDEO";
+    private static final String NEW_VIDEO_ACTION = "android.hardware.action.NEW_VIDEO";
 
     @Override
     public void onReceive(Context context, Intent intent) {

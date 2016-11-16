@@ -117,8 +117,9 @@ implements ConfirmationDialogFragmentListener {
             for(OCFile file: files) {
                 containsFavorite = file.isFavorite() || containsFavorite;
 
-                if (containsFavorite)
+                if (containsFavorite) {
                     break;
+                }
             }
         }
 

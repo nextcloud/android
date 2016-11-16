@@ -38,7 +38,7 @@ import com.owncloud.android.ui.adapter.ExpandableUploadListAdapter;
  * 
  */
 public class UploadListFragment extends ExpandableListFragment {
-    static private String TAG = UploadListFragment.class.getSimpleName();
+    private static final String TAG = UploadListFragment.class.getSimpleName();
 
     /**
      * Reference to the Activity which this fragment is attached to. For

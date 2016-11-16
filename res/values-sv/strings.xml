@@ -17,7 +17,7 @@
     <string name="menu_item_sort_by_date">Nyast - Äldst</string>
     <string name="menu_item_sort_by_size">Störst - Minst</string>
     <string name="drawer_item_all_files">Alla filer</string>
-    <string name="drawer_item_on_device">På enheten</string>
+    <string name="drawer_item_on_device">Filer på enheten</string>
     <string name="drawer_item_settings">Inställningar</string>
     <string name="drawer_item_uploads_list">Uppladdningar</string>
     <string name="drawer_quota">%1$s av %2$s använt</string>
@@ -313,7 +313,7 @@
     <string name="error__upload__local_file_not_copied">%1$s kunde inte kopieras till %2$s lokal mapp</string>
     <string name="prefs_instant_upload_path_title">Uppladdningssökväg</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserad på år och månad</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserat på år och månad</string>
 
 	<string name="share_link_no_support_share_api">Ledsen, delning är inte aktiverat på din server. Vänligen kontakta din
 		administratör.</string>
@@ -417,8 +417,7 @@
 
     <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
     <string name="pref_behaviour_entries_move">flyttas till Nextcloudmapp</string>
-    <string name="pref_behaviour_entries_delete_file">raderad</string>
-
+    <string name="pref_behaviour_entries_delete_file">raderas</string>
     <string name="share_dialog_title">Dela</string>
     <string name="share_file">Dela %1$s</string>
     <string name="share_with_user_section_title">Dela med användare och grupper</string>
@@ -450,7 +449,7 @@
     <string name="edit_share_unshare">Sluta dela</string>
     <string name="edit_share_done">färdig</string>
 
-    <string name="action_retry_uploads">Återuppladdningsförsök misslyckades</string>
+    <string name="action_retry_uploads">Försök ladda upp misslyckade igen</string>
     <string name="action_clear_failed_uploads">Rensa misslyckade</string>
     <string name="action_clear_successful_uploads">Rensa lyckade</string>
     <string name="action_clear_finished_uploads">Rensa alla färdigställda</string>
@@ -470,7 +469,7 @@
     <string name="uploads_view_upload_status_waiting_for_charging">Väntar på att enheten ska laddas</string>
     <string name="actionbar_search">Sök</string>
     <string name="learn_more">Lär dig mer</string>
-    <string name="drawer_participate">Delta</string>
+    <string name="drawer_participate">Hjälp oss att bli bättre</string>
     <string name="participate_testing_headline">Hjälp oss att testa</string>
     <string name="participate_testing_bug_text">Har du hittat en bugg? Är det något som är fel?</string>
     <string name="participate_testing_report_text">Rapportera ett problem på Github</string>

@@ -58,6 +58,7 @@ import java.util.Vector;
  *  
  *  Does NOT enter in the child folders to synchronize their contents also.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class RefreshFolderOperation extends RemoteOperation {
 
     private static final String TAG = RefreshFolderOperation.class.getSimpleName();
@@ -319,8 +320,9 @@ public class RefreshFolderOperation extends RemoteOperation {
                     // should be a different result code, but will do the job
             }
         } else {
-            if (result.getCode() == ResultCode.FILE_NOT_FOUND)
+            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 removeLocalFolder();
+            }
         }
         
         return result;
