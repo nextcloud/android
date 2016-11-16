@@ -36,7 +36,6 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Vector;
 
 public class RemoveFileDialogFragment extends ConfirmationDialogFragment 
@@ -56,7 +55,7 @@ implements ConfirmationDialogFragmentListener {
         RemoveFileDialogFragment frag = new RemoveFileDialogFragment();
         Bundle args = new Bundle();
         
-        int messageStringId = R.string.confirmation_remove_alert;
+        int messageStringId = R.string.confirmation_remove_file_alert;
         
         int localRemoveButton = (!file.isFavorite() && (file.isFolder() || file.isDown())) ?
             R.string.confirmation_remove_local : -1;
@@ -118,8 +117,9 @@ implements ConfirmationDialogFragmentListener {
             for(OCFile file: files) {
                 containsFavorite = file.isFavorite() || containsFavorite;
 
-                if (containsFavorite)
+                if (containsFavorite) {
                     break;
+                }
             }
         }
 

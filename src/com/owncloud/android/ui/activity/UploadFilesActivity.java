@@ -29,6 +29,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,6 +47,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
+import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -65,7 +67,7 @@ public class UploadFilesActivity extends FileActivity implements
     private boolean mSelectAll = false;
     private LocalFileListFragment mFileListFragment;
     private Button mCancelBtn;
-    private Button mUploadBtn;
+    protected Button mUploadBtn;
     private Spinner mBehaviourSpinner;
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
@@ -78,7 +80,7 @@ public class UploadFilesActivity extends FileActivity implements
     public static final int RESULT_OK_AND_DO_NOTHING = 2;
     public static final int RESULT_OK_AND_DELETE = 3;
 
-    private static final String KEY_DIRECTORY_PATH =
+    public static final String KEY_DIRECTORY_PATH =
             UploadFilesActivity.class.getCanonicalName() + ".KEY_DIRECTORY_PATH";
     private static final String KEY_ALL_SELECTED =
             UploadFilesActivity.class.getCanonicalName() + ".KEY_ALL_SELECTED";
@@ -105,8 +107,7 @@ public class UploadFilesActivity extends FileActivity implements
         /// USER INTERFACE
             
         // Drop-down navigation 
-        mDirectories = new CustomArrayAdapter<String>(this,
-                R.layout.support_simple_spinner_dropdown_item);
+        mDirectories = new CustomArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item);
         File currDir = mCurrentDir;
         while(currDir != null && currDir.getParentFile() != null) {
             mDirectories.add(currDir.getName());
@@ -117,8 +118,7 @@ public class UploadFilesActivity extends FileActivity implements
         // Inflate and set the layout view
         setContentView(R.layout.upload_files_layout);
 
-        mFileListFragment = (LocalFileListFragment)
-                getSupportFragmentManager().findFragmentById(R.id.local_files_list);
+        mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentById(R.id.local_files_list);
         
         
         // Set input controllers
@@ -148,7 +148,7 @@ public class UploadFilesActivity extends FileActivity implements
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
         actionBar.setListNavigationCallbacks(mDirectories, this);
-        
+
         // wait dialog
         if (mCurrentDialog != null) {
             mCurrentDialog.dismiss();
@@ -179,6 +179,8 @@ public class UploadFilesActivity extends FileActivity implements
         getMenuInflater().inflate(R.menu.upload_files_picker, menu);
         MenuItem selectAll = menu.findItem(R.id.action_select_all);
         setSelectAllMenuItem(selectAll, mSelectAll);
+        MenuItem switchView = menu.findItem(R.id.action_switch_view);
+        switchView.setTitle(isGridView() ? R.string.action_switch_list_view : R.string.action_switch_grid_view);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -205,7 +207,7 @@ public class UploadFilesActivity extends FileActivity implements
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.actionbar_sort_title)
-                        .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder ,
+                        .setSingleChoiceItems(R.array.menu_items_sort_by_options, sortOrder,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         switch (which){
@@ -215,6 +217,9 @@ public class UploadFilesActivity extends FileActivity implements
                                             case 1:
                                                 mFileListFragment.sortByDate(false);
                                                 break;
+                                            case 2:
+                                                mFileListFragment.sortBySize(false);
+                                                break;
                                         }
 
                                         dialog.dismiss();
@@ -222,6 +227,18 @@ public class UploadFilesActivity extends FileActivity implements
                                 });
                 builder.create().show();
                 break;
+            }
+            case R.id.action_switch_view: {
+                if (isGridView()) {
+                    item.setTitle(getString(R.string.action_switch_grid_view));
+                    item.setIcon(R.drawable.ic_view_module);
+                    mFileListFragment.switchToListView();
+                } else {
+                    item.setTitle(getApplicationContext().getString(R.string.action_switch_list_view));
+                    item.setIcon(R.drawable.ic_view_list);
+                    mFileListFragment.switchToGridView();
+                }
+                return true;
             }
             default:
                 retval = super.onOptionsItemSelected(item);
@@ -239,8 +256,9 @@ public class UploadFilesActivity extends FileActivity implements
         // the next operation triggers a new call to this method, but it's necessary to 
         // ensure that the name exposed in the action bar is the current directory when the 
         // user selected it in the navigation list
-        if (itemPosition != 0)
+        if (itemPosition != 0) {
             getSupportActionBar().setSelectedNavigationItem(0);
+        }
         return true;
     }
 
@@ -514,5 +532,18 @@ public class UploadFilesActivity extends FileActivity implements
             setResult(RESULT_CANCELED);
             finish();
         }
+    }
+
+    private boolean isGridView() {
+        return getListOfFilesFragment().isGridEnabled();
+    }
+
+    private ExtendedListFragment getListOfFilesFragment() {
+        Fragment listOfFiles = mFileListFragment;
+        if (listOfFiles != null) {
+            return (ExtendedListFragment) listOfFiles;
+        }
+        Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
+        return null;
     }
 }

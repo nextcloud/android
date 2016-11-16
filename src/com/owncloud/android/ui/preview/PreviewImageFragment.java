@@ -19,8 +19,6 @@
  */
 package com.owncloud.android.ui.preview;
 
-import java.lang.ref.WeakReference;
-
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -52,7 +50,11 @@ import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 
+import java.lang.ref.WeakReference;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import third_parties.michaelOrtiz.TouchImageViewCustom;
 
 
@@ -355,7 +357,7 @@ public class PreviewImageFragment extends FileFragment {
                 return true;
             }
             case R.id.action_send_file: {
-                if (getFile().isImage() && !getFile().isDown()){
+                if (MimeTypeUtil.isImage(getFile()) && !getFile().isDown()){
                     mContainerActivity.getFileOperationsHelper().sendCachedImage(getFile());
                     return true;
                 } else {
@@ -397,6 +399,7 @@ public class PreviewImageFragment extends FileFragment {
         super.onPause();
     }
 
+    @SuppressFBWarnings("Dm")
     @Override
     public void onDestroy() {
         if (mBitmap != null) {
@@ -468,7 +471,9 @@ public class PreviewImageFragment extends FileFragment {
         @Override
         protected LoadImage doInBackground(OCFile... params) {
             Bitmap result = null;
-            if (params.length != 1) return null;
+            if (params.length != 1) {
+                return null;
+            }
             OCFile ocFile = params[0];
             String storagePath = ocFile.getStoragePath();
             try {
@@ -478,12 +483,16 @@ public class PreviewImageFragment extends FileFragment {
                 int minWidth = screenSize.x;
                 int minHeight = screenSize.y;
                 for (int i = 0; i < maxDownScale && result == null; i++) {
-                    if (isCancelled()) return null;
+                    if (isCancelled()) {
+                        return null;
+                    }
                     try {
                         result = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
                                 minHeight);
 
-                        if (isCancelled()) return new LoadImage(result, ocFile);
+                        if (isCancelled()) {
+                            return new LoadImage(result, ocFile);
+                        }
 
                         if (result == null) {
                             mErrorMessageId = R.string.preview_image_error_unknown_format;
@@ -609,7 +618,7 @@ public class PreviewImageFragment extends FileFragment {
      * @return          'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
-        return (file != null && file.isImage());
+        return (file != null && MimeTypeUtil.isImage(file));
     }
 
 

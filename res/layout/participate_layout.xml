@@ -12,11 +12,11 @@
 
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
 
   You should have received a copy of the GNU Affero General Public
-  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout"
                                         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:onClick="onGetRCPlayStoreClick"
-                        android:padding="0dp"
+                        android:padding="@dimen/zero"
                         android:src="@drawable/playstore"/>
 
                     <ImageButton
@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:background="@color/white"
                         android:onClick="onGetRCFDroidClick"
-                        android:padding="0dp"
+                        android:padding="@dimen/zero"
                         android:src="@drawable/fdroid"/>
 
                 </LinearLayout>
@@ -134,7 +134,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:onClick="onGetBetaFDroidClick"
-                    android:padding="0dp"
+                    android:padding="@dimen/zero"
                     android:src="@drawable/fdroid"/>
 
                 <TextView
@@ -181,7 +181,7 @@
 
     <include
         layout="@layout/drawer"
-        android:layout_width="240dp"
+        android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
 

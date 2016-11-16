@@ -20,12 +20,12 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10030099"
-    android:versionName="1.3.0">
+    android:versionCode="10030199"
+    android:versionName="1.3.1">
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="23" />
+        android:targetSdkVersion="24" />
 
     <!-- GET_ACCOUNTS is needed for API < 23.
         For API >= 23 results in the addition of CONTACTS group to the list of permissions that may be
@@ -56,6 +56,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
@@ -79,6 +82,8 @@
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
                   android:theme="@style/Theme.ownCloud.NoActionBar">
+        <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
+        <activity android:name=".ui.activity.StorageMigrationActivity" />
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -156,6 +161,17 @@
             </intent-filter>
         </provider>
 
+        <!-- new provider used to generate URIs without file:// scheme (forbidden from Android 7) -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="@string/file_provider_authority"
+            android:grantUriPermissions="true"
+            android:exported="false">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/exposed_filepaths" />
+        </provider>
+
         <provider
             android:name=".ui.adapter.DiskLruImageCacheFileProvider"
             android:authorities="com.owncloud.imageCache.provider"
@@ -179,6 +195,12 @@
                 <action android:name="com.owncloud.android.workaround.accounts.CREATE" />
 
                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/login_data_own_scheme" android:host="login"/>
             </intent-filter>
         </activity>
 

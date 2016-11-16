@@ -28,7 +28,9 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -60,6 +62,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -91,7 +94,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
 
-    private static String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
+    private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
 
     private FileFragment.ContainerActivity mContainerActivity;
 
@@ -107,6 +110,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     private boolean mHideFab = true;
     private boolean miniFabClicked = false;
     private ActionMode mActiveActionMode;
+    private OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -151,7 +155,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         Bundle args = getArguments();
         boolean allowContextualActions = (args != null) && args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false);
         if (allowContextualActions) {
-            setChoiceModeAsMultipleModal();
+            setChoiceModeAsMultipleModal(savedInstanceState);
         }
         Log_OC.i(TAG, "onCreateView() end");
         return v;
@@ -346,76 +350,191 @@ public class OCFileListFragment extends ExtendedListFragment {
                 com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
     }
 
-    private void setChoiceModeAsMultipleModal() {
+    /**
+     * Handler for multiple selection mode.
+     *
+     * Manages input from the user when one or more files or folders are selected in the list.
+     *
+     * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened
+     * and closed.
+     */
+    private class MultiChoiceModeListener
+        implements AbsListView.MultiChoiceModeListener, DrawerLayout.DrawerListener {
 
-        setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        private static final String KEY_ACTION_MODE_CLOSED_BY_DRAWER = "KILLED_ACTION_MODE";
+        private static final String KEY_SELECTION_WHEN_CLOSED_BY_DRAWER = "CHECKED_ITEMS";
 
-        setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+        /**
+         * True when action mode is finished because the drawer was opened
+         */
+        private boolean mActionModeClosedByDrawer = false;
 
-            @Override
-            public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
-                getListView().invalidateViews();
-                mode.invalidate();
-            }
+        /**
+         * Selected items in list when action mode is closed by drawer
+         */
+        private SparseBooleanArray mSelectionWhenActionModeClosedByDrawer = null;
 
-            @Override
-            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-                mActiveActionMode = mode;
+        @Override
+        public void onDrawerSlide(View drawerView, float slideOffset) {
+            // nothing to do
+        }
 
-                MenuInflater inflater = getActivity().getMenuInflater();
-                inflater.inflate(R.menu.file_actions_menu, menu);
-                mode.invalidate();
+        @Override
+        public void onDrawerOpened(View drawerView) {
+            // nothing to do
+        }
 
-                //set gray color
-                DisplayUtils.colorStatusBar(getActivity(), mSystemBarActionModeColor);
-                DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarActionModeColor);
-
-                // hide FAB in multi selection mode
-                setFabEnabled(false);
-
-                return true;
-            }
-
-            @Override
-            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-                List<OCFile> checkedFiles = mAdapter.getCheckedItems(getListView());
-                final int checkedCount = checkedFiles.size();
-                String title = getResources().getQuantityString(
-                    R.plurals.items_selected_count,
-                    checkedCount,
-                    checkedCount
-                );
-                mode.setTitle(title);
-                FileMenuFilter mf = new FileMenuFilter(
-                    checkedFiles,
-                    ((FileActivity) getActivity()).getAccount(),
-                    mContainerActivity,
-                    getActivity()
-                );
-                mf.filter(menu);
-
-                return true;
-            }
-
-            @Override
-            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-                return onFileActionChosen(item.getItemId());
-            }
-
-            @Override
-            public void onDestroyActionMode(ActionMode mode) {
-                mActiveActionMode = null;
-
-                // reset to previous color
-                DisplayUtils.colorStatusBar(getActivity(), mSystemBarColor);
-                DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarColor);
-
-                // show FAB on multi selection mode exit
-                if(!mHideFab) {
-                    setFabEnabled(true);
+        /**
+         * When the navigation drawer is closed, action mode is recovered in the same state as was
+         * when the drawer was (started to be) opened.
+         *
+         * @param drawerView        Navigation drawer just closed.
+         */
+        @Override
+        public void onDrawerClosed(View drawerView) {
+            if (mSelectionWhenActionModeClosedByDrawer !=null && mActionModeClosedByDrawer) {
+                for (int i = 0; i< mSelectionWhenActionModeClosedByDrawer.size(); i++) {
+                    if (mSelectionWhenActionModeClosedByDrawer.valueAt(i)) {
+                        getListView().setItemChecked(
+                            mSelectionWhenActionModeClosedByDrawer.keyAt(i),
+                            true
+                        );
+                    }
                 }
             }
-        });
+            mSelectionWhenActionModeClosedByDrawer = null;
+        }
+
+        /**
+         * If the action mode is active when the navigation drawer starts to move, the action
+         * mode is closed and the selection stored to be recovered when the drawer is closed.
+         *
+         * @param newState     One of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
+         */
+        @Override
+        public void onDrawerStateChanged(int newState) {
+            if (DrawerLayout.STATE_DRAGGING == newState && mActiveActionMode != null) {
+                mSelectionWhenActionModeClosedByDrawer = getListView().getCheckedItemPositions().clone();
+                mActiveActionMode.finish();
+                mActionModeClosedByDrawer = true;
+            }
+        }
+
+
+        /**
+         * Update action mode bar when an item is selected / unselected in the list
+         */
+        @Override
+        public void onItemCheckedStateChanged(ActionMode mode, int position, long id, boolean checked) {
+            getListView().invalidateViews();
+            mode.invalidate();
+        }
+
+        /**
+         * Load menu and customize UI when action mode is started.
+         */
+        @Override
+        public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+            mActiveActionMode = mode;
+
+            MenuInflater inflater = getActivity().getMenuInflater();
+            inflater.inflate(R.menu.file_actions_menu, menu);
+            mode.invalidate();
+
+            //set gray color
+            DisplayUtils.colorStatusBar(getActivity(), mSystemBarActionModeColor);
+            DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarActionModeColor);
+
+            // hide FAB in multi selection mode
+            setFabEnabled(false);
+
+            return true;
+        }
+
+        /**
+         * Updates available action in menu depending on current selection.
+         */
+        @Override
+        public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+            List<OCFile> checkedFiles = mAdapter.getCheckedItems(getListView());
+            final int checkedCount = checkedFiles.size();
+            String title = getResources().getQuantityString(
+                R.plurals.items_selected_count,
+                checkedCount,
+                checkedCount
+            );
+            mode.setTitle(title);
+            FileMenuFilter mf = new FileMenuFilter(
+                checkedFiles,
+                ((FileActivity) getActivity()).getAccount(),
+                mContainerActivity,
+                getActivity()
+            );
+            mf.filter(menu);
+            return true;
+        }
+
+        /**
+         * Starts the corresponding action when a menu item is tapped by the user.
+         */
+        @Override
+        public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+            return onFileActionChosen(item.getItemId());
+        }
+
+        /**
+         * Restores UI.
+         */
+        @Override
+        public void onDestroyActionMode(ActionMode mode) {
+            mActiveActionMode = null;
+
+            // reset to previous color
+            DisplayUtils.colorStatusBar(getActivity(), mSystemBarColor);
+            DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarColor);
+
+            // show FAB on multi selection mode exit
+            if(!mHideFab) {
+                setFabEnabled(true);
+            }
+        }
+
+
+        public void storeStateIn(Bundle outState) {
+            outState.putBoolean(KEY_ACTION_MODE_CLOSED_BY_DRAWER, mActionModeClosedByDrawer);
+            if (mSelectionWhenActionModeClosedByDrawer != null) {
+                SparseBooleanArrayParcelable sbap = new SparseBooleanArrayParcelable(
+                    mSelectionWhenActionModeClosedByDrawer
+                );
+                outState.putParcelable(KEY_SELECTION_WHEN_CLOSED_BY_DRAWER, sbap);
+            }
+        }
+
+        public void loadStateFrom(Bundle savedInstanceState) {
+            mActionModeClosedByDrawer = savedInstanceState.getBoolean(
+                KEY_ACTION_MODE_CLOSED_BY_DRAWER,
+                mActionModeClosedByDrawer
+            );
+            SparseBooleanArrayParcelable sbap = savedInstanceState.getParcelable(
+                KEY_SELECTION_WHEN_CLOSED_BY_DRAWER
+            );
+            if (sbap != null) {
+                mSelectionWhenActionModeClosedByDrawer = sbap.getSparseBooleanArray();
+            }
+        }
+    }
+
+    /**
+     * Init listener that will handle interactions in multiple selection mode.
+     */
+    private void setChoiceModeAsMultipleModal(Bundle savedInstanceState) {
+        setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        mMultiChoiceModeListener = new MultiChoiceModeListener();
+        if (savedInstanceState != null) {
+            mMultiChoiceModeListener.loadStateFrom(savedInstanceState);
+        }
+        setMultiChoiceModeListener(mMultiChoiceModeListener);
+        ((FileActivity)getActivity()).addDrawerListener(mMultiChoiceModeListener);
     }
 
     /**
@@ -425,6 +544,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_FILE, mFile);
+        mMultiChoiceModeListener.storeStateIn(outState);
     }
 
     @Override
@@ -466,7 +586,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             }   // exit is granted because storageManager.getFileByPath("/") never returns null
             mFile = parentDir;
 
-            listDirectory(mFile, MainApp.getOnlyOnDevice());
+            listDirectory(mFile, MainApp.isOnlyOnDevice());
 
             onRefresh(false);
 
@@ -484,7 +604,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         if (file != null) {
             if (file.isFolder()) {
                 // update state and view of this fragment
-                listDirectory(file, MainApp.getOnlyOnDevice());
+                listDirectory(file, MainApp.isOnlyOnDevice());
                 // then, notify parent activity to let it update its state and view
                 mContainerActivity.onBrowsedDownTo(file);
                 // save index and top position
@@ -525,7 +645,9 @@ public class OCFileListFragment extends ExtendedListFragment {
      */
     public boolean onFileActionChosen(int menuId) {
         final ArrayList<OCFile> checkedFiles = mAdapter.getCheckedItems(getListView());
-        if (checkedFiles.size() <= 0) return false;
+        if (checkedFiles.size() <= 0) {
+            return false;
+        }
 
         if (checkedFiles.size() == 1) {
             /// action only possible on a single file
@@ -625,7 +747,7 @@ public class OCFileListFragment extends ExtendedListFragment {
     }
 
     public void refreshDirectory(){
-        listDirectory(getCurrentFile(), MainApp.getOnlyOnDevice());
+        listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice());
     }
 
     /**
@@ -645,7 +767,9 @@ public class OCFileListFragment extends ExtendedListFragment {
                     directory = mFile;
                 } else {
                     directory = storageManager.getFileByPath("/");
-                    if (directory == null) return; // no files, wait for sync
+                    if (directory == null) {
+                        return; // no files, wait for sync
+                    }
                 }
             }
 

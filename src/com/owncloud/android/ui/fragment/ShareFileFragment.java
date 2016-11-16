@@ -57,7 +57,7 @@ import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -193,9 +193,9 @@ public class ShareFileFragment extends Fragment
         // Setup layout
         // Image
         ImageView icon = (ImageView) view.findViewById(R.id.shareFileIcon);
-        icon.setImageResource(MimetypeIconUtil.getFileTypeIconId(mFile.getMimetype(),
+        icon.setImageResource(MimeTypeUtil.getFileTypeIconId(mFile.getMimetype(),
                 mFile.getFileName()));
-        if (mFile.isImage()) {
+        if (MimeTypeUtil.isImage(mFile)) {
             String remoteId = String.valueOf(mFile.getRemoteId());
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(remoteId);
             if (thumbnail != null) {

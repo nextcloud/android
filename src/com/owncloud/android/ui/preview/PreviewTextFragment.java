@@ -42,10 +42,12 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.StringWriter;
 import java.lang.ref.WeakReference;
 import java.util.LinkedList;
@@ -154,7 +156,7 @@ public class PreviewTextFragment extends FileFragment {
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
      */
     private class TextLoadAsyncTask extends AsyncTask<Object, Void, StringWriter> {
-        private final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
+        private static final String DIALOG_WAIT_TAG = "DIALOG_WAIT";
         private final WeakReference<TextView> mTextViewReference;
 
         private TextLoadAsyncTask(WeakReference<TextView> textView) {
@@ -174,20 +176,24 @@ public class PreviewTextFragment extends FileFragment {
             }
             final String location = (String) params[0];
 
-            FileInputStream inputStream = null;
+            InputStreamReader inputStream = null;
             Scanner sc = null;
             StringWriter source = new StringWriter();
             BufferedWriter bufferedWriter = new BufferedWriter(source);
             try {
-                inputStream = new FileInputStream(location);
+                inputStream = new InputStreamReader(new FileInputStream(location), "UTF8");
                 sc = new Scanner(inputStream);
                 while (sc.hasNextLine()) {
                     bufferedWriter.append(sc.nextLine());
-                    if (sc.hasNextLine()) bufferedWriter.append("\n");
+                    if (sc.hasNextLine()) {
+                        bufferedWriter.append("\n");
+                    }
                 }
                 bufferedWriter.close();
                 IOException exc = sc.ioException();
-                if (exc != null) throw exc;
+                if (exc != null) {
+                    throw exc;
+                }
             } catch (IOException e) {
                 Log_OC.e(TAG, e.getMessage(), e);
                 finish();
@@ -246,7 +252,7 @@ public class PreviewTextFragment extends FileFragment {
             final Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
             if (frag != null) {
                 LoadingDialog loading = (LoadingDialog) frag;
-                loading.dismiss();
+                loading.dismissAllowingStateLoss();
             }
         }
     }
@@ -430,9 +436,9 @@ public class PreviewTextFragment extends FileFragment {
         unsupportedTypes.add("text/vnd.rn-realtext");
         unsupportedTypes.add("text/vnd.wap.wml");
         unsupportedTypes.add("text/vnd.wap.wmlscript");
-        return (file != null && file.isDown() && file.isText() &&
+        return (file != null && file.isDown() && MimeTypeUtil.isText(file) &&
                 !unsupportedTypes.contains(file.getMimetype()) &&
-                !unsupportedTypes.contains(file.getMimeTypeFromName())
+                !unsupportedTypes.contains(MimeTypeUtil.getMimeTypeFromPath(file.getRemotePath()))
         );
     }
 

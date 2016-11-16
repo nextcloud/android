@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Account</string>
     <string name="prefs_manage_accounts">Gestisci account</string>
     <string name="prefs_passcode">Blocco con codice di sicurezza</string>
+    <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_instant_upload">Caricamenti istantanei delle foto</string>
     <string name="prefs_instant_upload_summary">Carica immediatamente le foto dalla fotocamera</string>
     <string name="prefs_instant_video_upload">Caricamenti istantanei dei video</string>
@@ -37,9 +38,10 @@
     <string name="prefs_log_title_history">Cronologia di registrazione</string>
     <string name="prefs_log_summary_history">Mostra i log registrati</string>
     <string name="prefs_log_delete_history_button">Elimina cronologia</string>
-    <string name="prefs_calendar_contacts">Configura sincronizzazione calendario e contatti</string>
-    <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) per l\'account utilizzato attualmente</string>
+    <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
+    <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) per l\'account corrente</string>
     <string name="prefs_calendar_contacts_address_resolve_error">L\'indirizzo del server per l\'account non può essere risolto da DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Nessuna applicazione Google Play o F-Droid installata</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata correttamente</string>
     <string name="prefs_help">Aiuto</string>
     <string name="prefs_recommend">Consiglia a un amico</string>
@@ -73,7 +75,7 @@
     <string name="uploader_error_message_source_file_not_found">Il file da caricare non è stato trovato nella sua posizione. Controlla che il file esista.</string>
     <string name="uploader_error_message_source_file_not_copied">Si è verificato un errore durante il tentativo di copiare il file in una cartella temporanea. Prova a inviarlo ancora.</string>
     <string name="uploader_upload_files_behaviour">Opzione di caricamento:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Sposta file nella cartella di Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Sposta il file nella cartella di Nextcloud</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantieni il file nella cartella di origine</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina il file dalla cartella di origine</string>
     <string name="file_list_seconds_ago">secondi fa</string>
@@ -204,20 +206,20 @@
 	<string name="auth_getting_authorization">Recupero delle autorizzazioni in corso...</string>
 	<string name="auth_trying_to_login">Tentativo di accesso in corso...</string>
 	<string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
-	<string name="auth_nossl_plain_ok_title">Connessione sicura disponibile.</string>
+	<string name="auth_nossl_plain_ok_title">Connessione sicura non disponibile.</string>
 	<string name="auth_connection_established">Connessione stabilita</string>
 	<string name="auth_testing_connection">Prova di connessione</string>
-	<string name="auth_not_configured_title">Configurazione non corretta di il server</string>
+	<string name="auth_not_configured_title">Configurazione non corretta del server</string>
 	<string name="auth_account_not_new">Esiste già un account su questo dispositivo per lo stesso utente e server</string>
 	<string name="auth_account_not_the_same">L\'utente digitato non corrisponde all\'utente di questo account</string>
-	<string name="auth_unknown_error_title">Errore sconosciuto</string>
+	<string name="auth_unknown_error_title">Errore sconosciuto!</string>
 	<string name="auth_unknown_host_title">Impossibile trovare l\'host</string>
 	<string name="auth_incorrect_path_title">Istanza del server non trovata</string>
 	<string name="auth_timeout_title">Il server ha richiesto troppo tempo per rispondere</string>
 	<string name="auth_incorrect_address_title">Formato indirizzo del server errato</string>
 	<string name="auth_ssl_general_error_title">Inizializzazione  SSL non riuscita</string>
 	<string name="auth_ssl_unverified_server_title">Impossibile verificare l\'identità SSL del server</string>
-	<string name="auth_bad_oc_version_title">Versione del server il server non riconosciuta</string>
+	<string name="auth_bad_oc_version_title">Versione del server non riconosciuta</string>
 	<string name="auth_wrong_connection_title">Impossibile stabilire la connessione</string>
 	<string name="auth_secure_connection">Connessione sicura stabilita</string>
 	<string name="auth_unauthorized">Nome utente o password errati</string>
@@ -260,7 +262,7 @@
     <string name="activity_chooser_title">Invia collegamento a...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
     
-    <string name="oauth_check_onoff">Accesso con oAuth2.</string> 
+    <string name="oauth_check_onoff">Accesso con oAuth2</string> 
     <string name="oauth_login_connection">Connessione al server oAuth2 in corso...</string>    
         
     <string name="ssl_validator_header">L\'identità del sito non può essere verificata</string>
@@ -354,6 +356,28 @@
     <string name="uploader_upload_forbidden_permissions">per caricare in questa cartella</string>
     <string name="downloader_download_file_not_found">Il file non è più disponibile sul server</string>
 
+    <string name="file_migration_dialog_title">Aggiornamento del percorso di archiviazione</string>
+    <string name="file_migration_finish_button">Fine</string>
+    <string name="file_migration_preparing">Preparazione della migrazione&#8230;</string>
+    <string name="file_migration_checking_destination">Controllo della destinazione&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Salvataggio della configurazione degli account&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">In attesa del completamento delle sincronizzazioni&#8230;</string>
+    <string name="file_migration_migrating">Spostamento dei dati&#8230;</string>
+    <string name="file_migration_updating_index">Aggiornamento dell\'indice&#8230;</string>
+    <string name="file_migration_cleaning">Pulizia&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Ripristino della configurazione degli account&#8230;</string>
+    <string name="file_migration_ok_finished">Fine</string>
+    <string name="file_migration_failed_not_enough_space">ERRORE: spazio libero insufficiente</string>
+    <string name="file_migration_failed_not_writable">ERRORE: il file non è scrivibile</string>
+    <string name="file_migration_failed_not_readable">ERRORE: il file non è leggibile</string>
+    <string name="file_migration_failed_dir_already_exists">ERRORE: la cartella di Nextcloud esiste già</string>
+    <string name="file_migration_failed_while_coping">ERRORE: durante la migrazione</string>
+    <string name="file_migration_failed_while_updating_index">ERRORE: durante l\'aggiornamento dell\'indice</string>
+
+    <string name="file_migration_directory_already_exists">La cartella dei dati esiste già, cosa vuoi fare?</string>
+    <string name="file_migration_override_data_folder">Sovrascrivi</string>
+    <string name="file_migration_use_data_folder">Utilizza quella esistente</string>
+
     <string name="prefs_category_accounts">Account</string>
     <string name="prefs_add_account">Aggiungi account</string>
     <string name="drawer_manage_accounts">Gestisci account</string>
@@ -368,7 +392,8 @@
 	<string name="saml_authentication_required_text">Autenticazione richiesta</string>
 	<string name="saml_authentication_wrong_pass">Password errata</string>
 	<string name="actionbar_move">Sposta</string>
-	<string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella.</string>
+    <string name="actionbar_copy">Copia</string>
+	<string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella!</string>
 	<string name="folder_picker_choose_button_text">Scegli</string>
 
     <string name="move_file_not_found">Impossibile spostare. Assicurati che il file esista</string>
@@ -419,6 +444,8 @@
     <string name="pref_behaviour_entries_keep_file">lasciato nella cartella originale</string>
     <string name="pref_behaviour_entries_move">spostato nella cartella dell\'applicazione</string>
     <string name="pref_behaviour_entries_delete_file">eliminato</string>
+    <string name="prefs_storage_path">Percorso di archiviazione</string>
+    <string name="prefs_common">Comune</string>
 
     <string name="share_dialog_title">Condivisione</string>
     <string name="share_file">Condividi %1$s</string>
@@ -452,10 +479,10 @@
     <string name="edit_share_unshare">Interrompi la condivisione</string>
     <string name="edit_share_done">completato</string>
 
-    <string name="action_retry_uploads">Nuovo tentativo non riuscito</string>
-    <string name="action_clear_failed_uploads">Cancellazione non riuscita</string>
-    <string name="action_clear_successful_uploads">Cancellazione avvenuta</string>
-    <string name="action_clear_finished_uploads">Cancella tutti i completati</string>
+    <string name="action_retry_uploads">Riprova caricamenti falliti</string>
+    <string name="action_clear_failed_uploads">Cancella i caricamenti non riusciti</string>
+    <string name="action_clear_successful_uploads">Cancella i caricamenti avvenuti</string>
+    <string name="action_clear_finished_uploads">Cancella tutti i caricamenti completati</string>
 
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
@@ -479,13 +506,26 @@
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_testing_version_text">Sei interessato ad aiutarci a provare la nostra prossima versione?</string>
     <string name="participate_beta_headline">Prova la versione beta</string>
+    <string name="participate_beta_text">Ciò include tutte le nuove funzionalità ed è molto rischioso.
+Bug/errori
+possono verificarsi e se accade, inviaci una segnalazione. &lt;br/>&lt;a href=\"%2$s\">Scarica l\'APK&lt;/a>
+o</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
+    <string name="participate_release_candidate_text">Questa candidata al rilascio (RC) è uno snapshot della prossima versione e dovrebbe essere stabile. La prova della tua specifica configurazione potrebbe aiutare ad assicurare che lo sia. Registrati per i test su Google Play o controlla manualmente nella sezione \"versioni\" su F-Droid.</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
     <string name="participate_contribute_irc_text">Unisciti alla chat su IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Aiuta gli altri sul &lt;a href=\"%1$s>forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduci&lt;/a> l\'applicazione</string>
+    <string name="participate_contribute_github_text">Contribuisci come sviluppatore, vedi &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> per i dettagli</string>
+    <string name="move_to">Sposta in&#8230;</string>
+    <string name="copy_to">Copia in&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
     </plurals>
+
+    <string name="storage_description_default">Predefinito</string>
+    <string name="storage_description_sd_no">Scheda SD %1$d</string>
+    <string name="storage_description_unknown">Sconosciuto</string>
 
 </resources>

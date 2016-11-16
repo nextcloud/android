@@ -61,6 +61,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 
 /**
@@ -115,7 +116,6 @@ public class PreviewMediaFragment extends FileFragment implements
         mSavedPlaybackPosition = startPlaybackPosition;
         mAutoplay = autoplay;
     }
-
 
     /**
      * Creates an empty fragment for previews.
@@ -197,7 +197,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
         }
         if (file != null && file.isDown()) {
-            if (file.isVideo()) {
+            if (MimeTypeUtil.isVideo(file)) {
                 mVideoPreview.setVisibility(View.VISIBLE);
                 mImagePreview.setVisibility(View.GONE);
                 prepareVideo();
@@ -218,7 +218,7 @@ public class PreviewMediaFragment extends FileFragment implements
      * @param file audio file with potential cover art
      */
     private void extractAndSetCoverArt(OCFile file) {
-        if (file.isAudio()) {
+        if (MimeTypeUtil.isAudio(file)) {
             try {
                 MediaMetadataRetriever mmr = new MediaMetadataRetriever();
                 mmr.setDataSource(file.getStoragePath());
@@ -247,18 +247,22 @@ public class PreviewMediaFragment extends FileFragment implements
         outState.putParcelable(PreviewMediaFragment.EXTRA_FILE, getFile());
         outState.putParcelable(PreviewMediaFragment.EXTRA_ACCOUNT, mAccount);
 
-        if (getFile().isVideo()) {
-            mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
-            mAutoplay = mVideoPreview.isPlaying();
-            outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mSavedPlaybackPosition);
-            outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mAutoplay);
+        if (MimeTypeUtil.isVideo(getFile())) {
+            if (mVideoPreview != null) {
+                mSavedPlaybackPosition = mVideoPreview.getCurrentPosition();
+                mAutoplay = mVideoPreview.isPlaying();
+                outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mSavedPlaybackPosition);
+                outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mAutoplay);
+            }
         }
         else {
-            outState.putInt(
-                    PreviewMediaFragment.EXTRA_PLAY_POSITION,
-                    mMediaServiceBinder.getCurrentPosition());
-            outState.putBoolean(
-                    PreviewMediaFragment.EXTRA_PLAYING, mMediaServiceBinder.isPlaying());
+            if (mMediaServiceBinder != null) {
+                outState.putInt(
+                        PreviewMediaFragment.EXTRA_PLAY_POSITION,
+                        mMediaServiceBinder.getCurrentPosition());
+                outState.putBoolean(
+                        PreviewMediaFragment.EXTRA_PLAYING, mMediaServiceBinder.isPlaying());
+            }
         }
     }
 
@@ -270,12 +274,12 @@ public class PreviewMediaFragment extends FileFragment implements
 
         OCFile file = getFile();
         if (file != null && file.isDown()) {
-            if (file.isAudio()) {
+            if (MimeTypeUtil.isAudio(file)) {
                 bindMediaService();
 
             }
             else {
-                if (file.isVideo()) {
+                if (MimeTypeUtil.isVideo(file)) {
                     stopAudio();
                     playVideo();
                 }
@@ -539,7 +543,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN && v == mVideoPreview) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN && v.equals(mVideoPreview)) {
             // added a margin on the left to avoid interfering with gesture to open navigation drawer
             if (event.getX() / Resources.getSystem().getDisplayMetrics().density > 24.0) {
                 startFullScreenVideo();
@@ -610,21 +614,18 @@ public class PreviewMediaFragment extends FileFragment implements
 
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
-            if (getActivity() != null) {
-                if (component.equals(
-                        new ComponentName(getActivity(), MediaService.class))) {
-                    Log_OC.d(TAG, "Media service connected");
-                    mMediaServiceBinder = (MediaServiceBinder) service;
-                    if (mMediaServiceBinder != null) {
-                        prepareMediaController();
-                        playAudio();    // do not wait for the touch of nobody to play audio
+            if (getActivity() != null
+                    && component.equals(new ComponentName(getActivity(), MediaService.class))) {
+                Log_OC.d(TAG, "Media service connected");
+                mMediaServiceBinder = (MediaServiceBinder) service;
+                if (mMediaServiceBinder != null) {
+                    prepareMediaController();
+                    playAudio();    // do not wait for the touch of nobody to play audio
 
-                        Log_OC.d(TAG, "Successfully bound to MediaService, MediaController ready");
+                    Log_OC.d(TAG, "Successfully bound to MediaService, MediaController ready");
 
-                    }
-                    else {
-                        Log_OC.e(TAG, "Unexpected response from MediaService while binding");
-                    }
+                } else {
+                    Log_OC.e(TAG, "Unexpected response from MediaService while binding");
                 }
             }
         }
@@ -675,18 +676,18 @@ public class PreviewMediaFragment extends FileFragment implements
      * @return 'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
-        return (file != null && (file.isAudio() || file.isVideo()));
+        return (file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file)));
     }
 
 
     public void stopPreview(boolean stopAudio) {
         OCFile file = getFile();
-        if (file.isAudio() && stopAudio) {
+        if (MimeTypeUtil.isAudio(file) && stopAudio) {
             mMediaServiceBinder.pause();
 
         }
         else {
-            if (file.isVideo()) {
+            if (MimeTypeUtil.isVideo(file)) {
                 mVideoPreview.stopPlayback();
             }
         }

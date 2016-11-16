@@ -24,11 +24,15 @@ package com.owncloud.android.datamodel;
 
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.webkit.MimeTypeMap;
+import android.support.v4.content.FileProvider;
 
+import com.owncloud.android.R;
+import com.owncloud.android.lib.common.network.WebdavUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.MimeType;
 
@@ -93,6 +97,14 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
      * to {@link #getStorageUri()}
      */
     private Uri mLocalUri;
+
+
+    /**
+     * Exportable URI to the local path of the file contents, if stored in the device.
+     *
+     * Cached after first call, until changed.
+     */
+    private Uri mExposedFileUri;
 
 
     /**
@@ -245,6 +257,32 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         return mLocalUri;
     }
 
+    public Uri getExposedFileUri(Context context) {
+        if (mLocalPath == null || mLocalPath.length() == 0) {
+            return null;
+        }
+        if (mExposedFileUri == null) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                // TODO - use FileProvider with any Android version, with deeper testing -> 2.2.0
+                mExposedFileUri = Uri.parse(
+                    ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath)
+                );
+            } else {
+                // Use the FileProvider to get a content URI
+                try {
+                    mExposedFileUri = FileProvider.getUriForFile(
+                        context,
+                        context.getString(R.string.file_provider_authority),
+                        new File(mLocalPath)
+                    );
+                } catch (IllegalArgumentException e) {
+                    Log_OC.e(TAG, "File can't be exported");
+                }
+            }
+        }
+        return mExposedFileUri;
+    }
+
     /**
      * Can be used to set the path where the file is stored
      *
@@ -253,6 +291,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     public void setStoragePath(String storage_path) {
         mLocalPath = storage_path;
         mLocalUri = null;
+        mExposedFileUri = null;
     }
 
     /**
@@ -509,22 +548,31 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof OCFile) {
-            OCFile that = (OCFile) o;
-            if (that != null) {
-                return this.mId == that.mId;
-            }
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
         }
 
-        return false;
+        OCFile ocFile = (OCFile) o;
+
+        return mId == ocFile.mId && mParentId == ocFile.mParentId;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (mId ^ (mId >>> 32));
+        result = 31 * result + (int) (mParentId ^ (mParentId >>> 32));
+        return result;
     }
 
     @Override
     public String toString() {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
                 "parentId=%s, favorite=%s etag=%s]";
-        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(),
-                mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mFavorite),
+        asString = String.format(asString, mId, getFileName(), mMimeType, isDown(),
+                mLocalPath, mRemotePath, mParentId, mFavorite,
                 mEtag);
         return asString;
     }
@@ -563,53 +611,6 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     /**
-     * @return 'True' if the file contains audio
-     */
-    public boolean isAudio() {
-        return (mMimeType != null && mMimeType.startsWith("audio/"));
-    }
-
-    /**
-     * @return 'True' if the file contains video
-     */
-    public boolean isVideo() {
-        return (mMimeType != null && mMimeType.startsWith("video/"));
-    }
-
-    /**
-     * @return 'True' if the file contains an image
-     */
-    public boolean isImage() {
-        String mimeType;
-        if (mMimeType != null) {
-            mimeType = mMimeType;
-        } else {
-            mimeType = getMimeTypeFromName();
-        }
-
-        return (mimeType.startsWith("image/") && !mimeType.contains("djvu"));
-    }
-
-    /**
-     * @return 'True' if the file is simple text (e.g. not application-dependent, like .doc or .docx)
-     */
-    public boolean isText() {
-        return ((mMimeType != null && mMimeType.startsWith("text/")) ||
-                getMimeTypeFromName().startsWith("text/"));
-    }
-
-    public String getMimeTypeFromName() {
-        String extension = "";
-        int pos = mRemotePath.lastIndexOf('.');
-        if (pos >= 0) {
-            extension = mRemotePath.substring(pos + 1);
-        }
-        String result = MimeTypeMap.getSingleton().
-                getMimeTypeFromExtension(extension.toLowerCase());
-        return (result != null) ? result : "";
-    }
-
-    /**
      * @return 'True' if the file is hidden
      */
     public boolean isHidden() {
@@ -645,7 +646,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     public boolean isInConflict() {
-        return mEtagInConflict != null && mEtagInConflict != "";
+        return mEtagInConflict != null && !mEtagInConflict.equals("");
     }
 
     public void setEtagInConflict(String etagInConflict) {

@@ -721,8 +721,9 @@ public class FileUploader extends Service
          * @param file    A file that could be in the queue of pending uploads
          */
         public boolean isUploading(Account account, OCFile file) {
-            if (account == null || file == null)
+            if (account == null || file == null) {
                 return false;
+            }
             return (mPendingUploads.contains(account.name, file.getRemotePath()));
         }
 
@@ -750,7 +751,9 @@ public class FileUploader extends Service
                 Account account,
                 OCFile file
         ) {
-            if (account == null || file == null || listener == null) return;
+            if (account == null || file == null || listener == null) {
+                return;
+            }
             String targetKey = buildRemoteName(account.name, file.getRemotePath());
             mBoundListeners.put(targetKey, listener);
         }
@@ -766,7 +769,9 @@ public class FileUploader extends Service
                 OnDatatransferProgressListener listener,
                 OCUpload ocUpload
         ) {
-            if (ocUpload == null || listener == null) return;
+            if (ocUpload == null || listener == null) {
+                return;
+            }
             String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
             mBoundListeners.put(targetKey, listener);
         }
@@ -784,7 +789,9 @@ public class FileUploader extends Service
                 Account account,
                 OCFile file
         ) {
-            if (account == null || file == null || listener == null) return;
+            if (account == null || file == null || listener == null) {
+                return;
+            }
             String targetKey = buildRemoteName(account.name, file.getRemotePath());
             if (mBoundListeners.get(targetKey) == listener) {
                 mBoundListeners.remove(targetKey);
@@ -802,7 +809,9 @@ public class FileUploader extends Service
                 OnDatatransferProgressListener listener,
                 OCUpload ocUpload
         ) {
-            if (ocUpload == null || listener == null) return;
+            if (ocUpload == null || listener == null) {
+                return;
+            }
             String targetKey = buildRemoteName(ocUpload.getAccountName(), ocUpload.getRemotePath());
             if (mBoundListeners.get(targetKey) == listener) {
                 mBoundListeners.remove(targetKey);
@@ -851,8 +860,9 @@ public class FileUploader extends Service
 
         public ServiceHandler(Looper looper, FileUploader service) {
             super(looper);
-            if (service == null)
+            if (service == null) {
                 throw new IllegalArgumentException("Received invalid NULL in parameter 'service'");
+            }
             mService = service;
         }
 
@@ -1030,6 +1040,7 @@ public class FileUploader extends Service
 
         // Show the result: success or fail notification
         if (!uploadResult.isCancelled() &&
+            !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
             !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
             !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING)) {
 

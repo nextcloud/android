@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Konten</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_passcode">PIN gesperrt</string>
+    <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_instant_upload">Sofortiger Bilder-Upload</string>
     <string name="prefs_instant_upload_summary">Lade Fotos von der Kamera sofort hoch</string>
     <string name="prefs_instant_video_upload">Sofortiger Video-Upload</string>
@@ -37,8 +38,8 @@
     <string name="prefs_log_title_history">Protokollierungs-Historie</string>
     <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
-    <string name="prefs_calendar_contacts">Kalender &amp; Kontakte Synchronisierung konfigurieren</string>
-    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto konfigurieren</string>
+    <string name="prefs_calendar_contacts">Sync Kalender &amp; Kontakte</string>
+    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto einrichten</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder Google Play Store noch F-Droid App installiert</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; Kontakte Sychronisierung erfolgreich konfiguriert</string>
@@ -68,7 +69,7 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Beenden</string>
     <string name="uploader_error_title_no_file_to_upload">Keine Datei zum Hochladen</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s kann einen Textteil als Datei hochladen</string>
-    <string name="uploader_error_message_no_file_to_upload">Empfangene Daten enthalten  keine gültige Datei.</string>
+    <string name="uploader_error_message_no_file_to_upload">Empfangene Daten enthalten keine gültige Datei.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Datei kann nicht hochgeladen werden</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s darf eine empfangene Datei nicht lesen</string>
     <string name="uploader_error_message_source_file_not_found">Hochzuladende Datei wurde an seinem Ort nicht gefunden. Prüfe, ob die Datei existiert.</string>
@@ -355,6 +356,28 @@
     <string name="uploader_upload_forbidden_permissions">in diesem Order etwas hochzuladen</string>
     <string name="downloader_download_file_not_found">Diese Datei steht auf dem Server nicht mehr zur Verfügung</string>
 
+    <string name="file_migration_dialog_title">Aktualisiere Speicherort</string>
+    <string name="file_migration_finish_button">Beenden</string>
+    <string name="file_migration_preparing">Bereite Migration vor&#8230;</string>
+    <string name="file_migration_checking_destination">Prüfe Zielort&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Speichere Konteneinstellung&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Warte auf Abschluss der Synchronisierungen&#8230;</string>
+    <string name="file_migration_migrating">Verschiebe Dateien&#8230;</string>
+    <string name="file_migration_updating_index">Aktualisiere Index&#8230;</string>
+    <string name="file_migration_cleaning">Aufräumen&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Konteneinstellung wiederherstellen&#8230;</string>
+    <string name="file_migration_ok_finished">Abgeschlossen</string>
+    <string name="file_migration_failed_not_enough_space">FEHLER: Nicht genügend Speicherplatz</string>
+    <string name="file_migration_failed_not_writable">FEHLER: Datei kann nicht geschrieben werden</string>
+    <string name="file_migration_failed_not_readable">FEHLER: Datei nicht lesbar</string>
+    <string name="file_migration_failed_dir_already_exists">FEHLER: Nextcloud Ordner existiert bereits</string>
+    <string name="file_migration_failed_while_coping">FEHLER: Während der Migration</string>
+    <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indixes</string>
+
+    <string name="file_migration_directory_already_exists">Datenordner existiert bereits, was soll getan werden?</string>
+    <string name="file_migration_override_data_folder">Überschreiben</string>
+    <string name="file_migration_use_data_folder">Verwende Bestehenden</string>
+
     <string name="prefs_category_accounts">Konten</string>
     <string name="prefs_add_account">Konto hinzufügen</string>
     <string name="drawer_manage_accounts">Benutzerkonten verwalten</string>
@@ -369,6 +392,7 @@
 	<string name="saml_authentication_required_text">Legitimierung benötigt</string>
 	<string name="saml_authentication_wrong_pass">Falsches Passwort</string>
 	<string name="actionbar_move">Verschieben</string>
+    <string name="actionbar_copy">Kopieren</string>
 	<string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen!</string>
 	<string name="folder_picker_choose_button_text">Auswählen</string>
 
@@ -420,6 +444,8 @@
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
     <string name="pref_behaviour_entries_move">in den App-Ordner verschoben</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
+    <string name="prefs_storage_path">Speicherort</string>
+    <string name="prefs_common">Allgemein</string>
 
     <string name="share_dialog_title">Teilen</string>
     <string name="share_file">Teile %1$s</string>
@@ -461,7 +487,7 @@
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
 
-    <string name="manage_space_title">verwalte Speicherplatz</string>
+    <string name="manage_space_title">Verwalte Speicherplatz</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Server-Zertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_error">Einige Dateien konnten nicht gelöscht werden.</string>
@@ -470,7 +496,7 @@
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Willst Du die ausgewählten Einträge wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Willst Du die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
-    <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des gerätes</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des Gerätes</string>
     <string name="actionbar_search">Suche</string>
     <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten.</string>
     <string name="learn_more">Mehr</string>
@@ -488,9 +514,15 @@
     <string name="participate_contribute_forum_text">Hilf anderen im &lt;a href="%1$s>Forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href="%1$s>Übersetze&lt;/a> die App</string>
     <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
+    <string name="move_to">Verschieben nach&#8230;</string>
+    <string name="copy_to">Kopieren nach&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
+
+    <string name="storage_description_default">Standard</string>
+    <string name="storage_description_sd_no">SD Karte %1$d</string>
+    <string name="storage_description_unknown">Unbekannt</string>
 
 </resources>

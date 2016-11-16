@@ -48,9 +48,8 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
-import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.lang.ref.WeakReference;
@@ -59,10 +58,11 @@ import java.util.Comparator;
 import java.util.Observable;
 import java.util.Observer;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 /**
  * This Adapter populates a ListView with following types of uploads: pending,
  * active, completed. Filtering possible.
- *
  */
 public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
 
@@ -117,10 +117,12 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 }
             }
 
+            @SuppressFBWarnings("Bx")
             private int compareUploadId(OCUpload upload1, OCUpload upload2) {
                 return Long.valueOf(upload1.getUploadId()).compareTo(upload2.getUploadId());
             }
 
+            @SuppressFBWarnings("Bx")
             private int compareUpdateTime(OCUpload upload1, OCUpload upload2) {
                 return Long.valueOf(upload2.getUploadEndTimestamp()).compareTo(upload1.getUploadEndTimestamp());
             }
@@ -243,10 +245,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             TextView accountNameTextView = (TextView) view.findViewById(R.id.upload_account);
             Account account = AccountUtils.getOwnCloudAccountByName(mParentActivity, upload.getAccountName());
-            accountNameTextView.setText(
-                    DisplayUtils.getAccountNameDisplayText(
-                            mParentActivity, account, account.name, upload.getAccountName())
-            );
+            if (account != null) {
+                accountNameTextView.setText(
+                        DisplayUtils.getAccountNameDisplayText(
+                                mParentActivity, account, account.name, upload.getAccountName())
+                );
+            } else {
+                accountNameTextView.setText(upload.getAccountName());
+            }
 
             TextView statusTextView = (TextView) view.findViewById(R.id.upload_status);
 
@@ -404,7 +410,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             );
 
             // TODO this code is duplicated; refactor to a common place
-            if ((fakeFileToCheatThumbnailsCacheManagerInterface.isImage()
+            if ((MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)
                     && fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId() != null &&
                     upload.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED)) {
                 // Thumbnail in Cache?
@@ -421,7 +427,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                                         fileIcon, mParentActivity.getStorageManager(), mParentActivity.getAccount()
                                 );
                         if (thumbnail == null) {
-                            if (fakeFileToCheatThumbnailsCacheManagerInterface.isVideo()) {
+                            if (MimeTypeUtil.isVideo(fakeFileToCheatThumbnailsCacheManagerInterface)) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultVideo;
                             } else {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -444,7 +450,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                 }
 
 
-            } else if (fakeFileToCheatThumbnailsCacheManagerInterface.isImage()) {
+            } else if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)) {
                 File file = new File(upload.getLocalPath());
                 // Thumbnail in Cache?
                 Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
@@ -457,7 +463,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon);
                         if (thumbnail == null) {
-                            if (BitmapUtils.isVideo(file)) {
+                            if (MimeTypeUtil.isVideo(file)) {
                                 thumbnail = ThumbnailsCacheManager.mDefaultVideo;
                             } else {
                                 thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -480,7 +486,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                             .getColor(R.color.background_color));
                 }
             } else {
-                fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(
+                fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(
                         upload.getMimeType(),
                         fileName
                 ));

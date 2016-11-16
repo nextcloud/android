@@ -39,6 +39,7 @@ import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,6 +58,7 @@ import java.util.Vector;
  *  
  *  Does NOT enter in the child folders to synchronize their contents also.
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class RefreshFolderOperation extends RemoteOperation {
 
     private static final String TAG = RefreshFolderOperation.class.getSimpleName();
@@ -318,8 +320,9 @@ public class RefreshFolderOperation extends RemoteOperation {
                     // should be a different result code, but will do the job
             }
         } else {
-            if (result.getCode() == ResultCode.FILE_NOT_FOUND)
+            if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 removeLocalFolder();
+            }
         }
         
         return result;
@@ -404,7 +407,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 updatedFile.setEtag(localFile.getEtag());
                 if (updatedFile.isFolder()) {
                     updatedFile.setFileLength(remoteFile.getFileLength());
-                } else if (mRemoteFolderChanged && remoteFile.isImage() &&
+                } else if (mRemoteFolderChanged && MimeTypeUtil.isImage(remoteFile) &&
                         remoteFile.getModificationTimestamp() !=
                                 localFile.getModificationTimestamp()) {
                     updatedFile.setNeedsUpdateThumbnail(true);

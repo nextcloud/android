@@ -19,23 +19,16 @@
 
 package com.owncloud.android.ui.activity;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.FileProvider;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,8 +39,17 @@ import android.widget.Toast;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.LoadingDialog;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.lang.ref.WeakReference;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 
 
 public class LogHistoryActivity extends ToolbarActivity {
@@ -150,11 +152,18 @@ public class LogHistoryActivity extends ToolbarActivity {
         ArrayList<Uri> uris = new ArrayList<Uri>();
 
         // Convert from paths to Android friendly Parcelable Uri's
-        for (String file : Log_OC.getLogFileNames())
-        {
+        for (String file : Log_OC.getLogFileNames()) {
             File logFile = new File(mLogPath, file);
             if (logFile.exists()) {
-                uris.add(Uri.fromFile(logFile));
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+                    uris.add(Uri.fromFile(logFile));
+                } else {
+                    uris.add(FileProvider.getUriForFile(
+                            this,
+                            getString(R.string.file_provider_authority),
+                            logFile
+                    ));
+                }
             }
         }
 
@@ -193,7 +202,7 @@ public class LogHistoryActivity extends ToolbarActivity {
         }
 
         protected void onPostExecute(String result) {
-            if (textViewReference != null && result != null) {
+            if (result != null) {
                 final TextView logTV = textViewReference.get();
                 if (logTV != null) {
                     mLogText = result;
@@ -221,8 +230,9 @@ public class LogHistoryActivity extends ToolbarActivity {
                     File file = new File(mLogPath,logFileName[i]);
                     if (file.exists()) {
                         // Check if FileReader is ready
-                        if (new FileReader(file).ready()) {
-                            br = new BufferedReader(new FileReader(file));
+                        final InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file), "UTF8");
+                        if (inputStreamReader.ready()) {
+                            br = new BufferedReader(inputStreamReader);
                             while ((line = br.readLine()) != null) {
                                 // Append the log info
                                 text.append(line);
@@ -233,7 +243,7 @@ public class LogHistoryActivity extends ToolbarActivity {
                 }
             }
             catch (IOException e) {
-                Log_OC.d(TAG, e.getMessage().toString());
+                Log_OC.d(TAG, e.getMessage());
                 
             } finally {
                 if (br != null) {
@@ -269,7 +279,7 @@ public class LogHistoryActivity extends ToolbarActivity {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag != null) {
             LoadingDialog loading = (LoadingDialog) frag;
-            loading.dismiss();
+            loading.dismissAllowingStateLoss();
         }
     }
 

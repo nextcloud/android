@@ -57,11 +57,15 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.MimeTypeUtil;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  *  Holds a swiping galley where image files contained in an ownCloud directory are shown
  */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class PreviewImageActivity extends FileActivity implements
         FileFragment.ContainerActivity,
         ViewPager.OnPageChangeListener, OnRemoteOperationListener {
@@ -151,7 +155,7 @@ public class PreviewImageActivity extends FileActivity implements
         }
 
         mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                parentFolder, getAccount(), getStorageManager(), MainApp.getOnlyOnDevice());
+                parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice());
 
         mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
         int position = mHasSavedPosition ? mSavedPosition :
@@ -347,10 +351,11 @@ public class PreviewImageActivity extends FileActivity implements
     private void backToDisplayActivity() {
         finish();
     }
-    
+
+    @SuppressFBWarnings("DLS")
     @Override
     public void showDetails(OCFile file) {
-        Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
+        final Intent showDetailsIntent = new Intent(this, FileDisplayActivity.class);
         showDetailsIntent.setAction(FileDisplayActivity.ACTION_DETAILS);
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT,
@@ -358,7 +363,6 @@ public class PreviewImageActivity extends FileActivity implements
         startActivity(showDetailsIntent);
         int pos = mPreviewImagePagerAdapter.getFilePosition(file);
         file = mPreviewImagePagerAdapter.getFileAt(pos);
-        
     }
 
     private void requestForDownload(OCFile file) {
@@ -509,14 +513,15 @@ public class PreviewImageActivity extends FileActivity implements
             if (file == null) {
                 throw new IllegalStateException("Instanced with a NULL OCFile");
             }
-            if (!file.isImage()) {
+            if (!MimeTypeUtil.isImage(file)) {
                 throw new IllegalArgumentException("Non-image file passed as argument");
             }
             
             // Update file according to DB file, if it is possible
-            if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID)            
+            if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID) {
                 file = getStorageManager().getFileById(file.getFileId());
-            
+            }
+
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
                 setFile(file);  // reset after getting it fresh from storageManager

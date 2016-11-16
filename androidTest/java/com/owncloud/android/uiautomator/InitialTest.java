@@ -59,7 +59,6 @@ public class InitialTest {
     public void initializeDevice() {
         // Initialize UiDevice instance
         mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
-
     }
 
     @Test
@@ -114,7 +113,6 @@ public class InitialTest {
         context.startActivity(intent);
 
         clickByText(SETTINGS_DATA_USAGE_OPTION);
-
     }
 
     /**
@@ -134,24 +132,26 @@ public class InitialTest {
     }
 
     /**
-     * Helper to click on objects that match the content-description text
+     * Helper to click on objects that match the content-description text.
      *
-     * @param text
+     * @param description the description
      * @throws UiObjectNotFoundException
      */
-    private void clickByDescription(String text) throws UiObjectNotFoundException {
-        UiObject obj = new UiObject(new UiSelector().description(text));
+    private void clickByDescription(String description) throws UiObjectNotFoundException {
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        UiObject obj = device.findObject(new UiSelector().description(description));
         obj.clickAndWaitForNewWindow();
     }
 
     /**
-     * Helper to click on object that match the text value
+     * Helper to click on object that match the text value.
      *
-     * @param text
+     * @param text the text
      * @throws UiObjectNotFoundException
      */
     private void clickByText(String text) throws UiObjectNotFoundException {
-        UiObject obj = new UiObject(new UiSelector().text(text));
+        UiDevice device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
+        UiObject obj = device.findObject(new UiSelector().text(text));
         obj.clickAndWaitForNewWindow();
     }
 }

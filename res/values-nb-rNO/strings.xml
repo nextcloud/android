@@ -13,25 +13,36 @@
     <string name="actionbar_send_file">Send</string>
     <string name="actionbar_sort">Sorter</string>
     <string name="actionbar_sort_title">Sorter etter</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Nyest - Eldst</string>
+    <string name="menu_item_sort_by_size">Størst - Minst</string>
     <string name="drawer_item_all_files">Alle filer</string>
+    <string name="drawer_item_on_device">På enheten</string>
     <string name="drawer_item_settings">Innstillinger</string>
     <string name="drawer_item_uploads_list">Opplastinger</string>
-    <string name="drawer_close">Lukk</string>
+    <string name="drawer_quota">%1$s av %2$s brukt</string>
+	<string name="drawer_close">Lukk</string>
     <string name="drawer_open">Åpne</string>
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
     <string name="prefs_accounts">Kontoer</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
     <string name="prefs_passcode">Passordlås</string>
+    <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_instant_upload">Umiddelbare bildeopplastninger</string>
     <string name="prefs_instant_upload_summary">Last opp bilder tatt av kameraet umiddelbart</string>
-    <string name="prefs_instant_video_upload">Umiddelbare video-opplastninger</string>
-    <string name="prefs_instant_video_upload_summary">Last opp videoer tatt opp av kameraet umiddelbart</string>
+    <string name="prefs_instant_video_upload">Umiddelbar opplasting av filmer</string>
+    <string name="prefs_instant_video_upload_summary">Last opp filmer tatt opp av kameraet umiddelbart</string>
     <string name="prefs_log_title">Aktiver loggføring</string>
     <string name="prefs_log_summary">Denne er brukt til å loggføre problemer</string>
     <string name="prefs_log_title_history">Loggføringshistorikk</string>
     <string name="prefs_log_summary_history">Denne viser de lagrede loggene</string>
     <string name="prefs_log_delete_history_button">Slett historikk</string>
+    <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
+    <string name="prefs_calendar_contacts_summary">Sett opp DAVdroid (v1.3.0+) for nåværende konto</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Tjeneradressen for kontoen ble ikke funnet for DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Ingen Google Play butikk eller F-Droid app er installert</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
     <string name="prefs_help">Hjelp</string>
     <string name="prefs_recommend">Anbefal til en venn</string>
     <string name="prefs_feedback">Tilbakemelding</string>
@@ -42,18 +53,31 @@
 	<string name="recommend_subject">Prøv %1$s på smarttelefonen din!</string>
 	<string name="recommend_text">Jeg ønsker å invitere deg til å bruke %1$s på smarttelefonen din!\nLast ned her: %2$s</string>
 
-    <string name="auth_check_server">Sjekk server</string>
-    <string name="auth_host_url">Serveradresse https://...</string>
+    <string name="auth_check_server">Sjekk tjener</string>
+    <string name="auth_host_url">Tjeneradresse https://...</string>
     <string name="auth_username">Brukernavn</string>
     <string name="auth_password">Passord</string>
     <string name="auth_register">Ny med %1$s?</string>
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Koble til</string>
     <string name="uploader_btn_upload_text">Last opp</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Opprett tekstfil</string>
+    <string name="uploader_top_message">Velg opplastingsmappe</string>
     <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
     <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s-kontoer på enheten din. Sett opp en konto først.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Oppsett</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Avslutt</string>
+    <string name="uploader_error_title_no_file_to_upload">Ingen fil å laste opp</string>
+    <string name="uploader_error_message_received_piece_of_text">%1$s kan ikke laste opp tekst som en fil.</string>
+    <string name="uploader_error_message_no_file_to_upload">Mottatte data inneholder ingen gyldig fil.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Filen kan ikke lastes opp</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s er har ikke tilgang til å se mottatt fil</string>
+    <string name="uploader_error_message_source_file_not_found">Filen som skulle lastes opp ble ikke funnet der den skulle være. Vennligst sjekk at filen finnes.</string>
+    <string name="uploader_error_message_source_file_not_copied">En feil oppstod under kopiering av filen til en midlertidig mappe. Vennligst prøv å sende på nytt.</string>
+    <string name="uploader_upload_files_behaviour">Alternativer for opplasting:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytt filen til Nextcloud mappen</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Behold filen i kildemappe</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slett filen fra kildemappen</string>
     <string name="file_list_seconds_ago">for få sekunder siden</string>
     <string name="file_list_empty">Ingenting her. Last opp noe!</string>
     <string name="file_list_loading">Laster...</string>
@@ -87,9 +111,11 @@
     <string name="common_loading">Laster...</string>
     <string name="common_unknown">ukjent</string>
     <string name="common_error_unknown">Ukjent feil</string>
+    <string name="common_pending">Venter</string>
     <string name="about_title">Om</string>
     <string name="change_password">Endre passord</string>
     <string name="delete_account">Fjern konto</string>
+    <string name="delete_account_warning">Vil du slette kontoen %s?\\n\\nSletting kan ikke angres.</string>
     <string name="create_account">Opprett konto</string>
     <string name="upload_chooser_title">Last opp fra...</string>
     <string name="uploader_info_dirname">Mappenavn</string>
@@ -172,7 +198,7 @@
     <string name="media_err_unknown">Mediafilen kan ikke spilles med standard mediaspiller</string>
     <string name="media_err_security_ex">Sikkerhetsfeil under avspilling av %1$s</string>
     <string name="media_err_io_ex">Inputfeil under avspilling av %1$s</string>
-    <string name="media_err_unexpected">Uforventet feil under avspilling av %1$s</string>
+    <string name="media_err_unexpected">Uventet feil under avspilling av %1$s</string>
     <string name="media_rewind_description">Spol tilbake</string>
     <string name="media_play_pause_description">Spill eller pause</string>
     <string name="media_forward_description">Spol fremover</string>
@@ -183,36 +209,39 @@
 	<string name="auth_nossl_plain_ok_title">Sikker tilkobling ikke tilgjengelig.</string>
 	<string name="auth_connection_established">Tilkobling opprettet</string>
 	<string name="auth_testing_connection">Tester forbindelsen</string>
-	<string name="auth_not_configured_title">Feil i server konfigurasjon</string>
-	<string name="auth_account_not_new">En konto for samme bruker og server finnes allerede på enheten</string>
+	<string name="auth_not_configured_title">Feil i tjenerkonfigurasjon</string>
+	<string name="auth_account_not_new">En konto for samme bruker og tjener finnes allerede på enheten</string>
 	<string name="auth_account_not_the_same">Den innskrevne brukeren matcher ikke brukeren av denne kontoen</string>
 	<string name="auth_unknown_error_title">Ukjent feil oppstod!</string>
 	<string name="auth_unknown_host_title">Fant ikke tjener</string>
-	<string name="auth_incorrect_path_title">Finner ikke server instans</string>
-	<string name="auth_timeout_title">Serveren brukte for lang tid på å svare</string>
-	<string name="auth_incorrect_address_title">Feil format på server-adresse</string>
+	<string name="auth_incorrect_path_title">Finner ikke tjenerinstans</string>
+	<string name="auth_timeout_title">Tjeneren brukte for lang tid på å svare</string>
+	<string name="auth_incorrect_address_title">Feil format på tjeneradresse</string>
 	<string name="auth_ssl_general_error_title">Oppstart av SSL feilet</string>
-	<string name="auth_ssl_unverified_server_title">Kunne ikke verifisere SSL-serverens identitet</string>
-	<string name="auth_bad_oc_version_title">Ukjent server versjon</string>
+	<string name="auth_ssl_unverified_server_title">Kunne ikke verifisere SSL-tjenerens identitet</string>
+	<string name="auth_bad_oc_version_title">Ukjent tjenerversjon</string>
 	<string name="auth_wrong_connection_title">Klarte ikke å opprette tilkobling</string>
 	<string name="auth_secure_connection">Sikker tilkobling opprettet</string>
 	<string name="auth_unauthorized">Feil brukernavn eller passord</string>
 	<string name="auth_oauth_error">Mislykket autorisasjon</string>
-	<string name="auth_oauth_error_access_denied">Tilgang nektet av autorisasjonsserver</string>
-	<string name="auth_wtf_reenter_URL">Uventet tilstand. Legg inn server-adressen på nytt</string>
+	<string name="auth_oauth_error_access_denied">Tilgang nektet av autorisasjonstjener</string>
+	<string name="auth_wtf_reenter_URL">Uventet tilstand. Legg inn tjeneradressen på nytt</string>
 	<string name="auth_expired_oauth_token_toast">Autorisasjonen din har gått ut. Vennligt autoriser igjen</string>
 	<string name="auth_expired_basic_auth_toast">Legg inn nåværende passord</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesjonen din har gått ut. Vennligst koble til igjen</string>
-	<string name="auth_connecting_auth_server">Kobler til autentiserings-server ..</string>
-	<string name="auth_unsupported_auth_method">Serveren støtter ikke denne autorisasjonsmetoden</string>
+	<string name="auth_connecting_auth_server">Kobler til autentiseringstjener..</string>
+	<string name="auth_unsupported_auth_method">Tjeneren støtter ikke denne autorisasjonsmetoden</string>
 	<string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
 	<string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, vennligst ta kontakt med en administrator
 	</string>
-	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne serveren</string>
+	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne tjeneren</string>
     <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
     
+    <string name="favorite">Sett som tilgjengelig frakoblet</string>
+    <string name="unfavorite">Fjern som tilgjengelig frakoblet</string>
     <string name="common_rename">Endre navn</string>
     <string name="common_remove">Fjern</string>
+    <string name="confirmation_remove_file_alert">Vil du virkelig fjerne %1$s?</string>
     <string name="confirmation_remove_folder_alert">Vil du virkelig fjerne %1$s inkludert innholdet?</string>
     <string name="confirmation_remove_local">Kun lokalt</string>
     <string name="remove_success_msg">Fjerning var vellykket</string>
@@ -228,18 +257,18 @@
     <string name="filename_empty">Filnavn kan ikke være tomt</string>
     <string name="wait_a_moment">Vent et øyeblikk</string>
     <string name="wait_checking_credentials">Sjekker lagrede påloggingsdetaljer</string>
-    <string name="filedisplay_unexpected_bad_get_content">Uforventet problem; vennligst velg filen fra en annen applikasjon</string>
+    <string name="filedisplay_unexpected_bad_get_content">Uventet problem; vennligst velg filen fra en annen applikasjon</string>
     <string name="filedisplay_no_file_selected">Ingen fil ble valgt</string>
     <string name="activity_chooser_title">Send lenke til ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager</string>
     
     <string name="oauth_check_onoff">Logg inn med oAuth2</string> 
-    <string name="oauth_login_connection">Kobler til oAuth2 server...</string>    
+    <string name="oauth_login_connection">Kobler til oAuth2 tjener...</string>    
         
     <string name="ssl_validator_header">Identiteten til siden kunne ikke verifiseres</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- Serverens sertifikat er ikke til å stole på</string>
-    <string name="ssl_validator_reason_cert_expired">- Serverens sertifikat er utløpt</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- Server-sertifikatets gyldige datoer er i fremtiden</string>
+    <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
+    <string name="ssl_validator_reason_cert_expired">- Tjenerens sertifikat er utløpt</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- Tjenersertifikatets gyldige datoer er i fremtiden</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Nettadressen samsvarer ikke med vertsnavnet i sertifikatet</string>
     <string name="ssl_validator_question">Vil du stole på dette sertifikatet likevel?</string>
     <string name="ssl_validator_not_saved">Sertifikatet kunne ikke lagres</string>
@@ -272,19 +301,25 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="instant_upload_on_wifi">Last opp bilder kun via WiFi</string>
-    <string name="instant_video_upload_on_wifi">Last opp videoer kun via WiFi</string>
+    <string name="instant_video_upload_on_wifi">Last kun opp filmer via WiFi</string>
+    <string name="instant_video_upload_on_charging">Last kun opp under lading</string>
+    <string name="instant_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
     <string name="conflict_title">Filkonflikt</string>
     <string name="conflict_message">Hvilke filer ønsker du å beholder? Hvis du velger begge versjonene, får den lokale filen lagt til et tall i navnet.</string>
     <string name="conflict_keep_both">Behold begge</string>
     <string name="conflict_use_local_version">lokal versjon</string>
-    <string name="conflict_use_server_version">server-versjon</string>
+    <string name="conflict_use_server_version">tjenerversjon</string>
     
     <string name="preview_image_description">Bildeforhåndsvisning</string>
     <string name="preview_image_error_unknown_format">Dette bildet kan ikke vises</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til lokal mappe %2$s</string>
-    <string name="share_link_no_support_share_api">Beklager, deling er ikke skrudd på for din tjener. Ta kontakt med
+    <string name="prefs_instant_upload_path_title">Mappe for umiddelbar opplasting</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre filer i undermapper basert på år og måned</string>
+
+	<string name="share_link_no_support_share_api">Beklager, deling er ikke skrudd på for din tjener. Ta kontakt med
 		administratoren.</string>
 	<string name="share_link_file_no_exist">Kan ikke dele. Sjekk om filen eksisterer.</string>
 	<string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen</string>
@@ -299,12 +334,16 @@
 
     <string name="copy_link">Kopier lenke</string>
     <string name="clipboard_text_copied">Kopiert til utklippstavlen</string>
+    <string name="clipboard_no_text_to_copy">Ingen tekst ble mottatt for kopi til utklippstavlen</string>
+    <string name="clipboard_uxexpected_error">Uventet feil ved kopiering til utklippstavle</string>
+    <string name="clipboard_label">Teksten ble kopiert fra %1$s</string>
+
     <string name="error_cant_bind_to_operations_service">Kritisk feil: kan ikke utføre operasjonene</string>
 
-    <string name="network_error_socket_exception">En feil oppstod ved oppretting av forbindelse til serveren.</string>
-    <string name="network_error_socket_timeout_exception">En feil oppstod ved venting på svar fra serveren. Operasjonen kunne ikke utføres</string>
-    <string name="network_error_connect_timeout_exception">En feil oppstod ved venting på svar fra serveren. Operasjonen kunne ikke utføres</string>
-    <string name="network_host_not_available">Operasjonen kunne ikke fullføres. Server utilgjengelig</string>
+    <string name="network_error_socket_exception">En feil oppstod ved oppretting av forbindelse til tjeneren.</string>
+    <string name="network_error_socket_timeout_exception">En feil oppstod ved venting på svar fra tjeneren. Operasjonen kunne ikke utføres</string>
+    <string name="network_error_connect_timeout_exception">En feil oppstod ved venting på svar fra tjeneren. Operasjonen kunne ikke utføres</string>
+    <string name="network_host_not_available">Operasjonen kunne ikke fullføres. Tjeneren er utilgjengelig</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Du har ikke tillatelse til %s</string>
@@ -315,14 +354,34 @@
     <string name="update_link_forbidden_permissions">å oppdatere denne delingen</string>
     <string name="forbidden_permissions_create">å opprette filen</string>
     <string name="uploader_upload_forbidden_permissions">å laste opp i denne mappen</string>
-    <string name="downloader_download_file_not_found">Filen finnes ikke på serveren lenger</string>
+    <string name="downloader_download_file_not_found">Filen finnes ikke på tjeneren lenger</string>
+
+    <string name="file_migration_finish_button">Fullfør</string>
+    <string name="file_migration_preparing">Forebereder migrering&#8230;</string>
+    <string name="file_migration_checking_destination">Sjekker mål&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Lagrer kontokonfigurasjon&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Venter på uferdig synkronisering&#8230;</string>
+    <string name="file_migration_migrating">Flytter data&#8230;</string>
+    <string name="file_migration_updating_index">Oppdaterer index&#8230;</string>
+    <string name="file_migration_cleaning">Rydder&#8230;</string>
+    <string name="file_migration_ok_finished">Fullført</string>
+    <string name="file_migration_failed_not_enough_space">FEIL: Ikke nok plass</string>
+    <string name="file_migration_failed_not_writable">FEIL: Filen er skrivebeskyttet</string>
+    <string name="file_migration_failed_not_readable">FEIL: er ikke lesbar</string>
+    <string name="file_migration_failed_dir_already_exists">FEIL: Nextcloudmappen finnes allerede</string>
+    <string name="file_migration_failed_while_coping">FEIL: Under migrering</string>
+    <string name="file_migration_failed_while_updating_index">FEIL: Under oppdatering av indeks</string>
+
+    <string name="file_migration_override_data_folder">Overstyr</string>
+    <string name="file_migration_use_data_folder">Bruk eksisterende</string>
 
     <string name="prefs_category_accounts">Kontoer</string>
     <string name="prefs_add_account">Legg til en konto</string>
+    <string name="drawer_manage_accounts">Håndter kontoer</string>
     <string name="auth_redirect_non_secure_connection_title">Sikker tilkobling videresendes gjennom en usikker rute.</string>
 
 	<string name="actionbar_logger">Logger</string>
-	<string name="log_send_history_button">Send historik</string>
+	<string name="log_send_history_button">Send historikk </string>
 	<string name="log_send_no_mail_app">Ingen app for sending av logger funnet. Installer epost-app.</string>
 	<string name="log_send_mail_subject">%1$s Android app logger</string>
 	<string name="log_progress_dialog_text">Laster data ...</string>
@@ -330,6 +389,7 @@
 	<string name="saml_authentication_required_text">Autentisering kreves</string>
 	<string name="saml_authentication_wrong_pass">Feil passord</string>
 	<string name="actionbar_move">Flytt</string>
+    <string name="actionbar_copy">Kopier</string>
 	<string name="file_list_empty_moving">Ingenting her. Du kan legge til en mappe!</string>
 	<string name="folder_picker_choose_button_text">Velg</string>
 
@@ -349,16 +409,17 @@
     <string name="prefs_category_instant_uploading">Umiddelbare opplastinger</string>
     <string name="prefs_category_details">Detaljer</string>
 
-	<string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke fullføres</string>
+	<string name="prefs_instant_video_upload_path_title">Mappe for umiddelbar opplasting av filmer</string>
+    <string name="sync_folder_failed_content">Synkronisering av %1$s mappe kunne ikke fullføres</string>
 
-	<string name="shared_subject_header">delte</string>
+	<string name="shared_subject_header">delt</string>
 	<string name="with_you_subject_header">med deg</string>
     
 	<string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
     <string name="subject_shared_with_you">\"%1$s\" er blitt delt med deg</string>
 
     <string name="auth_refresh_button">Oppfrisk forbindelse</string>
-    <string name="auth_host_address">Server-adresse</string>
+    <string name="auth_host_address">Tjeneradresse</string>
     <string name="common_error_out_memory">Ikke nok minne</string>
 
     <string name="username">Brukernavn</string>
@@ -375,8 +436,14 @@
     <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli&#8230;</string>
     <string name="upload_copy_files">Kopier fil</string>
     <string name="upload_move_files">Flytt fil</string>
+    <string name="select_all">Velg alle</string>
+
     <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>
     <string name="pref_behaviour_entries_move">flyttet til app-mappe</string>
+    <string name="pref_behaviour_entries_delete_file">slettet</string>
+    <string name="prefs_storage_path">Lagrings-sti</string>
+    <string name="prefs_common">Felles</string>
+
     <string name="share_dialog_title">Deling</string>
     <string name="share_file">Del %1$s</string>
     <string name="share_with_user_section_title">Del med brukere og grupper</string>
@@ -387,6 +454,7 @@
     <string name="share_via_link_password_label">Passordbeskyttet</string>
     <string name="share_via_link_password_title">Sikret</string>
     <string name="share_via_link_edit_permission_label">Tillat redigering</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Skjul filliste</string>
     <string name="share_get_public_link_button">Hent lenke</string>
     <string name="share_with_title">Del med ...</string>
     <string name="share_with_edit_title">Del med %1$s</string>
@@ -398,8 +466,8 @@
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
-    <string name="share_sharee_unavailable">Beklager, server-versjonen din tillater ikke klienter å dele med brukere.
-        \nKontakt systemadministratoren</string>
+    <string name="share_sharee_unavailable">Beklager, tjenerversjonen din tillater ikke klienter å dele med brukere.
+        \\nKontakt systemadministratoren</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan endre</string>
     <string name="share_privilege_can_edit_create">opprette</string>
@@ -417,8 +485,44 @@
     <string name="action_switch_list_view">Listevisning</string>
 
     <string name="manage_space_title">Håndter plass</string>
+    <string name="manage_space_description">Innstillinger, database og tjenersertifikater fra %1$s\'s filer vil bli slettet. \\n\\nNedlastede filer blir urørt.\\n\\nDette kan ta noe tid.</string>
     <string name="manage_space_clear_data">Nullstill data</string>
     <string name="manage_space_error">Noen filer kunne ikke fjernes.</string>
 
     <string name="permission_storage_access">Flere tillatelser trengs for å laste opp &amp; ned filer.</string>
-    </resources>
+    <string name="local_file_not_found_toast">Filen ble ikke funnet i lokalt filsystem</string>
+    <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
+    <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Venter på lading av enhet.</string>
+    <string name="actionbar_search">Søk</string>
+    <string name="files_drop_not_supported">Dette er en Nextcloud funksjon, vennligst oppdater.</string>
+    <string name="learn_more">Lær mer</string>
+    <string name="drawer_participate">Delta</string>
+    <string name="participate_testing_headline">Hjelp oss å teste</string>
+    <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
+    <string name="participate_testing_report_text">Meld en feil på Github</string>
+    <string name="participate_testing_version_text">Er du interessert i å hjelpe oss å teste ned neste versjonen?</string>
+    <string name="participate_beta_headline">Test Betaversjonen</string>
+    <string name="participate_beta_text">Dette inkludere alle kommende funksjoner og er helt på kanten. Feil/Feilmeldinger
+kan oppstå og hvis de gjør, vennligst meld de til oss. &lt;br/>&lt;a href=\"%2$s\">Last ned APK&lt;/a>
+
+eller</string>
+    <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_release_candidate_text">Release candidate (RC) er en pakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett vil kunne hjelpe oss å sikre dette. Meld deg på for testen i Play butikken eller se i versjonsseksjonen i F-Droid.</string>
+    <string name="participate_contribute_headline">Bidra aktivt</string>
+    <string name="participate_contribute_irc_text">Delta i chat på IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a> </string>
+    <string name="participate_contribute_forum_text">Hjelp andre i  &lt;a href=\"%1$s>forumet&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Oversett&lt;/a> appen</string>
+    <string name="participate_contribute_github_text">Bidra som en utvikler, se &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> for detaljer</string>
+    <string name="move_to">Flytt til&#8230;</string>
+    <string name="copy_to">Kopier til&#8230;</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d valgt</item>
+        <item quantity="other">%d valgte</item>
+    </plurals>
+
+    <string name="storage_description_default">Standard</string>
+    <string name="storage_description_sd_no">SD kort %1$d</string>
+    <string name="storage_description_unknown">Ukjent</string>
+
+</resources>

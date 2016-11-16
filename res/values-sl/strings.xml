@@ -37,6 +37,11 @@
     <string name="prefs_log_title_history">Zgodovina beleženja</string>
     <string name="prefs_log_summary_history">Pokaže shranjene dnevnike</string>
     <string name="prefs_log_delete_history_button">Izbriši zgodovino</string>
+    <string name="prefs_calendar_contacts">Nastavi sinhronizacijo koledarja in kontaktov</string>
+    <string name="prefs_calendar_contacts_summary">Nastavi DAVdroid (v1.3.0+) za trenutno uporabljen račun</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Naslov strežnika za račun ne more biti razrešena za DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Ne Google Play, ne F-Droid nista nameščena</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Sinhronizacija koledarja in kontaktov uspešno nastavljena</string>
     <string name="prefs_help">Pomoč</string>
     <string name="prefs_recommend">Priporoči prijateljem</string>
     <string name="prefs_feedback">Pošlji sporočilo razvijalcem programa</string>
@@ -68,6 +73,10 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s nima ustreznih dovoljen za prejemanje datoteke</string>
     <string name="uploader_error_message_source_file_not_found">Datoteke za pošiljanje ni mogoče najti na določenem mestu. Preverite, ali datoteka obstaja.</string>
     <string name="uploader_error_message_source_file_not_copied">Prišlo je do napake med kopiranjem datoteke v začasno mapo. Poskusite znova poslati kasneje.</string>
+    <string name="uploader_upload_files_behaviour">Nastavitev nalaganja:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Premakni datoteko v mapo Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Ohrani datoteko v izvorni mapi</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Pobriši datoteko iz izvorne mape</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
     <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
     <string name="file_list_loading">Poteka nalaganje ...</string>
@@ -360,7 +369,7 @@
 	<string name="saml_authentication_required_text">Zahtevana je overitev</string>
 	<string name="saml_authentication_wrong_pass">Napačno geslo</string>
 	<string name="actionbar_move">Premakni</string>
-	<string name="file_list_empty_moving">Ni vsebine in datotek. Lahko ustvarite na primer mapo.</string>
+    <string name="file_list_empty_moving">Ni vsebine in datotek. Lahko ustvarite na primer mapo.</string>
 	<string name="folder_picker_choose_button_text">Izbor</string>
 
     <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preverite, ali obstaja.</string>
@@ -411,7 +420,6 @@
     <string name="pref_behaviour_entries_keep_file">ohrani v izvorni mapi</string>
     <string name="pref_behaviour_entries_move">premakni v mapo programa</string>
     <string name="pref_behaviour_entries_delete_file">pobrisano</string>
-
     <string name="share_dialog_title">Souporaba</string>
     <string name="share_file">Omogoči souporabo %1$s</string>
     <string name="share_with_user_section_title">Omogoči souporabo s skupino ali z uporabnikom</string>
@@ -473,6 +481,9 @@
     <string name="participate_beta_headline">Testiraj beta verzijo</string>
     <string name="participate_release_candidate_headline">Kandidat za objavo</string>
     <string name="participate_contribute_headline">Aktivni prispevek</string>
+    <string name="participate_contribute_forum_text">Pomagaj drugim na &lt;a href=\"%1$s>forumu&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Prevedi&lt;/a> aplikacijo</string>
+    <string name="participate_contribute_github_text">Prispevaj kot razvijalec, poglej detajle v &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <plurals name="items_selected_count">
         <item quantity="one">%d izbran</item>
         <item quantity="two">%d izbrana</item>
@@ -480,4 +491,4 @@
         <item quantity="other">%d izbranih</item>
     </plurals>
 
-</resources>
+    </resources>

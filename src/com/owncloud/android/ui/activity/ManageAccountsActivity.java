@@ -32,12 +32,17 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.owncloud.android.MainApp;
@@ -45,13 +50,13 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.files.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.AccountListAdapter;
 import com.owncloud.android.ui.adapter.AccountListItem;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -70,15 +75,18 @@ public class ManageAccountsActivity extends FileActivity
     private final Handler mHandler = new Handler();
     private String mAccountName;
     private AccountListAdapter mAccountListAdapter;
-    protected FileUploader.FileUploaderBinder mUploaderBinder = null;
-    protected FileDownloader.FileDownloaderBinder mDownloaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
     Set<String> mOriginalAccounts;
     String mOriginalCurrentAccount;
+    private Drawable mTintedCheck;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mTintedCheck = DrawableCompat.wrap(ContextCompat.getDrawable(this, R.drawable.ic_account_circle_white_18dp));
+        int tint = ContextCompat.getColor(this, R.color.primary);
+        DrawableCompat.setTint(mTintedCheck, tint);
 
         setContentView(R.layout.accounts_layout);
 
@@ -94,9 +102,16 @@ public class ManageAccountsActivity extends FileActivity
         setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
         onAccountSet(false);
 
-        mAccountListAdapter = new AccountListAdapter(this, getAccountListItems());
+        mAccountListAdapter = new AccountListAdapter(this, getAccountListItems(), mTintedCheck);
 
         mListView.setAdapter(mAccountListAdapter);
+
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switchAccount(mAccountListAdapter.getItem(position).getAccount());
+            }
+        });
 
         initializeComponentGetters();
     }
@@ -108,7 +123,7 @@ public class ManageAccountsActivity extends FileActivity
      * @return set of account names
      */
     private Set<String> toAccountNameSet(Account[] accountList) {
-        Set<String> actualAccounts = new HashSet<String>(accountList.length);
+        Set<String> actualAccounts = new HashSet<>(accountList.length);
         for (Account account : accountList) {
             actualAccounts.add(account.name);
         }
@@ -143,7 +158,7 @@ public class ManageAccountsActivity extends FileActivity
      */
     private boolean hasCurrentAccountChanged() {
         Account account = AccountUtils.getCurrentOwnCloudAccount(this);
-        if (account == null){
+        if (account == null) {
             return true;
         } else {
             return !mOriginalCurrentAccount.equals(account.name);
@@ -231,8 +246,11 @@ public class ManageAccountsActivity extends FileActivity
                                 Bundle result = future.getResult();
                                 String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
                                 AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
-                                mAccountListAdapter = new AccountListAdapter(ManageAccountsActivity
-                                        .this, getAccountListItems());
+                                mAccountListAdapter = new AccountListAdapter(
+                                    ManageAccountsActivity.this,
+                                    getAccountListItems(),
+                                    mTintedCheck
+                                );
                                 mListView.setAdapter(mAccountListAdapter);
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -248,6 +266,20 @@ public class ManageAccountsActivity extends FileActivity
                         }
                     }
                 }, mHandler);
+    }
+
+    public void switchAccount(Account account) {
+        if (getAccount().name.equals(account.name)) {
+            // current account selected, just go back
+            finish();
+        } else {
+            // restart list of files with new account
+            AccountUtils.setCurrentOwnCloudAccount(ManageAccountsActivity.this, account.name);
+            Intent i = new Intent(ManageAccountsActivity.this, FileDisplayActivity.class);
+            i.putExtra(FileActivity.EXTRA_ACCOUNT, account);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(i);
+        }
     }
 
     @Override
@@ -274,7 +306,7 @@ public class ManageAccountsActivity extends FileActivity
                 AccountUtils.setCurrentOwnCloudAccount(this, accountName);
             }
 
-            mAccountListAdapter = new AccountListAdapter(this, getAccountListItems());
+            mAccountListAdapter = new AccountListAdapter(this, getAccountListItems(), mTintedCheck);
             mListView.setAdapter(mAccountListAdapter);
         }
     }
@@ -294,12 +326,6 @@ public class ManageAccountsActivity extends FileActivity
     }
 
     public Handler getHandler() { return mHandler; }
-
-    // Methods for ComponentsGetter
-    @Override
-    public FileDownloader.FileDownloaderBinder getFileDownloaderBinder() {
-        return mDownloaderBinder;
-    }
 
     @Override
     public FileUploader.FileUploaderBinder getFileUploaderBinder() {

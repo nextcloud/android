@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Accounts</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
     <string name="prefs_passcode">Toegangscode slot</string>
+    <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_instant_upload">Directe uploads van afbeeldingen</string>
     <string name="prefs_instant_upload_summary">Direct uploaden van foto\'s genomen met de camera</string>
     <string name="prefs_instant_video_upload">Direct uploaden van video\'s</string>
@@ -37,8 +38,8 @@
     <string name="prefs_log_title_history">Logging geschiedenis</string>
     <string name="prefs_log_summary_history">Dit toont de bijgehouden logs</string>
     <string name="prefs_log_delete_history_button">Verwijder geschiedenis</string>
-    <string name="prefs_calendar_contacts">Instellen agenda &amp; contactspersonen sync</string>
-    <string name="prefs_calendar_contacts_summary">Instellen DAVdroid (v1.3.0+) voor huidige gebruikte account</string>
+    <string name="prefs_calendar_contacts">Synchroniseren agenda &amp; contactpersonen</string>
+    <string name="prefs_calendar_contacts_summary">Instellen DAVdroid (v1.3.0+) voor huidige account</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradres voor dit account kon niet worden gevonden voor DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Geen Google Play store of F-Droid app geïnstalleerd</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Agenda &amp; contactpersonen sync succesvol ingesteld</string>
@@ -69,7 +70,7 @@ Download hier: %2$s</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Afsluiten</string>
     <string name="uploader_error_title_no_file_to_upload">Niets te uploaden</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s kan niet een stuk tekst als bestand uploaden.</string>
-    <string name="uploader_error_message_no_file_to_upload">Ontvangen data bevat geen geldig bestand.</string>
+    <string name="uploader_error_message_no_file_to_upload">Ontvangen gegevens bevat geen geldig bestand.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Bestand kan niet worden geüpload</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s is niet toegestaan om een ontvangen bestand te lezen</string>
     <string name="uploader_error_message_source_file_not_found">Het te uploaden bestand is hier niet. Controleer of het bestand wel bestaat.</string>
@@ -358,6 +359,28 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="uploader_upload_forbidden_permissions">om dit bestand in deze map te uploaden</string>
     <string name="downloader_download_file_not_found">Dit bestand is niet langer beschikbaar op de server</string>
 
+    <string name="file_migration_dialog_title">Opslagpad bijwerken</string>
+    <string name="file_migration_finish_button">Afgerond</string>
+    <string name="file_migration_preparing">Voorbereiden van migratie&#8230;</string>
+    <string name="file_migration_checking_destination">Doelmap controleren&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Account configuratie opslaan&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Wachten op onvoltooide synchronisaties&#8230;</string>
+    <string name="file_migration_migrating">Gegevens verplaatsen&#8230;</string>
+    <string name="file_migration_updating_index">Index bijwerken&#8230;</string>
+    <string name="file_migration_cleaning">Schoonmaak&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Account configuratie herstellen&#8230;</string>
+    <string name="file_migration_ok_finished">Afgerond</string>
+    <string name="file_migration_failed_not_enough_space">ERROR: Niet genoeg ruimte</string>
+    <string name="file_migration_failed_not_writable">ERROR: Bestand niet beschrijfbaar</string>
+    <string name="file_migration_failed_not_readable">ERROR: Bestand niet berijkbaar</string>
+    <string name="file_migration_failed_dir_already_exists">ERROR: Nextcloud map bestaat al</string>
+    <string name="file_migration_failed_while_coping">ERROR: Tijdens migratie</string>
+    <string name="file_migration_failed_while_updating_index">ERROR: Tijdens bijwerken index</string>
+
+    <string name="file_migration_directory_already_exists">Folder bestaat al, wat te doen?</string>
+    <string name="file_migration_override_data_folder">Overschrijven</string>
+    <string name="file_migration_use_data_folder">Bestaande gebruiken</string>
+
     <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Toevoegen account</string>
     <string name="drawer_manage_accounts">Beheren accounts</string>
@@ -367,11 +390,12 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
 	<string name="log_send_history_button">Verstuur geschiedenis</string>
 	<string name="log_send_no_mail_app">Geen applicatie gevonden voor het versturen van de logs. Installeer een mail applicatie.</string>
 	<string name="log_send_mail_subject">%1$s Android app logs</string>
-	<string name="log_progress_dialog_text">Laden data …</string>
+	<string name="log_progress_dialog_text">gegevens laden &#8230;</string>
 
 	<string name="saml_authentication_required_text">Authenticatie vereist</string>
 	<string name="saml_authentication_wrong_pass">Onjuist wachtwoord</string>
 	<string name="actionbar_move">Verplaatsen</string>
+    <string name="actionbar_copy">Kopie</string>
 	<string name="file_list_empty_moving">Niets hier. Je kunt een map toevoegen!</string>
 	<string name="folder_picker_choose_button_text">Kies</string>
 
@@ -423,6 +447,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="pref_behaviour_entries_keep_file">bewaard in originele map</string>
     <string name="pref_behaviour_entries_move">verplaatst naar app map</string>
     <string name="pref_behaviour_entries_delete_file">verwijderd</string>
+    <string name="prefs_storage_path">Opslagpad</string>
+    <string name="prefs_common">Gemeenschappelijk</string>
 
     <string name="share_dialog_title">Delen</string>
     <string name="share_file">Deel %1$s</string>
@@ -466,7 +492,7 @@ Neem contact op met je beheerder</string>
 
     <string name="manage_space_title">Beheer ruimte</string>
     <string name="manage_space_description">Instellingen, database en servercertificaten van %1$s\'s data zullen permanent worden verwijderd. \n\nGedownloade bestanden blijven onaangeroerd.\n\nDit proces kan even duren.</string>
-    <string name="manage_space_clear_data">Verwijder data</string>
+    <string name="manage_space_clear_data">Gegevens verwijderen</string>
     <string name="manage_space_error">Sommige bestanden konden niet worden verwijderd</string>
 
     <string name="permission_storage_access">Aanvullende permssies vereist voor het uploaden en downloaden van bestanden.</string>
@@ -493,9 +519,15 @@ of</string>
     <string name="participate_contribute_forum_text">Help anderen op het &lt;a href=\"%1$s>forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Vertaal&lt;/a> de app</string>
     <string name="participate_contribute_github_text">Doe mee als ontwikkelaar, zie &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> voor details</string>
+    <string name="move_to">Verplaats naar&#8230;</string>
+    <string name="copy_to">Kopieer naar&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
+
+    <string name="storage_description_default">Standaard</string>
+    <string name="storage_description_sd_no">SD kaart %1$d</string>
+    <string name="storage_description_unknown">Onbekend</string>
 
 </resources>

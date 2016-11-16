@@ -56,7 +56,6 @@
     <string name="uploader_wrn_no_account_quit_btn_text">ออก</string>
     <string name="uploader_error_title_no_file_to_upload">ไม่พบไฟล์ที่อัพโหลด</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s ไม่สามารถอัพโหลดชิ้นส่วนของข้อความเป็นไฟล์</string>
-    <string name="uploader_error_message_no_file_to_upload">ได้รับข้อมูลที่ไม่ได้รวมถึงไฟล์ที่ถูกต้องใดๆ</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">ไม่สามารถอัพโหลดไฟล์</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s ไม่ได้รับอนุญาตให้อ่านไฟล์ที่ได้รับ</string>
     <string name="uploader_error_message_source_file_not_found">ไม่พบเส้นทางของไฟล์ที่ต้องการอัพโหลด กรุณาตรวจสอบว่ายังมีไฟล์นั่นอยู่</string>
@@ -133,7 +132,6 @@
     <string name="downloader_download_failed_credentials_error">การดาวน์โหลดล้มเหลว คุณจำเป็นต้องเข้าสู่ระบบใหม่อีกครั้ง</string>
     <string name="common_choose_account">เลือกบัญชี</string>
     <string name="sync_fail_ticker">การผสานข้อมูลล้มเหลว</string>
-    <string name="sync_fail_ticker_unauthorized">การผสานข้อมูลล้มเหลว คุณจำเป็นต้องเข้าสู่ระบบใหม่อีกครั้ง</string>
     <string name="sync_fail_content">การผสานข้อมูลของ %1$s ไม่สามารถดำเนินการให้เสร็จสมบูรณฺ์ได้</string>
     <string name="sync_fail_content_unauthorized">รหัสผ่านไม่ถูกต้องสำหรับ %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">ตรวจพบความขัดแย้ง</string>
@@ -150,8 +148,6 @@
     <string name="foreign_files_local_text">ต้นทาง: %1$s</string>
     <string name="foreign_files_remote_text">รีโมท: %1$s</string>
     <string name="upload_query_move_foreign_files">มีพื้นที่เหลือไม่เพียงพอสำหรับคัดลอกไฟล์ที่คุณเลือกไปไว้ในโฟลเดอร์ %1$s คุณต้องการย้ายไฟล์ดังกล่าวแทนหรือไม่?</string>
-    <string name="pass_code_enter_pass_code">กรุณากรอกรหัสผ่านของคุณ</string>
-    
     <string name="pass_code_configure_your_pass_code">ใส่รหัสยืนยันของคุณ</string>
     <string name="pass_code_configure_your_pass_code_explanation">จะมีการร้องขอรหัสยืนยันทุกครั้งเมื่อเริ่มต้นใช้แอพฯ</string>
     <string name="pass_code_reenter_your_pass_code">กรุณากรอกรหัสผ่านของคุณใหม่อีกครั้ง</string>
@@ -230,7 +226,6 @@
     <string name="filename_forbidden_charaters_from_server">มีชื่อแฟ้มอย่างน้อยหนึ่งตัวอักษรที่ไม่ถูกต้อง</string>
     <string name="filename_empty">ต้องใส่ชื่อไฟล์</string>
     <string name="wait_a_moment">กรุณารอสักครู่</string>
-    <string name="filedisplay_unexpected_bad_get_content">มีปัญหาเกิดขึ้น กรุณาเลือกไฟล์งานแอพฯอื่นๆ</string>
     <string name="filedisplay_no_file_selected">ไม่มีไฟล์ที่ถูกเลือก</string>
     <string name="activity_chooser_title">ส่งลิงค์ไปยัง ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">คัดลอกไฟล์จากพื้นที่จัดเก็บส่วนตัว</string>
@@ -303,9 +298,6 @@
     <string name="error_cant_bind_to_operations_service">ข้อผิดพลาด: ไม่สามารถดำเนินการได้</string>
 
     <string name="network_error_socket_exception">เกิดข้อผิดพลาดขณะกำลังเชื่อมต่อกับเซิร์ฟเวอร์</string>
-    <string name="network_error_socket_timeout_exception">เกิดข้อผิดพลาดขณะที่รอการดำเนินการจากเซิร์ฟเวอร์</string>
-    <string name="network_error_connect_timeout_exception">เกิดข้อผิดพลาดขณะที่รอการดำเนินการจากเซิร์ฟเวอร์</string>
-    <string name="network_host_not_available">การดำเนินการอาจยังไม่เสร็จสมบูรณ์ เซิร์ฟเวอร์ไม่สามารถใช้งานได้</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">คุณไม่ได้รับสิทธิ์ %s</string>
@@ -331,7 +323,7 @@
 	<string name="saml_authentication_required_text">จำเป็นต้องยืนยันตัวตน</string>
 	<string name="saml_authentication_wrong_pass">รหัสผ่านไม่ถูกต้อง</string>
 	<string name="actionbar_move">ย้าย</string>
-	<string name="file_list_empty_moving">ไม่มีสิ่งใดในที่นี่ คุณสามารถสร้างโฟลเดอร์!</string>
+    <string name="file_list_empty_moving">ไม่มีสิ่งใดในที่นี่ คุณสามารถสร้างโฟลเดอร์!</string>
 	<string name="folder_picker_choose_button_text">เลือก</string>
 
     <string name="move_file_not_found">ไม่สามารถย้ายไฟล์ กรุณาตรวจสอบว่ายังมีไฟล์นั้นอยู่</string>

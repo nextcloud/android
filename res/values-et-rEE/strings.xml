@@ -133,8 +133,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
     <string name="foreign_files_fail">Mõningaid faile ei saa ümber tõsta</string>
     <string name="foreign_files_local_text">Kohalik: %1$s</string>
     <string name="foreign_files_remote_text">Serveris: %1$s</string>
-    <string name="pass_code_enter_pass_code">Palun sisesta oma parool</string>
-    
     <string name="pass_code_configure_your_pass_code">Sisesta oma parool</string>
     <string name="pass_code_configure_your_pass_code_explanation">Parooli küsitakse iga kord, kui sa selle rakenduse käivitad</string>
     <string name="pass_code_reenter_your_pass_code">Palun sisesta parool uuesti</string>
@@ -207,7 +205,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
     <string name="filename_forbidden_charaters_from_server">Faili nimesonvähemalt üks keelatud märk</string>
     <string name="filename_empty">Faili nime lahter ei saa olla tühi</string>
     <string name="wait_a_moment">Oota hetk</string>
-    <string name="filedisplay_unexpected_bad_get_content">Ootamatu tõrge ; palun kasuta faili valimiseks mõnda teist rakendust</string>
     <string name="filedisplay_no_file_selected">Ühtegi faili pole valitud</string>
     <string name="activity_chooser_title">Saada link</string>
     <string name="wait_for_tmp_copy_from_private_storage">Faili kopeerimine privaatsest salvestusalast</string>
@@ -276,9 +273,6 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
     <string name="error_cant_bind_to_operations_service">Viga: ei suutnud operatsiooni lõpetada</string>
 
     <string name="network_error_socket_exception">Serveriga ühendumisel tekkis tõrge.</string>
-    <string name="network_error_socket_timeout_exception">Serverilt vastuse ootamisel tekkis tõrge, toimingu sooritamine ebaõnnestus</string>
-    <string name="network_error_connect_timeout_exception">Serverilt vastuse ootamisel tekkis tõrge, toimingu sooritamine ebaõnnestus</string>
-    <string name="network_host_not_available">Toimingu lõpetamine ebaõnnestus, server pole saadaval</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">Sul ei ole %s õigusi</string>
@@ -302,7 +296,7 @@ Allpool on loend kohalikest failidest ning serveris asuvatest failidest %5$s, mi
 	<string name="saml_authentication_required_text">Autentimine on vajalik</string>
 	<string name="saml_authentication_wrong_pass">Vale parool</string>
 	<string name="actionbar_move">Tõsta ümber</string>
-	<string name="file_list_empty_moving">Siin pole midagi. Sa võid lisada kausta!</string>
+    <string name="file_list_empty_moving">Siin pole midagi. Sa võid lisada kausta!</string>
 	<string name="folder_picker_choose_button_text">Vali</string>
 
     <string name="move_file_not_found">Liigutamine ebaõnnestus. Palun kontrolli, kas fail on olemas</string>

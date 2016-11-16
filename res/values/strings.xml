@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Accounts</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
     <string name="prefs_passcode">Passcode lock</string>
+    <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_instant_upload">Instant picture uploads</string>
     <string name="prefs_instant_upload_summary">Instantly upload pictures taken by camera</string>
     <string name="prefs_instant_video_upload">Instant video uploads</string>
@@ -37,8 +38,8 @@
     <string name="prefs_log_title_history">Logging history</string>
     <string name="prefs_log_summary_history">This shows the recorded logs</string>
     <string name="prefs_log_delete_history_button">Delete history</string>
-    <string name="prefs_calendar_contacts">Setup calendar &amp; contacts sync</string>
-    <string name="prefs_calendar_contacts_summary">Setup DAVdroid (v1.3.0+) for currently used account</string>
+    <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
+    <string name="prefs_calendar_contacts_summary">Set up DAVdroid (v1.3.0+) for current account</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Server address for account could not be resolved for DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">No Google Play store or F-Droid app installed</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up successfully</string>
@@ -68,7 +69,7 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Quit</string>
     <string name="uploader_error_title_no_file_to_upload">No file to upload</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s cannot upload a piece of text as a file.</string>
-    <string name="uploader_error_message_no_file_to_upload">Received data do not include any valid file.</string>
+    <string name="uploader_error_message_no_file_to_upload">Received data did not include a valid file.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">File cannot be uploaded</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s is not allowed to read a received file</string>
     <string name="uploader_error_message_source_file_not_found">File to upload was not found in its location. Please check whether the file exists.</string>
@@ -154,7 +155,7 @@
     <string name="downloader_download_failed_credentials_error">Download failed, you need to log in again</string>
     <string name="common_choose_account">Choose account</string>
     <string name="sync_fail_ticker">Sync failed</string>
-    <string name="sync_fail_ticker_unauthorized">Sync failed, you need to log in again</string>
+    <string name="sync_fail_ticker_unauthorized">Sync failed; you need to log in again</string>
     <string name="sync_fail_content">Sync of %1$s could not be completed</string>
     <string name="sync_fail_content_unauthorized">Invalid password for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
@@ -171,7 +172,7 @@
     <string name="foreign_files_local_text">"Local: %1$s"</string>
     <string name="foreign_files_remote_text">"Remote: %1$s"</string>
     <string name="upload_query_move_foreign_files">There is not enough space to copy the selected files into the %1$s folder. Would you like to move them instead? </string>
-    <string name="pass_code_enter_pass_code">Please insert your passcode</string>
+    <string name="pass_code_enter_pass_code">Please enter your passcode</string>
     
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
@@ -256,7 +257,7 @@
     <string name="filename_empty">File name cannot be empty</string>
     <string name="wait_a_moment">Wait a moment</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
-    <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem ; please select the file from a different app"</string>
+    <string name="filedisplay_unexpected_bad_get_content">"Unexpected problem; please select the file from a different app"</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>
     <string name="activity_chooser_title">Send link to &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
@@ -340,9 +341,9 @@
     <string name="error_cant_bind_to_operations_service">Critical error: cannot perform operations</string>
 
     <string name="network_error_socket_exception">An error occurred while connecting with the server.</string>
-    <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
-    <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server, the operation couldn\'t have been done</string>
-    <string name="network_host_not_available">The operation couldn\'t be completed, server is unavailable</string>
+    <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
+    <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
+    <string name="network_host_not_available">The operation couldn\'t be completed; server is unavailable</string>
     <string name="empty" />
 
     <string name="forbidden_permissions">You do not have permission %s</string>
@@ -354,6 +355,28 @@
     <string name="forbidden_permissions_create">to create the file</string>
     <string name="uploader_upload_forbidden_permissions">to upload in this folder</string>
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
+
+    <string name="file_migration_dialog_title">Updating storage path</string>
+    <string name="file_migration_finish_button">Finish</string>
+    <string name="file_migration_preparing">Preparing for migration&#8230;</string>
+    <string name="file_migration_checking_destination">Checking destination&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Saving accounts configuration&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Waiting for unfinished synchronizations&#8230;</string>
+    <string name="file_migration_migrating">Moving data&#8230;</string>
+    <string name="file_migration_updating_index">Updating index&#8230;</string>
+    <string name="file_migration_cleaning">Cleaning&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restoring accounts configuration&#8230;</string>
+    <string name="file_migration_ok_finished">Finished</string>
+    <string name="file_migration_failed_not_enough_space">ERROR: Not enough space</string>
+    <string name="file_migration_failed_not_writable">ERROR: File is not writable</string>
+    <string name="file_migration_failed_not_readable">ERROR: File is not readable</string>
+    <string name="file_migration_failed_dir_already_exists">ERROR: Nextcloud directory already exists</string>
+    <string name="file_migration_failed_while_coping">ERROR: While migrating</string>
+    <string name="file_migration_failed_while_updating_index">ERROR: While updating index</string>
+
+    <string name="file_migration_directory_already_exists">Data folder already exists, what to do?</string>
+    <string name="file_migration_override_data_folder">Override</string>
+    <string name="file_migration_use_data_folder">Use existing</string>
 
     <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Add account</string>
@@ -421,6 +444,8 @@
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
+    <string name="prefs_storage_path">Storage path</string>
+    <string name="prefs_common">Common</string>
 
     <string name="share_dialog_title">Sharing</string>
     <string name="share_file">Share %1$s</string>
@@ -504,5 +529,9 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
+
+    <string name="storage_description_default">Default</string>
+    <string name="storage_description_sd_no">SD card %1$d</string>
+    <string name="storage_description_unknown">Unknown</string>
 
 </resources>

@@ -50,7 +50,7 @@ import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.MimetypeIconUtil;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
 import java.util.Vector;
@@ -66,12 +66,11 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
     private Vector<OCFile> mFilesAll = new Vector<OCFile>();
     private Vector<OCFile> mFiles = null;
     private boolean mJustFolders;
+    private boolean mShowHiddenFiles;
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
-
-    private enum ViewType {LIST_ITEM, GRID_IMAGE, GRID_ITEM}
 
     public FileListListAdapter(
             boolean justFolders,
@@ -88,7 +87,10 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
         // Read sorting order, default to sort by name ascending
         FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(mContext);
         FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(mContext);
-        
+
+        // Fetch preferences for showing hidden files
+        mShowHiddenFiles = PreferenceManager.showHiddenFilesEnabled(mContext);
+
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
     }
@@ -110,15 +112,17 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
 
     @Override
     public Object getItem(int position) {
-        if (mFiles == null || mFiles.size() <= position)
+        if (mFiles == null || mFiles.size() <= position) {
             return null;
+        }
         return mFiles.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        if (mFiles == null || mFiles.size() <= position)
+        if (mFiles == null || mFiles.size() <= position) {
             return 0;
+        }
         return mFiles.get(position).getFileId();
     }
 
@@ -142,7 +146,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
         // Find out which layout should be displayed
         ViewType viewType;
         if (parent instanceof GridView) {
-            if (file != null && (file.isImage() || file.isVideo())) {
+            if (file != null && (MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file))) {
                 viewType = ViewType.GRID_IMAGE;
             } else {
                 viewType = ViewType.GRID_ITEM;
@@ -294,13 +298,14 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
 
             // No Folder
             if (!file.isFolder()) {
-                if ((file.isImage() || file.isVideo()) && file.getRemoteId() != null) {
+                if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                     // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                             "t" + String.valueOf(file.getRemoteId())
                     );
                     if (thumbnail != null && !file.needsUpdateThumbnail()) {
-                        if (file.isVideo()) {
+
+                        if (MimeTypeUtil.isVideo(file)) {
                             Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail);
                             fileIcon.setImageBitmap(withOverlay);
                         } else {
@@ -314,7 +319,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                                             fileIcon, mStorageManager, mAccount
                                     );
                             if (thumbnail == null) {
-                                if (file.isVideo()) {
+                                if (MimeTypeUtil.isVideo(file)) {
                                     thumbnail = ThumbnailsCacheManager.mDefaultVideo;
                                 } else {
                                     thumbnail = ThumbnailsCacheManager.mDefaultImg;
@@ -338,7 +343,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
 
 
                 } else {
-                    fileIcon.setImageResource(MimetypeIconUtil.getFileTypeIconId(file.getMimetype(),
+                    fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(file.getMimetype(),
                             file.getFileName()));
                 }
 
@@ -346,7 +351,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
             } else {
                 // Folder
                 fileIcon.setImageResource(
-                        MimetypeIconUtil.getFolderTypeIconId(
+                        MimeTypeUtil.getFolderTypeIconId(
                                 file.isSharedWithMe() || file.isSharedWithSharee(),
                                 file.isSharedViaLink()
                         )
@@ -381,7 +386,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
             , boolean onlyOnDevice) {
-        if (updatedStorageManager != null && updatedStorageManager != mStorageManager) {
+        if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         }
@@ -391,14 +396,15 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
             if (mJustFolders) {
                 mFiles = getFolders(mFiles);
             }
+            if (!mShowHiddenFiles) {
+                mFiles = filterHiddenFiles(mFiles);
+            }
+            mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            mFilesAll.addAll(mFiles);
         } else {
             mFiles = null;
+            mFilesAll.clear();
         }
-
-        mFiles = FileStorageUtils.sortOcFolder(mFiles);
-
-        mFilesAll.clear();
-        mFilesAll.addAll(mFiles);
 
         notifyDataSetChanged();
     }
@@ -467,4 +473,23 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
         }
         notifyDataSetChanged();
     }
+
+    /**
+     * Filter for hidden files
+     *
+     * @param files             Collection of files to filter
+     * @return                  Non-hidden files
+     */
+    public Vector<OCFile> filterHiddenFiles(Vector<OCFile> files) {
+        Vector<OCFile> ret = new Vector<>();
+        OCFile current;
+        for (int i = 0; i < files.size(); i++) {
+            current = files.get(i);
+            if (!current.isHidden()) {
+                ret.add(current);
+            }
+        }
+        return ret;
+    }
+
 }
