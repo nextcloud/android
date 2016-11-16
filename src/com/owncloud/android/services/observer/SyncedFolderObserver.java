@@ -55,10 +55,6 @@ class SyncedFolderObserver extends RecursiveFileObserver {
 
             JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
-            for (JobInfo job: js.getAllPendingJobs()){
-                Log_OC.d(TAG, "pending job: " + job.getExtras().get("filePath"));
-            }
-
             Long date = new Date().getTime();
             JobInfo job = new JobInfo.Builder(
                     date.intValue(),
