@@ -167,8 +167,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
             setupQuotaElement();
 
-            // show folder sync menu item only for Android 5+
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            // show folder sync menu item only for Android 7+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                 mNavigationView.getMenu().removeItem(R.id.nav_folder_sync);
             }
         }
@@ -246,11 +246,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         // ruining the generic avatars, so tinting for icons is deactivated pre lollipop
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             navigationView.setItemIconTintList(null);
-        }
-
-        // hide Auto Sync for pre Nougat version
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            navigationView.getMenu().removeItem(R.id.nav_folder_sync);
         }
 
         // setup actions for drawer menu items
