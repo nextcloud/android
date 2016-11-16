@@ -58,13 +58,15 @@ public class VDCStoragePointProvider extends AbstractCommandLineStoragePoint {
             String vdcLine[] = line.split(" ");
             try {
                 int status = Integer.parseInt(vdcLine[0]);
-                if (status != sVDCVolumeList)
+                if (status != sVDCVolumeList) {
                     continue;
+                }
                 final String description = vdcLine[1];
                 final String path = vdcLine[2];
 
-                if (canBeAddedToAvailableList(result, path))
+                if (canBeAddedToAvailableList(result, path)) {
                     result.add(new StoragePoint(description, path));
+                }
 
             } catch (NumberFormatException e) {
                 Log_OC.e(TAG, "Incorrect VDC output format " + e);

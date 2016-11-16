@@ -171,7 +171,7 @@ public class BitmapUtils {
             
             // Rotate the bitmap
             resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-            if (resultBitmap != bitmap) {
+            if (!resultBitmap.equals(bitmap)) {
                 bitmap.recycle();
             }
         }
@@ -192,6 +192,7 @@ public class BitmapUtils {
      *  adapted from https://svn.codehaus.org/griffon/builders/gfxbuilder/tags/GFXBUILDER_0.2/
      *  gfxbuilder-core/src/main/com/camick/awt/HSLColor.java
      */
+    @SuppressWarnings("PMD.MethodNamingConventions")
     public static int[] HSLtoRGB(float h, float s, float l, float alpha)
     {
         if (s <0.0f || s > 100.0f)
@@ -221,10 +222,11 @@ public class BitmapUtils {
 
         float q = 0;
 
-        if (l < 0.5)
+        if (l < 0.5) {
             q = l * (1 + s);
-        else
+        } else {
             q = (l + s) - (s * l);
+        }
 
         float p = 2 * l - q;
 
@@ -232,27 +234,28 @@ public class BitmapUtils {
         int g = Math.round(Math.max(0, HueToRGB(p, q, h) * 256));
         int b = Math.round(Math.max(0, HueToRGB(p, q, h - (1.0f / 3.0f)) * 256));
 
-        int[] array = {r, g, b};
-        return array;
+        return new int[]{r, g, b};
     }
 
+    @SuppressWarnings("PMD.MethodNamingConventions")
     private static float HueToRGB(float p, float q, float h){
-		if (h < 0) h += 1;
+		if (h < 0) {
+            h += 1;
+        }
 
-		if (h > 1 ) h -= 1;
+		if (h > 1 ) {
+            h -= 1;
+        }
 
-		if (6 * h < 1)
-		{
+		if (6 * h < 1) {
 			return p + ((q - p) * 6 * h);
 		}
 
-		if (2 * h < 1 )
-		{
+		if (2 * h < 1 ) {
 			return  q;
 		}
 
-		if (3 * h < 2)
-		{
+		if (3 * h < 2) {
 			return p + ( (q - p) * 6 * ((2.0f / 3.0f) - h) );
 		}
 

@@ -30,7 +30,6 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.FileProvider;
-import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -549,22 +548,31 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
 
     @Override
     public boolean equals(Object o) {
-        if (o instanceof OCFile) {
-            OCFile that = (OCFile) o;
-            if (that != null) {
-                return this.mId == that.mId;
-            }
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
         }
 
-        return false;
+        OCFile ocFile = (OCFile) o;
+
+        return mId == ocFile.mId && mParentId == ocFile.mParentId;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (mId ^ (mId >>> 32));
+        result = 31 * result + (int) (mParentId ^ (mParentId >>> 32));
+        return result;
     }
 
     @Override
     public String toString() {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
                 "parentId=%s, favorite=%s etag=%s]";
-        asString = String.format(asString, Long.valueOf(mId), getFileName(), mMimeType, isDown(),
-                mLocalPath, mRemotePath, Long.valueOf(mParentId), Boolean.valueOf(mFavorite),
+        asString = String.format(asString, mId, getFileName(), mMimeType, isDown(),
+                mLocalPath, mRemotePath, mParentId, mFavorite,
                 mEtag);
         return asString;
     }
@@ -638,7 +646,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     }
 
     public boolean isInConflict() {
-        return mEtagInConflict != null && mEtagInConflict != "";
+        return mEtagInConflict != null && !mEtagInConflict.equals("");
     }
 
     public void setEtagInConflict(String etagInConflict) {

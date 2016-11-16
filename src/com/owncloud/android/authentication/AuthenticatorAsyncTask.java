@@ -40,8 +40,8 @@ import java.lang.ref.WeakReference;
  */
 public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOperationResult> {
 
-    private static String REMOTE_PATH = "/";
-    private static boolean SUCCESS_IF_ABSENT = false;
+    private static final String REMOTE_PATH = "/";
+    private static final boolean SUCCESS_IF_ABSENT = false;
 
     private Context mContext;
     private final WeakReference<OnAuthenticatorTaskListener> mListener;

@@ -363,9 +363,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     
     @Override
     public void onClick(View v) {
-        if (v == mCancelBtn) {
+        if (v.equals(mCancelBtn)) {
             finish();
-        } else if (v == mChooseBtn) {
+        } else if (v.equals(mChooseBtn)) {
             Intent i = getIntent();
             ArrayList<Parcelable> targetFiles = i.getParcelableArrayListExtra(FolderPickerActivity.EXTRA_FILES);
 
@@ -462,8 +462,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
                                 currentFile = currentDir;
                             }
 
-                            if (synchFolderRemotePath != null && currentDir.getRemotePath().
-                                    equals(synchFolderRemotePath)) {
+                            if (currentDir.getRemotePath().equals(synchFolderRemotePath)) {
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir, false);

@@ -21,15 +21,18 @@
 
 package com.owncloud.android.datastorage.providers;
 
+import com.owncloud.android.lib.common.utils.Log_OC;
+
 import java.io.InputStream;
 import java.util.Arrays;
 
 /**
  * @author Bartosz Przybylski
  */
-abstract public class AbstractCommandLineStoragePoint extends AbstractStoragePointProvider {
+abstract class AbstractCommandLineStoragePoint extends AbstractStoragePointProvider {
+    private static final String TAG = AbstractCommandLineStoragePoint.class.getSimpleName();
 
-    static protected final int sCommandLineOKReturnValue = 0;
+    private static final int COMMAND_LINE_OK_RETURN_VALUE = 0;
 
     protected abstract String[] getCommand();
 
@@ -42,23 +45,24 @@ abstract public class AbstractCommandLineStoragePoint extends AbstractStoragePoi
         } catch (Exception e) {
             return false;
         }
-        return process != null && process.exitValue() == sCommandLineOKReturnValue;
+        return process != null && process.exitValue() == COMMAND_LINE_OK_RETURN_VALUE;
     }
 
-    protected String getCommandLineResult() {
-        String s = "";
+    String getCommandLineResult() {
+        StringBuilder s = new StringBuilder();
         try {
-            final Process process = new ProcessBuilder().command(getCommand())
-                    .redirectErrorStream(true).start();
+            final Process process = new ProcessBuilder().command(getCommand()).redirectErrorStream(true).start();
 
             process.waitFor();
             final InputStream is = process.getInputStream();
             final byte buffer[] = new byte[1024];
-            while (is.read(buffer) != -1)
-                s += new String(buffer);
+            while (is.read(buffer) != -1) {
+                s.append(new String(buffer, "UTF8"));
+            }
             is.close();
-        } catch (final Exception e) { }
-        return s;
+        } catch (final Exception e) {
+            Log_OC.e(TAG, "Error retrieving command line results!", e);
+        }
+        return s.toString();
     }
-
 }

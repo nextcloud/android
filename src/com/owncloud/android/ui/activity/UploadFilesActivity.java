@@ -30,7 +30,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -108,8 +107,7 @@ public class UploadFilesActivity extends FileActivity implements
         /// USER INTERFACE
             
         // Drop-down navigation 
-        mDirectories = new CustomArrayAdapter<String>(this,
-                R.layout.support_simple_spinner_dropdown_item);
+        mDirectories = new CustomArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item);
         File currDir = mCurrentDir;
         while(currDir != null && currDir.getParentFile() != null) {
             mDirectories.add(currDir.getName());
@@ -120,8 +118,7 @@ public class UploadFilesActivity extends FileActivity implements
         // Inflate and set the layout view
         setContentView(R.layout.upload_files_layout);
 
-        mFileListFragment = (LocalFileListFragment)
-                getSupportFragmentManager().findFragmentById(R.id.local_files_list);
+        mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentById(R.id.local_files_list);
         
         
         // Set input controllers
@@ -210,7 +207,7 @@ public class UploadFilesActivity extends FileActivity implements
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.actionbar_sort_title)
-                        .setSingleChoiceItems(R.array.actionbar_sortby, sortOrder ,
+                        .setSingleChoiceItems(R.array.menu_items_sort_by_options, sortOrder,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
                                         switch (which){
@@ -219,6 +216,9 @@ public class UploadFilesActivity extends FileActivity implements
                                                 break;
                                             case 1:
                                                 mFileListFragment.sortByDate(false);
+                                                break;
+                                            case 2:
+                                                mFileListFragment.sortBySize(false);
                                                 break;
                                         }
 
@@ -256,8 +256,9 @@ public class UploadFilesActivity extends FileActivity implements
         // the next operation triggers a new call to this method, but it's necessary to 
         // ensure that the name exposed in the action bar is the current directory when the 
         // user selected it in the navigation list
-        if (itemPosition != 0)
+        if (itemPosition != 0) {
             getSupportActionBar().setSelectedNavigationItem(0);
+        }
         return true;
     }
 

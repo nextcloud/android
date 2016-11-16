@@ -27,7 +27,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.resources.shares.UpdateRemoteShareOperation;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
@@ -309,11 +308,8 @@ public class ErrorMessageAdapter {
     }
 
     private static boolean isNetworkError(RemoteOperationResult.ResultCode code) {
-        if (code == ResultCode.WRONG_CONNECTION ||
+        return code == ResultCode.WRONG_CONNECTION ||
                 code == ResultCode.TIMEOUT ||
-                code == ResultCode.HOST_NOT_AVAILABLE) {
-            return true;
-        } else
-            return false;
+                code == ResultCode.HOST_NOT_AVAILABLE;
     }
 }

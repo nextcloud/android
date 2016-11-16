@@ -356,6 +356,27 @@
     <string name="uploader_upload_forbidden_permissions">do wgrania tego folderu</string>
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
 
+    <string name="file_migration_finish_button">Koniec</string>
+    <string name="file_migration_preparing">Przygotowanie do migracji&#8230;</string>
+    <string name="file_migration_checking_destination">Sprawdzanie docelowe&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Zapisywanie konfiguracji konta&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Oczekiwanie na niedokończone synchronizacje&#8230;</string>
+    <string name="file_migration_migrating">Przenoszenie danych&#8230;</string>
+    <string name="file_migration_updating_index">Aktualizacja indeksa&#8230;</string>
+    <string name="file_migration_cleaning">Czyszczenie&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta&#8230;</string>
+    <string name="file_migration_ok_finished">Skończone</string>
+    <string name="file_migration_failed_not_enough_space">BŁĄD: Za mało miejsca</string>
+    <string name="file_migration_failed_not_writable">BŁĄD: Plik nie jest zapisywalny</string>
+    <string name="file_migration_failed_not_readable">BŁĄD: Nie można odczytać pliku</string>
+    <string name="file_migration_failed_dir_already_exists">BŁĄD: Katalog Nextcloud już istnieje</string>
+    <string name="file_migration_failed_while_coping">BŁĄD: Podczas migracji</string>
+    <string name="file_migration_failed_while_updating_index">BŁĄD: Podczas aktualizacji indeksu</string>
+
+    <string name="file_migration_directory_already_exists">Folder danych już istnieje, co zrobić?</string>
+    <string name="file_migration_override_data_folder">Nadpisanie</string>
+    <string name="file_migration_use_data_folder">Użyj istniejącego</string>
+
     <string name="prefs_category_accounts">Konta</string>
     <string name="prefs_add_account">Dodaj konto</string>
     <string name="drawer_manage_accounts">Zarządzaj kontami</string>
@@ -422,7 +443,6 @@
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym folderze</string>
     <string name="pref_behaviour_entries_move">przeniesiony do folderu aplikacji</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
-
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_file">Współdziel %1$s</string>
     <string name="share_with_user_section_title">Współdziel z użytkownikami i grupami</string>
@@ -496,5 +516,8 @@
         <item quantity="few">%d zaznaczone</item>
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
+
+    <string name="storage_description_sd_no">karta SD %1$d</string>
+    <string name="storage_description_unknown">Nieznany</string>
 
 </resources>

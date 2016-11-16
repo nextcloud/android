@@ -52,10 +52,9 @@ class SyncFolderHandler extends Handler {
     private static final String TAG = SyncFolderHandler.class.getSimpleName();
 
 
-    OperationsService mService;
+    private OperationsService mService;
 
-    private IndexedForest<SynchronizeFolderOperation> mPendingOperations =
-            new IndexedForest<SynchronizeFolderOperation>();
+    private IndexedForest<SynchronizeFolderOperation> mPendingOperations = new IndexedForest<>();
 
     private OwnCloudClient mOwnCloudClient = null;
     private Account mCurrentAccount = null;
@@ -80,7 +79,9 @@ class SyncFolderHandler extends Handler {
      * @param remotePath    The path to a folder that could be in the queue of synchronizations.
      */
     public boolean isSynchronizing(Account account, String remotePath) {
-        if (account == null || remotePath == null) return false;
+        if (account == null || remotePath == null) {
+            return false;
+        }
         return (mPendingOperations.contains(account.name, remotePath));
     }
 
@@ -121,9 +122,7 @@ class SyncFolderHandler extends Handler {
 
                 result = mCurrentSyncOperation.execute(mOwnCloudClient, mStorageManager);
 
-            } catch (AccountsException e) {
-                Log_OC.e(TAG, "Error while trying to get authorization", e);
-            } catch (IOException e) {
+            } catch (AccountsException | IOException e) {
                 Log_OC.e(TAG, "Error while trying to get authorization", e);
             } finally {
                 mPendingOperations.removePayload(account.name, remotePath);
@@ -200,6 +199,4 @@ class SyncFolderHandler extends Handler {
         finished.putExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, success);
         mService.sendStickyBroadcast(finished);
     }
-
-
 }
