@@ -16,9 +16,9 @@
 	</string-array>
 
 	<string-array name="pref_behaviour_entryValues" translatable="false">
-		<item>NOTHING</item>
-		<item>MOVE</item>
-		<item>DELETE</item>
+		<item>LOCAL_BEHAVIOUR_FORGET</item>
+		<item>LOCAL_BEHAVIOUR_MOVE</item>
+		<item>LOCAL_BEHAVIOUR_DELETE</item>
 	</string-array>
 
 	<string-array name="upload_files_behaviour" translatable="false">

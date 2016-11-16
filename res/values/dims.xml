@@ -99,4 +99,6 @@
     <dimen name="upload_list_item_text_size_independent">12dip</dimen>
     <dimen name="upload_list_item_image_size">35dp</dimen>
     <dimen name="uploader_list_item_layout_image_margin">12dp</dimen>
+    <dimen name="media_grid_spacing">2dp</dimen>
+    <integer name="media_grid_width">4</integer>
 </resources>
