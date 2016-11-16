@@ -32,3 +32,4 @@ tests/proguard-project.txt
 .idea
 *.iml
 build
+/gradle.properties

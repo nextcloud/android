@@ -22,4 +22,5 @@
   <dimen name="nav_drawer_header_avatar">64dp</dimen>
   <!-- avatar radius needs to 1/2 of the avatar dp value -->
   <dimen name="nav_drawer_header_avatar_radius">32dp</dimen>
+  <integer name="media_grid_width">4</integer>
 </resources>

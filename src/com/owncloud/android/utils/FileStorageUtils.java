@@ -142,21 +142,17 @@ public class FileStorageUtils {
     /**
      * Returns the InstantUploadFilePath on the owncloud instance
      *
-     * @param context
      * @param fileName
      * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
      * @return
      */
-    public static String getInstantUploadFilePath(Context context, String fileName, long dateTaken) {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
-        String uploadPathdef = context.getString(R.string.instant_upload_path);
-        String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
+    public static String getInstantUploadFilePath(String remotePath, String fileName, long dateTaken,
+                                                  Boolean subfolderByDate) {
         String subPath = "";
-        if (com.owncloud.android.db.PreferenceManager.instantPictureUploadPathUseSubfolders(context)) {
+        if (subfolderByDate) {
            subPath = getSubpathFromDate(dateTaken);
         }
-        return uploadPath + OCFile.PATH_SEPARATOR + subPath
-                + (fileName == null ? "" : fileName);
+        return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
     }
 
     /**
