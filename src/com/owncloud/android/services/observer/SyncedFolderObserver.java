@@ -23,7 +23,6 @@ class SyncedFolderObserver extends RecursiveFileObserver {
 
     private Context context;
 
-    private static final int MY_BACKGROUND_JOB = 0;
     public static final String TAG = "SyncedFolderObserver";
     private SyncedFolder syncedFolder;
 
@@ -55,8 +54,9 @@ class SyncedFolderObserver extends RecursiveFileObserver {
             bundle.putInt("subfolderByDate", syncedFolder.getSubfolderByDate() ? 1 : 0);
 
             JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+            Long date = new Date().getTime();
             JobInfo job = new JobInfo.Builder(
-                    MY_BACKGROUND_JOB,
+                    date.intValue(),
                     new ComponentName(context, SyncedFolderJobService.class))
                     .setRequiresCharging(syncedFolder.getChargingOnly())
                     .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
