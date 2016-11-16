@@ -157,13 +157,13 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     }
 
     static class MainViewHolder extends RecyclerView.ViewHolder {
-        final ImageView image;
-        final TextView title;
-        final ImageButton menuButton;
-        final ImageButton syncStatusButton;
-        final LinearLayout counterBar;
-        final TextView counterValue;
-        final ImageView thumbnailDarkener;
+        private final ImageView image;
+        private final TextView title;
+        private final ImageButton menuButton;
+        private final ImageButton syncStatusButton;
+        private final LinearLayout counterBar;
+        private final TextView counterValue;
+        private final ImageView thumbnailDarkener;
 
         private MainViewHolder(View itemView) {
             super(itemView);

@@ -71,6 +71,7 @@ public class MainApp extends Application {
     private static boolean mOnlyOnDevice = false;
 
     private static SyncedFolderObserverService mObserverService;
+    @SuppressWarnings("unused")
     private boolean mBound;
 
 
@@ -143,7 +144,6 @@ public class MainApp extends Application {
             @Override
             public void onActivityStopped(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending" );
-                WhatsNewActivity.runIfNeeded(activity);
                 PassCodeManager.getPassCodeManager().onActivityStopped(activity);
             }
 

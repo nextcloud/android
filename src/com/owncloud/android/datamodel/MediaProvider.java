@@ -40,7 +40,6 @@ public class MediaProvider {
     private static final Uri MEDIA_URI = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
     private static final String[] FILE_PROJECTION = new String[]{MediaStore.MediaColumns.DATA};
     private static final String FILE_SELECTION = MediaStore.Images.Media.BUCKET_ID + "=";
-    private static final Uri uri1 = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
     private static final String[] FOLDER_PROJECTION = { "Distinct " + MediaStore.Images.Media.BUCKET_ID,
             MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
     private static final String FOLDER_SORT_ORDER = MediaStore.Images.Media.BUCKET_DISPLAY_NAME + " ASC";
