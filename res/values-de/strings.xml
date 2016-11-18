@@ -500,6 +500,7 @@
     <string name="actionbar_search">Suche</string>
     <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten.</string>
     <string name="learn_more">Mehr</string>
+    <string name="drawer_folder_sync">Auto Upload</string>
     <string name="drawer_participate">Mitmachen</string>
     <string name="participate_testing_headline">Hilf uns Testen</string>
     <string name="participate_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
@@ -516,6 +517,8 @@
     <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
+    <string name="folder_sync_settings">Einstellungen</string>
+    <string name="folder_sync_new_info">Sofortiger Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto Upload gehen und neu configurieren. Bitte entschuldige die Unannehmlichkeiten.\\n\\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto Uploads!</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
