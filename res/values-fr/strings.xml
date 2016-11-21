@@ -360,6 +360,7 @@ La suppression est irréversible. </string>
     <string name="uploader_upload_forbidden_permissions">de téléverser dans ce dossier</string>
     <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
 
+    <string name="file_migration_dialog_title">Mise à jour du chemin de stockage</string>
     <string name="file_migration_finish_button">Terminer</string>
     <string name="file_migration_preparing">Préparation pour la migration&#8230;</string>
     <string name="file_migration_checking_destination">Vérification de la destination&#8230;</string>
@@ -501,6 +502,7 @@ La suppression est irréversible. </string>
     <string name="actionbar_search">Rechercher</string>
     <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud ; veuillez mettre à jour..</string>
     <string name="learn_more">En apprendre plus</string>
+    <string name="drawer_folder_sync">Téléversement automatique</string>
     <string name="drawer_participate">Participer</string>
     <string name="participate_testing_headline">Aidez nous à tester</string>
     <string name="participate_testing_bug_text">Vous avez trouvé un bug ? Quelque chose est étrange ?</string>
@@ -520,6 +522,8 @@ ou</string>
     <string name="participate_contribute_github_text">Développeurs ? Contribuez ! Plus de détails sur la page &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Déplacer vers&#8230;</string>
     <string name="copy_to">Copier vers&#8230;</string>
+    <string name="choose_remote_folder">Choisir le dossier&#8230;</string>
+    <string name="folder_sync_loading_folders">Chargement des dossiers&#8230;</string>
     <string name="folder_sync_settings">Paramètres</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>

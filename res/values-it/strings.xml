@@ -106,6 +106,7 @@
     <string name="common_cancel_sync">Annulla sincronizzazione</string>
     <string name="common_cancel">Annulla</string>
     <string name="common_back">Indietro</string>
+    <string name="common_save">Salva</string>
     <string name="common_save_exit">Salva ed esci</string>
     <string name="common_error">Errore</string>
     <string name="common_loading">Caricamento in corso...</string>
@@ -212,7 +213,7 @@
 	<string name="auth_not_configured_title">Configurazione non corretta del server</string>
 	<string name="auth_account_not_new">Esiste già un account su questo dispositivo per lo stesso utente e server</string>
 	<string name="auth_account_not_the_same">L\'utente digitato non corrisponde all\'utente di questo account</string>
-	<string name="auth_unknown_error_title">Errore sconosciuto!</string>
+	<string name="auth_unknown_error_title">Si è verificato un errore sconosciuto!</string>
 	<string name="auth_unknown_host_title">Impossibile trovare l\'host</string>
 	<string name="auth_incorrect_path_title">Istanza del server non trovata</string>
 	<string name="auth_timeout_title">Il server ha richiesto troppo tempo per rispondere</string>
@@ -316,6 +317,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
     <string name="prefs_instant_upload_path_title">Cartella caricamenti istantanei</string>
+    <string name="prefs_folder_sync_local_path_title">Cartella locale</string>
+    <string name="prefs_folder_sync_remote_path_title">Cartella remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
 
@@ -435,8 +438,8 @@
     <string name="file_list__footer__files">%1$d file</string>
     <string name="file_list__footer__files_and_folder">%1$d file, 1 cartella</string>
     <string name="file_list__footer__files_and_folders">%1$d file, %2$d cartelle</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Il fil originale sarà&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Il fil originale sarà&#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Il file originale sarà&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Il file originale sarà&#8230;</string>
     <string name="upload_copy_files">Copia file</string>
     <string name="upload_move_files">Sposta file</string>
     <string name="select_all">Seleziona tutto</string>
@@ -500,6 +503,7 @@
     <string name="actionbar_search">Cerca</string>
     <string name="files_drop_not_supported">Questa è una funzionalità di Nextcloud, aggiorna.</string>
     <string name="learn_more">Scopri altro</string>
+    <string name="drawer_folder_sync">Carica automaticamente</string>
     <string name="drawer_participate">Partecipa</string>
     <string name="participate_testing_headline">Aiutaci nella fase di test</string>
     <string name="participate_testing_bug_text">Hai trovato un bug? Qualcosa di strano?</string>
@@ -519,6 +523,12 @@ o</string>
     <string name="participate_contribute_github_text">Contribuisci come sviluppatore, vedi &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> per i dettagli</string>
     <string name="move_to">Sposta in&#8230;</string>
     <string name="copy_to">Copia in&#8230;</string>
+    <string name="choose_remote_folder">Scegli la cartella&#8230;</string>
+    <string name="folder_sync_loading_folders">Caricamento cartelle&#8230;</string>
+    <string name="folder_sync_no_results">Nessuna cartella di file multimediali trovata.</string>
+    <string name="folder_sync_preferences">Preferenze di caricamento automatico</string>
+    <string name="folder_sync_settings">Impostazioni</string>
+    <string name="folder_sync_preferences_folder_path">Per %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
