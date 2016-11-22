@@ -42,7 +42,6 @@ import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
-import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.fragment.EditShareFragment;
 import com.owncloud.android.ui.fragment.SearchShareesFragment;
@@ -50,6 +49,8 @@ import com.owncloud.android.ui.fragment.ShareFileFragment;
 import com.owncloud.android.ui.fragment.ShareFragmentListener;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
+
+import org.nextcloud.providers.UsersAndGroupsSearchProvider;
 
 
 /**
@@ -143,10 +144,12 @@ public class ShareActivity extends FileActivity
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
 
         } else if (getFile().isFolder()) {
-            return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER : OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
+            return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9 :
+                    OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
 
         } else {    // isFile
-            return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FILE : OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
+            return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FILE_UP_TO_OC9 :
+                    OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
         }
     }
 
