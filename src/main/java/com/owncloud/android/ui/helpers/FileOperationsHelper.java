@@ -478,9 +478,18 @@ public class FileOperationsHelper {
         if (hideFileListing) {
             updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.CREATE_PERMISSION_FLAG);
         } else {
-            updateShareIntent.
-                    putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
-                            OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9);
+            OwnCloudVersion serverVersion =
+                    com.owncloud.android.authentication.AccountUtils.getServerVersion(mFileActivity.getAccount());
+
+            if (serverVersion != null && serverVersion.isNotReshareableFederatedSupported()) {
+                updateShareIntent.
+                        putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
+                                OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9);
+            } else {
+                updateShareIntent.
+                        putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
+                                OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9);
+            }
         }
 
         queueShareIntent(updateShareIntent);
