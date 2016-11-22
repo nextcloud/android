@@ -49,6 +49,8 @@ repositories {
     }
 }
 
+
+
 android {
     lintOptions {
         abortOnError true
@@ -182,7 +184,7 @@ dependencies {
     compile name: 'touch-image-view'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.github.nextcloud:android-library:1.0.15'
+    compile 'com.github.nextcloud:android-library:check_for_unshareable_federated_shares-SNAPSHOT'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
