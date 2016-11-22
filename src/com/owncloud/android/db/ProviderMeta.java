@@ -44,7 +44,9 @@ public class ProviderMeta {
         public static final String CAPABILITIES_TABLE_NAME = "capabilities";
         public static final String UPLOADS_TABLE_NAME = "list_of_uploads";
         public static final String SYNCED_FOLDERS_TABLE_NAME = "synced_folders";
+
         private static final String CONTENT_PREFIX = "content://";
+
         public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/");
         public static final Uri CONTENT_URI_FILE = Uri.parse(CONTENT_PREFIX

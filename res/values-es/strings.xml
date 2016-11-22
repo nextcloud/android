@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Cuentas</string>
     <string name="prefs_manage_accounts">Gestionar cuentas</string>
     <string name="prefs_passcode">Contraseña</string>
+    <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_instant_upload">Subida instantánea de imágenes</string>
     <string name="prefs_instant_upload_summary">Sube instantáneamente las fotos tomadas con la cámara</string>
     <string name="prefs_instant_video_upload">Subidas instantáneas de video</string>
@@ -353,6 +354,7 @@
     <string name="uploader_upload_forbidden_permissions">para subir archivos a esta carpeta</string>
     <string name="downloader_download_file_not_found">Este archivo ya no se encuentra en el servidor</string>
 
+    <string name="file_migration_failed_not_enough_space">ERROR: no hay espacio suficiente</string>
     <string name="prefs_category_accounts">Cuentas</string>
     <string name="prefs_add_account">Agregar cuenta</string>
     <string name="drawer_manage_accounts">Administrar cuentas</string>
