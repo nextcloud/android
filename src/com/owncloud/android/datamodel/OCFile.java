@@ -30,7 +30,6 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.support.v4.content.FileProvider;
-import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavUtils;

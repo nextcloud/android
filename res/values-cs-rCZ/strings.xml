@@ -106,6 +106,7 @@
     <string name="common_cancel_sync">Zrušit synchronizaci</string>
     <string name="common_cancel">Zrušit</string>
     <string name="common_back">Zpět</string>
+    <string name="common_save">Uložit</string>
     <string name="common_save_exit">Uložit &amp; ukončit</string>
     <string name="common_error">Chyba</string>
     <string name="common_loading">Načítání ...</string>
@@ -315,6 +316,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
     <string name="prefs_instant_upload_path_title">Adresář pro okamžité nahrání</string>
+    <string name="prefs_folder_sync_local_path_title">Místní adresář</string>
+    <string name="prefs_folder_sync_remote_path_title">Vzdálený adresář</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podadresáře</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podadresářích podle roku a měsíce</string>
 
@@ -357,6 +360,15 @@ správce systému.</string>
 
     <string name="file_migration_dialog_title">Aktualizace cesty k úložišti</string>
     <string name="file_migration_finish_button">Dokončit</string>
+    <string name="file_migration_preparing">Příprava na migraci&#8230;</string>
+    <string name="file_migration_checking_destination">Prověřování cílového umístění&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Ukládání konfigurace účtů&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Čekání na nedokončené synchronizace&#8230;</string>
+    <string name="file_migration_migrating">Přesun dat&#8230;</string>
+    <string name="file_migration_updating_index">Aktualizace indexu&#8230;</string>
+    <string name="file_migration_cleaning">Čištění&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Obnovování konfigurace účtů&#8230;</string>
+    <string name="file_migration_ok_finished">Dokončeno</string>
     <string name="file_migration_failed_not_enough_space">CHYBA: Nedostatek volného prostoru</string>
     <string name="file_migration_failed_not_writable">CHYBA: Do souboru nelze zapisovat</string>
     <string name="file_migration_failed_not_readable">CHYBA: Soubor nelze číst</string>
@@ -490,6 +502,7 @@ správce systému.</string>
     <string name="actionbar_search">Hledat</string>
     <string name="files_drop_not_supported">Toto je Nextcloud funkce, prosím nahrát</string>
     <string name="learn_more">Více</string>
+    <string name="drawer_folder_sync">Automatické nahrávání</string>
     <string name="drawer_participate">Zúčastnit se</string>
     <string name="participate_testing_headline">Pomoz nám testovat</string>
     <string name="participate_testing_bug_text">Našel jsi chybu? Něco nefunguje?</string>
@@ -506,6 +519,12 @@ správce systému.</string>
     <string name="participate_contribute_github_text">Přispět jako vývojář, detaily pod &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Přesunout do&#8230;</string>
     <string name="copy_to">Kopírovat do&#8230;</string>
+    <string name="choose_remote_folder">Vybrat adresář&#8230;</string>
+    <string name="folder_sync_loading_folders">Načítání adresářů&#8230;</string>
+    <string name="folder_sync_no_results">Nebyly nalezeny žádné adresáře médií.</string>
+    <string name="folder_sync_preferences">Nastavení automatického nahrávání</string>
+    <string name="folder_sync_settings">Nastavení</string>
+    <string name="folder_sync_preferences_folder_path">Pro %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">vybráno %d</item>
         <item quantity="few">vybráno %d</item>

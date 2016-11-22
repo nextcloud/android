@@ -75,7 +75,7 @@
     <string name="uploader_error_message_source_file_not_found">Il file da caricare non è stato trovato nella sua posizione. Controlla che il file esista.</string>
     <string name="uploader_error_message_source_file_not_copied">Si è verificato un errore durante il tentativo di copiare il file in una cartella temporanea. Prova a inviarlo ancora.</string>
     <string name="uploader_upload_files_behaviour">Opzione di caricamento:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Sposta file nella cartella di Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Sposta il file nella cartella di Nextcloud</string>
     <string name="uploader_upload_files_behaviour_only_upload">Mantieni il file nella cartella di origine</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina il file dalla cartella di origine</string>
     <string name="file_list_seconds_ago">secondi fa</string>
@@ -206,20 +206,20 @@
 	<string name="auth_getting_authorization">Recupero delle autorizzazioni in corso...</string>
 	<string name="auth_trying_to_login">Tentativo di accesso in corso...</string>
 	<string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
-	<string name="auth_nossl_plain_ok_title">Connessione sicura disponibile.</string>
+	<string name="auth_nossl_plain_ok_title">Connessione sicura non disponibile.</string>
 	<string name="auth_connection_established">Connessione stabilita</string>
 	<string name="auth_testing_connection">Prova di connessione</string>
-	<string name="auth_not_configured_title">Configurazione non corretta di il server</string>
+	<string name="auth_not_configured_title">Configurazione non corretta del server</string>
 	<string name="auth_account_not_new">Esiste già un account su questo dispositivo per lo stesso utente e server</string>
 	<string name="auth_account_not_the_same">L\'utente digitato non corrisponde all\'utente di questo account</string>
-	<string name="auth_unknown_error_title">Errore sconosciuto</string>
+	<string name="auth_unknown_error_title">Errore sconosciuto!</string>
 	<string name="auth_unknown_host_title">Impossibile trovare l\'host</string>
 	<string name="auth_incorrect_path_title">Istanza del server non trovata</string>
 	<string name="auth_timeout_title">Il server ha richiesto troppo tempo per rispondere</string>
 	<string name="auth_incorrect_address_title">Formato indirizzo del server errato</string>
 	<string name="auth_ssl_general_error_title">Inizializzazione  SSL non riuscita</string>
 	<string name="auth_ssl_unverified_server_title">Impossibile verificare l\'identità SSL del server</string>
-	<string name="auth_bad_oc_version_title">Versione del server il server non riconosciuta</string>
+	<string name="auth_bad_oc_version_title">Versione del server non riconosciuta</string>
 	<string name="auth_wrong_connection_title">Impossibile stabilire la connessione</string>
 	<string name="auth_secure_connection">Connessione sicura stabilita</string>
 	<string name="auth_unauthorized">Nome utente o password errati</string>
@@ -262,7 +262,7 @@
     <string name="activity_chooser_title">Invia collegamento a...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
     
-    <string name="oauth_check_onoff">Accesso con oAuth2.</string> 
+    <string name="oauth_check_onoff">Accesso con oAuth2</string> 
     <string name="oauth_login_connection">Connessione al server oAuth2 in corso...</string>    
         
     <string name="ssl_validator_header">L\'identità del sito non può essere verificata</string>
@@ -393,7 +393,7 @@
 	<string name="saml_authentication_wrong_pass">Password errata</string>
 	<string name="actionbar_move">Sposta</string>
     <string name="actionbar_copy">Copia</string>
-	<string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella.</string>
+	<string name="file_list_empty_moving">Qui non c\'è niente. Puoi aggiungere una cartella!</string>
 	<string name="folder_picker_choose_button_text">Scegli</string>
 
     <string name="move_file_not_found">Impossibile spostare. Assicurati che il file esista</string>
@@ -479,10 +479,10 @@
     <string name="edit_share_unshare">Interrompi la condivisione</string>
     <string name="edit_share_done">completato</string>
 
-    <string name="action_retry_uploads">Nuovo tentativo non riuscito</string>
-    <string name="action_clear_failed_uploads">Cancellazione non riuscita</string>
-    <string name="action_clear_successful_uploads">Cancellazione avvenuta</string>
-    <string name="action_clear_finished_uploads">Cancella tutti i completati</string>
+    <string name="action_retry_uploads">Riprova caricamenti falliti</string>
+    <string name="action_clear_failed_uploads">Cancella i caricamenti non riusciti</string>
+    <string name="action_clear_successful_uploads">Cancella i caricamenti avvenuti</string>
+    <string name="action_clear_finished_uploads">Cancella tutti i caricamenti completati</string>
 
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>

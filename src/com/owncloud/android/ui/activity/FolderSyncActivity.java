@@ -187,7 +187,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 } else if (f2 == null) {
                     return 1;
                 } else if (f1.isEnabled() && f2.isEnabled()) {
-                    return f1.getFolderName().compareTo(f2.getFolderName());
+                    return f1.getFolderName().toLowerCase().compareTo(f2.getFolderName().toLowerCase());
                 } else if (f1.isEnabled()) {
                     return -1;
                 } else if (f2.isEnabled()) {
@@ -203,7 +203,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 } else if (PRIORITIZED_FOLDER.equals(f2.getFolderName())) {
                     return 1;
                 } else {
-                    return f1.getFolderName().compareTo(f2.getFolderName());
+                    return f1.getFolderName().toLowerCase().compareTo(f2.getFolderName().toLowerCase());
                 }
             }
         });

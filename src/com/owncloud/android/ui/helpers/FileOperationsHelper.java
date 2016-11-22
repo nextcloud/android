@@ -497,8 +497,7 @@ public class FileOperationsHelper {
 
     public void sendDownloadedFile(OCFile file) {
         if (file != null) {
-            String storagePath = file.getStoragePath();
-            Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
             // set MimeType
             sendIntent.setType(file.getMimetype());
             sendIntent.putExtra(
