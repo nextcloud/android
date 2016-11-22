@@ -478,7 +478,8 @@ public class FileOperationsHelper {
         if (hideFileListing) {
             updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.CREATE_PERMISSION_FLAG);
         } else {
-            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
+            OwnCloudVersion serverVersion =
+                    com.owncloud.android.authentication.AccountUtils.getServerVersion(mFileActivity.getAccount());
 
             if (serverVersion != null && serverVersion.isNotReshareableFederatedSupported()) {
                 updateShareIntent.
