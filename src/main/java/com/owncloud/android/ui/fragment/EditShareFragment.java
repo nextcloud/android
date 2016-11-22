@@ -69,6 +69,9 @@ public class EditShareFragment extends Fragment {
     /** File bound to mShare, received as a parameter in construction time */
     private OCFile mFile;
 
+    /** Account of the shared file, received as a parameter in construction time */
+    private Account mAccount;
+
     /** Listener for changes on privilege checkboxes */
     private CompoundButton.OnCheckedChangeListener mOnPrivilegeChangeListener;
     
@@ -101,7 +104,7 @@ public class EditShareFragment extends Fragment {
             mShare = getArguments().getParcelable(ARG_SHARE);
             mFile = getArguments().getParcelable(ARG_FILE);
             /* OC account holding the shared file, received as a parameter in construction time */
-            //Account mAccount = getArguments().getParcelable(ARG_ACCOUNT);
+            mAccount = getArguments().getParcelable(ARG_ACCOUNT);
         }
     }
 
