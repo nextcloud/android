@@ -525,7 +525,7 @@ vagy</string>
     <string name="folder_sync_no_results">Nem találhatók média mappák.</string>
     <string name="folder_sync_preferences">Automatikus feltöltés beállításai</string>
     <string name="folder_sync_settings">Beállítások</string>
-    <string name="folder_sync_new_info">Az azonnali feltöltés teljesen át lett alakítva. Kérlek a főmenüben állítsd be újra az automatikus feltöltést. Elnézést a kellemetlenségért.\\n\\nÉlvezd az új és kibővített automatikus feltöltési képességet!</string>
+    <string name="folder_sync_new_info">Az azonnali feltöltés teljesen át lett alakítva. Kérlek a főmenüben állítsd be újra az automatikus feltöltést. Elnézést a kellemetlenségért.\n\nÉlvezd az új és kibővített automatikus feltöltési képességet!</string>
     <string name="folder_sync_preferences_folder_path">Neki: %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d kiválasztott</item>

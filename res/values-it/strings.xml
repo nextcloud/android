@@ -528,6 +528,7 @@ o</string>
     <string name="folder_sync_no_results">Nessuna cartella di file multimediali trovata.</string>
     <string name="folder_sync_preferences">Preferenze di caricamento automatico</string>
     <string name="folder_sync_settings">Impostazioni</string>
+    <string name="folder_sync_new_info">Il caricamento istantaneo è stato riscritto completamente. Vedi il menu principale e riconfigura il caricamento automatico. Ci dispiace per l\'inconveniente.\n\nGoditi le nuove ed estese capacità di caricamento automatico!</string>
     <string name="folder_sync_preferences_folder_path">Per %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
