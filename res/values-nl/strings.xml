@@ -530,7 +530,7 @@ of</string>
     <string name="folder_sync_no_results">Geen mediamappen gevonden</string>
     <string name="folder_sync_preferences">Auto upload voorkeuren</string>
     <string name="folder_sync_settings">Instellingen</string>
-    <string name="folder_sync_new_info">Directe upload is helemaal herzien. Bekijk het hoofdmenu en herconfigureer je auto uploadfunctie. Onze excuses voor het ongemak.\\n\\nVeel plezier met de nieuwe en meer uitgebreide auto upload mogelijkheden!</string>
+    <string name="folder_sync_new_info">Directe upload is helemaal herzien. Bekijk het hoofdmenu en herconfigureer je auto uploadfunctie. Onze excuses voor het ongemak.\n\nVeel plezier met de nieuwe en meer uitgebreide auto upload mogelijkheden!</string>
     <string name="folder_sync_preferences_folder_path">Voor %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
