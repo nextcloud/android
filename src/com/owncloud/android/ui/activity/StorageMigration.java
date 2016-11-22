@@ -45,17 +45,16 @@ import java.io.File;
 public class StorageMigration {
     private static final String TAG = StorageMigration.class.getName();
 
-    public interface StorageMigrationProgressListener {
-        void onStorageMigrationFinished(String storagePath, boolean succeed);
-        void onCancelMigration();
-    }
-
-    private ProgressDialog mProgressDialog;
     private Context mContext;
     private String mSourceStoragePath;
     private String mTargetStoragePath;
 
     private StorageMigrationProgressListener mListener;
+
+    public interface StorageMigrationProgressListener {
+        void onStorageMigrationFinished(String storagePath, boolean succeed);
+        void onCancelMigration();
+    }
 
     public StorageMigration(Context context, String sourcePath, String targetPath) {
         mContext = context;
@@ -291,7 +290,7 @@ public class StorageMigration {
                 this.mResId = resId;
             }
 
-            int getResId() { return mResId; }
+            private int getResId() { return mResId; }
         }
 
         public FileMigrationTask(Context context,
@@ -353,7 +352,7 @@ public class StorageMigration {
         }
 
 
-        void checkDestinationAvailability() throws MigrationException {
+        private void checkDestinationAvailability() throws MigrationException {
             File srcFile = new File(mStorageSource);
             File dstFile = new File(mStorageTarget);
 
@@ -374,14 +373,14 @@ public class StorageMigration {
             }
         }
 
-        void copyFiles() throws MigrationException {
+        private void copyFiles() throws MigrationException {
             File srcFile = new File(mStorageSource + File.separator + MainApp.getDataFolder());
             File dstFile = new File(mStorageTarget + File.separator + MainApp.getDataFolder());
 
             copyDirs(srcFile, dstFile);
         }
 
-        void copyDirs(File src, File dst) throws MigrationException {
+        private void copyDirs(File src, File dst) throws MigrationException {
             if (!dst.mkdirs()) {
                 throw new MigrationException(R.string.file_migration_failed_while_coping);
             }
@@ -396,7 +395,7 @@ public class StorageMigration {
 
         }
 
-        void updateIndex(Context context) throws MigrationException {
+        private void updateIndex(Context context) throws MigrationException {
             FileDataStorageManager manager = new FileDataStorageManager(null, context.getContentResolver());
 
             try {
@@ -407,7 +406,7 @@ public class StorageMigration {
             }
         }
 
-        void cleanup() {
+        private void cleanup() {
             File srcFile = new File(mStorageSource + File.separator + MainApp.getDataFolder());
             if (!deleteRecursive(srcFile)) {
                 Log_OC.w(TAG, "Migration cleanup step failed");
@@ -415,7 +414,7 @@ public class StorageMigration {
             srcFile.delete();
         }
 
-        boolean deleteRecursive(File f) {
+        private boolean deleteRecursive(File f) {
             boolean res = true;
             if (f.isDirectory()) {
                 for (File c : f.listFiles()) {
@@ -425,7 +424,7 @@ public class StorageMigration {
             return f.delete() && res;
         }
 
-        void rollback() {
+        private void rollback() {
             File dstFile = new File(mStorageTarget + File.separator + MainApp.getDataFolder());
             if (dstFile.exists() && !dstFile.delete()) {
                 Log_OC.w(TAG, "Rollback step failed");

@@ -386,7 +386,7 @@ public class Preferences extends PreferenceActivity
             }
         }
 
-        mPrefStoragePath =  (ListPreference) findPreference(PreferenceKeys.STORAGE_PATH);
+        mPrefStoragePath = (ListPreference) findPreference(PreferenceKeys.STORAGE_PATH);
         if (mPrefStoragePath != null) {
             StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();
             String[] entries = new String[storageOptions.length];
@@ -420,8 +420,8 @@ public class Preferences extends PreferenceActivity
 
         mPrefInstantUploadCategory = (PreferenceCategory) findPreference(INSTANT_UPLOADING_CATEGORY);
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            // Instant upload via preferences on pre Android Lollipop
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // Instant upload via preferences on pre Android Nougat
             mPrefInstantUploadPath = findPreference(PreferenceKeys.INSTANT_UPLOAD_PATH);
             if (mPrefInstantUploadPath != null) {
 
@@ -439,6 +439,7 @@ public class Preferences extends PreferenceActivity
                 });
         }
 
+        mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
         mPrefInstantUploadUseSubfolders = findPreference(INSTANT_UPLOAD_PATH_USE_SUBFOLDERS);
         mPrefInstantUploadPathWiFi =  findPreference(INSTANT_UPLOAD_ON_WIFI);
         mPrefInstantUpload = findPreference(INSTANT_UPLOADING);
@@ -458,7 +459,7 @@ public class Preferences extends PreferenceActivity
             }
         });
 
-        mPrefInstantVideoUploadPath =  findPreference(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH);
+        mPrefInstantVideoUploadPath = findPreference(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH);
         if (mPrefInstantVideoUploadPath != null){
 
                 mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -508,7 +509,7 @@ public class Preferences extends PreferenceActivity
 
         /* About App */
        pAboutApp = (Preference) findPreference(ABOUT_APP);
-       if (pAboutApp != null) { 
+       if (pAboutApp != null) {
                pAboutApp.setTitle(String.format(getString(R.string.about_android),
                        getString(R.string.app_name)));
            try {

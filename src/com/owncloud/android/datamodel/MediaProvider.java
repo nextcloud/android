@@ -27,6 +27,9 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.owncloud.android.MainApp;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,6 +58,7 @@ public class MediaProvider {
         // query media/image folders
         Cursor cursorFolders = contentResolver.query(MEDIA_URI, FOLDER_PROJECTION, null, null, FOLDER_SORT_ORDER);
         List<MediaFolder> mediaFolders = new ArrayList<>();
+        String dataPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder();
 
         if (cursorFolders != null) {
             String folderName;
@@ -100,7 +104,9 @@ public class MediaProvider {
                         count.close();
                     }
                 }
-                mediaFolders.add(mediaFolder);
+                if (!mediaFolder.absolutePath.startsWith(dataPath)) {
+                    mediaFolders.add(mediaFolder);
+                }
             }
             cursorFolders.close();
         }

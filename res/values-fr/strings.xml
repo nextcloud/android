@@ -358,6 +358,14 @@ La suppression est irréversible. </string>
     <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
 
     <string name="file_migration_finish_button">Terminer</string>
+    <string name="file_migration_preparing">Préparation pour la migration&#8230;</string>
+    <string name="file_migration_checking_destination">Vérification de la destination&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Sauvegarde de la configuration des comptes&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">En attente des synchronisations non terminées&#8230;</string>
+    <string name="file_migration_migrating">Déplacement des données&#8230;</string>
+    <string name="file_migration_updating_index">Mise à jour des indexes&#8230;</string>
+    <string name="file_migration_cleaning">Nettoyage&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restauration de la configuration des comptes&#8230;</string>
     <string name="file_migration_ok_finished">Terminé</string>
     <string name="file_migration_failed_not_enough_space">ERREUR : Pas assez d\'espace</string>
     <string name="file_migration_failed_not_writable">ERREUR : Le fichier n\'est pas modifiable</string>
@@ -366,6 +374,8 @@ La suppression est irréversible. </string>
     <string name="file_migration_failed_while_coping">ERREUR : Lors de la migration</string>
     <string name="file_migration_failed_while_updating_index">ERREUR : Lors de la mise à jour de l\'index</string>
 
+    <string name="file_migration_directory_already_exists">Le dossier de données existe déjà, que faire?</string>
+    <string name="file_migration_override_data_folder">Écraser</string>
     <string name="prefs_category_accounts">Comptes</string>
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="drawer_manage_accounts">Gestion des comptes</string>
@@ -432,6 +442,9 @@ La suppression est irréversible. </string>
     <string name="pref_behaviour_entries_keep_file">gardé dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
     <string name="pref_behaviour_entries_delete_file">Supprimé</string>
+    <string name="prefs_storage_path">Chemin de stockage</string>
+    <string name="prefs_common">Commun</string>
+
     <string name="share_dialog_title">Partage</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_with_user_section_title">Partager avec des utilisateurs et des groupes</string>
@@ -509,6 +522,7 @@ ou</string>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
 
+    <string name="storage_description_default">Défaut</string>
     <string name="storage_description_sd_no">Carte SD %1$d</string>
     <string name="storage_description_unknown">Inconnu</string>
 

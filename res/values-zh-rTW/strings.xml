@@ -355,6 +355,16 @@
     <string name="uploader_upload_forbidden_permissions">上傳到這個資料夾</string>
     <string name="downloader_download_file_not_found">這個檔案已經不存在於伺服器中</string>
 
+    <string name="file_migration_dialog_title">更新儲存路徑</string>
+    <string name="file_migration_finish_button">完成</string>
+    <string name="file_migration_saving_accounts_configuration">保存帳號設置&#8230;</string>
+    <string name="file_migration_migrating">移動資料&#8230;</string>
+    <string name="file_migration_ok_finished">完成</string>
+    <string name="file_migration_failed_not_enough_space">錯誤: 空間不足</string>
+    <string name="file_migration_failed_not_writable">錯誤: 檔案不能寫入</string>
+    <string name="file_migration_failed_not_readable">錯誤: 檔案不能讀取</string>
+    <string name="file_migration_failed_dir_already_exists">錯誤: Nextcloud 資料夾已經存在</string>
+    <string name="file_migration_override_data_folder">覆蓋</string>
     <string name="prefs_category_accounts">帳號</string>
     <string name="prefs_add_account">新增帳號</string>
     <string name="drawer_manage_accounts">管理帳號</string>
@@ -421,6 +431,7 @@
     <string name="pref_behaviour_entries_keep_file">保留在原本的資料夾</string>
     <string name="pref_behaviour_entries_move">移動到應用程式資料夾</string>
     <string name="pref_behaviour_entries_delete_file">已刪除</string>
+    <string name="prefs_storage_path">儲存路徑</string>
     <string name="share_dialog_title">分享</string>
     <string name="share_file">分享 %1$s</string>
     <string name="share_with_user_section_title">分享給其他使用者或群組</string>
@@ -495,4 +506,8 @@
         <item quantity="other">%d 已選</item>
     </plurals>
 
-    </resources>
+    <string name="storage_description_default">預設</string>
+    <string name="storage_description_sd_no">SD 卡 %1$d</string>
+    <string name="storage_description_unknown">未知</string>
+
+</resources>
