@@ -321,6 +321,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
     <string name="prefs_instant_upload_path_title">Directe uploadmap</string>
     <string name="prefs_folder_sync_local_path_title">Lokale map</string>
+    <string name="prefs_folder_sync_remote_path_title">Externe map</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseed op jaar en maand</string>
 
@@ -505,6 +506,7 @@ Neem contact op met je beheerder</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="files_drop_not_supported">Dit is een Nextcloud optie, graag bijwerken.</string>
     <string name="learn_more">Meer weten</string>
+    <string name="drawer_folder_sync">Auto upload</string>
     <string name="drawer_participate">Meedoen</string>
     <string name="participate_testing_headline">Help ons testen</string>
     <string name="participate_testing_bug_text">Foutje gevonden? Of iets raars?</string>
@@ -523,6 +525,13 @@ of</string>
     <string name="participate_contribute_github_text">Doe mee als ontwikkelaar, zie &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> voor details</string>
     <string name="move_to">Verplaats naar&#8230;</string>
     <string name="copy_to">Kopieer naar&#8230;</string>
+    <string name="choose_remote_folder">Kies map&#8230;</string>
+    <string name="folder_sync_loading_folders">Laden mappen&#8230;</string>
+    <string name="folder_sync_no_results">Geen mediamappen gevonden</string>
+    <string name="folder_sync_preferences">Auto upload voorkeuren</string>
+    <string name="folder_sync_settings">Instellingen</string>
+    <string name="folder_sync_new_info">Directe upload is helemaal herzien. Bekijk het hoofdmenu en herconfigureer je auto uploadfunctie. Onze excuses voor het ongemak.\n\nVeel plezier met de nieuwe en meer uitgebreide auto upload mogelijkheden!</string>
+    <string name="folder_sync_preferences_folder_path">Voor %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>

@@ -525,7 +525,7 @@
     <string name="folder_sync_no_results">Keine Medienordner gefunden.</string>
     <string name="folder_sync_preferences">Auto Upload Einstellungen</string>
     <string name="folder_sync_settings">Einstellungen</string>
-    <string name="folder_sync_new_info">Sofortiger Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto Upload gehen und neu configurieren. Bitte entschuldigen Sie die Unannehmlichkeiten.\\n\\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto Uploads!</string>
+    <string name="folder_sync_new_info">Sofortiger Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto Upload gehen und neu configurieren. Bitte entschuldigen Sie die Unannehmlichkeiten.\n\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto Uploads!</string>
     <string name="folder_sync_preferences_folder_path">Für %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
