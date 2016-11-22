@@ -479,7 +479,8 @@ public class FileOperationsHelper {
             updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.CREATE_PERMISSION_FLAG);
         } else {
             updateShareIntent.
-                    putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER);
+                    putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
+                            OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9);
         }
 
         queueShareIntent(updateShareIntent);
