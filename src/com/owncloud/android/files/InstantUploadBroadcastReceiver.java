@@ -164,7 +164,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             Log_OC.d(TAG, "upload file and delete original file");
             return FileUploader.LOCAL_BEHAVIOUR_DELETE;
         }
-        return null;
+        return FileUploader.LOCAL_BEHAVIOUR_FORGET;
     }
 
     private void handleNewVideoAction(Context context, Intent intent) {
