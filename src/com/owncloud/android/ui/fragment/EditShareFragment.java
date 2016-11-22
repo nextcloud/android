@@ -33,6 +33,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -40,6 +41,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 
 public class EditShareFragment extends Fragment {
@@ -63,6 +65,9 @@ public class EditShareFragment extends Fragment {
 
     /** File bound to mShare, received as a parameter in construction time */
     private OCFile mFile;
+
+    /** Account of the shared file, received as a parameter in construction time */
+    private Account mAccount;
 
     /** Listener for changes on privilege checkboxes */
     private CompoundButton.OnCheckedChangeListener mOnPrivilegeChangeListener;
@@ -104,7 +109,7 @@ public class EditShareFragment extends Fragment {
             mShare = getArguments().getParcelable(ARG_SHARE);
             mFile = getArguments().getParcelable(ARG_FILE);
             /* OC account holding the shared file, received as a parameter in construction time */
-            Account mAccount = getArguments().getParcelable(ARG_ACCOUNT);
+            mAccount = getArguments().getParcelable(ARG_ACCOUNT);
         }
     }
 
@@ -150,6 +155,11 @@ public class EditShareFragment extends Fragment {
 
             int sharePermissions = mShare.getPermissions();
             boolean isFederated = ShareType.FEDERATED.equals(mShare.getShareType());
+            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mAccount);
+            boolean isNotReshareableFederatedSupported = (
+                    serverVersion != null &&
+                            serverVersion.isNotReshareableFederatedSupported()
+            );
             CompoundButton compound;
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
@@ -166,18 +176,22 @@ public class EditShareFragment extends Fragment {
             boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
             compound.setChecked(canEdit);
 
-            if (mFile.isFolder() && !isFederated) {
+            boolean areEditOptionsAvailable = !isFederated || isNotReshareableFederatedSupported;
+
+            if (mFile.isFolder() && areEditOptionsAvailable) {
+                /// TODO change areEditOptionsAvailable in order to delete !isFederated
+                // from checking when iOS is ready
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditCreateCheckBox);
                 compound.setChecked((sharePermissions & OCShare.CREATE_PERMISSION_FLAG) > 0);
-                compound.setVisibility(canEdit ? View.VISIBLE : View.GONE);
+                compound.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
 
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditChangeCheckBox);
                 compound.setChecked((sharePermissions & OCShare.UPDATE_PERMISSION_FLAG) > 0);
-                compound.setVisibility(canEdit ? View.VISIBLE : View.GONE);
+                compound.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
 
                 compound = (CompoundButton) editShareView.findViewById(R.id.canEditDeleteCheckBox);
                 compound.setChecked((sharePermissions & OCShare.DELETE_PERMISSION_FLAG) > 0);
-                compound.setVisibility(canEdit ? View.VISIBLE : View.GONE);
+                compound.setVisibility((canEdit) ? View.VISIBLE : View.GONE);
             }
 
             setPermissionsListening(editShareView, true);
