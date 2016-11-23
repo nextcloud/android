@@ -44,13 +44,13 @@ public class FeatureList {
 
     static final private FeatureItem featuresList[] = {
             // Basic features showed on first install
-            new FeatureItem(R.drawable.what_new_instant_upload,
+            new FeatureItem(R.drawable.whats_new_files,
                     R.string.welcome_feature_1_title, R.string.welcome_feature_1_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
-            new FeatureItem(R.drawable.whats_new_files,
+            new FeatureItem(R.drawable.whats_new_accounts,
                     R.string.welcome_feature_2_title, R.string.welcome_feature_2_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
-            new FeatureItem(R.drawable.whats_new_accounts,
+            new FeatureItem(R.drawable.what_new_instant_upload,
                     R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
             // Features introduced in certain point in time
