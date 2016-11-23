@@ -31,7 +31,8 @@
         android:id="@+id/whatsNewImage"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="10dp"
-        android:layout_weight="50"/>
+        android:layout_weight="50"
+        android:src="@drawable/whats_new_files"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -39,7 +40,7 @@
         android:textAppearance="@style/NextcloudTextAppearanceHeadline"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:text="@string/placeholder_sentence"
+        android:text="@string/welcome_feature_1_title"
         android:id="@+id/whatsNewTitle"
         android:layout_gravity="center_horizontal"
         android:gravity="center"/>
@@ -48,7 +49,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/NextcloudTextAppearanceMedium"
         android:textColor="@color/login_text_hint_color"
-        android:text="@string/placeholder_sentence"
+        android:text="@string/welcome_feature_1_text"
         android:id="@+id/whatsNewText"
         android:layout_margin="@dimen/standard_margin"
         android:layout_gravity="center_horizontal"

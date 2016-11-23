@@ -549,14 +549,14 @@
     <string name="whats_new_title">What\'s new in Nextcloud</string>
 
     <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Instant upload</string>
-    <string name="welcome_feature_1_text">Keep your photos safe</string>
+    <string name="welcome_feature_1_title">A safe home for all your data</string>
+    <string name="welcome_feature_1_text">Access, share &amp; protect your files at home and in your enterprise</string>
 
-    <string name="welcome_feature_2_title">Manage all your files</string>
-    <string name="welcome_feature_2_text">You can delete, move</string>
+    <string name="welcome_feature_2_title">MultiAccount</string>
+    <string name="welcome_feature_2_text">Connect to all your clouds</string>
 
-    <string name="welcome_feature_3_title">MultiAccount</string>
-    <string name="welcome_feature_3_text">Connect to all your clouds</string>
+    <string name="welcome_feature_3_title">Instant upload</string>
+    <string name="welcome_feature_3_text">Keep your photos safe</string>
 
     <string name="whats_new_skip">Skip</string>
 </resources>
