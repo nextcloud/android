@@ -476,7 +476,7 @@ public class Preferences extends PreferenceActivity
         if (getPackageManager().resolveActivity(davDroidLoginIntent, 0) != null) {
             // arguments
             if (mUri != null) {
-                davDroidLoginIntent.putExtra("url", mUri.toString());
+                davDroidLoginIntent.putExtra("url", mUri.toString() + "/remote.php/dav");
             }
             davDroidLoginIntent.putExtra("username", AccountUtils.getAccountUsername(account.name));
             //loginIntent.putExtra("password", "...");
