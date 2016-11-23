@@ -42,16 +42,21 @@
         android:textStyle="bold"
         android:text="@string/welcome_feature_1_title"
         android:id="@+id/whatsNewTitle"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/NextcloudTextAppearanceMedium"
-        android:textColor="@color/login_text_hint_color"
-        android:text="@string/welcome_feature_1_text"
-        android:id="@+id/whatsNewText"
         android:layout_margin="@dimen/standard_margin"
         android:layout_gravity="center_horizontal"
         android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/whatsNewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:layout_marginLeft="@dimen/standard_double_margin"
+        android:layout_marginRight="@dimen/standard_double_margin"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:gravity="center"
+        android:text="@string/welcome_feature_1_text"
+        android:textAppearance="@style/NextcloudTextAppearanceMedium"
+        android:textColor="@color/login_text_hint_color"/>
 </LinearLayout>
