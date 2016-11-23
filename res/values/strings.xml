@@ -347,7 +347,7 @@
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
     <string name="network_host_not_available">The operation couldn\'t be completed; server is unavailable</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">You do not have permission %s</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
@@ -545,4 +545,18 @@
     <string name="storage_description_sd_no">SD card %1$d</string>
     <string name="storage_description_unknown">Unknown</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">What\'s new in Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">A safe home for all your data</string>
+    <string name="welcome_feature_1_text">Access, share &amp; protect your files at home and in your enterprise</string>
+
+    <string name="welcome_feature_2_title">Multi account</string>
+    <string name="welcome_feature_2_text">Connect to all your clouds</string>
+
+    <string name="welcome_feature_3_title">Instant upload</string>
+    <string name="welcome_feature_3_text">Keep your photos safe</string>
+
+    <string name="whats_new_skip">Skip</string>
 </resources>
