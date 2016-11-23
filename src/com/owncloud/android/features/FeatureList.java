@@ -50,11 +50,8 @@ public class FeatureList {
             new FeatureItem(R.drawable.whats_new_files,
                     R.string.welcome_feature_2_title, R.string.welcome_feature_2_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
-            new FeatureItem(R.drawable.whats_new_share,
-                    R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
-                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
             new FeatureItem(R.drawable.whats_new_accounts,
-                    R.string.welcome_feature_4_title, R.string.welcome_feature_4_text,
+                    R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
             // Features introduced in certain point in time
     };
