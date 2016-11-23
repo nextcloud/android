@@ -20,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10040002"
-    android:versionName="1.4.0 RC2">
+    android:versionCode="10040003"
+    android:versionName="1.4.0 RC3">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -183,7 +183,7 @@
             android:name=".authentication.AuthenticatorActivity"
             android:exported="true"
             android:launchMode="singleTask"
-            android:theme="@style/Theme.ownCloud.noActionBar.Login" >
+            android:theme="@style/Theme.ownCloud.noActionBar.Login">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -219,7 +219,9 @@
 
         <activity android:name=".ui.errorhandling.ErrorShowActivity" />
         <activity android:name=".ui.activity.UploadListActivity" />
-
+        <activity android:name=".ui.activity.WhatsNewActivity"
+                  android:theme="@style/Theme.ownCloud.noActionBar.Login" />
+        
         <receiver android:name=".files.services.ConnectivityActionReceiver"
 		    android:enabled="true" android:label="ConnectivityActionReceiver">
 		    <intent-filter>
