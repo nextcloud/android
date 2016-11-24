@@ -342,7 +342,7 @@
     <string name="network_error_socket_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
     <string name="network_error_connect_timeout_exception">Ocurrió un error al esperar la respuesta del servidor, la operación no se pudo realizar</string>
     <string name="network_host_not_available">La operación no se pudo completar; el servidor no está disponible</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">No tiene permiso %s</string>
     <string name="forbidden_permissions_rename">para renombrar este archivo</string>

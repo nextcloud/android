@@ -345,7 +345,7 @@
     <string name="network_error_socket_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть выполнено</string>
     <string name="network_error_connect_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть выполнено</string>
     <string name="network_host_not_available">Действие не может быть выполнено, сервер недоступен</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">У вас нет прав %s</string>
     <string name="forbidden_permissions_rename">для переименования этого файла</string>
@@ -509,4 +509,4 @@
     <string name="storage_description_default">По умолчанию</string>
     <string name="storage_description_unknown">Неизвестно</string>
 
-</resources>
+    </resources>

@@ -346,7 +346,7 @@ správce systému.</string>
     <string name="network_error_socket_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
     <string name="network_error_connect_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
     <string name="network_host_not_available">Operace nemohla být dokončena, server je nedostupný</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">Nemáte oprávnění %s</string>
     <string name="forbidden_permissions_rename">přejmenovat tento soubor</string>
@@ -536,4 +536,4 @@ správce systému.</string>
     <string name="storage_description_sd_no">SD karta %1$d</string>
     <string name="storage_description_unknown">Neznámý</string>
 
-</resources>
+    </resources>

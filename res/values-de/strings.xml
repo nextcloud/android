@@ -347,7 +347,7 @@
     <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
     <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
     <string name="network_host_not_available">Die Operation kann nicht abgeschlossen werden, der Server ist nicht erreichbar</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">Sie haben keine Berechtigung %s</string>
     <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
@@ -536,4 +536,4 @@
     <string name="storage_description_sd_no">SD Karte %1$d</string>
     <string name="storage_description_unknown">Unbekannt</string>
 
-</resources>
+    </resources>

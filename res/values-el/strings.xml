@@ -311,7 +311,7 @@
     <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργειών</string>
 
     <string name="network_error_socket_exception">Ένα σφάλμα προέκυψε κατά τη σύνδεση με το διακομιστή.</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">Δεν έχετε πρόσβαση %s</string>
     <string name="forbidden_permissions_rename">για να μετονομάσετε αυτό το αρχείο</string>
