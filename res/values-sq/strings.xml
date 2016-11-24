@@ -339,7 +339,7 @@
     <string name="network_error_socket_timeout_exception">Ndodhi një gabim teksa po pritej për shërbyesin, veprimi s\’u krye dot</string>
     <string name="network_error_connect_timeout_exception">Ndodhi një gabim teksa po pritej për shërbyesin, veprimi s\'u krye dot</string>
     <string name="network_host_not_available">Veprimi s\'u plotësua dot, shërbyesi është i pakapshëm</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">Nuk keni leje %s</string>
     <string name="forbidden_permissions_rename">për riemërtim të kësaj kartele</string>

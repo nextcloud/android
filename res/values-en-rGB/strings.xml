@@ -347,7 +347,7 @@
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
     <string name="network_host_not_available">The operation couldn\'t be completed; server is unavailable</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">You do not have permission %s</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
@@ -536,4 +536,4 @@
     <string name="storage_description_sd_no">SD card %1$d</string>
     <string name="storage_description_unknown">Unknown</string>
 
-</resources>
+    </resources>

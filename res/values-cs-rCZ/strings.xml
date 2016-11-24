@@ -346,7 +346,7 @@ správce systému.</string>
     <string name="network_error_socket_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
     <string name="network_error_connect_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
     <string name="network_host_not_available">Operace nemohla být dokončena, server je nedostupný</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">Nemáte oprávnění %s</string>
     <string name="forbidden_permissions_rename">přejmenovat tento soubor</string>
@@ -524,6 +524,7 @@ správce systému.</string>
     <string name="folder_sync_no_results">Nebyly nalezeny žádné adresáře médií.</string>
     <string name="folder_sync_preferences">Nastavení automatického nahrávání</string>
     <string name="folder_sync_settings">Nastavení</string>
+    <string name="folder_sync_new_info">Okamžité nahrávání dat bylo kompletně předěláno. Navštivte hlavní menu a nakonfigurujte automatické nahrávání svých dat. Omlouváme se za nepříjemnosti.\n\nUžívejte si nové a rozšířené možnosti nahrávání dat!</string>
     <string name="folder_sync_preferences_folder_path">Pro %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">vybráno %d</item>
@@ -535,4 +536,4 @@ správce systému.</string>
     <string name="storage_description_sd_no">SD karta %1$d</string>
     <string name="storage_description_unknown">Neznámý</string>
 
-</resources>
+    </resources>

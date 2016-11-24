@@ -169,6 +169,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        // unused but to be implemented due to abstract parent
     }
 
     @Override
@@ -179,12 +180,12 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
+        // unused but to be implemented due to abstract parent
     }
 
     private final class FeaturesViewAdapter extends FragmentPagerAdapter {
 
-        FeatureItem[] mFeatures;
+        private FeatureItem[] mFeatures;
 
         public FeaturesViewAdapter(FragmentManager fm, FeatureItem[]features) {
             super(fm);
@@ -221,7 +222,9 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
         @Nullable
         @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        public View onCreateView(LayoutInflater inflater,
+                                 @Nullable ViewGroup container,
+                                 @Nullable Bundle savedInstanceState) {
             View v = inflater.inflate(R.layout.whats_new_element, container, false);
 
             ImageView iv = (ImageView)v.findViewById(R.id.whatsNewImage);

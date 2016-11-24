@@ -284,7 +284,7 @@
 
 	<!-- Text styles -->
 	<style name="NextcloudTextAppearanceHeadline" parent="style/TextAppearance.AppCompat.Headline">
-		<item name="android:textSize">28sp</item>
+		<item name="android:textSize">26sp</item>
 		<item name="android:textColor">#000000</item>
 	</style>
 	<style name="NextcloudTextAppearanceMedium" parent="style/TextAppearance.AppCompat.Medium">

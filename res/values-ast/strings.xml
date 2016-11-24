@@ -310,7 +310,7 @@
     <string name="error_cant_bind_to_operations_service">Fallu críticu: nun puen facese les operaciones</string>
 
     <string name="network_error_socket_exception">Asocedió un fallu cuando se coneutaba col sirvidor.</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">Nun tienes permisu %s</string>
     <string name="forbidden_permissions_rename">pa renomar esti ficheru</string>
