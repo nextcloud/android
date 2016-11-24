@@ -322,7 +322,7 @@
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생하였습니다.</string>
     <string name="network_error_connect_timeout_exception">서버를 기다리는 동안 오류가 발생하였습니다; 작업을 완료 할 수 없습니다</string>
     <string name="network_host_not_available">작업을 완료 할 수 없습니다; 서버를 사용할 수 없습니다</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">%s 권한이 없습니다</string>
     <string name="forbidden_permissions_rename">이 파일의 이름을 바꿀</string>

@@ -37,25 +37,21 @@ import java.util.regex.Pattern;
  * @author Bartosz Przybylski
  */
 public class FeatureList {
-    static final private boolean SHOW_ON_FIRST_RUN = true;
-    static final private boolean SHOW_ON_UPGRADE = false;
+    private static final boolean SHOW_ON_FIRST_RUN = true;
 
     private static final String VERSION_1_0_0 = "1.0.0";
     private static final String BETA_VERSION_0 = "0";
 
     static final private FeatureItem featuresList[] = {
             // Basic features showed on first install
-            new FeatureItem(R.drawable.what_new_instant_upload,
+            new FeatureItem(R.drawable.whats_new_files,
                     R.string.welcome_feature_1_title, R.string.welcome_feature_1_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
-            new FeatureItem(R.drawable.whats_new_files,
+            new FeatureItem(R.drawable.whats_new_accounts,
                     R.string.welcome_feature_2_title, R.string.welcome_feature_2_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
-            new FeatureItem(R.drawable.whats_new_share,
+            new FeatureItem(R.drawable.what_new_instant_upload,
                     R.string.welcome_feature_3_title, R.string.welcome_feature_3_text,
-                    VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
-            new FeatureItem(R.drawable.whats_new_accounts,
-                    R.string.welcome_feature_4_title, R.string.welcome_feature_4_text,
                     VERSION_1_0_0, BETA_VERSION_0, SHOW_ON_FIRST_RUN),
             // Features introduced in certain point in time
     };
@@ -153,7 +149,7 @@ public class FeatureList {
                 };
     }
 
-    static int versionCodeFromString(String version) {
+    private static int versionCodeFromString(String version) {
         String v[] = version.split(Pattern.quote("."));
         if (v.length != 3) {
             Log_OC.e("FeatureList", "Version string is incorrect " + version);

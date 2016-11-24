@@ -326,7 +326,7 @@
     <string name="network_error_socket_timeout_exception">Terjadi kesalahan saat menunggu balasan server, operasi tidak dapat diselesaikan</string>
     <string name="network_error_connect_timeout_exception">Terjadi kesalahan saat menunggu balasan server, operasi tidak dapat diselesaikan</string>
     <string name="network_host_not_available">Operasi tidak dapat diselesaikan, server tidak tersedia</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">Anda tidak memiliki izin %s</string>
     <string name="forbidden_permissions_rename">untuk mengubah nama berkas ini</string>

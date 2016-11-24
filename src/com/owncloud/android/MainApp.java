@@ -193,7 +193,7 @@ public class MainApp extends Application {
         }
     }
 
-    //  From AccountAuthenticator
+    //  From AccountAuthenticator 
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {
         return getAppContext().getResources().getString(R.string.authority);
