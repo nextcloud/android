@@ -344,7 +344,7 @@
     <string name="network_error_socket_timeout_exception">Ocorreu um erro enquanto se espera pelo servidor, a operação não poderia ter sido executada</string>
     <string name="network_error_connect_timeout_exception">Ocorreu um erro enquanto se espera pelo servidor, a operação não poderia ter sido executada</string>
     <string name="network_host_not_available">A operação não pôde ser concluída, o servidor está indisponível</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">Você não tem premissão %s</string>
     <string name="forbidden_permissions_rename">para renomear este arquivo</string>
@@ -527,4 +527,4 @@
     <string name="storage_description_sd_no">Cartão SD %1$d</string>
     <string name="storage_description_unknown">Desconhecido</string>
 
-</resources>
+    </resources>

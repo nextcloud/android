@@ -348,7 +348,7 @@ La suppression est irréversible. </string>
     <string name="network_error_socket_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée</string>
     <string name="network_error_connect_timeout_exception">Une erreur est survenue pendant l\'attente du serveur. L\'opération n\'a pas pu être effectuée</string>
     <string name="network_host_not_available">L\'opération n\'a pas pu être terminée, le serveur n\'est pas disponible</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">Vous n\'avez pas la permission %s</string>
     <string name="forbidden_permissions_rename">de renommer ce fichier</string>
@@ -524,6 +524,8 @@ ou</string>
     <string name="copy_to">Copier vers&#8230;</string>
     <string name="choose_remote_folder">Choisir le dossier&#8230;</string>
     <string name="folder_sync_loading_folders">Chargement des dossiers&#8230;</string>
+    <string name="folder_sync_no_results">Aucun répertoire média trouvé.</string>
+    <string name="folder_sync_preferences">Préférences du téléversement automatique</string>
     <string name="folder_sync_settings">Paramètres</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>
@@ -534,4 +536,4 @@ ou</string>
     <string name="storage_description_sd_no">Carte SD %1$d</string>
     <string name="storage_description_unknown">Inconnu</string>
 
-</resources>
+    </resources>

@@ -316,7 +316,7 @@
     <string name="error_cant_bind_to_operations_service">Alvarleg villa: get ekki framkvæmt aðgerðir</string>
 
     <string name="network_error_socket_exception">Villa kom upp við að tengjast við þjóninn.</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">Þú hefur ekki heimild %s</string>
     <string name="forbidden_permissions_rename">til að endurnefna þessa skrá</string>

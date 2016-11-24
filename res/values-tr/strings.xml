@@ -340,7 +340,7 @@
     <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir hata oluştu, işlem yapılamadı</string>
     <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir hata oluştu, işlem yapılamadı</string>
     <string name="network_host_not_available">İşlem tamamlanamadı, sunucu kullanılamıyor</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">%s izniniz yok</string>
     <string name="forbidden_permissions_rename">Bu dosyayı adlandırmak için</string>
