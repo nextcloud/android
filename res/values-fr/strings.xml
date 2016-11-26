@@ -536,4 +536,9 @@ ou</string>
     <string name="storage_description_sd_no">Carte SD %1$d</string>
     <string name="storage_description_unknown">Inconnu</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Quoi de neuf dans Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Un endroit sûr pour toutes vos données</string>
     </resources>

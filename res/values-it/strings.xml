@@ -539,4 +539,13 @@ o</string>
     <string name="storage_description_sd_no">Scheda SD %1$d</string>
     <string name="storage_description_unknown">Sconosciuto</string>
 
-    </resources>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Cosa c\'è di nuovo in Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Un posto sicuro per tutti i tuoi dati</string>
+    <string name="welcome_feature_3_title">Caricamento istantaneo</string>
+    <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
+
+    <string name="whats_new_skip">Salta</string>
+</resources>
