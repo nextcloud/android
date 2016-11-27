@@ -482,7 +482,7 @@
     <string name="edit_share_unshare">Interrompi la condivisione</string>
     <string name="edit_share_done">completato</string>
 
-    <string name="action_retry_uploads">Riprova caricamenti falliti</string>
+    <string name="action_retry_uploads">Riprova caricamenti non riusciti</string>
     <string name="action_clear_failed_uploads">Cancella i caricamenti non riusciti</string>
     <string name="action_clear_successful_uploads">Cancella i caricamenti avvenuti</string>
     <string name="action_clear_finished_uploads">Cancella tutti i caricamenti completati</string>

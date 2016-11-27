@@ -541,4 +541,18 @@ of</string>
     <string name="storage_description_sd_no">SD kaart %1$d</string>
     <string name="storage_description_unknown">Onbekend</string>
 
-    </resources>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Wat is nieuw in Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Een veilige plek voor al je gegevens</string>
+    <string name="welcome_feature_1_text">Benader, deel &amp; beveilig je gegevens thuis en binnen je organisatie</string>
+
+    <string name="welcome_feature_2_title">Multi account</string>
+    <string name="welcome_feature_2_text">Verbind met al je clouds</string>
+
+    <string name="welcome_feature_3_title">Directe upload</string>
+    <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
+
+    <string name="whats_new_skip">Overslaan</string>
+</resources>
