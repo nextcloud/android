@@ -475,4 +475,7 @@
     </plurals>
 
     <string name="storage_description_sd_no">SD карта %1$d</string>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Kакво ново в Nextcloud</string>
+
     </resources>

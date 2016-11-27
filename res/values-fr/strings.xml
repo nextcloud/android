@@ -527,6 +527,7 @@ ou</string>
     <string name="folder_sync_no_results">Aucun répertoire média trouvé.</string>
     <string name="folder_sync_preferences">Préférences du téléversement automatique</string>
     <string name="folder_sync_settings">Paramètres</string>
+    <string name="folder_sync_preferences_folder_path">Pour %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
@@ -541,4 +542,11 @@ ou</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un endroit sûr pour toutes vos données</string>
-    </resources>
+    <string name="welcome_feature_2_title">Multi-compte</string>
+    <string name="welcome_feature_2_text">Connecter tous vos clouds</string>
+
+    <string name="welcome_feature_3_title">Téléversement immédiat</string>
+    <string name="welcome_feature_3_text">Garder vos photos en sécurité</string>
+
+    <string name="whats_new_skip">Passer</string>
+</resources>
