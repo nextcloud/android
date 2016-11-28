@@ -544,6 +544,11 @@ o</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un posto sicuro per tutti i tuoi dati</string>
+    <string name="welcome_feature_1_text">Accedi, condividi e proteggi i tuoi file a casa e nella tua azienda</string>
+
+    <string name="welcome_feature_2_title">Account multipli</string>
+    <string name="welcome_feature_2_text">Collega tutti i tuoi cloud</string>
+
     <string name="welcome_feature_3_title">Caricamento istantaneo</string>
     <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
 

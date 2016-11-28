@@ -380,6 +380,8 @@ La suppression est irréversible. </string>
 
     <string name="file_migration_directory_already_exists">Le dossier de données existe déjà, que faire?</string>
     <string name="file_migration_override_data_folder">Écraser</string>
+    <string name="file_migration_use_data_folder">Utilisation actuelle</string>
+
     <string name="prefs_category_accounts">Comptes</string>
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="drawer_manage_accounts">Gestion des comptes</string>
@@ -542,6 +544,8 @@ ou</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un endroit sûr pour toutes vos données</string>
+    <string name="welcome_feature_1_text">Accéder, partager, et protéger vos fichiers personnels et professionnels</string>
+
     <string name="welcome_feature_2_title">Multi-compte</string>
     <string name="welcome_feature_2_text">Connecter tous vos clouds</string>
 
