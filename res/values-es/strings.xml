@@ -116,7 +116,7 @@
     <string name="about_title">Acerca de</string>
     <string name="change_password">Cambiar contraseña</string>
     <string name="delete_account">Eliminar cuenta</string>
-    <string name="delete_account_warning">¿Borrar cuenta %s?\\n\\n Esta acción no se puede deshacer.</string>
+    <string name="delete_account_warning">¿Borrar cuenta %s?\n\n Esta acción no se puede deshacer.</string>
     <string name="create_account">Crear cuenta</string>
     <string name="upload_chooser_title">Subir desde&#8230;</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
@@ -361,7 +361,7 @@
 
     <string name="file_migration_dialog_title">Actualizando ruta de almacenamiento</string>
     <string name="file_migration_finish_button">Terminar</string>
-    <string name="file_migration_preparing">Preparando la migración&@8230;</string>
+    <string name="file_migration_preparing">Preparando la migración&#8230;</string>
     <string name="file_migration_checking_destination">Comprobando destino&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Guardando configuración de cuentas&#8230;</string>
     <string name="file_migration_waiting_for_unfinished_sync">Esperando sincronizaciones no finalizadas&#8230;</string>
@@ -462,7 +462,7 @@
     <string name="share_via_link_edit_permission_label">Permitir edición</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar la lista de archivos.</string>
     <string name="share_get_public_link_button">Obtener enlace</string>
-    <string name="share_with_title">Compartir con...</string>
+    <string name="share_with_title">Compartir con&#8230;</string>
     <string name="share_with_edit_title">Compartir con %1$s</string>
 
     <string name="share_search">Buscar</string>
@@ -472,7 +472,7 @@
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
 
-    <string name="share_sharee_unavailable">Lo sentimos, su versión de servidor no permite compartir con usuarios desde los clientes.\\nPor favor, contacte con su administrador</string>
+    <string name="share_sharee_unavailable">Lo sentimos, su versión de servidor no permite compartir con usuarios desde los clientes.\nPor favor, contacte con su administrador</string>
     <string name="share_privilege_can_share">puede compartir</string>
     <string name="share_privilege_can_edit">puede editar</string>
     <string name="share_privilege_can_edit_create">crear</string>
@@ -490,7 +490,7 @@
     <string name="action_switch_list_view">Ver lista</string>
 
     <string name="manage_space_title">Gestionar espacio</string>
-    <string name="manage_space_description">Las opciones, certificados y Bases de Datos de %1$s\'s serán borrados permanentemente. \n\nLos archibos bajados no serán tocados. .\n\nEste proceso tardará algún tiempo.</string>
+    <string name="manage_space_description">Las opciones, certificados y Bases de Datos de %1$s\'s serán borrados permanentemente.\n\nLos archibos bajados no serán tocados.\n\nEste proceso tardará algún tiempo.</string>
     <string name="manage_space_clear_data">Limpiar datos</string>
     <string name="manage_space_error">No se han podido eliminar algunos archivos</string>
 
@@ -526,7 +526,7 @@ o</string>
     <string name="folder_sync_no_results">No se han encnotrado carpetas de medios.</string>
     <string name="folder_sync_preferences">Preferencias de subida automática</string>
     <string name="folder_sync_settings">Configuración</string>
-    <string name="folder_sync_new_info">La subida instantánea ha sido completamente renovada. Por favor, vaya al menú principal y reconfigure sus subidas instantáneas. Disculpe las molestias.\\n\\n¡Disfrute las capacidades de la subida automática, nuevas y extendidas!</string>
+    <string name="folder_sync_new_info">La subida instantánea ha sido completamente renovada. Por favor, vaya al menú principal y reconfigure sus subidas instantáneas. Disculpe las molestias.\n\n¡Disfrute las capacidades de la subida automática, nuevas y extendidas!</string>
     <string name="folder_sync_preferences_folder_path">Durante %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
