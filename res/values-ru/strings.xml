@@ -499,6 +499,11 @@
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Перевести&lt;/a> приложение</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
+    <string name="choose_remote_folder">Выбрите каталог &#8230;</string>
+    <string name="folder_sync_loading_folders">Загрузка каталогов &#8230;</string>
+    <string name="folder_sync_preferences">Предпочитать автозагрузку</string>
+    <string name="folder_sync_settings">Настройки</string>
+    <string name="folder_sync_preferences_folder_path">Для %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>
         <item quantity="few">%d выбрано</item>
@@ -507,6 +512,21 @@
     </plurals>
 
     <string name="storage_description_default">По умолчанию</string>
+    <string name="storage_description_sd_no">SD карта %1$d</string>
     <string name="storage_description_unknown">Неизвестно</string>
 
-    </resources>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Что нового в Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Безопасный хранилище для всех ваших данных</string>
+    <string name="welcome_feature_1_text">Доступ,  общий доступ &amp; защитита ваших файлов для дома и предприятия</string>
+
+    <string name="welcome_feature_2_title">Мультиаккаунт</string>
+    <string name="welcome_feature_2_text">Доступ ко всем вашим облакам</string>
+
+    <string name="welcome_feature_3_title">Автозагрузка</string>
+    <string name="welcome_feature_3_text">Держите ваши фотографии в безопасности</string>
+
+    <string name="whats_new_skip">Пропустить</string>
+</resources>

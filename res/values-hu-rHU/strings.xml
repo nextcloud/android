@@ -536,4 +536,16 @@ vagy</string>
     <string name="storage_description_sd_no">SD kártya %1$d</string>
     <string name="storage_description_unknown">Ismeretlen</string>
 
-    </resources>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Nextcloud hírek</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Egy biztonságos hely az adataidnak</string>
+    <string name="welcome_feature_2_title">Többszörös fiók</string>
+    <string name="welcome_feature_2_text">Csatlakozás az összes felhődhöz</string>
+
+    <string name="welcome_feature_3_title">Azonnali feltöltés</string>
+    <string name="welcome_feature_3_text">Tartsd biztonságban a fotóidat</string>
+
+    <string name="whats_new_skip">Kihagy</string>
+</resources>

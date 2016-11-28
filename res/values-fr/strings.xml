@@ -380,6 +380,8 @@ La suppression est irréversible. </string>
 
     <string name="file_migration_directory_already_exists">Le dossier de données existe déjà, que faire?</string>
     <string name="file_migration_override_data_folder">Écraser</string>
+    <string name="file_migration_use_data_folder">Utilisation actuelle</string>
+
     <string name="prefs_category_accounts">Comptes</string>
     <string name="prefs_add_account">Ajouter un compte</string>
     <string name="drawer_manage_accounts">Gestion des comptes</string>
@@ -527,6 +529,7 @@ ou</string>
     <string name="folder_sync_no_results">Aucun répertoire média trouvé.</string>
     <string name="folder_sync_preferences">Préférences du téléversement automatique</string>
     <string name="folder_sync_settings">Paramètres</string>
+    <string name="folder_sync_preferences_folder_path">Pour %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
@@ -536,4 +539,18 @@ ou</string>
     <string name="storage_description_sd_no">Carte SD %1$d</string>
     <string name="storage_description_unknown">Inconnu</string>
 
-    </resources>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Quoi de neuf dans Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Un endroit sûr pour toutes vos données</string>
+    <string name="welcome_feature_1_text">Accéder, partager, et protéger vos fichiers personnels et professionnels</string>
+
+    <string name="welcome_feature_2_title">Multi-compte</string>
+    <string name="welcome_feature_2_text">Connecter tous vos clouds</string>
+
+    <string name="welcome_feature_3_title">Téléversement immédiat</string>
+    <string name="welcome_feature_3_text">Garder vos photos en sécurité</string>
+
+    <string name="whats_new_skip">Passer</string>
+</resources>

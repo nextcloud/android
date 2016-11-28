@@ -536,4 +536,18 @@
     <string name="storage_description_sd_no">SD Karte %1$d</string>
     <string name="storage_description_unknown">Unbekannt</string>
 
-    </resources>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Neues in Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Ein sicheres Zuhause für alle Deine Daten</string>
+    <string name="welcome_feature_1_text">Zugriff, Freigabe &amp; Schutz deiner Dateien zu Hause und in deinem Unternehmen.</string>
+
+    <string name="welcome_feature_2_title">Mehrfachkonto</string>
+    <string name="welcome_feature_2_text">Verbinde dich mit all deinen Clouds</string>
+
+    <string name="welcome_feature_3_title">Sofortiges Hochladen</string>
+    <string name="welcome_feature_3_text">Schütze deine Fotos</string>
+
+    <string name="whats_new_skip">Überspringen</string>
+</resources>
