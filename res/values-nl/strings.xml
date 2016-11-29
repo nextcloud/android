@@ -476,7 +476,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="share_known_remote_clarification">%1$s ( om %2$s )</string>
 
     <string name="share_sharee_unavailable">Helaas, je serverversie staat niet toe om binnen clients te delen met gebruikers.
-Neem contact op met je beheerder</string>
+\nNeem contact op met je beheerder</string>
     <string name="share_privilege_can_share">kan delen</string>
     <string name="share_privilege_can_edit">kan wijzigen</string>
     <string name="share_privilege_can_edit_create">creëer</string>

@@ -51,7 +51,7 @@
     <string name="prefs_remember_last_upload_location_summary">Emlékezzen a legutolsó feltöltés helyére</string>
 
 	<string name="recommend_subject">Próbáld ki a %1$s-ot az okostelefonodon!</string>
-	<string name="recommend_text">Szeretnélek meghívni, hogy használd a %1$s-ot az okostelefonodon!\\nTöltsd le innen: %2$s
+	<string name="recommend_text">Szeretnélek meghívni, hogy használd a %1$s-ot az okostelefonodon!\nTöltsd le innen: %2$s
 	</string>
 
     <string name="auth_check_server">Szerver ellenörzés</string>
@@ -166,7 +166,7 @@
     <string name="sync_fail_in_favourites_content">%1$d fájl szinkronizálása nem sikerült (%2$d ütközés)</string>
     <string name="sync_foreign_files_forgotten_ticker">Néhány helyi fájlt figyelmen kívül hagytunk</string>
     <string name="sync_foreign_files_forgotten_content">%2$s mappából %1$d fájlt nem lehetett másolni</string>
-    <string name="sync_foreign_files_forgotten_explanation">Az 1.3.16-os verzió óta, erről az eszközről feltöltött fájlok átmásolódnak a helyi %1$s mappába, hogy az adatvesztést megakadályozzuk, amikor egyetlen egy fájl több eszközre van szinkronizálva. \\n\\nEnnek a változásnak köszönhetően, minden olyan fájlt ami az alkalmazás előző verzióival lett feltöltve átmásolódnak a %2$s könyvtárba. Azonban a szinkronizálás alatt fellépő hiba megakadályozta ennek a folyamatnak a befejezését. Két lehetősége van. Hagyhatja a fájlt(okat) ahogy vannak és eltávolíthatja a hivatkozást a %3$s-hez, vagy helyezze át a fájlt(okat) a %1$s mappába, és tartsa meg a hivatkozást a %4$s-hez. \\n\\nAz alábbi listában megtalálja a helyi fájlt(okat) és a távoli fájlt(okat) amik a %5$s-hez voltak linkelve.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Az 1.3.16-os verzió óta, erről az eszközről feltöltött fájlok átmásolódnak a helyi %1$s mappába, hogy az adatvesztést megakadályozzuk, amikor egyetlen egy fájl több eszközre van szinkronizálva.\n\nEnnek a változásnak köszönhetően, minden olyan fájlt ami az alkalmazás előző verzióival lett feltöltve átmásolódnak a %2$s könyvtárba. Azonban a szinkronizálás alatt fellépő hiba megakadályozta ennek a folyamatnak a befejezését. Két lehetősége van. Hagyhatja a fájlt(okat) ahogy vannak és eltávolíthatja a hivatkozást a %3$s-hez, vagy helyezze át a fájlt(okat) a %1$s mappába, és tartsa meg a hivatkozást a %4$s-hez. \n\nAz alábbi listában megtalálja a helyi fájlt(okat) és a távoli fájlt(okat) amik a %5$s-hez voltak linkelve.</string>
     <string name="sync_current_folder_was_removed">A %1$s mappa már nem létezik</string>
     <string name="foreign_files_move">Helyezzük át mindet</string>
     <string name="foreign_files_success">Az összes fájlt áthelyeztük</string>
@@ -472,7 +472,7 @@
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
 
     <string name="share_sharee_unavailable">Sajnáljuk, de az Ön szerver verziója nem engedi a kliensen belüli megosztást felhasználók között.
-Kérem keresse a rendszergazdát.</string>
+\nKérem keresse a rendszergazdát.</string>
     <string name="share_privilege_can_share">megosztható</string>
     <string name="share_privilege_can_edit">módosíthat</string>
     <string name="share_privilege_can_edit_create">létrehoz</string>
@@ -490,7 +490,7 @@ Kérem keresse a rendszergazdát.</string>
     <string name="action_switch_list_view">Lista nézet</string>
 
     <string name="manage_space_title">Tárhely kezelés</string>
-    <string name="manage_space_description">A beállítások, az adatbázis és a szerver tanusítványok véglegesen törölve lesznek a(z) %1$s adatai közül.\\n\\nA letöltött fájlok változatlanok maradnak.\\n\\nA folyamat eltarthat egy ideig.</string>
+    <string name="manage_space_description">A beállítások, az adatbázis és a szerver tanusítványok véglegesen törölve lesznek a(z) %1$s adatai közül.\n\nA letöltött fájlok változatlanok maradnak.\n\nA folyamat eltarthat egy ideig.</string>
     <string name="manage_space_clear_data">Adatok törlése</string>
     <string name="manage_space_error">Néhány fájl nem volt törölhető</string>
 
