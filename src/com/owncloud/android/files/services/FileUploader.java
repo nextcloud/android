@@ -294,7 +294,7 @@ public class FileUploader extends Service
          *                          otherwise, failed uploads due to any result will be retried.
          */
         public void retryFailedUploads(Context context, Account account, UploadResult uploadResult) {
-            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver());
+            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
             OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
             Account currentAccount = null;
             boolean resultMatch, accountMatch;
@@ -346,7 +346,7 @@ public class FileUploader extends Service
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileUploaderBinder();
 
-        mUploadsStorageManager = new UploadsStorageManager(getContentResolver());
+        mUploadsStorageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
 
         int failedCounter = mUploadsStorageManager.failInProgressUploads(
             UploadResult.SERVICE_INTERRUPTED    // Add UploadResult.KILLED?
