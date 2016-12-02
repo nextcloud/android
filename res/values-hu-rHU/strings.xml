@@ -541,6 +541,8 @@ vagy</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Egy biztonságos hely az adataidnak</string>
+    <string name="welcome_feature_1_text">Férj hozzá, oszd meg és védd az otthoni vagy a vállalkozásod fájljaidat</string>
+
     <string name="welcome_feature_2_title">Többszörös fiók</string>
     <string name="welcome_feature_2_text">Csatlakozás az összes felhődhöz</string>
 
