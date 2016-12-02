@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Hesaplar</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_passcode">Parola kod kilidi</string>
+    <string name="prefs_show_hidden_files">Gizli dosyaları göster</string>
     <string name="prefs_instant_upload">Fotoğraflar anında yüklensin</string>
     <string name="prefs_instant_upload_summary">Kamera ile çekilen fotoğraflar anında yüklensin</string>
     <string name="prefs_instant_video_upload">Görüntüler anında yüklensin</string>
@@ -105,11 +106,13 @@
     <string name="common_cancel_sync">Eşitlemeyi iptal et</string>
     <string name="common_cancel">İptal</string>
     <string name="common_back">Geri</string>
+    <string name="common_save">Kaydet</string>
     <string name="common_save_exit">Kaydet ve çık</string>
     <string name="common_error">Hata</string>
     <string name="common_loading">Yükleniyor...</string>
     <string name="common_unknown">bilinmiyor</string>
     <string name="common_error_unknown">Bilinmeyen hata</string>
+    <string name="common_pending">Bekliyor</string>
     <string name="about_title">Hakkında</string>
     <string name="change_password">Parola değiştir</string>
     <string name="delete_account">Hesabı kaldır</string>
@@ -300,6 +303,8 @@
 
     <string name="instant_upload_on_wifi">Fotoğrafları sadece kablosuz bağlantıda (WiFi) yükle</string>
     <string name="instant_video_upload_on_wifi">Videoları sadece kablosuz bağlantıda (WiFi) yükle</string>
+    <string name="instant_video_upload_on_charging">Sadece şarj olurken yükle</string>
+    <string name="instant_upload_on_charging">Sadece şarj olurken yükle</string>
     <string name="instant_upload_path">/AnındaYükle</string>
     <string name="conflict_title">Dosya çakışması</string>
     <string name="conflict_message">Hangi dosyaları saklamak istiyorsunuz? Her ikisini de saklamayı seçerseniz yerel dosyanın adına bir sayı eklenecek.</string>
@@ -312,6 +317,7 @@
 
     <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel klasörüne kopyalanamadı</string>
     <string name="prefs_instant_upload_path_title">Anında yükleme klasörü</string>
+    <string name="prefs_folder_sync_local_path_title">Yerel klasör</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Alt klasörleri kullan</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Yıla ve aya göre alt dizinlere kaydet</string>
 
@@ -352,6 +358,28 @@
     <string name="uploader_upload_forbidden_permissions">Bu klasöre yükleme</string>
     <string name="downloader_download_file_not_found">Bu dosya artık sunucuda mevcut değil</string>
 
+    <string name="file_migration_dialog_title">Depolama alanı güncelleniyor</string>
+    <string name="file_migration_finish_button">Bitir</string>
+    <string name="file_migration_preparing">Eşleştirme için hazırlanıyor&#8230;</string>
+    <string name="file_migration_checking_destination">Hedef kontrol ediliyor&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Hesapların ayarları kaydediliyor&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Tamamlanmamış senkronizasyon bekleniyor&#8230;</string>
+    <string name="file_migration_migrating">Veri taşınıyor&#8230;</string>
+    <string name="file_migration_updating_index">Dizin güncelleniyor&#8230;</string>
+    <string name="file_migration_cleaning">Temizleniyor&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Hesapların ayarları geri yükleniyor&#8230;</string>
+    <string name="file_migration_ok_finished">Tamamlandı</string>
+    <string name="file_migration_failed_not_enough_space">HATA: Yeterli depolama alanı yok</string>
+    <string name="file_migration_failed_not_writable">HATA: Dosya yazılabilir değil</string>
+    <string name="file_migration_failed_not_readable">HATA: Dosya okunabilir değil</string>
+    <string name="file_migration_failed_dir_already_exists">HATA: Nextcloud klasörü zaten mevcut</string>
+    <string name="file_migration_failed_while_coping">HATA: Eşleştirme hatası</string>
+    <string name="file_migration_failed_while_updating_index">HATA: Dizin güncellenemiyor</string>
+
+    <string name="file_migration_directory_already_exists">Veri klasörü zaten mevcut, ne yapalım?</string>
+    <string name="file_migration_override_data_folder">Üzerine yaz</string>
+    <string name="file_migration_use_data_folder">Varolanı kullan</string>
+
     <string name="prefs_category_accounts">Hesaplar</string>
     <string name="prefs_add_account">Hesap ekle</string>
     <string name="drawer_manage_accounts">Hesapları yönet</string>
@@ -366,7 +394,8 @@
 	<string name="saml_authentication_required_text">Kimlik doğrulama gerekli</string>
 	<string name="saml_authentication_wrong_pass">Hatalı parola</string>
 	<string name="actionbar_move">Taşı</string>
-    <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
+    <string name="actionbar_copy">Kopyala</string>
+	<string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
 	<string name="folder_picker_choose_button_text">Seç</string>
 
     <string name="move_file_not_found">Taşıma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
@@ -416,6 +445,10 @@
 
     <string name="pref_behaviour_entries_keep_file">özgün klasöründe tutuldu</string>
     <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
+    <string name="pref_behaviour_entries_delete_file">silindi</string>
+    <string name="prefs_storage_path">Depolama yolu</string>
+    <string name="prefs_common">Genel</string>
+
     <string name="share_dialog_title">Paylaşım</string>
     <string name="share_file">%1$s paylaş</string>
     <string name="share_with_user_section_title">Kullanıcı ve Gruplarla paylaş</string>
@@ -426,6 +459,7 @@
     <string name="share_via_link_password_label">Parola koruması</string>
     <string name="share_via_link_password_title">Güvenli</string>
     <string name="share_via_link_edit_permission_label">Düzenlemeye izin ver</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Dosya listelemeyi gizle</string>
     <string name="share_get_public_link_button">Bağlantıyı al</string>
     <string name="share_with_title">Şununla paylaş...</string>
     <string name="share_with_edit_title">%1$s ile paylaş</string>
@@ -464,10 +498,44 @@
     <string name="local_file_not_found_toast">Dosya yerel dosya sisteminde bulunamadı.</string>
     <string name="confirmation_remove_files_alert">Seçilen öğeleri gerçekten kaldırmak istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilen öğeleri ve içeriklerini gerçekten kaldırmak istiyor musunuz?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Cihazın şarj edilmesi bekleniyor</string>
     <string name="actionbar_search">Ara</string>
+    <string name="files_drop_not_supported">Bu bir Nexcloud özelliğidir, lütfen güncelleyin</string>
+    <string name="learn_more">Daha fazla öğren</string>
+    <string name="drawer_folder_sync">Otomatik yükle</string>
+    <string name="participate_testing_headline">Test etmemize yardımcı ol</string>
+    <string name="participate_testing_bug_text">Hata mı buldun? </string>
+    <string name="participate_testing_report_text">Github\'da hata bildir</string>
+    <string name="participate_testing_version_text">Bir sonraki sürümde bize yardımcı olmak ister misin?</string>
+    <string name="participate_beta_headline">Beta sürümünü test et</string>
+    <string name="participate_contribute_irc_text">Chat\'e katıl: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s>forum&lt;/a>\'da diğer insanlara yardımcı ol</string>
+    <string name="participate_contribute_translate_text">Uygulamanın &lt;a href=\"%1$s>çevirilerine katıl&lt;/a> </string>
+    <string name="move_to">Taşı&#8230;</string>
+    <string name="copy_to">Kopyala&#8230;</string>
+    <string name="choose_remote_folder">Klasör Seç &#8230;</string>
+    <string name="folder_sync_loading_folders">Klasörler yükleniyor&#8230;</string>
+    <string name="folder_sync_no_results">Medya dosyası bulunamadı.</string>
+    <string name="folder_sync_preferences">Otomatik yükleme ayarları</string>
+    <string name="folder_sync_settings">Ayarlar</string>
+    <string name="folder_sync_preferences_folder_path">%1$s için</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seçili</item>
         <item quantity="other">%d seçili</item>
     </plurals>
 
-    </resources>
+    <string name="storage_description_default">Varsayılan</string>
+    <string name="storage_description_sd_no">SD kart  %1$d</string>
+    <string name="storage_description_unknown">Bilinmeyen</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Nextcloud\'da neler yeni</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Verileriniz için güvenilir bir ev!</string>
+    <string name="welcome_feature_2_title">Çoklu hesap</string>
+    <string name="welcome_feature_3_title">Anında yükle</string>
+    <string name="welcome_feature_3_text">Fotoğraflarınızı güvende tutun</string>
+
+    <string name="whats_new_skip">Geç</string>
+</resources>
