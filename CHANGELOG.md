@@ -11,6 +11,7 @@
 - Sort favorite files first in list
 - Account switcher optimizations
 - Bugfixes and design improvements
+- update library to 1.0.9
 
 ## 1.3.1 (September 20, 2016)
 
