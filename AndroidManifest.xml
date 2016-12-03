@@ -20,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10040003"
-    android:versionName="1.4.0 RC3">
+    android:versionCode="10040004"
+    android:versionName="1.4.0 RC4">
 
     <uses-sdk
         android:minSdkVersion="14"
