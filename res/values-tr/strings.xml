@@ -503,6 +503,7 @@
     <string name="files_drop_not_supported">Bu bir Nexcloud özelliğidir, lütfen güncelleyin</string>
     <string name="learn_more">Daha fazla öğren</string>
     <string name="drawer_folder_sync">Otomatik yükle</string>
+    <string name="drawer_participate">Katıl</string>
     <string name="participate_testing_headline">Test etmemize yardımcı ol</string>
     <string name="participate_testing_bug_text">Hata mı buldun? </string>
     <string name="participate_testing_report_text">Github\'da hata bildir</string>
@@ -511,6 +512,7 @@
     <string name="participate_contribute_irc_text">Chat\'e katıl: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">&lt;a href=\"%1$s>forum&lt;/a>\'da diğer insanlara yardımcı ol</string>
     <string name="participate_contribute_translate_text">Uygulamanın &lt;a href=\"%1$s>çevirilerine katıl&lt;/a> </string>
+    <string name="participate_contribute_github_text">Yazılımcı olarak destek verin! Detaylar için &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">KATKI VERME&lt;/a> sayfasını ziyaret edin</string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>
     <string name="choose_remote_folder">Klasör Seç &#8230;</string>
