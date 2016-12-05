@@ -207,7 +207,7 @@ public class ExtendedListFragment extends Fragment
 
         if (savedInstanceState != null) {
             int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-            if (mCurrentListView == mListView) {
+            if (mListView.equals(mCurrentListView)) {
                 Log_OC.v(TAG, "Setting and centering around list position " + referencePosition);
                 mListView.setAndCenterSelection(referencePosition);
             } else {
