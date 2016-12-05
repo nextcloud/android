@@ -80,7 +80,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eliminar ficheiro da pasta fonte</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_list_empty">Aqui não existe nada. Carregue alguma coisa!</string>
-    <string name="file_list_loading">A carregar...</string>
+    <string name="file_list_loading">A carregar&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação encontrada para o tipo de ficheiro!</string>
     <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
     <string name="upload_list_empty">Sem carregamentos disponíveis.</string>
@@ -108,7 +108,7 @@
     <string name="common_back">Voltar</string>
     <string name="common_save_exit">Guardar e sair</string>
     <string name="common_error">Erro</string>
-    <string name="common_loading">A carregar...</string>
+    <string name="common_loading">A carregar&#8230;</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>
     <string name="common_pending">Pendente</string>
@@ -117,9 +117,9 @@
     <string name="delete_account">Remover conta</string>
     <string name="delete_account_warning">Eliminar a conta %s?\\n\\nA operação não pode ser revertida.</string>
     <string name="create_account">Criar conta</string>
-    <string name="upload_chooser_title">Carregar a partir de...</string>
+    <string name="upload_chooser_title">Carregar a partir de&#8230;</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
-    <string name="uploader_upload_in_progress_ticker">A carregar...</string>
+    <string name="uploader_upload_in_progress_ticker">A carregar&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%%  A carregar %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Carregamento bem sucedido</string>
     <string name="uploader_upload_succeeded_content_single">%1$s carregado</string>
@@ -145,7 +145,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Erro desconhecido</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">A aguardar pela ligação wi-fi</string>
     <string name="uploads_view_later_waiting_to_upload">A aguardar para carregar</string>
-    <string name="downloader_download_in_progress_ticker">A descarregar…</string>
+    <string name="downloader_download_in_progress_ticker">A descarregar&#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% A descarregar %2$s</string>
     <string name="downloader_download_succeeded_ticker">Transferência bem sucedida</string>
     <string name="downloader_download_succeeded_content">%1$s descarregado</string>
@@ -203,8 +203,8 @@
     <string name="media_play_pause_description">Botão de Reproduzir/Pausar</string>
     <string name="media_forward_description">Botão de avanço rápido</string>
 
-	<string name="auth_getting_authorization">A obter autorização...</string>
-	<string name="auth_trying_to_login">A tentar iniciar a sessão...</string>
+	<string name="auth_getting_authorization">A obter autorização&#8230;</string>
+	<string name="auth_trying_to_login">A tentar iniciar a sessão&#8230;</string>
 	<string name="auth_no_net_conn_title">Nenhuma ligação de rede</string>
 	<string name="auth_nossl_plain_ok_title">Ligação segura indisponível.</string>
 	<string name="auth_connection_established">Ligação estabelecida</string>
@@ -255,7 +255,7 @@
     <string name="wait_a_moment">Aguarde um momento</string>
     <string name="wait_checking_credentials">A verificar as credenciais guardadas</string>
     <string name="filedisplay_no_file_selected">Não selecionou nenhum ficheiro</string>
-    <string name="activity_chooser_title">Enviar hiperligação para...</string>
+    <string name="activity_chooser_title">Enviar hiperligação para&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">A copiar o ficheiro do armazenamento privado</string>
     
     <string name="oauth_check_onoff">Iniciar sessão com oAuth2</string> 
@@ -350,7 +350,7 @@
 	<string name="log_send_history_button">Histórico de envio</string>
 	<string name="log_send_no_mail_app">Não foi encontrada nenhuma app para enviar logs. Por favor, instale uma aplicação de envio.</string>
 	<string name="log_send_mail_subject">%1$s registos de aplicação Android</string>
-	<string name="log_progress_dialog_text">A carregar dados ...</string>
+	<string name="log_progress_dialog_text">A carregar dados &#8230;</string>
 
 	<string name="saml_authentication_required_text">Autenticação necessária</string>
 	<string name="saml_authentication_wrong_pass">Palavra-passe errada</string>
@@ -413,7 +413,7 @@
     <string name="share_via_link_password_title">Protegido</string>
     <string name="share_via_link_edit_permission_label">Permitir edição</string>
     <string name="share_get_public_link_button">Obter ligação</string>
-    <string name="share_with_title">Partilhar com ...</string>
+    <string name="share_with_title">Partilhar com &#8230;</string>
     <string name="share_with_edit_title">Partilhar com %1$s</string>
 
     <string name="share_search">Procurar</string>

@@ -260,7 +260,7 @@
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="filedisplay_unexpected_bad_get_content">Problème inattendu ; veuillez sélectionner le fichier depuis une autre application</string>
     <string name="filedisplay_no_file_selected">Aucun fichier n\'était sélectionné</string>
-    <string name="activity_chooser_title">Envoyer le lien vers…</string>
+    <string name="activity_chooser_title">Envoyer le lien vers &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
     
     <string name="oauth_check_onoff">Connexion avec oAuth2</string> 
@@ -389,7 +389,7 @@
 	<string name="log_send_history_button">Envoyer l\'Historique</string>
 	<string name="log_send_no_mail_app">Aucune application n\'a été trouvée pour envoyer les journaux. Veuillez installer une application de messagerie !</string>
 	<string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
-	<string name="log_progress_dialog_text">Chargement des données …</string>
+	<string name="log_progress_dialog_text">Chargement des données &#8230;</string>
 
 	<string name="saml_authentication_required_text">Authentification requise</string>
 	<string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
@@ -527,7 +527,7 @@ ou</string>
     <string name="folder_sync_no_results">Aucun répertoire média trouvé.</string>
     <string name="folder_sync_preferences">Préférences du téléversement automatique</string>
     <string name="folder_sync_settings">Paramètres</string>
-    <string name="folder_sync_new_info">Le téléversement immédiat a été complètement réorganisé. Merci de bien vouloir accéder au menu principal et de reconfigurer votre téléversement automatique. Désolé pour le désagrément.\\n\\nProfitez des nouvelles capacités étendues du téléversement automatique !</string>
+    <string name="folder_sync_new_info">Le téléversement immédiat a été complètement réorganisé. Merci de bien vouloir accéder au menu principal et de reconfigurer votre téléversement automatique. Désolé pour le désagrément.\n\nProfitez des nouvelles capacités étendues du téléversement automatique !</string>
     <string name="folder_sync_preferences_folder_path">Pour %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>

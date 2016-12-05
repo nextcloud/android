@@ -80,7 +80,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty">Nothing in here. Upload something!</string>
-    <string name="file_list_loading">Loading…</string>
+    <string name="file_list_loading">Loading&#8230;</string>
     <string name="file_list_no_app_for_file_type">No app found for file type!</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="upload_list_empty">No uploads available.</string>
@@ -109,7 +109,7 @@
     <string name="common_save">Save</string>
     <string name="common_save_exit">Save &amp; exit</string>
     <string name="common_error">Error</string>
-    <string name="common_loading">Loading …</string>
+    <string name="common_loading">Loading &#8230;</string>
     <string name="common_unknown">unknown</string>
     <string name="common_error_unknown">Unknown error</string>
     <string name="common_pending">Pending</string>
@@ -118,9 +118,9 @@
     <string name="delete_account">Remove account</string>
     <string name="delete_account_warning">Delete account %s?\n\nDeleting cannot be undone.</string>
     <string name="create_account">Create account</string>
-    <string name="upload_chooser_title">Upload from …</string>
+    <string name="upload_chooser_title">Upload from &#8230;</string>
     <string name="uploader_info_dirname">Folder name</string>
-    <string name="uploader_upload_in_progress_ticker">Uploading …</string>
+    <string name="uploader_upload_in_progress_ticker">Uploading &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Upload succeeded</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
@@ -146,7 +146,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Waiting for WiFi connectivity</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
-    <string name="downloader_download_in_progress_ticker">Downloading …</string>
+    <string name="downloader_download_in_progress_ticker">Downloading &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_succeeded_ticker">Download succeeded</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
@@ -204,8 +204,8 @@
     <string name="media_play_pause_description">Play or pause button</string>
     <string name="media_forward_description">Fast-forward button</string>
 
-	<string name="auth_getting_authorization">Getting authorisation …</string>
-	<string name="auth_trying_to_login">Trying to log in …</string>
+	<string name="auth_getting_authorization">Getting authorisation &#8230;</string>
+	<string name="auth_trying_to_login">Trying to log in &#8230;</string>
 	<string name="auth_no_net_conn_title">No network connection</string>
 	<string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
 	<string name="auth_connection_established">Connection established</string>
@@ -260,7 +260,7 @@
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="filedisplay_unexpected_bad_get_content">Unexpected problem; please select the file from a different app</string>
     <string name="filedisplay_no_file_selected">No file was selected</string>
-    <string name="activity_chooser_title">Send link to …</string>
+    <string name="activity_chooser_title">Send link to &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
     
     <string name="oauth_check_onoff">Log in with oAuth2</string> 
@@ -390,7 +390,7 @@
 	<string name="log_send_history_button">Send history</string>
 	<string name="log_send_no_mail_app">No app for sending logs found. Please install a mail app.</string>
 	<string name="log_send_mail_subject">%1$s Android app logs</string>
-	<string name="log_progress_dialog_text">Loading data …</string>
+	<string name="log_progress_dialog_text">Loading data &#8230;</string>
 
 	<string name="saml_authentication_required_text">Authentication required</string>
 	<string name="saml_authentication_wrong_pass">Incorrect password</string>
@@ -462,7 +462,7 @@
     <string name="share_via_link_edit_permission_label">Allow editing</string>
     <string name="share_via_link_hide_file_listing_permission_label">Hide file listing</string>
     <string name="share_get_public_link_button">Get link</string>
-    <string name="share_with_title">Share with …</string>
+    <string name="share_with_title">Share with &#8230;</string>
     <string name="share_with_edit_title">Share with %1$s</string>
 
     <string name="share_search">Search</string>

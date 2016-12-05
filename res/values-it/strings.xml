@@ -80,7 +80,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina il file dalla cartella di origine</string>
     <string name="file_list_seconds_ago">secondi fa</string>
     <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
-    <string name="file_list_loading">Caricamento in corso...</string>
+    <string name="file_list_loading">Caricamento in corso&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione trovata per il tipo di file!</string>
     <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
     <string name="upload_list_empty">Nessun caricamento disponibile.</string>
@@ -109,7 +109,7 @@
     <string name="common_save">Salva</string>
     <string name="common_save_exit">Salva ed esci</string>
     <string name="common_error">Errore</string>
-    <string name="common_loading">Caricamento in corso...</string>
+    <string name="common_loading">Caricamento in corso &#8230;</string>
     <string name="common_unknown">sconosciuto</string>
     <string name="common_error_unknown">Errore sconosciuto</string>
     <string name="common_pending">In corso</string>
@@ -118,9 +118,9 @@
     <string name="delete_account">Rimuovi account</string>
     <string name="delete_account_warning">Vuoi eliminare l\'account %s?\n\nL\'eliminazione non può essere annullata.</string>
     <string name="create_account">Crea account</string>
-    <string name="upload_chooser_title">Carica file da...</string>
+    <string name="upload_chooser_title">Carica file da &#8230;</string>
     <string name="uploader_info_dirname">Nome della cartella</string>
-    <string name="uploader_upload_in_progress_ticker">Caricamento in corso...</string>
+    <string name="uploader_upload_in_progress_ticker">Caricamento in corso &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Caricamento di %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Caricamento effettuato</string>
     <string name="uploader_upload_succeeded_content_single">%1$s caricato</string>
@@ -146,7 +146,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Errore sconosciuto</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">In attesa della connettività wifi</string>
     <string name="uploads_view_later_waiting_to_upload">In attesa di caricamento</string>
-    <string name="downloader_download_in_progress_ticker">Scaricamento in corso...</string>
+    <string name="downloader_download_in_progress_ticker">Scaricamento in corso &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Scaricamento di %2$s</string>
     <string name="downloader_download_succeeded_ticker">Scaricamento effettuato</string>
     <string name="downloader_download_succeeded_content">%1$s scaricato</string>
@@ -204,8 +204,8 @@
     <string name="media_play_pause_description">Pulsante Riproduci o pausa</string>
     <string name="media_forward_description">Pulsante Avanti veloce</string>
 
-	<string name="auth_getting_authorization">Recupero delle autorizzazioni in corso...</string>
-	<string name="auth_trying_to_login">Tentativo di accesso in corso...</string>
+	<string name="auth_getting_authorization">Recupero delle autorizzazioni in corso &#8230;</string>
+	<string name="auth_trying_to_login">Tentativo di accesso in corso &#8230;</string>
 	<string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
 	<string name="auth_nossl_plain_ok_title">Connessione sicura non disponibile.</string>
 	<string name="auth_connection_established">Connessione stabilita</string>
@@ -260,7 +260,7 @@
     <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inatteso; prova un\'altra applicazione per selezionare il file</string>
     <string name="filedisplay_no_file_selected">Non è stato selezionato alcun file</string>
-    <string name="activity_chooser_title">Invia collegamento a...</string>
+    <string name="activity_chooser_title">Invia collegamento a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
     
     <string name="oauth_check_onoff">Accesso con oAuth2</string> 
@@ -390,7 +390,7 @@
 	<string name="log_send_history_button">Cronologia invii</string>
 	<string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per l\'invio dei log. Installa un client di posta.</string>
 	<string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
-	<string name="log_progress_dialog_text">Caricamento dati in corso...</string>
+	<string name="log_progress_dialog_text">Caricamento dati in corso &#8230;</string>
 
 	<string name="saml_authentication_required_text">Autenticazione richiesta</string>
 	<string name="saml_authentication_wrong_pass">Password errata</string>
@@ -462,7 +462,7 @@
     <string name="share_via_link_edit_permission_label">Consenti la modifica</string>
     <string name="share_via_link_hide_file_listing_permission_label">Nascondi elenco dei file</string>
     <string name="share_get_public_link_button">Ottieni collegamento</string>
-    <string name="share_with_title">Condividi con...</string>
+    <string name="share_with_title">Condividi con &#8230;</string>
     <string name="share_with_edit_title">Condividi con %1$s</string>
 
     <string name="share_search">Cerca</string>

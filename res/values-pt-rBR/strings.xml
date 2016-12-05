@@ -51,7 +51,7 @@
     <string name="prefs_remember_last_upload_location_summary">Lembrar do último local de envio de compartilhamento</string>
 
 	<string name="recommend_subject">Tentar %1$s em seu smartfone!</string>
-	<string name="recommend_text">Gostaria de convidá-lo a usar %1$s em seu smartphone!\\nBaixe aqui: %2$s</string>
+	<string name="recommend_text">Gostaria de convidá-lo a usar %1$s em seu smartphone!\nBaixe aqui: %2$s</string>
 
     <string name="auth_check_server">Verificar servidor</string>
     <string name="auth_host_url">Endereço do servidor https://...</string>
@@ -80,7 +80,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Excluir o arquivo da pasta de origem</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
-    <string name="file_list_loading">Carregando...</string>
+    <string name="file_list_loading">Carregando&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhum aplicativo encontrado para esse tipo de arquivo!</string>
     <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
     <string name="upload_list_empty">Nenhum arquivo enviado está disponível.</string>
@@ -109,7 +109,7 @@
     <string name="common_save">Salvar</string>
     <string name="common_save_exit">Salvar e sair</string>
     <string name="common_error">Erro</string>
-    <string name="common_loading">Carregando ...</string>
+    <string name="common_loading">Carregando &#8230;</string>
     <string name="common_unknown">desconhecido</string>
     <string name="common_error_unknown">Erro desconhecido</string>
     <string name="common_pending">Pendente</string>
@@ -146,7 +146,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Erro desconhecido</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Aguardando conexão wi-fi</string>
     <string name="uploads_view_later_waiting_to_upload">Aguardando para enviar</string>
-    <string name="downloader_download_in_progress_ticker">Baixando …</string>
+    <string name="downloader_download_in_progress_ticker">Baixando &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Baixando %2$s</string>
     <string name="downloader_download_succeeded_ticker">Download realizado com sucesso</string>
     <string name="downloader_download_succeeded_content">%1$s baixado</string>
@@ -204,8 +204,8 @@
     <string name="media_play_pause_description">Botão reproduzir ou pausar</string>
     <string name="media_forward_description">Botão de avanço rápido</string>
 
-	<string name="auth_getting_authorization">Obtendo autorização ...</string>
-	<string name="auth_trying_to_login">Tentando iniciar sessão ...</string>
+	<string name="auth_getting_authorization">Obtendo autorização &#8230;</string>
+	<string name="auth_trying_to_login">Tentando iniciar sessão &#8230;</string>
 	<string name="auth_no_net_conn_title">Sem conexão de rede</string>
 	<string name="auth_nossl_plain_ok_title">Conexão segura indisponível.</string>
 	<string name="auth_connection_established">Conexão estabelecida</string>
@@ -260,7 +260,7 @@
     <string name="wait_checking_credentials">Verificando credenciais salvas</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, tente selecionar o arquivo com outro app</string>
     <string name="filedisplay_no_file_selected">Nenhum arquivo foi selecionado</string>
-    <string name="activity_chooser_title">Enviar o link para</string>
+    <string name="activity_chooser_title">Enviar o link para &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o arquivo de armazenagem privada</string>
     
     <string name="oauth_check_onoff">Login com oAuth2</string> 
@@ -390,7 +390,7 @@
 	<string name="log_send_history_button">Enviar histórico</string>
 	<string name="log_send_no_mail_app">Nenhum aplicativo para envio de logs foi encontrado. Por favor, instale um aplicativo de e-mail.</string>
 	<string name="log_send_mail_subject">%1$s logs do aplicativo Android</string>
-	<string name="log_progress_dialog_text">Carregando dados ...</string>
+	<string name="log_progress_dialog_text">Carregando dados &#8230;</string>
 
 	<string name="saml_authentication_required_text">Autenticação obrigatória</string>
 	<string name="saml_authentication_wrong_pass">Senha incorreta</string>
@@ -462,7 +462,7 @@
     <string name="share_via_link_edit_permission_label">Permitir edição</string>
     <string name="share_via_link_hide_file_listing_permission_label">Ocultar a listagem de arquivos</string>
     <string name="share_get_public_link_button">Obter link</string>
-    <string name="share_with_title">Compartilhar com …</string>
+    <string name="share_with_title">Compartilhar com &#8230;</string>
     <string name="share_with_edit_title">Compartilhar com %1$s</string>
 
     <string name="share_search">Perquisar</string>
