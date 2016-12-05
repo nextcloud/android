@@ -71,7 +71,7 @@
     <string name="uploader_upload_files_behaviour">アップロードオプション:</string>
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
-    <string name="file_list_loading">読込中...</string>
+    <string name="file_list_loading">読込中&#8230;</string>
     <string name="file_list_no_app_for_file_type">ファイルタイプ に対応するアプリはありません！</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="upload_list_empty">ファイルがありません。</string>
@@ -100,7 +100,7 @@
     <string name="common_save">保存</string>
     <string name="common_save_exit">保存 &amp; 終了</string>
     <string name="common_error">エラー</string>
-    <string name="common_loading">読込中...</string>
+    <string name="common_loading">読込中&#8230;</string>
     <string name="common_unknown">不明</string>
     <string name="common_error_unknown">不明なエラー</string>
     <string name="common_pending">保留中</string>
@@ -109,9 +109,9 @@
     <string name="delete_account">アカウント削除</string>
     <string name="delete_account_warning">アカウント %s を削除しますか?\n\nまだ削除されていません。</string>
     <string name="create_account">アカウントを作成</string>
-    <string name="upload_chooser_title">アップロード …</string>
+    <string name="upload_chooser_title">アップロード &#8230;</string>
     <string name="uploader_info_dirname">フォルダー名</string>
-    <string name="uploader_upload_in_progress_ticker">アップロード中...</string>
+    <string name="uploader_upload_in_progress_ticker">アップロード中&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% アップロード中 %2$s</string>
     <string name="uploader_upload_succeeded_ticker">アップロード完了</string>
     <string name="uploader_upload_succeeded_content_single">%1$s は正常にアップロードされました</string>
@@ -137,7 +137,7 @@
     <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">WiFiの接続を待っています</string>
     <string name="uploads_view_later_waiting_to_upload">アップロード待ち</string>
-    <string name="downloader_download_in_progress_ticker">ダウンロード中 ...</string>
+    <string name="downloader_download_in_progress_ticker">ダウンロード中 &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ダウンロード中 %2$s</string>
     <string name="downloader_download_succeeded_ticker">ダウンロードに成功</string>
     <string name="downloader_download_succeeded_content">%1$s は正常にダウンロードされました</string>
@@ -194,8 +194,8 @@
     <string name="media_play_pause_description">再生/一時停止ボタン</string>
     <string name="media_forward_description">早送りボタン</string>
 
-	<string name="auth_getting_authorization">認証中...</string>
-	<string name="auth_trying_to_login">ログイン試行中...</string>
+	<string name="auth_getting_authorization">認証中&#8230;</string>
+	<string name="auth_trying_to_login">ログイン試行中&#8230;</string>
 	<string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
 	<string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
 	<string name="auth_connection_established">接続が確立しました</string>
@@ -249,7 +249,7 @@
     <string name="wait_a_moment">しばらくお待ちください</string>
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
     <string name="filedisplay_no_file_selected">ファイルは選択されていません</string>
-    <string name="activity_chooser_title">リンクを送信…</string>
+    <string name="activity_chooser_title">リンクを送信&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
     
     <string name="oauth_check_onoff">oAuth2でログイン</string> 
@@ -353,7 +353,7 @@
 	<string name="log_send_history_button">履歴を送信</string>
 	<string name="log_send_no_mail_app">ログを送信するアプリが見つかりませんでした。メールアプリをインストールしてください。</string>
 	<string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
-	<string name="log_progress_dialog_text">データの読込中 ...</string>
+	<string name="log_progress_dialog_text">データの読込中 &#8230;</string>
 
 	<string name="saml_authentication_required_text">認証を必要とする</string>
 	<string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
@@ -420,7 +420,7 @@
     <string name="share_via_link_edit_permission_label">編集を許可</string>
     <string name="share_via_link_hide_file_listing_permission_label">ファイルリストを隠す</string>
     <string name="share_get_public_link_button">リンクを取得</string>
-    <string name="share_with_title">共有開始... </string>
+    <string name="share_with_title">共有開始&#8230;</string>
     <string name="share_with_edit_title">%1$s と共有</string>
 
     <string name="share_search">検索</string>

@@ -81,7 +81,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходной папки</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
-    <string name="file_list_loading">Загрузка...</string>
+    <string name="file_list_loading">Загрузка&#8230;</string>
     <string name="file_list_no_app_for_file_type">Приложение для этого типа файла не найдено!</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
     <string name="upload_list_empty">Нет доступных загрузок.</string>
@@ -109,7 +109,7 @@
     <string name="common_back">Назад</string>
     <string name="common_save_exit">Сохранить и выйти</string>
     <string name="common_error">Ошибка</string>
-    <string name="common_loading">Загрузка ...</string>
+    <string name="common_loading">Загрузка &#8230;</string>
     <string name="common_unknown">неизвестно</string>
     <string name="common_error_unknown">Неизвестная ошибка</string>
     <string name="common_pending">Ожидается</string>
@@ -118,9 +118,9 @@
     <string name="delete_account">Удалить аккаунт</string>
     <string name="delete_account_warning">Удалить аккаунт %s?\n\nУдаление не может быть отменено.</string>
     <string name="create_account">Создать учётную запись</string>
-    <string name="upload_chooser_title">Загрузить из ...</string>
+    <string name="upload_chooser_title">Загрузить из &#8230;</string>
     <string name="uploader_info_dirname">Имя каталога</string>
-    <string name="uploader_upload_in_progress_ticker">Загрузка ...</string>
+    <string name="uploader_upload_in_progress_ticker">Загрузка &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Загружается %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Загрузка завершена</string>
     <string name="uploader_upload_succeeded_content_single">%1$s загружено</string>
@@ -146,7 +146,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Неизвестная ошибка</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Ожидание WiFi-соединения</string>
     <string name="uploads_view_later_waiting_to_upload">Ожидается загрузка</string>
-    <string name="downloader_download_in_progress_ticker">Скачивание ...</string>
+    <string name="downloader_download_in_progress_ticker">Скачивание &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Скачивается %2$s</string>
     <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
     <string name="downloader_download_succeeded_content">%1$s скачано</string>
@@ -204,8 +204,8 @@
     <string name="media_play_pause_description">Воспроизведение или пауза</string>
     <string name="media_forward_description">Перемотка вперед</string>
 
-	<string name="auth_getting_authorization">Получение авторизации</string>
-	<string name="auth_trying_to_login">Попытка входа ...</string>
+	<string name="auth_getting_authorization">Получение авторизации &#8230;</string>
+	<string name="auth_trying_to_login">Попытка входа &#8230;</string>
 	<string name="auth_no_net_conn_title">Нет подключения к сети</string>
 	<string name="auth_nossl_plain_ok_title">Защищённое соединение недоступно.</string>
 	<string name="auth_connection_established">Соединение установлено</string>
@@ -260,7 +260,7 @@
     <string name="wait_checking_credentials">Проверка сохранённых учётных данных</string>
     <string name="filedisplay_unexpected_bad_get_content">Неизвестная ошибка; выберите этот файл из другого приложения</string>
     <string name="filedisplay_no_file_selected">Файлы не выбраны</string>
-    <string name="activity_chooser_title">Отправить ссылку ...</string>
+    <string name="activity_chooser_title">Отправить ссылку &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирование файла из частной хранилища</string>
     
     <string name="oauth_check_onoff">Войти через oAuth2</string> 
@@ -388,7 +388,7 @@
 	<string name="log_send_history_button">История отправок</string>
 	<string name="log_send_no_mail_app">Программа для отправки журналов не найдена. Пожалуйста установите почтовую программу.</string>
 	<string name="log_send_mail_subject">Журналы %1$s для Android</string>
-	<string name="log_progress_dialog_text">Загрузка данных ...</string>
+	<string name="log_progress_dialog_text">Загрузка данных &#8230;</string>
 
 	<string name="saml_authentication_required_text">Требуется аутентификация </string>
 	<string name="saml_authentication_wrong_pass">Неправильный пароль</string>
@@ -458,7 +458,7 @@
     <string name="share_via_link_edit_permission_label">Разрешить редактирование</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрыть список файлов</string>
     <string name="share_get_public_link_button">Получить ссылку</string>
-    <string name="share_with_title">Поделиться с …</string>
+    <string name="share_with_title">Поделиться с &#8230;</string>
     <string name="share_with_edit_title">Поделиться с %1$s</string>
 
     <string name="share_search">Найти</string>
