@@ -453,8 +453,6 @@
 
     <string name="permission_storage_access">ファイルをダウンロード &amp; アップロードする追加の権限が必要です。</string>
     <string name="local_file_not_found_toast">ローカルファイルにファイルがありません</string>
-    <string name="upload_file_dialog_title">ファイル名とファイルタイプ</string>
-    <string name="upload_file_dialog_filename">ファイル名</string>
     <string name="actionbar_search">検索</string>
     <string name="drawer_folder_sync">自動アップロード</string>
     <string name="storage_description_default">デフォルト</string>
