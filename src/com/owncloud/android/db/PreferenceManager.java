@@ -24,7 +24,6 @@ import android.content.SharedPreferences;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
