@@ -116,7 +116,7 @@
     <string name="about_title">Om</string>
     <string name="change_password">Endre passord</string>
     <string name="delete_account">Fjern konto</string>
-    <string name="delete_account_warning">Vil du slette kontoen %s?\\n\\nSletting kan ikke angres.</string>
+    <string name="delete_account_warning">Vil du slette kontoen %s?\n\nSletting kan ikke angres.</string>
     <string name="create_account">Opprett konto</string>
     <string name="upload_chooser_title">Last opp fra &#8230;</string>
     <string name="uploader_info_dirname">Mappenavn</string>
@@ -473,7 +473,7 @@
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
     <string name="share_sharee_unavailable">Beklager, tjenerversjonen din tillater ikke klienter å dele med brukere.
-        \\nKontakt systemadministratoren</string>
+        \nKontakt systemadministratoren</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan endre</string>
     <string name="share_privilege_can_edit_create">opprette</string>
@@ -491,7 +491,7 @@
     <string name="action_switch_list_view">Listevisning</string>
 
     <string name="manage_space_title">Håndter plass</string>
-    <string name="manage_space_description">Innstillinger, database og tjenersertifikater fra %1$s\'s filer vil bli slettet. \\n\\nNedlastede filer blir urørt.\\n\\nDette kan ta noe tid.</string>
+    <string name="manage_space_description">Innstillinger, database og tjenersertifikater fra %1$s\'s filer vil bli slettet. \n\nNedlastede filer blir urørt.\n\nDette kan ta noe tid.</string>
     <string name="manage_space_clear_data">Nullstill data</string>
     <string name="manage_space_error">Noen filer kunne ikke fjernes.</string>
 
@@ -528,7 +528,7 @@ eller</string>
     <string name="folder_sync_no_results">Ingen mediamapper funnet.</string>
     <string name="folder_sync_preferences">Innstillinger for auto-opplasting</string>
     <string name="folder_sync_settings">Innstillinger</string>
-    <string name="folder_sync_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Se hovedmenyen og konfigurer auto-opplasting på nytt. Beklager uleiligheten.\\n\\nTa i bruk de nye og utvidede mulighetene i auto-opplasting.</string>
+    <string name="folder_sync_new_info">Umiddelbar opplasting er fullstendig omarbeidet. Se hovedmenyen og konfigurer auto-opplasting på nytt. Beklager uleiligheten.\n\nTa i bruk de nye og utvidede mulighetene i auto-opplasting.</string>
     <string name="folder_sync_preferences_folder_path">For %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valgt</item>
