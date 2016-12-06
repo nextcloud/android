@@ -37,6 +37,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
@@ -269,7 +270,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    ((ReceiveExternalFilesActivity)getActivity()).finish();
+                    getActivity().finish();
                 }
             });
             return builder.create();
@@ -277,6 +278,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public static class DialogMultipleAccount extends DialogFragment {
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
@@ -332,11 +334,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
             return dialog;
         }
 
+        @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            mFilenameBase = new ArrayList<String>();
-            mFilenameSuffix = new ArrayList<String>();
-            mText = new ArrayList<String>();
+            mFilenameBase = new ArrayList<>();
+            mFilenameSuffix = new ArrayList<>();
+            mText = new ArrayList<>();
 
             String subjectText = getArguments().getString(KEY_SUBJECT_TEXT);
             String extraText = getArguments().getString(KEY_EXTRA_TEXT);
@@ -344,7 +347,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             LayoutInflater layout = LayoutInflater.from(getActivity().getBaseContext());
             View view = layout.inflate(R.layout.upload_file_dialog, null);
 
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item);
+            ArrayAdapter<String> adapter
+                    = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
             int selectPos = 0;
@@ -389,7 +393,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
             userInput.requestFocus();
 
             final Spinner spinner = (Spinner) view.findViewById(R.id.file_type);
+            setupSpinner(adapter, selectPos, userInput, spinner);
             mSpinner = spinner;
+
+            Dialog filenameDialog =  createFilenameDialog(view, userInput, spinner);
+            filenameDialog.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            return filenameDialog;
+        }
+
+        private void setupSpinner(ArrayAdapter<String> adapter, int selectPos, final EditText userInput, Spinner spinner) {
             spinner.setAdapter(adapter);
             spinner.setSelection(selectPos, false);
             spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -408,11 +420,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
             if (adapter.getCount() == 1) {
                 spinner.setEnabled(false);
             }
+        }
 
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        @NonNull
+        private Dialog createFilenameDialog(View view, final EditText userInput, final Spinner spinner) {
+            Builder builder = new Builder(getActivity());
             builder.setView(view);
             builder.setTitle(R.string.upload_file_dialog_title);
-            builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.common_ok, new OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
                     int selectPos = spinner.getSelectedItemPosition();
 
@@ -432,15 +447,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     ((ReceiveExternalFilesActivity)getActivity()).uploadFile(tmpname, filename);
                 }
             });
-            builder.setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
                 public void onClick(DialogInterface dialog,int id) {
                     dialog.cancel();
                 }
             });
 
-            Dialog d = builder.create();
-            d.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
-            return d;
+            return builder.create();
         }
 
         public void onPause() {
