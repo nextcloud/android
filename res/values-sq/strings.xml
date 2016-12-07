@@ -77,7 +77,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Fshij kartelën nga dosja burim</string>
     <string name="file_list_seconds_ago">sekonda më parë</string>
     <string name="file_list_empty">Këtu nuk ka gjë. Ngarkoni diçka!</string>
-    <string name="file_list_loading">Po ngarkohet…</string>
+    <string name="file_list_loading">Po ngarkohet&#8230;</string>
     <string name="file_list_no_app_for_file_type">S’u gjet aplikacion për llojin e kartelës!</string>
     <string name="local_file_list_empty">Në këtë dosje s\’ka kartela.</string>
     <string name="upload_list_empty">S’ka ngarkime gati.</string>
@@ -105,7 +105,7 @@
     <string name="common_back">Mbrapsht</string>
     <string name="common_save_exit">Ruaje &amp; dil</string>
     <string name="common_error">Gabim</string>
-    <string name="common_loading">Po ngarkohet …</string>
+    <string name="common_loading">Po ngarkohet &#8230;</string>
     <string name="common_unknown">panjohur</string>
     <string name="common_error_unknown">Gabim i panjohur</string>
     <string name="common_pending">Në pritje</string>
@@ -114,9 +114,9 @@
     <string name="delete_account">Hiqe llogarinë</string>
     <string name="delete_account_warning">Fshij llogarinë %s?\\n\\nFshirja nuk mund të zhbëhet.</string>
     <string name="create_account">Krijoni llogari</string>
-    <string name="upload_chooser_title">Ngarkojeni prej …</string>
+    <string name="upload_chooser_title">Ngarkojeni prej &#8230;</string>
     <string name="uploader_info_dirname">Emër dosjeje</string>
-    <string name="uploader_upload_in_progress_ticker">Po ngarkohet …</string>
+    <string name="uploader_upload_in_progress_ticker">Po ngarkohet &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Po ngarkohet %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Ngarkimi doli me sukses</string>
     <string name="uploader_upload_succeeded_content_single">%1$s u ngarkua</string>
@@ -142,7 +142,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Gabim i panjohur</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Po pritet për lidhje wifi</string>
     <string name="uploads_view_later_waiting_to_upload">Po pritet për ngarkim</string>
-    <string name="downloader_download_in_progress_ticker">Po shkarkohet …</string>
+    <string name="downloader_download_in_progress_ticker">Po shkarkohet &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Shkarkim %2$s</string>
     <string name="downloader_download_succeeded_ticker">Shkarkimi doli me sukses</string>
     <string name="downloader_download_succeeded_content">%1$s u shkarkua</string>
@@ -200,8 +200,8 @@
     <string name="media_play_pause_description">Butoni Luaje ose Pushoje</string>
     <string name="media_forward_description">Butoni Përpara</string>
 
-	<string name="auth_getting_authorization">Po merret autorizim …</string>
-	<string name="auth_trying_to_login">Po provohet hyrja …</string>
+	<string name="auth_getting_authorization">Po merret autorizim &#8230;</string>
+	<string name="auth_trying_to_login">Po provohet hyrja &#8230;</string>
 	<string name="auth_no_net_conn_title">Pa lidhje rrjeti</string>
 	<string name="auth_nossl_plain_ok_title">S\’ka lidhje të sigurt.</string>
 	<string name="auth_connection_established">Lidhja u vendos</string>
@@ -255,7 +255,7 @@
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
     <string name="filedisplay_unexpected_bad_get_content">Problem i papritur; ju lutemi, përzgjidhni një kartelë nga një aplikacion tjetër</string>
     <string name="filedisplay_no_file_selected">S\’u përzgjodh kartelë</string>
-    <string name="activity_chooser_title">Dërgoni lidhje te …</string>
+    <string name="activity_chooser_title">Dërgoni lidhje te &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet kartelë nga depo private</string>
     
     <string name="oauth_check_onoff">Hyrje me oAuth2</string> 
@@ -360,7 +360,7 @@
 	<string name="log_send_history_button">Historik dërgimesh</string>
 	<string name="log_send_no_mail_app">S’u gjet aplikacion për dërgim regjistrimesh. Ju lutemi, instaloni një aplikacion email-esh.</string>
 	<string name="log_send_mail_subject">Regjistra aplikacioni %1$s për Android</string>
-	<string name="log_progress_dialog_text">Po ngarkohen të dhëna …</string>
+	<string name="log_progress_dialog_text">Po ngarkohen të dhëna &#8230;</string>
 
 	<string name="saml_authentication_required_text">Lypset mirëfilltësim</string>
 	<string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
@@ -429,7 +429,7 @@
     <string name="share_via_link_edit_permission_label">Lejo përpunim</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fshihni listën e kartelave</string>
     <string name="share_get_public_link_button">Merreni lidhjen</string>
-    <string name="share_with_title">Ndajeni me …</string>
+    <string name="share_with_title">Ndajeni me &#8230;</string>
     <string name="share_with_edit_title">Ndajeni me %1$s</string>
 
     <string name="share_search">Kërko</string>

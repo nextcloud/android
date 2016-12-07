@@ -80,7 +80,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Skasuj plik z katalogu źródłowego</string>
     <string name="file_list_seconds_ago">sekund temu</string>
     <string name="file_list_empty">Pusto. Wyślij coś!</string>
-    <string name="file_list_loading">Wczytywanie...</string>
+    <string name="file_list_loading">Wczytywanie&#8230;</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików!</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
     <string name="upload_list_empty">Brak przesłanych plików.</string>
@@ -106,9 +106,10 @@
     <string name="common_cancel_sync">Anuluj synchronizację</string>
     <string name="common_cancel">Anuluj</string>
     <string name="common_back">Wróć</string>
+    <string name="common_save">Zapisać</string>
     <string name="common_save_exit">Zapisz i wyjdź</string>
     <string name="common_error">Błąd</string>
-    <string name="common_loading">Wczytuję ...</string>
+    <string name="common_loading">Wczytuję &#8230;</string>
     <string name="common_unknown">nieznane</string>
     <string name="common_error_unknown">Nieznany błąd</string>
     <string name="common_pending">Oczekujące</string>
@@ -117,9 +118,9 @@
     <string name="delete_account">Usuń konto</string>
     <string name="delete_account_warning">Usuń konto %s?\n\nUsunięcie jest nieodwracalne.</string>
     <string name="create_account">Utwórz konto</string>
-    <string name="upload_chooser_title">Wyślij plik z …</string>
+    <string name="upload_chooser_title">Wyślij plik z &#8230;</string>
     <string name="uploader_info_dirname">Nazwa folderu</string>
-    <string name="uploader_upload_in_progress_ticker">Wysyłam…</string>
+    <string name="uploader_upload_in_progress_ticker">Wysyłam &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Wysyłanie %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Wysyłanie zakończone powodzeniem</string>
     <string name="uploader_upload_succeeded_content_single">Wysłano %1$s</string>
@@ -145,7 +146,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Nieznany błąd</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Oczekiwanie na połączenie bezprzewodowe</string>
     <string name="uploads_view_later_waiting_to_upload">Oczekuję na przesyłanie</string>
-    <string name="downloader_download_in_progress_ticker">Pobieranie …</string>
+    <string name="downloader_download_in_progress_ticker">Pobieranie &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Pobieranie %2$s</string>
     <string name="downloader_download_succeeded_ticker">Pobieranie zakończone</string>
     <string name="downloader_download_succeeded_content">%1$s pobrano</string>
@@ -203,8 +204,8 @@
     <string name="media_play_pause_description">Przycisk odtwarzania / pauzowania</string>
     <string name="media_forward_description">Przycisk przewijania do przodu</string>
 
-	<string name="auth_getting_authorization">Autoryzowanie...</string>
-	<string name="auth_trying_to_login">Próba logowania</string>
+	<string name="auth_getting_authorization">Autoryzowanie &#8230;</string>
+	<string name="auth_trying_to_login">Próba logowania &#8230;</string>
 	<string name="auth_no_net_conn_title">Brak połączenia sieciowego</string>
 	<string name="auth_nossl_plain_ok_title">Nie można nawiązać bezpiecznego połączenia.</string>
 	<string name="auth_connection_established">Połączenie nawiązane</string>
@@ -259,7 +260,7 @@
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany problem; spróbuj wybrać plik z innej aplikacji</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnych plików</string>
-    <string name="activity_chooser_title">Wyślij link do ...</string>
+    <string name="activity_chooser_title">Wyślij link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
     
     <string name="oauth_check_onoff">Loguj przez oAuth2</string> 
@@ -316,6 +317,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
     <string name="prefs_instant_upload_path_title">Wysyłka obrazów do folderu</string>
+    <string name="prefs_folder_sync_local_path_title">Folder lokalny</string>
+    <string name="prefs_folder_sync_remote_path_title">Folder zdalny</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach opartych na roku oraz miesiącu</string>
 
@@ -356,6 +359,7 @@
     <string name="uploader_upload_forbidden_permissions">do wgrania tego folderu</string>
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
 
+    <string name="file_migration_dialog_title">Ścieżka przechowywania aktualizacji</string>
     <string name="file_migration_finish_button">Koniec</string>
     <string name="file_migration_preparing">Przygotowanie do migracji&#8230;</string>
     <string name="file_migration_checking_destination">Sprawdzanie docelowe&#8230;</string>
@@ -386,7 +390,7 @@
 	<string name="log_send_history_button">Wyślij historię</string>
 	<string name="log_send_no_mail_app">Brak aplikacji do wysyłania logów. Zainstaluj klienta poczty.</string>
 	<string name="log_send_mail_subject">%1$s Logi aplikacji Android</string>
-	<string name="log_progress_dialog_text">Ładowanie danych...</string>
+	<string name="log_progress_dialog_text">Ładowanie danych &#8230;</string>
 
 	<string name="saml_authentication_required_text">Wymagana autoryzacja</string>
 	<string name="saml_authentication_wrong_pass">Złe hasło</string>
@@ -443,6 +447,9 @@
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym folderze</string>
     <string name="pref_behaviour_entries_move">przeniesiony do folderu aplikacji</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
+    <string name="prefs_storage_path">Ścieżka przechowywania</string>
+    <string name="prefs_common">Wspólny</string>
+
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_file">Współdziel %1$s</string>
     <string name="share_with_user_section_title">Współdziel z użytkownikami i grupami</string>
@@ -455,7 +462,7 @@
     <string name="share_via_link_edit_permission_label">Pozwól na edycję</string>
     <string name="share_via_link_hide_file_listing_permission_label">Schowaj listę plików</string>
     <string name="share_get_public_link_button">Pobierz link</string>
-    <string name="share_with_title">Współdziel z ...</string>
+    <string name="share_with_title">Współdziel z &#8230;</string>
     <string name="share_with_edit_title">Współdziel z %1$s</string>
 
     <string name="share_search">Wyszukaj</string>
@@ -496,6 +503,7 @@
     <string name="actionbar_search">Wyszukaj</string>
     <string name="files_drop_not_supported">Ta funkcja jest dostępna w Nextcloud, prosimy wykonać aktualizację</string>
     <string name="learn_more">Dowiedz się więcej</string>
+    <string name="drawer_folder_sync">Automatyczne przesyłanie</string>
     <string name="drawer_participate">Wspieraj</string>
     <string name="participate_testing_headline">Pomóż nam testować</string>
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
@@ -511,13 +519,31 @@
     <string name="participate_contribute_github_text">Wspomóż nas jako programista, po więcej szczegółów odwiedź &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> </string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
+    <string name="choose_remote_folder">Wybierz folder&#8230;</string>
+    <string name="folder_sync_loading_folders">Ładowanie folderów&#8230;</string>
+    <string name="folder_sync_no_results">Nie znaleziono folderów multimedialnych.</string>
+    <string name="folder_sync_preferences">Preferencje automatycznego przesyłania</string>
+    <string name="folder_sync_settings">Ustawienia</string>
+    <string name="folder_sync_preferences_folder_path">Dla %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d zaznaczony</item>
         <item quantity="few">%d zaznaczone</item>
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
 
+    <string name="storage_description_default">Domyślny</string>
     <string name="storage_description_sd_no">karta SD %1$d</string>
     <string name="storage_description_unknown">Nieznany</string>
 
-    </resources>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Co nowego w Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Bezpieczny dom dla wszystkich danych</string>
+    <string name="welcome_feature_2_title">Wiele kont</string>
+    <string name="welcome_feature_2_text">Podłączenie się do wszystkich chmur</string>
+
+    <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
+
+    <string name="whats_new_skip">Pominąć</string>
+</resources>
