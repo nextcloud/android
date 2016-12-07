@@ -51,7 +51,7 @@
     <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement de téléversement</string>
 
 	<string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
-	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone!\\nTéléchargez-le ici : %2$s</string>
+	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone!\nTéléchargez-le ici : %2$s</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_host_url">Adresse du serveur https://…</string>
@@ -116,9 +116,7 @@
     <string name="about_title">À propos de</string>
     <string name="change_password">Changer de mot de passe</string>
     <string name="delete_account">Supprimer le compte</string>
-    <string name="delete_account_warning">Supprimer le compte %s ?
-
-La suppression est irréversible. </string>
+    <string name="delete_account_warning">Supprimer le compte %s?\n\nLa suppression est irréversible. </string>
     <string name="create_account">Créer un compte</string>
     <string name="upload_chooser_title">Téléverser depuis&#8230;</string>
     <string name="uploader_info_dirname">Nom du dossier</string>
@@ -167,7 +165,7 @@ La suppression est irréversible. </string>
     <string name="sync_fail_in_favourites_content">Le contenu de %1$d fichiers n\'a pu être synchronisé (%2$d conflits)</string>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été oubliés</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fichiers du dossier %2$s n\'ont pas pu être copiés dans</string>
-    <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\\n\\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\\n\\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\n\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\n\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
     <string name="foreign_files_move">Tout déplacer</string>
     <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
@@ -262,7 +260,7 @@ La suppression est irréversible. </string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
     <string name="filedisplay_unexpected_bad_get_content">Problème inattendu ; veuillez sélectionner le fichier depuis une autre application</string>
     <string name="filedisplay_no_file_selected">Aucun fichier n\'était sélectionné</string>
-    <string name="activity_chooser_title">Envoyer le lien vers…</string>
+    <string name="activity_chooser_title">Envoyer le lien vers &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
     
     <string name="oauth_check_onoff">Connexion avec oAuth2</string> 
@@ -391,7 +389,7 @@ La suppression est irréversible. </string>
 	<string name="log_send_history_button">Envoyer l\'Historique</string>
 	<string name="log_send_no_mail_app">Aucune application n\'a été trouvée pour envoyer les journaux. Veuillez installer une application de messagerie !</string>
 	<string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
-	<string name="log_progress_dialog_text">Chargement des données …</string>
+	<string name="log_progress_dialog_text">Chargement des données &#8230;</string>
 
 	<string name="saml_authentication_required_text">Authentification requise</string>
 	<string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
@@ -529,6 +527,7 @@ ou</string>
     <string name="folder_sync_no_results">Aucun répertoire média trouvé.</string>
     <string name="folder_sync_preferences">Préférences du téléversement automatique</string>
     <string name="folder_sync_settings">Paramètres</string>
+    <string name="folder_sync_new_info">Le téléversement immédiat a été complètement réorganisé. Merci de bien vouloir accéder au menu principal et de reconfigurer votre téléversement automatique. Désolé pour le désagrément.\n\nProfitez des nouvelles capacités étendues du téléversement automatique !</string>
     <string name="folder_sync_preferences_folder_path">Pour %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d sélectionné</item>

@@ -13,6 +13,9 @@
     <string name="actionbar_send_file">送信</string>
     <string name="actionbar_sort">ソート</string>
     <string name="actionbar_sort_title">ソート: </string>
+    <string name="menu_item_sort_by_name">A-Z</string>
+    <string name="menu_item_sort_by_date">更新の降順</string>
+    <string name="menu_item_sort_by_size">サイズの降順</string>
     <string name="drawer_item_all_files">すべてのファイル</string>
     <string name="drawer_item_on_device">デバイス上</string>
     <string name="drawer_item_settings">設定</string>
@@ -24,6 +27,7 @@
     <string name="prefs_accounts">アカウント</string>
     <string name="prefs_manage_accounts">アカウント管理</string>
     <string name="prefs_passcode">パスコードロック</string>
+    <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_instant_upload">自動画像アップロード</string>
     <string name="prefs_instant_upload_summary">カメラで撮影した画像を自動アップロード</string>
     <string name="prefs_instant_video_upload">自動動画アップロード</string>
@@ -52,6 +56,7 @@
     <string name="sync_string_files">ファイル</string>
     <string name="setup_btn_connect">接続</string>
     <string name="uploader_btn_upload_text">アップロード</string>
+    <string name="uploader_btn_uploadTextSnippet_text">テキストファイル作成</string>
     <string name="uploader_top_message">アップロードフォルダーを選択</string>
     <string name="uploader_wrn_no_account_title">アカウントが見つかりません</string>
     <string name="uploader_wrn_no_account_text">端末に %1$s のアカウントがありません。まずアカウントを登録してください。</string>
@@ -63,9 +68,10 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s で受信ファイルを読み込む権限がありません</string>
     <string name="uploader_error_message_source_file_not_found">アップロードするファイルが指定の場所にありません。ファイルがあるかどうか確認してください。</string>
     <string name="uploader_error_message_source_file_not_copied">ファイルを一時フォルダーにコピーする際にエラーが発生しました。再送してください。</string>
+    <string name="uploader_upload_files_behaviour">アップロードオプション:</string>
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
-    <string name="file_list_loading">読込中...</string>
+    <string name="file_list_loading">読込中&#8230;</string>
     <string name="file_list_no_app_for_file_type">ファイルタイプ に対応するアプリはありません！</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="upload_list_empty">ファイルがありません。</string>
@@ -91,19 +97,21 @@
     <string name="common_cancel_sync">同期のキャンセル</string>
     <string name="common_cancel">キャンセル</string>
     <string name="common_back">戻る</string>
+    <string name="common_save">保存</string>
     <string name="common_save_exit">保存 &amp; 終了</string>
     <string name="common_error">エラー</string>
-    <string name="common_loading">読込中...</string>
+    <string name="common_loading">読込中&#8230;</string>
     <string name="common_unknown">不明</string>
     <string name="common_error_unknown">不明なエラー</string>
+    <string name="common_pending">保留中</string>
     <string name="about_title">について</string>
     <string name="change_password">パスワードを変更</string>
     <string name="delete_account">アカウント削除</string>
     <string name="delete_account_warning">アカウント %s を削除しますか?\n\nまだ削除されていません。</string>
     <string name="create_account">アカウントを作成</string>
-    <string name="upload_chooser_title">アップロード …</string>
+    <string name="upload_chooser_title">アップロード &#8230;</string>
     <string name="uploader_info_dirname">フォルダー名</string>
-    <string name="uploader_upload_in_progress_ticker">アップロード中...</string>
+    <string name="uploader_upload_in_progress_ticker">アップロード中&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% アップロード中 %2$s</string>
     <string name="uploader_upload_succeeded_ticker">アップロード完了</string>
     <string name="uploader_upload_succeeded_content_single">%1$s は正常にアップロードされました</string>
@@ -129,7 +137,7 @@
     <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">WiFiの接続を待っています</string>
     <string name="uploads_view_later_waiting_to_upload">アップロード待ち</string>
-    <string name="downloader_download_in_progress_ticker">ダウンロード中 ...</string>
+    <string name="downloader_download_in_progress_ticker">ダウンロード中 &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ダウンロード中 %2$s</string>
     <string name="downloader_download_succeeded_ticker">ダウンロードに成功</string>
     <string name="downloader_download_succeeded_content">%1$s は正常にダウンロードされました</string>
@@ -155,6 +163,8 @@
     <string name="foreign_files_local_text">ローカル: %1$s</string>
     <string name="foreign_files_remote_text">リモート: %1$s</string>
     <string name="upload_query_move_foreign_files">%1$s フォルダに選択されたファイルをコピーするのに十分な空き領域がありません。コピーする代わりに移動にしますか？</string>
+    <string name="pass_code_enter_pass_code">パスコードを入力してください</string>
+    
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
     <string name="pass_code_configure_your_pass_code_explanation">アプリ開始時には毎回パスコードが要求されます</string>
     <string name="pass_code_reenter_your_pass_code">パスコードを再入力してください</string>
@@ -184,8 +194,8 @@
     <string name="media_play_pause_description">再生/一時停止ボタン</string>
     <string name="media_forward_description">早送りボタン</string>
 
-	<string name="auth_getting_authorization">認証中...</string>
-	<string name="auth_trying_to_login">ログイン試行中...</string>
+	<string name="auth_getting_authorization">認証中&#8230;</string>
+	<string name="auth_trying_to_login">ログイン試行中&#8230;</string>
 	<string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
 	<string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
 	<string name="auth_connection_established">接続が確立しました</string>
@@ -222,6 +232,7 @@
     <string name="unfavorite">オフラインで利用不可に設定</string>
     <string name="common_rename">名前を変更</string>
     <string name="common_remove">削除</string>
+    <string name="confirmation_remove_file_alert">本当に %1$s を削除しますか？</string>
     <string name="confirmation_remove_folder_alert">本当に %1$s およびそのコンテンツを削除してもよろしいですか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
     <string name="remove_success_msg">削除に成功しました</string>
@@ -238,7 +249,7 @@
     <string name="wait_a_moment">しばらくお待ちください</string>
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
     <string name="filedisplay_no_file_selected">ファイルは選択されていません</string>
-    <string name="activity_chooser_title">リンクを送信…</string>
+    <string name="activity_chooser_title">リンクを送信&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
     
     <string name="oauth_check_onoff">oAuth2でログイン</string> 
@@ -281,6 +292,8 @@
 
     <string name="instant_upload_on_wifi">WiFi経由でのみ画像をアップロード</string>
     <string name="instant_video_upload_on_wifi">WiFi経由でのみ動画をアップロード</string>
+    <string name="instant_video_upload_on_charging">充電中のみアップロード</string>
+    <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">ファイルが競合</string>
     <string name="conflict_message">どちらのファイルを保存したいですか？両方のバージョンを選択した場合は、ファイル名の後ろに数字を追加したファイルのコピーを作成します。</string>
@@ -292,6 +305,7 @@
     <string name="preview_image_error_unknown_format">この画像は表示できません</string>
 
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
+    <string name="prefs_folder_sync_remote_path_title">リモートフォルダー</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
 
@@ -329,6 +343,7 @@
     <string name="uploader_upload_forbidden_permissions">フォルダーをアップロード</string>
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
 
+    <string name="file_migration_override_data_folder">上書き</string>
     <string name="prefs_category_accounts">アカウント</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="drawer_manage_accounts">アカウント管理</string>
@@ -338,12 +353,13 @@
 	<string name="log_send_history_button">履歴を送信</string>
 	<string name="log_send_no_mail_app">ログを送信するアプリが見つかりませんでした。メールアプリをインストールしてください。</string>
 	<string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
-	<string name="log_progress_dialog_text">データの読込中 ...</string>
+	<string name="log_progress_dialog_text">データの読込中 &#8230;</string>
 
 	<string name="saml_authentication_required_text">認証を必要とする</string>
 	<string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
 	<string name="actionbar_move">移動</string>
-    <string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
+    <string name="actionbar_copy">コピー</string>
+	<string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
 	<string name="folder_picker_choose_button_text">選択</string>
 
     <string name="move_file_not_found">移動できません。ファイルがあるか確認してください。</string>
@@ -402,8 +418,9 @@
     <string name="share_via_link_password_label">パスワード保護を有効化</string>
     <string name="share_via_link_password_title">セキュア</string>
     <string name="share_via_link_edit_permission_label">編集を許可</string>
+    <string name="share_via_link_hide_file_listing_permission_label">ファイルリストを隠す</string>
     <string name="share_get_public_link_button">リンクを取得</string>
-    <string name="share_with_title">共有開始... </string>
+    <string name="share_with_title">共有開始&#8230;</string>
     <string name="share_with_edit_title">%1$s と共有</string>
 
     <string name="share_search">検索</string>
@@ -438,4 +455,10 @@
 
     <string name="permission_storage_access">ファイルをダウンロード &amp; アップロードする追加の権限が必要です。</string>
     <string name="local_file_not_found_toast">ローカルファイルにファイルがありません</string>
+    <string name="actionbar_search">検索</string>
+    <string name="drawer_folder_sync">自動アップロード</string>
+    <string name="storage_description_default">デフォルト</string>
+    <string name="storage_description_unknown">不明</string>
+
+    <string name="welcome_feature_3_title">自動アップロード</string>
     </resources>

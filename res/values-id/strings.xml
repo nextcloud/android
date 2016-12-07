@@ -65,7 +65,7 @@
     <string name="uploader_error_message_source_file_not_copied">Terjadi kesalahan saat menyalin berkas ke folder sementara. Silakan mencoba kembali.</string>
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
     <string name="file_list_empty">Tidak ada apa-apa di sini. Unggah sesuatu!</string>
-    <string name="file_list_loading">Memuat...</string>
+    <string name="file_list_loading">Memuat&#8230;</string>
     <string name="file_list_no_app_for_file_type">Tidak ditemukan aplikasi untuk tipe berkas!</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
     <string name="upload_list_empty">Tidak ada unggahan yang tersedia.</string>
@@ -93,7 +93,7 @@
     <string name="common_back">Kembali</string>
     <string name="common_save_exit">Simpan &amp; keluar</string>
     <string name="common_error">Kesalahan</string>
-    <string name="common_loading">Memuat ...</string>
+    <string name="common_loading">Memuat &#8230;</string>
     <string name="common_unknown">tidak diketahui</string>
     <string name="common_error_unknown">Kesalahan tidak diketahui</string>
     <string name="about_title">Tentang</string>
@@ -101,9 +101,9 @@
     <string name="delete_account">Hapus akun</string>
     <string name="delete_account_warning">Hapus akun %s?\n\nPenghapusan tidak bisa dipulihkan.</string>
     <string name="create_account">Buat akun</string>
-    <string name="upload_chooser_title">Unggah dari...</string>
+    <string name="upload_chooser_title">Unggah dari &#8230;</string>
     <string name="uploader_info_dirname">Nama folder</string>
-    <string name="uploader_upload_in_progress_ticker">Mengungggah...</string>
+    <string name="uploader_upload_in_progress_ticker">Mengungggah &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Mengunggah %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Berhasil mengunggah</string>
     <string name="uploader_upload_succeeded_content_single">%1$s terunggah</string>
@@ -129,7 +129,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Kesalahan tidak diketahui</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Menunggu koneksi wifi</string>
     <string name="uploads_view_later_waiting_to_upload">Menunggu unggahan</string>
-    <string name="downloader_download_in_progress_ticker">Mengunduh...</string>
+    <string name="downloader_download_in_progress_ticker">Mengunduh &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Mengunduh %2$s</string>
     <string name="downloader_download_succeeded_ticker">Berhasil mengunduh</string>
     <string name="downloader_download_succeeded_content">%1$s terunduh</string>
@@ -243,7 +243,7 @@
     <string name="wait_checking_credentials">Mengecek kredensial yang tersimpan</string>
     <string name="filedisplay_unexpected_bad_get_content">Masalah tidak terduga, silahkan pilih berkas dari apl yang berbeda</string>
     <string name="filedisplay_no_file_selected">Tidak ada berkas yang terpilih</string>
-    <string name="activity_chooser_title">Kirim taukan ke</string>
+    <string name="activity_chooser_title">Kirim taukan ke &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Menyalin berkas dari penyimpanan pribadi</string>
     
     <string name="oauth_check_onoff">Masuk dengan oAuth2</string> 

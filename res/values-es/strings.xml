@@ -80,7 +80,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar fichero de la carpeta original</string>
     <string name="file_list_seconds_ago">hace segundos</string>
     <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
-    <string name="file_list_loading">Cargando...</string>
+    <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">¡Aplicación no encontrada para el tipo de archivo!</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
     <string name="upload_list_empty">Sin datos para subir.</string>
@@ -109,7 +109,7 @@
     <string name="common_save">Guardar</string>
     <string name="common_save_exit">Guardar y salir</string>
     <string name="common_error">Error</string>
-    <string name="common_loading">Cargando&#8230;</string>
+    <string name="common_loading">Cargando &#8230;</string>
     <string name="common_unknown">desconocido</string>
     <string name="common_error_unknown">Error desconocido</string>
     <string name="common_pending">Pendiente</string>
@@ -120,7 +120,7 @@
     <string name="create_account">Crear cuenta</string>
     <string name="upload_chooser_title">Subir desde&#8230;</string>
     <string name="uploader_info_dirname">Nombre de la carpeta</string>
-    <string name="uploader_upload_in_progress_ticker">Subiendo...</string>
+    <string name="uploader_upload_in_progress_ticker">Subiendo &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Subiendo %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Subido con éxito</string>
     <string name="uploader_upload_succeeded_content_single">%1$s subido</string>
@@ -146,7 +146,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Error desconocido</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Esperando a la conexión wifi</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando para subir</string>
-    <string name="downloader_download_in_progress_ticker">Descargando...</string>
+    <string name="downloader_download_in_progress_ticker">Descargando &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargado de %2$s</string>
     <string name="downloader_download_succeeded_ticker">Descarga completa</string>
     <string name="downloader_download_succeeded_content">%1$s descargado</string>
@@ -204,8 +204,8 @@
     <string name="media_play_pause_description">Botón de reproducción o pausa </string>
     <string name="media_forward_description">Botón avance rápido</string>
 
-	<string name="auth_getting_authorization">Obteniendo autorización...</string>
-	<string name="auth_trying_to_login">Intentando iniciar sesión ...</string>
+	<string name="auth_getting_authorization">Obteniendo autorización &#8230;</string>
+	<string name="auth_trying_to_login">Intentando iniciar sesión &#8230;</string>
 	<string name="auth_no_net_conn_title">Sin conexión de red</string>
 	<string name="auth_nossl_plain_ok_title">Conexión segura no disponible.</string>
 	<string name="auth_connection_established">Conexión establecida</string>
@@ -260,7 +260,7 @@
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperado; por favor, pruebe otra app para seleccionar el archivo</string>
     <string name="filedisplay_no_file_selected">No hay ficheros seleccionados.</string>
-    <string name="activity_chooser_title">Enviar enlace a...</string>
+    <string name="activity_chooser_title">Enviar enlace a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     
     <string name="oauth_check_onoff">Ingresar con oAuth2</string> 
@@ -390,7 +390,7 @@
 	<string name="log_send_history_button">Mandar historial.</string>
 	<string name="log_send_no_mail_app">Aplicación para enviar registros no encontrada. Por favor instale una aplicación de correo.</string>
 	<string name="log_send_mail_subject">Se han encontrado %1$s logs de la app Android</string>
-	<string name="log_progress_dialog_text">Cargando datos ...</string>
+	<string name="log_progress_dialog_text">Cargando datos &#8230;</string>
 
 	<string name="saml_authentication_required_text">Se necesita autenticación</string>
 	<string name="saml_authentication_wrong_pass">Contraseña incorrecta</string>
