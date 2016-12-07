@@ -95,8 +95,6 @@
                 <data android:mimeType="*/*" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.LocalDirectorySelectorActivity" />
-        <activity android:name=".ui.activity.StorageMigrationActivity" />
         <activity
             android:name=".ui.activity.Preferences"
             android:theme="@style/Theme.ownCloud" >
