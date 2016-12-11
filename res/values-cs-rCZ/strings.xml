@@ -536,4 +536,18 @@ správce systému.</string>
     <string name="storage_description_sd_no">SD karta %1$d</string>
     <string name="storage_description_unknown">Neznámý</string>
 
-    </resources>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Co je v Nextcloudu nového</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Bezpečné místo pro všechna vaše data</string>
+    <string name="welcome_feature_1_text">Přistupujte, sdílejte a ochraňte své soubory doma, ale i ve své firmě</string>
+
+    <string name="welcome_feature_2_title">Multi účet</string>
+    <string name="welcome_feature_2_text">Připojte se ke všem svým cloudům</string>
+
+    <string name="welcome_feature_3_title">Okamžité nahrání</string>
+    <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
+
+    <string name="whats_new_skip">Přeskočit</string>
+</resources>
