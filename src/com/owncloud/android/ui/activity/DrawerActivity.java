@@ -265,57 +265,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     @Override
                     public boolean onNavigationItemSelected(final MenuItem menuItem) {
                         mDrawerLayout.closeDrawers();
-
+                        // pending runnable will be executed after the drawer has been closed
                         pendingRunnable = new Runnable() {
                             @Override
                             public void run() {
-                                switch (menuItem.getItemId()) {
-                                    case R.id.nav_all_files:
-                                        menuItem.setChecked(true);
-                                        mCheckedMenuItem = menuItem.getItemId();
-                                        showFiles(false);
-                                        break;
-                                    case R.id.nav_on_device:
-                                        menuItem.setChecked(true);
-                                        mCheckedMenuItem = menuItem.getItemId();
-                                        showFiles(true);
-                                        break;
-                                    case R.id.nav_uploads:
-                                        Intent uploadListIntent = new Intent(getApplicationContext(),
-                                                UploadListActivity.class);
-                                        uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(uploadListIntent);
-                                        break;
-                                    case R.id.nav_folder_sync:
-                                        Intent folderSyncIntent = new Intent(getApplicationContext(),FolderSyncActivity.class);
-                                        startActivity(folderSyncIntent);
-                                        break;
-                                    case R.id.nav_settings:
-                                        Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
-                                        startActivity(settingsIntent);
-                                        break;
-                                    case R.id.nav_participate:
-                                        Intent participateIntent = new Intent(getApplicationContext(),
-                                                ParticipateActivity.class);
-                                        startActivity(participateIntent);
-                                        break;
-                                    case R.id.drawer_menu_account_add:
-                                        createAccount(false);
-                                        break;
-                                    case R.id.drawer_menu_account_manage:
-                                        Intent manageAccountsIntent = new Intent(getApplicationContext(),
-                                                ManageAccountsActivity.class);
-                                        startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
-                                        break;
-                                    case Menu.NONE:
-                                        // account clicked
-                                        accountClicked(menuItem.getTitle().toString());
-                                    default:
-                                        Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
-                                }
+                                selectNavigationItem(menuItem);
                             }
                         };
-
                         return true;
                     }
                 });
@@ -325,6 +281,53 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
         } else {
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
+        }
+    }
+
+    private void selectNavigationItem(final MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case R.id.nav_all_files:
+                menuItem.setChecked(true);
+                mCheckedMenuItem = menuItem.getItemId();
+                showFiles(false);
+                break;
+            case R.id.nav_on_device:
+                menuItem.setChecked(true);
+                mCheckedMenuItem = menuItem.getItemId();
+                showFiles(true);
+                break;
+            case R.id.nav_uploads:
+                Intent uploadListIntent = new Intent(getApplicationContext(),
+                        UploadListActivity.class);
+                uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(uploadListIntent);
+                break;
+            case R.id.nav_folder_sync:
+                Intent folderSyncIntent = new Intent(getApplicationContext(),FolderSyncActivity.class);
+                startActivity(folderSyncIntent);
+                break;
+            case R.id.nav_settings:
+                Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
+                startActivity(settingsIntent);
+                break;
+            case R.id.nav_participate:
+                Intent participateIntent = new Intent(getApplicationContext(),
+                        ParticipateActivity.class);
+                startActivity(participateIntent);
+                break;
+            case R.id.drawer_menu_account_add:
+                createAccount(false);
+                break;
+            case R.id.drawer_menu_account_manage:
+                Intent manageAccountsIntent = new Intent(getApplicationContext(),
+                        ManageAccountsActivity.class);
+                startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
+                break;
+            case Menu.NONE:
+                // account clicked
+                accountClicked(menuItem.getTitle().toString());
+            default:
+                Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
         }
     }
 
