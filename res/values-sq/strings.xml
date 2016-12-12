@@ -463,9 +463,9 @@
     <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
 
     <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>
-    <string name="local_file_not_found_toast">Kartela s’u gjet te sistemi vendor i kartelave</string>
-    <string name="confirmation_remove_files_alert">A doni ju vërtetë të hiqni artikujt e zgjedhur?</string>
-    <string name="confirmation_remove_folders_alert">A doni ju vërtet  të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
+    <string name="local_file_not_found_toast">Kartela s’u gjet te sistemi vendor i skedarëve</string>
+    <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
+    <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="files_drop_not_supported">Ky është një tipar i Nextcloud-it, ju lutemi përditësojeni.</string>
