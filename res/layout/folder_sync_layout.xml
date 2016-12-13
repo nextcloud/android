@@ -60,8 +60,8 @@
 
                 <ProgressBar
                     android:id="@+id/folderSyncProgressBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
                     android:layout_gravity="center_horizontal"/>
 
                 <TextView
@@ -71,8 +71,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="@dimen/standard_half_margin"
                     android:text="@string/folder_sync_loading_folders"
-                    android:textColor="@color/secondaryTextColor"
-                    android:textStyle="italic"/>
+                    android:textSize="26sp"/>
             </LinearLayout>
 
             <TextView
@@ -82,7 +81,6 @@
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/standard_margin"
                 android:gravity="center"
-                android:textColor="@color/secondaryTextColor"
                 android:text="@string/folder_sync_no_results"
                 android:visibility="gone" />
         </FrameLayout>

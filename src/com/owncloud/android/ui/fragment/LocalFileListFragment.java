@@ -20,9 +20,6 @@
  */
 package com.owncloud.android.ui.fragment;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
@@ -39,6 +36,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import java.io.File;
+import java.util.ArrayList;
 
 
 /**
@@ -87,7 +87,9 @@ public class LocalFileListFragment extends ExtendedListFragment {
         setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         setSwipeEnabled(false); // Disable pull-to-refresh
         setFabEnabled(false); // Disable FAB
-        setMessageForEmptyList(getString(R.string.local_file_list_empty));
+        setMessageForEmptyList(
+                R.string.file_list_empty_headline, R.string.local_file_list_empty, R.drawable.ic_list_empty_folder
+        );
         Log_OC.i(TAG, "onCreateView() end");
         return v;
     }
