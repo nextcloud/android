@@ -58,6 +58,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -111,6 +112,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public static final String TEXT_FILE_SUFFIX = ".txt";
     public static final String URL_FILE_SUFFIX = ".url";
     public static final String WEBLOC_FILE_SUFFIX = ".webloc";
+    public static final String DESKTOP_FILE_SUFFIX = ".desktop";
 
     private AccountManager mAccountManager;
     private Stack<String> mParents;
@@ -372,6 +374,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
                 adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
+
+                mText.add(internetShortcutDesktopText(extraText, filename));
+                mFilenameBase.add(filename);
+                mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
+                adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
             }
             if (isIntentFromGoogleMap(subjectText, extraText)) {
                 String str = getString(R.string.upload_file_dialog_filetype_googlemap_shortcut);
@@ -386,6 +393,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
                 adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
+
+                mText.add(internetShortcutDesktopText(texts[2], texts[0]));
+                mFilenameBase.add(texts[0]);
+                mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
+                adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
             }
 
             final EditText userInput = (EditText) view.findViewById(R.id.user_input);
@@ -394,6 +406,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
             final Spinner spinner = (Spinner) view.findViewById(R.id.file_type);
             setupSpinner(adapter, selectPos, userInput, spinner);
+            if (adapter.getCount() == 1) {
+                TextView label = (TextView) view.findViewById(R.id.label_file_type);
+                label.setVisibility(View.GONE);
+                spinner.setVisibility(View.GONE);
+            }
             mSpinner = spinner;
 
             Dialog filenameDialog =  createFilenameDialog(view, userInput, spinner);
@@ -417,9 +434,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     // nothing to do
                 }
             });
-            if (adapter.getCount() == 1) {
-                spinner.setEnabled(false);
-            }
         }
 
         @NonNull
@@ -538,6 +552,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     "<string>" + url + "</string>\n" +
                     "</dict>\n" +
                     "</plist>\n";
+        }
+
+        private String internetShortcutDesktopText(String url, String filename) {
+            return "[Desktop Entry]\n" +
+                "Encoding=UTF-8\n" +
+                "Name=" + filename + "\n" +
+                "Type=Link\n" +
+                "URL=" + url + "\n" +
+                "Icon=text-html";
         }
 
         @Nullable
