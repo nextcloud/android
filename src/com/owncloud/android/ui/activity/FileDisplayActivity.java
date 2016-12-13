@@ -1329,6 +1329,11 @@ public class FileDisplayActivity extends HookActivity
     }
 
     @Override
+    public boolean isDrawerIndicatorAvailable() {
+        return isRoot(getCurrentDir());
+    }
+
+    @Override
     protected ServiceConnection newTransferenceServiceConnection() {
         return new ListServiceConnection();
     }
