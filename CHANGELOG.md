@@ -1,3 +1,6 @@
+## 2016-12-14
+- Minor Usability improvements #449
+
 ## 2016-11-22
 - Updated federated sharing edit options #395
 
