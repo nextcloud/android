@@ -1,5 +1,6 @@
 ## 2016-12-14
 - Minor Usability improvements #449
+- Fix file modification date on upload #451
 
 ## 2016-11-22
 - Updated federated sharing edit options #395
