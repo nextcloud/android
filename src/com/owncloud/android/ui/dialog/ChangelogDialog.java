@@ -27,7 +27,6 @@ import android.support.v4.app.DialogFragment;
 import android.webkit.WebView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.DisplayUtils;
 
 
 /**

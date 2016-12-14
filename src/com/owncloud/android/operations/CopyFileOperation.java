@@ -18,7 +18,6 @@
 package com.owncloud.android.operations;
 
 import android.accounts.Account;
-import android.content.Context;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
