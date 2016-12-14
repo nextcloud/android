@@ -66,6 +66,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.media.MediaService;
+import com.owncloud.android.media.MediaServiceBinder;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.MoveFileOperation;
@@ -88,6 +90,7 @@ import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
@@ -139,7 +142,10 @@ public class FileDisplayActivity extends HookActivity
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
 
+    private MediaServiceBinder mMediaServiceBinder =  null;
+    private MediaServiceConnection mMediaServiceConnection = null;
 
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -1388,7 +1394,37 @@ public class FileDisplayActivity extends HookActivity
                 mUploaderBinder = null;
             }
         }
+    };    
+
+    private MediaServiceConnection newMediaConnection(){
+        return new MediaServiceConnection();
     }
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private class MediaServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName component, IBinder service) {
+
+            if (component.equals(new ComponentName(FileDisplayActivity.this, MediaService.class))) {
+                Log_OC.d(TAG, "Media service connected");
+                mMediaServiceBinder = (MediaServiceBinder) service;
+
+            }else {
+                return;
+            }
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName component) {
+            if (component.equals(new ComponentName(FileDisplayActivity.this,
+                    MediaService.class))) {
+                Log_OC.e(TAG, "Media service disconnected");
+                mMediaServiceBinder = null;
+            }
+        }
+    };
 
     /**
      * Updates the view associated to the activity after the finish of some operation over files
@@ -1458,6 +1494,7 @@ public class FileDisplayActivity extends HookActivity
 
         if (result.isSuccess()) {
             OCFile removedFile = operation.getFile();
+            tryStopPlaying(removedFile);
             FileFragment second = getSecondFragment();
             if (second != null && removedFile.equals(second.getFile())) {
                 if (second instanceof PreviewMediaFragment) {
@@ -1478,6 +1515,21 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
+    public void setMediaServiceConnection() {
+        mMediaServiceConnection = newMediaConnection();// mediaServiceConnection;
+        if (mMediaServiceConnection != null) {
+            bindService(new Intent(this, MediaService.class), mMediaServiceConnection,
+                    Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    private void tryStopPlaying(OCFile file){
+        if (mMediaServiceConnection != null && MimeTypeUtil.isAudio(file)){
+            if (mMediaServiceBinder.isPlaying(file)){
+                mMediaServiceBinder.pause();
+            }
+        }
+    }
 
     /**
      * Updates the view associated to the activity after the finish of an operation trying to move a
