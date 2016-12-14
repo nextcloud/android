@@ -107,33 +107,27 @@ public class PreviewImageActivity extends FileActivity implements
         actionBar.hide();
 
 
-        // Make sure we're running on Honeycomb or higher to use FullScreen and
-        // Immersive Mode
-        if (isHoneycombOrHigher()) {
-        
-            mFullScreenAnchorView = getWindow().getDecorView();
-            // to keep our UI controls visibility in line with system bars
-            // visibility
-            mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener
-                    (new View.OnSystemUiVisibilityChangeListener() {
-                @SuppressLint("InlinedApi")
-                @Override
-                public void onSystemUiVisibilityChange(int flags) {
-                    boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
-                    ActionBar actionBar = getSupportActionBar();
-                    if (visible) {
-                        actionBar.show();
-                        setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-                    } else {
-                        actionBar.hide();
-                        setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        mFullScreenAnchorView = getWindow().getDecorView();
+        // to keep our UI controls visibility in line with system bars visibility
+        mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener
+                (new View.OnSystemUiVisibilityChangeListener() {
+                    @SuppressLint("InlinedApi")
+                    @Override
+                    public void onSystemUiVisibilityChange(int flags) {
+                        boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+                        ActionBar actionBar = getSupportActionBar();
+                        if (visible) {
+                            actionBar.show();
+                            setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+                        } else {
+                            actionBar.hide();
+                            setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+                        }
                     }
-                }
-            });
+                });
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(getResources().getColor(R.color.owncloud_blue_dark_transparent));
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(getResources().getColor(R.color.owncloud_blue_dark_transparent));
         }
             
         if (savedInstanceState != null) {
@@ -185,9 +179,7 @@ public class PreviewImageActivity extends FileActivity implements
     Handler mHideSystemUiHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (isHoneycombOrHigher()) {
-                hideSystemUI(mFullScreenAnchorView);
-            }
+            hideSystemUI(mFullScreenAnchorView);
             getSupportActionBar().hide();
         }
     };
@@ -196,7 +188,6 @@ public class PreviewImageActivity extends FileActivity implements
         mHideSystemUiHandler.removeMessages(0);
         mHideSystemUiHandler.sendEmptyMessageDelayed(0, delayMillis);
     }
-    
     
     /// handle Window Focus changes
     @Override
@@ -209,8 +200,6 @@ public class PreviewImageActivity extends FileActivity implements
             mHideSystemUiHandler.removeMessages(0);
         }
     }
-    
-    
     
     @Override
     public void onStart() {
@@ -471,36 +460,19 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     @SuppressLint("InlinedApi")
-	public void toggleFullScreen() {
+    public void toggleFullScreen() {
 
-        if (isHoneycombOrHigher()) {
-        
-            boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
-                    & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+        boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
+                & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 
-            if (visible) {
-                hideSystemUI(mFullScreenAnchorView);
-                // actionBar.hide(); // propagated through
-                // OnSystemUiVisibilityChangeListener()
-            } else {
-                showSystemUI(mFullScreenAnchorView);
-                // actionBar.show(); // propagated through
-                // OnSystemUiVisibilityChangeListener()
-            }
-
+        if (visible) {
+            hideSystemUI(mFullScreenAnchorView);
+            // actionBar.hide(); // propagated through
+            // OnSystemUiVisibilityChangeListener()
         } else {
-
-            ActionBar actionBar = getSupportActionBar();
-            if (!actionBar.isShowing()) {
-                actionBar.show();
-                setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
-
-            } else {
-                actionBar.hide();
-                setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
-
-            }
-
+            showSystemUI(mFullScreenAnchorView);
+            // actionBar.show(); // propagated through
+            // OnSystemUiVisibilityChangeListener()
         }
     }
 
@@ -569,17 +541,5 @@ public class PreviewImageActivity extends FileActivity implements
             |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
             |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
         );
-    }
-
-    /**
-     * Checks if OS version is Honeycomb one or higher
-     *
-     * @return boolean
-     */
-    private boolean isHoneycombOrHigher() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            return true;
-        }
-        return false;
     }
 }

@@ -21,6 +21,8 @@
 package com.owncloud.android.ui.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -38,6 +40,9 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.MainApp;
@@ -75,7 +80,11 @@ public class ExtendedListFragment extends Fragment
     protected SwipeRefreshLayout mRefreshListLayout;
     protected SwipeRefreshLayout mRefreshGridLayout;
     protected SwipeRefreshLayout mRefreshEmptyLayout;
+    protected LinearLayout mEmptyListContainer;
     protected TextView mEmptyListMessage;
+    protected TextView mEmptyListHeadline;
+    protected ImageView mEmptyListIcon;
+    protected ProgressBar mEmptyListProgress;
 
     private FloatingActionsMenu mFabMain;
     private FloatingActionButton mFabUpload;
@@ -174,10 +183,10 @@ public class ExtendedListFragment extends Fragment
         Log_OC.d(TAG, "onCreateView");
 
         View v = inflater.inflate(R.layout.list_fragment, null);
+        setupEmptyList(v);
 
         mListView = (ExtendedListView)(v.findViewById(R.id.list_root));
         mListView.setOnItemClickListener(this);
-        //mListView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
@@ -212,7 +221,6 @@ public class ExtendedListFragment extends Fragment
         mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
         mRefreshGridLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_grid);
         mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_empty);
-        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
         
         onCreateSwipeToRefresh(mRefreshListLayout);
         onCreateSwipeToRefresh(mRefreshGridLayout);
@@ -268,6 +276,14 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
+    protected void setupEmptyList(View view) {
+        mEmptyListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
+        mEmptyListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
+        mEmptyListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
+        mEmptyListIcon = (ImageView) view.findViewById(R.id.empty_list_icon);
+        mEmptyListProgress = (ProgressBar) view.findViewById(R.id.empty_list_progress);
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -283,9 +299,9 @@ public class ExtendedListFragment extends Fragment
             setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
             
         } else {
-            mIndexes = new ArrayList<Integer>();
-            mFirstPositions = new ArrayList<Integer>();
-            mTops = new ArrayList<Integer>();
+            mIndexes = new ArrayList<>();
+            mFirstPositions = new ArrayList<>();
+            mTops = new ArrayList<>();
             mHeightCell = 0;
         }
 
@@ -425,7 +441,7 @@ public class ExtendedListFragment extends Fragment
     /**
      * Sets the 'visibility' state of the FAB contained in the fragment.
      *
-     * When 'false' is set, FAB visibility is set to View.GONE programatically,
+     * When 'false' is set, FAB visibility is set to View.GONE programmatically,
      *
      * @param   enabled     Desired visibility for the FAB.
      */
@@ -438,27 +454,67 @@ public class ExtendedListFragment extends Fragment
     }
 
     /**
-     * Set message for empty list view
+     * Set message for empty list view.
      */
     public void setMessageForEmptyList(String message) {
-        if (mEmptyListMessage != null) {
+        if (mEmptyListContainer != null && mEmptyListMessage != null) {
             mEmptyListMessage.setText(message);
         }
     }
 
     /**
-     * Get the text of EmptyListMessage TextView
+     * displays an empty list information with a headline, a message and an icon.
+     *
+     * @param headline the headline
+     * @param message  the message
+     * @param icon     the icon to be shown
+     */
+    public void setMessageForEmptyList(@StringRes int headline, @StringRes int message, @DrawableRes int icon) {
+        if (mEmptyListContainer != null && mEmptyListMessage != null) {
+            mEmptyListHeadline.setText(headline);
+            mEmptyListMessage.setText(message);
+            mEmptyListIcon.setImageResource(icon);
+
+            mEmptyListIcon.setVisibility(View.VISIBLE);
+            mEmptyListProgress.setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * Set message for empty list view.
+     */
+    public void setEmptyListMessage() {
+        setMessageForEmptyList(
+                R.string.file_list_empty_headline,
+                R.string.file_list_empty,
+                R.drawable.ic_list_empty_folder
+        );
+    }
+
+    /**
+     * Set message for empty list view.
+     */
+    public void setEmptyListLoadingMessage() {
+        if (mEmptyListContainer != null && mEmptyListMessage != null) {
+            mEmptyListMessage.setText(R.string.file_list_loading);
+
+            mEmptyListIcon.setVisibility(View.GONE);
+            mEmptyListProgress.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * Get the text of EmptyListMessage TextView.
      * 
-     * @return String
+     * @return String empty text view text-value
      */
     public String getEmptyViewText() {
-        return (mEmptyListMessage != null) ? mEmptyListMessage.getText().toString() : "";
+        return (mEmptyListContainer != null && mEmptyListMessage != null) ? mEmptyListMessage.getText().toString() : "";
     }
 
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
         // Colors in animations
-        refreshLayout.setColorSchemeResources(R.color.color_accent, R.color.primary,
-                R.color.primary_dark);
+        refreshLayout.setColorSchemeResources(R.color.color_accent, R.color.primary, R.color.primary_dark);
 
         refreshLayout.setOnRefreshListener(this);
     }
@@ -488,7 +544,7 @@ public class ExtendedListFragment extends Fragment
      * TODO doc
      * To be called before setAdapter, or GridViewWithHeaderAndFooter will throw an exception
      *
-     * @param enabled
+     * @param enabled flag if footer should be shown/calculated
      */
     protected void setFooterEnabled(boolean enabled) {
         if (enabled) {
@@ -515,8 +571,9 @@ public class ExtendedListFragment extends Fragment
     }
 
     /**
-     * TODO doc
-     * @param text
+     * set the list/grid footer text.
+     *
+     * @param text the footer text
      */
     protected void setFooterText(String text) {
         if (text != null && text.length() > 0) {

@@ -1105,12 +1105,11 @@ public class FileDisplayActivity extends HookActivity
     private void setBackgroundText() {
         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
-            int message = R.string.file_list_loading;
             if (!mSyncInProgress) {
-                // In case file list is empty
-                message = R.string.file_list_empty;
+                ocFileListFragment.setEmptyListMessage();
+            } else {
+                ocFileListFragment.setEmptyListLoadingMessage();
             }
-            ocFileListFragment.setMessageForEmptyList(getString(message));
         } else {
             Log_OC.e(TAG, "OCFileListFragment is null");
         }
@@ -1123,7 +1122,6 @@ public class FileDisplayActivity extends HookActivity
         /**
          * Once the file upload has finished -> update view
          *
-         * @author David A. Velasco
          * {@link BroadcastReceiver} to enable upload feedback in UI
          */
         @Override
@@ -1334,6 +1332,11 @@ public class FileDisplayActivity extends HookActivity
             super.updateActionBarTitleAndHomeButton(chosenFile);
         }
 
+    }
+
+    @Override
+    public boolean isDrawerIndicatorAvailable() {
+        return isRoot(getCurrentDir());
     }
 
     @Override

@@ -197,6 +197,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     toggleAccountList();
                 }
                 invalidateOptionsMenu();
+                mDrawerToggle.setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
 
                 if (pendingRunnable != null) {
                     new Handler().post(pendingRunnable);
@@ -835,5 +836,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         } else {
             Log_OC.e(TAG, "Drawer layout not ready to add drawer listener");
         }
+    }
+
+    public boolean isDrawerIndicatorAvailable() {
+        return true;
     }
 }

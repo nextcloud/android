@@ -35,14 +35,13 @@ import com.owncloud.android.ui.adapter.ExpandableUploadListAdapter;
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
- * 
  */
 public class UploadListFragment extends ExpandableListFragment {
     private static final String TAG = UploadListFragment.class.getSimpleName();
 
     /**
-     * Reference to the Activity which this fragment is attached to. For
-     * callbacks
+     * Reference to the Activity which this fragment is attached to.
+     * For callbacks.
      */
     private UploadListFragment.ContainerActivity mContainerActivity;
 
@@ -63,7 +62,9 @@ public class UploadListFragment extends ExpandableListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, container, savedInstanceState);
         getListView().setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        setMessageForEmptyList(getString(R.string.upload_list_empty));
+        setMessageForEmptyList(
+                R.string.upload_list_empty_headline, R.string.upload_list_empty_text, R.drawable.ic_list_empty_upload
+        );
         setOnRefreshListener(this);
         return v;
     }
@@ -127,12 +128,11 @@ public class UploadListFragment extends ExpandableListFragment {
         /**
          * Callback method invoked when an upload item is clicked by the user on
          * the upload list
-         * 
-         * @param file
+         *
+         * @param file the file that has been clicked on.
          * @return return true if click was handled.
          */
         public boolean onUploadItemClick(OCUpload file);
-
     }
 
     public void binderReady(){
@@ -148,5 +148,4 @@ public class UploadListFragment extends ExpandableListFragment {
             mAdapter.refreshView();
         }
     }
-
 }

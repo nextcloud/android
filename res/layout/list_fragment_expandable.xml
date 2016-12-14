@@ -31,14 +31,7 @@ EXCEPT: ExpandableListView must be used for @+id/swipe_refresh_files_emptyView
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-	            <TextView
-			        android:id="@+id/empty_list_view"
-			        android:layout_width="match_parent"
-			        android:layout_height="wrap_content"
-			        android:gravity="center_vertical|center_horizontal"
-			        android:text="@string/empty"
-					android:layout_gravity="center"
-			        android:visibility="visible" />
+			<include layout="@layout/empty_list" />
 
         </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
