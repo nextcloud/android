@@ -159,7 +159,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
      * Open file with app associates with its MIME type. If MIME type unknown, show list with all apps.
      */
     private void openFileWithDefault(String localPath) {
-        Intent myIntent = new Intent(android.content.Intent.ACTION_VIEW);
+        Intent myIntent = new Intent(Intent.ACTION_VIEW);
         File file = new File(localPath);
         String mimetype = MimeTypeUtil.getBestMimeTypeByFilename(localPath);
         if ("application/octet-stream".equals(mimetype)) {
