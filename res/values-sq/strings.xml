@@ -4,7 +4,7 @@
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Rifreskoni llogarinë</string>
     <string name="actionbar_upload">Ngarkoni</string>
-    <string name="actionbar_upload_from_apps">Lëndë nga aplikacione të tjera</string>
+    <string name="actionbar_upload_from_apps">Përmbajtje nga aplikacione të tjera</string>
     <string name="actionbar_upload_files">Kartela</string>
     <string name="actionbar_open_with">Hapeni me</string>
     <string name="actionbar_mkdir">Dosje e re</string>
@@ -48,17 +48,17 @@
     <string name="prefs_remember_last_upload_location_summary">Mba mend vendin e fundit të ngarkimit për ndarje me të tjerët</string>
 
 	<string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
-	<string name="recommend_text">Dua t\’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarkojeni prej këtu: %2$s</string>
+	<string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\\nShkarkojeni prej këtu: %2$s</string>
 
-    <string name="auth_check_server">Kontrollo shërbyesin</string>
-    <string name="auth_host_url">Adresë https://… e serverit</string>
+    <string name="auth_check_server">Kontrollo serverin</string>
+    <string name="auth_host_url">Adresa e serverit https://… </string>
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_password">Fjalëkalim</string>
-    <string name="auth_register">Rishtar te %1$s?</string>
+    <string name="auth_register">I ri te %1$s?</string>
     <string name="sync_string_files">Kartela</string>
     <string name="setup_btn_connect">Lidhuni</string>
     <string name="uploader_btn_upload_text">Ngarkoni</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Krijoni një kartele tekst</string>
+    <string name="uploader_btn_uploadTextSnippet_text">Krijoni një skedar tekst</string>
     <string name="uploader_top_message">Zgjidhni një dosje ngarkimi</string>
     <string name="uploader_wrn_no_account_title">S’u gjet llogari</string>
     <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>
@@ -463,9 +463,9 @@
     <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
 
     <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>
-    <string name="local_file_not_found_toast">Kartela s’u gjet te sistemi vendor i kartelave</string>
-    <string name="confirmation_remove_files_alert">A doni ju vërtetë të hiqni artikujt e zgjedhur?</string>
-    <string name="confirmation_remove_folders_alert">A doni ju vërtet  të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
+    <string name="local_file_not_found_toast">Kartela s’u gjet te sistemi vendor i skedarëve</string>
+    <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
+    <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="files_drop_not_supported">Ky është një tipar i Nextcloud-it, ju lutemi përditësojeni.</string>
