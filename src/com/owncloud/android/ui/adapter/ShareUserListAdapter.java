@@ -67,17 +67,35 @@ public class ShareUserListAdapter extends ArrayAdapter {
         return 0;
     }
 
-    @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflator = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflator.inflate(R.layout.share_user_item, parent, false);
+    private static class ViewHolderItem {
+		private TextView userName;
+		private ImageView iconView;
+		private ImageView editShareButton;
+		private ImageView unshareButton;
+	}
 
-        if (mShares != null && mShares.size() > position) {
+	@Override
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        ViewHolderItem viewHolderItem;
+		LayoutInflater inflator = (LayoutInflater) mContext
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        if (convertView == null) {
+			convertView = inflator.inflate(R.layout.share_user_item, parent, false);
+			viewHolderItem = new ViewHolderItem();
+			viewHolderItem.userName = (TextView) convertView.findViewById(R.id.userOrGroupName);
+			viewHolderItem.iconView = (ImageView) convertView.findViewById(R.id.icon);
+			viewHolderItem.editShareButton = (ImageView) convertView.findViewById(R.id.editShareButton);
+			viewHolderItem.unshareButton = (ImageView) convertView.findViewById(R.id.unshareButton);
+			convertView.setTag(viewHolderItem);
+		} else {
+			viewHolderItem = (ViewHolderItem) convertView.getTag();
+		}
+		View view = convertView;
+		if (mShares != null && mShares.size() > position) {
             OCShare share = mShares.get(position);
 
-            TextView userName = (TextView) view.findViewById(R.id.userOrGroupName);
-            ImageView iconView = (ImageView) view.findViewById(R.id.icon);
+            TextView userName = viewHolderItem.userName;
+            ImageView iconView = viewHolderItem.iconView;
             String name = share.getSharedWithDisplayName();
             Drawable icon = getContext().getResources().getDrawable(R.drawable.ic_user);
             if (share.getShareType() == ShareType.GROUP) {
@@ -88,7 +106,7 @@ public class ShareUserListAdapter extends ArrayAdapter {
             iconView.setImageDrawable(icon);
 
             /// bind listener to edit privileges
-            final ImageView editShareButton = (ImageView) view.findViewById(R.id.editShareButton);
+            final ImageView editShareButton = viewHolderItem.editShareButton;
             editShareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -97,7 +115,7 @@ public class ShareUserListAdapter extends ArrayAdapter {
             });
 
             /// bind listener to unshare
-            final ImageView unshareButton = (ImageView) view.findViewById(R.id.unshareButton);
+            final ImageView unshareButton = viewHolderItem.unshareButton;
             unshareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

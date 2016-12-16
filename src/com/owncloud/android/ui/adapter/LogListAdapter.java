@@ -48,12 +48,25 @@ public class LogListAdapter extends ArrayAdapter<String> {
         this.values = values;
     }
 
-    @Override
+    private static class ViewHolderItem {
+		private TextView listText;
+	}
+
+	@Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) context
+        ViewHolderItem viewHolderItem;
+		LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.log_item, parent, false);
-        TextView listText = (TextView) rowView.findViewById(R.id.log_item_single);
+        if (convertView == null) {
+			convertView = inflater.inflate(R.layout.log_item, parent, false);
+			viewHolderItem = new ViewHolderItem();
+			viewHolderItem.listText = (TextView) convertView.findViewById(R.id.log_item_single);
+			convertView.setTag(viewHolderItem);
+		} else {
+			viewHolderItem = (ViewHolderItem) convertView.getTag();
+		}
+		View rowView = convertView;
+		TextView listText = viewHolderItem.listText;
         listText.setText(values[position]);
         listText.setTextSize(15);
         fileUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log"+File.separator+values[position]));
