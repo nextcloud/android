@@ -18,6 +18,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
@@ -86,5 +87,128 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/common_cancel" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="match_parent"
+                        android:id="@+id/button2"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:id="@+id/button3"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:id="@+id/button4"
+                        android:layout_weight="1" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="match_parent"
+                        android:id="@+id/button5"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:id="@+id/button6"
+                        android:layout_weight="1" />
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:id="@+id/button7"
+                        android:layout_weight="1"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="match_parent"
+                        android:id="@+id/button8"
+                        android:layout_weight="1"/>
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:id="@+id/button9"
+                        android:layout_weight="1"/>
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:id="@+id/button10"
+                        android:layout_weight="1"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:id="@+id/button8"
+                        android:layout_weight="1"/>
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:id="@+id/button9"
+                        android:layout_weight="1"/>
+
+                    <Button
+                        android:text="Button"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
+                        android:id="@+id/button10"
+                        android:layout_weight="1"/>
+                </TableRow>
+
+            </TableLayout>
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
