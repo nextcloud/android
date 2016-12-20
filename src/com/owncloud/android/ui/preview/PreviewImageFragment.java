@@ -25,6 +25,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -39,6 +40,8 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.caverock.androidsvg.SVG;
+import com.caverock.androidsvg.SVGParseException;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -50,6 +53,8 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.lang.ref.WeakReference;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -405,14 +410,16 @@ public class PreviewImageFragment extends FileFragment {
          */
         public LoadBitmapTask(ImageViewCustom imageView, TextView messageView,
                               ProgressBar progressWheel) {
-            mImageViewRef = new WeakReference<ImageViewCustom>(imageView);
-            mMessageViewRef = new WeakReference<TextView>(messageView);
-            mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
+            mImageViewRef = new WeakReference<>(imageView);
+            mMessageViewRef = new WeakReference<>(messageView);
+            mProgressWheelRef = new WeakReference<>(progressWheel);
         }
 
         @Override
         protected LoadImage doInBackground(OCFile... params) {
-            Bitmap result = null;
+            Bitmap bitmapResult = null;
+            Drawable drawableResult = null;
+
             if (params.length != 1) {
                 return null;
             }
@@ -424,43 +431,63 @@ public class PreviewImageFragment extends FileFragment {
                 Point screenSize = DisplayUtils.getScreenSize(getActivity());
                 int minWidth = screenSize.x;
                 int minHeight = screenSize.y;
-                for (int i = 0; i < maxDownScale && result == null; i++) {
+                for (int i = 0; i < maxDownScale && bitmapResult == null && drawableResult == null; i++) {
+
                     if (isCancelled()) {
                         return null;
                     }
-                    try {
-                        result = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
-                                minHeight);
 
-                        if (isCancelled()) {
-                            return new LoadImage(result, ocFile);
-                        }
+                    if (ocFile.getMimetype().equalsIgnoreCase("image/svg+xml")) {
+                        try {
+                            SVG svg = SVG.getFromInputStream(new FileInputStream(storagePath));
+                            drawableResult = new PictureDrawable(svg.renderToPicture());
 
-                        if (result == null) {
-                            mErrorMessageId = R.string.preview_image_error_unknown_format;
-                            Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
-                            break;
-                        } else {
-                            // Rotate image, obeying exif tag.
-                            result = BitmapUtils.rotateImage(result, storagePath);
+                            if (isCancelled()) {
+                                return new LoadImage(null, drawableResult, ocFile);
+                            }
+                        } catch (FileNotFoundException e) {
+                            mErrorMessageId = R.string.common_error_unknown;
+                            Log_OC.e(TAG, "File not found trying to load " + getFile().getStoragePath(), e);
+                        } catch (SVGParseException e) {
+                            mErrorMessageId = R.string.common_error_unknown;
+                            Log_OC.e(TAG, "Couldn't parse SVG " + getFile().getStoragePath(), e);
                         }
+                    } else {
 
-                    } catch (OutOfMemoryError e) {
-                        mErrorMessageId = R.string.common_error_out_memory;
-                        if (i < maxDownScale - 1) {
-                            Log_OC.w(TAG, "Out of memory rendering file " + storagePath +
-                                    " ; scaling down");
-                            minWidth = minWidth / 2;
-                            minHeight = minHeight / 2;
+                        try {
+                            bitmapResult = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
+                                    minHeight);
 
-                        } else {
-                            Log_OC.w(TAG, "Out of memory rendering file " + storagePath +
-                                    " ; failing");
+                            if (isCancelled()) {
+                                return new LoadImage(bitmapResult, null, ocFile);
+                            }
+
+                            if (bitmapResult == null) {
+                                mErrorMessageId = R.string.preview_image_error_unknown_format;
+                                Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
+                                break;
+                            } else {
+                                // Rotate image, obeying exif tag.
+                                bitmapResult = BitmapUtils.rotateImage(bitmapResult, storagePath);
+                            }
+
+                        } catch (OutOfMemoryError e) {
+                            mErrorMessageId = R.string.common_error_out_memory;
+                            if (i < maxDownScale - 1) {
+                                Log_OC.w(TAG, "Out of memory rendering file " + storagePath +
+                                        " ; scaling down");
+                                minWidth = minWidth / 2;
+                                minHeight = minHeight / 2;
+
+                            } else {
+                                Log_OC.w(TAG, "Out of memory rendering file " + storagePath +
+                                        " ; failing");
+                            }
+                            if (bitmapResult != null) {
+                                bitmapResult.recycle();
+                            }
+                            bitmapResult = null;
                         }
-                        if (result != null) {
-                            result.recycle();
-                        }
-                        result = null;
                     }
                 }
 
@@ -472,10 +499,9 @@ public class PreviewImageFragment extends FileFragment {
             } catch (Throwable t) {
                 mErrorMessageId = R.string.common_error_unknown;
                 Log_OC.e(TAG, "Unexpected error loading " + getFile().getStoragePath(), t);
-
             }
 
-            return new LoadImage(result, ocFile);
+            return new LoadImage(bitmapResult, drawableResult, ocFile);
         }
 
         @Override
@@ -488,7 +514,7 @@ public class PreviewImageFragment extends FileFragment {
         @Override
         protected void onPostExecute(LoadImage result) {
             hideProgressWheel();
-            if (result.bitmap != null) {
+            if (result.bitmap != null || result.drawable != null) {
                 showLoadedImage(result);
             }
             else {
@@ -503,24 +529,26 @@ public class PreviewImageFragment extends FileFragment {
         @SuppressLint("InlinedApi")
         private void showLoadedImage(LoadImage result) {
             final ImageViewCustom imageView = mImageViewRef.get();
-            Bitmap bitmap = result.bitmap;
+
             if (imageView != null) {
-                Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
-                        bitmap.getHeight());
+                if (result.bitmap != null) {
+                    Log_OC.d(TAG, "Showing image with resolution " + result.bitmap.getWidth() + "x"
+                            + result.bitmap.getHeight());
+                }
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                     Drawable backrepeat = getResources().getDrawable(R.drawable.backrepeat);
                     imageView.setBackground(backrepeat);
-                }
-
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
+                } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/svg+xml")) {
+                    imageView.setImageDrawable(result.drawable);
+                } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
                     imageView.setGIFImageFromStoragePath(result.ocFile.getStoragePath());
                 } else {
-                    imageView.setImageBitmap(bitmap);
+                    imageView.setImageBitmap(result.bitmap);
                 }
 
                 imageView.setVisibility(View.VISIBLE);
-                mBitmap  = bitmap;  // needs to be kept for recycling when not useful
+                mBitmap  = result.bitmap;  // needs to be kept for recycling when not useful
             }
 
             final TextView messageView = mMessageViewRef.get();
@@ -578,10 +606,12 @@ public class PreviewImageFragment extends FileFragment {
 
     private class LoadImage {
         private Bitmap bitmap;
+        private Drawable drawable;
         private OCFile ocFile;
 
-        public LoadImage(Bitmap bitmap, OCFile ocFile){
+        public LoadImage(Bitmap bitmap, Drawable drawable, OCFile ocFile){
             this.bitmap = bitmap;
+            this.drawable = drawable;
             this.ocFile = ocFile;
         }
 
