@@ -346,8 +346,6 @@
     <string name="network_error_socket_timeout_exception">Hiba történt a szerverre várás közben; a művelet nem lesz befejezve</string>
     <string name="network_error_connect_timeout_exception">Hiba történt a szerverre várás közben; a művelet nem lesz befejezve</string>
     <string name="network_host_not_available">A művelet nem lesz befejezve; a szerver nem érhető el</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Nincs jogosultságod ehhez: %s</string>
     <string name="forbidden_permissions_rename">fájl átnevezés</string>
     <string name="forbidden_permissions_delete">fájl törlés</string>

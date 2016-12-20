@@ -347,8 +347,6 @@
     <string name="network_error_socket_timeout_exception">Възникна грешка при изчакването на сървъра, операцията не е изпълнена</string>
     <string name="network_error_connect_timeout_exception">Възникна грешка при изчакването на сървъра, операцията не е изпълнена</string>
     <string name="network_host_not_available">Неуспешно завършена операция, сървърът не е достъпен</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Нямате права за достъп до %s</string>
     <string name="forbidden_permissions_rename">за преименуване на файла</string>
     <string name="forbidden_permissions_delete">за изтриване на файла</string>

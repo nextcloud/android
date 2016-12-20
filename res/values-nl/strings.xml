@@ -348,8 +348,6 @@ Download hier: %2$s</string>
     <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
     <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
     <string name="network_host_not_available">De verwerking kon niet plaatsvinden, de server is niet beschikbaar</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Je mist autorisatie %s</string>
     <string name="forbidden_permissions_rename">om dit bestand te hernoemen</string>
     <string name="forbidden_permissions_delete">om dit bestand te verwijderen</string>

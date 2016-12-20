@@ -347,8 +347,6 @@
     <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa della risposta del server, l\'operazione non è stata completata</string>
     <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa della risposta del server, l\'operazione non è stata completata</string>
     <string name="network_host_not_available">L\'operazione non è stata completata, il server non è disponibile</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Non hai i permessi %s</string>
     <string name="forbidden_permissions_rename">per rinominare questo file</string>
     <string name="forbidden_permissions_delete">per eliminare questo file</string>

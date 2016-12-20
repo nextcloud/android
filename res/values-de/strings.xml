@@ -344,11 +344,9 @@
     <string name="error_cant_bind_to_operations_service">Kritischer Fehler: Operationen können nicht ausgeführt werden</string>
 
     <string name="network_error_socket_exception">Es ist ein Fehler beim Verbinden mit dem Server aufgetreten.</string>
-    <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
-    <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
+    <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden</string>
+    <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operationkonnte nicht abgeschlossen werden</string>
     <string name="network_host_not_available">Die Operation kann nicht abgeschlossen werden, der Server ist nicht erreichbar</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Sie haben keine Berechtigung %s</string>
     <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
     <string name="forbidden_permissions_delete">diese Datei zu löschen</string>
@@ -375,11 +373,11 @@
     <string name="file_migration_failed_not_readable">FEHLER: Datei nicht lesbar</string>
     <string name="file_migration_failed_dir_already_exists">FEHLER: Nextcloud Ordner existiert bereits</string>
     <string name="file_migration_failed_while_coping">FEHLER: Während der Migration</string>
-    <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indixes</string>
+    <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indexes</string>
 
-    <string name="file_migration_directory_already_exists">Datenordner existiert bereits, was soll getan werden?</string>
+    <string name="file_migration_directory_already_exists">Datenordner existiert bereits, was soll geschehen?</string>
     <string name="file_migration_override_data_folder">Überschreiben</string>
-    <string name="file_migration_use_data_folder">Verwende Bestehenden</string>
+    <string name="file_migration_use_data_folder">Verwende bestehenden</string>
 
     <string name="prefs_category_accounts">Konten</string>
     <string name="prefs_add_account">Konto hinzufügen</string>
@@ -503,7 +501,7 @@
     <string name="actionbar_search">Suche</string>
     <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten.</string>
     <string name="learn_more">Mehr</string>
-    <string name="drawer_folder_sync">Auto Upload</string>
+    <string name="drawer_folder_sync">Automatisches Hochladen</string>
     <string name="drawer_participate">Mitmachen</string>
     <string name="participate_testing_headline">Hilf uns Testen</string>
     <string name="participate_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
@@ -512,7 +510,7 @@
     <string name="participate_beta_headline">Teste die Beta Version</string>
     <string name="participate_beta_text">Dies beinhaltet alle kommenden Funktionen und ist nicht vollumfänglich qualitätsgesichert. Es können Fehler auftreten und wenn das passiert meldet uns diese bitte.&lt;br/>&lt;a href=\"%2$s\">APK herunterladen&lt;/a> oder</string>
     <string name="participate_release_candidate_headline">Vorabversion</string>
-    <string name="participate_release_candidate_text">Die Vorabversion auch Release Candidate (RC) genannt ist ein stabiler Stand der kommenden, finalen Version. Ein Test auf der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melde dich als Tester im Play Store an oder suche und installiere die passende Version von F-Droid unter \"Versionen\".</string>
+    <string name="participate_release_candidate_text">Die Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test auf der eigenen Umgebung hilft uns die Stabilität sicherzustellen. Melde dich als Tester im Play Store an oder suche und installiere die passende Version von F-Droid unter \"Versionen\".</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
     <string name="participate_contribute_irc_text">An Chats teilnehmen auf IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Hilf anderen im &lt;a href="%1$s>Forum&lt;/a></string>
