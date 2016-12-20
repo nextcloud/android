@@ -35,6 +35,7 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -76,6 +77,21 @@ public class PassCodeActivity extends AppCompatActivity {
 
     private boolean mBChange = true; // to control that only one blocks jump
 
+    private int mButtonIDList[] = {
+        R.id.button0,
+        R.id.button1,
+        R.id.button2,
+        R.id.button3,
+        R.id.button4,
+        R.id.button5,
+        R.id.button6,
+        R.id.button7,
+        R.id.button8,
+        R.id.button9,
+        R.id.clear,
+        R.id.back,
+    };
+    private int mEditPos;
 
     /**
      * Initializes the activity.
@@ -85,6 +101,7 @@ public class PassCodeActivity extends AppCompatActivity {
      *
      * @param savedInstanceState    Previously saved state - irrelevant in this case
      */
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passcodelock);
@@ -93,13 +110,24 @@ public class PassCodeActivity extends AppCompatActivity {
         mPassCodeHdr = (TextView) findViewById(R.id.header);
         mPassCodeHdrExplanation = (TextView) findViewById(R.id.explanation);
         mPassCodeEditTexts[0] = (EditText) findViewById(R.id.txt0);
-        mPassCodeEditTexts[0].requestFocus();
-        getWindow().setSoftInputMode(
-                android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        mPassCodeEditTexts[0].setTextIsSelectable(false);
+//        getWindow().setSoftInputMode(
+//                android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         mPassCodeEditTexts[1] = (EditText) findViewById(R.id.txt1);
+        mPassCodeEditTexts[1].setTextIsSelectable(false);
         mPassCodeEditTexts[2] = (EditText) findViewById(R.id.txt2);
+        mPassCodeEditTexts[2].setTextIsSelectable(false);
         mPassCodeEditTexts[3] = (EditText) findViewById(R.id.txt3);
+        mPassCodeEditTexts[3].setTextIsSelectable(false);
 
+        mPassCodeEditTexts[0].requestFocus();
+        mEditPos = 0;
+
+        for(int i=0;i< mButtonIDList.length; i++) {
+            Button b = (Button)findViewById(mButtonIDList[i]);
+            b.setOnClickListener(new ButtonClicked(i));
+        }
+        
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             /// this is a pass code request; the user has to input the right value
             mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
@@ -136,6 +164,8 @@ public class PassCodeActivity extends AppCompatActivity {
                     + TAG);
         }
 
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         setTextListeners();
     }
 
@@ -152,6 +182,7 @@ public class PassCodeActivity extends AppCompatActivity {
             mBCancel.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+//                    hideSoftKeyboard();
                     finish();
                 }
             });
@@ -170,6 +201,7 @@ public class PassCodeActivity extends AppCompatActivity {
     
          ///  First input field
         mPassCodeEditTexts[0].addTextChangedListener(new PassCodeDigitTextWatcher(0, false));
+        mPassCodeEditTexts[0].setOnFocusChangeListener(new FocusChecker(0));
 
 
         /*------------------------------------------------
@@ -196,19 +228,8 @@ public class PassCodeActivity extends AppCompatActivity {
                 return false;
             }
         });
+        mPassCodeEditTexts[1].setOnFocusChangeListener(new FocusChecker(1));
 
-        mPassCodeEditTexts[1].setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                /// TODO WIP: should take advantage of hasFocus to reduce processing
-                if (mPassCodeEditTexts[0].getText().toString().equals("")) {  // TODO WIP validation
-                // could be done in a global way, with a single OnFocusChangeListener for all the
-                // input fields
-                    mPassCodeEditTexts[0].requestFocus();
-                }
-            }
-        });
         
         
         /*------------------------------------------------
@@ -236,17 +257,7 @@ public class PassCodeActivity extends AppCompatActivity {
             }
         });
 
-        mPassCodeEditTexts[2].setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (mPassCodeEditTexts[0].getText().toString().equals("")) {
-                    mPassCodeEditTexts[0].requestFocus();
-                } else if (mPassCodeEditTexts[1].getText().toString().equals("")) {
-                    mPassCodeEditTexts[1].requestFocus();
-                }
-            }
-        });
+        mPassCodeEditTexts[2].setOnFocusChangeListener(new FocusChecker(2));
 
 
         /*------------------------------------------------
@@ -273,22 +284,7 @@ public class PassCodeActivity extends AppCompatActivity {
             }
         });
 
-        mPassCodeEditTexts[3].setOnFocusChangeListener(new View.OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-
-                if (mPassCodeEditTexts[0].getText().toString().equals("")) {
-                    mPassCodeEditTexts[0].requestFocus();
-                } else if (mPassCodeEditTexts[1].getText().toString().equals("")) {
-                    mPassCodeEditTexts[1].requestFocus();
-                } else if (mPassCodeEditTexts[2].getText().toString().equals("")) {
-                    mPassCodeEditTexts[2].requestFocus();
-                }
-
-            }
-        });
-
+        mPassCodeEditTexts[3].setOnFocusChangeListener(new FocusChecker(3));
     } // end setTextListener
 
 
@@ -345,9 +341,7 @@ public class PassCodeActivity extends AppCompatActivity {
             InputMethodManager inputMethodManager =
                 (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(
-                focusedView.getWindowToken(),
-                0
-            );
+                focusedView.getWindowToken(), 0);
         }
     }
 
@@ -420,6 +414,7 @@ public class PassCodeActivity extends AppCompatActivity {
             mPassCodeEditTexts[i].setText("");
         }
         mPassCodeEditTexts[0].requestFocus();
+        mEditPos = 0;
     }
 
     /**
@@ -437,9 +432,20 @@ public class PassCodeActivity extends AppCompatActivity {
                     ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
                 finish();
             }   // else, do nothing, but report that the key was consumed to stay alive
+            else
+            {
+//                goHome();		// TODO:
+            }
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void goHome() {
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory(Intent.CATEGORY_HOME);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(homeIntent);
     }
 
     /**
@@ -529,4 +535,70 @@ public class PassCodeActivity extends AppCompatActivity {
 
     }
 
+	private class FocusChecker implements View.OnFocusChangeListener {
+
+        private int mIndex;
+
+        public FocusChecker(int index) {
+            mIndex = index;
+        }
+            
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if (hasFocus) {
+                int i;
+                mEditPos = mIndex;
+                for (i=0;i<mIndex;i++) {
+                    if (mPassCodeEditTexts[i].getText().toString().equals("")) {
+                        mPassCodeEditTexts[i].requestFocus();
+                        break;
+                    }
+                }
+                for(int j=i;j<4;j++) {
+                    mPassCodeEditTexts[j].setText("");
+                }
+            }
+        }
+    }
+
+    private class ButtonClicked implements OnClickListener {
+
+        private int mIndex;
+
+        public ButtonClicked(int index) {
+            mIndex = index;
+        }
+
+		public void onClick(View v) {
+
+			Button button = (Button) v;
+
+            if (mIndex < 9) {
+                String s;
+                s = String.format("%d", mIndex);
+                mPassCodeEditTexts[mEditPos].setText(s);
+                mEditPos++;
+            } else if (mIndex == 10) {
+                // clear
+                clearBoxes();
+            } else {
+                // delete
+                if (mEditPos > 0) {
+                    for (int i=mEditPos ; i < 4 ; i++) {
+                        mPassCodeEditTexts[i].setText("");
+                    }
+                    mEditPos--;
+                    mPassCodeEditTexts[mEditPos].requestFocus();
+                }
+            }
+
+            {
+                String s;
+                s = String.format("key %d", mIndex);
+                Toast toast = Toast.makeText(PassCodeActivity.this, s, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+        }
+	}
 }

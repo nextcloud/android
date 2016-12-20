@@ -106,51 +106,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent">
 
-                    <Button
-                        android:text="Button"
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="1"
                         android:layout_width="60dip"
                         android:layout_height="match_parent"
+                        android:id="@+id/button1"
+                        android:layout_weight="1" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="2"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
                         android:id="@+id/button2"
                         android:layout_weight="1" />
 
-                    <Button
-                        android:text="Button"
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="3"
                         android:layout_width="60dip"
                         android:layout_height="60dip"
                         android:id="@+id/button3"
                         android:layout_weight="1" />
 
-                    <Button
-                        android:text="Button"
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="4"
                         android:layout_width="60dip"
-                        android:layout_height="60dip"
+                        android:layout_height="match_parent"
                         android:id="@+id/button4"
                         android:layout_weight="1" />
 
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <Button
-                        android:text="Button"
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="5"
                         android:layout_width="60dip"
-                        android:layout_height="match_parent"
+                        android:layout_height="60dip"
                         android:id="@+id/button5"
                         android:layout_weight="1" />
-
-                    <Button
-                        android:text="Button"
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="6"
                         android:layout_width="60dip"
                         android:layout_height="60dip"
                         android:id="@+id/button6"
-                        android:layout_weight="1" />
-                    <Button
-                        android:text="Button"
-                        android:layout_width="60dip"
-                        android:layout_height="60dip"
-                        android:id="@+id/button7"
                         android:layout_weight="1"/>
                 </TableRow>
 
@@ -158,25 +158,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <Button
-                        android:text="Button"
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="7"
                         android:layout_width="60dip"
                         android:layout_height="match_parent"
+                        android:id="@+id/button7"
+                        android:layout_weight="1"/>
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="8"
+                        android:layout_width="60dip"
+                        android:layout_height="60dip"
                         android:id="@+id/button8"
                         android:layout_weight="1"/>
 
-                    <Button
-                        android:text="Button"
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="9"
                         android:layout_width="60dip"
                         android:layout_height="60dip"
                         android:id="@+id/button9"
-                        android:layout_weight="1"/>
-
-                    <Button
-                        android:text="Button"
-                        android:layout_width="60dip"
-                        android:layout_height="60dip"
-                        android:id="@+id/button10"
                         android:layout_weight="1"/>
                 </TableRow>
 
@@ -184,25 +184,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <Button
-                        android:text="Button"
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="CLEAR"
                         android:layout_width="60dip"
                         android:layout_height="60dip"
-                        android:id="@+id/button8"
+                        android:id="@+id/clear"
                         android:layout_weight="1"/>
 
-                    <Button
-                        android:text="Button"
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="0"
                         android:layout_width="60dip"
                         android:layout_height="60dip"
-                        android:id="@+id/button9"
+                        android:id="@+id/button0"
                         android:layout_weight="1"/>
 
-                    <Button
-                        android:text="Button"
+                    <android.support.v7.widget.AppCompatButton
+                        android:text="BACK"
                         android:layout_width="60dip"
                         android:layout_height="60dip"
-                        android:id="@+id/button10"
+                        android:id="@+id/back"
                         android:layout_weight="1"/>
                 </TableRow>
 
