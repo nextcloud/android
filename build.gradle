@@ -51,6 +51,7 @@ repositories {
     }
 }
 
+
 android {
     lintOptions {
         abortOnError true
@@ -189,6 +190,7 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
     compile 'com.google.android.gms:play-services:10.2.0'
     compile 'com.github.evernote:android-job:v1.1.8'
+    compile 'com.caverock:androidsvg:1.2.1'
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
