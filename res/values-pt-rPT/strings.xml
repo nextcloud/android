@@ -330,8 +330,6 @@
     <string name="error_cant_bind_to_operations_service">Erro crítico: não é possível executar as operações</string>
 
     <string name="network_error_socket_exception">Ocorreu um erro durante a ligação ao servidor.</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Não tem permissão %s</string>
     <string name="forbidden_permissions_rename">para renomear este ficheiro</string>
     <string name="forbidden_permissions_delete">para apagar este ficheiro</string>

@@ -347,8 +347,6 @@
     <string name="network_error_socket_timeout_exception">En feil oppstod ved venting på svar fra tjeneren. Operasjonen kunne ikke utføres</string>
     <string name="network_error_connect_timeout_exception">En feil oppstod ved venting på svar fra tjeneren. Operasjonen kunne ikke utføres</string>
     <string name="network_host_not_available">Operasjonen kunne ikke fullføres. Tjeneren er utilgjengelig</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Du har ikke tillatelse til %s</string>
     <string name="forbidden_permissions_rename">å omdøpe denne filen</string>
     <string name="forbidden_permissions_delete">å slette denne filen</string>

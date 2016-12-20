@@ -347,8 +347,6 @@
     <string name="network_error_socket_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
     <string name="network_error_connect_timeout_exception">Ett fel uppstod i väntan på servern, operationen kunde inte ha gjorts</string>
     <string name="network_host_not_available">Åtgärden kunte inte slutföras, servern är ej tillgänglig</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Du har inga rättigheter %s</string>
     <string name="forbidden_permissions_rename">att döpa om denna fil</string>
     <string name="forbidden_permissions_delete">att radera denna fil</string>
