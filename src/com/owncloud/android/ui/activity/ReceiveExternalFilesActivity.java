@@ -106,9 +106,7 @@ import java.util.Vector;
 /**
  * This can be used to upload things to an ownCloud instance.
  */
-public class ReceiveExternalFilesActivity extends FileActivity implements
-        OnItemClickListener,
-        android.view.View.OnClickListener,
+public class ReceiveExternalFilesActivity extends FileActivity implements OnItemClickListener, View.OnClickListener, 
         CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener {
 
     private static final String TAG = ReceiveExternalFilesActivity.class.getSimpleName();
