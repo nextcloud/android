@@ -316,18 +316,20 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public static class DialogInputUploadFilename extends DialogFragment {
-        private final static String KEY_SUBJECT_TEXT = "SUBJECT_TEXT";
-        private final static String KEY_EXTRA_TEXT = "EXTRA_TEXT";
+        private static final String KEY_SUBJECT_TEXT = "SUBJECT_TEXT";
+        private static final String KEY_EXTRA_TEXT = "EXTRA_TEXT";
+
+        private static final int CATEGORY_URL = 1;
+        private static final int CATEGORY_MAPS_URL = 2;
 
         private List<String> mFilenameBase;
         private List<String> mFilenameSuffix;
         private List<String> mText;
+        private int mFileCategory;
 
         private Spinner mSpinner;
 
-        public static DialogInputUploadFilename newInstance(
-            String subjectText, String extraText
-        ) {
+        public static DialogInputUploadFilename newInstance(String subjectText, String extraText) {
             DialogInputUploadFilename dialog = new DialogInputUploadFilename();
             Bundle args = new Bundle();
             args.putString(KEY_SUBJECT_TEXT, subjectText);
@@ -368,7 +370,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
                 adapter.add(String.format(str,URL_FILE_SUFFIX));
-                selectPos = adapter.getCount()-1;
 
                 mText.add(internetShortcutWeblocText(extraText));
                 mFilenameBase.add(filename);
@@ -379,15 +380,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
                 adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
-            }
-            if (isIntentFromGoogleMap(subjectText, extraText)) {
+
+                selectPos = PreferenceManager.getUploadUrlFileExtensionUrlSelectedPos(getActivity());
+                mFileCategory = CATEGORY_URL;
+            } else if (isIntentFromGoogleMap(subjectText, extraText)) {
                 String str = getString(R.string.upload_file_dialog_filetype_googlemap_shortcut);
                 String texts[] = extraText.split("\n");
                 mText.add(internetShortcutUrlText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
                 adapter.add(String.format(str,URL_FILE_SUFFIX));
-                selectPos = adapter.getCount()-1;
 
                 mText.add(internetShortcutWeblocText(texts[2]));
                 mFilenameBase.add(texts[0]);
@@ -398,6 +400,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
                 adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
+
+                selectPos = PreferenceManager.getUploadMapFileExtensionUrlSelectedPos(getActivity());
+                mFileCategory = CATEGORY_MAPS_URL;
             }
 
             final EditText userInput = (EditText) view.findViewById(R.id.user_input);
@@ -427,6 +432,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     Spinner spinner = (Spinner) parent;
                     int selectPos = spinner.getSelectedItemPosition();
                     setFilename(userInput, selectPos);
+                    saveSelection(selectPos);
                 }
 
                 @Override
@@ -454,7 +460,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
                     File file = createTempFile("tmp.tmp", mText.get(selectPos));
                     if (file == null) {
-                        ((ReceiveExternalFilesActivity)getActivity()).finish();
+                        getActivity().finish();
                     }
                     String tmpname = file.getAbsolutePath();
 
@@ -473,6 +479,20 @@ public class ReceiveExternalFilesActivity extends FileActivity
         public void onPause() {
             hideSpinnerDropDown(mSpinner);
             super.onPause();
+        }
+
+        private void saveSelection(int selectPos) {
+            switch (mFileCategory) {
+                case CATEGORY_URL:
+                    PreferenceManager.setUploadUrlFileExtensionUrlSelectedPos(getActivity(), selectPos);
+                    break;
+                case CATEGORY_MAPS_URL:
+                    PreferenceManager.setUploadMapFileExtensionUrlSelectedPos(getActivity(), selectPos);
+                    break;
+                default:
+                    Log_OC.d(TAG, "Simple text snippet only: no selection to be persisted");
+                    break;
+            }
         }
 
         private void hideSpinnerDropDown(Spinner spinner) {
