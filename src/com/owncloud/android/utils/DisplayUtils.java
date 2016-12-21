@@ -61,7 +61,9 @@ import java.net.IDN;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A helper class for UI/display related operations.
@@ -202,6 +204,20 @@ public class DisplayUtils {
             Log_OC.w(TAG, "Couldn't get display name for account, using old style");
             return fallbackString;
         }
+    }
+
+    /**
+     * converts an array of accounts into a set of account names.
+     *
+     * @param accountList the account array
+     * @return set of account names
+     */
+    public static Set<String> toAccountNameSet(Account[] accountList) {
+        Set<String> actualAccounts = new HashSet<>(accountList.length);
+        for (Account account : accountList) {
+            actualAccounts.add(account.name);
+        }
+        return actualAccounts;
     }
 
     /**
