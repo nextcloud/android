@@ -31,27 +31,34 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources.NotFoundException;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AlertDialog.Builder;
+import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -79,9 +86,12 @@ import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -99,6 +109,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private static final String FTAG_ERROR_FRAGMENT = "ERROR_FRAGMENT";
     public static final String TEXT_FILE_SUFFIX = ".txt";
+    public static final String URL_FILE_SUFFIX = ".url";
+    public static final String WEBLOC_FILE_SUFFIX = ".webloc";
+    public static final String DESKTOP_FILE_SUFFIX = ".desktop";
 
     private AccountManager mAccountManager;
     private Stack<String> mParents;
@@ -111,9 +124,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private boolean mAccountSelected;
     private boolean mAccountSelectionShowing;
 
-    private final static int DIALOG_NO_ACCOUNT = 0;
-    private final static int DIALOG_MULTIPLE_ACCOUNT = 1;
-
     private final static int REQUEST_CODE__SETUP_ACCOUNT = REQUEST_CODE__LAST_SHARED + 1;
 
     private final static String KEY_PARENTS = "PARENTS";
@@ -121,7 +131,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private final static String KEY_ACCOUNT_SELECTED = "ACCOUNT_SELECTED";
     private final static String KEY_ACCOUNT_SELECTION_SHOWING = "ACCOUNT_SELECTION_SHOWING";
 
-    private static final String DIALOG_WAIT_COPY_FILE = "DIALOG_WAIT_COPY_FILE";
+    private boolean mUploadFromTmpFile = false;
+    private String mSubjectText;
+    private String mExtraText;
+
+    private final static String FILENAME_ENCODING = "UTF-8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,10 +184,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType());
             if (accounts.length == 0) {
                 Log_OC.i(TAG, "No ownCloud account is available");
-                showDialog(DIALOG_NO_ACCOUNT);
+                DialogNoAccount dialog = new DialogNoAccount();
+                dialog.show(getSupportFragmentManager(), null);
             } else if (accounts.length > 1 && !mAccountSelected && !mAccountSelectionShowing) {
                 Log_OC.i(TAG, "More than one ownCloud is available");
-                showDialog(DIALOG_MULTIPLE_ACCOUNT);
+                DialogMultipleAccount dialog = new DialogMultipleAccount();
+                dialog.show(getSupportFragmentManager(), null);
                 mAccountSelectionShowing = true;
             } else {
                 if (!savedAccount) {
@@ -202,7 +218,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
         Log_OC.d(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
         outState.putSerializable(KEY_PARENTS, mParents);
-        //outState.putParcelable(KEY_ACCOUNT, mAccount);
         outState.putParcelable(KEY_FILE, mFile);
         outState.putBoolean(KEY_ACCOUNT_SELECTED, mAccountSelected);
         outState.putBoolean(KEY_ACCOUNT_SELECTION_SHOWING, mAccountSelectionShowing);
@@ -219,22 +234,21 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onDestroy();
     }
 
-    @Override
-    protected Dialog onCreateDialog(final int id) {
-        final AlertDialog.Builder builder = new Builder(this);
-        switch (id) {
-        case DIALOG_NO_ACCOUNT:
+    public static class DialogNoAccount extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new Builder(getActivity());
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
             builder.setMessage(String.format(
-                    getString(R.string.uploader_wrn_no_account_text),
-                    getString(R.string.app_name)));
+                                   getString(R.string.uploader_wrn_no_account_text),
+                                   getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (android.os.Build.VERSION.SDK_INT >
-                            android.os.Build.VERSION_CODES.ECLAIR_MR1) {
+                        android.os.Build.VERSION_CODES.ECLAIR_MR1) {
                         // using string value since in API7 this
                         // constatn is not defined
                         // in API7 < this constatant is defined in
@@ -249,7 +263,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                         // show our own AccountSetupAcricity, get
                         // desired results and setup
                         // everything for ourself
-                        Intent intent = new Intent(getBaseContext(), AccountAuthenticator.class);
+                        Intent intent = new Intent(getActivity().getBaseContext(), AccountAuthenticator.class);
                         startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
                     }
                 }
@@ -257,40 +271,337 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setNegativeButton(R.string.uploader_wrn_no_account_quit_btn_text, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    finish();
+                    getActivity().finish();
                 }
             });
             return builder.create();
-        case DIALOG_MULTIPLE_ACCOUNT:
-            Account accounts[] = mAccountManager.getAccountsByType(MainApp.getAccountType());
+        }
+    }
+
+    public static class DialogMultipleAccount extends DialogFragment {
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
+            AlertDialog.Builder builder = new Builder(parent);
+            Account accounts[] = parent.mAccountManager.getAccountsByType(MainApp.getAccountType());
             CharSequence dialogItems[] = new CharSequence[accounts.length];
             for (int i = 0; i < dialogItems.length; ++i) {
                 dialogItems[i] = DisplayUtils.getAccountNameDisplayText(
-                        this, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
+                        parent, accounts[i], accounts[i].name, DisplayUtils.convertIdn(accounts[i].name, false));
             }
             builder.setTitle(R.string.common_choose_account);
             builder.setItems(dialogItems, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    setAccount(mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
-                    onAccountSet(mAccountWasRestored);
+                    final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
+                    parent.setAccount(parent.mAccountManager.getAccountsByType(MainApp.getAccountType())[which]);
+                    parent.onAccountSet(parent.mAccountWasRestored);
                     dialog.dismiss();
-                    mAccountSelected = true;
-                    mAccountSelectionShowing = false;
+                    parent.mAccountSelected = true;
+                    parent.mAccountSelectionShowing = false;
                 }
             });
             builder.setCancelable(true);
-            builder.setOnCancelListener(new OnCancelListener() {
+            return builder.create();
+        }
+
+        public void onCancel(DialogInterface dialog) {
+            super.onCancel(dialog);
+            final ReceiveExternalFilesActivity parent = (ReceiveExternalFilesActivity) getActivity();
+            parent.mAccountSelectionShowing = false;
+            parent.finish();
+        }
+    }
+
+    public static class DialogInputUploadFilename extends DialogFragment {
+        private static final String KEY_SUBJECT_TEXT = "SUBJECT_TEXT";
+        private static final String KEY_EXTRA_TEXT = "EXTRA_TEXT";
+
+        private static final int CATEGORY_URL = 1;
+        private static final int CATEGORY_MAPS_URL = 2;
+
+        private List<String> mFilenameBase;
+        private List<String> mFilenameSuffix;
+        private List<String> mText;
+        private int mFileCategory;
+
+        private Spinner mSpinner;
+
+        public static DialogInputUploadFilename newInstance(String subjectText, String extraText) {
+            DialogInputUploadFilename dialog = new DialogInputUploadFilename();
+            Bundle args = new Bundle();
+            args.putString(KEY_SUBJECT_TEXT, subjectText);
+            args.putString(KEY_EXTRA_TEXT, extraText);
+            dialog.setArguments(args);
+            return dialog;
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            mFilenameBase = new ArrayList<>();
+            mFilenameSuffix = new ArrayList<>();
+            mText = new ArrayList<>();
+
+            String subjectText = getArguments().getString(KEY_SUBJECT_TEXT);
+            String extraText = getArguments().getString(KEY_EXTRA_TEXT);
+
+            LayoutInflater layout = LayoutInflater.from(getActivity().getBaseContext());
+            View view = layout.inflate(R.layout.upload_file_dialog, null);
+
+            ArrayAdapter<String> adapter
+                    = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_spinner_item);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            int selectPos = 0;
+            String filename = renameSafeFilename(subjectText);
+            if (filename == null) {
+                filename = "";
+            }
+            adapter.add(getString(R.string.upload_file_dialog_filetype_snippet_text));
+            mText.add(extraText);
+            mFilenameBase.add(filename);
+            mFilenameSuffix.add(TEXT_FILE_SUFFIX);
+            if (isIntentStartWithUrl(extraText)) {
+                String str = getString(R.string.upload_file_dialog_filetype_internet_shortcut);
+                mText.add(internetShortcutUrlText(extraText));
+                mFilenameBase.add(filename);
+                mFilenameSuffix.add(URL_FILE_SUFFIX);
+                adapter.add(String.format(str,URL_FILE_SUFFIX));
+
+                mText.add(internetShortcutWeblocText(extraText));
+                mFilenameBase.add(filename);
+                mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
+                adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
+
+                mText.add(internetShortcutDesktopText(extraText, filename));
+                mFilenameBase.add(filename);
+                mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
+                adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
+
+                selectPos = PreferenceManager.getUploadUrlFileExtensionUrlSelectedPos(getActivity());
+                mFileCategory = CATEGORY_URL;
+            } else if (isIntentFromGoogleMap(subjectText, extraText)) {
+                String str = getString(R.string.upload_file_dialog_filetype_googlemap_shortcut);
+                String texts[] = extraText.split("\n");
+                mText.add(internetShortcutUrlText(texts[2]));
+                mFilenameBase.add(texts[0]);
+                mFilenameSuffix.add(URL_FILE_SUFFIX);
+                adapter.add(String.format(str,URL_FILE_SUFFIX));
+
+                mText.add(internetShortcutWeblocText(texts[2]));
+                mFilenameBase.add(texts[0]);
+                mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
+                adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
+
+                mText.add(internetShortcutDesktopText(texts[2], texts[0]));
+                mFilenameBase.add(texts[0]);
+                mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
+                adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
+
+                selectPos = PreferenceManager.getUploadMapFileExtensionUrlSelectedPos(getActivity());
+                mFileCategory = CATEGORY_MAPS_URL;
+            }
+
+            final EditText userInput = (EditText) view.findViewById(R.id.user_input);
+            setFilename(userInput, selectPos);
+            userInput.requestFocus();
+
+            final Spinner spinner = (Spinner) view.findViewById(R.id.file_type);
+            setupSpinner(adapter, selectPos, userInput, spinner);
+            if (adapter.getCount() == 1) {
+                TextView label = (TextView) view.findViewById(R.id.label_file_type);
+                label.setVisibility(View.GONE);
+                spinner.setVisibility(View.GONE);
+            }
+            mSpinner = spinner;
+
+            Dialog filenameDialog =  createFilenameDialog(view, userInput, spinner);
+            filenameDialog.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+            return filenameDialog;
+        }
+
+        private void setupSpinner(ArrayAdapter<String> adapter, int selectPos, final EditText userInput, Spinner spinner) {
+            spinner.setAdapter(adapter);
+            spinner.setSelection(selectPos, false);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
-                public void onCancel(DialogInterface dialog) {
-                    mAccountSelectionShowing = false;
-                    dialog.cancel();
-                    finish();
+                public void onItemSelected(AdapterView parent, View view, int position, long id) {
+                    Spinner spinner = (Spinner) parent;
+                    int selectPos = spinner.getSelectedItemPosition();
+                    setFilename(userInput, selectPos);
+                    saveSelection(selectPos);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    // nothing to do
                 }
             });
+        }
+
+        @NonNull
+        private Dialog createFilenameDialog(View view, final EditText userInput, final Spinner spinner) {
+            Builder builder = new Builder(getActivity());
+            builder.setView(view);
+            builder.setTitle(R.string.upload_file_dialog_title);
+            builder.setPositiveButton(R.string.common_ok, new OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    int selectPos = spinner.getSelectedItemPosition();
+
+                    // verify if file name has suffix
+                    String filename = userInput.getText().toString();
+                    String suffix = mFilenameSuffix.get(selectPos);
+                    if (!filename.endsWith(suffix)){
+                        filename += suffix;
+                    }
+
+                    File file = createTempFile("tmp.tmp", mText.get(selectPos));
+                    if (file == null) {
+                        getActivity().finish();
+                    }
+                    String tmpname = file.getAbsolutePath();
+
+                    ((ReceiveExternalFilesActivity)getActivity()).uploadFile(tmpname, filename);
+                }
+            });
+            builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
+                public void onClick(DialogInterface dialog,int id) {
+                    dialog.cancel();
+                }
+            });
+
             return builder.create();
-        default:
-            throw new IllegalArgumentException("Unknown dialog id: " + id);
+        }
+
+        public void onPause() {
+            hideSpinnerDropDown(mSpinner);
+            super.onPause();
+        }
+
+        private void saveSelection(int selectPos) {
+            switch (mFileCategory) {
+                case CATEGORY_URL:
+                    PreferenceManager.setUploadUrlFileExtensionUrlSelectedPos(getActivity(), selectPos);
+                    break;
+                case CATEGORY_MAPS_URL:
+                    PreferenceManager.setUploadMapFileExtensionUrlSelectedPos(getActivity(), selectPos);
+                    break;
+                default:
+                    Log_OC.d(TAG, "Simple text snippet only: no selection to be persisted");
+                    break;
+            }
+        }
+
+        private void hideSpinnerDropDown(Spinner spinner) {
+            try {
+                Method method = Spinner.class.getDeclaredMethod("onDetachedFromWindow");
+                method.setAccessible(true);
+                method.invoke(spinner);
+            } catch (Exception e) {
+                Log_OC.e(TAG, "onDetachedFromWindow", e);
+            }
+        }
+
+        private void setFilename(EditText inputText, int selectPos)
+        {
+            String filename = mFilenameBase.get(selectPos) + mFilenameSuffix.get(selectPos);
+            inputText.setText(filename);
+            int selectionStart = 0;
+            int extensionStart = filename.lastIndexOf(".");
+            int selectionEnd = (extensionStart >= 0) ? extensionStart : filename.length();
+            if (selectionEnd >= 0) {
+                inputText.setSelection(
+                        Math.min(selectionStart, selectionEnd),
+                        Math.max(selectionStart, selectionEnd));
+            }
+        }
+
+        private boolean isIntentFromGoogleMap(String subjectText, String extraText) {
+            String texts[] = extraText.split("\n");
+            if (texts.length != 3)
+                return false;
+            if (texts[0].length() == 0 || !subjectText.equals(texts[0]))
+                return false;
+            return texts[2].startsWith("https://goo.gl/maps/");
+        }
+
+        private boolean isIntentStartWithUrl(String extraText) {
+            return (extraText.startsWith("http://") || extraText.startsWith("https://"));
+        }
+
+        @Nullable
+        private String renameSafeFilename(String filename) {
+            String safeFilename = filename;
+            safeFilename = safeFilename.replaceAll("[?]", "_");
+            safeFilename = safeFilename.replaceAll("\"", "_");
+            safeFilename = safeFilename.replaceAll("/", "_");
+            safeFilename = safeFilename.replaceAll("<", "_");
+            safeFilename = safeFilename.replaceAll(">", "_");
+            safeFilename = safeFilename.replaceAll("[*]", "_");
+            safeFilename = safeFilename.replaceAll("[|]", "_");
+            safeFilename = safeFilename.replaceAll(";", "_");
+            safeFilename = safeFilename.replaceAll("=", "_");
+            safeFilename = safeFilename.replaceAll(",", "_");
+
+            try {
+                int maxLength = 128;
+                if (safeFilename.getBytes(FILENAME_ENCODING).length > maxLength) {
+                    safeFilename = new String(safeFilename.getBytes(FILENAME_ENCODING), 0, maxLength, FILENAME_ENCODING);
+                }
+            } catch (UnsupportedEncodingException e) {
+                Log_OC.e(TAG, "rename failed ", e);
+                return null;
+            }
+            return safeFilename;
+        }
+
+        private String internetShortcutUrlText(String url) {
+            return "[InternetShortcut]\r\n" +
+                    "URL=" + url + "\r\n";
+        }
+
+        private String internetShortcutWeblocText(String url) {
+            return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                    "<!DOCTYPE plist PUBLIC \"-//Apple Computer//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n" +
+                    "<plist version=\"1.0\">\n" +
+                    "<dict>\n" +
+                    "<key>URL</key>\n" +
+                    "<string>" + url + "</string>\n" +
+                    "</dict>\n" +
+                    "</plist>\n";
+        }
+
+        private String internetShortcutDesktopText(String url, String filename) {
+            return "[Desktop Entry]\n" +
+                "Encoding=UTF-8\n" +
+                "Name=" + filename + "\n" +
+                "Type=Link\n" +
+                "URL=" + url + "\n" +
+                "Icon=text-html";
+        }
+
+        @Nullable
+        private File createTempFile(String filename, String text) {
+            File file = new File(((ReceiveExternalFilesActivity)getActivity()).getCacheDir(), filename);
+            FileWriter fw = null;
+            try {
+                fw = new FileWriter(file);
+                fw.write(text);
+            } catch (IOException e) {
+                Log_OC.d(TAG, "Error ", e);
+                return null;
+            } finally {
+                if (fw != null) {
+                    try {
+                        fw.close();
+                    } catch (IOException e) {
+                        Log_OC.d(TAG, "Error closing file writer ", e);
+                    }
+                }
+            }
+            return file;
         }
     }
 
@@ -343,62 +654,9 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     mUploadPath += p + OCFile.PATH_SEPARATOR;
                 }
 
-                if (uploadTextSnippet()){
-                    LayoutInflater layout = LayoutInflater.from(getBaseContext());
-                    View view = layout.inflate(R.layout.edit_box_dialog, null);
-
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                            this);
-
-                    alertDialogBuilder.setView(view);
-
-                    final EditText userInput = (EditText) view.findViewById(R.id.user_input);
-                    userInput.setText(TEXT_FILE_SUFFIX);
-
-                    alertDialogBuilder.setCancelable(false)
-                            .setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
-                                            PrintWriter out;
-                                            try {
-                                                File f = File.createTempFile("nextcloud", TEXT_FILE_SUFFIX);
-                                                out = new PrintWriter(f, "UTF8");
-                                                out.println(getIntent().getStringExtra(Intent.EXTRA_TEXT));
-                                                out.close();
-
-                                                FileUploader.UploadRequester requester =
-                                                        new FileUploader.UploadRequester();
-
-                                                // verify if file name has suffix
-                                                String filename = userInput.getText().toString();
-
-                                                if (!filename.endsWith(TEXT_FILE_SUFFIX)){
-                                                    filename += TEXT_FILE_SUFFIX;
-                                                }
-
-                                                requester.uploadNewFile(
-                                                        getBaseContext(),
-                                                        getAccount(),
-                                                        f.getAbsolutePath(),
-                                                        mFile.getRemotePath() + filename,
-                                                        FileUploader.LOCAL_BEHAVIOUR_COPY,
-                                                        null,
-                                                        true,
-                                                        UploadFileOperation.CREATED_BY_USER
-                                                );
-                                            } catch (IOException e) {
-                                                Log_OC.w(TAG, e.getMessage());
-                                            }
-
-                                            finish();
-                                        }
-                                    })
-                            .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog,int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-
-                    alertDialogBuilder.create().show();
+                if (mUploadFromTmpFile){
+                    DialogInputUploadFilename dialog = DialogInputUploadFilename.newInstance(mSubjectText, mExtraText);
+                    dialog.show(getSupportFragmentManager(), null);
                 } else {
                     Log_OC.d(TAG, "Uploading file to dir " + mUploadPath);
                     uploadFiles();
@@ -419,13 +677,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onActivityResult(requestCode, resultCode, data);
         Log_OC.i(TAG, "result received. req: " + requestCode + " res: " + resultCode);
         if (requestCode == REQUEST_CODE__SETUP_ACCOUNT) {
-            dismissDialog(DIALOG_NO_ACCOUNT);
             if (resultCode == RESULT_CANCELED) {
                 finish();
             }
             Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAuthTokenType());
             if (accounts.length == 0) {
-                showDialog(DIALOG_NO_ACCOUNT);
+                DialogNoAccount dialog = new DialogNoAccount();
+                dialog.show(getSupportFragmentManager(), null);
             } else {
                 // there is no need for checking for is there more then one
                 // account at this point
@@ -482,10 +740,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
             btnChooseFolder.setOnClickListener(this);
 
-            if (uploadTextSnippet()){
-                btnChooseFolder.setText(R.string.uploader_btn_uploadTextSnippet_text);
-            }
-
             Button btnNewFolder = (Button) findViewById(R.id.uploader_cancel);
             btnNewFolder.setOnClickListener(this);
 
@@ -533,21 +787,54 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void prepareStreamsToUpload() {
-        if (getIntent().getAction().equals(Intent.ACTION_SEND)) {
+        Intent intent = getIntent();
+        if (intent.getAction().equals(Intent.ACTION_SEND)) {
             mStreamsToUpload = new ArrayList<>();
-            mStreamsToUpload.add(getIntent().getParcelableExtra(Intent.EXTRA_STREAM));
-        } else if (getIntent().getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
-            mStreamsToUpload = getIntent().getParcelableArrayListExtra(Intent.EXTRA_STREAM);
+            mStreamsToUpload.add(intent.getParcelableExtra(Intent.EXTRA_STREAM));
+        } else if (intent.getAction().equals(Intent.ACTION_SEND_MULTIPLE)) {
+            mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
         }
+
+        if (mStreamsToUpload == null || mStreamsToUpload.get(0) == null) {
+            mStreamsToUpload = null;
+            saveTextsFromIntent(intent);
+        }
+    }
+
+    private void saveTextsFromIntent(Intent intent) {
+        if (!intent.getType().equals("text/plain")) {
+            return;
+        }
+        mUploadFromTmpFile = true;
+
+        mSubjectText = intent.getStringExtra(Intent.EXTRA_SUBJECT);
+        if (mSubjectText == null) {
+            mSubjectText = intent.getStringExtra(Intent.EXTRA_TITLE);
+            if (mSubjectText == null) {
+                mSubjectText = DateFormat.format("yyyyMMdd_kkmmss", Calendar.getInstance()).toString();
+            }
+        }
+        mExtraText = intent.getStringExtra(Intent.EXTRA_TEXT);
     }
 
     private boolean somethingToUpload() {
         return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
-                uploadTextSnippet());
+                mUploadFromTmpFile);
     }
 
-    private boolean uploadTextSnippet() {
-        return getIntent().getStringExtra(Intent.EXTRA_TEXT) != null && getIntent().getExtras().keySet().size() == 1;
+    public void uploadFile(String tmpname, String filename) {
+        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+        requester.uploadNewFile(
+            getBaseContext(),
+            getAccount(),
+            tmpname,
+            mFile.getRemotePath() + filename,
+            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            null,
+            true,
+            UploadFileOperation.CREATED_BY_USER
+            );
+        finish();
     }
 
     @SuppressLint("NewApi")
@@ -836,3 +1123,4 @@ public class ReceiveExternalFilesActivity extends FileActivity
         errorDialog.show(getSupportFragmentManager(), FTAG_ERROR_FRAGMENT);
     }
 }
+

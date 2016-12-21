@@ -347,8 +347,6 @@
     <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı</string>
     <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir sorun çıktı; işlem tamamlanamadı</string>
     <string name="network_host_not_available">İşlem tamamlanamadı; sunucu kullanılamıyor</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">%s izniniz yok</string>
     <string name="forbidden_permissions_rename">bu dosyayı yeniden adlandırın</string>
     <string name="forbidden_permissions_delete">bu dosyayı silin</string>

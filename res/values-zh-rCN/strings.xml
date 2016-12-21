@@ -305,8 +305,6 @@
     <string name="error_cant_bind_to_operations_service">严重错误：无法执行操作</string>
 
     <string name="network_error_socket_exception">连接到服务器时发生了一个错误。</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">你没有权限%s</string>
     <string name="forbidden_permissions_rename">重命名该文件</string>
     <string name="forbidden_permissions_delete">删除该文件</string>
