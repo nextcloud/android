@@ -331,8 +331,6 @@
     <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
 
     <string name="network_error_socket_exception">サーバーへの接続中にエラーが発生しました。</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">権限 %s がありません</string>
     <string name="forbidden_permissions_rename">ファイル名の変更</string>
     <string name="forbidden_permissions_delete">ファイルを削除</string>

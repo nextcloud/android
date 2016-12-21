@@ -343,8 +343,6 @@
     <string name="network_error_socket_timeout_exception">在等待伺服器回應時發生了錯誤，這個操作將無法被完成</string>
     <string name="network_error_connect_timeout_exception">在等待伺服器回應時發生了錯誤，這個操作將無法被完成</string>
     <string name="network_host_not_available">這個操作無法完成，伺服器無法存取</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">您沒有權限%s</string>
     <string name="forbidden_permissions_rename">重新命名檔案</string>
     <string name="forbidden_permissions_delete">刪除這個檔案</string>

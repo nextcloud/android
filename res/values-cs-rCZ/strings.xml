@@ -346,8 +346,6 @@ správce systému.</string>
     <string name="network_error_socket_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
     <string name="network_error_connect_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
     <string name="network_host_not_available">Operace nemohla být dokončena, server je nedostupný</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Nemáte oprávnění %s</string>
     <string name="forbidden_permissions_rename">přejmenovat tento soubor</string>
     <string name="forbidden_permissions_delete">smazat tento soubor</string>
