@@ -544,7 +544,7 @@
     <string name="upload_file_dialog_filetype">Filetype</string>
     <string name="upload_file_dialog_filetype_snippet_text">Snippet text file(.txt)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">Internet shortcut file(%s)</string>
-    <string name="upload_file_dialog_filetype_googlemap_shortcut">googlemap shortcut file(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps shortcut file(%s)</string>
 
     <string name="storage_description_default">Default</string>
     <string name="storage_description_sd_no">SD card %1$d</string>
