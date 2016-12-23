@@ -323,6 +323,7 @@ public class UploadFileOperation extends SyncOperation {
             remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
                     remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
             result = grantFolderExistence(remoteParentPath, client);
+
             if (!result.isSuccess()) {
 
                 return result;
