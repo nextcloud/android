@@ -1454,7 +1454,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mServerStatusText = R.string.auth_redirect_non_secure_connection_title;
                 break;
             case MAINTENANCE_MODE:
-                mServerStatusText = R.string.maintenance_mode;
+                mServerStatusText = R.string.auth_maintenance_mode;
                 break;
             default:
                 mServerStatusText = 0;
