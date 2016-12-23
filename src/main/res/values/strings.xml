@@ -276,7 +276,6 @@
 	<string name="auth_fail_get_user_name">Your server is not returning a correct user ID, please contact an administrator</string>
 	<string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
     <string name="auth_account_does_not_exist">Account does not exist on the device yet</string>
-    <string name="auth_maintenance_mode">The server is in maintenance mode, please try again later.</string>
 
 
     <string name="favorite">Set as available offline</string>
