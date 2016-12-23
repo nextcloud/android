@@ -43,7 +43,8 @@ class SyncedFolderObserver extends RecursiveFileObserver {
 
         File temp = new File(path);
 
-        if (!temp.getName().equalsIgnoreCase("null")) {
+        // do not upload "null"-files, test if file exists and is a real file
+        if (!temp.getName().equalsIgnoreCase("null") && temp.isFile()) {
             PersistableBundle bundle = new PersistableBundle();
             // TODO extract
             bundle.putString("filePath", path);
