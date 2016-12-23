@@ -543,7 +543,7 @@
     <string name="local_file_not_found_toast">File not found in local file system</string>
     <string name="confirmation_remove_files_alert">Do you really want to remove the selected items?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to remove the selected items and their contents?</string>
-    <string name="maintenance_mode">This ownCloud server is in maintenance mode, please try again later.</string>
+    <string name="maintenance_mode">This %1$s server is in maintenance mode, please try again later.</string>
 
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
