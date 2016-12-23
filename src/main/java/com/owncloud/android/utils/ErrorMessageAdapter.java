@@ -106,6 +106,9 @@ public class ErrorMessageAdapter {
                 if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                     message = res.getString(R.string.downloader_download_file_not_found);
 
+                }  else if (result.getCode() == ResultCode.MAINTENANCE_MODE) {
+                        message = res.getString(R.string.maintenance_mode);
+
                 } else {
                     message = String.format(
                             res.getString(R.string.downloader_download_failed_content), new File(
@@ -122,6 +125,9 @@ public class ErrorMessageAdapter {
                     // Error --> No permissions
                     message = String.format(res.getString(R.string.forbidden_permissions),
                             res.getString(R.string.forbidden_permissions_delete));
+                } else if (result.getCode() == ResultCode.MAINTENANCE_MODE) {
+                    message = res.getString(R.string.maintenance_mode);
+
                 } else {
                     message = res.getString(R.string.remove_fail_msg);
                 }
@@ -142,6 +148,9 @@ public class ErrorMessageAdapter {
             } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
                 message = res.getString(R.string.filename_forbidden_charaters_from_server);
 
+            } else if (result.getCode() == ResultCode.MAINTENANCE_MODE) {
+                message = res.getString(R.string.maintenance_mode);
+
             } else {
                 message = res.getString(R.string.rename_server_fail_msg);
             }
@@ -161,6 +170,10 @@ public class ErrorMessageAdapter {
 
             } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
                 message = res.getString(R.string.filename_forbidden_charaters_from_server);
+
+            } else if (result.getCode() == ResultCode.MAINTENANCE_MODE) {
+                    message = res.getString(R.string.maintenance_mode);
+
             } else {
                 message = res.getString(R.string.create_dir_fail_msg);
             }
