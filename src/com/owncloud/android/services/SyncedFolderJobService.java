@@ -63,19 +63,23 @@ public class SyncedFolderJobService extends JobService {
         Log_OC.d(TAG, "startJob: " + params.getJobId() + ", filePath: " + filePath);
 
         File file = new File(filePath);
-        String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
 
-        FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-        requester.uploadNewFile(
-                context,
-                account,
-                filePath,
-                FileStorageUtils.getInstantUploadFilePath(remoteFolder, file.getName(), dateTaken, subfolderByDate),
-                uploadBehaviour,
-                mimeType,
-                true,           // create parent folder if not existent
-                UploadFileOperation.CREATED_AS_INSTANT_PICTURE
-        );
+        // File can be deleted between job generation and job execution. If file does not exist, just ignore it
+        if (file.exists()) {
+            String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
+
+            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+            requester.uploadNewFile(
+                    context,
+                    account,
+                    filePath,
+                    FileStorageUtils.getInstantUploadFilePath(remoteFolder, file.getName(), dateTaken, subfolderByDate),
+                    uploadBehaviour,
+                    mimeType,
+                    true,           // create parent folder if not existent
+                    UploadFileOperation.CREATED_AS_INSTANT_PICTURE
+            );
+        }
         return false;
     }
 
