@@ -1452,6 +1452,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mServerStatusIcon = R.drawable.ic_lock_open_white;
                 mServerStatusText = R.string.auth_redirect_non_secure_connection_title;
                 break;
+            case MAINTENANCE_MODE:
+                mServerStatusText = R.string.maintenance_mode;
+                break;
             default:
                 mServerStatusText = 0;
                 mServerStatusIcon = 0;
