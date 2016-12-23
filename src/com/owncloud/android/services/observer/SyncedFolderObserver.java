@@ -60,6 +60,7 @@ class SyncedFolderObserver extends RecursiveFileObserver {
                     date.intValue(),
                     new ComponentName(context, SyncedFolderJobService.class))
                     .setRequiresCharging(syncedFolder.getChargingOnly())
+                    .setMinimumLatency(10000)
                     .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
                     .setExtras(bundle)
                     .setPersisted(true)
