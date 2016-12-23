@@ -22,6 +22,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
@@ -103,7 +104,7 @@ public class PassCodeActivity extends AppCompatActivity {
         R.id.txt2,
         R.id.txt3,
     };
-    private boolean mSoftkeyMode = true;
+    private boolean mSoftinputMode = true;
 
     /**
      * Initializes the activity.
@@ -167,7 +168,7 @@ public class PassCodeActivity extends AppCompatActivity {
         setListenerToRootView();
 
         if (false) {
-        if (mSoftkeyMode) {
+        if (mSoftinputMode) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         } else {
         	getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -177,21 +178,31 @@ public class PassCodeActivity extends AppCompatActivity {
         ((Button) findViewById(R.id.button_softkey)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSoftkeyMode = mSoftkeyMode == false ? true : false;
-                setSoftkeyMode();
+                mSoftinputMode = mSoftinputMode == false ? true : false;
+                if (mSoftinputMode) {
+                    hideSoftKeyboard();
+//                    InputMethodManager imm = (InputMethodManager)getSystemService(
+//                        Context.INPUT_METHOD_SERVICE);
+//                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    setSoftkeyVisibility(true);
+                } else {
+                    showSoftKeyboard();
+//                    InputMethodManager imm = (InputMethodManager)getSystemService(
+//                        Context.INPUT_METHOD_SERVICE);
+//                    imm.showSoftInput(mPassCodeEditTexts[0], 0);
+                    setSoftkeyVisibility(false);
+                }
             }
         });
     }
 
-    private void setSoftkeyMode() {
-        if (mSoftkeyMode) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    private void setSoftkeyVisibility(boolean visible) {
+        if (visible) {
             for(int i=0;i< mButtonIDList.length; i++) {
                 Button b = (Button)findViewById(mButtonIDList[i]);
                 b.setVisibility(View.VISIBLE);
             }
         } else {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             for(int i=0;i< mButtonIDList.length; i++) {
                 Button b = (Button)findViewById(mButtonIDList[i]);
                 b.setVisibility(View.INVISIBLE);
@@ -310,6 +321,16 @@ public class PassCodeActivity extends AppCompatActivity {
                 (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(
                 focusedView.getWindowToken(), 0);
+        }
+    }
+
+    private void showSoftKeyboard() {
+        View focusedView = getCurrentFocus();
+        if (focusedView != null) {
+            InputMethodManager inputMethodManager =
+                (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.showSoftInput(
+                focusedView, 0);
         }
     }
 
@@ -649,8 +670,8 @@ public class PassCodeActivity extends AppCompatActivity {
 //                    onHideKeyboard();
                     if (isOpened) {
 //                        goHome();
-                        mSoftkeyMode = false;
-                        setSoftkeyMode();
+                        mSoftinputMode = true;
+                        setSoftkeyVisibility(true);
                     }
                     isOpened = false;
                     int a = 0;
