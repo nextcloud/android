@@ -35,6 +35,8 @@ public abstract class PreferenceManager {
     private static final String AUTO_PREF__LAST_UPLOAD_PATH = "last_upload_path";
     private static final String AUTO_PREF__SORT_ORDER = "sort_order";
     private static final String AUTO_PREF__SORT_ASCENDING = "sort_ascending";
+    private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL = "prefs_upload_file_extension_map_url";
+    private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_URL = "prefs_upload_file_extension_url";
     private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
@@ -75,6 +77,50 @@ public abstract class PreferenceManager {
 
     public static boolean showHiddenFilesEnabled(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("show_hidden_files_pref", false);
+    }
+
+    /**
+     * Gets the selected file extension position the user selected to do the last upload of a url file shared from other
+     * app.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return selectedPos     the selected file extension position.
+     */
+    public static int getUploadUrlFileExtensionUrlSelectedPos(Context context) {
+        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, 0);
+    }
+
+    /**
+     * Saves the selected file extension position the user selected to do the last upload of a url file shared from
+     * other app.
+     *
+     * @param context     Caller {@link Context}, used to access to shared preferences manager.
+     * @param selectedPos the selected file extension position.
+     */
+    public static void setUploadUrlFileExtensionUrlSelectedPos(Context context, int selectedPos) {
+        saveIntPreference(context, AUTO_PREF__UPLOAD_FILE_EXTENSION_URL, selectedPos);
+    }
+
+    /**
+     * Gets the selected map file extension position the user selected to do the last upload of a url file shared
+     * from other app.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return selectedPos     the selected file extension position.
+     */
+    public static int getUploadMapFileExtensionUrlSelectedPos(Context context) {
+        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL, 0);
+    }
+
+    /**
+     * Saves the selected map file extension position the user selected to do the last upload of a url file shared from
+     * other app.
+     *
+     * @param context     Caller {@link Context}, used to access to shared preferences manager.
+     * @param selectedPos the selected file extension position.
+     */
+    public static void setUploadMapFileExtensionUrlSelectedPos(Context context, int selectedPos) {
+        saveIntPreference(context, AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL, selectedPos);
     }
 
     /**

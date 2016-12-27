@@ -57,6 +57,7 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.AccountListAdapter;
 import com.owncloud.android.ui.adapter.AccountListItem;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -96,7 +97,7 @@ public class ManageAccountsActivity extends FileActivity
         updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.prefs_manage_accounts));
 
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
-        mOriginalAccounts = toAccountNameSet(accountList);
+        mOriginalAccounts = DisplayUtils.toAccountNameSet(accountList);
         mOriginalCurrentAccount = AccountUtils.getCurrentOwnCloudAccount(this).name;
 
         setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
@@ -116,20 +117,6 @@ public class ManageAccountsActivity extends FileActivity
         initializeComponentGetters();
     }
 
-    /**
-     * converts an array of accounts into a set of account names.
-     *
-     * @param accountList the account array
-     * @return set of account names
-     */
-    private Set<String> toAccountNameSet(Account[] accountList) {
-        Set<String> actualAccounts = new HashSet<>(accountList.length);
-        for (Account account : accountList) {
-            actualAccounts.add(account.name);
-        }
-        return actualAccounts;
-    }
-
     @Override
     public void onBackPressed() {
         Intent resultIntent = new Intent();
@@ -147,7 +134,7 @@ public class ManageAccountsActivity extends FileActivity
      */
     private boolean hasAccountListChanged() {
         Account[] accountList = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
-        Set<String> actualAccounts = toAccountNameSet(accountList);
+        Set<String> actualAccounts = DisplayUtils.toAccountNameSet(accountList);
         return !mOriginalAccounts.equals(actualAccounts);
     }
 
