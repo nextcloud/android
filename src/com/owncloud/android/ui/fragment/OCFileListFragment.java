@@ -68,6 +68,7 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -674,15 +675,20 @@ public class OCFileListFragment extends ExtendedListFragment {
                     return true;
                 }
                 case R.id.action_send_file: {
-                    // Obtain the file
-                    if (!singleFile.isDown()) {  // Download the file
-                        Log_OC.d(TAG, singleFile.getRemotePath() + " : File must be downloaded");
-                        ((FileDisplayActivity) mContainerActivity).startDownloadForSending(singleFile);
-
+                    if (MimeTypeUtil.isImage(singleFile) && !singleFile.isDown()) {
+                        mContainerActivity.getFileOperationsHelper().sendCachedImage(singleFile);
+                        return true;
                     } else {
-                        mContainerActivity.getFileOperationsHelper().sendDownloadedFile(singleFile);
+                        // Obtain the file
+                        if (!singleFile.isDown()) {  // Download the file
+                            Log_OC.d(TAG, singleFile.getRemotePath() + " : File must be downloaded");
+                            ((FileDisplayActivity) mContainerActivity).startDownloadForSending(singleFile);
+
+                        } else {
+                            mContainerActivity.getFileOperationsHelper().sendDownloadedFile(singleFile);
+                        }
+                        return true;
                     }
-                    return true;
                 }
             }
         }
