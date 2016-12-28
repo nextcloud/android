@@ -31,6 +31,7 @@ import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.DownloadFileOperation;
+import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.MoveFileOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.RenameFileOperation;
@@ -308,6 +309,10 @@ public class ErrorMessageAdapter {
             } else {    // Generic error
                 // Show a Message, operation finished without success
                 message = res.getString(R.string.copy_file_error);
+            }
+        } else if (operation instanceof GetSharesForFileOperation) {
+            if (result.getCode() == ResultCode.MAINTENANCE_MODE) {
+                message = res.getString(R.string.maintenance_mode);
             }
         }
 
