@@ -61,7 +61,6 @@
     <string name="sync_string_files">Dosyalar</string>
     <string name="setup_btn_connect">Bağlan</string>
     <string name="uploader_btn_upload_text">Yükle</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Metin dosyası oluştur</string>
     <string name="uploader_top_message">Yüklenecek klasörü seçin</string>
     <string name="uploader_wrn_no_account_title">Herhangi bir hesap bulunamadı</string>
     <string name="uploader_wrn_no_account_text">Aygıtınızda herhangi bir %1$s hesabı yok. Lütfen önce bir hesap kurun.</string>
@@ -531,7 +530,6 @@ ya da</string>
         <item quantity="one">%d seçili</item>
         <item quantity="other">%d seçili</item>
     </plurals>
-
     <string name="storage_description_default">Varsayılan</string>
     <string name="storage_description_sd_no">SD kart  %1$d</string>
     <string name="storage_description_unknown">Bilinmiyor</string>

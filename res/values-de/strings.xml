@@ -61,7 +61,6 @@
     <string name="sync_string_files">Dateien</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Erstelle Textdatei</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
     <string name="uploader_wrn_no_account_text">Es sind keine %1$s Konten auf deinem Gerät eingerichtet. Bitte erstelle zuerst ein Konto.</string>
@@ -529,7 +528,6 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
-
     <string name="storage_description_default">Standard</string>
     <string name="storage_description_sd_no">SD Karte %1$d</string>
     <string name="storage_description_unknown">Unbekannt</string>

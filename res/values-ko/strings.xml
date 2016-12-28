@@ -55,7 +55,6 @@
     <string name="sync_string_files">파일</string>
     <string name="setup_btn_connect">접속</string>
     <string name="uploader_btn_upload_text">업로드</string>
-    <string name="uploader_btn_uploadTextSnippet_text">텍스트 파일 만들기</string>
     <string name="uploader_top_message">업로드 폴더 선택</string>
     <string name="uploader_wrn_no_account_title">계정 없음</string>
     <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
@@ -463,5 +462,4 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d 선택</item>
     </plurals>
-
     </resources>
