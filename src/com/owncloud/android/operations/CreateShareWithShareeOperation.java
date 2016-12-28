@@ -32,7 +32,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.common.SyncOperation;
 
 /**
- * Creates a new private share for a given file
+ * Creates a new private share for a given file.
  */
 public class CreateShareWithShareeOperation extends SyncOperation {
 
