@@ -61,7 +61,6 @@
     <string name="sync_string_files">Ficheiros</string>
     <string name="setup_btn_connect">Ligar</string>
     <string name="uploader_btn_upload_text">Carregar</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Criar ficheiro de texto</string>
     <string name="uploader_top_message">Escolha uma pasta para envio</string>
     <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
     <string name="uploader_wrn_no_account_text">Não existem as contas %1$s no seu dispositivo. Por favor, configure primeiro uma conta.</string>

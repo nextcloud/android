@@ -61,7 +61,6 @@
     <string name="sync_string_files">Pliki</string>
     <string name="setup_btn_connect">Połącz</string>
     <string name="uploader_btn_upload_text">Wyślij</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Utwórz plik tekstowy</string>
     <string name="uploader_top_message">Wybierz folder do wgrywania plików</string>
     <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
     <string name="uploader_wrn_no_account_text">Brak kont %1$s na Twoim urządzeniu. Załóż konto.</string>
@@ -528,7 +527,6 @@
         <item quantity="few">%d zaznaczone</item>
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
-
     <string name="storage_description_default">Domyślny</string>
     <string name="storage_description_sd_no">karta SD %1$d</string>
     <string name="storage_description_unknown">Nieznany</string>

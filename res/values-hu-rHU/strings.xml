@@ -62,7 +62,6 @@
     <string name="sync_string_files">Fájlok</string>
     <string name="setup_btn_connect">Kapcsolódás</string>
     <string name="uploader_btn_upload_text">Feltöltés</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Szövegfájl létrehozás</string>
     <string name="uploader_top_message">Válassz feltöltési mappát</string>
     <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
     <string name="uploader_wrn_no_account_text">Nem található %1$s fiók az eszközén. Kérem állítson be egy fiókot előszőr.</string>
@@ -529,7 +528,6 @@ vagy</string>
         <item quantity="one">%d kiválasztott</item>
         <item quantity="other">%d kiválasztott</item>
     </plurals>
-
     <string name="storage_description_default">Alapértelmezett</string>
     <string name="storage_description_sd_no">SD kártya %1$d</string>
     <string name="storage_description_unknown">Ismeretlen</string>

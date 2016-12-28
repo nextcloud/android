@@ -60,7 +60,6 @@
     <string name="sync_string_files">檔案</string>
     <string name="setup_btn_connect">連線</string>
     <string name="uploader_btn_upload_text">上傳</string>
-    <string name="uploader_btn_uploadTextSnippet_text">新增文字文件</string>
     <string name="uploader_top_message">選擇上傳檔案夾</string>
     <string name="uploader_wrn_no_account_title">找不到帳號</string>
     <string name="uploader_wrn_no_account_text">無 %1$s 帳號，請先建立帳號。</string>
@@ -503,7 +502,6 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d 已選</item>
     </plurals>
-
     <string name="storage_description_default">預設</string>
     <string name="storage_description_sd_no">SD 卡 %1$d</string>
     <string name="storage_description_unknown">未知</string>
