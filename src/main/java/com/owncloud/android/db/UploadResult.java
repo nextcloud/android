@@ -35,6 +35,7 @@ public enum UploadResult {
     DELAYED_FOR_WIFI(9),
     SERVICE_INTERRUPTED(10),
     DELAYED_FOR_CHARGING(11);
+    MAINTENANCE_MODE(12);
 
     private final int value;
 
@@ -74,6 +75,8 @@ public enum UploadResult {
                 return SERVICE_INTERRUPTED;
             case 11:
                 return DELAYED_FOR_CHARGING;
+            case 12:
+                return MAINTENANCE_MODE;
         }
         return null;
     }
@@ -115,6 +118,8 @@ public enum UploadResult {
                     return FILE_ERROR;
                 }
                 return UNKNOWN;
+            case MAINTENANCE_MODE:
+                return MAINTENANCE_MODE;
             default:
                 return UNKNOWN;
         }
