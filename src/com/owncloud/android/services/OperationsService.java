@@ -710,55 +710,6 @@ public class OperationsService extends Service {
 
 
     /**
-     * Sends a broadcast when a new operation is added to the queue.
-     *
-     * Local broadcasts are only delivered to activities in the same process, but can't be
-     * done sticky :\
-     * 
-     * @param target            Account or URL pointing to an OC server.
-     * @param operation         Added operation.
-     */
-    private void sendBroadcastNewOperation(Target target, RemoteOperation operation) {
-        Intent intent = new Intent(ACTION_OPERATION_ADDED);
-        if (target.mAccount != null) {
-            intent.putExtra(EXTRA_ACCOUNT, target.mAccount);
-        } else {
-            intent.putExtra(EXTRA_SERVER_URL, target.mServerUrl);
-        }
-        //LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
-        //lbm.sendBroadcast(intent);
-        sendStickyBroadcast(intent);
-    }
-
-
-    // TODO - maybe add a notification for real start of operations
-
-    /**
-     * Sends a LOCAL broadcast when an operations finishes in order to the interested activities c
-     * an update their view
-     * 
-     * Local broadcasts are only delivered to activities in the same process.
-     *
-     * @param target    Account or URL pointing to an OC server.
-     * @param operation Finished operation.
-     * @param result    Result of the operation.
-     */
-    private void sendBroadcastOperationFinished(Target target, RemoteOperation operation,
-                                                RemoteOperationResult result) {
-        Intent intent = new Intent(ACTION_OPERATION_FINISHED);
-        intent.putExtra(EXTRA_RESULT, result);
-        if (target.mAccount != null) {
-            intent.putExtra(EXTRA_ACCOUNT, target.mAccount);
-        } else {
-            intent.putExtra(EXTRA_SERVER_URL, target.mServerUrl);
-        }
-        //LocalBroadcastManager lbm = LocalBroadcastManager.getInstance(this);
-        //lbm.sendBroadcast(intent);
-        sendStickyBroadcast(intent);
-    }
-
-
-    /**
      * Notifies the currently subscribed listeners about the end of an operation.
      *
      * @param operation         Finished operation.
@@ -784,9 +735,8 @@ public class OperationsService extends Service {
             }
         }
         if (count == 0) {
-            Pair<RemoteOperation, RemoteOperationResult> undispatched =
-                    new Pair<RemoteOperation, RemoteOperationResult>(operation, result);
-            mUndispatchedFinishedOperations.put(((Runnable) operation).hashCode(), undispatched);
+            Pair<RemoteOperation, RemoteOperationResult> undispatched = new Pair<>(operation, result);
+            mUndispatchedFinishedOperations.put(operation.hashCode(), undispatched);
         }
         Log_OC.d(TAG, "Called " + count + " listeners");
     }
