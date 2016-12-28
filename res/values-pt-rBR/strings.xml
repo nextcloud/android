@@ -61,7 +61,6 @@
     <string name="sync_string_files">Arquivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Enviar</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Criar arquivo texto</string>
     <string name="uploader_top_message">Escolher pasta para envio</string>
     <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
     <string name="uploader_wrn_no_account_text">Não existe nenhuma conta %1$s em seu aparelho. Por favor, configure uma conta primeiro.</string>
@@ -531,7 +530,6 @@
         <item quantity="one">%d selecionado</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
-
     <string name="storage_description_default">Padrão</string>
     <string name="storage_description_sd_no">Cartão SD %1$d</string>
     <string name="storage_description_unknown">Desconhecido</string>

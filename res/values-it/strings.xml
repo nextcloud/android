@@ -61,7 +61,6 @@
     <string name="sync_string_files">File</string>
     <string name="setup_btn_connect">Connetti</string>
     <string name="uploader_btn_upload_text">Carica</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Crea file di testo</string>
     <string name="uploader_top_message">Scegli la cartella di caricamento</string>
     <string name="uploader_wrn_no_account_title">Nessun account trovato</string>
     <string name="uploader_wrn_no_account_text">Non ci sono account %1$s sul tuo dispositivo. Configura prima un account.</string>
@@ -532,7 +531,6 @@ o</string>
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
     </plurals>
-
     <string name="storage_description_default">Predefinito</string>
     <string name="storage_description_sd_no">Scheda SD %1$d</string>
     <string name="storage_description_unknown">Sconosciuto</string>

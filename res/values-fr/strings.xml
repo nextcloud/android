@@ -61,7 +61,6 @@
     <string name="sync_string_files">Fichiers</string>
     <string name="setup_btn_connect">Connecter</string>
     <string name="uploader_btn_upload_text">Téléverser</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Créer un fichier texte</string>
     <string name="uploader_top_message">Choisir le dossier de téléversement</string>
     <string name="uploader_wrn_no_account_title">Aucun compte n\'a été trouvé</string>
     <string name="uploader_wrn_no_account_text">Aucun compte %1$s sur l\'appareil. Veuillez configurer un compte au préalable.</string>
@@ -531,7 +530,6 @@ ou</string>
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
-
     <string name="storage_description_default">Défaut</string>
     <string name="storage_description_sd_no">Carte SD %1$d</string>
     <string name="storage_description_unknown">Inconnu</string>

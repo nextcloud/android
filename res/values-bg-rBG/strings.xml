@@ -61,7 +61,6 @@
     <string name="sync_string_files">Файлове</string>
     <string name="setup_btn_connect">Свързване</string>
     <string name="uploader_btn_upload_text">Качване</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Създаване на текстови файл</string>
     <string name="uploader_top_message">Изберете папка в която да се качват</string>
     <string name="uploader_wrn_no_account_title">Няма открит профил</string>
     <string name="uploader_wrn_no_account_text">На устройството няма профил за %1$s. Моля съдайте такъв.</string>
@@ -523,7 +522,6 @@
         <item quantity="one">%d избран</item>
         <item quantity="other">%d избрани</item>
     </plurals>
-
     <string name="storage_description_default">По подразбиране</string>
     <string name="storage_description_sd_no">SD карта %1$d</string>
     <string name="storage_description_unknown">Неизвестно</string>
