@@ -22,13 +22,14 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.content.Context;
+import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -37,6 +38,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -74,10 +77,9 @@ public class PassCodeActivity extends AppCompatActivity {
     private Button mBCancel;
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
-    private EditText[] mPassCodeEditTexts = new EditText[4];
+    private EditText mPassCodeEditText;
 
-    private String [] mPassCodeDigits = {"","","",""};
-    private static final String KEY_PASSCODE_DIGITS = "PASSCODE_DIGITS";
+    private String mPassCode;
     private boolean mConfirmingPassCode = false;
     private static final String KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE";
 
@@ -98,13 +100,8 @@ public class PassCodeActivity extends AppCompatActivity {
         R.id.back,
     };
     private int mEditPos;
-    private static final int mPassCodeEditTextIDList[] = {
-        R.id.txt0,
-        R.id.txt1,
-        R.id.txt2,
-        R.id.txt3,
-    };
     private boolean mSoftinputMode = true;
+    private Animation mAnimation;
 
     /**
      * Initializes the activity.
@@ -118,7 +115,8 @@ public class PassCodeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passcodelock);
-        
+
+        mAnimation = AnimationUtils.loadAnimation(this, R.anim.shake);
         mBCancel = (Button) findViewById(R.id.cancel);
         mPassCodeHdr = (TextView) findViewById(R.id.header);
         mPassCodeHdrExplanation = (TextView) findViewById(R.id.explanation);
@@ -137,7 +135,7 @@ public class PassCodeActivity extends AppCompatActivity {
         } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
             if (savedInstanceState != null) {
                 mConfirmingPassCode = savedInstanceState.getBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE);
-                mPassCodeDigits = savedInstanceState.getStringArray(PassCodeActivity.KEY_PASSCODE_DIGITS);
+                mPassCode = savedInstanceState.getString(PassCodeActivity.KEY_PASSCODE);
             }
             if(mConfirmingPassCode){
                 //the app was in the passcodeconfirmation
@@ -168,11 +166,11 @@ public class PassCodeActivity extends AppCompatActivity {
         setListenerToRootView();
 
         if (false) {
-        if (mSoftinputMode) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        } else {
-        	getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-		}
+            if (mSoftinputMode) {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            } else {
+                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            }
         }
 
         ((Button) findViewById(R.id.button_softkey)).setOnClickListener(new OnClickListener() {
@@ -200,12 +198,21 @@ public class PassCodeActivity extends AppCompatActivity {
         if (visible) {
             for(int i=0;i< mButtonIDList.length; i++) {
                 Button b = (Button)findViewById(mButtonIDList[i]);
-                b.setVisibility(View.VISIBLE);
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat( b, "alpha", 0f, 1f );
+                objectAnimator.setDuration( 3000 );
+                objectAnimator.start();
+ //               objectAnimator.addListener();
+//                b.setVisibility(View.VISIBLE);
+                b.setClickable(true);
             }
         } else {
             for(int i=0;i< mButtonIDList.length; i++) {
                 Button b = (Button)findViewById(mButtonIDList[i]);
-                b.setVisibility(View.INVISIBLE);
+                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat( b, "alpha", 1f, 0f );
+                objectAnimator.setDuration( 3000 );
+                objectAnimator.start();
+                //b.setVisibility(View.INVISIBLE);
+                b.setClickable(false);
             }
         }
     }
@@ -244,28 +251,13 @@ public class PassCodeActivity extends AppCompatActivity {
      * Binds the appropiate listeners to the input boxes receiving each digit of the pass code.
      */
     protected void setTextListeners() {
-        for (int i = 0; i < mPassCodeEditTextIDList.length; i++) {
-            EditText et = (EditText) findViewById(mPassCodeEditTextIDList[i]);
-            et.setTextIsSelectable(false);
-            et.setShowSoftInputOnFocus(false);      // TODO: API21  for disabling popup softkey when double clicked
-            et.setLongClickable(false);
-            if (i == 0) {
-//                et.setFocusable(true);
-//                et.setFocusableInTouchMode(true);
-                et.setClickable(true);
-                et.requestFocus();
-                mEditPos = i;
-            } else {
-//                et.setFocusable(false);
-//                et.setFocusableInTouchMode(false);
-                et.setClickable(false);
-            }
-            et.addTextChangedListener(new PassCodeDigitTextWatcher(i, i == 3 ? true : false));
-            et.setOnFocusChangeListener(new FocusChecker(i));
-            et.setOnKeyListener(new KeyListener(i));
-            mPassCodeEditTexts[i] = et;
-        }
-    } // end setTextListener
+        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+        EditText et = til.getEditText();
+        et.setShowSoftInputOnFocus(false);      // TODO: API21  for disabling popup softkey when double clicked
+        et.requestFocus();
+        et.addTextChangedListener(new PassCodeDigitTextWatcher(false));
+        mPassCodeEditText = et;
+    }
 
     /**
      * Processes the pass code entered by the user just after the last digit was in.
@@ -281,8 +273,32 @@ public class PassCodeActivity extends AppCompatActivity {
                 finish();
 
             }  else {
-                showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code,
-                        View.INVISIBLE);
+                final Handler handler = new Handler();
+                new Thread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        handler.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                try {
+                                    Thread.sleep(200);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                                mPassCodeEditText.startAnimation(mAnimation);
+
+//                                clearPasscode();
+                                showErrorAndRestart(R.string.pass_code_wrong, R.string.pass_code_enter_pass_code,
+                                        View.INVISIBLE);
+
+                            }
+                        });
+
+                    }
+                }).start();
             }
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
@@ -336,12 +352,14 @@ public class PassCodeActivity extends AppCompatActivity {
 
     private void showErrorAndRestart(int errorMessage, int headerMessage,
                                      int explanationVisibility) {
-        Arrays.fill(mPassCodeDigits, null);
+        mPassCode = "";
         CharSequence errorSeq = getString(errorMessage);
         Toast.makeText(this, errorSeq, Toast.LENGTH_LONG).show();
         mPassCodeHdr.setText(headerMessage);                // TODO check if really needed
         mPassCodeHdrExplanation.setVisibility(explanationVisibility); // TODO check if really needed
-        clearBoxes();
+        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+        til.setError(errorSeq);
+//        clearBoxes();
     }
 
 
@@ -365,17 +383,13 @@ public class PassCodeActivity extends AppCompatActivity {
         SharedPreferences appPrefs = PreferenceManager
             .getDefaultSharedPreferences(getApplicationContext());
 
-        String savedPassCodeDigits[] = new String[4];
-        savedPassCodeDigits[0] = appPrefs.getString(PREFERENCE_PASSCODE_D1, null);
-        savedPassCodeDigits[1] = appPrefs.getString(PREFERENCE_PASSCODE_D2, null);
-        savedPassCodeDigits[2] = appPrefs.getString(PREFERENCE_PASSCODE_D3, null);
-        savedPassCodeDigits[3] = appPrefs.getString(PREFERENCE_PASSCODE_D4, null);
+        String savedPassCode = "";
+        savedPassCode += appPrefs.getString(PREFERENCE_PASSCODE_D1, null);
+        savedPassCode += appPrefs.getString(PREFERENCE_PASSCODE_D2, null);
+        savedPassCode += appPrefs.getString(PREFERENCE_PASSCODE_D3, null);
+        savedPassCode += appPrefs.getString(PREFERENCE_PASSCODE_D4, null);
 
-        boolean result = true;
-        for (int i = 0; i < mPassCodeDigits.length && result; i++) {
-            result = (mPassCodeDigits[i] != null) &&
-                    mPassCodeDigits[i].equals(savedPassCodeDigits[i]);
-        }
+        boolean result = mPassCode.equals(savedPassCode);
         return result;
     }
 
@@ -388,10 +402,7 @@ public class PassCodeActivity extends AppCompatActivity {
     protected boolean confirmPassCode(){
         mConfirmingPassCode = false;
 
-        boolean result = true;
-        for (int i = 0; i < mPassCodeEditTexts.length && result; i++) {
-            result = ((mPassCodeEditTexts[i].getText().toString()).equals(mPassCodeDigits[i]));
-        }
+        boolean result = mPassCode.equals(mPassCodeEditText.getText().toString());
         return result;
     }
 
@@ -399,12 +410,7 @@ public class PassCodeActivity extends AppCompatActivity {
      * Sets the input fields to empty strings and puts the focus on the first one.
      */
     protected void clearBoxes() {
-        for (int i = 0; i < mPassCodeEditTexts.length; i++) {
-            mPassCodeEditTexts[i].setText("");
-            mPassCodeEditTexts[i].setClickable(i == 0 ? true : false);
-        }
-        mPassCodeEditTexts[0].requestFocus();
-        mEditPos = 0;
+        mPassCodeEditText.setText("");
     }
 
     /**
@@ -442,78 +448,21 @@ public class PassCodeActivity extends AppCompatActivity {
      */
     protected void savePassCodeAndExit() {
         Intent resultIntent = new Intent();
-        resultIntent.putExtra(KEY_PASSCODE,
-                mPassCodeDigits[0] + mPassCodeDigits[1] + mPassCodeDigits[2] + mPassCodeDigits[3]);
-
+        resultIntent.putExtra(KEY_PASSCODE, mPassCode);
         setResult(RESULT_OK, resultIntent);
-
         finish();
     }
-
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE, mConfirmingPassCode);
-        outState.putStringArray(PassCodeActivity.KEY_PASSCODE_DIGITS, mPassCodeDigits);
+        outState.putString(PassCodeActivity.KEY_PASSCODE, mPassCode);
     }
 
-    private class KeyListener implements View.OnKeyListener {
-
-        private int mIndex;
-
-        public KeyListener(int index) {
-            mIndex = index;
-        }
-        
-        @Override
-        public boolean onKey(View v, int keyCode, KeyEvent event) {
-            if (event.getAction() == KeyEvent.ACTION_DOWN &&
-                event.getRepeatCount() == 0)
-            {
-                if (KeyEvent.KEYCODE_0 <= keyCode && keyCode <= KeyEvent.KEYCODE_9) {
-                    String keyStr = String.format("%d", keyCode - KeyEvent.KEYCODE_0);
-                    mEditPos = mIndex;
-                    mPassCodeEditTexts[mIndex].setText(keyStr);
-                    if (!mConfirmingPassCode) {
-                        mPassCodeDigits[mIndex] = keyStr;
-                    }
-                    if (mIndex == 3) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                processFullPassCode();
-                            }
-                        }, 3000);
-                    } else {
-                        mEditPos = mIndex + 1;
-                        mPassCodeEditTexts[mEditPos].requestFocus();
-                    }
-                }
-                else if (keyCode == KeyEvent.KEYCODE_DEL) {       // TODO WIP: event should be
-                    // used to control what's exactly happening with DEL, not any custom field...
-                    if (mIndex > 0) {
-                        mEditPos = mIndex - 1;
-                        mPassCodeEditTexts[mEditPos].setText("");
-                        mPassCodeEditTexts[mEditPos].requestFocus();
-                        if (!mConfirmingPassCode) {
-                            mPassCodeDigits[mEditPos] = "";
-                        }
-                    }
-                }
-                mBChange = false;
-
-            } else if (!mBChange) {
-                mBChange = true;
-            }
-            return false;
-        }
-    }
-
-	// TODO: delete this class
     private class PassCodeDigitTextWatcher implements TextWatcher {
 
-        private int mIndex = -1;
+        private int mIndex;
         private boolean mLastOne = false;
 
         /**
@@ -524,13 +473,9 @@ public class PassCodeActivity extends AppCompatActivity {
          * @param lastOne       'True' means that watcher corresponds to the last position of the
          *                      pass code.
          */
-        public PassCodeDigitTextWatcher(int index, boolean lastOne) {
-            mIndex = index;
+        public PassCodeDigitTextWatcher(boolean lastOne) {
+            mIndex = 0;
             mLastOne  = lastOne;
-        }
-
-        private int next() {
-            return mLastOne ? 0 : mIndex + 1;
         }
 
         /**
@@ -544,7 +489,11 @@ public class PassCodeActivity extends AppCompatActivity {
          */
         @Override
         public void afterTextChanged(Editable s) {
-            // nothing to do
+            String passcode = mPassCodeEditText.getText().toString();
+            if (passcode.length() == 4) {
+                mPassCode = passcode;
+                processFullPassCode();
+            }
         }
 
         @Override
@@ -555,34 +504,6 @@ public class PassCodeActivity extends AppCompatActivity {
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             // nothing to do
-        }
-    }
-
-	private class FocusChecker implements View.OnFocusChangeListener {
-
-        private int mIndex;
-
-        public FocusChecker(int index) {
-            mIndex = index;
-        }
-            
-        @Override
-        public void onFocusChange(View v, boolean hasFocus) {
-            Log_OC.d(TAG, String.format("Text box[%d] focus %s", mIndex, hasFocus ? "get" : "lost"));
-            if (hasFocus) {
-                mEditPos = mIndex;
-                for (int i = 0; i < mEditPos; i++) {
-                    if (mPassCodeEditTexts[i].getText().toString().equals("")) {
-                        mEditPos = i;
-                        mPassCodeEditTexts[mEditPos].requestFocus();
-                        break;
-                    }
-                }
-                for (int i = mEditPos; i < 4; i++) {
-                    mPassCodeEditTexts[i].setText("");
-                    mPassCodeEditTexts[i].setClickable(false);
-                }
-            }
         }
     }
 
@@ -597,37 +518,25 @@ public class PassCodeActivity extends AppCompatActivity {
 		public void onClick(View v) {
             if (mIndex <= 9) {
                 // 0,1,2,...,8,9
-                String keyStr = String.format("%d", mIndex);
-                Log_OC.d(TAG, String.format("Text box[%d] = %s", mEditPos, keyStr));
-                mPassCodeEditTexts[mEditPos].setText(keyStr);
-                if (!mConfirmingPassCode) {
-                    mPassCodeDigits[mEditPos] = keyStr;
-                }
-                if (mEditPos == 3) {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            processFullPassCode();
-
-                        }
-                    }, 3000);
-                } else {
-                    mPassCodeEditTexts[mEditPos].setClickable(true);
-                    mEditPos++;
-                    mPassCodeEditTexts[mEditPos].requestFocus();
-                }
+                int key = KeyEvent.KEYCODE_0 + mIndex;
+                mPassCodeEditText.dispatchKeyEvent(
+                    new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, key, 0));
+                mPassCodeEditText.dispatchKeyEvent(
+                    new KeyEvent(0, 0, KeyEvent.ACTION_UP, key, 0));
             } else if (mIndex == 10) {
                 // clear
                 clearBoxes();
             } else {
                 // delete
-                if (mEditPos > 0) {
-                    mEditPos--;
-                    for (int i = mEditPos; i < 4; i++) {
-                        mPassCodeEditTexts[i].setText("");
-                        mPassCodeEditTexts[i].setClickable(false);
-                    }
-                    mPassCodeEditTexts[mEditPos].requestFocus();
+                if (false) {
+                    String passCode = mPassCodeEditText.getText().toString();
+                    passCode = passCode.substring(0, passCode.length() - 1);
+                    mPassCodeEditText.setText(passCode);
+                } else {
+                    mPassCodeEditText.dispatchKeyEvent(
+                        new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL, 0));
+                    mPassCodeEditText.dispatchKeyEvent(
+                        new KeyEvent(0, 0, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL, 0));
                 }
             }
         }

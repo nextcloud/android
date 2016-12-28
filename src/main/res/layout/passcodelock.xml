@@ -18,7 +18,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center_horizontal"
@@ -46,40 +47,30 @@
         android:textSize="@dimen/two_line_secondary_text_size"
          />
     
-    <LinearLayout
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/passcode"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
+        >
 
         <EditText
-            android:id="@+id/txt0"
+            android:id="@+id/passcodeEditText"
             android:focusable="true"
-            style="@style/PassCodeStyle"
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
-            ><requestFocus/></EditText>
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:hint="@string/prefs_passcode"
+            android:gravity="center"
+            android:layout_margin="10dp"
+            android:inputType="numberPassword"
+            android:digits="1234567890"
+            android:maxLength="4"
+            android:maxLines="1"
+            android:textIsSelectable="false"
+            android:longClickable="false"><requestFocus/></EditText>
 
-        <EditText
-            android:id="@+id/txt1"
-            style="@style/PassCodeStyle"
-            android:cursorVisible="true"
-            android:imeOptions="flagNoExtractUi"
-            />
-
-        <EditText
-            android:id="@+id/txt2"
-            style="@style/PassCodeStyle"
-            android:cursorVisible="true"
-            android:imeOptions="flagNoExtractUi"
-            />
-
-        <EditText
-            android:id="@+id/txt3"
-            style="@style/PassCodeStyle"
-            android:cursorVisible="true"
-            android:imeOptions="flagNoExtractUi"
-            />
-    </LinearLayout>
+    </android.support.design.widget.TextInputLayout>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/cancel"
@@ -96,7 +87,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
+            <android.support.v7.widget.AppCompatButton
                 android:text="SoftKey"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
