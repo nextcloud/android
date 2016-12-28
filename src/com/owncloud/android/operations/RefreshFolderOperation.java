@@ -314,7 +314,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Synchronizing " + mAccount.name + remotePath);
         
         if (result.isSuccess()) {
-            synchronizeData(result.getData(), client);
+            synchronizeData(result.getData());
             if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   
                     // should be a different result code, but will do the job
@@ -344,18 +344,14 @@ public class RefreshFolderOperation extends RemoteOperation {
 
 
     /**
-     *  Synchronizes the data retrieved from the server about the contents of the target folder 
-     *  with the current data in the local database.
-     *  
-     *  Grants that mChildren is updated with fresh data after execution.
-     *  
-     *  @param folderAndFiles   Remote folder and children files in Folder 
-     *  
-     *  @param client           Client instance to the remote server where the data were 
-     *                          retrieved.  
-     *  @return                 'True' when any change was made in the local data, 'false' otherwise
+     * Synchronizes the data retrieved from the server about the contents of the target folder
+     * with the current data in the local database.
+     * <p>
+     * Grants that mChildren is updated with fresh data after execution.
+     *
+     * @param folderAndFiles Remote folder and children files in Folder
      */
-    private void synchronizeData(ArrayList<Object> folderAndFiles, OwnCloudClient client) {
+    private void synchronizeData(ArrayList<Object> folderAndFiles) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
 

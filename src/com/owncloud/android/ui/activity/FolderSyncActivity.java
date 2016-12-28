@@ -63,7 +63,6 @@ import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED
  */
 public class FolderSyncActivity extends FileActivity implements FolderSyncAdapter.ClickListener,
         SyncedFolderPreferencesDialogFragment.OnSyncedFolderPreferenceListener {
-    private static final String TAG = FolderSyncActivity.class.getSimpleName();
 
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
     public static final String PRIORITIZED_FOLDER = "Camera";

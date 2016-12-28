@@ -49,14 +49,9 @@ import java.net.SocketTimeoutException;
 
 /**
  * Class to choose proper error messages to show to the user depending on the results of operations,
- * always following the same policy
+ * always following the same policy.
  */
-
 public class ErrorMessageAdapter {
-
-    public ErrorMessageAdapter() {
-
-    }
 
     public static String getErrorCauseMessage(RemoteOperationResult result,
                                               RemoteOperation operation, Resources res) {

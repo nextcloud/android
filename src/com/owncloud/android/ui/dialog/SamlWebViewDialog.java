@@ -81,12 +81,6 @@ public class SamlWebViewDialog extends DialogFragment {
         return fragment;
     }
     
-    
-    public SamlWebViewDialog() {
-        super();
-    }
-    
-    
     @Override
     public void onAttach(Activity activity) {
         Log_OC.v(TAG, "onAttach");
