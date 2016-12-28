@@ -61,7 +61,6 @@
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Anslut</string>
     <string name="uploader_btn_upload_text">Ladda upp</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Skapa en textfil</string>
     <string name="uploader_top_message">Välj mapp för uppladdning</string>
     <string name="uploader_wrn_no_account_title">Hittade inget konto</string>
     <string name="uploader_wrn_no_account_text">Det finns inga %1$s-konton på din enhet. Lägg till ett konto först</string>
@@ -530,7 +529,6 @@
         <item quantity="one">%d vald</item>
         <item quantity="other">%d vald</item>
     </plurals>
-
     <string name="storage_description_default">Standard</string>
     <string name="storage_description_sd_no">SD kort %1$d</string>
     <string name="storage_description_unknown">Okänd</string>

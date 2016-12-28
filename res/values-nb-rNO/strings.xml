@@ -61,7 +61,6 @@
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Koble til</string>
     <string name="uploader_btn_upload_text">Last opp</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Opprett tekstfil</string>
     <string name="uploader_top_message">Velg opplastingsmappe</string>
     <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
     <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s-kontoer på enheten din. Sett opp en konto først.</string>
@@ -532,7 +531,6 @@ eller</string>
         <item quantity="one">%d valgt</item>
         <item quantity="other">%d valgte</item>
     </plurals>
-
     <string name="storage_description_default">Standard</string>
     <string name="storage_description_sd_no">SD kort %1$d</string>
     <string name="storage_description_unknown">Ukjent</string>

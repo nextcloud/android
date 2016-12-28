@@ -61,7 +61,6 @@
     <string name="sync_string_files">Kartela</string>
     <string name="setup_btn_connect">Lidhuni</string>
     <string name="uploader_btn_upload_text">Ngarkoni</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Krijoni një skedar tekst</string>
     <string name="uploader_top_message">Zgjidhni një dosje ngarkimi</string>
     <string name="uploader_wrn_no_account_title">S’u gjet llogari</string>
     <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>
@@ -528,7 +527,6 @@ ose</string>
         <item quantity="one">%d të përzgjedhura</item>
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
-
     <string name="storage_description_default">Paraprake</string>
     <string name="storage_description_sd_no">Kart SD %1$d</string>
     <string name="storage_description_unknown">E panjohur</string>
