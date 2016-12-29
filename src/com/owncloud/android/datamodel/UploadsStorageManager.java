@@ -401,6 +401,19 @@ public class UploadsStorageManager extends Observable {
         return list;
     }
 
+    public void cancelPendingJob(String accountName, String remotePath){
+        JobScheduler js = (JobScheduler) mContext.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+
+        for (JobInfo ji: js.getAllPendingJobs()) {
+            PersistableBundle extras = ji.getExtras();
+            if (remotePath.equalsIgnoreCase(extras.getString("remotePath")) &&
+                accountName.equalsIgnoreCase(extras.getString("account"))){
+                js.cancel(ji.getId());
+                break;
+            }
+        }
+    }
+
     /**
      * Get all failed uploads.
      */

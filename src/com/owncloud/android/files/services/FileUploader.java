@@ -677,10 +677,10 @@ public class FileUploader extends Service
                 upload.cancel();
                 // need to update now table in mUploadsStorageManager,
                 // since the operation will not get to be run by FileUploader#uploadFile
-                mUploadsStorageManager.removeUpload(
-                        accountName,
-                        remotePath
-                );
+                mUploadsStorageManager.removeUpload(accountName, remotePath);
+            } else {
+                // try to cancel job in jobScheduler
+                mUploadsStorageManager.cancelPendingJob(accountName, remotePath);
             }
         }
 
