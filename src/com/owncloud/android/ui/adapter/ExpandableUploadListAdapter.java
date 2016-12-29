@@ -209,7 +209,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             view = inflator.inflate(R.layout.upload_list_item, parent, false);
         }
 
-        if (uploadsItems != null && uploadsItems.length > position) {
+        if (uploadsItems != null && uploadsItems.length > position && uploadsItems[position] != null) {
             final OCUpload upload = uploadsItems[position];
 
             // local file name
