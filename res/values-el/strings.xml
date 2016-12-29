@@ -56,7 +56,6 @@
     <string name="sync_string_files">Αρχεία</string>
     <string name="setup_btn_connect">Σύνδεση</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Δημιουργία αρχείου κειμένου</string>
     <string name="uploader_wrn_no_account_title">Δεν βρέθηκε λογαριασμός</string>
     <string name="uploader_wrn_no_account_text">Δεν υπάρχουν λογαριασμοί %1$s στη συσκευή σας. Παρακαλώ ρυθμίστε πρώτα ένα λογαριασμό.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Ρύθμιση</string>
@@ -70,7 +69,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Διαγραφή αρχείου από τον πηγαίο φάκελο</string>
     <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
     <string name="file_list_empty">Δεν υπάρχει τίποτα εδώ. Μεταφορτώστε κάτι!</string>
-    <string name="file_list_loading">Φόρτωση...</string>
+    <string name="file_list_loading">Φόρτωση&#8230;</string>
     <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για τον τύπο αρχείου!</string>
     <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
     <string name="file_list_folder">φάκελος</string>
@@ -95,7 +94,7 @@
     <string name="common_back">Επιστροφή</string>
     <string name="common_save_exit">Αποθήκευση &amp; έξοδος</string>
     <string name="common_error">Σφάλμα</string>
-    <string name="common_loading">Φόρτωση ...</string>
+    <string name="common_loading">Φόρτωση &#8230;</string>
     <string name="common_unknown">άγνωστο</string>
     <string name="common_error_unknown">Άγνωστο σφάλμα</string>
     <string name="common_pending">Εκκρεμεί</string>
@@ -104,9 +103,9 @@
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
     <string name="delete_account_warning">Διαγραφή λογαριασμού %s?\\n\\nΗ διαγραφή λογαριασμού δεν μπορεί να αναιρεθεί.</string>
     <string name="create_account">Δημιουργία λογαριασμού</string>
-    <string name="upload_chooser_title">Μεταφόρτωση από ...</string>
+    <string name="upload_chooser_title">Μεταφόρτωση από &#8230;</string>
     <string name="uploader_info_dirname">Όνομα φακέλου</string>
-    <string name="uploader_upload_in_progress_ticker">Μεταφόρτωση ...</string>
+    <string name="uploader_upload_in_progress_ticker">Μεταφόρτωση &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Μεταφορτώνονται %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Η μεταφόρτωση ολοκληρώθηκε επιτυχώς</string>
     <string name="uploader_upload_succeeded_content_single">Το %1$s μεταφορτώθηκε</string>
@@ -130,7 +129,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Άγνωστο σφάλμα</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Αναμονή για ασύρματη σύνδεση</string>
     <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
-    <string name="downloader_download_in_progress_ticker">Λήψη ...</string>
+    <string name="downloader_download_in_progress_ticker">Λήψη &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Λαμβάνονται %2$s</string>
     <string name="downloader_download_succeeded_ticker">Η λήψη ολοκληρώθηκε επιτυχώς</string>
     <string name="downloader_download_succeeded_content">%1$s ελήφθησαν</string>
@@ -185,8 +184,8 @@
     <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
     <string name="media_forward_description">Κουμπί προώθησης</string>
 
-	<string name="auth_getting_authorization">Λήψη πιστοποίησης...</string>
-	<string name="auth_trying_to_login">Προσπάθεια σύνδεσης...</string>
+	<string name="auth_getting_authorization">Λήψη πιστοποίησης &#8230;</string>
+	<string name="auth_trying_to_login">Προσπάθεια σύνδεσης &#8230;</string>
 	<string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
 	<string name="auth_nossl_plain_ok_title">Μη διαθέσιμη ασφαλής σύνδεση.</string>
 	<string name="auth_connection_established">Επετεύχθη σύνδεση</string>
@@ -238,7 +237,7 @@
     <string name="filename_empty">Το όνομα αρχείου δεν μπορεί να είναι κενό.</string>
     <string name="wait_a_moment">Παρακαλούμε περιμένετε</string>
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκαν αρχεία </string>
-    <string name="activity_chooser_title">Αποστολή συνδέσμου σε ...</string>
+    <string name="activity_chooser_title">Αποστολή συνδέσμου σε &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Αντιγραφή αρχείου από ιδιωτική αποθήκευση</string>
     
     <string name="oauth_check_onoff">Σύνδεση με oAuth2</string> 
@@ -311,8 +310,6 @@
     <string name="error_cant_bind_to_operations_service">Κρίσιμο σφάλμα: αδύνατη η εκτέλεση λειτουργειών</string>
 
     <string name="network_error_socket_exception">Ένα σφάλμα προέκυψε κατά τη σύνδεση με το διακομιστή.</string>
-    <string name="empty" />
-
     <string name="forbidden_permissions">Δεν έχετε πρόσβαση %s</string>
     <string name="forbidden_permissions_rename">για να μετονομάσετε αυτό το αρχείο</string>
     <string name="forbidden_permissions_delete">για να διαγράψετε αυτό το αρχείο</string>
@@ -332,7 +329,7 @@
 	<string name="log_send_history_button">Αποστολή ιστορικού</string>
 	<string name="log_send_no_mail_app">Δεν εντοπίστηκε εφαρμογή αποστολής αναφορών συστήματος. Παρακαλώ εγκαταστήστε την εφαρμογή ηλεκτρονικού ταχυδρομείου</string>
 	<string name="log_send_mail_subject">%1$s αναφορές της εφαρμογής Android</string>
-	<string name="log_progress_dialog_text">Φόρτωση δεδομένων....</string>
+	<string name="log_progress_dialog_text">Φόρτωση δεδομένων &#8230;</string>
 
 	<string name="saml_authentication_required_text">Απαιτείται πιστοποίηση</string>
 	<string name="saml_authentication_wrong_pass">Εσφαλμένος κωδικός πρόσβασης</string>
@@ -397,7 +394,7 @@
     <string name="share_via_link_password_title">Ασφαλίστηκε</string>
     <string name="share_via_link_edit_permission_label">Επιτρέπεται η επεξεργασία</string>
     <string name="share_get_public_link_button">Λήψη συνδέσμου</string>
-    <string name="share_with_title">Διαμοιρασμός με...</string>
+    <string name="share_with_title">Διαμοιρασμός με &#8230;</string>
     <string name="share_with_edit_title">Διαμοιρασμός με %1$s</string>
 
     <string name="share_search">Αναζήτηση</string>
@@ -439,5 +436,4 @@
         <item quantity="one">%d επιλέχθηκε</item>
         <item quantity="other">%d επιλέχθηκαν</item>
     </plurals>
-
     </resources>

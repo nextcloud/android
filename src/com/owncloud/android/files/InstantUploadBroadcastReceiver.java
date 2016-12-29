@@ -32,6 +32,7 @@ import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
 import android.support.v4.content.ContextCompat;
 
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileUploader;
@@ -131,12 +132,17 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         new FileUploader.UploadRequester();
 
         int behaviour = getUploadBehaviour(context);
+        Boolean subfolderByDate = PreferenceManager.instantPictureUploadPathUseSubfolders(context);
+            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        String uploadPathdef = context.getString(R.string.instant_upload_path);
+        String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
+
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         requester.uploadNewFile(
                 context,
                 account,
                 file_path,
-                FileStorageUtils.getInstantUploadFilePath(context, file_name, date_taken),
+                FileStorageUtils.getInstantUploadFilePath(uploadPath, file_name, date_taken, subfolderByDate),
                 behaviour,
                 mime_type,
                 true,           // create parent folder if not existent
@@ -158,7 +164,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
             Log_OC.d(TAG, "upload file and delete original file");
             return FileUploader.LOCAL_BEHAVIOUR_DELETE;
         }
-        return null;
+        return FileUploader.LOCAL_BEHAVIOUR_FORGET;
     }
 
     private void handleNewVideoAction(Context context, Intent intent) {

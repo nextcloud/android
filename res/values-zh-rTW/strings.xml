@@ -60,7 +60,6 @@
     <string name="sync_string_files">檔案</string>
     <string name="setup_btn_connect">連線</string>
     <string name="uploader_btn_upload_text">上傳</string>
-    <string name="uploader_btn_uploadTextSnippet_text">新增文字文件</string>
     <string name="uploader_top_message">選擇上傳檔案夾</string>
     <string name="uploader_wrn_no_account_title">找不到帳號</string>
     <string name="uploader_wrn_no_account_text">無 %1$s 帳號，請先建立帳號。</string>
@@ -79,7 +78,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">刪除來源資料夾中的檔案</string>
     <string name="file_list_seconds_ago">幾秒前</string>
     <string name="file_list_empty">目前沒有任何檔案，上傳一些東西吧！</string>
-    <string name="file_list_loading">載入中…</string>
+    <string name="file_list_loading">載入中&#8230;</string>
     <string name="file_list_no_app_for_file_type">檔案格式無對應的應用程式可開啟</string>
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案</string>
     <string name="upload_list_empty">無上傳</string>
@@ -107,7 +106,7 @@
     <string name="common_back">返回</string>
     <string name="common_save_exit">儲存並離開</string>
     <string name="common_error">錯誤</string>
-    <string name="common_loading">載入中…</string>
+    <string name="common_loading">載入中&#8230;</string>
     <string name="common_unknown">未知</string>
     <string name="common_error_unknown">未知的錯誤</string>
     <string name="common_pending">等候中</string>
@@ -116,9 +115,9 @@
     <string name="delete_account">刪除帳號</string>
     <string name="delete_account_warning">刪除帳號 %s ？\\n\\n刪除後將無法回復</string>
     <string name="create_account">建立帳號</string>
-    <string name="upload_chooser_title">上傳自…</string>
+    <string name="upload_chooser_title">上傳自&#8230;</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
-    <string name="uploader_upload_in_progress_ticker">上傳中…</string>
+    <string name="uploader_upload_in_progress_ticker">上傳中&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% 上傳 %2$s 中</string>
     <string name="uploader_upload_succeeded_ticker">上傳成功</string>
     <string name="uploader_upload_succeeded_content_single">%1$s 已上傳</string>
@@ -144,7 +143,7 @@
     <string name="uploads_view_upload_status_unknown_fail">未知的錯誤</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">等待無線網路連線</string>
     <string name="uploads_view_later_waiting_to_upload">上傳等候中</string>
-    <string name="downloader_download_in_progress_ticker">下載中…</string>
+    <string name="downloader_download_in_progress_ticker">下載中&#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% 下載中 %2$s</string>
     <string name="downloader_download_succeeded_ticker">下載成功</string>
     <string name="downloader_download_succeeded_content">%1$s 已下載</string>
@@ -202,8 +201,8 @@
     <string name="media_play_pause_description">播放或暫停按鈕</string>
     <string name="media_forward_description">快轉按鈕</string>
 
-	<string name="auth_getting_authorization">授權中…</string>
-	<string name="auth_trying_to_login">登入中…</string>
+	<string name="auth_getting_authorization">授權中&#8230;</string>
+	<string name="auth_trying_to_login">登入中&#8230;</string>
 	<string name="auth_no_net_conn_title">沒有網路連線</string>
 	<string name="auth_nossl_plain_ok_title">無法建立安全連線</string>
 	<string name="auth_connection_established">連線已建立</string>
@@ -258,7 +257,7 @@
     <string name="wait_checking_credentials">檢查儲存的帳號密碼</string>
     <string name="filedisplay_unexpected_bad_get_content">未知的問題，請選擇其他程式開啟檔案</string>
     <string name="filedisplay_no_file_selected">沒有選擇檔案</string>
-    <string name="activity_chooser_title">傳送連結至…</string>
+    <string name="activity_chooser_title">傳送連結至&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">由私有儲存空間複製檔案中</string>
     
     <string name="oauth_check_onoff">以 oAuth2 方式登入</string> 
@@ -343,8 +342,6 @@
     <string name="network_error_socket_timeout_exception">在等待伺服器回應時發生了錯誤，這個操作將無法被完成</string>
     <string name="network_error_connect_timeout_exception">在等待伺服器回應時發生了錯誤，這個操作將無法被完成</string>
     <string name="network_host_not_available">這個操作無法完成，伺服器無法存取</string>
-    <string name="empty" />
-
     <string name="forbidden_permissions">您沒有權限%s</string>
     <string name="forbidden_permissions_rename">重新命名檔案</string>
     <string name="forbidden_permissions_delete">刪除這個檔案</string>
@@ -355,6 +352,16 @@
     <string name="uploader_upload_forbidden_permissions">上傳到這個資料夾</string>
     <string name="downloader_download_file_not_found">這個檔案已經不存在於伺服器中</string>
 
+    <string name="file_migration_dialog_title">更新儲存路徑</string>
+    <string name="file_migration_finish_button">完成</string>
+    <string name="file_migration_saving_accounts_configuration">保存帳號設置&#8230;</string>
+    <string name="file_migration_migrating">移動資料&#8230;</string>
+    <string name="file_migration_ok_finished">完成</string>
+    <string name="file_migration_failed_not_enough_space">錯誤: 空間不足</string>
+    <string name="file_migration_failed_not_writable">錯誤: 檔案不能寫入</string>
+    <string name="file_migration_failed_not_readable">錯誤: 檔案不能讀取</string>
+    <string name="file_migration_failed_dir_already_exists">錯誤: Nextcloud 資料夾已經存在</string>
+    <string name="file_migration_override_data_folder">覆蓋</string>
     <string name="prefs_category_accounts">帳號</string>
     <string name="prefs_add_account">新增帳號</string>
     <string name="drawer_manage_accounts">管理帳號</string>
@@ -364,7 +371,7 @@
 	<string name="log_send_history_button">傳送歷史</string>
 	<string name="log_send_no_mail_app">沒有傳送紀錄的軟體，請安裝郵件軟體</string>
 	<string name="log_send_mail_subject">%1$s Android 應用程式記錄</string>
-	<string name="log_progress_dialog_text">載入資料中…</string>
+	<string name="log_progress_dialog_text">載入資料中&#8230;</string>
 
 	<string name="saml_authentication_required_text">需要認證</string>
 	<string name="saml_authentication_wrong_pass">密碼錯誤</string>
@@ -412,8 +419,8 @@
     <string name="file_list__footer__files">%1$d 個檔案</string>
     <string name="file_list__footer__files_and_folder">%1$d 個檔案， 1 個資料夾</string>
     <string name="file_list__footer__files_and_folders">%1$d 個檔案， %2$d 個資料夾</string>
-    <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會…</string>
-    <string name="prefs_instant_behaviour_title">原始的檔案將會…</string>
+    <string name="prefs_instant_behaviour_dialogTitle">原始的檔案將會&#8230;</string>
+    <string name="prefs_instant_behaviour_title">原始的檔案將會&#8230;</string>
     <string name="upload_copy_files">複製檔案</string>
     <string name="upload_move_files">移動檔案</string>
     <string name="select_all">全選</string>
@@ -421,6 +428,7 @@
     <string name="pref_behaviour_entries_keep_file">保留在原本的資料夾</string>
     <string name="pref_behaviour_entries_move">移動到應用程式資料夾</string>
     <string name="pref_behaviour_entries_delete_file">已刪除</string>
+    <string name="prefs_storage_path">儲存路徑</string>
     <string name="share_dialog_title">分享</string>
     <string name="share_file">分享 %1$s</string>
     <string name="share_with_user_section_title">分享給其他使用者或群組</string>
@@ -433,7 +441,7 @@
     <string name="share_via_link_edit_permission_label">允許編輯</string>
     <string name="share_via_link_hide_file_listing_permission_label">隱藏檔案列表</string>
     <string name="share_get_public_link_button">取得連結</string>
-    <string name="share_with_title">分享給…</string>
+    <string name="share_with_title">分享給&#8230;</string>
     <string name="share_with_edit_title">與 %1$s 分享</string>
 
     <string name="share_search">搜尋</string>
@@ -489,10 +497,13 @@
     <string name="participate_contribute_forum_text">在&lt;a href=\"%1$s>論壇&lt;/a>中協助大家</string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>翻譯&lt;/a>這個 App</string>
     <string name="participate_contribute_github_text">貢獻程式碼，細節請見 &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
-    <string name="move_to">移動到…</string>
-    <string name="copy_to">複製到…</string>
+    <string name="move_to">移動到&#8230;</string>
+    <string name="copy_to">複製到&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d 已選</item>
     </plurals>
+    <string name="storage_description_default">預設</string>
+    <string name="storage_description_sd_no">SD 卡 %1$d</string>
+    <string name="storage_description_unknown">未知</string>
 
     </resources>

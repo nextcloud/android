@@ -51,7 +51,7 @@
     <string name="prefs_remember_last_upload_location_summary">Emlékezzen a legutolsó feltöltés helyére</string>
 
 	<string name="recommend_subject">Próbáld ki a %1$s-ot az okostelefonodon!</string>
-	<string name="recommend_text">Szeretnélek meghívni, hogy használd a %1$s-ot az okostelefonodon!\\nTöltsd le innen: %2$s
+	<string name="recommend_text">Szeretnélek meghívni, hogy használd a %1$s-ot az okostelefonodon!\nTöltsd le innen: %2$s
 	</string>
 
     <string name="auth_check_server">Szerver ellenörzés</string>
@@ -62,7 +62,6 @@
     <string name="sync_string_files">Fájlok</string>
     <string name="setup_btn_connect">Kapcsolódás</string>
     <string name="uploader_btn_upload_text">Feltöltés</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Szövegfájl létrehozás</string>
     <string name="uploader_top_message">Válassz feltöltési mappát</string>
     <string name="uploader_wrn_no_account_title">Nincs ilyen felhasználói fiók</string>
     <string name="uploader_wrn_no_account_text">Nem található %1$s fiók az eszközén. Kérem állítson be egy fiókot előszőr.</string>
@@ -81,7 +80,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">A fájl törlése az eredeti mappábó</string>
     <string name="file_list_seconds_ago">pár másodperce</string>
     <string name="file_list_empty">Itt nincs semmi. Tölts fel valamit!</string>
-    <string name="file_list_loading">Betöltés...</string>
+    <string name="file_list_loading">Betöltés&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nem található alkalmazás a fálj típushoz.</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
     <string name="upload_list_empty">Nincsenek feltöltések.</string>
@@ -107,9 +106,10 @@
     <string name="common_cancel_sync">Szinkronizálás megszakítása</string>
     <string name="common_cancel">Mégsem</string>
     <string name="common_back">Vissza</string>
+    <string name="common_save">Mentés</string>
     <string name="common_save_exit">Mentés és kilépés</string>
     <string name="common_error">Hiba</string>
-    <string name="common_loading">Betöltés ...</string>
+    <string name="common_loading">Betöltés &#8230;</string>
     <string name="common_unknown">ismeretlen</string>
     <string name="common_error_unknown">Ismeretlen hiba</string>
     <string name="common_pending">Folyamatban</string>
@@ -118,9 +118,9 @@
     <string name="delete_account">Fiók eltávolítása</string>
     <string name="delete_account_warning">Törlöd a fiókot: %s?\n\nA törlés nem vonható vissza.</string>
     <string name="create_account">Fiók létrehozása</string>
-    <string name="upload_chooser_title">Feltöltés innen ...</string>
+    <string name="upload_chooser_title">Feltöltés innen &#8230;</string>
     <string name="uploader_info_dirname">Mappa neve</string>
-    <string name="uploader_upload_in_progress_ticker">Feltöltés ...</string>
+    <string name="uploader_upload_in_progress_ticker">Feltöltés &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Feltöltés %2$s</string>
     <string name="uploader_upload_succeeded_ticker">A feltöltés sikerült</string>
     <string name="uploader_upload_succeeded_content_single">%1$s feltöltve</string>
@@ -146,7 +146,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Ismeretlen hiba</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Vezetéknélküli kapcsolatra várakozás</string>
     <string name="uploads_view_later_waiting_to_upload">Feltöltésre várakozás</string>
-    <string name="downloader_download_in_progress_ticker">Letöltés ...</string>
+    <string name="downloader_download_in_progress_ticker">Letöltés &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Letöltés %2$s</string>
     <string name="downloader_download_succeeded_ticker">A letöltés sikeres</string>
     <string name="downloader_download_succeeded_content">%1$s feltöltve</string>
@@ -165,7 +165,7 @@
     <string name="sync_fail_in_favourites_content">%1$d fájl szinkronizálása nem sikerült (%2$d ütközés)</string>
     <string name="sync_foreign_files_forgotten_ticker">Néhány helyi fájlt figyelmen kívül hagytunk</string>
     <string name="sync_foreign_files_forgotten_content">%2$s mappából %1$d fájlt nem lehetett másolni</string>
-    <string name="sync_foreign_files_forgotten_explanation">Az 1.3.16-os verzió óta, erről az eszközről feltöltött fájlok átmásolódnak a helyi %1$s mappába, hogy az adatvesztést megakadályozzuk, amikor egyetlen egy fájl több eszközre van szinkronizálva. \\n\\nEnnek a változásnak köszönhetően, minden olyan fájlt ami az alkalmazás előző verzióival lett feltöltve átmásolódnak a %2$s könyvtárba. Azonban a szinkronizálás alatt fellépő hiba megakadályozta ennek a folyamatnak a befejezését. Két lehetősége van. Hagyhatja a fájlt(okat) ahogy vannak és eltávolíthatja a hivatkozást a %3$s-hez, vagy helyezze át a fájlt(okat) a %1$s mappába, és tartsa meg a hivatkozást a %4$s-hez. \\n\\nAz alábbi listában megtalálja a helyi fájlt(okat) és a távoli fájlt(okat) amik a %5$s-hez voltak linkelve.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Az 1.3.16-os verzió óta, erről az eszközről feltöltött fájlok átmásolódnak a helyi %1$s mappába, hogy az adatvesztést megakadályozzuk, amikor egyetlen egy fájl több eszközre van szinkronizálva.\n\nEnnek a változásnak köszönhetően, minden olyan fájlt ami az alkalmazás előző verzióival lett feltöltve átmásolódnak a %2$s könyvtárba. Azonban a szinkronizálás alatt fellépő hiba megakadályozta ennek a folyamatnak a befejezését. Két lehetősége van. Hagyhatja a fájlt(okat) ahogy vannak és eltávolíthatja a hivatkozást a %3$s-hez, vagy helyezze át a fájlt(okat) a %1$s mappába, és tartsa meg a hivatkozást a %4$s-hez. \n\nAz alábbi listában megtalálja a helyi fájlt(okat) és a távoli fájlt(okat) amik a %5$s-hez voltak linkelve.</string>
     <string name="sync_current_folder_was_removed">A %1$s mappa már nem létezik</string>
     <string name="foreign_files_move">Helyezzük át mindet</string>
     <string name="foreign_files_success">Az összes fájlt áthelyeztük</string>
@@ -259,7 +259,7 @@
     <string name="wait_checking_credentials">Tárolt azonosítók ellenőrzése</string>
     <string name="filedisplay_unexpected_bad_get_content">Váratlan probléma; kérlek válassz fájlt egy másik alkalmazásból</string>
     <string name="filedisplay_no_file_selected">Egy fájl sincs kiválasztva</string>
-    <string name="activity_chooser_title">Hivatkozás küldése ...</string>
+    <string name="activity_chooser_title">Hivatkozás küldése &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl átmásolása a privát tárolóról</string>
     
     <string name="oauth_check_onoff">Bejelentkezés oAuth2-vel</string> 
@@ -316,6 +316,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi mappába</string>
     <string name="prefs_instant_upload_path_title">Azonnali feltöltés mappa</string>
+    <string name="prefs_folder_sync_local_path_title">Helyi mappa</string>
+    <string name="prefs_folder_sync_remote_path_title">Távoli mappa</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
 
@@ -343,8 +345,6 @@
     <string name="network_error_socket_timeout_exception">Hiba történt a szerverre várás közben; a művelet nem lesz befejezve</string>
     <string name="network_error_connect_timeout_exception">Hiba történt a szerverre várás közben; a művelet nem lesz befejezve</string>
     <string name="network_host_not_available">A művelet nem lesz befejezve; a szerver nem érhető el</string>
-    <string name="empty" />
-
     <string name="forbidden_permissions">Nincs jogosultságod ehhez: %s</string>
     <string name="forbidden_permissions_rename">fájl átnevezés</string>
     <string name="forbidden_permissions_delete">fájl törlés</string>
@@ -469,7 +469,7 @@
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
 
     <string name="share_sharee_unavailable">Sajnáljuk, de az Ön szerver verziója nem engedi a kliensen belüli megosztást felhasználók között.
-Kérem keresse a rendszergazdát.</string>
+\nKérem keresse a rendszergazdát.</string>
     <string name="share_privilege_can_share">megosztható</string>
     <string name="share_privilege_can_edit">módosíthat</string>
     <string name="share_privilege_can_edit_create">létrehoz</string>
@@ -487,7 +487,7 @@ Kérem keresse a rendszergazdát.</string>
     <string name="action_switch_list_view">Lista nézet</string>
 
     <string name="manage_space_title">Tárhely kezelés</string>
-    <string name="manage_space_description">A beállítások, az adatbázis és a szerver tanusítványok véglegesen törölve lesznek a(z) %1$s adatai közül.\\n\\nA letöltött fájlok változatlanok maradnak.\\n\\nA folyamat eltarthat egy ideig.</string>
+    <string name="manage_space_description">A beállítások, az adatbázis és a szerver tanusítványok véglegesen törölve lesznek a(z) %1$s adatai közül.\n\nA letöltött fájlok változatlanok maradnak.\n\nA folyamat eltarthat egy ideig.</string>
     <string name="manage_space_clear_data">Adatok törlése</string>
     <string name="manage_space_error">Néhány fájl nem volt törölhető</string>
 
@@ -499,6 +499,7 @@ Kérem keresse a rendszergazdát.</string>
     <string name="actionbar_search">Keresés</string>
     <string name="files_drop_not_supported">Ez egy Nextcloud funkció, kérlek frissíts.</string>
     <string name="learn_more">Tudj meg többet</string>
+    <string name="drawer_folder_sync">Automatikus feltöltés</string>
     <string name="drawer_participate">Részvétel</string>
     <string name="participate_testing_headline">Segíts tesztelni</string>
     <string name="participate_testing_bug_text">Hibát találtál? Valami furcsa?</string>
@@ -516,13 +517,33 @@ vagy</string>
     <string name="participate_contribute_github_text">Működj közre fejlesztőként, részletek: &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Áthelyezés ide...&#8230;</string>
     <string name="copy_to">Másolás ide...&#8230;</string>
+    <string name="choose_remote_folder">Mappa választás&#8230;</string>
+    <string name="folder_sync_loading_folders">Mappák betöltése&#8230;</string>
+    <string name="folder_sync_no_results">Nem találhatók média mappák.</string>
+    <string name="folder_sync_preferences">Automatikus feltöltés beállításai</string>
+    <string name="folder_sync_settings">Beállítások</string>
+    <string name="folder_sync_new_info">Az azonnali feltöltés teljesen át lett alakítva. Kérlek a főmenüben állítsd be újra az automatikus feltöltést. Elnézést a kellemetlenségért.\n\nÉlvezd az új és kibővített automatikus feltöltési képességet!</string>
+    <string name="folder_sync_preferences_folder_path">Neki: %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d kiválasztott</item>
         <item quantity="other">%d kiválasztott</item>
     </plurals>
-
     <string name="storage_description_default">Alapértelmezett</string>
     <string name="storage_description_sd_no">SD kártya %1$d</string>
     <string name="storage_description_unknown">Ismeretlen</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Nextcloud hírek</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Egy biztonságos hely az adataidnak</string>
+    <string name="welcome_feature_1_text">Férj hozzá, oszd meg és védd az otthoni vagy a vállalkozásod fájljaidat</string>
+
+    <string name="welcome_feature_2_title">Többszörös fiók</string>
+    <string name="welcome_feature_2_text">Csatlakozás az összes felhődhöz</string>
+
+    <string name="welcome_feature_3_title">Azonnali feltöltés</string>
+    <string name="welcome_feature_3_text">Tartsd biztonságban a fotóidat</string>
+
+    <string name="whats_new_skip">Kihagy</string>
 </resources>

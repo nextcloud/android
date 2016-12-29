@@ -22,12 +22,16 @@ package com.owncloud.android;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 
 import com.owncloud.android.authentication.PassCodeManager;
@@ -35,7 +39,9 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.WhatsNewActivity;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -65,8 +71,12 @@ public class MainApp extends Application {
 
     private static boolean mOnlyOnDevice = false;
 
-    @SuppressFBWarnings("ST")
-    public void onCreate(){
+    private static SyncedFolderObserverService mObserverService;
+
+    @SuppressWarnings("unused")
+    private boolean mBound;
+
+    @SuppressFBWarnings("ST")    public void onCreate(){
         super.onCreate();
         MainApp.mContext = getApplicationContext();
 
@@ -98,12 +108,18 @@ public class MainApp extends Application {
             Log_OC.d("Debug", "start logging");
         }
 
+        Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
+        Intent i = new Intent(this, SyncedFolderObserverService.class);
+        startService(i);
+        bindService(i, syncedFolderObserverServiceConnection, Context.BIND_AUTO_CREATE);
+
         // register global protection with pass code
         registerActivityLifecycleCallbacks( new ActivityLifecycleCallbacks() {
 
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 Log_OC.d(activity.getClass().getSimpleName(),  "onCreate(Bundle) starting" );
+                WhatsNewActivity.runIfNeeded(activity);
                 PassCodeManager.getPassCodeManager().onActivityCreated(activity);
             }
 
@@ -160,6 +176,17 @@ public class MainApp extends Application {
         return getAppContext().getResources().getString(R.string.account_type);
     }
 
+    // Non gradle build systems do not provide BuildConfig.VERSION_CODE
+    // so we must fallback to this method :(
+    public static int getVersionCode() {
+        try {
+            String thisPackageName = getAppContext().getPackageName();
+            return getAppContext().getPackageManager().getPackageInfo(thisPackageName, 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            return 0;
+        }
+    }
+
     //  From AccountAuthenticator 
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {
@@ -204,6 +231,10 @@ public class MainApp extends Application {
         return mOnlyOnDevice;
     }
 
+    public static SyncedFolderObserverService getSyncedFolderObserverService() {
+        return mObserverService;
+    }
+
     // user agent
     public static String getUserAgent() {
         String appString = getAppContext().getResources().getString(R.string.user_agent);
@@ -225,4 +256,21 @@ public class MainApp extends Application {
 
         return userAgent;
     }
+
+    /** Defines callbacks for service binding, passed to bindService() */
+    private ServiceConnection syncedFolderObserverServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+            SyncedFolderObserverService.SyncedFolderObserverBinder binder = (SyncedFolderObserverService.SyncedFolderObserverBinder) service;
+            mObserverService = binder.getService();
+            mBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBound = false;
+        }
+    };
+
 }

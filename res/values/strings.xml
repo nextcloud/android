@@ -61,7 +61,6 @@
     <string name="sync_string_files">Files</string>
     <string name="setup_btn_connect">Connect</string>
     <string name="uploader_btn_upload_text">Upload</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Create text file</string>
     <string name="uploader_top_message">Choose upload folder</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
@@ -106,6 +105,7 @@
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_back">Back</string>
+    <string name="common_save">Save</string>
     <string name="common_save_exit">Save &amp; exit</string>
     <string name="common_error">Error</string>
     <string name="common_loading">Loading &#8230;</string>
@@ -316,6 +316,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
     <string name="prefs_instant_upload_path_title">Instant upload folder</string>
+    <string name="prefs_folder_sync_local_path_title">Local folder</string>
+    <string name="prefs_folder_sync_remote_path_title">Remote folder</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
 
@@ -344,7 +346,7 @@
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
     <string name="network_host_not_available">The operation couldn\'t be completed; server is unavailable</string>
-    <string name="empty" />
+    <string name="empty" translatable="false" />
 
     <string name="forbidden_permissions">You do not have permission %s</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
@@ -500,6 +502,7 @@
     <string name="actionbar_search">Search</string>
     <string name="files_drop_not_supported">This is a Nextcloud feature, please update.</string>
     <string name="learn_more">Learn more</string>
+    <string name="drawer_folder_sync">Auto upload</string>
     <string name="drawer_participate">Participate</string>
     <string name="participate_testing_headline">Help us testing</string>
     <string name="participate_testing_bug_text">Found a bug? Something is odd?</string>
@@ -518,6 +521,13 @@
     <string name="participate_contribute_github_text">Contribute as a developer, see &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a> for details</string>
     <string name="move_to">Move to&#8230;</string>
     <string name="copy_to">Copy to&#8230;</string>
+    <string name="choose_remote_folder">Choose folder&#8230;</string>
+    <string name="folder_sync_loading_folders">Loading folders&#8230;</string>
+    <string name="folder_sync_no_results">No media folders found.</string>
+    <string name="folder_sync_preferences">Auto upload preferences</string>
+    <string name="folder_sync_settings">Settings</string>
+    <string name="folder_sync_new_info">Instant upload has been revamped completely. Please see the main menu and re-configure your auto upload. Sorry for the inconvenience.\n\nEnjoy the new and extended auto upload capabilities!</string>
+    <string name="folder_sync_preferences_folder_path">For %1$s</string>
     <plurals name="items_selected_count">
         <!--
              As a developer, you should always supply "one" and "other"
@@ -529,9 +539,29 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
+    <string name="upload_file_dialog_title">Input upload filename and filetype</string>
+    <string name="upload_file_dialog_filename">Filename</string>
+    <string name="upload_file_dialog_filetype">Filetype</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Snippet text file(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet shortcut file(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps shortcut file(%s)</string>
 
     <string name="storage_description_default">Default</string>
     <string name="storage_description_sd_no">SD card %1$d</string>
     <string name="storage_description_unknown">Unknown</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">What\'s new in Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">A safe home for all your data</string>
+    <string name="welcome_feature_1_text">Access, share &amp; protect your files at home and in your enterprise</string>
+
+    <string name="welcome_feature_2_title">Multi account</string>
+    <string name="welcome_feature_2_text">Connect to all your clouds</string>
+
+    <string name="welcome_feature_3_title">Instant upload</string>
+    <string name="welcome_feature_3_text">Keep your photos safe</string>
+
+    <string name="whats_new_skip">Skip</string>
 </resources>

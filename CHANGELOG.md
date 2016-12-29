@@ -1,3 +1,18 @@
+## 1.4.0 (December 8, 2016)
+
+- External SD card support
+- Auto Upload (Android 7+)
+- What's new start screen
+- Show/hide hidden folders & files
+- Upload view: switch between grid/list view
+- Descend into folder after creating it in uploader
+- Provisioning links to launch and prefill app with login data
+- Add open URL file feature
+- Sort favorite files first in list
+- Account switcher optimizations
+- Bugfixes and design improvements
+- Update library to 1.0.9
+
 ## 1.3.1 (September 20, 2016)
 
 - Move action hard to discover - difference between single/multi selection
@@ -51,4 +66,4 @@
 
 ## 1.0.0 (June 12, 2016)
 
-- initial release of the Nextcloud Android app 
+- Initial release of the Nextcloud Android app 

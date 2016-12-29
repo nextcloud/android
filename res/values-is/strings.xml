@@ -57,7 +57,6 @@
     <string name="sync_string_files">Skrár</string>
     <string name="setup_btn_connect">Tengjast</string>
     <string name="uploader_btn_upload_text">Senda inn</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Búa til textaskrá</string>
     <string name="uploader_top_message">Veldu innsendingarmöppu</string>
     <string name="uploader_wrn_no_account_title">Enginn notandaaðgangur fannst</string>
     <string name="uploader_wrn_no_account_text">Það eru engir %1$s aðgangar á tækinu þínu. Settu fyrst upp notandaaðgang.</string>
@@ -71,7 +70,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eyða skrá úr upprunamöppu</string>
     <string name="file_list_seconds_ago">sek.</string>
     <string name="file_list_empty">Ekkert hér. Settu eitthvað inn!</string>
-    <string name="file_list_loading">Hleð inn…</string>
+    <string name="file_list_loading">Hleð inn&#8230;</string>
     <string name="file_list_no_app_for_file_type">Engin forrit fundust fyrir skráategund!</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="upload_list_empty">Engar innsendingar tiltækar</string>
@@ -99,7 +98,7 @@
     <string name="common_back">Til baka</string>
     <string name="common_save_exit">Vista &amp; fara út</string>
     <string name="common_error"><strong>Villa</strong></string>
-    <string name="common_loading">Hleð inn …</string>
+    <string name="common_loading">Hleð inn &#8230;</string>
     <string name="common_unknown">óþekkt</string>
     <string name="common_error_unknown">Óþekkt villa</string>
     <string name="common_pending">Í bið</string>
@@ -108,9 +107,9 @@
     <string name="delete_account">Fjarlægja notandaaðgang</string>
     <string name="delete_account_warning">Eyða aðgangi %s?\n\nEyðing er óafturkræf.</string>
     <string name="create_account">Stofna aðgang</string>
-    <string name="upload_chooser_title">Senda inn frá ...</string>
+    <string name="upload_chooser_title">Senda inn frá &#8230;</string>
     <string name="uploader_info_dirname">Nafn möppu</string>
-    <string name="uploader_upload_in_progress_ticker">Sendi inn ...</string>
+    <string name="uploader_upload_in_progress_ticker">Sendi inn &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Sendi inn %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Innsending tókst</string>
     <string name="uploader_upload_succeeded_content_single">%1$s sent inn</string>
@@ -133,7 +132,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Óþekkt villa</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Bíð eftir þráðlausri tengingu</string>
     <string name="uploads_view_later_waiting_to_upload">Bíð eftir að senda inn</string>
-    <string name="downloader_download_in_progress_ticker">Sæki ...</string>
+    <string name="downloader_download_in_progress_ticker">Sæki &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Sæki %2$s</string>
     <string name="downloader_download_succeeded_ticker">Niðurhal tókst</string>
     <string name="downloader_download_succeeded_content">%1$s niðurhalað</string>
@@ -187,8 +186,8 @@
     <string name="media_play_pause_description">Afspilun-eða-hlé hnappur</string>
     <string name="media_forward_description">Spóla-hratt-áfram hnappur</string>
 
-	<string name="auth_getting_authorization">Fæ heimild ...</string>
-	<string name="auth_trying_to_login">Reyni að skrá inn …</string>
+	<string name="auth_getting_authorization">Fæ heimild &#8230;</string>
+	<string name="auth_trying_to_login">Reyni að skrá inn &#8230;</string>
 	<string name="auth_no_net_conn_title">Engin nettenging</string>
 	<string name="auth_nossl_plain_ok_title">Örugg tenging ekki tiltæk.</string>
 	<string name="auth_connection_established">Tengingu komið á</string>
@@ -239,7 +238,7 @@
     <string name="filename_empty">Skráarheiti má ekki vera tómt</string>
     <string name="wait_a_moment">Bíddu aðeins</string>
     <string name="filedisplay_no_file_selected">Engin skrá var valin</string>
-    <string name="activity_chooser_title">Senda tengil til ...</string>
+    <string name="activity_chooser_title">Senda tengil til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Afrita skrá úr einkageymslu</string>
     
     <string name="oauth_check_onoff">Skrá inn með oAuth2</string> 
@@ -316,8 +315,6 @@
     <string name="error_cant_bind_to_operations_service">Alvarleg villa: get ekki framkvæmt aðgerðir</string>
 
     <string name="network_error_socket_exception">Villa kom upp við að tengjast við þjóninn.</string>
-    <string name="empty" />
-
     <string name="forbidden_permissions">Þú hefur ekki heimild %s</string>
     <string name="forbidden_permissions_rename">til að endurnefna þessa skrá</string>
     <string name="forbidden_permissions_delete">til að eyða þessari skrá</string>
@@ -337,7 +334,7 @@
 	<string name="log_send_history_button">Ferill sendinga</string>
 	<string name="log_send_no_mail_app">Ekkert forrit fannst til að senda annála. Settu upp eitthvað tölvupóstforrit.</string>
 	<string name="log_send_mail_subject">%1$s annálar Android-forrita</string>
-	<string name="log_progress_dialog_text">Hleð inn gögnum …</string>
+	<string name="log_progress_dialog_text">Hleð inn gögnum &#8230;</string>
 
 	<string name="saml_authentication_required_text">Auðkenningar krafist</string>
 	<string name="saml_authentication_wrong_pass">Rangt lykilorð</string>
@@ -403,7 +400,7 @@
     <string name="share_via_link_edit_permission_label">Leyfa breytingar</string>
     <string name="share_via_link_hide_file_listing_permission_label">Fela skráalista</string>
     <string name="share_get_public_link_button">Ná í tengil</string>
-    <string name="share_with_title">Deila með ...</string>
+    <string name="share_with_title">Deila með &#8230;</string>
     <string name="share_with_edit_title">Deila með %1$s</string>
 
     <string name="share_search">Leita</string>
@@ -460,5 +457,4 @@
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
     </plurals>
-
     </resources>
