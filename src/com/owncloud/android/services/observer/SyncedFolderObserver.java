@@ -49,12 +49,12 @@ class SyncedFolderObserver extends RecursiveFileObserver {
                 && !temp.getName().endsWith(".tmp")) {
             PersistableBundle bundle = new PersistableBundle();
             // TODO extract
-            bundle.putString("filePath", path);
-            bundle.putString("remotePath", syncedFolder.getRemotePath());
-            bundle.putLong("dateTaken", new Date().getTime());
-            bundle.putString("account", syncedFolder.getAccount());
-            bundle.putInt("uploadBehaviour", syncedFolder.getUploadAction());
-            bundle.putInt("subfolderByDate", syncedFolder.getSubfolderByDate() ? 1 : 0);
+            bundle.putString(SyncedFolderJobService.LOCAL_PATH, path);
+            bundle.putString(SyncedFolderJobService.REMOTE_PATH, syncedFolder.getRemotePath() + "/" + temp.getName());
+            bundle.putLong(SyncedFolderJobService.DATE_TAKEN, new Date().getTime());
+            bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
+            bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
+            bundle.putInt(SyncedFolderJobService.SUBFOLDER_BY_DATE, syncedFolder.getSubfolderByDate() ? 1 : 0);
 
             JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 

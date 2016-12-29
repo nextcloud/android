@@ -202,19 +202,19 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 break;
 
             case R.id.action_clear_failed_uploads:
-                storageManager = new UploadsStorageManager(getContentResolver());
+                storageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
                 storageManager.clearFailedButNotDelayedUploads();
                 uploadListFragment.updateUploads();
                 break;
 
             case R.id.action_clear_successfull_uploads:
-                storageManager = new UploadsStorageManager(getContentResolver());
+                storageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
                 storageManager.clearSuccessfulUploads();
                 uploadListFragment.updateUploads();
                 break;
 
             case R.id.action_clear_finished_uploads:
-                storageManager = new UploadsStorageManager(getContentResolver());
+                storageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
                 storageManager.clearAllFinishedButNotDelayedUploads();
                 uploadListFragment.updateUploads();
                 break;
