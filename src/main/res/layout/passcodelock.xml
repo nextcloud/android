@@ -51,7 +51,7 @@
         android:id="@+id/passcode"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        >
+        app:errorEnabled="true">
 
         <EditText
             android:id="@+id/passcodeEditText"
@@ -60,7 +60,6 @@
             android:imeOptions="flagNoExtractUi"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:hint="@string/prefs_passcode"
             android:gravity="center"
             android:layout_margin="10dp"
             android:inputType="numberPassword"
@@ -84,25 +83,13 @@
         android:layout_height="match_parent">
 
         <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <android.support.v7.widget.AppCompatButton
-                android:text="SoftKey"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:id="@+id/button_softkey"
-                android:elevation="0dp"/>
-        </TableRow>
-
-        <TableRow
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
 
             <android.support.v7.widget.AppCompatButton
                 android:text="1"
                 android:layout_width="60dip"
-                android:layout_height="match_parent"
+                android:layout_height="60dip"
                 android:id="@+id/button1"
                 android:layout_weight="1" />
 
@@ -129,7 +116,7 @@
             <android.support.v7.widget.AppCompatButton
                 android:text="4"
                 android:layout_width="60dip"
-                android:layout_height="match_parent"
+                android:layout_height="60dip"
                 android:id="@+id/button4"
                 android:layout_weight="1" />
 
@@ -154,7 +141,7 @@
             <android.support.v7.widget.AppCompatButton
                 android:text="7"
                 android:layout_width="60dip"
-                android:layout_height="match_parent"
+                android:layout_height="60dip"
                 android:id="@+id/button7"
                 android:layout_weight="1"/>
 
@@ -192,7 +179,7 @@
                 android:layout_weight="1"/>
 
             <android.support.v7.widget.AppCompatButton
-                android:text="BACK"
+                android:text="BACK\nSoftKey"
                 android:layout_width="60dip"
                 android:layout_height="60dip"
                 android:id="@+id/back"
