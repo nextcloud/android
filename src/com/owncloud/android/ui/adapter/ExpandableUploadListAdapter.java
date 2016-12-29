@@ -136,7 +136,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
     public ExpandableUploadListAdapter(FileActivity parentActivity) {
         Log_OC.d(TAG, "ExpandableUploadListAdapter");
         mParentActivity = parentActivity;
-        mUploadsStorageManager = new UploadsStorageManager(mParentActivity.getContentResolver());
+        mUploadsStorageManager = new UploadsStorageManager(mParentActivity.getContentResolver(), parentActivity.getApplicationContext());
         mUploadGroups = new UploadGroup[3];
         mUploadGroups[0] = new UploadGroup(mParentActivity.getString(R.string.uploads_view_group_current_uploads)) {
             @Override
@@ -209,7 +209,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             view = inflator.inflate(R.layout.upload_list_item, parent, false);
         }
 
-        if (uploadsItems != null && uploadsItems.length > position) {
+        if (uploadsItems != null && uploadsItems.length > position && uploadsItems[position] != null) {
             final OCUpload upload = uploadsItems[position];
 
             // local file name

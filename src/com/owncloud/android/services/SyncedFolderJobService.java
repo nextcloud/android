@@ -44,6 +44,13 @@ import java.io.File;
 public class SyncedFolderJobService extends JobService {
     private static final String TAG = "SyncedFolderJobService";
 
+    public static final String LOCAL_PATH = "filePath";
+    public static final String REMOTE_PATH = "remotePath";
+    public static final String DATE_TAKEN = "dateTaken";
+    public static final String SUBFOLDER_BY_DATE = "subfolderByDate";
+    public static final String ACCOUNT = "account";
+    public static final String UPLOAD_BEHAVIOUR = "uploadBehaviour";
+
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return START_REDELIVER_INTENT;
@@ -53,12 +60,12 @@ public class SyncedFolderJobService extends JobService {
     public boolean onStartJob(JobParameters params) {
         Context context = MainApp.getAppContext();
         PersistableBundle bundle = params.getExtras();
-        String filePath = bundle.getString("filePath");
-        String remoteFolder = bundle.getString("remotePath");
-        Long dateTaken = bundle.getLong("dateTaken");
-        Boolean subfolderByDate = bundle.getInt("subfolderByDate") == 1;
-        Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString("account"));
-        Integer uploadBehaviour = bundle.getInt("uploadBehaviour");
+        String filePath = bundle.getString(LOCAL_PATH);
+        String remoteFolder = bundle.getString(REMOTE_PATH);
+        Long dateTaken = bundle.getLong(DATE_TAKEN);
+        Boolean subfolderByDate = bundle.getInt(SUBFOLDER_BY_DATE) == 1;
+        Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT));
+        Integer uploadBehaviour = bundle.getInt(UPLOAD_BEHAVIOUR);
 
         Log_OC.d(TAG, "startJob: " + params.getJobId() + ", filePath: " + filePath);
 
