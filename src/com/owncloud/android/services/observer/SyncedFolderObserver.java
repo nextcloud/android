@@ -43,7 +43,7 @@ class SyncedFolderObserver extends RecursiveFileObserver {
 
         File temp = new File(path);
 
-        if (!temp.getName().equalsIgnoreCase("null")) {
+        if (!temp.getName().equalsIgnoreCase("null") && !temp.getName().endsWith(".tmp")) {
             PersistableBundle bundle = new PersistableBundle();
             // TODO extract
             bundle.putString("filePath", path);
