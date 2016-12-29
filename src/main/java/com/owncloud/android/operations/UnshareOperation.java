@@ -90,7 +90,7 @@ public class UnshareOperation extends SyncOperation {
                 getStorageManager().saveFile(file);
                 getStorageManager().removeShare(share);
 
-            } else if (!existsFile(client, file.getRemotePath()) && result.getCode() != ResultCode.MAINTENANCE_MODE) {
+            } else if (result.getCode() != ResultCode.MAINTENANCE_MODE && !existsFile(client, file.getRemotePath())) {
                 // unshare failed because file was deleted before
                 getStorageManager().removeFile(file, true, true);
             }
