@@ -96,6 +96,8 @@
     <string name="common_yes">Áno</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
+    <string name="common_remove_upload">Odober nahrávanie</string>
+    <string name="common_retry_upload">Zopakuj nahrávanie</string>
     <string name="common_cancel_sync">Zruš synchronizáciu</string>
     <string name="common_cancel">Zrušiť</string>
     <string name="common_back">Späť</string>
@@ -147,6 +149,7 @@
     <string name="common_choose_account">Zvoliť účet</string>
     <string name="sync_fail_ticker">Synchronizácia neúspešná</string>
     <string name="sync_fail_ticker_unauthorized">Synchronizácia neúspešná, je potrebné sa znovu prihlásiť</string>
+    <string name="sync_fail_content">Synchronizáciu %1$s nie je možné dokončiť</string>
     <string name="sync_fail_content_unauthorized">Nesprávne heslo pre %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
     <string name="sync_conflicts_in_favourites_content">%1$d súborov z automatickej synchronizácie nemožno synchronizovať</string>

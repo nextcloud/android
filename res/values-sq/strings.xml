@@ -527,6 +527,13 @@ ose</string>
         <item quantity="one">%d të përzgjedhura</item>
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
+    <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
+    <string name="upload_file_dialog_filename">Emri dokumentit</string>
+    <string name="upload_file_dialog_filetype">Tipi dokumentit</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Skedar elementi tekst(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Skedar Interneti (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Skedar Google Maps(%s)</string>
+
     <string name="storage_description_default">Paraprake</string>
     <string name="storage_description_sd_no">Kart SD %1$d</string>
     <string name="storage_description_unknown">E panjohur</string>

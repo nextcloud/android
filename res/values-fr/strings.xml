@@ -530,6 +530,13 @@ ou</string>
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
+    <string name="upload_file_dialog_title">Spécifiez le nom et le type du fichier téléversé</string>
+    <string name="upload_file_dialog_filename">Nom de fichier</string>
+    <string name="upload_file_dialog_filetype">Type de fichier</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Extrait du fichier texte (.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Raccourci(%s) Internet</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Raccourci(%s) Google Maps</string>
+
     <string name="storage_description_default">Défaut</string>
     <string name="storage_description_sd_no">Carte SD %1$d</string>
     <string name="storage_description_unknown">Inconnu</string>
