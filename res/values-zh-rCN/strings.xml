@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s Android app</string>
+    <string name="about_android">%1$s 安卓应用程序</string>
     <string name="about_version">版本：%1$s</string>
     <string name="actionbar_sync">刷新帐户</string>
     <string name="actionbar_upload">上传</string>
@@ -20,7 +20,8 @@
     <string name="drawer_item_on_device">在设备上的</string>
     <string name="drawer_item_settings">设置</string>
     <string name="drawer_item_uploads_list">上传</string>
-    <string name="drawer_close">关闭</string>
+    <string name="drawer_quota">%1$s 之 %2$s 已使用</string>
+	<string name="drawer_close">关闭</string>
     <string name="drawer_open">打开</string>
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
@@ -37,6 +38,11 @@
     <string name="prefs_log_title_history">历史日志</string>
     <string name="prefs_log_summary_history">这显示已经保存的日志</string>
     <string name="prefs_log_delete_history_button">删除历史</string>
+    <string name="prefs_calendar_contacts">同步日历和通讯录</string>
+    <string name="prefs_calendar_contacts_summary">为现在的用户设置DAVdroid(v1.3.0+)</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">用户目前的服务器地址对于DAVdroid不能被解析</string>
+    <string name="prefs_calendar_contacts_no_store_error">没有安装谷歌或F-Droid的应用商店</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">日历和通讯录的同步设置成功</string>
     <string name="prefs_help">帮助</string>
     <string name="prefs_recommend">推荐给朋友</string>
     <string name="prefs_feedback">反馈</string>
@@ -61,7 +67,10 @@
     <string name="uploader_wrn_no_account_setup_btn_text">设置</string>
     <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
     <string name="uploader_error_title_no_file_to_upload">文件没有上传</string>
+    <string name="uploader_error_message_received_piece_of_text">%1$s不能把一段文字做为文件上传</string>
+    <string name="uploader_error_message_no_file_to_upload">得到的数据没有包括有效文件</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">文件无法被上传</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s 不让读取已经获得的文件</string>
     <string name="uploader_upload_files_behaviour">上传选项：</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">移动文件到Nextcloud文件夹</string>
     <string name="uploader_upload_files_behaviour_only_upload">在原文件夹中保留文件</string>
@@ -100,9 +109,11 @@
     <string name="common_loading">加载中...</string>
     <string name="common_unknown">未知</string>
     <string name="common_error_unknown">未知错误</string>
+    <string name="common_pending">等待</string>
     <string name="about_title">关于</string>
     <string name="change_password">修改密码</string>
     <string name="delete_account">删除账号</string>
+    <string name="delete_account_warning">删除用户%s?\\n\\n删除不能撤销</string>
     <string name="create_account">创建账号</string>
     <string name="upload_chooser_title">上传自...</string>
     <string name="uploader_info_dirname">文件夹名称</string>
@@ -121,10 +132,14 @@
     <string name="uploads_view_upload_status_cancelled">已取消</string>
     <string name="uploads_view_upload_status_paused">已暂停</string>
     <string name="uploads_view_upload_status_failed_connection_error">连接错误</string>
+    <string name="uploads_view_upload_status_failed_retry">很快重新尝试上传</string>
+    <string name="uploads_view_upload_status_failed_credentials_error">证书错误</string>
     <string name="uploads_view_upload_status_failed_folder_error">文件夹错误</string>
     <string name="uploads_view_upload_status_failed_file_error">文件错误</string>
     <string name="uploads_view_upload_status_failed_localfile_error">本地文件未找到</string>
     <string name="uploads_view_upload_status_failed_permission_error">权限错误</string>
+    <string name="uploads_view_upload_status_conflict">冲突</string>
+    <string name="uploads_view_upload_status_service_interrupted">应该将被终止</string>
     <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">等待WiFi连接</string>
     <string name="uploads_view_later_waiting_to_upload">等待上传...</string>
@@ -138,6 +153,7 @@
     <string name="downloader_download_failed_credentials_error">下载失败，你需要重新登录</string>
     <string name="common_choose_account">选择账户</string>
     <string name="sync_fail_ticker">同步失败</string>
+    <string name="sync_fail_ticker_unauthorized">同步错误；你需要重新登陆</string>
     <string name="sync_fail_content">%1$s 的同步无法完成</string>
     <string name="sync_fail_content_unauthorized">%1$s 的密码错误</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
@@ -154,6 +170,8 @@
     <string name="foreign_files_local_text">本地: %1$s</string>
     <string name="foreign_files_remote_text">远程:%1$s</string>
     <string name="upload_query_move_foreign_files">没有足够的空间复制文件夹 %1$s，是否使用剪切？</string>
+    <string name="pass_code_enter_pass_code">请输入你的密码</string>
+    
     <string name="pass_code_configure_your_pass_code">输入您的密码</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次应用启动将会请求密码</string>
     <string name="pass_code_reenter_your_pass_code">请再次输入你的密码</string>
@@ -217,8 +235,11 @@
 	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_account_does_not_exist">设备中还未存在该帐号</string>
     
+    <string name="favorite">可以设置离线</string>
+    <string name="unfavorite">不可以设置离线</string>
     <string name="common_rename">重命名</string>
     <string name="common_remove">删除</string>
+    <string name="confirmation_remove_file_alert">你确定要删除%1$s?</string>
     <string name="confirmation_remove_folder_alert">您确定要删除 %1$s 及其内容吗？</string>
     <string name="confirmation_remove_local">仅本地</string>
     <string name="remove_success_msg">成功删除</string>
@@ -233,6 +254,8 @@
     <string name="filename_forbidden_charaters_from_server">文件名中存在至少一个非法字符</string>
     <string name="filename_empty">文件名不能为空</string>
     <string name="wait_a_moment">请稍候</string>
+    <string name="wait_checking_credentials">检查保存的证书</string>
+    <string name="filedisplay_unexpected_bad_get_content">未预见错误，请从其它程序中选取文件</string>
     <string name="filedisplay_no_file_selected">未选择文件</string>
     <string name="activity_chooser_title">发送链接给 …</string>
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
