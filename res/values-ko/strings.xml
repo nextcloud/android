@@ -55,7 +55,6 @@
     <string name="sync_string_files">파일</string>
     <string name="setup_btn_connect">접속</string>
     <string name="uploader_btn_upload_text">업로드</string>
-    <string name="uploader_btn_uploadTextSnippet_text">텍스트 파일 만들기</string>
     <string name="uploader_top_message">업로드 폴더 선택</string>
     <string name="uploader_wrn_no_account_title">계정 없음</string>
     <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
@@ -68,7 +67,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">소스 폴더에서 파일 삭제</string>
     <string name="file_list_seconds_ago">초 지남</string>
     <string name="file_list_empty">내용이 없습니다. 업로드할 수 있습니다!</string>
-    <string name="file_list_loading">불러오는 중...</string>
+    <string name="file_list_loading">불러오는 중&#8230;</string>
     <string name="file_list_no_app_for_file_type">파일 형식의 앱을 찾을 수 없음</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
     <string name="upload_list_empty">업로드 없음</string>
@@ -96,7 +95,7 @@
     <string name="common_back">뒤로</string>
     <string name="common_save_exit">저장 &amp; 종료</string>
     <string name="common_error">오류</string>
-    <string name="common_loading">불러오는 중...</string>
+    <string name="common_loading">불러오는 중&#8230;</string>
     <string name="common_unknown">알 수 없음</string>
     <string name="common_error_unknown">알 수 없는 오류</string>
     <string name="common_pending">대기 중</string>
@@ -105,9 +104,9 @@
     <string name="delete_account">계정 삭제</string>
     <string name="delete_account_warning">%s 계정을 삭제하시겠습니까?\n\n삭제는 취소 할 수 없습니다.</string>
     <string name="create_account">계정 만들기</string>
-    <string name="upload_chooser_title">다음에서 업로드...</string>
+    <string name="upload_chooser_title">다음에서 업로드&#8230;</string>
     <string name="uploader_info_dirname">폴더 이름</string>
-    <string name="uploader_upload_in_progress_ticker">업로드 중...</string>
+    <string name="uploader_upload_in_progress_ticker">업로드 중&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% %2$s 업로드 중</string>
     <string name="uploader_upload_succeeded_ticker">업로드 성공</string>
     <string name="uploader_upload_succeeded_content_single">%1$s 업로드됨</string>
@@ -131,7 +130,7 @@
     <string name="uploads_view_upload_status_unknown_fail">알 수 없는 오류</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">와이파이 연결을 위해 대기 중</string>
     <string name="uploads_view_later_waiting_to_upload">업로드 대기 중</string>
-    <string name="downloader_download_in_progress_ticker">다운로드 중...</string>
+    <string name="downloader_download_in_progress_ticker">다운로드 중&#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% %2$s 다운로드 중</string>
     <string name="downloader_download_succeeded_ticker">다운로드 성공</string>
     <string name="downloader_download_succeeded_content">%1$s 다운로드</string>
@@ -240,7 +239,7 @@
     <string name="wait_checking_credentials">저장된 인증 확인</string>
     <string name="filedisplay_unexpected_bad_get_content">예기치 않은 문제; 다른 앱에서 파일을 선택하십시오</string>
     <string name="filedisplay_no_file_selected">선택한 파일 없음</string>
-    <string name="activity_chooser_title">다음으로 링크 보내기...</string>
+    <string name="activity_chooser_title">다음으로 링크 보내기&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
     
     <string name="oauth_check_onoff">oAuth2로 로그인하기</string> 
@@ -322,8 +321,6 @@
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생하였습니다.</string>
     <string name="network_error_connect_timeout_exception">서버를 기다리는 동안 오류가 발생하였습니다; 작업을 완료 할 수 없습니다</string>
     <string name="network_host_not_available">작업을 완료 할 수 없습니다; 서버를 사용할 수 없습니다</string>
-    <string name="empty" />
-
     <string name="forbidden_permissions">%s 권한이 없습니다</string>
     <string name="forbidden_permissions_rename">이 파일의 이름을 바꿀</string>
     <string name="forbidden_permissions_delete">이 파일을 삭제할</string>
@@ -343,7 +340,7 @@
 	<string name="log_send_history_button">내역 전송</string>
 	<string name="log_send_no_mail_app">로그를 전송할 앱이 없습니다. 메일 앱을 설치하십시오.</string>
 	<string name="log_send_mail_subject">%1$s Android 앱 로그</string>
-	<string name="log_progress_dialog_text">데이터 불러오는 중...</string>
+	<string name="log_progress_dialog_text">데이터 불러오는 중&#8230;</string>
 
 	<string name="saml_authentication_required_text">인증 필요함</string>
 	<string name="saml_authentication_wrong_pass">잘못된 암호</string>
@@ -391,8 +388,8 @@
     <string name="file_list__footer__files">파일 %1$d개</string>
     <string name="file_list__footer__files_and_folder">파일 %1$d개, 폴더 1개</string>
     <string name="file_list__footer__files_and_folders">파일 %1$d개, 폴더 %2$d개</string>
-    <string name="prefs_instant_behaviour_dialogTitle">원래 파일은...</string>
-    <string name="prefs_instant_behaviour_title">원래 파일은...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">원래 파일은&#8230;</string>
+    <string name="prefs_instant_behaviour_title">원래 파일은&#8230;</string>
     <string name="upload_copy_files">파일 복사</string>
     <string name="upload_move_files">파일 이동</string>
     <string name="select_all">모두 선택</string>
@@ -460,10 +457,9 @@
     <string name="participate_beta_headline">베타 버전 테스트</string>
     <string name="participate_release_candidate_headline">릴리스 후보</string>
     <string name="participate_contribute_headline">적극적으로 기여</string>
-    <string name="move_to">(으)로 이동</string>
-    <string name="copy_to">(으)로 복사</string>
+    <string name="move_to">(으)로 이동&#8230;</string>
+    <string name="copy_to">(으)로 복사&#8230;</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d 선택</item>
     </plurals>
-
     </resources>

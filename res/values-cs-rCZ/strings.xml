@@ -61,7 +61,6 @@
     <string name="sync_string_files">Soubory</string>
     <string name="setup_btn_connect">Připojit</string>
     <string name="uploader_btn_upload_text">Nahrát</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Vytvořit textový soubor</string>
     <string name="uploader_top_message">Vybrat adresář k nahrávání</string>
     <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
     <string name="uploader_wrn_no_account_text">Na tomto přístroji nejsou žádné %1$s účty. Nejdříve prosím zadejte účet.</string>
@@ -80,7 +79,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Uploadovat a vymazat ze zdroje</string>
     <string name="file_list_seconds_ago">před pár sekundami</string>
     <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
-    <string name="file_list_loading">Načítání...</string>
+    <string name="file_list_loading">Načítání&#8230;</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
     <string name="upload_list_empty">Nahraná data nejsou dostupná.</string>
@@ -109,7 +108,7 @@
     <string name="common_save">Uložit</string>
     <string name="common_save_exit">Uložit &amp; ukončit</string>
     <string name="common_error">Chyba</string>
-    <string name="common_loading">Načítání ...</string>
+    <string name="common_loading">Načítání &#8230;</string>
     <string name="common_unknown">neznámý</string>
     <string name="common_error_unknown">Neznámá chyba</string>
     <string name="common_pending">Čekající</string>
@@ -118,9 +117,9 @@
     <string name="delete_account">Odebrat účet</string>
     <string name="delete_account_warning">Smazat účet %s?\n\nTuto akci nelze vzít zpět.</string>
     <string name="create_account">Vytvořit účet</string>
-    <string name="upload_chooser_title">Nahrát z ...</string>
+    <string name="upload_chooser_title">Nahrát z &#8230;</string>
     <string name="uploader_info_dirname">Název adresáře</string>
-    <string name="uploader_upload_in_progress_ticker">Odesílám...</string>
+    <string name="uploader_upload_in_progress_ticker">Odesílám &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Odesílám %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Odesílání úspěšné</string>
     <string name="uploader_upload_succeeded_content_single">%1$s nahráno</string>
@@ -146,7 +145,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Neznámá chyba</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Čekání na wifi připojení</string>
     <string name="uploads_view_later_waiting_to_upload">Čekání na nahrávání</string>
-    <string name="downloader_download_in_progress_ticker">Stahuji ...</string>
+    <string name="downloader_download_in_progress_ticker">Stahuji &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Stahuji %2$s</string>
     <string name="downloader_download_succeeded_ticker">Stažení úspěšné</string>
     <string name="downloader_download_succeeded_content">%1$s staženo</string>
@@ -204,8 +203,8 @@
     <string name="media_play_pause_description">Tlačítko Přehrát/Pozastavit</string>
     <string name="media_forward_description">Tlačítko Rychle vpřed</string>
 
-	<string name="auth_getting_authorization">Příjem autorizace ...</string>
-	<string name="auth_trying_to_login">Pokus o přihlášení ...</string>
+	<string name="auth_getting_authorization">Příjem autorizace &#8230;</string>
+	<string name="auth_trying_to_login">Pokus o přihlášení &#8230;</string>
 	<string name="auth_no_net_conn_title">Žádné síťové spojení</string>
 	<string name="auth_nossl_plain_ok_title">Zabezpečené spojení není k dispozici</string>
 	<string name="auth_connection_established">Spojení navázáno</string>
@@ -259,7 +258,7 @@
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="filedisplay_unexpected_bad_get_content">Neočekávaný problém - zkuste zvolit soubor jinou aplikací</string>
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
-    <string name="activity_chooser_title">Odeslat odkaz ...</string>
+    <string name="activity_chooser_title">Odeslat odkaz &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
     
     <string name="oauth_check_onoff">Přihlásit se s oAuth2</string> 
@@ -346,8 +345,6 @@ správce systému.</string>
     <string name="network_error_socket_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
     <string name="network_error_connect_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
     <string name="network_host_not_available">Operace nemohla být dokončena, server je nedostupný</string>
-    <string name="empty" />
-
     <string name="forbidden_permissions">Nemáte oprávnění %s</string>
     <string name="forbidden_permissions_rename">přejmenovat tento soubor</string>
     <string name="forbidden_permissions_delete">smazat tento soubor</string>
@@ -389,7 +386,7 @@ správce systému.</string>
 	<string name="log_send_history_button">Historie odesílání</string>
 	<string name="log_send_no_mail_app">Nenalezena aplikace pro odesílání logů. Nainstalujte prosím emailovou aplikaci.</string>
 	<string name="log_send_mail_subject">%1$s logy aplikace pro Android</string>
-	<string name="log_progress_dialog_text">Nahrávání dat ...</string>
+	<string name="log_progress_dialog_text">Nahrávání dat &#8230;</string>
 
 	<string name="saml_authentication_required_text">Vyžadováno přihlášení</string>
 	<string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
@@ -461,7 +458,7 @@ správce systému.</string>
     <string name="share_via_link_edit_permission_label">Povolit úpravy</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrýt seznam souborů</string>
     <string name="share_get_public_link_button">Vytvořit odkaz</string>
-    <string name="share_with_title">Sdílet s ...</string>
+    <string name="share_with_title">Sdílet s &#8230;</string>
     <string name="share_with_edit_title">Sdílet s %1$s</string>
 
     <string name="share_search">Hledat</string>
@@ -524,15 +521,29 @@ správce systému.</string>
     <string name="folder_sync_no_results">Nebyly nalezeny žádné adresáře médií.</string>
     <string name="folder_sync_preferences">Nastavení automatického nahrávání</string>
     <string name="folder_sync_settings">Nastavení</string>
+    <string name="folder_sync_new_info">Okamžité nahrávání dat bylo kompletně předěláno. Navštivte hlavní menu a nakonfigurujte automatické nahrávání svých dat. Omlouváme se za nepříjemnosti.\n\nUžívejte si nové a rozšířené možnosti nahrávání dat!</string>
     <string name="folder_sync_preferences_folder_path">Pro %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">vybráno %d</item>
         <item quantity="few">vybráno %d</item>
         <item quantity="other">vybráno %d</item>
     </plurals>
-
     <string name="storage_description_default">Výchozí</string>
     <string name="storage_description_sd_no">SD karta %1$d</string>
     <string name="storage_description_unknown">Neznámý</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Co je v Nextcloudu nového</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Bezpečné místo pro všechna vaše data</string>
+    <string name="welcome_feature_1_text">Přistupujte, sdílejte a ochraňte své soubory doma, ale i ve své firmě</string>
+
+    <string name="welcome_feature_2_title">Multi účet</string>
+    <string name="welcome_feature_2_text">Připojte se ke všem svým cloudům</string>
+
+    <string name="welcome_feature_3_title">Okamžité nahrání</string>
+    <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
+
+    <string name="whats_new_skip">Přeskočit</string>
 </resources>

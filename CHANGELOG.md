@@ -1,4 +1,4 @@
-## 1.4.0 (November)
+## 1.4.0 (December 8, 2016)
 
 - External SD card support
 - Auto Upload (Android 7+)
@@ -11,6 +11,7 @@
 - Sort favorite files first in list
 - Account switcher optimizations
 - Bugfixes and design improvements
+- Update library to 1.0.9
 
 ## 1.3.1 (September 20, 2016)
 
@@ -65,4 +66,4 @@
 
 ## 1.0.0 (June 12, 2016)
 
-- initial release of the Nextcloud Android app 
+- Initial release of the Nextcloud Android app 

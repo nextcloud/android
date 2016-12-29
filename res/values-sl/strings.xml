@@ -60,7 +60,6 @@
     <string name="sync_string_files">Datoteke</string>
     <string name="setup_btn_connect">Poveži</string>
     <string name="uploader_btn_upload_text">Pošlji</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Nova besedilna datoteka</string>
     <string name="uploader_top_message">Izberi mapo za nalaganje</string>
     <string name="uploader_wrn_no_account_title">Uporabniškega računa ni mogoče najti</string>
     <string name="uploader_wrn_no_account_text">Za %1$s ni določenega računa. Pred nadaljevanjem ga je treba ustvariti.</string>
@@ -79,7 +78,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Pobriši datoteko iz izvorne mape</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
     <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
-    <string name="file_list_loading">Poteka nalaganje ...</string>
+    <string name="file_list_loading">Poteka nalaganje&#8230;</string>
     <string name="file_list_no_app_for_file_type">Ni programa za prikaz te vrste datoteke!</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
     <string name="upload_list_empty">Ni posodobitev</string>
@@ -107,7 +106,7 @@
     <string name="common_back">Nazaj</string>
     <string name="common_save_exit">Shrani in končaj</string>
     <string name="common_error">Napaka</string>
-    <string name="common_loading">Nalaganje ...</string>
+    <string name="common_loading">Nalaganje &#8230;</string>
     <string name="common_unknown">neznano</string>
     <string name="common_error_unknown">Neznana napaka</string>
     <string name="common_pending">V teku</string>
@@ -116,9 +115,9 @@
     <string name="delete_account">Odstrani račun</string>
     <string name="delete_account_warning">Pobrišem račun %s?\n\nBrisanja ne moreš preklicati.</string>
     <string name="create_account">Ustvari račun</string>
-    <string name="upload_chooser_title">Pošlji datoteko iz …</string>
+    <string name="upload_chooser_title">Pošlji datoteko iz &#8230;</string>
     <string name="uploader_info_dirname">Ime mape</string>
-    <string name="uploader_upload_in_progress_ticker">Pošiljanje …</string>
+    <string name="uploader_upload_in_progress_ticker">Pošiljanje &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Pošiljanje %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Pošiljanje je uspešno končano</string>
     <string name="uploader_upload_succeeded_content_single">%1$s: poslano v oblak</string>
@@ -144,7 +143,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Neznana napaka</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Čakanje na povezavo WiFi ...</string>
     <string name="uploads_view_later_waiting_to_upload">Čakanje na pošiljanje</string>
-    <string name="downloader_download_in_progress_ticker">Prejemanje …</string>
+    <string name="downloader_download_in_progress_ticker">Prejemanje &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Prejemanje %2$s</string>
     <string name="downloader_download_succeeded_ticker">Prejemanje je uspešno končano</string>
     <string name="downloader_download_succeeded_content">%1$s: prejeto iz oblaka</string>
@@ -202,8 +201,8 @@
     <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
     <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
 
-	<string name="auth_getting_authorization">Pridobivanje podatkov overitve ...</string>
-	<string name="auth_trying_to_login">Poteka povezovanje v oblak ...</string>
+	<string name="auth_getting_authorization">Pridobivanje podatkov overitve &#8230;</string>
+	<string name="auth_trying_to_login">Poteka povezovanje v oblak &#8230;</string>
 	<string name="auth_no_net_conn_title">Ni omrežne povezave</string>
 	<string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
 	<string name="auth_connection_established">Povezava je vzpostavljena</string>
@@ -258,7 +257,7 @@
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="filedisplay_unexpected_bad_get_content">Prišlo je do nepričakovane napake. Poskusite datoteko izbrati z drugim programom.</string>
     <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
-    <string name="activity_chooser_title">Pošlji povezavo ...</string>
+    <string name="activity_chooser_title">Pošlji povezavo &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
     
     <string name="oauth_check_onoff">Prijava  z oAuth2</string> 
@@ -343,8 +342,6 @@
     <string name="network_error_socket_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni mogoče izvesti.</string>
     <string name="network_error_connect_timeout_exception">Med čakanjem na vzpostavitev povezave s strežnikom je prišlo do napake. Zahtevanega dejanja ni bilo mogoče končati.</string>
     <string name="network_host_not_available">Zahtevanega dejanja ni bilo mogoče končati. Strežnik ni dosegljiv.</string>
-    <string name="empty" />
-
     <string name="forbidden_permissions">Ni ustreznega dovoljenja %s</string>
     <string name="forbidden_permissions_rename">za preimenovanje datoteke.</string>
     <string name="forbidden_permissions_delete">za izbris datoteke.</string>
@@ -364,7 +361,7 @@
 	<string name="log_send_history_button">Pošlji zgodovino</string>
 	<string name="log_send_no_mail_app">Ni programa za pošiljanje dnevniških datotek. Namestite vsaj poštni program.</string>
 	<string name="log_send_mail_subject">%1$s dnevniki programa</string>
-	<string name="log_progress_dialog_text">Poteka nalaganje podatkov ...</string>
+	<string name="log_progress_dialog_text">Poteka nalaganje podatkov &#8230;</string>
 
 	<string name="saml_authentication_required_text">Zahtevana je overitev</string>
 	<string name="saml_authentication_wrong_pass">Napačno geslo</string>
@@ -432,7 +429,7 @@
     <string name="share_via_link_edit_permission_label">Dovoli urejanje</string>
     <string name="share_via_link_hide_file_listing_permission_label">Skrij spisek datotek</string>
     <string name="share_get_public_link_button">Pridobi povezavo</string>
-    <string name="share_with_title">Omogoči souporabo z ...</string>
+    <string name="share_with_title">Omogoči souporabo z &#8230;</string>
     <string name="share_with_edit_title">Omogoči souporabo z %1$s</string>
 
     <string name="share_search">Poišči</string>
@@ -490,5 +487,4 @@
         <item quantity="few">%d izbranih</item>
         <item quantity="other">%d izbranih</item>
     </plurals>
-
     </resources>

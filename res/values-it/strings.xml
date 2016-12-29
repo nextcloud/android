@@ -61,7 +61,6 @@
     <string name="sync_string_files">File</string>
     <string name="setup_btn_connect">Connetti</string>
     <string name="uploader_btn_upload_text">Carica</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Crea file di testo</string>
     <string name="uploader_top_message">Scegli la cartella di caricamento</string>
     <string name="uploader_wrn_no_account_title">Nessun account trovato</string>
     <string name="uploader_wrn_no_account_text">Non ci sono account %1$s sul tuo dispositivo. Configura prima un account.</string>
@@ -80,7 +79,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina il file dalla cartella di origine</string>
     <string name="file_list_seconds_ago">secondi fa</string>
     <string name="file_list_empty">Non c\'è niente qui. Carica qualcosa!</string>
-    <string name="file_list_loading">Caricamento in corso...</string>
+    <string name="file_list_loading">Caricamento in corso&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione trovata per il tipo di file!</string>
     <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
     <string name="upload_list_empty">Nessun caricamento disponibile.</string>
@@ -106,9 +105,10 @@
     <string name="common_cancel_sync">Annulla sincronizzazione</string>
     <string name="common_cancel">Annulla</string>
     <string name="common_back">Indietro</string>
+    <string name="common_save">Salva</string>
     <string name="common_save_exit">Salva ed esci</string>
     <string name="common_error">Errore</string>
-    <string name="common_loading">Caricamento in corso...</string>
+    <string name="common_loading">Caricamento in corso &#8230;</string>
     <string name="common_unknown">sconosciuto</string>
     <string name="common_error_unknown">Errore sconosciuto</string>
     <string name="common_pending">In corso</string>
@@ -117,9 +117,9 @@
     <string name="delete_account">Rimuovi account</string>
     <string name="delete_account_warning">Vuoi eliminare l\'account %s?\n\nL\'eliminazione non può essere annullata.</string>
     <string name="create_account">Crea account</string>
-    <string name="upload_chooser_title">Carica file da...</string>
+    <string name="upload_chooser_title">Carica file da &#8230;</string>
     <string name="uploader_info_dirname">Nome della cartella</string>
-    <string name="uploader_upload_in_progress_ticker">Caricamento in corso...</string>
+    <string name="uploader_upload_in_progress_ticker">Caricamento in corso &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Caricamento di %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Caricamento effettuato</string>
     <string name="uploader_upload_succeeded_content_single">%1$s caricato</string>
@@ -145,7 +145,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Errore sconosciuto</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">In attesa della connettività wifi</string>
     <string name="uploads_view_later_waiting_to_upload">In attesa di caricamento</string>
-    <string name="downloader_download_in_progress_ticker">Scaricamento in corso...</string>
+    <string name="downloader_download_in_progress_ticker">Scaricamento in corso &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Scaricamento di %2$s</string>
     <string name="downloader_download_succeeded_ticker">Scaricamento effettuato</string>
     <string name="downloader_download_succeeded_content">%1$s scaricato</string>
@@ -203,8 +203,8 @@
     <string name="media_play_pause_description">Pulsante Riproduci o pausa</string>
     <string name="media_forward_description">Pulsante Avanti veloce</string>
 
-	<string name="auth_getting_authorization">Recupero delle autorizzazioni in corso...</string>
-	<string name="auth_trying_to_login">Tentativo di accesso in corso...</string>
+	<string name="auth_getting_authorization">Recupero delle autorizzazioni in corso &#8230;</string>
+	<string name="auth_trying_to_login">Tentativo di accesso in corso &#8230;</string>
 	<string name="auth_no_net_conn_title">Nessuna connessione di rete</string>
 	<string name="auth_nossl_plain_ok_title">Connessione sicura non disponibile.</string>
 	<string name="auth_connection_established">Connessione stabilita</string>
@@ -212,7 +212,7 @@
 	<string name="auth_not_configured_title">Configurazione non corretta del server</string>
 	<string name="auth_account_not_new">Esiste già un account su questo dispositivo per lo stesso utente e server</string>
 	<string name="auth_account_not_the_same">L\'utente digitato non corrisponde all\'utente di questo account</string>
-	<string name="auth_unknown_error_title">Errore sconosciuto!</string>
+	<string name="auth_unknown_error_title">Si è verificato un errore sconosciuto!</string>
 	<string name="auth_unknown_host_title">Impossibile trovare l\'host</string>
 	<string name="auth_incorrect_path_title">Istanza del server non trovata</string>
 	<string name="auth_timeout_title">Il server ha richiesto troppo tempo per rispondere</string>
@@ -259,7 +259,7 @@
     <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inatteso; prova un\'altra applicazione per selezionare il file</string>
     <string name="filedisplay_no_file_selected">Non è stato selezionato alcun file</string>
-    <string name="activity_chooser_title">Invia collegamento a...</string>
+    <string name="activity_chooser_title">Invia collegamento a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
     
     <string name="oauth_check_onoff">Accesso con oAuth2</string> 
@@ -316,6 +316,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
     <string name="prefs_instant_upload_path_title">Cartella caricamenti istantanei</string>
+    <string name="prefs_folder_sync_local_path_title">Cartella locale</string>
+    <string name="prefs_folder_sync_remote_path_title">Cartella remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
 
@@ -344,8 +346,6 @@
     <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa della risposta del server, l\'operazione non è stata completata</string>
     <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa della risposta del server, l\'operazione non è stata completata</string>
     <string name="network_host_not_available">L\'operazione non è stata completata, il server non è disponibile</string>
-    <string name="empty" />
-
     <string name="forbidden_permissions">Non hai i permessi %s</string>
     <string name="forbidden_permissions_rename">per rinominare questo file</string>
     <string name="forbidden_permissions_delete">per eliminare questo file</string>
@@ -387,7 +387,7 @@
 	<string name="log_send_history_button">Cronologia invii</string>
 	<string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per l\'invio dei log. Installa un client di posta.</string>
 	<string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
-	<string name="log_progress_dialog_text">Caricamento dati in corso...</string>
+	<string name="log_progress_dialog_text">Caricamento dati in corso &#8230;</string>
 
 	<string name="saml_authentication_required_text">Autenticazione richiesta</string>
 	<string name="saml_authentication_wrong_pass">Password errata</string>
@@ -435,8 +435,8 @@
     <string name="file_list__footer__files">%1$d file</string>
     <string name="file_list__footer__files_and_folder">%1$d file, 1 cartella</string>
     <string name="file_list__footer__files_and_folders">%1$d file, %2$d cartelle</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Il fil originale sarà&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Il fil originale sarà&#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Il file originale sarà&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Il file originale sarà&#8230;</string>
     <string name="upload_copy_files">Copia file</string>
     <string name="upload_move_files">Sposta file</string>
     <string name="select_all">Seleziona tutto</string>
@@ -459,7 +459,7 @@
     <string name="share_via_link_edit_permission_label">Consenti la modifica</string>
     <string name="share_via_link_hide_file_listing_permission_label">Nascondi elenco dei file</string>
     <string name="share_get_public_link_button">Ottieni collegamento</string>
-    <string name="share_with_title">Condividi con...</string>
+    <string name="share_with_title">Condividi con &#8230;</string>
     <string name="share_with_edit_title">Condividi con %1$s</string>
 
     <string name="share_search">Cerca</string>
@@ -479,7 +479,7 @@
     <string name="edit_share_unshare">Interrompi la condivisione</string>
     <string name="edit_share_done">completato</string>
 
-    <string name="action_retry_uploads">Riprova caricamenti falliti</string>
+    <string name="action_retry_uploads">Riprova caricamenti non riusciti</string>
     <string name="action_clear_failed_uploads">Cancella i caricamenti non riusciti</string>
     <string name="action_clear_successful_uploads">Cancella i caricamenti avvenuti</string>
     <string name="action_clear_finished_uploads">Cancella tutti i caricamenti completati</string>
@@ -500,6 +500,7 @@
     <string name="actionbar_search">Cerca</string>
     <string name="files_drop_not_supported">Questa è una funzionalità di Nextcloud, aggiorna.</string>
     <string name="learn_more">Scopri altro</string>
+    <string name="drawer_folder_sync">Carica automaticamente</string>
     <string name="drawer_participate">Partecipa</string>
     <string name="participate_testing_headline">Aiutaci nella fase di test</string>
     <string name="participate_testing_bug_text">Hai trovato un bug? Qualcosa di strano?</string>
@@ -519,13 +520,33 @@ o</string>
     <string name="participate_contribute_github_text">Contribuisci come sviluppatore, vedi &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> per i dettagli</string>
     <string name="move_to">Sposta in&#8230;</string>
     <string name="copy_to">Copia in&#8230;</string>
+    <string name="choose_remote_folder">Scegli la cartella&#8230;</string>
+    <string name="folder_sync_loading_folders">Caricamento cartelle&#8230;</string>
+    <string name="folder_sync_no_results">Nessuna cartella di file multimediali trovata.</string>
+    <string name="folder_sync_preferences">Preferenze di caricamento automatico</string>
+    <string name="folder_sync_settings">Impostazioni</string>
+    <string name="folder_sync_new_info">Il caricamento istantaneo è stato riscritto completamente. Vedi il menu principale e riconfigura il caricamento automatico. Ci dispiace per l\'inconveniente.\n\nGoditi le nuove ed estese capacità di caricamento automatico!</string>
+    <string name="folder_sync_preferences_folder_path">Per %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
     </plurals>
-
     <string name="storage_description_default">Predefinito</string>
     <string name="storage_description_sd_no">Scheda SD %1$d</string>
     <string name="storage_description_unknown">Sconosciuto</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Cosa c\'è di nuovo in Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Un posto sicuro per tutti i tuoi dati</string>
+    <string name="welcome_feature_1_text">Accedi, condividi e proteggi i tuoi file a casa e nella tua azienda</string>
+
+    <string name="welcome_feature_2_title">Account multipli</string>
+    <string name="welcome_feature_2_text">Collega tutti i tuoi cloud</string>
+
+    <string name="welcome_feature_3_title">Caricamento istantaneo</string>
+    <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
+
+    <string name="whats_new_skip">Salta</string>
 </resources>

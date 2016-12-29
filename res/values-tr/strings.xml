@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Hesaplar</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_passcode">Parola kod kilidi</string>
+    <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_instant_upload">Fotoğraflar anında yüklensin</string>
     <string name="prefs_instant_upload_summary">Kamera ile çekilen fotoğraflar anında yüklensin</string>
     <string name="prefs_instant_video_upload">Görüntüler anında yüklensin</string>
@@ -50,7 +51,7 @@
     <string name="prefs_remember_last_upload_location_summary">Son paylaşma yükleme konumu hatırlansın</string>
 
 	<string name="recommend_subject">%1$s uygulamasını akıllı telefonunuzda deneyin!</string>
-	<string name="recommend_text">Akıllı telefonunda %1$s kullanmanı öneriyorum!\\nBuradan indirebilirsin: %2$s</string>
+	<string name="recommend_text">Akıllı telefonunda %1$s kullanmanı öneriyorum!\nBuradan indirebilirsin: %2$s</string>
 
     <string name="auth_check_server">Sunucuyu denetle</string>
     <string name="auth_host_url">Sunucu adresi https://…</string>
@@ -60,15 +61,14 @@
     <string name="sync_string_files">Dosyalar</string>
     <string name="setup_btn_connect">Bağlan</string>
     <string name="uploader_btn_upload_text">Yükle</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Metin dosyası oluştur</string>
     <string name="uploader_top_message">Yüklenecek klasörü seçin</string>
     <string name="uploader_wrn_no_account_title">Herhangi bir hesap bulunamadı</string>
-    <string name="uploader_wrn_no_account_text">Cihazınızda herhangi bir %1$s hesabı yok. Lütfen önce bir hesap kurun.</string>
+    <string name="uploader_wrn_no_account_text">Aygıtınızda herhangi bir %1$s hesabı yok. Lütfen önce bir hesap kurun.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Kurulum</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Çıkış</string>
     <string name="uploader_error_title_no_file_to_upload">Yüklenecek bir dosya yok</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s bir metin parçasını dosya olarak yükleyemez.</string>
-    <string name="uploader_error_message_no_file_to_upload">Alınan veride geçerli bir dosya yok.</string>
+    <string name="uploader_error_message_no_file_to_upload">Alınan verilerde geçerli bir dosya bulunamadı.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Dosya yüklenemedi</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s alınan bir dosyayı okumaya yetkili değil</string>
     <string name="uploader_error_message_source_file_not_found">Karşıya yüklenecek dosya konumunda bulunamadı. Lütfen dosyanın var olduğundan emin olun.</string>
@@ -95,308 +95,335 @@
     <string name="filedetails_download">İndir</string>
     <string name="filedetails_sync_file">Eşitle</string>
     <string name="filedetails_renamed_in_upload_msg">Dosya adı, yükleme sırasında %1$s olarak değiştirildi</string>
-    <string name="list_layout">Liste yerleşimi</string>
+    <string name="list_layout">Liste düzeni</string>
     <string name="action_share">Paylaş</string>
     <string name="common_yes">Evet</string>
     <string name="common_no">Hayır</string>
     <string name="common_ok">Tamam</string>
     <string name="common_remove_upload">Yüklemeyi kaldır</string>
-    <string name="common_retry_upload">Yüklemeyi tekrar dene</string>
+    <string name="common_retry_upload">Yüklemeyi yeniden dene</string>
     <string name="common_cancel_sync">Eşitlemeyi iptal et</string>
     <string name="common_cancel">İptal</string>
     <string name="common_back">Geri</string>
-    <string name="common_save_exit">Kaydet ve çık</string>
+    <string name="common_save">Kaydet</string>
+    <string name="common_save_exit">Kaydet ve Çık</string>
     <string name="common_error">Hata</string>
-    <string name="common_loading">Yükleniyor...</string>
+    <string name="common_loading">Yükleniyor&#8230;</string>
     <string name="common_unknown">bilinmiyor</string>
     <string name="common_error_unknown">Bilinmeyen hata</string>
+    <string name="common_pending">Bekliyor</string>
     <string name="about_title">Hakkında</string>
     <string name="change_password">Parola değiştir</string>
     <string name="delete_account">Hesabı kaldır</string>
-    <string name="delete_account_warning">%s hesabı silinsin mi?\\n\\nSilme işlemi geri alınamaz.</string>
+    <string name="delete_account_warning">%s hesabı silinsin mi?\n\nSilme işlemi geri alınamaz.</string>
     <string name="create_account">Hesap oluştur</string>
-    <string name="upload_chooser_title">Şuradan yükle...</string>
+    <string name="upload_chooser_title">Şuradan yükle&#8230;</string>
     <string name="uploader_info_dirname">Klasör adı</string>
-    <string name="uploader_upload_in_progress_ticker">Yükleniyor...</string>
+    <string name="uploader_upload_in_progress_ticker">Yükleniyor&#8230;</string>
     <string name="uploader_upload_in_progress_content">%%%1$d Yüklenen: %2$s</string>
-    <string name="uploader_upload_succeeded_ticker">Yükleme başarılı</string>
+    <string name="uploader_upload_succeeded_ticker">Yüklendi</string>
     <string name="uploader_upload_succeeded_content_single">%1$s yüklendi</string>
-    <string name="uploader_upload_failed_ticker">Yükleme başarısız</string>
-    <string name="uploader_upload_failed_content_single">%1$s yüklenmesi tamamlanamadı</string>
-    <string name="uploader_upload_failed_credentials_error">Yükleme başarısız, tekrar oturum açmanız gerekli</string>
+    <string name="uploader_upload_failed_ticker">Yüklenemedi</string>
+    <string name="uploader_upload_failed_content_single">%1$s yüklemesi tamamlanamadı</string>
+    <string name="uploader_upload_failed_credentials_error">Yüklenemedi, yeniden oturum açmalısınız</string>
     <string name="uploads_view_title">Yüklemeler</string>
     <string name="uploads_view_group_current_uploads">Geçerli</string>
-    <string name="uploads_view_group_failed_uploads">Başarısız (Tekrar denemek için dokun)</string>
+    <string name="uploads_view_group_failed_uploads">Başarısız (yeniden denemek için dokunun)</string>
     <string name="uploads_view_group_finished_uploads">Yüklendi</string>
-    <string name="uploads_view_upload_status_succeeded">Tamamlanmış</string>
-    <string name="uploads_view_upload_status_cancelled">İptal edildi.</string>
-    <string name="uploads_view_upload_status_paused">Durduruldu.</string>
+    <string name="uploads_view_upload_status_succeeded">Tamamlandı</string>
+    <string name="uploads_view_upload_status_cancelled">İptal Edildi</string>
+    <string name="uploads_view_upload_status_paused">Duraklatıldı</string>
     <string name="uploads_view_upload_status_failed_connection_error">Bağlantı hatası</string>
-    <string name="uploads_view_upload_status_failed_retry">Yükleme kısa bir süre sonra tekrar denenecek</string>
-    <string name="uploads_view_upload_status_failed_credentials_error">Kimlik bilgi hatası</string>
+    <string name="uploads_view_upload_status_failed_retry">Yükleme kısa bir süre sonra yeniden denenecek</string>
+    <string name="uploads_view_upload_status_failed_credentials_error">Kimlik bilgileri hatası</string>
     <string name="uploads_view_upload_status_failed_folder_error">Klasör hatası</string>
     <string name="uploads_view_upload_status_failed_file_error">Dosya hatası</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Yerel dosya bulunamadı</string>
-    <string name="uploads_view_upload_status_failed_permission_error">Yetki hatası</string>
+    <string name="uploads_view_upload_status_failed_permission_error">İzin hatası</string>
     <string name="uploads_view_upload_status_conflict">Çakışma</string>
     <string name="uploads_view_upload_status_service_interrupted">Uygulama sonlandırıldı</string>
     <string name="uploads_view_upload_status_unknown_fail">Bilinmeyen hata</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">wifi bağlantısı bekleniyor</string>
-    <string name="uploads_view_later_waiting_to_upload">Yüklemek için bekliyor</string>
-    <string name="downloader_download_in_progress_ticker">İndiriliyor...</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">WiFi bağlantısı bekleniyor</string>
+    <string name="uploads_view_later_waiting_to_upload">Yüklenmeyi bekliyor</string>
+    <string name="downloader_download_in_progress_ticker">İndiriliyor&#8230;</string>
     <string name="downloader_download_in_progress_content">%%%1$d İndirilen: %2$s</string>
-    <string name="downloader_download_succeeded_ticker">İndirme başarılı</string>
-    <string name="downloader_download_succeeded_content">%1$s indirildi.</string>
-    <string name="downloader_download_failed_ticker">İndirme başarısız</string>
+    <string name="downloader_download_succeeded_ticker">İndirildi</string>
+    <string name="downloader_download_succeeded_content">%1$s indirildi</string>
+    <string name="downloader_download_failed_ticker">İndirilemedi</string>
     <string name="downloader_download_failed_content">%1$s indirmesi tamamlanamadı</string>
-    <string name="downloader_not_downloaded_yet">Henüz indirilemedi</string>
-    <string name="downloader_download_failed_credentials_error">İndirme başarısız, yeniden oturum açmalısınız</string>
+    <string name="downloader_not_downloaded_yet">Henüz indirilmemiş</string>
+    <string name="downloader_download_failed_credentials_error">İndirilemedi, yeniden oturum açmalısınız</string>
     <string name="common_choose_account">Hesap seçin</string>
-    <string name="sync_fail_ticker">Eşitleme başarısız</string>
-    <string name="sync_fail_ticker_unauthorized">Eşitleme başarısız, tekrar oturum açmanız gerekli</string>
+    <string name="sync_fail_ticker">Eşitlenemedi</string>
+    <string name="sync_fail_ticker_unauthorized">Eşitlenemedi, yeniden oturum açmalısınız</string>
     <string name="sync_fail_content">%1$s eşitlemesi tamamlanamadı</string>
-    <string name="sync_fail_content_unauthorized">%1$s için geçersiz parola</string>
-    <string name="sync_conflicts_in_favourites_ticker">Çakışma bulundu</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d eşit tut dosyası, eşitlenemedi</string>
-    <string name="sync_fail_in_favourites_ticker">Dosyaları eşit tut işlemi başarısız</string>
+    <string name="sync_fail_content_unauthorized">%1$s için parola geçersiz</string>
+    <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>
+    <string name="sync_conflicts_in_favourites_content">%1$d eşit tutma dosyası eşitlenemedi</string>
+    <string name="sync_fail_in_favourites_ticker">Dosyaları eşit tutma işlemi tamamlanamadı</string>
     <string name="sync_fail_in_favourites_content">%1$d dosya eşitlenemedi (%2$d çakışma)</string>
-    <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutuldu</string>
+    <string name="sync_foreign_files_forgotten_ticker">Bazı yerel dosyalar unutulmuş</string>
     <string name="sync_foreign_files_forgotten_content">%2$s klasöründeki %1$d dosya şuraya kopyalanamadı</string>
-    <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, bu aygıttan yüklenen dosyalar bir dosya birden fazla hesapla eşitlendiğinde veri kaybının önlenebilmesi için %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlenmesi sırasında bu işlemin tamamlanmasını engelleyen bir hata oluştu. Dosyayı/dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilirsiniz veya dosyayı/dosyaları %1$s dizinine taşıyıp %4$s bağlantılarını koruyabilirsiniz.\n\nAşağıda listelenenler yerel dosyalar ve bağlı oldukları %5$s içerisindeki uzak dosyalardır.</string>
-    <string name="sync_current_folder_was_removed">%1$s klasörü artık mevcut değil.</string>
+    <string name="sync_foreign_files_forgotten_explanation">1.3.16 sürümünden sonra, veri kaybının önlenebilmesi için bu aygıttan yüklenen dosyalar, bir dosya birden fazla hesapla eşitlendiğinde %1$s yerel klasörüne kopyalanır.\n\nBu değişiklikten dolayı, bu uygulamanın yüklenmiş tüm önceki sürümündeki dosyalar %2$s klasörüne kopyalandı. Ancak hesap eşitlemesi sırasında bu işlemin tamamlanmasını engelleyen bir hata oluştu. Dosyaları olduğu gibi bırakabilir ve %3$s bağlantısını kaldırabilir ya da dosyaları %1$s klasörüne taşıyıp %4$s bağlantısını koruyabilirsiniz.\n\nYerel dosyaları ve bağlı oldukları %5$s içindeki uzak dosyaların listesini aşağıda görebilirsiniz.</string>
+    <string name="sync_current_folder_was_removed">%1$s klasörü artık yok</string>
     <string name="foreign_files_move">Tümünü taşı</string>
     <string name="foreign_files_success">Tüm dosyalar taşındı</string>
     <string name="foreign_files_fail">Bazı dosyalar taşınamadı</string>
     <string name="foreign_files_local_text">Yerel: %1$s</string>
     <string name="foreign_files_remote_text">Uzak: %1$s</string>
-    <string name="upload_query_move_foreign_files">Seçili dosyaları %1$s klasörüne kopyalamak için yeterince alan yok. Bunun yerine taşımak ister misiniz?</string>
-    <string name="pass_code_enter_pass_code">Lütfen parola kodunuzu girin</string>
+    <string name="upload_query_move_foreign_files">Seçili dosyaları %1$s klasörüne kopyalamak için yeterli alan yok. Kopyalamak yerine dosyaları taşımak ister misiniz?</string>
+    <string name="pass_code_enter_pass_code">Lütfen parolanızı yazın</string>
     
-    <string name="pass_code_configure_your_pass_code">Parola kodunuzu girin</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Parola kodu uygulama her başlatıldığında sorulacaktır</string>
-    <string name="pass_code_reenter_your_pass_code">Lütfen parola kodunu yeniden girin</string>
-    <string name="pass_code_remove_your_pass_code">Parola kodunuzu kaldırın</string>
-    <string name="pass_code_mismatch">Parola kodları aynı değil</string>
-    <string name="pass_code_wrong">Hatalı parola kodu</string>
-    <string name="pass_code_removed">Parola kodu kaldırıldı</string>
-    <string name="pass_code_stored">Parola kodu depolandı</string>
+    <string name="pass_code_configure_your_pass_code">Parolanızı yazın</string>
+    <string name="pass_code_configure_your_pass_code_explanation">Parola uygulama her başlatıldığında sorulacak</string>
+    <string name="pass_code_reenter_your_pass_code">Lütfen parolanızı yeniden yazın</string>
+    <string name="pass_code_remove_your_pass_code">Parolanızı kaldırın</string>
+    <string name="pass_code_mismatch">Parola ile onayı aynı değil</string>
+    <string name="pass_code_wrong">Parola hatalı</string>
+    <string name="pass_code_removed">Parola kaldırıldı</string>
+    <string name="pass_code_stored">Parola depolandı</string>
     
-    <string name="media_notif_ticker">%1$s müzik çalar</string>
+    <string name="media_notif_ticker">%1$s müzik oynatıcı</string>
     <string name="media_state_playing">%1$s (oynatılıyor)</string>
     <string name="media_state_loading">%1$s (yükleniyor)</string>
     <string name="media_event_done">%1$s oynatma tamamlandı</string>
-    <string name="media_err_nothing_to_play">Herhangi bir ortam ögesi bulunamadı</string>
-    <string name="media_err_no_account">Tanımlı hesap yok</string>
+    <string name="media_err_nothing_to_play">Herhangi bir ortam dosyası bulunamadı</string>
+    <string name="media_err_no_account">Herhangi bir hesap belirtilmemiş</string>
     <string name="media_err_not_in_owncloud">Dosya geçerli bir hesapta değil</string>
-    <string name="media_err_unsupported">Ortam kod çözücü desteklenmiyor</string>
-    <string name="media_err_io">Ortam ögesi okunamadı</string>
-    <string name="media_err_malformed">Ortam ögesi doğru bir şekilde kodlanmamış</string>
+    <string name="media_err_unsupported">Ortam kod çözücüsü desteklenmiyor</string>
+    <string name="media_err_io">Ortam dosyası okunamadı</string>
+    <string name="media_err_malformed">Ortam dosyası doğru şekilde kodlanmamış</string>
     <string name="media_err_timeout">Oynatmaya çalışılırken zaman aşımına uğradı</string>
-    <string name="media_err_invalid_progressive_playback">Ortam ögesi akışı yapılamıyor</string>
-    <string name="media_err_unknown">Ortam dosyası mevcut ortam oynatıcı ile çalınamaz</string>
-    <string name="media_err_security_ex">%1$s oynatılmaya çalışılırken güvenlik hatası oluştu</string>
-    <string name="media_err_io_ex">%1$s oynatılmaya çalışılırken girdi hatası oluştu</string>
-    <string name="media_err_unexpected">%1$s oynatılmaya çalışılırken beklenmeyen bir hata oluştu</string>
-    <string name="media_rewind_description">Başa sar düğmesi</string>
-    <string name="media_play_pause_description">Oynat veya duraklat düğmesi</string>
-    <string name="media_forward_description">Hızlı ileri düğmesi</string>
+    <string name="media_err_invalid_progressive_playback">Ortam dosyası akışı sağlanamadı</string>
+    <string name="media_err_unknown">Ortam dosyası yüklü ortam oynatıcı ile oynatılamıyor</string>
+    <string name="media_err_security_ex">%1$s oynatılmaya çalışılırken bir güvenlik sorunu çıktı</string>
+    <string name="media_err_io_ex">%1$s oynatılmaya çalışılırken bir giriş sorunu çıktı</string>
+    <string name="media_err_unexpected">%1$s oynatılmaya çalışılırken beklenmeyen bir sorun çıktı</string>
+    <string name="media_rewind_description">Geri Alma Düğmesi</string>
+    <string name="media_play_pause_description">Oynatma ya da Duraklatma Düğmesi</string>
+    <string name="media_forward_description">İleri Alma Düğmesi</string>
 
-	<string name="auth_getting_authorization">Kimlik doğrulama alınıyor...</string>
-	<string name="auth_trying_to_login">Oturum açmaya çalışılıyor…</string>
+	<string name="auth_getting_authorization">Kimlik doğrulaması alınıyor&#8230;</string>
+	<string name="auth_trying_to_login">Oturum açılmaya çalışılıyor&#8230;</string>
 	<string name="auth_no_net_conn_title">Ağ bağlantısı yok</string>
-	<string name="auth_nossl_plain_ok_title">Güvenli bağlantı mevcut değil.</string>
+	<string name="auth_nossl_plain_ok_title">Güvenli bağlantı kullanılamıyor.</string>
 	<string name="auth_connection_established">Bağlantı kuruldu</string>
 	<string name="auth_testing_connection">Bağlantı sınanıyor</string>
-	<string name="auth_not_configured_title">Hatalı sunucu yapılandırması</string>
-	<string name="auth_account_not_new">Cihazda aynı kullanıcı adı ve sunucu için bir hesap zaten mevcut</string>
-	<string name="auth_account_not_the_same">Girilen kullanıcı bu hesabın kullanıcısı ile eşleşmiyor</string>
-	<string name="auth_unknown_error_title">Bilinmeyen hata oluştu!</string>
-	<string name="auth_unknown_host_title">Ana makine bulunamadı</string>
-	<string name="auth_incorrect_path_title">Sunucu örneği bulunamadı</string>
-	<string name="auth_timeout_title">Sunucu çok geç cevap veriyor</string>
-	<string name="auth_incorrect_address_title">Yanlış sunucu adresi biçimi</string>
-	<string name="auth_ssl_general_error_title">SSL başlatma başarısız</string>
-	<string name="auth_ssl_unverified_server_title">SSL sunucu kimliği doğrulanamadı</string>
-	<string name="auth_bad_oc_version_title">Bilinmeyen sunucu sürümü</string>
+	<string name="auth_not_configured_title">Sunucu ayarları hatalı</string>
+	<string name="auth_account_not_new">Aygıt üzerinde aynı kullanıcı adı ve sunucu için bir hesap zaten var</string>
+	<string name="auth_account_not_the_same">Yazdığınız kullanıcı adı bu hesabın kullanıcı adı ile eşleşmiyor</string>
+	<string name="auth_unknown_error_title">Bilinmeyen bir sorun çıktı!</string>
+	<string name="auth_unknown_host_title">Sunucu bulunamadı</string>
+	<string name="auth_incorrect_path_title">Sunucu kopyası bulunamadı</string>
+	<string name="auth_timeout_title">Sunucu çok geç yanıt veriyor</string>
+	<string name="auth_incorrect_address_title">Sunucu adresi biçimi hatalı</string>
+	<string name="auth_ssl_general_error_title">SSL başlatılamadı</string>
+	<string name="auth_ssl_unverified_server_title">SSL sunucusunun kimliği doğrulanamadı</string>
+	<string name="auth_bad_oc_version_title">Sunucu sürümü anlaşılamadı</string>
 	<string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
-	<string name="auth_secure_connection">Güvenli bağlantı sağlandı</string>
-	<string name="auth_unauthorized">Hatalı kullanıcı adı veya parola</string>
-	<string name="auth_oauth_error">Kimlik doğrulama başarısız oldu</string>
-	<string name="auth_oauth_error_access_denied">Erişim, kimlik doğrulama sunucusu tarafından reddedildi</string>
-	<string name="auth_wtf_reenter_URL">Beklenilmeyen durum. Lütfen, sunucu adresini yeniden girin</string>
-	<string name="auth_expired_oauth_token_toast">Kimlik doğrulamanızın süresi doldu. Lütfen tekrar kimlik doğrulayın</string>
-	<string name="auth_expired_basic_auth_toast">Lütfen mevcut parolanızı girin</string>
-	<string name="auth_expired_saml_sso_token_toast">Oturumuzun süresi doldu. Lütfen tekrar bağlanın</string>
+	<string name="auth_secure_connection">Güvenli bağlantı kuruldu</string>
+	<string name="auth_unauthorized">Kullanıcı adı ya da parola hatalı</string>
+	<string name="auth_oauth_error">Kimlik doğrulanamadı</string>
+	<string name="auth_oauth_error_access_denied">Kimlik doğrulama sunucusu erişime izin vermedi</string>
+	<string name="auth_wtf_reenter_URL">Beklenilmeyen durum; Lütfen sunucu adresini yeniden yazın</string>
+	<string name="auth_expired_oauth_token_toast">Kimlik doğrulama süresi doldu. Lütfen kimliğinizi yeniden doğrulayın</string>
+	<string name="auth_expired_basic_auth_toast">Lütfen geçerli parolanızı yazın</string>
+	<string name="auth_expired_saml_sso_token_toast">Oturumuzun süresi dolmuş. Lütfen yeniden bağlanın</string>
 	<string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor…</string>
 	<string name="auth_unsupported_auth_method">Sunucu bu kimlik doğrulama yöntemini desteklemiyor</string>
-	<string name="auth_unsupported_multiaccount">%1$s çoklu hesapları desteklemiyor</string>
-	<string name="auth_fail_get_user_name">Sunucunuz geçerli bir kullanıcı kimliği döndürmüyor, lütfen yöneticinizle iletişime geçin
-        </string>
-	<string name="auth_can_not_auth_against_server">Bu sunucuya karşı kimlik doğrulama yapılamaz</string>
-    <string name="auth_account_does_not_exist">Hesap henüz cihazda mevcut değil</string>
+	<string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
+	<string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün
+	</string>
+	<string name="auth_can_not_auth_against_server">Bu sunucuda kimlik doğrulanamadı</string>
+    <string name="auth_account_does_not_exist">Aygıt üzerinde henüz bu hesap açılmamış</string>
     
-    <string name="favorite">Çevrimdışı erişim olarak işaretle</string>
-    <string name="unfavorite">Çevrimdışı erişimden kaldır</string>
+    <string name="favorite">Çevrimdışı kullanılabilir olarak işaretle</string>
+    <string name="unfavorite">Çevrimdışı kullanılabilir işaretini kaldır</string>
     <string name="common_rename">Yeniden adlandır</string>
-    <string name="common_remove">Kaldır</string>
-    <string name="confirmation_remove_file_alert">Gerçekten %1$s dosyasını kaldırmak istiyor musunuz?</string>
-    <string name="confirmation_remove_folder_alert">Gerçekten %1$s ve içeriğini kaldırmak istediğinizden emin misiniz?</string>
-    <string name="confirmation_remove_local">Sadece yerel</string>
-    <string name="remove_success_msg">Kaldırma başarılı</string>
-    <string name="remove_fail_msg">Kaldırma başarısız</string>
-    <string name="rename_dialog_title">Yeni bir isim girin</string>
-    <string name="rename_local_fail_msg">Yerel kopya adlandırılamadı; farklı bir ad deneyin</string>
-    <string name="rename_server_fail_msg">Yeniden  adlandırılma tamamlanamadı</string>
+    <string name="common_remove">Sil</string>
+    <string name="confirmation_remove_file_alert">%1$s silinsin mi?</string>
+    <string name="confirmation_remove_folder_alert">%1$s ve içeriğini silmek istediğinize emin misiniz?</string>
+    <string name="confirmation_remove_local">Yalnız yerel</string>
+    <string name="remove_success_msg">Silindi</string>
+    <string name="remove_fail_msg">Silinemedi</string>
+    <string name="rename_dialog_title">Yeni bir ad yazın</string>
+    <string name="rename_local_fail_msg">Yerel kopya yeniden adlandırılamadı; farklı bir ad deneyin</string>
+    <string name="rename_server_fail_msg">Yeniden  adlandırma tamamlanamadı</string>
     <string name="sync_file_fail_msg">Uzak dosya denetlenemedi</string>
     <string name="sync_file_nothing_to_do_msg">Dosya içerikleri zaten eşitlenmiş</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
-    <string name="filename_forbidden_characters">Yasaklı karakterler: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">Dosya adı en az bir geçersiz karakter içeriyor</string>
+    <string name="filename_forbidden_characters">İzin verilmeyen karakterler: / \\ &lt; &gt; : \" | ? *</string>
+    <string name="filename_forbidden_charaters_from_server">Dosya adında en az bir geçersiz karakter var</string>
     <string name="filename_empty">Dosya adı boş olamaz</string>
-    <string name="wait_a_moment">Bir süre bekleyin</string>
-    <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri kontrol ediliyor</string>
-    <string name="filedisplay_unexpected_bad_get_content">Beklenmedik sorun; lütfen dosya seçmek için farklı bir uygulama kullanın</string>
-    <string name="filedisplay_no_file_selected">Hiçbir dosya seçilmedi</string>
-    <string name="activity_chooser_title">Bağlantıyı gönder ...</string>
-    <string name="wait_for_tmp_copy_from_private_storage">Dosya özel depolamadan kopyalanıyor</string>
+    <string name="wait_a_moment">Biraz bekleyin</string>
+    <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
+    <string name="filedisplay_unexpected_bad_get_content">Beklenmedik bir sorun çıktı; Lütfen başka bir uygulamadan dosya seçin</string>
+    <string name="filedisplay_no_file_selected">Herhangi bir dosya seçilmedi</string>
+    <string name="activity_chooser_title">Bağlantıyı gönder&#8230;</string>
+    <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
     
-    <string name="oauth_check_onoff">oAuth2 ile oturum aç</string> 
+    <string name="oauth_check_onoff">oAuth2 ile oturum açın</string> 
     <string name="oauth_login_connection">oAuth2 sunucusuna bağlanılıyor…</string>    
         
-    <string name="ssl_validator_header">Bu sitenin sertifikası doğrulanamadı</string>
+    <string name="ssl_validator_header">Sitenin kimliği doğrulanamadı</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Sunucu sertifikasına güvenilmiyor</string>
     <string name="ssl_validator_reason_cert_expired">- Sunucu sertifikasının süresi dolmuş</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- Sunucu sertifikasının geçerlilik tarihi ileride</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- Sunucu sertifikasının geçerlilik tarihi gelecekte</string>
     <string name="ssl_validator_reason_hostname_not_verified">- Adres, sertifikadaki sunucu adı ile eşleşmiyor</string>
-    <string name="ssl_validator_question">Sertifikaya yine de güvenmek istiyor musunuz?</string>
+    <string name="ssl_validator_question">Yine de bu sertifikaya güvenmek istiyor musunuz?</string>
     <string name="ssl_validator_not_saved">Sertifika kaydedilemedi</string>
     <string name="ssl_validator_btn_details_see">Ayrıntılar</string>
     <string name="ssl_validator_btn_details_hide">Gizle</string>
     <string name="ssl_validator_label_subject">Verilen:</string>
     <string name="ssl_validator_label_issuer">Veren:</string>
     <string name="ssl_validator_label_CN">Ortak ad:</string>
-    <string name="ssl_validator_label_O">Kurum:</string>
-    <string name="ssl_validator_label_OU">Kuruluş birimi:</string>
+    <string name="ssl_validator_label_O">Kuruluş:</string>
+    <string name="ssl_validator_label_OU">Kuruluş bölümü:</string>
     <string name="ssl_validator_label_C">Ülke:</string>
-    <string name="ssl_validator_label_ST">Eyalet:</string>
+    <string name="ssl_validator_label_ST">İl:</string>
     <string name="ssl_validator_label_L">Konum:</string>
     <string name="ssl_validator_label_validity">Geçerlilik:</string>
     <string name="ssl_validator_label_validity_from">Başlangıç:</string>
     <string name="ssl_validator_label_validity_to">Bitiş:</string>
     <string name="ssl_validator_label_signature">İmza:</string>
     <string name="ssl_validator_label_signature_algorithm">Algoritma:</string>
-    <string name="digest_algorithm_not_available">Özümlenen algoritma telefonunuz için mevcut değil.</string>
+    <string name="digest_algorithm_not_available">Telefonunuz için gerekli algoritma bulunamadı.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Parmak izi:</string>
-    <string name="certificate_load_problem">Sertifika yüklemesinde problem var.</string>
-    <string name="ssl_validator_null_cert">Sertifika gösterilemedi.</string>
-    <string name="ssl_validator_no_info_about_error">- Hata hakkında bilgi yok</string>
+    <string name="certificate_load_problem">Sertifika yüklenirken bir sorun çıktı.</string>
+    <string name="ssl_validator_null_cert">Sertifika görüntülenemedi.</string>
+    <string name="ssl_validator_no_info_about_error">- Hata hakkında bir bilgi yok</string>
 
-    <string name="placeholder_sentence">Bu bir yer tutucudur</string>
-    <string name="placeholder_filename">yertutucu.txt</string>
-    <string name="placeholder_filetype">PNG Resmi</string>
+    <string name="placeholder_sentence">Bu bir yer belirleyicidir</string>
+    <string name="placeholder_filename">yerbelirleyici.txt</string>
+    <string name="placeholder_filetype">PNG Görseli</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="instant_upload_on_wifi">Fotoğrafları sadece kablosuz bağlantıda (WiFi) yükle</string>
-    <string name="instant_video_upload_on_wifi">Videoları sadece kablosuz bağlantıda (WiFi) yükle</string>
+    <string name="instant_upload_on_wifi">Fotoğraflar yalnız kablosuz ağ üzerinden yüklensin</string>
+    <string name="instant_video_upload_on_wifi">Görüntüler yalnız kablosuz ağ üzerinden yüklensin</string>
+    <string name="instant_video_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
+    <string name="instant_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
     <string name="conflict_title">Dosya çakışması</string>
     <string name="conflict_message">Hangi dosyaları saklamak istiyorsunuz? Her ikisini de saklamayı seçerseniz yerel dosyanın adına bir sayı eklenecek.</string>
-    <string name="conflict_keep_both">İkisini de koru</string>
-    <string name="conflict_use_local_version">yerel sürüm</string>
-    <string name="conflict_use_server_version">sunucu sürümü</string>
+    <string name="conflict_keep_both">İkisini de sakla</string>
+    <string name="conflict_use_local_version">yerel sürümü</string>
+    <string name="conflict_use_server_version">sunucu sürümünü</string>
     
-    <string name="preview_image_description">Resim önizleme</string>
-    <string name="preview_image_error_unknown_format">Bu resim gösterilemiyor</string>
+    <string name="preview_image_description">Görsel önizleme</string>
+    <string name="preview_image_error_unknown_format">Bu görsel görüntülenemiyor</string>
 
     <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel klasörüne kopyalanamadı</string>
     <string name="prefs_instant_upload_path_title">Anında yükleme klasörü</string>
-    <string name="prefs_instant_upload_path_use_subfolders_title">Alt klasörleri kullan</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Yıla ve aya göre alt dizinlere kaydet</string>
+    <string name="prefs_folder_sync_local_path_title">Yerel klasör</string>
+    <string name="prefs_folder_sync_remote_path_title">Uzak klasör</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Alt klasörler kullanılsın</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Yıla ve aya göre alt klasörlere kaydedilsin</string>
 
-	<string name="share_link_no_support_share_api">Üzgünüz, paylaşım sunucunuzda etkin değil. Lütfen yöneticinizle
-                iletişime geçin.</string>
-	<string name="share_link_file_no_exist">Paylaşma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
-	<string name="share_link_file_error">Bu dosya veya klasörü paylaşmaya çalışılırken bir hata oluştu</string>
-	<string name="unshare_link_file_no_exist">Paylaşımı kaldırma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
-	<string name="unshare_link_file_error">Bu dosya veya klasör paylaşımı kaldırılmaya çalışılırken bir hata oluştu</string>
-    <string name="update_link_file_no_exist">Güncelleme yapılamıyor. Lütfen dosyanın mevcut olup olmadığını kontrol edin.</string>
-    <string name="update_link_file_error">Paylaşım güncellenmeye çalışırken bir hata oluştu</string>
-    <string name="share_link_password_title">Bir parola girin</string>
-    <string name="share_link_empty_password">Bir parola girmelisiniz</string>
+	<string name="share_link_no_support_share_api">Maalesef, sunucunuzda paylaşım etkin değil. Lütfen yöneticinizle
+                görüşün.</string>
+	<string name="share_link_file_no_exist">Paylaşılamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
+	<string name="share_link_file_error">Bu dosya ya da klasör paylaşılmaya çalışılırken bir sorun çıktı</string>
+	<string name="unshare_link_file_no_exist">Paylaşımı kaldırılamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
+	<string name="unshare_link_file_error">Bu dosya ya da klasör paylaşımı kaldırılmaya çalışılırken bir sorun çıktı</string>
+    <string name="update_link_file_no_exist">Güncellenemedi. Lütfen dosyanın var olup olmadığını denetleyin</string>
+    <string name="update_link_file_error">Paylaşım güncellenmeye çalışılırken bir sorun çıktı</string>
+    <string name="share_link_password_title">Bir parola yazın</string>
+    <string name="share_link_empty_password">Bir parola yazmalısınız</string>
 
     <string name="activity_chooser_send_file_title">Gönder</string>
 
     <string name="copy_link">Bağlantıyı kopyala</string>
     <string name="clipboard_text_copied">Panoya kopyalandı</string>
-    <string name="clipboard_no_text_to_copy">Panoya kopyalanacak metin alınmadı</string>
-    <string name="clipboard_uxexpected_error">Panoya kopyalanırken beklenmeyen bir hata oluştu</string>
-    <string name="clipboard_label">%1$s kaynağından metin kopyalandı</string>
+    <string name="clipboard_no_text_to_copy">Panoya kopyalanacak bir metin alınamadı</string>
+    <string name="clipboard_uxexpected_error">Panoya kopyalama sırasında beklenmeyen bir sorun çıktı</string>
+    <string name="clipboard_label">Metin %1$s kaynağından kopyalandı</string>
 
-    <string name="error_cant_bind_to_operations_service">Ciddi hata: işlem gerçekleştirilemiyor</string>
+    <string name="error_cant_bind_to_operations_service">Ciddi hata: İşlemler gerçekleştirilemiyor</string>
 
-    <string name="network_error_socket_exception">Sunucuya bağlanılırken bir hata oluştu.</string>
-    <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir hata oluştu, işlem yapılamadı</string>
-    <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir hata oluştu, işlem yapılamadı</string>
-    <string name="network_host_not_available">İşlem tamamlanamadı, sunucu kullanılamıyor</string>
-    <string name="empty" />
-
+    <string name="network_error_socket_exception">Sunucuya bağlanılırken bir sorun çıktı.</string>
+    <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı</string>
+    <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir sorun çıktı; işlem tamamlanamadı</string>
+    <string name="network_host_not_available">İşlem tamamlanamadı; sunucu kullanılamıyor</string>
     <string name="forbidden_permissions">%s izniniz yok</string>
-    <string name="forbidden_permissions_rename">Bu dosyayı adlandırmak için</string>
-    <string name="forbidden_permissions_delete">Bu dosyayı silmek için</string>
-    <string name="share_link_forbidden_permissions">Bu dosyayı paylaşmak için</string>
-    <string name="unshare_link_forbidden_permissions">Bu dosya paylaşımını kaldırmak için</string>
-    <string name="update_link_forbidden_permissions">bu paylaşımı güncellemek için</string>
-    <string name="forbidden_permissions_create">Dosya oluşturma</string>
-    <string name="uploader_upload_forbidden_permissions">Bu klasöre yükleme</string>
-    <string name="downloader_download_file_not_found">Bu dosya artık sunucuda mevcut değil</string>
+    <string name="forbidden_permissions_rename">bu dosyayı yeniden adlandırın</string>
+    <string name="forbidden_permissions_delete">bu dosyayı silin</string>
+    <string name="share_link_forbidden_permissions">bu dosyayı paylaşın</string>
+    <string name="unshare_link_forbidden_permissions">bu dosyanın paylaşımını kaldırın</string>
+    <string name="update_link_forbidden_permissions">bu paylaşımı güncelleyin</string>
+    <string name="forbidden_permissions_create">dosya oluşturun</string>
+    <string name="uploader_upload_forbidden_permissions">bu klasöre yükleyin</string>
+    <string name="downloader_download_file_not_found">Bu dosya artık sunucuda yok</string>
+
+    <string name="file_migration_dialog_title">Depolama yolu güncelleniyor</string>
+    <string name="file_migration_finish_button">Bitti</string>
+    <string name="file_migration_preparing">Aktarıma hazırlanıyor&#8230;</string>
+    <string name="file_migration_checking_destination">Hedef denetleniyor&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Hesap ayarları kaydediliyor&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Eşitlemelerin tamamlanması bekleniyor&#8230;</string>
+    <string name="file_migration_migrating">Veriler taşınıyor&#8230;</string>
+    <string name="file_migration_updating_index">Dizin güncelleniyor&#8230;</string>
+    <string name="file_migration_cleaning">Temizleniyor&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Hesap ayarları geri yükleniyor&#8230;</string>
+    <string name="file_migration_ok_finished">Tamamlandı</string>
+    <string name="file_migration_failed_not_enough_space">HATA: Depolama alanı yetersiz</string>
+    <string name="file_migration_failed_not_writable">HATA: Dosya yazılabilir değil</string>
+    <string name="file_migration_failed_not_readable">HATA: Dosya okunabilir değil</string>
+    <string name="file_migration_failed_dir_already_exists">HATA: Nextcloud klasörü zaten var</string>
+    <string name="file_migration_failed_while_coping">HATA: Aktarımda bir sorun çıktı</string>
+    <string name="file_migration_failed_while_updating_index">HATA: Dizin güncellenirken bir sorun çıktı</string>
+
+    <string name="file_migration_directory_already_exists">Veri klasörü zaten var, ne yapmak istersiniz?</string>
+    <string name="file_migration_override_data_folder">Üzerine yazılsın</string>
+    <string name="file_migration_use_data_folder">Varolan kullanılsın</string>
 
     <string name="prefs_category_accounts">Hesaplar</string>
     <string name="prefs_add_account">Hesap ekle</string>
-    <string name="drawer_manage_accounts">Hesapları yönet</string>
-    <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir rotaya yönlendiriliyor.</string>
+    <string name="drawer_manage_accounts">Hesap yönetimi</string>
+    <string name="auth_redirect_non_secure_connection_title">Güvenli bağlantı, güvenli olmayan bir hedefe yönlendiriliyor.</string>
 
 	<string name="actionbar_logger">Günlükler</string>
 	<string name="log_send_history_button">Geçmişi gönder</string>
-	<string name="log_send_no_mail_app">Kayıtları göndermek için uygulama bulunamadı. Lütfen bir e-posta uygulaması yükleyin!</string>
-	<string name="log_send_mail_subject">%1$s Android uygulama kayıtları</string>
-	<string name="log_progress_dialog_text">Veri yükleniyor…</string>
+	<string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması yükleyin.</string>
+	<string name="log_send_mail_subject">%1$s Android uygulaması günlükleri</string>
+	<string name="log_progress_dialog_text">Veri yükleniyor&#8230;</string>
 
-	<string name="saml_authentication_required_text">Kimlik doğrulama gerekli</string>
-	<string name="saml_authentication_wrong_pass">Hatalı parola</string>
+	<string name="saml_authentication_required_text">Kimlik doğrulaması gerekli</string>
+	<string name="saml_authentication_wrong_pass">Parola hatalı</string>
 	<string name="actionbar_move">Taşı</string>
-    <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
-	<string name="folder_picker_choose_button_text">Seç</string>
+    <string name="actionbar_copy">Kopyala</string>
+	<string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
+	<string name="folder_picker_choose_button_text">Seçin</string>
 
-    <string name="move_file_not_found">Taşıma başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
-    <string name="move_file_invalid_into_descendent">Klasörü, kendi alt klasörüne taşımak mümkün değil</string>
-    <string name="move_file_invalid_overwrite">Dosya zaten hedef klasörde mevcut</string>
-    <string name="move_file_error">Bu dosya veya klasörü taşımaya çalışılırken bir hata oluştu</string>
-    <string name="forbidden_permissions_move">bu dosyayı taşımak için</string>
+    <string name="move_file_not_found">Taşınamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
+    <string name="move_file_invalid_into_descendent">Bir klasör kendi alt klasörüne taşınamaz</string>
+    <string name="move_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
+    <string name="move_file_error">Bu dosya ya da klasör taşınmaya çalışılırken bir sorun çıktı</string>
+    <string name="forbidden_permissions_move">bu dosyayı taşıyın</string>
 
 
-    <string name="copy_file_not_found">Kopyalama başarısız. Lütfen dosyanın mevcut olup olmadığını denetleyin</string>
-    <string name="copy_file_invalid_into_descendent">Klasörü, kendi alt klasörüne kopyalamak mümkün değil</string>
-    <string name="copy_file_invalid_overwrite">Dosya zaten hedef klasörde mevcut</string>
-    <string name="copy_file_error">Bu dosya veya klasörü kopyalamaya çalışılırken bir hata oluştu</string>
-    <string name="forbidden_permissions_copy">bu dosyayı kopyalamak için</string>
+    <string name="copy_file_not_found">Kopyalanamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
+    <string name="copy_file_invalid_into_descendent">Bir klasör kendi alt klasörüne kopyalanamaz</string>
+    <string name="copy_file_invalid_overwrite">Dosya hedef klasörde zaten var</string>
+    <string name="copy_file_error">Bu dosya ya da klasör kopyalanmaya çalışılırken bir sorun çıktı</string>
+    <string name="forbidden_permissions_copy">bu dosyayı kopyalayın</string>
 
     <string name="prefs_category_instant_uploading">Anında yüklemeler</string>
     <string name="prefs_category_details">Ayrıntılar</string>
 
-	<string name="prefs_instant_video_upload_path_title">Anında video yükleme klasörü</string>
+	<string name="prefs_instant_video_upload_path_title">Anında yükleme görüntü klasörü</string>
     <string name="sync_folder_failed_content">%1$s klasörünün eşitlemesi tamamlanamadı</string>
 
 	<string name="shared_subject_header">sizinle</string>
 	<string name="with_you_subject_header">paylaştı</string>
     
-	<string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" paylaşımını yaptı</string>
+	<string name="subject_user_shared_with_you">%1$s, sizinle \"%2$s\" ögesini paylaştı</string>
     <string name="subject_shared_with_you">\"%1$s\" sizinle paylaşıldı</string>
 
     <string name="auth_refresh_button">Bağlantıyı yenile</string>
     <string name="auth_host_address">Sunucu adresi</string>
-    <string name="common_error_out_memory">Yeterli hafıza yok</string>
+    <string name="common_error_out_memory">Bellek yetersiz</string>
 
     <string name="username">Kullanıcı adı</string>
 
@@ -408,37 +435,42 @@
     <string name="file_list__footer__files">%1$d dosya</string>
     <string name="file_list__footer__files_and_folder">%1$d dosya, 1 klasör</string>
     <string name="file_list__footer__files_and_folders">%1$d dosya, %2$d klasör</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Özgün dosya&#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Özgün dosya için&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Özgün dosya için&#8230;</string>
     <string name="upload_copy_files">Dosyayı kopyala</string>
     <string name="upload_move_files">Dosyayı taşı</string>
     <string name="select_all">Tümünü seç</string>
 
-    <string name="pref_behaviour_entries_keep_file">özgün klasöründe tutuldu</string>
+    <string name="pref_behaviour_entries_keep_file">özgün klasöründe korundu</string>
     <string name="pref_behaviour_entries_move">app klasörüne taşındı</string>
+    <string name="pref_behaviour_entries_delete_file">silindi</string>
+    <string name="prefs_storage_path">Depolama yolu</string>
+    <string name="prefs_common">Genel</string>
+
     <string name="share_dialog_title">Paylaşım</string>
     <string name="share_file">%1$s paylaş</string>
     <string name="share_with_user_section_title">Kullanıcı ve Gruplarla paylaş</string>
-    <string name="share_no_users">Henüz kullanıcılara paylaşılan veri yok</string>
-    <string name="share_add_user_or_group">Kullanıcı veya grup ekle</string>
-    <string name="share_via_link_section_title">Paylaşma bağlantısı</string>
+    <string name="share_no_users">Henüz kullanıcılara paylaşılan bir veri yok</string>
+    <string name="share_add_user_or_group">Kullanıcı ya da grup ekle</string>
+    <string name="share_via_link_section_title">Paylaşım bağlantısı</string>
     <string name="share_via_link_expiration_date_label">Son kullanma tarihini ayarla</string>
     <string name="share_via_link_password_label">Parola koruması</string>
     <string name="share_via_link_password_title">Güvenli</string>
-    <string name="share_via_link_edit_permission_label">Düzenlemeye izin ver</string>
+    <string name="share_via_link_edit_permission_label">Düzenlenebilsin</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Dosya listeleme gizlensin</string>
     <string name="share_get_public_link_button">Bağlantıyı al</string>
-    <string name="share_with_title">Şununla paylaş...</string>
+    <string name="share_with_title">Şununla paylaş&#8230;</string>
     <string name="share_with_edit_title">%1$s ile paylaş</string>
 
-    <string name="share_search">Ara</string>
+    <string name="share_search">Arama</string>
 
-    <string name="search_users_and_groups_hint">Kullanıcı ve Grupları Ara</string>
+    <string name="search_users_and_groups_hint">Kullanıcı ve Grup Arama</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
 
-    <string name="share_sharee_unavailable">Üzgünüz sunucu sürümünüz istemcilerdeki kullanıcılara paylaşıma izin vermiyor.
-\nLütfen yöneticinize başvurun</string>
+    <string name="share_sharee_unavailable">Maalesef sunucu sürümünüz istemcilerden kullanıcılar ile paylaşıma izin vermiyor.
+\nLütfen yöneticinizle görüşün</string>
     <string name="share_privilege_can_share">paylaşabilir</string>
     <string name="share_privilege_can_edit">düzenleyebilir</string>
     <string name="share_privilege_can_edit_create">oluştur</string>
@@ -447,27 +479,73 @@
     <string name="edit_share_unshare">Paylaşımı durdur</string>
     <string name="edit_share_done">bitti</string>
 
-    <string name="action_retry_uploads">Tekrar deneme başarısız</string>
-    <string name="action_clear_failed_uploads">Temizleme başarısız</string>
-    <string name="action_clear_successful_uploads">Temizleme başarılı</string>
-    <string name="action_clear_finished_uploads">Tüm temizlemeler bitti</string>
+    <string name="action_retry_uploads">Yeniden denenemedi</string>
+    <string name="action_clear_failed_uploads">Temizlenemedi</string>
+    <string name="action_clear_successful_uploads">Temizlendi</string>
+    <string name="action_clear_finished_uploads">Tümü temizlendi</string>
 
-    <string name="action_switch_grid_view">Izgara görünümü</string>
+    <string name="action_switch_grid_view">Tablo görünümü</string>
     <string name="action_switch_list_view">Liste görünümü</string>
 
-    <string name="manage_space_title">Alanı ayarla</string>
-    <string name="manage_space_description">%1$s tarafından verilmiş olan ayarlar, veritabanı ve sunucu sertiffikaları kalıcı olarak silinecek. \\n\\nİndirilen dosyalara dokunulmayacak.\\n\\nBu işlem biraz vakit alacaktır.</string>
+    <string name="manage_space_title">Alan yönetimi</string>
+    <string name="manage_space_description">%1$s verilerinden ayarlar, veritabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz vakit alabilir.</string>
     <string name="manage_space_clear_data">Verileri temizle</string>
-    <string name="manage_space_error">Bazı dosyalar silinemedi</string>
+    <string name="manage_space_error">Bazı dosyalar silinemedi.</string>
 
-    <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izin gerekiyor.</string>
-    <string name="local_file_not_found_toast">Dosya yerel dosya sisteminde bulunamadı.</string>
-    <string name="confirmation_remove_files_alert">Seçilen öğeleri gerçekten kaldırmak istiyor musunuz?</string>
-    <string name="confirmation_remove_folders_alert">Seçilen öğeleri ve içeriklerini gerçekten kaldırmak istiyor musunuz?</string>
-    <string name="actionbar_search">Ara</string>
+    <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izinler gerekli.</string>
+    <string name="local_file_not_found_toast">Dosya yerel dosya sisteminde bulunamadı</string>
+    <string name="confirmation_remove_files_alert">Seçilen ögeleri gerçekten silmek istiyor musunuz?</string>
+    <string name="confirmation_remove_folders_alert">Seçilen ögeleri ve içeriklerini gerçekten silmek istiyor musunuz?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Aygıtın şarj olması bekleniyor</string>
+    <string name="actionbar_search">Arama</string>
+    <string name="files_drop_not_supported">Bu bir Nextcloud özelliğidir, lütfen güncelleyin.</string>
+    <string name="learn_more">Ayrıntılı bilgi alın</string>
+    <string name="drawer_folder_sync">Otomatik yükle</string>
+    <string name="drawer_participate">Katkıda bulunun</string>
+    <string name="participate_testing_headline">Denememize yardımcı olun</string>
+    <string name="participate_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
+    <string name="participate_testing_report_text">Github üzerinden bir sorun bildirin</string>
+    <string name="participate_testing_version_text">Gelecek sürümler için bize yardımcı olmak ister misiniz?</string>
+    <string name="participate_beta_headline">Beta sürümünü deneyin</string>
+    <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve oldukça tazedir. Hata ve sorunlar olabilir
+Bir hata ya da soruna rastlarsanız bize iletin. &lt;br/>&lt;a href=\"%2$s\">APK dosyasını indirin&lt;/a>
+ya da</string>
+    <string name="participate_release_candidate_headline">Yayın adayı</string>
+    <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümlere\" bakın.</string>
+    <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
+    <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s>forum&lt;/a> üzerinde başkalarına yardımcı olun</string>
+    <string name="participate_contribute_translate_text">Uygulamayı &lt;a href=\"%1$s>çevirin&lt;/a> </string>
+    <string name="participate_contribute_github_text">Yazılımcı olarak katkıda bulunun! Ayrıntılı bilgi almak için &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">KATKIDA BULUNMA&lt;/a> sayfasına bakın</string>
+    <string name="move_to">Taşı&#8230;</string>
+    <string name="copy_to">Kopyala&#8230;</string>
+    <string name="choose_remote_folder">Klasör seçin&#8230;</string>
+    <string name="folder_sync_loading_folders">Klasörler yükleniyor&#8230;</string>
+    <string name="folder_sync_no_results">Herhangi bir ortam klasörü bulunamadı.</string>
+    <string name="folder_sync_preferences">Otomatik yükleme ayarları</string>
+    <string name="folder_sync_settings">Ayarlar</string>
+    <string name="folder_sync_new_info">Anında yükleme tamamen elden geçirildi. Lütfen ama menüye giderek otomatik yükleme ayarlarınızı yeniden yapın. Verdiğimiz rahatsızlık için özür dileriz.\n\nYeni ve geliştirilmiş otomatik yükleme özellklerinin tadını çıkarın!</string>
+    <string name="folder_sync_preferences_folder_path">%1$s için</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d seçili</item>
         <item quantity="other">%d seçili</item>
     </plurals>
+    <string name="storage_description_default">Varsayılan</string>
+    <string name="storage_description_sd_no">SD kart  %1$d</string>
+    <string name="storage_description_unknown">Bilinmiyor</string>
 
-    </resources>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Nextcloud yenilikleri</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Verileriniz için güvenli bir yer!</string>
+    <string name="welcome_feature_1_text">Ev ya da iş yerinizdeki dosyalarınıza erişmek, paylaşmak ve korumak için kullanabilirsiniz</string>
+
+    <string name="welcome_feature_2_title">Birden çok hesap</string>
+    <string name="welcome_feature_2_text">Tüm bulut hesaplarınıza bağlanın</string>
+
+    <string name="welcome_feature_3_title">Anında yükleme</string>
+    <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
+
+    <string name="whats_new_skip">Atla</string>
+</resources>

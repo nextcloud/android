@@ -53,7 +53,9 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
         super(context, -1, values);
         this.mContext = context;
         this.mValues = values;
-        this.mListener = (AccountListAdapterListener) context;
+        if (context instanceof AccountListAdapterListener) {
+            this.mListener = (AccountListAdapterListener) context;
+        }
         this.mAccountAvatarRadiusDimension = context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius);
         this.mTintedCheck = tintedCheck;
     }
@@ -75,6 +77,11 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             viewHolder.passwordButtonItem = (ImageView) convertView.findViewById(R.id.passwordButton);
             viewHolder.removeButtonItem = (ImageView) convertView.findViewById(R.id.removeButton);
 
+            if(mListener == null) {
+                viewHolder.passwordButtonItem.setVisibility(View.GONE);
+                viewHolder.removeButtonItem.setVisibility(View.GONE);
+            }
+
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (AccountViewHolderItem) convertView.getTag();
@@ -94,7 +101,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
                 setupListeners(position, viewHolder);
 
             } // create add account action item
-            else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType()) {
+            else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType() && mListener != null) {
                 return setupAddAccountListItem(parent);
             }
         }
@@ -125,21 +132,23 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     }
 
     private void setupListeners(final int position, AccountViewHolderItem viewHolder) {
-        /// bind listener to change password
-        viewHolder.passwordButtonItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.changePasswordOfAccount(mValues.get(position).getAccount());
-            }
-        });
+        if (mListener != null) {
+            /// bind listener to change password
+            viewHolder.passwordButtonItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.changePasswordOfAccount(mValues.get(position).getAccount());
+                }
+            });
 
-        /// bind listener to remove account
-        viewHolder.removeButtonItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mListener.performAccountRemoval(mValues.get(position).getAccount());
-            }
-        });
+            /// bind listener to remove account
+            viewHolder.removeButtonItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mListener.performAccountRemoval(mValues.get(position).getAccount());
+                }
+            });
+        }
     }
 
     private void setCurrentlyActiveState(AccountViewHolderItem viewHolder, Account account) {

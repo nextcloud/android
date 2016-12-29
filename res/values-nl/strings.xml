@@ -62,7 +62,6 @@ Download hier: %2$s</string>
     <string name="sync_string_files">Bestanden</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Uploaden</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Creëren tekstbestand</string>
     <string name="uploader_top_message">Kies een uploadmap</string>
     <string name="uploader_wrn_no_account_title">Geen account gevonden</string>
     <string name="uploader_wrn_no_account_text">Er zijn geen %1$s accounts op dit apparaat. Stel eerst een account in.</string>
@@ -81,7 +80,7 @@ Download hier: %2$s</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Verwijder bestand uit bronmap</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
-    <string name="file_list_loading">Laden...</string>
+    <string name="file_list_loading">Laden&#8230;</string>
     <string name="file_list_no_app_for_file_type">Geen app gevonden voor dit bestandsformaat!</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
     <string name="upload_list_empty">Geen uploads beschikbaar.</string>
@@ -110,7 +109,7 @@ Download hier: %2$s</string>
     <string name="common_save">Bewaren</string>
     <string name="common_save_exit">Opslaan &amp; einde</string>
     <string name="common_error">Fout</string>
-    <string name="common_loading">Laden...</string>
+    <string name="common_loading">Laden&#8230;</string>
     <string name="common_unknown">onbekend</string>
     <string name="common_error_unknown">Onbekende fout</string>
     <string name="common_pending">In behandeling</string>
@@ -119,9 +118,9 @@ Download hier: %2$s</string>
     <string name="delete_account">Verwijder account</string>
     <string name="delete_account_warning">Verwijderen account %s?\n\nVerwijdering kan niet ongedaan gemaakt worden.</string>
     <string name="create_account">Maak account aan</string>
-    <string name="upload_chooser_title">Upload van ...</string>
+    <string name="upload_chooser_title">Upload van &#8230;</string>
     <string name="uploader_info_dirname">Mapnaam</string>
-    <string name="uploader_upload_in_progress_ticker">Uploaden ...</string>
+    <string name="uploader_upload_in_progress_ticker">Uploaden &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploaden %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Upload succesvol</string>
     <string name="uploader_upload_succeeded_content_single">%1$s geüpload</string>
@@ -147,7 +146,7 @@ Download hier: %2$s</string>
     <string name="uploads_view_upload_status_unknown_fail">Onbekende fout</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Wachten op een wifi-verbinding</string>
     <string name="uploads_view_later_waiting_to_upload">Wachten om te uploaden</string>
-    <string name="downloader_download_in_progress_ticker">Downloaden ...</string>
+    <string name="downloader_download_in_progress_ticker">Downloaden &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Aan het downloaden %2$s</string>
     <string name="downloader_download_succeeded_ticker">Downloaden gelukt</string>
     <string name="downloader_download_succeeded_content">%1$s gedownload.</string>
@@ -166,9 +165,7 @@ Download hier: %2$s</string>
     <string name="sync_fail_in_favourites_content">Inhoud van %1$d bestanden kon niet worden gesynchroniseerd (%2$d conflicten)</string>
     <string name="sync_foreign_files_forgotten_ticker">Een paar lokale bestanden werden vergeten</string>
     <string name="sync_foreign_files_forgotten_content">%1$d bestanden uit de %2$s map konden niet worden gekopieerd naar</string>
-    <string name="sync_foreign_files_forgotten_explanation">Vanaf versie 1.3.16, worden bestanden die vanaf dit apparaat worden ge-uploaded ook gekopieerd naar de lokale %1$s map om gegevensverlies te voorkomen als een enkel bestand wordt gesynchroniseerd met meerdere accounts.
-Door deze aanpassing werden alle bestanden die met een eerdere versie zijn ge-uploaded gekopieerd naar de %2$s map. Maar een fout voorkwam het succesvol afronden van deze actie tijdens het synchroniseren. Je kunt de/het bestand(en) laten staan zoals ze nu zijn en de link naar %3$s verwijderen, of je kunt de bestanden verplaatsen naar de %1$s map en de link naar %4$s laten staan.
-Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar verwezen.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Vanaf versie 1.3.16, worden bestanden die vanaf dit apparaat worden ge-uploaded ook gekopieerd naar de lokale %1$s map om gegevensverlies te voorkomen als een enkel bestand wordt gesynchroniseerd met meerdere accounts.\n\nDoor deze aanpassing werden alle bestanden die met een eerdere versie zijn ge-uploaded gekopieerd naar de %2$s map. Maar een fout voorkwam het succesvol afronden van deze actie tijdens het synchroniseren. Je kunt de/het bestand(en) laten staan zoals ze nu zijn en de link naar %3$s verwijderen, of je kunt de bestanden verplaatsen naar de %1$s map en de link naar %4$s laten staan.\n\nHieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar verwezen.</string>
     <string name="sync_current_folder_was_removed">Map %1$s bestaat niet meer</string>
     <string name="foreign_files_move">Alles verplaatsen</string>
     <string name="foreign_files_success">Alle bestanden zijn verplaatst</string>
@@ -207,8 +204,8 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="media_play_pause_description">Speel of pauze knop</string>
     <string name="media_forward_description">Doorspoel knop</string>
 
-	<string name="auth_getting_authorization">Autoririseren...</string>
-	<string name="auth_trying_to_login">Proberen om in the loggen...</string>
+	<string name="auth_getting_authorization">Autoririseren&#8230;</string>
+	<string name="auth_trying_to_login">Proberen om in the loggen&#8230;</string>
 	<string name="auth_no_net_conn_title">Geen netwerkverbinding</string>
 	<string name="auth_nossl_plain_ok_title">Veilige verbinding niet beschikbaar.</string>
 	<string name="auth_connection_established">Verbinding tot stand gebracht</string>
@@ -263,7 +260,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="wait_checking_credentials">Opgeslagen inloggegevens nakijken</string>
     <string name="filedisplay_unexpected_bad_get_content">Onverwacht probleem; probeer een andere app om het bestand te selecteren</string>
     <string name="filedisplay_no_file_selected">Er werd geen bestand geselecteerd</string>
-    <string name="activity_chooser_title">Verstuur link naar ...</string>
+    <string name="activity_chooser_title">Verstuur link naar &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiëren bestand vanaf privéopslag</string>
     
     <string name="oauth_check_onoff">Inloggen met oAuth2</string> 
@@ -321,6 +318,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de %2$s lokale map</string>
     <string name="prefs_instant_upload_path_title">Directe uploadmap</string>
     <string name="prefs_folder_sync_local_path_title">Lokale map</string>
+    <string name="prefs_folder_sync_remote_path_title">Externe map</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseed op jaar en maand</string>
 
@@ -349,8 +347,6 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="network_error_socket_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
     <string name="network_error_connect_timeout_exception">Er trad een fout op bij het wachten op de server, de verwerking kon niet plaatsvinden</string>
     <string name="network_host_not_available">De verwerking kon niet plaatsvinden, de server is niet beschikbaar</string>
-    <string name="empty" />
-
     <string name="forbidden_permissions">Je mist autorisatie %s</string>
     <string name="forbidden_permissions_rename">om dit bestand te hernoemen</string>
     <string name="forbidden_permissions_delete">om dit bestand te verwijderen</string>
@@ -464,7 +460,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="share_via_link_edit_permission_label">Toestaan bewerken</string>
     <string name="share_via_link_hide_file_listing_permission_label">Verberg bestandsoverzicht</string>
     <string name="share_get_public_link_button">Ophalen link</string>
-    <string name="share_with_title">Deel met ...</string>
+    <string name="share_with_title">Deel met &#8230;</string>
     <string name="share_with_edit_title">Deel met %1$s</string>
 
     <string name="share_search">Zoeken</string>
@@ -475,7 +471,7 @@ Hieronder staan de lokale bestanden en de externe bestanden in %5$s waar ze naar
     <string name="share_known_remote_clarification">%1$s ( om %2$s )</string>
 
     <string name="share_sharee_unavailable">Helaas, je serverversie staat niet toe om binnen clients te delen met gebruikers.
-Neem contact op met je beheerder</string>
+\nNeem contact op met je beheerder</string>
     <string name="share_privilege_can_share">kan delen</string>
     <string name="share_privilege_can_edit">kan wijzigen</string>
     <string name="share_privilege_can_edit_create">creëer</string>
@@ -505,6 +501,7 @@ Neem contact op met je beheerder</string>
     <string name="actionbar_search">Zoeken</string>
     <string name="files_drop_not_supported">Dit is een Nextcloud optie, graag bijwerken.</string>
     <string name="learn_more">Meer weten</string>
+    <string name="drawer_folder_sync">Auto upload</string>
     <string name="drawer_participate">Meedoen</string>
     <string name="participate_testing_headline">Help ons testen</string>
     <string name="participate_testing_bug_text">Foutje gevonden? Of iets raars?</string>
@@ -523,13 +520,33 @@ of</string>
     <string name="participate_contribute_github_text">Doe mee als ontwikkelaar, zie &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> voor details</string>
     <string name="move_to">Verplaats naar&#8230;</string>
     <string name="copy_to">Kopieer naar&#8230;</string>
+    <string name="choose_remote_folder">Kies map&#8230;</string>
+    <string name="folder_sync_loading_folders">Laden mappen&#8230;</string>
+    <string name="folder_sync_no_results">Geen mediamappen gevonden</string>
+    <string name="folder_sync_preferences">Auto upload voorkeuren</string>
+    <string name="folder_sync_settings">Instellingen</string>
+    <string name="folder_sync_new_info">Directe upload is helemaal herzien. Bekijk het hoofdmenu en herconfigureer je auto uploadfunctie. Onze excuses voor het ongemak.\n\nVeel plezier met de nieuwe en meer uitgebreide auto upload mogelijkheden!</string>
+    <string name="folder_sync_preferences_folder_path">Voor %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
-
     <string name="storage_description_default">Standaard</string>
     <string name="storage_description_sd_no">SD kaart %1$d</string>
     <string name="storage_description_unknown">Onbekend</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Wat is nieuw in Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Een veilige plek voor al je gegevens</string>
+    <string name="welcome_feature_1_text">Benader, deel &amp; beveilig je gegevens thuis en binnen je organisatie</string>
+
+    <string name="welcome_feature_2_title">Multi account</string>
+    <string name="welcome_feature_2_text">Verbind met al je clouds</string>
+
+    <string name="welcome_feature_3_title">Directe upload</string>
+    <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
+
+    <string name="whats_new_skip">Overslaan</string>
 </resources>

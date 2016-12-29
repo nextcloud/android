@@ -20,7 +20,8 @@
     <string name="drawer_item_on_device">На устройството</string>
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Качени</string>
-    <string name="drawer_close">Затвори</string>
+    <string name="drawer_quota">%1$s от %2$s използвани</string>
+	<string name="drawer_close">Затвори</string>
     <string name="drawer_open">Отвори</string>
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
@@ -32,6 +33,10 @@
     <string name="prefs_instant_upload_summary">Незабавно качване на направените снимки</string>
     <string name="prefs_instant_video_upload">Незабавно качване на видео</string>
     <string name="prefs_instant_video_upload_summary">Незабавно качване на заснетите видео записи</string>
+    <string name="prefs_log_title">Включи логовете</string>
+    <string name="prefs_log_summary">Използва се за проследяване на проблеми</string>
+    <string name="prefs_log_title_history">История на логове</string>
+    <string name="prefs_log_summary_history">Показва записаните логове</string>
     <string name="prefs_log_delete_history_button">Изтрий истрията</string>
     <string name="prefs_calendar_contacts">Синхронизиране на календар и контакти</string>
     <string name="prefs_calendar_contacts_summary">Настройване на DAVdroid (v1.3.0+) за текущия профил</string>
@@ -41,7 +46,11 @@
     <string name="prefs_help">Помощ</string>
     <string name="prefs_recommend">Препоръчайте на приятел</string>
     <string name="prefs_feedback">Обратна връзка</string>
-    <string name="recommend_subject">Пробвайте %1$s на смартфона си!</string>
+    <string name="prefs_imprint">Отпечатък</string>
+    <string name="prefs_remember_last_share_location">Запомни мястото за споделяне</string>
+    <string name="prefs_remember_last_upload_location_summary">Запомни мястото на последната споделена папка</string>
+
+	<string name="recommend_subject">Пробвайте %1$s на смартфона си!</string>
 	<string name="recommend_text">Бих желал да випоканя да пробвате %1$s на своя смартфон!\nМожете да изтеглите приложението от тук: %2$s</string>
 
     <string name="auth_check_server">Проверяване на сървъра</string>
@@ -52,7 +61,6 @@
     <string name="sync_string_files">Файлове</string>
     <string name="setup_btn_connect">Свързване</string>
     <string name="uploader_btn_upload_text">Качване</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Създаване на текстови файл</string>
     <string name="uploader_top_message">Изберете папка в която да се качват</string>
     <string name="uploader_wrn_no_account_title">Няма открит профил</string>
     <string name="uploader_wrn_no_account_text">На устройството няма профил за %1$s. Моля съдайте такъв.</string>
@@ -71,7 +79,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Изтриване на файла от оригиналната папка</string>
     <string name="file_list_seconds_ago">преди секунди</string>
     <string name="file_list_empty">Тук няма нищо. Качете нещо!</string>
-    <string name="file_list_loading">Зарежда…</string>
+    <string name="file_list_loading">Зарежда&#8230;</string>
     <string name="file_list_no_app_for_file_type">Няма намерени приложения за типа фаил</string>
     <string name="local_file_list_empty">В папката няма файлове.</string>
     <string name="upload_list_empty">Няма налични актуализации.</string>
@@ -100,16 +108,18 @@
     <string name="common_save">Запазване</string>
     <string name="common_save_exit">Запис и излизане</string>
     <string name="common_error">Грешка</string>
-    <string name="common_loading">Зареждане...</string>
+    <string name="common_loading">Зареждане &#8230;</string>
+    <string name="common_unknown">неясна</string>
     <string name="common_error_unknown">Неизвестна грешка</string>
+    <string name="common_pending">В очакване</string>
     <string name="about_title">Относно</string>
     <string name="change_password">Промяна на парола</string>
     <string name="delete_account">Изтриване</string>
     <string name="delete_account_warning">Изтриване на профила %s?\n\nИзтриването е необратима операция.</string>
     <string name="create_account">Създаване на профил</string>
-    <string name="upload_chooser_title">Качване от...</string>
+    <string name="upload_chooser_title">Качване от &#8230;</string>
     <string name="uploader_info_dirname">Име на папката</string>
-    <string name="uploader_upload_in_progress_ticker">Качване...</string>
+    <string name="uploader_upload_in_progress_ticker">Качване &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Качване %2$s</string>
     <string name="uploader_upload_succeeded_ticker">Успешно качване</string>
     <string name="uploader_upload_succeeded_content_single">%1$s качено</string>
@@ -135,7 +145,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Неизвестна грешка</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Изчакване на WiFi връзка</string>
     <string name="uploads_view_later_waiting_to_upload">Изчакване за качване</string>
-    <string name="downloader_download_in_progress_ticker">Изтегляне...</string>
+    <string name="downloader_download_in_progress_ticker">Изтегляне &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Изтегляне %2$s</string>
     <string name="downloader_download_succeeded_ticker">Изтеглянето е успешно.</string>
     <string name="downloader_download_succeeded_content">%1$s свалено</string>
@@ -186,12 +196,15 @@
     <string name="media_err_timeout">Отне твърде много време, за да започне пускането.</string>
     <string name="media_err_invalid_progressive_playback">Медийният файл не може да бъде излъчен</string>
     <string name="media_err_unknown">Медийният файл не може да бъде пуснат със стандартния плеър</string>
+    <string name="media_err_security_ex">Грешка по сигурността, докато се опитва да пусне %1$s.</string>
+    <string name="media_err_io_ex">Входно/изходна грешка, докато се опитваше да пусне %1$s.</string>
+    <string name="media_err_unexpected">Неочаквана грешка, докато се опитваше да пусне %1$s.</string>
     <string name="media_rewind_description">Бутон за превъртане назад</string>
     <string name="media_play_pause_description">Бутон възпроизведи / пауза </string>
     <string name="media_forward_description">Бутон за превъртане напред</string>
 
-	<string name="auth_getting_authorization">Получаване оторизация...</string>
-	<string name="auth_trying_to_login">Опит за вписване...</string>
+	<string name="auth_getting_authorization">Получаване оторизация &#8230;</string>
+	<string name="auth_trying_to_login">Опит за вписване &#8230;</string>
 	<string name="auth_no_net_conn_title">Няма връзка с интернет</string>
 	<string name="auth_nossl_plain_ok_title">Няма сигурна връзка.</string>
 	<string name="auth_connection_established">Осъществена е връзка</string>
@@ -224,6 +237,8 @@
 	<string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
     <string name="auth_account_does_not_exist">Профилът все още не съществува на устройството</string>
     
+    <string name="favorite">Задай като достъпна офлайн</string>
+    <string name="unfavorite">Отмяна като достъпна офлайн</string>
     <string name="common_rename">Преименуване</string>
     <string name="common_remove">Премахване</string>
     <string name="confirmation_remove_file_alert">Наистина ли желаете %1$s да бъде премахнат?</string>
@@ -244,7 +259,7 @@
     <string name="wait_checking_credentials">Проверка на съхранените пълномощия</string>
     <string name="filedisplay_unexpected_bad_get_content">Неочакван проблем. Моля, изберете файла от друго приложение</string>
     <string name="filedisplay_no_file_selected">Не сте избрали файл</string>
-    <string name="activity_chooser_title">Изпращане на връзката чрез...</string>
+    <string name="activity_chooser_title">Изпращане на връзката чрез &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
     
     <string name="oauth_check_onoff">Вписване с oAuth2</string> 
@@ -270,6 +285,7 @@
     <string name="ssl_validator_label_validity">Валидност:</string>
     <string name="ssl_validator_label_validity_from">От:</string>
     <string name="ssl_validator_label_validity_to">До:</string>
+    <string name="ssl_validator_label_signature">Подпис:</string>
     <string name="ssl_validator_label_signature_algorithm">Алгоритъм:</string>
     <string name="digest_algorithm_not_available">Алгоритъмът не се поддържа от вашия телефон.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Отпечатък:</string>
@@ -278,6 +294,7 @@
     <string name="ssl_validator_no_info_about_error">- Няма информация за грешката</string>
 
     <string name="placeholder_sentence">Това е за запазено място</string>
+    <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_filetype">PNG изображение</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
@@ -287,6 +304,7 @@
     <string name="instant_video_upload_on_wifi">Качвай видео само по WiFi</string>
     <string name="instant_video_upload_on_charging">Качвай само при зареждане</string>
     <string name="instant_upload_on_charging">Качвай само при зареждане</string>
+    <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Файлов конфликт</string>
     <string name="conflict_message">Кои файлове желаете да запазите? Ако изберете и двете версии, към името на локалния файл ще бъде добавено число.</string>
     <string name="conflict_keep_both">Запазване и на двата</string>
@@ -299,6 +317,7 @@
     <string name="error__upload__local_file_not_copied">%1$s не може да бъде копиран в локалната папка %2$s</string>
     <string name="prefs_instant_upload_path_title">Папка за незабавно качените</string>
     <string name="prefs_folder_sync_local_path_title">Локална папка</string>
+    <string name="prefs_folder_sync_remote_path_title">Отдалечена папка</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Ползване на подпапки</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Съхраняване в подпапки, разделени по година и месец</string>
 
@@ -327,8 +346,6 @@
     <string name="network_error_socket_timeout_exception">Възникна грешка при изчакването на сървъра, операцията не е изпълнена</string>
     <string name="network_error_connect_timeout_exception">Възникна грешка при изчакването на сървъра, операцията не е изпълнена</string>
     <string name="network_host_not_available">Неуспешно завършена операция, сървърът не е достъпен</string>
-    <string name="empty" />
-
     <string name="forbidden_permissions">Нямате права за достъп до %s</string>
     <string name="forbidden_permissions_rename">за преименуване на файла</string>
     <string name="forbidden_permissions_delete">за изтриване на файла</string>
@@ -339,9 +356,21 @@
     <string name="uploader_upload_forbidden_permissions">за качване в папката</string>
     <string name="downloader_download_file_not_found">Файлът вече не се намира на сървъра</string>
 
+    <string name="file_migration_dialog_title">Обновяване на пътя до хранилището</string>
+    <string name="file_migration_finish_button">Край</string>
+    <string name="file_migration_preparing">Подготовка за миграция&#8230;</string>
+    <string name="file_migration_checking_destination">Проверка на дестинация&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Запазване на настройките на акаунтите&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Изчакване на неприключените синхронизации&#8230;</string>
+    <string name="file_migration_migrating">Преместване на данни&#8230;</string>
+    <string name="file_migration_updating_index">Обновяване на индекс&#8230;</string>
+    <string name="file_migration_cleaning">Почистване&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Възстановяване на настройките на акаунтите&#8230;</string>
+    <string name="file_migration_ok_finished">Завършен</string>
     <string name="file_migration_failed_not_enough_space">ГРЕШКА: Няма достатъчно място</string>
     <string name="file_migration_failed_not_writable">ГРЕШКА: Файлът не може да бъде записан</string>
     <string name="file_migration_failed_not_readable">ГРЕШКА: Файлът не може да бъде пррочетен</string>
+    <string name="file_migration_failed_dir_already_exists">ГРЕШКА: Nextcloud папката вече съществува</string>
     <string name="file_migration_failed_while_coping">ГРЕШКА: Грешка при мигрирането</string>
     <string name="file_migration_failed_while_updating_index">ГРЕШКА: Грешка при обновяването на индекса</string>
 
@@ -358,7 +387,7 @@
 	<string name="log_send_history_button">Изпрати историята</string>
 	<string name="log_send_no_mail_app">Не е намерено приложение за изпращане на журнал. Моля инсталирайте имейл приложение.</string>
 	<string name="log_send_mail_subject">%1$s журнали от Android приложението</string>
-	<string name="log_progress_dialog_text">Зареждане на данни ...</string>
+	<string name="log_progress_dialog_text">Зареждане на данни &#8230;</string>
 
 	<string name="saml_authentication_required_text">Нужна е идентификация</string>
 	<string name="saml_authentication_wrong_pass">Грешна парола</string>
@@ -378,6 +407,8 @@
     <string name="copy_file_invalid_into_descendent">Не може да копирате папка в нейна подпапка</string>
     <string name="copy_file_invalid_overwrite">Файлът вече съществува в отдалечената папка.</string>
     <string name="copy_file_error">Възникна грешка при опита за копиране на файла или папката</string>
+    <string name="forbidden_permissions_copy">да копира този файл</string>
+
     <string name="prefs_category_instant_uploading">Незабавни качвания</string>
     <string name="prefs_category_details">Детайли</string>
 
@@ -404,8 +435,8 @@
     <string name="file_list__footer__files">%1$d файла</string>
     <string name="file_list__footer__files_and_folder">%1$d файла, 1 папка</string>
     <string name="file_list__footer__files_and_folders">%1$d файла, %2$d папки</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Оригиналните файлове ще бъдат...</string>
-    <string name="prefs_instant_behaviour_title">Оригиналните файлове ще бъдат...</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Оригиналните файлове ще бъдат &#8230;</string>
+    <string name="prefs_instant_behaviour_title">Оригиналните файлове ще бъдат &#8230;</string>
     <string name="upload_copy_files">Копирай файла</string>
     <string name="upload_move_files">Премести файла</string>
     <string name="select_all">Избере всички</string>
@@ -414,21 +445,30 @@
     <string name="pref_behaviour_entries_move">премествани в папката на приложението</string>
     <string name="pref_behaviour_entries_delete_file">изтривани</string>
     <string name="prefs_storage_path">Път до хранилището</string>
+    <string name="prefs_common">Познато</string>
+
     <string name="share_dialog_title">Споделяне</string>
     <string name="share_file">Споделяне на %1$s</string>
     <string name="share_with_user_section_title">Споделяне с потребители и групи</string>
+    <string name="share_no_users">Все още няма споделени данни</string>
     <string name="share_add_user_or_group">Добавете потребител или група</string>
     <string name="share_via_link_section_title">Връзка за споделяне</string>
     <string name="share_via_link_expiration_date_label">Задаване на дата на изтичане</string>
     <string name="share_via_link_password_label">Защитено с парола</string>
+    <string name="share_via_link_password_title">Подсигурен</string>
     <string name="share_via_link_edit_permission_label">Позволяване на редактиране</string>
-    <string name="share_with_title">Споделете чрез ...</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Скрий показването на файлове</string>
+    <string name="share_get_public_link_button">Вземи връзка</string>
+    <string name="share_with_title">Споделете чрез &#8230;</string>
     <string name="share_with_edit_title">Споделете с %1$s</string>
 
     <string name="share_search">Търсене</string>
 
     <string name="search_users_and_groups_hint">Търсене за потребители и групи</string>
     <string name="share_group_clarification">%1$s (група)</string>
+    <string name="share_remote_clarification">%1$s (отдалечен)</string>
+    <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
+
     <string name="share_sharee_unavailable">За съжаление версията на сървъра не позволява споделяне от клиента.
         \nМоля, уведомете системния админинстратор</string>
     <string name="share_privilege_can_share">може да споделя</string>
@@ -436,6 +476,7 @@
     <string name="share_privilege_can_edit_create">създаване</string>
     <string name="share_privilege_can_edit_change">промяна</string>
     <string name="share_privilege_can_edit_delete">изтриване</string>
+    <string name="edit_share_unshare">Спри споделянето</string>
     <string name="edit_share_done">готово</string>
 
     <string name="action_retry_uploads">Нов опит</string>
@@ -446,12 +487,16 @@
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
 
+    <string name="manage_space_title">Управление на място</string>
+    <string name="manage_space_description">Настройките, базата от данни и сървърните сертификати от %1$sя ще бъдат изтрити перманентно. \\n\\nИзтеглените файлове ще бъдат запазени непокътнати.\\n\\nТози процес може да отнеме известно време.</string>
+    <string name="manage_space_clear_data">Изчисти данни</string>
     <string name="manage_space_error">Изтриването на някои файлове не е възможно.</string>
 
     <string name="permission_storage_access">Изискват се допълнителни права за изтегляне и сваляне на файлове.</string>
     <string name="local_file_not_found_toast">Файлът не е открит на локалната файлова система</string>
     <string name="confirmation_remove_files_alert">Наистина ли желаете избраните елементи да бъдат премахнати?</string>
     <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Изчакване за зареждане на устройството</string>
     <string name="actionbar_search">Търсене</string>
     <string name="files_drop_not_supported">Това е функционалност на Nextcloud, моля актуализирайте.</string>
     <string name="learn_more">Научете повече</string>
@@ -465,14 +510,33 @@
     <string name="participate_contribute_irc_text">Присъединете се към IRC чата: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Помогнете на други във &lt;a href=\"%1$s>форума&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Преведете&lt;/a> приложението</string>
-    <string name="move_to">Преместване в...</string>
-    <string name="copy_to">Копиране в...</string>
+    <string name="move_to">Преместване в&#8230;</string>
+    <string name="copy_to">Копиране в&#8230;</string>
+    <string name="choose_remote_folder">Избери папка&#8230;</string>
+    <string name="folder_sync_loading_folders">Зареждане на папки&#8230;</string>
+    <string name="folder_sync_no_results">Не са открити медийни папки.</string>
+    <string name="folder_sync_preferences">Предпочитания за автоматично качване</string>
     <string name="folder_sync_settings">Настройки</string>
     <string name="folder_sync_preferences_folder_path">За %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d избран</item>
         <item quantity="other">%d избрани</item>
     </plurals>
-
+    <string name="storage_description_default">По подразбиране</string>
     <string name="storage_description_sd_no">SD карта %1$d</string>
-    </resources>
+    <string name="storage_description_unknown">Неизвестно</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Kакво ново в Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Безопасен дом за всички ваши данни</string>
+    <string name="welcome_feature_1_text">Достъпвай, споделяй &amp; защитавай вайловете вкъщи и във вашата фирма</string>
+
+    <string name="welcome_feature_2_text">Свържи се към облаците си</string>
+
+    <string name="welcome_feature_3_title">Незабавни качвания</string>
+    <string name="welcome_feature_3_text">Съхранявайте вашите снимки безопасно</string>
+
+    <string name="whats_new_skip">Пропусни</string>
+</resources>

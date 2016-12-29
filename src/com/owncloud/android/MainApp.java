@@ -41,6 +41,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
+import com.owncloud.android.ui.activity.WhatsNewActivity;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -118,6 +119,7 @@ public class MainApp extends Application {
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
                 Log_OC.d(activity.getClass().getSimpleName(),  "onCreate(Bundle) starting" );
+                WhatsNewActivity.runIfNeeded(activity);
                 PassCodeManager.getPassCodeManager().onActivityCreated(activity);
             }
 
@@ -172,6 +174,17 @@ public class MainApp extends Application {
     //   public static final String ACCOUNT_TYPE = "owncloud";    
     public static String getAccountType() {
         return getAppContext().getResources().getString(R.string.account_type);
+    }
+
+    // Non gradle build systems do not provide BuildConfig.VERSION_CODE
+    // so we must fallback to this method :(
+    public static int getVersionCode() {
+        try {
+            String thisPackageName = getAppContext().getPackageName();
+            return getAppContext().getPackageManager().getPackageInfo(thisPackageName, 0).versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            return 0;
+        }
     }
 
     //  From AccountAuthenticator 
