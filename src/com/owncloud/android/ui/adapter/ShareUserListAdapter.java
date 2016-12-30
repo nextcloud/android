@@ -78,17 +78,23 @@ public class ShareUserListAdapter extends ArrayAdapter {
 
             TextView userName = (TextView) view.findViewById(R.id.userOrGroupName);
             ImageView iconView = (ImageView) view.findViewById(R.id.icon);
+            final ImageView editShareButton = (ImageView) view.findViewById(R.id.editShareButton);
+            final ImageView unshareButton = (ImageView) view.findViewById(R.id.unshareButton);
+
             String name = share.getSharedWithDisplayName();
             Drawable icon = getContext().getResources().getDrawable(R.drawable.ic_user);
             if (share.getShareType() == ShareType.GROUP) {
                 name = getContext().getString(R.string.share_group_clarification, name);
                 icon = getContext().getResources().getDrawable(R.drawable.ic_group);
+            } else if (share.getShareType() == ShareType.EMAIL) {
+                name = getContext().getString(R.string.share_email_clarification, name);
+                icon = getContext().getResources().getDrawable(R.drawable.ic_email);
+                editShareButton.setVisibility(View.INVISIBLE);
             }
             userName.setText(name);
             iconView.setImageDrawable(icon);
 
             /// bind listener to edit privileges
-            final ImageView editShareButton = (ImageView) view.findViewById(R.id.editShareButton);
             editShareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -97,7 +103,6 @@ public class ShareUserListAdapter extends ArrayAdapter {
             });
 
             /// bind listener to unshare
-            final ImageView unshareButton = (ImageView) view.findViewById(R.id.unshareButton);
             unshareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -113,7 +118,4 @@ public class ShareUserListAdapter extends ArrayAdapter {
         void unshareButtonPressed(OCShare share);
         void editShare(OCShare share);
     }
-
-
-
 }
