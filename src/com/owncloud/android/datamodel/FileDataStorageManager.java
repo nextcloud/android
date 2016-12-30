@@ -1582,10 +1582,12 @@ public class FileDataStorageManager {
                 + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND
                 + " (" + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE +  "=? OR "
+                + ProviderTableMeta.OCSHARES_SHARE_TYPE +  "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? ) ";
         String [] whereArgs = new String[]{ filePath, accountName ,
                 Integer.toString(ShareType.USER.getValue()),
                 Integer.toString(ShareType.GROUP.getValue()),
+                Integer.toString(ShareType.EMAIL.getValue()),
                 Integer.toString(ShareType.FEDERATED.getValue())};
 
         Cursor cursor = null;
