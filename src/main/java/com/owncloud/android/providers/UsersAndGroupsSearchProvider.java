@@ -266,18 +266,15 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 // the thread may die before, an exception will occur, and the message will be left on the screen
                 // until the app dies
 
-                // Edited: this toast message has no sense. If operation is being passed as null to getErrorCauseMessage(),
-                // the returned message is always null and therefore an empty toast is shown. Pending to review and change/delete
-
-//                Toast.makeText(
-//                        getContext().getApplicationContext(),
-//                        ErrorMessageAdapter.getErrorCauseMessage(
-//                                result,
-//                                null,
-//                                getContext().getResources()
-//                        ),
-//                        Toast.LENGTH_SHORT
-//                ).show();
+                Toast.makeText(
+                        getContext().getApplicationContext(),
+                        ErrorMessageAdapter.getErrorCauseMessage(
+                                result,
+                                null,
+                                getContext().getResources()
+                        ),
+                        Toast.LENGTH_SHORT
+                ).show();
             }
         });
     }
