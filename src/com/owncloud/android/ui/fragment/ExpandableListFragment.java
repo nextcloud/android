@@ -28,7 +28,6 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -56,7 +55,8 @@ public class ExpandableListFragment extends ExtendedListFragment implements OnCh
         Log_OC.e(TAG, "onCreateView");
         
         View v = inflater.inflate(R.layout.list_fragment_expandable, null);
-        mEmptyListMessage = (TextView) v.findViewById(R.id.empty_list_view);
+        setupEmptyList(v);
+
         mList = (ExpandableListView)(v.findViewById(R.id.list_root));
         mList.setOnChildClickListener(this);
 
@@ -86,5 +86,4 @@ public class ExpandableListFragment extends ExtendedListFragment implements OnCh
         Log_OC.e(TAG, "onChildClick(). This method should be overriden!");
         return false;
     }
-
 }
