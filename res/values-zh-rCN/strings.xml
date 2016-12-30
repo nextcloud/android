@@ -71,13 +71,16 @@
     <string name="uploader_error_message_no_file_to_upload">得到的数据没有包括有效文件</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">文件无法被上传</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s 不让读取已经获得的文件</string>
+    <string name="uploader_error_message_source_file_not_found">要上传的文件没有在本地发现，请检查文件是否存在
+</string>
+    <string name="uploader_error_message_source_file_not_copied">当文件复制到临时文件夹时有错误发生，请重新发送</string>
     <string name="uploader_upload_files_behaviour">上传选项：</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">移动文件到Nextcloud文件夹</string>
     <string name="uploader_upload_files_behaviour_only_upload">在原文件夹中保留文件</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">从原文件夹中删除文件</string>
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
-    <string name="file_list_loading">加载中...</string>
+    <string name="file_list_loading">加载中&#8230;</string>
     <string name="file_list_no_app_for_file_type">没有找到程序打开文件格式！</string>
     <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
     <string name="upload_list_empty">没有可用的上传任务。</string>
@@ -106,7 +109,7 @@
     <string name="common_save">保存</string>
     <string name="common_save_exit">保存并退出</string>
     <string name="common_error">错误</string>
-    <string name="common_loading">加载中...</string>
+    <string name="common_loading">加载中 &#8230;</string>
     <string name="common_unknown">未知</string>
     <string name="common_error_unknown">未知错误</string>
     <string name="common_pending">等待</string>
@@ -115,9 +118,9 @@
     <string name="delete_account">删除账号</string>
     <string name="delete_account_warning">删除用户%s?\\n\\n删除不能撤销</string>
     <string name="create_account">创建账号</string>
-    <string name="upload_chooser_title">上传自...</string>
+    <string name="upload_chooser_title">上传自 &#8230;</string>
     <string name="uploader_info_dirname">文件夹名称</string>
-    <string name="uploader_upload_in_progress_ticker">上传...</string>
+    <string name="uploader_upload_in_progress_ticker">上传 &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% 上传 %2$s</string>
     <string name="uploader_upload_succeeded_ticker">上传成功</string>
     <string name="uploader_upload_succeeded_content_single">%1$s 上传成功</string>
@@ -143,7 +146,7 @@
     <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">等待WiFi连接</string>
     <string name="uploads_view_later_waiting_to_upload">等待上传...</string>
-    <string name="downloader_download_in_progress_ticker">下载中...</string>
+    <string name="downloader_download_in_progress_ticker">下载中 &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% 下载中 %2$s</string>
     <string name="downloader_download_succeeded_ticker">下载成功</string>
     <string name="downloader_download_succeeded_content">%1$s 下载成功</string>
@@ -201,8 +204,8 @@
     <string name="media_play_pause_description">播放暂停按钮</string>
     <string name="media_forward_description">快进按钮</string>
 
-	<string name="auth_getting_authorization">认证中...</string>
-	<string name="auth_trying_to_login">尝试登录中...</string>
+	<string name="auth_getting_authorization">认证中 &#8230;</string>
+	<string name="auth_trying_to_login">尝试登录中 &#8230;</string>
 	<string name="auth_no_net_conn_title">没有网络连接</string>
 	<string name="auth_nossl_plain_ok_title">安全连接不可用。</string>
 	<string name="auth_connection_established">连接已建立。</string>
@@ -257,7 +260,7 @@
     <string name="wait_checking_credentials">检查保存的证书</string>
     <string name="filedisplay_unexpected_bad_get_content">未预见错误，请从其它程序中选取文件</string>
     <string name="filedisplay_no_file_selected">未选择文件</string>
-    <string name="activity_chooser_title">发送链接给 …</string>
+    <string name="activity_chooser_title">发送链接给 &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
     
     <string name="oauth_check_onoff">使用oAuth2登陆</string> 
@@ -335,6 +338,8 @@
     <string name="clipboard_text_copied">复制到剪贴板</string>
     <string name="clipboard_no_text_to_copy">没有取得文本可以复制到剪贴板</string>
     <string name="clipboard_uxexpected_error">发生未预见的错误当复制到剪贴板</string>
+    <string name="clipboard_label">从%1$s复制文本</string>
+
     <string name="error_cant_bind_to_operations_service">严重错误：无法执行操作</string>
 
     <string name="network_error_socket_exception">连接到服务器时发生了一个错误。</string>
@@ -353,14 +358,14 @@
 
     <string name="file_migration_dialog_title">更新存储路径</string>
     <string name="file_migration_finish_button">完成</string>
-    <string name="file_migration_preparing">正在准备迁移&#8230</string>
-    <string name="file_migration_checking_destination">检查目的地&#82130</string>
-    <string name="file_migration_saving_accounts_configuration">保存用户设置&#8230</string>
-    <string name="file_migration_waiting_for_unfinished_sync">正在同步，请等候&#8230</string>
-    <string name="file_migration_migrating">正在转移数据&#8230</string>
-    <string name="file_migration_updating_index">更新目录&#8230</string>
-    <string name="file_migration_cleaning">清除&#8230</string>
-    <string name="file_migration_restoring_accounts_configuration">重新装入用户设置</string>
+    <string name="file_migration_preparing">正在准备迁移&#8230;</string>
+    <string name="file_migration_checking_destination">检查目的地&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">保存用户设置&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">正在同步，请等候&#8230;</string>
+    <string name="file_migration_migrating">正在转移数据&#8230;</string>
+    <string name="file_migration_updating_index">更新目录&#8230;</string>
+    <string name="file_migration_cleaning">清除&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">重新装入用户设置&#8230;</string>
     <string name="file_migration_ok_finished">完成</string>
     <string name="file_migration_failed_not_enough_space">错误：没有足够空间</string>
     <string name="file_migration_failed_not_writable">错误：文件不可写</string>
@@ -382,7 +387,7 @@
 	<string name="log_send_history_button">发送历史日志</string>
 	<string name="log_send_no_mail_app">无法发送日志，请安装邮箱应用。</string>
 	<string name="log_send_mail_subject">%1$s Android 程序日志</string>
-	<string name="log_progress_dialog_text">加载数据...</string>
+	<string name="log_progress_dialog_text">加载数据 &#8230;</string>
 
 	<string name="saml_authentication_required_text">需要认证</string>
 	<string name="saml_authentication_wrong_pass">错误密码</string>
@@ -454,7 +459,7 @@
     <string name="share_via_link_edit_permission_label">允许编辑</string>
     <string name="share_via_link_hide_file_listing_permission_label">隐藏文件列表</string>
     <string name="share_get_public_link_button">获取链接</string>
-    <string name="share_with_title">分享...</string>
+    <string name="share_with_title">分享 &#8230;</string>
     <string name="share_with_edit_title">与 %1$s 分享</string>
 
     <string name="share_search">搜索</string>
@@ -501,5 +506,8 @@
     <string name="participate_testing_report_text">在GIthub在报告问题</string>
     <string name="participate_testing_version_text">有感兴趣帮我们测试下一个版本吗？</string>
     <string name="participate_beta_headline">测试Beta版</string>
+    <string name="participate_beta_text">这包括所有的即将实现的特征和新的前沿技术。如果出现错误，请报告给我们，&lt;br/>&lt;a href=\"%2$s\">请下载&lt;/a>
+或者</string>
+    <string name="participate_release_candidate_headline">发行候选版本</string>
     <string name="whats_new_skip">跳过</string>
 </resources>
