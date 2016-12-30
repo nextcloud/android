@@ -23,18 +23,15 @@ package com.owncloud.android.ui.dialog;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.format.DateUtils;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileActivity;
 
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  *  Dialog requesting a date after today.

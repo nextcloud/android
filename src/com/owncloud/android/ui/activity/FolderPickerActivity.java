@@ -38,7 +38,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.owncloud.android.R;
@@ -164,12 +163,15 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     private void setBackgroundText() {
         OCFileListFragment listFragment = getListOfFilesFragment();
         if (listFragment != null) {
-            int message = R.string.file_list_loading;
             if (!mSyncInProgress) {
-                // In case folder list is empty
-                message = R.string.file_list_empty_moving;
+                listFragment.setMessageForEmptyList(
+                        R.string.file_list_empty_headline,
+                        R.string.file_list_empty_moving,
+                        R.drawable.ic_list_empty_create_folder
+                );
+            } else {
+                listFragment.setEmptyListLoadingMessage();
             }
-            listFragment.setMessageForEmptyList(getString(message));
         } else {
             Log.e(TAG, "OCFileListFragment is null");
         }
