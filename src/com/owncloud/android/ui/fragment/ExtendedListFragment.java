@@ -496,7 +496,8 @@ public class ExtendedListFragment extends Fragment
      */
     public void setEmptyListLoadingMessage() {
         if (mEmptyListContainer != null && mEmptyListMessage != null) {
-            mEmptyListMessage.setText(R.string.file_list_loading);
+            mEmptyListHeadline.setText(R.string.file_list_loading);
+            mEmptyListMessage.setText("");
 
             mEmptyListIcon.setVisibility(View.GONE);
             mEmptyListProgress.setVisibility(View.VISIBLE);
