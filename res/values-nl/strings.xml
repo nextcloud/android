@@ -531,6 +531,13 @@ of</string>
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
+    <string name="upload_file_dialog_title">Opgeven upload bestandsnaam en bestandstype</string>
+    <string name="upload_file_dialog_filename">Bestandsnaam</string>
+    <string name="upload_file_dialog_filetype">Bestandstype</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Snipper tekstbestand(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet snelkoppelingsbestand(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps snelkoppelingsbestand(%s)</string>
+
     <string name="storage_description_default">Standaard</string>
     <string name="storage_description_sd_no">SD kaart %1$d</string>
     <string name="storage_description_unknown">Onbekend</string>

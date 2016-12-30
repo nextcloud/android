@@ -529,6 +529,13 @@ o</string>
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionados</item>
     </plurals>
+    <string name="upload_file_dialog_title">Ingrese nombre y tipo de archivo de subida</string>
+    <string name="upload_file_dialog_filename">Nombre de archivo</string>
+    <string name="upload_file_dialog_filetype">Tipo de archivo</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Archivo de texto pequeño (.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Archivo de atajo a internet (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Archivo de atajo a Google Maps(%s)</string>
+
     <string name="storage_description_default">Por defecto</string>
     <string name="storage_description_sd_no">Tarjeta SD %1$d</string>
     <string name="storage_description_unknown">Desconocido</string>
