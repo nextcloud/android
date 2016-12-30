@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.os.Build;
 import android.provider.MediaStore.Images;
 import android.provider.MediaStore.Video;
 import android.support.v4.content.ContextCompat;
@@ -57,18 +58,20 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Log_OC.d(TAG, "Received: " + intent.getAction());
-        if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
-            handleNewPictureAction(context, intent);
-            Log_OC.d(TAG, "UNOFFICIAL processed: com.android.camera.NEW_PICTURE");
-        } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
-            handleNewPictureAction(context, intent);
-            Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_PICTURE");
-        } else if (intent.getAction().equals(NEW_VIDEO_ACTION)) {
-            handleNewVideoAction(context, intent);
-            Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_VIDEO");
-        } else {
-            Log_OC.e(TAG, "Incorrect intent received: " + intent.getAction());
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            Log_OC.d(TAG, "Received: " + intent.getAction());
+            if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
+                handleNewPictureAction(context, intent);
+                Log_OC.d(TAG, "UNOFFICIAL processed: com.android.camera.NEW_PICTURE");
+            } else if (intent.getAction().equals(NEW_PHOTO_ACTION)) {
+                handleNewPictureAction(context, intent);
+                Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_PICTURE");
+            } else if (intent.getAction().equals(NEW_VIDEO_ACTION)) {
+                handleNewVideoAction(context, intent);
+                Log_OC.d(TAG, "OFFICIAL processed: android.hardware.action.NEW_VIDEO");
+            } else {
+                Log_OC.e(TAG, "Incorrect intent received: " + intent.getAction());
+            }
         }
     }
 
