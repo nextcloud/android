@@ -336,6 +336,7 @@ public class FileContentProvider extends ContentProvider {
         } else if (
                 newShareType == ShareType.USER.getValue() ||
                 newShareType == ShareType.GROUP.getValue() ||
+                newShareType == ShareType.EMAIL.getValue() ||
                 newShareType == ShareType.FEDERATED.getValue() ) {
             fileValues.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, 1);
         }
