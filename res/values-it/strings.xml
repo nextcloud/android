@@ -531,6 +531,13 @@ o</string>
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
     </plurals>
+    <string name="upload_file_dialog_title">Digita il nome e il tipo del file da caricare</string>
+    <string name="upload_file_dialog_filename">Nome file</string>
+    <string name="upload_file_dialog_filetype">Tipo file</string>
+    <string name="upload_file_dialog_filetype_snippet_text">File dl frammento di testo(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">File di scorciatoia Internet (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">File di scorciatoia Google Maps (%s)</string>
+
     <string name="storage_description_default">Predefinito</string>
     <string name="storage_description_sd_no">Scheda SD %1$d</string>
     <string name="storage_description_unknown">Sconosciuto</string>

@@ -520,7 +520,7 @@
     <string name="participate_contribute_github_text">Участвовать в качестве разработчика: подробности по ссылке &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a>.</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
-    <string name="choose_remote_folder">Выбрите каталог &#8230;</string>
+    <string name="choose_remote_folder">Выберите каталог &#8230;</string>
     <string name="folder_sync_loading_folders">Загрузка каталогов &#8230;</string>
     <string name="folder_sync_no_results">Не найдены каталоги с медиа(файлами).</string>
     <string name="folder_sync_preferences">Настройки автозагрузки</string>

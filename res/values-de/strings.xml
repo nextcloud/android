@@ -323,11 +323,11 @@
 
 	<string name="share_link_no_support_share_api">Entschuldigung, Freigaben sind auf Deinem Server nicht aktiviert. Bitte kontaktiere Deinen
 ⇥⇥Administrator.</string>
-	<string name="share_link_file_no_exist">Teilen nicht möglich. Prüfe, dass die Datei existiert</string>
+	<string name="share_link_file_no_exist">Teilen nicht möglich. Prüfe, ob die Datei existiert</string>
 	<string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
 	<string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfe, dass die Datei existiert</string>
 	<string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
-    <string name="update_link_file_no_exist">Aktualisierung der Datei nicht möglich. Prüfe, dass die Datei existiert</string>
+    <string name="update_link_file_no_exist">Aktualisierung der Datei nicht möglich. Prüfe, ob die Datei existiert</string>
     <string name="update_link_file_error">Es ist ein Fehler beim Aktualisieren der Freigabe aufgetreten</string>
     <string name="share_link_password_title">Passwort eingeben</string>
     <string name="share_link_empty_password">Du musst ein Passwort eingeben</string>
@@ -353,7 +353,7 @@
     <string name="unshare_link_forbidden_permissions">diese Datei nicht mehr zu teilen</string>
     <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
     <string name="forbidden_permissions_create">eine Datei zu erstellen</string>
-    <string name="uploader_upload_forbidden_permissions">in diesem Order etwas hochzuladen</string>
+    <string name="uploader_upload_forbidden_permissions">in diesen Order etwas hochzuladen</string>
     <string name="downloader_download_file_not_found">Diese Datei steht auf dem Server nicht mehr zur Verfügung</string>
 
     <string name="file_migration_dialog_title">Aktualisiere Speicherort</string>
@@ -380,7 +380,7 @@
 
     <string name="prefs_category_accounts">Konten</string>
     <string name="prefs_add_account">Konto hinzufügen</string>
-    <string name="drawer_manage_accounts">Benutzerkonten verwalten</string>
+    <string name="drawer_manage_accounts">Konten verwalten</string>
     <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird durch eine ungesicherte Route geleitet.</string>
 
 	<string name="actionbar_logger">Protokolle</string>
@@ -396,7 +396,7 @@
 	<string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen!</string>
 	<string name="folder_picker_choose_button_text">Auswählen</string>
 
-    <string name="move_file_not_found">Verschieben nicht möglich. Prüfe, dass die Datei existiert</string>
+    <string name="move_file_not_found">Verschieben nicht möglich. Prüfe, ob die Datei existiert</string>
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
     <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
@@ -419,7 +419,7 @@
 	<string name="with_you_subject_header">Mit Dir</string>
     
 	<string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Dir geteilt</string>
-    <string name="subject_shared_with_you">\"%1$s\" wurde mit dir geteilt</string>
+    <string name="subject_shared_with_you">\"%1$s\" wurde mit Dir geteilt</string>
 
     <string name="auth_refresh_button">Verbindung aktualisieren</string>
     <string name="auth_host_address">Serveradresse</string>
@@ -479,7 +479,7 @@
     <string name="edit_share_unshare">Freigabe löschen</string>
     <string name="edit_share_done">Erledigt</string>
 
-    <string name="action_retry_uploads">Wiederhole Fehlversuche</string>
+    <string name="action_retry_uploads">Erneuter Verusch gescheitert</string>
     <string name="action_clear_failed_uploads">Entferne Fehlversuche</string>
     <string name="action_clear_successful_uploads">Entferne erfolgreiche Uploads</string>
     <string name="action_clear_finished_uploads">Alles aufräumen</string>
@@ -528,6 +528,13 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
+    <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
+    <string name="upload_file_dialog_filename">Dateiname</string>
+    <string name="upload_file_dialog_filetype">Dateityp</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Schnipsel Textdatei (.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet Abkürzungs-Datei (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps Abkürzungs-Datei (%s)</string>
+
     <string name="storage_description_default">Standard</string>
     <string name="storage_description_sd_no">SD Karte %1$d</string>
     <string name="storage_description_unknown">Unbekannt</string>
