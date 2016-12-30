@@ -30,6 +30,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -81,8 +82,8 @@ public class PassCodeActivity extends AppCompatActivity {
     private TextView mPassCodeHdrExplanation;
     private EditText mPassCodeEditText;
 
-    private String mPassCode;
-    private boolean mConfirmingPassCode = false;
+    private String mConfirmingPassCode;
+    private boolean mConfirmingPassCodeFlag = false;
     private static final String KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE";
 
     private static final int mButtonsIDList[] = {
@@ -127,10 +128,10 @@ public class PassCodeActivity extends AppCompatActivity {
 
         } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
             if (savedInstanceState != null) {
-                mConfirmingPassCode = savedInstanceState.getBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE);
-                mPassCode = savedInstanceState.getString(PassCodeActivity.KEY_PASSCODE);
+                mConfirmingPassCodeFlag = savedInstanceState.getBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE);
+                mConfirmingPassCode = savedInstanceState.getString(PassCodeActivity.KEY_PASSCODE);
             }
-            if (mConfirmingPassCode) {
+            if (mConfirmingPassCodeFlag) {
                 //the app was in the passcodeconfirmation
                 requestPassCodeConfirmation();
             } else {
@@ -141,6 +142,21 @@ public class PassCodeActivity extends AppCompatActivity {
                 // TODO choose a header, check iOS
                 mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
                 setCancelButtonEnabled(true);
+
+                View view = findViewById(android.R.id.content);
+                Snackbar
+                    .make(view, getString(R.string.pass_code_configure_your_pass_code_explanation), Snackbar.LENGTH_LONG)
+                    .setAction("Cancel", new OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent resultIntent = new Intent();
+                                resultIntent.putExtra(KEY_CHECK_RESULT, true);
+                                setResult(RESULT_CANCELED, resultIntent);
+                                hideSoftKeyboard();
+                                finish();
+                            }
+                    })
+                    .show();
             }
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
@@ -248,7 +264,25 @@ public class PassCodeActivity extends AppCompatActivity {
             et.setShowSoftInputOnFocus(false);  // for disabling popup soft keyboard when double clicked
         }
         et.requestFocus();
-        et.addTextChangedListener(new PassCodeDigitTextWatcher());
+        et.addTextChangedListener(new TextWatcher(){
+            @Override
+            public void afterTextChanged(Editable s) {
+                String passCode = mPassCodeEditText.getText().toString();
+                if (passCode.length() == 4) {
+                    processFullPassCode(passCode);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // nothing to do
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                // nothing to do
+            }
+        });
         mPassCodeEditText = et;
     }
 
@@ -258,19 +292,31 @@ public class PassCodeActivity extends AppCompatActivity {
      * Takes into account the action requested to the activity, the currently saved pass code and
      * the previously typed pass code, if any.
      */
-    private void processFullPassCode() {
+    private void processFullPassCode(String passCode) {
         if (ACTION_CHECK.equals(getIntent().getAction())) {
-            if (checkPassCode()) {
+            if (checkPassCode(passCode)) {
                 /// pass code accepted in request, user is allowed to access the app
                 hideSoftKeyboard();
                 finish();
 
             } else {
-                passCodeWrong();
+                mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
+                passCodeWrong(R.string.pass_code_wrong);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+                        til.setError(null);
+                        if (!mSoftKeyboardMode) {
+                            setButtonsVisibility(true);
+                        }
+                        clearPassCodeEditText();
+                    }
+                }, GUARD_TIME);
             }
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
-            if (checkPassCode()) {
+            if (checkPassCode(passCode)) {
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(KEY_CHECK_RESULT, true);
                 setResult(RESULT_OK, resultIntent);
@@ -278,47 +324,63 @@ public class PassCodeActivity extends AppCompatActivity {
                 finish();
             } else {
                 mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
-                showErrorAndRestart(R.string.pass_code_wrong);
+                passCodeWrong(R.string.pass_code_wrong);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra(KEY_CHECK_RESULT, true);
+                        setResult(RESULT_CANCELED, resultIntent);
+                        hideSoftKeyboard();
+                        finish();
+                    }
+                }, GUARD_TIME);
             }
 
         } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
             /// enabling pass code
-            if (!mConfirmingPassCode) {
+            if (!mConfirmingPassCodeFlag) {
                 requestPassCodeConfirmation();
+                mConfirmingPassCodeFlag = true;
+                mConfirmingPassCode = passCode;
 
-            } else if (confirmPassCode()) {
+            } else if (mConfirmingPassCode.equals(passCode)) {
                 /// confirmed: user typed the same pass code twice
-                savePassCodeAndExit();
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra(KEY_PASSCODE, mConfirmingPassCode);
+                setResult(RESULT_OK, resultIntent);
+                finish();
 
             } else {
                 mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
-                showErrorAndRestart(R.string.pass_code_mismatch);
-                mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
-
+                mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
+                passCodeWrong(R.string.pass_code_mismatch);
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+                        til.setError(null);
+                        if (!mSoftKeyboardMode) {
+                            setButtonsVisibility(true);
+                        }
+                        clearPassCodeEditText();
+                        mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
+                        mConfirmingPassCodeFlag = false;
+                    }
+                }, GUARD_TIME);
             }
         }
     }
 
-    private void passCodeWrong() {
+    private void passCodeWrong(int errorMessage) {
         if (!mSoftKeyboardMode) {
             setButtonsVisibility(false);
         }
         Animation animation = AnimationUtils.loadAnimation(PassCodeActivity.this, R.anim.shake);
         mPassCodeEditText.startAnimation(animation);
-        mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
-        showErrorAndRestart(R.string.pass_code_wrong);
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-                til.setError(null);
-                if (!mSoftKeyboardMode) {
-                    setButtonsVisibility(true);
-                }
-                clearBoxes();
-            }
-        }, GUARD_TIME);
+        CharSequence errorSeq = getString(errorMessage);
+        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+        til.setError(errorSeq);
     }
 
     private void hideSoftKeyboard() {
@@ -341,22 +403,14 @@ public class PassCodeActivity extends AppCompatActivity {
         }
     }
 
-    private void showErrorAndRestart(int errorMessage) {
-        mPassCode = "";
-        CharSequence errorSeq = getString(errorMessage);
-        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-        til.setError(errorSeq);
-    }
-
     /**
      * Ask to the user for retyping the pass code just entered before saving it as the current pass
      * code.
      */
     protected void requestPassCodeConfirmation() {
-        clearBoxes();
+        clearPassCodeEditText();
         mPassCodeHdr.setText(R.string.pass_code_reenter_your_pass_code);
         mPassCodeHdrExplanation.setVisibility(View.INVISIBLE);
-        mConfirmingPassCode = true;
     }
 
     /**
@@ -364,7 +418,7 @@ public class PassCodeActivity extends AppCompatActivity {
      *
      * @return 'True' if entered pass code equals to the saved one.
      */
-    protected boolean checkPassCode() {
+    protected boolean checkPassCode(String passCode) {
         SharedPreferences appPrefs = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
 
@@ -374,27 +428,13 @@ public class PassCodeActivity extends AppCompatActivity {
         savedPassCode += appPrefs.getString(PREFERENCE_PASSCODE_D3, null);
         savedPassCode += appPrefs.getString(PREFERENCE_PASSCODE_D4, null);
 
-        boolean result = mPassCode.equals(savedPassCode);
-        return result;
-    }
-
-    /**
-     * Compares pass code retyped by the user in the input fields with the value entered just
-     * before.
-     *
-     * @return 'True' if retyped pass code equals to the entered before.
-     */
-    protected boolean confirmPassCode() {
-        mConfirmingPassCode = false;
-
-        boolean result = mPassCode.equals(mPassCodeEditText.getText().toString());
-        return result;
+        return passCode.equals(savedPassCode);
     }
 
     /**
      * Sets the input fields to empty strings and puts the focus on the first one.
      */
-    protected void clearBoxes() {
+    protected void clearPassCodeEditText() {
         mPassCodeEditText.setText("");
     }
 
@@ -430,42 +470,11 @@ public class PassCodeActivity extends AppCompatActivity {
         startActivity(homeIntent);
     }
 
-    /**
-     * Saves the pass code input by the user as the current pass code.
-     */
-    protected void savePassCodeAndExit() {
-        Intent resultIntent = new Intent();
-        resultIntent.putExtra(KEY_PASSCODE, mPassCode);
-        setResult(RESULT_OK, resultIntent);
-        finish();
-    }
-
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE, mConfirmingPassCode);
-        outState.putString(PassCodeActivity.KEY_PASSCODE, mPassCode);
-    }
-
-    private class PassCodeDigitTextWatcher implements TextWatcher {
-        @Override
-        public void afterTextChanged(Editable s) {
-            String passCode = mPassCodeEditText.getText().toString();
-            if (passCode.length() == 4) {
-                mPassCode = passCode;
-                processFullPassCode();
-            }
-        }
-
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            // nothing to do
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-            // nothing to do
-        }
+        outState.putBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE, mConfirmingPassCodeFlag);
+        outState.putString(PassCodeActivity.KEY_PASSCODE, mConfirmingPassCode);
     }
 
     private class ButtonClicked implements OnClickListener {
@@ -486,7 +495,7 @@ public class PassCodeActivity extends AppCompatActivity {
                         new KeyEvent(0, 0, KeyEvent.ACTION_UP, key, 0));
             } else if (mIndex == 10) {
                 // clear
-                clearBoxes();
+                clearPassCodeEditText();
             } else {
                 // delete
                 mPassCodeEditText.dispatchKeyEvent(
@@ -500,7 +509,6 @@ public class PassCodeActivity extends AppCompatActivity {
     public void setListenerToRootView() {
         View view = findViewById(android.R.id.content).getRootView();
         view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-
             @Override
             public void onGlobalLayout() {
                 // navigation bar height
@@ -520,14 +528,18 @@ public class PassCodeActivity extends AppCompatActivity {
                 // display window size for the app layout
                 Rect rect = new Rect();
                 getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+                int appHeight = rect.height();
 
+                // screen height
                 View view = findViewById(android.R.id.content).getRootView();
-                int h = view.getHeight();
-                // screen height - (user app height + status + nav) ..... if non-zero, then there is a soft keyboard
-                int keyboardHeight = h - (statusBarHeight + navigationBarHeight + rect.height());
+                int screenHeight = view.getHeight();
 
-                if (keyboardHeight <= 0) {
+                // soft keyboard height
+                int softKeyboardHeight = screenHeight - (statusBarHeight + navigationBarHeight + appHeight);
+
+                if (softKeyboardHeight <= 0) {
                     if (mIsSoftKeyboardOpend) {
+                        // soft keyboard was closed (back key was pressed)
                         mSoftKeyboardMode = false;
                         setButtonsVisibility(true);
                     }
