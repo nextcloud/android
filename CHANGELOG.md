@@ -1,3 +1,12 @@
+## 2016-12-31
+- Proper email sharee handling #492
+- Disable handling broadcast on Nougat and better #488
+- Pending jobs in upload view #487
+- Ignore files ending with ".tmp" #485
+- Fixed removing files #473 #479
+- Auto upload: delay job, check file #472
+- Auto upload: only files, no folders #469
+
 ## 2016-12-22
 - Add upload URL file feature #327
 
