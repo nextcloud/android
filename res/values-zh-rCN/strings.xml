@@ -300,7 +300,9 @@
 
     <string name="instant_upload_on_wifi">仅通过 WIFI 上传照片</string>
     <string name="instant_video_upload_on_wifi">仅通过 WIFI 上传图片。</string>
-    <string name="instant_upload_path">/InstantUpload</string>
+    <string name="instant_video_upload_on_charging">只在充电时上传</string>
+    <string name="instant_upload_on_charging">只在充电时上传</string>
+    <string name="instant_upload_path">/实时上传</string>
     <string name="conflict_title">文件冲突</string>
     <string name="conflict_message">您想要保留哪个文件？如果您同时选中了两个版本，本地的文件的文件名将被加上一个数字</string>
     <string name="conflict_keep_both">保留两者</string>
@@ -311,7 +313,13 @@
     <string name="preview_image_error_unknown_format">无法显示图片</string>
 
     <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
-    <string name="share_link_no_support_share_api">抱歉，共享功能未启用。请联系管理员。</string>
+    <string name="prefs_instant_upload_path_title">实时上传文件夹</string>
+    <string name="prefs_folder_sync_local_path_title">本地文件夹</string>
+    <string name="prefs_folder_sync_remote_path_title">远端文件夹</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
+
+	<string name="share_link_no_support_share_api">抱歉，共享功能未启用。请联系管理员。</string>
 	<string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
 	<string name="share_link_file_error">共享文件或目录出错</string>
 	<string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
@@ -325,9 +333,14 @@
 
     <string name="copy_link">复制链接</string>
     <string name="clipboard_text_copied">复制到剪贴板</string>
+    <string name="clipboard_no_text_to_copy">没有取得文本可以复制到剪贴板</string>
+    <string name="clipboard_uxexpected_error">发生未预见的错误当复制到剪贴板</string>
     <string name="error_cant_bind_to_operations_service">严重错误：无法执行操作</string>
 
     <string name="network_error_socket_exception">连接到服务器时发生了一个错误。</string>
+    <string name="network_error_socket_timeout_exception">当等待服务器时发生错误，操作不能完成</string>
+    <string name="network_error_connect_timeout_exception">当等待服务器时发生错误，操作不能完成</string>
+    <string name="network_host_not_available">操作无法无成，服务器不可用</string>
     <string name="forbidden_permissions">你没有权限%s</string>
     <string name="forbidden_permissions_rename">重命名该文件</string>
     <string name="forbidden_permissions_delete">删除该文件</string>
@@ -338,8 +351,31 @@
     <string name="uploader_upload_forbidden_permissions">在此文件夹上传</string>
     <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
 
+    <string name="file_migration_dialog_title">更新存储路径</string>
+    <string name="file_migration_finish_button">完成</string>
+    <string name="file_migration_preparing">正在准备迁移&#8230</string>
+    <string name="file_migration_checking_destination">检查目的地&#82130</string>
+    <string name="file_migration_saving_accounts_configuration">保存用户设置&#8230</string>
+    <string name="file_migration_waiting_for_unfinished_sync">正在同步，请等候&#8230</string>
+    <string name="file_migration_migrating">正在转移数据&#8230</string>
+    <string name="file_migration_updating_index">更新目录&#8230</string>
+    <string name="file_migration_cleaning">清除&#8230</string>
+    <string name="file_migration_restoring_accounts_configuration">重新装入用户设置</string>
+    <string name="file_migration_ok_finished">完成</string>
+    <string name="file_migration_failed_not_enough_space">错误：没有足够空间</string>
+    <string name="file_migration_failed_not_writable">错误：文件不可写</string>
+    <string name="file_migration_failed_not_readable">错误：文件不可读</string>
+    <string name="file_migration_failed_dir_already_exists">错误：Nextcloud目录已经存在</string>
+    <string name="file_migration_failed_while_coping">错误：等待迁移</string>
+    <string name="file_migration_failed_while_updating_index">错误：正在更新目录</string>
+
+    <string name="file_migration_directory_already_exists">数据目录已经存在，怎么办？</string>
+    <string name="file_migration_override_data_folder">覆盖</string>
+    <string name="file_migration_use_data_folder">使用存在</string>
+
     <string name="prefs_category_accounts">账号</string>
     <string name="prefs_add_account">添加账号</string>
+    <string name="drawer_manage_accounts">管理账号</string>
     <string name="auth_redirect_non_secure_connection_title">安全连接是通过一个非安全路由定向的。</string>
 
 	<string name="actionbar_logger">日志</string>
@@ -351,7 +387,8 @@
 	<string name="saml_authentication_required_text">需要认证</string>
 	<string name="saml_authentication_wrong_pass">错误密码</string>
 	<string name="actionbar_move">移动</string>
-    <string name="file_list_empty_moving">这里还什么都没有。上传些东西吧！</string>
+    <string name="actionbar_copy">复制</string>
+	<string name="file_list_empty_moving">这里还什么都没有。上传些东西吧！</string>
 	<string name="folder_picker_choose_button_text">选择</string>
 
     <string name="move_file_not_found">无法移动。请检查文件是否存在</string>
@@ -370,7 +407,8 @@
     <string name="prefs_category_instant_uploading">即时上传</string>
     <string name="prefs_category_details">详细信息</string>
 
-	<string name="sync_folder_failed_content"> %1$s同步未完成。</string>
+	<string name="prefs_instant_video_upload_path_title">实时上传视频目录</string>
+    <string name="sync_folder_failed_content"> %1$s同步未完成。</string>
 
 	<string name="shared_subject_header">已共享</string>
 	<string name="with_you_subject_header">与你</string>
@@ -396,8 +434,14 @@
     <string name="prefs_instant_behaviour_title">原始文件将会&#8230;</string>
     <string name="upload_copy_files">复制文件</string>
     <string name="upload_move_files">移动文件</string>
+    <string name="select_all">选择全部</string>
+
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
+    <string name="pref_behaviour_entries_delete_file">删除</string>
+    <string name="prefs_storage_path">存储路径</string>
+    <string name="prefs_common">普通</string>
+
     <string name="share_dialog_title">共享</string>
     <string name="share_file">分享 %1$s</string>
     <string name="share_with_user_section_title">分享给其他用户或组</string>
@@ -408,6 +452,7 @@
     <string name="share_via_link_password_label">密码保护</string>
     <string name="share_via_link_password_title">安全</string>
     <string name="share_via_link_edit_permission_label">允许编辑</string>
+    <string name="share_via_link_hide_file_listing_permission_label">隐藏文件列表</string>
     <string name="share_get_public_link_button">获取链接</string>
     <string name="share_with_title">分享...</string>
     <string name="share_with_edit_title">与 %1$s 分享</string>
@@ -417,6 +462,8 @@
     <string name="search_users_and_groups_hint">搜索用户和组</string>
     <string name="share_group_clarification">%1$s (组)</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
+    <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
+
     <string name="share_sharee_unavailable">对不起，共享服务功能未开启，请联系管理员</string>
     <string name="share_privilege_can_share">可共享</string>
     <string name="share_privilege_can_edit">可编辑</string>
@@ -435,9 +482,24 @@
     <string name="action_switch_list_view">列表视图</string>
 
     <string name="manage_space_title">管理空间</string>
+    <string name="manage_space_description">在%1$s的数据中，设置、数据库和服务器认证都会永久性删除，\\n\\n下载目录会保存。\\n\\n这个过程会持续些时间。</string>
     <string name="manage_space_clear_data">清除数据</string>
     <string name="manage_space_error">某些文件无法删除。</string>
 
     <string name="permission_storage_access">没有权限上传和下载文件。</string>
+    <string name="local_file_not_found_toast">在当地的文件系统中找不到这个文件</string>
+    <string name="confirmation_remove_files_alert">你是否真的要删除所选的项目？</string>
+    <string name="confirmation_remove_folders_alert">你是否真的要删除所选的项目和它们的内容？</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">请等待，设备在充电</string>
+    <string name="actionbar_search">搜索</string>
+    <string name="files_drop_not_supported">这是一个Nextcloud的特征，请更新</string>
+    <string name="learn_more">学习更多</string>
+    <string name="drawer_folder_sync">自动上传</string>
+    <string name="drawer_participate">参加</string>
+    <string name="participate_testing_headline">帮助我们测试</string>
+    <string name="participate_testing_bug_text">发现一个错误？事情很奇怪？</string>
+    <string name="participate_testing_report_text">在GIthub在报告问题</string>
+    <string name="participate_testing_version_text">有感兴趣帮我们测试下一个版本吗？</string>
+    <string name="participate_beta_headline">测试Beta版</string>
     <string name="whats_new_skip">跳过</string>
 </resources>
