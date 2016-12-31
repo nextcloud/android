@@ -276,7 +276,7 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
-   protected void setupEmptyList(View view) {
+    protected void setupEmptyList(View view) {
         mEmptyListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
         mEmptyListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
         mEmptyListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
