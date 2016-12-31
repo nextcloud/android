@@ -78,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Behåll fil i källmappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Radera fil från källmappen</string>
     <string name="file_list_seconds_ago">sekunder sedan</string>
-    <string name="file_list_empty">Ingenting här. Ladda upp något!</string>
     <string name="file_list_loading">Laddar&#8230;</string>
     <string name="file_list_no_app_for_file_type">Inget program kan hantera denna filtyp</string>
     <string name="local_file_list_empty">Det finns inga filer i den här mappen.</string>
-    <string name="upload_list_empty">Inga uppladdningar tillgängliga.</string>
     <string name="file_list_folder">mapp</string>
     <string name="file_list_folders">mappar</string>
     <string name="file_list_file">fil</string>

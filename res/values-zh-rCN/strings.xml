@@ -79,11 +79,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">在原文件夹中保留文件</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">从原文件夹中删除文件</string>
     <string name="file_list_seconds_ago">几秒前</string>
-    <string name="file_list_empty">这里还什么都没有。上传些东西吧！</string>
     <string name="file_list_loading">加载中&#8230;</string>
     <string name="file_list_no_app_for_file_type">没有找到程序打开文件格式！</string>
     <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
-    <string name="upload_list_empty">没有可用的上传任务。</string>
     <string name="file_list_folder">文件夹</string>
     <string name="file_list_folders">文件夹</string>
     <string name="file_list_file">文件</string>
@@ -116,7 +114,7 @@
     <string name="about_title">关于</string>
     <string name="change_password">修改密码</string>
     <string name="delete_account">删除账号</string>
-    <string name="delete_account_warning">删除用户%s?\\n\\n删除不能撤销</string>
+    <string name="delete_account_warning">删除用户%s?\n\n删除不能撤销</string>
     <string name="create_account">创建账号</string>
     <string name="upload_chooser_title">上传自 &#8230;</string>
     <string name="uploader_info_dirname">文件夹名称</string>
@@ -487,7 +485,7 @@
     <string name="action_switch_list_view">列表视图</string>
 
     <string name="manage_space_title">管理空间</string>
-    <string name="manage_space_description">在%1$s的数据中，设置、数据库和服务器认证都会永久性删除，\\n\\n下载目录会保存。\\n\\n这个过程会持续些时间。</string>
+    <string name="manage_space_description">在%1$s的数据中，设置、数据库和服务器认证都会永久性删除，\n\n下载目录会保存。\n\n这个过程会持续些时间。</string>
     <string name="manage_space_clear_data">清除数据</string>
     <string name="manage_space_error">某些文件无法删除。</string>
 
@@ -509,5 +507,47 @@
     <string name="participate_beta_text">这包括所有的即将实现的特征和新的前沿技术。如果出现错误，请报告给我们，&lt;br/>&lt;a href=\"%2$s\">请下载&lt;/a>
 或者</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
+    <string name="participate_release_candidate_text">候选发行版(RC)是下一个版本的快照，希望它是稳定的，你可以帮助测试以确认这一点。可以注册登陆在应用商店或手工在F-Droid的版本部分查找，并进行测试。</string>
+    <string name="participate_contribute_headline">活跃的候选版</string>
+    <string name="participate_contribute_irc_text">在IRC上加入这个会话： &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">帮助别人在&lt;a href=\"%1$s>forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Translate&lt;/a> 这个应用</string>
+    <string name="participate_contribute_github_text">做为有贡献的开发者，可以看&lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a>的细节</string>
+    <string name="move_to">转移到&#8230;</string>
+    <string name="copy_to">复制到</string>
+    <string name="choose_remote_folder">选择文件夹&#8230;</string>
+    <string name="folder_sync_loading_folders">加载文件夹&#8230;</string>
+    <string name="folder_sync_no_results">没有发现媒体文件夹</string>
+    <string name="folder_sync_preferences">自动上传喜欢的部分</string>
+    <string name="folder_sync_settings">设置</string>
+    <string name="folder_sync_new_info">即时上传已经被完全更新，请查看主菜单，重新设置你的自动上传，很抱歉给你带来的不便。\\n\\n享受新的并已扩展的上传功能！</string>
+    <string name="folder_sync_preferences_folder_path">为%1$s</string>
+    <plurals name="items_selected_count">
+        <item quantity="other">%d被选择</item>
+    </plurals>
+    <string name="upload_file_dialog_title">输入上传的文件名和文件类型</string>
+    <string name="upload_file_dialog_filename">文件名</string>
+    <string name="upload_file_dialog_filetype">文件类型</string>
+    <string name="upload_file_dialog_filetype_snippet_text">片段文本文件(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">互联网快捷文件(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">谷歌地图快捷文件(%s)</string>
+
+    <string name="storage_description_default">默认</string>
+    <string name="storage_description_sd_no">SD卡%1$d</string>
+    <string name="storage_description_unknown">不知道</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">有什么新东西在Nextcloud里</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">给你所有的数据一个安全的家</string>
+    <string name="welcome_feature_1_text">在家里或公司，访问，分享，保护你的文件</string>
+
+    <string name="welcome_feature_2_title">多用户</string>
+    <string name="welcome_feature_2_text">联接你所有的云</string>
+
+    <string name="welcome_feature_3_title">即时上传</string>
+    <string name="welcome_feature_3_text">保护你的照片安全</string>
+
     <string name="whats_new_skip">跳过</string>
 </resources>

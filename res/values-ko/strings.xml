@@ -66,11 +66,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">소스 폴더에 파일 보관</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">소스 폴더에서 파일 삭제</string>
     <string name="file_list_seconds_ago">초 지남</string>
-    <string name="file_list_empty">내용이 없습니다. 업로드할 수 있습니다!</string>
     <string name="file_list_loading">불러오는 중&#8230;</string>
     <string name="file_list_no_app_for_file_type">파일 형식의 앱을 찾을 수 없음</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
-    <string name="upload_list_empty">업로드 없음</string>
     <string name="file_list_folder">폴더</string>
     <string name="file_list_folders">폴더</string>
     <string name="file_list_file">파일</string>

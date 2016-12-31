@@ -74,11 +74,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Ponechaj súbor v pôvodnom priečinku</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Odstráň súbor z pôvodného priečinka</string>
     <string name="file_list_seconds_ago">pred sekundami</string>
-    <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
     <string name="file_list_loading">Načítavam...</string>
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla!</string>
     <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
-    <string name="upload_list_empty">Žiadne súbory na nahratie nie sú dostupné.</string>
     <string name="file_list_folder">priečinok</string>
     <string name="file_list_folders">priečinky</string>
     <string name="file_list_file">súbor</string>

@@ -78,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Garder le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
-    <string name="file_list_empty">Il n\'y a rien ici ! Téléversez donc quelque chose :)</string>
     <string name="file_list_loading">Chargement&#8230;</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
-    <string name="upload_list_empty">Aucun téléversement disponible.</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_folders">dossiers</string>
     <string name="file_list_file">fichier</string>
