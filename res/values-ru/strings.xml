@@ -79,11 +79,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Хранить файл в исходном каталоге</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
-    <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
     <string name="file_list_loading">Загрузка&#8230;</string>
     <string name="file_list_no_app_for_file_type">Приложение для этого типа файла не найдено!</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
-    <string name="upload_list_empty">Нет доступных загрузок.</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_folders">каталоги</string>
     <string name="file_list_file">файл</string>
@@ -520,7 +518,7 @@
     <string name="participate_contribute_github_text">Участвовать в качестве разработчика: подробности по ссылке &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a>.</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
-    <string name="choose_remote_folder">Выбрите каталог &#8230;</string>
+    <string name="choose_remote_folder">Выберите каталог &#8230;</string>
     <string name="folder_sync_loading_folders">Загрузка каталогов &#8230;</string>
     <string name="folder_sync_no_results">Не найдены каталоги с медиа(файлами).</string>
     <string name="folder_sync_preferences">Настройки автозагрузки</string>

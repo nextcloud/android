@@ -79,11 +79,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">A fájl maradjon az eredeti mappában</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">A fájl törlése az eredeti mappábó</string>
     <string name="file_list_seconds_ago">pár másodperce</string>
-    <string name="file_list_empty">Itt nincs semmi. Tölts fel valamit!</string>
     <string name="file_list_loading">Betöltés&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nem található alkalmazás a fálj típushoz.</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
-    <string name="upload_list_empty">Nincsenek feltöltések.</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_folders">mappák</string>
     <string name="file_list_file">fájl</string>
@@ -528,6 +526,13 @@ vagy</string>
         <item quantity="one">%d kiválasztott</item>
         <item quantity="other">%d kiválasztott</item>
     </plurals>
+    <string name="upload_file_dialog_title">Add meg a feltöltendő fájl nevét és típusát</string>
+    <string name="upload_file_dialog_filename">Fájlnév</string>
+    <string name="upload_file_dialog_filetype">Fájl típus</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Töredék szöveg fájl(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet parancsikon fájl(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Térkép parancsikon fájl(%s)</string>
+
     <string name="storage_description_default">Alapértelmezett</string>
     <string name="storage_description_sd_no">SD kártya %1$d</string>
     <string name="storage_description_unknown">Ismeretlen</string>

@@ -78,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mbani kartelën tek dosja burim</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Fshij kartelën nga dosja burim</string>
     <string name="file_list_seconds_ago">sekonda më parë</string>
-    <string name="file_list_empty">Këtu nuk ka gjë. Ngarkoni diçka!</string>
     <string name="file_list_loading">Po ngarkohet&#8230;</string>
     <string name="file_list_no_app_for_file_type">S’u gjet aplikacion për llojin e kartelës!</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
-    <string name="upload_list_empty">S’ka ngarkime gati.</string>
     <string name="file_list_folder">dosje</string>
     <string name="file_list_folders">dosje</string>
     <string name="file_list_file">Skedar</string>
@@ -527,6 +525,13 @@ ose</string>
         <item quantity="one">%d të përzgjedhura</item>
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
+    <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
+    <string name="upload_file_dialog_filename">Emri dokumentit</string>
+    <string name="upload_file_dialog_filetype">Tipi dokumentit</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Skedar elementi tekst(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Skedar Interneti (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Skedar Google Maps(%s)</string>
+
     <string name="storage_description_default">Paraprake</string>
     <string name="storage_description_sd_no">Kart SD %1$d</string>
     <string name="storage_description_unknown">E panjohur</string>

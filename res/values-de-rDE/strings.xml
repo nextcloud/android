@@ -78,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Hochladen und Datei im Quellordner behalten</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Lösche Datei aus Quellordner</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
-    <string name="file_list_empty">Alles leer. Laden Sie etwas hoch!</string>
     <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
-    <string name="upload_list_empty">Keine Uploads verfügbar</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_folders">Ordner</string>
     <string name="file_list_file">Datei</string>
@@ -528,6 +526,13 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
+    <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
+    <string name="upload_file_dialog_filename">Dateiname</string>
+    <string name="upload_file_dialog_filetype">Dateityp</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Schnipsel Textdatei (.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet Abkürzungs-Datei (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps Abkürzungs-Datei (%s)</string>
+
     <string name="storage_description_default">Standard</string>
     <string name="storage_description_sd_no">SD Karte %1$d</string>
     <string name="storage_description_unknown">Unbekannt</string>

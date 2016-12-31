@@ -78,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Behold filen i kildemappe</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slett filen fra kildemappen</string>
     <string name="file_list_seconds_ago">for få sekunder siden</string>
-    <string name="file_list_empty">Ingenting her. Last opp noe!</string>
     <string name="file_list_loading">Laster&#8230;</string>
     <string name="file_list_no_app_for_file_type">Ingen app funnet for filtypen!</string>
     <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
-    <string name="upload_list_empty">Ingen opplastinger tilgjengelig.</string>
     <string name="file_list_folder">mappe</string>
     <string name="file_list_folders">mapper</string>
     <string name="file_list_file">fil</string>

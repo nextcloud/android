@@ -78,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Manter o ficheiro na pasta fonte</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eliminar ficheiro da pasta fonte</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
-    <string name="file_list_empty">Aqui não existe nada. Carregue alguma coisa!</string>
     <string name="file_list_loading">A carregar&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação encontrada para o tipo de ficheiro!</string>
     <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
-    <string name="upload_list_empty">Sem carregamentos disponíveis.</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_folders">pastas</string>
     <string name="file_list_file">ficheiro</string>

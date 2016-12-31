@@ -276,7 +276,7 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
-    protected void setupEmptyList(View view) {
+   protected void setupEmptyList(View view) {
         mEmptyListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
         mEmptyListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
         mEmptyListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
@@ -496,7 +496,8 @@ public class ExtendedListFragment extends Fragment
      */
     public void setEmptyListLoadingMessage() {
         if (mEmptyListContainer != null && mEmptyListMessage != null) {
-            mEmptyListMessage.setText(R.string.file_list_loading);
+            mEmptyListHeadline.setText(R.string.file_list_loading);
+            mEmptyListMessage.setText("");
 
             mEmptyListIcon.setVisibility(View.GONE);
             mEmptyListProgress.setVisibility(View.VISIBLE);
