@@ -78,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el fichero en la carpeta original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar fichero de la carpeta original</string>
     <string name="file_list_seconds_ago">hace segundos</string>
-    <string name="file_list_empty">No hay nada aquí. ¡Suba algo!</string>
     <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">¡Aplicación no encontrada para el tipo de archivo!</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
-    <string name="upload_list_empty">Sin datos para subir.</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_folders">carpetas</string>
     <string name="file_list_file">fichero</string>

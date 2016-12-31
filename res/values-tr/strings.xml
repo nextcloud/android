@@ -78,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Dosya kaynak klasörde tutulsun</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dosya kaynak klasörden silinsin</string>
     <string name="file_list_seconds_ago">saniye önce</string>
-    <string name="file_list_empty">Burada henüz bir şey yok. Bir şeyler yükleyin!</string>
     <string name="file_list_loading">Yükleniyor&#8230;</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı!</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
-    <string name="upload_list_empty">Herhangi bir yükleme yok.</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_folders">klasör</string>
     <string name="file_list_file">dosya</string>

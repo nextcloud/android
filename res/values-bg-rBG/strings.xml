@@ -78,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Запазване на файла в оригиналната папка</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Изтриване на файла от оригиналната папка</string>
     <string name="file_list_seconds_ago">преди секунди</string>
-    <string name="file_list_empty">Тук няма нищо. Качете нещо!</string>
     <string name="file_list_loading">Зарежда&#8230;</string>
     <string name="file_list_no_app_for_file_type">Няма намерени приложения за типа фаил</string>
     <string name="local_file_list_empty">В папката няма файлове.</string>
-    <string name="upload_list_empty">Няма налични актуализации.</string>
     <string name="file_list_folder">папка</string>
     <string name="file_list_folders">папки</string>
     <string name="file_list_file">файл</string>

@@ -77,11 +77,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">在來源資料夾保留檔案</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">刪除來源資料夾中的檔案</string>
     <string name="file_list_seconds_ago">幾秒前</string>
-    <string name="file_list_empty">目前沒有任何檔案，上傳一些東西吧！</string>
     <string name="file_list_loading">載入中&#8230;</string>
     <string name="file_list_no_app_for_file_type">檔案格式無對應的應用程式可開啟</string>
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案</string>
-    <string name="upload_list_empty">無上傳</string>
     <string name="file_list_folder">資料夾</string>
     <string name="file_list_folders">資料夾</string>
     <string name="file_list_file">檔案</string>

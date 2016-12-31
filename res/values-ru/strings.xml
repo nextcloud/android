@@ -79,11 +79,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Хранить файл в исходном каталоге</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
-    <string name="file_list_empty">Здесь ничего нет. Загрузите что-нибудь!</string>
     <string name="file_list_loading">Загрузка&#8230;</string>
     <string name="file_list_no_app_for_file_type">Приложение для этого типа файла не найдено!</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
-    <string name="upload_list_empty">Нет доступных загрузок.</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_folders">каталоги</string>
     <string name="file_list_file">файл</string>
