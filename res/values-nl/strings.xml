@@ -79,11 +79,9 @@ Download hier: %2$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Bewaar het bestand in de bronmap</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Verwijder bestand uit bronmap</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
-    <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
     <string name="file_list_loading">Laden&#8230;</string>
     <string name="file_list_no_app_for_file_type">Geen app gevonden voor dit bestandsformaat!</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
-    <string name="upload_list_empty">Geen uploads beschikbaar.</string>
     <string name="file_list_folder">map</string>
     <string name="file_list_folders">mappen</string>
     <string name="file_list_file">bestand</string>
@@ -531,6 +529,13 @@ of</string>
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
+    <string name="upload_file_dialog_title">Opgeven upload bestandsnaam en bestandstype</string>
+    <string name="upload_file_dialog_filename">Bestandsnaam</string>
+    <string name="upload_file_dialog_filetype">Bestandstype</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Snipper tekstbestand(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet snelkoppelingsbestand(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps snelkoppelingsbestand(%s)</string>
+
     <string name="storage_description_default">Standaard</string>
     <string name="storage_description_sd_no">SD kaart %1$d</string>
     <string name="storage_description_unknown">Onbekend</string>

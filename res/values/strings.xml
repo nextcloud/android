@@ -302,6 +302,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Upload via wifi only</string>
     <string name="instant_upload_on_wifi">Upload pictures via wifi only</string>
     <string name="instant_video_upload_on_wifi">Upload videos via wifi only</string>
     <string name="instant_video_upload_on_charging">Upload when charging only</string>
@@ -482,6 +483,7 @@
     <string name="search_users_and_groups_hint">Search users and groups</string>
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.

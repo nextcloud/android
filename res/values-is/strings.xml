@@ -69,11 +69,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Halda skrá í upprunamöppu</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eyða skrá úr upprunamöppu</string>
     <string name="file_list_seconds_ago">sek.</string>
-    <string name="file_list_empty">Ekkert hér. Settu eitthvað inn!</string>
     <string name="file_list_loading">Hleð inn&#8230;</string>
     <string name="file_list_no_app_for_file_type">Engin forrit fundust fyrir skráategund!</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
-    <string name="upload_list_empty">Engar innsendingar tiltækar</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_folders">möppur</string>
     <string name="file_list_file">skrá</string>

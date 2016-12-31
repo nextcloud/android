@@ -74,11 +74,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Ponechaj súbor v pôvodnom priečinku</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Odstráň súbor z pôvodného priečinka</string>
     <string name="file_list_seconds_ago">pred sekundami</string>
-    <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
     <string name="file_list_loading">Načítavam...</string>
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla!</string>
     <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
-    <string name="upload_list_empty">Žiadne súbory na nahratie nie sú dostupné.</string>
     <string name="file_list_folder">priečinok</string>
     <string name="file_list_folders">priečinky</string>
     <string name="file_list_file">súbor</string>
@@ -96,6 +94,8 @@
     <string name="common_yes">Áno</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
+    <string name="common_remove_upload">Odober nahrávanie</string>
+    <string name="common_retry_upload">Zopakuj nahrávanie</string>
     <string name="common_cancel_sync">Zruš synchronizáciu</string>
     <string name="common_cancel">Zrušiť</string>
     <string name="common_back">Späť</string>
@@ -147,6 +147,7 @@
     <string name="common_choose_account">Zvoliť účet</string>
     <string name="sync_fail_ticker">Synchronizácia neúspešná</string>
     <string name="sync_fail_ticker_unauthorized">Synchronizácia neúspešná, je potrebné sa znovu prihlásiť</string>
+    <string name="sync_fail_content">Synchronizáciu %1$s nie je možné dokončiť</string>
     <string name="sync_fail_content_unauthorized">Nesprávne heslo pre %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
     <string name="sync_conflicts_in_favourites_content">%1$d súborov z automatickej synchronizácie nemožno synchronizovať</string>

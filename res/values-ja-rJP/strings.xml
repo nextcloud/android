@@ -20,7 +20,8 @@
     <string name="drawer_item_on_device">デバイス上</string>
     <string name="drawer_item_settings">設定</string>
     <string name="drawer_item_uploads_list">アップロード</string>
-    <string name="drawer_close">閉じる</string>
+    <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
+	<string name="drawer_close">閉じる</string>
     <string name="drawer_open">開く</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
@@ -37,6 +38,9 @@
     <string name="prefs_log_title_history">ログの履歴</string>
     <string name="prefs_log_summary_history">これは記録されたログを表示します</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
+    <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid でアカウントのサーバーアドレスが解決できませんでした。</string>
+    <string name="prefs_calendar_contacts_no_store_error">Google playストアかF-droidアプリがインストールされていません。</string>
     <string name="prefs_help">ヘルプ</string>
     <string name="prefs_recommend">友達に推薦</string>
     <string name="prefs_feedback">フィードバック</string>
@@ -63,17 +67,19 @@
     <string name="uploader_wrn_no_account_quit_btn_text">終了</string>
     <string name="uploader_error_title_no_file_to_upload">アップロードするファイルはありません</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s でテキストをファイルとしてアップロードできませんでした。</string>
+    <string name="uploader_error_message_no_file_to_upload">受信したデータには有効なファイルが含まれませんでした。</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">アップロードできません</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s で受信ファイルを読み込む権限がありません</string>
     <string name="uploader_error_message_source_file_not_found">アップロードするファイルが指定の場所にありません。ファイルがあるかどうか確認してください。</string>
     <string name="uploader_error_message_source_file_not_copied">ファイルを一時フォルダーにコピーする際にエラーが発生しました。再送してください。</string>
     <string name="uploader_upload_files_behaviour">アップロードオプション:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">ファイルをNextcloudのフォルダーに移動</string>
+    <string name="uploader_upload_files_behaviour_only_upload">ファイルをソースフォルダに保持する</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ファイルをソースフォルダから削除する</string>
     <string name="file_list_seconds_ago">数秒前</string>
-    <string name="file_list_empty">ここには何もありません。何かアップロードしてください。</string>
     <string name="file_list_loading">読込中&#8230;</string>
     <string name="file_list_no_app_for_file_type">ファイルタイプ に対応するアプリはありません！</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
-    <string name="upload_list_empty">ファイルがありません。</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_folders">フォルダー</string>
     <string name="file_list_file">ファイル</string>
@@ -146,6 +152,7 @@
     <string name="downloader_download_failed_credentials_error">ダウンロードに失敗しました,ログインし直す必要があります</string>
     <string name="common_choose_account">アカウントを選択</string>
     <string name="sync_fail_ticker">同期の失敗</string>
+    <string name="sync_fail_ticker_unauthorized">同期失敗;もう一度ログインしてください。</string>
     <string name="sync_fail_content">%1$s の同期が完了しませんでした。</string>
     <string name="sync_fail_content_unauthorized">1$sの無効なパスワード</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
@@ -247,6 +254,7 @@
     <string name="filename_empty">ファイル名を空にすることはできません。</string>
     <string name="wait_a_moment">しばらくお待ちください</string>
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
+    <string name="filedisplay_unexpected_bad_get_content">予期しない問題 ; 違うアプリからファイルを選択してください。</string>
     <string name="filedisplay_no_file_selected">ファイルは選択されていません</string>
     <string name="activity_chooser_title">リンクを送信&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
@@ -304,6 +312,7 @@
     <string name="preview_image_error_unknown_format">この画像は表示できません</string>
 
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
+    <string name="prefs_instant_upload_path_title">自動アップロードフォルダー</string>
     <string name="prefs_folder_sync_remote_path_title">リモートフォルダー</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
@@ -330,6 +339,9 @@
     <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
 
     <string name="network_error_socket_exception">サーバーへの接続中にエラーが発生しました。</string>
+    <string name="network_error_socket_timeout_exception">サーバーからの応答を待っている間にエラーが発生しました。操作を完了することができませんでした。</string>
+    <string name="network_error_connect_timeout_exception">サーバーからの応答を待っている間にエラーが発生しました。操作を完了することができません。</string>
+    <string name="network_host_not_available">操作を完了することができません。サーバーが利用できません。</string>
     <string name="forbidden_permissions">権限 %s がありません</string>
     <string name="forbidden_permissions_rename">ファイル名の変更</string>
     <string name="forbidden_permissions_delete">ファイルを削除</string>
@@ -340,6 +352,12 @@
     <string name="uploader_upload_forbidden_permissions">フォルダーをアップロード</string>
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
 
+    <string name="file_migration_finish_button">完了</string>
+    <string name="file_migration_failed_not_enough_space">十分な空き容量がありません</string>
+    <string name="file_migration_failed_not_writable">ファイルが書き込み可能ではありません。</string>
+    <string name="file_migration_failed_not_readable">ファイルが読み取り可能ではありません。</string>
+    <string name="file_migration_failed_dir_already_exists">Nextcloudのディレクトリはすでに存在します。</string>
+    <string name="file_migration_directory_already_exists">データフォルダはすでに存在します。どうしますか?</string>
     <string name="file_migration_override_data_folder">上書き</string>
     <string name="prefs_category_accounts">アカウント</string>
     <string name="prefs_add_account">アカウントを追加</string>
@@ -405,6 +423,10 @@
 
     <string name="pref_behaviour_entries_keep_file">元のフォルダに保持</string>
     <string name="pref_behaviour_entries_move">アプリフォルダに移動</string>
+    <string name="pref_behaviour_entries_delete_file">削除されました</string>
+    <string name="prefs_storage_path">ストレージの場所</string>
+    <string name="prefs_common">共通の</string>
+
     <string name="share_dialog_title">共有</string>
     <string name="share_file">%1$s を共有</string>
     <string name="share_with_user_section_title">ユーザーとグループで共有</string>
@@ -452,10 +474,52 @@
 
     <string name="permission_storage_access">ファイルをダウンロード &amp; アップロードする追加の権限が必要です。</string>
     <string name="local_file_not_found_toast">ローカルファイルにファイルがありません</string>
+    <string name="confirmation_remove_files_alert">本当に選択したものを削除しますか？</string>
+    <string name="confirmation_remove_folders_alert">本当に 洗濯したアイテム およびそのコンテンツを削除してもよろしいですか？</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">デバイスの充電を待機中</string>
     <string name="actionbar_search">検索</string>
+    <string name="learn_more">もっと見る</string>
     <string name="drawer_folder_sync">自動アップロード</string>
+    <string name="participate_testing_report_text">Githubでエラーを報告する</string>
+    <string name="participate_beta_headline">ベータバージョンを試してみる</string>
+    <string name="participate_beta_text">これは、すべての最新の機能が含まれており、非常に最前端です。 バグやエラーが発生する可能性があり、もしそれが起こった場合、私たちに報告してください。lt;br/>&lt;a href=\"%2$s\">APKファイルをダウンロードする&lt;/a>
+or</string>
+    <string name="participate_release_candidate_headline">リリース候補</string>
+    <string name="participate_release_candidate_text">リリース候補(RC)は、今後のリリースのスナップショット であり、安定性が期待されます。 個々の設定をテストすることで、これを確実にすることができます。 Playストアでのテストに登録するか、F-Droidの「バージョン」セクションを手動で参照してください。</string>
+    <string name="participate_contribute_headline">積極的な貢献</string>
+    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s>フォーラム&lt;/a> で他の人を助ける</string>
+    <string name="participate_contribute_translate_text">アプリを&lt;a href=\"%1$s>翻訳する&lt;/a></string>
+    <string name="participate_contribute_github_text">開発者として貢献には、 &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> をご覧ください。</string>
+    <string name="move_to">&#8230;に移動</string>
+    <string name="copy_to">&#8230;にコピー</string>
+    <string name="choose_remote_folder">&#8230; フォルダーを選択</string>
+    <string name="folder_sync_loading_folders">&#8230; フォルダを読み込み中</string>
+    <string name="folder_sync_no_results">メディアフォルダが見つかりませんでした</string>
+    <string name="folder_sync_preferences">自動アップロードの設定</string>
+    <string name="folder_sync_settings">設定</string>
+    <string name="folder_sync_new_info">インスタントアップロードは完全に刷新されました。 メインメニューから自動アップロードを再設定してください。 ご迷惑をおかけして申し訳ありません。\\n\\n新しく拡張された自動アップロード機能をお楽しみください！</string>
+    <plurals name="items_selected_count">
+        <item quantity="other">%d選択されています。</item>
+    </plurals>
+    <string name="upload_file_dialog_title">アップロードファイル名とファイルタイプを入力</string>
+    <string name="upload_file_dialog_filename">ファイル名</string>
+    <string name="upload_file_dialog_filetype">ファイルタイプ</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">インターネットショートカットファイル(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Googleマップショートカットファイル(%s)</string>
+
     <string name="storage_description_default">デフォルト</string>
     <string name="storage_description_unknown">不明</string>
 
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Nextcloudの新しい点:</string>
+
+    <string name="welcome_feature_1_text">アクセス、共有＆amp; 自宅や企業でファイルを保護する</string>
+
+    <string name="welcome_feature_2_title">マルチアカウント</string>
+    <string name="welcome_feature_2_text">すべてのクラウドへ接続する</string>
+
     <string name="welcome_feature_3_title">自動アップロード</string>
-    </resources>
+    <string name="welcome_feature_3_text">あなたの写真を安全に保つ</string>
+
+    <string name="whats_new_skip">スキップ</string>
+</resources>

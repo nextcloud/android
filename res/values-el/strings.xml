@@ -68,7 +68,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Διατήρηση του αρχείου στον πηγαίο φάκελο</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Διαγραφή αρχείου από τον πηγαίο φάκελο</string>
     <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
-    <string name="file_list_empty">Δεν υπάρχει τίποτα εδώ. Μεταφορτώστε κάτι!</string>
     <string name="file_list_loading">Φόρτωση&#8230;</string>
     <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για τον τύπο αρχείου!</string>
     <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
