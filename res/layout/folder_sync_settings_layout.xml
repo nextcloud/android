@@ -140,7 +140,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="marquee"
                         android:maxLines="1"
-                        android:text="@string/instant_upload_on_wifi"
+                        android:text="@string/auto_upload_on_wifi"
                         android:textAppearance="?attr/textAppearanceListItem"/>
 
                 </RelativeLayout>
