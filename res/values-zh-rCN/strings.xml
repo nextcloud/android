@@ -520,7 +520,7 @@
     <string name="folder_sync_no_results">没有发现媒体文件夹</string>
     <string name="folder_sync_preferences">自动上传喜欢的部分</string>
     <string name="folder_sync_settings">设置</string>
-    <string name="folder_sync_new_info">即时上传已经被完全更新，请查看主菜单，重新设置你的自动上传，很抱歉给你带来的不便。\\n\\n享受新的并已扩展的上传功能！</string>
+    <string name="folder_sync_new_info">即时上传已经被完全更新，请查看主菜单，重新设置你的自动上传，很抱歉给你带来的不便。\n\n享受新的并已扩展的上传功能！</string>
     <string name="folder_sync_preferences_folder_path">为%1$s</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d被选择</item>
