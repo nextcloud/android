@@ -78,9 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantieni il file nella cartella di origine</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina il file dalla cartella di origine</string>
     <string name="file_list_seconds_ago">secondi fa</string>
+    <string name="file_list_empty_headline">Qui non c\'è alcun file</string>
+    <string name="file_list_empty">Carica alcuni contenuti o sincronizza con i tuoi dispositivi!</string>
     <string name="file_list_loading">Caricamento in corso&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione trovata per il tipo di file!</string>
     <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
+    <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
+    <string name="upload_list_empty_text">Carica alcuni contenuti o attiva il caricamento istantaneo!</string>
     <string name="file_list_folder">cartella</string>
     <string name="file_list_folders">cartelle</string>
     <string name="file_list_file">file</string>
@@ -465,6 +469,7 @@
     <string name="search_users_and_groups_hint">Cerca utenti e gruppi</string>
     <string name="share_group_clarification">%1$s (gruppo)</string>
     <string name="share_remote_clarification">%1$s (remota)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
 
     <string name="share_sharee_unavailable">Spiacenti, la versione del tuo server non consente la condivisione con utenti dai client.
