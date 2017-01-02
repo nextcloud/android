@@ -22,6 +22,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -39,6 +40,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewAnimationUtils;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.Animation;
@@ -50,6 +52,8 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.utils.AnalyticsUtils;
+
+import java.util.Random;
 
 public class PassCodeActivity extends AppCompatActivity {
 
@@ -75,9 +79,10 @@ public class PassCodeActivity extends AppCompatActivity {
 
     private boolean ENABLE_GO_HOME = true;
     private boolean DEFAULT_SOFT_KEYBOARD_MODE = false;  // true=soft keyboard / false=buttons
+    private boolean ENABLE_SWITCH_SOFT_KEYBOARD = true;
     private int GUARD_TIME = 3000;
+    private boolean ENABLE_SWAP_BUTTON = false;
 
-    private Button mBCancel;
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
     private EditText mPassCodeEditText;
@@ -100,8 +105,11 @@ public class PassCodeActivity extends AppCompatActivity {
             R.id.clear,
             R.id.back,
     };
+    private Button[] mButtonsList = new Button[12];
+    private int mButtonVisibilityPrev = 0;       // 0=unknown/1=visible/2=invisible
     private boolean mSoftKeyboardMode;
-    private boolean mIsSoftKeyboardOpend;
+    private boolean mIsSoftKeyboardOpened;
+    private boolean mShowButtonsWhenSoftKeyboardClose = true;
 
     /**
      * Initializes the activity.
@@ -116,9 +124,22 @@ public class PassCodeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passcodelock);
 
-        mBCancel = (Button) findViewById(R.id.cancel);
         mPassCodeHdr = (TextView) findViewById(R.id.header);
         mPassCodeHdrExplanation = (TextView) findViewById(R.id.explanation);
+        for (int i = 0; i < mButtonsIDList.length; i++) {
+            mButtonsList[i] = (Button) findViewById(mButtonsIDList[i]);
+        }
+        if (ENABLE_SWAP_BUTTON) {
+            Random r = new Random();
+            int n = r.nextInt(100);
+            for (int i = 0; i < n; i++) {
+                int x = r.nextInt(10);
+                int y = r.nextInt(10);
+                Button t = mButtonsList[x];
+                mButtonsList[x] = mButtonsList[y];
+                mButtonsList[y] = t;
+            }
+        }
 
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             /// this is a pass code request; the user has to input the right value
@@ -131,22 +152,18 @@ public class PassCodeActivity extends AppCompatActivity {
                 mConfirmingPassCodeFlag = savedInstanceState.getBoolean(PassCodeActivity.KEY_CONFIRMING_PASSCODE);
                 mConfirmingPassCode = savedInstanceState.getString(PassCodeActivity.KEY_PASSCODE);
             }
-            if (mConfirmingPassCodeFlag) {
-                //the app was in the passcodeconfirmation
-                requestPassCodeConfirmation();
-            } else {
+            if (!mConfirmingPassCodeFlag) {
                 /// pass code preference has just been activated in Preferences;
                 // will receive and confirm pass code value
                 mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
-                //mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
-                // TODO choose a header, check iOS
                 mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
                 setCancelButtonEnabled(true);
 
                 View view = findViewById(android.R.id.content);
                 Snackbar
-                    .make(view, getString(R.string.pass_code_configure_your_pass_code_explanation), Snackbar.LENGTH_LONG)
-                    .setAction("Cancel", new OnClickListener() {
+                        .make(view, getString(R.string.pass_code_configure_your_pass_code_explanation),
+                                Snackbar.LENGTH_LONG)
+                        .setAction("Cancel", new OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent resultIntent = new Intent();
@@ -155,8 +172,11 @@ public class PassCodeActivity extends AppCompatActivity {
                                 hideSoftKeyboard();
                                 finish();
                             }
-                    })
-                    .show();
+                        })
+                        .show();
+            } else {
+                //the app was in the passcodeconfirmation
+                requestPassCodeConfirmation();
             }
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
@@ -174,6 +194,7 @@ public class PassCodeActivity extends AppCompatActivity {
         setupPassCodeEditText();
         mSoftKeyboardMode = DEFAULT_SOFT_KEYBOARD_MODE;
         setupKeyboard();
+
         setListenerToRootView();
 
         if (mSoftKeyboardMode) {
@@ -184,6 +205,7 @@ public class PassCodeActivity extends AppCompatActivity {
     }
 
     private void setupKeyboard() {
+        mShowButtonsWhenSoftKeyboardClose = true;
         if (mSoftKeyboardMode) {
             showSoftKeyboard();
             setButtonsVisibility(false);
@@ -193,16 +215,50 @@ public class PassCodeActivity extends AppCompatActivity {
         }
     }
 
-    private void setButtonsVisibility(boolean visible) {
+    private void animeCircle(View myView, boolean visible) {
         if (visible) {
-            for (int i = 0; i < mButtonsIDList.length; i++) {
-                Button b = (Button) findViewById(mButtonsIDList[i]);
-                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(b, "alpha", 0f, 1f);
-                objectAnimator.setDuration(300);
-                objectAnimator.start();
+            int cx = (myView.getLeft() + myView.getRight()) / 2;
+            int cy = (myView.getTop() + myView.getBottom()) / 2;
+            int finalRadius = Math.max(myView.getWidth(), myView.getHeight());
+            Animator anim =
+                ViewAnimationUtils.createCircularReveal(myView, cx, cy, 0, finalRadius);
+            anim.start();
+        } else {
+            int cx = (myView.getLeft() + myView.getRight()) / 2;
+            int cy = (myView.getTop() + myView.getBottom()) / 2;
+            int initialRadius = myView.getWidth();
+            Animator anim =
+                ViewAnimationUtils.createCircularReveal(myView, cx, cy, initialRadius, 0);
+            anim.start();
+        }
+    }
+
+    private void animeAlpha(View view, boolean visible) {
+        if (visible) {
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f);
+            objectAnimator.setDuration(300);
+            objectAnimator.start();
+        } else {
+            ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 1f, 0f);
+            objectAnimator.setDuration(300);
+            objectAnimator.start();
+        }
+    }
+
+    private void buttonAnime(Button b, boolean visible) {
+        animeAlpha(b, visible);
+//        animeCircle(b, visible);
+    }
+    
+    private void setButtonsVisibility(boolean visible) {
+        if (visible && mButtonVisibilityPrev != 1) {
+            mButtonVisibilityPrev = 1;
+            for (int i = 0; i < mButtonsList.length; i++) {
+                Button b = mButtonsList[i];
+                buttonAnime(b, visible);
                 b.setClickable(true);
-                b.setOnClickListener(new ButtonClicked(i));
-                if (i == 11) {
+                b.setOnClickListener(new ButtonClicked(mPassCodeEditText, i));
+                if (i == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) {
                     b.setLongClickable(true);
                     b.setOnLongClickListener(new OnLongClickListener() {
                         @Override
@@ -214,12 +270,11 @@ public class PassCodeActivity extends AppCompatActivity {
                     });
                 }
             }
-        } else {
-            for (int i = 0; i < mButtonsIDList.length; i++) {
-                Button b = (Button) findViewById(mButtonsIDList[i]);
-                ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(b, "alpha", 1f, 0f);
-                objectAnimator.setDuration(300);
-                objectAnimator.start();
+        } else if (!visible && mButtonVisibilityPrev != 2) {
+            mButtonVisibilityPrev = 2;
+            for (int i = 0; i < mButtonsList.length; i++) {
+                Button b = mButtonsList[i];
+                buttonAnime(b, visible);
                 b.setClickable(false);
                 b.setOnClickListener(null);
                 b.setLongClickable(false);
@@ -241,9 +296,10 @@ public class PassCodeActivity extends AppCompatActivity {
      * @param enabled 'True' makes the cancel button available, 'false' hides it.
      */
     protected void setCancelButtonEnabled(boolean enabled) {
+        Button cancel = (Button) findViewById(R.id.cancel);
         if (enabled) {
-            mBCancel.setVisibility(View.VISIBLE);
-            mBCancel.setOnClickListener(new OnClickListener() {
+            cancel.setVisibility(View.VISIBLE);
+            cancel.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     hideSoftKeyboard();
@@ -251,15 +307,16 @@ public class PassCodeActivity extends AppCompatActivity {
                 }
             });
         } else {
-            mBCancel.setVisibility(View.GONE);
-            mBCancel.setVisibility(View.INVISIBLE);
-            mBCancel.setOnClickListener(null);
+            cancel.setVisibility(View.GONE);
+            cancel.setVisibility(View.INVISIBLE);
+            cancel.setOnClickListener(null);
         }
     }
 
     protected void setupPassCodeEditText() {
         TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
         EditText et = til.getEditText();
+        et.setTextIsSelectable(false);     // TODO:no effect for double tap?
         if (Build.VERSION.SDK_INT >= 21) {
             et.setShowSoftInputOnFocus(false);  // for disabling popup soft keyboard when double clicked
         }
@@ -307,9 +364,7 @@ public class PassCodeActivity extends AppCompatActivity {
                     public void run() {
                         TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
                         til.setError(null);
-                        if (!mSoftKeyboardMode) {
-                            setButtonsVisibility(true);
-                        }
+                        setupKeyboard();
                         clearPassCodeEditText();
                     }
                 }, GUARD_TIME);
@@ -353,16 +408,13 @@ public class PassCodeActivity extends AppCompatActivity {
 
             } else {
                 mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
-                mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
                 passCodeWrong(R.string.pass_code_mismatch);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
                         til.setError(null);
-                        if (!mSoftKeyboardMode) {
-                            setButtonsVisibility(true);
-                        }
+                        setupKeyboard();
                         clearPassCodeEditText();
                         mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
                         mConfirmingPassCodeFlag = false;
@@ -375,6 +427,8 @@ public class PassCodeActivity extends AppCompatActivity {
     private void passCodeWrong(int errorMessage) {
         if (!mSoftKeyboardMode) {
             setButtonsVisibility(false);
+        } else {
+            hideSoftKeyboard();
         }
         Animation animation = AnimationUtils.loadAnimation(PassCodeActivity.this, R.anim.shake);
         mPassCodeEditText.startAnimation(animation);
@@ -386,6 +440,7 @@ public class PassCodeActivity extends AppCompatActivity {
     private void hideSoftKeyboard() {
         View focusedView = getCurrentFocus();
         if (focusedView != null) {
+            mShowButtonsWhenSoftKeyboardClose = false;
             InputMethodManager inputMethodManager =
                     (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
             inputMethodManager.hideSoftInputFromWindow(
@@ -480,8 +535,10 @@ public class PassCodeActivity extends AppCompatActivity {
     private class ButtonClicked implements OnClickListener {
 
         private int mIndex;
+        private EditText mEditText;
 
-        public ButtonClicked(int index) {
+        public ButtonClicked(EditText editText, int index) {
+            mEditText = editText;
             mIndex = index;
         }
 
@@ -489,18 +546,18 @@ public class PassCodeActivity extends AppCompatActivity {
             if (mIndex <= 9) {
                 // 0,1,2,...,8,9
                 int key = KeyEvent.KEYCODE_0 + mIndex;
-                mPassCodeEditText.dispatchKeyEvent(
+                mEditText.dispatchKeyEvent(
                         new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, key, 0));
-                mPassCodeEditText.dispatchKeyEvent(
+                mEditText.dispatchKeyEvent(
                         new KeyEvent(0, 0, KeyEvent.ACTION_UP, key, 0));
             } else if (mIndex == 10) {
                 // clear
-                clearPassCodeEditText();
+                mEditText.setText("");
             } else {
                 // delete
-                mPassCodeEditText.dispatchKeyEvent(
+                mEditText.dispatchKeyEvent(
                         new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL, 0));
-                mPassCodeEditText.dispatchKeyEvent(
+                mEditText.dispatchKeyEvent(
                         new KeyEvent(0, 0, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL, 0));
             }
         }
@@ -538,14 +595,20 @@ public class PassCodeActivity extends AppCompatActivity {
                 int softKeyboardHeight = screenHeight - (statusBarHeight + navigationBarHeight + appHeight);
 
                 if (softKeyboardHeight <= 0) {
-                    if (mIsSoftKeyboardOpend) {
+                    if (mIsSoftKeyboardOpened) {
                         // soft keyboard was closed (back key was pressed)
-                        mSoftKeyboardMode = false;
-                        setButtonsVisibility(true);
+                        if (ENABLE_SWITCH_SOFT_KEYBOARD) {
+                            if (mShowButtonsWhenSoftKeyboardClose) {
+                                mSoftKeyboardMode = false;
+                                setButtonsVisibility(true);
+                            }
+                        } else {
+                            processFullPassCode("miss");
+                        }
                     }
-                    mIsSoftKeyboardOpend = false;
+                    mIsSoftKeyboardOpened = false;
                 } else {
-                    mIsSoftKeyboardOpend = true;
+                    mIsSoftKeyboardOpened = true;
                 }
             }
         });
