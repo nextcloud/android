@@ -302,6 +302,7 @@
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Nur über W-Lan hochladen</string>
     <string name="instant_upload_on_wifi">Fotos nur über WiFi hochladen</string>
     <string name="instant_video_upload_on_wifi">Videos nur über WiFi hochladen</string>
     <string name="instant_video_upload_on_charging">Hochladen nur während des Ladens</string>

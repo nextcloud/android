@@ -301,6 +301,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Pujar només via WiFi</string>
     <string name="instant_upload_on_wifi">Pujar les fotos només via WiFi</string>
     <string name="instant_video_upload_on_wifi">Pujar videos només via WiFi</string>
     <string name="instant_video_upload_on_charging">Pujar només quan s\'està carregant</string>
@@ -316,7 +317,13 @@
     <string name="preview_image_error_unknown_format">Aquesta imatge no es pot mostrar</string>
 
     <string name="error__upload__local_file_not_copied">%1$s no s\'ha pogut copiar a la carpeta local %2$s</string>
-    <string name="share_link_no_support_share_api">La compartició no es troba disponible al vostre servidor. Contacteu amb l\'administrador.</string>
+    <string name="prefs_instant_upload_path_title">Carpeta de pujades instantanies</string>
+    <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
+    <string name="prefs_folder_sync_remote_path_title">Carpeta remota</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Feu servir subcarpetes</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Desar a subcarpetes ordenades per anys i mesos</string>
+
+	<string name="share_link_no_support_share_api">La compartició no es troba disponible al vostre servidor. Contacteu amb l\'administrador.</string>
 	<string name="share_link_file_no_exist">No es pot compartir. Assegureu-vos que el fitxer existeix</string>
 	<string name="share_link_file_error">S\'ha produït un error en intentar compartir aquest fitxer o carpeta</string>
 	<string name="unshare_link_file_no_exist">No es pot des-compartir. Assegureu-vos que el fitxer existeix</string>
@@ -337,6 +344,9 @@
     <string name="error_cant_bind_to_operations_service">Error crític: no es poden realitzar operacions</string>
 
     <string name="network_error_socket_exception">Hi ha hagut un error mentre es connectava al servidor.</string>
+    <string name="network_error_socket_timeout_exception">Hi ha hagut un error esperant el servidor, l\'operació no s\'ha pogut realitzar</string>
+    <string name="network_error_connect_timeout_exception">Hi ha hagut un error esperant el servidor, l\'operació no s\'ha pogut realitzar</string>
+    <string name="network_host_not_available">L\'operació no s\'ha pogut completar; el servidor no està disponible</string>
     <string name="forbidden_permissions">No teniu permisos %s</string>
     <string name="forbidden_permissions_rename">per canviar el nom d\'aquest fitxer</string>
     <string name="forbidden_permissions_delete">per eliminar aquest fitxer</string>
@@ -347,8 +357,31 @@
     <string name="uploader_upload_forbidden_permissions">per pujar fitxers en aquesta carpeta</string>
     <string name="downloader_download_file_not_found">El fitxer ja no està disponible en el servidor</string>
 
+    <string name="file_migration_dialog_title">S\'està actualitzant la ruta d\'emmagatzematge</string>
+    <string name="file_migration_finish_button">Acabeu</string>
+    <string name="file_migration_preparing">Preparant-se per la migració&#8230</string>
+    <string name="file_migration_checking_destination">Comprovant la destinació&#8230</string>
+    <string name="file_migration_saving_accounts_configuration">Desant la configuració dels comptes&#8230</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Esperant a sincronitzacions no acabades&#8230</string>
+    <string name="file_migration_migrating">Movent dades&#8230</string>
+    <string name="file_migration_updating_index">Actualitzant l\'índex&#8230</string>
+    <string name="file_migration_cleaning">Netejant&#8230</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurant la configuració dels comptes&#8230</string>
+    <string name="file_migration_ok_finished">Acabat</string>
+    <string name="file_migration_failed_not_enough_space">ERROR: Espai insuficient</string>
+    <string name="file_migration_failed_not_writable">ERROR: El fitxer no es pot escriure</string>
+    <string name="file_migration_failed_not_readable">ERROR: El fitxer no es pot llegir</string>
+    <string name="file_migration_failed_dir_already_exists">ERROR: La carpeta Nextcloud ja existeix</string>
+    <string name="file_migration_failed_while_coping">ERROR: Fent la migració</string>
+    <string name="file_migration_failed_while_updating_index">ERROR: Actualitzant l\'índex</string>
+
+    <string name="file_migration_directory_already_exists">La carpeta de dades ja existex, què fer?</string>
+    <string name="file_migration_override_data_folder">Sobreescriviu</string>
+    <string name="file_migration_use_data_folder">Feu servir l\'actual</string>
+
     <string name="prefs_category_accounts">Comptes</string>
     <string name="prefs_add_account">Afegeix compte</string>
+    <string name="drawer_manage_accounts">Gestió de comptes</string>
     <string name="auth_redirect_non_secure_connection_title">La connexió segura està essent redirigida a través d\'una ruta insegura</string>
 
 	<string name="actionbar_logger">Registre</string>

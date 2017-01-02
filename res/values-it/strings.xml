@@ -302,6 +302,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Carica solo tramite wifi</string>
     <string name="instant_upload_on_wifi">Carica le immagini solo tramite wifi</string>
     <string name="instant_video_upload_on_wifi">Carica i video solo tramite wifi</string>
     <string name="instant_video_upload_on_charging">Carica solo in fase di ricarica</string>
