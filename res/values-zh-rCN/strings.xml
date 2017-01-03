@@ -79,9 +79,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">在原文件夹中保留文件</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">从原文件夹中删除文件</string>
     <string name="file_list_seconds_ago">几秒前</string>
+    <string name="file_list_empty_headline">这里没有文件</string>
+    <string name="file_list_empty">上传一些内容或者和你的设备同步</string>
     <string name="file_list_loading">加载中&#8230;</string>
     <string name="file_list_no_app_for_file_type">没有找到程序打开文件格式！</string>
     <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
+    <string name="upload_list_empty_headline">没有可以上传的</string>
+    <string name="upload_list_empty_text">上传一些内容或者激活实时上传</string>
     <string name="file_list_folder">文件夹</string>
     <string name="file_list_folders">文件夹</string>
     <string name="file_list_file">文件</string>
@@ -299,6 +303,7 @@
     <string name="placeholder_timestamp">2012/05/18 下午12:23 </string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">只通过wifi上传</string>
     <string name="instant_upload_on_wifi">仅通过 WIFI 上传照片</string>
     <string name="instant_video_upload_on_wifi">仅通过 WIFI 上传图片。</string>
     <string name="instant_video_upload_on_charging">只在充电时上传</string>
@@ -465,6 +470,7 @@
     <string name="search_users_and_groups_hint">搜索用户和组</string>
     <string name="share_group_clarification">%1$s (组)</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
+    <string name="share_email_clarification">%1$s (邮件)</string>
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
 
     <string name="share_sharee_unavailable">对不起，共享服务功能未开启，请联系管理员</string>
