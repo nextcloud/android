@@ -80,7 +80,7 @@
     <string name="file_list_seconds_ago">segons enrere</string>
     <string name="file_list_empty_headline">No hi ha arxius</string>
     <string name="file_list_empty">Pugeu algun contingut o sincronitzeu amb els vostres dispositius!</string>
-    <string name="file_list_loading">Carregant...</string>
+    <string name="file_list_loading">Carregant&#8230;</string>
     <string name="file_list_no_app_for_file_type">No s\'ha trobat cap aplicació per a aquest tipus de fitxer!</string>
     <string name="local_file_list_empty">No hi ha arxius a aquesta carpeta</string>
     <string name="upload_list_empty_headline">No hi ha pujades disponibles</string>
@@ -110,7 +110,7 @@
     <string name="common_save">Deseu</string>
     <string name="common_save_exit">Desa i surt</string>
     <string name="common_error">Error</string>
-    <string name="common_loading">Carregant...</string>
+    <string name="common_loading">Carregant &#8230;</string>
     <string name="common_unknown">desconegut</string>
     <string name="common_error_unknown">Error desconegut</string>
     <string name="common_pending">Pendent</string>
@@ -119,9 +119,9 @@
     <string name="delete_account">Elimina el compte</string>
     <string name="delete_account_warning">Elimineu el compte %s?\\n\\nL\'eliminació no es pot desfer.</string>
     <string name="create_account">Crea un compte</string>
-    <string name="upload_chooser_title">Puja fitxer des de ...</string>
+    <string name="upload_chooser_title">Puja fitxer des de &#8230;</string>
     <string name="uploader_info_dirname">Nom de la carpeta</string>
-    <string name="uploader_upload_in_progress_ticker">S\'està pujant ...</string>
+    <string name="uploader_upload_in_progress_ticker">S\'està pujant &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Pujant %2$s</string>
     <string name="uploader_upload_succeeded_ticker">La pujada ha estat correcte</string>
     <string name="uploader_upload_succeeded_content_single">%1$s s\'ha carregat correctament</string>
@@ -147,7 +147,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Error desconegut</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Esperant connectivitat wifi</string>
     <string name="uploads_view_later_waiting_to_upload">S\'està esperant per pujar-ho</string>
-    <string name="downloader_download_in_progress_ticker">S\'està baixant ...</string>
+    <string name="downloader_download_in_progress_ticker">S\'està baixant &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% pujant %2$s</string>
     <string name="downloader_download_succeeded_ticker">La baixada ha estat correcte</string>
     <string name="downloader_download_succeeded_content">%1$s descarregat</string>
@@ -205,8 +205,8 @@
     <string name="media_play_pause_description">Botó de reproducció o pausa</string>
     <string name="media_forward_description">Botó de reproducció ràpida</string>
 
-	<string name="auth_getting_authorization">Recuperant autorització ...</string>
-	<string name="auth_trying_to_login">Intentat accedir ...</string>
+	<string name="auth_getting_authorization">Recuperant autorització &#8230;</string>
+	<string name="auth_trying_to_login">Intentat accedir &#8230;</string>
 	<string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
 	<string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
 	<string name="auth_connection_established">S\'ha establert la connexió</string>
@@ -260,7 +260,7 @@
     <string name="wait_checking_credentials">Comprovant les credencials emmagatzemades</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperat; seleccioneu el fitxer des d\'una app distinta</string>
     <string name="filedisplay_no_file_selected">No heu seleccionat cap fitxer</string>
-    <string name="activity_chooser_title">Envia l\'enllaç a...</string>
+    <string name="activity_chooser_title">Envia l\'enllaç a &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiant fitxer des de emmagatzemament privat</string>
     
     <string name="oauth_check_onoff">Accés amb oAuth2</string> 
@@ -359,14 +359,14 @@
 
     <string name="file_migration_dialog_title">S\'està actualitzant la ruta d\'emmagatzematge</string>
     <string name="file_migration_finish_button">Acabeu</string>
-    <string name="file_migration_preparing">Preparant-se per la migració&#8230</string>
-    <string name="file_migration_checking_destination">Comprovant la destinació&#8230</string>
-    <string name="file_migration_saving_accounts_configuration">Desant la configuració dels comptes&#8230</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Esperant a sincronitzacions no acabades&#8230</string>
-    <string name="file_migration_migrating">Movent dades&#8230</string>
-    <string name="file_migration_updating_index">Actualitzant l\'índex&#8230</string>
-    <string name="file_migration_cleaning">Netejant&#8230</string>
-    <string name="file_migration_restoring_accounts_configuration">Restaurant la configuració dels comptes&#8230</string>
+    <string name="file_migration_preparing">Preparant-se per la migració&#8230;</string>
+    <string name="file_migration_checking_destination">Comprovant la destinació&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Desant la configuració dels comptes&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Esperant a sincronitzacions no acabades&#8230;</string>
+    <string name="file_migration_migrating">Movent dades&#8230;</string>
+    <string name="file_migration_updating_index">Actualitzant l\'índex&#8230;</string>
+    <string name="file_migration_cleaning">Netejant&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurant la configuració dels comptes&#8230;</string>
     <string name="file_migration_ok_finished">Acabat</string>
     <string name="file_migration_failed_not_enough_space">ERROR: Espai insuficient</string>
     <string name="file_migration_failed_not_writable">ERROR: El fitxer no es pot escriure</string>
@@ -386,7 +386,7 @@
 
 	<string name="actionbar_logger">Registre</string>
 	<string name="log_send_history_button">Enviar història</string>
-	<string name="log_progress_dialog_text">Carregant dades...</string>
+	<string name="log_progress_dialog_text">Carregant dades &#8230;</string>
 
 	<string name="saml_authentication_required_text">Es requereix autenticació</string>
 	<string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
@@ -426,7 +426,7 @@
     <string name="share_via_link_password_label">Protegir amb contrasenya</string>
     <string name="share_via_link_password_title">Assegurat</string>
     <string name="share_via_link_edit_permission_label">Permetre edició</string>
-    <string name="share_with_title">Comparteix amb ...</string>
+    <string name="share_with_title">Comparteix amb &#8230;</string>
     <string name="share_search">Cerca</string>
 
     <string name="search_users_and_groups_hint">Cerca usuaris i grups</string>
