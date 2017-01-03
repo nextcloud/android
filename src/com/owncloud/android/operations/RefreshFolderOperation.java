@@ -346,7 +346,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * Synchronizes the data retrieved from the server about the contents of the target folder
      * with the current data in the local database.
-     * 
+     *
      * Grants that mChildren is updated with fresh data after execution.
      *
      * @param folderAndFiles Remote folder and children files in Folder
