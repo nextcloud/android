@@ -211,7 +211,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                     name = file.getFileName();
                     fileName.setText(name);
 
-                    if (mListFragment.getColumnSize() > showFilenameColumnThreshold && viewType == ViewType.GRID_ITEM){
+                    if (mListFragment.getColumnSize() > showFilenameColumnThreshold && viewType == ViewType.GRID_ITEM) {
                         fileName.setVisibility(View.GONE);
                     }
 
@@ -233,12 +233,9 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                     // local state
                     ImageView localStateView = (ImageView) view.findViewById(R.id.localFileIndicator);
                     localStateView.bringToFront();
-                    FileDownloaderBinder downloaderBinder =
-                            mTransferServiceGetter.getFileDownloaderBinder();
-                    FileUploaderBinder uploaderBinder =
-                            mTransferServiceGetter.getFileUploaderBinder();
-                    OperationsServiceBinder opsBinder =
-                            mTransferServiceGetter.getOperationsServiceBinder();
+                    FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
+                    FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
+                    OperationsServiceBinder opsBinder = mTransferServiceGetter.getOperationsServiceBinder();
 
                     localStateView.setVisibility(View.INVISIBLE);   // default first
 
