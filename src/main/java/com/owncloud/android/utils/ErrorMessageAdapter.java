@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package com.owncloud.android.utils;
 
 import android.content.res.Resources;
@@ -314,9 +313,6 @@ public class ErrorMessageAdapter {
         return code == ResultCode.WRONG_CONNECTION ||
                 code == ResultCode.TIMEOUT ||
                 code == ResultCode.HOST_NOT_AVAILABLE ||
-                code == ResultCode.MAINTENANCE_MODE) {
-            return true;
-        } else
-            return false;
+                code == ResultCode.MAINTENANCE_MODE;
     }
 }
