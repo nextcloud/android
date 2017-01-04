@@ -104,6 +104,9 @@ public class OCFileUnitTest {
         // Read the data from the parcel
         parcel.setDataPosition(0);
         OCFile fileReadFromParcel = OCFile.CREATOR.createFromParcel(parcel);
+		if (parcel != null) {
+			parcel.recycle();
+		}
 
         // Verify that the received data are correct
         assertThat(fileReadFromParcel.getRemotePath(), is(PATH));

@@ -139,6 +139,9 @@ public class ActionEditText extends EditText {
                 0xff0000);
         badgeClickCallback = a
                 .getString(R.styleable.ActionEditText_onBadgeClick);
+		if (a != null) {
+			a.recycle();
+		}
     }
 
 }
