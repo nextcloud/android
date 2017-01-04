@@ -303,6 +303,7 @@ Download hier: %2$s</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Uploaden alleen via wifi</string>
     <string name="instant_upload_on_wifi">Upload afbeeldingen alleen via WiFi</string>
     <string name="instant_video_upload_on_wifi">Upload videos alleen via WiFi</string>
     <string name="instant_video_upload_on_charging">Upload alleen tijdens opladen</string>
