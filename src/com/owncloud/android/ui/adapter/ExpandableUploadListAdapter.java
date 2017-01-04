@@ -94,8 +94,14 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             @Override
             public int compare(OCUpload upload1, OCUpload upload2) {
-                if (upload1.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
-                    if (!upload2.getUploadStatus().equals(UploadStatus.UPLOAD_IN_PROGRESS)) {
+                if (upload1 == null){
+                    return -1;
+                }
+                if (upload2 == null){
+                    return 1;
+                }
+                if (UploadStatus.UPLOAD_IN_PROGRESS.equals(upload1.getUploadStatus())) {
+                    if (!UploadStatus.UPLOAD_IN_PROGRESS.equals(upload2.getUploadStatus())) {
                         return -1;
                     }
                     // both are in progress
