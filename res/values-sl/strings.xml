@@ -77,11 +77,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Ohrani datoteko v izvorni mapi</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Pobriši datoteko iz izvorne mape</string>
     <string name="file_list_seconds_ago">pred nekaj sekundami</string>
-    <string name="file_list_empty">Tukaj še ni ničesar. Najprej je treba datoteke poslati v oblak!</string>
     <string name="file_list_loading">Poteka nalaganje&#8230;</string>
     <string name="file_list_no_app_for_file_type">Ni programa za prikaz te vrste datoteke!</string>
     <string name="local_file_list_empty">V tej mapi ni datotek.</string>
-    <string name="upload_list_empty">Ni posodobitev</string>
     <string name="file_list_folder">mapa</string>
     <string name="file_list_folders">mape</string>
     <string name="file_list_file">datoteka</string>

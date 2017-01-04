@@ -20,33 +20,28 @@
 
 package com.owncloud.android.operations;
 
-import java.util.ArrayList;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
-
 import android.content.Context;
 import android.net.Uri;
 
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
+
 import org.apache.commons.httpclient.HttpStatus;
 
+import java.util.ArrayList;
+
 /**
- * Operation to find out what authentication method requires
- * the server to access files.
- * 
- * Basically, tries to access to the root folder without authorization
- * and analyzes the response.
- * 
- * When successful, the instance of {@link RemoteOperationResult} passed
- * through {@link OnRemoteOperationListener#onRemoteOperationFinish(RemoteOperation, 
- * RemoteOperationResult)} returns in {@link RemoteOperationResult#getData()}
- * a value of {@link AuthenticationMethod}.
+ * Operation to find out what authentication method requires the server to access files.
+ *
+ * Basically, tries to access to the root folder without authorization and analyzes the response.
+ *
+ * When successful, the instance of {@link RemoteOperationResult} passed through
+ * {@link com.owncloud.android.lib.common.operations.OnRemoteOperationListener
+ * #onRemoteOperationFinish(RemoteOperation, RemoteOperationResult)} returns in
+ * {@link RemoteOperationResult#getData()} a value of {@link AuthenticationMethod}.
  */
 public class DetectAuthenticationMethodOperation extends RemoteOperation {
     

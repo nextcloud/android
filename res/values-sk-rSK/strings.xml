@@ -74,11 +74,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Ponechaj súbor v pôvodnom priečinku</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Odstráň súbor z pôvodného priečinka</string>
     <string name="file_list_seconds_ago">pred sekundami</string>
-    <string name="file_list_empty">Žiadny súbor. Nahrajte niečo!</string>
     <string name="file_list_loading">Načítavam...</string>
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla!</string>
     <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
-    <string name="upload_list_empty">Žiadne súbory na nahratie nie sú dostupné.</string>
     <string name="file_list_folder">priečinok</string>
     <string name="file_list_folders">priečinky</string>
     <string name="file_list_file">súbor</string>
@@ -96,6 +94,8 @@
     <string name="common_yes">Áno</string>
     <string name="common_no">Nie</string>
     <string name="common_ok">OK</string>
+    <string name="common_remove_upload">Odober nahrávanie</string>
+    <string name="common_retry_upload">Zopakuj nahrávanie</string>
     <string name="common_cancel_sync">Zruš synchronizáciu</string>
     <string name="common_cancel">Zrušiť</string>
     <string name="common_back">Späť</string>
@@ -147,6 +147,7 @@
     <string name="common_choose_account">Zvoliť účet</string>
     <string name="sync_fail_ticker">Synchronizácia neúspešná</string>
     <string name="sync_fail_ticker_unauthorized">Synchronizácia neúspešná, je potrebné sa znovu prihlásiť</string>
+    <string name="sync_fail_content">Synchronizáciu %1$s nie je možné dokončiť</string>
     <string name="sync_fail_content_unauthorized">Nesprávne heslo pre %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Objavené konflikty</string>
     <string name="sync_conflicts_in_favourites_content">%1$d súborov z automatickej synchronizácie nemožno synchronizovať</string>
@@ -409,6 +410,9 @@
     <string name="pref_behaviour_entries_keep_file">ponechané v pôvodnom priečinku</string>
     <string name="pref_behaviour_entries_move">presunuté do aplikačného priečinka</string>
     <string name="pref_behaviour_entries_delete_file">vymazané</string>
+    <string name="prefs_storage_path">Cesta úložiska</string>
+    <string name="prefs_common">Bežný</string>
+
     <string name="share_dialog_title">Sprístupnenie</string>
     <string name="share_file">Sprístupni %1$s</string>
     <string name="share_with_user_section_title">Sprístupniť používateľom a skupinám</string>
@@ -434,4 +438,53 @@
     <string name="share_privilege_can_edit_create">vytvoriť</string>
     <string name="share_privilege_can_edit_change">zmeniť</string>
     <string name="share_privilege_can_edit_delete">vymazať</string>
-    </resources>
+    <string name="edit_share_unshare">Ukončiť sprístupnenie</string>
+    <string name="edit_share_done">hotovo</string>
+
+    <string name="action_retry_uploads">Zopakovať zlyhané</string>
+    <string name="action_clear_failed_uploads">Vyčistiť zlyhané</string>
+    <string name="action_clear_successful_uploads">Vyčistiť úspešné</string>
+    <string name="action_clear_finished_uploads">Vyčistiť všetky ukončené</string>
+
+    <string name="manage_space_clear_data">Vyčistiť dáta</string>
+    <string name="manage_space_error">Niektoré súbory nebolo možné zmazať.</string>
+
+    <string name="uploads_view_upload_status_waiting_for_charging">Čakám na nabíjanie zariadenia</string>
+    <string name="actionbar_search">Hľadať</string>
+    <string name="learn_more">Dozvedieť sa viac</string>
+    <string name="drawer_folder_sync">Automatické nahratie</string>
+    <string name="drawer_participate">Zúčastniť sa</string>
+    <string name="participate_testing_headline">Pomôžte nám s testovaním.</string>
+    <string name="participate_beta_headline">Testovať Beta verziu</string>
+    <string name="move_to">Presunúť do&#8230;</string>
+    <string name="copy_to">Kopírovať do&#8230;</string>
+    <string name="choose_remote_folder">Vybrať priečinok&#8230;</string>
+    <string name="folder_sync_loading_folders">Načítavanie priečinkov&#8230;</string>
+    <string name="folder_sync_no_results">Neboli nájdené žiadne multimediálne priečinky.</string>
+    <string name="folder_sync_preferences">Nastavenia automatického nahratia</string>
+    <string name="folder_sync_settings">Nastavenia</string>
+    <string name="folder_sync_new_info">Okamžité nahrávanie bolo kompletne prepracované. Prezrite si prosím hlavné menu a znovu nastavte automatické nahrávanie. Ospravedlňujeme sa za vzniknuté problémy.\\n\\nUžite si nové, rozšírene možnosti automatického nahrávania!</string>
+    <string name="folder_sync_preferences_folder_path">Pre %1$s</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d vybraný</item>
+        <item quantity="few">%d vybraných</item>
+        <item quantity="other">%d vybraných</item>
+    </plurals>
+    <string name="upload_file_dialog_title">Zadaj meno a typ súboru na nahratie</string>
+    <string name="upload_file_dialog_filename">Názov súboru</string>
+    <string name="upload_file_dialog_filetype">Typ súboru</string>
+    <string name="storage_description_default">Predvolené</string>
+    <string name="storage_description_sd_no">SD karta %1$d</string>
+    <string name="storage_description_unknown">Neznámy</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Čo je nové v Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Bezpečný domov pre všetky vaše dáta</string>
+    <string name="welcome_feature_2_title">Viac účtov</string>
+    <string name="welcome_feature_3_title">Okamžité nahratie</string>
+    <string name="welcome_feature_3_text">Udržujte svoje fotografie v bezpečí</string>
+
+    <string name="whats_new_skip">Preskočiť</string>
+</resources>

@@ -79,11 +79,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">A fájl maradjon az eredeti mappában</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">A fájl törlése az eredeti mappábó</string>
     <string name="file_list_seconds_ago">pár másodperce</string>
-    <string name="file_list_empty">Itt nincs semmi. Tölts fel valamit!</string>
+    <string name="file_list_empty_headline">Itt nincsenek fájlok</string>
+    <string name="file_list_empty">Tölts fel néhány tartalmat, vagy szinkronizálj az eszközöddel!</string>
     <string name="file_list_loading">Betöltés&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nem található alkalmazás a fálj típushoz.</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
-    <string name="upload_list_empty">Nincsenek feltöltések.</string>
+    <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
+    <string name="upload_list_empty_text">Tölts fel valami tartalmat vagy kapcsold be az azonnali feltöltést!</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_folders">mappák</string>
     <string name="file_list_file">fájl</string>
@@ -300,6 +302,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Feltöltés csak Wifi-n keresztül</string>
     <string name="instant_upload_on_wifi">Képek feltöltése csak Wifi-n keresztül</string>
     <string name="instant_video_upload_on_wifi">Videók feltöltése csak Wifi-n keresztül</string>
     <string name="instant_video_upload_on_charging">Feltöltés csak töltés közben</string>
@@ -466,6 +469,7 @@
     <string name="search_users_and_groups_hint">Felhasználók és csoportok keresése</string>
     <string name="share_group_clarification">%1$s (csoport)</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
+    <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
 
     <string name="share_sharee_unavailable">Sajnáljuk, de az Ön szerver verziója nem engedi a kliensen belüli megosztást felhasználók között.
@@ -528,6 +532,13 @@ vagy</string>
         <item quantity="one">%d kiválasztott</item>
         <item quantity="other">%d kiválasztott</item>
     </plurals>
+    <string name="upload_file_dialog_title">Add meg a feltöltendő fájl nevét és típusát</string>
+    <string name="upload_file_dialog_filename">Fájlnév</string>
+    <string name="upload_file_dialog_filetype">Fájl típus</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Töredék szöveg fájl(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet parancsikon fájl(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Térkép parancsikon fájl(%s)</string>
+
     <string name="storage_description_default">Alapértelmezett</string>
     <string name="storage_description_sd_no">SD kártya %1$d</string>
     <string name="storage_description_unknown">Ismeretlen</string>

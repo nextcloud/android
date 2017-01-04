@@ -43,15 +43,16 @@ class SyncedFolderObserver extends RecursiveFileObserver {
 
         File temp = new File(path);
 
-        if (!temp.getName().equalsIgnoreCase("null")) {
+        // do not upload "null"-files, test if file exists and is a real file
+        if (!temp.getName().equalsIgnoreCase("null") && temp.isFile() && !temp.getName().endsWith(".tmp")) {
             PersistableBundle bundle = new PersistableBundle();
             // TODO extract
-            bundle.putString("filePath", path);
-            bundle.putString("remotePath", syncedFolder.getRemotePath());
-            bundle.putLong("dateTaken", new Date().getTime());
-            bundle.putString("account", syncedFolder.getAccount());
-            bundle.putInt("uploadBehaviour", syncedFolder.getUploadAction());
-            bundle.putInt("subfolderByDate", syncedFolder.getSubfolderByDate() ? 1 : 0);
+            bundle.putString(SyncedFolderJobService.LOCAL_PATH, path);
+            bundle.putString(SyncedFolderJobService.REMOTE_PATH, syncedFolder.getRemotePath() + "/" + temp.getName());
+            bundle.putLong(SyncedFolderJobService.DATE_TAKEN, new Date().getTime());
+            bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
+            bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
+            bundle.putInt(SyncedFolderJobService.SUBFOLDER_BY_DATE, syncedFolder.getSubfolderByDate() ? 1 : 0);
 
             JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
@@ -60,6 +61,7 @@ class SyncedFolderObserver extends RecursiveFileObserver {
                     date.intValue(),
                     new ComponentName(context, SyncedFolderJobService.class))
                     .setRequiresCharging(syncedFolder.getChargingOnly())
+                    .setMinimumLatency(10000)
                     .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
                     .setExtras(bundle)
                     .setPersisted(true)

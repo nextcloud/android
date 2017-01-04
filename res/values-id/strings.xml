@@ -64,11 +64,9 @@
     <string name="uploader_error_message_source_file_not_found">Berkas untuk diunggah tidak ditemukan. Silakan cek apabila berkasnya ada.</string>
     <string name="uploader_error_message_source_file_not_copied">Terjadi kesalahan saat menyalin berkas ke folder sementara. Silakan mencoba kembali.</string>
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
-    <string name="file_list_empty">Tidak ada apa-apa di sini. Unggah sesuatu!</string>
     <string name="file_list_loading">Memuat&#8230;</string>
     <string name="file_list_no_app_for_file_type">Tidak ditemukan aplikasi untuk tipe berkas!</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
-    <string name="upload_list_empty">Tidak ada unggahan yang tersedia.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">folder</string>
     <string name="file_list_file">berkas</string>

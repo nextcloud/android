@@ -79,11 +79,13 @@ Download hier: %2$s</string>
     <string name="uploader_upload_files_behaviour_only_upload">Bewaar het bestand in de bronmap</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Verwijder bestand uit bronmap</string>
     <string name="file_list_seconds_ago">seconden geleden</string>
-    <string name="file_list_empty">Er bevindt zich hier niets. Upload een bestand!</string>
+    <string name="file_list_empty_headline">Hier geen bestanden</string>
+    <string name="file_list_empty">Upload bestanden of synchroniseer met je apparaten!</string>
     <string name="file_list_loading">Laden&#8230;</string>
     <string name="file_list_no_app_for_file_type">Geen app gevonden voor dit bestandsformaat!</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
-    <string name="upload_list_empty">Geen uploads beschikbaar.</string>
+    <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
+    <string name="upload_list_empty_text">Upload bestanden of activeer directe uploads!</string>
     <string name="file_list_folder">map</string>
     <string name="file_list_folders">mappen</string>
     <string name="file_list_file">bestand</string>
@@ -301,6 +303,7 @@ Download hier: %2$s</string>
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Uploaden alleen via wifi</string>
     <string name="instant_upload_on_wifi">Upload afbeeldingen alleen via WiFi</string>
     <string name="instant_video_upload_on_wifi">Upload videos alleen via WiFi</string>
     <string name="instant_video_upload_on_charging">Upload alleen tijdens opladen</string>
@@ -468,6 +471,7 @@ Download hier: %2$s</string>
     <string name="search_users_and_groups_hint">Zoeken naar gebruikers en groepen</string>
     <string name="share_group_clarification">%1$s (groep)</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( om %2$s )</string>
 
     <string name="share_sharee_unavailable">Helaas, je serverversie staat niet toe om binnen clients te delen met gebruikers.
@@ -531,6 +535,13 @@ of</string>
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
+    <string name="upload_file_dialog_title">Opgeven upload bestandsnaam en bestandstype</string>
+    <string name="upload_file_dialog_filename">Bestandsnaam</string>
+    <string name="upload_file_dialog_filetype">Bestandstype</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Snipper tekstbestand(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet snelkoppelingsbestand(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps snelkoppelingsbestand(%s)</string>
+
     <string name="storage_description_default">Standaard</string>
     <string name="storage_description_sd_no">SD kaart %1$d</string>
     <string name="storage_description_unknown">Onbekend</string>

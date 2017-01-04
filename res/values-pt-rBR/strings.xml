@@ -78,11 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Manter o arquivo na pasta de origem</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Excluir o arquivo da pasta de origem</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
-    <string name="file_list_empty">Nada aqui. Envie alguma coisa!</string>
+    <string name="file_list_empty_headline">Nenhum arquivo aqui</string>
+    <string name="file_list_empty">Faça o envio de conteúdo ou sincronize com seus dispositivos!</string>
     <string name="file_list_loading">Carregando&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhum aplicativo encontrado para esse tipo de arquivo!</string>
     <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
-    <string name="upload_list_empty">Nenhum arquivo enviado está disponível.</string>
+    <string name="upload_list_empty_headline">Nenhum envio disponível</string>
+    <string name="upload_list_empty_text">Envie algum conteúdo ou ative o envio instantâneo!</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_folders">pastas</string>
     <string name="file_list_file">arquivo</string>
@@ -300,6 +302,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Enviar somente via wifi</string>
     <string name="instant_upload_on_wifi">Envio de fotos apenas por Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Envio de vídeos apenas por Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Enviar apenas quando solicitado</string>
@@ -467,6 +470,7 @@
     <string name="search_users_and_groups_hint">Pesquisar usuários e grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
 
     <string name="share_sharee_unavailable">Desculpe, sua versão do servidor não permite compartilhamento com usuários que também são clientes.
@@ -530,6 +534,13 @@
         <item quantity="one">%d selecionado</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
+    <string name="upload_file_dialog_title">Forneça o nome e o tipo de arquivo que será enviado </string>
+    <string name="upload_file_dialog_filename">Nome do Arquivo</string>
+    <string name="upload_file_dialog_filetype">Tipo do Arquivo</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Fragmento de texto arquivo(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Atalho da Internet arquivo(%s) </string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Atalho da Internet Google Maps arquivo(%s)</string>
+
     <string name="storage_description_default">Padrão</string>
     <string name="storage_description_sd_no">Cartão SD %1$d</string>
     <string name="storage_description_unknown">Desconhecido</string>

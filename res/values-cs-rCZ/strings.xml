@@ -78,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Jen uploadovat</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Uploadovat a vymazat ze zdroje</string>
     <string name="file_list_seconds_ago">před pár sekundami</string>
-    <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
     <string name="file_list_loading">Načítání&#8230;</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
-    <string name="upload_list_empty">Nahraná data nejsou dostupná.</string>
     <string name="file_list_folder">adresář</string>
     <string name="file_list_folders">adresářů</string>
     <string name="file_list_file">soubor</string>

@@ -20,8 +20,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -35,7 +33,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.DisplayUtils;
+
+import java.util.ArrayList;
 
 
 /**
