@@ -189,7 +189,10 @@ public class ExtendedListFragment extends Fragment
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
-        mGridView.setNumColumns(GridView.AUTO_FIT);
+
+        mScale = PreferenceManager.getGridColumns(getContext());
+        setGridViewColumns(1f);
+        //mGridView.setNumColumns(GridView.AUTO_FIT);
         mGridView.setOnItemClickListener(this);
 
         mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
@@ -261,18 +264,24 @@ public class ExtendedListFragment extends Fragment
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            if (mScale == -1f) {
-                mGridView.setNumColumns(GridView.AUTO_FIT);
-                mScale = mGridView.getNumColumns();
-            }
-            mScale *= 1.f - (detector.getScaleFactor() - 1.f);
-            mScale = Math.max(minColumnSize, Math.min(mScale, maxColumnSize));
-            Integer scaleInt = Math.round(mScale);
-            mGridView.setNumColumns(scaleInt);
-            mGridView.invalidateViews();
+            setGridViewColumns(detector.getScaleFactor());
+
+            PreferenceManager.setGridColumns(getContext(), mScale);
 
             return true;
         }
+    }
+
+    private void setGridViewColumns(float scaleFactor) {
+        if (mScale == -1f) {
+            mGridView.setNumColumns(GridView.AUTO_FIT);
+            mScale = mGridView.getNumColumns();
+        }
+        mScale *= 1.f - (scaleFactor - 1.f);
+        mScale = Math.max(minColumnSize, Math.min(mScale, maxColumnSize));
+        Integer scaleInt = Math.round(mScale);
+        mGridView.setNumColumns(scaleInt);
+        mGridView.invalidateViews();
     }
 
     protected void setupEmptyList(View view) {
