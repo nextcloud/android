@@ -1,5 +1,5 @@
 ## 1.4.1 (January, 2017)
-- Share URLs with Nextcloud
+- Share URLs to Nextcloud
 - Bugfixes and design improvements
 
 ## 1.4.0 (December 8, 2016)
