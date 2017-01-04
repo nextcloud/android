@@ -34,7 +34,7 @@ public enum UploadResult {
     FILE_NOT_FOUND(8),
     DELAYED_FOR_WIFI(9),
     SERVICE_INTERRUPTED(10),
-    DELAYED_FOR_CHARGING(11);
+    DELAYED_FOR_CHARGING(11),
     MAINTENANCE_MODE(12);
 
     private final int value;
