@@ -215,7 +215,8 @@ entry "Sync calendar & contacts".
    :alt: Menu entry "Sync calendar & contacts"
 
 When clicking this and the DAVDroid app is not installed it will open the
-Google Play Store to let you install this app. This app provides the sync
+Google Play Store or the F-Droid store to let you install this app (if none of
+them is installed the DAVDroid website is opened). This app provides the sync
 mechanism for the calendars and contacts.
 
 .. figure:: images/davdroid-2-install-davdroid.png
