@@ -201,3 +201,39 @@ could set up multiple user accounts to protect your files.
 
 .. figure:: images/android-13.png
    :alt: Change password or remove account dialog.
+
+
+Sync calendar and contacts
+--------------------------
+
+The Nextcloud Android app provides an integration to setup a sync of Androids
+calendars and contacts with the Nextcloud server. To set this up go to the
+Nextcloud app and open the settings via the left menu. Scroll down there to the
+entry "Sync calendar & contacts".
+
+.. figure:: images/davdroid-1-button-in-nextcloud-app.png
+   :alt: Menu entry "Sync calendar & contacts"
+
+When clicking this and the DAVDroid app is not installed it will open the
+Google Play Store to let you install this app. This app provides the sync
+mechanism for the calendars and contacts.
+
+.. figure:: images/davdroid-2-install-davdroid.png
+   :alt: DAVDroid app
+
+When clicking the menu entry "Sync calendar & contacts" and the DAVDroid app is
+installed it will open the configuration of the DAVDroid app prefilled with the
+account information from the Nextcloud app. You only need to specify the
+password.
+
+.. figure:: images/davdroid-3-enter-password.png
+   :alt: DAVDroid app configuration
+
+After entering the password you need to specify an email address that is used as
+owner for calendar events you create.
+
+.. figure:: images/davdroid-4-specify-owner-email.png
+   :alt: DAVDroid app configuration for the owners email address
+
+Now the sync is set up and your phones calendars and contacts are synced with the
+Nextcloud server.
