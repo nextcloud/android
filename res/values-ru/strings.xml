@@ -79,9 +79,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Хранить файл в исходном каталоге</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
+    <string name="file_list_empty_headline">Здесь нет файлов</string>
+    <string name="file_list_empty">Загрузите что-нибудь или синхронизируйте со своими устройствами!</string>
     <string name="file_list_loading">Загрузка&#8230;</string>
     <string name="file_list_no_app_for_file_type">Приложение для этого типа файла не найдено!</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
+    <string name="upload_list_empty_headline">Нет доступных загрузок</string>
+    <string name="upload_list_empty_text">Загрузите что-нибудь или включите автоматическую загрузку!</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_folders">каталоги</string>
     <string name="file_list_file">файл</string>
@@ -299,6 +303,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Загружать только через wifi</string>
     <string name="instant_upload_on_wifi">Загружать изображения только через Wi-Fi</string>
     <string name="instant_video_upload_on_wifi">Загружать видео только через Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Загружать только при зарядке</string>
@@ -466,6 +471,7 @@
     <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>
     <string name="share_group_clarification">%1$s (группа)</string>
     <string name="share_remote_clarification">%1$s (удалённый)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
     <string name="share_sharee_unavailable">Извините, версия вашего сервера не позволяет поделиться с пользователями через клиент. \nПожалуйста обратитесь к администратору</string>
@@ -477,13 +483,13 @@
     <string name="edit_share_unshare">Закрыть общий доступ</string>
     <string name="edit_share_done">завершено</string>
 
-    <string name="action_retry_uploads">Повтор не удался</string>
-    <string name="action_clear_failed_uploads">Сбой при очистке</string>
-    <string name="action_clear_successful_uploads">Очистка удалась</string>
+    <string name="action_retry_uploads">Повторить загрузки, завершившиеся сбоем</string>
+    <string name="action_clear_failed_uploads">Очистить завершившиеся сбоем загрузки</string>
+    <string name="action_clear_successful_uploads">Очистить успешно завершённые загрузки</string>
     <string name="action_clear_finished_uploads">Очистить все завершённые</string>
 
-    <string name="action_switch_grid_view">Сетка</string>
-    <string name="action_switch_list_view">Список</string>
+    <string name="action_switch_grid_view">Вид сеткой</string>
+    <string name="action_switch_list_view">Вид списком</string>
 
     <string name="manage_space_title">Управление свободным местом</string>
     <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \\n\\nЗагруженные файлы будут сохранены нетронутыми. \\n\\nЭтот процесс может занять некоторое время.</string>
@@ -531,6 +537,13 @@
         <item quantity="many">%d выбрано</item>
         <item quantity="other">%d выбрано</item>
     </plurals>
+    <string name="upload_file_dialog_title">Ввод имени и типа загружаемого файла </string>
+    <string name="upload_file_dialog_filename">Имя файла</string>
+    <string name="upload_file_dialog_filetype">Тип файла</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Текстовый файл заготовок(*.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Файл ярлыка Интернет(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Файл ярлыка на Google Maps(%s)</string>
+
     <string name="storage_description_default">По умолчанию</string>
     <string name="storage_description_sd_no">SD карта %1$d</string>
     <string name="storage_description_unknown">Неизвестно</string>

@@ -38,9 +38,11 @@
     <string name="prefs_log_title_history">ログの履歴</string>
     <string name="prefs_log_summary_history">これは記録されたログを表示します</string>
     <string name="prefs_log_delete_history_button">履歴の削除</string>
+    <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>
     <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid でアカウントのサーバーアドレスが解決できませんでした。</string>
     <string name="prefs_calendar_contacts_no_store_error">Google playストアかF-droidアプリがインストールされていません。</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">コンタクト &amp; カレンダーを同期設定しました</string>
     <string name="prefs_help">ヘルプ</string>
     <string name="prefs_recommend">友達に推薦</string>
     <string name="prefs_feedback">フィードバック</string>
@@ -77,9 +79,11 @@
     <string name="uploader_upload_files_behaviour_only_upload">ファイルをソースフォルダに保持する</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ファイルをソースフォルダから削除する</string>
     <string name="file_list_seconds_ago">数秒前</string>
+    <string name="file_list_empty_headline">ファイルがありません。</string>
     <string name="file_list_loading">読込中&#8230;</string>
     <string name="file_list_no_app_for_file_type">ファイルタイプ に対応するアプリはありません！</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
+    <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_folders">フォルダー</string>
     <string name="file_list_file">ファイル</string>

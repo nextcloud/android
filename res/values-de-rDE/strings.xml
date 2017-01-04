@@ -78,9 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Hochladen und Datei im Quellordner behalten</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Lösche Datei aus Quellordner</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
+    <string name="file_list_empty_headline">Keine Dateien vorhanden</string>
+    <string name="file_list_empty">Laden Sie Inhalt hoch oder synchronisieren Sie mit Ihren Geräten!</string>
     <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
+    <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
+    <string name="upload_list_empty_text">Laden Sie Inhalt hoch oder aktivieren Sie den Sofortupload!</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_folders">Ordner</string>
     <string name="file_list_file">Datei</string>
@@ -141,7 +145,7 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_service_interrupted">Die Anwendung wurde beendet</string>
     <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Warte auf die drahtlose Verbindung</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Warte auf W-Lan Verbindung</string>
     <string name="uploads_view_later_waiting_to_upload">Warten auf das Hochladen</string>
     <string name="downloader_download_in_progress_ticker">Herunterladen &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Herunterladen %2$s</string>
@@ -227,7 +231,7 @@
 	<string name="auth_expired_oauth_token_toast">Ihre Legitimierung ist abgelaufen. Bitte Legitimierung nochmals durchführen</string>
 	<string name="auth_expired_basic_auth_toast">Bitte geben Sie Ihr aktuelles Passwort ein</string>
 	<string name="auth_expired_saml_sso_token_toast">Ihre Sitzung ist abgelaufen. Bitte erneut verbinden</string>
-	<string name="auth_connecting_auth_server">Verbinde mit dem Authentifizierung-Server…</string>
+	<string name="auth_connecting_auth_server">Verbinde mit dem Authentifizierungs-Server…</string>
 	<string name="auth_unsupported_auth_method">Der Server unterstützt diese Legitimierungsmethode nicht</string>
 	<string name="auth_unsupported_multiaccount">%1$s unterstützt mehrere Benutzerkonten nicht</string>
 	<string name="auth_fail_get_user_name">Ihr Server gibt keine richtige Benutzerkennung zurück, bitte kontaktieren Sie einen Administrator
@@ -298,6 +302,7 @@
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Nur über W-Lan hochladen</string>
     <string name="instant_upload_on_wifi">Fotos nur über WiFi hochladen</string>
     <string name="instant_video_upload_on_wifi">Videos nur über WiFi hochladen</string>
     <string name="instant_video_upload_on_charging">Hochladen nur während des Ladens</string>
@@ -465,6 +470,7 @@
     <string name="search_users_and_groups_hint">Nach Benutzern und Gruppen suchen</string>
     <string name="share_group_clarification">%1$s (Gruppe)</string>
     <string name="share_remote_clarification">%1$s (entfernte Freigabe)</string>
+    <string name="share_email_clarification">%1$s (E-Mail)</string>
     <string name="share_known_remote_clarification">%1$s ( auf %2$s )</string>
 
     <string name="share_sharee_unavailable">Entschuldigung, Ihre Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht.

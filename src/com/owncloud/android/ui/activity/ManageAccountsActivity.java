@@ -60,7 +60,6 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
 /**

@@ -78,9 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Garder le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
+    <string name="file_list_empty_headline">Aucun fichier</string>
+    <string name="file_list_empty">Téléchargez de quoi ou synchronisez vos appareils!</string>
     <string name="file_list_loading">Chargement&#8230;</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
+    <string name="upload_list_empty_headline">Aucun téléversement disponible</string>
+    <string name="upload_list_empty_text">Téléversez du contenu ou activez le téléversement instantané !</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_folders">dossiers</string>
     <string name="file_list_file">fichier</string>
@@ -298,6 +302,7 @@
     <string name="placeholder_timestamp">18/05/2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Téléverse par wifi uniquement</string>
     <string name="instant_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
     <string name="instant_video_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
     <string name="instant_video_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
@@ -464,6 +469,7 @@
     <string name="search_users_and_groups_hint">Chercher parmi les utilisateurs et groupes</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
+    <string name="share_email_clarification">%1$s (courriel)</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
 
     <string name="share_sharee_unavailable">Désolé, la version du serveur ne permet pas aux applications d\'initier des partage avec d\'autres utilisateurs.
