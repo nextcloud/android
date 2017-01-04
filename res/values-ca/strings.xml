@@ -29,10 +29,10 @@
     <string name="prefs_manage_accounts">Gestió de comptes</string>
     <string name="prefs_passcode">Contrasenya</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
-    <string name="prefs_instant_upload">Pujada instantànies de fotografies</string>
+    <string name="prefs_instant_upload">Pujada instantània de fotografies</string>
     <string name="prefs_instant_upload_summary">Puja instantàniament les fotografies preses amb la càmera</string>
-    <string name="prefs_instant_video_upload">Pujades de vídeos instantanies</string>
-    <string name="prefs_instant_video_upload_summary">Pujar instantàniament vídeos gravats per la càmera</string>
+    <string name="prefs_instant_video_upload">Pujada instantània de vídeos</string>
+    <string name="prefs_instant_video_upload_summary">Puja instantàniament els vídeos gravats amb la càmera</string>
     <string name="prefs_log_title">Habilita els registres</string>
     <string name="prefs_log_summary">Això s\'usa per registrar problemes</string>
     <string name="prefs_log_title_history">Historial dels registres</string>
@@ -84,7 +84,7 @@
     <string name="file_list_no_app_for_file_type">No s\'ha trobat cap aplicació per a aquest tipus de fitxer!</string>
     <string name="local_file_list_empty">No hi ha arxius a aquesta carpeta</string>
     <string name="upload_list_empty_headline">No hi ha pujades disponibles</string>
-    <string name="upload_list_empty_text">Pugeu algun contingut o activeu la pujada instantània!</string>
+    <string name="upload_list_empty_text">Puja algun contingut o activa la pujada instantània!</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_folders">carpetes</string>
     <string name="file_list_file">fitxer</string>
@@ -306,7 +306,7 @@
     <string name="instant_video_upload_on_wifi">Pujar videos només via WiFi</string>
     <string name="instant_video_upload_on_charging">Pujar només quan s\'està carregant</string>
     <string name="instant_upload_on_charging">Pujar només quan s\'està carregant</string>
-    <string name="instant_upload_path">/CarregaInstantània</string>
+    <string name="instant_upload_path">/PujadaInstantània</string>
     <string name="conflict_title">Conflicte de fitxers</string>
     <string name="conflict_message">Quins fitxers vols mantenir? Si seleccioneu les dues versions, el fitxer local tindrà un número afegit al seu nom.</string>
     <string name="conflict_keep_both">Mantén-los ambdós</string>
@@ -317,7 +317,7 @@
     <string name="preview_image_error_unknown_format">Aquesta imatge no es pot mostrar</string>
 
     <string name="error__upload__local_file_not_copied">%1$s no s\'ha pogut copiar a la carpeta local %2$s</string>
-    <string name="prefs_instant_upload_path_title">Carpeta de pujades instantanies</string>
+    <string name="prefs_instant_upload_path_title">Carpeta de pujada instantània</string>
     <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
     <string name="prefs_folder_sync_remote_path_title">Carpeta remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Feu servir subcarpetes</string>
@@ -386,38 +386,70 @@
 
 	<string name="actionbar_logger">Registre</string>
 	<string name="log_send_history_button">Enviar història</string>
+	<string name="log_send_no_mail_app">No hi ha cap aplicació per enviar registres. Instal•leu una aplicació de correu.</string>
+	<string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
 	<string name="log_progress_dialog_text">Carregant dades &#8230;</string>
 
 	<string name="saml_authentication_required_text">Es requereix autenticació</string>
 	<string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
 	<string name="actionbar_move">Moure</string>
-    <string name="file_list_empty_moving">Res per aquí. Pots afegir una carpeta!</string>
+    <string name="actionbar_copy">Copia</string>
+	<string name="file_list_empty_moving">Res per aquí. Pots afegir una carpeta!</string>
 	<string name="folder_picker_choose_button_text">Escull</string>
 
     <string name="move_file_not_found">No es pot moure. Assegureu-vos que el fitxer existeix</string>
+    <string name="move_file_invalid_into_descendent">No es pot moure una carpeta a una subcarpeta</string>
     <string name="move_file_invalid_overwrite">El fitxer ja existeix a la carpeta de destinació</string>
+    <string name="move_file_error">Hi ha hagut un error en moure aquest fitxer o carpeta</string>
     <string name="forbidden_permissions_move">per moure aquest fitxer</string>
 
 
     <string name="copy_file_not_found">No es pot copiar. Assegureu-vos que el fitxer existeix</string>
+    <string name="copy_file_invalid_into_descendent">No es pot copiar una carpeta a una subcarpeta</string>
     <string name="copy_file_invalid_overwrite">El fitxer ja existeix a la carpeta de destinació</string>
+    <string name="copy_file_error">Hi ha hagut un error en copiar aquest fitxer o carpeta</string>
     <string name="forbidden_permissions_copy">per copiar aquest fitxer</string>
 
-    <string name="prefs_category_instant_uploading">Pujades instantanies</string>
+    <string name="prefs_category_instant_uploading">Pujada instantània</string>
     <string name="prefs_category_details">Detalls</string>
+
+	<string name="prefs_instant_video_upload_path_title">Carpeta de pujada instantània de vídeos</string>
+    <string name="sync_folder_failed_content">La sincronització de la carpeta %1$s no s\'ha pogut completar</string>
 
 	<string name="shared_subject_header">compartit</string>
 	<string name="with_you_subject_header">amb tú</string>
     
-	<string name="auth_host_address">Adreça del servidor</string>
+	<string name="subject_user_shared_with_you">%1$s ha compartit %2$s amb tu</string>
+    <string name="subject_shared_with_you">\"%1$s\" s\'ha compartit amb tu</string>
+
+    <string name="auth_refresh_button">Actualitza la connexió</string>
+    <string name="auth_host_address">Adreça del servidor</string>
+    <string name="common_error_out_memory">Memòria insuficient</string>
+
     <string name="username">Nom d\'usuari</string>
 
     <string name="file_list__footer__folder">1 carpeta</string>
+    <string name="file_list__footer__folders">%1$d carpetes</string>
     <string name="file_list__footer__file">1 fitxer</string>
     <string name="file_list__footer__file_and_folder">1 fitxer, 1 carpeta</string>
+    <string name="file_list__footer__file_and_folders">1 fitxer, %1$d carpetes</string>
+    <string name="file_list__footer__files">%1$d fitxers</string>
+    <string name="file_list__footer__files_and_folder">%1$d fitxers, 1 carpeta</string>
+    <string name="file_list__footer__files_and_folders">%1$d fitxers, %2$d carpetes</string>
+    <string name="prefs_instant_behaviour_dialogTitle">El fitxer original serà&#8230;</string>
+    <string name="prefs_instant_behaviour_title">El fitxer original serà&#8230;</string>
     <string name="upload_copy_files">Copiar fitxer</string>
     <string name="upload_move_files">Moure fitxer</string>
+    <string name="select_all">Selecciona tot</string>
+
+    <string name="pref_behaviour_entries_keep_file">mantingut a la carpeta original</string>
+    <string name="pref_behaviour_entries_move">mogut a la carpeta de l\'aplicació</string>
+    <string name="pref_behaviour_entries_delete_file">eliminat</string>
+    <string name="prefs_storage_path">Ruta d\'emmagatzemament</string>
+    <string name="prefs_common">Comú</string>
+
     <string name="share_dialog_title">Compartir</string>
+    <string name="share_file">Comparteix %1$s</string>
     <string name="share_with_user_section_title">Comparteix amb usuaris i grups</string>
     <string name="share_no_users">No s\'han compartit dades amb usuaris encara</string>
     <string name="share_add_user_or_group">Afegeix usuari o group</string>
@@ -426,10 +458,16 @@
     <string name="share_via_link_password_label">Protegir amb contrasenya</string>
     <string name="share_via_link_password_title">Assegurat</string>
     <string name="share_via_link_edit_permission_label">Permetre edició</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Amaga la llista de fitxers</string>
+    <string name="share_get_public_link_button">Obtén l\'enllaç</string>
     <string name="share_with_title">Comparteix amb &#8230;</string>
+    <string name="share_with_edit_title">Comparteix amb %1$s</string>
+
     <string name="share_search">Cerca</string>
 
     <string name="search_users_and_groups_hint">Cerca usuaris i grups</string>
+    <string name="share_group_clarification">%1$s (grup)</string>
+    <string name="share_remote_clarification">%1$s (remot)</string>
     <string name="share_privilege_can_share">pot compartir</string>
     <string name="share_privilege_can_edit">pot editar</string>
     <string name="share_privilege_can_edit_create">crea</string>
@@ -445,4 +483,6 @@
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_error">Alguns fitxers no s\'han pogut esborrar</string>
 
+    <string name="folder_sync_new_info">La pujada instantània s\'ha renovat completament. Mireu el menú principal i torneu a configurar l\'auto pujada. Disculpeu les molèsties.\\n\\nGaudiu de les noves i ampliades capacitats de l\'auto pujada!</string>
+    <string name="welcome_feature_3_title">Pujada instantània</string>
     </resources>
