@@ -14,6 +14,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.SyncedFolderJobService;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.RecursiveFileObserver;
 
 import java.io.File;
@@ -48,11 +49,12 @@ class SyncedFolderObserver extends RecursiveFileObserver {
             PersistableBundle bundle = new PersistableBundle();
             // TODO extract
             bundle.putString(SyncedFolderJobService.LOCAL_PATH, path);
-            bundle.putString(SyncedFolderJobService.REMOTE_PATH, syncedFolder.getRemotePath() + "/" + temp.getName());
-            bundle.putLong(SyncedFolderJobService.DATE_TAKEN, new Date().getTime());
+            bundle.putString(SyncedFolderJobService.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
+                                                                 syncedFolder.getRemotePath(), temp.getName(),
+                                                                 new Date().getTime(),
+                                                                 syncedFolder.getSubfolderByDate()));
             bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
             bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
-            bundle.putInt(SyncedFolderJobService.SUBFOLDER_BY_DATE, syncedFolder.getSubfolderByDate() ? 1 : 0);
 
             JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
