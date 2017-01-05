@@ -78,9 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mbani kartelën tek dosja burim</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Fshij kartelën nga dosja burim</string>
     <string name="file_list_seconds_ago">sekonda më parë</string>
+    <string name="file_list_empty_headline">Këtu nuk ka asnjë skedar</string>
+    <string name="file_list_empty">Ngarko disa të dhëna ose sinkronizo me pajisjet e tua!</string>
     <string name="file_list_loading">Po ngarkohet&#8230;</string>
     <string name="file_list_no_app_for_file_type">S’u gjet aplikacion për llojin e kartelës!</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
+    <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
+    <string name="upload_list_empty_text">Ngarko disa të dhëna ose aktivizo ngarkimin e menjëhershëm!</string>
     <string name="file_list_folder">dosje</string>
     <string name="file_list_folders">dosje</string>
     <string name="file_list_file">Skedar</string>
@@ -297,6 +301,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Ngarko vetëm nëpërmjet wifi</string>
     <string name="instant_upload_on_wifi">Fotot ngarkoji vetëm përmes wifi-it</string>
     <string name="instant_video_upload_on_wifi">Videot ngarkoji vetëm përmes wifi-it</string>
     <string name="instant_video_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
@@ -463,6 +468,7 @@
     <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_remote_clarification">%1$s (i largët)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
 
     <string name="share_sharee_unavailable">Na ndjeni, versioni juaj i serverit nuk lejon ndarje me përdorues brenda klientësh.

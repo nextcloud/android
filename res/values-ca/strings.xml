@@ -468,6 +468,11 @@
     <string name="search_users_and_groups_hint">Cerca usuaris i grups</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_remote_clarification">%1$s (remot)</string>
+    <string name="share_email_clarification">%1$s (correu electrònic)</string>
+    <string name="share_known_remote_clarification">%1$s (a %2$s)</string>
+
+    <string name="share_sharee_unavailable">La vostra versió de servidor no permet compartir amb usuaris entre clients
+\\nContacteu amb el vostre administrador</string>
     <string name="share_privilege_can_share">pot compartir</string>
     <string name="share_privilege_can_edit">pot editar</string>
     <string name="share_privilege_can_edit_create">crea</string>
@@ -476,13 +481,20 @@
     <string name="edit_share_unshare">Deixar de compartir</string>
     <string name="edit_share_done">Fet</string>
 
+    <string name="action_retry_uploads">El nou intent ha fallat</string>
+    <string name="action_clear_failed_uploads">Ha fallat l\'eliminació</string>
+    <string name="action_clear_successful_uploads">Eliminació amb èxit</string>
+    <string name="action_clear_finished_uploads">S\'ha completat l\'eliminació total</string>
+
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de Llista</string>
 
     <string name="manage_space_title">Gestió d\'espai</string>
+    <string name="manage_space_description">S\'esborrarà permanentment la configuració, la base de dades i els certificats del servidor de les dades de %1$s  \\n\\nEls fitxers baixats es mantindran intactes. \\n\\nAquest procès pot trigar un temps.</string>
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_error">Alguns fitxers no s\'han pogut esborrar</string>
 
+    <string name="permission_storage_access">Són necessàris permíssos addicionals per pujar i baixar fitxers.</string>
     <string name="folder_sync_new_info">La pujada instantània s\'ha renovat completament. Mireu el menú principal i torneu a configurar l\'auto pujada. Disculpeu les molèsties.\\n\\nGaudiu de les noves i ampliades capacitats de l\'auto pujada!</string>
     <string name="welcome_feature_3_title">Pujada instantània</string>
     </resources>
