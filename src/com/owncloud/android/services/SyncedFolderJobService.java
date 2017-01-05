@@ -46,8 +46,6 @@ public class SyncedFolderJobService extends JobService {
 
     public static final String LOCAL_PATH = "filePath";
     public static final String REMOTE_PATH = "remotePath";
-    public static final String DATE_TAKEN = "dateTaken";
-    public static final String SUBFOLDER_BY_DATE = "subfolderByDate";
     public static final String ACCOUNT = "account";
     public static final String UPLOAD_BEHAVIOUR = "uploadBehaviour";
 
@@ -61,9 +59,7 @@ public class SyncedFolderJobService extends JobService {
         Context context = MainApp.getAppContext();
         PersistableBundle bundle = params.getExtras();
         String filePath = bundle.getString(LOCAL_PATH);
-        String remoteFolder = bundle.getString(REMOTE_PATH);
-        Long dateTaken = bundle.getLong(DATE_TAKEN);
-        Boolean subfolderByDate = bundle.getInt(SUBFOLDER_BY_DATE) == 1;
+        String remotePath = bundle.getString(REMOTE_PATH);
         Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT));
         Integer uploadBehaviour = bundle.getInt(UPLOAD_BEHAVIOUR);
 
@@ -80,7 +76,7 @@ public class SyncedFolderJobService extends JobService {
                     context,
                     account,
                     filePath,
-                    FileStorageUtils.getInstantUploadFilePath(remoteFolder, file.getName(), dateTaken, subfolderByDate),
+                    remotePath,
                     uploadBehaviour,
                     mimeType,
                     true,           // create parent folder if not existent

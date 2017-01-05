@@ -229,9 +229,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
             // remote path to parent folder
             TextView pathTextView = (TextView) view.findViewById(R.id.upload_remote_path);
-            String remoteParentPath = upload.getRemotePath();
-            remoteParentPath = new File(remoteParentPath).getParent();
-            pathTextView.setText(mParentActivity.getString(R.string.app_name) + remoteParentPath);
+            String remoteParentPath = new File(upload.getRemotePath()).getParent();
+            pathTextView.setText(remoteParentPath);
 
             // file size
             TextView fileSizeTextView = (TextView) view.findViewById(R.id.upload_file_size);
@@ -316,7 +315,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                         );
                     }
                     uploadDateTextView.setVisibility(View.GONE);
-                    pathTextView.setVisibility(View.GONE);
                     fileSizeTextView.setVisibility(View.GONE);
                     progressBar.invalidate();
                     break;
