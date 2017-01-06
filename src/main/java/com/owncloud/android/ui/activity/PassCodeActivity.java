@@ -157,7 +157,6 @@ public class PassCodeActivity extends AppCompatActivity {
                 // will receive and confirm pass code value
                 mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
                 mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
-                setCancelButtonEnabled(true);
 
                 View view = findViewById(android.R.id.content);
                 Snackbar
@@ -178,6 +177,7 @@ public class PassCodeActivity extends AppCompatActivity {
                 //the app was in the passcodeconfirmation
                 requestPassCodeConfirmation();
             }
+            setCancelButtonEnabled(true);
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
             /// pass code preference has just been disabled in Preferences;
@@ -308,7 +308,6 @@ public class PassCodeActivity extends AppCompatActivity {
             });
         } else {
             cancel.setVisibility(View.GONE);
-            cancel.setVisibility(View.INVISIBLE);
             cancel.setOnClickListener(null);
         }
     }
