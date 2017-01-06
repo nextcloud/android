@@ -61,7 +61,6 @@
     <string name="sync_string_files">Dosyalar</string>
     <string name="setup_btn_connect">Bağlan</string>
     <string name="uploader_btn_upload_text">Yükle</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Metin dosyası oluştur</string>
     <string name="uploader_top_message">Yüklenecek klasörü seçin</string>
     <string name="uploader_wrn_no_account_title">Herhangi bir hesap bulunamadı</string>
     <string name="uploader_wrn_no_account_text">Aygıtınızda herhangi bir %1$s hesabı yok. Lütfen önce bir hesap kurun.</string>
@@ -79,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Dosya kaynak klasörde tutulsun</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dosya kaynak klasörden silinsin</string>
     <string name="file_list_seconds_ago">saniye önce</string>
-    <string name="file_list_empty">Burada henüz bir şey yok. Bir şeyler yükleyin!</string>
     <string name="file_list_loading">Yükleniyor&#8230;</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı!</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
-    <string name="upload_list_empty">Herhangi bir yükleme yok.</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_folders">klasör</string>
     <string name="file_list_file">dosya</string>
@@ -347,8 +344,6 @@
     <string name="network_error_socket_timeout_exception">Sunucu beklenirken bir sorun çıktı, işlem tamamlanamadı</string>
     <string name="network_error_connect_timeout_exception">Sunucu beklenirken bir sorun çıktı; işlem tamamlanamadı</string>
     <string name="network_host_not_available">İşlem tamamlanamadı; sunucu kullanılamıyor</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">%s izniniz yok</string>
     <string name="forbidden_permissions_rename">bu dosyayı yeniden adlandırın</string>
     <string name="forbidden_permissions_delete">bu dosyayı silin</string>
@@ -533,7 +528,6 @@ ya da</string>
         <item quantity="one">%d seçili</item>
         <item quantity="other">%d seçili</item>
     </plurals>
-
     <string name="storage_description_default">Varsayılan</string>
     <string name="storage_description_sd_no">SD kart  %1$d</string>
     <string name="storage_description_unknown">Bilinmiyor</string>

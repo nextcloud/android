@@ -61,7 +61,6 @@
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Koble til</string>
     <string name="uploader_btn_upload_text">Last opp</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Opprett tekstfil</string>
     <string name="uploader_top_message">Velg opplastingsmappe</string>
     <string name="uploader_wrn_no_account_title">Ingen konto funnet</string>
     <string name="uploader_wrn_no_account_text">Det finnes ingen %1$s-kontoer på enheten din. Sett opp en konto først.</string>
@@ -79,11 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Behold filen i kildemappe</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slett filen fra kildemappen</string>
     <string name="file_list_seconds_ago">for få sekunder siden</string>
-    <string name="file_list_empty">Ingenting her. Last opp noe!</string>
+    <string name="file_list_empty_headline">Ingen filer her</string>
+    <string name="file_list_empty">Last opp innhold eller synkroniser med enhetene dine.</string>
     <string name="file_list_loading">Laster&#8230;</string>
-    <string name="file_list_no_app_for_file_type">Ingen app funnet for filtypen!</string>
+    <string name="file_list_no_app_for_file_type">Ingen applikasjon funnet for filtypen!</string>
     <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
-    <string name="upload_list_empty">Ingen opplastinger tilgjengelig.</string>
+    <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
+    <string name="upload_list_empty_text">Last opp innhold eller aktiver umiddelbar opplasting.</string>
     <string name="file_list_folder">mappe</string>
     <string name="file_list_folders">mapper</string>
     <string name="file_list_file">fil</string>
@@ -100,7 +101,7 @@
     <string name="action_share">Delt ressurs</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nei</string>
-    <string name="common_ok">OK</string>
+    <string name="common_ok">Ok</string>
     <string name="common_remove_upload">Fjern opplasting</string>
     <string name="common_retry_upload">Prøv å laste opp igjen.</string>
     <string name="common_cancel_sync">Avbryt synkronisering</string>
@@ -142,7 +143,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Finner ikke lokal fil</string>
     <string name="uploads_view_upload_status_failed_permission_error">Tillatelsesfeil</string>
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
-    <string name="uploads_view_upload_status_service_interrupted">Appen ble avsluttet</string>
+    <string name="uploads_view_upload_status_service_interrupted">Applikasjonen ble avsluttet</string>
     <string name="uploads_view_upload_status_unknown_fail">Ukjent feil</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Venter på trådløstilkobling</string>
     <string name="uploads_view_later_waiting_to_upload">Venter på å laste op</string>
@@ -301,8 +302,9 @@
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="instant_upload_on_wifi">Last opp bilder kun via WiFi</string>
-    <string name="instant_video_upload_on_wifi">Last kun opp filmer via WiFi</string>
+    <string name="auto_upload_on_wifi">Last opp kun via Wi-Fi</string>
+    <string name="instant_upload_on_wifi">Last opp bilder kun via Wi-Fi</string>
+    <string name="instant_video_upload_on_wifi">Last kun opp filmer via Wi-Fi</string>
     <string name="instant_video_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_on_charging">Last kun opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
@@ -347,8 +349,6 @@
     <string name="network_error_socket_timeout_exception">En feil oppstod ved venting på svar fra tjeneren. Operasjonen kunne ikke utføres</string>
     <string name="network_error_connect_timeout_exception">En feil oppstod ved venting på svar fra tjeneren. Operasjonen kunne ikke utføres</string>
     <string name="network_host_not_available">Operasjonen kunne ikke fullføres. Tjeneren er utilgjengelig</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Du har ikke tillatelse til %s</string>
     <string name="forbidden_permissions_rename">å omdøpe denne filen</string>
     <string name="forbidden_permissions_delete">å slette denne filen</string>
@@ -389,7 +389,7 @@
 	<string name="actionbar_logger">Logger</string>
 	<string name="log_send_history_button">Send historikk </string>
 	<string name="log_send_no_mail_app">Ingen app for sending av logger funnet. Installer epost-app.</string>
-	<string name="log_send_mail_subject">%1$s Android app logger</string>
+	<string name="log_send_mail_subject">%1$s Android applikasjons-logger</string>
 	<string name="log_progress_dialog_text">Laster data &#8230;</string>
 
 	<string name="saml_authentication_required_text">Autentisering kreves</string>
@@ -470,6 +470,7 @@
     <string name="search_users_and_groups_hint">Søk etter brukere og grupper</string>
     <string name="share_group_clarification">%1$s (gruppe)</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
+    <string name="share_email_clarification">%1$s (e-post)</string>
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
     <string name="share_sharee_unavailable">Beklager, tjenerversjonen din tillater ikke klienter å dele med brukere.
@@ -509,7 +510,7 @@
     <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
     <string name="participate_testing_report_text">Meld en feil på Github</string>
     <string name="participate_testing_version_text">Er du interessert i å hjelpe oss å teste ned neste versjonen?</string>
-    <string name="participate_beta_headline">Test Betaversjonen</string>
+    <string name="participate_beta_headline">Test betaversjonen</string>
     <string name="participate_beta_text">Dette inkludere alle kommende funksjoner og er helt på kanten. Feil/Feilmeldinger
 kan oppstå og hvis de gjør, vennligst meld de til oss. &lt;br/>&lt;a href=\"%2$s\">Last ned APK&lt;/a>
 
@@ -534,9 +535,15 @@ eller</string>
         <item quantity="one">%d valgt</item>
         <item quantity="other">%d valgte</item>
     </plurals>
+    <string name="upload_file_dialog_title">Legg inn filnavn og -type for opplasting</string>
+    <string name="upload_file_dialog_filename">Filnavn</string>
+    <string name="upload_file_dialog_filetype">Filtype</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Textfil-snutt(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internett snarvei-fil (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps snarvei-fil (%s)</string>
 
     <string name="storage_description_default">Standard</string>
-    <string name="storage_description_sd_no">SD kort %1$d</string>
+    <string name="storage_description_sd_no">SD-kort %1$d</string>
     <string name="storage_description_unknown">Ukjent</string>
 
     <!-- What's new feature and texts to show -->
@@ -544,7 +551,7 @@ eller</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et trygt hjem for alle dine data</string>
-    <string name="welcome_feature_1_text">Aksesser, del &amp; beskytt filene dine hjemme og i bedriften</string>
+    <string name="welcome_feature_1_text">Ha tilgang til, del &amp; beskytt filene dine hjemme og i bedriften</string>
 
     <string name="welcome_feature_2_title">Multi-konto</string>
     <string name="welcome_feature_2_text">Foren alle skyene dine</string>

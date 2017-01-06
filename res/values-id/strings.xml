@@ -64,11 +64,9 @@
     <string name="uploader_error_message_source_file_not_found">Berkas untuk diunggah tidak ditemukan. Silakan cek apabila berkasnya ada.</string>
     <string name="uploader_error_message_source_file_not_copied">Terjadi kesalahan saat menyalin berkas ke folder sementara. Silakan mencoba kembali.</string>
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
-    <string name="file_list_empty">Tidak ada apa-apa di sini. Unggah sesuatu!</string>
     <string name="file_list_loading">Memuat&#8230;</string>
     <string name="file_list_no_app_for_file_type">Tidak ditemukan aplikasi untuk tipe berkas!</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
-    <string name="upload_list_empty">Tidak ada unggahan yang tersedia.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">folder</string>
     <string name="file_list_file">berkas</string>
@@ -326,8 +324,6 @@
     <string name="network_error_socket_timeout_exception">Terjadi kesalahan saat menunggu balasan server, operasi tidak dapat diselesaikan</string>
     <string name="network_error_connect_timeout_exception">Terjadi kesalahan saat menunggu balasan server, operasi tidak dapat diselesaikan</string>
     <string name="network_host_not_available">Operasi tidak dapat diselesaikan, server tidak tersedia</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Anda tidak memiliki izin %s</string>
     <string name="forbidden_permissions_rename">untuk mengubah nama berkas ini</string>
     <string name="forbidden_permissions_delete">untuk menghapus berkas ini</string>
@@ -454,5 +450,4 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d dipilih</item>
     </plurals>
-
     </resources>

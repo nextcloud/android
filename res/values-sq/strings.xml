@@ -4,7 +4,7 @@
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Rifreskoni llogarinë</string>
     <string name="actionbar_upload">Ngarkoni</string>
-    <string name="actionbar_upload_from_apps">Lëndë nga aplikacione të tjera</string>
+    <string name="actionbar_upload_from_apps">Përmbajtje nga aplikacione të tjera</string>
     <string name="actionbar_upload_files">Kartela</string>
     <string name="actionbar_open_with">Hapeni me</string>
     <string name="actionbar_mkdir">Dosje e re</string>
@@ -16,7 +16,7 @@
     <string name="menu_item_sort_by_name">A - Z</string>
     <string name="menu_item_sort_by_date">Më e reja - Më e vjetra</string>
     <string name="menu_item_sort_by_size">Më i madh - Më i vogël</string>
-    <string name="drawer_item_all_files">Krejt kartelat</string>
+    <string name="drawer_item_all_files">Të gjithë skedarët</string>
     <string name="drawer_item_on_device">Në pajisjen</string>
     <string name="drawer_item_settings">Rregullime</string>
     <string name="drawer_item_uploads_list">Ngarkimet</string>
@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Llogaritë</string>
     <string name="prefs_manage_accounts">Administroni llogaritë</string>
     <string name="prefs_passcode">Kyçje kodkalimi</string>
+    <string name="prefs_show_hidden_files">Trego skedarët e fshehur</string>
     <string name="prefs_instant_upload">Ngarkime të menjëhershme fotosh</string>
     <string name="prefs_instant_upload_summary">Ngarkoni menjëherë foto të bëra nga kamera</string>
     <string name="prefs_instant_video_upload">Ngarkime të menjëhershme videosh</string>
@@ -38,8 +39,10 @@
     <string name="prefs_log_summary_history">Kjo shfaq regjistrimet e bëra</string>
     <string name="prefs_log_delete_history_button">Fshini historikun</string>
     <string name="prefs_calendar_contacts">Sinkronizoni kalendarin &amp; kontaktet</string>
+    <string name="prefs_calendar_contacts_summary">Vendos DAVdroid (v1.3.0+)  për llogarinë aktuale</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Adresa e serverit për llogari nuk mund të zgjidhet për DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Nuk ka asnjë aplikacion të Google Play Store apo F-Droid të instaluar</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Sinkronizimi i kalendarit &amp; kontakteve u vendos me sukses</string>
     <string name="prefs_help">Ndihmë</string>
     <string name="prefs_recommend">Këshillojani një shoku</string>
     <string name="prefs_feedback">Përshtypje</string>
@@ -48,17 +51,16 @@
     <string name="prefs_remember_last_upload_location_summary">Mba mend vendin e fundit të ngarkimit për ndarje me të tjerët</string>
 
 	<string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
-	<string name="recommend_text">Dua t\’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarkojeni prej këtu: %2$s</string>
+	<string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\\nShkarkojeni prej këtu: %2$s</string>
 
-    <string name="auth_check_server">Kontrollo shërbyesin</string>
-    <string name="auth_host_url">Adresë https://… e serverit</string>
+    <string name="auth_check_server">Kontrollo serverin</string>
+    <string name="auth_host_url">Adresa e serverit https://… </string>
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_password">Fjalëkalim</string>
-    <string name="auth_register">Rishtar te %1$s?</string>
+    <string name="auth_register">I ri te %1$s?</string>
     <string name="sync_string_files">Kartela</string>
     <string name="setup_btn_connect">Lidhuni</string>
     <string name="uploader_btn_upload_text">Ngarkoni</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Krijoni një kartele tekst</string>
     <string name="uploader_top_message">Zgjidhni një dosje ngarkimi</string>
     <string name="uploader_wrn_no_account_title">S’u gjet llogari</string>
     <string name="uploader_wrn_no_account_text">S’ka llogari %1$s te pajisja juaj. Ju lutemi, së pari krijoni një llogari.</string>
@@ -76,22 +78,24 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mbani kartelën tek dosja burim</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Fshij kartelën nga dosja burim</string>
     <string name="file_list_seconds_ago">sekonda më parë</string>
-    <string name="file_list_empty">Këtu nuk ka gjë. Ngarkoni diçka!</string>
+    <string name="file_list_empty_headline">Këtu nuk ka asnjë skedar</string>
+    <string name="file_list_empty">Ngarko disa të dhëna ose sinkronizo me pajisjet e tua!</string>
     <string name="file_list_loading">Po ngarkohet&#8230;</string>
     <string name="file_list_no_app_for_file_type">S’u gjet aplikacion për llojin e kartelës!</string>
-    <string name="local_file_list_empty">Në këtë dosje s\’ka kartela.</string>
-    <string name="upload_list_empty">S’ka ngarkime gati.</string>
+    <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
+    <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
+    <string name="upload_list_empty_text">Ngarko disa të dhëna ose aktivizo ngarkimin e menjëhershëm!</string>
     <string name="file_list_folder">dosje</string>
     <string name="file_list_folders">dosje</string>
-    <string name="file_list_file">kartelë</string>
-    <string name="file_list_files">kartela</string>
+    <string name="file_list_file">Skedar</string>
+    <string name="file_list_files">Skedar</string>
     <string name="filedetails_select_file">Prekni mbi një kartelë që të shfaqen të dhëna shtesë.</string>
     <string name="filedetails_size">Madhësi:</string>
     <string name="filedetails_type">Lloj:</string>
     <string name="filedetails_created">Krijuar më:</string>
     <string name="filedetails_modified">Ndryshuar më:</string>
     <string name="filedetails_download">Shkarkoje</string>
-    <string name="filedetails_sync_file">Njëkohëso</string>
+    <string name="filedetails_sync_file">Sinkronizo</string>
     <string name="filedetails_renamed_in_upload_msg">Kartela u riemërtua si %1$s gjatë ngarkimit</string>
     <string name="list_layout">Skemë liste</string>
     <string name="action_share">Ndaje</string>
@@ -100,9 +104,10 @@
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">Hiqe ngarkimin</string>
     <string name="common_retry_upload">Riprovo ngarkimin</string>
-    <string name="common_cancel_sync">Anuloje njëkohësimin</string>
+    <string name="common_cancel_sync">Anuloje sinkronizimin</string>
     <string name="common_cancel">Anuloje</string>
     <string name="common_back">Mbrapsht</string>
+    <string name="common_save">Ruaj</string>
     <string name="common_save_exit">Ruaje &amp; dil</string>
     <string name="common_error">Gabim</string>
     <string name="common_loading">Po ngarkohet &#8230;</string>
@@ -134,8 +139,8 @@
     <string name="uploads_view_upload_status_failed_retry">Ngarkimi do të riprovohet së shpejti</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Gabim kredencialesh</string>
     <string name="uploads_view_upload_status_failed_folder_error">Gabim dosjeje</string>
-    <string name="uploads_view_upload_status_failed_file_error">Gabim kartele</string>
-    <string name="uploads_view_upload_status_failed_localfile_error">S’u gjet kartelë vendore</string>
+    <string name="uploads_view_upload_status_failed_file_error">Gabim skedari</string>
+    <string name="uploads_view_upload_status_failed_localfile_error">S’u gjet skedari vendor</string>
     <string name="uploads_view_upload_status_failed_permission_error">Gabim lejesh</string>
     <string name="uploads_view_upload_status_conflict">Përplasje</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplikacioni u përfundua</string>
@@ -151,24 +156,24 @@
     <string name="downloader_not_downloaded_yet">Ende e pashkarkuar</string>
     <string name="downloader_download_failed_credentials_error">Shkarkimi dështoi, lypset të bëni hyrjen sërish</string>
     <string name="common_choose_account">Zgjidhni llogari</string>
-    <string name="sync_fail_ticker">Njëkohësimi dështoi</string>
-    <string name="sync_fail_ticker_unauthorized">Njëkohësimi dështoi, lypset të ribëni hyrjen</string>
-    <string name="sync_fail_content">Njëkohësimi i %1$s s’u plotësua dot</string>
+    <string name="sync_fail_ticker">Sinkronizimi dështoi</string>
+    <string name="sync_fail_ticker_unauthorized">Sinkronizimi dështoi, kerkohet të ribëni hyrjen</string>
+    <string name="sync_fail_content">Sinkronizimi i %1$s s’u plotësua dot</string>
     <string name="sync_fail_content_unauthorized">Fjalëkalim i pavlefshëm për %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">U hasën përplasje</string>
     <string name="sync_conflicts_in_favourites_content">%1$d kartela kept-in-sync s’u njëkohësuan dot</string>
     <string name="sync_fail_in_favourites_ticker">Mbajtja-në-sinkron e skedarëve dështoj </string>
-    <string name="sync_fail_in_favourites_content">Lënda e %1$d kartelave s\’u njëkohësua dot (%2$d përplasje)</string>
+    <string name="sync_fail_in_favourites_content">Përmbajtja e %1$d skedarëve s\\’u sinkronizua dot (%2$d përplasje)</string>
     <string name="sync_foreign_files_forgotten_ticker">Disa kartela vendore u harruan</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d kartela nga dosja %2$s s\’u kopjuan dot</string>
-    <string name="sync_foreign_files_forgotten_explanation">Nga versioni 1.3.16 e tutje, kartelat e ngarkuara nga kjo pajisje kopjohen te dosja vendore %1$s, për të parandaluar humbje të dhënash, kur një kartelë e vetme njëkohësohet me disa llogari.\n\nPër shkak të këtij ndryshimi, krejt kartelat e ngarkuara nën versione të mëparshëm të këtij aplikacioni u kopjuan në dosjen %2$s. Por plotësimin e këtij veprimi e pengoi një gabim gjatë njëkohësimit të llogarisë. Ose mund t\’i lini kartelat siç janë, dhe të hiqni lidhjen për te %3$s, ose të kaloni kartelat te dosja %1$s dhe të mbani lidhjen për te %4$s.\n\nMë poshtë radhiten kartelat vendore, dhe kartelat e largëta te %5$s me të cilat lidhen.</string>
+    <string name="sync_foreign_files_forgotten_content">%1$d skedar nga dosja %2$s s\\’u kopjuan dot</string>
+    <string name="sync_foreign_files_forgotten_explanation">Nga versioni 1.3.16 e tutje, skedarët e ngarkuar nga kjo pajisje kopjohen te dosja vendore %1$s, për të parandaluar humbje të dhënash, kur një skedar i vetëm sinkronizohet me disa llogari.\\n\\nPër shkak të këtij ndryshimi, të gjithë skedarët e ngarkuar nën versione të mëparshëm të këtij aplikacioni u kopjuan në dosjen %2$s. Por plotësimin e këtij veprimi e pengoi një gabim gjatë sinkronizimit të llogarisë. Ose mund t\\’i lini kartelat siç janë, dhe të hiqni lidhjen për te %3$s, ose të kaloni skedarët te dosja %1$s dhe të mbani lidhjen për te %4$s.\\n\\nMë poshtë radhiten skedarët vendor, dhe skedarët e largët te %5$s me të cilët lidhen.</string>
     <string name="sync_current_folder_was_removed">Dosja %1$s s\’ekziston më</string>
-    <string name="foreign_files_move">Zhvendosi krejt</string>
-    <string name="foreign_files_success">U zhvendosën krejt kartelat</string>
-    <string name="foreign_files_fail">Disa kartela s\’u zhvendosën dot</string>
+    <string name="foreign_files_move">Zhvendosi të gjitha</string>
+    <string name="foreign_files_success">U zhvendosën të gjithë skedarët</string>
+    <string name="foreign_files_fail">Disa skedarë s\\’u zhvendosën dot</string>
     <string name="foreign_files_local_text">Vendore: %1$s</string>
     <string name="foreign_files_remote_text">E largët: %1$s</string>
-    <string name="upload_query_move_foreign_files">S’ka hapësirë të mjaftueshme për kopjim të kartelave të përzgjedhura te dosja %1$s. Do të donit t’i lëviznit më mirë? </string>
+    <string name="upload_query_move_foreign_files">S’ka hapësirë të mjaftueshme për kopjimin e skedarëve të përzgjedhur te dosja %1$s. Do të donit t’i lëviznit më mirë? </string>
     <string name="pass_code_enter_pass_code">Ju lutemi, futni kodkalimin tuaj</string>
     
     <string name="pass_code_configure_your_pass_code">Jepni kodkalimin tuaj</string>
@@ -184,15 +189,15 @@
     <string name="media_state_playing">%1$s (po luhet)</string>
     <string name="media_state_loading">%1$s (po ngarkohet)</string>
     <string name="media_event_done">Luajtja e %1$s përfundoi</string>
-    <string name="media_err_nothing_to_play">S\’u gjetën kartela media</string>
+    <string name="media_err_nothing_to_play">S\\’u gjetën skedar media</string>
     <string name="media_err_no_account">S\’u dha llogari</string>
-    <string name="media_err_not_in_owncloud">Kartelë jo në llogari të vlefshme</string>
+    <string name="media_err_not_in_owncloud">Skedar jo në llogari të vlefshme</string>
     <string name="media_err_unsupported">Kodek mediash i pambuluar</string>
-    <string name="media_err_io">S\’u lexua dot kartela media</string>
-    <string name="media_err_malformed">Kartelë media e koduar jo si duhet</string>
+    <string name="media_err_io">S\\’u lexua dot skedari media</string>
+    <string name="media_err_malformed">Skedar media i koduar jo si duhet</string>
     <string name="media_err_timeout">Mbaroi koha, teksa përpiqej të luhej</string>
-    <string name="media_err_invalid_progressive_playback">Kartela media s\’mund të transmetohet</string>
-    <string name="media_err_unknown">Kartela media s\’mund të luhet me lojtësin standard</string>
+    <string name="media_err_invalid_progressive_playback">Skedari media s\\’mund të transmetohet</string>
+    <string name="media_err_unknown">Skedari media s\\’mund të luhet me lojtësin standard</string>
     <string name="media_err_security_ex">Gabim sigurie gjatë përpjekjes për luajtje të %1$s</string>
     <string name="media_err_io_ex">Gabim input-i gjatë përpjekjes për luajtje të %1$s</string>
     <string name="media_err_unexpected">Gabim i papritur gjatë përpjekjes për luajtje të %1$s</string>
@@ -206,66 +211,66 @@
 	<string name="auth_nossl_plain_ok_title">S\’ka lidhje të sigurt.</string>
 	<string name="auth_connection_established">Lidhja u vendos</string>
 	<string name="auth_testing_connection">Po provohet lidhja</string>
-	<string name="auth_not_configured_title">Formësim i keqformuar shërbyesi</string>
-	<string name="auth_account_not_new">Në pajisje ka tashmë një llogari për të njëjtin përdorues dhe shërbyes</string>
+	<string name="auth_not_configured_title">Formësim i keqformuar serveri</string>
+	<string name="auth_account_not_new">Në pajisje ka tashmë një llogari për të njëjtin përdorues dhe server</string>
 	<string name="auth_account_not_the_same">Përdoruesi i dhënë s\’përputhet me përdoruesin e kësaj llogarie</string>
 	<string name="auth_unknown_error_title">Ndodhi një gabim i panjohur!</string>
-	<string name="auth_unknown_host_title">S\’u gjet dot strehë</string>
-	<string name="auth_incorrect_path_title">S\’u gjet dot instancë shërbyesi</string>
-	<string name="auth_timeout_title">Shërbyesit iu desh shumë kohë për përgjigje</string>
-	<string name="auth_incorrect_address_title">Format adrese shërbyesi i gabuar</string>
-	<string name="auth_ssl_general_error_title">Gatitja e SSL-së dështoi</string>
-	<string name="auth_ssl_unverified_server_title">S\’u verifikua dot identiteti i shërbyesit SSL</string>
-	<string name="auth_bad_oc_version_title">Version i papranuar shërbyesi</string>
+	<string name="auth_unknown_host_title">S\\’u gjet dot hosti</string>
+	<string name="auth_incorrect_path_title">S\\’u gjet dot instancë serveri</string>
+	<string name="auth_timeout_title">Serverit iu desh shumë kohë për përgjigje</string>
+	<string name="auth_incorrect_address_title">Format i gabuar i adresës së serverit</string>
+	<string name="auth_ssl_general_error_title">Fillimi i SSL-së dështoi</string>
+	<string name="auth_ssl_unverified_server_title">S\\’u verifikua dot identiteti i serverit SSL</string>
+	<string name="auth_bad_oc_version_title">Version i papranuar serveri</string>
 	<string name="auth_wrong_connection_title">S\’u vendos dot lidhja</string>
 	<string name="auth_secure_connection">U vendos lidhje e sigurt</string>
 	<string name="auth_unauthorized">Emër përdoruesi ose fjalëkalim i gabuar</string>
 	<string name="auth_oauth_error">Autorizim jo i suksesshëm</string>
-	<string name="auth_oauth_error_access_denied">Hyrje e mohuar nga shërbyesi i autorizimeve</string>
-	<string name="auth_wtf_reenter_URL">Gjendje e papritur; ju lutemi, rijepni adresën e shërbyesit</string>
-	<string name="auth_expired_oauth_token_toast">Autorizimi juaj skadoi. Ju lutemi, autorizohuni sërish</string>
+	<string name="auth_oauth_error_access_denied">Hyrje e mohuar nga serveri i autorizimeve</string>
+	<string name="auth_wtf_reenter_URL">Gjendje e papritur; ju lutemi, rijepni adresën e serverit</string>
+	<string name="auth_expired_oauth_token_toast">Autorizimi juaj skadoi. Ju lutemi, autorizohuni sërisht</string>
 	<string name="auth_expired_basic_auth_toast">Ju lutem, jepni fjalëkalimin e tanishëm</string>
 	<string name="auth_expired_saml_sso_token_toast">Sesioni juaj skadoi. Ju lutemi, rilidhuni</string>
-	<string name="auth_connecting_auth_server">Po lidhet te shërbyesi i mirëfilltësimeve …</string>
-	<string name="auth_unsupported_auth_method">Shërbyesi s\’e mbulon këtë metodë mirëfilltësimesh</string>
+	<string name="auth_connecting_auth_server">Po lidhet te serveri i identifikimit …</string>
+	<string name="auth_unsupported_auth_method">Serveri s\\’e mbulon këtë metodë identifikimi</string>
 	<string name="auth_unsupported_multiaccount">%1$s s\’mbulon llogari të shumëfishta</string>
-	<string name="auth_fail_get_user_name">Shërbyesi juaj s\’po përgjigje me id të saktë përdoruesi, ju lutemi, lidhuni me një admin</string>
-	<string name="auth_can_not_auth_against_server">S’kryhet dot mirëfilltësimi me këtë shërbyes</string>
+	<string name="auth_fail_get_user_name">Serveri juaj s\\’po përgjigje me id të saktë përdoruesi, ju lutemi, lidhuni me një admin</string>
+	<string name="auth_can_not_auth_against_server">S’kryhet dot identifikimi me këtë server</string>
     <string name="auth_account_does_not_exist">Llogaria s\’ekziston ende te pajisja</string>
     
-    <string name="favorite">Caktojeni si të passhëm jo në linjë</string>
-    <string name="unfavorite">Hiqeni si të passhëm jo në linjë</string>
+    <string name="favorite">Caktojeni si të gatshëm jo në linjë</string>
+    <string name="unfavorite">Hiqeni si të gatshëm jo në linjë</string>
     <string name="common_rename">Riemërtojeni</string>
     <string name="common_remove">Hiqe</string>
     <string name="confirmation_remove_file_alert">Doni vërtet të hiqni %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe lënda e tij?</string>
+    <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe përmbajtja e tij?</string>
     <string name="confirmation_remove_local">Vetëm vendorja</string>
     <string name="remove_success_msg">Heqja doli me sukses</string>
     <string name="remove_fail_msg">Heqja dështoi</string>
     <string name="rename_dialog_title">Jepni një emër të ri</string>
     <string name="rename_local_fail_msg">Kopja vendore s\’u riemërtua dot; provoni një emër tjetër</string>
     <string name="rename_server_fail_msg">Riemërtimi s\’u plotësua dot</string>
-    <string name="sync_file_fail_msg">S\’u kap dot kartela e largët</string>
-    <string name="sync_file_nothing_to_do_msg">Lëndë kartele tashmë e njëkohësuar</string>
+    <string name="sync_file_fail_msg">S\\’u kap dot skedari i largët</string>
+    <string name="sync_file_nothing_to_do_msg">Përmbajtja e skedarit tashmë e sinkronizuar</string>
     <string name="create_dir_fail_msg">S\’u krijua dot dosja</string>
     <string name="filename_forbidden_characters">Shenja të ndaluara: / \\ &lt; &gt; : \" | ? *</string>
-    <string name="filename_forbidden_charaters_from_server">Emri i kartelës përmban të paktën një shenjë të pavlefshme</string>
-    <string name="filename_empty">Emri i kartelës s\’mund të jetë i zbrazët</string>
-    <string name="wait_a_moment">Pritni një çast</string>
+    <string name="filename_forbidden_charaters_from_server">Emri i skedarit përmban të paktën një shenjë të pavlefshme</string>
+    <string name="filename_empty">Emri i skedarit s\\’mund të jetë i zbrazët</string>
+    <string name="wait_a_moment">Prisni një çast</string>
     <string name="wait_checking_credentials">Po kontrollohen kredenciale të depozituara</string>
-    <string name="filedisplay_unexpected_bad_get_content">Problem i papritur; ju lutemi, përzgjidhni një kartelë nga një aplikacion tjetër</string>
-    <string name="filedisplay_no_file_selected">S\’u përzgjodh kartelë</string>
+    <string name="filedisplay_unexpected_bad_get_content">Problem i papritur; ju lutemi, përzgjidhni një skedar nga një aplikacion tjetër</string>
+    <string name="filedisplay_no_file_selected">S\\’u përzgjodh skedar</string>
     <string name="activity_chooser_title">Dërgoni lidhje te &#8230;</string>
-    <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet kartelë nga depo private</string>
+    <string name="wait_for_tmp_copy_from_private_storage">Po kopjohet skedar nga depo private</string>
     
     <string name="oauth_check_onoff">Hyrje me oAuth2</string> 
-    <string name="oauth_login_connection">Po lidhet me shërbyesin oAuth2…</string>    
+    <string name="oauth_login_connection">Po lidhet me serverin oAuth2…</string>    
         
     <string name="ssl_validator_header">Identiteti i sajtit s\’u verifikua dot</string>
-    <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e shërbyesit s\’është e besuar</string>
-    <string name="ssl_validator_reason_cert_expired">- Dëshmia e shërbyesit skadoi</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- Datat e vlefshmërisë së dëshmisë së shërbyesit i përkasin të ardhmes</string>
-    <string name="ssl_validator_reason_hostname_not_verified">- URL-ja s\’përputhet me emrin e strehëemrit te dëshmia</string>
+    <string name="ssl_validator_reason_cert_not_trusted">- Dëshmia e serverit s\\’është e besuar</string>
+    <string name="ssl_validator_reason_cert_expired">- Dëshmia e serverit skadoi</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- Datat e vlefshmërisë së dëshmisë së serverit i përkasin të ardhmes</string>
+    <string name="ssl_validator_reason_hostname_not_verified">- URL-ja s\\’përputhet me emrin e hostit te dëshmia</string>
     <string name="ssl_validator_question">Doni të besohet kjo dëshmi sido qoftë?</string>
     <string name="ssl_validator_not_saved">Dëshmia s\’u ruajt dot</string>
     <string name="ssl_validator_btn_details_see">Hollësi</string>
@@ -273,7 +278,7 @@
     <string name="ssl_validator_label_subject">Lëshuar për:</string>
     <string name="ssl_validator_label_issuer">Lëshuar nga:</string>
     <string name="ssl_validator_label_CN">Emër i rëndomtë:</string>
-    <string name="ssl_validator_label_O">Organizëm:</string>
+    <string name="ssl_validator_label_O">Organizatë</string>
     <string name="ssl_validator_label_OU">Njësi organizative:</string>
     <string name="ssl_validator_label_C">Vend:</string>
     <string name="ssl_validator_label_ST">Shtet:</string>
@@ -283,7 +288,7 @@
     <string name="ssl_validator_label_validity_to">Deri më:</string>
     <string name="ssl_validator_label_signature">Nënshkrim:</string>
     <string name="ssl_validator_label_signature_algorithm">Algoritëm:</string>
-    <string name="digest_algorithm_not_available">Ky algoritëm digest s’është i passhëm në telefonin tuaj.</string>
+    <string name="digest_algorithm_not_available">Ky algoritëm digest s’është i gatshëm në telefonin tuaj.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Shenja gishtash:</string>
     <string name="certificate_load_problem">Pati një problem gjatë ngarkimit të dëshmisë.</string>
     <string name="ssl_validator_null_cert">Dëshmia s\’u shfaq dot.</string>
@@ -296,30 +301,33 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Ngarko vetëm nëpërmjet wifi</string>
     <string name="instant_upload_on_wifi">Fotot ngarkoji vetëm përmes wifi-it</string>
     <string name="instant_video_upload_on_wifi">Videot ngarkoji vetëm përmes wifi-it</string>
     <string name="instant_video_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_on_charging">Ngarkoni vetëm kur jeni duke e karikuar</string>
     <string name="instant_upload_path">/InstantUpload</string>
-    <string name="conflict_title">Përplasje kartelash</string>
-    <string name="conflict_message">Cilat kartela doni të mbani? Nëse përzgjidhni të dy versionet, kartelës vendore do t\’i shtohet një numër te emri.</string>
+    <string name="conflict_title">Përplasje skedarësh</string>
+    <string name="conflict_message">Cilat kartela doni të mbani? Nëse përzgjidhni të dy versionet, skedarit vendorë do t\\’i shtohet një numër te emri.</string>
     <string name="conflict_keep_both">Mbaji të dyja</string>
     <string name="conflict_use_local_version">versionin vendor</string>
     <string name="conflict_use_server_version">versionin e shërbyesit</string>
     
-    <string name="preview_image_description">Paraparje figure</string>
+    <string name="preview_image_description">Parapamje figure</string>
     <string name="preview_image_error_unknown_format">Kjo figurë nuk mund të shfaqet</string>
 
     <string name="error__upload__local_file_not_copied">%1$s s\’u kopjua dot te dosja vendore %2$s</string>
     <string name="prefs_instant_upload_path_title">Dosja e ngarkimit të çastit </string>
+    <string name="prefs_folder_sync_local_path_title">Dosje vendore</string>
+    <string name="prefs_folder_sync_remote_path_title">Dosje e largët</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Përdorni nëndosjet</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ruani në nëndosjet në bazë të vitit dhe muajit</string>
 
-	<string name="share_link_no_support_share_api">Na ndjeni, ndarja me të tjerët s\’është e aktivizuar te shërbyesi juaj. Ju lutemi, lidhuni me përgjegjësin tuaj.</string>
-	<string name="share_link_file_no_exist">S\’arrin të ndajë me të tjerët. Ju lutemi, kontrolloni nëse kartela ekziston apo jo</string>
-	<string name="share_link_file_error">Ndodhi një gabim teksa përpiqej të ndahej me të tjerët kjo kartelë apo dosje</string>
-	<string name="unshare_link_file_no_exist">S\’arrin të zhbëjë ndarjen me të tjerët. Ju lutemi, kontrolloni nëse kartela ekziston</string>
-	<string name="unshare_link_file_error">Ndodhi një gabim teksa përpiqej të zhbëhej ndarja me të tjerët e kësaj kartele apo dosjeje</string>
+	<string name="share_link_no_support_share_api">Na ndjeni, ndarja me të tjerët s\\’është e aktivizuar te serveri juaj. Ju lutemi, lidhuni me përgjegjësin tuaj.</string>
+	<string name="share_link_file_no_exist">S\\’arrin të ndajë me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston apo jo</string>
+	<string name="share_link_file_error">Ndodhi një gabim teksa përpiqej të ndahej me të tjerët ky skedar apo dosje</string>
+	<string name="unshare_link_file_no_exist">S\\’arrin të zhbëjë ndarjen me të tjerët. Ju lutemi, kontrolloni nëse skedari ekziston</string>
+	<string name="unshare_link_file_error">Ndodhi një gabim teksa përpiqej të zhbëhej ndarja me të tjerët e këtij skedari apo dosjeje</string>
     <string name="update_link_file_no_exist">S’u arrit të përditësohej gjë. Ju lutemi, kontrolloni nëse ekziston apo jo kartela.</string>
     <string name="update_link_file_error">Ndodhi një gabim teksa provohej të përditësohej ndarja</string>
     <string name="share_link_password_title">Jepni një fjalëkalim</string>
@@ -335,21 +343,41 @@
 
     <string name="error_cant_bind_to_operations_service">Gabim kritik: nuk mund të kryhen veprime</string>
 
-    <string name="network_error_socket_exception">Ndodhi një gabim teksa po lidhej me shërbyesin.</string>
-    <string name="network_error_socket_timeout_exception">Ndodhi një gabim teksa po pritej për shërbyesin, veprimi s\’u krye dot</string>
-    <string name="network_error_connect_timeout_exception">Ndodhi një gabim teksa po pritej për shërbyesin, veprimi s\'u krye dot</string>
-    <string name="network_host_not_available">Veprimi s\'u plotësua dot, shërbyesi është i pakapshëm</string>
-    <string name="empty" translatable="false" />
-
+    <string name="network_error_socket_exception">Ndodhi një gabim teksa po lidhej me serverin.</string>
+    <string name="network_error_socket_timeout_exception">Ndodhi një gabim teksa po pritej për serverin, veprimi s\\’u krye dot</string>
+    <string name="network_error_connect_timeout_exception">Ndodhi një gabim teksa po pritej për serverin, veprimi s\'u krye dot</string>
+    <string name="network_host_not_available">Veprimi s\'u plotësua dot, serveri është i pakapshëm</string>
     <string name="forbidden_permissions">Nuk keni leje %s</string>
-    <string name="forbidden_permissions_rename">për riemërtim të kësaj kartele</string>
+    <string name="forbidden_permissions_rename">për riemërtim të këtij skedari</string>
     <string name="forbidden_permissions_delete">për fshirje të kësaj kartele</string>
     <string name="share_link_forbidden_permissions">për ndarje me të tjerët të kësaj kartele</string>
     <string name="unshare_link_forbidden_permissions">për zhbërje të ndarjes me të tjerët të kësaj kartele</string>
     <string name="update_link_forbidden_permissions">që të përditësohet kjo ndarje</string>
     <string name="forbidden_permissions_create">për krijim kartele</string>
     <string name="uploader_upload_forbidden_permissions">për ngarkim në këtë dosje</string>
-    <string name="downloader_download_file_not_found">Kartela s\’gjendet më te shërbyesi</string>
+    <string name="downloader_download_file_not_found">Skedari s\\’gjendet më te serveri</string>
+
+    <string name="file_migration_dialog_title">Duke përditësuar rrugen e hapsirës ruajtëse</string>
+    <string name="file_migration_finish_button">Përfundo</string>
+    <string name="file_migration_preparing">Duke u pregatitur për migrimin&#8230;</string>
+    <string name="file_migration_checking_destination">Duke kontrolluar destinacionin&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Duke ruajtur konfigurimin&#8230; e llogarive</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Duke pritur për sinkronizimet&#8230; të papërfunduara</string>
+    <string name="file_migration_migrating">Duke lëvizur të dhënat&#8230;</string>
+    <string name="file_migration_updating_index">Duke përditësuar indeksin&#8230;</string>
+    <string name="file_migration_cleaning">Duke pastruar&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Rikthimi i konfigurimit&#8230; të llogarive</string>
+    <string name="file_migration_ok_finished">Përfundoi</string>
+    <string name="file_migration_failed_not_enough_space">GABIM: Nuk ka hapsirë mjaftueshëm </string>
+    <string name="file_migration_failed_not_writable">GABIM: Skedari nuk mund të shkruhet</string>
+    <string name="file_migration_failed_not_readable">GABIM: Skedari nuk është i lexueshëm</string>
+    <string name="file_migration_failed_dir_already_exists">GABIM: Drejtoria Nextcloud ekziston tashmë</string>
+    <string name="file_migration_failed_while_coping">GABIM: Gjatë migrimit</string>
+    <string name="file_migration_failed_while_updating_index">GABIM: Gjatë përditësimit të indeksit</string>
+
+    <string name="file_migration_directory_already_exists">Folderi i të dhënave ekziston tashmë, cfarë të bëni?</string>
+    <string name="file_migration_override_data_folder">Mbishkruaj</string>
+    <string name="file_migration_use_data_folder">Përdor ekzistueset</string>
 
     <string name="prefs_category_accounts">Llogari</string>
     <string name="prefs_add_account">Shtoni llogari</string>
@@ -362,31 +390,31 @@
 	<string name="log_send_mail_subject">Regjistra aplikacioni %1$s për Android</string>
 	<string name="log_progress_dialog_text">Po ngarkohen të dhëna &#8230;</string>
 
-	<string name="saml_authentication_required_text">Lypset mirëfilltësim</string>
+	<string name="saml_authentication_required_text">Kërkohet identifikim</string>
 	<string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
 	<string name="actionbar_move">Zhvendose</string>
     <string name="actionbar_copy">Kopjoni</string>
 	<string name="file_list_empty_moving">S\’ka gjë këtu. Mund të shtoni një dosje!</string>
 	<string name="folder_picker_choose_button_text">Zgjidhni</string>
 
-    <string name="move_file_not_found">S\’arrin të zhvendosë. Ju lutemi, kontrolloni nëse ekziston apo jo kartela</string>
+    <string name="move_file_not_found">S\\’arrin të zhvendosë. Ju lutemi, kontrolloni nëse ekziston apo jo skedari</string>
     <string name="move_file_invalid_into_descendent">S\’është e mundur të zhvendoset një dosje në një tjetër brenda saj</string>
-    <string name="move_file_invalid_overwrite">Kartela gjendet tashmë te dosja vendmbërritje</string>
-    <string name="move_file_error">Ndodhi një gabim teksa përpiqej të zhvendosej kjo kartelë apo dosje</string>
-    <string name="forbidden_permissions_move">për zhvendosje të kësaj kartele</string>
+    <string name="move_file_invalid_overwrite">Skedri gjendet tashmë te dosja destinacion</string>
+    <string name="move_file_error">Ndodhi një gabim teksa përpiqej të zhvendosej ky skedar apo kjo dosje</string>
+    <string name="forbidden_permissions_move">për zhvendosje të këtij skedari</string>
 
 
-    <string name="copy_file_not_found">S\’arrin të kopjojë. Ju lutemi, kontrolloni nëse ekziston apo jo kartela</string>
+    <string name="copy_file_not_found">S\\’arrin të kopjojë. Ju lutemi, kontrolloni nëse ekziston apo jo skedari</string>
     <string name="copy_file_invalid_into_descendent">S\’është e mundur të kopjohet një dosje në një tjetër brenda saj</string>
-    <string name="copy_file_invalid_overwrite">Kartela gjendet tashmë te dosja vendmbërritje</string>
-    <string name="copy_file_error">Ndodhi një gabim teksa përpiqej të kopjohej kjo kartelë apo dosje</string>
+    <string name="copy_file_invalid_overwrite">Kartela gjendet tashmë te dosja destinacion</string>
+    <string name="copy_file_error">Ndodhi një gabim teksa përpiqej të kopjohej ky skedar apo kjo dosje</string>
     <string name="forbidden_permissions_copy">për kopjim të kësaj kartele</string>
 
-    <string name="prefs_category_instant_uploading">Ngarkime të atypëratyshme</string>
+    <string name="prefs_category_instant_uploading">Ngarkime të menjëhershme</string>
     <string name="prefs_category_details">Hollësi</string>
 
 	<string name="prefs_instant_video_upload_path_title">Dosja e ngarkimit të videove të çastit </string>
-    <string name="sync_folder_failed_content">Njëkohësimi i dosjes %1$s s’u plotësua dot</string>
+    <string name="sync_folder_failed_content">Sinkronizimi i i dosjes %1$s nuk u plotësua dot</string>
 
 	<string name="shared_subject_header">ndarë</string>
 	<string name="with_you_subject_header">me ju</string>
@@ -395,21 +423,21 @@
     <string name="subject_shared_with_you">\"%1$s\" është ndarë me ju</string>
 
     <string name="auth_refresh_button">Rifreskoni lidhjen</string>
-    <string name="auth_host_address">Adresë shërbyesi</string>
+    <string name="auth_host_address">Adresë serveri</string>
     <string name="common_error_out_memory">Pa kujtesë të mjaftueshme</string>
 
     <string name="username">Emër përdoruesi</string>
 
     <string name="file_list__footer__folder">1 dosje</string>
     <string name="file_list__footer__folders">%1$d dosje</string>
-    <string name="file_list__footer__file">1 kartelë</string>
-    <string name="file_list__footer__file_and_folder">1 kartelë, 1 dosje</string>
-    <string name="file_list__footer__file_and_folders">1 kartelë, %1$d dosje</string>
-    <string name="file_list__footer__files">%1$d kartelë</string>
-    <string name="file_list__footer__files_and_folder">%1$d kartela, 1 dosje</string>
-    <string name="file_list__footer__files_and_folders">%1$d kartela, %2$d dosje</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Kartela origjinale do të jetë&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Kartela origjinale do të jetë&#8230;</string>
+    <string name="file_list__footer__file">1 skedar</string>
+    <string name="file_list__footer__file_and_folder">1 skedar, 1 dosje</string>
+    <string name="file_list__footer__file_and_folders">1 skedar, %1$d dosje</string>
+    <string name="file_list__footer__files">%1$d skedar</string>
+    <string name="file_list__footer__files_and_folder">%1$d skedare, 1 dosje</string>
+    <string name="file_list__footer__files_and_folders">%1$d skedare, %2$d dosje</string>
+    <string name="prefs_instant_behaviour_dialogTitle">Skedari origjinal do të jetë&#8230;</string>
+    <string name="prefs_instant_behaviour_title">Skedari origjinal do të jetë&#8230;</string>
     <string name="upload_copy_files">Kopjoje kartelën</string>
     <string name="upload_move_files">Lëvize kartelën</string>
     <string name="select_all">Zgjidhi të gjitha</string>
@@ -417,6 +445,9 @@
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
     <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
     <string name="pref_behaviour_entries_delete_file">të fshira</string>
+    <string name="prefs_storage_path">Rruga e hapsirës ruajtëse</string>
+    <string name="prefs_common">E përbashkët</string>
+
     <string name="share_dialog_title">Ndarje me të tjerët</string>
     <string name="share_file">Ndajeni %1$s</string>
     <string name="share_with_user_section_title">Ndajeni me përdorues dhe grupe</string>
@@ -427,7 +458,7 @@
     <string name="share_via_link_password_label">Mbroje me fjalëkalim</string>
     <string name="share_via_link_password_title">E siguruar</string>
     <string name="share_via_link_edit_permission_label">Lejo përpunim</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Fshihni listën e kartelave</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Fshihni listën e skedarëve</string>
     <string name="share_get_public_link_button">Merreni lidhjen</string>
     <string name="share_with_title">Ndajeni me &#8230;</string>
     <string name="share_with_edit_title">Ndajeni me %1$s</string>
@@ -437,10 +468,11 @@
     <string name="search_users_and_groups_hint">Kërkoni për grupe dhe përdorues</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_remote_clarification">%1$s (i largët)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
 
-    <string name="share_sharee_unavailable">Na ndjeni, versioni juaj i shërbyesit nuk lejon ndarje me përdorues brenda klientësh.
-        \nJu lutemi, lidhuni me përgjegjësin tuaj</string>
+    <string name="share_sharee_unavailable">Na ndjeni, versioni juaj i serverit nuk lejon ndarje me përdorues brenda klientësh.
+        \\nJu lutemi, lidhuni me përgjegjësin tuaj</string>
     <string name="share_privilege_can_share">mund të ndajë</string>
     <string name="share_privilege_can_edit">mund të përpunojnë</string>
     <string name="share_privilege_can_edit_create">krijoje</string>
@@ -452,30 +484,33 @@
     <string name="action_retry_uploads">Riprovimi dështoi</string>
     <string name="action_clear_failed_uploads">Pastrimi dështoi</string>
     <string name="action_clear_successful_uploads">Pastrim i suksesshëm</string>
-    <string name="action_clear_finished_uploads">Pastro krejt të përfunduarit</string>
+    <string name="action_clear_finished_uploads">Pastro të gjithë të përfunduarit</string>
 
     <string name="action_switch_grid_view">Pamje galeri</string>
     <string name="action_switch_list_view">Pamje listë</string>
 
     <string name="manage_space_title">Administroni hapësirë</string>
-    <string name="manage_space_description">Rregullimet, baza e të dhënave dhe dëshmitë e shërbyesit prej të dhënave nga %1$s do të fshihen përgjithmonë. \n\nKartelat e shkarkuara do të ruhen të paprekura.\n\nKy proces mund të hajë ca kohë.</string>
+    <string name="manage_space_description">Rregullimet, baza e të dhënave dhe dëshmitë e serverit prej të dhënave nga %1$s do të fshihen përgjithmonë. \\n\\nSkedarët e shkarkuar do të ruhen të paprekura.\\n\\nKy proces mund të kërkoj ca kohë.</string>
     <string name="manage_space_clear_data">Pastroji të dhënat</string>
     <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
 
-    <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni kartela lypsen leje shtesë.</string>
-    <string name="local_file_not_found_toast">Kartela s’u gjet te sistemi vendor i kartelave</string>
-    <string name="confirmation_remove_files_alert">A doni ju vërtetë të hiqni artikujt e zgjedhur?</string>
-    <string name="confirmation_remove_folders_alert">A doni ju vërtet  të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
+    <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni skedar kërkohen leje shtesë.</string>
+    <string name="local_file_not_found_toast">Skedari s’u gjet te sistemi vendor i skedarëve</string>
+    <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
+    <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Duke pritur që pajisja të karikohet</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="files_drop_not_supported">Ky është një tipar i Nextcloud-it, ju lutemi përditësojeni.</string>
     <string name="learn_more">Mësoni më shumë</string>
+    <string name="drawer_folder_sync">Ngarkim automatik</string>
     <string name="drawer_participate">Merni pjesë</string>
     <string name="participate_testing_headline">Na ndihmoni me testimin</string>
     <string name="participate_testing_bug_text">Gjetet një defekt? Diçka është e çuditshme?</string>
     <string name="participate_testing_report_text">Raportoni një problem në Github</string>
     <string name="participate_testing_version_text">Jeni të interesuar për të na ndihmuar në testimin e versionit të ardhshëm?</string>
     <string name="participate_beta_headline">Testoni versionin Beta</string>
+    <string name="participate_beta_text">Kjo përfshin të gjitha karakteristikat që do të vijnë dhe është një teknologji shumë e re. Bage/gabime mund të ndodhin dhe nëse ka, ju lutemi ti raportoni. &lt;br/>&lt;a href=\"%2$s\">Shkarko APK&lt;/a>
+ose</string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
     <string name="participate_release_candidate_text">Lëshimi i kandidatit  (RC) është një fragment i lëshimit të ardhshme dhe pritet të jetë i qëndrueshëm. Testimi i setup-it tuaj individuale mund të ndihmojë për ta siguruar këtë. Regjistrohuni për testimin në Play Store ose manualisht  shikoni në seksionin \"versionet\" në F-Droid.</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
@@ -485,9 +520,40 @@
     <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih&lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
+    <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>
+    <string name="folder_sync_loading_folders">Duke ngarkuar dosjet&#8230;</string>
+    <string name="folder_sync_no_results">Nuk u gjetën dosje media</string>
+    <string name="folder_sync_preferences">Ngarko automatikisht preferencat</string>
+    <string name="folder_sync_settings">Konfigurimet</string>
+    <string name="folder_sync_new_info">Ngarkimi i menjëhershëm është ngritur plotësisht. Ju lutemi shikoni menun kryesore dhe ri-konfiguroni ngarkimet tuaja automatike. Ju kërkojmë ndjes për shqetësimin.\\n\\nShijojini aftësitë e reja dhe të zgjeruara të ngarkimit automatik.</string>
+    <string name="folder_sync_preferences_folder_path">Për %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d të përzgjedhura</item>
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
+    <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
+    <string name="upload_file_dialog_filename">Emri dokumentit</string>
+    <string name="upload_file_dialog_filetype">Tipi dokumentit</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Skedar elementi tekst(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Skedar Interneti (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Skedar Google Maps(%s)</string>
 
-    </resources>
+    <string name="storage_description_default">Paraprake</string>
+    <string name="storage_description_sd_no">Kart SD %1$d</string>
+    <string name="storage_description_unknown">E panjohur</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Çfarë është e re në Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Një shtëpi e sigurt për të gjitha të dhënat tuaja</string>
+    <string name="welcome_feature_1_text">Akseso, ndaj &amp; mbro skedarët e tuaja në shtëpinë dhe organizatën tuaj.</string>
+
+    <string name="welcome_feature_2_title">Llogari e shumfishtë</string>
+    <string name="welcome_feature_2_text">Lidhuni me të gjitha shërbimet cloud</string>
+
+    <string name="welcome_feature_3_title">Ngarkim i menjëhershëm</string>
+    <string name="welcome_feature_3_text">Mbajini fotot të sigurta</string>
+
+    <string name="whats_new_skip">Kalo</string>
+</resources>

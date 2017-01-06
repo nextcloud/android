@@ -60,7 +60,6 @@
     <string name="sync_string_files">檔案</string>
     <string name="setup_btn_connect">連線</string>
     <string name="uploader_btn_upload_text">上傳</string>
-    <string name="uploader_btn_uploadTextSnippet_text">新增文字文件</string>
     <string name="uploader_top_message">選擇上傳檔案夾</string>
     <string name="uploader_wrn_no_account_title">找不到帳號</string>
     <string name="uploader_wrn_no_account_text">無 %1$s 帳號，請先建立帳號。</string>
@@ -78,11 +77,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">在來源資料夾保留檔案</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">刪除來源資料夾中的檔案</string>
     <string name="file_list_seconds_ago">幾秒前</string>
-    <string name="file_list_empty">目前沒有任何檔案，上傳一些東西吧！</string>
     <string name="file_list_loading">載入中&#8230;</string>
     <string name="file_list_no_app_for_file_type">檔案格式無對應的應用程式可開啟</string>
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案</string>
-    <string name="upload_list_empty">無上傳</string>
     <string name="file_list_folder">資料夾</string>
     <string name="file_list_folders">資料夾</string>
     <string name="file_list_file">檔案</string>
@@ -343,8 +340,6 @@
     <string name="network_error_socket_timeout_exception">在等待伺服器回應時發生了錯誤，這個操作將無法被完成</string>
     <string name="network_error_connect_timeout_exception">在等待伺服器回應時發生了錯誤，這個操作將無法被完成</string>
     <string name="network_host_not_available">這個操作無法完成，伺服器無法存取</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">您沒有權限%s</string>
     <string name="forbidden_permissions_rename">重新命名檔案</string>
     <string name="forbidden_permissions_delete">刪除這個檔案</string>
@@ -505,7 +500,6 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d 已選</item>
     </plurals>
-
     <string name="storage_description_default">預設</string>
     <string name="storage_description_sd_no">SD 卡 %1$d</string>
     <string name="storage_description_unknown">未知</string>

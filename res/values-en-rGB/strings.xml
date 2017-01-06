@@ -61,7 +61,6 @@
     <string name="sync_string_files">Files</string>
     <string name="setup_btn_connect">Connect</string>
     <string name="uploader_btn_upload_text">Upload</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Create text file</string>
     <string name="uploader_top_message">Choose upload folder</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
@@ -79,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
-    <string name="file_list_empty">Nothing in here. Upload something!</string>
     <string name="file_list_loading">Loading&#8230;</string>
     <string name="file_list_no_app_for_file_type">No app found for file type!</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
-    <string name="upload_list_empty">No uploads available.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">folders</string>
     <string name="file_list_file">file</string>
@@ -347,8 +344,6 @@
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server; the operation couldn\'t be completed</string>
     <string name="network_host_not_available">The operation couldn\'t be completed; server is unavailable</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">You do not have permission %s</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
     <string name="forbidden_permissions_delete">to delete this file</string>
@@ -531,7 +526,6 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
-
     <string name="storage_description_default">Default</string>
     <string name="storage_description_sd_no">SD card %1$d</string>
     <string name="storage_description_unknown">Unknown</string>

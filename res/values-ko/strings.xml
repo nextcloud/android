@@ -55,7 +55,6 @@
     <string name="sync_string_files">파일</string>
     <string name="setup_btn_connect">접속</string>
     <string name="uploader_btn_upload_text">업로드</string>
-    <string name="uploader_btn_uploadTextSnippet_text">텍스트 파일 만들기</string>
     <string name="uploader_top_message">업로드 폴더 선택</string>
     <string name="uploader_wrn_no_account_title">계정 없음</string>
     <string name="uploader_wrn_no_account_setup_btn_text">설정</string>
@@ -67,11 +66,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">소스 폴더에 파일 보관</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">소스 폴더에서 파일 삭제</string>
     <string name="file_list_seconds_ago">초 지남</string>
-    <string name="file_list_empty">내용이 없습니다. 업로드할 수 있습니다!</string>
     <string name="file_list_loading">불러오는 중&#8230;</string>
     <string name="file_list_no_app_for_file_type">파일 형식의 앱을 찾을 수 없음</string>
     <string name="local_file_list_empty">이 폴더에 파일이 없습니다.</string>
-    <string name="upload_list_empty">업로드 없음</string>
     <string name="file_list_folder">폴더</string>
     <string name="file_list_folders">폴더</string>
     <string name="file_list_file">파일</string>
@@ -322,8 +319,6 @@
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생하였습니다.</string>
     <string name="network_error_connect_timeout_exception">서버를 기다리는 동안 오류가 발생하였습니다; 작업을 완료 할 수 없습니다</string>
     <string name="network_host_not_available">작업을 완료 할 수 없습니다; 서버를 사용할 수 없습니다</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">%s 권한이 없습니다</string>
     <string name="forbidden_permissions_rename">이 파일의 이름을 바꿀</string>
     <string name="forbidden_permissions_delete">이 파일을 삭제할</string>
@@ -465,5 +460,4 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d 선택</item>
     </plurals>
-
     </resources>

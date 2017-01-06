@@ -67,46 +67,34 @@ public class ShareUserListAdapter extends ArrayAdapter {
         return 0;
     }
 
-    private static class ViewHolderItem {
-		private TextView userName;
-		private ImageView iconView;
-		private ImageView editShareButton;
-		private ImageView unshareButton;
-	}
-
-	@Override
+    @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        ViewHolderItem viewHolderItem;
-		LayoutInflater inflator = (LayoutInflater) mContext
+        LayoutInflater inflator = (LayoutInflater) mContext
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        if (convertView == null) {
-			convertView = inflator.inflate(R.layout.share_user_item, parent, false);
-			viewHolderItem = new ViewHolderItem();
-			viewHolderItem.userName = (TextView) convertView.findViewById(R.id.userOrGroupName);
-			viewHolderItem.iconView = (ImageView) convertView.findViewById(R.id.icon);
-			viewHolderItem.editShareButton = (ImageView) convertView.findViewById(R.id.editShareButton);
-			viewHolderItem.unshareButton = (ImageView) convertView.findViewById(R.id.unshareButton);
-			convertView.setTag(viewHolderItem);
-		} else {
-			viewHolderItem = (ViewHolderItem) convertView.getTag();
-		}
-		View view = convertView;
-		if (mShares != null && mShares.size() > position) {
+        View view = inflator.inflate(R.layout.share_user_item, parent, false);
+
+        if (mShares != null && mShares.size() > position) {
             OCShare share = mShares.get(position);
 
-            TextView userName = viewHolderItem.userName;
-            ImageView iconView = viewHolderItem.iconView;
+            TextView userName = (TextView) view.findViewById(R.id.userOrGroupName);
+            ImageView iconView = (ImageView) view.findViewById(R.id.icon);
+            final ImageView editShareButton = (ImageView) view.findViewById(R.id.editShareButton);
+            final ImageView unshareButton = (ImageView) view.findViewById(R.id.unshareButton);
+
             String name = share.getSharedWithDisplayName();
             Drawable icon = getContext().getResources().getDrawable(R.drawable.ic_user);
             if (share.getShareType() == ShareType.GROUP) {
                 name = getContext().getString(R.string.share_group_clarification, name);
                 icon = getContext().getResources().getDrawable(R.drawable.ic_group);
+            } else if (share.getShareType() == ShareType.EMAIL) {
+                name = getContext().getString(R.string.share_email_clarification, name);
+                icon = getContext().getResources().getDrawable(R.drawable.ic_email);
+                editShareButton.setVisibility(View.INVISIBLE);
             }
             userName.setText(name);
             iconView.setImageDrawable(icon);
 
             /// bind listener to edit privileges
-            final ImageView editShareButton = viewHolderItem.editShareButton;
             editShareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -115,7 +103,6 @@ public class ShareUserListAdapter extends ArrayAdapter {
             });
 
             /// bind listener to unshare
-            final ImageView unshareButton = viewHolderItem.unshareButton;
             unshareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -131,7 +118,4 @@ public class ShareUserListAdapter extends ArrayAdapter {
         void unshareButtonPressed(OCShare share);
         void editShare(OCShare share);
     }
-
-
-
 }

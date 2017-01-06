@@ -14,6 +14,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.SyncedFolderJobService;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.RecursiveFileObserver;
 
 import java.io.File;
@@ -43,15 +44,17 @@ class SyncedFolderObserver extends RecursiveFileObserver {
 
         File temp = new File(path);
 
-        if (!temp.getName().equalsIgnoreCase("null")) {
+        // do not upload "null"-files, test if file exists and is a real file
+        if (!temp.getName().equalsIgnoreCase("null") && temp.isFile() && !temp.getName().endsWith(".tmp")) {
             PersistableBundle bundle = new PersistableBundle();
             // TODO extract
-            bundle.putString("filePath", path);
-            bundle.putString("remotePath", syncedFolder.getRemotePath());
-            bundle.putLong("dateTaken", new Date().getTime());
-            bundle.putString("account", syncedFolder.getAccount());
-            bundle.putInt("uploadBehaviour", syncedFolder.getUploadAction());
-            bundle.putInt("subfolderByDate", syncedFolder.getSubfolderByDate() ? 1 : 0);
+            bundle.putString(SyncedFolderJobService.LOCAL_PATH, path);
+            bundle.putString(SyncedFolderJobService.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
+                                                                 syncedFolder.getRemotePath(), temp.getName(),
+                                                                 new Date().getTime(),
+                                                                 syncedFolder.getSubfolderByDate()));
+            bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
+            bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
 
             JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
@@ -60,6 +63,7 @@ class SyncedFolderObserver extends RecursiveFileObserver {
                     date.intValue(),
                     new ComponentName(context, SyncedFolderJobService.class))
                     .setRequiresCharging(syncedFolder.getChargingOnly())
+                    .setMinimumLatency(10000)
                     .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
                     .setExtras(bundle)
                     .setPersisted(true)

@@ -61,7 +61,6 @@
     <string name="sync_string_files">Ficheiros</string>
     <string name="setup_btn_connect">Ligar</string>
     <string name="uploader_btn_upload_text">Carregar</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Criar ficheiro de texto</string>
     <string name="uploader_top_message">Escolha uma pasta para envio</string>
     <string name="uploader_wrn_no_account_title">Nenhuma conta encontrada</string>
     <string name="uploader_wrn_no_account_text">Não existem as contas %1$s no seu dispositivo. Por favor, configure primeiro uma conta.</string>
@@ -79,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Manter o ficheiro na pasta fonte</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eliminar ficheiro da pasta fonte</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
-    <string name="file_list_empty">Aqui não existe nada. Carregue alguma coisa!</string>
     <string name="file_list_loading">A carregar&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação encontrada para o tipo de ficheiro!</string>
     <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
-    <string name="upload_list_empty">Sem carregamentos disponíveis.</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_folders">pastas</string>
     <string name="file_list_file">ficheiro</string>
@@ -330,8 +327,6 @@
     <string name="error_cant_bind_to_operations_service">Erro crítico: não é possível executar as operações</string>
 
     <string name="network_error_socket_exception">Ocorreu um erro durante a ligação ao servidor.</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Não tem permissão %s</string>
     <string name="forbidden_permissions_rename">para renomear este ficheiro</string>
     <string name="forbidden_permissions_delete">para apagar este ficheiro</string>

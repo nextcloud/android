@@ -61,7 +61,6 @@
     <string name="sync_string_files">Files</string>
     <string name="setup_btn_connect">Connect</string>
     <string name="uploader_btn_upload_text">Upload</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Create text file</string>
     <string name="uploader_top_message">Choose upload folder</string>
     <string name="uploader_wrn_no_account_title">No account found</string>
     <string name="uploader_wrn_no_account_text">There are no %1$s accounts on your device. Please set up an account first.</string>
@@ -79,11 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
-    <string name="file_list_empty">Nothing in here. Upload something!</string>
+    <string name="file_list_empty_headline">No files in here</string>
+    <string name="file_list_empty">Upload some content or sync with your devices!</string>
     <string name="file_list_loading">Loading&#8230;</string>
     <string name="file_list_no_app_for_file_type">No app found for file type!</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
-    <string name="upload_list_empty">No uploads available.</string>
+    <string name="upload_list_empty_headline">No uploads available</string>
+    <string name="upload_list_empty_text">Upload some content or activate instant upload!</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">folders</string>
     <string name="file_list_file">file</string>
@@ -301,6 +302,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Upload via wifi only</string>
     <string name="instant_upload_on_wifi">Upload pictures via wifi only</string>
     <string name="instant_video_upload_on_wifi">Upload videos via wifi only</string>
     <string name="instant_video_upload_on_charging">Upload when charging only</string>
@@ -470,6 +472,7 @@
     <string name="search_users_and_groups_hint">Search users and groups</string>
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
@@ -540,6 +543,12 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
+    <string name="upload_file_dialog_title">Input upload filename and filetype</string>
+    <string name="upload_file_dialog_filename">Filename</string>
+    <string name="upload_file_dialog_filetype">Filetype</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Snippet text file(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet shortcut file(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps shortcut file(%s)</string>
 
     <string name="storage_description_default">Default</string>
     <string name="storage_description_sd_no">SD card %1$d</string>

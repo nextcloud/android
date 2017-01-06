@@ -61,7 +61,6 @@
     <string name="sync_string_files">Pliki</string>
     <string name="setup_btn_connect">Połącz</string>
     <string name="uploader_btn_upload_text">Wyślij</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Utwórz plik tekstowy</string>
     <string name="uploader_top_message">Wybierz folder do wgrywania plików</string>
     <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
     <string name="uploader_wrn_no_account_text">Brak kont %1$s na Twoim urządzeniu. Załóż konto.</string>
@@ -79,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Zachowaj plik w katalogu źródłowym</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Skasuj plik z katalogu źródłowego</string>
     <string name="file_list_seconds_ago">sekund temu</string>
-    <string name="file_list_empty">Pusto. Wyślij coś!</string>
     <string name="file_list_loading">Wczytywanie&#8230;</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików!</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
-    <string name="upload_list_empty">Brak przesłanych plików.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">foldery</string>
     <string name="file_list_file">plik</string>
@@ -347,8 +344,6 @@
     <string name="network_error_socket_timeout_exception">Pojawił się błąd podczas oczekiwania na serwer, operacja nie mogła zostać wykonana</string>
     <string name="network_error_connect_timeout_exception">Pojawił się błąd podczas oczekiwania na serwer, operacja nie mogła zostać wykonana</string>
     <string name="network_host_not_available">Nie można dokończyć operacji, serwer jest niedostępny</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Nie masz uprawnień %s</string>
     <string name="forbidden_permissions_rename">do zmiany nazwy tego pliku</string>
     <string name="forbidden_permissions_delete">do usuwania tego pliku</string>
@@ -530,7 +525,6 @@
         <item quantity="few">%d zaznaczone</item>
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
-
     <string name="storage_description_default">Domyślny</string>
     <string name="storage_description_sd_no">karta SD %1$d</string>
     <string name="storage_description_unknown">Nieznany</string>

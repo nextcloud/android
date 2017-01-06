@@ -62,11 +62,9 @@
     <string name="uploader_error_message_source_file_not_found">הקובץ להעלאה לא נמצא במיקום שלו. יש לבדוק אם הקובץ קיים.</string>
     <string name="uploader_error_message_source_file_not_copied">שגיאה אירעה בזמן העתקת הקובץ לתיקייה הזמנית. יש לנסות לשלוח שוב.</string>
     <string name="file_list_seconds_ago">שניות</string>
-    <string name="file_list_empty">אין כאן שום דבר. אולי ברצונך להעלות משהו?</string>
     <string name="file_list_loading">בטעינה …</string>
     <string name="file_list_no_app_for_file_type">לא נמצא יישום עבור סוג זה!</string>
     <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
-    <string name="upload_list_empty">אין העלאות זמינות.</string>
     <string name="file_list_folder">תקיה</string>
     <string name="file_list_folders">תקיות</string>
     <string name="file_list_file">קובץ</string>
@@ -311,8 +309,6 @@
     <string name="error_cant_bind_to_operations_service">שגיאה קריטית: לא ניתן לבצע את הפעולות</string>
 
     <string name="network_error_socket_exception">שגיאה אירעה בזמן חיבור לשרת.</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">אין לך הרשאות %s</string>
     <string name="forbidden_permissions_rename">לשנות שם לקובץ זה</string>
     <string name="forbidden_permissions_delete">למחוק קובץ זה</string>

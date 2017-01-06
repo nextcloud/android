@@ -19,20 +19,21 @@
 
 package com.owncloud.android.ui.adapter;
 
-import java.io.File;
-
-import com.owncloud.android.R;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+
+import com.owncloud.android.R;
+
+import java.io.File;
 
 
 
@@ -53,7 +54,7 @@ public class LogListAdapter extends ArrayAdapter<String> {
 	}
 
 	@Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView,@NonNull ViewGroup parent) {
         ViewHolderItem viewHolderItem;
 		LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -69,15 +70,16 @@ public class LogListAdapter extends ArrayAdapter<String> {
 		TextView listText = viewHolderItem.listText;
         listText.setText(values[position]);
         listText.setTextSize(15);
-        fileUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory()+File.separator+"owncloud"+File.separator+"log"+File.separator+values[position]));
+        fileUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory() + File.separator + "owncloud" + File
+                .separator+"log"+File.separator+values[position]));
         listText.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                Intent emailIntent = new Intent(Intent.ACTION_SEND);
                 emailIntent.setType("text/rtf");
-                emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "OwnCloud Logfile");
-                emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, "This is a automatic E-mail send by owncloud/android");
-                emailIntent.putExtra(android.content.Intent.EXTRA_STREAM, fileUri);
+                emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Nextcloud Logfile");
+                emailIntent.putExtra(Intent.EXTRA_TEXT, "This is a automatic E-mail send by nextcloud/android");
+                emailIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
                 emailIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(Intent.createChooser(emailIntent, "Send mail..."));
             }

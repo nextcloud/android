@@ -434,11 +434,10 @@ public class FileDataStorageManager {
 
 
     public boolean removeFile(OCFile file, boolean removeDBData, boolean removeLocalCopy) {
-        boolean success = false;
+        boolean success = true;
         if (file != null) {
             if (file.isFolder()) {
                 success = removeFolder(file, removeDBData, removeLocalCopy);
-
             } else {
                 if (removeDBData) {
                     //Uri file_uri = Uri.withAppendedPath(ProviderTableMeta.CONTENT_URI_FILE,
@@ -456,7 +455,7 @@ public class FileDataStorageManager {
                     } else {
                         deleted = getContentResolver().delete(file_uri, where, whereArgs);
                     }
-                    success &= (deleted > 0);
+                    success = deleted > 0;
                 }
                 String localPath = file.getStoragePath();
                 if (removeLocalCopy && file.isDown() && localPath != null && success) {
@@ -472,6 +471,8 @@ public class FileDataStorageManager {
                     }
                 }
             }
+        } else {
+            return false;
         }
 
         return success;
@@ -1582,10 +1583,12 @@ public class FileDataStorageManager {
                 + ProviderTableMeta.OCSHARES_ACCOUNT_OWNER + AND
                 + " (" + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE +  "=? OR "
+                + ProviderTableMeta.OCSHARES_SHARE_TYPE +  "=? OR "
                 + ProviderTableMeta.OCSHARES_SHARE_TYPE + "=? ) ";
         String [] whereArgs = new String[]{ filePath, accountName ,
                 Integer.toString(ShareType.USER.getValue()),
                 Integer.toString(ShareType.GROUP.getValue()),
+                Integer.toString(ShareType.EMAIL.getValue()),
                 Integer.toString(ShareType.FEDERATED.getValue())};
 
         Cursor cursor = null;

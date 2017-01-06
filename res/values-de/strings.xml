@@ -61,7 +61,6 @@
     <string name="sync_string_files">Dateien</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Erstelle Textdatei</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_wrn_no_account_title">Kein Konto gefunden</string>
     <string name="uploader_wrn_no_account_text">Es sind keine %1$s Konten auf deinem Gerät eingerichtet. Bitte erstelle zuerst ein Konto.</string>
@@ -79,11 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Hochladen und im Quellordner behalten</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hochladen und Datei im Quellordner löschen</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
-    <string name="file_list_empty">Alles leer. Lade etwas hoch!</string>
+    <string name="file_list_empty_headline">Keine Dateien vorhanden</string>
+    <string name="file_list_empty">Lade Inhalt hoch oder synchronisiere mit Deinen Geräten!</string>
     <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
-    <string name="upload_list_empty">Keine Uploads verfügbar.</string>
+    <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
+    <string name="upload_list_empty_text">Lade Inhalt hoch oder aktiviere den Sofortupload!</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_folders">Ordner</string>
     <string name="file_list_file">Datei</string>
@@ -301,6 +302,7 @@
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Nur über W-Lan hochladen</string>
     <string name="instant_upload_on_wifi">Bilder nur über Wifi hochladen</string>
     <string name="instant_video_upload_on_wifi">Videos nur über Wifi hochladen</string>
     <string name="instant_video_upload_on_charging">Hochladen nur während des Ladens</string>
@@ -324,11 +326,11 @@
 
 	<string name="share_link_no_support_share_api">Entschuldigung, Freigaben sind auf Deinem Server nicht aktiviert. Bitte kontaktiere Deinen
 ⇥⇥Administrator.</string>
-	<string name="share_link_file_no_exist">Teilen nicht möglich. Prüfe, dass die Datei existiert</string>
+	<string name="share_link_file_no_exist">Teilen nicht möglich. Prüfe, ob die Datei existiert</string>
 	<string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
 	<string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfe, dass die Datei existiert</string>
 	<string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
-    <string name="update_link_file_no_exist">Aktualisierung der Datei nicht möglich. Prüfe, dass die Datei existiert</string>
+    <string name="update_link_file_no_exist">Aktualisierung der Datei nicht möglich. Prüfe, ob die Datei existiert</string>
     <string name="update_link_file_error">Es ist ein Fehler beim Aktualisieren der Freigabe aufgetreten</string>
     <string name="share_link_password_title">Passwort eingeben</string>
     <string name="share_link_empty_password">Du musst ein Passwort eingeben</string>
@@ -344,11 +346,9 @@
     <string name="error_cant_bind_to_operations_service">Kritischer Fehler: Operationen können nicht ausgeführt werden</string>
 
     <string name="network_error_socket_exception">Es ist ein Fehler beim Verbinden mit dem Server aufgetreten.</string>
-    <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
-    <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation kann nicht ausgeführt werden</string>
+    <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden</string>
+    <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operationkonnte nicht abgeschlossen werden</string>
     <string name="network_host_not_available">Die Operation kann nicht abgeschlossen werden, der Server ist nicht erreichbar</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Sie haben keine Berechtigung %s</string>
     <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
     <string name="forbidden_permissions_delete">diese Datei zu löschen</string>
@@ -356,7 +356,7 @@
     <string name="unshare_link_forbidden_permissions">diese Datei nicht mehr zu teilen</string>
     <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
     <string name="forbidden_permissions_create">eine Datei zu erstellen</string>
-    <string name="uploader_upload_forbidden_permissions">in diesem Order etwas hochzuladen</string>
+    <string name="uploader_upload_forbidden_permissions">in diesen Order etwas hochzuladen</string>
     <string name="downloader_download_file_not_found">Diese Datei steht auf dem Server nicht mehr zur Verfügung</string>
 
     <string name="file_migration_dialog_title">Aktualisiere Speicherort</string>
@@ -375,15 +375,15 @@
     <string name="file_migration_failed_not_readable">FEHLER: Datei nicht lesbar</string>
     <string name="file_migration_failed_dir_already_exists">FEHLER: Nextcloud Ordner existiert bereits</string>
     <string name="file_migration_failed_while_coping">FEHLER: Während der Migration</string>
-    <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indixes</string>
+    <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indexes</string>
 
-    <string name="file_migration_directory_already_exists">Datenordner existiert bereits, was soll getan werden?</string>
+    <string name="file_migration_directory_already_exists">Datenordner existiert bereits, was soll geschehen?</string>
     <string name="file_migration_override_data_folder">Überschreiben</string>
-    <string name="file_migration_use_data_folder">Verwende Bestehenden</string>
+    <string name="file_migration_use_data_folder">Verwende bestehenden</string>
 
     <string name="prefs_category_accounts">Konten</string>
     <string name="prefs_add_account">Konto hinzufügen</string>
-    <string name="drawer_manage_accounts">Benutzerkonten verwalten</string>
+    <string name="drawer_manage_accounts">Konten verwalten</string>
     <string name="auth_redirect_non_secure_connection_title">Die gesicherte Verbindung wird durch eine ungesicherte Route geleitet.</string>
 
 	<string name="actionbar_logger">Protokolle</string>
@@ -399,7 +399,7 @@
 	<string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen!</string>
 	<string name="folder_picker_choose_button_text">Auswählen</string>
 
-    <string name="move_file_not_found">Verschieben nicht möglich. Prüfe, dass die Datei existiert</string>
+    <string name="move_file_not_found">Verschieben nicht möglich. Prüfe, ob die Datei existiert</string>
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
     <string name="move_file_error">Es ist ein Fehler beim Verschieben der Datei oder des Ordners aufgetreten.</string>
@@ -422,7 +422,7 @@
 	<string name="with_you_subject_header">Mit Dir</string>
     
 	<string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Dir geteilt</string>
-    <string name="subject_shared_with_you">\"%1$s\" wurde mit dir geteilt</string>
+    <string name="subject_shared_with_you">\"%1$s\" wurde mit Dir geteilt</string>
 
     <string name="auth_refresh_button">Verbindung aktualisieren</string>
     <string name="auth_host_address">Serveradresse</string>
@@ -470,6 +470,7 @@
     <string name="search_users_and_groups_hint">Nutzer und Gruppen suchen</string>
     <string name="share_group_clarification">%1$s (Gruppe)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
+    <string name="share_email_clarification">%1$s (E-Mail)</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
     <string name="share_sharee_unavailable">Entschuldigung, Deine Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht.
@@ -482,7 +483,7 @@
     <string name="edit_share_unshare">Freigabe löschen</string>
     <string name="edit_share_done">Erledigt</string>
 
-    <string name="action_retry_uploads">Wiederhole Fehlversuche</string>
+    <string name="action_retry_uploads">Fehlgeschlagene erneut versuchen</string>
     <string name="action_clear_failed_uploads">Entferne Fehlversuche</string>
     <string name="action_clear_successful_uploads">Entferne erfolgreiche Uploads</string>
     <string name="action_clear_finished_uploads">Alles aufräumen</string>
@@ -503,7 +504,7 @@
     <string name="actionbar_search">Suche</string>
     <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten.</string>
     <string name="learn_more">Mehr</string>
-    <string name="drawer_folder_sync">Auto Upload</string>
+    <string name="drawer_folder_sync">Automatisches Hochladen</string>
     <string name="drawer_participate">Mitmachen</string>
     <string name="participate_testing_headline">Hilf uns Testen</string>
     <string name="participate_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
@@ -512,7 +513,7 @@
     <string name="participate_beta_headline">Teste die Beta Version</string>
     <string name="participate_beta_text">Dies beinhaltet alle kommenden Funktionen und ist nicht vollumfänglich qualitätsgesichert. Es können Fehler auftreten und wenn das passiert meldet uns diese bitte.&lt;br/>&lt;a href=\"%2$s\">APK herunterladen&lt;/a> oder</string>
     <string name="participate_release_candidate_headline">Vorabversion</string>
-    <string name="participate_release_candidate_text">Die Vorabversion auch Release Candidate (RC) genannt ist ein stabiler Stand der kommenden, finalen Version. Ein Test auf der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melde dich als Tester im Play Store an oder suche und installiere die passende Version von F-Droid unter \"Versionen\".</string>
+    <string name="participate_release_candidate_text">Die Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test auf der eigenen Umgebung hilft uns die Stabilität sicherzustellen. Melde dich als Tester im Play Store an oder suche und installiere die passende Version von F-Droid unter \"Versionen\".</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
     <string name="participate_contribute_irc_text">An Chats teilnehmen auf IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Hilf anderen im &lt;a href="%1$s>Forum&lt;/a></string>
@@ -531,6 +532,12 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
+    <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
+    <string name="upload_file_dialog_filename">Dateiname</string>
+    <string name="upload_file_dialog_filetype">Dateityp</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Schnipsel Textdatei (.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internet Abkürzungs-Datei (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps Abkürzungs-Datei (%s)</string>
 
     <string name="storage_description_default">Standard</string>
     <string name="storage_description_sd_no">SD Karte %1$d</string>

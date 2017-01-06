@@ -61,7 +61,6 @@
     <string name="sync_string_files">Soubory</string>
     <string name="setup_btn_connect">Připojit</string>
     <string name="uploader_btn_upload_text">Nahrát</string>
-    <string name="uploader_btn_uploadTextSnippet_text">Vytvořit textový soubor</string>
     <string name="uploader_top_message">Vybrat adresář k nahrávání</string>
     <string name="uploader_wrn_no_account_title">Nenalezen žádný účet</string>
     <string name="uploader_wrn_no_account_text">Na tomto přístroji nejsou žádné %1$s účty. Nejdříve prosím zadejte účet.</string>
@@ -79,11 +78,9 @@
     <string name="uploader_upload_files_behaviour_only_upload">Jen uploadovat</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Uploadovat a vymazat ze zdroje</string>
     <string name="file_list_seconds_ago">před pár sekundami</string>
-    <string name="file_list_empty">Žádný obsah. Nahrajte něco!</string>
     <string name="file_list_loading">Načítání&#8230;</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
-    <string name="upload_list_empty">Nahraná data nejsou dostupná.</string>
     <string name="file_list_folder">adresář</string>
     <string name="file_list_folders">adresářů</string>
     <string name="file_list_file">soubor</string>
@@ -346,8 +343,6 @@ správce systému.</string>
     <string name="network_error_socket_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
     <string name="network_error_connect_timeout_exception">Při čekání na odpověď serveru se vyskytla chyba, operace nemohla být dokončena</string>
     <string name="network_host_not_available">Operace nemohla být dokončena, server je nedostupný</string>
-    <string name="empty" translatable="false" />
-
     <string name="forbidden_permissions">Nemáte oprávnění %s</string>
     <string name="forbidden_permissions_rename">přejmenovat tento soubor</string>
     <string name="forbidden_permissions_delete">smazat tento soubor</string>
@@ -531,9 +526,22 @@ správce systému.</string>
         <item quantity="few">vybráno %d</item>
         <item quantity="other">vybráno %d</item>
     </plurals>
-
     <string name="storage_description_default">Výchozí</string>
     <string name="storage_description_sd_no">SD karta %1$d</string>
     <string name="storage_description_unknown">Neznámý</string>
 
-    </resources>
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Co je v Nextcloudu nového</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Bezpečné místo pro všechna vaše data</string>
+    <string name="welcome_feature_1_text">Přistupujte, sdílejte a ochraňte své soubory doma, ale i ve své firmě</string>
+
+    <string name="welcome_feature_2_title">Multi účet</string>
+    <string name="welcome_feature_2_text">Připojte se ke všem svým cloudům</string>
+
+    <string name="welcome_feature_3_title">Okamžité nahrání</string>
+    <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
+
+    <string name="whats_new_skip">Přeskočit</string>
+</resources>
