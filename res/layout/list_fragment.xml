@@ -1,131 +1,130 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version='1.0' encoding='utf-8'?>
+  <!--
+
   ownCloud Android client application
+    
 
   Copyright (C) 2012  Bartek Przybylski
+
   Copyright (C) 2015 ownCloud Inc.
+    
 
   This program is free software: you can redistribute it and/or modify
+
   it under the terms of the GNU General Public License version 2,
+
   as published by the Free Software Foundation.
+    
 
   This program is distributed in the hope that it will be useful,
+
   but WITHOUT ANY WARRANTY; without even the implied warranty of
+
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+
   GNU General Public License for more details.
+    
 
   You should have received a copy of the GNU General Public License
+
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    -->
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_containing_list"
+    <android.support.v4.widget.SwipeRefreshLayout android:id="@+id/swipe_containing_list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:footerDividersEnabled="false"
+      android:visibility="visible">
+
+      <com.owncloud.android.ui.ExtendedListView android:id="@+id/list_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:footerDividersEnabled="false"
-        android:visibility="visible" >
-        
-        <com.owncloud.android.ui.ExtendedListView
-            android:id="@+id/list_root"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/list_divider_background"
-            android:dividerHeight="1px"
-            android:visibility="visible" />
-
+        android:divider="@color/list_divider_background"
+        android:dividerHeight="1px"
+        android:visibility="visible"/>
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_containing_grid"
+    <android.support.v4.widget.SwipeRefreshLayout android:id="@+id/swipe_containing_grid"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:footerDividersEnabled="false"
+      android:visibility="gone">
+
+      <third_parties.in.srain.cube.GridViewWithHeaderAndFooter android:id="@+id/grid_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:footerDividersEnabled="false"
-        android:visibility="gone" >
-
-        <third_parties.in.srain.cube.GridViewWithHeaderAndFooter
-            android:id="@+id/grid_root"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:columnWidth="@dimen/list_fragment_column_width"
-            android:gravity="center"
-            android:horizontalSpacing="@dimen/list_fragment_spacing"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="@dimen/list_fragment_spacing"
-            android:visibility="visible" />
-
+        android:columnWidth="@dimen/list_fragment_column_width"
+        android:gravity="center"
+        android:horizontalSpacing="@dimen/list_fragment_spacing"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/list_fragment_spacing"
+        android:visibility="visible"/>
+      <!--Removed ObsoleteLayoutParam: layout_weight-->
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipe_containing_empty"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" >
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+    <android.support.v4.widget.SwipeRefreshLayout android:id="@+id/swipe_containing_empty"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:visibility="gone">
 
-                <include layout="@layout/empty_list" />
+      <ScrollView android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            </ScrollView>
+        <include layout="@layout/empty_list"/>
+      </ScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
+  </FrameLayout>
 
-</FrameLayout>
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/fab_main"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        fab:fab_addButtonColorNormal="@color/primary_button_background_color"
-        fab:fab_addButtonColorPressed="@color/owncloud_blue"
-        fab:fab_addButtonPlusIconColor="@color/white"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        android:layout_marginBottom="@dimen/standard_margin"
-        android:layout_marginRight="@dimen/standard_margin"
-        android:layout_marginEnd="@dimen/standard_margin"
-        android:visibility="gone">
+  <com.getbase.floatingactionbutton.FloatingActionsMenu android:id="@+id/fab_main"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    fab:fab_addButtonColorNormal="@color/primary_button_background_color"
+    fab:fab_addButtonColorPressed="@color/owncloud_blue"
+    fab:fab_addButtonPlusIconColor="@color/white"
+    fab:fab_labelStyle="@style/menu_labels_style"
+    android:layout_marginBottom="@dimen/standard_margin"
+    android:layout_marginRight="@dimen/standard_margin"
+    android:layout_marginEnd="@dimen/standard_margin"
+    android:visibility="gone">
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_upload"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_size="mini"
-            fab:fab_icon="@drawable/ic_action_upload"
-            fab:fab_colorNormal="@color/primary_button_background_color"
-            fab:fab_colorPressed="@color/owncloud_blue"
-            fab:fab_title=""/>
+    <com.getbase.floatingactionbutton.FloatingActionButton android:id="@+id/fab_upload"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      fab:fab_size="mini"
+      fab:fab_icon="@drawable/ic_action_upload"
+      fab:fab_colorNormal="@color/primary_button_background_color"
+      fab:fab_colorPressed="@color/owncloud_blue"
+      fab:fab_title=""/>
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_upload_from_app"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_size="mini"
-            fab:fab_icon="@drawable/ic_import"
-            fab:fab_colorNormal="@color/primary_button_background_color"
-            fab:fab_colorPressed="@color/owncloud_blue"
-            fab:fab_title=""/>
+    <com.getbase.floatingactionbutton.FloatingActionButton android:id="@+id/fab_upload_from_app"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      fab:fab_size="mini"
+      fab:fab_icon="@drawable/ic_import"
+      fab:fab_colorNormal="@color/primary_button_background_color"
+      fab:fab_colorPressed="@color/owncloud_blue"
+      fab:fab_title=""/>
 
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_mkdir"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_size="mini"
-            fab:fab_icon="@drawable/ic_action_create_dir"
-            fab:fab_colorNormal="@color/primary_button_background_color"
-            fab:fab_colorPressed="@color/owncloud_blue"
-            fab:fab_title=""/>
-
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+    <com.getbase.floatingactionbutton.FloatingActionButton android:id="@+id/fab_mkdir"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      fab:fab_size="mini"
+      fab:fab_icon="@drawable/ic_action_create_dir"
+      fab:fab_colorNormal="@color/primary_button_background_color"
+      fab:fab_colorPressed="@color/owncloud_blue"
+      fab:fab_title=""/>
+  </com.getbase.floatingactionbutton.FloatingActionsMenu>
 </RelativeLayout>
