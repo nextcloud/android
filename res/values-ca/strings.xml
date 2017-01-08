@@ -117,7 +117,7 @@
     <string name="about_title">Quant a</string>
     <string name="change_password">Canvia la contrasenya</string>
     <string name="delete_account">Elimina el compte</string>
-    <string name="delete_account_warning">Elimineu el compte %s?\\n\\nL\'eliminació no es pot desfer.</string>
+    <string name="delete_account_warning">Elimineu el compte %s?\n\nL\'eliminació no es pot desfer.</string>
     <string name="create_account">Crea un compte</string>
     <string name="upload_chooser_title">Puja fitxer des de &#8230;</string>
     <string name="uploader_info_dirname">Nom de la carpeta</string>
@@ -166,7 +166,7 @@
     <string name="sync_fail_in_favourites_content">El contingut de %1$d arxius no es va poder sincronitzar (%2$d conflictes)</string>
     <string name="sync_foreign_files_forgotten_ticker">S\'han oblidat alguns fitxers locals</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fitxers no s\'han pogut copiar dins de %2$s carpetes</string>
-    <string name="sync_foreign_files_forgotten_explanation">D\'ençà la versió 1.3.16, els fitxers pujats des d\'aquest dispositiu es copien a la carpeta local %1$s per evitar perdua de dades quan un únic fitxer se sincronitza amb diversos comptes.\\n\\nA causa d\'aquest canvi, tots els fitxers pujats en versions anteriors d\'aquesta app es van copiar a la carpeta %2$s. Tanmateix, un error ha impedit completar aquesta operació durant la sincronització del compte. Podeu deixar els fitxer(s) com són i eliminar l\'enllaç a %3$s, o bé moure els fitxer(s) a la carpeta %1$s i mantenir l\'enllaç amb %4$s.\\n\\nA la llista a sota els fitxer(s) locals i els fitxer(s) remots a %5$s amb els que estaven enllaçats.</string>
+    <string name="sync_foreign_files_forgotten_explanation">D\'ençà la versió 1.3.16, els fitxers pujats des d\'aquest dispositiu es copien a la carpeta local %1$s per evitar perdua de dades quan un únic fitxer se sincronitza amb diversos comptes.\n\nA causa d\'aquest canvi, tots els fitxers pujats en versions anteriors d\'aquesta app es van copiar a la carpeta %2$s. Tanmateix, un error ha impedit completar aquesta operació durant la sincronització del compte. Podeu deixar els fitxer(s) com són i eliminar l\'enllaç a %3$s, o bé moure els fitxer(s) a la carpeta %1$s i mantenir l\'enllaç amb %4$s.\n\nA la llista a sota els fitxer(s) locals i els fitxer(s) remots a %5$s amb els que estaven enllaçats.</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ja no existeix</string>
     <string name="foreign_files_move">Mou-los tots</string>
     <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
@@ -472,7 +472,7 @@
     <string name="share_known_remote_clarification">%1$s (a %2$s)</string>
 
     <string name="share_sharee_unavailable">La vostra versió de servidor no permet compartir amb usuaris entre clients
-\\nContacteu amb el vostre administrador</string>
+\nContacteu amb el vostre administrador</string>
     <string name="share_privilege_can_share">pot compartir</string>
     <string name="share_privilege_can_edit">pot editar</string>
     <string name="share_privilege_can_edit_create">crea</string>
@@ -490,11 +490,25 @@
     <string name="action_switch_list_view">Vista de Llista</string>
 
     <string name="manage_space_title">Gestió d\'espai</string>
-    <string name="manage_space_description">S\'esborrarà permanentment la configuració, la base de dades i els certificats del servidor de les dades de %1$s  \\n\\nEls fitxers baixats es mantindran intactes. \\n\\nAquest procès pot trigar un temps.</string>
+    <string name="manage_space_description">S\'esborrarà permanentment la configuració, la base de dades i els certificats del servidor de les dades de %1$s  \n\nEls fitxers baixats es mantindran intactes. \n\nAquest procès pot trigar un temps.</string>
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_error">Alguns fitxers no s\'han pogut esborrar</string>
 
     <string name="permission_storage_access">Són necessàris permíssos addicionals per pujar i baixar fitxers.</string>
-    <string name="folder_sync_new_info">La pujada instantània s\'ha renovat completament. Mireu el menú principal i torneu a configurar l\'auto pujada. Disculpeu les molèsties.\\n\\nGaudiu de les noves i ampliades capacitats de l\'auto pujada!</string>
+    <string name="local_file_not_found_toast">L\'arxiu no s\'ha trobat en el sistema de fitxers local</string>
+    <string name="confirmation_remove_files_alert">Voleu eliminar els elements seleccionats?</string>
+    <string name="confirmation_remove_folders_alert">Voleu eliminar els elements seleccionats i els seus continguts?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Esperant la càrrega del dispositiu</string>
+    <string name="actionbar_search">Cerca</string>
+    <string name="files_drop_not_supported">És una característica de Nextcloud. Siusplau actualitzeu.</string>
+    <string name="learn_more">Més informació</string>
+    <string name="drawer_folder_sync">Pujada automàtica</string>
+    <string name="drawer_participate">Participa</string>
+    <string name="participate_testing_headline">Ajuda\'ns amb les proves</string>
+    <string name="participate_testing_bug_text">Heu trobat un error? Alguna cosa estranya?</string>
+    <string name="participate_testing_report_text">Informeu d\'un problema a Github</string>
+    <string name="participate_testing_version_text">Us interessa ajudar-nos a provar la següent versió?</string>
+    <string name="participate_beta_headline">Proveu la versió Beta</string>
+    <string name="folder_sync_new_info">La pujada instantània s\'ha renovat completament. Mireu el menú principal i torneu a configurar l\'auto pujada. Disculpeu les molèsties.\n\nGaudiu de les noves i ampliades capacitats de l\'auto pujada!</string>
     <string name="welcome_feature_3_title">Pujada instantània</string>
     </resources>
