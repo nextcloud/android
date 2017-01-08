@@ -54,6 +54,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -546,26 +547,37 @@ public class FileOperationsHelper {
     }
 
     public void toggleFavorites(Collection<OCFile> files, boolean isFavorite){
+        List<OCFile> found = new ArrayList<>();
+        for(OCFile file : files){
+            if(file.isFavorite() == isFavorite){
+                found.add(file);
+            }
+        }
+
+        files.removeAll(found);
+
         for (OCFile file: files) {
             toggleFavorite(file, isFavorite);
         }
     }
 
     public void toggleFavorite(OCFile file, boolean isFavorite) {
-        file.setFavorite(isFavorite);
-        mFileActivity.getStorageManager().saveFile(file);
+        if (file.isFavorite() != isFavorite) {
+            file.setFavorite(isFavorite);
+            mFileActivity.getStorageManager().saveFile(file);
 
-        /// register the OCFile instance in the observer service to monitor local updates
-        Intent observedFileIntent = FileObserverService.makeObservedFileIntent(
-                mFileActivity,
-                file,
-                mFileActivity.getAccount(),
-                isFavorite);
-        mFileActivity.startService(observedFileIntent);
+            /// register the OCFile instance in the observer service to monitor local updates
+            Intent observedFileIntent = FileObserverService.makeObservedFileIntent(
+                    mFileActivity,
+                    file,
+                    mFileActivity.getAccount(),
+                    isFavorite);
+            mFileActivity.startService(observedFileIntent);
 
-        /// immediate content synchronization
-        if (file.isFavorite()) {
-            syncFile(file);
+            /// immediate content synchronization
+            if (file.isFavorite()) {
+                syncFile(file);
+            }
         }
     }
     
