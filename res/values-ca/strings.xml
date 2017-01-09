@@ -38,19 +38,19 @@
     <string name="prefs_log_title_history">Historial dels registres</string>
     <string name="prefs_log_summary_history">Això mostra els registres desats</string>
     <string name="prefs_log_delete_history_button">Esborra l\'historial</string>
-    <string name="prefs_calendar_contacts">Sincronitzeu el calendari i els contactes</string>
-    <string name="prefs_calendar_contacts_summary">Configureu DAVdroid (v1.3.0+) al compte actual</string>
+    <string name="prefs_calendar_contacts">Sincronitza el calendari i els contactes</string>
+    <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) al compte actual</string>
     <string name="prefs_calendar_contacts_address_resolve_error">No s\'ha pogut resoldre pel DAVdroid l\'adreça del servidor del compte</string>
-    <string name="prefs_calendar_contacts_no_store_error">Cap app de Google Play store o F-Droid instal•lada</string>
+    <string name="prefs_calendar_contacts_no_store_error">Cap app de Google Play Store o F-Droid instal•lada</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Sincronització de calendari i contactes configurada amb èxit</string>
     <string name="prefs_help">Ajuda</string>
     <string name="prefs_recommend">Recomana a un amic</string>
     <string name="prefs_feedback">Comentaris</string>
-    <string name="prefs_imprint">Imprint</string>
-    <string name="prefs_remember_last_share_location">Recorda la ubicació de la unitat compartida</string>
-    <string name="prefs_remember_last_upload_location_summary">Recorda la ubicació de l\'última càrrega</string>
+    <string name="prefs_imprint">Peu d\'imprenta</string>
+    <string name="prefs_remember_last_share_location">Recorda la ubicació de la compartició</string>
+    <string name="prefs_remember_last_upload_location_summary">Recorda la ubicació de l\'última pujada compartida</string>
 
-	<string name="recommend_subject">Proveu %1$s a un telèfon avançat!</string>
+	<string name="recommend_subject">Proveu %1$s al telèfon intel·ligent!</string>
 	<string name="recommend_text">Vull invitar-te a utilitzar %1$s al teu smartphone!\nDescarrega-ho aqui: %2$s</string>
 
     <string name="auth_check_server">Comprova el funcionament del servidor</string>
@@ -71,18 +71,18 @@
     <string name="uploader_error_message_no_file_to_upload">Les dades rebudes no incloïen un fitxer vàlid</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">No es pot carregar el fitxer</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s no té permissos per llegir un dels fitxers rebuts</string>
-    <string name="uploader_error_message_source_file_not_found">L\' arxiu a carregar no va ser trobat en la seva ubicació. Si us plau verifica si l\'arxiu existeix.</string>
+    <string name="uploader_error_message_source_file_not_found">El fitxer a carregar no s\'ha trobat en la seva ubicació. Si us plau verifica si l\'arxiu existeix.</string>
     <string name="uploader_error_message_source_file_not_copied">S\'ha produït un error mentre es copiava el fitxer a una carpeta temporal. Sisplau intenta enviar-ho una altra vegada.</string>
     <string name="uploader_upload_files_behaviour">Opció de pujada:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Moure fitxer a la carpeta Nextcloud</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Mantingueu el fitxer a la carpeta d\'origen</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimineu el fitxer de la carpeta d\'origen</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Mou el fitxer a la carpeta Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Mantén el fitxer a la carpeta d\'origen</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina el fitxer de la carpeta d\'origen</string>
     <string name="file_list_seconds_ago">segons enrere</string>
     <string name="file_list_empty_headline">No hi ha arxius</string>
-    <string name="file_list_empty">Pugeu algun contingut o sincronitzeu amb els vostres dispositius!</string>
+    <string name="file_list_empty">Pugeu algun contingut o sincronitzeu amb els vostre dispositius!</string>
     <string name="file_list_loading">Carregant&#8230;</string>
     <string name="file_list_no_app_for_file_type">No s\'ha trobat cap aplicació per a aquest tipus de fitxer!</string>
-    <string name="local_file_list_empty">No hi ha arxius a aquesta carpeta</string>
+    <string name="local_file_list_empty">No hi ha fitxers a aquesta carpeta</string>
     <string name="upload_list_empty_headline">No hi ha pujades disponibles</string>
     <string name="upload_list_empty_text">Puja algun contingut o activa la pujada instantània!</string>
     <string name="file_list_folder">carpeta</string>
@@ -110,7 +110,7 @@
     <string name="common_save">Deseu</string>
     <string name="common_save_exit">Desa i surt</string>
     <string name="common_error">Error</string>
-    <string name="common_loading">Carregant &#8230;</string>
+    <string name="common_loading">Carregant&#8230;</string>
     <string name="common_unknown">desconegut</string>
     <string name="common_error_unknown">Error desconegut</string>
     <string name="common_pending">Pendent</string>
@@ -119,11 +119,11 @@
     <string name="delete_account">Elimina el compte</string>
     <string name="delete_account_warning">Elimineu el compte %s?\n\nL\'eliminació no es pot desfer.</string>
     <string name="create_account">Crea un compte</string>
-    <string name="upload_chooser_title">Puja fitxer des de &#8230;</string>
+    <string name="upload_chooser_title">Puja fitxer des de&#8230;</string>
     <string name="uploader_info_dirname">Nom de la carpeta</string>
-    <string name="uploader_upload_in_progress_ticker">S\'està pujant &#8230;</string>
+    <string name="uploader_upload_in_progress_ticker">S\'està pujant&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Pujant %2$s</string>
-    <string name="uploader_upload_succeeded_ticker">La pujada ha estat correcte</string>
+    <string name="uploader_upload_succeeded_ticker">La pujada ha estat correcta</string>
     <string name="uploader_upload_succeeded_content_single">%1$s s\'ha carregat correctament</string>
     <string name="uploader_upload_failed_ticker">La pujada ha fallat</string>
     <string name="uploader_upload_failed_content_single">La pujada de %1$s no s\'ha pogut acabar</string>
@@ -147,25 +147,25 @@
     <string name="uploads_view_upload_status_unknown_fail">Error desconegut</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Esperant connectivitat wifi</string>
     <string name="uploads_view_later_waiting_to_upload">S\'està esperant per pujar-ho</string>
-    <string name="downloader_download_in_progress_ticker">S\'està baixant &#8230;</string>
-    <string name="downloader_download_in_progress_content">%1$d%% pujant %2$s</string>
-    <string name="downloader_download_succeeded_ticker">La baixada ha estat correcte</string>
+    <string name="downloader_download_in_progress_ticker">S\'està baixant&#8230;</string>
+    <string name="downloader_download_in_progress_content">%1$d%% Baixant %2$s</string>
+    <string name="downloader_download_succeeded_ticker">La baixada ha estat correcta</string>
     <string name="downloader_download_succeeded_content">%1$s descarregat</string>
     <string name="downloader_download_failed_ticker">La baixada ha fallat</string>
     <string name="downloader_download_failed_content">La baixada de %1$s no s\'ha pogut acabar</string>
     <string name="downloader_not_downloaded_yet">No baixat encara</string>
-    <string name="downloader_download_failed_credentials_error">La Descarrega ha fallat, t\'has de tornar a acreditar</string>
+    <string name="downloader_download_failed_credentials_error">La descarrega ha fallat, heu de tornar a acreditar-vos</string>
     <string name="common_choose_account">Escolliu el compte</string>
     <string name="sync_fail_ticker">La sincronització ha fallat</string>
     <string name="sync_fail_ticker_unauthorized">La sincronització ha fallat; us heu de tornar a acreditar</string>
     <string name="sync_fail_content">La Sincronització de %1$s no s\'ha pogut completar</string>
     <string name="sync_fail_content_unauthorized">Contrasenya no vàlida per %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
-    <string name="sync_conflicts_in_favourites_content">%1$d mantinguts els arxius que no podien ser sincronitzats</string>
-    <string name="sync_fail_in_favourites_ticker">Es mantenent els arxius a sincronitzar erronis</string>
-    <string name="sync_fail_in_favourites_content">El contingut de %1$d arxius no es va poder sincronitzar (%2$d conflictes)</string>
+    <string name="sync_conflicts_in_favourites_content">%1$d fitxers que han d\'estar sincronitzats no s\'han pogut sincronitzar</string>
+    <string name="sync_fail_in_favourites_ticker">Han fallat fitxers que han d\'estar sincronitzats</string>
+    <string name="sync_fail_in_favourites_content">No s\'ha pogut sincronitzar el contingut de %1$d fitxers (%2$d conflictes)</string>
     <string name="sync_foreign_files_forgotten_ticker">S\'han oblidat alguns fitxers locals</string>
-    <string name="sync_foreign_files_forgotten_content">%1$d fitxers no s\'han pogut copiar dins de %2$s carpetes</string>
+    <string name="sync_foreign_files_forgotten_content">%1$d fitxers no s\'han pogut copiar dins de la carpeta %2$s</string>
     <string name="sync_foreign_files_forgotten_explanation">D\'ençà la versió 1.3.16, els fitxers pujats des d\'aquest dispositiu es copien a la carpeta local %1$s per evitar perdua de dades quan un únic fitxer se sincronitza amb diversos comptes.\n\nA causa d\'aquest canvi, tots els fitxers pujats en versions anteriors d\'aquesta app es van copiar a la carpeta %2$s. Tanmateix, un error ha impedit completar aquesta operació durant la sincronització del compte. Podeu deixar els fitxer(s) com són i eliminar l\'enllaç a %3$s, o bé moure els fitxer(s) a la carpeta %1$s i mantenir l\'enllaç amb %4$s.\n\nA la llista a sota els fitxer(s) locals i els fitxer(s) remots a %5$s amb els que estaven enllaçats.</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ja no existeix</string>
     <string name="foreign_files_move">Mou-los tots</string>
@@ -173,7 +173,7 @@
     <string name="foreign_files_fail">Alguns fitxers no s\'han pogut moure</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_remote_text">Remot: %1$s</string>
-    <string name="upload_query_move_foreign_files">No hi ha espai suficient per copiar els fitxers sel·leccionats dins la carpeta %1$s. Voldries moure-les en comptes d\'això?</string>
+    <string name="upload_query_move_foreign_files">No hi ha espai suficient per copiar els fitxers seleccionats dins la carpeta %1$s. Voldreu moure-les en comptes d\'això?</string>
     <string name="pass_code_enter_pass_code">Escriviu el codi d\'accés</string>
     
     <string name="pass_code_configure_your_pass_code">Escriviu codi d\'accés</string>
@@ -183,13 +183,13 @@
     <string name="pass_code_mismatch">Els codis d\'accés no coincideixen</string>
     <string name="pass_code_wrong">Codi d\'accés incorrecte</string>
     <string name="pass_code_removed">Codi d\'accés eliminat</string>
-    <string name="pass_code_stored">Codi d\'accés guardat</string>
+    <string name="pass_code_stored">Codi d\'accés desat</string>
     
     <string name="media_notif_ticker">reproductor de música %1$s</string>
     <string name="media_state_playing">%1$s (sonant)</string>
     <string name="media_state_loading">%1$s (carregant)</string>
     <string name="media_event_done">reproducció acabada %1$s</string>
-    <string name="media_err_nothing_to_play">No s\'han trobat fitxers multimedia</string>
+    <string name="media_err_nothing_to_play">No s\'han trobat fitxers multimèdia</string>
     <string name="media_err_no_account">No s\'ha proporcionat cap compte</string>
     <string name="media_err_not_in_owncloud">El fitxer no és en un compte vàlid</string>
     <string name="media_err_unsupported">El codec multimèdia no és compatible</string>
@@ -205,12 +205,12 @@
     <string name="media_play_pause_description">Botó de reproducció o pausa</string>
     <string name="media_forward_description">Botó de reproducció ràpida</string>
 
-	<string name="auth_getting_authorization">Recuperant autorització &#8230;</string>
-	<string name="auth_trying_to_login">Intentat accedir &#8230;</string>
+	<string name="auth_getting_authorization">Recuperant autorització&#8230;</string>
+	<string name="auth_trying_to_login">Intentat accedir&#8230;</string>
 	<string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
 	<string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
 	<string name="auth_connection_established">S\'ha establert la connexió</string>
-	<string name="auth_testing_connection">S\'està comprovant la connexió...</string>
+	<string name="auth_testing_connection">S\'està comprovant la connexió</string>
 	<string name="auth_not_configured_title">La configuració del servidor està malformada</string>
 	<string name="auth_account_not_new">Ja hi ha un compte al dispositiu pel mateix usuari i mateix servidor</string>
 	<string name="auth_account_not_the_same">L\'usuari introduït no coincideix amb l\'usuari d\'aquest compte</string>
@@ -231,7 +231,7 @@
 	<string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut. Acrediteu-vos de nou</string>
 	<string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
 	<string name="auth_expired_saml_sso_token_toast">La sessió ha vençut. Connecteu-vos de nou</string>
-	<string name="auth_connecting_auth_server">Connectant amb el servidor d\'autentificació...</string>
+	<string name="auth_connecting_auth_server">Connectant amb el servidor d\'autenticació...</string>
 	<string name="auth_unsupported_auth_method">El serivdor no permet aquest mètode d\'autenticació</string>
 	<string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
 	<string name="auth_fail_get_user_name">El servidor no retorna una id d\'usuari correcta, contacteu amb l\'administrador.</string>
@@ -243,25 +243,25 @@
     <string name="common_rename">Reanomena</string>
     <string name="common_remove">Elimina</string>
     <string name="confirmation_remove_file_alert">Esteu segur que voleu eliminar %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Estàs segur que vols esborrar %1$s i els seus continguts?</string>
+    <string name="confirmation_remove_folder_alert">Esteu segur que voleu esborrar %1$s i els seus continguts?</string>
     <string name="confirmation_remove_local">Només local</string>
     <string name="remove_success_msg">L\'eliminació ha tingut èxit</string>
     <string name="remove_fail_msg">No s\'ha pogut completar l\'eliminació</string>
-    <string name="rename_dialog_title">Introdueix un nom nou</string>
+    <string name="rename_dialog_title">Introduiu un nom nou</string>
     <string name="rename_local_fail_msg">La copia local no s\'ha pogut reanomenar; proveu-ho amb un altre nom</string>
     <string name="rename_server_fail_msg">El canvi de nom no s\'ha pogut completar</string>
-    <string name="sync_file_fail_msg">L\'arxiu remot no ha pogut ser comprovat</string>
-    <string name="sync_file_nothing_to_do_msg">Contingut de l\'arxiu ja sincronitzat</string>
+    <string name="sync_file_fail_msg">El fitxer remot no s\'ha pogut comprovar</string>
+    <string name="sync_file_nothing_to_do_msg">Contingut del fitxer ja sincronitzat</string>
     <string name="create_dir_fail_msg">La carpeta no s\'ha pogut crear</string>
     <string name="filename_forbidden_characters">Caràcters no permesos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nom del fitxer conté al menys un caràcter invàlid</string>
-    <string name="filename_empty">El Nom de l\'arxiu no pot estar buit</string>
+    <string name="filename_empty">El nom del fitxer no pot estar buit</string>
     <string name="wait_a_moment">Espereu</string>
     <string name="wait_checking_credentials">Comprovant les credencials emmagatzemades</string>
     <string name="filedisplay_unexpected_bad_get_content">Problema inesperat; seleccioneu el fitxer des d\'una app distinta</string>
     <string name="filedisplay_no_file_selected">No heu seleccionat cap fitxer</string>
-    <string name="activity_chooser_title">Envia l\'enllaç a &#8230;</string>
-    <string name="wait_for_tmp_copy_from_private_storage">Copiant fitxer des de emmagatzemament privat</string>
+    <string name="activity_chooser_title">Envia l\'enllaç a&#8230;</string>
+    <string name="wait_for_tmp_copy_from_private_storage">Copiant fitxer des d\'emmagatzematge privat</string>
     
     <string name="oauth_check_onoff">Accés amb oAuth2</string> 
     <string name="oauth_login_connection">Connectant amb el servidor oAuth2...</string>    
@@ -269,8 +269,8 @@
     <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del lloc web</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificat del servidor no està autenticat</string>
     <string name="ssl_validator_reason_cert_expired">- El certificat del servidor ha expirat</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- El certificat del servidor és massa jove</string>
-    <string name="ssl_validator_reason_hostname_not_verified">- La URL no coincideix el nom del servidor en el certificat</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- Les dades vàlides del certificat del servidor són al futur</string>
+    <string name="ssl_validator_reason_hostname_not_verified">- La URL no coincideix amb el nom del servidor en el certificat</string>
     <string name="ssl_validator_question">Voleu confiar en aquest certificat igualment?</string>
     <string name="ssl_validator_not_saved">El certificat no s\'ha pogu desar</string>
     <string name="ssl_validator_btn_details_see">Detalls</string>
@@ -287,7 +287,7 @@
     <string name="ssl_validator_label_validity_from">Des de:</string>
     <string name="ssl_validator_label_validity_to">A:</string>
     <string name="ssl_validator_label_signature">Signatura:</string>
-    <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
+    <string name="ssl_validator_label_signature_algorithm">Algorisme:</string>
     <string name="digest_algorithm_not_available">Aquest algorisme de resum no és disponible al vostre telèfon.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Empremta:</string>
     <string name="certificate_load_problem">Hi ha un problema carregant el certificat.</string>
@@ -303,12 +303,12 @@
 
     <string name="auto_upload_on_wifi">Pujar només via WiFi</string>
     <string name="instant_upload_on_wifi">Pujar les fotos només via WiFi</string>
-    <string name="instant_video_upload_on_wifi">Pujar videos només via WiFi</string>
+    <string name="instant_video_upload_on_wifi">Pujar els videos només via WiFi</string>
     <string name="instant_video_upload_on_charging">Pujar només quan s\'està carregant</string>
     <string name="instant_upload_on_charging">Pujar només quan s\'està carregant</string>
     <string name="instant_upload_path">/PujadaInstantània</string>
     <string name="conflict_title">Conflicte de fitxers</string>
-    <string name="conflict_message">Quins fitxers vols mantenir? Si seleccioneu les dues versions, el fitxer local tindrà un número afegit al seu nom.</string>
+    <string name="conflict_message">Quins fitxers voleu mantenir? Si seleccioneu les dues versions, el fitxer local tindrà un número afegit al seu nom.</string>
     <string name="conflict_keep_both">Mantén-los ambdós</string>
     <string name="conflict_use_local_version">Versió local</string>
     <string name="conflict_use_server_version">versió del servidor</string>
@@ -321,12 +321,12 @@
     <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
     <string name="prefs_folder_sync_remote_path_title">Carpeta remota</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Feu servir subcarpetes</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Desar a subcarpetes ordenades per anys i mesos</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Desar a subcarpetes ordenades per any i mes</string>
 
 	<string name="share_link_no_support_share_api">La compartició no es troba disponible al vostre servidor. Contacteu amb l\'administrador.</string>
 	<string name="share_link_file_no_exist">No es pot compartir. Assegureu-vos que el fitxer existeix</string>
 	<string name="share_link_file_error">S\'ha produït un error en intentar compartir aquest fitxer o carpeta</string>
-	<string name="unshare_link_file_no_exist">No es pot des-compartir. Assegureu-vos que el fitxer existeix</string>
+	<string name="unshare_link_file_no_exist">No es pot deixar de compartir. Assegureu-vos que el fitxer existeix</string>
 	<string name="unshare_link_file_error">S\'ha produït un error en intentar deixar de compartir aquest fitxer o carpeta</string>
     <string name="update_link_file_no_exist">No es pot actualitzar. Assegureu-vos que el fitxer existeix</string>
     <string name="update_link_file_error">S\'ha produït un error en tractar d\'actualitzar la compartició</string>
@@ -384,28 +384,28 @@
     <string name="drawer_manage_accounts">Gestió de comptes</string>
     <string name="auth_redirect_non_secure_connection_title">La connexió segura està essent redirigida a través d\'una ruta insegura</string>
 
-	<string name="actionbar_logger">Registre</string>
+	<string name="actionbar_logger">Registres</string>
 	<string name="log_send_history_button">Enviar història</string>
 	<string name="log_send_no_mail_app">No hi ha cap aplicació per enviar registres. Instal•leu una aplicació de correu.</string>
 	<string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
-	<string name="log_progress_dialog_text">Carregant dades &#8230;</string>
+	<string name="log_progress_dialog_text">Carregant dades&#8230;</string>
 
 	<string name="saml_authentication_required_text">Es requereix autenticació</string>
 	<string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
 	<string name="actionbar_move">Moure</string>
     <string name="actionbar_copy">Copia</string>
-	<string name="file_list_empty_moving">Res per aquí. Pots afegir una carpeta!</string>
+	<string name="file_list_empty_moving">Res per aquí. Podeu afegir una carpeta!</string>
 	<string name="folder_picker_choose_button_text">Escull</string>
 
     <string name="move_file_not_found">No es pot moure. Assegureu-vos que el fitxer existeix</string>
-    <string name="move_file_invalid_into_descendent">No es pot moure una carpeta a una subcarpeta</string>
+    <string name="move_file_invalid_into_descendent">No es pot moure una carpeta a una subcarpeta seva</string>
     <string name="move_file_invalid_overwrite">El fitxer ja existeix a la carpeta de destinació</string>
     <string name="move_file_error">Hi ha hagut un error en moure aquest fitxer o carpeta</string>
     <string name="forbidden_permissions_move">per moure aquest fitxer</string>
 
 
     <string name="copy_file_not_found">No es pot copiar. Assegureu-vos que el fitxer existeix</string>
-    <string name="copy_file_invalid_into_descendent">No es pot copiar una carpeta a una subcarpeta</string>
+    <string name="copy_file_invalid_into_descendent">No es pot copiar una carpeta a una subcarpeta seva</string>
     <string name="copy_file_invalid_overwrite">El fitxer ja existeix a la carpeta de destinació</string>
     <string name="copy_file_error">Hi ha hagut un error en copiar aquest fitxer o carpeta</string>
     <string name="forbidden_permissions_copy">per copiar aquest fitxer</string>
@@ -445,10 +445,10 @@
     <string name="pref_behaviour_entries_keep_file">mantingut a la carpeta original</string>
     <string name="pref_behaviour_entries_move">mogut a la carpeta de l\'aplicació</string>
     <string name="pref_behaviour_entries_delete_file">eliminat</string>
-    <string name="prefs_storage_path">Ruta d\'emmagatzemament</string>
+    <string name="prefs_storage_path">Ruta d\'emmagatzematge</string>
     <string name="prefs_common">Comú</string>
 
-    <string name="share_dialog_title">Compartir</string>
+    <string name="share_dialog_title">Compartint</string>
     <string name="share_file">Comparteix %1$s</string>
     <string name="share_with_user_section_title">Comparteix amb usuaris i grups</string>
     <string name="share_no_users">No s\'han compartit dades amb usuaris encara</string>
@@ -460,7 +460,7 @@
     <string name="share_via_link_edit_permission_label">Permetre edició</string>
     <string name="share_via_link_hide_file_listing_permission_label">Amaga la llista de fitxers</string>
     <string name="share_get_public_link_button">Obtén l\'enllaç</string>
-    <string name="share_with_title">Comparteix amb &#8230;</string>
+    <string name="share_with_title">Comparteix amb&#8230;</string>
     <string name="share_with_edit_title">Comparteix amb %1$s</string>
 
     <string name="share_search">Cerca</string>
@@ -475,9 +475,9 @@
 \nContacteu amb el vostre administrador</string>
     <string name="share_privilege_can_share">pot compartir</string>
     <string name="share_privilege_can_edit">pot editar</string>
-    <string name="share_privilege_can_edit_create">crea</string>
-    <string name="share_privilege_can_edit_change">canvi</string>
-    <string name="share_privilege_can_edit_delete">elimina</string>
+    <string name="share_privilege_can_edit_create">crear</string>
+    <string name="share_privilege_can_edit_change">canviar</string>
+    <string name="share_privilege_can_edit_delete">eliminar</string>
     <string name="edit_share_unshare">Deixar de compartir</string>
     <string name="edit_share_done">Fet</string>
 
@@ -487,15 +487,15 @@
     <string name="action_clear_finished_uploads">S\'ha completat l\'eliminació total</string>
 
     <string name="action_switch_grid_view">Vista de graella</string>
-    <string name="action_switch_list_view">Vista de Llista</string>
+    <string name="action_switch_list_view">Vista de llista</string>
 
     <string name="manage_space_title">Gestió d\'espai</string>
-    <string name="manage_space_description">S\'esborrarà permanentment la configuració, la base de dades i els certificats del servidor de les dades de %1$s  \n\nEls fitxers baixats es mantindran intactes. \n\nAquest procès pot trigar un temps.</string>
+    <string name="manage_space_description">S\'esborrarà permanentment la configuració, la base de dades i els certificats del servidor de les dades de %1$s  \\n\\nEls fitxers baixats es mantindran intactes. \\n\\nAquest procés pot trigar un temps.</string>
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_error">Alguns fitxers no s\'han pogut esborrar</string>
 
     <string name="permission_storage_access">Són necessàris permíssos addicionals per pujar i baixar fitxers.</string>
-    <string name="local_file_not_found_toast">L\'arxiu no s\'ha trobat en el sistema de fitxers local</string>
+    <string name="local_file_not_found_toast">El fitxer no s\'ha trobat en el sistema de fitxers local</string>
     <string name="confirmation_remove_files_alert">Voleu eliminar els elements seleccionats?</string>
     <string name="confirmation_remove_folders_alert">Voleu eliminar els elements seleccionats i els seus continguts?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Esperant la càrrega del dispositiu</string>
@@ -509,6 +509,51 @@
     <string name="participate_testing_report_text">Informeu d\'un problema a Github</string>
     <string name="participate_testing_version_text">Us interessa ajudar-nos a provar la següent versió?</string>
     <string name="participate_beta_headline">Proveu la versió Beta</string>
+    <string name="participate_beta_text">Inclou totes les característiques futures i és d\'alt risc. Si apareixen errors informeu-nos siusplau. &lt;br/>&lt;a href=\"%2$s\">Baixeu l\'APK&lt;/a>
+o</string>
+    <string name="participate_release_candidate_headline">Versió candidata</string>
+    <string name="participate_release_candidate_text">La versió candidata (RC) és una instantània de la versió següent i se suposa que és estable. Provar la vostra configuració individual pot ajudar a garantir-ho. Registreu-vos a Play Store per fer les proves o bé mireu la secció \"versions\" a F-Droid.</string>
+    <string name="participate_contribute_headline">Contribuïu activament</string>
+    <string name="participate_contribute_irc_text">Uniu-vos al xat a IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Ajudeu a altres al &lt;a href=\"%1$s>fòrum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduïu&lt;/a> l\'app</string>
+    <string name="participate_contribute_github_text">Contribuïu com a desenvolupador, mireu &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> per detalls</string>
+    <string name="move_to">Mou a&#8230;</string>
+    <string name="copy_to">Copia a&#8230;</string>
+    <string name="choose_remote_folder">Tria carpeta&#8230;</string>
+    <string name="folder_sync_loading_folders">Carregant carpetes&#8230;</string>
+    <string name="folder_sync_no_results">No s\'han trobat carpetes amb elements multimèdia.</string>
+    <string name="folder_sync_preferences">Preferències de la pujada automàtica</string>
+    <string name="folder_sync_settings">Configuració</string>
     <string name="folder_sync_new_info">La pujada instantània s\'ha renovat completament. Mireu el menú principal i torneu a configurar l\'auto pujada. Disculpeu les molèsties.\n\nGaudiu de les noves i ampliades capacitats de l\'auto pujada!</string>
+    <string name="folder_sync_preferences_folder_path">Per %1$s</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d seleccionat</item>
+        <item quantity="other">%d seleccionats</item>
+    </plurals>
+    <string name="upload_file_dialog_title">Entreu el nom de fitxer i el tipus de fitxer de la pujada</string>
+    <string name="upload_file_dialog_filename">Nom de fitxer</string>
+    <string name="upload_file_dialog_filetype">Tipus de fitxer</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Fitxer de text snippet(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Fitxer(%s) de drecera d\'Internet</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Fitxer(%s) de drecera de Google Maps</string>
+
+    <string name="storage_description_default">Per defecte</string>
+    <string name="storage_description_sd_no">Targeta SD %1$d</string>
+    <string name="storage_description_unknown">Desconegut</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Novetats en Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Un lloc segur per totes les vostres dades</string>
+    <string name="welcome_feature_1_text">Accediu, compartiu i protegiu els vostres fitxers a casa i a l\'empresa</string>
+
+    <string name="welcome_feature_2_title">Multi compte</string>
+    <string name="welcome_feature_2_text">Connecteu amb tots els vostres núvols</string>
+
     <string name="welcome_feature_3_title">Pujada instantània</string>
-    </resources>
+    <string name="welcome_feature_3_text">Mantingueu les vostres fotos segures</string>
+
+    <string name="whats_new_skip">Omet</string>
+</resources>
