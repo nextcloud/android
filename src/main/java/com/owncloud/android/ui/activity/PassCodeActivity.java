@@ -34,7 +34,9 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
@@ -53,7 +55,9 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.utils.AnalyticsUtils;
 
-import java.util.Random;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class PassCodeActivity extends AppCompatActivity {
 
@@ -79,9 +83,9 @@ public class PassCodeActivity extends AppCompatActivity {
 
     private boolean ENABLE_GO_HOME = true;
     private boolean DEFAULT_SOFT_KEYBOARD_MODE = false;  // true=soft keyboard / false=buttons
-    private boolean ENABLE_SWITCH_SOFT_KEYBOARD = true;
+    private boolean ENABLE_SWITCH_SOFT_KEYBOARD = false;
     private int GUARD_TIME = 3000;
-    private boolean ENABLE_SWAP_BUTTON = false;
+    private boolean ENABLE_SUFFLE_BUTTONS = false;
 
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
@@ -105,7 +109,36 @@ public class PassCodeActivity extends AppCompatActivity {
             R.id.clear,
             R.id.back,
     };
-    private Button[] mButtonsList = new Button[12];
+    private static final String mButtonsMainStr[] = {
+        "0",
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "Clear",
+        "Back"
+    };
+    private static final String mButtonsSubStr[] = {
+        "",
+        "",
+        "abc",
+        "def",
+        "ghi",
+        "jkl",
+        "mno",
+        "pqrs",
+        "tuv",
+        "wxyz",
+        "",
+        "softkey..."
+    };
+    private Integer[] mButtonsIDListShuffle = new Integer[12];
+    private AppCompatButton[] mButtonsList = new AppCompatButton[12];
     private int mButtonVisibilityPrev = 0;       // 0=unknown/1=visible/2=invisible
     private boolean mSoftKeyboardMode;
     private boolean mIsSoftKeyboardOpened;
@@ -126,20 +159,7 @@ public class PassCodeActivity extends AppCompatActivity {
 
         mPassCodeHdr = (TextView) findViewById(R.id.header);
         mPassCodeHdrExplanation = (TextView) findViewById(R.id.explanation);
-        for (int i = 0; i < mButtonsIDList.length; i++) {
-            mButtonsList[i] = (Button) findViewById(mButtonsIDList[i]);
-        }
-        if (ENABLE_SWAP_BUTTON) {
-            Random r = new Random();
-            int n = r.nextInt(100);
-            for (int i = 0; i < n; i++) {
-                int x = r.nextInt(10);
-                int y = r.nextInt(10);
-                Button t = mButtonsList[x];
-                mButtonsList[x] = mButtonsList[y];
-                mButtonsList[y] = t;
-            }
-        }
+        setupButtons();
 
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             /// this is a pass code request; the user has to input the right value
@@ -215,6 +235,16 @@ public class PassCodeActivity extends AppCompatActivity {
         }
     }
 
+    private void setupButtons() {
+        for (int i = 0; i < mButtonsIDList.length; i++) {
+            mButtonsIDListShuffle[i] = i;
+        }
+        for (int i = 0; i < mButtonsIDList.length; i++) {
+            mButtonsList[i] = (AppCompatButton) findViewById(mButtonsIDList[i]);
+            mButtonsList[i].setAllCaps(false);
+        }
+    }
+
     private void animeCircle(View myView, boolean visible) {
         if (visible) {
             int cx = (myView.getLeft() + myView.getRight()) / 2;
@@ -253,12 +283,21 @@ public class PassCodeActivity extends AppCompatActivity {
     private void setButtonsVisibility(boolean visible) {
         if (visible && mButtonVisibilityPrev != 1) {
             mButtonVisibilityPrev = 1;
+            if (ENABLE_SUFFLE_BUTTONS) {
+                List<Integer> list = Arrays.asList(mButtonsIDListShuffle);
+                Collections.shuffle(list);
+                mButtonsIDListShuffle = (Integer[]) list.toArray(new Integer[list.size()]);
+            }
             for (int i = 0; i < mButtonsList.length; i++) {
                 Button b = mButtonsList[i];
+                int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
                 buttonAnime(b, visible);
                 b.setClickable(true);
-                b.setOnClickListener(new ButtonClicked(mPassCodeEditText, i));
-                if (i == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) {
+                String s = String.format("<big>%s</big><br/><font color=\"grey\"><small>%s</small></font>",
+                                         mButtonsMainStr[j], mButtonsSubStr[j]);
+                b.setText(Html.fromHtml(s));
+                b.setOnClickListener(new ButtonClicked(mPassCodeEditText, j));
+                if (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) {
                     b.setLongClickable(true);
                     b.setOnLongClickListener(new OnLongClickListener() {
                         @Override
