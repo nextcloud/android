@@ -91,20 +91,22 @@ public class MediaProvider {
                     }
                     cursorImages.close();
 
-                    // count images
-                    Cursor count = contentResolver.query(
-                            MEDIA_URI,
-                            FILE_PROJECTION,
-                            FILE_SELECTION + folderId,
-                            null,
-                            null);
-
-                    if (count != null) {
-                        mediaFolder.numberOfFiles = count.getCount();
-                        count.close();
-                    }
-
+                    // only do further work if folder is not within the Nextcloud app itself
                     if (!mediaFolder.absolutePath.startsWith(dataPath)) {
+
+                        // count images
+                        Cursor count = contentResolver.query(
+                                MEDIA_URI,
+                                FILE_PROJECTION,
+                                FILE_SELECTION + folderId,
+                                null,
+                                null);
+
+                        if (count != null) {
+                            mediaFolder.numberOfFiles = count.getCount();
+                            count.close();
+                        }
+
                         mediaFolders.add(mediaFolder);
                     }
                 }
