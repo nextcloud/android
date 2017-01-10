@@ -78,9 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el fichero en la carpeta original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar fichero de la carpeta original</string>
     <string name="file_list_seconds_ago">hace segundos</string>
+    <string name="file_list_empty_headline">No hay archivos aquí</string>
+    <string name="file_list_empty">¡Suba algun contenido o sincronice con sus dispositivos!</string>
     <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">¡Aplicación no encontrada para el tipo de archivo!</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
+    <string name="upload_list_empty_headline">No hay subidas disponibles</string>
+    <string name="upload_list_empty_text">¡Suba algún contenido o active subidas instantáneas!</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_folders">carpetas</string>
     <string name="file_list_file">fichero</string>
@@ -298,6 +302,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Subir únicamente por WiFi</string>
     <string name="instant_upload_on_wifi">Subir fotos por wifi únicamente</string>
     <string name="instant_video_upload_on_wifi">Subir archivos por wifi únicamente</string>
     <string name="instant_video_upload_on_charging">Subir solo al cargar</string>
@@ -465,6 +470,7 @@
     <string name="search_users_and_groups_hint">Buscar usuarios y grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
 
     <string name="share_sharee_unavailable">Lo sentimos, su versión de servidor no permite compartir con usuarios desde los clientes.\nPor favor, contacte con su administrador</string>
