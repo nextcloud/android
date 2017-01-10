@@ -103,9 +103,10 @@ public class MediaProvider {
                         mediaFolder.numberOfFiles = count.getCount();
                         count.close();
                     }
-                }
-                if (!mediaFolder.absolutePath.startsWith(dataPath)) {
-                    mediaFolders.add(mediaFolder);
+
+                    if (!mediaFolder.absolutePath.startsWith(dataPath)) {
+                        mediaFolders.add(mediaFolder);
+                    }
                 }
             }
             cursorFolders.close();
