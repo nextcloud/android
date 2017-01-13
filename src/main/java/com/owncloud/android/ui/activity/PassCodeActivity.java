@@ -54,12 +54,103 @@ import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class PassCodeActivity extends AppCompatActivity {
+import static android.content.Context.INPUT_METHOD_SERVICE;
+
+
+class SoftKeyboardUtil {
+    public interface SoftKeyboardListener {
+        void onClose();
+    }
+    private static final String TAG = SoftKeyboardUtil.class.getSimpleName();
+
+    private AppCompatActivity mActivity;
+    private boolean mIsSoftKeyboardOpened;
+    private SoftKeyboardListener mSoftKeyboardListener;
+
+    private void setListenerToRootView() {
+        View view = mActivity.findViewById(android.R.id.content).getRootView();
+        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                // navigation bar height
+                int navigationBarHeight = 0;
+                int resourceId = mActivity.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+                if (resourceId > 0) {
+                    navigationBarHeight = mActivity.getResources().getDimensionPixelSize(resourceId);
+                }
+
+                // status bar height
+                int statusBarHeight = 0;
+                resourceId = mActivity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+                if (resourceId > 0) {
+                    statusBarHeight = mActivity.getResources().getDimensionPixelSize(resourceId);
+                }
+
+                // display window size for the app layout
+                Rect rect = new Rect();
+                mActivity.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
+                int appHeight = rect.height();
+
+                // screen height
+                View view = mActivity.findViewById(android.R.id.content).getRootView();
+                int screenHeight = view.getHeight();
+
+                // soft keyboard height
+                int softKeyboardHeight = screenHeight - (statusBarHeight + navigationBarHeight + appHeight);
+
+                if (softKeyboardHeight <= 0) {
+                    if (mIsSoftKeyboardOpened) {
+                        // soft keyboard was closed (back key was pressed)
+                        mSoftKeyboardListener.onClose();
+                    }
+                    mIsSoftKeyboardOpened = false;
+                } else {
+                    mIsSoftKeyboardOpened = true;
+                }
+            }
+        });
+    }
+
+    public SoftKeyboardUtil(AppCompatActivity activity, SoftKeyboardListener softKeyboardListener) {
+        mActivity = activity;
+        mSoftKeyboardListener = softKeyboardListener;
+        if (softKeyboardListener != null) {
+            setListenerToRootView();
+        }
+    }
+    public void initHidden() {
+        mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
+    public void initVisible() {
+        mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+    }
+    public void show() {
+        View focusedView = mActivity.getCurrentFocus();
+        if (focusedView != null) {
+            InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(INPUT_METHOD_SERVICE);
+            imm.showSoftInput(focusedView, 0);
+        } else {
+            Log_OC.i(TAG, "focusedView = null in show()");
+        }
+    }
+    public void hide() {
+        View focusedView = mActivity.getCurrentFocus();
+        if (focusedView != null) {
+            InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
+        } else {
+            Log_OC.i(TAG, "focusedView = null in hide()");
+        }
+    }
+}
+
+public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardUtil.SoftKeyboardListener {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
 
@@ -81,11 +172,11 @@ public class PassCodeActivity extends AppCompatActivity {
     public final static String PREFERENCE_PASSCODE_D3 = "PrefPinCode3";
     public final static String PREFERENCE_PASSCODE_D4 = "PrefPinCode4";
 
-    private boolean ENABLE_GO_HOME = true;
-    private boolean DEFAULT_SOFT_KEYBOARD_MODE = false;  // true=soft keyboard / false=buttons
-    private boolean ENABLE_SWITCH_SOFT_KEYBOARD = false;
-    private int GUARD_TIME = 3000;
-    private boolean ENABLE_SUFFLE_BUTTONS = false;
+    private static final boolean ENABLE_GO_HOME = true;
+    private static final boolean INIT_SOFT_KEYBOARD_MODE = true;  // true=soft keyboard / false=buttons
+    private static final boolean ENABLE_SWITCH_SOFT_KEYBOARD = false;
+    private static final int GUARD_TIME = 3000;    // (ms)
+    private static final boolean ENABLE_SUFFLE_BUTTONS = false;
 
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
@@ -110,40 +201,40 @@ public class PassCodeActivity extends AppCompatActivity {
             R.id.back,
     };
     private static final String mButtonsMainStr[] = {
-        "0",
-        "1",
-        "2",
-        "3",
-        "4",
-        "5",
-        "6",
-        "7",
-        "8",
-        "9",
-        "Clear",
-        "Back"
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "Clear",
+            "Back"
     };
-    private static final String mButtonsSubStr[] = {
-        "",
-        "",
-        "abc",
-        "def",
-        "ghi",
-        "jkl",
-        "mno",
-        "pqrs",
-        "tuv",
-        "wxyz",
-        "",
-        "softkey..."
+    private static String mButtonsSubStr[] = {
+            "",
+            "",
+            "abc",
+            "def",
+            "ghi",
+            "jkl",
+            "mno",
+            "pqrs",
+            "tuv",
+            "wxyz",
+            "",
+            "softkey..."
     };
     private Integer[] mButtonsIDListShuffle = new Integer[12];
     private AppCompatButton[] mButtonsList = new AppCompatButton[12];
     private int mButtonVisibilityPrev = 0;       // 0=unknown/1=visible/2=invisible
     private boolean mSoftKeyboardMode;
-    private boolean mIsSoftKeyboardOpened;
     private boolean mShowButtonsWhenSoftKeyboardClose = true;
-
+    private SoftKeyboardUtil mSoftKeyboard;
+    
     /**
      * Initializes the activity.
      * <p>
@@ -211,16 +302,17 @@ public class PassCodeActivity extends AppCompatActivity {
                     + TAG);
         }
 
+        if (!ENABLE_SWITCH_SOFT_KEYBOARD) {
+            mButtonsSubStr[11] = "";
+        }
         setupPassCodeEditText();
-        mSoftKeyboardMode = DEFAULT_SOFT_KEYBOARD_MODE;
+        mSoftKeyboardMode = INIT_SOFT_KEYBOARD_MODE;
+        mSoftKeyboard = new SoftKeyboardUtil(this, this);
         setupKeyboard();
-
-        setListenerToRootView();
-
         if (mSoftKeyboardMode) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+            mSoftKeyboard.initVisible();
         } else {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+            mSoftKeyboard.initHidden();
         }
     }
 
@@ -476,24 +568,12 @@ public class PassCodeActivity extends AppCompatActivity {
     }
 
     private void hideSoftKeyboard() {
-        View focusedView = getCurrentFocus();
-        if (focusedView != null) {
-            mShowButtonsWhenSoftKeyboardClose = false;
-            InputMethodManager inputMethodManager =
-                    (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            inputMethodManager.hideSoftInputFromWindow(
-                    focusedView.getWindowToken(), 0);
-        }
+        mShowButtonsWhenSoftKeyboardClose = false;
+        mSoftKeyboard.hide();
     }
 
     private void showSoftKeyboard() {
-        View focusedView = getCurrentFocus();
-        if (focusedView != null) {
-            InputMethodManager inputMethodManager =
-                    (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-            inputMethodManager.showSoftInput(
-                    focusedView, 0);
-        }
+        mSoftKeyboard.show();
     }
 
     /**
@@ -601,54 +681,16 @@ public class PassCodeActivity extends AppCompatActivity {
         }
     }
 
-    public void setListenerToRootView() {
-        View view = findViewById(android.R.id.content).getRootView();
-        view.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                // navigation bar height
-                int navigationBarHeight = 0;
-                int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-                if (resourceId > 0) {
-                    navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
-                }
-
-                // status bar height
-                int statusBarHeight = 0;
-                resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-                if (resourceId > 0) {
-                    statusBarHeight = getResources().getDimensionPixelSize(resourceId);
-                }
-
-                // display window size for the app layout
-                Rect rect = new Rect();
-                getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
-                int appHeight = rect.height();
-
-                // screen height
-                View view = findViewById(android.R.id.content).getRootView();
-                int screenHeight = view.getHeight();
-
-                // soft keyboard height
-                int softKeyboardHeight = screenHeight - (statusBarHeight + navigationBarHeight + appHeight);
-
-                if (softKeyboardHeight <= 0) {
-                    if (mIsSoftKeyboardOpened) {
-                        // soft keyboard was closed (back key was pressed)
-                        if (ENABLE_SWITCH_SOFT_KEYBOARD) {
-                            if (mShowButtonsWhenSoftKeyboardClose) {
-                                mSoftKeyboardMode = false;
-                                setButtonsVisibility(true);
-                            }
-                        } else {
-                            processFullPassCode("miss");
-                        }
-                    }
-                    mIsSoftKeyboardOpened = false;
-                } else {
-                    mIsSoftKeyboardOpened = true;
-                }
+    @Override
+    public void onClose()
+    {
+        if (ENABLE_SWITCH_SOFT_KEYBOARD) {
+            if (mShowButtonsWhenSoftKeyboardClose) {
+                mSoftKeyboardMode = false;
+                setButtonsVisibility(true);
             }
-        });
+        } else {
+            processFullPassCode("miss");	// TODO:
+        }
     }
 }
