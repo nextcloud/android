@@ -72,6 +72,7 @@ class SoftKeyboardUtil {
     private AppCompatActivity mActivity;
     private boolean mIsSoftKeyboardOpened;
     private SoftKeyboardListener mSoftKeyboardListener;
+    private int mHideCount;
 
     private void setListenerToRootView() {
         View view = mActivity.findViewById(android.R.id.content).getRootView();
@@ -106,8 +107,12 @@ class SoftKeyboardUtil {
 
                 if (softKeyboardHeight <= 0) {
                     if (mIsSoftKeyboardOpened) {
-                        // soft keyboard was closed (back key was pressed)
-                        mSoftKeyboardListener.onClose();
+                        // soft keyboard was closed
+                        if (mHideCount == 0) {
+                            // back key was pressed
+                            mSoftKeyboardListener.onClose();
+                        }
+                        mHideCount = 0;
                     }
                     mIsSoftKeyboardOpened = false;
                 } else {
@@ -123,23 +128,35 @@ class SoftKeyboardUtil {
         if (softKeyboardListener != null) {
             setListenerToRootView();
         }
+        mHideCount = 0;
     }
+
     public void initHidden() {
         mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
+
     public void initVisible() {
         mActivity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
+
     public void show() {
+        mHideCount = 0;
         View focusedView = mActivity.getCurrentFocus();
         if (focusedView != null) {
             InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(INPUT_METHOD_SERVICE);
             imm.showSoftInput(focusedView, 0);
         } else {
             Log_OC.i(TAG, "focusedView = null in show()");
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    show();
+                }
+            }, 10);
         }
     }
     public void hide() {
+        mHideCount++;
         View focusedView = mActivity.getCurrentFocus();
         if (focusedView != null) {
             InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(INPUT_METHOD_SERVICE);
@@ -172,9 +189,9 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     public final static String PREFERENCE_PASSCODE_D3 = "PrefPinCode3";
     public final static String PREFERENCE_PASSCODE_D4 = "PrefPinCode4";
 
-    private static final boolean ENABLE_GO_HOME = true;
-    private static final boolean INIT_SOFT_KEYBOARD_MODE = true;  // true=soft keyboard / false=buttons
-    private static final boolean ENABLE_SWITCH_SOFT_KEYBOARD = false;
+    private static final boolean ENABLE_GO_HOME = false;
+    private static final boolean INIT_SOFT_KEYBOARD_MODE = false;  // true=soft keyboard / false=buttons
+    private static final boolean ENABLE_SWITCH_SOFT_KEYBOARD = true;
     private static final int GUARD_TIME = 3000;    // (ms)
     private static final boolean ENABLE_SUFFLE_BUTTONS = false;
 
@@ -316,6 +333,12 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        clearPassCodeEditText();
+    }
+
     private void setupKeyboard() {
         mShowButtonsWhenSoftKeyboardClose = true;
         if (mSoftKeyboardMode) {
@@ -358,11 +381,11 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     private void animeAlpha(View view, boolean visible) {
         if (visible) {
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f);
-            objectAnimator.setDuration(300);
+            objectAnimator.setDuration(500);
             objectAnimator.start();
         } else {
             ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 1f, 0f);
-            objectAnimator.setDuration(300);
+            objectAnimator.setDuration(500);
             objectAnimator.start();
         }
     }
@@ -433,7 +456,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             cancel.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    hideSoftKeyboard();
                     finish();
                 }
             });
@@ -447,6 +469,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
         EditText et = til.getEditText();
         et.setTextIsSelectable(false);     // TODO:no effect for double tap?
+        //et.setContextClickable(false);
         if (Build.VERSION.SDK_INT >= 21) {
             et.setShowSoftInputOnFocus(false);  // for disabling popup soft keyboard when double clicked
         }
@@ -483,21 +506,12 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             if (checkPassCode(passCode)) {
                 /// pass code accepted in request, user is allowed to access the app
-                hideSoftKeyboard();
                 finish();
 
             } else {
                 mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
-                passCodeWrong(R.string.pass_code_wrong);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-                        til.setError(null);
-                        setupKeyboard();
-                        clearPassCodeEditText();
-                    }
-                }, GUARD_TIME);
+                showErrorMessage(R.string.pass_code_wrong);
+                startGuard();
             }
 
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
@@ -505,21 +519,11 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra(KEY_CHECK_RESULT, true);
                 setResult(RESULT_OK, resultIntent);
-                hideSoftKeyboard();
                 finish();
             } else {
                 mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
-                passCodeWrong(R.string.pass_code_wrong);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent resultIntent = new Intent();
-                        resultIntent.putExtra(KEY_CHECK_RESULT, true);
-                        setResult(RESULT_CANCELED, resultIntent);
-                        hideSoftKeyboard();
-                        finish();
-                    }
-                }, GUARD_TIME);
+                showErrorMessage(R.string.pass_code_wrong);
+                startGuard();
             }
 
         } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
@@ -538,35 +542,66 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
             } else {
                 mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
-                passCodeWrong(R.string.pass_code_mismatch);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-                        til.setError(null);
-                        setupKeyboard();
-                        clearPassCodeEditText();
-                        mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
-                        mConfirmingPassCodeFlag = false;
-                    }
-                }, GUARD_TIME);
+                showErrorMessage(R.string.pass_code_mismatch);
+                startGuard();
             }
         }
     }
 
-    private void passCodeWrong(int errorMessage) {
-        if (!mSoftKeyboardMode) {
-            setButtonsVisibility(false);
-        } else {
-            hideSoftKeyboard();
-        }
-        Animation animation = AnimationUtils.loadAnimation(PassCodeActivity.this, R.anim.shake);
-        mPassCodeEditText.startAnimation(animation);
+    private void showErrorMessage(int errorMessage) {
         CharSequence errorSeq = getString(errorMessage);
         TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
         til.setError(errorSeq);
     }
 
+    private void eraseErrorMessage() {
+        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+        til.setError(null);
+    }
+
+    private void startGuard() {
+        if (!mSoftKeyboardMode) {
+            setButtonsVisibility(false);
+        } else {
+            hideSoftKeyboard();
+        }
+//        mPassCodeEditText.setFocusable(false);
+        mPassCodeEditText.setClickable(false);
+        Animation animation = AnimationUtils.loadAnimation(PassCodeActivity.this, R.anim.shake);
+        mPassCodeEditText.startAnimation(animation);
+        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+        til.setPasswordVisibilityToggleEnabled(false);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                endGuard();
+            }
+        }, GUARD_TIME);
+    }
+
+    private void endGuard() {
+//        mPassCodeEditText.setFocusable(true);     // TODO:
+        mPassCodeEditText.setClickable(true);
+        mPassCodeEditText.requestFocus();
+        eraseErrorMessage();
+        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+        til.setPasswordVisibilityToggleEnabled(true);
+        if (ACTION_CHECK.equals(getIntent().getAction())) {
+            setupKeyboard();
+            clearPassCodeEditText();
+        } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
+            Intent resultIntent = new Intent();
+            resultIntent.putExtra(KEY_CHECK_RESULT, true);
+            setResult(RESULT_CANCELED, resultIntent);
+            finish();
+        } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
+            setupKeyboard();
+            clearPassCodeEditText();
+            mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
+            mConfirmingPassCodeFlag = false;
+        }
+    }
+            
     private void hideSoftKeyboard() {
         mShowButtonsWhenSoftKeyboardClose = false;
         mSoftKeyboard.hide();
@@ -625,8 +660,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction()) ||
                     ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
                 finish();
-            }   // else, do nothing, but report that the key was consumed to stay alive
-            else {
+            } else {
                 if (ENABLE_GO_HOME) {
                     goHome();
                 }
@@ -681,6 +715,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         }
     }
 
+    // when softKeyboard close
     @Override
     public void onClose()
     {
@@ -690,7 +725,18 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                 setButtonsVisibility(true);
             }
         } else {
-            processFullPassCode("miss");	// TODO:
+            if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction()) ||
+                    ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
+                // same as cancel button
+                finish();
+            } else {
+                if (ENABLE_GO_HOME) {
+                    goHome();
+                } else {
+                    showErrorMessage(R.string.pass_code_enter_pass_code);
+                    startGuard();
+                }
+            }
         }
     }
 }
