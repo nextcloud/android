@@ -79,7 +79,7 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
     <string name="file_list_empty_headline">Aucun fichier</string>
-    <string name="file_list_empty">Téléchargez de quoi ou synchronisez vos appareils!</string>
+    <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils !</string>
     <string name="file_list_loading">Chargement&#8230;</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
