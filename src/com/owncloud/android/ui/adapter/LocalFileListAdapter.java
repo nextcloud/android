@@ -33,6 +33,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -45,7 +46,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 /**
@@ -322,11 +325,14 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
             text = text.toLowerCase();
             for (File file: mFilesAll) {
                 if (file.getName().toLowerCase().contains(text)) {
-                    result.add(file);
+                    if (!result.contains(file)) {
+                        result.add(file);
+                    }
                 }
             }
             mFiles = result.toArray(new File[1]);
         }
+
         notifyDataSetChanged();
     }
 
@@ -340,9 +346,12 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
         List<File> ret = new ArrayList<>();
         for (File file: files) {
             if (!file.isHidden()) {
-                ret.add(file);
+                if (!ret.contains(file)) {
+                    ret.add(file);
+                }
             }
         }
+
         return ret.toArray(new File[ret.size()]);
     }
 }
