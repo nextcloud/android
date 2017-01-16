@@ -1,3 +1,6 @@
+## 2017-01-17
+- Fix quota display
+
 ## 2017-01-10
 - Fix NPE an improve performance of Auto Upload view #530
 
