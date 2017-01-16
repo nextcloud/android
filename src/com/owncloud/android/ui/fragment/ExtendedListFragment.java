@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
@@ -88,6 +89,10 @@ public class ExtendedListFragment extends Fragment
     private ArrayList<Integer> mTops;
     private int mHeightCell = 0;
 
+    //save the search state
+    private boolean mSearchIsOpen;
+    private String mSearchQuery;
+
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
 
     protected AbsListView mCurrentListView;
@@ -97,6 +102,8 @@ public class ExtendedListFragment extends Fragment
     private View mGridFooterView;
 
     private FilterableListAdapter mAdapter;
+
+    private Handler mHandler;
 
     protected void setListAdapter(FilterableListAdapter listAdapter) {
         mAdapter = listAdapter;
@@ -155,15 +162,30 @@ public class ExtendedListFragment extends Fragment
         searchView.setOnQueryTextListener(this);
     }
 
-    public boolean onQueryTextChange(String query) {
-        mAdapter.filter(query);
+    public boolean onQueryTextChange(final String query) {
+        mSearchQuery = query;
+        mHandler.removeCallbacksAndMessages(null);
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.filter(query);
+            }
+        }, 300);
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        mSearchQuery = query;
         mAdapter.filter(query);
         return true;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mHandler = new Handler();
     }
 
     @Override
