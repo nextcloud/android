@@ -27,6 +27,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.PersistableBundle;
 
 import com.owncloud.android.db.OCUpload;
@@ -381,7 +382,11 @@ public class UploadsStorageManager extends Observable {
         );
 
         // add pending Jobs
-        return getPendingJobs().toArray(uploads);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return uploads;
+        } else {
+            return getPendingJobs().toArray(uploads);
+        }
     }
 
     private List<OCUpload> getPendingJobs() {
