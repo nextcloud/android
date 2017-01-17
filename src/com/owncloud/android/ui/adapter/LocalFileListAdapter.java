@@ -33,7 +33,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -46,16 +45,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.Vector;
 
 /**
  * This Adapter populates a ListView with all files and directories contained
  * in a local directory
  */
-public class LocalFileListAdapter extends BaseAdapter implements FilterableListAdapter {
+public class LocalFileListAdapter extends BaseAdapter {
 
     private static final String TAG = LocalFileListAdapter.class.getSimpleName();
 
@@ -354,4 +351,5 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
 
         return ret.toArray(new File[ret.size()]);
     }
+
 }

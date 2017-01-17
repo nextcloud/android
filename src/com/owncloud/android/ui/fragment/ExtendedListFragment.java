@@ -36,6 +36,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,7 +49,8 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
-import com.owncloud.android.ui.adapter.FilterableListAdapter;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
 import java.util.ArrayList;
 
@@ -71,45 +73,37 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
 
     protected SwipeRefreshLayout mRefreshListLayout;
-    private SwipeRefreshLayout mRefreshGridLayout;
     protected SwipeRefreshLayout mRefreshEmptyLayout;
     protected LinearLayout mEmptyListContainer;
     protected TextView mEmptyListMessage;
     protected TextView mEmptyListHeadline;
     protected ImageView mEmptyListIcon;
     protected ProgressBar mEmptyListProgress;
-
+    //save the search state
+    protected boolean mSearchIsOpen;
+    protected String mSearchQuery = null;
+    protected MenuItem mMenuItem;
+    protected SearchView mSearchView;
+    protected AbsListView mCurrentListView;
+    protected Handler mHandler;
+    private SwipeRefreshLayout mRefreshGridLayout;
     private FloatingActionsMenu mFabMain;
     private FloatingActionButton mFabUpload;
     private FloatingActionButton mFabMkdir;
     private FloatingActionButton mFabUploadFromApp;
-
     // Save the state of the scroll in browsing
     private ArrayList<Integer> mIndexes;
     private ArrayList<Integer> mFirstPositions;
     private ArrayList<Integer> mTops;
     private int mHeightCell = 0;
-
-    //save the search state
-    private boolean mSearchIsOpen;
-    private String mSearchQuery;
-
-    private MenuItem mMenuItem;
-    private SearchView mSearchView;
-
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
-
-    protected AbsListView mCurrentListView;
     private ExtendedListView mListView;
     private View mListFooterView;
     private GridViewWithHeaderAndFooter mGridView;
     private View mGridFooterView;
+    private BaseAdapter mAdapter;
 
-    private FilterableListAdapter mAdapter;
-
-    private Handler mHandler;
-
-    protected void setListAdapter(FilterableListAdapter listAdapter) {
+    protected void setListAdapter(BaseAdapter listAdapter) {
         mAdapter = listAdapter;
         mCurrentListView.setAdapter(listAdapter);
         mCurrentListView.invalidateViews();
@@ -165,11 +159,7 @@ public class ExtendedListFragment extends Fragment
         mSearchView = (SearchView) MenuItemCompat.getActionView(mMenuItem);
         mSearchView.setOnQueryTextListener(this);
 
-        if (mSearchIsOpen && mSearchQuery != null && !mSearchQuery.isEmpty()) {
-            mMenuItem.expandActionView();
-            mSearchView.setQuery(mSearchQuery, true);
-            mSearchView.requestFocus();
-        }
+        super.onCreateOptionsMenu(menu, inflater);
 
     }
 
@@ -180,16 +170,28 @@ public class ExtendedListFragment extends Fragment
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mAdapter.filter(query);
+                if (mAdapter.getClass().equals(FileListListAdapter.class)) {
+                    FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
+                    fileListListAdapter.getFilter().filter(query);
+                } else if (mAdapter.getClass().equals(LocalFileListAdapter.class)) {
+                    LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+                    //localFileListAdapter.getFilter().filter(query);
+                }
             }
-        }, 300);
+        }, 500);
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         mSearchQuery = query;
-        mAdapter.filter(query);
+        if (mAdapter.getClass().equals(FileListListAdapter.class)) {
+            FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
+            fileListListAdapter.getFilter().filter(query);
+        } else if (mAdapter.getClass().equals(LocalFileListAdapter.class)) {
+            LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+            //localFileListAdapter.getFilter().filter(query);
+        }
         return true;
     }
 
@@ -293,9 +295,13 @@ public class ExtendedListFragment extends Fragment
         savedInstanceState.putIntegerArrayList(KEY_TOPS, mTops);
         savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
-        savedInstanceState.putBoolean(KEY_IS_SEARCH_OPEN, !mSearchView.isIconified());
+        if (mSearchView != null) {
+            savedInstanceState.putBoolean(KEY_IS_SEARCH_OPEN, !mSearchView.isIconified());
+        }
         if (mSearchQuery != null && !mSearchQuery.isEmpty()) {
             savedInstanceState.putString(KEY_SEARCH_QUERY, mSearchQuery);
+        } else {
+            mSearchQuery = "";
         }
     }
 
@@ -303,12 +309,12 @@ public class ExtendedListFragment extends Fragment
      * Calculates the position of the item that will be used as a reference to
      * reposition the visible items in the list when the device is turned to
      * other position.
-     *
+     * <p>
      * The current policy is take as a reference the visible item in the center
      * of the screen.
      *
      * @return The position in the list of the visible item in the center of the
-     *         screen.
+     * screen.
      */
     protected int getReferencePosition() {
         if (mCurrentListView != null) {
@@ -397,12 +403,12 @@ public class ExtendedListFragment extends Fragment
 
     /**
      * Disables swipe gesture.
-     *
+     * <p>
      * Sets the 'enabled' state of the refresh layouts contained in the fragment.
-     *
+     * <p>
      * When 'false' is set, prevents user gestures but keeps the option to refresh programatically,
      *
-     * @param   enabled     Desired state for capturing swipe gesture.
+     * @param enabled Desired state for capturing swipe gesture.
      */
     public void setSwipeEnabled(boolean enabled) {
         mRefreshListLayout.setEnabled(enabled);
@@ -412,10 +418,10 @@ public class ExtendedListFragment extends Fragment
 
     /**
      * Sets the 'visibility' state of the FAB contained in the fragment.
-     *
+     * <p>
      * When 'false' is set, FAB visibility is set to View.GONE programmatically,
      *
-     * @param   enabled     Desired visibility for the FAB.
+     * @param enabled Desired visibility for the FAB.
      */
     public void setFabEnabled(boolean enabled) {
         if (enabled) {
