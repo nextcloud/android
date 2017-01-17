@@ -70,7 +70,6 @@ public class FileListListAdapter extends BaseAdapter {
     private Vector<OCFile> mFilesAll = new Vector<OCFile>();
     private Vector<OCFile> mFiles = null;
     private Vector<OCFile> mFilteredFiles = new Vector<>();
-    private OCFile mCurrentDir;
     private boolean mOnDeviceonly;
     private boolean mJustFolders;
     private boolean mShowHiddenFiles;
@@ -395,7 +394,6 @@ public class FileListListAdapter extends BaseAdapter {
             , boolean onlyOnDevice, @Nullable String constraint) {
 
         mOnDeviceonly = onlyOnDevice;
-        mCurrentDir = directory;
 
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
