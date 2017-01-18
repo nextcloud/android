@@ -148,7 +148,7 @@ public class UploadFilesActivity extends FileActivity implements
         if (mActionBar != null) {
             mActionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the
                                                     // official documentation
-            mActionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && !searchOpen && mCurrentDir.getParent() != null);
+            mActionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && !searchOpen && mCurrentDir.getParentFile() != null);
             mActionBar.setDisplayShowTitleEnabled(false);
             if (!searchOpen) {
                 mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
