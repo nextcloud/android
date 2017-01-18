@@ -343,12 +343,10 @@ public class LocalFileListAdapter extends BaseAdapter {
         List<File> ret = new ArrayList<>();
         if (files.length > 0) {
             for (File file : files) {
-                if (!file.isHidden()) {
-                    if (!ret.contains(file)) {
+                if (!file.isHidden() && !ret.contains(file)) {
                         ret.add(file);
                     }
                 }
-            }
         }
 
         return ret.toArray(new File[ret.size()]);

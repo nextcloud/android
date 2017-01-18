@@ -72,8 +72,7 @@ public class UploadFilesActivity extends FileActivity implements
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     private Menu mOptionsMenu;
-    private ActionBar mActionBar;
-    
+
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
 
@@ -144,17 +143,18 @@ public class UploadFilesActivity extends FileActivity implements
         boolean searchOpen = mFileListFragment.isSearchOpen();
 
         // Action bar setup
-        mActionBar = getSupportActionBar();
-        if (mActionBar != null) {
-            mActionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the
                                                     // official documentation
-            mActionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && !searchOpen);
-            mActionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && !searchOpen);
+            actionBar.setDisplayShowTitleEnabled(false);
             if (!searchOpen) {
-                mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-                mActionBar.setListNavigationCallbacks(mDirectories, this);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+                actionBar.setListNavigationCallbacks(mDirectories, this);
             } else {
-                mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             }
 
 

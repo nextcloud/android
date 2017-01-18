@@ -28,7 +28,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.util.DisplayMetrics;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -630,11 +629,7 @@ public class ExtendedListFragment extends Fragment
     }
 
     public boolean isSearchOpen() {
-        if (mSearchIsOpen) {
-            return true;
-        }
-
-        return false;
+        return mSearchIsOpen;
     }
 
 }

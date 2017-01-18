@@ -549,10 +549,9 @@ public class FileListListAdapter extends BaseAdapter {
                 if (constraint != null && constraint.length() > 0) {
                     for (int i = 0; i < mFilteredFiles.size(); i++) {
                         OCFile currentFile = mFilteredFiles.get(i);
-                        if (currentFile.getFileName().toLowerCase().contains(constraint)) {
-                            if (!ocFileVector.contains(currentFile)) {
-                                ocFileVector.add(currentFile);
-                            }
+                        if (currentFile.getFileName().toLowerCase().contains(constraint) &&
+                                !ocFileVector.contains(currentFile)) {
+                            ocFileVector.add(currentFile);
                         }
                     }
                 } else {
