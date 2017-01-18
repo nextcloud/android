@@ -160,8 +160,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
                         ActionBar actionBar = uploadFilesActivity.getSupportActionBar();
                         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
                         actionBar.setListNavigationCallbacks(uploadFilesActivity.getDirectories(), uploadFilesActivity);
-                        actionBar.setDisplayHomeAsUpEnabled(uploadFilesActivity.getCurrentDirLocation() != null &&
-                            uploadFilesActivity.getCurrentDirLocation().getParentFile() != null);
+                        actionBar.setDisplayHomeAsUpEnabled(uploadFilesActivity.getCurrentDirLocation() != null);
 
                     }
                 }
