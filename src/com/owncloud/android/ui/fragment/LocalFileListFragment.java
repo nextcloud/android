@@ -103,7 +103,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         Log_OC.i(TAG, "onActivityCreated() start");
         
         super.onActivityCreated(savedInstanceState);
-        mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity());
+        mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity(), this);
         setListAdapter(mAdapter);
         
         Log_OC.i(TAG, "onActivityCreated() stop");
@@ -212,7 +212,16 @@ public class LocalFileListFragment extends ExtendedListFragment {
 
         // by now, only files in the same directory will be kept as selected
         ((AbsListView)mCurrentListView).clearChoices();
-        mAdapter.swapDirectory(directory);
+        String constraints;
+        if (mSearchIsOpen && mSearchQuery != null) {
+            constraints = mSearchQuery;
+        } else if (mSearchIsOpen && mSearchQuery == null){
+            constraints = "";
+        } else {
+            constraints = null;
+        }
+
+        mAdapter.swapDirectory(directory, constraints);
         if (mDirectory == null || !mDirectory.equals(directory)) {
             mCurrentListView.setSelection(0);
         }

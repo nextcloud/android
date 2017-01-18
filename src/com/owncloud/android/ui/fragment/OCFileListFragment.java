@@ -198,7 +198,8 @@ public class OCFileListFragment extends ExtendedListFragment {
         mAdapter = new FileListListAdapter(
                 mJustFolders,
                 getActivity(),
-                mContainerActivity
+                mContainerActivity,
+                this
         );
         setListAdapter(mAdapter);
 

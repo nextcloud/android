@@ -27,6 +27,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,10 +38,12 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -57,7 +60,7 @@ import java.util.ArrayList;
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
 public class ExtendedListFragment extends Fragment
-        implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
+        implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener, ExtendedListFragmentListener {
 
     protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
@@ -98,6 +101,8 @@ public class ExtendedListFragment extends Fragment
     private int mHeightCell = 0;
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener = null;
     private ExtendedListView mListView;
+    private TextView mTooManyFilesTextView;
+    private FrameLayout mFrameLayout;
     private View mListFooterView;
     private GridViewWithHeaderAndFooter mGridView;
     private View mGridFooterView;
@@ -167,30 +172,51 @@ public class ExtendedListFragment extends Fragment
         mSearchQuery = query;
         mHandler.removeCallbacksAndMessages(null);
 
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mAdapter.getClass().equals(FileListListAdapter.class)) {
+        if (mAdapter.getClass().equals(FileListListAdapter.class)) {
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mRefreshListLayout.setRefreshing(true);
+                    mRefreshGridLayout.setRefreshing(true);
+                    mRefreshEmptyLayout.setRefreshing(true);
                     FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
                     fileListListAdapter.getFilter().filter(query);
-                } else if (mAdapter.getClass().equals(LocalFileListAdapter.class)) {
-                    LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
-                    //localFileListAdapter.getFilter().filter(query);
                 }
+            }, 500);
+        } else if (mAdapter.getClass().equals(LocalFileListAdapter.class)) {
+            if (mSearchQuery == null) {
+                mRefreshListLayout.setRefreshing(true);
+                mRefreshGridLayout.setRefreshing(true);
+                mRefreshEmptyLayout.setRefreshing(true);
+                LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+                localFileListAdapter.getFilter().filter("");
+            } else {
+                mHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mRefreshListLayout.setRefreshing(true);
+                        mRefreshGridLayout.setRefreshing(true);
+                        mRefreshEmptyLayout.setRefreshing(true);
+                        LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+                        localFileListAdapter.getFilter().filter(query);
+                    }
+                }, 2000);
             }
-        }, 500);
+        }
+
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
         mSearchQuery = query;
+        mHandler.removeCallbacksAndMessages(null);
         if (mAdapter.getClass().equals(FileListListAdapter.class)) {
             FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
             fileListListAdapter.getFilter().filter(query);
         } else if (mAdapter.getClass().equals(LocalFileListAdapter.class)) {
             LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
-            //localFileListAdapter.getFilter().filter(query);
+            localFileListAdapter.getFilter().filter(query);
         }
         return true;
     }
@@ -254,6 +280,9 @@ public class ExtendedListFragment extends Fragment
         mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
         mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
         mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
+
+        mFrameLayout = (FrameLayout) v.findViewById(R.id.listFragment_framelayout);
+        mTooManyFilesTextView = (TextView) v.findViewById(R.id.too_many_results_textview);
 
         mCurrentListView = mListView;   // list by default
         if (savedInstanceState != null) {
@@ -563,6 +592,34 @@ public class ExtendedListFragment extends Fragment
         } else {
             setFooterEnabled(false);
         }
+    }
+
+    @Override
+    public void endFilterRefresh() {
+        mRefreshGridLayout.setRefreshing(false);
+        mRefreshListLayout.setRefreshing(false);
+        mRefreshEmptyLayout.setRefreshing(false);
+    }
+
+
+    @Override
+    public void showHundredFilesMessage(boolean show) {
+        if (mTooManyFilesTextView.getVisibility() == View.GONE && show) {
+            mTooManyFilesTextView.setVisibility(View.VISIBLE);
+            mTooManyFilesTextView.measure(RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+            mFrameLayout.setPadding(0, pxToDp(mTooManyFilesTextView.getMeasuredHeight()) + 10, 0, 0);
+        } else {
+            mTooManyFilesTextView.setVisibility(View.GONE);
+            mFrameLayout.setPadding(0, 0, 0, 0);
+        }
+    }
+
+    private int pxToDp(int px) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return dp;
     }
 
 }

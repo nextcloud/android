@@ -50,6 +50,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.fragment.ExtendedListFragmentListener;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -73,6 +74,7 @@ public class FileListListAdapter extends BaseAdapter {
     private boolean mOnDeviceonly;
     private boolean mJustFolders;
     private boolean mShowHiddenFiles;
+    private ExtendedListFragmentListener mFragmentListener;
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
@@ -83,12 +85,14 @@ public class FileListListAdapter extends BaseAdapter {
     public FileListListAdapter(
             boolean justFolders,
             Context context,
-            ComponentsGetter transferServiceGetter
+            ComponentsGetter transferServiceGetter,
+            ExtendedListFragmentListener extendedListFragmentListener
     ) {
 
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+        mFragmentListener = extendedListFragmentListener;
 
         mTransferServiceGetter = transferServiceGetter;
 
@@ -494,6 +498,15 @@ public class FileListListAdapter extends BaseAdapter {
 
             if (mDirectoryListing.size() > 0) {
                 mFilteredFiles.addAll(mDirectoryListing);
+
+                if (mFilteredFiles.size() > 100) {
+                    Set<OCFile> unique = new HashSet<>();
+                    unique.addAll(mFilteredFiles);
+                    if (unique.size() > 100) {
+                        return;
+                    }
+                }
+
                 OCFile current;
                 for (int i = 0; i < mDirectoryListing.size(); i++) {
                     current = mDirectoryListing.get(i);
@@ -556,12 +569,23 @@ public class FileListListAdapter extends BaseAdapter {
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             Vector<OCFile> ocFiles = (Vector<OCFile>) results.values;
+            boolean showHundredFilesMessage = results.count > 100;
             mFiles = new Vector<>();
             if (ocFiles != null && ocFiles.size() > 0) {
-                mFiles.addAll(ocFiles);
+                if (results.count > 100) {
+                    mFiles.addAll(ocFiles.subList(0, 100));
+                } else {
+                    mFiles.addAll(ocFiles);
+                }
                 mFiles = FileStorageUtils.sortOcFolder(mFiles);
             }
+
             notifyDataSetChanged();
+            if (mFragmentListener != null) {
+                mFragmentListener.showHundredFilesMessage(showHundredFilesMessage);
+                mFragmentListener.endFilterRefresh();
+            }
+
         }
     }
 
