@@ -419,11 +419,13 @@ public class LocalFileListAdapter extends BaseAdapter {
                 mFiles = FileStorageUtils.sortLocalFolder(mFiles);
             }
 
-            notifyDataSetChanged();
             if (mFragmentListener != null) {
                 mFragmentListener.showHundredFilesMessage(showHundredFilesMessage);
                 mFragmentListener.endFilterRefresh();
             }
+
+            notifyDataSetChanged();
+
         }
     }
 

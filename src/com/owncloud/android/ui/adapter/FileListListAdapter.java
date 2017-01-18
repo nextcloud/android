@@ -580,11 +580,12 @@ public class FileListListAdapter extends BaseAdapter {
                 mFiles = FileStorageUtils.sortOcFolder(mFiles);
             }
 
-            notifyDataSetChanged();
             if (mFragmentListener != null) {
                 mFragmentListener.showHundredFilesMessage(showHundredFilesMessage);
                 mFragmentListener.endFilterRefresh();
             }
+
+            notifyDataSetChanged();
 
         }
     }

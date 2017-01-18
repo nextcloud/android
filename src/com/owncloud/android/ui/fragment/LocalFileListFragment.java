@@ -23,8 +23,11 @@ package com.owncloud.android.ui.fragment;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.widget.SearchView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -55,6 +58,12 @@ public class LocalFileListFragment extends ExtendedListFragment {
     
     /** Adapter to connect the data from the directory with the View object */
     private LocalFileListAdapter mAdapter = null;
+
+
+    private static final String KEY_IS_SEARCH_OPEN = "IS_SEARCH_OPEN";
+    private static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
+
+    private boolean mIsSearchOpen;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -105,10 +114,52 @@ public class LocalFileListFragment extends ExtendedListFragment {
         super.onActivityCreated(savedInstanceState);
         mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity(), this);
         setListAdapter(mAdapter);
-        
+
         Log_OC.i(TAG, "onActivityCreated() stop");
     }
-    
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+        if (mSearchQuery == null) {
+            mSearchQuery = "";
+        }
+        mSearchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mIsSearchOpen = true;
+                mHandler.removeCallbacksAndMessages(null);
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.getFilter().filter(mSearchQuery);
+                    }
+                });
+            }
+        });
+
+        mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                mIsSearchOpen = false;
+                mSearchQuery = null;
+                showHundredFilesMessage(false);
+                listDirectory(null);
+
+                return false;
+            }
+        });
+
+        if (mSearchIsOpen && mSearchQuery != null) {
+            mSearchView.setQuery(mSearchQuery, false);
+            mSearchView.setIconified(false);
+            mSearchView.clearFocus();
+        }
+
+    }
+
+
     /**
      * Checks the file clicked over. Browses inside if it is a directory.
      * Notifies the container activity in any case.

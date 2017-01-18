@@ -180,28 +180,20 @@ public class ExtendedListFragment extends Fragment
                     mRefreshGridLayout.setRefreshing(true);
                     mRefreshEmptyLayout.setRefreshing(true);
                     FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
-                    fileListListAdapter.getFilter().filter(query);
+                    fileListListAdapter.getFilter().filter(mSearchQuery);
                 }
             }, 500);
         } else if (mAdapter.getClass().equals(LocalFileListAdapter.class)) {
-            if (mSearchQuery == null) {
-                mRefreshListLayout.setRefreshing(true);
-                mRefreshGridLayout.setRefreshing(true);
-                mRefreshEmptyLayout.setRefreshing(true);
-                LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
-                localFileListAdapter.getFilter().filter("");
-            } else {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mRefreshListLayout.setRefreshing(true);
-                        mRefreshGridLayout.setRefreshing(true);
-                        mRefreshEmptyLayout.setRefreshing(true);
-                        LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
-                        localFileListAdapter.getFilter().filter(query);
-                    }
-                }, 2000);
-            }
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mRefreshListLayout.setRefreshing(true);
+                    mRefreshGridLayout.setRefreshing(true);
+                    mRefreshEmptyLayout.setRefreshing(true);
+                    LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+                    localFileListAdapter.getFilter().filter(mSearchQuery);
+                }
+            }, 500);
         }
 
         return true;

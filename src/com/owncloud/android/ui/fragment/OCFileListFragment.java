@@ -104,7 +104,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     private OCFile mFile = null;
     private FileListListAdapter mAdapter;
     private boolean mJustFolders;
-    private boolean mIsSearchOpen;
 
     private int mSystemBarActionModeColor;
     private int mSystemBarColor;
@@ -184,10 +183,9 @@ public class OCFileListFragment extends ExtendedListFragment {
 
         if (savedInstanceState != null) {
             mFile = savedInstanceState.getParcelable(KEY_FILE);
-            mIsSearchOpen = savedInstanceState.getBoolean(KEY_IS_SEARCH_OPEN, false);
         }
 
-        if (mJustFolders || mIsSearchOpen) {
+        if (mJustFolders || mSearchIsOpen) {
             setFooterEnabled(false);
         } else {
             setFooterEnabled(true);
@@ -233,16 +231,17 @@ public class OCFileListFragment extends ExtendedListFragment {
         mSearchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mIsSearchOpen = true;
+                mSearchIsOpen = true;
                 setFooterEnabled(false);
                 setFabEnabled(false);
                 mRefreshListLayout.setEnabled(false);
-                mHandler.postDelayed(new Runnable() {
+                mHandler.removeCallbacksAndMessages(null);
+                mHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         mAdapter.getFilter().filter(mSearchQuery);
                     }
-                }, 250);
+                });
             }
         });
 
@@ -250,9 +249,10 @@ public class OCFileListFragment extends ExtendedListFragment {
             @Override
             public boolean onClose() {
                 setFooterEnabled(true);
-                mIsSearchOpen = false;
+                mSearchIsOpen = false;
                 mSearchQuery = null;
                 mRefreshListLayout.setEnabled(true);
+                mHandler.removeCallbacksAndMessages(null);
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
@@ -798,7 +798,7 @@ public class OCFileListFragment extends ExtendedListFragment {
      * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean)} with a null parameter
      */
     public void listDirectory(boolean onlyOnDevice) {
-        if (!mIsSearchOpen) {
+        if (!mSearchIsOpen) {
             listDirectory(null, onlyOnDevice);
         }
     }
@@ -838,9 +838,9 @@ public class OCFileListFragment extends ExtendedListFragment {
             }
 
             String constraints;
-            if (mIsSearchOpen && mSearchQuery != null) {
+            if (mSearchIsOpen && mSearchQuery != null) {
                 constraints = mSearchQuery;
-            } else if (mIsSearchOpen && mSearchQuery == null){
+            } else if (mSearchIsOpen && mSearchQuery == null) {
                 constraints = "";
             } else {
                 constraints = null;
@@ -860,7 +860,7 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     private void updateLayout() {
         if (!mJustFolders) {
-            if (!mIsSearchOpen && (mSearchQuery == null || mSearchQuery.isEmpty())) {
+            if (!mSearchIsOpen && (mSearchQuery == null || mSearchQuery.isEmpty())) {
                 int filesCount = 0, foldersCount = 0;
                 int count = mAdapter.getCount();
                 OCFile file;
