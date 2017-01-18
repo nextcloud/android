@@ -341,10 +341,12 @@ public class LocalFileListAdapter extends BaseAdapter {
      */
     public File[] filterHiddenFiles(File[] files) {
         List<File> ret = new ArrayList<>();
-        for (File file : files) {
-            if (!file.isHidden()) {
-                if (!ret.contains(file)) {
-                    ret.add(file);
+        if (files.length > 0) {
+            for (File file : files) {
+                if (!file.isHidden()) {
+                    if (!ret.contains(file)) {
+                        ret.add(file);
+                    }
                 }
             }
         }

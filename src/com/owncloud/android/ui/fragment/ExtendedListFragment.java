@@ -629,4 +629,12 @@ public class ExtendedListFragment extends Fragment
         return dp;
     }
 
+    public boolean isSearchOpen() {
+        if (mSearchIsOpen) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

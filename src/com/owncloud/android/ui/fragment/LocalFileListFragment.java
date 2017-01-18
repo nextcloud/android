@@ -1,28 +1,28 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.fragment;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.SearchView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -37,6 +37,7 @@ import android.widget.ListView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -49,21 +50,15 @@ import java.util.ArrayList;
  */
 public class LocalFileListFragment extends ExtendedListFragment {
     private static final String TAG = "LocalFileListFragment";
-    
+
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
-    
+
     /** Directory to show */
     private File mDirectory = null;
-    
+
     /** Adapter to connect the data from the directory with the View object */
     private LocalFileListAdapter mAdapter = null;
-
-
-    private static final String KEY_IS_SEARCH_OPEN = "IS_SEARCH_OPEN";
-    private static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
-
-    private boolean mIsSearchOpen;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,8 +79,8 @@ public class LocalFileListFragment extends ExtendedListFragment {
                     LocalFileListFragment.ContainerActivity.class.getSimpleName());
         }
     }
-    
-    
+
+
     /**
      * {@inheritDoc}
      */
@@ -110,7 +105,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         Log_OC.i(TAG, "onActivityCreated() start");
-        
+
         super.onActivityCreated(savedInstanceState);
         mAdapter = new LocalFileListAdapter(mContainerActivity.getInitialDirectory(), getActivity(), this);
         setListAdapter(mAdapter);
@@ -130,7 +125,16 @@ public class LocalFileListFragment extends ExtendedListFragment {
                     mSearchQuery = "";
                 }
 
-                mIsSearchOpen = true;
+                if (mContainerActivity.getClass().equals(UploadFilesActivity.class)) {
+                    UploadFilesActivity uploadFilesActivity = (UploadFilesActivity) mContainerActivity;
+                    if (uploadFilesActivity.getSupportActionBar() != null) {
+                        ActionBar actionBar = uploadFilesActivity.getSupportActionBar();
+                        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+                        actionBar.setDisplayHomeAsUpEnabled(false);
+                    }
+                }
+
+                mSearchIsOpen = true;
                 mHandler.removeCallbacksAndMessages(null);
                 mHandler.post(new Runnable() {
                     @Override
@@ -147,8 +151,22 @@ public class LocalFileListFragment extends ExtendedListFragment {
         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
+
+                mSearchIsOpen = false;
+
+                if (mContainerActivity.getClass().equals(UploadFilesActivity.class)) {
+                    UploadFilesActivity uploadFilesActivity = (UploadFilesActivity) mContainerActivity;
+                    if (uploadFilesActivity.getSupportActionBar() != null) {
+                        ActionBar actionBar = uploadFilesActivity.getSupportActionBar();
+                        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+                        actionBar.setListNavigationCallbacks(uploadFilesActivity.getDirectories(), uploadFilesActivity);
+                        actionBar.setDisplayHomeAsUpEnabled(uploadFilesActivity.getCurrentDirLocation() != null &&
+                            uploadFilesActivity.getCurrentDirLocation().getParentFile() != null);
+
+                    }
+                }
+
                 mHandler.removeCallbacksAndMessages(null);
-                mIsSearchOpen = false;
                 mSearchQuery = null;
                 showHundredFilesMessage(false);
                 listDirectory(null);
@@ -172,7 +190,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
      */
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        File file = (File) mAdapter.getItem(position); 
+        File file = (File) mAdapter.getItem(position);
         if (file != null) {
             /// Click on a directory
             if (file.isDirectory()) {
@@ -183,11 +201,11 @@ public class LocalFileListFragment extends ExtendedListFragment {
 
                 // save index and top position
                 saveIndexAndTopPosition(position);
-            
+
             } else {    /// Click on a file
                 ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
                 if (checkBoxV != null) {
-                    if (((AbsListView)getListView()).isItemChecked(position)) {
+                    if (((AbsListView) getListView()).isItemChecked(position)) {
                         checkBoxV.setImageResource(R.drawable.ic_checkbox_marked);
                     } else {
                         checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -196,19 +214,19 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 // notify the change to the container Activity
                 mContainerActivity.onFileClick(file);
             }
-            
+
         } else {
             Log_OC.w(TAG, "Null object in ListAdapter!!");
         }
     }
 
-    
+
     /**
      * Call this, when the user presses the up button
      */
     public void onNavigateUp() {
         File parentDir = null;
-        if(mDirectory != null) {
+        if (mDirectory != null) {
             parentDir = mDirectory.getParentFile();  // can be null
         }
         listDirectory(parentDir);
@@ -217,39 +235,39 @@ public class LocalFileListFragment extends ExtendedListFragment {
         restoreIndexAndTopPosition();
     }
 
-    
+
     /**
      * Use this to query the {@link File} object for the directory
      * that is currently being displayed by this fragment
-     * 
+     *
      * @return File     The currently displayed directory
      */
-    public File getCurrentDirectory(){
+    public File getCurrentDirectory() {
         return mDirectory;
     }
-    
-    
+
+
     /**
      * Calls {@link LocalFileListFragment#listDirectory(File)} with a null parameter
      * to refresh the current directory.
      */
-    public void listDirectory(){
+    public void listDirectory() {
         listDirectory(null);
     }
-    
-    
+
+
     /**
      * Lists the given directory on the view. When the input parameter is null,
      * it will either refresh the last known directory. list the root
      * if there never was a directory.
-     * 
+     *
      * @param directory     Directory to be listed
      */
     public void listDirectory(File directory) {
-        
+
         // Check input parameters for null
-        if(directory == null) {
-            if(mDirectory != null){
+        if (directory == null) {
+            if (mDirectory != null) {
                 directory = mDirectory;
             } else {
                 directory = Environment.getExternalStorageDirectory();
@@ -259,20 +277,20 @@ public class LocalFileListFragment extends ExtendedListFragment {
                 }
             }
         }
-        
-        
+
+
         // if that's not a directory -> List its parent
-        if(!directory.isDirectory()){
+        if (!directory.isDirectory()) {
             Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
             directory = directory.getParentFile();
         }
 
         // by now, only files in the same directory will be kept as selected
-        ((AbsListView)mCurrentListView).clearChoices();
+        ((AbsListView) mCurrentListView).clearChoices();
         String constraints;
         if (mSearchIsOpen && mSearchQuery != null) {
             constraints = mSearchQuery;
-        } else if (mSearchIsOpen){
+        } else if (mSearchIsOpen) {
             constraints = "";
         } else {
             constraints = null;
@@ -284,16 +302,16 @@ public class LocalFileListFragment extends ExtendedListFragment {
         }
         mDirectory = directory;
     }
-    
+
 
     /**
      * Returns the fule paths to the files checked by the user
-     * 
-     * @return      File paths to the files checked by the user.
+     *
+     * @return File paths to the files checked by the user.
      */
     public String[] getCheckedFilePaths() {
         ArrayList<String> result = new ArrayList<String>();
-        SparseBooleanArray positions = ((AbsListView)mCurrentListView).getCheckedItemPositions();
+        SparseBooleanArray positions = ((AbsListView) mCurrentListView).getCheckedItemPositions();
         if (positions.size() > 0) {
             for (int i = 0; i < positions.size(); i++) {
                 if (positions.get(positions.keyAt(i)) == true) {
@@ -333,7 +351,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
             }
         }
     }
-    
+
     /**
      * Interface to implement by any Activity that includes some instance of LocalFileListFragment
      */
@@ -341,25 +359,25 @@ public class LocalFileListFragment extends ExtendedListFragment {
 
         /**
          * Callback method invoked when a directory is clicked by the user on the files list
-         *  
+         *
          * @param directory
          */
         public void onDirectoryClick(File directory);
-        
+
         /**
          * Callback method invoked when a file (non directory)
          * is clicked by the user on the files list
-         *  
+         *
          * @param file
          */
         public void onFileClick(File file);
-        
-        
+
+
         /**
          * Callback method invoked when the parent activity
          * is fully created to get the directory to list firstly.
-         * 
-         * @return  Directory to list firstly. Can be NULL.
+         *
+         * @return Directory to list firstly. Can be NULL.
          */
         public File getInitialDirectory();
 

@@ -72,6 +72,7 @@ public class UploadFilesActivity extends FileActivity implements
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     private Menu mOptionsMenu;
+    private ActionBar mActionBar;
     
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
@@ -101,11 +102,11 @@ public class UploadFilesActivity extends FileActivity implements
         } else {
             mCurrentDir = Environment.getExternalStorageDirectory();
         }
-        
+
         mAccountOnCreation = getAccount();
-                
+
         /// USER INTERFACE
-            
+
         // Drop-down navigation 
         mDirectories = new CustomArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item);
         File currDir = mCurrentDir;
@@ -119,8 +120,8 @@ public class UploadFilesActivity extends FileActivity implements
         setContentView(R.layout.upload_files_layout);
 
         mFileListFragment = (LocalFileListFragment) getSupportFragmentManager().findFragmentById(R.id.local_files_list);
-        
-        
+
+
         // Set input controllers
         mCancelBtn = (Button) findViewById(R.id.upload_files_btn_cancel);
         mCancelBtn.setOnClickListener(this);
@@ -139,15 +140,26 @@ public class UploadFilesActivity extends FileActivity implements
 
         // setup the toolbar
         setupToolbar();
-            
+
+        boolean searchOpen = mFileListFragment.isSearchOpen();
+
         // Action bar setup
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the
-                                                // official documentation
-        actionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && mCurrentDir.getName() != null);
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
-        actionBar.setListNavigationCallbacks(mDirectories, this);
+        mActionBar = getSupportActionBar();
+        if (mActionBar != null) {
+            mActionBar.setHomeButtonEnabled(true);   // mandatory since Android ICS, according to the
+                                                    // official documentation
+            mActionBar.setDisplayHomeAsUpEnabled(mCurrentDir != null && !searchOpen && mCurrentDir.getParent() != null);
+            mActionBar.setDisplayShowTitleEnabled(false);
+            if (!searchOpen) {
+                mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+                mActionBar.setListNavigationCallbacks(mDirectories, this);
+            } else {
+                mActionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+            }
+
+
+        }
+
 
         // wait dialog
         if (mCurrentDialog != null) {
@@ -546,4 +558,18 @@ public class UploadFilesActivity extends FileActivity implements
         Log_OC.e(TAG, "Access to unexisting list of files fragment!!");
         return null;
     }
+
+    public ArrayAdapter<String> getDirectories() {
+        if (mDirectories != null) {
+            return mDirectories;
+        } else {
+            return new CustomArrayAdapter<>(this, R.layout.support_simple_spinner_dropdown_item);
+        }
+    }
+
+    public File getCurrentDirLocation() {
+        return mCurrentDir;
+    }
+
+
 }

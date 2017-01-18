@@ -482,10 +482,12 @@ public class FileListListAdapter extends BaseAdapter {
     public Vector<OCFile> filterHiddenFiles(Vector<OCFile> files) {
         Vector<OCFile> ret = new Vector<>();
         OCFile current;
-        for (int i = 0; i < files.size(); i++) {
-            current = files.get(i);
-            if (!current.isHidden()) {
-                ret.add(current);
+        if (files.size() > 0) {
+            for (int i = 0; i < files.size(); i++) {
+                current = files.get(i);
+                if (!current.isHidden()) {
+                    ret.add(current);
+                }
             }
         }
 
