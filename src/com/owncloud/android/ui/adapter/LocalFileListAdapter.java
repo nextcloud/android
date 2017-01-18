@@ -354,6 +354,7 @@ public class LocalFileListAdapter extends BaseAdapter {
 
     private void fetchFiles(File mWalkInDir, @Nullable String constraint) {
 
+
         boolean showHiddenFiles = PreferenceManager.showHiddenFilesEnabled(mContext);
         File[] listFiles = mWalkInDir.listFiles();
         if (!showHiddenFiles) {
@@ -361,7 +362,9 @@ public class LocalFileListAdapter extends BaseAdapter {
         }
 
         for (File file : listFiles) {
-            if (constraint != null && file.getName().contains(constraint)) {
+            if (constraint != null && constraint.isEmpty() && file.getName().contains(constraint)) {
+                mFilteredFiles.add(file);
+            } else if (constraint == null || constraint.isEmpty()) {
                 mFilteredFiles.add(file);
             }
 

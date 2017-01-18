@@ -85,9 +85,6 @@ public class OCFileListFragment extends ExtendedListFragment {
     private static final String MY_PACKAGE = OCFileListFragment.class.getPackage() != null ?
             OCFileListFragment.class.getPackage().getName() : "com.owncloud.android.ui.fragment";
 
-    private static final String KEY_IS_SEARCH_OPEN = "IS_SEARCH_OPEN";
-    private static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
-
     public final static String ARG_JUST_FOLDERS = MY_PACKAGE + ".JUST_FOLDERS";
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
     public final static String ARG_HIDE_FAB = MY_PACKAGE + ".HIDE_FAB";
@@ -232,6 +229,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             @Override
             public void onClick(View v) {
                 mSearchIsOpen = true;
+                mHandler.removeCallbacksAndMessages(null);
                 setFooterEnabled(false);
                 setFabEnabled(false);
                 mRefreshListLayout.setEnabled(false);
@@ -239,6 +237,9 @@ public class OCFileListFragment extends ExtendedListFragment {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        mRefreshListLayout.setRefreshing(true);
+                        mRefreshGridLayout.setRefreshing(true);
+                        mRefreshEmptyLayout.setRefreshing(true);
                         mAdapter.getFilter().filter(mSearchQuery);
                     }
                 });
@@ -248,6 +249,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
+                mHandler.removeCallbacksAndMessages(null);
                 setFooterEnabled(true);
                 mSearchIsOpen = false;
                 mSearchQuery = null;
@@ -1035,6 +1037,5 @@ public class OCFileListFragment extends ExtendedListFragment {
         editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
         editor.apply();
     }
-
 
 }

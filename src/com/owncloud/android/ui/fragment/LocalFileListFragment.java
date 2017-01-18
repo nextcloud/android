@@ -122,17 +122,22 @@ public class LocalFileListFragment extends ExtendedListFragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
-        if (mSearchQuery == null) {
-            mSearchQuery = "";
-        }
+
         mSearchView.setOnSearchClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mSearchQuery == null) {
+                    mSearchQuery = "";
+                }
+
                 mIsSearchOpen = true;
                 mHandler.removeCallbacksAndMessages(null);
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
+                        mRefreshListLayout.setRefreshing(true);
+                        mRefreshGridLayout.setRefreshing(true);
+                        mRefreshEmptyLayout.setRefreshing(true);
                         mAdapter.getFilter().filter(mSearchQuery);
                     }
                 });
@@ -142,6 +147,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         mSearchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
+                mHandler.removeCallbacksAndMessages(null);
                 mIsSearchOpen = false;
                 mSearchQuery = null;
                 showHundredFilesMessage(false);

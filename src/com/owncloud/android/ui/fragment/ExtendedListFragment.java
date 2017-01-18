@@ -28,6 +28,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -89,7 +90,7 @@ public class ExtendedListFragment extends Fragment
     protected SearchView mSearchView;
     protected AbsListView mCurrentListView;
     protected Handler mHandler;
-    private SwipeRefreshLayout mRefreshGridLayout;
+    protected SwipeRefreshLayout mRefreshGridLayout;
     private FloatingActionsMenu mFabMain;
     private FloatingActionButton mFabUpload;
     private FloatingActionButton mFabMkdir;
@@ -172,13 +173,14 @@ public class ExtendedListFragment extends Fragment
         mSearchQuery = query;
         mHandler.removeCallbacksAndMessages(null);
 
+        mRefreshListLayout.setRefreshing(true);
+        mRefreshGridLayout.setRefreshing(true);
+        mRefreshEmptyLayout.setRefreshing(true);
+
         if (mAdapter.getClass().equals(FileListListAdapter.class)) {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mRefreshListLayout.setRefreshing(true);
-                    mRefreshGridLayout.setRefreshing(true);
-                    mRefreshEmptyLayout.setRefreshing(true);
                     FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
                     fileListListAdapter.getFilter().filter(mSearchQuery);
                 }
@@ -187,9 +189,6 @@ public class ExtendedListFragment extends Fragment
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    mRefreshListLayout.setRefreshing(true);
-                    mRefreshGridLayout.setRefreshing(true);
-                    mRefreshEmptyLayout.setRefreshing(true);
                     LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
                     localFileListAdapter.getFilter().filter(mSearchQuery);
                 }
@@ -203,6 +202,11 @@ public class ExtendedListFragment extends Fragment
     public boolean onQueryTextSubmit(String query) {
         mSearchQuery = query;
         mHandler.removeCallbacksAndMessages(null);
+
+        mRefreshListLayout.setRefreshing(true);
+        mRefreshGridLayout.setRefreshing(true);
+        mRefreshEmptyLayout.setRefreshing(true);
+
         if (mAdapter.getClass().equals(FileListListAdapter.class)) {
             FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
             fileListListAdapter.getFilter().filter(query);
@@ -210,6 +214,11 @@ public class ExtendedListFragment extends Fragment
             LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
             localFileListAdapter.getFilter().filter(query);
         }
+
+        if (mSearchView != null) {
+            mSearchView.clearFocus();
+        }
+
         return true;
     }
 
@@ -592,7 +601,6 @@ public class ExtendedListFragment extends Fragment
         mRefreshListLayout.setRefreshing(false);
         mRefreshEmptyLayout.setRefreshing(false);
     }
-
 
     @Override
     public void showHundredFilesMessage(boolean show) {
