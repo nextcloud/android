@@ -421,6 +421,7 @@ public class FileListListAdapter extends BaseAdapter {
         if (constraint != null) {
             getFilter().filter(constraint);
         } else {
+            mFragmentListener.collapseFab();
             notifyDataSetChanged();
         }
     }

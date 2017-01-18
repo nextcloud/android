@@ -616,6 +616,13 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
+    @Override
+    public void collapseFab() {
+        if (mFabMain != null && mFabMain.isExpanded()) {
+            mFabMain.collapse();
+        }
+    }
+
     private int pxToDp(int px) {
         DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
         int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));

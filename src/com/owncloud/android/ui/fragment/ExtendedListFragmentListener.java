@@ -7,4 +7,5 @@ package com.owncloud.android.ui.fragment;
 public interface ExtendedListFragmentListener {
     void endFilterRefresh();
     void showHundredFilesMessage(boolean show);
+    void collapseFab();
 }

@@ -842,11 +842,12 @@ public class OCFileListFragment extends ExtendedListFragment {
             String constraints;
             if (mSearchIsOpen && mSearchQuery != null) {
                 constraints = mSearchQuery;
-            } else if (mSearchIsOpen && mSearchQuery == null) {
+            } else if (mSearchIsOpen) {
                 constraints = "";
             } else {
                 constraints = null;
             }
+
             mAdapter.swapDirectory(directory, storageManager, onlyOnDevice, constraints);
 
             if (mFile == null || !mFile.equals(directory)) {
