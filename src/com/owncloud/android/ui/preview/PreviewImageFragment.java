@@ -158,6 +158,13 @@ public class PreviewImageFragment extends FileFragment {
             }
         });
 
+        mImageView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PreviewImageActivity) getActivity()).toggleFullScreen();
+            }
+        });
+
         mMessageView = (TextView)view.findViewById(R.id.message);
         mMessageView.setVisibility(View.GONE);
         mProgressWheel = (ProgressBar)view.findViewById(R.id.progressWheel);
