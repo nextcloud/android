@@ -31,7 +31,8 @@
     android:id="@+id/top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:background="#000000"
+    android:animateLayoutChanges="true">
 
     <ProgressBar
         android:id="@+id/progressWheel"
@@ -49,7 +50,8 @@
         android:layout_margin="@dimen/zero"
         android:layout_centerInParent="true"
         android:contentDescription="@string/preview_image_description"
-        android:src="@drawable/image_fail" />
+        android:src="@drawable/image_fail"
+        />
 
     <TextView
         android:id="@+id/message"

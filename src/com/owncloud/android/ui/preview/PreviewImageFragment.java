@@ -37,6 +37,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -75,6 +76,7 @@ public class PreviewImageFragment extends FileFragment {
     private TouchImageViewCustom mImageView;
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
+    private RelativeLayout mRelativeLayout;
 
     public Bitmap mBitmap = null;
 
@@ -83,6 +85,8 @@ public class PreviewImageFragment extends FileFragment {
     private boolean mIgnoreFirstSavedState;
 
     private LoadBitmapTask mLoadBitmapTask = null;
+
+    private boolean weZoomedAlready;
 
 
     /**
@@ -149,7 +153,29 @@ public class PreviewImageFragment extends FileFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
+        mRelativeLayout = (RelativeLayout) view.findViewById(R.id.top);
         mImageView.setVisibility(View.GONE);
+
+        mImageView.setOnTouchImageViewListener(new TouchImageViewCustom.OnTouchImageViewListener() {
+            @Override
+            public void onMove() {
+                if (!weZoomedAlready && mImageView.isZoomed()) {
+                    weZoomedAlready = true;
+                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                    layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                    mImageView.setLayoutParams(layoutParams);
+                    mRelativeLayout.invalidate();
+                } else if (!mImageView.isZoomed()) {
+                    weZoomedAlready = false;
+                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                    mImageView.setLayoutParams(layoutParams);
+                    mRelativeLayout.invalidate();
+                }
+            }
+        });
 
         view.setOnClickListener(new OnClickListener() {
             @Override
