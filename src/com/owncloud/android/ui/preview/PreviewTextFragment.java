@@ -46,6 +46,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.helpers.StringUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.StringUtils;
 
@@ -72,9 +73,6 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
 
     private Handler mHandler;
     private SearchView mSearchView;
-
-    private String mSearchQuery = "";
-    private boolean mSearchOpen;
 
     /**
      * Creates an empty fragment for previews.
@@ -167,7 +165,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     }
 
 
-    private void loadAndShowTextPreview() {
+        private void loadAndShowTextPreview() {
         mTextLoadTask = new TextLoadAsyncTask(new WeakReference<TextView>(mTextPreview));
         mTextLoadTask.execute(getFile().getStoragePath());
     }
@@ -175,45 +173,37 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        performSearch(query, 0);
+        mHandler.removeCallbacksAndMessages(null);
+        if (query != null && !query.isEmpty()) {
+            String coloredText = StringUtils.SearchAndColor(mOriginalText, query);
+            mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
+        } else {
+            mTextPreview.setText(mOriginalText);
+        }
+
+        if (mSearchView != null) {
+            mSearchView.clearFocus();
+        }
         return true;
     }
 
     @Override
     public boolean onQueryTextChange(final String newText) {
-        performSearch(newText, 500);
+        mHandler.removeCallbacksAndMessages(null);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (newText != null && !newText.isEmpty()) {
+                    String coloredText = StringUtils.SearchAndColor(mOriginalText, newText);
+                    mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
+                } else {
+                    mTextPreview.setText(mOriginalText);
+                }
+            }
+        }, 500);
         return true;
     }
 
-
-    private void performSearch(final String query, int delay) {
-        mHandler.removeCallbacksAndMessages(null);
-
-        if (mOriginalText != null) {
-            if (getActivity() != null && getActivity() instanceof FileDisplayActivity) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-                fileDisplayActivity.setSearchQuery(query);
-            }
-            mHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    if (query != null && !query.isEmpty()) {
-                        if (getContext() != null && getContext().getResources() != null) {
-                            String coloredText = StringUtils.searchAndColor(mOriginalText, query,
-                                    getContext().getResources().getColor(R.color.primary));
-                            mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
-                        }
-                    } else {
-                        mTextPreview.setText(mOriginalText);
-                    }
-                }
-            }, delay);
-        }
-
-        if (delay == 0 && mSearchView != null) {
-            mSearchView.clearFocus();
-        }
-    }
 
     /**
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
@@ -281,12 +271,8 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
             final TextView textView = mTextViewReference.get();
 
             if (textView != null) {
-                mOriginalText = stringWriter.toString();
-                mSearchView.setOnQueryTextListener(PreviewTextFragment.this);
+                mOriginalText = new String(stringWriter.getBuffer());
                 textView.setText(mOriginalText);
-                if (mSearchOpen) {
-                    mSearchView.setQuery(mSearchQuery, true);
-                }
                 textView.setVisibility(View.VISIBLE);
             }
 
@@ -336,12 +322,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         MenuItem menuItem = menu.findItem(R.id.action_search);
         menuItem.setVisible(true);
         mSearchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-
-        if (mSearchOpen) {
-            mSearchView.setQuery(mSearchQuery, false);
-            mSearchView.setIconified(false);
-            mSearchView.clearFocus();
-        }
+        mSearchView.setOnQueryTextListener(this);
 
     }
 
