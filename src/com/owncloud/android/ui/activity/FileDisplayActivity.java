@@ -46,7 +46,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -138,7 +140,6 @@ public class FileDisplayActivity extends HookActivity
     private OCFile mWaitingToSend;
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -586,16 +587,20 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_create_dir).setVisible(false);
 
+        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        searchMenuItem.setVisible(false);
+
+
         // populate list of menu items to show/hide when drawer is opened/closed
-        mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
+        mDrawerMenuItemstoShowHideList = new ArrayList<>(3);
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sync_account));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
-        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_search));
 
         return true;
     }
