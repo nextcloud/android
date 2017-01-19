@@ -40,6 +40,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
@@ -382,10 +383,12 @@ public class UploadsStorageManager extends Observable {
         );
 
         // add pending Jobs
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             return uploads;
         } else {
-            return getPendingJobs().toArray(uploads);
+            List<OCUpload> result = getPendingJobs();
+            Collections.addAll(result, uploads);
+            return result.toArray(uploads);
         }
     }
 
