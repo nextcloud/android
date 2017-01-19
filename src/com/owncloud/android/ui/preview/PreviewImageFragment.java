@@ -150,17 +150,19 @@ public class PreviewImageFragment extends FileFragment {
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
-        mImageView.setOnClickListener(new OnClickListener() {
+
+        view.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((PreviewImageActivity) getActivity()).toggleFullScreen();
             }
-
         });
+
         mMessageView = (TextView)view.findViewById(R.id.message);
         mMessageView.setVisibility(View.GONE);
         mProgressWheel = (ProgressBar)view.findViewById(R.id.progressWheel);
         mProgressWheel.setVisibility(View.VISIBLE);
+
         return view;
     }
 
@@ -441,8 +443,10 @@ public class PreviewImageFragment extends FileFragment {
                             Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
                             break;
                         } else {
-                            // Rotate image, obeying exif tag.
-                            result = BitmapUtils.rotateImage(result, storagePath);
+                            if (ocFile.getFileName().endsWith("jpg") || ocFile.getFileName().endsWith("jpeg")) {
+                                // Rotate image, obeying exif tag.
+                                result = BitmapUtils.rotateImage(result, storagePath);
+                            }
                         }
 
                     } catch (OutOfMemoryError e) {
@@ -507,6 +511,7 @@ public class PreviewImageFragment extends FileFragment {
             if (imageView != null) {
                 Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
                         bitmap.getHeight());
+
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                     Drawable backrepeat = getResources().getDrawable(R.drawable.backrepeat);
