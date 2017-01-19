@@ -450,7 +450,7 @@ public class PreviewImageFragment extends FileFragment {
                             Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
                             break;
                         } else {
-                            if (ocFile.getFileName().endsWith("jpg") || ocFile.getFileName().endsWith("jpeg")) {
+                            if (ocFile.getFileName().endsWith(".jpg") || ocFile.getFileName().endsWith(".jpeg")) {
                                 // Rotate image, obeying exif tag.
                                 result = BitmapUtils.rotateImage(result, storagePath);
                             }
