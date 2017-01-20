@@ -13,17 +13,22 @@
     <string name="actionbar_send_file">Kirim</string>
     <string name="actionbar_sort">Urutkan</string>
     <string name="actionbar_sort_title">Urutan</string>
+    <string name="menu_item_sort_by_name">A - Z</string>
+    <string name="menu_item_sort_by_date">Terbaru - Terlama</string>
+    <string name="menu_item_sort_by_size">Terbesar - Terkecil</string>
     <string name="drawer_item_all_files">Semua berkas</string>
     <string name="drawer_item_on_device">Dalam perangkat</string>
     <string name="drawer_item_settings">Pengaturan</string>
     <string name="drawer_item_uploads_list">Unggah</string>
-    <string name="drawer_close">Tutup</string>
+    <string name="drawer_quota">%1$s dari %2$s sudah digunakan</string>
+	<string name="drawer_close">Tutup</string>
     <string name="drawer_open">Buka</string>
     <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
     <string name="prefs_accounts">Akun</string>
     <string name="prefs_manage_accounts">Kelola akun</string>
     <string name="prefs_passcode">Kunci kode sandi</string>
+    <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>
     <string name="prefs_instant_upload">Unggah gambar cepat</string>
     <string name="prefs_instant_upload_summary">Unggah gambar yang diambil kamera dengan cepat</string>
     <string name="prefs_instant_video_upload">Unggah video cepat</string>
@@ -33,6 +38,11 @@
     <string name="prefs_log_title_history">Sejarah pencatatan</string>
     <string name="prefs_log_summary_history">Ini menampilkan catatan yang disimpan</string>
     <string name="prefs_log_delete_history_button">Hapus riwayat</string>
+    <string name="prefs_calendar_contacts">Sinkronkan kalender &amp; kontak</string>
+    <string name="prefs_calendar_contacts_summary">Atur DAVdroid (v1.3.0+) untuk akun saat ini</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Alamat server untuk akun tidak dapat diselesaikan untuk DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Tidak ada Google Play store atau apl F-Droid yang terpasang</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Mengatur sinkronisasi kalender &amp; kontak telah sukses</string>
     <string name="prefs_help">Bantuan</string>
     <string name="prefs_recommend">Rekomendasikan ke teman</string>
     <string name="prefs_feedback">Umpan balik</string>
@@ -63,10 +73,18 @@
     <string name="uploader_error_message_read_permission_not_granted">%1$s tidak diizinkan untuk membaca berkas yang diterima</string>
     <string name="uploader_error_message_source_file_not_found">Berkas untuk diunggah tidak ditemukan. Silakan cek apabila berkasnya ada.</string>
     <string name="uploader_error_message_source_file_not_copied">Terjadi kesalahan saat menyalin berkas ke folder sementara. Silakan mencoba kembali.</string>
+    <string name="uploader_upload_files_behaviour">Pilihan unggah:</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Pindahkan berkas ke folder Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Pertahankan berkas difolder sumber</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hapus berkas dari folder sumber</string>
     <string name="file_list_seconds_ago">beberapa detik yang lalu</string>
+    <string name="file_list_empty_headline">Tidak ada berkas disini</string>
+    <string name="file_list_empty">Unggah beberapa konten atau sinkronkan dengan perangkat kamu!</string>
     <string name="file_list_loading">Memuat&#8230;</string>
     <string name="file_list_no_app_for_file_type">Tidak ditemukan aplikasi untuk tipe berkas!</string>
     <string name="local_file_list_empty">Tidak ada satupun berkas dalam folder ini.</string>
+    <string name="upload_list_empty_headline">Tidak ada unggahan yang tersedia</string>
+    <string name="upload_list_empty_text">Unggah beberapa konten atau aktifkan unggah instan!</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">folder</string>
     <string name="file_list_file">berkas</string>
@@ -89,11 +107,13 @@
     <string name="common_cancel_sync">Batalkan sinkron</string>
     <string name="common_cancel">Batal</string>
     <string name="common_back">Kembali</string>
+    <string name="common_save">Simpan</string>
     <string name="common_save_exit">Simpan &amp; keluar</string>
     <string name="common_error">Kesalahan</string>
     <string name="common_loading">Memuat &#8230;</string>
     <string name="common_unknown">tidak diketahui</string>
     <string name="common_error_unknown">Kesalahan tidak diketahui</string>
+    <string name="common_pending">Tunggu</string>
     <string name="about_title">Tentang</string>
     <string name="change_password">Ubah sandi</string>
     <string name="delete_account">Hapus akun</string>
@@ -282,8 +302,11 @@
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Hanya unggah lewat wifi</string>
     <string name="instant_upload_on_wifi">Unggah gambar melalui wifi saja</string>
     <string name="instant_video_upload_on_wifi">Unggah video melalui wifi saja</string>
+    <string name="instant_video_upload_on_charging">Hanya unggah ketika dicas</string>
+    <string name="instant_upload_on_charging">Hanya unggah ketika dicas</string>
     <string name="instant_upload_path">/UnggahInstan</string>
     <string name="conflict_title">Berkas konflik</string>
     <string name="conflict_message">Berkas mana yang ingin Anda simpan? Jika Anda memilih kedua versi, berkas lokal akan memiliki angka yang ditambahkan pada namanya.</string>
@@ -296,6 +319,8 @@
 
     <string name="error__upload__local_file_not_copied">%1$s tidak dapat disalin ke folder lokal %2$s</string>
     <string name="prefs_instant_upload_path_title">Folder unggah cepat</string>
+    <string name="prefs_folder_sync_local_path_title">Folder lokal</string>
+    <string name="prefs_folder_sync_remote_path_title">Folder remote</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Gunakan subfolder</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Simpan dalam subfolder berdasarkan tahun dan bulan</string>
 
@@ -334,6 +359,8 @@
     <string name="uploader_upload_forbidden_permissions">untuk mengunggah kedalam folder ini</string>
     <string name="downloader_download_file_not_found">Berkas tidak lagi tersedia pada server</string>
 
+    <string name="file_migration_dialog_title">Memperbarui jalur penyimpanan</string>
+    <string name="file_migration_finish_button">Selesai</string>
     <string name="prefs_category_accounts">Akun</string>
     <string name="prefs_add_account">Tambah akun</string>
     <string name="drawer_manage_accounts">Kelola akun</string>
