@@ -165,6 +165,14 @@ public class FileDisplayActivity extends HookActivity
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
 
+    public static final String KEY_IS_SEARCH_OPEN = "IS_SEARCH_OPEN";
+    public static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
+
+    private String mSearchQuery;
+    private boolean mSearchOpen;
+
+    private SearchView mSearchView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -185,7 +193,9 @@ public class FileDisplayActivity extends HookActivity
             mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
             mSearchOpen = savedInstanceState.getBoolean(FileDisplayActivity.KEY_IS_SEARCH_OPEN, false);
-            mSearchQuery = savedInstanceState.getString(FileDisplayActivity.KEY_SEARCH_QUERY);
+            if (savedInstanceState.getString(FileDisplayActivity.KEY_SEARCH_QUERY) != null) {
+                mSearchQuery = savedInstanceState.getString(FileDisplayActivity.KEY_SEARCH_QUERY);
+            }
         } else {
             mWaitingToPreview = null;
             mSyncInProgress = false;
@@ -652,14 +662,13 @@ public class FileDisplayActivity extends HookActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_create_dir).setVisible(false);
 
         MenuItem searchMenuItem = menu.findItem(R.id.action_search);
+        mSearchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
         searchMenuItem.setVisible(false);
-
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(3);
@@ -1005,10 +1014,10 @@ public class FileDisplayActivity extends HookActivity
         //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS,
         // mRefreshSharesInProgress);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
-        if (mSearchView != null) {
-            outState.putBoolean(KEY_IS_SEARCH_OPEN, !mSearchView.isIconified());
+        outState.putBoolean(KEY_IS_SEARCH_OPEN, !mSearchView.isIconified());
+        if (mSearchQuery != null) {
+            outState.putString(KEY_SEARCH_QUERY, mSearchQuery);
         }
-        outState.putString(KEY_SEARCH_QUERY, mSearchQuery);
 
         Log_OC.v(TAG, "onSaveInstanceState() end");
     }
@@ -1956,7 +1965,9 @@ public class FileDisplayActivity extends HookActivity
         args.putParcelable(EXTRA_FILE, file);
         args.putParcelable(EXTRA_ACCOUNT, getAccount());
         args.putBoolean(EXTRA_SEARCH, mSearchOpen);
-        args.putString(EXTRA_SEARCH_QUERY, mSearchQuery);
+        if (mSearchQuery != null) {
+            args.putString(EXTRA_SEARCH_QUERY, mSearchQuery);
+        }
         Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
                 PreviewTextFragment.class.getName(), args);
         setSecondFragment(textPreviewFragment);
@@ -2082,5 +2093,4 @@ public class FileDisplayActivity extends HookActivity
     public void setSearchQuery(String query) {
         mSearchQuery = query;
     }
-
 }
