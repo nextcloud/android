@@ -22,12 +22,17 @@ package com.owncloud.android.ui.preview;
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -155,27 +160,6 @@ public class PreviewImageFragment extends FileFragment {
         mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
         mRelativeLayout = (RelativeLayout) view.findViewById(R.id.top);
         mImageView.setVisibility(View.GONE);
-
-        mImageView.setOnTouchImageViewListener(new TouchImageViewCustom.OnTouchImageViewListener() {
-            @Override
-            public void onMove() {
-                if (!weZoomedAlready && mImageView.isZoomed()) {
-                    weZoomedAlready = true;
-                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                            RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-                    layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-                    mImageView.setLayoutParams(layoutParams);
-                    mRelativeLayout.invalidate();
-                } else if (!mImageView.isZoomed()) {
-                    weZoomedAlready = false;
-                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                            RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-                    layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
-                    mImageView.setLayoutParams(layoutParams);
-                    mRelativeLayout.invalidate();
-                }
-            }
-        });
 
         view.setOnClickListener(new OnClickListener() {
             @Override
@@ -548,12 +532,23 @@ public class PreviewImageFragment extends FileFragment {
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                     Drawable backrepeat = getResources().getDrawable(R.drawable.backrepeat);
-                    imageView.setBackground(backrepeat);
+                    Resources r = getResources();
+                    Drawable[] layers = new Drawable[2];
+                    layers[0] = r.getDrawable(R.drawable.backrepeat);
+                    Drawable d = new BitmapDrawable(getResources(), bitmap);
+                    layers[1] = d;
+                    LayerDrawable layerDrawable = new LayerDrawable(layers);
+                    layerDrawable.setLayerHeight(0, (int) convertDpToPixel(bitmap.getHeight(), getActivity()));
+                    layerDrawable.setLayerHeight(1, (int) convertDpToPixel(bitmap.getHeight(), getActivity()));
+                    layerDrawable.setLayerWidth(0, (int) convertDpToPixel(bitmap.getWidth(), getActivity()));
+                    layerDrawable.setLayerWidth(1, (int) convertDpToPixel(bitmap.getWidth(), getActivity()));
+                    imageView.setImageDrawable(layerDrawable);
+
                 }
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
                     imageView.setGIFImageFromStoragePath(result.ocFile.getStoragePath());
-                } else {
+                } else if (!result.ocFile.getMimetype().equalsIgnoreCase("image/png")){
                     imageView.setImageBitmap(bitmap);
                 }
 
@@ -609,6 +604,14 @@ public class PreviewImageFragment extends FileFragment {
         Activity container = getActivity();
         container.finish();
     }
+
+    private static float convertDpToPixel(float dp, Context context){
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        float px = dp * ((float)metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        return px;
+    }
+
 
     public TouchImageViewCustom getImageView() {
         return mImageView;
