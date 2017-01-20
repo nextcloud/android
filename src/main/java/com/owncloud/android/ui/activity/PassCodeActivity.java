@@ -61,15 +61,16 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
 class SoftKeyboardUtil {
-    public interface SoftKeyboardListener {
-        void onClose();
-    }
     private static final String TAG = SoftKeyboardUtil.class.getSimpleName();
 
     private AppCompatActivity mActivity;
     private boolean mIsSoftKeyboardOpened;
     private SoftKeyboardListener mSoftKeyboardListener;
     private int mHideCount;
+
+    public interface SoftKeyboardListener {
+        void onClose();
+    }
 
     private void setListenerToRootView() {
         View view = mActivity.findViewById(android.R.id.content).getRootView();
