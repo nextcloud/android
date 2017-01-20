@@ -1,4 +1,4 @@
-package com.owncloud.android.ui.helpers;
+package com.owncloud.android.utils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class StringUtils {
 
-    public static String SearchAndColor(String text, String searchText) {
+    public static String searchAndColor(String text, String searchText) {
 
         if (text == null) {
             return null;
