@@ -193,9 +193,7 @@ public class FileDisplayActivity extends HookActivity
             mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
             mSearchOpen = savedInstanceState.getBoolean(FileDisplayActivity.KEY_IS_SEARCH_OPEN, false);
-            if (savedInstanceState.getString(FileDisplayActivity.KEY_SEARCH_QUERY) != null) {
-                mSearchQuery = savedInstanceState.getString(FileDisplayActivity.KEY_SEARCH_QUERY);
-            }
+            mSearchQuery = savedInstanceState.getString(FileDisplayActivity.KEY_SEARCH_QUERY);
         } else {
             mWaitingToPreview = null;
             mSyncInProgress = false;
