@@ -45,8 +45,8 @@
 
     <third_parties.michaelOrtiz.TouchImageViewCustom
         android:id="@+id/image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_margin="@dimen/zero"
         android:layout_centerInParent="true"
         android:contentDescription="@string/preview_image_description"

@@ -10,8 +10,6 @@
 
 package third_parties.michaelOrtiz;
 
-import com.owncloud.android.ui.preview.ImageViewCustom;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Configuration;
@@ -36,6 +34,8 @@ import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.OverScroller;
 import android.widget.Scroller;
+
+import com.owncloud.android.ui.preview.ImageViewCustom;
 
 /**
  * Extends Android ImageView to include pinch zooming, panning, fling and double tap zoom.
