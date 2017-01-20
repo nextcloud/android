@@ -176,7 +176,7 @@ public class ExtendedListFragment extends Fragment
         mRefreshGridLayout.setRefreshing(true);
         mRefreshEmptyLayout.setRefreshing(true);
 
-        if (mAdapter.getClass().equals(FileListListAdapter.class)) {
+        if (mAdapter != null && mAdapter instanceof FileListListAdapter) {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -184,7 +184,7 @@ public class ExtendedListFragment extends Fragment
                     fileListListAdapter.getFilter().filter(mSearchQuery);
                 }
             }, 500);
-        } else if (mAdapter.getClass().equals(LocalFileListAdapter.class)) {
+        } else if (mAdapter != null && mAdapter instanceof LocalFileListAdapter) {
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {

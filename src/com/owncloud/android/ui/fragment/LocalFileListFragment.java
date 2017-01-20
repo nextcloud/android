@@ -125,7 +125,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
                     mSearchQuery = "";
                 }
 
-                if (mContainerActivity.getClass().equals(UploadFilesActivity.class)) {
+                if (mContainerActivity != null && mContainerActivity instanceof  UploadFilesActivity) {
                     UploadFilesActivity uploadFilesActivity = (UploadFilesActivity) mContainerActivity;
                     if (uploadFilesActivity.getSupportActionBar() != null) {
                         ActionBar actionBar = uploadFilesActivity.getSupportActionBar();
@@ -154,7 +154,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
 
                 mSearchIsOpen = false;
 
-                if (mContainerActivity.getClass().equals(UploadFilesActivity.class)) {
+                if (mContainerActivity != null && mContainerActivity instanceof  UploadFilesActivity) {
                     UploadFilesActivity uploadFilesActivity = (UploadFilesActivity) mContainerActivity;
                     if (uploadFilesActivity.getSupportActionBar() != null) {
                         ActionBar actionBar = uploadFilesActivity.getSupportActionBar();
