@@ -525,7 +525,6 @@ public class PreviewImageFragment extends FileFragment {
 
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
-                    Drawable backrepeat = getResources().getDrawable(R.drawable.backrepeat);
                     Resources r = getResources();
                     Drawable[] layers = new Drawable[2];
                     layers[0] = r.getDrawable(R.drawable.backrepeat);
