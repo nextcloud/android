@@ -81,7 +81,6 @@ public class PreviewImageFragment extends FileFragment {
     private TouchImageViewCustom mImageView;
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
-    private RelativeLayout mRelativeLayout;
 
     public Bitmap mBitmap = null;
 
@@ -90,9 +89,6 @@ public class PreviewImageFragment extends FileFragment {
     private boolean mIgnoreFirstSavedState;
 
     private LoadBitmapTask mLoadBitmapTask = null;
-
-    private boolean weZoomedAlready;
-
 
     /**
      * Public factory method to create a new fragment that previews an image.
