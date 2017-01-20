@@ -42,7 +42,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -154,7 +153,6 @@ public class PreviewImageFragment extends FileFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
-        mRelativeLayout = (RelativeLayout) view.findViewById(R.id.top);
         mImageView.setVisibility(View.GONE);
 
         view.setOnClickListener(new OnClickListener() {
