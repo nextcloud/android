@@ -49,7 +49,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.ui.helpers.StringUtils;
+import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.AnalyticsUtils;
@@ -224,7 +224,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         }
         mHandler.removeCallbacksAndMessages(null);
         if (query != null && !query.isEmpty()) {
-            String coloredText = StringUtils.SearchAndColor(mOriginalText, query);
+            String coloredText = StringUtils.searchAndColor(mOriginalText, query);
             mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
         } else {
             mTextPreview.setText(mOriginalText);
@@ -247,7 +247,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
             @Override
             public void run() {
                 if (newText != null && !newText.isEmpty()) {
-                    String coloredText = StringUtils.SearchAndColor(mOriginalText, newText);
+                    String coloredText = StringUtils.searchAndColor(mOriginalText, newText);
                     mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
                 } else {
                     mTextPreview.setText(mOriginalText);
