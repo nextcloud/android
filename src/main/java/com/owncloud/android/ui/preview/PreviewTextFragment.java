@@ -49,7 +49,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.StringUtils;
 import com.owncloud.android.utils.AnalyticsUtils;
@@ -117,7 +116,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
 
 
         View ret = inflater.inflate(R.layout.text_file_preview, container, false);
-            mTextPreview = (TextView) ret.findViewById(R.id.text_preview);
+        mTextPreview = (TextView) ret.findViewById(R.id.text_preview);
 
         mMultiView = (RelativeLayout) ret.findViewById(R.id.multi_view);
 
@@ -166,13 +165,8 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
             mAccount = args.getParcelable(FileDisplayActivity.EXTRA_ACCOUNT);
         }
 
-        if (args.containsKey(FileDisplayActivity.EXTRA_SEARCH_QUERY)) {
-            mSearchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY);
-        }
-
-        if (args.getBoolean(FileDisplayActivity.EXTRA_SEARCH)) {
-            mSearchOpen = args.getBoolean(FileDisplayActivity.EXTRA_SEARCH, false);
-        }
+        mSearchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY);
+        mSearchOpen = args.getBoolean(FileDisplayActivity.EXTRA_SEARCH, false);
 
         if (savedInstanceState == null) {
             if (file == null) {
@@ -218,42 +212,50 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        if (getActivity().getClass().equals(FileDisplayActivity.class)) {
-            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-            fileDisplayActivity.setSearchQuery(query);
-        }
         mHandler.removeCallbacksAndMessages(null);
-        if (query != null && !query.isEmpty()) {
-            String coloredText = StringUtils.searchAndColor(mOriginalText, query);
-            mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
-        } else {
-            mTextPreview.setText(mOriginalText);
+
+        if (mOriginalText != null) {
+            if (getActivity() != null && getActivity() instanceof FileDisplayActivity) {
+                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                fileDisplayActivity.setSearchQuery(query);
+            }
+            if (query != null && !query.isEmpty()) {
+                String coloredText = StringUtils.searchAndColor(mOriginalText, query);
+                mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
+            } else {
+                mTextPreview.setText(mOriginalText);
+            }
+
         }
 
         if (mSearchView != null) {
             mSearchView.clearFocus();
         }
+
         return true;
     }
 
     @Override
     public boolean onQueryTextChange(final String newText) {
-        if (getActivity().getClass().equals(FileDisplayActivity.class)) {
-            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-            fileDisplayActivity.setSearchQuery(newText);
-        }
         mHandler.removeCallbacksAndMessages(null);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (newText != null && !newText.isEmpty()) {
-                    String coloredText = StringUtils.searchAndColor(mOriginalText, newText);
-                    mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
-                } else {
-                    mTextPreview.setText(mOriginalText);
-                }
+
+        if (mOriginalText != null) {
+            if (getActivity().getClass().equals(FileDisplayActivity.class)) {
+                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                fileDisplayActivity.setSearchQuery(newText);
             }
-        }, 500);
+            mHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (newText != null && !newText.isEmpty()) {
+                        String coloredText = StringUtils.searchAndColor(mOriginalText, newText);
+                        mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
+                    } else {
+                        mTextPreview.setText(mOriginalText);
+                    }
+                }
+            }, 500);
+        }
         return true;
     }
 
