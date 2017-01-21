@@ -27,7 +27,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.PersistableBundle;
+import android.support.annotation.RequiresApi;
 
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -39,6 +41,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
 
@@ -381,9 +384,16 @@ public class UploadsStorageManager extends Observable {
         );
 
         // add pending Jobs
-        return getPendingJobs().toArray(uploads);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            return uploads;
+        } else {
+            List<OCUpload> result = getPendingJobs();
+            Collections.addAll(result, uploads);
+            return result.toArray(uploads);
+        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private List<OCUpload> getPendingJobs() {
         JobScheduler js = (JobScheduler) mContext.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
@@ -401,6 +411,7 @@ public class UploadsStorageManager extends Observable {
         return list;
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     public void cancelPendingJob(String accountName, String remotePath){
         JobScheduler js = (JobScheduler) mContext.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
