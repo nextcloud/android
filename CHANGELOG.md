@@ -1,5 +1,8 @@
+## 2017-01-22
+- prevent NoClassDefFound #547
+
 ## 2017-01-17
-- Fix quota display
+- Fix quota display #544
 
 ## 2017-01-10
 - Fix NPE an improve performance of Auto Upload view #530
