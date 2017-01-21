@@ -3,7 +3,7 @@
     <string name="about_android">%1$s Android App</string>
     <string name="about_version">Version %1$s</string>
     <string name="actionbar_sync">Konto aktualisieren</string>
-    <string name="actionbar_upload">Datei hochladen</string>
+    <string name="actionbar_upload">Hochladen</string>
     <string name="actionbar_upload_from_apps">Inhalt anderer Apps</string>
     <string name="actionbar_upload_files">Dateien</string>
     <string name="actionbar_open_with">Öffnen mit</string>
