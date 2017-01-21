@@ -78,9 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Jen uploadovat</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Uploadovat a vymazat ze zdroje</string>
     <string name="file_list_seconds_ago">před pár sekundami</string>
+    <string name="file_list_empty_headline">Nejsou zde žádné soubory</string>
+    <string name="file_list_empty">Nahrajte nějaký obsah, nebo synchronizujte s vašimi zařízeními!</string>
     <string name="file_list_loading">Načítání&#8230;</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
+    <string name="upload_list_empty_headline">Nic k nahrání</string>
+    <string name="upload_list_empty_text">Nahrajte nějaký obsah, nebo aktivujte okamžité nahrání!</string>
     <string name="file_list_folder">adresář</string>
     <string name="file_list_folders">adresářů</string>
     <string name="file_list_file">soubor</string>
@@ -297,6 +301,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Nahrávat pouze přes wifi</string>
     <string name="instant_upload_on_wifi">Nahrávat obrázky pouze přes wifi</string>
     <string name="instant_video_upload_on_wifi">Nahrávat videa pouze přes wifi</string>
     <string name="instant_video_upload_on_charging">Nahrávat pouze při nabíjení</string>
@@ -464,6 +469,7 @@ správce systému.</string>
     <string name="search_users_and_groups_hint">Prohledat uživatele a skupiny</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
+    <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( v %2$s )</string>
 
     <string name="share_sharee_unavailable">Omlouváme se, verze vašeho serveru neumožňuje v klientské aplikaci sdílení dat mezi uživateli.
@@ -526,6 +532,13 @@ správce systému.</string>
         <item quantity="few">vybráno %d</item>
         <item quantity="other">vybráno %d</item>
     </plurals>
+    <string name="upload_file_dialog_title">Zadejte jméno a typ souboru k nahrání</string>
+    <string name="upload_file_dialog_filename">Jméno souboru</string>
+    <string name="upload_file_dialog_filetype">Typ souboru</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Soubor textového úryvku(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Soubor zástupce na internet(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Soubor zkratky pro Google mapy(%s)</string>
+
     <string name="storage_description_default">Výchozí</string>
     <string name="storage_description_sd_no">SD karta %1$d</string>
     <string name="storage_description_unknown">Neznámý</string>

@@ -78,9 +78,13 @@
     <string name="uploader_upload_files_behaviour_only_upload">Zachowaj plik w katalogu źródłowym</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Skasuj plik z katalogu źródłowego</string>
     <string name="file_list_seconds_ago">sekund temu</string>
+    <string name="file_list_empty_headline">Nie ma tu plików</string>
+    <string name="file_list_empty">Wyślij pliki lub zsynchronizuj z twoimi urządzeniami!</string>
     <string name="file_list_loading">Wczytywanie&#8230;</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików!</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
+    <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
+    <string name="upload_list_empty_text">Wyślij jakieś dane lub włącz wysyłanie natychmiastowe!</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">foldery</string>
     <string name="file_list_file">plik</string>
@@ -298,6 +302,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Wysyłaj tylko przez WiFi</string>
     <string name="instant_upload_on_wifi">Wysyłaj zdjęcia tylko przez WiFi</string>
     <string name="instant_video_upload_on_wifi">Wysyłaj filmy tylko przez WiFi</string>
     <string name="instant_video_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
@@ -465,6 +470,7 @@
     <string name="search_users_and_groups_hint">Szukaj użytkowników i grup</string>
     <string name="share_group_clarification">%1$s (grupa)</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
+    <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
 
     <string name="share_sharee_unavailable">Niestety Twój serwer nie umożliwia współdzielenia z użytkownikami z poziomu aplikacji.
@@ -505,6 +511,10 @@
     <string name="participate_testing_report_text">Zgłoś błąd na GitHubie</string>
     <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
     <string name="participate_beta_headline">Testuj wersję Beta</string>
+    <string name="participate_beta_text">Zawiera to wszystkie nadchodzące funkcje i jest bardzo nowatorskie.
+Bugi/błędy
+mogą się pojawiać, a wtedy prosimy o raportowanie ich do nas. &lt;br/>&lt;a href=\"%2$s\">Pobierz APK&lt;/a>
+lub</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
     <string name="participate_release_candidate_text">Release Candidate (RC) jest zarysem nadchodzącego wydania i oczekujemy że będzie stabilne. Testowanie indywidualnej konfiguracji może pomóc, aby to zapewnić. Zapisz się do testowania w sklepie Play lub ręcznie szukaj w sekcji \"wersje\" na F-Droid.</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
@@ -519,12 +529,16 @@
     <string name="folder_sync_no_results">Nie znaleziono folderów multimedialnych.</string>
     <string name="folder_sync_preferences">Preferencje automatycznego przesyłania</string>
     <string name="folder_sync_settings">Ustawienia</string>
+    <string name="folder_sync_new_info">Natychmiastowe wysyłanie zostało kompletnie zmienione. Proszę sprawdzić główne menu i zrekonfigurować automatyczne wysyłanie. Przepraszamy za niedogodności.\\n\\nCiesz się z nowych i rozbudowanych możliwości automatycznego wysyłania!</string>
     <string name="folder_sync_preferences_folder_path">Dla %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d zaznaczony</item>
         <item quantity="few">%d zaznaczone</item>
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
+    <string name="upload_file_dialog_title">Wprowadź nazwę i typ wysyłanego pliku</string>
+    <string name="upload_file_dialog_filename">Nazwa pliku</string>
+    <string name="upload_file_dialog_filetype">Typ pliku</string>
     <string name="storage_description_default">Domyślny</string>
     <string name="storage_description_sd_no">karta SD %1$d</string>
     <string name="storage_description_unknown">Nieznany</string>
@@ -534,9 +548,12 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Bezpieczny dom dla wszystkich danych</string>
+    <string name="welcome_feature_1_text">Przechowuj, współdziel i chroń swoje prywatne i służbowe dane</string>
+
     <string name="welcome_feature_2_title">Wiele kont</string>
     <string name="welcome_feature_2_text">Podłączenie się do wszystkich chmur</string>
 
+    <string name="welcome_feature_3_title">Natychmiastowe wysyłanie</string>
     <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
 
     <string name="whats_new_skip">Pominąć</string>

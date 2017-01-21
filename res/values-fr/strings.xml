@@ -20,7 +20,7 @@
     <string name="drawer_item_on_device">Sur le périphérique</string>
     <string name="drawer_item_settings">Paramètres</string>
     <string name="drawer_item_uploads_list">Téléversements</string>
-    <string name="drawer_quota">%1$s sur %2$s utilisé</string>
+    <string name="drawer_quota">%1$s utilisés sur %2$s</string>
 	<string name="drawer_close">Fermer</string>
     <string name="drawer_open">Ouvrir</string>
     <string name="prefs_category_general">Général</string>
@@ -28,7 +28,7 @@
     <string name="prefs_accounts">Comptes</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
     <string name="prefs_passcode">Code de sécurité</string>
-    <string name="prefs_show_hidden_files">Afficher les fichiers cachés</string>
+    <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_instant_upload">Téléversement immédiat des photos</string>
     <string name="prefs_instant_upload_summary">Téléverser immédiatement les photos prises par la caméra</string>
     <string name="prefs_instant_video_upload">Téléversement immédiat des vidéos</string>
@@ -75,11 +75,11 @@
     <string name="uploader_error_message_source_file_not_copied">Une erreur est survenue lors de la copie du fichier vers un dossier temporaire. Merci de recommencer votre envoi.</string>
     <string name="uploader_upload_files_behaviour">Option de téléversement :</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Déplacer le fichier dans le dossier Nextcloud</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Garder le fichier dans le dossier original</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Conserver le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
     <string name="file_list_empty_headline">Aucun fichier</string>
-    <string name="file_list_empty">Téléchargez de quoi ou synchronisez vos appareils!</string>
+    <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils !</string>
     <string name="file_list_loading">Chargement&#8230;</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
@@ -350,9 +350,9 @@
     <string name="network_host_not_available">L\'opération n\'a pas pu être terminée, le serveur n\'est pas disponible</string>
     <string name="forbidden_permissions">Vous n\'avez pas la permission %s</string>
     <string name="forbidden_permissions_rename">de renommer ce fichier</string>
-    <string name="forbidden_permissions_delete">d’effacer ce fichier</string>
+    <string name="forbidden_permissions_delete">de supprimer ce fichier</string>
     <string name="share_link_forbidden_permissions">de partager ce fichier</string>
-    <string name="unshare_link_forbidden_permissions">de terminer le partage de ce fichier</string>
+    <string name="unshare_link_forbidden_permissions">de cesser le partage de ce fichier</string>
     <string name="update_link_forbidden_permissions">de modifier ce partage</string>
     <string name="forbidden_permissions_create">de créer ce fichier</string>
     <string name="uploader_upload_forbidden_permissions">de téléverser dans ce dossier</string>
@@ -362,32 +362,32 @@
     <string name="file_migration_finish_button">Terminer</string>
     <string name="file_migration_preparing">Préparation pour la migration&#8230;</string>
     <string name="file_migration_checking_destination">Vérification de la destination&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Sauvegarde de la configuration des comptes&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Enregistrement de la configuration des comptes&#8230;</string>
     <string name="file_migration_waiting_for_unfinished_sync">En attente des synchronisations non terminées&#8230;</string>
     <string name="file_migration_migrating">Déplacement des données&#8230;</string>
     <string name="file_migration_updating_index">Mise à jour des indexes&#8230;</string>
     <string name="file_migration_cleaning">Nettoyage&#8230;</string>
     <string name="file_migration_restoring_accounts_configuration">Restauration de la configuration des comptes&#8230;</string>
     <string name="file_migration_ok_finished">Terminé</string>
-    <string name="file_migration_failed_not_enough_space">ERREUR : Pas assez d\'espace</string>
+    <string name="file_migration_failed_not_enough_space">ERREUR : Espace insufisant</string>
     <string name="file_migration_failed_not_writable">ERREUR : Le fichier n\'est pas modifiable</string>
-    <string name="file_migration_failed_not_readable">ERREUR : Le fichier n\'est pas lisible</string>
+    <string name="file_migration_failed_not_readable">ERREUR : Le fichier est illisible</string>
     <string name="file_migration_failed_dir_already_exists">ERREUR : Le répertoire Nextcloud existe déjà</string>
     <string name="file_migration_failed_while_coping">ERREUR : Lors de la migration</string>
     <string name="file_migration_failed_while_updating_index">ERREUR : Lors de la mise à jour de l\'index</string>
 
-    <string name="file_migration_directory_already_exists">Le dossier de données existe déjà, que faire?</string>
+    <string name="file_migration_directory_already_exists">Le dossier de données existe déjà, que souhaitez-vous faire ?</string>
     <string name="file_migration_override_data_folder">Écraser</string>
-    <string name="file_migration_use_data_folder">Utilisation actuelle</string>
+    <string name="file_migration_use_data_folder">Conserver le dossier actuel</string>
 
     <string name="prefs_category_accounts">Comptes</string>
     <string name="prefs_add_account">Ajouter un compte</string>
-    <string name="drawer_manage_accounts">Gestion des comptes</string>
+    <string name="drawer_manage_accounts">Gérer les comptes</string>
     <string name="auth_redirect_non_secure_connection_title">Le connexion sécurisée est redirigée vers une route non-sécurisée.</string>
 
 	<string name="actionbar_logger">Journaux</string>
-	<string name="log_send_history_button">Envoyer l\'Historique</string>
-	<string name="log_send_no_mail_app">Aucune application n\'a été trouvée pour envoyer les journaux. Veuillez installer une application de messagerie !</string>
+	<string name="log_send_history_button">Envoyer l\'historique</string>
+	<string name="log_send_no_mail_app">Aucune application n\'a été trouvée pour envoyer les journaux. Merci d\'installer une application de messagerie.</string>
 	<string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
 	<string name="log_progress_dialog_text">Chargement des données &#8230;</string>
 
@@ -407,7 +407,7 @@
 
     <string name="copy_file_not_found">Impossible de copier. Vérifiez que le fichier existe</string>
     <string name="copy_file_invalid_into_descendent">Il n\'est pas possible de copier un dossier vers un de ses descendants</string>
-    <string name="copy_file_invalid_overwrite">Fichier déjà existant dans le dossier de destination</string>
+    <string name="copy_file_invalid_overwrite">Le fichier existe déjà dans le dossier de destination</string>
     <string name="copy_file_error">Une erreur est survenue lors de la copie de ce fichier ou dossier</string>
     <string name="forbidden_permissions_copy">de copier ce fichier</string>
 
@@ -443,9 +443,9 @@
     <string name="upload_move_files">Déplacer le fichier</string>
     <string name="select_all">Tout sélectionner</string>
 
-    <string name="pref_behaviour_entries_keep_file">gardé dans le dossier original</string>
+    <string name="pref_behaviour_entries_keep_file">conserver dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
-    <string name="pref_behaviour_entries_delete_file">Supprimé</string>
+    <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="prefs_storage_path">Chemin de stockage</string>
     <string name="prefs_common">Commun</string>
 
@@ -459,14 +459,14 @@
     <string name="share_via_link_password_label">Protéger par un mot de passe</string>
     <string name="share_via_link_password_title">Sécurisé</string>
     <string name="share_via_link_edit_permission_label">Permettre la modification</string>
-    <string name="share_via_link_hide_file_listing_permission_label">Masquer les fichiers cachés</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
     <string name="share_get_public_link_button">Obtenir le lien</string>
     <string name="share_with_title">Partager avec &#8230;</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>
 
     <string name="share_search">Rechercher</string>
 
-    <string name="search_users_and_groups_hint">Chercher parmi les utilisateurs et groupes</string>
+    <string name="search_users_and_groups_hint">Rechercher parmi les utilisateurs et groupes</string>
     <string name="share_group_clarification">%1$s (groupe)</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_email_clarification">%1$s (courriel)</string>
@@ -483,12 +483,12 @@
     <string name="edit_share_done">Terminé</string>
 
     <string name="action_retry_uploads">Nouvel essai échoué</string>
-    <string name="action_clear_failed_uploads">Vider les échoués</string>
-    <string name="action_clear_successful_uploads">Vider les réussis</string>
-    <string name="action_clear_finished_uploads">Vider tous les terminés</string>
+    <string name="action_clear_failed_uploads">Effacer les échecs</string>
+    <string name="action_clear_successful_uploads">Effacer les réussis</string>
+    <string name="action_clear_finished_uploads">Effacer tous les terminés</string>
 
-    <string name="action_switch_grid_view">Mosaïque</string>
-    <string name="action_switch_list_view">Liste</string>
+    <string name="action_switch_grid_view">Affichage Mosaïque</string>
+    <string name="action_switch_list_view">Affichage Liste</string>
 
     <string name="manage_space_title">Gestion de l\'espace</string>
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCe processus peut prendre du temps.</string>
@@ -506,7 +506,7 @@
     <string name="drawer_folder_sync">Téléversement automatique</string>
     <string name="drawer_participate">Participer</string>
     <string name="participate_testing_headline">Aidez nous à tester</string>
-    <string name="participate_testing_bug_text">Vous avez trouvé un bug ? Quelque chose est étrange ?</string>
+    <string name="participate_testing_bug_text">Vous avez trouvé un bug ? Quelque chose vous semble étrange ?</string>
     <string name="participate_testing_report_text">Signaler un problème sur Github</string>
     <string name="participate_testing_version_text">Interessé par nous aider à tester la future Version ?</string>
     <string name="participate_beta_headline">Testez la version bêta</string>
@@ -525,7 +525,7 @@ ou</string>
     <string name="copy_to">Copier vers&#8230;</string>
     <string name="choose_remote_folder">Choisir le dossier&#8230;</string>
     <string name="folder_sync_loading_folders">Chargement des dossiers&#8230;</string>
-    <string name="folder_sync_no_results">Aucun répertoire média trouvé.</string>
+    <string name="folder_sync_no_results">Aucun dossier média trouvé.</string>
     <string name="folder_sync_preferences">Préférences du téléversement automatique</string>
     <string name="folder_sync_settings">Paramètres</string>
     <string name="folder_sync_new_info">Le téléversement immédiat a été complètement réorganisé. Merci de bien vouloir accéder au menu principal et de reconfigurer votre téléversement automatique. Désolé pour le désagrément.\n\nProfitez des nouvelles capacités étendues du téléversement automatique !</string>
@@ -550,13 +550,13 @@ ou</string>
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Un endroit sûr pour toutes vos données</string>
-    <string name="welcome_feature_1_text">Accéder, partager, et protéger vos fichiers personnels et professionnels</string>
+    <string name="welcome_feature_1_text">Accédez, partagez et protégez vos fichiers personnels et professionnels</string>
 
     <string name="welcome_feature_2_title">Multi-compte</string>
     <string name="welcome_feature_2_text">Connecter tous vos clouds</string>
 
     <string name="welcome_feature_3_title">Téléversement immédiat</string>
-    <string name="welcome_feature_3_text">Garder vos photos en sécurité</string>
+    <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
-    <string name="whats_new_skip">Passer</string>
+    <string name="whats_new_skip">Ignorer</string>
 </resources>

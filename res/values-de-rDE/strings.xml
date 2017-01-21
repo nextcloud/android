@@ -3,7 +3,7 @@
     <string name="about_android">%1$s Android-App</string>
     <string name="about_version">Version %1$s</string>
     <string name="actionbar_sync">Konto aktualisieren</string>
-    <string name="actionbar_upload">Datei hochladen</string>
+    <string name="actionbar_upload">Hochladen</string>
     <string name="actionbar_upload_from_apps">Inhalt anderer Apps</string>
     <string name="actionbar_upload_files">Dateien</string>
     <string name="actionbar_open_with">Öffnen mit</string>
@@ -233,7 +233,7 @@
 	<string name="auth_expired_saml_sso_token_toast">Ihre Sitzung ist abgelaufen. Bitte erneut verbinden</string>
 	<string name="auth_connecting_auth_server">Verbinde mit dem Authentifizierungs-Server…</string>
 	<string name="auth_unsupported_auth_method">Der Server unterstützt diese Legitimierungsmethode nicht</string>
-	<string name="auth_unsupported_multiaccount">%1$s unterstützt mehrere Benutzerkonten nicht</string>
+	<string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
 	<string name="auth_fail_get_user_name">Ihr Server gibt keine richtige Benutzerkennung zurück, bitte kontaktieren Sie einen Administrator
 ⇥</string>
 	<string name="auth_can_not_auth_against_server">Die Authentifizierung gegenüber dem Server konnte nicht durchgeführt werden</string>
@@ -303,8 +303,8 @@
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Nur über W-Lan hochladen</string>
-    <string name="instant_upload_on_wifi">Fotos nur über WiFi hochladen</string>
-    <string name="instant_video_upload_on_wifi">Videos nur über WiFi hochladen</string>
+    <string name="instant_upload_on_wifi">Fotos nur über W-Lan hochladen</string>
+    <string name="instant_video_upload_on_wifi">Videos nur über W-Lan hochladen</string>
     <string name="instant_video_upload_on_charging">Hochladen nur während des Ladens</string>
     <string name="instant_upload_on_charging">Hochladen nur während des Ladens</string>
     <string name="instant_upload_path">/SofortUpload</string>
@@ -392,7 +392,7 @@
 	<string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
 	<string name="log_progress_dialog_text">Lade Daten &#8230;</string>
 
-	<string name="saml_authentication_required_text">Legitimierung benötigt</string>
+	<string name="saml_authentication_required_text">Authentifizierung erforderlich</string>
 	<string name="saml_authentication_wrong_pass">Falsches Passwort</string>
 	<string name="actionbar_move">Verschieben</string>
     <string name="actionbar_copy">Kopieren</string>
@@ -483,7 +483,7 @@
     <string name="edit_share_unshare">Freigabe löschen</string>
     <string name="edit_share_done">Erledigt</string>
 
-    <string name="action_retry_uploads">Wiederhole Fehlversuche</string>
+    <string name="action_retry_uploads">Wiederholung fehlgeschlagen</string>
     <string name="action_clear_failed_uploads">Entferne Fehlversuche</string>
     <string name="action_clear_successful_uploads">Entferne erfolgreiche Uploads</string>
     <string name="action_clear_finished_uploads">Alles aufräumen</string>
