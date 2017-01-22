@@ -42,7 +42,10 @@ public class StringUtils {
         StringBuffer sb = new StringBuffer();
 
         while (m.find()) {
-            String replacement = m.group().replace(m.group(), "<font color='"+ color +"'>" + m.group() + "</font>");
+            String replacement = m.group().replace(
+                    m.group(),
+                    "<font color='" + color + "'><b>" + m.group() + "</b></font>"
+            );
             m.appendReplacement(sb, Matcher.quoteReplacement(replacement));
         }
         m.appendTail(sb);
