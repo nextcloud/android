@@ -497,8 +497,8 @@
 
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser &amp; télécharger des fichiers.</string>
     <string name="local_file_not_found_toast">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
-    <string name="confirmation_remove_files_alert">Voulez-vous vraiment supprimer les objets sélectionnés?</string>
-    <string name="confirmation_remove_folders_alert">Voulez-vous vraiment supprimer les objets sélectionnés et leurs contenus?</string>
+    <string name="confirmation_remove_files_alert">Voulez-vous vraiment supprimer les éléments sélectionnés ?</string>
+    <string name="confirmation_remove_folders_alert">Voulez-vous vraiment supprimer les éléments sélectionnés et leurs contenus ?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud ; veuillez mettre à jour..</string>
