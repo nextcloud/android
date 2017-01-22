@@ -83,7 +83,7 @@
     <string name="file_list_loading">Chargement&#8230;</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
-    <string name="upload_list_empty_headline">Aucun téléversement disponible</string>
+    <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
     <string name="upload_list_empty_text">Téléversez du contenu ou activez le téléversement instantané !</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_folders">dossiers</string>
@@ -299,7 +299,7 @@
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_filetype">Image PNG</string>
     <string name="placeholder_filesize">389 Ko</string>
-    <string name="placeholder_timestamp">18/05/2012 12:23</string>
+    <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Téléverse par wifi uniquement</string>
@@ -309,8 +309,8 @@
     <string name="instant_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Conflit de fichiers</string>
-    <string name="conflict_message">Quel(s) fichier(s) voulez-vous garder ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
-    <string name="conflict_keep_both">Garder les deux versions</string>
+    <string name="conflict_message">Quels fichiers voulez-vous conserver ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
+    <string name="conflict_keep_both">Conserver les deux</string>
     <string name="conflict_use_local_version">version locale</string>
     <string name="conflict_use_server_version">version serveur</string>
     
@@ -329,7 +329,7 @@
 	<string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
 	<string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
 	<string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
-    <string name="update_link_file_no_exist">Actualisation impossible. Veuillez vérifier que ce fichier existe</string>
+    <string name="update_link_file_no_exist">Mise à jour impossible. Veuillez vérifier que ce fichier existe</string>
     <string name="update_link_file_error">Une erreur est survenue lors de la mise à jour du partage</string>
     <string name="share_link_password_title">Saisissez un mot de passe</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
@@ -372,7 +372,7 @@
     <string name="file_migration_failed_not_enough_space">ERREUR : Espace insufisant</string>
     <string name="file_migration_failed_not_writable">ERREUR : Le fichier n\'est pas modifiable</string>
     <string name="file_migration_failed_not_readable">ERREUR : Le fichier est illisible</string>
-    <string name="file_migration_failed_dir_already_exists">ERREUR : Le répertoire Nextcloud existe déjà</string>
+    <string name="file_migration_failed_dir_already_exists">ERREUR : Le dossier Nextcloud existe déjà</string>
     <string name="file_migration_failed_while_coping">ERREUR : Lors de la migration</string>
     <string name="file_migration_failed_while_updating_index">ERREUR : Lors de la mise à jour de l\'index</string>
 
@@ -396,7 +396,7 @@
 	<string name="actionbar_move">Déplacer</string>
     <string name="actionbar_copy">Copier</string>
 	<string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier !</string>
-	<string name="folder_picker_choose_button_text">Choisir</string>
+	<string name="folder_picker_choose_button_text">Sélectionner</string>
 
     <string name="move_file_not_found">Impossible de déplacer. Vérifiez que le fichier existe</string>
     <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
@@ -412,7 +412,7 @@
     <string name="forbidden_permissions_copy">de copier ce fichier</string>
 
     <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
-    <string name="prefs_category_details">Détails</string>
+    <string name="prefs_category_details">Propriétés</string>
 
 	<string name="prefs_instant_video_upload_path_title">Téléversement immédiat du dossier vidéos</string>
     <string name="sync_folder_failed_content">La synchronisation du dossier %1$s n\'a pas pu être terminée</string>
@@ -482,7 +482,7 @@
     <string name="edit_share_unshare">Terminer le partage</string>
     <string name="edit_share_done">Terminé</string>
 
-    <string name="action_retry_uploads">Nouvel essai échoué</string>
+    <string name="action_retry_uploads">Relancer les échoués</string>
     <string name="action_clear_failed_uploads">Effacer les échecs</string>
     <string name="action_clear_successful_uploads">Effacer les réussis</string>
     <string name="action_clear_finished_uploads">Effacer tous les terminés</string>
@@ -491,7 +491,7 @@
     <string name="action_switch_list_view">Affichage Liste</string>
 
     <string name="manage_space_title">Gestion de l\'espace</string>
-    <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCe processus peut prendre du temps.</string>
+    <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \\n\\nLes fichiers téléchargés ne seront pas impactés.\\n\\nCette opération peut prendre du temps.</string>
     <string name="manage_space_clear_data">Effacer les données</string>
     <string name="manage_space_error">Certains fichiers n\'ont pu être supprimés.</string>
 
@@ -518,7 +518,7 @@ ou</string>
     <string name="participate_release_candidate_text">La version « release candidate » (RC) est un instantanné de la dernière version supposée stable. Le test de votre configuration pourrait nous aider à nous assurer que cette version est entièrement stable. Inscrivez vous pour être testeur sur le Play store ou allez jeter un œil dans la section \"versions\" de F-Droid.</string>
     <string name="participate_contribute_headline">Contribuer activement</string>
     <string name="participate_contribute_irc_text">Rejoingez la discussion sur IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Aidez les autres sur le &lt;a href=\"%1$s>forum&lt;/a></string>
+    <string name="participate_contribute_forum_text">Aidez les autres sur le &lt;a href=\"%1$s\">forum&lt;/a>.</string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduisez&lt;/a> l\'application</string>
     <string name="participate_contribute_github_text">Développeurs ? Contribuez ! Plus de détails sur la page &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Déplacer vers&#8230;</string>
