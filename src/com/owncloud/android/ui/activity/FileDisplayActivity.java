@@ -76,6 +76,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -102,7 +103,7 @@ import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
-        OnEnforceableRefreshListener {
+        OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener {
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -626,11 +627,13 @@ public class FileDisplayActivity extends HookActivity
             case R.id.action_sort: {
                 Integer sortOrder = getSortOrder(this);
 
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setTitle(R.string.actionbar_sort_title)
                         .setSingleChoiceItems(R.array.menu_items_sort_by_options, sortOrder,
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
+                                        // TODO: wire new selection method
                                         switch (which) {
                                             case 0:
                                                 sortByName(true);
@@ -981,6 +984,28 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
+    @Override
+    public void onSortingOrderChosen(int selection) {
+        switch (selection) {
+            case SortingOrderDialogFragment.BY_NAME_ASC:
+                sortByName(true);
+                break;
+            case SortingOrderDialogFragment.BY_NAME_DESC:
+                sortByDate(false);
+                break;
+            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_ASC:
+                sortByDate(true);
+                break;
+            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_DESC:
+                sortByDate(false);
+                break;
+            case SortingOrderDialogFragment.BY_SIZE_ASC:
+                sortBySize(true);
+                break;
+            case SortingOrderDialogFragment.BY_SIZE_DESC:
+                sortBySize(false);
+        }
+    }
 
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
