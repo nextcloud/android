@@ -20,16 +20,17 @@
 
 package com.owncloud.android.utils;
 
+import android.support.annotation.ColorInt;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by mdjanic on 19/01/2017.
+ * Helper class for handling and manipulation of Strings.
  */
-
 public class StringUtils {
 
-    public static String searchAndColor(String text, String searchText) {
+    public static String searchAndColor(String text, String searchText,@ColorInt int color) {
 
         if (text == null) {
             return null;
@@ -45,12 +46,11 @@ public class StringUtils {
         StringBuffer sb = new StringBuffer();
 
         while (m.find()) {
-            String replacement = m.group().replace(m.group(), "<font color='red'>" + m.group() + "</font>");
+            String replacement = m.group().replace(m.group(), "<font color='"+ color +"'>" + m.group() + "</font>");
             m.appendReplacement(sb, Matcher.quoteReplacement(replacement));
         }
         m.appendTail(sb);
 
         return sb.toString();
-
     }
 }
