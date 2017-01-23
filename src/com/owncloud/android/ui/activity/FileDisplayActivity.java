@@ -96,6 +96,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.owncloud.android.R.drawable.file;
 import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
@@ -144,7 +145,7 @@ public class FileDisplayActivity extends HookActivity
     public static final String KEY_IS_SEARCH_OPEN = "IS_SEARCH_OPEN";
     public static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
 
-    private String mSearchQuery;
+    private String mSearchQuery = "";
     private boolean mSearchOpen;
 
     private SearchView mSearchView;
@@ -925,9 +926,7 @@ public class FileDisplayActivity extends HookActivity
         // mRefreshSharesInProgress);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
         outState.putBoolean(KEY_IS_SEARCH_OPEN, !mSearchView.isIconified());
-        if (mSearchQuery != null) {
-            outState.putString(KEY_SEARCH_QUERY, mSearchQuery);
-        }
+        outState.putString(KEY_SEARCH_QUERY, mSearchQuery);
 
         Log_OC.v(TAG, "onSaveInstanceState() end");
     }
@@ -1804,9 +1803,7 @@ public class FileDisplayActivity extends HookActivity
         args.putParcelable(EXTRA_FILE, file);
         args.putParcelable(EXTRA_ACCOUNT, getAccount());
         args.putBoolean(EXTRA_SEARCH, mSearchOpen);
-        if (mSearchQuery != null) {
-            args.putString(EXTRA_SEARCH_QUERY, mSearchQuery);
-        }
+        args.putString(EXTRA_SEARCH_QUERY, mSearchQuery);
         Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
                 PreviewTextFragment.class.getName(), args);
         setSecondFragment(textPreviewFragment);
