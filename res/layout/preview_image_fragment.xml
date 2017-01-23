@@ -27,41 +27,35 @@
     android:gravity="center_horizontal"
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/top"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#000000"
-    android:animateLayoutChanges="true">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.fragment.PreviewImageFragment">
 
-    <ProgressBar
-        android:id="@+id/progressWheel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminate="true"
-        android:indeterminateOnly="true"
-        android:layout_centerInParent="true"
-        />
 
     <third_parties.michaelOrtiz.TouchImageViewCustom
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/zero"
         android:layout_centerInParent="true"
+        android:layout_margin="@dimen/zero"
         android:contentDescription="@string/preview_image_description"
-        android:src="@drawable/image_fail"
-        />
+        android:src="@drawable/image_fail"/>
 
-    <TextView
-        android:id="@+id/message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/preview_image_fragment_display_text_margin"
-        android:text="@string/placeholder_sentence"
-        android:textColor="@color/owncloud_blue_bright"
-        />
+
+    <RelativeLayout
+        android:id="@+id/multi_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <include layout="@layout/empty_list"/>
+
+        </ScrollView>
+    </RelativeLayout>
+
 
 </RelativeLayout>

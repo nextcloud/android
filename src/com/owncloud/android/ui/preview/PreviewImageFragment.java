@@ -31,6 +31,8 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -41,7 +43,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -78,8 +82,14 @@ public class PreviewImageFragment extends FileFragment {
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
 
     private TouchImageViewCustom mImageView;
-    private TextView mMessageView;
-    private ProgressBar mProgressWheel;
+    private RelativeLayout mMultiView;
+
+    protected LinearLayout mMultiListContainer;
+    protected TextView mMultiListMessage;
+    protected TextView mMultiListHeadline;
+    protected ImageView mMultiListIcon;
+    protected ProgressBar mMultiListProgress;
+
 
     public Bitmap mBitmap = null;
 
@@ -169,12 +179,20 @@ public class PreviewImageFragment extends FileFragment {
             }
         });
 
-        mMessageView = (TextView)view.findViewById(R.id.message);
-        mMessageView.setVisibility(View.GONE);
-        mProgressWheel = (ProgressBar)view.findViewById(R.id.progressWheel);
-        mProgressWheel.setVisibility(View.VISIBLE);
+        mMultiView = (RelativeLayout) view.findViewById(R.id.multi_view);
+
+        setupMultiView(view);
+        setMultiListLoadingMessage();
 
         return view;
+    }
+
+    protected void setupMultiView(View view) {
+        mMultiListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
+        mMultiListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
+        mMultiListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
+        mMultiListIcon = (ImageView) view.findViewById(R.id.empty_list_icon);
+        mMultiListProgress = (ProgressBar) view.findViewById(R.id.empty_list_progress);
     }
 
     /**
@@ -214,7 +232,7 @@ public class PreviewImageFragment extends FileFragment {
     public void onStart() {
         super.onStart();
         if (getFile() != null) {
-            mLoadBitmapTask = new LoadBitmapTask(mImageView, mMessageView, mProgressWheel);
+            mLoadBitmapTask = new LoadBitmapTask(mImageView);
             //mLoadBitmapTask.execute(new String[]{getFile().getStoragePath()});
 //            mLoadBitmapTask.execute(getFile().getStoragePath());
             mLoadBitmapTask.execute(getFile());
@@ -381,28 +399,11 @@ public class PreviewImageFragment extends FileFragment {
 
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
-         *
+         * <p>
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from
          * memory before the load finishes.
          */
         private final WeakReference<ImageViewCustom> mImageViewRef;
-
-        /**
-         * Weak reference to the target {@link TextView} where error messages will be written.
-         *
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
-         * memory before the load finishes.
-         */
-        private final WeakReference<TextView> mMessageViewRef;
-
-
-        /**
-         * Weak reference to the target {@link ProgressBar} shown while the load is in progress.
-         * 
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
-         * memory before the load finishes.
-         */
-        private final WeakReference<ProgressBar> mProgressWheelRef;
 
 
         /**
@@ -416,11 +417,8 @@ public class PreviewImageFragment extends FileFragment {
          *
          * @param imageView Target {@link ImageView} where the bitmap will be loaded into.
          */
-        public LoadBitmapTask(ImageViewCustom imageView, TextView messageView,
-                              ProgressBar progressWheel) {
+        public LoadBitmapTask(ImageViewCustom imageView) {
             mImageViewRef = new WeakReference<ImageViewCustom>(imageView);
-            mMessageViewRef = new WeakReference<TextView>(messageView);
-            mProgressWheelRef = new WeakReference<ProgressBar>(progressWheel);
         }
 
         @Override
@@ -502,14 +500,12 @@ public class PreviewImageFragment extends FileFragment {
 
         @Override
         protected void onPostExecute(LoadImage result) {
-            hideProgressWheel();
             if (result.bitmap != null) {
                 showLoadedImage(result);
-            }
-            else {
+            } else {
                 showErrorMessage();
             }
-            if (result.bitmap != null && mBitmap != result.bitmap)  {
+            if (result.bitmap != null && mBitmap != result.bitmap) {
                 // unused bitmap, release it! (just in case)
                 result.bitmap.recycle();
             }
@@ -546,36 +542,40 @@ public class PreviewImageFragment extends FileFragment {
                 }
 
                 imageView.setVisibility(View.VISIBLE);
-                mBitmap  = bitmap;  // needs to be kept for recycling when not useful
+                mBitmap = bitmap;  // needs to be kept for recycling when not useful
             }
 
-            final TextView messageView = mMessageViewRef.get();
-            if (messageView != null) {
-                messageView.setVisibility(View.GONE);
-            } // else , silently finish, the fragment was destroyed
+            mMultiView.setVisibility(View.GONE);
+            mImageView.setVisibility(View.VISIBLE);
+
         }
 
         private void showErrorMessage() {
-            final ImageView imageView = mImageViewRef.get();
-            if (imageView != null) {
-                // shows the default error icon
-                imageView.setVisibility(View.VISIBLE);
-            } // else , silently finish, the fragment was destroyed
-
-            final TextView messageView = mMessageViewRef.get();
-            if (messageView != null) {
-                messageView.setText(mErrorMessageId);
-                messageView.setVisibility(View.VISIBLE);
-            } // else , silently finish, the fragment was destroyed
-        }
-
-        private void hideProgressWheel() {
-            final ProgressBar progressWheel = mProgressWheelRef.get();
-            if (progressWheel != null) {
-                progressWheel.setVisibility(View.GONE);
+            if (getActivity() != null && (getActivity() instanceof PreviewImageActivity)) {
+                ((PreviewImageActivity) getActivity()).toggleFullScreen();
             }
+            setMessageForMultiList(mErrorMessageId, R.drawable.file_image);
         }
+    }
 
+    private void setMultiListLoadingMessage() {
+        if (mMultiView != null) {
+            mMultiListHeadline.setText(R.string.file_list_loading);
+            mMultiListMessage.setText("");
+
+            mMultiListIcon.setVisibility(View.GONE);
+            mMultiListProgress.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void setMessageForMultiList(@StringRes int headline, @DrawableRes int icon) {
+        if (mMultiListContainer != null && mMultiListMessage != null) {
+            mMultiListHeadline.setText(headline);
+            mMultiListIcon.setImageResource(icon);
+
+            mMultiListIcon.setVisibility(View.VISIBLE);
+            mMultiListProgress.setVisibility(View.GONE);
+        }
     }
 
     /**
