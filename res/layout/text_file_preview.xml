@@ -21,11 +21,31 @@
             android:layout_height="match_parent"
             android:fillViewport="true">
 
-    <TextView
-        android:id="@+id/text_preview"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/standard_padding"
-        android:textIsSelectable="true"
-        android:visibility="gone"/>
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/text_preview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/standard_padding"
+            android:textIsSelectable="true"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:id="@+id/multi_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <include layout="@layout/empty_list"/>
+
+            </ScrollView>
+        </RelativeLayout>
+    </RelativeLayout>
+
 </ScrollView>
