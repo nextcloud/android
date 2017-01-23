@@ -88,7 +88,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
     protected ProgressBar mMultiListProgress;
 
 
-    private String mSearchQuery;
+    private String mSearchQuery = "";
     private boolean mSearchOpen;
 
     /**
@@ -212,6 +212,18 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        performSearch(query, 0);
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(final String newText) {
+        performSearch(newText, 500);
+        return true;
+    }
+
+
+    private void performSearch(final String query, int delay) {
         mHandler.removeCallbacksAndMessages(null);
 
         if (mOriginalText != null) {
@@ -219,47 +231,26 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                 FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
                 fileDisplayActivity.setSearchQuery(query);
             }
-            if (query != null && !query.isEmpty()) {
-                String coloredText = StringUtils.searchAndColor(mOriginalText, query,
-                        getContext().getResources().getColor(R.color.primary));
-                mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
-            } else {
-                mTextPreview.setText(mOriginalText);
-            }
-        }
-
-        if (mSearchView != null) {
-            mSearchView.clearFocus();
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextChange(final String newText) {
-        mHandler.removeCallbacksAndMessages(null);
-
-        if (mOriginalText != null) {
-            if (getActivity().getClass().equals(FileDisplayActivity.class)) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
-                fileDisplayActivity.setSearchQuery(newText);
-            }
             mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if (newText != null && !newText.isEmpty()) {
-                        String coloredText = StringUtils.searchAndColor(mOriginalText, newText,
+                    if (query != null && !query.isEmpty()) {
+                        String coloredText = StringUtils.searchAndColor(mOriginalText, query,
                                 getContext().getResources().getColor(R.color.primary));
                         mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
                     } else {
                         mTextPreview.setText(mOriginalText);
                     }
                 }
-            }, 500);
+            }, delay);
         }
-        return true;
-    }
 
+        if (delay == 0) {
+            if (mSearchView != null) {
+                mSearchView.clearFocus();
+            }
+        }
+    }
 
     /**
      * Reads the file to preview and shows its contents. Too critical to be anonymous.
@@ -325,10 +316,10 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
             final TextView textView = mTextViewReference.get();
 
             if (textView != null) {
-                mOriginalText = new String(stringWriter.getBuffer());
+                mOriginalText = stringWriter.toString();
                 mSearchView.setOnQueryTextListener(PreviewTextFragment.this);
                 textView.setText(mOriginalText);
-                if (mSearchQuery != null && mSearchOpen) {
+                if (mSearchOpen) {
                     mSearchView.setQuery(mSearchQuery, true);
                 }
                 textView.setVisibility(View.VISIBLE);
@@ -355,9 +346,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         mSearchView = (SearchView) MenuItemCompat.getActionView(menuItem);
 
         if (mSearchOpen) {
-            if (mSearchQuery != null) {
-                mSearchView.setQuery(mSearchQuery, false);
-            }
+            mSearchView.setQuery(mSearchQuery, false);
             mSearchView.setIconified(false);
             mSearchView.clearFocus();
         }
