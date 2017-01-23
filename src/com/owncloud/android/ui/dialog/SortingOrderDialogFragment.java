@@ -32,7 +32,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.owncloud.android.R;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
@@ -60,6 +59,8 @@ public class SortingOrderDialogFragment extends DialogFragment {
     private ImageButton mSortByModificationDateAscendingButton = null;
     private ImageButton mSortByModificationDateDescendingButton = null;
 
+    private int mSortOrder;
+    private boolean mSortAscending;
 
     public static SortingOrderDialogFragment newInstance(int sortOrder, boolean ascending) {
         SortingOrderDialogFragment dialogFragment = new SortingOrderDialogFragment();
@@ -81,6 +82,9 @@ public class SortingOrderDialogFragment extends DialogFragment {
         setRetainInstance(true);
 
         mView = null;
+
+        mSortOrder = getArguments().getInt(KEY_SORT_ORDER, BY_NAME_ASC);
+        mSortAscending = getArguments().getBoolean(KEY_ASCENDING, true);
     }
 
     @Override
@@ -91,8 +95,6 @@ public class SortingOrderDialogFragment extends DialogFragment {
 
         setupDialogElements(mView);
         setupListeners(mView);
-
-        getDialog().setTitle(R.string.actionbar_sort_title);
 
         return mView;
     }
@@ -118,23 +120,15 @@ public class SortingOrderDialogFragment extends DialogFragment {
         mSortBySizeAscendingButton.setTag(BY_SIZE_ASC);
         mSortBySizeDescendingButton.setTag(BY_SIZE_DESC);
 
-        OnSortingOrderClickListener sortingClickListener = new OnSortingOrderClickListener();
-        mSortByNameAscendingButton.setOnClickListener(sortingClickListener);
-        mSortByNameDescendingButton.setOnClickListener(sortingClickListener);
-        mSortByModificationDateAscendingButton.setOnClickListener(sortingClickListener);
-        mSortByModificationDateDescendingButton.setOnClickListener(sortingClickListener);
-        mSortBySizeAscendingButton.setOnClickListener(sortingClickListener);
-        mSortBySizeDescendingButton.setOnClickListener(sortingClickListener);
-
         setupActiveOrderSelection();
     }
 
+    /**
+     * tints the icon reflecting the actual sorting choice in the apps primary color.
+     */
     private void setupActiveOrderSelection() {
-        int sortCriteria = PreferenceManager.getSortOrder(getContext());
-        boolean sortAscending = PreferenceManager.getSortAscending(getContext());
-
-        if (sortAscending) {
-            switch (sortCriteria) {
+        if (mSortAscending) {
+            switch (mSortOrder) {
                 case 0:
                     setActiveState(mSortByNameAscendingButton);
                     break;
@@ -149,7 +143,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
                     break;
             }
         } else {
-            switch (sortCriteria) {
+            switch (mSortOrder) {
                 case 0:
                     setActiveState(mSortByNameDescendingButton);
                     break;
@@ -166,6 +160,11 @@ public class SortingOrderDialogFragment extends DialogFragment {
         }
     }
 
+    /**
+     * tints a given ImageButton's drawable in the app's primary color.
+     *
+     * @param imageButton the image button to tint
+     */
     private void setActiveState(ImageButton imageButton) {
         imageButton.setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
     }
@@ -182,6 +181,14 @@ public class SortingOrderDialogFragment extends DialogFragment {
                 dismiss();
             }
         });
+
+        OnSortingOrderClickListener sortingClickListener = new OnSortingOrderClickListener();
+        mSortByNameAscendingButton.setOnClickListener(sortingClickListener);
+        mSortByNameDescendingButton.setOnClickListener(sortingClickListener);
+        mSortByModificationDateAscendingButton.setOnClickListener(sortingClickListener);
+        mSortByModificationDateDescendingButton.setOnClickListener(sortingClickListener);
+        mSortBySizeAscendingButton.setOnClickListener(sortingClickListener);
+        mSortBySizeDescendingButton.setOnClickListener(sortingClickListener);
     }
 
     @Override
