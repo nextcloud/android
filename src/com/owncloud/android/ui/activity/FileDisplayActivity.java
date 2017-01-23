@@ -602,12 +602,9 @@ public class FileDisplayActivity extends HookActivity
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_create_dir).setVisible(false);
 
-        MenuItem searchMenuItem = menu.findItem(R.id.action_search);
-        mSearchView = (SearchView) MenuItemCompat.getActionView(searchMenuItem);
-        searchMenuItem.setVisible(false);
-
         // populate list of menu items to show/hide when drawer is opened/closed
-        mDrawerMenuItemstoShowHideList = new ArrayList<>(3);
+        mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
+        mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_search));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sync_account));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
@@ -925,7 +922,9 @@ public class FileDisplayActivity extends HookActivity
         //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS,
         // mRefreshSharesInProgress);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
-        outState.putBoolean(KEY_IS_SEARCH_OPEN, !mSearchView.isIconified());
+        if (mSearchView != null) {
+            outState.putBoolean(KEY_IS_SEARCH_OPEN, !mSearchView.isIconified());
+        }
         outState.putString(KEY_SEARCH_QUERY, mSearchQuery);
 
         Log_OC.v(TAG, "onSaveInstanceState() end");
@@ -1910,4 +1909,5 @@ public class FileDisplayActivity extends HookActivity
     public void setSearchQuery(String query) {
         mSearchQuery = query;
     }
+
 }
