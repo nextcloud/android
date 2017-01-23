@@ -21,6 +21,7 @@
 package com.owncloud.android.utils;
 
 import android.support.annotation.ColorInt;
+import android.text.TextUtils;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -36,7 +37,7 @@ public class StringUtils {
             return null;
         }
 
-        if (text.isEmpty() || searchText == null || searchText.isEmpty() || searchText.equals("\n")) {
+        if (TextUtils.isEmpty(text) || TextUtils.isEmpty(searchText)) {
             return text;
         }
 
