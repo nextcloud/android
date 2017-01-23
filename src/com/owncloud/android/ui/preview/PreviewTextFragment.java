@@ -22,15 +22,16 @@ package com.owncloud.android.ui.preview;
 import android.accounts.Account;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -39,7 +40,6 @@ import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -62,6 +62,15 @@ public class PreviewTextFragment extends FileFragment {
     private Account mAccount;
     private TextView mTextPreview;
     private TextLoadAsyncTask mTextLoadTask;
+
+    private RelativeLayout mMultiView;
+
+    protected LinearLayout mMultiListContainer;
+    protected TextView mMultiListMessage;
+    protected TextView mMultiListHeadline;
+    protected ImageView mMultiListIcon;
+    protected ProgressBar mMultiListProgress;
+
 
     /**
      * Creates an empty fragment for previews.
@@ -91,8 +100,32 @@ public class PreviewTextFragment extends FileFragment {
 
         mTextPreview = (TextView) ret.findViewById(R.id.text_preview);
 
+        mMultiView = (RelativeLayout) ret.findViewById(R.id.multi_view);
+
+        setupMultiView(ret);
+        setMultiListLoadingMessage();
+
         return ret;
     }
+
+    protected void setupMultiView(View view) {
+        mMultiListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
+        mMultiListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
+        mMultiListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
+        mMultiListIcon = (ImageView) view.findViewById(R.id.empty_list_icon);
+        mMultiListProgress = (ProgressBar) view.findViewById(R.id.empty_list_progress);
+    }
+
+    private void setMultiListLoadingMessage() {
+        if (mMultiView != null) {
+            mMultiListHeadline.setText(R.string.file_list_loading);
+            mMultiListMessage.setText("");
+
+            mMultiListIcon.setVisibility(View.GONE);
+            mMultiListProgress.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     /**
      * {@inheritDoc}
@@ -166,7 +199,6 @@ public class PreviewTextFragment extends FileFragment {
 
         @Override
         protected void onPreExecute() {
-            showLoadingDialog();
         }
 
         @Override
@@ -222,39 +254,12 @@ public class PreviewTextFragment extends FileFragment {
                 textView.setVisibility(View.VISIBLE);
             }
 
-            dismissLoadingDialog();
-        }
-
-        /**
-         * Show loading dialog
-         */
-        public void showLoadingDialog() {
-            // only once
-            Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
-            LoadingDialog loading = null;
-            if (frag == null) {
-                // Construct dialog
-                loading = new LoadingDialog(getResources().getString(R.string.wait_a_moment));
-                FragmentManager fm = getActivity().getSupportFragmentManager();
-                FragmentTransaction ft = fm.beginTransaction();
-                loading.show(ft, DIALOG_WAIT_TAG);
-            } else {
-                loading = (LoadingDialog) frag;
-                loading.setShowsDialog(true);
+            if (mMultiView != null) {
+                mMultiView.setVisibility(View.GONE);
             }
 
         }
 
-        /**
-         * Dismiss loading dialog
-         */
-        public void dismissLoadingDialog() {
-            final Fragment frag = getActivity().getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
-            if (frag != null) {
-                LoadingDialog loading = (LoadingDialog) frag;
-                loading.dismissAllowingStateLoss();
-            }
-        }
     }
 
     /**
@@ -409,7 +414,6 @@ public class PreviewTextFragment extends FileFragment {
         Log_OC.e(TAG, "onStop");
         if (mTextLoadTask != null) {
             mTextLoadTask.cancel(Boolean.TRUE);
-            mTextLoadTask.dismissLoadingDialog();
         }
     }
 
