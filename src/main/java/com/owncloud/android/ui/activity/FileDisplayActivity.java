@@ -100,6 +100,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.owncloud.android.db.PreferenceManager.getSortAscending;
 import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
@@ -123,6 +124,8 @@ public class FileDisplayActivity extends HookActivity
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
     private static final String KEY_SEARCH_QUERY = "KEY_SEARCH_QUERY";
+
+    private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
 
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
@@ -701,30 +704,16 @@ public class FileDisplayActivity extends HookActivity
                 break;
             }
             case R.id.action_sort: {
-                Integer sortOrder = getSortOrder(this);
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.addToBackStack(null);
 
+                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
+                        getSortOrder(this),
+                        getSortAscending(this)
+                );
+                mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.actionbar_sort_title)
-                        .setSingleChoiceItems(R.array.menu_items_sort_by_options, sortOrder,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        // TODO: wire new selection method
-                                        switch (which) {
-                                            case 0:
-                                                sortByName(true);
-                                                break;
-                                            case 1:
-                                                sortByDate(false);
-                                                break;
-                                            case 2:
-                                                sortBySize(false);
-                                        }
-
-                                        dialog.dismiss();
-                                    }
-                                });
-                builder.create().show();
                 break;
             }
             case R.id.action_switch_view: {
