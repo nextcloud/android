@@ -554,7 +554,7 @@ public class PreviewImageFragment extends FileFragment {
             if (getActivity() != null && (getActivity() instanceof PreviewImageActivity)) {
                 ((PreviewImageActivity) getActivity()).toggleFullScreen();
             }
-            setMessageForMultiList(mErrorMessageId, R.drawable.file_image);
+            setMessageForMultiList(mErrorMessageId, R.string.preview_sorry, R.drawable.file_image);
         }
     }
 
@@ -568,9 +568,10 @@ public class PreviewImageFragment extends FileFragment {
         }
     }
 
-    public void setMessageForMultiList(@StringRes int headline, @DrawableRes int icon) {
+    public void setMessageForMultiList(@StringRes int headline, @StringRes int message, @DrawableRes int icon) {
         if (mMultiListContainer != null && mMultiListMessage != null) {
             mMultiListHeadline.setText(headline);
+            mMultiListMessage.setText(message);
             mMultiListIcon.setImageResource(icon);
 
             mMultiListIcon.setVisibility(View.VISIBLE);
