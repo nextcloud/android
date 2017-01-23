@@ -25,6 +25,13 @@
               android:orientation="vertical"
               android:padding="@dimen/standard_padding">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Base.DialogWindowTitle.AppCompat"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:text="Sort by" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,7 +44,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_half_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:layout_weight="1"
             android:ellipsize="middle"
@@ -78,7 +84,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_half_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:layout_weight="1"
             android:ellipsize="middle"
@@ -119,7 +124,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginLeft="@dimen/standard_half_margin"
             android:layout_marginTop="@dimen/standard_half_margin"
             android:layout_weight="1"
             android:ellipsize="middle"
