@@ -43,6 +43,7 @@ import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
@@ -318,6 +319,17 @@ public class DisplayUtils {
     public static void colorPreLollipopHorizontalProgressBar(ProgressBar progressBar) {
         if (progressBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             colorHorizontalProgressBar(progressBar, progressBar.getResources().getColor(R.color.color_accent));
+        }
+    }
+
+    /**
+     * sets the tinting of the given ImageButton's icon to color_accent.
+     *
+     * @param imageButton the image button who's icon should be colored
+     */
+    public static void colorImageButton(ImageButton imageButton) {
+        if (imageButton != null) {
+            imageButton.setColorFilter(imageButton.getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
         }
     }
 
