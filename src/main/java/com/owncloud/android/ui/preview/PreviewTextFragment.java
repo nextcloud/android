@@ -245,10 +245,8 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
             }, delay);
         }
 
-        if (delay == 0) {
-            if (mSearchView != null) {
-                mSearchView.clearFocus();
-            }
+        if (delay == 0 && mSearchView != null) {
+            mSearchView.clearFocus();
         }
     }
 
