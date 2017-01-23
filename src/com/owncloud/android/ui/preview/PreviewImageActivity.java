@@ -28,9 +28,7 @@ import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -104,8 +102,6 @@ public class PreviewImageActivity extends FileActivity implements
         // ActionBar
         ActionBar actionBar = getSupportActionBar();
         updateActionBarTitleAndHomeButton(null);
-        actionBar.hide();
-
 
         mFullScreenAnchorView = getWindow().getDecorView();
         // to keep our UI controls visibility in line with system bars visibility
@@ -164,43 +160,7 @@ public class PreviewImageActivity extends FileActivity implements
             mRequestWaitingForBinder = true;
         }
     }
-    
-    
-    protected void onPostCreate(Bundle savedInstanceState)  {
-        super.onPostCreate(savedInstanceState);
-        
-        // Trigger the initial hide() shortly after the activity has been 
-        // created, to briefly hint to the user that UI controls 
-        // are available
-        delayedHide(INITIAL_HIDE_DELAY);
-        
-    }
-    
-    Handler mHideSystemUiHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            hideSystemUI(mFullScreenAnchorView);
-            getSupportActionBar().hide();
-        }
-    };
-    
-    private void delayedHide(int delayMillis)   {
-        mHideSystemUiHandler.removeMessages(0);
-        mHideSystemUiHandler.sendEmptyMessageDelayed(0, delayMillis);
-    }
-    
-    /// handle Window Focus changes
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        
-        // When the window loses focus (e.g. the action overflow is shown),
-        // cancel any pending hide action.
-        if (!hasFocus) {
-            mHideSystemUiHandler.removeMessages(0);
-        }
-    }
-    
+
     @Override
     public void onStart() {
         super.onStart();
