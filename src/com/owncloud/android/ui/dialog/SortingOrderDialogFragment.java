@@ -22,7 +22,6 @@
 package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -33,6 +32,7 @@ import android.widget.ImageButton;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * Dialog to show and choose the sorting order for the file listing.
@@ -130,13 +130,13 @@ public class SortingOrderDialogFragment extends DialogFragment {
         if (mSortAscending) {
             switch (mSortOrder) {
                 case 0:
-                    setActiveState(mSortByNameAscendingButton);
+                    DisplayUtils.colorImageButton(mSortByNameAscendingButton);
                     break;
                 case 1:
-                    setActiveState(mSortByModificationDateAscendingButton);
+                    DisplayUtils.colorImageButton(mSortByModificationDateAscendingButton);
                     break;
                 case 2:
-                    setActiveState(mSortBySizeAscendingButton);
+                    DisplayUtils.colorImageButton(mSortBySizeAscendingButton);
                     break;
                 default: //do nothing
                     Log_OC.w(TAG, "Unknown sort criteria!");
@@ -145,28 +145,19 @@ public class SortingOrderDialogFragment extends DialogFragment {
         } else {
             switch (mSortOrder) {
                 case 0:
-                    setActiveState(mSortByNameDescendingButton);
+                    DisplayUtils.colorImageButton(mSortByNameDescendingButton);
                     break;
                 case 1:
-                    setActiveState(mSortByModificationDateDescendingButton);
+                    DisplayUtils.colorImageButton(mSortByModificationDateDescendingButton);
                     break;
                 case 2:
-                    setActiveState(mSortBySizeDescendingButton);
+                    DisplayUtils.colorImageButton(mSortBySizeDescendingButton);
                     break;
                 default: //do nothing
                     Log_OC.w(TAG, "Unknown sort criteria!");
                     break;
             }
         }
-    }
-
-    /**
-     * tints a given ImageButton's drawable in the app's primary color.
-     *
-     * @param imageButton the image button to tint
-     */
-    private void setActiveState(ImageButton imageButton) {
-        imageButton.setColorFilter(getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
     }
 
     /**
