@@ -23,7 +23,6 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.res.Configuration;
@@ -37,7 +36,8 @@ import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v7.app.AlertDialog;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,6 +47,10 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -69,7 +73,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
  *
  * Trying to get an instance with NULL {@link OCFile} or ownCloud {@link Account} values will
  * produce an {@link IllegalStateException}.
- * 
+ *
  * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is
  * generated on instantiation too.
  */
@@ -86,6 +90,15 @@ public class PreviewMediaFragment extends FileFragment implements
     private ImageView mImagePreview;
     private VideoView mVideoPreview;
     private int mSavedPlaybackPosition;
+
+    private RelativeLayout mMultiView;
+    private RelativeLayout mPreviewContainer;
+
+    protected LinearLayout mMultiListContainer;
+    protected TextView mMultiListMessage;
+    protected TextView mMultiListHeadline;
+    protected ImageView mMultiListIcon;
+    protected ProgressBar mMultiListProgress;
 
     private MediaServiceBinder mMediaServiceBinder = null;
     private MediaControlView mMediaController = null;
@@ -156,13 +169,47 @@ public class PreviewMediaFragment extends FileFragment implements
 
         mView = inflater.inflate(R.layout.file_preview, container, false);
 
+        mPreviewContainer = (RelativeLayout) mView.findViewById(R.id.file_preview_container);
         mImagePreview = (ImageView) mView.findViewById(R.id.image_preview);
         mVideoPreview = (VideoView) mView.findViewById(R.id.video_preview);
         mVideoPreview.setOnTouchListener(this);
 
         mMediaController = (MediaControlView) mView.findViewById(R.id.media_controller);
+        mMultiView = (RelativeLayout) mView.findViewById(R.id.multi_view);
 
+        setupMultiView(mView);
+        setMultiListLoadingMessage();
         return mView;
+    }
+
+
+    protected void setupMultiView(View view) {
+        mMultiListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
+        mMultiListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
+        mMultiListHeadline = (TextView) view.findViewById(R.id.empty_list_view_headline);
+        mMultiListIcon = (ImageView) view.findViewById(R.id.empty_list_icon);
+        mMultiListProgress = (ProgressBar) view.findViewById(R.id.empty_list_progress);
+    }
+
+    private void setMultiListLoadingMessage() {
+        if (mMultiView != null) {
+            mMultiListHeadline.setText(R.string.file_list_loading);
+            mMultiListMessage.setText("");
+
+            mMultiListIcon.setVisibility(View.GONE);
+            mMultiListProgress.setVisibility(View.VISIBLE);
+        }
+    }
+
+    public void setMessageForMultiList(String headline, @StringRes int message, @DrawableRes int icon) {
+        if (mMultiListContainer != null && mMultiListMessage != null) {
+            mMultiListHeadline.setText(headline);
+            mMultiListMessage.setText(message);
+            mMultiListIcon.setImageResource(icon);
+
+            mMultiListIcon.setVisibility(View.VISIBLE);
+            mMultiListProgress.setVisibility(View.GONE);
+        }
     }
 
 
@@ -196,6 +243,7 @@ public class PreviewMediaFragment extends FileFragment implements
             mAutoplay = savedInstanceState.getBoolean(PreviewMediaFragment.EXTRA_PLAYING);
 
         }
+
         if (file != null && file.isDown()) {
             if (MimeTypeUtil.isVideo(file)) {
                 mVideoPreview.setVisibility(View.VISIBLE);
@@ -447,6 +495,8 @@ public class PreviewMediaFragment extends FileFragment implements
         @Override
         public void onPrepared(MediaPlayer vp) {
             Log_OC.v(TAG, "onPrepared");
+            mMultiView.setVisibility(View.GONE);
+            mPreviewContainer.setVisibility(View.VISIBLE);
             mVideoPreview.seekTo(mSavedPlaybackPosition);
             if (mAutoplay) {
                 mVideoPreview.start();
@@ -484,20 +534,12 @@ public class PreviewMediaFragment extends FileFragment implements
         @Override
         public boolean onError(MediaPlayer mp, int what, int extra) {
             Log_OC.e(TAG, "Error in video playback, what = " + what + ", extra = " + extra);
+            mPreviewContainer.setVisibility(View.GONE);
             if (mVideoPreview.getWindowToken() != null) {
                 String message = MediaService.getMessageForMediaError(
                         getActivity(), what, extra);
-                new AlertDialog.Builder(getActivity())
-                        .setMessage(message)
-                        .setPositiveButton(android.R.string.VideoView_error_button,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int whichButton) {
-                                        dialog.dismiss();
-                                        VideoHelper.this.onCompletion(null);
-                                    }
-                                })
-                        .setCancelable(false)
-                        .show();
+                mMultiView.setVisibility(View.VISIBLE);
+                setMessageForMultiList(message, R.string.preview_sorry, R.drawable.file_movie);
             }
             return true;
         }
@@ -548,7 +590,7 @@ public class PreviewMediaFragment extends FileFragment implements
             if (event.getX() / Resources.getSystem().getDisplayMetrics().density > 24.0) {
                 startFullScreenVideo();
             }
-            return true;        
+            return true;
         }
         return false;
     }
@@ -604,11 +646,11 @@ public class PreviewMediaFragment extends FileFragment implements
         }
         getActivity().bindService(  new Intent(getActivity(),
                                     MediaService.class),
-                                    mMediaServiceConnection, 
+                                    mMediaServiceConnection,
                                     Context.BIND_AUTO_CREATE);
             // follow the flow in MediaServiceConnection#onServiceConnected(...)
     }
-    
+
     /** Defines callbacks for service binding, passed to bindService() */
     private class MediaServiceConnection implements ServiceConnection {
 
@@ -649,7 +691,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 else {
                     Toast.makeText(
                             getActivity(),
-                            "No media controller to release when disconnected from media service", 
+                            "No media controller to release when disconnected from media service",
                             Toast.LENGTH_SHORT).show();
                 }
                 mMediaServiceBinder = null;
