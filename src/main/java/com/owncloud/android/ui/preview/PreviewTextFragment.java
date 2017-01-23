@@ -235,9 +235,11 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                 @Override
                 public void run() {
                     if (query != null && !query.isEmpty()) {
-                        String coloredText = StringUtils.searchAndColor(mOriginalText, query,
-                                getContext().getResources().getColor(R.color.primary));
-                        mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
+                        if (getContext() != null && getContext().getResources() != null) {
+                            String coloredText = StringUtils.searchAndColor(mOriginalText, query,
+                                    getContext().getResources().getColor(R.color.primary));
+                            mTextPreview.setText(Html.fromHtml(coloredText.replace("\n", "<br \\>")));
+                        }
                     } else {
                         mTextPreview.setText(mOriginalText);
                     }
