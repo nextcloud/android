@@ -42,6 +42,9 @@ public class SortingOrderDialogFragment extends DialogFragment {
 
     private final static String TAG = SortingOrderDialogFragment.class.getSimpleName();
 
+    private static final String KEY_SORT_ORDER = "SORT_ORDER";
+    private static final String KEY_ASCENDING = "ASCENDING";
+
     public static final int BY_NAME_ASC = 0;
     public static final int BY_NAME_DESC = 1;
     public static final int BY_MODIFICATION_DATE_ASC = 2;
@@ -58,8 +61,13 @@ public class SortingOrderDialogFragment extends DialogFragment {
     private ImageButton mSortByModificationDateDescendingButton = null;
 
 
-    public static SortingOrderDialogFragment newInstance() {
+    public static SortingOrderDialogFragment newInstance(int sortOrder, boolean ascending) {
         SortingOrderDialogFragment dialogFragment = new SortingOrderDialogFragment();
+
+        Bundle args = new Bundle();
+        args.putInt(KEY_SORT_ORDER, sortOrder);
+        args.putBoolean(KEY_ASCENDING, ascending);
+        dialogFragment.setArguments(args);
 
         dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog);
 
@@ -83,6 +91,8 @@ public class SortingOrderDialogFragment extends DialogFragment {
 
         setupDialogElements(mView);
         setupListeners(mView);
+
+        getDialog().setTitle(R.string.actionbar_sort_title);
 
         return mView;
     }
@@ -177,9 +187,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        final Dialog dialog = super.onCreateDialog(savedInstanceState);
-        dialog.setTitle(R.string.actionbar_sort_title);
-        return dialog;
+        return super.onCreateDialog(savedInstanceState);
     }
 
     @Override
@@ -194,8 +202,8 @@ public class SortingOrderDialogFragment extends DialogFragment {
     private class OnSortingOrderClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            dismiss();
-            ((SortingOrderDialogFragment.OnSortingOrderListener) getActivity()).onSortingOrderChosen(0);
+            dismissAllowingStateLoss();
+            ((SortingOrderDialogFragment.OnSortingOrderListener) getActivity()).onSortingOrderChosen((int) v.getTag());
         }
     }
 
