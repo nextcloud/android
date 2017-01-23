@@ -1072,7 +1072,7 @@ public class FileDisplayActivity extends HookActivity
                 sortByName(true);
                 break;
             case SortingOrderDialogFragment.BY_NAME_DESC:
-                sortByDate(false);
+                sortByName(false);
                 break;
             case SortingOrderDialogFragment.BY_MODIFICATION_DATE_ASC:
                 sortByDate(true);
