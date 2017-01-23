@@ -1004,6 +1004,11 @@ public class FileDisplayActivity extends HookActivity
                 break;
             case SortingOrderDialogFragment.BY_SIZE_DESC:
                 sortBySize(false);
+                break;
+            default: // defaulting to alphabetical-ascending
+                Log_OC.w(TAG, "Unknown sort order, defaulting to alphabetical-ascending!");
+                sortByName(true);
+                break;
         }
     }
 
