@@ -168,7 +168,9 @@ public class PreviewImageFragment extends FileFragment {
         view.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((PreviewImageActivity) getActivity()).toggleFullScreen();
+                if (getActivity() != null && (getActivity() instanceof PreviewImageActivity)) {
+                    ((PreviewImageActivity) getActivity()).toggleFullScreen();
+                }
             }
         });
 
@@ -551,9 +553,6 @@ public class PreviewImageFragment extends FileFragment {
         }
 
         private void showErrorMessage() {
-            if (getActivity() != null && (getActivity() instanceof PreviewImageActivity)) {
-                ((PreviewImageActivity) getActivity()).toggleFullScreen();
-            }
             setMessageForMultiList(mErrorMessageId, R.string.preview_sorry, R.drawable.file_image);
         }
     }
