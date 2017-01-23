@@ -133,6 +133,10 @@ public class SortingOrderDialogFragment extends DialogFragment {
                     break;
                 case 2:
                     setActiveState(mSortBySizeAscendingButton);
+                    break;
+                default: //do nothing
+                    Log_OC.w(TAG, "Unknown sort criteria!");
+                    break;
             }
         } else {
             switch (sortCriteria) {
@@ -144,6 +148,10 @@ public class SortingOrderDialogFragment extends DialogFragment {
                     break;
                 case 2:
                     setActiveState(mSortBySizeDescendingButton);
+                    break;
+                default: //do nothing
+                    Log_OC.w(TAG, "Unknown sort criteria!");
+                    break;
             }
         }
     }
