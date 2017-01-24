@@ -423,6 +423,10 @@ public class PreviewImageActivity extends FileActivity implements
 
     }
 
+    public boolean getSystemUIVisible() {
+        return (mFullScreenAnchorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+    }
+
     @SuppressLint("InlinedApi")
     public void toggleFullScreen() {
 
