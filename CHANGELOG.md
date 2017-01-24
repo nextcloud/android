@@ -1,4 +1,4 @@
-## 1.4.1 (January, 2017)
+## 1.4.1 (January 27, 2017)
 - Share URLs to Nextcloud
 - Improve performance of Auto Upload view
 - Fix for removing files
