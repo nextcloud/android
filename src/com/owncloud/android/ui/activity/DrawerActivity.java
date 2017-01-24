@@ -48,10 +48,12 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.Quota;
+import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.users.RemoteGetUserQuotaOperation;
+import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.utils.DisplayUtils;
 
@@ -620,13 +622,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         Thread t = new Thread(new Runnable() {
             public void run() {
 
-                RemoteOperation getQuotaInfoOperation = new RemoteGetUserQuotaOperation();
+                RemoteOperation getQuotaInfoOperation = new GetRemoteUserInfoOperation();
                 RemoteOperationResult result = getQuotaInfoOperation.execute(
                         AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this), DrawerActivity.this);
 
                 if (result.isSuccess() && result.getData() != null) {
-                    final RemoteGetUserQuotaOperation.Quota quota =
-                            (RemoteGetUserQuotaOperation.Quota) result.getData().get(0);
+                    final UserInfo userInfo = (UserInfo) result.getData().get(0);
+                    final Quota quota = userInfo.getQuota();
 
                     final long used = quota.getUsed();
                     final long total = quota.getTotal();
@@ -637,7 +639,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         @Override
                         public void run() {
                             if (quotaValue > 0
-                                    || quotaValue == RemoteGetUserQuotaOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
+                                    || quotaValue == GetRemoteUserInfoOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
                                 /**
                                  * show quota in case
                                  * it is available and calculated (> 0) or
