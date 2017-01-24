@@ -33,10 +33,6 @@ public class StringUtils {
 
     public static String searchAndColor(String text, String searchText,@ColorInt int color) {
 
-        if (text == null) {
-            return null;
-        }
-
         if (TextUtils.isEmpty(text) || TextUtils.isEmpty(searchText)) {
             return text;
         }
