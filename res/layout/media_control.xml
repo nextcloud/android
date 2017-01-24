@@ -65,6 +65,7 @@
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/standard_quarter_padding"
             android:text="@string/placeholder_media_time"
+            android:textColor="@color/white"
             />
 
         <SeekBar
@@ -74,7 +75,11 @@
             android:layout_weight="1"
             android:layout_height="@dimen/seek_bar_height"
             android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:progressDrawable="@color/white"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:splitTrack="false"/>
 
         <TextView android:id="@+id/totalTimeText"
             android:textSize="@dimen/two_line_secondary_text_size"
@@ -86,6 +91,7 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/standard_quarter_padding"
             android:text="@string/placeholder_media_time"
+            android:textColor="@color/white"
             />
         
     </LinearLayout>
