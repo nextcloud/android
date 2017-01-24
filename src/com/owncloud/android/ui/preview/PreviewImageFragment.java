@@ -70,7 +70,7 @@ import third_parties.michaelOrtiz.TouchImageViewCustom;
  *
  * Trying to get an instance with a NULL {@link OCFile} will produce an
  * {@link IllegalStateException}.
- * 
+ *
  * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
  * instantiation too.
  */
@@ -123,13 +123,13 @@ public class PreviewImageFragment extends FileFragment {
     }
 
 
-    
+
     /**
      *  Creates an empty fragment for image previews.
-     * 
+     *
      *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically
      *  (for instance, when the device is turned a aside).
-     * 
+     *
      *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
      *  construction
      */
@@ -168,9 +168,8 @@ public class PreviewImageFragment extends FileFragment {
         view.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (getActivity() != null && (getActivity() instanceof PreviewImageActivity)) {
-                    ((PreviewImageActivity) getActivity()).toggleFullScreen();
-                }
+                ((PreviewImageActivity) getActivity()).toggleFullScreen();
+                toggleImageBackground();
             }
         });
 
@@ -178,6 +177,7 @@ public class PreviewImageFragment extends FileFragment {
             @Override
             public void onClick(View v) {
                 ((PreviewImageActivity) getActivity()).toggleFullScreen();
+                toggleImageBackground();
             }
         });
 
@@ -396,7 +396,7 @@ public class PreviewImageFragment extends FileFragment {
         finish();
     }
 
-    
+
     private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
 
         /**
@@ -406,6 +406,23 @@ public class PreviewImageFragment extends FileFragment {
          * memory before the load finishes.
          */
         private final WeakReference<ImageViewCustom> mImageViewRef;
+
+        /**
+         * Weak reference to the target {@link TextView} where error messages will be written.
+         *
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
+         * memory before the load finishes.
+         */
+        private final WeakReference<TextView> mMessageViewRef;
+
+
+        /**
+         * Weak reference to the target {@link ProgressBar} shown while the load is in progress.
+         *
+         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
+         * memory before the load finishes.
+         */
+        private final WeakReference<ProgressBar> mProgressWheelRef;
 
 
         /**
@@ -523,18 +540,21 @@ public class PreviewImageFragment extends FileFragment {
 
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
-                    Resources r = getResources();
-                    Drawable[] layers = new Drawable[2];
-                    layers[0] = r.getDrawable(R.drawable.backrepeat);
-                    Drawable d = new BitmapDrawable(getResources(), bitmap);
-                    layers[1] = d;
-                    LayerDrawable layerDrawable = new LayerDrawable(layers);
-                    layerDrawable.setLayerHeight(0, (int) convertDpToPixel(bitmap.getHeight(), getActivity()));
-                    layerDrawable.setLayerHeight(1, (int) convertDpToPixel(bitmap.getHeight(), getActivity()));
-                    layerDrawable.setLayerWidth(0, (int) convertDpToPixel(bitmap.getWidth(), getActivity()));
-                    layerDrawable.setLayerWidth(1, (int) convertDpToPixel(bitmap.getWidth(), getActivity()));
-                    imageView.setImageDrawable(layerDrawable);
-
+                    if (getResources() != null) {
+                        Resources r = getResources();
+                        Drawable[] layers = new Drawable[2];
+                        layers[0] = r.getDrawable(R.color.white);
+                        Drawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+                        layers[1] = bitmapDrawable;
+                        LayerDrawable layerDrawable = new LayerDrawable(layers);
+                        layerDrawable.setLayerHeight(0, (int) convertDpToPixel(bitmap.getHeight(), getActivity()));
+                        layerDrawable.setLayerHeight(1, (int) convertDpToPixel(bitmap.getHeight(), getActivity()));
+                        layerDrawable.setLayerWidth(0, (int) convertDpToPixel(bitmap.getWidth(), getActivity()));
+                        layerDrawable.setLayerWidth(1, (int) convertDpToPixel(bitmap.getWidth(), getActivity()));
+                        imageView.setImageDrawable(layerDrawable);
+                    } else {
+                        imageView.setImageBitmap(bitmap);
+                    }
                 }
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
@@ -581,7 +601,7 @@ public class PreviewImageFragment extends FileFragment {
     /**
      * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
      * to be previewed.
-     * 
+     *
      * @param file      File to test if can be previewed.
      * @return          'True' if the file can be handled by the fragment.
      */
@@ -597,6 +617,30 @@ public class PreviewImageFragment extends FileFragment {
         Activity container = getActivity();
         container.finish();
     }
+
+    private void toggleImageBackground() {
+        if (getFile() != null && getFile().getMimetype().equalsIgnoreCase("image/png")) {
+            if (getActivity() != null && (getActivity() instanceof PreviewImageActivity)) {
+                PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
+                if (getResources() != null) {
+                    LayerDrawable layerDrawable = (LayerDrawable)mImageView.getDrawable();
+                    Drawable layerOne;
+
+                    if (previewImageActivity.getSystemUIVisible()) {
+                        layerOne = getResources().getDrawable(R.color.white);
+                    } else {
+                        layerOne = getResources().getDrawable(R.drawable.backrepeat);
+                    }
+
+                    layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne);
+
+                    mImageView.setImageDrawable(layerDrawable);
+                }
+            }
+        }
+    }
+
+
 
     private static float convertDpToPixel(float dp, Context context){
         Resources resources = context.getResources();
