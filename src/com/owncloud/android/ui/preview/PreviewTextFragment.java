@@ -126,7 +126,9 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
             mAccount = args.getParcelable(FileDisplayActivity.EXTRA_ACCOUNT);
         }
 
-        mSearchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY);
+        if (args.containsKey(FileDisplayActivity.EXTRA_SEARCH_QUERY)) {
+            mSearchQuery = args.getString(FileDisplayActivity.EXTRA_SEARCH_QUERY);
+        }
         mSearchOpen = args.getBoolean(FileDisplayActivity.EXTRA_SEARCH, false);
 
         if (savedInstanceState == null) {
