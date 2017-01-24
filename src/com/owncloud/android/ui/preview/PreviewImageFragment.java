@@ -545,10 +545,10 @@ public class PreviewImageFragment extends FileFragment {
                         Drawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
                         layers[1] = bitmapDrawable;
                         LayerDrawable layerDrawable = new LayerDrawable(layers);
-                        layerDrawable.setLayerHeight(0, (int) convertDpToPixel(bitmap.getHeight(), getActivity()));
-                        layerDrawable.setLayerHeight(1, (int) convertDpToPixel(bitmap.getHeight(), getActivity()));
-                        layerDrawable.setLayerWidth(0, (int) convertDpToPixel(bitmap.getWidth(), getActivity()));
-                        layerDrawable.setLayerWidth(1, (int) convertDpToPixel(bitmap.getWidth(), getActivity()));
+                        layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                        layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                        layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                        layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
                         imageView.setImageDrawable(layerDrawable);
                     } else {
                         imageView.setImageBitmap(bitmap);
@@ -636,10 +636,10 @@ public class PreviewImageFragment extends FileFragment {
     }
 
 
-    private static float convertDpToPixel(float dp, Context context) {
+    private static int convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+        int px = (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
         return px;
     }
 
