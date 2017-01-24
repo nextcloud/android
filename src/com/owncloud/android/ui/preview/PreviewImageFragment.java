@@ -632,6 +632,7 @@ public class PreviewImageFragment extends FileFragment {
             layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne);
 
             mImageView.setImageDrawable(layerDrawable);
+            mImageView.invalidate();
         }
     }
 
