@@ -59,8 +59,12 @@ import com.owncloud.android.ui.adapter.AccountListItem;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.DisplayUtils;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.Set;
+
+import butterknife.OnItemClick;
 
 /**
  * An Activity that allows the user to manage accounts.
@@ -106,10 +110,14 @@ public class ManageAccountsActivity extends FileActivity
 
         mListView.setAdapter(mAccountListAdapter);
 
+        final Intent intent = new Intent(this, UserInfoActivity.class);
+
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switchAccount(mAccountListAdapter.getItem(position).getAccount());
+                Account account = mAccountListAdapter.getItem(position).getAccount();
+                intent.putExtra("NEXTCLOUD_ACCOUNT", Parcels.wrap(account));
+                startActivity(intent);
             }
         });
 
