@@ -24,7 +24,7 @@ configurations.all {
 }
 
 ext {
-    supportLibraryVersion = '24.2.1'
+    supportLibraryVersion = '25.1.0'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -52,7 +52,8 @@ dependencies {
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.google.code.findbugs:annotations:2.0.1'
-
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'

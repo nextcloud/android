@@ -313,7 +313,8 @@
     <string name="conflict_keep_both">Keep both</string>
     <string name="conflict_use_local_version">local version</string>
     <string name="conflict_use_server_version">server version</string>
-    
+
+    <string name="preview_sorry">Sorry about that!</string>
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_unknown_format">This image cannot be shown</string>
 
@@ -568,4 +569,15 @@
     <string name="welcome_feature_3_text">Keep your photos safe</string>
 
     <string name="whats_new_skip">Skip</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Full name</string>
+    <string name="user_info_email">Email</string>
+    <string name="user_info_phone">Phone number</string>
+    <string name="user_info_address">Address</string>
+    <string name="user_info_website">Website</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">User information</string>
+
 </resources>
