@@ -44,6 +44,7 @@
     <!-- Colors -->
     <color name="color_accent">@color/owncloud_blue_accent</color>
     <color name="dialog_list_item">#1F1F1F</color>
+    <color name="standard_grey">#757575</color>
 
     <!-- standard material color definitions -->
     <color name="primary">@color/owncloud_blue</color>
