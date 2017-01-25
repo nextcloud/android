@@ -21,7 +21,7 @@
 package com.owncloud.android.datamodel;
 
 /**
- * Model for storing key/value String pairs in a nicer way
+ * Created by mdjanic on 25/01/2017.
  */
 
 public class StringPair {
