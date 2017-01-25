@@ -56,9 +56,10 @@ import com.owncloud.android.utils.DisplayUtils;
 
 import org.parceler.Parcels;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Set;
+
+import butterknife.OnItemClick;
 
 /**
  * An Activity that allows the user to manage accounts.
@@ -116,15 +117,8 @@ public class ManageAccountsActivity extends FileActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Account account = mAccountListAdapter.getItem(position).getAccount();
-                intent.putExtra(KEY_ACCOUNT, Parcels.wrap(account));
-                try {
-                    OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
-                    intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-                } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                    Log_OC.d(TAG, "Failed to find NC account");
-                }
-
-                startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+                intent.putExtra("NEXTCLOUD_ACCOUNT", Parcels.wrap(account));
+                startActivity(intent);
             }
         });
 
