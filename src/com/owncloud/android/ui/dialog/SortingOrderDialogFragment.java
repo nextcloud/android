@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -58,6 +59,13 @@ public class SortingOrderDialogFragment extends DialogFragment {
     private ImageButton mSortBySizeDescendingButton = null;
     private ImageButton mSortByModificationDateAscendingButton = null;
     private ImageButton mSortByModificationDateDescendingButton = null;
+
+    private TextView mSortByNameAscendingText = null;
+    private TextView mSortByNameDescendingText = null;
+    private TextView mSortBySizeAscendingText = null;
+    private TextView mSortBySizeDescendingText = null;
+    private TextView mSortByModificationDateAscendingText = null;
+    private TextView mSortByModificationDateDescendingText = null;
 
     private int mSortOrder;
     private boolean mSortAscending;
@@ -113,12 +121,26 @@ public class SortingOrderDialogFragment extends DialogFragment {
         mSortBySizeAscendingButton = (ImageButton) view.findViewById(R.id.sortBySizeAscending);
         mSortBySizeDescendingButton = (ImageButton) view.findViewById(R.id.sortBySizeDescending);
 
+        mSortByNameAscendingText = (TextView) view.findViewById(R.id.sortByNameAZText);
+        mSortByNameDescendingText = (TextView) view.findViewById(R.id.sortByNameZAText);
+        mSortByModificationDateAscendingText = (TextView) view.findViewById(R.id.sortByModificationDateOldestFirstText);
+        mSortByModificationDateDescendingText = (TextView) view.findViewById(R.id.sortByModificationDateNewestFirstText);
+        mSortBySizeAscendingText = (TextView) view.findViewById(R.id.sortBySizeSmallestFirstText);
+        mSortBySizeDescendingText = (TextView) view.findViewById(R.id.sortBySizeBiggestFirstText);
+
         mSortByNameAscendingButton.setTag(BY_NAME_ASC);
         mSortByNameDescendingButton.setTag(BY_NAME_DESC);
         mSortByModificationDateAscendingButton.setTag(BY_MODIFICATION_DATE_ASC);
         mSortByModificationDateDescendingButton.setTag(BY_MODIFICATION_DATE_DESC);
         mSortBySizeAscendingButton.setTag(BY_SIZE_ASC);
         mSortBySizeDescendingButton.setTag(BY_SIZE_DESC);
+
+        mSortByNameAscendingText.setTag(BY_NAME_ASC);
+        mSortByNameDescendingText.setTag(BY_NAME_DESC);
+        mSortByModificationDateAscendingText.setTag(BY_MODIFICATION_DATE_ASC);
+        mSortByModificationDateDescendingText.setTag(BY_MODIFICATION_DATE_DESC);
+        mSortBySizeAscendingText.setTag(BY_SIZE_ASC);
+        mSortBySizeDescendingText.setTag(BY_SIZE_DESC);
 
         setupActiveOrderSelection();
     }
@@ -131,30 +153,36 @@ public class SortingOrderDialogFragment extends DialogFragment {
             switch (mSortOrder) {
                 case 0:
                     DisplayUtils.colorImageButton(mSortByNameAscendingButton);
+                    mSortByNameAscendingText.setTextColor(getResources().getColor(R.color.color_accent));
                     break;
                 case 1:
                     DisplayUtils.colorImageButton(mSortByModificationDateAscendingButton);
+                    mSortByModificationDateAscendingText.setTextColor(getResources().getColor(R.color.color_accent));
                     break;
                 case 2:
                     DisplayUtils.colorImageButton(mSortBySizeAscendingButton);
+                    mSortBySizeAscendingText.setTextColor(getResources().getColor(R.color.color_accent));
                     break;
                 default: //do nothing
-                    Log_OC.w(TAG, "Unknown sort criteria!");
+                    Log_OC.w(TAG, "Unknown sort order " + mSortOrder);
                     break;
             }
         } else {
             switch (mSortOrder) {
                 case 0:
                     DisplayUtils.colorImageButton(mSortByNameDescendingButton);
+                    mSortByNameDescendingText.setTextColor(getResources().getColor(R.color.color_accent));
                     break;
                 case 1:
                     DisplayUtils.colorImageButton(mSortByModificationDateDescendingButton);
+                    mSortByModificationDateDescendingText.setTextColor(getResources().getColor(R.color.color_accent));
                     break;
                 case 2:
                     DisplayUtils.colorImageButton(mSortBySizeDescendingButton);
+                    mSortBySizeDescendingText.setTextColor(getResources().getColor(R.color.color_accent));
                     break;
                 default: //do nothing
-                    Log_OC.w(TAG, "Unknown sort criteria!");
+                    Log_OC.w(TAG, "Unknown sort order " + mSortOrder);
                     break;
             }
         }
@@ -174,12 +202,20 @@ public class SortingOrderDialogFragment extends DialogFragment {
         });
 
         OnSortingOrderClickListener sortingClickListener = new OnSortingOrderClickListener();
+
         mSortByNameAscendingButton.setOnClickListener(sortingClickListener);
         mSortByNameDescendingButton.setOnClickListener(sortingClickListener);
         mSortByModificationDateAscendingButton.setOnClickListener(sortingClickListener);
         mSortByModificationDateDescendingButton.setOnClickListener(sortingClickListener);
         mSortBySizeAscendingButton.setOnClickListener(sortingClickListener);
         mSortBySizeDescendingButton.setOnClickListener(sortingClickListener);
+
+        mSortByNameAscendingText.setOnClickListener(sortingClickListener);
+        mSortByNameDescendingText.setOnClickListener(sortingClickListener);
+        mSortByModificationDateAscendingText.setOnClickListener(sortingClickListener);
+        mSortByModificationDateDescendingText.setOnClickListener(sortingClickListener);
+        mSortBySizeAscendingText.setOnClickListener(sortingClickListener);
+        mSortBySizeDescendingText.setOnClickListener(sortingClickListener);
     }
 
     @Override
