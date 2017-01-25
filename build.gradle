@@ -27,7 +27,7 @@ configurations.all {
 }
 
 ext {
-    supportLibraryVersion = '25.0.0'
+    supportLibraryVersion = '25.1.0'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -59,6 +59,8 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
     compile 'com.google.android.gms:play-services:10.2.0'
     compile 'com.github.evernote:android-job:v1.1.7'
+    compile 'com.jakewharton:butterknife:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'
