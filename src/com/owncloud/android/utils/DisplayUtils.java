@@ -329,7 +329,8 @@ public class DisplayUtils {
      */
     public static void colorImageButton(ImageButton imageButton) {
         if (imageButton != null) {
-            imageButton.setColorFilter(imageButton.getResources().getColor(R.color.primary), PorterDuff.Mode.SRC_ATOP);
+            imageButton.setColorFilter(imageButton.getResources().getColor(R.color.color_accent),
+                    PorterDuff.Mode.SRC_ATOP);
         }
     }
 

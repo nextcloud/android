@@ -8,11 +8,11 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   width="24"
-   height="24"
+   width="25.6"
+   height="25.6"
    viewBox="0 0 24 24"
    id="svg2"
-   inkscape:version="0.91 r13725"
+   inkscape:version="0.92.0 r15299"
    sodipodi:docname="alphabetical_desc.svg"
    inkscape:export-filename="C:\DEV\src\Android\Nextcloud\newSortingLayout\res\drawable-xxxhdpi\ic_alphabetical_desc.png"
    inkscape:export-xdpi="360"
@@ -44,7 +44,7 @@
      id="namedview6"
      showgrid="false"
      inkscape:zoom="27.81"
-     inkscape:cx="7.0679049"
+     inkscape:cx="-2.5868955"
      inkscape:cy="12"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
@@ -52,12 +52,12 @@
      inkscape:current-layer="svg2" />
   <path
      style="fill:#757575;fill-opacity:1"
-     d="m 7.7507904,1.734489 0,1.675878 3.7732956,0 0,0.05312 -4.1674184,5.939256 0,1.105257 6.7994724,0 0,-1.684446 -4.133147,0 0,-0.07026 4.071458,-5.843297 0,-1.175514 -6.3436606,0 z"
+     d="m 7.7507904,1.734489 v 1.675878 h 3.7732956 v 0.05312 L 7.3566676,9.402743 V 10.508 H 14.15614 V 8.823554 H 10.022993 V 8.753294 L 14.094451,2.909997 V 1.734483 H 7.7507904 Z"
      id="path4"
      inkscape:connector-curvature="0" />
   <path
      style="fill:#757575;fill-opacity:1"
-     d="M 9.6035632,11.364486 6.8926845,20.138 l 2.0802823,0 0.6305964,-2.369878 2.5360938,0 0.683717,2.369878 2.159106,0 -2.746863,-8.773514 -2.6320538,0 z m 1.2200668,1.429123 0.0257,0 0.219338,0.84308 0.227906,0.851647 0.553485,1.859232 -1.9569049,0 0.5260679,-1.842096 0.21077,-0.860215 0.193634,-0.851648 z"
+     d="M 9.6035632,11.364486 6.8926845,20.138 H 8.9729668 L 9.6035632,17.768122 H 12.139657 L 12.823374,20.138 h 2.159106 l -2.746863,-8.773514 z m 1.2200668,1.429123 h 0.0257 l 0.219338,0.84308 0.227906,0.851647 0.553485,1.859232 H 9.8931541 l 0.5260679,-1.842096 0.21077,-0.860215 0.193634,-0.851648 z"
      id="path4-2"
      inkscape:connector-curvature="0" />
   <path
