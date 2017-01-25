@@ -22,6 +22,10 @@ apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
 
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 ext {
     supportLibraryVersion = '25.0.0'
 
