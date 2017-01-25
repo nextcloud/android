@@ -28,7 +28,7 @@ configurations.all {
 }
 
 ext {
-    supportLibraryVersion = '25.0.0'
+    supportLibraryVersion = '25.1.0'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -43,6 +43,8 @@ repositories {
     flatDir {
         dirs 'libs'
     }
+}
+
 }
 
 android {
