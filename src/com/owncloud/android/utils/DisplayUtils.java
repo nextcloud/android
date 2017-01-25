@@ -327,10 +327,9 @@ public class DisplayUtils {
      *
      * @param imageButton the image button who's icon should be colored
      */
-    public static void colorImageButton(ImageButton imageButton) {
+    public static void colorImageButton(ImageButton imageButton, @ColorInt int color) {
         if (imageButton != null) {
-            imageButton.setColorFilter(imageButton.getResources().getColor(R.color.color_accent),
-                    PorterDuff.Mode.SRC_ATOP);
+            imageButton.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
         }
     }
 
