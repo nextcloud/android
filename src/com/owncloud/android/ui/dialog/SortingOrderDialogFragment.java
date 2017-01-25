@@ -152,16 +152,16 @@ public class SortingOrderDialogFragment extends DialogFragment {
         if (mSortAscending) {
             switch (mSortOrder) {
                 case 0:
-                    DisplayUtils.colorImageButton(mSortByNameAscendingButton);
-                    mSortByNameAscendingText.setTextColor(getResources().getColor(R.color.color_accent));
+                    colorActiveSortingIconAndText(mSortByNameAscendingButton,
+                            mSortByNameAscendingText);
                     break;
                 case 1:
-                    DisplayUtils.colorImageButton(mSortByModificationDateAscendingButton);
-                    mSortByModificationDateAscendingText.setTextColor(getResources().getColor(R.color.color_accent));
+                    colorActiveSortingIconAndText(mSortByModificationDateAscendingButton,
+                            mSortByModificationDateAscendingText);
                     break;
                 case 2:
-                    DisplayUtils.colorImageButton(mSortBySizeAscendingButton);
-                    mSortBySizeAscendingText.setTextColor(getResources().getColor(R.color.color_accent));
+                    colorActiveSortingIconAndText(mSortBySizeAscendingButton,
+                            mSortBySizeAscendingText);
                     break;
                 default: //do nothing
                     Log_OC.w(TAG, "Unknown sort order " + mSortOrder);
@@ -170,22 +170,34 @@ public class SortingOrderDialogFragment extends DialogFragment {
         } else {
             switch (mSortOrder) {
                 case 0:
-                    DisplayUtils.colorImageButton(mSortByNameDescendingButton);
-                    mSortByNameDescendingText.setTextColor(getResources().getColor(R.color.color_accent));
+                    colorActiveSortingIconAndText(mSortByNameDescendingButton,
+                            mSortByNameDescendingText);
                     break;
                 case 1:
-                    DisplayUtils.colorImageButton(mSortByModificationDateDescendingButton);
-                    mSortByModificationDateDescendingText.setTextColor(getResources().getColor(R.color.color_accent));
+                    colorActiveSortingIconAndText(mSortByModificationDateDescendingButton,
+                            mSortByModificationDateDescendingText);
                     break;
                 case 2:
-                    DisplayUtils.colorImageButton(mSortBySizeDescendingButton);
-                    mSortBySizeDescendingText.setTextColor(getResources().getColor(R.color.color_accent));
+                    colorActiveSortingIconAndText(mSortBySizeDescendingButton,
+                            mSortBySizeDescendingText);
                     break;
                 default: //do nothing
                     Log_OC.w(TAG, "Unknown sort order " + mSortOrder);
                     break;
             }
         }
+    }
+
+    /**
+     * Sets the text color and tint the icon of given text view and image button.
+     *
+     * @param imageButton the image button, the icon to be tinted
+     * @param textView    the text view, the text color to be set
+     */
+    private void colorActiveSortingIconAndText(ImageButton imageButton, TextView textView) {
+        int color = getResources().getColor(R.color.color_accent);
+        DisplayUtils.colorImageButton(imageButton, color);
+        textView.setTextColor(color);
     }
 
     /**
