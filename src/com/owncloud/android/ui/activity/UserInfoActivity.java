@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -37,9 +38,9 @@ import butterknife.Unbinder;
 public class UserInfoActivity extends FileActivity {
     private static final String TAG = UserInfoActivity.class.getSimpleName();
 
-    protected static final String KEY_USER_DATA = "USER_DATA";
-    protected static final String KEY_NEXTCLOUD_ACCOUNT = "NEXTCLOUD_ACCOUNT";
-
+    private static final String KEY_USER_DATA = "USER_DATA";
+    private static final String KEY_ACCOUNT = "ACCOUNT";
+    private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
 
     @BindView(R.id.generic_rv)
     RecyclerView genericRecyclerView;
@@ -69,6 +70,8 @@ public class UserInfoActivity extends FileActivity {
     private UserInfo userInfo;
     private Account account;
 
+    private String displayName;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -76,15 +79,27 @@ public class UserInfoActivity extends FileActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        if (bundle.containsKey(KEY_NEXTCLOUD_ACCOUNT)) {
-            account = Parcels.unwrap(bundle.getParcelable(KEY_NEXTCLOUD_ACCOUNT));
+        account = Parcels.unwrap(bundle.getParcelable(KEY_ACCOUNT));
+
+        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_USER_DATA)) {
+            userInfo = Parcels.unwrap(savedInstanceState.getParcelable(KEY_USER_DATA));
+        }
+
+        if (bundle.containsKey(KEY_DISPLAY_NAME)) {
+            displayName = bundle.getString(KEY_DISPLAY_NAME);
+        } else if (userInfo != null && !TextUtils.isEmpty(userInfo.getDisplayName())) {
+            displayName = userInfo.getDisplayName();
         }
 
         setContentView(R.layout.user_info_layout);
         unbinder = ButterKnife.bind(this);
 
         setupToolbar();
-        updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.user_information_description));
+        if (!TextUtils.isEmpty(displayName)) {
+            updateActionBarTitleAndHomeButtonByString(displayName);
+        } else {
+            updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.user_information_description));
+        }
 
         layoutManager = new LinearLayoutManager(this);
         genericRecyclerView.setLayoutManager(layoutManager);
@@ -93,8 +108,7 @@ public class UserInfoActivity extends FileActivity {
                 ((LinearLayoutManager)layoutManager).getOrientation());
         genericRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        if (savedInstanceState != null && savedInstanceState.containsKey(KEY_USER_DATA)) {
-            userInfo = Parcels.unwrap(savedInstanceState.getParcelable(KEY_USER_DATA));
+        if (userInfo != null) {
             adapter = new UserInfoAdapter(userInfo, UserInfoActivity.this);
             multiView.setVisibility(View.VISIBLE);
             genericRecyclerView.setVisibility(View.GONE);
