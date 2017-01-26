@@ -52,6 +52,7 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.AccountListAdapter;
@@ -74,6 +75,10 @@ public class ManageAccountsActivity extends FileActivity
     private static final String TAG = ManageAccountsActivity.class.getSimpleName();
     public static final String KEY_ACCOUNT_LIST_CHANGED = "ACCOUNT_LIST_CHANGED";
     public static final String KEY_CURRENT_ACCOUNT_CHANGED = "CURRENT_ACCOUNT_CHANGED";
+
+    private static final String KEY_ACCOUNT = "ACCOUNT";
+    private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
+
 
     private ListView mListView;
     private final Handler mHandler = new Handler();
@@ -116,7 +121,14 @@ public class ManageAccountsActivity extends FileActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Account account = mAccountListAdapter.getItem(position).getAccount();
-                intent.putExtra("NEXTCLOUD_ACCOUNT", Parcels.wrap(account));
+                intent.putExtra(KEY_ACCOUNT, Parcels.wrap(account));
+                try {
+                    OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
+                    intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
+                } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                    Log_OC.d(TAG, "Failed to find NC account");
+                }
+
                 startActivity(intent);
             }
         });
