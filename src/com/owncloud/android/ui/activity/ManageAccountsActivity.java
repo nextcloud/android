@@ -34,6 +34,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -55,10 +56,9 @@ import com.owncloud.android.utils.DisplayUtils;
 
 import org.parceler.Parcels;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Set;
-
-import butterknife.OnItemClick;
 
 /**
  * An Activity that allows the user to manage accounts.
@@ -72,6 +72,8 @@ public class ManageAccountsActivity extends FileActivity
     private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
 
+    private static final int KEY_USER_INFO_REQUEST_CODE = 13;
+    private static final int KEY_DELETE_CODE = 101;
 
     private ListView mListView;
     private final Handler mHandler = new Handler();
@@ -122,7 +124,7 @@ public class ManageAccountsActivity extends FileActivity
                     Log_OC.d(TAG, "Failed to find NC account");
                 }
 
-                startActivity(intent);
+                startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
             }
         });
 
@@ -142,8 +144,6 @@ public class ManageAccountsActivity extends FileActivity
                         performAccountRemoval(account);
                     }
                 }
-                break;
-            default:
                 break;
         }
     }
