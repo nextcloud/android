@@ -74,13 +74,6 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             viewHolder.checkViewItem.setImageDrawable(mTintedCheck);
             viewHolder.usernameViewItem = (TextView) convertView.findViewById(R.id.user_name);
             viewHolder.accountViewItem = (TextView) convertView.findViewById(R.id.account);
-            viewHolder.passwordButtonItem = (ImageView) convertView.findViewById(R.id.passwordButton);
-            viewHolder.removeButtonItem = (ImageView) convertView.findViewById(R.id.removeButton);
-
-            if(mListener == null) {
-                viewHolder.passwordButtonItem.setVisibility(View.GONE);
-                viewHolder.removeButtonItem.setVisibility(View.GONE);
-            }
 
             convertView.setTag(viewHolder);
         } else {
@@ -98,7 +91,6 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
                 setUsername(viewHolder, account);
                 setAvatar(viewHolder, account);
                 setCurrentlyActiveState(viewHolder, account);
-                setupListeners(position, viewHolder);
 
             } // create add account action item
             else if (AccountListItem.TYPE_ACTION_ADD == accountListItem.getType() && mListener != null) {
@@ -129,26 +121,6 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
     private void setAccount(AccountViewHolderItem viewHolder, Account account) {
         viewHolder.accountViewItem.setText(DisplayUtils.convertIdn(account.name, false));
         viewHolder.accountViewItem.setTag(account.name);
-    }
-
-    private void setupListeners(final int position, AccountViewHolderItem viewHolder) {
-        if (mListener != null) {
-            /// bind listener to change password
-            viewHolder.passwordButtonItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.changePasswordOfAccount(mValues.get(position).getAccount());
-                }
-            });
-
-            /// bind listener to remove account
-            viewHolder.removeButtonItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mListener.performAccountRemoval(mValues.get(position).getAccount());
-                }
-            });
-        }
     }
 
     private void setCurrentlyActiveState(AccountViewHolderItem viewHolder, Account account) {
@@ -195,9 +167,6 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
      * Listener interface for Activities using the {@link AccountListAdapter}
      */
     public interface AccountListAdapterListener {
-        void performAccountRemoval(Account account);
-
-        void changePasswordOfAccount(Account account);
 
         void createAccount();
     }
@@ -211,8 +180,5 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
 
         TextView usernameViewItem;
         TextView accountViewItem;
-
-        ImageView passwordButtonItem;
-        ImageView removeButtonItem;
     }
 }
