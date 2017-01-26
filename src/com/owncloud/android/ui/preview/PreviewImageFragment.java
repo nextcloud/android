@@ -318,39 +318,39 @@ public class PreviewImageFragment extends FileFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_share_file: {
+            case R.id.action_share_file:
                 mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
                 return true;
-            }
-            case R.id.action_open_file_with: {
+            
+            case R.id.action_open_file_with:
                 openFile();
                 return true;
-            }
-            case R.id.action_remove_file: {
+
+            case R.id.action_remove_file:
                 RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
                 dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
-            }
-            case R.id.action_see_details: {
+
+            case R.id.action_see_details:
                 seeDetails();
                 return true;
-            }
-            case R.id.action_send_file: {
+
+            case R.id.action_send_file:
                 mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
                 return true;
-            }
-            case R.id.action_sync_file: {
+
+            case R.id.action_sync_file:
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
-            }
-            case R.id.action_favorite_file: {
+
+            case R.id.action_favorite_file:
                 mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), true);
                 return true;
-            }
-            case R.id.action_unfavorite_file: {
+
+            case R.id.action_unfavorite_file:
                 mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
                 return true;
-            }
+
             default:
                 return super.onOptionsItemSelected(item);
         }
