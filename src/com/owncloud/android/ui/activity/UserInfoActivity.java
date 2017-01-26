@@ -172,8 +172,8 @@ public class UserInfoActivity extends FileActivity {
                     });
                 } else {
                     // show error
-                    RemoteOperationResult remoteOperationResult = (RemoteOperationResult) result.getData().get(0);
-                    setMessageForMultiList(remoteOperationResult.getLogMessage(), sorryMessage);
+                    setMessageForMultiList(result.getLogMessage(), sorryMessage);
+                    Log_OC.d(TAG, result.getLogMessage());
                 }
             }
         });
