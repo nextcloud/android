@@ -617,7 +617,7 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">A safe home for all your data</string>
-    <string name="welcome_feature_1_text">Access, share and protect your files at home and at work</string>
+    <string name="welcome_feature_1_text">Access, share &amp; protect your files at home and in your enterprise</string>
 
     <string name="welcome_feature_2_title">Your data, your rule</string>
     <string name="welcome_feature_2_text">Choose from many Nextcloud providers, or use your own server</string>
