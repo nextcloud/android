@@ -141,8 +141,9 @@ public class UserInfoActivity extends FileActivity {
 
         if (userInfo != null) {
             adapter = new UserInfoAdapter(userInfo, UserInfoActivity.this);
-            multiView.setVisibility(View.VISIBLE);
-            genericRecyclerView.setVisibility(View.GONE);
+            genericRecyclerView.setAdapter(adapter);
+            multiView.setVisibility(View.GONE);
+            genericRecyclerView.setVisibility(View.VISIBLE);
         } else {
             setMultiListLoadingMessage();
             fetchAndSetData();
