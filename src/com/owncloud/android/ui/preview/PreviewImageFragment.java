@@ -178,9 +178,7 @@ public class PreviewImageFragment extends FileFragment {
                 toggleImageBackground();
             }
         });
-
-        });
-
+        
         mMultiView = (RelativeLayout) view.findViewById(R.id.multi_view);
 
         setupMultiView(view);
