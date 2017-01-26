@@ -129,7 +129,7 @@
     <string name="uploader_upload_failed_content_single">Hochladen von  %1$s konnte nicht abgeschlossen werden</string>
     <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="uploads_view_title">Uploads</string>
-    <string name="uploads_view_group_current_uploads">Wird hochgeladen</string>
+    <string name="uploads_view_group_current_uploads">Aktuell</string>
     <string name="uploads_view_group_failed_uploads">Fehlgeschlagen (Tippen zum Wiederholen)</string>
     <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
     <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
