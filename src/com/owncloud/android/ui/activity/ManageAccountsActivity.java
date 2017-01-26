@@ -34,6 +34,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -55,10 +56,9 @@ import com.owncloud.android.utils.DisplayUtils;
 
 import org.parceler.Parcels;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Set;
-
-import butterknife.OnItemClick;
 
 /**
  * An Activity that allows the user to manage accounts.
