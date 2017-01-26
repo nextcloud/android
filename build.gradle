@@ -27,7 +27,7 @@ configurations.all {
 }
 
 ext {
-    supportLibraryVersion = '25.1.0'
+    supportLibraryVersion = '24.2.1'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
