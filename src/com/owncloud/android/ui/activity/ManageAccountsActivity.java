@@ -72,8 +72,6 @@ public class ManageAccountsActivity extends FileActivity
     private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
 
-    private static final int KEY_USER_INFO_REQUEST_CODE = 13;
-    private static final int KEY_DELETE_CODE = 101;
 
     private ListView mListView;
     private final Handler mHandler = new Handler();
@@ -116,7 +114,14 @@ public class ManageAccountsActivity extends FileActivity
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Account account = mAccountListAdapter.getItem(position).getAccount();
-                intent.putExtra("NEXTCLOUD_ACCOUNT", Parcels.wrap(account));
+                intent.putExtra(KEY_ACCOUNT, Parcels.wrap(account));
+                try {
+                    OwnCloudAccount oca = new OwnCloudAccount(account, MainApp.getAppContext());
+                    intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
+                } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                    Log_OC.d(TAG, "Failed to find NC account");
+                }
+
                 startActivity(intent);
             }
         });
