@@ -178,11 +178,11 @@ public class PreviewImageFragment extends FileFragment {
                 toggleImageBackground();
             }
         });
+        
+        mMultiView = (RelativeLayout) view.findViewById(R.id.multi_view);
 
-        mMessageView = (TextView) view.findViewById(R.id.message);
-        mMessageView.setVisibility(View.GONE);
-        mProgressWheel = (ProgressBar) view.findViewById(R.id.progressWheel);
-        mProgressWheel.setVisibility(View.VISIBLE);
+        setupMultiView(view);
+        setMultiListLoadingMessage();
 
         return view;
     }
