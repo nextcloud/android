@@ -22,6 +22,7 @@
 package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
@@ -198,6 +199,7 @@ public class SortingOrderDialogFragment extends DialogFragment {
         int color = getResources().getColor(R.color.color_accent);
         DisplayUtils.colorImageButton(imageButton, color);
         textView.setTextColor(color);
+        textView.setTypeface(Typeface.DEFAULT_BOLD);
     }
 
     /**
