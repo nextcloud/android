@@ -30,7 +30,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -135,9 +134,11 @@ public class UserInfoActivity extends FileActivity {
         layoutManager = new LinearLayoutManager(this);
         genericRecyclerView.setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(genericRecyclerView.getContext(),
+        // This will be enabled once we migrate to new support libraries
+        
+        /*DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(genericRecyclerView.getContext(),
                 ((LinearLayoutManager)layoutManager).getOrientation());
-        genericRecyclerView.addItemDecoration(dividerItemDecoration);
+        genericRecyclerView.addItemDecoration(dividerItemDecoration);*/
 
         if (userInfo != null) {
             adapter = new UserInfoAdapter(userInfo, UserInfoActivity.this);
