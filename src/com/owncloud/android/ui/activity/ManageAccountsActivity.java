@@ -24,22 +24,17 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -48,7 +43,6 @@ import android.widget.ListView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
-import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileUploader;
@@ -62,10 +56,9 @@ import com.owncloud.android.utils.DisplayUtils;
 
 import org.parceler.Parcels;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Set;
-
-import butterknife.OnItemClick;
 
 /**
  * An Activity that allows the user to manage accounts.
@@ -79,6 +72,8 @@ public class ManageAccountsActivity extends FileActivity
     private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
 
+    private static final int KEY_USER_INFO_REQUEST_CODE = 13;
+    private static final int KEY_DELETE_CODE = 101;
 
     private ListView mListView;
     private final Handler mHandler = new Handler();
@@ -129,11 +124,28 @@ public class ManageAccountsActivity extends FileActivity
                     Log_OC.d(TAG, "Failed to find NC account");
                 }
 
-                startActivity(intent);
+                startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
             }
         });
 
         initializeComponentGetters();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (resultCode) {
+            case KEY_DELETE_CODE:
+                if (data != null) {
+                    Bundle bundle = data.getExtras();
+                    if (bundle.containsKey(KEY_ACCOUNT)) {
+                        Account account = Parcels.unwrap(bundle.getParcelable(KEY_ACCOUNT));
+                        mAccountName = account.name;
+                        performAccountRemoval(account);
+                    }
+                }
+                break;
+        }
     }
 
     @Override
@@ -221,22 +233,6 @@ public class ManageAccountsActivity extends FileActivity
     }
 
     @Override
-    public void performAccountRemoval(Account account) {
-        AccountRemovalConfirmationDialog dialog = AccountRemovalConfirmationDialog.newInstance(account);
-        mAccountName = account.name;
-        dialog.show(getFragmentManager(), "dialog");
-    }
-
-    @Override
-    public void changePasswordOfAccount(Account account) {
-        Intent updateAccountCredentials = new Intent(ManageAccountsActivity.this, AuthenticatorActivity.class);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
-        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_TOKEN);
-        startActivity(updateAccountCredentials);
-    }
-
-    @Override
     public void createAccount() {
         AccountManager am = AccountManager.get(getApplicationContext());
         am.addAccount(MainApp.getAccountType(),
@@ -274,20 +270,6 @@ public class ManageAccountsActivity extends FileActivity
                 }, mHandler);
     }
 
-    public void switchAccount(Account account) {
-        if (getAccount().name.equals(account.name)) {
-            // current account selected, just go back
-            finish();
-        } else {
-            // restart list of files with new account
-            AccountUtils.setCurrentOwnCloudAccount(ManageAccountsActivity.this, account.name);
-            Intent i = new Intent(ManageAccountsActivity.this, FileDisplayActivity.class);
-            i.putExtra(FileActivity.EXTRA_ACCOUNT, account);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
-        }
-    }
-
     @Override
     public void run(AccountManagerFuture<Boolean> future) {
         if (future.isDone()) {
@@ -312,8 +294,13 @@ public class ManageAccountsActivity extends FileActivity
                 AccountUtils.setCurrentOwnCloudAccount(this, accountName);
             }
 
-            mAccountListAdapter = new AccountListAdapter(this, getAccountListItems(), mTintedCheck);
-            mListView.setAdapter(mAccountListAdapter);
+            ArrayList<AccountListItem> accountListItemArray = getAccountListItems();
+            if (accountListItemArray.size() > 1) {
+                mAccountListAdapter = new AccountListAdapter(this, accountListItemArray, mTintedCheck);
+                mListView.setAdapter(mAccountListAdapter);
+            } else {
+                onBackPressed();
+            }
         }
     }
 
@@ -357,6 +344,14 @@ public class ManageAccountsActivity extends FileActivity
         return new ManageAccountsServiceConnection();
     }
 
+    private void performAccountRemoval(Account account) {
+        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+        am.removeAccount(
+                account,
+                this,
+                this.getHandler());
+    }
+
     /**
      * Defines callbacks for service binding, passed to bindService()
      */
@@ -386,48 +381,4 @@ public class ManageAccountsActivity extends FileActivity
         }
     }
 
-    public static class AccountRemovalConfirmationDialog extends DialogFragment {
-
-        private static final String ARG__ACCOUNT = "account";
-
-        private Account mAccount;
-
-        public static AccountRemovalConfirmationDialog newInstance(Account account) {
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(ARG__ACCOUNT, account);
-
-            AccountRemovalConfirmationDialog dialog = new AccountRemovalConfirmationDialog();
-            dialog.setArguments(bundle);
-
-            return dialog;
-        }
-
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            mAccount = getArguments().getParcelable(ARG__ACCOUNT);
-        }
-
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(Bundle savedInstanceState) {
-            return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.delete_account)
-                    .setMessage(getResources().getString(R.string.delete_account_warning, mAccount.name))
-                    .setIcon(R.drawable.ic_warning)
-                    .setPositiveButton(R.string.common_ok,
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    AccountManager am = (AccountManager) getActivity().getSystemService(ACCOUNT_SERVICE);
-                                    am.removeAccount(
-                                            mAccount,
-                                            (ManageAccountsActivity)getActivity(),
-                                            ((ManageAccountsActivity)getActivity()).getHandler());
-                                }
-                            })
-                    .setNegativeButton(R.string.common_cancel, null)
-                    .create();
-        }
-    }
 }

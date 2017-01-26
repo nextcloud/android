@@ -1,7 +1,35 @@
+/**
+ * Nextcloud Android client application
+ *
+ * @author Mario Danic
+ * Copyright (C) 2017 Mario Danic
+ * Copyright (C) 2017 Nextcloud GmbH.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +45,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -41,6 +70,8 @@ public class UserInfoActivity extends FileActivity {
     private static final String KEY_USER_DATA = "USER_DATA";
     private static final String KEY_ACCOUNT = "ACCOUNT";
     private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
+
+    private static final int KEY_DELETE_CODE = 101;
 
     @BindView(R.id.generic_rv)
     RecyclerView genericRecyclerView;
@@ -133,6 +164,12 @@ public class UserInfoActivity extends FileActivity {
             case android.R.id.home:
                 onBackPressed();
                 break;
+            case R.id.change_password:
+                changeAccountPassword(account);
+                break;
+            case R.id.delete_account:
+                openAccountRemovalConfirmationDialog(account);
+                break;
             default:
                 retval = super.onOptionsItemSelected(item);
         }
@@ -161,6 +198,69 @@ public class UserInfoActivity extends FileActivity {
             multiListMessage.setText(message);
 
             multiListProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+
+    private void changeAccountPassword(Account account) {
+        Intent updateAccountCredentials = new Intent(UserInfoActivity.this, AuthenticatorActivity.class);
+        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
+        updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
+                AuthenticatorActivity.ACTION_UPDATE_TOKEN);
+        startActivity(updateAccountCredentials);
+    }
+
+    private void openAccountRemovalConfirmationDialog(Account account) {
+        UserInfoActivity.AccountRemovalConfirmationDialog dialog =
+                UserInfoActivity.AccountRemovalConfirmationDialog.newInstance(account);
+        dialog.show(getFragmentManager(), "dialog");
+    }
+
+    public static class AccountRemovalConfirmationDialog extends DialogFragment {
+
+        private Account account;
+
+        public static UserInfoActivity.AccountRemovalConfirmationDialog newInstance(Account account) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(KEY_ACCOUNT, account);
+
+            UserInfoActivity.AccountRemovalConfirmationDialog dialog = new
+                    UserInfoActivity.AccountRemovalConfirmationDialog();
+            dialog.setArguments(bundle);
+
+            return dialog;
+        }
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            account = getArguments().getParcelable(KEY_ACCOUNT);
+        }
+
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
+                    .setTitle(R.string.delete_account)
+                    .setMessage(getResources().getString(R.string.delete_account_warning, account.name))
+                    .setIcon(R.drawable.ic_warning)
+                    .setPositiveButton(R.string.common_ok,
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    Bundle bundle = new Bundle();
+                                    bundle.putParcelable(KEY_ACCOUNT, Parcels.wrap(account));
+                                    Intent intent = new Intent();
+                                    intent.putExtras(bundle);
+                                    if (getActivity() != null) {
+                                        getActivity().setResult(KEY_DELETE_CODE, intent);
+                                        getActivity().finish();
+                                    }
+
+                                }
+                            })
+                    .setNegativeButton(R.string.common_cancel, null)
+                    .create();
         }
     }
 
@@ -194,6 +294,8 @@ public class UserInfoActivity extends FileActivity {
 
         t.start();
     }
+
+
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
