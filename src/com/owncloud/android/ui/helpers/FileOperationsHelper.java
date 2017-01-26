@@ -547,14 +547,14 @@ public class FileOperationsHelper {
     }
 
     public void toggleFavorites(Collection<OCFile> files, boolean isFavorite){
-        List<OCFile> found = new ArrayList<>();
+        List<OCFile> alreadyRightStateList = new ArrayList<>();
         for(OCFile file : files){
             if(file.isFavorite() == isFavorite){
-                found.add(file);
+                alreadyRightStateList.add(file);
             }
         }
 
-        files.removeAll(found);
+        files.removeAll(alreadyRightStateList);
 
         for (OCFile file: files) {
             toggleFavorite(file, isFavorite);
