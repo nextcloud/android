@@ -73,27 +73,27 @@ public class UserInfoActivity extends FileActivity {
     private static final int KEY_DELETE_CODE = 101;
 
     @BindView(R.id.generic_rv)
-    RecyclerView genericRecyclerView;
+    public RecyclerView genericRecyclerView;
 
     @BindView(R.id.multi_view)
-    RelativeLayout multiView;
+    public RelativeLayout multiView;
     @BindView(R.id.empty_list_view)
-    LinearLayout multiListContainer;
+    public LinearLayout multiListContainer;
     @BindView(R.id.empty_list_view_text)
-    TextView multiListMessage;
+    public TextView multiListMessage;
     @BindView(R.id.empty_list_view_headline)
-    TextView multiListHeadline;
+    public TextView multiListHeadline;
     @BindView(R.id.empty_list_icon)
-    ImageView multiListIcon;
+    public ImageView multiListIcon;
     @BindView(R.id.empty_list_progress)
-    ProgressBar multiListProgressBar;
+    public ProgressBar multiListProgressBar;
 
     @BindString(R.string.preview_sorry)
-    String sorryMessage;
+    public String sorryMessage;
 
-    RecyclerView.LayoutManager layoutManager;
+    private RecyclerView.LayoutManager layoutManager;
 
-    RecyclerView.Adapter adapter;
+    private RecyclerView.Adapter adapter;
 
     private Unbinder unbinder;
 
@@ -174,6 +174,7 @@ public class UserInfoActivity extends FileActivity {
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }
