@@ -93,6 +93,8 @@ public class UserInfoActivity extends FileActivity {
 
     private RecyclerView.Adapter adapter;
 
+    private RecyclerView.Adapter adapter;
+
     private Unbinder unbinder;
 
     private UserInfo userInfo;
