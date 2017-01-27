@@ -74,6 +74,7 @@ public class PreviewImageActivity extends FileActivity implements
     
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
+    private static final String KEY_SYSTEM_VISIBLE = "TRUE";
 
     private static final int INITIAL_HIDE_DELAY = 0; // immediate hide
 
@@ -128,6 +129,9 @@ public class PreviewImageActivity extends FileActivity implements
             
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
+            if (!savedInstanceState.getBoolean(KEY_SYSTEM_VISIBLE, true)) {
+                hideSystemUI(mFullScreenAnchorView);
+            }
         } else {
             mRequestWaitingForBinder = false;
         }
@@ -169,7 +173,8 @@ public class PreviewImageActivity extends FileActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);    
+        outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);
+        outState.putBoolean(KEY_SYSTEM_VISIBLE, getSystemUIVisible());
     }
 
     @Override
