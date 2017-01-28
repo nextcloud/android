@@ -4,7 +4,7 @@ statusFile="betaUpdateStatus"
 
 git pull -q || exit
 
-branches=$(./getBranchesForBeta)
+branches=$(scripts/getBranchesForBeta)
 branchesCount=$(echo $branches | tr " " "\n" | wc -l)
 count=1
 
