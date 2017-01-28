@@ -57,7 +57,6 @@
     <string name="auth_host_url">Adreça del servidor https://…</string>
     <string name="auth_username">Nom d\'usuari</string>
     <string name="auth_password">Contrasenya</string>
-    <string name="auth_register">Nou a %1$s?</string>
     <string name="sync_string_files">Fitxers</string>
     <string name="setup_btn_connect">Connecta</string>
     <string name="uploader_btn_upload_text">Puja</string>

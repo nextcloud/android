@@ -56,7 +56,6 @@
     <string name="auth_host_url">Naslov strežnika https://…</string>
     <string name="auth_username">Uporabniško ime</string>
     <string name="auth_password">Geslo</string>
-    <string name="auth_register">Ali ste novi uporabnik sistema %1$s?</string>
     <string name="sync_string_files">Datoteke</string>
     <string name="setup_btn_connect">Poveži</string>
     <string name="uploader_btn_upload_text">Pošlji</string>
