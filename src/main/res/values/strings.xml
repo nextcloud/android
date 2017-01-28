@@ -620,7 +620,7 @@
     <string name="welcome_feature_1_text">Access, share &amp; protect your files at home and in your enterprise</string>
 
     <string name="welcome_feature_2_title">Your data, your rules</string>
-    <string name="welcome_feature_2_text">Use your own server\nor choose from many Nextcloud providers</string>
+    <string name="welcome_feature_2_text">Use your own server\nor choose from many %1$s providers</string>
 
     <string name="welcome_feature_3_title">Auto upload</string>
     <string name="welcome_feature_3_text">Keep your photos safe</string>
