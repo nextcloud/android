@@ -57,7 +57,6 @@
     <string name="auth_host_url">Serveradress https://...</string>
     <string name="auth_username">Användarnamn</string>
     <string name="auth_password">Lösenord</string>
-    <string name="auth_register">Ny på %1$s?</string>
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Anslut</string>
     <string name="uploader_btn_upload_text">Ladda upp</string>

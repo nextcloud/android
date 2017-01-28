@@ -57,7 +57,6 @@
     <string name="auth_host_url">Adresa serveru https://...</string>
     <string name="auth_username">Uživatelské jméno</string>
     <string name="auth_password">Heslo</string>
-    <string name="auth_register">Nováček s %1$s?</string>
     <string name="sync_string_files">Soubory</string>
     <string name="setup_btn_connect">Připojit</string>
     <string name="uploader_btn_upload_text">Nahrát</string>

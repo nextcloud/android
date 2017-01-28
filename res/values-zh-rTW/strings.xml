@@ -56,7 +56,6 @@
     <string name="auth_host_url">伺服器位址 https://...</string>
     <string name="auth_username">使用者名稱</string>
     <string name="auth_password">密碼</string>
-    <string name="auth_register">新增到 %1$s ？</string>
     <string name="sync_string_files">檔案</string>
     <string name="setup_btn_connect">連線</string>
     <string name="uploader_btn_upload_text">上傳</string>

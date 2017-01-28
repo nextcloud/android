@@ -4,20 +4,6 @@
 - justin-sleep/upstream updated
 - origin/encodeShareLinkPassword updated
 
-## 2017-01-28
-
-## 2017-01-28
-
-## 2017-01-28
-
-## 2017-01-28
-
-## 2017-01-28
-
-## 2017-01-28
-
-## 2017-01-28
-
 ## 2017-01-22
 - prevent NoClassDefFound #547
 
