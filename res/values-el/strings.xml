@@ -52,7 +52,6 @@
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
     <string name="auth_username">Όνομα χρήστη</string>
     <string name="auth_password">Συνθηματικό</string>
-    <string name="auth_register">Νέοι στο %1$s;</string>
     <string name="sync_string_files">Αρχεία</string>
     <string name="setup_btn_connect">Σύνδεση</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>

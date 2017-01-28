@@ -57,7 +57,6 @@
     <string name="auth_host_url">Adresa servera https://...</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_password">Heslo</string>
-    <string name="auth_register">Ste nový v %1$s?</string>
     <string name="sync_string_files">Súbory</string>
     <string name="setup_btn_connect">Pripojiť</string>
     <string name="uploader_btn_upload_text">Nahrať</string>

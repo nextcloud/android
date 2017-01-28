@@ -57,7 +57,6 @@
     <string name="auth_host_url">Adresse du serveur https://…</string>
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_password">Mot de passe</string>
-    <string name="auth_register">Nouveau dans %1$s ?</string>
     <string name="sync_string_files">Fichiers</string>
     <string name="setup_btn_connect">Connecter</string>
     <string name="uploader_btn_upload_text">Téléverser</string>
@@ -452,15 +451,15 @@
     <string name="share_dialog_title">Partage</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_with_user_section_title">Partager avec des utilisateurs et des groupes</string>
-    <string name="share_no_users">Aucune donnée partagée avec des utilisateurs pour le moment</string>
+    <string name="share_no_users">Vous n\'avez partagé aucune donnée avec des utilisateurs pour l\'instant.</string>
     <string name="share_add_user_or_group">Ajouter un Utilisateur ou un Groupe</string>
     <string name="share_via_link_section_title">Partager par lien public</string>
-    <string name="share_via_link_expiration_date_label">Spécifier une date d\'expiration</string>
+    <string name="share_via_link_expiration_date_label">Indiquer une date d\'expiration</string>
     <string name="share_via_link_password_label">Protéger par un mot de passe</string>
     <string name="share_via_link_password_title">Sécurisé</string>
     <string name="share_via_link_edit_permission_label">Permettre la modification</string>
     <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
-    <string name="share_get_public_link_button">Obtenir le lien</string>
+    <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_with_title">Partager avec &#8230;</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>
 

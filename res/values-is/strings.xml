@@ -53,7 +53,6 @@
     <string name="auth_host_url">Vistfang þjóns https://…</string>
     <string name="auth_username">Notendanafn</string>
     <string name="auth_password">Lykilorð</string>
-    <string name="auth_register">Nýr í %1$s?</string>
     <string name="sync_string_files">Skrár</string>
     <string name="setup_btn_connect">Tengjast</string>
     <string name="uploader_btn_upload_text">Senda inn</string>
