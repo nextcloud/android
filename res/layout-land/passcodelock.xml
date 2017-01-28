@@ -47,38 +47,47 @@
         android:textSize="@dimen/two_line_secondary_text_size"
         />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/passcode"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:errorEnabled="true">
+        android:gravity="center">
 
-        <EditText
-            android:id="@+id/passcodeEditText"
-            android:focusable="true"
-            android:cursorVisible="true"
-            android:imeOptions="flagNoExtractUi"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:inputType="numberPassword"
-            android:digits="1234567890"
-            android:maxLength="4"
-            android:maxLines="1"
-            android:textIsSelectable="false"
-            android:longClickable="false">
-            <requestFocus/>
-        </EditText>
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/passcode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            android:layout_weight="10">
 
-    </android.support.design.widget.TextInputLayout>
+            <EditText
+                android:id="@+id/passcodeEditText"
+                android:focusable="true"
+                android:cursorVisible="true"
+                android:imeOptions="flagNoExtractUi"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:inputType="numberPassword"
+                android:digits="1234567890"
+                android:maxLength="4"
+                android:maxLines="1"
+                android:textIsSelectable="false"
+                android:longClickable="false">
+                <requestFocus/>
+            </EditText>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/cancel"
-        android:theme="@style/Button.Primary"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/common_cancel" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/cancel"
+            android:theme="@style/Button.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/common_cancel"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
