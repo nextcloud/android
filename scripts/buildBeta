@@ -1,0 +1,38 @@
+#!/bin/bash
+date=$(date +%Y%m%d)
+
+# use the current date
+mkdir -p apks
+echo $date > apks/latest
+sed -i s"#android:versionCode=.*#android:versionCode=\"$date\"#" AndroidManifest.xml
+sed -i s"#versionCode .*#versionCode $date#" build.gradle
+
+sed -i s"#android:versionName=.*\"#android:versionName=\"$date\"#" AndroidManifest.xml
+sed -i s"#versionName .*#versionName \"$date\"#" build.gradle
+
+sed -e 's#\@string/app_name#Nextcloud beta#' -e 's#\@string/copy_link#Copy link#' -e 's#\@string/share_dialog_title#Sharing#' -e 's#\@string/manage_space_title#Manage space#' AndroidManifest.xml -i
+
+# build signed apk
+gradle assembleRelease
+
+if [ $? != 0 ] ; then 
+	echo "Build error!"
+	exit
+fi
+
+mv build/outputs/apk/android-release.apk apks/nextcloud-beta-$date.apk
+cp apks/nextcloud-beta-$date.apk apks/latest.apk
+
+# remove all but the latest 5 apks
+/bin/ls -t apks/*.apk | awk 'NR>6' | xargs rm -f
+
+git add .
+git commit
+git push
+
+git tag beta-$date
+git push origin beta-$date
+
+# remove all but the latest 5 tags
+git tag|grep beta | sort -r | awk 'NR>5' | xargs -n 1 git push --delete origin
+git tag|grep beta | sort -r | awk 'NR>5' | xargs -n 1 git tag -d

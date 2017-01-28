@@ -1,0 +1,15 @@
+#!/bin/bash
+
+source ~/.git/githubPass
+
+pullRequests=$(curl -u "$GITHUB_USER:$GITHUB_PASS" 2>/dev/null https://api.github.com/search/issues?q=repo:nextcloud/android+state:open+type:pr+label:%22ready%20for%20beta%22 | grep pulls | cut -d'"' -f4)
+
+curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pullRequests | grep \"label\" | sort | uniq | cut -d'"' -f4 | sed 's#nextcloud\:#origin/#' | sed 's#:#/#'g | sort
+
+## add remote repos
+for repoUrl in $(curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pullRequests | grep \"git_url\" | sort | uniq | cut -f4 -d"\"" ); do
+	repoName=$(echo $repoUrl | cut -f4 -d"/")
+	git remote add $repoName $repoUrl 2>/dev/null
+done
+
+
