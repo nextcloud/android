@@ -1,2 +1,21 @@
 2017-01-28
-Branches: 1
+Branches: 19
+[01 / 19] justin-sleep/upstream merged successfully
+[02 / 19] mario/improvement-toggle-favourite-only-relevant-files CONFLICT
+[03 / 19] origin/bugfix-454 CONFLICT
+[04 / 19] origin/bugfix-456 CONFLICT
+[05 / 19] origin/encodeShareLinkPassword merged successfully
+[06 / 19] origin/feature-user-information CONFLICT
+[07 / 19] origin/federated_sharing_edit_options CONFLICT
+[08 / 19] origin/fix_file_modification_date_on_upload CONFLICT
+[09 / 19] origin/improvement-loading-error-views CONFLICT
+[10 / 19] origin/instant_upload_multi_account CONFLICT
+[11 / 19] origin/master CONFLICT
+[12 / 19] origin/newSortingLayout CONFLICT
+[13 / 19] origin/recognizeMaintenanceMode CONFLICT
+[14 / 19] origin/removePhoneStatePermission CONFLICT
+[15 / 19] origin/resizeCache CONFLICT
+[16 / 19] origin/resizedImages CONFLICT
+[17 / 19] origin/streaming CONFLICT
+[18 / 19] origin/svgView CONFLICT
+[19 / 19] origin/thumbnailRound CONFLICT
