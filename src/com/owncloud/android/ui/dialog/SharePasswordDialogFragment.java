@@ -1,20 +1,20 @@
 /**
- *   ownCloud Android client application
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
+ * ownCloud Android client application
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio
+ * Copyright (C) 2016 ownCloud GmbH.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.dialog;
 
@@ -32,7 +32,11 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * Dialog to input the password for sharing a file/folder.
@@ -42,6 +46,8 @@ import com.owncloud.android.ui.activity.FileActivity;
 
 public class SharePasswordDialogFragment extends DialogFragment
         implements DialogInterface.OnClickListener {
+
+    private static final String TAG = SharePasswordDialogFragment.class.getSimpleName();
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_CREATE_SHARE = "CREATE_SHARE";
@@ -58,7 +64,7 @@ public class SharePasswordDialogFragment extends DialogFragment
      * @param   createShare     When 'true', the request for password will be followed by the creation of a new
      *                          public link; when 'false', a public share is assumed to exist, and the password
      *                          is bound to it.
-     * @return                  Dialog ready to show.
+     * @return Dialog ready to show.
      */
     public static SharePasswordDialogFragment newInstance(OCFile file, boolean createShare) {
         SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
@@ -79,7 +85,7 @@ public class SharePasswordDialogFragment extends DialogFragment
         View v = inflater.inflate(R.layout.password_dialog, null);
 
         // Setup layout
-        EditText inputText = ((EditText)v.findViewById(R.id.share_password));
+        EditText inputText = ((EditText) v.findViewById(R.id.share_password));
         inputText.setText("");
         inputText.requestFocus();
 
@@ -87,9 +93,9 @@ public class SharePasswordDialogFragment extends DialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
                 R.style.Theme_ownCloud_Dialog_NoButtonBarStyle);
         builder.setView(v)
-               .setPositiveButton(R.string.common_ok, this)
-               .setNegativeButton(R.string.common_cancel, this)
-               .setTitle(R.string.share_link_password_title);
+                .setPositiveButton(R.string.common_ok, this)
+                .setNegativeButton(R.string.common_cancel, this)
+                .setTitle(R.string.share_link_password_title);
         Dialog d = builder.create();
         d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         return d;
@@ -100,26 +106,33 @@ public class SharePasswordDialogFragment extends DialogFragment
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             String password =
-                    ((TextView)(getDialog().findViewById(R.id.share_password)))
-                        .getText().toString();
+                    ((TextView) (getDialog().findViewById(R.id.share_password)))
+                            .getText().toString();
 
-            if (password.length() <= 0) {
-                Toast.makeText(
-                        getActivity(),
-                        R.string.share_link_empty_password,
-                        Toast.LENGTH_LONG).show();
-                return;
-            }
+            try {
+                String encodedPassword = URLEncoder.encode(password, "UTF-8");
 
-            if (mCreateShare) {
-                // Share the file
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        shareFileViaLink(mFile, password);
+                if (encodedPassword.length() <= 0) {
+                    Toast.makeText(
+                            getActivity(),
+                            R.string.share_link_empty_password,
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
 
-            } else {
-                // updat existing link
-                ((FileActivity) getActivity()).getFileOperationsHelper().
-                        setPasswordToShareViaLink(mFile, password);
+                if (mCreateShare) {
+                    // Share the file
+                    ((FileActivity) getActivity()).getFileOperationsHelper().
+                            shareFileViaLink(mFile, encodedPassword);
+
+                } else {
+                    // updat existing link
+                    ((FileActivity) getActivity()).getFileOperationsHelper().
+                            setPasswordToShareViaLink(mFile, encodedPassword);
+                }
+
+            } catch (UnsupportedEncodingException e) {
+                Log_OC.i(TAG, "Error encoding the password for sharing a file/folder. " + e);
             }
         }
     }
