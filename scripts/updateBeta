@@ -4,7 +4,7 @@ echo "git pull:"
 git pull  || exit
 echo 
 
-branches=$(./getBranchesForBeta)
+branches=$(scripts/getBranchesForBeta)
 branchesCount=$(echo $branches | tr " " "\n" | wc -l)
 count=1
 echo "Branches: $branchesCount" 
