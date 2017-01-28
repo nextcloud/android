@@ -38,7 +38,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 /**
  *  Authenticator for ownCloud accounts.
  * 
- *  Controller class accessed from the system AccountManager, providing integration of ownCloud accounts with the Android system.
+ *  Controller class accessed from the system AccountManager,
+ *  providing integration of ownCloud accounts with the Android system.
  * 
  *  TODO - better separation in operations for OAuth-capable and regular ownCloud accounts.
  *  TODO - review completeness
@@ -46,8 +47,8 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 public class AccountAuthenticator extends AbstractAccountAuthenticator {
     
     /**
-     * Is used by android system to assign accounts to authenticators. Should be
-     * used by application and all extensions.
+     * Is used by android system to assign accounts to authenticators.
+     * Should be used by application and all extensions.
      */
     public static final String KEY_AUTH_TOKEN_TYPE = "authTokenType";
     public static final String KEY_REQUIRED_FEATURES = "requiredFeatures";
@@ -74,8 +75,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             String accountType, String authTokenType,
             String[] requiredFeatures, Bundle options)
             throws NetworkErrorException {
-        Log_OC.i(TAG, "Adding account with type " + accountType
-                + " and auth token " + authTokenType);
+        Log_OC.i(TAG, "Adding account with type " + accountType + " and auth token " + authTokenType);
         
         final Bundle bundle = new Bundle();
         
@@ -131,8 +131,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         try {
             validateAccountType(account.type);
         } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": "
-                    + e.getMessage(), e);
+            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": " + e.getMessage(), e);
             return e.getFailureBundle();
         }
         Intent intent = new Intent(mContext, AuthenticatorActivity.class);
@@ -149,8 +148,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     }
 
     @Override
-    public Bundle editProperties(AccountAuthenticatorResponse response,
-            String accountType) {
+    public Bundle editProperties(AccountAuthenticatorResponse response, String accountType) {
         return null;
     }
 
@@ -166,8 +164,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             validateAccountType(account.type);
             validateAuthTokenType(authTokenType);
         } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": "
-                    + e.getMessage(), e);
+            Log_OC.e(TAG, "Failed to validate account type " + account.type + ": " + e.getMessage(), e);
             return e.getFailureBundle();
         }
         
@@ -219,8 +216,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             Account account, String authTokenType, Bundle options)
             throws NetworkErrorException {
         final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
-        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
-                response);
+        intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
         intent.putExtra(KEY_ACCOUNT, account);
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
         intent.putExtra(KEY_LOGIN_OPTIONS, options);
@@ -232,8 +228,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     }
 
     @Override
-    public Bundle getAccountRemovalAllowed(
-            AccountAuthenticatorResponse response, Account account)
+    public Bundle getAccountRemovalAllowed(AccountAuthenticatorResponse response, Account account)
             throws NetworkErrorException {
         return super.getAccountRemovalAllowed(response, account);
     }
@@ -244,15 +239,13 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         intent.addFlags(Intent.FLAG_FROM_BACKGROUND);
     }
 
-    private void validateAccountType(String type)
-            throws UnsupportedAccountTypeException {
+    private void validateAccountType(String type) throws UnsupportedAccountTypeException {
         if (!type.equals(MainApp.getAccountType())) {
             throw new UnsupportedAccountTypeException();
         }
     }
 
-    private void validateAuthTokenType(String authTokenType)
-            throws UnsupportedAuthTokenTypeException {
+    private void validateAuthTokenType(String authTokenType) throws UnsupportedAuthTokenTypeException {
         if (!authTokenType.equals(MainApp.getAuthTokenType()) &&
             !authTokenType.equals(AccountTypeUtils.getAuthTokenTypePass(MainApp.getAccountType())) &&
             !authTokenType.equals(AccountTypeUtils.getAuthTokenTypeAccessToken(MainApp.getAccountType())) &&
@@ -269,8 +262,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         public AuthenticatorException(int code, String errorMsg) {
             mFailureBundle = new Bundle();
             mFailureBundle.putInt(AccountManager.KEY_ERROR_CODE, code);
-            mFailureBundle
-                    .putString(AccountManager.KEY_ERROR_MESSAGE, errorMsg);
+            mFailureBundle.putString(AccountManager.KEY_ERROR_MESSAGE, errorMsg);
         }
 
         public Bundle getFailureBundle() {
@@ -278,8 +270,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         }
     }
 
-    public static class UnsupportedAccountTypeException extends
-            AuthenticatorException {
+    public static class UnsupportedAccountTypeException extends AuthenticatorException {
         private static final long serialVersionUID = 1L;
 
         public UnsupportedAccountTypeException() {
@@ -288,32 +279,12 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         }
     }
 
-    public static class UnsupportedAuthTokenTypeException extends
-            AuthenticatorException {
+    public static class UnsupportedAuthTokenTypeException extends AuthenticatorException {
         private static final long serialVersionUID = 1L;
 
         public UnsupportedAuthTokenTypeException() {
             super(AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION,
                     "Unsupported auth token type");
         }
-    }
-
-    public static class UnsupportedFeaturesException extends
-            AuthenticatorException {
-        public static final long serialVersionUID = 1L;
-
-        public UnsupportedFeaturesException() {
-            super(AccountManager.ERROR_CODE_UNSUPPORTED_OPERATION,
-                    "Unsupported features");
-        }
-    }
-
-    public static class AccessDeniedException extends AuthenticatorException {
-        public AccessDeniedException(int code, String errorMsg) {
-            super(AccountManager.ERROR_CODE_INVALID_RESPONSE, "Access Denied");
-        }
-
-        private static final long serialVersionUID = 1L;
-
     }
 }

@@ -674,7 +674,6 @@ public class FileUploader extends Service
                 upload = mCurrentUpload;
             }
             if (upload != null) {
-                boolean pending = !upload.isUploadInProgress();
                 upload.cancel();
                 // need to update now table in mUploadsStorageManager,
                 // since the operation will not get to be run by FileUploader#uploadFile
@@ -686,7 +685,7 @@ public class FileUploader extends Service
         }
 
         /**
-         * Cancels all the uploads for an account
+         * Cancels all the uploads for an account.
          *
          * @param account ownCloud account.
          */
