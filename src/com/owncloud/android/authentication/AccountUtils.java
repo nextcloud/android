@@ -40,6 +40,7 @@ public class AccountUtils {
     private static final String TAG = AccountUtils.class.getSimpleName();
 
     public static final String WEBDAV_PATH_4_0_AND_LATER = "/remote.php/webdav";
+    public static final String DAV_PATH = "/remote.php/dav";
     private static final String ODAV_PATH = "/remote.php/odav";
     private static final String SAML_SSO_PATH = "/remote.php/webdav";
     public static final String STATUS_PATH = "/status.php";
