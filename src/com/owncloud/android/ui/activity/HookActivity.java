@@ -21,6 +21,4 @@ package com.owncloud.android.ui.activity;
 
 public abstract class HookActivity extends FileActivity {
 
-    private static final String TAG = HookActivity.class.getName();
-    
 }

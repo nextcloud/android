@@ -91,9 +91,11 @@ import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.DisplayUtils;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.security.cert.X509Certificate;
 import java.util.Map;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This Activity is used to add an ownCloud account to the App
@@ -401,7 +403,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param savedInstanceState Saved activity state, as in {{@link #onCreate(Bundle)}
      */
     private void initServerPreFragment(Bundle savedInstanceState) {
-        boolean checkHostUrl = true;
 
         /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
         boolean isUrlInputAllowed = getResources().getBoolean(R.bool.show_server_url_input);
@@ -444,9 +445,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mHostUrlInput.setFocusable(false);
         }
         if (isUrlInputAllowed) {
-            if (mServerInfo.mBaseUrl.isEmpty()) {
-                checkHostUrl = false;
-            }
             mRefreshButton = findViewById(R.id.embeddedRefreshButton);
         } else {
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
