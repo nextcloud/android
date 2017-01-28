@@ -22,14 +22,14 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,11 +47,15 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
+import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
+
+import static com.owncloud.android.db.PreferenceManager.getSortAscending;
+import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 
 /**
@@ -60,8 +64,10 @@ import java.io.File;
  */
 public class UploadFilesActivity extends FileActivity implements
     LocalFileListFragment.ContainerActivity, ActionBar.OnNavigationListener,
-        OnClickListener, ConfirmationDialogFragmentListener {
-    
+        OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener {
+
+    private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
+
     private ArrayAdapter<String> mDirectories;
     private File mCurrentDir = null;
     private boolean mSelectAll = false;
@@ -205,27 +211,16 @@ public class UploadFilesActivity extends FileActivity implements
                 // Read sorting order, default to sort by name ascending
                 Integer sortOrder = PreferenceManager.getSortOrder(this);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.actionbar_sort_title)
-                        .setSingleChoiceItems(R.array.menu_items_sort_by_options, sortOrder,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        switch (which){
-                                            case 0:
-                                                mFileListFragment.sortByName(true);
-                                                break;
-                                            case 1:
-                                                mFileListFragment.sortByDate(false);
-                                                break;
-                                            case 2:
-                                                mFileListFragment.sortBySize(false);
-                                                break;
-                                        }
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.addToBackStack(null);
 
-                                        dialog.dismiss();
-                                    }
-                                });
-                builder.create().show();
+                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
+                        getSortOrder(this),
+                        getSortAscending(this)
+                );
+                mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
+
                 break;
             }
             case R.id.action_switch_view: {
@@ -246,6 +241,33 @@ public class UploadFilesActivity extends FileActivity implements
         return retval;
     }
 
+    @Override
+    public void onSortingOrderChosen(int selection) {
+        switch (selection) {
+            case SortingOrderDialogFragment.BY_NAME_ASC:
+                mFileListFragment.sortByName(true);
+                break;
+            case SortingOrderDialogFragment.BY_NAME_DESC:
+                mFileListFragment.sortByName(false);
+                break;
+            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_ASC:
+                mFileListFragment.sortByDate(true);
+                break;
+            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_DESC:
+                mFileListFragment.sortByDate(false);
+                break;
+            case SortingOrderDialogFragment.BY_SIZE_ASC:
+                mFileListFragment.sortBySize(true);
+                break;
+            case SortingOrderDialogFragment.BY_SIZE_DESC:
+                mFileListFragment.sortBySize(false);
+                break;
+            default: // defaulting to alphabetical-ascending
+                Log_OC.w(TAG, "Unknown sort order, defaulting to alphabetical-ascending!");
+                mFileListFragment.sortByName(true);
+                break;
+        }
+    }
     
     @Override
     public boolean onNavigationItemSelected(int itemPosition, long itemId) {
