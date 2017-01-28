@@ -46,7 +46,6 @@
     <string name="auth_host_url">כתובת שרת https://…</string>
     <string name="auth_username">שם משתמש</string>
     <string name="auth_password">ססמה</string>
-    <string name="auth_register">חדש ב- %1$s?</string>
     <string name="sync_string_files">קבצים</string>
     <string name="setup_btn_connect">התחברות</string>
     <string name="uploader_btn_upload_text">העלאה</string>

@@ -57,7 +57,6 @@
     <string name="auth_host_url">Endereço do servidor https://..</string>
     <string name="auth_username">Nome de Utilizador</string>
     <string name="auth_password">Palavra-passe</string>
-    <string name="auth_register">Novo em %1$s?</string>
     <string name="sync_string_files">Ficheiros</string>
     <string name="setup_btn_connect">Ligar</string>
     <string name="uploader_btn_upload_text">Carregar</string>
