@@ -349,20 +349,6 @@ public class UploadFileOperation extends SyncOperation {
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
             expectedFile = new File(expectedPath);
 
-            /// copy the file locally before uploading
-            if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY &&
-                    !mOriginalStoragePath.equals(expectedPath)) {
-
-                String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
-                mFile.setStoragePath(temporalPath);
-                temporalFile = new File(temporalPath);
-
-                result = copy(originalFile, temporalFile);
-                if (result != null) {
-                    return result;
-                }
-            }
-
             if (mCancellationRequested.get()) {
                 throw new OperationCancelledException();
             }
@@ -381,9 +367,8 @@ public class UploadFileOperation extends SyncOperation {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
             }
-            Iterator <OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
-            while (listener.hasNext()) {
-                mUploadOperation.addDatatransferProgressListener(listener.next());
+            for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
+                mUploadOperation.addDatatransferProgressListener(mDataTransferListener);
             }
 
             if (mCancellationRequested.get()) {
@@ -409,9 +394,7 @@ public class UploadFileOperation extends SyncOperation {
                 } else {
                     mFile.setStoragePath(expectedPath);
 
-                    if (temporalFile != null) {         // FileUploader.LOCAL_BEHAVIOUR_COPY
-                        move(temporalFile, expectedFile);
-                    } else {                            // FileUploader.LOCAL_BEHAVIOUR_MOVE
+                    if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE) {
                         move(originalFile, expectedFile);
                         getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                     }
