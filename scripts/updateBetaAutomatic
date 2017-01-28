@@ -1,0 +1,54 @@
+#!/bin/bash
+
+statusFile="betaUpdateStatus"
+
+git pull -q || exit
+
+branches=$(./getBranchesForBeta)
+branchesCount=$(echo $branches | tr " " "\n" | wc -l)
+count=1
+
+date +%F > $statusFile
+echo "Branches: $branchesCount" >> $statusFile
+
+for branch in $branches; do
+    echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] " >> $statusFile
+    
+    if [ $(echo $branch | grep -c "^origin") -eq 0 ] ; then
+        # remote repo
+        git fetch -q $(echo $branch | cut -f1 -d"/") 1> /dev/null
+    fi
+    
+    git merge --no-edit $branch 1> /dev/null
+    
+    if [ $? -ne 0 ] ; then
+        echo "$branch CONFLICT" >> $statusFile
+        git merge --abort
+    else
+        echo "$branch merged successfully" >> $statusFile
+    fi
+    
+    let count++
+done
+
+## Update Changelog.md
+tmpFile=$(tempfile)
+cp CHANGELOG.md $tmpFile
+
+echo "## $(date +%F)" > CHANGELOG.md
+
+## add new branches
+comm -13 branches_old <(cat betaUpdateStatus | grep succ | cut -d" " -f4 ) | sed s'#^#- #'g | sed s'#$# added#'g >> CHANGELOG.md
+cat betaUpdateStatus | grep succ | cut -d" " -f4 > branches_old
+
+## add updated branches
+if [ $(cat betaUpdateStatus | grep succ -c) -gt 0 ]; then
+    cat betaUpdateStatus | grep succ | cut -d" " -f4 | sed s'#$# updated#'g | sed s'#^#- #'g >> CHANGELOG.md
+fi
+
+echo >> CHANGELOG.md
+cat $tmpFile >> CHANGELOG.md
+
+git add .
+git commit -m "daily beta build"
+git push

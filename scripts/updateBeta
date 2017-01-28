@@ -1,0 +1,33 @@
+#!/bin/bash
+
+echo "git pull:"
+git pull  || exit
+echo 
+
+branches=$(./getBranchesForBeta)
+branchesCount=$(echo $branches | tr " " "\n" | wc -l)
+count=1
+echo "Branches: $branchesCount" 
+
+for branch in $branches; do
+    echo "[$count / $branchesCount]" $branch
+    
+    if [ $(echo $branch | grep -c "^origin") -eq 0 ] ; then
+        # remote repo
+        git fetch $(echo $branch | cut -f1 -d"/")
+    fi
+    
+    git merge --no-edit $branch 1> /dev/null
+    
+    if [ $? -ne 0 ] ; then
+        echo "resolve conflict in androidStudio, after resolving press RETURN"
+        read
+        git add . && git commit --no-edit 1> /dev/null
+    else 
+        echo " merged"
+    fi
+    
+    let count++
+done
+
+git push
