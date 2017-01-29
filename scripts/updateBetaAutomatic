@@ -5,21 +5,23 @@ statusFile="betaUpdateStatus"
 git pull -q || exit
 
 branches=$(scripts/getBranchesForBeta)
-branchesCount=$(echo $branches | tr " " "\n" | wc -l)
+branchesCount=$(echo "$branches" | wc -l)
 count=1
 
 date +%F > $statusFile
 echo "Branches: $branchesCount" >> $statusFile
 
-for branch in $branches; do
+for branch in "$branches"; do
     echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] " >> $statusFile
     
-    if [ $(echo $branch | grep -c "^origin") -eq 0 ] ; then
+    $branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
+    
+    if [ $(echo $branchName | grep -c "^origin") -eq 0 ] ; then
         # remote repo
-        git fetch -q $(echo $branch | cut -f1 -d"/") 1> /dev/null
+        git fetch -q $(echo $branchName | cut -f1 -d"/") 1> /dev/null
     fi
     
-    git merge --no-edit $branch 1> /dev/null
+    git merge --no-edit $branchName 1> /dev/null
     
     if [ $? -ne 0 ] ; then
         echo "$branch CONFLICT" >> $statusFile
@@ -30,6 +32,8 @@ for branch in $branches; do
     
     let count++
 done
+
+exit
 
 ## Update Changelog.md
 tmpFile=$(tempfile)
