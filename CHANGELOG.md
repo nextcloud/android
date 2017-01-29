@@ -1,3 +1,10 @@
+## 2017-01-30
+- New sorting order dialog (nextcloud/newSortingLayout) [https://api.github.com/repos/nextcloud/android/pulls/575] added
+- Properly encode the share link password (nextcloud/encodeShareLinkPassword) [https://api.github.com/repos/nextcloud/android/pulls/510] added
+- New sorting order dialog (nextcloud/newSortingLayout) [https://api.github.com/repos/nextcloud/android/pulls/575] updated
+- Properly encode the share link password (nextcloud/encodeShareLinkPassword) [https://api.github.com/repos/nextcloud/android/pulls/510] updated
+- Fix DavDroid integration append necessary addition to mURI (justin-sleep/upstream) [https://api.github.com/repos/nextcloud/android/pulls/401] updated
+
 ## 2017-01-22
 - prevent NoClassDefFound #547
 
