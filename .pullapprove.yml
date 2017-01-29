@@ -1,0 +1,43 @@
+version: 2
+
+# General settings to apply
+always_pending:
+  title_regex: '(WIP|wip)'
+  labels:
+    - 1. to develop
+    - 2. developing
+  # custom message that will be used for the GitHub status
+  explanation: 'This PR is a work in progress...'
+
+# Group settings to apply to all groups by default, optionally being overridden later
+group_defaults:
+  author_approval:
+    ignored: true
+  approve_by_comment:
+    enabled: true
+    approve_regex: '^(Approved|:shipit:|:\+1:|LGTM)'
+    reject_regex: '^(Rejected|:-1:)'
+  reset_on_push:
+    enabled: true
+  reset_on_reopened:
+    enabled: true
+
+groups:
+  code-review:
+    required: 2
+    users:
+      - AndyScherzinger
+      - tobiasKaminsky
+      - mario
+      - przybylski 
+
+  design-review:
+    conditions:
+      labels:
+      - design
+    reset_on_push:
+      enabled: false
+    required: 1
+    users:
+      - jancborchardt 
+      - eppfel
