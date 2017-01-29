@@ -14,7 +14,7 @@ echo "Branches: $branchesCount" >> $statusFile
 for branch in "$branches"; do
     echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] " >> $statusFile
     
-    $branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
+    branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
     
     if [ $(echo $branchName | grep -c "^origin") -eq 0 ] ; then
         # remote repo
