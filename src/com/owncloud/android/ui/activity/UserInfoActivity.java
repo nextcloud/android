@@ -60,7 +60,7 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 /**
- * Created by mdjanic on 25/01/2017.
+ * This Activity presents the user information.
  */
 
 public class UserInfoActivity extends FileActivity {
@@ -90,8 +90,6 @@ public class UserInfoActivity extends FileActivity {
 
     @BindString(R.string.preview_sorry)
     public String sorryMessage;
-
-    private RecyclerView.LayoutManager layoutManager;
 
     private RecyclerView.Adapter adapter;
 
@@ -131,7 +129,7 @@ public class UserInfoActivity extends FileActivity {
             updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.user_information_description));
         }
 
-        layoutManager = new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         genericRecyclerView.setLayoutManager(layoutManager);
 
         // This will be enabled once we migrate to new support libraries
