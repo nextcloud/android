@@ -63,7 +63,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -72,7 +71,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
@@ -243,8 +241,6 @@ public class Preferences extends PreferenceActivity
             });
         }
 
-        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
-
         boolean calendarContactsEnabled = getResources().getBoolean(R.bool.calendar_contacts_enabled);
         Preference pCalendarContacts = findPreference("calendar_contacts");
         if (pCalendarContacts != null) {
@@ -268,27 +264,6 @@ public class Preferences extends PreferenceActivity
             } else {
                 preferenceCategory.removePreference(pCalendarContacts);
             }
-        }
-
-        final Preference pCacheSize = findPreference("pref_cache_size");
-        if (pCacheSize != null){
-            final SharedPreferences appPrefs =
-                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            Long cacheSize = ThumbnailsCacheManager.getMaxSize();
-            pCacheSize.setSummary(cacheSize + " Mb");
-            pCacheSize.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    int size = Integer.decode((String) newValue);
-                    if (ThumbnailsCacheManager.setMaxSize(size)){
-                        appPrefs.edit().putInt("pref_cache_size", size);
-                        pCacheSize.setSummary(size + " MB");
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-            });
         }
 
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
