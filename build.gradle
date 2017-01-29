@@ -19,10 +19,6 @@ apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
 
-configurations.all {
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
-
 ext {
     supportLibraryVersion = '24.2.1'
 
@@ -45,7 +41,7 @@ dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
 
-    compile 'com.github.nextcloud:android-library:change-userinfo-calls-SNAPSHOT'
+    compile 'com.github.nextcloud:android-library:1.0.11'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
