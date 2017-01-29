@@ -1,18 +1,3 @@
-## 2017-01-29
-- Fix DavDroid integration append necessary addition to mURI (justin-sleep/upstream) [https://api.github.com/repos/nextcloud/android/pulls/401] updated
-
-## 2017-01-29
-- Fix DavDroid integration append necessary addition to mURI (justin-sleep/upstream) [https://api.github.com/repos/nextcloud/android/pulls/401] added
-- Fix DavDroid integration append necessary addition to mURI (justin-sleep/upstream) [https://api.github.com/repos/nextcloud/android/pulls/401] updated
-
-## 2017-01-29
-- Fix DavDroid integration append necessary addition to mURI (justin-sleep/upstream) [https://api.github.com/repos/nextcloud/android/pulls/401] updated
-
-## 2017-01-29
-- Fix DavDroid integration append necessary addition to mURI (justin-sleep/upstream) [https://api.github.com/repos/nextcloud/android/pulls/401] added
-- Fix DavDroid integration append necessary addition to mURI (justin-sleep/upstream) [https://api.github.com/repos/nextcloud/android/pulls/401] updated
-
-
 ## 2017-01-22
 - prevent NoClassDefFound #547
 
