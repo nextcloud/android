@@ -40,7 +40,9 @@ cp CHANGELOG.md $tmpFile
 echo "## $(date +%F)" > CHANGELOG.md
 
 ## add new branches
-egrep "$(comm -13 branches_old <(cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) )" betaUpdateStatus | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# added#'g >> CHANGELOG.md
+if [ $(comm -13 branches_old <(cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) | wc -l) -gt 0 ] ; then
+    egrep "$(comm -13 branches_old <(cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) )" betaUpdateStatus | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# added#'g >> CHANGELOG.md
+fi
 cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort > branches_old
 
 ## add updated branches
