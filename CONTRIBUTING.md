@@ -130,9 +130,8 @@ Whenever a PR is reviewed/approved we put it on master.
 Before releasing a new stable version there is at least one release candidate. It is based on the current master and during this phase the master is feature freezed. After ~2 weeks with no error a stable version will be releaded, which is identically to the latest release candidate. 
 
 ### Development Beta
-Done as a standalone app that can be installed in parallel to the stable app
-Any PR which is labelled "3. to review" or "4. to release" will be included in the beta app. The update interval depends on the speed of new/updated PRs.
-
+Done as a standalone app that can be installed in parallel to the stable app.
+Any PR which is labelled "ready for beta" will be automatically included in the beta app. This label should only set by the main developers.
 
 ## Version Name and number
 ### Stable / Release candidate
@@ -184,5 +183,4 @@ Release Candidate releases are based on the git [master](https://github.com/next
 ###Development Beta Release
 Beta releases are based on the git [beta](https://github.com/nextcloud/android/tree/beta) and are done independently from stable releases and integrate open PRs that might not be production ready or heavily tested but being put out there for people willing to test new features and provide valuable feedback on new features to be incorporated before a feature gets released in the stable app.
 
-1. Bump the version name and version code in the [AndroidManifest.xml](https://github.com/nextcloud/android/blob/master/AndroidManifest.xml), see below the version name and code concept.
-2. Create a [release/tag](https://github.com/nextcloud/android/releases) in git. Tag name following the naming schema: ```beta-YYYYMMDD``` (e.g. beta-20160612)
+The deployment/build is done once a day automatically. If code has changed a new apk will be published on https://github.com/nextcloud/android/tree/beta/apks and it will also be available on f-droid.
