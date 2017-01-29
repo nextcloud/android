@@ -26,10 +26,4 @@
 		<item>@string/uploader_upload_files_behaviour_only_upload</item>
 		<item>@string/uploader_upload_files_behaviour_upload_and_delete_from_source</item>
 	</string-array>
-
-	<string-array name="menu_items_sort_by_options" translatable="false">
-		<item>@string/menu_item_sort_by_name</item>
-		<item>@string/menu_item_sort_by_date</item>
-		<item>@string/menu_item_sort_by_size</item>
-	</string-array>
 </resources>

@@ -57,6 +57,7 @@
     <string name="auth_host_url">Adresse du serveur https://…</string>
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_password">Mot de passe</string>
+    <string name="auth_register">Vous n\'avez pas encore un serveur ?\nCliquez ici pour en obtenir un d\'un fournisseur</string>
     <string name="sync_string_files">Fichiers</string>
     <string name="setup_btn_connect">Connecter</string>
     <string name="uploader_btn_upload_text">Téléverser</string>

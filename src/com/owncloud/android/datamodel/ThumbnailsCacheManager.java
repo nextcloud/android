@@ -372,7 +372,8 @@ public class ThumbnailsCacheManager {
         private int getThumbnailDimension(){
             // Converts dp to pixel
             Resources r = MainApp.getAppContext().getResources();
-            return Math.round(r.getDimension(R.dimen.file_icon_size_grid));
+            Double d = Math.pow(2,Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid))/Math.log(2)));
+            return d.intValue();
         }
 
         private Point getScreenDimension(){

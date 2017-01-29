@@ -1,21 +1,20 @@
-2017-01-28
-Branches: 19
-[01 / 19] justin-sleep/upstream merged successfully
-[02 / 19] mario/improvement-toggle-favourite-only-relevant-files CONFLICT
-[03 / 19] origin/bugfix-454 CONFLICT
-[04 / 19] origin/bugfix-456 CONFLICT
-[05 / 19] origin/encodeShareLinkPassword merged successfully
-[06 / 19] origin/feature-user-information CONFLICT
-[07 / 19] origin/federated_sharing_edit_options CONFLICT
-[08 / 19] origin/fix_file_modification_date_on_upload CONFLICT
-[09 / 19] origin/improvement-loading-error-views CONFLICT
-[10 / 19] origin/instant_upload_multi_account CONFLICT
-[11 / 19] origin/master CONFLICT
-[12 / 19] origin/newSortingLayout CONFLICT
-[13 / 19] origin/recognizeMaintenanceMode CONFLICT
-[14 / 19] origin/removePhoneStatePermission CONFLICT
-[15 / 19] origin/resizeCache CONFLICT
-[16 / 19] origin/resizedImages CONFLICT
-[17 / 19] origin/streaming CONFLICT
-[18 / 19] origin/svgView CONFLICT
-[19 / 19] origin/thumbnailRound CONFLICT
+2017-01-29
+Branches: 18
+[01 / 18] justin-sleep/upstream merged successfully
+[02 / 18] mario/improvement-toggle-favourite-only-relevant-files CONFLICT
+[03 / 18] origin/bugfix-454 CONFLICT
+[04 / 18] origin/encodeShareLinkPassword merged successfully
+[05 / 18] origin/feature-user-information CONFLICT
+[06 / 18] origin/federated_sharing_edit_options CONFLICT
+[07 / 18] origin/fix_file_modification_date_on_upload CONFLICT
+[08 / 18] origin/instant_upload_multi_account CONFLICT
+[09 / 18] origin/integration CONFLICT
+[10 / 18] origin/master merged successfully
+[11 / 18] origin/newSortingLayout merged successfully
+[12 / 18] origin/recognizeMaintenanceMode CONFLICT
+[13 / 18] origin/removePhoneStatePermission CONFLICT
+[14 / 18] origin/resizeCache merged successfully
+[15 / 18] origin/resizedImages CONFLICT
+[16 / 18] origin/streaming CONFLICT
+[17 / 18] origin/svgView CONFLICT
+[18 / 18] origin/thumbnailRound merged successfully
