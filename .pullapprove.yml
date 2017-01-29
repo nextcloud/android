@@ -40,4 +40,4 @@ groups:
     required: 1
     users:
       - jancborchardt 
-      - eppfel 
+      - eppfel
