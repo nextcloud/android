@@ -57,6 +57,7 @@
     <string name="auth_host_url">服务器地址 https://...</string>
     <string name="auth_username">用户名</string>
     <string name="auth_password">密码</string>
+    <string name="auth_register">还没有服务器吗? \\n点击这里从提供商那里获取一个</string>
     <string name="sync_string_files">文件</string>
     <string name="setup_btn_connect">连接</string>
     <string name="uploader_btn_upload_text">上传</string>

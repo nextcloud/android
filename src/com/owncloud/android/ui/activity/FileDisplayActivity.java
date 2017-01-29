@@ -78,6 +78,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -97,6 +98,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.owncloud.android.db.PreferenceManager.getSortAscending;
 import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
@@ -105,7 +107,7 @@ import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 public class FileDisplayActivity extends HookActivity
         implements FileFragment.ContainerActivity,
-        OnEnforceableRefreshListener {
+        OnEnforceableRefreshListener, SortingOrderDialogFragment.OnSortingOrderListener {
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
     private UploadFinishReceiver mUploadFinishReceiver;
@@ -119,6 +121,8 @@ public class FileDisplayActivity extends HookActivity
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
+
+    private static final String SORT_ORDER_DIALOG_TAG = "SORT_ORDER_DIALOG";
 
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
@@ -630,28 +634,16 @@ public class FileDisplayActivity extends HookActivity
                 break;
             }
             case R.id.action_sort: {
-                Integer sortOrder = getSortOrder(this);
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                ft.addToBackStack(null);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setTitle(R.string.actionbar_sort_title)
-                        .setSingleChoiceItems(R.array.menu_items_sort_by_options, sortOrder,
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        switch (which) {
-                                            case 0:
-                                                sortByName(true);
-                                                break;
-                                            case 1:
-                                                sortByDate(false);
-                                                break;
-                                            case 2:
-                                                sortBySize(false);
-                                        }
+                SortingOrderDialogFragment mSortingOrderDialogFragment = SortingOrderDialogFragment.newInstance(
+                        getSortOrder(this),
+                        getSortAscending(this)
+                );
+                mSortingOrderDialogFragment.show(ft, SORT_ORDER_DIALOG_TAG);
 
-                                        dialog.dismiss();
-                                    }
-                                });
-                builder.create().show();
                 break;
             }
             case R.id.action_switch_view: {
@@ -987,6 +979,33 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
+    @Override
+    public void onSortingOrderChosen(int selection) {
+        switch (selection) {
+            case SortingOrderDialogFragment.BY_NAME_ASC:
+                sortByName(true);
+                break;
+            case SortingOrderDialogFragment.BY_NAME_DESC:
+                sortByName(false);
+                break;
+            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_ASC:
+                sortByDate(true);
+                break;
+            case SortingOrderDialogFragment.BY_MODIFICATION_DATE_DESC:
+                sortByDate(false);
+                break;
+            case SortingOrderDialogFragment.BY_SIZE_ASC:
+                sortBySize(true);
+                break;
+            case SortingOrderDialogFragment.BY_SIZE_DESC:
+                sortBySize(false);
+                break;
+            default: // defaulting to alphabetical-ascending
+                Log_OC.w(TAG, "Unknown sort order, defaulting to alphabetical-ascending!");
+                sortByName(true);
+                break;
+        }
+    }
 
     private class SyncBroadcastReceiver extends BroadcastReceiver {
 
