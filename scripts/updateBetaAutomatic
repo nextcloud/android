@@ -2,7 +2,7 @@
 
 statusFile="betaUpdateStatus"
 
-git pull -q || exit
+# git pull -q || exit
 
 branches=$(scripts/getBranchesForBeta)
 branchesCount=$(echo "$branches" | wc -l)
@@ -11,7 +11,7 @@ count=1
 date +%F > $statusFile
 echo "Branches: $branchesCount" >> $statusFile
 
-for branch in "$branches"; do
+while read -r branch; do
     echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] " >> $statusFile
     
     branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
@@ -31,9 +31,7 @@ for branch in "$branches"; do
     fi
     
     let count++
-done
-
-exit
+done <<< "$branches"
 
 ## Update Changelog.md
 tmpFile=$(tempfile)
@@ -42,12 +40,12 @@ cp CHANGELOG.md $tmpFile
 echo "## $(date +%F)" > CHANGELOG.md
 
 ## add new branches
-comm -13 branches_old <(cat betaUpdateStatus | grep succ | cut -d" " -f4 ) | sed s'#^#- #'g | sed s'#$# added#'g >> CHANGELOG.md
-cat betaUpdateStatus | grep succ | cut -d" " -f4 > branches_old
+egrep "$(comm -13 branches_old <(cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) )" betaUpdateStatus | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# added#'g >> CHANGELOG.md
+cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort > branches_old
 
 ## add updated branches
 if [ $(cat betaUpdateStatus | grep succ -c) -gt 0 ]; then
-    cat betaUpdateStatus | grep succ | cut -d" " -f4 | sed s'#$# updated#'g | sed s'#^#- #'g >> CHANGELOG.md
+    cat betaUpdateStatus | grep succ | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# updated#'g >> CHANGELOG.md
 fi
 
 echo >> CHANGELOG.md

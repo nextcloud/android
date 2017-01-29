@@ -1,20 +1,16 @@
 2017-01-29
-Branches: 18
-[01 / 18] justin-sleep/upstream merged successfully
-[02 / 18] mario/improvement-toggle-favourite-only-relevant-files CONFLICT
-[03 / 18] origin/bugfix-454 CONFLICT
-[04 / 18] origin/encodeShareLinkPassword merged successfully
-[05 / 18] origin/feature-user-information CONFLICT
-[06 / 18] origin/federated_sharing_edit_options CONFLICT
-[07 / 18] origin/fix_file_modification_date_on_upload CONFLICT
-[08 / 18] origin/instant_upload_multi_account CONFLICT
-[09 / 18] origin/integration CONFLICT
-[10 / 18] origin/master merged successfully
-[11 / 18] origin/newSortingLayout merged successfully
-[12 / 18] origin/recognizeMaintenanceMode CONFLICT
-[13 / 18] origin/removePhoneStatePermission CONFLICT
-[14 / 18] origin/resizeCache merged successfully
-[15 / 18] origin/resizedImages CONFLICT
-[16 / 18] origin/streaming CONFLICT
-[17 / 18] origin/svgView CONFLICT
-[18 / 18] origin/thumbnailRound merged successfully
+Branches: 14
+[01 / 14] Integration (nextcloud/integration) [https://api.github.com/repos/nextcloud/android/pulls/590] CONFLICT
+[02 / 14] Feature user information (nextcloud/feature-user-information) [https://api.github.com/repos/nextcloud/android/pulls/585] CONFLICT
+[03 / 14] New sorting order dialog (nextcloud/newSortingLayout) [https://api.github.com/repos/nextcloud/android/pulls/575] CONFLICT
+[04 / 14] Search inside of text files (nextcloud/bugfix-454) [https://api.github.com/repos/nextcloud/android/pulls/565] CONFLICT
+[05 / 14] Avoid toggling favourite for all selected files (mario/improvement-toggle-favourite-only-relevant-files) [https://api.github.com/repos/nextcloud/android/pulls/524] CONFLICT
+[06 / 14] Properly encode the share link password (nextcloud/encodeShareLinkPassword) [https://api.github.com/repos/nextcloud/android/pulls/510] CONFLICT
+[07 / 14] show SVG images (nextcloud/svgView) [https://api.github.com/repos/nextcloud/android/pulls/465] CONFLICT
+[08 / 14] Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://api.github.com/repos/nextcloud/android/pulls/451] CONFLICT
+[09 / 14] Fix DavDroid integration append necessary addition to mURI (justin-sleep/upstream) [https://api.github.com/repos/nextcloud/android/pulls/401] merged successfully
+[10 / 14] Updated federated sharing edit options (nextcloud/federated_sharing_edit_options) [https://api.github.com/repos/nextcloud/android/pulls/395] CONFLICT
+[11 / 14] Streaming (nextcloud/streaming) [https://api.github.com/repos/nextcloud/android/pulls/183] CONFLICT
+[12 / 14] Resize cache (nextcloud/resizeCache) [https://api.github.com/repos/nextcloud/android/pulls/144] CONFLICT
+[13 / 14] Instant upload in the context of multi account support (nextcloud/instant_upload_multi_account) [https://api.github.com/repos/nextcloud/android/pulls/98] CONFLICT
+[14 / 14] Resized images (nextcloud/resizedImages) [https://api.github.com/repos/nextcloud/android/pulls/69] CONFLICT
