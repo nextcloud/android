@@ -40,7 +40,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by mdjanic on 24/01/2017.
+ * This Adapter populates a RecyclerView with the user information.
  */
 
 
@@ -61,8 +61,6 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        // Just as an example, return 0 or 2 depending on position
-        // Note that unlike in ListView adapters, types don't have to be contiguous
         if (position % 2 == 0) {
             return 0;
         } else {
@@ -111,34 +109,36 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
     }
 
     private void getRelevantInformation() {
-        if (!TextUtils.isEmpty(userInfo.getDisplayName()) && context != null) {
-            stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_full_name),
-                    userInfo.getDisplayName()));
-        }
+        if (context != null) {
+            if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
+                stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_full_name),
+                        userInfo.getDisplayName()));
+            }
 
-        if (!TextUtils.isEmpty((userInfo.getEmail())) && context != null) {
-            stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_email),
-                    userInfo.getEmail()));
-        }
+            if (!TextUtils.isEmpty((userInfo.getEmail()))) {
+                stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_email),
+                        userInfo.getEmail()));
+            }
 
-        if (!TextUtils.isEmpty(userInfo.getPhone()) && context != null) {
-            stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_phone),
-                    userInfo.getPhone()));
-        }
+            if (!TextUtils.isEmpty(userInfo.getPhone())) {
+                stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_phone),
+                        userInfo.getPhone()));
+            }
 
-        if (!TextUtils.isEmpty(userInfo.getAddress()) && context != null) {
-            stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_address),
-                    userInfo.getAddress()));
-        }
+            if (!TextUtils.isEmpty(userInfo.getAddress())) {
+                stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_address),
+                        userInfo.getAddress()));
+            }
 
-        if (!TextUtils.isEmpty(userInfo.getWebpage()) && context != null) {
-            stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_website),
-                    userInfo.getWebpage()));
-        }
+            if (!TextUtils.isEmpty(userInfo.getWebpage())) {
+                stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_website),
+                        userInfo.getWebpage()));
+            }
 
-        if (!TextUtils.isEmpty(userInfo.getTwitter()) && context != null) {
-            stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_twitter),
-                    userInfo.getTwitter()));
+            if (!TextUtils.isEmpty(userInfo.getTwitter())) {
+                stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_twitter),
+                        userInfo.getTwitter()));
+            }
         }
     }
 
