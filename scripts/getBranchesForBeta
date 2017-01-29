@@ -6,13 +6,11 @@ pullRequests=$(curl -u "$GITHUB_USER:$GITHUB_PASS" 2>/dev/null https://api.githu
 
 for pr in $pullRequests; do
     xml=$(curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pr)
-    branchName=$(echo "$xml" | grep \"label\" | head -n1 | cut -d'"' -f 4)
-    title=$(echo "$xml" | grep "title" | head -n1 | cut -d'"' -f 4)
+    branchName=$(echo "$xml" | grep \"label\" | head -n1 | cut -d'"' -f 4| tr ":" "/")
+    title=$(echo "$xml" | grep "title" | head -n1 | cut -d'"' -f 4 | tr -d "(" | tr -d ")" | tr -d "[" | tr -d "]")
     
     echo "$title ("$branchName") ["$pr"]"
 done
-    
-# PR Name (branch) [Url]
 
 ## add remote repos
 for repoUrl in $(curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pullRequests | grep \"git_url\" | sort | uniq | cut -f4 -d"\"" ); do
