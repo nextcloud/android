@@ -4,7 +4,15 @@ source ~/.git/githubPass
 
 pullRequests=$(curl -u "$GITHUB_USER:$GITHUB_PASS" 2>/dev/null https://api.github.com/search/issues?q=repo:nextcloud/android+state:open+type:pr+label:%22ready%20for%20beta%22 | grep pulls | cut -d'"' -f4)
 
-curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pullRequests | grep \"label\" | sort | uniq | cut -d'"' -f4 | sed 's#nextcloud\:#origin/#' | sed 's#:#/#'g | sort
+for pr in $pullRequests; do
+    xml=$(curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pr)
+    branchName=$(echo "$xml" | grep \"label\" | head -n1 | cut -d'"' -f 4)
+    title=$(echo "$xml" | grep "title" | head -n1 | cut -d'"' -f 4)
+    
+    echo "$title ("$branchName") ["$pr"]"
+done
+    
+# PR Name (branch) [Url]
 
 ## add remote repos
 for repoUrl in $(curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pullRequests | grep \"git_url\" | sort | uniq | cut -f4 -d"\"" ); do
