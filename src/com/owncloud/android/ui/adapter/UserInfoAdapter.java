@@ -129,9 +129,10 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
             stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_website),
                     userInfo.getWebpage()));
 
-        if (!TextUtils.isEmpty(userInfo.getTwitter()) && context != null) {
-            stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_twitter),
-                    userInfo.getTwitter()));
+            if (!TextUtils.isEmpty(userInfo.getTwitter())) {
+                stringPairs.add(new StringPair(context.getResources().getString(R.string.user_info_twitter),
+                        userInfo.getTwitter()));
+            }
         }
     }
 
