@@ -603,12 +603,6 @@ public class FileDisplayActivity extends HookActivity
 
         mSearchView = (SearchView) MenuItemCompat.getActionView(menu.findItem(R.id.action_search));
 
-        if (mSearchOpen) {
-            mSearchView.setQuery(mSearchQuery, false);
-            mSearchView.setIconified(false);
-            mSearchView.clearFocus();
-        }
-
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_search));
