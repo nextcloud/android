@@ -2,6 +2,13 @@
 
 statusFile="betaUpdateStatus"
 
+# check if branch was changed
+git fetch
+if [ $(git status | grep "dem selben Stand" -c) -eq 0 ]; then
+    # branch was updated outside, so build new beta
+    echo "Beta branch was updated successfully" >> $statusFile
+fi
+
 git pull -q || exit
 
 branches=$(scripts/getBranchesForBeta)
