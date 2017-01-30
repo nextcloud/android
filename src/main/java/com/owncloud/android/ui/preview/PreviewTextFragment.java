@@ -322,9 +322,7 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
                 mSearchView.setOnQueryTextListener(PreviewTextFragment.this);
                 textView.setText(mOriginalText);
                 if (mSearchOpen) {
-                    mSearchView.setIconified(false);
                     mSearchView.setQuery(mSearchQuery, true);
-                    mSearchView.clearFocus();
                 }
                 textView.setVisibility(View.VISIBLE);
             }
@@ -349,6 +347,13 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         menuItem.setVisible(true);
         mSearchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         mSearchView.setMaxWidth(Integer.MAX_VALUE);
+
+        if (mSearchOpen) {
+            mSearchView.setIconified(false);
+            mSearchView.setQuery(mSearchQuery, false);
+            mSearchView.clearFocus();
+        }
+
     }
 
     /**
