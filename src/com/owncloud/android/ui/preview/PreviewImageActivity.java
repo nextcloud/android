@@ -26,7 +26,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.view.ViewPager;
@@ -122,11 +121,7 @@ public class PreviewImageActivity extends FileActivity implements
                         }
                     }
                 });
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.owncloud_blue_dark_transparent));
-        }
-            
+         
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
             if (!savedInstanceState.getBoolean(KEY_SYSTEM_VISIBLE, true)) {

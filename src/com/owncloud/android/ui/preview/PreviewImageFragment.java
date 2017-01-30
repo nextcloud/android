@@ -24,6 +24,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -88,7 +89,6 @@ public class PreviewImageFragment extends FileFragment {
     protected TextView mMultiListHeadline;
     protected ImageView mMultiListIcon;
     protected ProgressBar mMultiListProgress;
-
 
     public Bitmap mBitmap = null;
 
@@ -566,11 +566,15 @@ public class PreviewImageFragment extends FileFragment {
             }
 
             mMultiView.setVisibility(View.GONE);
+            if (getResources() != null) {
+                mImageView.setBackgroundColor(getResources().getColor(R.color.black));
+            }
             mImageView.setVisibility(View.VISIBLE);
 
         }
 
         private void showErrorMessage() {
+            mImageView.setBackgroundColor(Color.TRANSPARENT);
             setMessageForMultiList(mErrorMessageId, R.string.preview_sorry, R.drawable.file_image);
         }
     }
@@ -593,6 +597,7 @@ public class PreviewImageFragment extends FileFragment {
 
             mMultiListIcon.setVisibility(View.VISIBLE);
             mMultiListProgress.setVisibility(View.GONE);
+
         }
     }
 
