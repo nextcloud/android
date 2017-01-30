@@ -8,8 +8,9 @@ for pr in $pullRequests; do
     xml=$(curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pr)
     branchName=$(echo "$xml" | grep \"label\" | head -n1 | cut -d'"' -f 4| tr ":" "/")
     title=$(echo "$xml" | grep "title" | head -n1 | cut -d'"' -f 4 | tr -d "(" | tr -d ")" | tr -d "[" | tr -d "]")
+    htmlUrl=$(echo "$xml"  |grep html_url | grep pull | cut -d'"' -f4)
     
-    echo "$title ("$branchName") ["$pr"]"
+    echo "$title ("$branchName") ["$htmlUrl"]"
 done
 
 ## add remote repos
