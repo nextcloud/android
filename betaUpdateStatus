@@ -1,16 +1,15 @@
-2017-01-30
-Branches: 14
-[01 / 14] Integration (nextcloud/integration) [https://api.github.com/repos/nextcloud/android/pulls/590] CONFLICT
-[02 / 14] Feature user information (nextcloud/feature-user-information) [https://api.github.com/repos/nextcloud/android/pulls/585] CONFLICT
-[03 / 14] New sorting order dialog (nextcloud/newSortingLayout) [https://api.github.com/repos/nextcloud/android/pulls/575] merged successfully
-[04 / 14] Search inside of text files (nextcloud/bugfix-454) [https://api.github.com/repos/nextcloud/android/pulls/565] CONFLICT
-[05 / 14] Avoid toggling favourite for all selected files (mario/improvement-toggle-favourite-only-relevant-files) [https://api.github.com/repos/nextcloud/android/pulls/524] CONFLICT
-[06 / 14] Properly encode the share link password (nextcloud/encodeShareLinkPassword) [https://api.github.com/repos/nextcloud/android/pulls/510] merged successfully
-[07 / 14] show SVG images (nextcloud/svgView) [https://api.github.com/repos/nextcloud/android/pulls/465] CONFLICT
-[08 / 14] Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://api.github.com/repos/nextcloud/android/pulls/451] CONFLICT
-[09 / 14] Fix DavDroid integration append necessary addition to mURI (justin-sleep/upstream) [https://api.github.com/repos/nextcloud/android/pulls/401] merged successfully
-[10 / 14] Updated federated sharing edit options (nextcloud/federated_sharing_edit_options) [https://api.github.com/repos/nextcloud/android/pulls/395] CONFLICT
-[11 / 14] Streaming (nextcloud/streaming) [https://api.github.com/repos/nextcloud/android/pulls/183] CONFLICT
-[12 / 14] Resize cache (nextcloud/resizeCache) [https://api.github.com/repos/nextcloud/android/pulls/144] CONFLICT
-[13 / 14] Instant upload in the context of multi account support (nextcloud/instant_upload_multi_account) [https://api.github.com/repos/nextcloud/android/pulls/98] CONFLICT
-[14 / 14] Resized images (nextcloud/resizedImages) [https://api.github.com/repos/nextcloud/android/pulls/69] CONFLICT
+2017-01-31
+Branches: 13
+[01 / 13] Integration (nextcloud/integration) [https://github.com/nextcloud/android/pull/590] CONFLICT
+[02 / 13] Feature user information (nextcloud/feature-user-information) [https://github.com/nextcloud/android/pull/585] CONFLICT
+[03 / 13] New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] CONFLICT
+[04 / 13] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
+[05 / 13] Properly encode the share link password (nextcloud/encodeShareLinkPassword) [https://github.com/nextcloud/android/pull/510] CONFLICT
+[06 / 13] show SVG images (nextcloud/svgView) [https://github.com/nextcloud/android/pull/465] CONFLICT
+[07 / 13] Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://github.com/nextcloud/android/pull/451] CONFLICT
+[08 / 13] Fix DavDroid integration append necessary addition to mURI (justin-sleep/upstream) [https://github.com/nextcloud/android/pull/401] CONFLICT
+[09 / 13] Updated federated sharing edit options (nextcloud/federated_sharing_edit_options) [https://github.com/nextcloud/android/pull/395] CONFLICT
+[10 / 13] Streaming (nextcloud/streaming) [https://github.com/nextcloud/android/pull/183] CONFLICT
+[11 / 13] Resize cache (nextcloud/resizeCache) [https://github.com/nextcloud/android/pull/144] CONFLICT
+[12 / 13] Instant upload in the context of multi account support (nextcloud/instant_upload_multi_account) [https://github.com/nextcloud/android/pull/98] CONFLICT
+[13 / 13] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] CONFLICT
