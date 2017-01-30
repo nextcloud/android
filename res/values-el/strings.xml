@@ -332,7 +332,8 @@
 	<string name="saml_authentication_required_text">Απαιτείται πιστοποίηση</string>
 	<string name="saml_authentication_wrong_pass">Εσφαλμένος κωδικός πρόσβασης</string>
 	<string name="actionbar_move">Μετακίνηση</string>
-    <string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
+    <string name="actionbar_copy">Αντιγραφή</string>
+	<string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
 	<string name="folder_picker_choose_button_text">Επιλέξτε</string>
 
     <string name="move_file_not_found">Αδύνατη η μετακίνηση. Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
@@ -381,6 +382,7 @@
 
     <string name="pref_behaviour_entries_keep_file">κρατήθηκε στον πρωτότυπο φάκελο</string>
     <string name="pref_behaviour_entries_move">μετακινήθηκε στον φάκελο εφαρμογών</string>
+    <string name="pref_behaviour_entries_delete_file">διαγράφηκε</string>
     <string name="share_dialog_title">Διαμοιρασμός</string>
     <string name="share_file">Διαμοιρασμός %1$s</string>
     <string name="share_with_user_section_title">Διαμοιρασμός με χρήστες και ομάδες</string>
@@ -430,8 +432,11 @@
     <string name="participate_beta_headline">Δοκιμάστε την έκδοση Beta</string>
     <string name="participate_contribute_forum_text">Βοηθήστε άλλους στο &lt;a href=\"%1$s>forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Μεταφράστε&lt;/a> την εφαρμογή</string>
+    <string name="folder_sync_settings">Ρυθμίσεις</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d επιλέχθηκε</item>
         <item quantity="other">%d επιλέχθηκαν</item>
     </plurals>
+    <string name="upload_file_dialog_filename">Όνομα αρχείου</string>
+    <string name="upload_file_dialog_filetype">Τύπος αρχείου</string>
     </resources>
