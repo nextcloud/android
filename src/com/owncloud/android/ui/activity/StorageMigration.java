@@ -175,7 +175,7 @@ public class StorageMigration {
                                      String source,
                                      String target,
                                      ProgressDialog progressDialog,
-                                     StorageMigrationProgressListener listener) {
+                                     StorageMigrationProgressListener listener) throws SecurityException {
             mContext = context;
             mStorageSource = source;
             mStorageTarget = target;
@@ -242,6 +242,12 @@ public class StorageMigration {
         }
 
         protected void restoreAccountsSyncStatus(boolean oldSync[]) {
+            // If we don't have the old sync statuses, then
+            // probably migration failed even before saving states,
+            // which is weird and should be investigated.
+            // But its better than crashing on ArrayOutOfBounds.
+            if (oldSync == null)
+                return;
             for (int i = 0; i < mOcAccounts.length; ++i) {
                 ContentResolver.setSyncAutomatically(mOcAccounts[i], mAuthority, oldSync[i]);
             }
@@ -263,7 +269,7 @@ public class StorageMigration {
             publishProgress(R.string.file_migration_preparing);
 
             Log_OC.stopLogging();
-            boolean[] syncStates = new boolean[0];
+            boolean[] syncStates = null;
             try {
                 publishProgress(R.string.file_migration_saving_accounts_configuration);
                 syncStates = saveAccountsSyncStatus();
@@ -306,7 +312,7 @@ public class StorageMigration {
             publishProgress(R.string.file_migration_preparing);
             Log_OC.stopLogging();
 
-            boolean[] syncState = new boolean[0];
+            boolean[] syncState = null;
 
             try {
                 File dstFile = new File(mStorageTarget + File.separator + MainApp.getDataFolder());
