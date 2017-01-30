@@ -337,11 +337,6 @@ public class PreviewTextFragment extends FileFragment implements SearchView.OnQu
         menuItem.setVisible(true);
         mSearchView = (SearchView) MenuItemCompat.getActionView(menuItem);
 
-        if (mSearchOpen) {
-            mSearchView.setQuery(mSearchQuery, false);
-            mSearchView.setIconified(false);
-            mSearchView.clearFocus();
-        }
 
     }
 
