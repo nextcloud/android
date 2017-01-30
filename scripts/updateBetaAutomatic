@@ -45,6 +45,8 @@ if [ $(comm -13 branches_old <(cat betaUpdateStatus | grep succ | cut -d"(" -f2 
 fi
 cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort > branches_old
 
+echo >> CHANGELOG.md
+
 ## add updated branches
 if [ $(cat betaUpdateStatus | grep succ -c) -gt 0 ]; then
     cat betaUpdateStatus | grep succ | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# updated#'g >> CHANGELOG.md
