@@ -519,8 +519,6 @@ of</string>
     <string name="participate_release_candidate_text">De Release Candidate (RC) is een kopie van de komende release en zou stabiel moeten zijn. Testen van jouw installatie kan ons helpen om dit te bevestigen. Meld je aan om te testen op de Play store en bekijk handmatig de \"versions\" sectie op F-Droid. </string>
     <string name="participate_contribute_headline">Actief meedoen</string>
     <string name="participate_contribute_irc_text">Doe mee met de chat op IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Help anderen op het &lt;a href=\"%1$s>forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Vertaal&lt;/a> de app</string>
     <string name="participate_contribute_github_text">Doe mee als ontwikkelaar, zie &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> voor details</string>
     <string name="move_to">Verplaats naar&#8230;</string>
     <string name="copy_to">Kopieer naar&#8230;</string>

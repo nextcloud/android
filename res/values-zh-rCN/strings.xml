@@ -516,8 +516,6 @@
     <string name="participate_release_candidate_text">候选发行版(RC)是下一个版本的快照，希望它是稳定的，你可以帮助测试以确认这一点。可以注册登陆在应用商店或手工在F-Droid的版本部分查找，并进行测试。</string>
     <string name="participate_contribute_headline">活跃的候选版</string>
     <string name="participate_contribute_irc_text">在IRC上加入这个会话： &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">帮助别人在&lt;a href=\"%1$s>forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Translate&lt;/a> 这个应用</string>
     <string name="participate_contribute_github_text">做为有贡献的开发者，可以看&lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a>的细节</string>
     <string name="move_to">转移到&#8230;</string>
     <string name="copy_to">复制到</string>
