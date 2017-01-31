@@ -27,12 +27,15 @@ import android.accounts.Account;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,11 +51,14 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.fragment.ExtendedListFragmentListener;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 
 
@@ -60,27 +66,34 @@ import java.util.Vector;
  * This Adapter populates a ListView with all files and folders in an ownCloud
  * instance.
  */
-public class FileListListAdapter extends BaseAdapter implements FilterableListAdapter {
+public class FileListListAdapter extends BaseAdapter {
 
     private Context mContext;
     private Vector<OCFile> mFilesAll = new Vector<OCFile>();
     private Vector<OCFile> mFiles = null;
+    private Vector<OCFile> mFilteredFiles = new Vector<>();
+    private boolean mOnDeviceonly;
     private boolean mJustFolders;
     private boolean mShowHiddenFiles;
+    private ExtendedListFragmentListener mFragmentListener;
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
 
+    private FilesFilter mFilesFilter;
+
     public FileListListAdapter(
             boolean justFolders,
             Context context,
-            ComponentsGetter transferServiceGetter
+            ComponentsGetter transferServiceGetter,
+            ExtendedListFragmentListener extendedListFragmentListener
     ) {
 
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+        mFragmentListener = extendedListFragmentListener;
 
         mTransferServiceGetter = transferServiceGetter;
 
@@ -274,7 +287,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
             AbsListView parentList = (AbsListView) parent;
             if (parentList.getChoiceMode() != AbsListView.CHOICE_MODE_NONE &&
                     parentList.getCheckedItemCount() > 0
-                ) {
+                    ) {
                 if (parentList.isItemChecked(position)) {
                     view.setBackgroundColor(mContext.getResources().getColor(
                             R.color.selected_item_background));
@@ -325,9 +338,9 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                     new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                    mContext.getResources(), 
-                                    thumbnail, 
-                                    task
+                                            mContext.getResources(),
+                                            thumbnail,
+                                            task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
                             task.execute(file);
@@ -377,13 +390,16 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
     /**
      * Change the adapted directory for a new one
      *
-     * @param directory                New folder to adapt. Can be NULL, meaning
+     * @param directory             New folder to adapt. Can be NULL, meaning
      *                              "no content to adapt".
      * @param updatedStorageManager Optional updated storage manager; used to replace
      *                              mStorageManager if is different (and not NULL)
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
-            , boolean onlyOnDevice) {
+            , boolean onlyOnDevice, @Nullable String constraint) {
+
+        mOnDeviceonly = onlyOnDevice;
+
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
@@ -398,20 +414,25 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                 mFiles = filterHiddenFiles(mFiles);
             }
             mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            mFilesAll = new Vector<>();
             mFilesAll.addAll(mFiles);
         } else {
-            mFiles = null;
-            mFilesAll.clear();
+            mFilesAll = new Vector<>();
         }
 
-        notifyDataSetChanged();
+        if (constraint != null) {
+            getFilter().filter(constraint);
+        } else {
+            mFragmentListener.collapseFab();
+            notifyDataSetChanged();
+        }
     }
 
     /**
      * Filter for getting only the folders
      *
-     * @param files             Collection of files to filter
-     * @return                  Folders in the input
+     * @param files Collection of files to filter
+     * @return Folders in the input
      */
     public Vector<OCFile> getFolders(Vector<OCFile> files) {
         Vector<OCFile> ret = new Vector<>();
@@ -430,7 +451,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
 
         PreferenceManager.setSortOrder(mContext, order);
         PreferenceManager.setSortAscending(mContext, ascending);
-        
+
         FileStorageUtils.mSortOrder = order;
         FileStorageUtils.mSortAscending = ascending;
 
@@ -443,51 +464,95 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
         SparseBooleanArray checkedPositions = parentList.getCheckedItemPositions();
         ArrayList<OCFile> files = new ArrayList<>();
         Object item;
-        for (int i=0; i < checkedPositions.size(); i++) {
+        for (int i = 0; i < checkedPositions.size(); i++) {
             if (checkedPositions.valueAt(i)) {
                 item = getItem(checkedPositions.keyAt(i));
                 if (item != null) {
-                    files.add((OCFile)item);
+                    files.add((OCFile) item);
                 }
             }
         }
         return files;
     }
 
-    public void filter(String text){
-        if(text.isEmpty()){
-            mFiles.clear();
-            mFiles.addAll(mFilesAll);
-        } else {
-            ArrayList<OCFile> result = new ArrayList<>();
-            text = text.toLowerCase();
-            for(OCFile file: mFilesAll){
-                if(file.getFileName().toLowerCase().contains(text)){
-                    result.add(file);
-                }
-            }
-            mFiles.clear();
-            mFiles.addAll(result);
-        }
-        notifyDataSetChanged();
-    }
-
     /**
      * Filter for hidden files
      *
-     * @param files             Collection of files to filter
-     * @return                  Non-hidden files
+     * @param files Collection of files to filter
+     * @return Non-hidden files
      */
     public Vector<OCFile> filterHiddenFiles(Vector<OCFile> files) {
         Vector<OCFile> ret = new Vector<>();
         OCFile current;
-        for (int i = 0; i < files.size(); i++) {
-            current = files.get(i);
-            if (!current.isHidden()) {
-                ret.add(current);
+        if (files.size() > 0) {
+            for (int i = 0; i < files.size(); i++) {
+                current = files.get(i);
+                if (!current.isHidden()) {
+                    ret.add(current);
+                }
             }
         }
+
         return ret;
+    }
+
+    public Filter getFilter() {
+        if (mFilesFilter == null) {
+            mFilesFilter = new FilesFilter();
+        }
+        return mFilesFilter;
+    }
+
+    private class FilesFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+            Vector<OCFile> ocFileVector = new Vector<>();
+
+            if (!TextUtils.isEmpty(constraint)) {
+                for (int i = 0; i < mFilesAll.size(); i++) {
+                    OCFile currentFile = mFilesAll.get(i);
+                    if (currentFile.getFileName().toLowerCase().contains(constraint) &&
+                            !ocFileVector.contains(currentFile)) {
+                        ocFileVector.add(currentFile);
+                    }
+                }
+            } else {
+                Set<OCFile> unique = new HashSet<>();
+                unique.addAll(mFilesAll);
+                ocFileVector.addAll(unique);
+            }
+            results.values = ocFileVector;
+            results.count = ocFileVector.size();
+            mFilteredFiles = new Vector<>();
+
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            Vector<OCFile> ocFiles = (Vector<OCFile>) results.values;
+            boolean showHundredFilesMessage = results.count > 100;
+            mFiles = new Vector<>();
+            if (ocFiles != null && ocFiles.size() > 0) {
+                if (results.count > 100) {
+                    mFiles.addAll(ocFiles.subList(0, 100));
+                } else {
+                    mFiles.addAll(ocFiles);
+                }
+                mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            }
+
+            if (mFragmentListener != null) {
+                mFragmentListener.showHundredFilesMessage(showHundredFilesMessage);
+                mFragmentListener.endFilterRefresh();
+            }
+
+            notifyDataSetChanged();
+
+        }
     }
 
 }
