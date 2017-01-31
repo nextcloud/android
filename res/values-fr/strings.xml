@@ -518,8 +518,6 @@ ou</string>
     <string name="participate_release_candidate_text">La version « release candidate » (RC) est un instantanné de la dernière version supposée stable. Le test de votre configuration pourrait nous aider à nous assurer que cette version est entièrement stable. Inscrivez vous pour être testeur sur le Play store ou allez jeter un œil dans la section \"versions\" de F-Droid.</string>
     <string name="participate_contribute_headline">Contribuer activement</string>
     <string name="participate_contribute_irc_text">Rejoingez la discussion sur IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Aidez les autres sur le &lt;a href=\"%1$s\">forum&lt;/a>.</string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduisez&lt;/a> l\'application</string>
     <string name="participate_contribute_github_text">Développeurs ? Contribuez ! Plus de détails sur la page &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Déplacer vers&#8230;</string>
     <string name="copy_to">Copier vers&#8230;</string>

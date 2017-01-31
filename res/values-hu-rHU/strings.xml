@@ -515,8 +515,6 @@ vagy</string>
     <string name="participate_release_candidate_text">A kiadásra jelölt (RC) változat az egy pillanatképe a közelgő új változatnak, és stabilnak mondható. Az egyedi telepítésekkel segíthet nekünk, hogy ezt biztosítsuk. Jelentkezzen tesztelésre a Play Áruházban vagy manuálisan nézzen bele a verziók részbe F-Droid-on.</string>
     <string name="participate_contribute_headline">Aktívan hozzájárul</string>
     <string name="participate_contribute_irc_text">Csatlakozz a beszélgetéshez az IRC-n: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Segíts másokat a &lt;a href=\"%1$s>fórumban&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Fordítsd&lt;/a> az alkalmazást</string>
     <string name="participate_contribute_github_text">Működj közre fejlesztőként, részletek: &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Áthelyezés ide...&#8230;</string>
     <string name="copy_to">Másolás ide...&#8230;</string>

@@ -505,8 +505,6 @@
     <string name="participate_testing_version_text">Заинтересован сте от възможността да тествате следващата версия?</string>
     <string name="participate_beta_headline">Тестване на бета версия</string>
     <string name="participate_contribute_irc_text">Присъединете се към IRC чата: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Помогнете на други във &lt;a href=\"%1$s>форума&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Преведете&lt;/a> приложението</string>
     <string name="move_to">Преместване в&#8230;</string>
     <string name="copy_to">Копиране в&#8230;</string>
     <string name="choose_remote_folder">Избери папка&#8230;</string>

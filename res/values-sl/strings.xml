@@ -475,8 +475,6 @@
     <string name="participate_beta_headline">Testiraj beta verzijo</string>
     <string name="participate_release_candidate_headline">Kandidat za objavo</string>
     <string name="participate_contribute_headline">Aktivni prispevek</string>
-    <string name="participate_contribute_forum_text">Pomagaj drugim na &lt;a href=\"%1$s>forumu&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Prevedi&lt;/a> aplikacijo</string>
     <string name="participate_contribute_github_text">Prispevaj kot razvijalec, poglej detajle v &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <plurals name="items_selected_count">
         <item quantity="one">%d izbran</item>

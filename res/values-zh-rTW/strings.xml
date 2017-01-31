@@ -491,8 +491,6 @@
     <string name="participate_release_candidate_text">最終測試版是新版本發行前的快照，應該相當穩定，您的測試將協助我們確保穩定性，在 Play 商店中註冊成為測試者，或是在 F-Droid 中尋找「版本」區塊</string>
     <string name="participate_contribute_headline">積極貢獻</string>
     <string name="participate_contribute_irc_text">加入 IRC 討論：&lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">在&lt;a href=\"%1$s>論壇&lt;/a>中協助大家</string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>翻譯&lt;/a>這個 App</string>
     <string name="participate_contribute_github_text">貢獻程式碼，細節請見 &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">移動到&#8230;</string>
     <string name="copy_to">複製到&#8230;</string>

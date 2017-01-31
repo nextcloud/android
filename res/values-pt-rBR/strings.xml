@@ -518,8 +518,6 @@
     <string name="participate_release_candidate_text">O release candidate (RC) é um instantâneo do lançamento e espera-se que seja estável. Testar a sua configuração individual pode contribuir para assegurar-la. Registe-se para testar na Play Store ou procurar manualmente na seção \"versões\" na F-Droid.</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
     <string name="participate_contribute_irc_text">Participe de uma conversa no IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ajude as outras pessoas no &lt;a href=\"%1$s>fórum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduzir&lt;/a> o aplicativo</string>
     <string name="participate_contribute_github_text">Contribuir como desenvolvedor, veja &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> para detalhes</string>
     <string name="move_to">Mover para&#8230;</string>
     <string name="copy_to">Copiar para&#8230;</string>
