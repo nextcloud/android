@@ -399,7 +399,7 @@ public class PreviewImageFragment extends FileFragment {
 
         /**
          * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
-         * <p>
+         *
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from
          * memory before the load finishes.
          */
@@ -469,7 +469,7 @@ public class PreviewImageFragment extends FileFragment {
                             Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
                             break;
                         } else {
-                            if (ocFile.getFileName().endsWith(".jpg") || ocFile.getFileName().endsWith(".jpeg")) {
+                            if (ocFile.getMimetype().equalsIgnoreCase("image/jpeg")) {
                                 // Rotate image, obeying exif tag.
                                 result = BitmapUtils.rotateImage(result, storagePath);
                             }
