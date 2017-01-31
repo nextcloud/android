@@ -28,6 +28,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -413,6 +414,7 @@ public class FileListListAdapter extends BaseAdapter {
                 mFiles = filterHiddenFiles(mFiles);
             }
             mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            mFilesAll = new Vector<>();
             mFilesAll.addAll(mFiles);
         } else {
             mFilesAll = new Vector<>();
@@ -494,41 +496,6 @@ public class FileListListAdapter extends BaseAdapter {
         return ret;
     }
 
-    private void fetchFilesRecursively(OCFile mWalkInDir) {
-
-        if (mStorageManager != null) {
-            Vector<OCFile> mDirectoryListing = mStorageManager.getFolderContent(mWalkInDir, mOnDeviceonly);
-
-            if (mDirectoryListing.size() > 0) {
-                mFilteredFiles.addAll(mDirectoryListing);
-
-                if (mFilteredFiles.size() > 100) {
-                    Set<OCFile> unique = new HashSet<>();
-                    unique.addAll(mFilteredFiles);
-                    if (unique.size() > 100) {
-                        return;
-                    }
-                }
-
-                OCFile current;
-                for (int i = 0; i < mDirectoryListing.size(); i++) {
-                    current = mDirectoryListing.get(i);
-                    if (current.isFolder()) {
-                        fetchFilesRecursively(current);
-                    }
-                }
-
-                if (!mShowHiddenFiles) {
-                    mFilteredFiles = filterHiddenFiles(mFilteredFiles);
-                }
-            }
-
-        } else {
-            mFilteredFiles = new Vector<>();
-        }
-    }
-
-
     public Filter getFilter() {
         if (mFilesFilter == null) {
             mFilesFilter = new FilesFilter();
@@ -541,14 +508,11 @@ public class FileListListAdapter extends BaseAdapter {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
-            mFilteredFiles = new Vector<>();
             Vector<OCFile> ocFileVector = new Vector<>();
-            if (mStorageManager != null) {
-                fetchFilesRecursively(mStorageManager.getFileByPath("/"));
 
-                if (constraint != null && constraint.length() > 0) {
-                    for (int i = 0; i < mFilteredFiles.size(); i++) {
-                        OCFile currentFile = mFilteredFiles.get(i);
+                if (!TextUtils.isEmpty(constraint)) {
+                    for (int i = 0; i < mFilesAll.size(); i++) {
+                        OCFile currentFile = mFilesAll.get(i);
                         if (currentFile.getFileName().toLowerCase().contains(constraint) &&
                                 !ocFileVector.contains(currentFile)) {
                             ocFileVector.add(currentFile);
@@ -556,10 +520,9 @@ public class FileListListAdapter extends BaseAdapter {
                     }
                 } else {
                     Set<OCFile> unique = new HashSet<>();
-                    unique.addAll(mFilteredFiles);
+                    unique.addAll(mFilesAll);
                     ocFileVector.addAll(unique);
                 }
-            }
             results.values = ocFileVector;
             results.count = ocFileVector.size();
             mFilteredFiles = new Vector<>();
