@@ -50,10 +50,13 @@ cp CHANGELOG.md $tmpFile
 echo "## $(date +%F)" > CHANGELOG.md
 
 ## add new branches
-if [ $(comm -13 branches_old <(cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) | wc -l) -gt 0 ] ; then
-    egrep "$(comm -13 branches_old <(cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) )" betaUpdateStatus | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# added#'g >> CHANGELOG.md
+if [ $(comm -13 mergedBranches <(cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) | wc -l) -gt 0 ] ; then
+    egrep "$(comm -13 mergedBranches <(cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) )" betaUpdateStatus | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# added#'g >> CHANGELOG.md
 fi
-cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort > branches_old
+
+cat betaUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 >> mergedBranches
+sort -u mergedBranches -o mergedBranches_unique
+mv mergedBranches_unique mergedBranches
 
 echo >> CHANGELOG.md
 
