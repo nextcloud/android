@@ -58,7 +58,7 @@
     <string name="auth_host_url">Адрес сервера https://...</string>
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_password">Пароль</string>
-    <string name="auth_register">Еще нет сервера?\\nЩёлкните здесь что бы получить от провайдера</string>
+    <string name="auth_register">Еще нет сервера?\nЩёлкните здесь что бы получить от провайдера</string>
     <string name="sync_string_files">Файлы</string>
     <string name="setup_btn_connect">Подключиться</string>
     <string name="uploader_btn_upload_text">Загрузить</string>
@@ -492,7 +492,7 @@
     <string name="action_switch_list_view">Вид списком</string>
 
     <string name="manage_space_title">Управление свободным местом</string>
-    <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \\n\\nЗагруженные файлы будут сохранены нетронутыми. \\n\\nЭтот процесс может занять некоторое время.</string>
+    <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \n\nЗагруженные файлы будут сохранены нетронутыми. \n\nЭтот процесс может занять некоторое время.</string>
     <string name="manage_space_clear_data">Очистить данные</string>
     <string name="manage_space_error">Некоторые файлы не могут быть удалены.</string>
 
