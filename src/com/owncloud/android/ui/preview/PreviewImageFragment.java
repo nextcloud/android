@@ -406,24 +406,6 @@ public class PreviewImageFragment extends FileFragment {
         private final WeakReference<ImageViewCustom> mImageViewRef;
 
         /**
-         * Weak reference to the target {@link TextView} where error messages will be written.
-         *
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
-         * memory before the load finishes.
-         */
-        private final WeakReference<TextView> mMessageViewRef;
-
-
-        /**
-         * Weak reference to the target {@link ProgressBar} shown while the load is in progress.
-         *
-         * Using a weak reference will avoid memory leaks if the target ImageView is retired from
-         * memory before the load finishes.
-         */
-        private final WeakReference<ProgressBar> mProgressWheelRef;
-
-
-        /**
          * Error message to show when a load fails
          */
         private int mErrorMessageId;
