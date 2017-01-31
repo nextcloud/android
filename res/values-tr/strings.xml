@@ -511,8 +511,6 @@ ya da</string>
     <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümlere\" bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
     <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s>forum&lt;/a> üzerinde başkalarına yardımcı olun</string>
-    <string name="participate_contribute_translate_text">Uygulamayı &lt;a href=\"%1$s>çevirin&lt;/a> </string>
     <string name="participate_contribute_github_text">Yazılımcı olarak katkıda bulunun! Ayrıntılı bilgi almak için &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">KATKIDA BULUNMA&lt;/a> sayfasına bakın</string>
     <string name="move_to">Taşı&#8230;</string>
     <string name="copy_to">Kopyala&#8230;</string>

@@ -490,8 +490,6 @@ or</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_release_candidate_text">リリース候補(RC)は、今後のリリースのスナップショット であり、安定性が期待されます。 個々の設定をテストすることで、これを確実にすることができます。 Playストアでのテストに登録するか、F-Droidの「バージョン」セクションを手動で参照してください。</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
-    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s>フォーラム&lt;/a> で他の人を助ける</string>
-    <string name="participate_contribute_translate_text">アプリを&lt;a href=\"%1$s>翻訳する&lt;/a></string>
     <string name="participate_contribute_github_text">開発者として貢献には、 &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> をご覧ください。</string>
     <string name="move_to">&#8230;に移動</string>
     <string name="copy_to">&#8230;にコピー</string>

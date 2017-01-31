@@ -516,8 +516,6 @@
     <string name="participate_release_candidate_text">Die Vorabversion auch Release Candidate (RC) genannt ist ein stabiler Stand der kommenden, finalen Version. Ein Test auf der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version von F-Droid unter \"Versionen\".</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
     <string name="participate_contribute_irc_text">An Unterhaltungen teilnehmen im IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Helfen Sie anderen im &lt;a href="%1$s>Forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href="%1$s>Übersetzen&lt;/a> Sie die App</string>
     <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>

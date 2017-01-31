@@ -519,8 +519,6 @@
     <string name="participate_release_candidate_text">Релиз-кандидат (RC) - это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или используйте раздел \"версии\" в каталоге приложений F-Droid.</string>
     <string name="participate_contribute_headline">Активное участие</string>
     <string name="participate_contribute_irc_text">Присоединиться к IRC-чату: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Помочь другим &lt;a href=\"%1$s>на форуме&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Перевести&lt;/a> приложение</string>
     <string name="participate_contribute_github_text">Участвовать в качестве разработчика: подробности по ссылке &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a>.</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
