@@ -487,7 +487,7 @@ public class FileListListAdapter extends BaseAdapter {
         if (files.size() > 0) {
             for (int i = 0; i < files.size(); i++) {
                 current = files.get(i);
-                if (!current.isHidden()) {
+                if (!current.isHidden() && !ret.contains(current)) {
                     ret.add(current);
                 }
             }
