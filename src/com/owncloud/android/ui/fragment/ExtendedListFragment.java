@@ -169,17 +169,17 @@ public class ExtendedListFragment extends Fragment
     }
 
     public boolean onQueryTextChange(final String query) {
-        performSearch(query, false);
+        performFiltering(query, false);
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        performSearch(query, true);
+        performFiltering(query, true);
         return true;
     }
 
-    private void performSearch(String query, boolean isSubmit) {
+    private void performFiltering(String query, boolean isSubmit) {
         mSearchQuery = query;
         mHandler.removeCallbacksAndMessages(null);
 
