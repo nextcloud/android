@@ -57,7 +57,7 @@
     <string name="auth_host_url">Alamat server https://…</string>
     <string name="auth_username">Nama Pengguna</string>
     <string name="auth_password">Sandi</string>
-    <string name="auth_register">Belum punya server?\\nKlik disini untuk mendapatkannya dari penyedia</string>
+    <string name="auth_register">Belum punya server?\nKlik disini untuk mendapatkannya dari penyedia</string>
     <string name="sync_string_files">Berkas</string>
     <string name="setup_btn_connect">Sambungkan</string>
     <string name="uploader_btn_upload_text">Unggah</string>
@@ -474,7 +474,7 @@
     <string name="share_known_remote_clarification">%1$s ( di %2$s )</string>
 
     <string name="share_sharee_unavailable">Maaf, server Anda tidak mengizinkan untuk berbagi dengan pengguna didalam klien
-\\nHubungi administrator Anda</string>
+\nHubungi administrator Anda</string>
     <string name="share_privilege_can_share">dapat berbagi</string>
     <string name="share_privilege_can_edit">dapat disunting</string>
     <string name="share_privilege_can_edit_create">buat</string>
@@ -492,7 +492,7 @@
     <string name="action_switch_list_view">Tampilan lis</string>
 
     <string name="manage_space_title">Kelola ruang</string>
-    <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \\n\\nBerkas terunduh akan tetap terjaga.\\n\\nProses ini dapat memakan waktu.</string>
+    <string name="manage_space_description">Pengaturan, database dan sertifikat server dari data %1$s akan dihapus secara permanen. \n\nBerkas terunduh akan tetap terjaga.\n\nProses ini dapat memakan waktu.</string>
     <string name="manage_space_clear_data">Bersihkan data</string>
     <string name="manage_space_error">Beberapa berkas tidak dapat dihapus.</string>
 
@@ -512,15 +512,15 @@
     <string name="participate_testing_version_text">Tertarik dalam membantu kami menguji Versi selanjutnya?</string>
     <string name="participate_beta_headline">Uji versi Beta</string>
     <string name="participate_beta_text">Ini termasuk semua fitur yang akan datang sangat terbaru. Kutu/galat
-dapat terjadi dan jika terjadi, harap laporkan ke kami. &lt;br/>&lt;a href=\"%2$s\">Unduh APK&lt;/a>
+dapat terjadi dan jika terjadi, harap laporkan ke kami. &lt;br/>&lt;a href="%2$s">Unduh APK&lt;/a>
 atau</string>
     <string name="participate_release_candidate_headline">Kandidat rilis</string>
     <string name="participate_release_candidate_text">Kandidat rilis (RC) adalah potret rilis berikutnya dan diharapkan akan stabil. Uji pengaturan pribadi anda dapat membantu untuk memastikan hal ini. Daftar untuk menguji di Play Store atau secara manual lihat di seksi \"versi\" di F-Droid.</string>
     <string name="participate_contribute_headline">Berkontribusi Aktif</string>
-    <string name="participate_contribute_irc_text">Gabung mengobrol di IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Bantu yang lain di &lt;a href=\"%1$s\">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Terjemahkan&lt;/a> apl</string>
-    <string name="participate_contribute_github_text">Kontribusi sebagai pengembang, lihat &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> untuk rinciannya</string>
+    <string name="participate_contribute_irc_text">Gabung mengobrol di IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Bantu yang lain di &lt;a href="%1$s">forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href="%1$s">Terjemahkan&lt;/a> apl</string>
+    <string name="participate_contribute_github_text">Kontribusi sebagai pengembang, lihat &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a> untuk rinciannya</string>
     <string name="move_to">Pindah ke&#8230;</string>
     <string name="copy_to">Salin ke&#8230;</string>
     <string name="choose_remote_folder">Pilih folder&#8230;</string>
@@ -528,7 +528,7 @@ atau</string>
     <string name="folder_sync_no_results">Tidak ada folder media yang ditemukan.</string>
     <string name="folder_sync_preferences">Preferensi unggah otomatis</string>
     <string name="folder_sync_settings">Pengaturan</string>
-    <string name="folder_sync_new_info">Unggah instan telah dirubah sepenuhnya. Harap lihat menu utama dan konfigurasi ulang unggah otomatis anda. Maaf untuk gangguannya.\\n\\nNikmati kemampuan unggah otomatis yang lebih jauh dan baru!</string>
+    <string name="folder_sync_new_info">Unggah instan telah dirubah sepenuhnya. Harap lihat menu utama dan konfigurasi ulang unggah otomatis anda. Maaf untuk gangguannya.\n\nNikmati kemampuan unggah otomatis yang lebih jauh dan baru!</string>
     <string name="folder_sync_preferences_folder_path">Untuk %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d dipilih</item>
