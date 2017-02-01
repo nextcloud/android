@@ -39,6 +39,8 @@ while read -r branch; do
         if [ $(echo $mergeOutput | grep "up-to-date" -c) -eq 0 ] ; then
             # branch has newer state
             echo "$branch merged successfully" >> $statusFile
+         else
+            echo "$branch no update needed" >> $statusFile
          fi
     fi
     
