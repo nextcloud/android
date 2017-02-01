@@ -516,6 +516,8 @@
     <string name="participate_release_candidate_text">Release candidate (RC) är en snapshot av den kommande versionen och den förväntas vara stabil. Att du testar din individuella setup skulle kunna hjälpa till att säkerställa detta. Registrera dig på Play Store, eller kolla \"versioner\" manuellt på F-droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
     <string name="participate_contribute_irc_text">Delta i chatten på IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Hjälp andra på &lt;a href="%1$s">forumet&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href="%1$s">Översätt&lt;/a> appen</string>
     <string name="participate_contribute_github_text">Bidra som en utvecklare, se &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> för ytterligare detaljer</string>
     <string name="move_to">Fllytta till&#8230;</string>
     <string name="copy_to">Kopiera till&#8230;</string>
