@@ -44,7 +44,7 @@
     <string name="prefs_feedback">Atsauksmes</string>
     <string name="prefs_imprint">Importēt</string>
     <string name="recommend_subject">Izmēģini %1$s uz savu viedtālruni!</string>
-	<string name="recommend_text">Aicinu tevi izmantot %1$s tavā ierīcē!\\nLejupielādē šeit: %2$s</string>
+	<string name="recommend_text">Aicinu tevi izmantot %1$s tavā ierīcē!\nLejupielādē šeit: %2$s</string>
 
     <string name="auth_check_server">Pārbaudīt serveri</string>
     <string name="auth_host_url">Servera adrese https://…</string>
@@ -106,7 +106,7 @@
     <string name="about_title">Par</string>
     <string name="change_password">Mainīt paroli</string>
     <string name="delete_account">Noņemt kontu</string>
-    <string name="delete_account_warning">Dzēst kontu %s?\\n\\nDzēšanu nevar atsaukt.</string>
+    <string name="delete_account_warning">Dzēst kontu %s?\n\nDzēšanu nevar atsaukt.</string>
     <string name="create_account">Izveidot kontu</string>
     <string name="upload_chooser_title">Augšupielādēt no &#8230;</string>
     <string name="uploader_info_dirname">Mapes nosaukums</string>
@@ -430,7 +430,7 @@
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
 
     <string name="manage_space_title">Pārvaldīt vietu</string>
-    <string name="manage_space_description">Iestatījumi, datubāze un servera sertifikāti no %1$s datiem tiks dzēsti pilnībā. \\n\\nLejupielādētās datnes paliks neskartas.\\n\\nŠis proces var aizņemt mazliet laika.</string>
+    <string name="manage_space_description">Iestatījumi, datubāze un servera sertifikāti no %1$s datiem tiks dzēsti pilnībā. \n\nLejupielādētās datnes paliks neskartas.\n\nŠis proces var aizņemt mazliet laika.</string>
     <string name="manage_space_clear_data">Notīrīt datus</string>
     <string name="manage_space_error">Dažas datnes nevarēja izdzēst.</string>
 
@@ -444,7 +444,7 @@
     <string name="drawer_folder_sync">Automātiska augšupielāde</string>
     <string name="participate_testing_headline">Palīdziet mums testēšanā</string>
     <string name="participate_beta_headline">Testēt Beta versiju</string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Tūlkot&lt;/a> programmu</string>
+    <string name="participate_contribute_translate_text">&lt;a href="%1$s">Tūlkot&lt;/a> programmu</string>
     <string name="move_to">Pārvietot uz&#8230;</string>
     <string name="copy_to">Kopēt uz&#8230;</string>
     <string name="choose_remote_folder">Izvēlies mapi&#8230;</string>
@@ -472,7 +472,7 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Droša vieta visiem jūsu datiem</string>
-    <string name="welcome_feature_1_text">Piekļūsti, dalies & amp; aizsargāt jūsu failus mājās un jūsu uzņēmumā</string>
+    <string name="welcome_feature_1_text">Piekļūsti, dalies &amp; aizsargāt jūsu failus mājās un jūsu uzņēmumā</string>
 
     <string name="welcome_feature_2_title">Multi konts</string>
     <string name="welcome_feature_2_text">Savienoties ar visiem mākoņiem</string>
