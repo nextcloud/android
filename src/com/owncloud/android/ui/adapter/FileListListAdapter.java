@@ -71,8 +71,6 @@ public class FileListListAdapter extends BaseAdapter {
     private Context mContext;
     private Vector<OCFile> mFilesAll = new Vector<OCFile>();
     private Vector<OCFile> mFiles = null;
-    private Vector<OCFile> mFilteredFiles = new Vector<>();
-    private boolean mOnDeviceonly;
     private boolean mJustFolders;
     private boolean mShowHiddenFiles;
     private ExtendedListFragmentListener mFragmentListener;
@@ -397,9 +395,7 @@ public class FileListListAdapter extends BaseAdapter {
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
             , boolean onlyOnDevice, @Nullable String constraint) {
-
-        mOnDeviceonly = onlyOnDevice;
-
+        
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
@@ -525,7 +521,6 @@ public class FileListListAdapter extends BaseAdapter {
             }
             results.values = ocFileVector;
             results.count = ocFileVector.size();
-            mFilteredFiles = new Vector<>();
 
 
             return results;
