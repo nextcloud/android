@@ -31,7 +31,7 @@ import java.util.regex.Pattern;
  */
 public class StringUtils {
 
-    public static String searchAndColor(String text, String searchText,@ColorInt int color) {
+    public static String searchAndColor(String text, String searchText, @ColorInt int color) {
 
         if (TextUtils.isEmpty(text) || TextUtils.isEmpty(searchText)) {
             return text;
