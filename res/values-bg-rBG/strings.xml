@@ -2,7 +2,7 @@
 <resources>
     <string name="about_android">Android приложение за %1$s</string>
     <string name="about_version">версия %1$s</string>
-    <string name="actionbar_sync">Обновяви профила</string>
+    <string name="actionbar_sync">Обнови профила</string>
     <string name="actionbar_upload">Качване</string>
     <string name="actionbar_upload_from_apps">Съдържание от други приложения</string>
     <string name="actionbar_upload_files">Файлове</string>
@@ -11,8 +11,8 @@
     <string name="actionbar_settings">Настройки</string>
     <string name="actionbar_see_details">Детайли</string>
     <string name="actionbar_send_file">Изпращане</string>
-    <string name="actionbar_sort">Сортиране</string>
-    <string name="actionbar_sort_title">Сортирай по</string>
+    <string name="actionbar_sort">Сортирай</string>
+    <string name="actionbar_sort_title">Сортиране по</string>
     <string name="menu_item_sort_by_name">А - Я</string>
     <string name="menu_item_sort_by_date">Нови - Стари</string>
     <string name="menu_item_sort_by_size">Големи - Малки</string>
@@ -77,6 +77,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Запазване на файла в оригиналната папка</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Изтриване на файла от оригиналната папка</string>
     <string name="file_list_seconds_ago">преди секунди</string>
+    <string name="file_list_empty_headline">Тук няма файлове</string>
     <string name="file_list_loading">Зарежда&#8230;</string>
     <string name="file_list_no_app_for_file_type">Няма намерени приложения за типа фаил</string>
     <string name="local_file_list_empty">В папката няма файлове.</string>
@@ -464,6 +465,7 @@
     <string name="search_users_and_groups_hint">Търсене за потребители и групи</string>
     <string name="share_group_clarification">%1$s (група)</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
+    <string name="share_email_clarification">%1$s (имейл)</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
     <string name="share_sharee_unavailable">За съжаление версията на сървъра не позволява споделяне от клиента.
@@ -517,6 +519,8 @@
         <item quantity="one">%d избран</item>
         <item quantity="other">%d избрани</item>
     </plurals>
+    <string name="upload_file_dialog_filename">Име на файла</string>
+    <string name="upload_file_dialog_filetype">Тип на файла</string>
     <string name="storage_description_default">По подразбиране</string>
     <string name="storage_description_sd_no">SD карта %1$d</string>
     <string name="storage_description_unknown">Неизвестно</string>
