@@ -57,6 +57,7 @@
     <string name="auth_host_url">Tjeneradresse https://...</string>
     <string name="auth_username">Brukernavn</string>
     <string name="auth_password">Passord</string>
+    <string name="auth_register">Har du ingen tjener enda?\\nKlikk her for å opprette en hos en tilbyder</string>
     <string name="sync_string_files">Filer</string>
     <string name="setup_btn_connect">Koble til</string>
     <string name="uploader_btn_upload_text">Last opp</string>
@@ -518,6 +519,8 @@ eller</string>
     <string name="participate_release_candidate_text">Release candidate (RC) er en pakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett vil kunne hjelpe oss å sikre dette. Meld deg på for testen i Play butikken eller se i versjonsseksjonen i F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
     <string name="participate_contribute_irc_text">Delta i chat på IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a> </string>
+    <string name="participate_contribute_forum_text">Hjelp andre på &lt;a href=\"%1$s\">forumet&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Oversette&lt;/a> app\'en</string>
     <string name="participate_contribute_github_text">Bidra som en utvikler, se &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> for detaljer</string>
     <string name="move_to">Flytt til&#8230;</string>
     <string name="copy_to">Kopier til&#8230;</string>
