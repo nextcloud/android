@@ -4,10 +4,7 @@ statusFile="betaUpdateStatus"
 
 # check if branch was changed
 git fetch
-if [ $(git status | grep "dem selben Stand" -c) -eq 0 ]; then
-    # branch was updated outside, so build new beta
-    echo "Beta branch was updated successfully" >> $statusFile
-fi
+betaBranchWasUpdated=$(git status | grep "dem selben Stand" -c)
 
 git pull -q || exit
 
@@ -17,6 +14,11 @@ count=1
 
 date +%F > $statusFile
 echo "Branches: $branchesCount" >> $statusFile
+
+if [ $betaBranchWasUpdated -eq 0 ]; then
+    # branch was updated outside, so build new beta
+    echo "Beta branch was updated successfully" >> $statusFile
+fi
 
 while read -r branch; do
     echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] " >> $statusFile
