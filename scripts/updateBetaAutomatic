@@ -30,13 +30,13 @@ while read -r branch; do
         git fetch -q $(echo $branchName | cut -f1 -d"/") 1> /dev/null
     fi
     
-    mergeResult=$(git merge --no-edit $branchName | grep "Bereits aktuell" -c)
+    mergeOutput=$(git merge --no-edit $branchName)
     
     if [ $? -ne 0 ] ; then
         echo "$branch CONFLICT" >> $statusFile
         git merge --abort
     else
-        if [ $merge -eq 0 ] ; then
+        if [ $(echo $mergeOutput | grep "up-to-date" -c) -eq 0 ] ; then
             # branch has newer state
             echo "$branch merged successfully" >> $statusFile
          fi
