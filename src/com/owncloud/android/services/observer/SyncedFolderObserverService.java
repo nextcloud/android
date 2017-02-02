@@ -27,7 +27,7 @@ public class SyncedFolderObserverService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "start");
         for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled()) {
+            if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder.getLocalPath())) {
                 Log_OC.d(TAG, "start observer: " + syncedFolder.getLocalPath());
                 SyncedFolderObserver observer = new SyncedFolderObserver(syncedFolder);
                 observer.startWatching();
