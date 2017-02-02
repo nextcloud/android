@@ -262,7 +262,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
             return null;
         }
         if (mExposedFileUri == null) {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 // TODO - use FileProvider with any Android version, with deeper testing -> 2.2.0
                 mExposedFileUri = Uri.parse(
                     ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(mLocalPath)
