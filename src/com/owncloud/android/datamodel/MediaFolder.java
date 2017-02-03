@@ -27,15 +27,23 @@ import java.util.List;
  * Business object representing a media folder with all information that are gathered via media queries.
  */
 public class MediaFolder {
-    /** name of the folder. */
+    /**
+     * name of the folder.
+     */
     public String folderName;
 
-    /** absolute path of the folder. */
+    /**
+     * absolute path of the folder.
+     */
     public String absolutePath;
-    
-    /** list of file paths of the folder's content */
+
+    /**
+     * list of file paths of the folder's content
+     */
     public List<String> filePaths = new ArrayList<>();
 
-    /** total number of files in the media folder. */
+    /**
+     * total number of files in the media folder.
+     */
     public long numberOfFiles;
 }

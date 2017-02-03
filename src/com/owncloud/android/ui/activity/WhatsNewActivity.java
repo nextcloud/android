@@ -1,23 +1,23 @@
 /**
- *   Nextcloud Android client application
+ * Nextcloud Android client application
  *
- *   @author Bartosz Przybylski
- *   Copyright (C) 2015 Bartosz Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *   Copyright (C) 2016 Nextcloud.
- *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Bartosz Przybylski
+ * Copyright (C) 2015 Bartosz Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * Copyright (C) 2016 Nextcloud.
+ * <p>
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * <p>
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -68,7 +68,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         setContentView(R.layout.whats_new_activity);
 
         mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
-        mPager = (ViewPager)findViewById(R.id.contentPanel);
+        mPager = (ViewPager) findViewById(R.id.contentPanel);
         final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
         FeaturesViewAdapter adapter = new FeaturesViewAdapter(getSupportFragmentManager(),
                 FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta));
@@ -83,8 +83,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             @Override
             public void onClick(View view) {
                 if (mProgress.hasNextStep()) {
-                    mPager.setCurrentItem(mPager.getCurrentItem()+1, true);
-                    mProgress.animateToStep(mPager.getCurrentItem()+1);
+                    mPager.setCurrentItem(mPager.getCurrentItem() + 1, true);
+                    mProgress.animateToStep(mPager.getCurrentItem() + 1);
                 } else {
                     onFinish();
                     finish();
@@ -108,7 +108,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             }
         });
 
-        TextView tv = (TextView)findViewById(R.id.welcomeText);
+        TextView tv = (TextView) findViewById(R.id.welcomeText);
         tv.setText(isFirstRun() ? R.string.empty : R.string.whats_new_title);
 
         updateNextButtonIfNeeded();
@@ -162,8 +162,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         return (isFirstRun() && context instanceof AccountAuthenticatorActivity) ||
                 (
                         !(isFirstRun() && (context instanceof FileDisplayActivity)) &&
-                        !(context instanceof PassCodeActivity) &&
-                        (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta).length > 0)
+                                !(context instanceof PassCodeActivity) &&
+                                (FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta).length > 0)
                 );
     }
 
@@ -174,7 +174,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
     @Override
     public void onPageSelected(int position) {
-        mProgress.animateToStep(position+1);
+        mProgress.animateToStep(position + 1);
         updateNextButtonIfNeeded();
     }
 
@@ -187,7 +187,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
         private FeatureItem[] mFeatures;
 
-        public FeaturesViewAdapter(FragmentManager fm, FeatureItem[]features) {
+        public FeaturesViewAdapter(FragmentManager fm, FeatureItem[] features) {
             super(fm);
             mFeatures = features;
         }
@@ -217,7 +217,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            mItem = getArguments() != null ? (FeatureItem)getArguments().getParcelable("feature") : null;
+            mItem = getArguments() != null ? (FeatureItem) getArguments().getParcelable("feature") : null;
         }
 
         @Nullable
@@ -227,17 +227,17 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
                                  @Nullable Bundle savedInstanceState) {
             View v = inflater.inflate(R.layout.whats_new_element, container, false);
 
-            ImageView iv = (ImageView)v.findViewById(R.id.whatsNewImage);
+            ImageView iv = (ImageView) v.findViewById(R.id.whatsNewImage);
             if (mItem.shouldShowImage()) {
                 iv.setImageResource(mItem.getImage());
             }
 
-            TextView tv2 = (TextView)v.findViewById(R.id.whatsNewTitle);
+            TextView tv2 = (TextView) v.findViewById(R.id.whatsNewTitle);
             if (mItem.shouldShowTitleText()) {
                 tv2.setText(mItem.getTitleText());
             }
 
-            tv2 = (TextView)v.findViewById(R.id.whatsNewText);
+            tv2 = (TextView) v.findViewById(R.id.whatsNewText);
             if (mItem.shouldShowContentText()) {
                 tv2.setText(mItem.getContentText());
             }

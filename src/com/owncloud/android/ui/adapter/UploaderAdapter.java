@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author Tobias Kaminsky
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author Tobias Kaminsky
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.adapter;
@@ -43,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UploaderAdapter extends SimpleAdapter {
-    
+
     private Context mContext;
     private Account mAccount;
     private FileDataStorageManager mStorageManager;
@@ -72,7 +71,7 @@ public class UploaderAdapter extends SimpleAdapter {
 
         TextView filename = (TextView) vi.findViewById(R.id.filename);
         filename.setText(file.getFileName());
-        
+
         ImageView fileIcon = (ImageView) vi.findViewById(R.id.thumbnail);
         fileIcon.setTag(file.getFileId());
 
@@ -82,7 +81,7 @@ public class UploaderAdapter extends SimpleAdapter {
         TextView fileSizeV = (TextView) vi.findViewById(R.id.file_size);
         TextView fileSizeSeparatorV = (TextView) vi.findViewById(R.id.file_separator);
 
-        if(!file.isFolder()) {
+        if (!file.isFolder()) {
             fileSizeV.setVisibility(View.VISIBLE);
             fileSizeSeparatorV.setVisibility(View.VISIBLE);
             fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
@@ -90,20 +89,20 @@ public class UploaderAdapter extends SimpleAdapter {
             fileSizeV.setVisibility(View.GONE);
             fileSizeSeparatorV.setVisibility(View.GONE);
         }
-        
+
         // get Thumbnail if file is image
         if (MimeTypeUtil.isImage(file) && file.getRemoteId() != null) {
-             // Thumbnail in Cache?
+            // Thumbnail in Cache?
             Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     String.valueOf(file.getRemoteId())
             );
-            if (thumbnail != null && !file.needsUpdateThumbnail()){
+            if (thumbnail != null && !file.needsUpdateThumbnail()) {
                 fileIcon.setImageBitmap(thumbnail);
             } else {
                 // generate new Thumbnail
                 if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
-                    final ThumbnailsCacheManager.ThumbnailGenerationTask task = 
-                            new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon, mStorageManager, 
+                    final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                            new ThumbnailsCacheManager.ThumbnailGenerationTask(fileIcon, mStorageManager,
                                     mAccount);
                     if (thumbnail == null) {
                         if (MimeTypeUtil.isVideo(file)) {
@@ -113,8 +112,8 @@ public class UploaderAdapter extends SimpleAdapter {
                         }
                     }
                     final AsyncThumbnailDrawable asyncDrawable = new AsyncThumbnailDrawable(
-                            mContext.getResources(), 
-                            thumbnail, 
+                            mContext.getResources(),
+                            thumbnail,
                             task
                     );
                     fileIcon.setImageDrawable(asyncDrawable);

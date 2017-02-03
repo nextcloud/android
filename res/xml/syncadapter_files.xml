@@ -22,10 +22,10 @@
 <!-- for the SyncAdapter. -->
 
 <sync-adapter xmlns:android="http://schemas.android.com/apk/res/android"
-    android:contentAuthority="@string/authority"
-    android:accountType="@string/account_type"
-    android:supportsUploading="true"
-    android:userVisible="true"
-    android:allowParallelSyncs="true"
-    android:isAlwaysSyncable="true"
-/>
+              android:contentAuthority="@string/authority"
+              android:accountType="@string/account_type"
+              android:supportsUploading="true"
+              android:userVisible="true"
+              android:allowParallelSyncs="true"
+              android:isAlwaysSyncable="true"
+    />

@@ -21,7 +21,7 @@
     <string name="drawer_item_settings">設定</string>
     <string name="drawer_item_uploads_list">アップロード</string>
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
-	<string name="drawer_close">閉じる</string>
+    <string name="drawer_close">閉じる</string>
     <string name="drawer_open">開く</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
@@ -50,7 +50,7 @@
     <string name="prefs_remember_last_share_location">共有場所を記憶する</string>
     <string name="prefs_remember_last_upload_location_summary">最後に共有アップロードした場所を記憶する</string>
 
-	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
+    <string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
 	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか！
 ここからダウンロードしてください: %2$s</string>
 
@@ -173,7 +173,7 @@
     <string name="foreign_files_remote_text">リモート: %1$s</string>
     <string name="upload_query_move_foreign_files">%1$s フォルダに選択されたファイルをコピーするのに十分な空き領域がありません。コピーする代わりに移動にしますか？</string>
     <string name="pass_code_enter_pass_code">パスコードを入力してください</string>
-    
+
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
     <string name="pass_code_configure_your_pass_code_explanation">アプリ開始時には毎回パスコードが要求されます</string>
     <string name="pass_code_reenter_your_pass_code">パスコードを再入力してください</string>
@@ -182,7 +182,7 @@
     <string name="pass_code_wrong">パスコードが正しくありません</string>
     <string name="pass_code_removed">パスコードを削除しました</string>
     <string name="pass_code_stored">パスコードを保存しました</string>
-    
+
     <string name="media_notif_ticker">%1$s ミュージックプレーヤー</string>
     <string name="media_state_playing">%1$s (プレイ中)</string>
     <string name="media_state_loading">%1$s (読込中)</string>
@@ -203,40 +203,40 @@
     <string name="media_play_pause_description">再生/一時停止ボタン</string>
     <string name="media_forward_description">早送りボタン</string>
 
-	<string name="auth_getting_authorization">認証中&#8230;</string>
-	<string name="auth_trying_to_login">ログイン試行中&#8230;</string>
-	<string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
-	<string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
-	<string name="auth_connection_established">接続が確立しました</string>
-	<string name="auth_testing_connection">接続のテスト中</string>
-	<string name="auth_not_configured_title">サーバー設定が間違っています</string>
-	<string name="auth_account_not_new">同じユーザーとサーバーのアカウントがデバイス上にすでに存在します</string>
-	<string name="auth_account_not_the_same">入力されたユーザーはこのアカウントのユーザーと一致しません</string>
-	<string name="auth_unknown_error_title">不明なエラーに発生しました</string>
-	<string name="auth_unknown_host_title">ホストが見つかりませんでした</string>
-	<string name="auth_incorrect_path_title">サーバーのインスタンスが見つかりません</string>
-	<string name="auth_timeout_title">サーバーからの反応がありません</string>
-	<string name="auth_incorrect_address_title">サーバーアドレス形式が不正です</string>
-	<string name="auth_ssl_general_error_title">SSLの初期化に失敗しました</string>
-	<string name="auth_ssl_unverified_server_title">SSLサーバー識別子を確認できませんでした</string>
-	<string name="auth_bad_oc_version_title">認識できないサーバーのバージョンです</string>
-	<string name="auth_wrong_connection_title">接続を確立できませんでした</string>
-	<string name="auth_secure_connection">暗号化通信を確立しました</string>
-	<string name="auth_unauthorized">ユーザー名もしくはパスワードが間違っています</string>
-	<string name="auth_oauth_error">認証失敗</string>
-	<string name="auth_oauth_error_access_denied">認証サーバーによってアクセスが拒否されました</string>
-	<string name="auth_wtf_reenter_URL">予期せぬ状態；別のサーバーアドレスを入力してみてください</string>
-	<string name="auth_expired_oauth_token_toast">認証情報は有効期限切れです。再度認証を行ってください。</string>
-	<string name="auth_expired_basic_auth_toast">現在のパスワードを入力してください</string>
-	<string name="auth_expired_saml_sso_token_toast">セッションの有効期限切れです。再度接続してください。</string>
-	<string name="auth_connecting_auth_server">認証サーバーに接続中...</string>
-	<string name="auth_unsupported_auth_method">サーバーはこの認証方式をサポートしていません</string>
-	<string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
+    <string name="auth_getting_authorization">認証中&#8230;</string>
+    <string name="auth_trying_to_login">ログイン試行中&#8230;</string>
+    <string name="auth_no_net_conn_title">ネットワークに接続されていません</string>
+    <string name="auth_nossl_plain_ok_title">暗号化通信が利用できません。</string>
+    <string name="auth_connection_established">接続が確立しました</string>
+    <string name="auth_testing_connection">接続のテスト中</string>
+    <string name="auth_not_configured_title">サーバー設定が間違っています</string>
+    <string name="auth_account_not_new">同じユーザーとサーバーのアカウントがデバイス上にすでに存在します</string>
+    <string name="auth_account_not_the_same">入力されたユーザーはこのアカウントのユーザーと一致しません</string>
+    <string name="auth_unknown_error_title">不明なエラーに発生しました</string>
+    <string name="auth_unknown_host_title">ホストが見つかりませんでした</string>
+    <string name="auth_incorrect_path_title">サーバーのインスタンスが見つかりません</string>
+    <string name="auth_timeout_title">サーバーからの反応がありません</string>
+    <string name="auth_incorrect_address_title">サーバーアドレス形式が不正です</string>
+    <string name="auth_ssl_general_error_title">SSLの初期化に失敗しました</string>
+    <string name="auth_ssl_unverified_server_title">SSLサーバー識別子を確認できませんでした</string>
+    <string name="auth_bad_oc_version_title">認識できないサーバーのバージョンです</string>
+    <string name="auth_wrong_connection_title">接続を確立できませんでした</string>
+    <string name="auth_secure_connection">暗号化通信を確立しました</string>
+    <string name="auth_unauthorized">ユーザー名もしくはパスワードが間違っています</string>
+    <string name="auth_oauth_error">認証失敗</string>
+    <string name="auth_oauth_error_access_denied">認証サーバーによってアクセスが拒否されました</string>
+    <string name="auth_wtf_reenter_URL">予期せぬ状態；別のサーバーアドレスを入力してみてください</string>
+    <string name="auth_expired_oauth_token_toast">認証情報は有効期限切れです。再度認証を行ってください。</string>
+    <string name="auth_expired_basic_auth_toast">現在のパスワードを入力してください</string>
+    <string name="auth_expired_saml_sso_token_toast">セッションの有効期限切れです。再度接続してください。</string>
+    <string name="auth_connecting_auth_server">認証サーバーに接続中...</string>
+    <string name="auth_unsupported_auth_method">サーバーはこの認証方式をサポートしていません</string>
+    <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
 	<string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返しませんでした。管理者に問い合わせてください。
 	</string>
-	<string name="auth_can_not_auth_against_server">認証サーバーに接続できません</string>
+    <string name="auth_can_not_auth_against_server">認証サーバーに接続できません</string>
     <string name="auth_account_does_not_exist">デバイス上にまだアカウントが存在しません</string>
-    
+
     <string name="favorite">オフラインで利用可能に設定</string>
     <string name="unfavorite">オフラインで利用不可に設定</string>
     <string name="common_rename">名前を変更</string>
@@ -261,10 +261,10 @@
     <string name="filedisplay_no_file_selected">ファイルは選択されていません</string>
     <string name="activity_chooser_title">リンクを送信&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
-    
-    <string name="oauth_check_onoff">oAuth2でログイン</string> 
-    <string name="oauth_login_connection">oAuth2サーバーに接続中...</string>    
-        
+
+    <string name="oauth_check_onoff">oAuth2でログイン</string>
+    <string name="oauth_login_connection">oAuth2サーバーに接続中...</string>
+
     <string name="ssl_validator_header">サイトの識別子を確認できませんでした</string>
     <string name="ssl_validator_reason_cert_not_trusted">- サーバー証明書は信頼されていません</string>
     <string name="ssl_validator_reason_cert_expired">- サーバー証明書は有効期限切れです</string>
@@ -310,7 +310,7 @@
     <string name="conflict_keep_both">両方を保持</string>
     <string name="conflict_use_local_version">ローカルのもの</string>
     <string name="conflict_use_server_version">サーバーのもの</string>
-    
+
     <string name="preview_image_description">イメージプレビュー</string>
     <string name="preview_image_error_unknown_format">この画像は表示できません</string>
 
@@ -322,10 +322,10 @@
 
 	<string name="share_link_no_support_share_api">すみませんが、サーバーで共有が有効になっていません。
 		管理者に問い合わせてください。</string>
-	<string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>
-	<string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
-	<string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
-	<string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
+    <string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>
+    <string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
+    <string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
+    <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
     <string name="update_link_file_no_exist">更新できません。ファイルがあるか確認してください。</string>
     <string name="update_link_file_error">共有を更新する際にエラーが発生しました</string>
     <string name="share_link_password_title">パスワードを入力</string>
@@ -367,18 +367,18 @@
     <string name="drawer_manage_accounts">アカウント管理</string>
     <string name="auth_redirect_non_secure_connection_title">暗号化されていない接続を経て、暗号化接続へリダイレクトされました。</string>
 
-	<string name="actionbar_logger">ログ</string>
-	<string name="log_send_history_button">履歴を送信</string>
-	<string name="log_send_no_mail_app">ログを送信するアプリが見つかりませんでした。メールアプリをインストールしてください。</string>
-	<string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
-	<string name="log_progress_dialog_text">データの読込中 &#8230;</string>
+    <string name="actionbar_logger">ログ</string>
+    <string name="log_send_history_button">履歴を送信</string>
+    <string name="log_send_no_mail_app">ログを送信するアプリが見つかりませんでした。メールアプリをインストールしてください。</string>
+    <string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
+    <string name="log_progress_dialog_text">データの読込中 &#8230;</string>
 
-	<string name="saml_authentication_required_text">認証を必要とする</string>
-	<string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
-	<string name="actionbar_move">移動</string>
+    <string name="saml_authentication_required_text">認証を必要とする</string>
+    <string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
+    <string name="actionbar_move">移動</string>
     <string name="actionbar_copy">コピー</string>
-	<string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
-	<string name="folder_picker_choose_button_text">選択</string>
+    <string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
+    <string name="folder_picker_choose_button_text">選択</string>
 
     <string name="move_file_not_found">移動できません。ファイルがあるか確認してください。</string>
     <string name="move_file_invalid_into_descendent">フォルダーを子フォルダーへ移動することはできません。</string>
@@ -396,12 +396,12 @@
     <string name="prefs_category_instant_uploading">自動アップロード</string>
     <string name="prefs_category_details">詳細</string>
 
-	<string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>
+    <string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>
 
-	<string name="shared_subject_header">共有中</string>
-	<string name="with_you_subject_header">あなたと</string>
-    
-	<string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
+    <string name="shared_subject_header">共有中</string>
+    <string name="with_you_subject_header">あなたと</string>
+
+    <string name="subject_user_shared_with_you">%1$s は \"%2$s\" をあなたと共有しました</string>
     <string name="subject_shared_with_you">\"%1$s\" があなたと共有しました</string>
 
     <string name="auth_refresh_button">再接続中</string>

@@ -1,24 +1,23 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author Bartek Przybylski
- *   @author David A. Velasco
- *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2016 ownCloud Inc.
- *   Copyright (C) 2016 Nextcloud
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author Bartek Przybylski
+ * @author David A. Velasco
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2016 ownCloud Inc.
+ * Copyright (C) 2016 Nextcloud
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.activity;
 
@@ -75,7 +74,7 @@ import java.io.IOException;
  */
 public class Preferences extends PreferenceActivity
         implements StorageMigration.StorageMigrationProgressListener {
-    
+
     private static final String TAG = Preferences.class.getSimpleName();
 
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
@@ -347,12 +346,12 @@ public class Preferences extends PreferenceActivity
             mPrefStoragePath.setEntryValues(values);
 
             mPrefStoragePath.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        String newPath = (String) newValue;
-                        if (mStoragePath.equals(newPath)) {
-                            return true;
-                        }
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    String newPath = (String) newValue;
+                    if (mStoragePath.equals(newPath)) {
+                        return true;
+                    }
 
                     StorageMigration storageMigration = new StorageMigration(Preferences.this, mStoragePath, newPath);
 
@@ -387,7 +386,7 @@ public class Preferences extends PreferenceActivity
                 });
             }
 
-        mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
+            mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
 
             mPrefInstantUploadUseSubfolders = findPreference("instant_upload_path_use_subfolders");
             mPrefInstantUploadPathWiFi = findPreference("instant_upload_on_wifi");
@@ -408,8 +407,8 @@ public class Preferences extends PreferenceActivity
                 }
             });
 
-        mPrefInstantVideoUploadPath = findPreference(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH);
-        if (mPrefInstantVideoUploadPath != null){
+            mPrefInstantVideoUploadPath = findPreference(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH);
+            if (mPrefInstantVideoUploadPath != null) {
 
                 mPrefInstantVideoUploadPath.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     @Override
@@ -513,14 +512,14 @@ public class Preferences extends PreferenceActivity
                     mUri = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, getApplicationContext()).getBaseUri();
                 } catch (Throwable t) {
-                    Log_OC.e(TAG,"Error retrieving user's base URI", t);
+                    Log_OC.e(TAG, "Error retrieving user's base URI", t);
                 }
             }
         });
         t.start();
     }
-    
-    private void toggleInstantPictureOptions(Boolean value){
+
+    private void toggleInstantPictureOptions(Boolean value) {
         if (value) {
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadPath);
@@ -534,7 +533,7 @@ public class Preferences extends PreferenceActivity
         }
     }
 
-    private void toggleInstantVideoOptions(Boolean value){
+    private void toggleInstantVideoOptions(Boolean value) {
         if (value) {
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPathWiFi);
             mPrefInstantUploadCategory.addPreference(mPrefInstantVideoUploadPath);
@@ -548,7 +547,7 @@ public class Preferences extends PreferenceActivity
         }
     }
 
-    private void toggleInstantUploadBehaviour(Boolean video, Boolean picture){
+    private void toggleInstantUploadBehaviour(Boolean video, Boolean picture) {
         if (picture || video) {
             mPrefInstantUploadCategory.addPreference(mPrefInstantUploadBehaviour);
         } else {
@@ -577,14 +576,14 @@ public class Preferences extends PreferenceActivity
         Intent intent;
 
         switch (item.getItemId()) {
-        case android.R.id.home:
-            intent = new Intent(getBaseContext(), FileDisplayActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            break;
-        default:
-            Log_OC.w(TAG, "Unknown menu item triggered");
-            return false;
+            case android.R.id.home:
+                intent = new Intent(getBaseContext(), FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                break;
+            default:
+                Log_OC.w(TAG, "Unknown menu item triggered");
+                return false;
         }
         return true;
     }
@@ -595,7 +594,7 @@ public class Preferences extends PreferenceActivity
 
         if (requestCode == ACTION_SELECT_UPLOAD_PATH && resultCode == RESULT_OK) {
 
-            OCFile folderToUpload =  data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
+            OCFile folderToUpload = data.getParcelableExtra(UploadPathActivity.EXTRA_FOLDER);
 
             mUploadPath = folderToUpload.getRemotePath();
 
@@ -625,7 +624,7 @@ public class Preferences extends PreferenceActivity
                         .getDefaultSharedPreferences(getApplicationContext()).edit();
 
                 for (int i = 1; i <= 4; ++i) {
-                    appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i-1, i));
+                    appPrefs.putString(PassCodeActivity.PREFERENCE_PASSCODE_D + i, passcode.substring(i - 1, i));
                 }
                 appPrefs.putBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, true);
                 appPrefs.apply();
@@ -663,10 +662,12 @@ public class Preferences extends PreferenceActivity
     public void setContentView(@LayoutRes int layoutResID) {
         getDelegate().setContentView(layoutResID);
     }
+
     @Override
     public void setContentView(View view) {
         getDelegate().setContentView(view);
     }
+
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         getDelegate().setContentView(view, params);
@@ -757,7 +758,7 @@ public class Preferences extends PreferenceActivity
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mStoragePath = appPrefs.getString(PreferenceKeys.STORAGE_PATH, Environment.getExternalStorageDirectory()
-                                                         .getAbsolutePath());
+                .getAbsolutePath());
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
         mPrefStoragePath.setSummary(storageDescription);
     }

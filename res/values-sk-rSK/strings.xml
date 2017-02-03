@@ -21,7 +21,7 @@
     <string name="drawer_item_settings">Nastavenia</string>
     <string name="drawer_item_uploads_list">Nahranie</string>
     <string name="drawer_quota">Využité: %1$s z %2$s</string>
-	<string name="drawer_close">Zavrieť</string>
+    <string name="drawer_close">Zavrieť</string>
     <string name="drawer_open">Otvoriť</string>
     <string name="prefs_category_general">Všeobecné</string>
     <string name="prefs_category_more">Viac</string>
@@ -50,8 +50,8 @@
     <string name="prefs_remember_last_share_location">Zapamätať umiestnenie sprístupneného obsahu</string>
     <string name="prefs_remember_last_upload_location_summary">Zapamätať posledné umiestnenie pre nahranie sprístupnených súborov</string>
 
-	<string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
-	<string name="recommend_text">Chcel by som vám odporučiť %1$s na vašom smartfóne!\nSťahujte tu: %2$s</string>
+    <string name="recommend_subject">Skúste %1$s na vašom telefóne!</string>
+    <string name="recommend_text">Chcel by som vám odporučiť %1$s na vašom smartfóne!\nSťahujte tu: %2$s</string>
 
     <string name="auth_check_server">Skontrolovať server</string>
     <string name="auth_host_url">Adresa servera https://...</string>
@@ -169,7 +169,7 @@
     <string name="foreign_files_local_text">Lokálne: %1$s</string>
     <string name="foreign_files_remote_text">Vzdialené: %1$s</string>
     <string name="pass_code_enter_pass_code">Vložte prosím svoje heslo</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Vložte svoje heslo</string>
     <string name="pass_code_configure_your_pass_code_explanation">Heslo bude nutné zadať vždy po štarte aplikácie</string>
     <string name="pass_code_reenter_your_pass_code">Vložte prosím znovu svoje heslo</string>
@@ -178,7 +178,7 @@
     <string name="pass_code_wrong">Nesprávne heslo</string>
     <string name="pass_code_removed">Bezpečnostný kód odstránený</string>
     <string name="pass_code_stored">Bezpečnostný kód uložený</string>
-    
+
     <string name="media_notif_ticker">Prehrávač hudby %1$s</string>
     <string name="media_state_playing">%1$s (prehráva)</string>
     <string name="media_state_loading">%1$s (načítava)</string>
@@ -199,38 +199,38 @@
     <string name="media_play_pause_description">Tlačidlo prehrávania / pauzy</string>
     <string name="media_forward_description">Tlačidlo \"rýchlo vpred\"</string>
 
-	<string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
-	<string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
-	<string name="auth_connection_established">Pripojenie vytvorené</string>
-	<string name="auth_testing_connection">Testuje sa pripojenie</string>
-	<string name="auth_not_configured_title">Nesprávna konfigurácia servera</string>
-	<string name="auth_account_not_new">Účet pre tohoto používateľa a tento server už v tomto zariadení existuje</string>
-	<string name="auth_account_not_the_same">Zadané prihlasovacie údaje používateľa sú nesprávne</string>
-	<string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
-	<string name="auth_unknown_host_title">Nemožno nájsť hosta</string>
-	<string name="auth_incorrect_path_title">Inštancia servera nebola nájdená</string>
-	<string name="auth_timeout_title">Serveru trvá odpoveď príliš dlho</string>
-	<string name="auth_incorrect_address_title">Nesprávny formát adresy servera</string>
-	<string name="auth_ssl_general_error_title">Inicializácia SSL zlyhala</string>
-	<string name="auth_ssl_unverified_server_title">Nepodarilo sa overiť identitu servera SSL</string>
-	<string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
-	<string name="auth_wrong_connection_title">Nie je možne vytvoriť spojenie</string>
-	<string name="auth_secure_connection">Vytvorené zabezpečené spojenie</string>
-	<string name="auth_unauthorized">Neprávne používateľské meno alebo heslo</string>
-	<string name="auth_oauth_error">Neúspešná autorizácia</string>
-	<string name="auth_oauth_error_access_denied">Prístup odmietnutý autorizačným serverom</string>
-	<string name="auth_wtf_reenter_URL">Neočakávaný stav; zadajte prosím adresu servera znovu</string>
-	<string name="auth_expired_oauth_token_toast">Vaša autorizácia vypršala. Prosím, autorizujte sa znovu</string>
-	<string name="auth_expired_basic_auth_toast">Zadajte prosím aktuálne heslo</string>
-	<string name="auth_expired_saml_sso_token_toast">Vaše pripojenie vypršalo. Pripojte sa znovu prosím</string>
-	<string name="auth_connecting_auth_server">Pripájam sa na autentifikačný server ...</string>
-	<string name="auth_unsupported_auth_method">Server nepodporuje túto autentifikačnú metódu</string>
-	<string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
+    <string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
+    <string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
+    <string name="auth_connection_established">Pripojenie vytvorené</string>
+    <string name="auth_testing_connection">Testuje sa pripojenie</string>
+    <string name="auth_not_configured_title">Nesprávna konfigurácia servera</string>
+    <string name="auth_account_not_new">Účet pre tohoto používateľa a tento server už v tomto zariadení existuje</string>
+    <string name="auth_account_not_the_same">Zadané prihlasovacie údaje používateľa sú nesprávne</string>
+    <string name="auth_unknown_error_title">Nastala neznáma chyba!</string>
+    <string name="auth_unknown_host_title">Nemožno nájsť hosta</string>
+    <string name="auth_incorrect_path_title">Inštancia servera nebola nájdená</string>
+    <string name="auth_timeout_title">Serveru trvá odpoveď príliš dlho</string>
+    <string name="auth_incorrect_address_title">Nesprávny formát adresy servera</string>
+    <string name="auth_ssl_general_error_title">Inicializácia SSL zlyhala</string>
+    <string name="auth_ssl_unverified_server_title">Nepodarilo sa overiť identitu servera SSL</string>
+    <string name="auth_bad_oc_version_title">Nerozpoznaná verzia servera</string>
+    <string name="auth_wrong_connection_title">Nie je možne vytvoriť spojenie</string>
+    <string name="auth_secure_connection">Vytvorené zabezpečené spojenie</string>
+    <string name="auth_unauthorized">Neprávne používateľské meno alebo heslo</string>
+    <string name="auth_oauth_error">Neúspešná autorizácia</string>
+    <string name="auth_oauth_error_access_denied">Prístup odmietnutý autorizačným serverom</string>
+    <string name="auth_wtf_reenter_URL">Neočakávaný stav; zadajte prosím adresu servera znovu</string>
+    <string name="auth_expired_oauth_token_toast">Vaša autorizácia vypršala. Prosím, autorizujte sa znovu</string>
+    <string name="auth_expired_basic_auth_toast">Zadajte prosím aktuálne heslo</string>
+    <string name="auth_expired_saml_sso_token_toast">Vaše pripojenie vypršalo. Pripojte sa znovu prosím</string>
+    <string name="auth_connecting_auth_server">Pripájam sa na autentifikačný server ...</string>
+    <string name="auth_unsupported_auth_method">Server nepodporuje túto autentifikačnú metódu</string>
+    <string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
 	<string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému
 	</string>
-	<string name="auth_can_not_auth_against_server">Nie je možné sa overiť voči tomuto serveru</string>
+    <string name="auth_can_not_auth_against_server">Nie je možné sa overiť voči tomuto serveru</string>
     <string name="auth_account_does_not_exist">Účet zatiaľ v zariadení neexistuje</string>
-    
+
     <string name="common_rename">Premenovať</string>
     <string name="common_remove">Odstrániť</string>
     <string name="confirmation_remove_file_alert">Naozaj chcete odstrániť %1$s?</string>
@@ -253,10 +253,10 @@
     <string name="filedisplay_no_file_selected">Nebol vybraný súbor</string>
     <string name="activity_chooser_title">Odošli link do ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
-    
-    <string name="oauth_check_onoff">Prihlásiť sa z oAuth2</string> 
-    <string name="oauth_login_connection">Pripájam sa na oAuth2 server…</string>    
-        
+
+    <string name="oauth_check_onoff">Prihlásiť sa z oAuth2</string>
+    <string name="oauth_login_connection">Pripájam sa na oAuth2 server…</string>
+
     <string name="ssl_validator_header">Identitu stránky nemožno overiť</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát servera nie je overený</string>
     <string name="ssl_validator_reason_cert_expired">- Platnosť certifikátu servera vypršala</string>
@@ -303,7 +303,7 @@
     <string name="conflict_keep_both">Ponechať oba</string>
     <string name="conflict_use_local_version">lokálnu verziu</string>
     <string name="conflict_use_server_version">serverovú verziu</string>
-    
+
     <string name="preview_image_description">Ukážka obrazu</string>
     <string name="preview_image_error_unknown_format">Obrázok nemožno zobraziť</string>
 
@@ -316,10 +316,10 @@
 
 	<string name="share_link_no_support_share_api">Sprístupňovanie obsahu nie je na vašom serveri povolené. Prosím kontaktujte vášho
 		administrátora.</string>
-	<string name="share_link_file_no_exist">Sprístupnenie nie je možné. Skontrolujte, či súbor existuje</string>
-	<string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe</string>
-	<string name="unshare_link_file_no_exist">Sprístupnenie nie je možné zrušiť. Skontrolujte, či súbor existuje</string>
-	<string name="unshare_link_file_error">Pri pokuse o zrušenie sprístupnenia tohto súboru alebo priečinka došlo k chybe</string>
+    <string name="share_link_file_no_exist">Sprístupnenie nie je možné. Skontrolujte, či súbor existuje</string>
+    <string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe</string>
+    <string name="unshare_link_file_no_exist">Sprístupnenie nie je možné zrušiť. Skontrolujte, či súbor existuje</string>
+    <string name="unshare_link_file_error">Pri pokuse o zrušenie sprístupnenia tohto súboru alebo priečinka došlo k chybe</string>
     <string name="update_link_file_no_exist">Nemožno aktualizovať. Overte prosím či súbor existuje</string>
     <string name="update_link_file_error">Pri pokuse o aktualizáciu sprístupnenia došlo k chybe</string>
     <string name="share_link_password_title">Vložte heslo</string>
@@ -367,14 +367,14 @@
     <string name="drawer_manage_accounts">Správa účtov</string>
     <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojenie je presmerované nezabezpečenou cestou.</string>
 
-	<string name="actionbar_logger">Logy</string>
-	<string name="log_send_mail_subject">%1$s Android app logs</string>
-	<string name="saml_authentication_required_text">Vyžaduje sa overenie</string>
-	<string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
-	<string name="actionbar_move">Presunúť</string>
+    <string name="actionbar_logger">Logy</string>
+    <string name="log_send_mail_subject">%1$s Android app logs</string>
+    <string name="saml_authentication_required_text">Vyžaduje sa overenie</string>
+    <string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
+    <string name="actionbar_move">Presunúť</string>
     <string name="actionbar_copy">Kopírovať</string>
-	<string name="file_list_empty_moving">Nič tu nie je. Pridajte priečinok!</string>
-	<string name="folder_picker_choose_button_text">Vybrať</string>
+    <string name="file_list_empty_moving">Nič tu nie je. Pridajte priečinok!</string>
+    <string name="folder_picker_choose_button_text">Vybrať</string>
 
     <string name="move_file_not_found">Nemožno presunúť. Skontrolujte, či súbor existuje</string>
     <string name="move_file_invalid_into_descendent">Priečinok nemožno presunúť do vlastného podpriečinka</string>
@@ -392,13 +392,13 @@
     <string name="prefs_category_instant_uploading">Okamžité nahratia</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="prefs_instant_video_upload_path_title">Priečinok pre okamžité nahratie videa</string>
+    <string name="prefs_instant_video_upload_path_title">Priečinok pre okamžité nahratie videa</string>
     <string name="sync_folder_failed_content">Synchronizáciu priečinka %1$s nebolo možné dokončiť</string>
 
-	<string name="shared_subject_header">sprístupnené</string>
-	<string name="with_you_subject_header">s vami</string>
-    
-	<string name="subject_user_shared_with_you">%1$s vám sprístupnil \"%2$s\"</string>
+    <string name="shared_subject_header">sprístupnené</string>
+    <string name="with_you_subject_header">s vami</string>
+
+    <string name="subject_user_shared_with_you">%1$s vám sprístupnil \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" vám bol sprístupnený</string>
 
     <string name="auth_refresh_button">Obnoviť pripojenie</string>

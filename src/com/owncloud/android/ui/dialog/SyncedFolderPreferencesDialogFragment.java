@@ -77,7 +77,7 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
         Bundle args = new Bundle();
         args.putParcelable(SYNCED_FOLDER_PARCELABLE, new SyncedFolderParcelable(syncedFolder, section));
         dialogFragment.setArguments(args);
-        dialogFragment.setStyle(STYLE_NORMAL,R.style.Theme_ownCloud_Dialog);
+        dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog);
 
         return dialogFragment;
     }
@@ -241,8 +241,8 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment {
                                                 DialogInterface.OnClickListener() {
                                                     public void onClick(DialogInterface dialog, int which) {
                                                         mSyncedFolder.setUploadAction(
-                                                        getResources().getTextArray(
-                                                                R.array.pref_behaviour_entryValues)[which].toString());
+                                                                getResources().getTextArray(
+                                                                        R.array.pref_behaviour_entryValues)[which].toString());
                                                         mUploadBehaviorSummary.setText(SyncedFolderPreferencesDialogFragment
                                                                 .this.mUploadBehaviorItemStrings[which]);
                                                         dialog.dismiss();

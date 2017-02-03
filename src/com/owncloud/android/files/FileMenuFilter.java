@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.files;
@@ -118,7 +117,7 @@ public class FileMenuFilter {
 
     private void hideAll(Menu menu) {
         MenuItem item;
-        for (int i=0; i<menu.size(); i++) {
+        for (int i = 0; i < menu.size(); i++) {
             item = menu.getItem(i);
             item.setVisible(false);
             item.setEnabled(false);
@@ -134,7 +133,7 @@ public class FileMenuFilter {
      * @param toShow            List to save the options that must be shown in the menu.
      * @param toHide            List to save the options that must be shown in the menu.
      */
-    private void filter(List<Integer> toShow, List <Integer> toHide) {
+    private void filter(List<Integer> toShow, List<Integer> toHide) {
         boolean synchronizing = anyFileSynchronizing();
 
         /// decision is taken for each possible action on a file in the menu
@@ -197,13 +196,13 @@ public class FileMenuFilter {
         }
 
         // SHARE FILE
-        boolean shareViaLinkAllowed = (mContext != null  &&
+        boolean shareViaLinkAllowed = (mContext != null &&
                 mContext.getResources().getBoolean(R.bool.share_via_link_feature));
-        boolean shareWithUsersAllowed = (mContext != null  &&
+        boolean shareWithUsersAllowed = (mContext != null &&
                 mContext.getResources().getBoolean(R.bool.share_with_users_feature));
 
         OCCapability capability = mComponentsGetter.getStorageManager().getCapability(mAccount.name);
-        boolean shareApiEnabled  = capability != null &&
+        boolean shareApiEnabled = capability != null &&
                 (capability.getFilesSharingApiEnabled().isTrue() ||
                         capability.getFilesSharingApiEnabled().isUnknown()
                 );
@@ -252,9 +251,9 @@ public class FileMenuFilter {
             FileUploaderBinder uploaderBinder = mComponentsGetter.getFileUploaderBinder();
             FileDownloaderBinder downloaderBinder = mComponentsGetter.getFileDownloaderBinder();
             synchronizing = (
-                anyFileSynchronizing(opsBinder) ||      // comparing local and remote
-                anyFileDownloading(downloaderBinder) ||
-                anyFileUploading(uploaderBinder)
+                    anyFileSynchronizing(opsBinder) ||      // comparing local and remote
+                            anyFileDownloading(downloaderBinder) ||
+                            anyFileUploading(uploaderBinder)
             );
         }
         return synchronizing;
@@ -263,7 +262,7 @@ public class FileMenuFilter {
     private boolean anyFileSynchronizing(OperationsServiceBinder opsBinder) {
         boolean synchronizing = false;
         if (opsBinder != null) {
-            for (Iterator<OCFile> iterator = mFiles.iterator(); !synchronizing && iterator.hasNext();) {
+            for (Iterator<OCFile> iterator = mFiles.iterator(); !synchronizing && iterator.hasNext(); ) {
                 synchronizing = opsBinder.isSynchronizing(mAccount, iterator.next());
             }
         }
@@ -273,7 +272,7 @@ public class FileMenuFilter {
     private boolean anyFileDownloading(FileDownloaderBinder downloaderBinder) {
         boolean downloading = false;
         if (downloaderBinder != null) {
-            for (Iterator<OCFile> iterator = mFiles.iterator(); !downloading && iterator.hasNext();) {
+            for (Iterator<OCFile> iterator = mFiles.iterator(); !downloading && iterator.hasNext(); ) {
                 downloading = downloaderBinder.isDownloading(mAccount, iterator.next());
             }
         }
@@ -283,7 +282,7 @@ public class FileMenuFilter {
     private boolean anyFileUploading(FileUploaderBinder uploaderBinder) {
         boolean uploading = false;
         if (uploaderBinder != null) {
-            for (Iterator<OCFile> iterator = mFiles.iterator(); !uploading && iterator.hasNext();) {
+            for (Iterator<OCFile> iterator = mFiles.iterator(); !uploading && iterator.hasNext(); ) {
                 uploading = uploaderBinder.isUploading(mAccount, iterator.next());
             }
         }
@@ -303,8 +302,8 @@ public class FileMenuFilter {
     }
 
     private boolean containsFolder() {
-        for(OCFile file: mFiles) {
-            if(file.isFolder()) {
+        for (OCFile file : mFiles) {
+            if (file.isFolder()) {
                 return true;
             }
         }
@@ -312,8 +311,8 @@ public class FileMenuFilter {
     }
 
     private boolean anyFileDown() {
-        for(OCFile file: mFiles) {
-            if(file.isDown()) {
+        for (OCFile file : mFiles) {
+            if (file.isDown()) {
                 return true;
             }
         }
@@ -321,8 +320,8 @@ public class FileMenuFilter {
     }
 
     private boolean allFavorites() {
-        for(OCFile file: mFiles) {
-            if(!file.isFavorite()) {
+        for (OCFile file : mFiles) {
+            if (!file.isFavorite()) {
                 return false;
             }
         }
@@ -330,8 +329,8 @@ public class FileMenuFilter {
     }
 
     private boolean allUnfavorites() {
-        for(OCFile file: mFiles) {
-            if(file.isFavorite()) {
+        for (OCFile file : mFiles) {
+            if (file.isFavorite()) {
                 return false;
             }
         }

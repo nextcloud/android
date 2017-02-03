@@ -1,22 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * @author masensio
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.operations;
@@ -39,19 +38,18 @@ import java.io.IOException;
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.
  */
 public class RenameFileOperation extends SyncOperation {
-    
+
     private static final String TAG = RenameFileOperation.class.getSimpleName();
-    
+
     private OCFile mFile;
     private String mRemotePath;
     private String mNewName;
     private String mNewRemotePath;
 
-    
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param remotePath            RemotePath of the OCFile instance describing the remote file or
      *                              folder to rename
      * @param newName               New name to set as the name of file.
@@ -61,23 +59,23 @@ public class RenameFileOperation extends SyncOperation {
         mNewName = newName;
         mNewRemotePath = null;
     }
-  
+
     public OCFile getFile() {
         return mFile;
     }
-    
-    
+
+
     /**
      * Performs the rename operation.
-     * 
+     *
      * @param   client      Client object to communicate with the remote ownCloud server.
      */
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
-        
+
         mFile = getStorageManager().getFileByPath(mRemotePath);
-        
+
         // check if the new name is valid in the local file system
         try {
             if (!isValidNewName()) {
@@ -86,7 +84,7 @@ public class RenameFileOperation extends SyncOperation {
             String parent = (new File(mFile.getRemotePath())).getParent();
             parent = (parent.endsWith(OCFile.PATH_SEPARATOR)) ? parent : parent +
                     OCFile.PATH_SEPARATOR;
-            mNewRemotePath =  parent + mNewName;
+            mNewRemotePath = parent + mNewName;
             if (mFile.isFolder()) {
                 mNewRemotePath += OCFile.PATH_SEPARATOR;
             }
@@ -95,7 +93,7 @@ public class RenameFileOperation extends SyncOperation {
             if (getStorageManager().getFileByPath(mNewRemotePath) != null) {
                 return new RemoteOperationResult(ResultCode.INVALID_OVERWRITE);
             }
-            
+
             RenameRemoteFileOperation operation = new RenameRemoteFileOperation(mFile.getFileName(),
                     mFile.getRemotePath(),
                     mNewName, mFile.isFolder());
@@ -110,11 +108,11 @@ public class RenameFileOperation extends SyncOperation {
                     saveLocalFile();
                 }
             }
-            
+
         } catch (IOException e) {
-            Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath==null) ?
+            Log_OC.e(TAG, "Rename " + mFile.getRemotePath() + " to " + ((mNewRemotePath == null) ?
                     mNewName : mNewRemotePath) + ": " +
-                    ((result!= null) ? result.getLogMessage() : ""), e);
+                    ((result != null) ? result.getLogMessage() : ""), e);
         }
 
         return result;
@@ -144,22 +142,22 @@ public class RenameFileOperation extends SyncOperation {
             // can't be updated
             // TODO - study conditions when this could be a problem
         }
-        
+
         getStorageManager().saveFile(mFile);
     }
 
     /**
      * Checks if the new name to set is valid in the file system 
-     * 
+     *
      * The only way to be sure is trying to create a file with that name. It's made in the
      * temporal directory for downloads, out of any account, and then removed.
-     * 
+     *
      * IMPORTANT: The test must be made in the same file system where files are download.
      * The internal storage could be formatted with a different file system.
-     * 
+     *
      * TODO move this method, and maybe FileDownload.get***Path(), to a class with utilities
      * specific for the interactions with the file system
-     * 
+     *
      * @return              'True' if a temporal file named with the name to set could be
      *                      created in the file system where local files are stored.
      * @throws IOException  When the temporal folder can not be created.
@@ -185,11 +183,11 @@ public class RenameFileOperation extends SyncOperation {
             return false;
         }
         boolean result = (testFile.exists() && testFile.isFile());
-        
+
         // cleaning ; result is ignored, since there is not much we could do in case of failure,
         // but repeat and repeat...
         testFile.delete();
-        
+
         return result;
     }
 

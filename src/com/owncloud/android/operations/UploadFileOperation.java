@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.operations;
@@ -236,7 +235,7 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    public int getCreatedBy () {
+    public int getCreatedBy() {
         return mCreatedBy;
     }
 
@@ -248,9 +247,10 @@ public class UploadFileOperation extends SyncOperation {
         return mCreatedBy == CREATED_AS_INSTANT_VIDEO;
     }
 
-    public void setOCUploadId(long id){
+    public void setOCUploadId(long id) {
         mOCUploadId = id;
     }
+
     public long getOCUploadId() {
         return mOCUploadId;
     }
@@ -259,14 +259,14 @@ public class UploadFileOperation extends SyncOperation {
         return mDataTransferListeners;
     }
 
-    public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
+    public void addDatatransferProgressListener(OnDatatransferProgressListener listener) {
         synchronized (mDataTransferListeners) {
             mDataTransferListeners.add(listener);
         }
         if (mEntity != null) {
-            ((ProgressiveDataTransferer)mEntity).addDatatransferProgressListener(listener);
+            ((ProgressiveDataTransferer) mEntity).addDatatransferProgressListener(listener);
         }
-        if(mUploadOperation != null){
+        if (mUploadOperation != null) {
             mUploadOperation.addDatatransferProgressListener(listener);
         }
     }
@@ -276,14 +276,14 @@ public class UploadFileOperation extends SyncOperation {
             mDataTransferListeners.remove(listener);
         }
         if (mEntity != null) {
-            ((ProgressiveDataTransferer)mEntity).removeDatatransferProgressListener(listener);
+            ((ProgressiveDataTransferer) mEntity).removeDatatransferProgressListener(listener);
         }
-        if(mUploadOperation != null){
+        if (mUploadOperation != null) {
             mUploadOperation.removeDatatransferProgressListener(listener);
         }
     }
 
-    public void addRenameUploadListener (OnRenameListener listener) {
+    public void addRenameUploadListener(OnRenameListener listener) {
         mRenameUploadListener = listener;
     }
 
@@ -304,7 +304,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // Check if charging conditions are met and delays the upload otherwise
-            if (delayForCharging()){
+            if (delayForCharging()) {
                 Log_OC.d(TAG, "Upload delayed until the device is charging: " + getRemotePath());
                 return new RemoteOperationResult(ResultCode.DELAYED_FOR_CHARGING);
             }
@@ -368,16 +368,16 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             /// perform the upload
-            if ( mChunked &&
+            if (mChunked &&
                     (new File(mFile.getStoragePath())).length() >
-                            ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
+                            ChunkedUploadRemoteFileOperation.CHUNK_SIZE) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
             }
-            Iterator <OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+            Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
             while (listener.hasNext()) {
                 mUploadOperation.addDatatransferProgressListener(listener.next());
             }
@@ -414,7 +414,7 @@ public class UploadFileOperation extends SyncOperation {
                     FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
                 }
 
-            } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
+            } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
 
@@ -426,7 +426,7 @@ public class UploadFileOperation extends SyncOperation {
             if (temporalFile != null && !originalFile.equals(temporalFile)) {
                 temporalFile.delete();
             }
-            if (result == null){
+            if (result == null) {
                 result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
             if (result.isSuccess()) {
@@ -434,7 +434,7 @@ public class UploadFileOperation extends SyncOperation {
                         result.getLogMessage());
             } else {
                 if (result.getException() != null) {
-                    if(result.isCancelled()){
+                    if (result.isCancelled()) {
                         Log_OC.w(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
                                 ": " + result.getLogMessage());
                     } else {
@@ -468,14 +468,14 @@ public class UploadFileOperation extends SyncOperation {
      */
     private boolean delayForWifi() {
         boolean delayInstantPicture = (
-            isInstantPicture() &&  PreferenceManager.instantPictureUploadViaWiFiOnly(mContext)
+                isInstantPicture() && PreferenceManager.instantPictureUploadViaWiFiOnly(mContext)
         );
         boolean delayInstantVideo = (
-            isInstantVideo() && PreferenceManager.instantVideoUploadViaWiFiOnly(mContext)
+                isInstantVideo() && PreferenceManager.instantVideoUploadViaWiFiOnly(mContext)
         );
         return (
-            (delayInstantPicture || delayInstantVideo) &&
-            !ConnectivityUtils.isAppConnectedViaUnmeteredWiFi(mContext)
+                (delayInstantPicture || delayInstantVideo) &&
+                        !ConnectivityUtils.isAppConnectedViaUnmeteredWiFi(mContext)
         );
     }
 
@@ -596,8 +596,7 @@ public class UploadFileOperation extends SyncOperation {
             suffix = " (" + count + ")";
             if (pos >= 0) {
                 check = existsFile(wc, remotePath + suffix + "." + extension);
-            }
-            else {
+            } else {
                 check = existsFile(wc, remotePath + suffix);
             }
             count++;
@@ -610,7 +609,7 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private boolean existsFile(OwnCloudClient client, String remotePath){
+    private boolean existsFile(OwnCloudClient client, String remotePath) {
         ExistenceCheckRemoteOperation existsOperation =
                 new ExistenceCheckRemoteOperation(remotePath, mContext, false);
         RemoteOperationResult result = existsOperation.execute(client);
@@ -651,7 +650,7 @@ public class UploadFileOperation extends SyncOperation {
      * @param   sourceFile      Source file to copy.
      * @param   targetFile      Target location to copy the file.
      * @return  {@link RemoteOperationResult}
-     * @throws  IOException
+     * @throws IOException
      */
     private RemoteOperationResult copy(File sourceFile, File targetFile) throws IOException {
         Log_OC.d(TAG, "Copying local file");
@@ -742,7 +741,7 @@ public class UploadFileOperation extends SyncOperation {
      * @param   sourceFile      Source file to move.
      * @param   targetFile      Target location to move the file.
      * @return  {@link RemoteOperationResult}
-     * @throws  IOException
+     * @throws IOException
      */
     private void move(File sourceFile, File targetFile) throws IOException {
 
@@ -750,8 +749,8 @@ public class UploadFileOperation extends SyncOperation {
             File expectedFolder = targetFile.getParentFile();
             expectedFolder.mkdirs();
 
-            if (expectedFolder.isDirectory()){
-                if (!sourceFile.renameTo(targetFile)){
+            if (expectedFolder.isDirectory()) {
+                if (!sourceFile.renameTo(targetFile)) {
                     // try to copy and then delete
                     targetFile.createNewFile();
                     FileChannel inChannel = new FileInputStream(sourceFile).getChannel();
@@ -759,12 +758,11 @@ public class UploadFileOperation extends SyncOperation {
                     try {
                         inChannel.transferTo(0, inChannel.size(), outChannel);
                         sourceFile.delete();
-                    } catch (Exception e){
+                    } catch (Exception e) {
                         mFile.setStoragePath(""); // forget the local file
                         // by now, treat this as a success; the file was uploaded
                         // the best option could be show a warning message
-                    }
-                    finally {
+                    } finally {
                         if (inChannel != null) {
                             inChannel.close();
                         }
@@ -828,7 +826,7 @@ public class UploadFileOperation extends SyncOperation {
 
         // generate new Thumbnail
         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-            new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), mAccount);
+                new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), mAccount);
         task.execute(file);
     }
 

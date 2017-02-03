@@ -1,29 +1,22 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015  ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2015  ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.preview;
-
-import java.lang.ref.WeakReference;
-
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.fragment.FileFragment;
 
 import android.accounts.Account;
 import android.os.Bundle;
@@ -36,9 +29,14 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.DisplayUtils;
+
+import java.lang.ref.WeakReference;
 
 
 /**
@@ -49,10 +47,10 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String EXTRA_ERROR = "ERROR";
-    
+
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
-    private static final String ARG_ACCOUNT = "ACCOUNT" ;
+    private static final String ARG_ACCOUNT = "ACCOUNT";
 
     private View mView;
     private Account mAccount;
@@ -94,7 +92,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     /**
      * Creates an empty details fragment.
-     * 
+     *
      * It's necessary to keep a public constructor without parameters; the system uses it when tries to
      * reinstantiate a fragment automatically.
      */
@@ -112,8 +110,8 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        setFile((OCFile)args.getParcelable(ARG_FILE));
-            // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
+        setFile((OCFile) args.getParcelable(ARG_FILE));
+        // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         mAccount = args.getParcelable(ARG_ACCOUNT);
@@ -130,20 +128,19 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
                 setFile((OCFile) savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_FILE));
                 mAccount = savedInstanceState.getParcelable(FileDownloadFragment.EXTRA_ACCOUNT);
                 mError = savedInstanceState.getBoolean(FileDownloadFragment.EXTRA_ERROR);
-            }
-            else {
+            } else {
                 mIgnoreFirstSavedState = false;
             }
         }
 
         mView = inflater.inflate(R.layout.file_download_fragment, container, false);
-        
-        ProgressBar progressBar = (ProgressBar)mView.findViewById(R.id.progressBar);
+
+        ProgressBar progressBar = (ProgressBar) mView.findViewById(R.id.progressBar);
         DisplayUtils.colorPreLollipopHorizontalProgressBar(progressBar);
         mProgressListener = new ProgressListener(progressBar);
 
         (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
-        
+
         (mView.findViewById(R.id.fileDownloadLL)).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,8 +150,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         if (mError) {
             setButtonsForRemote();
-        }
-        else {
+        } else {
             setButtonsForTransferring();
         }
 
@@ -314,7 +310,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         public void onTransferProgress(
                 long progressRate, long totalTransferredSoFar, long totalToTransfer, String filename
         ) {
-            int percent = (int)(100.0*((double)totalTransferredSoFar)/((double)totalToTransfer));
+            int percent = (int) (100.0 * ((double) totalTransferredSoFar) / ((double) totalToTransfer));
             if (percent != mLastPercent) {
                 ProgressBar pb = mProgressBar.get();
                 if (pb != null) {
@@ -331,8 +327,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void setError(boolean error) {
         mError = error;
     }
-
-    ;
 
 
 }

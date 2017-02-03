@@ -369,7 +369,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }
         mSyncedFolderPreferencesDialogFragment = null;
 
-        if(dirty) {
+        if (dirty) {
             mAdapter.setSyncFolderItem(syncedFolder.getSection(), item);
         }
     }

@@ -21,7 +21,9 @@
       standard menu
       all items in this group MUST have orderInCategory="0" set
     -->
-    <group android:id="@+id/drawer_menu_standard" android:checkableBehavior="single">
+    <group
+        android:id="@+id/drawer_menu_standard"
+        android:checkableBehavior="single">
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_all_files"
@@ -65,7 +67,9 @@
     <!--
       all items in this group MUST have orderInCategory="3" set
     -->
-    <group android:id="@+id/drawer_menu_bottom" android:checkableBehavior="single">
+    <group
+        android:id="@+id/drawer_menu_bottom"
+        android:checkableBehavior="single">
         <item
             android:orderInCategory="3"
             android:id="@+id/nav_settings"

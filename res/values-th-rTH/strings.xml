@@ -39,8 +39,8 @@
     <string name="prefs_remember_last_share_location">จดจำตำแหน่งที่ใช้ร่วมกัน</string>
     <string name="prefs_remember_last_upload_location_summary">จดจำตำแหน่งล่าสุดที่ใช้ร่วมกัน</string>
 
-	<string name="recommend_subject">ลองใช้ %1$s บนสมาร์ทโฟนของคุณ!</string>
-	<string name="recommend_text">ฉันอยากจะขอเชิญให้คุณใช้ %1$s บนสมาร์ทโฟนของคุณ!\nดาวน์โหลดที่นี่: %2$s</string>
+    <string name="recommend_subject">ลองใช้ %1$s บนสมาร์ทโฟนของคุณ!</string>
+    <string name="recommend_text">ฉันอยากจะขอเชิญให้คุณใช้ %1$s บนสมาร์ทโฟนของคุณ!\nดาวน์โหลดที่นี่: %2$s</string>
 
     <string name="auth_check_server">ตรวจสอบเซิร์ฟเวอร์</string>
     <string name="auth_host_url">ที่อยู่ของเซิร์ฟเวอร์ https://…</string>
@@ -156,7 +156,7 @@
     <string name="pass_code_wrong">รหัสยืนยันไม่ถูกต้อง</string>
     <string name="pass_code_removed">ลบรหัสยืนยัน</string>
     <string name="pass_code_stored">รหัสยืนยันที่เก็บไว้</string>
-    
+
     <string name="media_notif_ticker">เล่นเพลง %1$s</string>
     <string name="media_state_playing">%1$s (กำลังเล่น)</string>
     <string name="media_state_loading">%1$s (กำลังโหลด)</string>
@@ -177,39 +177,39 @@
     <string name="media_play_pause_description">เล่นหรือกดปุ่มหยุดชั่วคราว</string>
     <string name="media_forward_description">ปุ่มเลื่อนไปข้างหน้า</string>
 
-	<string name="auth_getting_authorization">กำลังตรวจสอบสิทธิ์การเข้าใช้งาน ...</string>
-	<string name="auth_trying_to_login">กำลังพยายามเข้าสู่ระบบ ...</string>
-	<string name="auth_no_net_conn_title">ไม่มีการเชื่อมต่อเครือข่ายใดๆ</string>
-	<string name="auth_nossl_plain_ok_title">การเชื่อมต่อแบบปลอดภัยไม่สามารถใช้งานได้</string>
-	<string name="auth_connection_established">ติดตั้งการเชื่อมต่อแล้ว</string>
-	<string name="auth_testing_connection">การทดสอบการเชื่อมต่อ</string>
-	<string name="auth_not_configured_title">การกำหนดค่า Malformed เซิร์ฟเวอร์</string>
-	<string name="auth_account_not_new">บัญชีผู้ใช้และเซิร์ฟเวอร์เดียวกันมีอยู่แล้วในเครื่อง</string>
-	<string name="auth_account_not_the_same">ป้อนผู้ใช้ไม่ตรงกับบัญชีของผู้ใช้นี้</string>
-	<string name="auth_unknown_error_title">เกิดข้อผิดพลาดโดยไม่ทราบสาเหตุ!</string>
-	<string name="auth_unknown_host_title">ไม่พบโฮสต์ที่ต้องการ</string>
-	<string name="auth_incorrect_path_title">ไม่พบค่าตัวอย่างเซิร์ฟเวอร์</string>
-	<string name="auth_timeout_title">เซิร์ฟเวอร์ดังกล่าวใช้เวลาตอบสนองนานเกินไป</string>
-	<string name="auth_incorrect_address_title">รูปแบบที่อยู่ของเซิร์ฟเวอร์ไม่ถูกต้อง</string>
-	<string name="auth_ssl_general_error_title">การเตรียมใช้งาน SSL ล้มเหลว</string>
-	<string name="auth_ssl_unverified_server_title">ไม่สามารถตรวจสอบตัวตนของเซิร์ฟเวอร์ SSL</string>
-	<string name="auth_bad_oc_version_title">ไม่รู้จักรุ่นของเซิร์ฟเวอร์</string>
-	<string name="auth_wrong_connection_title">ไม่สามารถเชื่อมต่อได้</string>
-	<string name="auth_secure_connection">เชื่อมต่อแบบปลอดภัยเสร็จสมบูรณ์</string>
-	<string name="auth_unauthorized">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
-	<string name="auth_oauth_error">ตรวจสอบสิทธิ์ไม่สำเร็จ</string>
-	<string name="auth_oauth_error_access_denied">การเข้าถึงถูกปฏิเสธโดยเซิร์ฟเวอร์ตรวจสอบสิทธิ์</string>
-	<string name="auth_wtf_reenter_URL">สถานะที่ไม่สามารถคาดเดาได้; กรุณากรอกที่อยู่เซิร์ฟเวอร์ใหม่อีกครั้ง</string>
-	<string name="auth_expired_oauth_token_toast">สิทธิ์การเข้าถึงของคุณหมดอายุแล้ว กรุณาขอสิทธิ์ใหม่</string>
-	<string name="auth_expired_basic_auth_toast">กรุณากรอกรหัสผ่านปัจจุบัน</string>
-	<string name="auth_expired_saml_sso_token_toast">เซสชันของคุณหมดอายุ โปรดเชื่อมต่ออีกครั้ง</string>
-	<string name="auth_connecting_auth_server">กำลังเชื่อมต่อกับเซิร์ฟเวอร์ที่ตรวจสอบสิทธิ์เข้าใช้งาน</string>
-	<string name="auth_unsupported_auth_method">เซิร์ฟเวอร์ไม่สนับสนุนการยืนยันตัวตนนี้</string>
-	<string name="auth_unsupported_multiaccount">%1$s ไม่สนับสนุนให้มีหลายบัญชี</string>
-	<string name="auth_fail_get_user_name">เซิร์ฟเวอร์ของคุณไม่ได้ส่งคืนรหัสผู้ใช้ที่ถูกต้อง กรุณาติดต่อผู้ดูแลระบบ!</string>
-	<string name="auth_can_not_auth_against_server">ไม่สามารถตรวจสอบสิทธิ์การเข้าใช้งานกับเซิร์ฟเวอร์นี้ได้</string>
+    <string name="auth_getting_authorization">กำลังตรวจสอบสิทธิ์การเข้าใช้งาน ...</string>
+    <string name="auth_trying_to_login">กำลังพยายามเข้าสู่ระบบ ...</string>
+    <string name="auth_no_net_conn_title">ไม่มีการเชื่อมต่อเครือข่ายใดๆ</string>
+    <string name="auth_nossl_plain_ok_title">การเชื่อมต่อแบบปลอดภัยไม่สามารถใช้งานได้</string>
+    <string name="auth_connection_established">ติดตั้งการเชื่อมต่อแล้ว</string>
+    <string name="auth_testing_connection">การทดสอบการเชื่อมต่อ</string>
+    <string name="auth_not_configured_title">การกำหนดค่า Malformed เซิร์ฟเวอร์</string>
+    <string name="auth_account_not_new">บัญชีผู้ใช้และเซิร์ฟเวอร์เดียวกันมีอยู่แล้วในเครื่อง</string>
+    <string name="auth_account_not_the_same">ป้อนผู้ใช้ไม่ตรงกับบัญชีของผู้ใช้นี้</string>
+    <string name="auth_unknown_error_title">เกิดข้อผิดพลาดโดยไม่ทราบสาเหตุ!</string>
+    <string name="auth_unknown_host_title">ไม่พบโฮสต์ที่ต้องการ</string>
+    <string name="auth_incorrect_path_title">ไม่พบค่าตัวอย่างเซิร์ฟเวอร์</string>
+    <string name="auth_timeout_title">เซิร์ฟเวอร์ดังกล่าวใช้เวลาตอบสนองนานเกินไป</string>
+    <string name="auth_incorrect_address_title">รูปแบบที่อยู่ของเซิร์ฟเวอร์ไม่ถูกต้อง</string>
+    <string name="auth_ssl_general_error_title">การเตรียมใช้งาน SSL ล้มเหลว</string>
+    <string name="auth_ssl_unverified_server_title">ไม่สามารถตรวจสอบตัวตนของเซิร์ฟเวอร์ SSL</string>
+    <string name="auth_bad_oc_version_title">ไม่รู้จักรุ่นของเซิร์ฟเวอร์</string>
+    <string name="auth_wrong_connection_title">ไม่สามารถเชื่อมต่อได้</string>
+    <string name="auth_secure_connection">เชื่อมต่อแบบปลอดภัยเสร็จสมบูรณ์</string>
+    <string name="auth_unauthorized">ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง</string>
+    <string name="auth_oauth_error">ตรวจสอบสิทธิ์ไม่สำเร็จ</string>
+    <string name="auth_oauth_error_access_denied">การเข้าถึงถูกปฏิเสธโดยเซิร์ฟเวอร์ตรวจสอบสิทธิ์</string>
+    <string name="auth_wtf_reenter_URL">สถานะที่ไม่สามารถคาดเดาได้; กรุณากรอกที่อยู่เซิร์ฟเวอร์ใหม่อีกครั้ง</string>
+    <string name="auth_expired_oauth_token_toast">สิทธิ์การเข้าถึงของคุณหมดอายุแล้ว กรุณาขอสิทธิ์ใหม่</string>
+    <string name="auth_expired_basic_auth_toast">กรุณากรอกรหัสผ่านปัจจุบัน</string>
+    <string name="auth_expired_saml_sso_token_toast">เซสชันของคุณหมดอายุ โปรดเชื่อมต่ออีกครั้ง</string>
+    <string name="auth_connecting_auth_server">กำลังเชื่อมต่อกับเซิร์ฟเวอร์ที่ตรวจสอบสิทธิ์เข้าใช้งาน</string>
+    <string name="auth_unsupported_auth_method">เซิร์ฟเวอร์ไม่สนับสนุนการยืนยันตัวตนนี้</string>
+    <string name="auth_unsupported_multiaccount">%1$s ไม่สนับสนุนให้มีหลายบัญชี</string>
+    <string name="auth_fail_get_user_name">เซิร์ฟเวอร์ของคุณไม่ได้ส่งคืนรหัสผู้ใช้ที่ถูกต้อง กรุณาติดต่อผู้ดูแลระบบ!</string>
+    <string name="auth_can_not_auth_against_server">ไม่สามารถตรวจสอบสิทธิ์การเข้าใช้งานกับเซิร์ฟเวอร์นี้ได้</string>
     <string name="auth_account_does_not_exist">ยังไม่มีบัญชีในอุปกรณ์นี้</string>
-    
+
     <string name="common_rename">เปลี่ยนชื่อ</string>
     <string name="common_remove">ลบออก</string>
     <string name="confirmation_remove_folder_alert">คุณต้องการที่จะลบ %1$s และเนื้อหาของมัน?</string>
@@ -229,10 +229,10 @@
     <string name="filedisplay_no_file_selected">ไม่มีไฟล์ที่ถูกเลือก</string>
     <string name="activity_chooser_title">ส่งลิงค์ไปยัง ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">คัดลอกไฟล์จากพื้นที่จัดเก็บส่วนตัว</string>
-    
-    <string name="oauth_check_onoff">เข้าสู่ระบบด้วย oAuth2</string> 
-    <string name="oauth_login_connection">เชื่อมต่อกับเซิร์ฟเวอร์ oAuth2 ...</string>    
-        
+
+    <string name="oauth_check_onoff">เข้าสู่ระบบด้วย oAuth2</string>
+    <string name="oauth_login_connection">เชื่อมต่อกับเซิร์ฟเวอร์ oAuth2 ...</string>
+
     <string name="ssl_validator_header">ไม่สามารถยืนยันตัวตนของเว็บไซต์ได้</string>
     <string name="ssl_validator_reason_cert_not_trusted">- ใบรับรองความปลอดภัยของเซิร์ฟเวอร์ไม่น่าเชื่อถือ</string>
     <string name="ssl_validator_reason_cert_expired">- ใบรับรองความปลอดภัยของเซิร์ฟเวอร์หมดอายุแล้ว</string>
@@ -276,16 +276,16 @@
     <string name="conflict_keep_both">เก็บไว้ทั้งสองอย่าง</string>
     <string name="conflict_use_local_version">เวอร์ชันต้นทาง</string>
     <string name="conflict_use_server_version">เวอร์ชันเซิร์ฟเวอร์</string>
-    
+
     <string name="preview_image_description">แสดงรูปภาพตัวอย่าง</string>
     <string name="preview_image_error_unknown_format">ไม่สามารถแสดงรูปภาพนี้ได้</string>
 
     <string name="error__upload__local_file_not_copied">%1$s ไม่สามารถคัดลอกไปยังโฟลเดอร์ %2$s ในเครื่อง</string>
     <string name="share_link_no_support_share_api">ขออภัยการแชร์ไม่ได้เปิดใช้งานบนเซิร์ฟเวอร์ของคุณ กรุณาติดต่อผู้ดูแลระบบ</string>
-	<string name="share_link_file_no_exist">ไม่สามารถแชร์ กรุณาตรวจสอบว่ายังมีไฟล์นั้นอยู่</string>
-	<string name="share_link_file_error">เกิดข้อผิดพลาดในขณะที่พยายามจะแชร์ไฟล์หรือโฟลเดอร์นี้</string>
-	<string name="unshare_link_file_no_exist">ไม่สามารถยกเลิกการแชร์ กรุณาตรวจสอบว่ายังมีไฟล์นั้นอยู่</string>
-	<string name="unshare_link_file_error">เกิดข้อผิดพลาดในขณะที่จะยกเลิกการอชร์ไฟล์หรือโฟลเดอร์นี้</string>
+    <string name="share_link_file_no_exist">ไม่สามารถแชร์ กรุณาตรวจสอบว่ายังมีไฟล์นั้นอยู่</string>
+    <string name="share_link_file_error">เกิดข้อผิดพลาดในขณะที่พยายามจะแชร์ไฟล์หรือโฟลเดอร์นี้</string>
+    <string name="unshare_link_file_no_exist">ไม่สามารถยกเลิกการแชร์ กรุณาตรวจสอบว่ายังมีไฟล์นั้นอยู่</string>
+    <string name="unshare_link_file_error">เกิดข้อผิดพลาดในขณะที่จะยกเลิกการอชร์ไฟล์หรือโฟลเดอร์นี้</string>
     <string name="update_link_file_no_exist">ไม่สามารถอัพเดท กรุณาตรวจสอบว่ายังมีไฟล์นั้นอยู่</string>
     <string name="update_link_file_error">เกิดข้อผิดพลาดในขณะที่พยายามอัพเดทการแชร์</string>
     <string name="share_link_password_title">ป้อนรหัสผ่าน</string>
@@ -298,7 +298,7 @@
     <string name="error_cant_bind_to_operations_service">ข้อผิดพลาด: ไม่สามารถดำเนินการได้</string>
 
     <string name="network_error_socket_exception">เกิดข้อผิดพลาดขณะกำลังเชื่อมต่อกับเซิร์ฟเวอร์</string>
-    <string name="empty" />
+    <string name="empty"/>
 
     <string name="forbidden_permissions">คุณไม่ได้รับสิทธิ์ %s</string>
     <string name="forbidden_permissions_rename">เพื่อเปลี่ยนชื่อไฟล์นี้</string>
@@ -314,17 +314,17 @@
     <string name="prefs_add_account">เพิ่มบัญชี</string>
     <string name="auth_redirect_non_secure_connection_title">เชื่อมต่อที่ปลอดภัยถูกเปลี่ยนเส้นทางผ่านเราเตอร์ที่ไม่ปลอดภัย</string>
 
-	<string name="actionbar_logger">บันทึก</string>
-	<string name="log_send_history_button">ส่งประวัติการใช้งานย้อนหลัง</string>
-	<string name="log_send_no_mail_app">ไม่พบแอพสำหรับส่งบันทึกการใช้งาน กรุณาติดตั้งแอพสำหรับส่งเมล</string>
-	<string name="log_send_mail_subject">%1$s บันทึกแอพแอนดรอยด์</string>
-	<string name="log_progress_dialog_text">กำลังโหลดข้อมูล ...</string>
+    <string name="actionbar_logger">บันทึก</string>
+    <string name="log_send_history_button">ส่งประวัติการใช้งานย้อนหลัง</string>
+    <string name="log_send_no_mail_app">ไม่พบแอพสำหรับส่งบันทึกการใช้งาน กรุณาติดตั้งแอพสำหรับส่งเมล</string>
+    <string name="log_send_mail_subject">%1$s บันทึกแอพแอนดรอยด์</string>
+    <string name="log_progress_dialog_text">กำลังโหลดข้อมูล ...</string>
 
-	<string name="saml_authentication_required_text">จำเป็นต้องยืนยันตัวตน</string>
-	<string name="saml_authentication_wrong_pass">รหัสผ่านไม่ถูกต้อง</string>
-	<string name="actionbar_move">ย้าย</string>
+    <string name="saml_authentication_required_text">จำเป็นต้องยืนยันตัวตน</string>
+    <string name="saml_authentication_wrong_pass">รหัสผ่านไม่ถูกต้อง</string>
+    <string name="actionbar_move">ย้าย</string>
     <string name="file_list_empty_moving">ไม่มีสิ่งใดในที่นี่ คุณสามารถสร้างโฟลเดอร์!</string>
-	<string name="folder_picker_choose_button_text">เลือก</string>
+    <string name="folder_picker_choose_button_text">เลือก</string>
 
     <string name="move_file_not_found">ไม่สามารถย้ายไฟล์ กรุณาตรวจสอบว่ายังมีไฟล์นั้นอยู่</string>
     <string name="move_file_invalid_into_descendent">มันเป็นไปไม่ได้ที่จะย้ายโฟลเดอร์ที่มีราก</string>
@@ -342,12 +342,12 @@
     <string name="prefs_category_instant_uploading">อัพโหลดทันที</string>
     <string name="prefs_category_details">รายละเอียด</string>
 
-	<string name="sync_folder_failed_content">ประสานข้อมูลโฟลเดอร์ %1$s ไม่สำเร็จ</string>
+    <string name="sync_folder_failed_content">ประสานข้อมูลโฟลเดอร์ %1$s ไม่สำเร็จ</string>
 
-	<string name="shared_subject_header">ถูกแชร์</string>
-	<string name="with_you_subject_header">กับคุณ</string>
-    
-	<string name="subject_user_shared_with_you">%1$s ได้แชร์ \"%2$s\" กับคุณ</string>
+    <string name="shared_subject_header">ถูกแชร์</string>
+    <string name="with_you_subject_header">กับคุณ</string>
+
+    <string name="subject_user_shared_with_you">%1$s ได้แชร์ \"%2$s\" กับคุณ</string>
     <string name="subject_shared_with_you">\"%1$s\" ได้ถูกแชร์กับคุณ</string>
 
     <string name="auth_refresh_button">ฟื้นฟูการเชื่อมต่อ</string>
@@ -398,4 +398,4 @@
     <string name="action_switch_grid_view">มุมมองแบบตาราง Grid</string>
     <string name="action_switch_list_view">มุมมองแบบแสดงรายการ</string>
 
-    </resources>
+</resources>

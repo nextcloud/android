@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 
@@ -32,8 +31,8 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.when;
 
 /**
@@ -61,15 +60,15 @@ public class ErrorMessageAdapterUnitTest {
     public void getErrorCauseMessageForForbiddenRemoval() {
         // Given a mocked set of resources passed to the object under test...
         when(mMockResources.getString(R.string.forbidden_permissions))
-            .thenReturn(MOCK_FORBIDDEN_PERMISSIONS);
+                .thenReturn(MOCK_FORBIDDEN_PERMISSIONS);
         when(mMockResources.getString(R.string.forbidden_permissions_delete))
-            .thenReturn(MOCK_TO_DELETE);
+                .thenReturn(MOCK_TO_DELETE);
 
         // ... when method under test is called ...
         String errorMessage = ErrorMessageAdapter.getErrorCauseMessage(
-            new RemoteOperationResult(RemoteOperationResult.ResultCode.FORBIDDEN),
-            new RemoveFileOperation(PATH_TO_DELETE, false),
-            mMockResources
+                new RemoteOperationResult(RemoteOperationResult.ResultCode.FORBIDDEN),
+                new RemoveFileOperation(PATH_TO_DELETE, false),
+                mMockResources
         );
 
         // ... then the result should be the expected one.

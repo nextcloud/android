@@ -21,7 +21,7 @@
     <string name="drawer_item_settings">Nastavení</string>
     <string name="drawer_item_uploads_list">Nahrání</string>
     <string name="drawer_quota">%1$s z %2$s použito</string>
-	<string name="drawer_close">Zavřít</string>
+    <string name="drawer_close">Zavřít</string>
     <string name="drawer_open">Otevřít</string>
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
@@ -50,8 +50,8 @@
     <string name="prefs_remember_last_share_location">Zapamatovat umístění sdílení</string>
     <string name="prefs_remember_last_upload_location_summary">Zapamatovat poslední umístění pro nahrání sdílených souborů</string>
 
-	<string name="recommend_subject">Zkuste %1$s na svém chytrém telefonu!</string>
-	<string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
+    <string name="recommend_subject">Zkuste %1$s na svém chytrém telefonu!</string>
+    <string name="recommend_text">Chtěl bych vás pozvat k používání %1$s na vašem chytrém telefonu!\nKe stažení zde: %2$s</string>
 
     <string name="auth_check_server">Ověřit server</string>
     <string name="auth_host_url">Adresa serveru https://...</string>
@@ -174,7 +174,7 @@
     <string name="foreign_files_remote_text">Vzdálené: %1$s</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do %1$s adresáře není dostatek volného místa. Chcete je místo toho přesunout?</string>
     <string name="pass_code_enter_pass_code">Zadejte prosím svůj bezpečnostní kód</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>
     <string name="pass_code_configure_your_pass_code_explanation">Bezpečnostní kód bude vyžadován při každém spuštění aplikace</string>
     <string name="pass_code_reenter_your_pass_code">Zopakujte prosím svůj bezpečnostní kód</string>
@@ -183,7 +183,7 @@
     <string name="pass_code_wrong">Nesprávný bezpečnostní kód</string>
     <string name="pass_code_removed">Bezpečnostní kód odstraněn</string>
     <string name="pass_code_stored">Bezpečnostní kód uložen</string>
-    
+
     <string name="media_notif_ticker">Hudební přehrávač %1$s</string>
     <string name="media_state_playing">%1$s (přehrává)</string>
     <string name="media_state_loading">%1$s (načítá)</string>
@@ -204,39 +204,39 @@
     <string name="media_play_pause_description">Tlačítko Přehrát/Pozastavit</string>
     <string name="media_forward_description">Tlačítko Rychle vpřed</string>
 
-	<string name="auth_getting_authorization">Příjem autorizace &#8230;</string>
-	<string name="auth_trying_to_login">Pokus o přihlášení &#8230;</string>
-	<string name="auth_no_net_conn_title">Žádné síťové spojení</string>
-	<string name="auth_nossl_plain_ok_title">Zabezpečené spojení není k dispozici</string>
-	<string name="auth_connection_established">Spojení navázáno</string>
-	<string name="auth_testing_connection">Testuje se připojení</string>
-	<string name="auth_not_configured_title">Neplatné nastavení serveru</string>
-	<string name="auth_account_not_new">Účet pro stejného uživatele a server již v zařízení existuje</string>
-	<string name="auth_account_not_the_same">Zadaný uživatel neodpovídá uživateli tohoto účtu</string>
-	<string name="auth_unknown_error_title">Nastala neznámá chyba</string>
-	<string name="auth_unknown_host_title">Nelze najít hostitele</string>
-	<string name="auth_incorrect_path_title">Instance serveru nenalezena</string>
-	<string name="auth_timeout_title">Serveru trvalo příliš dlouho odpovědět</string>
-	<string name="auth_incorrect_address_title">Chybný formát adresy serveru</string>
-	<string name="auth_ssl_general_error_title">Inicializace SSL selhala</string>
-	<string name="auth_ssl_unverified_server_title">Nemohu ověřit SSL identitu serveru</string>
-	<string name="auth_bad_oc_version_title">Nerozpoznaná verze serveru</string>
-	<string name="auth_wrong_connection_title">Nemohu navázat spojení</string>
-	<string name="auth_secure_connection">Zabezpečené spojení navázáno</string>
-	<string name="auth_unauthorized">Chybné přihlašovací jméno nebo heslo</string>
-	<string name="auth_oauth_error">Neúspěšné přihlášení</string>
-	<string name="auth_oauth_error_access_denied">Přístup zamítnut autorizačním serverem</string>
-	<string name="auth_wtf_reenter_URL">Neočekávaný stav; zadejte prosím znovu adresu serveru</string>
-	<string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
-	<string name="auth_expired_basic_auth_toast">Zadejte prosím aktuální heslo</string>
-	<string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
-	<string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru ...</string>
-	<string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
-	<string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
-	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
-	<string name="auth_can_not_auth_against_server">Na tomto serveru nelze ověřit</string>
+    <string name="auth_getting_authorization">Příjem autorizace &#8230;</string>
+    <string name="auth_trying_to_login">Pokus o přihlášení &#8230;</string>
+    <string name="auth_no_net_conn_title">Žádné síťové spojení</string>
+    <string name="auth_nossl_plain_ok_title">Zabezpečené spojení není k dispozici</string>
+    <string name="auth_connection_established">Spojení navázáno</string>
+    <string name="auth_testing_connection">Testuje se připojení</string>
+    <string name="auth_not_configured_title">Neplatné nastavení serveru</string>
+    <string name="auth_account_not_new">Účet pro stejného uživatele a server již v zařízení existuje</string>
+    <string name="auth_account_not_the_same">Zadaný uživatel neodpovídá uživateli tohoto účtu</string>
+    <string name="auth_unknown_error_title">Nastala neznámá chyba</string>
+    <string name="auth_unknown_host_title">Nelze najít hostitele</string>
+    <string name="auth_incorrect_path_title">Instance serveru nenalezena</string>
+    <string name="auth_timeout_title">Serveru trvalo příliš dlouho odpovědět</string>
+    <string name="auth_incorrect_address_title">Chybný formát adresy serveru</string>
+    <string name="auth_ssl_general_error_title">Inicializace SSL selhala</string>
+    <string name="auth_ssl_unverified_server_title">Nemohu ověřit SSL identitu serveru</string>
+    <string name="auth_bad_oc_version_title">Nerozpoznaná verze serveru</string>
+    <string name="auth_wrong_connection_title">Nemohu navázat spojení</string>
+    <string name="auth_secure_connection">Zabezpečené spojení navázáno</string>
+    <string name="auth_unauthorized">Chybné přihlašovací jméno nebo heslo</string>
+    <string name="auth_oauth_error">Neúspěšné přihlášení</string>
+    <string name="auth_oauth_error_access_denied">Přístup zamítnut autorizačním serverem</string>
+    <string name="auth_wtf_reenter_URL">Neočekávaný stav; zadejte prosím znovu adresu serveru</string>
+    <string name="auth_expired_oauth_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
+    <string name="auth_expired_basic_auth_toast">Zadejte prosím aktuální heslo</string>
+    <string name="auth_expired_saml_sso_token_toast">Vaše přihlášení vypršelo. Přihlaste se prosím znovu</string>
+    <string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru ...</string>
+    <string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
+    <string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
+    <string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
+    <string name="auth_can_not_auth_against_server">Na tomto serveru nelze ověřit</string>
     <string name="auth_account_does_not_exist">V zařízení není zatím nastaven účet</string>
-    
+
     <string name="favorite">Nastavit jako dostupné offline</string>
     <string name="unfavorite">Zrušit nastavení dostupnosti offline</string>
     <string name="common_rename">Přejmenovat</string>
@@ -261,10 +261,10 @@
     <string name="filedisplay_no_file_selected">Žádný soubor nebyl vybrán</string>
     <string name="activity_chooser_title">Odeslat odkaz &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru z privátního úložiště</string>
-    
-    <string name="oauth_check_onoff">Přihlásit se s oAuth2</string> 
-    <string name="oauth_login_connection">Připojuji se k oAuth2 serveru...</string>    
-        
+
+    <string name="oauth_check_onoff">Přihlásit se s oAuth2</string>
+    <string name="oauth_login_connection">Připojuji se k oAuth2 serveru...</string>
+
     <string name="ssl_validator_header">Identitu stránky nelze ověřit</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Certifikát serveru je nedůvěryhodný</string>
     <string name="ssl_validator_reason_cert_expired">- Certifikátu serveru vypršela platnost</string>
@@ -311,7 +311,7 @@
     <string name="conflict_keep_both">Ponechat oba</string>
     <string name="conflict_use_local_version">místní verze</string>
     <string name="conflict_use_server_version">serverová verze</string>
-    
+
     <string name="preview_image_description">Náhled obrázku</string>
     <string name="preview_image_error_unknown_format">Obrázek nelze zobrazit</string>
 
@@ -324,10 +324,10 @@
 
 	<string name="share_link_no_support_share_api">Je nám líto, ale sdílení není na vašem serveru povoleno. Kontaktujte svého
 správce systému.</string>
-	<string name="share_link_file_no_exist">Nelze sdílet. Zkontrolujte prosím že soubor existuje</string>
-	<string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či adresáře nastala chyba</string>
-	<string name="unshare_link_file_no_exist">Nelze ukončit sdílení. Zkontrolujte prosím že soubor existuje</string>
-	<string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či adresáře nastala chyba</string>
+    <string name="share_link_file_no_exist">Nelze sdílet. Zkontrolujte prosím že soubor existuje</string>
+    <string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či adresáře nastala chyba</string>
+    <string name="unshare_link_file_no_exist">Nelze ukončit sdílení. Zkontrolujte prosím že soubor existuje</string>
+    <string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či adresáře nastala chyba</string>
     <string name="update_link_file_no_exist">Nelze aktulizovat. Ověřte že soubor existuje</string>
     <string name="update_link_file_error">Došlo k chybě při pokusu o aktualizaci sdílení</string>
     <string name="share_link_password_title">Zadejte heslo</string>
@@ -384,18 +384,18 @@ správce systému.</string>
     <string name="drawer_manage_accounts">Spravovat účty</string>
     <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojení je přesměrováváno nezabezpečenou trasou.</string>
 
-	<string name="actionbar_logger">Logy</string>
-	<string name="log_send_history_button">Historie odesílání</string>
-	<string name="log_send_no_mail_app">Nenalezena aplikace pro odesílání logů. Nainstalujte prosím emailovou aplikaci.</string>
-	<string name="log_send_mail_subject">%1$s logy aplikace pro Android</string>
-	<string name="log_progress_dialog_text">Nahrávání dat &#8230;</string>
+    <string name="actionbar_logger">Logy</string>
+    <string name="log_send_history_button">Historie odesílání</string>
+    <string name="log_send_no_mail_app">Nenalezena aplikace pro odesílání logů. Nainstalujte prosím emailovou aplikaci.</string>
+    <string name="log_send_mail_subject">%1$s logy aplikace pro Android</string>
+    <string name="log_progress_dialog_text">Nahrávání dat &#8230;</string>
 
-	<string name="saml_authentication_required_text">Vyžadováno přihlášení</string>
-	<string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
-	<string name="actionbar_move">Přesunout</string>
+    <string name="saml_authentication_required_text">Vyžadováno přihlášení</string>
+    <string name="saml_authentication_wrong_pass">Nesprávné heslo</string>
+    <string name="actionbar_move">Přesunout</string>
     <string name="actionbar_copy">Kopírovat</string>
-	<string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>
-	<string name="folder_picker_choose_button_text">Vybrat</string>
+    <string name="file_list_empty_moving">Zde nic není. Můžete přidat adresář!</string>
+    <string name="folder_picker_choose_button_text">Vybrat</string>
 
     <string name="move_file_not_found">Nelze přesunout. Zkontrolujte prosím že soubor existuje</string>
     <string name="move_file_invalid_into_descendent">Není možné adresář přesunout do vlastního podadresáře</string>
@@ -413,13 +413,13 @@ správce systému.</string>
     <string name="prefs_category_instant_uploading">Okamžitá odesílání</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="prefs_instant_video_upload_path_title">Adresář pro okamžité nahrání videa</string>
+    <string name="prefs_instant_video_upload_path_title">Adresář pro okamžité nahrání videa</string>
     <string name="sync_folder_failed_content">Synchronizaci adresáře %1$s nelze dokončit</string>
 
-	<string name="shared_subject_header">sdílené</string>
-	<string name="with_you_subject_header">s vámi</string>
-    
-	<string name="subject_user_shared_with_you">%1$s s vámi sdílí \"%2$s\"</string>
+    <string name="shared_subject_header">sdílené</string>
+    <string name="with_you_subject_header">s vámi</string>
+
+    <string name="subject_user_shared_with_you">%1$s s vámi sdílí \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" ti byl nasdílen</string>
 
     <string name="auth_refresh_button">Obnovit připojení</string>

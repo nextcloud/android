@@ -17,17 +17,17 @@
   
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/ListItemLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
-    android:background="@drawable/list_selector"
-    android:gravity="center_horizontal"
-    android:orientation="vertical" >
+              android:id="@+id/ListItemLayout"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="center_horizontal"
+              android:background="@drawable/list_selector"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content">
 
         <com.owncloud.android.ui.SquareImageView
             android:id="@+id/thumbnail"
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
             android:layout_margin="@dimen/standard_quarter_margin"
-            android:src="@drawable/shared_via_link" />
+            android:src="@drawable/shared_via_link"/>
 
         <ImageView
             android:id="@+id/localFileIndicator"
@@ -54,7 +54,7 @@
             android:layout_marginTop="@dimen/standard_quarter_margin"
             android:layout_marginBottom="@dimen/standard_quarter_margin"
             android:layout_marginRight="@dimen/standard_quarter_margin"
-            android:src="@drawable/ic_synced" />
+            android:src="@drawable/ic_synced"/>
 
         <ImageView
             android:id="@+id/favoriteIcon"
@@ -63,7 +63,7 @@
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="@dimen/standard_quarter_margin"
             android:layout_marginRight="@dimen/standard_quarter_margin"
-            android:src="@drawable/ic_available_offline" />
+            android:src="@drawable/ic_available_offline"/>
 
         <ImageView
             android:id="@+id/custom_checkbox"
@@ -73,7 +73,7 @@
             android:layout_marginLeft="@dimen/standard_quarter_margin"
             android:layout_marginRight="@dimen/standard_quarter_margin"
             android:gravity=""
-            android:src="@android:drawable/checkbox_off_background" />
+            android:src="@android:drawable/checkbox_off_background"/>
     </FrameLayout>
 
 </LinearLayout>

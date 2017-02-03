@@ -21,7 +21,7 @@
     <string name="drawer_item_settings">Settings</string>
     <string name="drawer_item_uploads_list">Uploads</string>
     <string name="drawer_quota">%1$s of %2$s used</string>
-	<string name="drawer_close">Close</string>
+    <string name="drawer_close">Close</string>
     <string name="drawer_open">Open</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
@@ -50,8 +50,8 @@
     <string name="prefs_remember_last_share_location">Remember share location</string>
     <string name="prefs_remember_last_upload_location_summary">Remember last share upload location</string>
 
-	<string name="recommend_subject">Try %1$s on your smartphone!</string>
-	<string name="recommend_text">I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s</string>
+    <string name="recommend_subject">Try %1$s on your smartphone!</string>
+    <string name="recommend_text">I want to invite you to use %1$s on your smartphone!\nDownload here: %2$s</string>
 
     <string name="auth_check_server">Check server</string>
     <string name="auth_host_url">Server address https://…</string>
@@ -174,7 +174,7 @@
     <string name="foreign_files_remote_text">Remote: %1$s</string>
     <string name="upload_query_move_foreign_files">There is not enough space to copy the selected files into the %1$s folder. Would you like to move them instead? </string>
     <string name="pass_code_enter_pass_code">Please enter your passcode</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
     <string name="pass_code_reenter_your_pass_code">Please reenter your passcode</string>
@@ -183,7 +183,7 @@
     <string name="pass_code_wrong">Incorrect passcode</string>
     <string name="pass_code_removed">Passcode removed</string>
     <string name="pass_code_stored">Passcode stored</string>
-    
+
     <string name="media_notif_ticker">%1$s music player</string>
     <string name="media_state_playing">%1$s (playing)</string>
     <string name="media_state_loading">%1$s (loading)</string>
@@ -204,40 +204,40 @@
     <string name="media_play_pause_description">Play or pause button</string>
     <string name="media_forward_description">Fast-forward button</string>
 
-	<string name="auth_getting_authorization">Getting authorisation &#8230;</string>
-	<string name="auth_trying_to_login">Trying to log in &#8230;</string>
-	<string name="auth_no_net_conn_title">No network connection</string>
-	<string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
-	<string name="auth_connection_established">Connection established</string>
-	<string name="auth_testing_connection">Testing connection</string>
-	<string name="auth_not_configured_title">Malformed server configuration</string>
-	<string name="auth_account_not_new">An account for the same user and server already exists on the device</string>
-	<string name="auth_account_not_the_same">The entered user does not match the user of this account</string>
-	<string name="auth_unknown_error_title">Unknown error occurred!</string>
-	<string name="auth_unknown_host_title">Couldn\'t find host</string>
-	<string name="auth_incorrect_path_title">Server instance not found</string>
-	<string name="auth_timeout_title">The server took too long to respond</string>
-	<string name="auth_incorrect_address_title">Wrong server address format</string>
-	<string name="auth_ssl_general_error_title">SSL initialisation failed</string>
-	<string name="auth_ssl_unverified_server_title">Couldn\'t verify SSL server\'s identity</string>
-	<string name="auth_bad_oc_version_title">Unrecognised server version</string>
-	<string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
-	<string name="auth_secure_connection">Secure connection established</string>
-	<string name="auth_unauthorized">Wrong username or password</string>
-	<string name="auth_oauth_error">Unsuccessful authorisation</string>
-	<string name="auth_oauth_error_access_denied">Access denied by authorisation server</string>
-	<string name="auth_wtf_reenter_URL">Unexpected state; please enter the server address again</string>
-	<string name="auth_expired_oauth_token_toast">Your authorisation expired. Please, authorise again</string>
-	<string name="auth_expired_basic_auth_toast">Please enter the current password</string>
-	<string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
-	<string name="auth_connecting_auth_server">Connecting to authentication server …</string>
-	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>
-	<string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
+    <string name="auth_getting_authorization">Getting authorisation &#8230;</string>
+    <string name="auth_trying_to_login">Trying to log in &#8230;</string>
+    <string name="auth_no_net_conn_title">No network connection</string>
+    <string name="auth_nossl_plain_ok_title">Secure connection unavailable.</string>
+    <string name="auth_connection_established">Connection established</string>
+    <string name="auth_testing_connection">Testing connection</string>
+    <string name="auth_not_configured_title">Malformed server configuration</string>
+    <string name="auth_account_not_new">An account for the same user and server already exists on the device</string>
+    <string name="auth_account_not_the_same">The entered user does not match the user of this account</string>
+    <string name="auth_unknown_error_title">Unknown error occurred!</string>
+    <string name="auth_unknown_host_title">Couldn\'t find host</string>
+    <string name="auth_incorrect_path_title">Server instance not found</string>
+    <string name="auth_timeout_title">The server took too long to respond</string>
+    <string name="auth_incorrect_address_title">Wrong server address format</string>
+    <string name="auth_ssl_general_error_title">SSL initialisation failed</string>
+    <string name="auth_ssl_unverified_server_title">Couldn\'t verify SSL server\'s identity</string>
+    <string name="auth_bad_oc_version_title">Unrecognised server version</string>
+    <string name="auth_wrong_connection_title">Couldn\'t establish connection</string>
+    <string name="auth_secure_connection">Secure connection established</string>
+    <string name="auth_unauthorized">Wrong username or password</string>
+    <string name="auth_oauth_error">Unsuccessful authorisation</string>
+    <string name="auth_oauth_error_access_denied">Access denied by authorisation server</string>
+    <string name="auth_wtf_reenter_URL">Unexpected state; please enter the server address again</string>
+    <string name="auth_expired_oauth_token_toast">Your authorisation expired. Please, authorise again</string>
+    <string name="auth_expired_basic_auth_toast">Please enter the current password</string>
+    <string name="auth_expired_saml_sso_token_toast">Your session expired. Please connect again</string>
+    <string name="auth_connecting_auth_server">Connecting to authentication server …</string>
+    <string name="auth_unsupported_auth_method">The server does not support this authentication method</string>
+    <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
 	<string name="auth_fail_get_user_name">Your server is not returning a correct user id, please contact an administrator
 	</string>
-	<string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
+    <string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
     <string name="auth_account_does_not_exist">Account does not exist in the device yet</string>
-    
+
     <string name="favorite">Set as available offline</string>
     <string name="unfavorite">Unset as available offline</string>
     <string name="common_rename">Rename</string>
@@ -262,10 +262,10 @@
     <string name="filedisplay_no_file_selected">No file was selected</string>
     <string name="activity_chooser_title">Send link to &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
-    
-    <string name="oauth_check_onoff">Log in with oAuth2</string> 
-    <string name="oauth_login_connection">Connecting to oAuth2 server…</string>    
-        
+
+    <string name="oauth_check_onoff">Log in with oAuth2</string>
+    <string name="oauth_login_connection">Connecting to oAuth2 server…</string>
+
     <string name="ssl_validator_header">The identity of the site could not be verified</string>
     <string name="ssl_validator_reason_cert_not_trusted">- The server certificate is not trusted</string>
     <string name="ssl_validator_reason_cert_expired">- The server certificate expired</string>
@@ -312,7 +312,7 @@
     <string name="conflict_keep_both">Keep both</string>
     <string name="conflict_use_local_version">local version</string>
     <string name="conflict_use_server_version">server version</string>
-    
+
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_unknown_format">This image cannot be shown</string>
 
@@ -325,10 +325,10 @@
 
 	<string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your
 		administrator.</string>
-	<string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
-	<string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
-	<string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
-	<string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
+    <string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
+    <string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
+    <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
+    <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
     <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists </string>
     <string name="update_link_file_error">An error occurred while trying to update the share</string>
     <string name="share_link_password_title">Enter a password</string>
@@ -385,18 +385,18 @@
     <string name="drawer_manage_accounts">Manage accounts</string>
     <string name="auth_redirect_non_secure_connection_title">Secure connection is redirected through an unsecured route.</string>
 
-	<string name="actionbar_logger">Logs</string>
-	<string name="log_send_history_button">Send history</string>
-	<string name="log_send_no_mail_app">No app for sending logs found. Please install a mail app.</string>
-	<string name="log_send_mail_subject">%1$s Android app logs</string>
-	<string name="log_progress_dialog_text">Loading data &#8230;</string>
+    <string name="actionbar_logger">Logs</string>
+    <string name="log_send_history_button">Send history</string>
+    <string name="log_send_no_mail_app">No app for sending logs found. Please install a mail app.</string>
+    <string name="log_send_mail_subject">%1$s Android app logs</string>
+    <string name="log_progress_dialog_text">Loading data &#8230;</string>
 
-	<string name="saml_authentication_required_text">Authentication required</string>
-	<string name="saml_authentication_wrong_pass">Incorrect password</string>
-	<string name="actionbar_move">Move</string>
+    <string name="saml_authentication_required_text">Authentication required</string>
+    <string name="saml_authentication_wrong_pass">Incorrect password</string>
+    <string name="actionbar_move">Move</string>
     <string name="actionbar_copy">Copy</string>
-	<string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
-	<string name="folder_picker_choose_button_text">Choose</string>
+    <string name="file_list_empty_moving">Nothing in here. You can add a folder!</string>
+    <string name="folder_picker_choose_button_text">Choose</string>
 
     <string name="move_file_not_found">Unable to move. Please check whether the file exists</string>
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into a descendant</string>
@@ -414,13 +414,13 @@
     <string name="prefs_category_instant_uploading">Instant uploads</string>
     <string name="prefs_category_details">Details</string>
 
-	<string name="prefs_instant_video_upload_path_title">Instant upload video folder</string>
+    <string name="prefs_instant_video_upload_path_title">Instant upload video folder</string>
     <string name="sync_folder_failed_content">Synchronisation of %1$s folder could not be completed</string>
 
-	<string name="shared_subject_header">shared</string>
-	<string name="with_you_subject_header">with you</string>
-    
-	<string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
+    <string name="shared_subject_header">shared</string>
+    <string name="with_you_subject_header">with you</string>
+
+    <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
 
     <string name="auth_refresh_button">Refresh connection</string>

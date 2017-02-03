@@ -1,34 +1,33 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
 
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
-
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.content.ClipboardManager;
 import android.widget.Toast;
+
+import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * Activity copying the text of the received Intent into the system clibpoard.
@@ -54,8 +53,8 @@ public class CopyToClipboardActivity extends Activity {
             if (text != null && text.length() > 0) {
                 // minimum API level >= 11 -> only modern Clipboard
                 ClipData clip = ClipData.newPlainText(
-                    getString(R.string.clipboard_label, getString(R.string.app_name)),
-                    text
+                        getString(R.string.clipboard_label, getString(R.string.app_name)),
+                        text
                 );
                 clipboardManager.setPrimaryClip(clip);
 

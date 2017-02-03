@@ -1,23 +1,23 @@
 /**
- *   Nextcloud Android client application
+ * Nextcloud Android client application
  *
- *   @author Bartosz Przybylski
- *   Copyright (C) 2015 Bartosz Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *   Copyright (C) 2016 Nextcloud.
- *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Bartosz Przybylski
+ * Copyright (C) 2015 Bartosz Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * Copyright (C) 2016 Nextcloud.
+ * <p>
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * <p>
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.features;
@@ -98,18 +98,41 @@ public class FeatureList {
             this.showOnInitialRun = showOnInitialRun;
         }
 
-        public boolean shouldShowImage() { return image != DO_NOT_SHOW; }
-        public int getImage() { return image; }
+        public boolean shouldShowImage() {
+            return image != DO_NOT_SHOW;
+        }
 
-        public boolean shouldShowTitleText() { return titleText != DO_NOT_SHOW; }
-        public int getTitleText() { return titleText; }
+        public int getImage() {
+            return image;
+        }
 
-        public boolean shouldShowContentText() { return contentText != DO_NOT_SHOW; }
-        public int getContentText() { return contentText; }
+        public boolean shouldShowTitleText() {
+            return titleText != DO_NOT_SHOW;
+        }
 
-        public int getVersionNumber() { return versionNumber; }
-        public int getBetaVersionNumber() { return betaVersion; }
-        public boolean shouldShowOnFirstRun() { return showOnInitialRun; }
+        public int getTitleText() {
+            return titleText;
+        }
+
+        public boolean shouldShowContentText() {
+            return contentText != DO_NOT_SHOW;
+        }
+
+        public int getContentText() {
+            return contentText;
+        }
+
+        public int getVersionNumber() {
+            return versionNumber;
+        }
+
+        public int getBetaVersionNumber() {
+            return betaVersion;
+        }
+
+        public boolean shouldShowOnFirstRun() {
+            return showOnInitialRun;
+        }
 
         @Override
         public int describeContents() {
@@ -134,6 +157,7 @@ public class FeatureList {
             betaVersion = p.readInt();
             showOnInitialRun = p.readByte() == 1;
         }
+
         public static final Parcelable.Creator CREATOR =
                 new Parcelable.Creator() {
 
@@ -155,8 +179,8 @@ public class FeatureList {
             Log_OC.e("FeatureList", "Version string is incorrect " + version);
             return 0;
         }
-        return Integer.parseInt(v[0])*(int)(10e6) +
-                Integer.parseInt(v[1])*(int)(10e4) +
-                Integer.parseInt(v[2])*100;
+        return Integer.parseInt(v[0]) * (int) (10e6) +
+                Integer.parseInt(v[1]) * (int) (10e4) +
+                Integer.parseInt(v[2]) * 100;
     }
 }

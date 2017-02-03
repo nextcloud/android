@@ -18,6 +18,9 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <shape
-  xmlns:android="http://schemas.android.com/apk/res/android">
-    <gradient android:startColor="@color/filelist_icon_backgorund" android:endColor="@color/filelist_icon_backgorund" android:angle="0"/>
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="@color/filelist_icon_backgorund"
+        android:endColor="@color/filelist_icon_backgorund"
+        android:angle="0"/>
 </shape>

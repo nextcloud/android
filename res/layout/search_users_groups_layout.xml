@@ -17,13 +17,13 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/search_layout"
-    android:minWidth="@dimen/search_users_groups_layout_width"
-    android:layout_marginRight="@dimen/standard_margin"
-    android:layout_marginBottom="@dimen/standard_half_margin">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:id="@+id/search_layout"
+              android:minWidth="@dimen/search_users_groups_layout_width"
+              android:layout_marginRight="@dimen/standard_margin"
+              android:layout_marginBottom="@dimen/standard_half_margin">
 
     <TextView
         android:id="@+id/searchUserGroupsTitle"

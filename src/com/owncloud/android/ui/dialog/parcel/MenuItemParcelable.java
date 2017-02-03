@@ -8,7 +8,8 @@ public class MenuItemParcelable implements Parcelable {
     int mMenuItemId;
     String mMenuText;
 
-    public MenuItemParcelable() {}
+    public MenuItemParcelable() {
+    }
 
     public MenuItemParcelable(MenuItem menuItem) {
         mMenuItemId = menuItem.getItemId();

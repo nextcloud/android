@@ -1,22 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.adapter;
 
@@ -65,7 +64,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
 
         // Read sorting order, default to sort by name ascending
         FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(context);
-        FileStorageUtils.mSortAscending =PreferenceManager.getSortAscending(context);
+        FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(context);
 
         swapDirectory(directory);
     }
@@ -148,7 +147,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                 }
             }
 
-            if(!ViewType.GRID_IMAGE.equals(viewType)) {
+            if (!ViewType.GRID_IMAGE.equals(viewType)) {
                 TextView fileName = (TextView) view.findViewById(R.id.Filename);
                 String name = file.getName();
                 fileName.setText(name);
@@ -195,14 +194,14 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                     }
                     checkBoxV.setVisibility(View.VISIBLE);
                 }
-                
-             // get Thumbnail if file is image
-                if (MimeTypeUtil.isImage(file)){
-                // Thumbnail in Cache?
+
+                // get Thumbnail if file is image
+                if (MimeTypeUtil.isImage(file)) {
+                    // Thumbnail in Cache?
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                             String.valueOf(file.hashCode())
                     );
-                    if (thumbnail != null){
+                    if (thumbnail != null) {
                         fileIcon.setImageBitmap(thumbnail);
                     } else {
 
@@ -229,7 +228,7 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                     }
                 } else {
                     fileIcon.setImageResource(MimeTypeUtil.getFileTypeIconId(null, file.getName()));
-                }  
+                }
 
             } else {
                 if (!isGridView) {
@@ -240,9 +239,9 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
             }
 
             // not GONE; the alignment changes; ugly way to keep it
-            view.findViewById(R.id.localFileIndicator).setVisibility(View.INVISIBLE);   
+            view.findViewById(R.id.localFileIndicator).setVisibility(View.INVISIBLE);
             view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
-            
+
             view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
         }
 
@@ -281,11 +280,11 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
                     }
                     return compareNames(lhs, rhs);
                 }
-            
+
                 private int compareNames(File lhs, File rhs) {
-                    return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());                
+                    return lhs.getName().toLowerCase().compareTo(rhs.getName().toLowerCase());
                 }
-            
+
             });
 
             mFiles = FileStorageUtils.sortLocalFolder(mFiles);
@@ -314,13 +313,13 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
         notifyDataSetChanged();
     }
 
-    public void filter(String text){
-        if(text.isEmpty()){
+    public void filter(String text) {
+        if (text.isEmpty()) {
             mFiles = mFilesAll.toArray(new File[1]);
         } else {
             ArrayList<File> result = new ArrayList<>();
             text = text.toLowerCase();
-            for (File file: mFilesAll) {
+            for (File file : mFilesAll) {
                 if (file.getName().toLowerCase().contains(text)) {
                     result.add(file);
                 }
@@ -334,11 +333,11 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
      * Filter for hidden files
      *
      * @param files             Array of files to filter
-     * @return                  Non-hidden files as an array
+     * @return Non-hidden files as an array
      */
     public File[] filterHiddenFiles(File[] files) {
         List<File> ret = new ArrayList<>();
-        for (File file: files) {
+        for (File file : files) {
             if (!file.isHidden()) {
                 ret.add(file);
             }

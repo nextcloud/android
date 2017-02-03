@@ -1,33 +1,32 @@
 /**
- *   ownCloud Android client application
- *
- *   Copyright (C) 2012  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * ownCloud Android client application
+ * <p>
+ * Copyright (C) 2012  Bartek Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.test;
 
+import android.test.AndroidTestCase;
+
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
-import android.test.AndroidTestCase;
-
 
 public class AccountUtilsTest extends AndroidTestCase {
-    
+
     public void testGetWebdavPathAndOCVersion() {
         OwnCloudVersion ocv12 = new OwnCloudVersion(0x010200);
         OwnCloudVersion ocv12s = new OwnCloudVersion("1.2");
@@ -40,7 +39,7 @@ public class AccountUtilsTest extends AndroidTestCase {
         assertTrue(AccountUtils.getWebdavPath(ocv12, false, false).equals("/webdav/owncloud.php"));
         assertTrue(AccountUtils.getWebdavPath(ocv12s, false, false).equals("/webdav/owncloud.php"));
         assertTrue(AccountUtils.getWebdavPath(ocv22, false, false).equals("/files/webdav.php"));
-        assertTrue(AccountUtils.getWebdavPath(ocv30,false, false).equals("/files/webdav.php"));
+        assertTrue(AccountUtils.getWebdavPath(ocv30, false, false).equals("/files/webdav.php"));
         assertTrue(AccountUtils.getWebdavPath(ocv33s, false, false).equals("/files/webdav.php"));
         assertTrue(AccountUtils.getWebdavPath(ocv45, false, false).equals("/remote.php/webdav"));
         assertTrue(AccountUtils.getWebdavPath(ocv70, false, false).equals("/remote.php/webdav"));

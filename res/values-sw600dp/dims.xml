@@ -19,5 +19,5 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
-  <integer name="media_grid_width">6</integer>
+    <integer name="media_grid_width">6</integer>
 </resources>

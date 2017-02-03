@@ -18,11 +18,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <animated-rotate xmlns:android="http://schemas.android.com/apk/res/android"
-    android:drawable="@drawable/spinner_inner"
-    android:pivotX="50%"
-    android:pivotY="50%" 
-    android:fromDegrees="0"
-    android:toDegrees="360"
-    android:interpolator="@android:anim/linear_interpolator"
-    android:duration="1000"
-    android:startOffset="0"/>
+                 android:drawable="@drawable/spinner_inner"
+                 android:pivotX="50%"
+                 android:pivotY="50%"
+                 android:fromDegrees="0"
+                 android:toDegrees="360"
+                 android:interpolator="@android:anim/linear_interpolator"
+                 android:duration="1000"
+                 android:startOffset="0"/>

@@ -50,9 +50,9 @@ class SyncedFolderObserver extends RecursiveFileObserver {
             // TODO extract
             bundle.putString(SyncedFolderJobService.LOCAL_PATH, path);
             bundle.putString(SyncedFolderJobService.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
-                                                                 syncedFolder.getRemotePath(), temp.getName(),
-                                                                 new Date().getTime(),
-                                                                 syncedFolder.getSubfolderByDate()));
+                    syncedFolder.getRemotePath(), temp.getName(),
+                    new Date().getTime(),
+                    syncedFolder.getSubfolderByDate()));
             bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
             bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
 

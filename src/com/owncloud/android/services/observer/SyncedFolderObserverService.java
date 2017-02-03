@@ -49,9 +49,10 @@ public class SyncedFolderObserverService extends Service {
     /**
      * Restart oberver if it is enabled
      * If syncedFolder exists already, use it, otherwise create new observer
+     *
      * @param syncedFolder
      */
-    public void restartObserver(SyncedFolder syncedFolder){
+    public void restartObserver(SyncedFolder syncedFolder) {
         if (syncedFolderMap.containsKey(syncedFolder.getLocalPath())) {
             Log_OC.d(TAG, "stop observer: " + syncedFolder.getLocalPath());
             syncedFolderMap.get(syncedFolder.getLocalPath()).stopWatching();

@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author masensio on 09/02/2015.
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio on 09/02/2015.
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.authentication;
 
@@ -38,7 +37,7 @@ import java.lang.ref.WeakReference;
 /**
  * Async Task to verify the credentials of a user
  */
-public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOperationResult> {
+public class AuthenticatorAsyncTask extends AsyncTask<Object, Void, RemoteOperationResult> {
 
     private static final String REMOTE_PATH = "/";
     private static final boolean SUCCESS_IF_ABSENT = false;
@@ -48,16 +47,16 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
 
     public AuthenticatorAsyncTask(Activity activity) {
         mContext = activity.getApplicationContext();
-        mListener = new WeakReference<>((OnAuthenticatorTaskListener)activity);
+        mListener = new WeakReference<>((OnAuthenticatorTaskListener) activity);
     }
 
     @Override
     protected RemoteOperationResult doInBackground(Object... params) {
 
         RemoteOperationResult result;
-        if (params!= null && params.length==2) {
-            String url = (String)params[0];
-            OwnCloudCredentials credentials = (OwnCloudCredentials)params[1];
+        if (params != null && params.length == 2) {
+            String url = (String) params[0];
+            OwnCloudCredentials credentials = (OwnCloudCredentials) params[1];
 
             // Client
             Uri uri = Uri.parse(url);
@@ -94,19 +93,18 @@ public class AuthenticatorAsyncTask  extends AsyncTask<Object, Void, RemoteOpera
     @Override
     protected void onPostExecute(RemoteOperationResult result) {
 
-        if (result!= null)
-        {
+        if (result != null) {
             OnAuthenticatorTaskListener listener = mListener.get();
-            if (listener!= null)
-            {
+            if (listener != null) {
                 listener.onAuthenticatorTaskCallback(result);
             }
         }
     }
+
     /*
      * Interface to retrieve data from recognition task
      */
-    public interface OnAuthenticatorTaskListener{
+    public interface OnAuthenticatorTaskListener {
 
         void onAuthenticatorTaskCallback(RemoteOperationResult result);
     }

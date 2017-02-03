@@ -18,18 +18,18 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:dither="true">
+          android:dither="true">
 
-    <item 
-    	android:state_window_focused="false"
-        android:drawable="@android:color/transparent" />
-    <item 
-    	android:state_pressed="true"
+    <item
+        android:state_window_focused="false"
+        android:drawable="@android:color/transparent"/>
+    <item
+        android:state_pressed="true"
         android:drawable="@drawable/action_item_selected"/>
-    <item 
-    	android:state_focused="true"
+    <item
+        android:state_focused="true"
         android:drawable="@drawable/action_item_selected"/>
     <item
         android:drawable="@android:color/transparent"/>
-        
+
 </selector>

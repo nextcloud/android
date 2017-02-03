@@ -1,22 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author masensio
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.operations;
@@ -55,7 +54,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
      */
     public CreateShareWithShareeOperation(String path, String shareeName, ShareType shareType, int permissions) {
         if (!ShareType.USER.equals(shareType) && !ShareType.GROUP.equals(shareType)
-            && !ShareType.FEDERATED.equals(shareType)) {
+                && !ShareType.FEDERATED.equals(shareType)) {
             throw new IllegalArgumentException("Illegal share type " + shareType);
         }
         mPath = path;
@@ -78,15 +77,15 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         operation.setGetShareDetails(true);
         RemoteOperationResult result = operation.execute(client);
 
-        
+
         if (result.isSuccess() && result.getData().size() > 0) {
             OCShare share = (OCShare) result.getData().get(0);
             updateData(share);
         }
-        
+
         return result;
     }
-    
+
     public String getPath() {
         return mPath;
     }
@@ -97,10 +96,10 @@ public class CreateShareWithShareeOperation extends SyncOperation {
         share.setIsFolder(mPath.endsWith(FileUtils.PATH_SEPARATOR));
 
         getStorageManager().saveShare(share);
-        
+
         // Update OCFile with data from share: ShareByLink  and publicLink
         OCFile file = getStorageManager().getFileByPath(mPath);
-        if (file!=null) {
+        if (file != null) {
             file.setShareWithSharee(true);    // TODO - this should be done by the FileContentProvider, as part of getStorageManager().saveShare(share)
             getStorageManager().saveFile(file);
         }

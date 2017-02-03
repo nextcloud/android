@@ -1,28 +1,28 @@
 /**
- *   ownCloud Android client application
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
+ * ownCloud Android client application
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.dialog;
 
-import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
@@ -58,7 +58,7 @@ public class SharePasswordDialogFragment extends DialogFragment
      * @param   createShare     When 'true', the request for password will be followed by the creation of a new
      *                          public link; when 'false', a public share is assumed to exist, and the password
      *                          is bound to it.
-     * @return                  Dialog ready to show.
+     * @return Dialog ready to show.
      */
     public static SharePasswordDialogFragment newInstance(OCFile file, boolean createShare) {
         SharePasswordDialogFragment frag = new SharePasswordDialogFragment();
@@ -79,7 +79,7 @@ public class SharePasswordDialogFragment extends DialogFragment
         View v = inflater.inflate(R.layout.password_dialog, null);
 
         // Setup layout
-        EditText inputText = ((EditText)v.findViewById(R.id.share_password));
+        EditText inputText = ((EditText) v.findViewById(R.id.share_password));
         inputText.setText("");
         inputText.requestFocus();
 
@@ -87,9 +87,9 @@ public class SharePasswordDialogFragment extends DialogFragment
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(),
                 R.style.Theme_ownCloud_Dialog_NoButtonBarStyle);
         builder.setView(v)
-               .setPositiveButton(R.string.common_ok, this)
-               .setNegativeButton(R.string.common_cancel, this)
-               .setTitle(R.string.share_link_password_title);
+                .setPositiveButton(R.string.common_ok, this)
+                .setNegativeButton(R.string.common_cancel, this)
+                .setTitle(R.string.share_link_password_title);
         Dialog d = builder.create();
         d.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
         return d;
@@ -100,8 +100,8 @@ public class SharePasswordDialogFragment extends DialogFragment
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             String password =
-                    ((TextView)(getDialog().findViewById(R.id.share_password)))
-                        .getText().toString();
+                    ((TextView) (getDialog().findViewById(R.id.share_password)))
+                            .getText().toString();
 
             if (password.length() <= 0) {
                 Toast.makeText(

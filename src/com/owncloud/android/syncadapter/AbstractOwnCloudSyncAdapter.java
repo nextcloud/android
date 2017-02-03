@@ -1,34 +1,25 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author sassman
- *   @author David A. Velasco
- *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author sassman
+ * @author David A. Velasco
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.syncadapter;
-
-import java.io.IOException;
-
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -38,10 +29,18 @@ import android.content.AbstractThreadedSyncAdapter;
 import android.content.ContentProviderClient;
 import android.content.Context;
 
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
+
+import java.io.IOException;
+
 /**
  * Base synchronization adapter for ownCloud designed to be subclassed for different
  * resource types, like FileSync, ConcatsSync, CalendarSync, etc..
- * 
+ *
  * Implements the standard {@link AbstractThreadedSyncAdapter}.
  */
 public abstract class AbstractOwnCloudSyncAdapter extends
@@ -103,9 +102,9 @@ public abstract class AbstractOwnCloudSyncAdapter extends
         mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                 getClientFor(ocAccount, getContext());
     }
-    
+
     protected OwnCloudClient getClient() {
         return mClient;
     }
-    
+
 }

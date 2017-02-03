@@ -90,7 +90,7 @@ public class TextDrawable extends Drawable {
      * @param radiusInDp  the circle's radius
      * @return the avatar as a TextDrawable
      * @throws UnsupportedEncodingException if the charset is not supported when calculating the color values
-     * @throws NoSuchAlgorithmException if the specified algorithm is not available when calculating the color values
+     * @throws NoSuchAlgorithmException     if the specified algorithm is not available when calculating the color values
      */
     @NonNull
     public static TextDrawable createAvatar(String accountName, float radiusInDp) throws

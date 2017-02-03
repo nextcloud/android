@@ -1,28 +1,27 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.dialog;
 
 /**
  *  Dialog requiring confirmation before removing a given OCFile.  
- * 
+ *
  *  Triggers the removal according to the user response.
  */
 
@@ -38,8 +37,8 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDia
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class RemoveFileDialogFragment extends ConfirmationDialogFragment 
-implements ConfirmationDialogFragmentListener {
+public class RemoveFileDialogFragment extends ConfirmationDialogFragment
+        implements ConfirmationDialogFragmentListener {
 
     private OCFile mTargetFile;
 
@@ -47,18 +46,18 @@ implements ConfirmationDialogFragmentListener {
 
     /**
      * Public factory method to create new RemoveFileDialogFragment instances.
-     * 
+     *
      * @param file            File to remove.
-     * @return                Dialog ready to show.
+     * @return Dialog ready to show.
      */
     public static RemoveFileDialogFragment newInstance(OCFile file) {
         RemoveFileDialogFragment frag = new RemoveFileDialogFragment();
         Bundle args = new Bundle();
-        
+
         int messageStringId = R.string.confirmation_remove_file_alert;
-        
+
         int localRemoveButton = (!file.isFavorite() && (file.isFolder() || file.isDown())) ?
-            R.string.confirmation_remove_local : -1;
+                R.string.confirmation_remove_local : -1;
 
         if (file.isFolder()) {
             messageStringId = R.string.confirmation_remove_folder_alert;
@@ -71,26 +70,26 @@ implements ConfirmationDialogFragmentListener {
         args.putInt(ARG_NEGATIVE_BTN_RES, localRemoveButton);
         args.putParcelable(ARG_TARGET_FILE, file);
         frag.setArguments(args);
-        
+
         return frag;
     }
-    
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         mTargetFile = getArguments().getParcelable(ARG_TARGET_FILE);
-        
+
         setOnConfirmationListener(this);
-        
+
         return dialog;
-    }    
+    }
 
     /**
      * Performs the removal of the target file, both locally and in the server.
      */
     @Override
     public void onConfirmation(String callerTag) {
-        ComponentsGetter cg = (ComponentsGetter)getActivity();
+        ComponentsGetter cg = (ComponentsGetter) getActivity();
         FileDataStorageManager storageManager = cg.getStorageManager();
         if (storageManager.getFileById(mTargetFile.getFileId()) != null) {
             ArrayList<OCFile> list = new ArrayList<>();
@@ -98,23 +97,23 @@ implements ConfirmationDialogFragmentListener {
             cg.getFileOperationsHelper().removeFiles(list, false);
         }
     }
-    
+
     /**
      * Performs the removal of the local copy of the target file
      */
     @Override
     public void onCancel(String callerTag) {
-        ComponentsGetter cg = (ComponentsGetter)getActivity();
+        ComponentsGetter cg = (ComponentsGetter) getActivity();
         ArrayList<OCFile> list = new ArrayList<>();
         list.add(mTargetFile);
         cg.getFileOperationsHelper().removeFiles(list, true);
-        
+
         FileDataStorageManager storageManager = cg.getStorageManager();
-        
+
         boolean containsFavorite = false;
         if (mTargetFile.isFolder()) {
             Vector<OCFile> files = storageManager.getFolderContent(mTargetFile, false);
-            for(OCFile file: files) {
+            for (OCFile file : files) {
                 containsFavorite = file.isFavorite() || containsFavorite;
 
                 if (containsFavorite) {
@@ -132,9 +131,9 @@ implements ConfirmationDialogFragmentListener {
             } else {
                 folder = storageManager.getFileById(mTargetFile.getParentId());
             }
-            
-           folder.setEtag("");
-           storageManager.saveFile(folder);
+
+            folder.setEtag("");
+            storageManager.saveFile(folder);
         }
     }
 

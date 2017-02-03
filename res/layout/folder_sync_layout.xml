@@ -82,7 +82,7 @@
                 android:layout_margin="@dimen/standard_margin"
                 android:gravity="center"
                 android:text="@string/folder_sync_no_results"
-                android:visibility="gone" />
+                android:visibility="gone"/>
         </FrameLayout>
 
     </LinearLayout>

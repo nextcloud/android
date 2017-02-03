@@ -1,30 +1,23 @@
 /**
- *   ownCloud Android client application
- *
- *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * ownCloud Android client application
+ * <p>
+ * Copyright (C) 2012 Bartek Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.widgets;
-
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -35,6 +28,12 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.EditText;
+
+import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 public class ActionEditText extends EditText {
     private String s;
@@ -75,7 +74,7 @@ public class ActionEditText extends EditText {
         getDrawingRect(mButtonRect);
         mButtonRect.top += 10;
         mButtonRect.bottom -= 10;
-        mButtonRect.left = (int) (getWidth() - mTextBounds.width() - 18);
+        mButtonRect.left = getWidth() - mTextBounds.width() - 18;
         mButtonRect.right = getWidth() - 10;
         btn_rect = mButtonRect;
 

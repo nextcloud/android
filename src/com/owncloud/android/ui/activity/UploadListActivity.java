@@ -1,23 +1,22 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author LukeOwncloud
- *   @author David A. Velasco
- *   @author masensio
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author LukeOwncloud
+ * @author David A. Velasco
+ * @author masensio
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.activity;
 
@@ -96,14 +95,14 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         setupDrawer(R.id.nav_uploads);
 
         // Add fragment with a transaction for setting a tag
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             createUploadListFragment();
         } // else, the Fragment Manager makes the job on configuration changes
 
         getSupportActionBar().setTitle(getString(R.string.uploads_view_title));
     }
 
-    private void createUploadListFragment(){
+    private void createUploadListFragment() {
         UploadListFragment uploadList = new UploadListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.upload_list_fragment, uploadList, TAG_UPLOAD_LIST_FRAGMENT);
@@ -146,7 +145,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     public boolean onUploadItemClick(OCUpload file) {
         /// TODO is this path still active?
         File f = new File(file.getLocalPath());
-        if(!f.exists()) {
+        if (!f.exists()) {
             Toast.makeText(this, "Cannot open. Local file does not exist.",
                     Toast.LENGTH_SHORT).show();
         } else {
@@ -172,9 +171,9 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
             Toast.makeText(this, "Found no app to open this file.", Toast.LENGTH_LONG).show();
             Log_OC.i(TAG, "Could not find app for sending log history.");
 
-        }        
+        }
     }
-    
+
     /**
      * Same as openFileWithDefault() but user cannot save default app.
      * @param ocFile
@@ -239,14 +238,14 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         if (requestCode == FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
             // Retry uploads of the updated account
             Account account = AccountUtils.getOwnCloudAccountByName(
-                this,
-                data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
+                    this,
+                    data.getStringExtra(AccountManager.KEY_ACCOUNT_NAME)
             );
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
             requester.retryFailedUploads(
-                this,
-                account,
-                UploadResult.CREDENTIAL_ERROR
+                    this,
+                    account,
+                    UploadResult.CREDENTIAL_ERROR
             );
         }
     }
@@ -289,8 +288,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         @Override
         public void onServiceConnected(ComponentName component, IBinder service) {
             if (service instanceof FileUploaderBinder) {
-                if(mUploaderBinder == null)
-                {
+                if (mUploaderBinder == null) {
                     mUploaderBinder = (FileUploaderBinder) service;
                     Log_OC.d(TAG, "UploadListActivity connected to Upload service. component: " +
                             component + " service: "
@@ -309,7 +307,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 Log_OC.d(TAG, "UploadListActivity not connected to Upload service. component: " +
                         component + " service: " + service);
                 return;
-            }            
+            }
         }
 
         @Override
@@ -319,7 +317,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 mUploaderBinder = null;
             }
         }
-    };
+    }
 
     /**
      * Once the file upload has changed its status -> update uploads list view
@@ -332,7 +330,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         public void onReceive(Context context, Intent intent) {
             try {
                 UploadListFragment uploadListFragment =
-                    (UploadListFragment) getSupportFragmentManager().findFragmentByTag(TAG_UPLOAD_LIST_FRAGMENT);
+                        (UploadListFragment) getSupportFragmentManager().findFragmentByTag(TAG_UPLOAD_LIST_FRAGMENT);
 
                 uploadListFragment.updateUploads();
             } finally {

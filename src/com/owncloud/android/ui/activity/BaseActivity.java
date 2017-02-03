@@ -54,7 +54,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private FileDataStorageManager mStorageManager = null;
 
     @Override
-    protected void onNewIntent (Intent intent) {
+    protected void onNewIntent(Intent intent) {
         Log_OC.v(TAG, "onNewIntent() start");
         Account current = AccountUtils.getCurrentOwnCloudAccount(this);
         if (current != null && mCurrentAccount != null && !mCurrentAccount.name.equals(current.name)) {
@@ -64,8 +64,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     *  Since ownCloud {@link Account}s can be managed from the system setting menu, the existence of the {@link
-     *  Account} associated to the instance must be checked every time it is restarted.
+     * Since ownCloud {@link Account}s can be managed from the system setting menu, the existence of the {@link
+     * Account} associated to the instance must be checked every time it is restarted.
      */
     @Override
     protected void onRestart() {
@@ -80,9 +80,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Sets and validates the ownCloud {@link Account} associated to the Activity.
-     *
+     * <p>
      * If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
-     *
+     * <p>
      * POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
      *
      * @param account      New {@link Account} to set.
@@ -105,10 +105,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Tries to swap the current ownCloud {@link Account} for other valid and existing.
-     *
+     * <p>
      * If no valid ownCloud {@link Account} exists, the the user is requested
      * to create a new ownCloud {@link Account}.
-     *
+     * <p>
      * POSTCONDITION: updates {@link #mAccountWasSet} and {@link #mAccountWasRestored}.
      */
     protected void swapToDefaultAccount() {
@@ -131,8 +131,8 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Launches the account creation activity.
      *
-     * @param mandatoryCreation     When 'true', if an account is not created by the user, the app will be closed.
-     *                              To use when no ownCloud account is available.
+     * @param mandatoryCreation When 'true', if an account is not created by the user, the app will be closed.
+     *                          To use when no ownCloud account is available.
      */
     protected void createAccount(boolean mandatoryCreation) {
         AccountManager am = AccountManager.get(getApplicationContext());
@@ -147,7 +147,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Called when the ownCloud {@link Account} associated to the Activity was just updated.
-     *
+     * <p>
      * Child classes must grant that state depending on the {@link Account} is updated.
      */
     protected void onAccountSet(boolean stateWasRecovered) {
@@ -224,7 +224,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         /**
          * Constuctor
          *
-         * @param mandatoryCreation     When 'true', if an account was not created, the app is closed.
+         * @param mandatoryCreation When 'true', if an account was not created, the app is closed.
          */
         public AccountCreationCallback(boolean mandatoryCreation) {
             mMandatoryCreation = mandatoryCreation;

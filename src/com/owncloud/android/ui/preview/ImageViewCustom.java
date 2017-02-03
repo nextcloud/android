@@ -22,7 +22,7 @@ public class ImageViewCustom extends ImageView {
     private static final boolean IS_ICS_OR_HIGHER = Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
     private static final boolean IS_VERSION_BUGGY_ON_RECYCLES =
             Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR1 ||
-            Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2;
+                    Build.VERSION.SDK_INT == Build.VERSION_CODES.JELLY_BEAN_MR2;
 
     private int mBitmapHeight;
     private int mBitmapWidth;
@@ -36,19 +36,19 @@ public class ImageViewCustom extends ImageView {
     public ImageViewCustom(Context context) {
         super(context);
     }
-    
+
     public ImageViewCustom(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-    
+
     public ImageViewCustom(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
     @SuppressLint("NewApi")
-	@Override
+    @Override
     protected void onDraw(Canvas canvas) {
-        if(IS_ICS_OR_HIGHER && checkIfMaximumBitmapExceed(canvas) || IS_VERSION_BUGGY_ON_RECYCLES ) {
+        if (IS_ICS_OR_HIGHER && checkIfMaximumBitmapExceed(canvas) || IS_VERSION_BUGGY_ON_RECYCLES) {
             // Software type is set with two targets:
             // 1. prevent that bitmaps larger than maximum textures allowed are shown as black views in devices
             //  with LAYER_TYPE_HARDWARE enabled by default;
@@ -58,14 +58,14 @@ public class ImageViewCustom extends ImageView {
             setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         }
 
-        if(mGifMovie != null) {
+        if (mGifMovie != null) {
             long nowTick = android.os.SystemClock.uptimeMillis();
             if (mLastTick == 0) {
                 mMovieRunDuration = 0;
             } else {
                 mMovieRunDuration += nowTick - mLastTick;
-                if(mMovieRunDuration > mMovieDuration) {
-                        mMovieRunDuration = 0;
+                if (mMovieRunDuration > mMovieDuration) {
+                    mMovieRunDuration = 0;
                 }
             }
 
@@ -75,7 +75,7 @@ public class ImageViewCustom extends ImageView {
 
             canvas.scale(scale, scale);
             canvas.translate(((float) getWidth() / scale - (float) mGifMovie.width()) / 2f,
-                    ((float) getHeight() / scale - (float) mGifMovie.height()) /2f);
+                    ((float) getHeight() / scale - (float) mGifMovie.height()) / 2f);
 
             mGifMovie.draw(canvas, 0, 0);
 
@@ -106,16 +106,17 @@ public class ImageViewCustom extends ImageView {
 
     /**
      * Checks if current bitmaps exceed the maximum OpenGL texture size limit
-     * @param canvas        Canvas where the view will be drawn into.
+     *
+     * @param canvas Canvas where the view will be drawn into.
      * @return boolean      True means that the bitmap is too big for the canvas.
      */
     @SuppressLint("NewApi")
-	private boolean checkIfMaximumBitmapExceed(Canvas canvas) {
+    private boolean checkIfMaximumBitmapExceed(Canvas canvas) {
         return mBitmapWidth > canvas.getMaximumBitmapWidth()
                 || mBitmapHeight > canvas.getMaximumBitmapHeight();
 
     }
-    
+
     @Override
     /**
      * Keeps the size of the bitmap cached in member variables for faster access in {@link #onDraw(Canvas)},

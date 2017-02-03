@@ -1,20 +1,19 @@
 /**
- *   ownCloud Android client application
- *
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * ownCloud Android client application
+ * <p>
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.dialog;
@@ -39,10 +38,10 @@ public class IndeterminateProgressDialog extends DialogFragment {
 
     /**
      * Public factory method to get dialog instances.
-     * 
+     *
      * @param messageId     Resource id for a message to show in the dialog.
      * @param cancelable    If 'true', the dialog can be cancelled by the user input (BACK button, touch outside...)
-     * @return              New dialog instance, ready to show.
+     * @return New dialog instance, ready to show.
      */
     public static IndeterminateProgressDialog newInstance(int messageId, boolean cancelable) {
         IndeterminateProgressDialog fragment = new IndeterminateProgressDialog();
@@ -54,7 +53,7 @@ public class IndeterminateProgressDialog extends DialogFragment {
         return fragment;
     }
 
-    
+
     /**
      * {@inheritDoc}
      */
@@ -72,7 +71,7 @@ public class IndeterminateProgressDialog extends DialogFragment {
 
             }
         });
-        
+
         /// set message
         int messageId = getArguments().getInt(ARG_MESSAGE_ID, R.string.placeholder_sentence);
         progressDialog.setMessage(getString(messageId));
@@ -85,21 +84,18 @@ public class IndeterminateProgressDialog extends DialogFragment {
             OnKeyListener keyListener = new OnKeyListener() {
                 @Override
                 public boolean onKey(DialogInterface dialog, int keyCode,
-                        KeyEvent event) {
+                                     KeyEvent event) {
 
-                    if( keyCode == KeyEvent.KEYCODE_BACK) {
-                        return true;
-                    }
-                    return false;
+                    return keyCode == KeyEvent.KEYCODE_BACK;
                 }
 
             };
             progressDialog.setOnKeyListener(keyListener);
         }
-        
+
         return progressDialog;
-    }    
-    
+    }
+
 }
 
 

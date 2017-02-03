@@ -53,9 +53,9 @@ public class OwnCloudListPreference extends ListPreference {
         // same thing happens for the Standard ListPreference though
         android.support.v7.app.AlertDialog.Builder builder =
                 new android.support.v7.app.AlertDialog.Builder(mContext, R.style.ownCloud_AlertDialog)
-                .setTitle(getDialogTitle())
-                .setIcon(getDialogIcon())
-                .setSingleChoiceItems(getEntries(), preselect, this);
+                        .setTitle(getDialogTitle())
+                        .setIcon(getDialogIcon())
+                        .setSingleChoiceItems(getEntries(), preselect, this);
 
         PreferenceManager pm = getPreferenceManager();
         try {

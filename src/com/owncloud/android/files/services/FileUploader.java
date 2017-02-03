@@ -1,25 +1,25 @@
 /**
- *  ownCloud Android client application
+ * ownCloud Android client application
  *
- *  @author Bartek Przybylski
- *  @author masensio
- *  @author LukeOwnCloud
- *  @author David A. Velasco
- *
- *  Copyright (C) 2012 Bartek Przybylski
- *  Copyright (C) 2012-2016 ownCloud Inc.
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License version 2,
- *  as published by the Free Software Foundation.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Bartek Przybylski
+ * @author masensio
+ * @author LukeOwnCloud
+ * @author David A. Velasco
+ * <p>
+ * Copyright (C) 2012 Bartek Przybylski
+ * Copyright (C) 2012-2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.files.services;
@@ -54,7 +54,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -64,10 +63,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.io.File;
@@ -79,13 +78,13 @@ import java.util.Vector;
 
 /**
  * Service for uploading files. Invoke using context.startService(...).
- *
+ * <p>
  * Files to be uploaded are stored persistently using {@link UploadsStorageManager}.
- *
+ * <p>
  * On next invocation of {@link FileUploader} uploaded files which
  * previously failed will be uploaded again until either upload succeeded or a
  * fatal error occured.
- *
+ * <p>
  * Every file passed to this service is uploaded. No filtering is performed.
  * However, Intent keys (e.g., KEY_WIFI_ONLY) are obeyed.
  */
@@ -193,7 +192,7 @@ public class FileUploader extends Service
 
     /**
      * Helper class providing methods to ease requesting commands to {@link FileUploader} .
-     *
+     * <p>
      * Avoids the need of checking once and again what extras are needed or optional
      * in the {@link Intent} to pass to {@link Context#startService(Intent)}.
      */
@@ -232,14 +231,14 @@ public class FileUploader extends Service
                 behaviour, String mimeType, boolean createRemoteFile, int createdBy) {
 
             uploadNewFile(
-                context,
-                account,
-                new String[]{localPath},
-                new String[]{remotePath},
-                new String[]{mimeType},
-                behaviour,
-                createRemoteFile,
-                createdBy
+                    context,
+                    account,
+                    new String[]{localPath},
+                    new String[]{remotePath},
+                    new String[]{mimeType},
+                    behaviour,
+                    createRemoteFile,
+                    createdBy
             );
         }
 
@@ -247,7 +246,7 @@ public class FileUploader extends Service
          * Call to update multiple files already uploaded
          */
         public void uploadUpdate(Context context, Account account, OCFile[] existingFiles, Integer behaviour,
-                                        Boolean forceOverwrite) {
+                                 Boolean forceOverwrite) {
             Intent intent = new Intent(context, FileUploader.class);
 
             intent.putExtra(FileUploader.KEY_ACCOUNT, account);
@@ -262,7 +261,7 @@ public class FileUploader extends Service
          * Call to update a dingle file already uploaded
          */
         public void uploadUpdate(Context context, Account account, OCFile existingFile, Integer behaviour,
-                                        Boolean forceOverwrite) {
+                                 Boolean forceOverwrite) {
 
             uploadUpdate(context, account, new OCFile[]{existingFile}, behaviour, forceOverwrite);
         }
@@ -271,11 +270,11 @@ public class FileUploader extends Service
         /**
          * Call to retry upload identified by remotePath
          */
-        public void retry (Context context, OCUpload upload) {
+        public void retry(Context context, OCUpload upload) {
             if (upload != null && context != null) {
                 Account account = AccountUtils.getOwnCloudAccountByName(
-                    context,
-                    upload.getAccountName()
+                        context,
+                        upload.getAccountName()
                 );
                 retry(context, account, upload);
 
@@ -288,18 +287,18 @@ public class FileUploader extends Service
         /**
          * Retry a subset of all the stored failed uploads.
          *
-         * @param context           Caller {@link Context}
-         * @param account           If not null, only failed uploads to this OC account will be retried; otherwise,
-         *                          uploads of all accounts will be retried.
-         * @param uploadResult      If not null, only failed uploads with the result specified will be retried;
-         *                          otherwise, failed uploads due to any result will be retried.
+         * @param context      Caller {@link Context}
+         * @param account      If not null, only failed uploads to this OC account will be retried; otherwise,
+         *                     uploads of all accounts will be retried.
+         * @param uploadResult If not null, only failed uploads with the result specified will be retried;
+         *                     otherwise, failed uploads due to any result will be retried.
          */
         public void retryFailedUploads(Context context, Account account, UploadResult uploadResult) {
             UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
             OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
             Account currentAccount = null;
             boolean resultMatch, accountMatch;
-            for ( OCUpload failedUpload: failedUploads) {
+            for (OCUpload failedUpload : failedUploads) {
                 accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
                 resultMatch = (uploadResult == null || uploadResult.equals(failedUpload.getLastResult()));
                 if (accountMatch && resultMatch) {
@@ -350,7 +349,7 @@ public class FileUploader extends Service
         mUploadsStorageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
 
         int failedCounter = mUploadsStorageManager.failInProgressUploads(
-            UploadResult.SERVICE_INTERRUPTED    // Add UploadResult.KILLED?
+                UploadResult.SERVICE_INTERRUPTED    // Add UploadResult.KILLED?
         );
         if (failedCounter > 0) {
             resurrection();
@@ -393,7 +392,7 @@ public class FileUploader extends Service
 
     /**
      * Entry point to add one or several files to the queue of uploads.
-     *
+     * <p>
      * New uploads are added calling to startService(), resulting in a call to
      * this method. This ensures the service will keep on working although the
      * caller activity goes away.
@@ -567,7 +566,7 @@ public class FileUploader extends Service
                     account.name,
                     upload.getRemotePath(),
                     newUpload
-                    );
+            );
             if (putResult != null) {
                 String uploadKey = putResult.first;
                 requestedUploads.add(uploadKey);
@@ -592,7 +591,7 @@ public class FileUploader extends Service
     /**
      * Provides a binder object that clients can use to perform operations on
      * the queue of uploads, excepting the addition of new files.
-     *
+     * <p>
      * Implemented to perform cancellation, pause and resume of existing
      * uploads.
      */
@@ -709,10 +708,10 @@ public class FileUploader extends Service
         /**
          * Returns True when the file described by 'file' is being uploaded to
          * the ownCloud account 'account' or waiting for it
-         *
+         * <p>
          * If 'file' is a directory, returns 'true' if some of its descendant files
          * is uploading or waiting to upload.
-         *
+         * <p>
          * Warning: If remote file exists and !forceOverwrite the original file
          * is being returned here. That is, it seems as if the original file is
          * being updated when actually a new file is being uploaded.
@@ -730,11 +729,11 @@ public class FileUploader extends Service
 
         public boolean isUploadingNow(OCUpload upload) {
             return (
-                upload != null  &&
-                mCurrentAccount != null &&
-                mCurrentUpload != null &&
-                upload.getAccountName().equals(mCurrentAccount.name) &&
-                upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
+                    upload != null &&
+                            mCurrentAccount != null &&
+                            mCurrentUpload != null &&
+                            upload.getAccountName().equals(mCurrentAccount.name) &&
+                            upload.getRemotePath().equals(mCurrentUpload.getRemotePath())
             );
         }
 
@@ -999,7 +998,7 @@ public class FileUploader extends Service
         showUploadListIntent.putExtra(FileActivity.EXTRA_ACCOUNT, upload.getAccount());
         showUploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         mNotificationBuilder.setContentIntent(PendingIntent.getActivity(this, (int) System.currentTimeMillis(),
-            showUploadListIntent, 0));
+                showUploadListIntent, 0));
 
         if (!upload.isInstantPicture() && !upload.isInstantVideo()) {
             mNotificationManager.notify(R.string.uploader_upload_in_progress_ticker, mNotificationBuilder.build());
@@ -1040,9 +1039,9 @@ public class FileUploader extends Service
 
         // Show the result: success or fail notification
         if (!uploadResult.isCancelled() &&
-            !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
-            !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING)) {
+                !ResultCode.LOCAL_FILE_NOT_FOUND.equals(uploadResult.getCode()) &&
+                !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_WIFI) &&
+                !uploadResult.getCode().equals(ResultCode.DELAYED_FOR_CHARGING)) {
 
             int tickerId = (uploadResult.isSuccess()) ? R.string.uploader_upload_succeeded_ticker :
                     R.string.uploader_upload_failed_ticker;
@@ -1090,7 +1089,7 @@ public class FileUploader extends Service
                 mNotificationBuilder.setContentText(content);
             }
 
-            if (!uploadResult.isSuccess() && !needsToUpdateCredentials ) {
+            if (!uploadResult.isSuccess() && !needsToUpdateCredentials) {
                 //in case of failure, do not show details file view (because there is no file!)
                 Intent showUploadListIntent = new Intent(this, UploadListActivity.class);
                 showUploadListIntent.putExtra(FileActivity.EXTRA_FILE, upload.getFile());
@@ -1118,7 +1117,7 @@ public class FileUploader extends Service
     /**
      * Sends a broadcast in order to the interested activities can update their
      * view
-     *
+     * <p>
      * TODO - no more broadcasts, replace with a callback to subscribed listeners
      */
     private void sendBroadcastUploadsAdded() {
@@ -1131,7 +1130,7 @@ public class FileUploader extends Service
     /**
      * Sends a broadcast in order to the interested activities can update their
      * view
-     *
+     * <p>
      * TODO - no more broadcasts, replace with a callback to subscribed listeners
      *
      * @param upload Finished upload operation
@@ -1150,7 +1149,7 @@ public class FileUploader extends Service
     /**
      * Sends a broadcast in order to the interested activities can update their
      * view
-     *
+     * <p>
      * TODO - no more broadcasts, replace with a callback to subscribed listeners
      *
      * @param upload                 Finished upload operation
@@ -1184,7 +1183,7 @@ public class FileUploader extends Service
     /**
      * Remove and 'forgets' pending uploads of an account.
      *
-     * @param account   Account which uploads will be cancelled
+     * @param account Account which uploads will be cancelled
      */
     private void cancelUploadsForAccount(Account account) {
         mPendingUploads.remove(account.name);

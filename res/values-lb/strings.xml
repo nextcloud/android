@@ -15,8 +15,8 @@
     <string name="actionbar_sort">Zortéieren</string>
     <string name="actionbar_sort_title">Zortéieren no</string>
     <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Nei - Al</item>
+        <item>A-Z</item>
+        <item>Nei - Al</item>
     </string-array>
     <string name="drawer_item_all_files">All d\'Fichieren</string>
     <string name="drawer_item_settings">Astellungen</string>
@@ -41,8 +41,8 @@
     <string name="prefs_remember_last_share_location">Gedeelte Plaz verhalen</string>
     <string name="prefs_remember_last_upload_location_summary">Déi leschte gedeelten eropgeluede Plaz verhalen</string>
 
-	<string name="recommend_subject">Versich %1$s op dengem Smartphone!</string>
-	<string name="auth_host_url">Server-Adress https://…</string>
+    <string name="recommend_subject">Versich %1$s op dengem Smartphone!</string>
+    <string name="auth_host_url">Server-Adress https://…</string>
     <string name="auth_username">Benotzernumm</string>
     <string name="auth_password">Passwuert</string>
     <string name="auth_register">Nei bei %1$s?</string>
@@ -118,7 +118,7 @@
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Um Server: %1$s</string>
     <string name="pass_code_enter_pass_code">Gëff w.e.g. däi Passwuert an</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Passwuert aginn</string>
     <string name="pass_code_configure_your_pass_code_explanation">D\'Passwuert gëtt all Kéiers gefrot wann d\'App gestart gëtt</string>
     <string name="pass_code_reenter_your_pass_code">Gëff w.e.g. däi Passwuert nach emol an</string>
@@ -127,7 +127,7 @@
     <string name="pass_code_wrong">Ongëltegt Passwuert</string>
     <string name="pass_code_removed">Passwuert geläscht</string>
     <string name="pass_code_stored">Passwuert gespeichert</string>
-    
+
     <string name="media_notif_ticker">%1$s Musek-Programm</string>
     <string name="media_state_playing">%1$s (spillt of)</string>
     <string name="media_state_loading">%1$s (lued)</string>
@@ -145,27 +145,27 @@
     <string name="media_rewind_description">Zréckspull-Knäppchen</string>
     <string name="media_play_pause_description">Ofspill- oder Paus-Knäppchen</string>
     <string name="auth_no_net_conn_title">Keng Netzwierkconnectioun</string>
-	<string name="auth_nossl_plain_ok_title">Keng geséchert Connectioun disponibel.</string>
-	<string name="auth_connection_established">Connectioun hiergestallt</string>
-	<string name="auth_testing_connection">Testen d\'Connectioun</string>
-	<string name="auth_not_configured_title">Ongëlteg Server-Konfiguratioun</string>
-	<string name="auth_unknown_error_title">Et ass en onbekannte Feeler opgetrueden!</string>
-	<string name="auth_unknown_host_title">Server konnt net fonnt ginn</string>
-	<string name="auth_incorrect_path_title">Server-Instanz net fonnt</string>
-	<string name="auth_timeout_title">De Server huet ze laang gebraucht fir ze äntweren</string>
-	<string name="auth_ssl_general_error_title">SSL-Initialiséierung feelgeschloen</string>
-	<string name="auth_ssl_unverified_server_title">Konnt d\'Identitéit vum SSL-Server net verifizéieren</string>
-	<string name="auth_bad_oc_version_title">Onbekannte Server-Versioun</string>
-	<string name="auth_wrong_connection_title">Konnt d\'Connectioun net hierstellen</string>
-	<string name="auth_secure_connection">Sécher Connectioun hiergestallt</string>
-	<string name="auth_unauthorized">Falsche Benotzernumm oder falscht Passwuert</string>
-	<string name="auth_oauth_error">Authoriséierung net erfollegräich</string>
-	<string name="auth_oauth_error_access_denied">Accès duerch den Authoriséierungsserver verweigert</string>
-	<string name="auth_expired_oauth_token_toast">Deng Autorisatioun ass ofgelaf. W.e.g. autoriséier dech nach emol</string>
-	<string name="auth_expired_basic_auth_toast">W.e.g dat aktuellt Passwuert aginn</string>
-	<string name="auth_expired_saml_sso_token_toast">Deng Sessioun ass ofgelaf. Connectéier dech nei w.e.g.</string>
-	<string name="auth_unsupported_auth_method">De Server ënnerstëtzt dës Authentifizéierungsmethod net</string>
-	<string name="common_rename">Ëmbenennen</string>
+    <string name="auth_nossl_plain_ok_title">Keng geséchert Connectioun disponibel.</string>
+    <string name="auth_connection_established">Connectioun hiergestallt</string>
+    <string name="auth_testing_connection">Testen d\'Connectioun</string>
+    <string name="auth_not_configured_title">Ongëlteg Server-Konfiguratioun</string>
+    <string name="auth_unknown_error_title">Et ass en onbekannte Feeler opgetrueden!</string>
+    <string name="auth_unknown_host_title">Server konnt net fonnt ginn</string>
+    <string name="auth_incorrect_path_title">Server-Instanz net fonnt</string>
+    <string name="auth_timeout_title">De Server huet ze laang gebraucht fir ze äntweren</string>
+    <string name="auth_ssl_general_error_title">SSL-Initialiséierung feelgeschloen</string>
+    <string name="auth_ssl_unverified_server_title">Konnt d\'Identitéit vum SSL-Server net verifizéieren</string>
+    <string name="auth_bad_oc_version_title">Onbekannte Server-Versioun</string>
+    <string name="auth_wrong_connection_title">Konnt d\'Connectioun net hierstellen</string>
+    <string name="auth_secure_connection">Sécher Connectioun hiergestallt</string>
+    <string name="auth_unauthorized">Falsche Benotzernumm oder falscht Passwuert</string>
+    <string name="auth_oauth_error">Authoriséierung net erfollegräich</string>
+    <string name="auth_oauth_error_access_denied">Accès duerch den Authoriséierungsserver verweigert</string>
+    <string name="auth_expired_oauth_token_toast">Deng Autorisatioun ass ofgelaf. W.e.g. autoriséier dech nach emol</string>
+    <string name="auth_expired_basic_auth_toast">W.e.g dat aktuellt Passwuert aginn</string>
+    <string name="auth_expired_saml_sso_token_toast">Deng Sessioun ass ofgelaf. Connectéier dech nei w.e.g.</string>
+    <string name="auth_unsupported_auth_method">De Server ënnerstëtzt dës Authentifizéierungsmethod net</string>
+    <string name="common_rename">Ëmbenennen</string>
     <string name="common_remove">Läschen</string>
     <string name="confirmation_remove_folder_alert">Wëlls du %1$s an de ganzen Inhalt wierklech läschen?</string>
     <string name="confirmation_remove_local">Nemme lokal</string>
@@ -178,7 +178,7 @@
     <string name="wait_a_moment">Waart ee Moment</string>
     <string name="filedisplay_no_file_selected">Kee Fichier selektionéiert</string>
     <string name="activity_chooser_title">Link schécken un …</string>
-    <string name="oauth_check_onoff">Mat oAuth2 aloggen</string> 
+    <string name="oauth_check_onoff">Mat oAuth2 aloggen</string>
     <string name="ssl_validator_reason_cert_expired">- D\'Server-Zerfitikat ass ofgelaf</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- D\'Validitéitsdate vum Server-Zertifikat leien an der Zukunft</string>
     <string name="ssl_validator_reason_hostname_not_verified">- D\'URL stëmmt net mam Servernumm am Zertifikat iwwereneen</string>
@@ -216,16 +216,16 @@
     <string name="conflict_keep_both">Béid halen</string>
     <string name="conflict_use_local_version">Lokal Versioun</string>
     <string name="conflict_use_server_version">Server Versioun</string>
-    
+
     <string name="preview_image_description">Biller-Virschau</string>
     <string name="preview_image_error_unknown_format">Dëst Bild kann net ugewise ginn</string>
 
     <string name="error__upload__local_file_not_copied">%1$s konnt net an de lokalen Dossier %2$s kopéiert ginn</string>
     <string name="prefs_instant_upload_path_title">Pad eroplueden</string>
     <string name="share_link_file_no_exist">Konnt net gedeelt ginn. Kontrolléier w.e.g. ob de Fichier existéiert</string>
-	<string name="share_link_file_error">Beim Deele vun dësem Fichier oder Dossier ass e Feeler opgetrueden</string>
-	<string name="unshare_link_file_no_exist">Konnt net ongedeelt ginn. Kontrolléier w.e.g. ob de Fichier existéiert</string>
-	<string name="unshare_link_file_error">Beim Zesummeleeë vun dësem Fichier oder Dossier ass e Feeler opgetrueden</string>
+    <string name="share_link_file_error">Beim Deele vun dësem Fichier oder Dossier ass e Feeler opgetrueden</string>
+    <string name="unshare_link_file_no_exist">Konnt net ongedeelt ginn. Kontrolléier w.e.g. ob de Fichier existéiert</string>
+    <string name="unshare_link_file_error">Beim Zesummeleeë vun dësem Fichier oder Dossier ass e Feeler opgetrueden</string>
     <string name="update_link_file_no_exist">Konnt net aktualiséiert ginn. Kontrolléier w.e.g. ob de Fichier existéiert</string>
     <string name="share_link_password_title">E Passwuert aginn</string>
     <string name="share_link_empty_password">Du muss e Passwuert aginn</string>
@@ -242,7 +242,7 @@
     <string name="network_error_socket_timeout_exception">Beim Waarden op de Server ass e Feeler opgetrueden, d\'Operatioun konnt net duerchgeféiert ginn</string>
     <string name="network_error_connect_timeout_exception">Beim Waarden op de Server ass e Feeler opgetrueden, d\'Operatioun konnt net duerchgeféiert ginn</string>
     <string name="network_host_not_available">D\'Operatioun konnt net ofgeschloss ginn, de Server ass net disponibel</string>
-    <string name="empty" />
+    <string name="empty"/>
 
     <string name="forbidden_permissions">Du hues keng Berechtegung %s</string>
     <string name="forbidden_permissions_rename">fir dëse Fichier ëmzebenennen</string>
@@ -256,15 +256,15 @@
     <string name="prefs_category_accounts">Konten</string>
     <string name="prefs_add_account">Kont dobäisetzen</string>
     <string name="actionbar_logger">Protokoller</string>
-	<string name="log_send_history_button">Historique schécken</string>
-	<string name="log_send_mail_subject">Protokoller vun der %1$s-Android-App</string>
-	<string name="log_progress_dialog_text">Donnée gi gelueden ...</string>
+    <string name="log_send_history_button">Historique schécken</string>
+    <string name="log_send_mail_subject">Protokoller vun der %1$s-Android-App</string>
+    <string name="log_progress_dialog_text">Donnée gi gelueden ...</string>
 
-	<string name="saml_authentication_required_text">Authentifizéierung néideg</string>
-	<string name="saml_authentication_wrong_pass">Falscht Passwuert</string>
-	<string name="actionbar_move">Réckelen</string>
-	<string name="file_list_empty_moving">Hei ass näischt. Setz en Dossier dobäi!</string>
-	<string name="folder_picker_choose_button_text">Auswielen</string>
+    <string name="saml_authentication_required_text">Authentifizéierung néideg</string>
+    <string name="saml_authentication_wrong_pass">Falscht Passwuert</string>
+    <string name="actionbar_move">Réckelen</string>
+    <string name="file_list_empty_moving">Hei ass näischt. Setz en Dossier dobäi!</string>
+    <string name="folder_picker_choose_button_text">Auswielen</string>
 
     <string name="move_file_not_found">Konnt net réckelen. Kontrolléier w.e.g. ob de Fichier existéiert</string>
     <string name="move_file_invalid_into_descendent">Et ass net méiglech, en Dossier an en Ënnerdossier vu sech selwer ze réckelen</string>
@@ -282,13 +282,13 @@
     <string name="prefs_category_instant_uploading">Direkt eropgeluede Fichieren</string>
     <string name="prefs_category_details">Detailer</string>
 
-	<string name="prefs_instant_video_upload_path_title">Video Pad eroplueden</string>
+    <string name="prefs_instant_video_upload_path_title">Video Pad eroplueden</string>
     <string name="sync_folder_failed_content">Synchroniséierung vum %1$s Dossier konnt net ofgeschloss ginn</string>
 
-	<string name="shared_subject_header">gedeelt</string>
-	<string name="with_you_subject_header">Mat dir</string>
-    
-	<string name="subject_user_shared_with_you">%1$s huet \"%2$s\" mat dir gedeelt</string>
+    <string name="shared_subject_header">gedeelt</string>
+    <string name="with_you_subject_header">Mat dir</string>
+
+    <string name="subject_user_shared_with_you">%1$s huet \"%2$s\" mat dir gedeelt</string>
     <string name="subject_shared_with_you">\"%1$s\" gouf mat dir gedeelt</string>
 
     <string name="auth_refresh_button">Connectioun opfrëschen</string>
@@ -342,4 +342,4 @@
     <string name="manage_space_error">Verschidde Fichiere konnten net geläscht ginn.</string>
 
     <string name="local_file_not_found_toast">De Fichier konnt net am lokale Fichier System fonnt ginn</string>
-    </resources>
+</resources>

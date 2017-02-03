@@ -123,7 +123,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
      * @param selection     Expected to be NULL.
      * @param selectionArgs Expected to be NULL.
      * @param sortOrder     Expected to be NULL.
-     * @return              Cursor with users and groups in the ownCloud server that match 'userQuery'.
+     * @return Cursor with users and groups in the ownCloud server that match 'userQuery'.
      */
     @Nullable
     @Override
@@ -203,7 +203,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                         } else {
                             String[] uriSplitted = shareWith.split("@");
                             displayName = getContext().getString(R.string.share_known_remote_clarification, userName,
-                                uriSplitted[uriSplitted.length - 1]);
+                                    uriSplitted[uriSplitted.length - 1]);
                         }
                         dataUri = Uri.withAppendedPath(remoteBaseUri, shareWith);
                     } else if (ShareType.USER.getValue() == type) {
@@ -214,10 +214,10 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
                     if (displayName != null && dataUri != null) {
                         response.newRow()
-                            .add(count++)             // BaseColumns._ID
-                            .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
-                            .add(icon)                // SearchManager.SUGGEST_COLUMN_ICON_1
-                            .add(dataUri);
+                                .add(count++)             // BaseColumns._ID
+                                .add(displayName)         // SearchManager.SUGGEST_COLUMN_TEXT_1
+                                .add(icon)                // SearchManager.SUGGEST_COLUMN_ICON_1
+                                .add(dataUri);
                     }
                 }
 

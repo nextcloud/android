@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.utils;
@@ -112,8 +111,8 @@ public class FileStorageUtils {
         File savePath = new File(MainApp.getStoragePath());
         return savePath.getUsableSpace();
     }
-    
-    public static String getLogPath()  {
+
+    public static String getLogPath() {
         return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "log";
     }
 
@@ -132,8 +131,7 @@ public class FileStorageUtils {
             SimpleDateFormat formatter = new SimpleDateFormat(
                     "yyyy" + OCFile.PATH_SEPARATOR + "MM" + OCFile.PATH_SEPARATOR, Locale.ENGLISH);
             return formatter.format(new Date(date));
-        }
-        catch(RuntimeException ex) {
+        } catch (RuntimeException ex) {
             Log_OC.w(TAG, "could not extract date from timestamp");
             return "";
         }
@@ -150,7 +148,7 @@ public class FileStorageUtils {
                                                   Boolean subfolderByDate) {
         String subPath = "";
         if (subfolderByDate) {
-           subPath = getSubpathFromDate(dateTaken);
+            subPath = getSubpathFromDate(dateTaken);
         }
         return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
     }
@@ -172,23 +170,23 @@ public class FileStorageUtils {
         return uploadVideoPath + OCFile.PATH_SEPARATOR + subPath
                 + (fileName == null ? "" : fileName);
     }
-    
+
     public static String getParentPath(String remotePath) {
         String parentPath = new File(remotePath).getParent();
         parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
         return parentPath;
     }
-    
+
     /**
      * Creates and populates a new {@link OCFile} object with the data read from the server.
-     * 
+     *
      * @param remote    remote file read from the server (remote file or folder).
-     * @return          New OCFile instance representing the remote resource described by remote.
+     * @return New OCFile instance representing the remote resource described by remote.
      */
     public static OCFile fillOCFile(RemoteFile remote) {
         OCFile file = new OCFile(remote.getRemotePath());
         file.setCreationTimestamp(remote.getCreationTimestamp());
-        if (remote.getMimeType().equalsIgnoreCase(MimeType.DIRECTORY)){
+        if (remote.getMimeType().equalsIgnoreCase(MimeType.DIRECTORY)) {
             file.setFileLength(remote.getSize());
         } else {
             file.setFileLength(remote.getLength());
@@ -200,14 +198,14 @@ public class FileStorageUtils {
         file.setRemoteId(remote.getRemoteId());
         return file;
     }
-    
+
     /**
      * Creates and populates a new {@link RemoteFile} object with the data read from an {@link OCFile}.
-     * 
+     *
      * @param ocFile    OCFile
-     * @return          New RemoteFile instance representing the resource described by ocFile.
+     * @return New RemoteFile instance representing the resource described by ocFile.
      */
-    public static RemoteFile fillRemoteFile(OCFile ocFile){
+    public static RemoteFile fillRemoteFile(OCFile ocFile) {
         RemoteFile file = new RemoteFile(ocFile.getRemotePath());
         file.setCreationTimestamp(ocFile.getCreationTimestamp());
         file.setLength(ocFile.getFileLength());
@@ -218,33 +216,33 @@ public class FileStorageUtils {
         file.setRemoteId(ocFile.getRemoteId());
         return file;
     }
-    
+
     /**
      * Sorts all filenames, regarding last user decision 
      */
-    public static Vector<OCFile> sortOcFolder(Vector<OCFile> files){
-        switch (mSortOrder){
-        case 0:
-            files = FileStorageUtils.sortOCFilesByName(files);
-            break;
-        case 1:
-            files = FileStorageUtils.sortOCFilesByDate(files);
-            break;
-        case 2:
-            files = FileStorageUtils.sortOCFilesBySize(files);
-            break;
+    public static Vector<OCFile> sortOcFolder(Vector<OCFile> files) {
+        switch (mSortOrder) {
+            case 0:
+                files = FileStorageUtils.sortOCFilesByName(files);
+                break;
+            case 1:
+                files = FileStorageUtils.sortOCFilesByDate(files);
+                break;
+            case 2:
+                files = FileStorageUtils.sortOCFilesBySize(files);
+                break;
         }
 
         files = FileStorageUtils.sortOCFilesByFavourite(files);
-       
+
         return files;
     }
 
     /**
      * Sorts all filenames, regarding last user decision
      */
-    public static File[] sortLocalFolder(File[] files){
-        switch (mSortOrder){
+    public static File[] sortLocalFolder(File[] files) {
+        switch (mSortOrder) {
             case 0:
                 files = FileStorageUtils.sortLocalFilesByName(files);
                 break;
@@ -258,22 +256,22 @@ public class FileStorageUtils {
 
         return files;
     }
-    
+
     /**
      * Sorts list by Date
      * @param files
      */
-    public static Vector<OCFile> sortOCFilesByDate(Vector<OCFile> files){
+    public static Vector<OCFile> sortOCFilesByDate(Vector<OCFile> files) {
         final int multiplier = mSortAscending ? 1 : -1;
-        
+
         Collections.sort(files, new Comparator<OCFile>() {
             @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
             public int compare(OCFile o1, OCFile o2) {
-            Long obj1 = o1.getModificationTimestamp();
-            return multiplier * obj1.compareTo(o2.getModificationTimestamp());
+                Long obj1 = o1.getModificationTimestamp();
+                return multiplier * obj1.compareTo(o2.getModificationTimestamp());
             }
         });
-        
+
         return files;
     }
 
@@ -281,7 +279,7 @@ public class FileStorageUtils {
      * Sorts list by Date
      * @param filesArray
      */
-    public static File[] sortLocalFilesByDate(File[] filesArray){
+    public static File[] sortLocalFilesByDate(File[] filesArray) {
         final int multiplier = mSortAscending ? 1 : -1;
 
         List<File> files = new ArrayList<File>(Arrays.asList(filesArray));
@@ -289,8 +287,8 @@ public class FileStorageUtils {
         Collections.sort(files, new Comparator<File>() {
             @SuppressFBWarnings(value = "Bx")
             public int compare(File o1, File o2) {
-            Long obj1 = o1.lastModified();
-            return multiplier * obj1.compareTo(o2.lastModified());
+                Long obj1 = o1.lastModified();
+                return multiplier * obj1.compareTo(o2.lastModified());
             }
         });
 
@@ -301,7 +299,7 @@ public class FileStorageUtils {
     /**
      * Sorts list by Size
      */
-    public static Vector<OCFile> sortOCFilesBySize(Vector<OCFile> files){
+    public static Vector<OCFile> sortOCFilesBySize(Vector<OCFile> files) {
         final int multiplier = mSortAscending ? 1 : -1;
 
         Collections.sort(files, new Comparator<OCFile>() {
@@ -360,7 +358,7 @@ public class FileStorageUtils {
      * @param files     files to sort
      */
     @SuppressFBWarnings(value = "Bx")
-    public static Vector<OCFile> sortOCFilesByName(Vector<OCFile> files){
+    public static Vector<OCFile> sortOCFilesByName(Vector<OCFile> files) {
         final int multiplier = mSortAscending ? 1 : -1;
 
         Collections.sort(files, new Comparator<OCFile>() {
@@ -375,7 +373,7 @@ public class FileStorageUtils {
                 return multiplier * new AlphanumComparator().compare(o1, o2);
             }
         });
-        
+
         return files;
     }
 
@@ -398,7 +396,7 @@ public class FileStorageUtils {
                     return 1;
                 }
                 return multiplier * new AlphanumComparator().compare(o1.getPath().toLowerCase(),
-                                                              o2.getPath().toLowerCase());
+                        o2.getPath().toLowerCase());
             }
         });
 
@@ -410,7 +408,7 @@ public class FileStorageUtils {
      * Sorts list by Favourites
      * @param files     files to sort
      */
-    public static Vector<OCFile> sortOCFilesByFavourite(Vector<OCFile> files){
+    public static Vector<OCFile> sortOCFilesByFavourite(Vector<OCFile> files) {
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.isFavorite() && o2.isFavorite()) {

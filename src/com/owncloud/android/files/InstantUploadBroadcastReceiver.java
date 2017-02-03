@@ -1,22 +1,22 @@
 /**
- *  ownCloud Android client application
+ * ownCloud Android client application
  *
- *  @author Bartek Przybylski
- *  @author David A. Velasco
- *  Copyright (C) 2012  Bartek Przybylski
- *  Copyright (C) 2016 ownCloud Inc.
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License version 2,
- *  as published by the Free Software Foundation.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Bartek Przybylski
+ * @author David A. Velasco
+ * Copyright (C) 2012  Bartek Przybylski
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.files;
@@ -103,7 +103,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
         }
 
         String[] CONTENT_PROJECTION = {
-                Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE };
+                Images.Media.DATA, Images.Media.DISPLAY_NAME, Images.Media.MIME_TYPE, Images.Media.SIZE};
 
         int permissionCheck = ContextCompat.checkSelfPermission(context,
                 Manifest.permission.READ_EXTERNAL_STORAGE);
@@ -136,7 +136,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
         int behaviour = getUploadBehaviour(context);
         Boolean subfolderByDate = PreferenceManager.instantPictureUploadPathUseSubfolders(context);
-            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         String uploadPathdef = context.getString(R.string.instant_upload_path);
         String uploadPath = pref.getString("instant_upload_path", uploadPathdef);
 

@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author LukeOwncloud
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author LukeOwncloud
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.files.services;
@@ -36,7 +35,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  * Receives all connectivity action from Android OS at all times and performs
  * required OC actions. For now that are: - Signal connectivity to
  * {@link FileUploader}.
- * 
+ *
  * Later can be added: - Signal connectivity to download service, deletion
  * service, ... - Handle offline mode (cf.
  * https://github.com/owncloud/android/issues/162)
@@ -101,17 +100,17 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
          * But first let's try something "simple" to keep a basic retry of instant uploads in
          * version 1.9.2, similar to the existent until 1.9.1. To be improved.
          */
-        if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
+        if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
             NetworkInfo networkInfo =
-                intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+                    intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
             WifiInfo wifiInfo =
-                intent.getParcelableExtra(WifiManager.EXTRA_WIFI_INFO);
+                    intent.getParcelableExtra(WifiManager.EXTRA_WIFI_INFO);
             String bssid =
-                intent.getStringExtra(WifiManager.EXTRA_BSSID);
-            if(networkInfo.isConnected()   &&      // not enough; see (*) right below
-                wifiInfo != null    &&
-                !UNKNOWN_SSID.equals(wifiInfo.getSSID().toLowerCase()) &&
-                bssid != null
+                    intent.getStringExtra(WifiManager.EXTRA_BSSID);
+            if (networkInfo.isConnected() &&      // not enough; see (*) right below
+                    wifiInfo != null &&
+                    !UNKNOWN_SSID.equals(wifiInfo.getSSID().toLowerCase()) &&
+                    bssid != null
                     ) {
                 Log_OC.d(TAG, "WiFi connected");
 
@@ -121,7 +120,7 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
                 // TODO maybe alternative commented below, based on CONNECTIVITY_ACTION is better
                 Log_OC.d(TAG, "WiFi disconnected ... but don't know if right now");
             }
-         }
+        }
         // (*) When WiFi is lost, an Intent with network state CONNECTED and SSID "<unknown ssid>" is
         //      received right before another Intent with network state DISCONNECTED; needs to
         //      be differentiated of a new Wifi connection.
@@ -140,30 +139,30 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
          *
          * Let's see what QA has to say
          *
-        if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
-            NetworkInfo networkInfo = intent.getParcelableExtra(
-                    ConnectivityManager.EXTRA_NETWORK_INFO      // deprecated in API 14
-            );
-            int networkType = intent.getIntExtra(
-                    ConnectivityManager.EXTRA_NETWORK_TYPE,     // only from API level 17
-                    -1
-            );
-            boolean couldBeWifiAction =
-                    (networkInfo == null && networkType < 0)    ||      // cases of lack of info
-                    networkInfo.getType() == ConnectivityManager.TYPE_WIFI  ||
-                    networkType == ConnectivityManager.TYPE_WIFI;
+         if(intent.getAction().equals(ConnectivityManager.CONNECTIVITY_ACTION)) {
+         NetworkInfo networkInfo = intent.getParcelableExtra(
+         ConnectivityManager.EXTRA_NETWORK_INFO      // deprecated in API 14
+         );
+         int networkType = intent.getIntExtra(
+         ConnectivityManager.EXTRA_NETWORK_TYPE,     // only from API level 17
+         -1
+         );
+         boolean couldBeWifiAction =
+         (networkInfo == null && networkType < 0)    ||      // cases of lack of info
+         networkInfo.getType() == ConnectivityManager.TYPE_WIFI  ||
+         networkType == ConnectivityManager.TYPE_WIFI;
 
-            if (couldBeWifiAction) {
-                if (ConnectivityUtils.isAppConnectedViaUnmeteredWiFi(context)) {
-                    Log_OC.d(TAG, "WiFi connected");
-                    wifiConnected(context);
-                } else {
-                    Log_OC.d(TAG, "WiFi disconnected");
-                    wifiDisconnected(context);
-                }
-            } /* else, CONNECTIVIY_ACTION is (probably) about other network interface (mobile, bluetooth, ...)
-        }
-        */
+         if (couldBeWifiAction) {
+         if (ConnectivityUtils.isAppConnectedViaUnmeteredWiFi(context)) {
+         Log_OC.d(TAG, "WiFi connected");
+         wifiConnected(context);
+         } else {
+         Log_OC.d(TAG, "WiFi disconnected");
+         wifiDisconnected(context);
+         }
+         } /* else, CONNECTIVIY_ACTION is (probably) about other network interface (mobile, bluetooth, ...)
+         }
+         */
     }
 
     private void wifiConnected(Context context) {
@@ -171,53 +170,53 @@ public class ConnectivityActionReceiver extends BroadcastReceiver {
         if (
                 (PreferenceManager.instantPictureUploadEnabled(context) &&
                         PreferenceManager.instantPictureUploadViaWiFiOnly(context)) ||
-                (PreferenceManager.instantVideoUploadEnabled(context) &&
-                        PreferenceManager.instantVideoUploadViaWiFiOnly(context))
+                        (PreferenceManager.instantVideoUploadEnabled(context) &&
+                                PreferenceManager.instantVideoUploadViaWiFiOnly(context))
                 ) {
             Log_OC.d(TAG, "Requesting retry of instant uploads (& friends)");
             FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
             requester.retryFailedUploads(
-                context,
-                null,
-                UploadResult.NETWORK_CONNECTION     // for the interrupted when Wifi fell, if any
-                // (side effect: any upload failed due to network error will be retried too, instant or not)
+                    context,
+                    null,
+                    UploadResult.NETWORK_CONNECTION     // for the interrupted when Wifi fell, if any
+                    // (side effect: any upload failed due to network error will be retried too, instant or not)
             );
             requester.retryFailedUploads(
-                context,
-                null,
-                UploadResult.DELAYED_FOR_WIFI       // for the rest of enqueued when Wifi fell
+                    context,
+                    null,
+                    UploadResult.DELAYED_FOR_WIFI       // for the rest of enqueued when Wifi fell
             );
         }
     }
 
     /**
      *
-    private void wifiDisconnected() {
-        // TODO something smart
+     private void wifiDisconnected() {
+     // TODO something smart
 
-        // NOTE: explicit cancellation of only-wifi instant uploads is not needed anymore, since currently:
-        //  - any upload in progress will be interrupted due to the lack of connectivity while the device
-        //      reconnects through other network interface;
-        //  - FileUploader checks instant upload settings and connection state before executing each
-        //    upload operation, so other pending instant uploads after the current one will not be run
-        //    (currently are silently moved to FAILED state)
-    }
+     // NOTE: explicit cancellation of only-wifi instant uploads is not needed anymore, since currently:
+     //  - any upload in progress will be interrupted due to the lack of connectivity while the device
+     //      reconnects through other network interface;
+     //  - FileUploader checks instant upload settings and connection state before executing each
+     //    upload operation, so other pending instant uploads after the current one will not be run
+     //    (currently are silently moved to FAILED state)
+     }
 
 
 
-    static public void enableActionReceiver(Context context) {
-        PackageManager pm = context.getPackageManager();
-        ComponentName compName = new ComponentName(context.getApplicationContext(), ConnectivityActionReceiver.class);
-        pm.setComponentEnabledSetting(compName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-                PackageManager.DONT_KILL_APP);
-    }
+     static public void enableActionReceiver(Context context) {
+     PackageManager pm = context.getPackageManager();
+     ComponentName compName = new ComponentName(context.getApplicationContext(), ConnectivityActionReceiver.class);
+     pm.setComponentEnabledSetting(compName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+     PackageManager.DONT_KILL_APP);
+     }
 
-    static public void disableActionReceiver(Context context) {
-        PackageManager pm = context.getPackageManager();
-        ComponentName compName = new ComponentName(context.getApplicationContext(), ConnectivityActionReceiver.class);
-        pm.setComponentEnabledSetting(compName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-                PackageManager.DONT_KILL_APP);
-    }
+     static public void disableActionReceiver(Context context) {
+     PackageManager pm = context.getPackageManager();
+     ComponentName compName = new ComponentName(context.getApplicationContext(), ConnectivityActionReceiver.class);
+     pm.setComponentEnabledSetting(compName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+     PackageManager.DONT_KILL_APP);
+     }
 
-    */
+     */
 }

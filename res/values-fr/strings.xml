@@ -21,7 +21,7 @@
     <string name="drawer_item_settings">Paramètres</string>
     <string name="drawer_item_uploads_list">Téléversements</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
-	<string name="drawer_close">Fermer</string>
+    <string name="drawer_close">Fermer</string>
     <string name="drawer_open">Ouvrir</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
@@ -50,8 +50,8 @@
     <string name="prefs_remember_last_share_location">Mémoriser l\'emplacement de partage</string>
     <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement de téléversement</string>
 
-	<string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
-	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone!\nTéléchargez-le ici : %2$s</string>
+    <string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
+    <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone!\nTéléchargez-le ici : %2$s</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_host_url">Adresse du serveur https://…</string>
@@ -175,7 +175,7 @@
     <string name="foreign_files_remote_text">Distant : %1$s</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace disque pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
     <string name="pass_code_configure_your_pass_code_explanation">Le code de sécurité sera demandé à chaque ouverture de l\'application</string>
     <string name="pass_code_reenter_your_pass_code">Veuillez saisir de nouveau votre code de sécurité</string>
@@ -184,7 +184,7 @@
     <string name="pass_code_wrong">Code de sécurité incorrect</string>
     <string name="pass_code_removed">Code de sécurité supprimé</string>
     <string name="pass_code_stored">Code de sécurité enregistré</string>
-    
+
     <string name="media_notif_ticker">Lecteur de musique %1$s</string>
     <string name="media_state_playing">%1$s (lecture)</string>
     <string name="media_state_loading">%1$s (chargement)</string>
@@ -205,40 +205,40 @@
     <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
     <string name="media_forward_description">Bouton d\'avance rapide</string>
 
-	<string name="auth_getting_authorization">Contrôle d\'autorisation&#8230;</string>
-	<string name="auth_trying_to_login">Tentative de connexion&#8230;</string>
-	<string name="auth_no_net_conn_title">Pas de connexion réseau</string>
-	<string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
-	<string name="auth_connection_established">Connexion établie</string>
-	<string name="auth_testing_connection">Test de connexion en cours</string>
-	<string name="auth_not_configured_title">Configuration du serveur erronée</string>
-	<string name="auth_account_not_new">Un compte pour les mêmes utilisateur et serveur existe déjà sur cet appareil</string>
-	<string name="auth_account_not_the_same">L\'utilisateur saisi ne correspond pas à l\'utilisateur de ce compte</string>
-	<string name="auth_unknown_error_title">Une erreur inconnue s\'est produite !</string>
-	<string name="auth_unknown_host_title">Impossible de trouver l\'hôte</string>
-	<string name="auth_incorrect_path_title">Aucune instance du serveur n\'a été trouvée</string>
-	<string name="auth_timeout_title">Le serveur a pris trop de temps à répondre</string>
-	<string name="auth_incorrect_address_title">Adresse du serveur non valable</string>
-	<string name="auth_ssl_general_error_title">Échec de l\'initialisation SSL</string>
-	<string name="auth_ssl_unverified_server_title">Impossible de vérifier l\'identité du serveur SSL</string>
-	<string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>
-	<string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
-	<string name="auth_secure_connection">Connexion sécurisée établie</string>
-	<string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe incorrect</string>
-	<string name="auth_oauth_error">Échec d\'autorisation</string>
-	<string name="auth_oauth_error_access_denied">Accès refusé par le serveur d\'autorisation</string>
-	<string name="auth_wtf_reenter_URL">Problème inattendu ; veuillez saisir à nouveau l\'adresse du serveur</string>
-	<string name="auth_expired_oauth_token_toast">Votre autorisation a expiré. Merci de vous authentifier à nouveau</string>
-	<string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe actuel</string>
-	<string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
-	<string name="auth_connecting_auth_server">Connexion au serveur d\'authentification…</string>
-	<string name="auth_unsupported_auth_method">Le serveur ne prend pas en charge cette méthode d\'authentification</string>
-	<string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
+    <string name="auth_getting_authorization">Contrôle d\'autorisation&#8230;</string>
+    <string name="auth_trying_to_login">Tentative de connexion&#8230;</string>
+    <string name="auth_no_net_conn_title">Pas de connexion réseau</string>
+    <string name="auth_nossl_plain_ok_title">Connexion sécurisée non disponible</string>
+    <string name="auth_connection_established">Connexion établie</string>
+    <string name="auth_testing_connection">Test de connexion en cours</string>
+    <string name="auth_not_configured_title">Configuration du serveur erronée</string>
+    <string name="auth_account_not_new">Un compte pour les mêmes utilisateur et serveur existe déjà sur cet appareil</string>
+    <string name="auth_account_not_the_same">L\'utilisateur saisi ne correspond pas à l\'utilisateur de ce compte</string>
+    <string name="auth_unknown_error_title">Une erreur inconnue s\'est produite !</string>
+    <string name="auth_unknown_host_title">Impossible de trouver l\'hôte</string>
+    <string name="auth_incorrect_path_title">Aucune instance du serveur n\'a été trouvée</string>
+    <string name="auth_timeout_title">Le serveur a pris trop de temps à répondre</string>
+    <string name="auth_incorrect_address_title">Adresse du serveur non valable</string>
+    <string name="auth_ssl_general_error_title">Échec de l\'initialisation SSL</string>
+    <string name="auth_ssl_unverified_server_title">Impossible de vérifier l\'identité du serveur SSL</string>
+    <string name="auth_bad_oc_version_title">La version du serveur n\'est pas reconnue</string>
+    <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
+    <string name="auth_secure_connection">Connexion sécurisée établie</string>
+    <string name="auth_unauthorized">Nom d\'utilisateur ou mot de passe incorrect</string>
+    <string name="auth_oauth_error">Échec d\'autorisation</string>
+    <string name="auth_oauth_error_access_denied">Accès refusé par le serveur d\'autorisation</string>
+    <string name="auth_wtf_reenter_URL">Problème inattendu ; veuillez saisir à nouveau l\'adresse du serveur</string>
+    <string name="auth_expired_oauth_token_toast">Votre autorisation a expiré. Merci de vous authentifier à nouveau</string>
+    <string name="auth_expired_basic_auth_toast">Veuillez saisir le mot de passe actuel</string>
+    <string name="auth_expired_saml_sso_token_toast">Votre session a expiré. Merci de vous reconnecter</string>
+    <string name="auth_connecting_auth_server">Connexion au serveur d\'authentification…</string>
+    <string name="auth_unsupported_auth_method">Le serveur ne prend pas en charge cette méthode d\'authentification</string>
+    <string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
 	<string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez prendre contact avec votre administrateur
 </string>
-	<string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
+    <string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
     <string name="auth_account_does_not_exist">Le compte n\'existe pas encore sur ce périphérique</string>
-    
+
     <string name="favorite">Rendre disponible hors-ligne</string>
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
     <string name="common_rename">Renommer</string>
@@ -263,10 +263,10 @@
     <string name="filedisplay_no_file_selected">Aucun fichier n\'était sélectionné</string>
     <string name="activity_chooser_title">Envoyer le lien vers &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
-    
-    <string name="oauth_check_onoff">Connexion avec oAuth2</string> 
-    <string name="oauth_login_connection">Connexion au serveur oAuth2…</string>    
-        
+
+    <string name="oauth_check_onoff">Connexion avec oAuth2</string>
+    <string name="oauth_login_connection">Connexion au serveur oAuth2…</string>
+
     <string name="ssl_validator_header">L\'identité du site ne peut être vérifiée</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Le certificat du serveur n\'est pas sûr</string>
     <string name="ssl_validator_reason_cert_expired">- Le certificat du serveur a expiré</string>
@@ -313,7 +313,7 @@
     <string name="conflict_keep_both">Conserver les deux</string>
     <string name="conflict_use_local_version">version locale</string>
     <string name="conflict_use_server_version">version serveur</string>
-    
+
     <string name="preview_image_description">Prévisualisation de l\'image</string>
     <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
 
@@ -324,11 +324,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Utiliser des sous-dossiers</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocker dans des sous-dossiers basés sur années et mois</string>
 
-	<string name="share_link_no_support_share_api">Désolé, le partage n\'est pas disponible sur votre serveur. Veuillez contacter votre administrateur.</string>
-	<string name="share_link_file_no_exist">Impossible de partager. Vérifiez que le fichier est bien présent</string>
-	<string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
-	<string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
-	<string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
+    <string name="share_link_no_support_share_api">Désolé, le partage n\'est pas disponible sur votre serveur. Veuillez contacter votre administrateur.</string>
+    <string name="share_link_file_no_exist">Impossible de partager. Vérifiez que le fichier est bien présent</string>
+    <string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
+    <string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
+    <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
     <string name="update_link_file_no_exist">Mise à jour impossible. Veuillez vérifier que ce fichier existe</string>
     <string name="update_link_file_error">Une erreur est survenue lors de la mise à jour du partage</string>
     <string name="share_link_password_title">Saisissez un mot de passe</string>
@@ -385,18 +385,18 @@
     <string name="drawer_manage_accounts">Gérer les comptes</string>
     <string name="auth_redirect_non_secure_connection_title">Le connexion sécurisée est redirigée vers une route non-sécurisée.</string>
 
-	<string name="actionbar_logger">Journaux</string>
-	<string name="log_send_history_button">Envoyer l\'historique</string>
-	<string name="log_send_no_mail_app">Aucune application n\'a été trouvée pour envoyer les journaux. Merci d\'installer une application de messagerie.</string>
-	<string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
-	<string name="log_progress_dialog_text">Chargement des données &#8230;</string>
+    <string name="actionbar_logger">Journaux</string>
+    <string name="log_send_history_button">Envoyer l\'historique</string>
+    <string name="log_send_no_mail_app">Aucune application n\'a été trouvée pour envoyer les journaux. Merci d\'installer une application de messagerie.</string>
+    <string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
+    <string name="log_progress_dialog_text">Chargement des données &#8230;</string>
 
-	<string name="saml_authentication_required_text">Authentification requise</string>
-	<string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
-	<string name="actionbar_move">Déplacer</string>
+    <string name="saml_authentication_required_text">Authentification requise</string>
+    <string name="saml_authentication_wrong_pass">Mot de passe incorrect</string>
+    <string name="actionbar_move">Déplacer</string>
     <string name="actionbar_copy">Copier</string>
-	<string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier !</string>
-	<string name="folder_picker_choose_button_text">Sélectionner</string>
+    <string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier !</string>
+    <string name="folder_picker_choose_button_text">Sélectionner</string>
 
     <string name="move_file_not_found">Impossible de déplacer. Vérifiez que le fichier existe</string>
     <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
@@ -414,13 +414,13 @@
     <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
     <string name="prefs_category_details">Propriétés</string>
 
-	<string name="prefs_instant_video_upload_path_title">Téléversement immédiat du dossier vidéos</string>
+    <string name="prefs_instant_video_upload_path_title">Téléversement immédiat du dossier vidéos</string>
     <string name="sync_folder_failed_content">La synchronisation du dossier %1$s n\'a pas pu être terminée</string>
 
-	<string name="shared_subject_header">a partagé</string>
-	<string name="with_you_subject_header">avec vous</string>
-    
-	<string name="subject_user_shared_with_you">%1$s a partagé \"%2$s\" avec vous</string>
+    <string name="shared_subject_header">a partagé</string>
+    <string name="with_you_subject_header">avec vous</string>
+
+    <string name="subject_user_shared_with_you">%1$s a partagé \"%2$s\" avec vous</string>
     <string name="subject_shared_with_you">\"%1$s\" a été partagé avec vous</string>
 
     <string name="auth_refresh_button">Actualiser la connexion</string>

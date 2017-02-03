@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.preview;
 
@@ -69,7 +68,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
  *
  * Trying to get an instance with NULL {@link OCFile} or ownCloud {@link Account} values will
  * produce an {@link IllegalStateException}.
- * 
+ *
  * By now, if the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is
  * generated on instantiation too.
  */
@@ -186,9 +185,8 @@ public class PreviewMediaFragment extends FileFragment implements
                 throw new IllegalStateException("There is no local file to preview");
             }
 
-        }
-        else {
-            file = (OCFile) savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
+        } else {
+            file = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
             setFile(file);
             mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
             mSavedPlaybackPosition =
@@ -202,8 +200,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 mImagePreview.setVisibility(View.GONE);
                 prepareVideo();
 
-            }
-            else {
+            } else {
                 mVideoPreview.setVisibility(View.GONE);
                 mImagePreview.setVisibility(View.VISIBLE);
                 extractAndSetCoverArt(file);
@@ -254,8 +251,7 @@ public class PreviewMediaFragment extends FileFragment implements
                 outState.putInt(PreviewMediaFragment.EXTRA_PLAY_POSITION, mSavedPlaybackPosition);
                 outState.putBoolean(PreviewMediaFragment.EXTRA_PLAYING, mAutoplay);
             }
-        }
-        else {
+        } else {
             if (mMediaServiceBinder != null) {
                 outState.putInt(
                         PreviewMediaFragment.EXTRA_PLAY_POSITION,
@@ -277,8 +273,7 @@ public class PreviewMediaFragment extends FileFragment implements
             if (MimeTypeUtil.isAudio(file)) {
                 bindMediaService();
 
-            }
-            else {
+            } else {
                 if (MimeTypeUtil.isVideo(file)) {
                     stopAudio();
                     playVideo();
@@ -314,10 +309,10 @@ public class PreviewMediaFragment extends FileFragment implements
 
         if (mContainerActivity.getStorageManager() != null) {
             FileMenuFilter mf = new FileMenuFilter(
-                getFile(),
-                mContainerActivity.getStorageManager().getAccount(),
-                mContainerActivity,
-                getActivity()
+                    getFile(),
+                    mContainerActivity.getStorageManager().getAccount(),
+                    mContainerActivity,
+                    getActivity()
             );
             mf.filter(menu);
         }
@@ -377,11 +372,11 @@ public class PreviewMediaFragment extends FileFragment implements
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
             }
-            case R.id.action_favorite_file:{
+            case R.id.action_favorite_file: {
                 mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), true);
                 return true;
             }
-            case R.id.action_unfavorite_file:{
+            case R.id.action_unfavorite_file: {
                 mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
                 return true;
             }
@@ -548,7 +543,7 @@ public class PreviewMediaFragment extends FileFragment implements
             if (event.getX() / Resources.getSystem().getDisplayMetrics().density > 24.0) {
                 startFullScreenVideo();
             }
-            return true;        
+            return true;
         }
         return false;
     }
@@ -587,8 +582,7 @@ public class PreviewMediaFragment extends FileFragment implements
             Log_OC.d(TAG, "starting playback of " + file.getStoragePath());
             mMediaServiceBinder.start(mAccount, file, mAutoplay, mSavedPlaybackPosition);
 
-        }
-        else {
+        } else {
             if (!mMediaServiceBinder.isPlaying() && mAutoplay) {
                 mMediaServiceBinder.start();
                 mMediaController.updatePausePlay();
@@ -602,13 +596,13 @@ public class PreviewMediaFragment extends FileFragment implements
         if (mMediaServiceConnection == null) {
             mMediaServiceConnection = new MediaServiceConnection();
         }
-        getActivity().bindService(  new Intent(getActivity(),
-                                    MediaService.class),
-                                    mMediaServiceConnection, 
-                                    Context.BIND_AUTO_CREATE);
-            // follow the flow in MediaServiceConnection#onServiceConnected(...)
+        getActivity().bindService(new Intent(getActivity(),
+                        MediaService.class),
+                mMediaServiceConnection,
+                Context.BIND_AUTO_CREATE);
+        // follow the flow in MediaServiceConnection#onServiceConnected(...)
     }
-    
+
     /** Defines callbacks for service binding, passed to bindService() */
     private class MediaServiceConnection implements ServiceConnection {
 
@@ -645,11 +639,10 @@ public class PreviewMediaFragment extends FileFragment implements
                 Log_OC.w(TAG, "Media service suddenly disconnected");
                 if (mMediaController != null) {
                     mMediaController.setMediaPlayer(null);
-                }
-                else {
+                } else {
                     Toast.makeText(
                             getActivity(),
-                            "No media controller to release when disconnected from media service", 
+                            "No media controller to release when disconnected from media service",
                             Toast.LENGTH_SHORT).show();
                 }
                 mMediaServiceBinder = null;
@@ -685,8 +678,7 @@ public class PreviewMediaFragment extends FileFragment implements
         if (MimeTypeUtil.isAudio(file) && stopAudio) {
             mMediaServiceBinder.pause();
 
-        }
-        else {
+        } else {
             if (MimeTypeUtil.isVideo(file)) {
                 mVideoPreview.stopPlayback();
             }

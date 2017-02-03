@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
- *
- *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * ownCloud Android client application
+ * <p>
+ * Copyright (C) 2012 Bartek Przybylski
+ * Copyright (C) 2012-2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.files.services;
@@ -50,10 +49,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.ErrorMessageAdapter;
@@ -217,7 +216,7 @@ public class FileDownloader extends Service
 
     @Override
     public void onAccountsUpdated(Account[] accounts) {
-         //review the current download and cancel it if its account doesn't exist
+        //review the current download and cancel it if its account doesn't exist
         if (mCurrentDownload != null &&
                 !AccountUtils.exists(mCurrentDownload.getAccount(), getApplicationContext())) {
             mCurrentDownload.cancel();
@@ -479,7 +478,7 @@ public class FileDownloader extends Service
         file.setFileLength((new File(mCurrentDownload.getSavePath()).length()));
         file.setRemoteId(mCurrentDownload.getFile().getRemoteId());
         mStorageManager.saveFile(file);
-        mStorageManager.triggerMediaScan(file.getStoragePath());
+        FileDataStorageManager.triggerMediaScan(file.getStoragePath());
         mStorageManager.saveConflict(file, null);
     }
 

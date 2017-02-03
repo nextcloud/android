@@ -21,7 +21,7 @@
     <string name="drawer_item_settings">Ρυθμίσεις</string>
     <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
     <string name="drawer_quota">%1$s από %2$s χρησιμοποιούνται</string>
-	<string name="drawer_close">Κλείσιμο</string>
+    <string name="drawer_close">Κλείσιμο</string>
     <string name="drawer_open">Άνοιγμα</string>
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
@@ -45,8 +45,8 @@
     <string name="prefs_remember_last_share_location">Αποθήκευση σημείου διαμοιρασμού</string>
     <string name="prefs_remember_last_upload_location_summary">Αποθήκευση τελευταίου σημείου διαμοιρασμού μεταφόρτωσης</string>
 
-	<string name="recommend_subject">Δοκιμάστε %1$s στο κινητό σας!</string>
-	<string name="recommend_text">Θα ήθελα να σε προσκαλέσω να χρησιμοποιήσεις το %1$s στο κινητό σου!\nΛήψη εδώ: %2$s</string>
+    <string name="recommend_subject">Δοκιμάστε %1$s στο κινητό σας!</string>
+    <string name="recommend_text">Θα ήθελα να σε προσκαλέσω να χρησιμοποιήσεις το %1$s στο κινητό σου!\nΛήψη εδώ: %2$s</string>
 
     <string name="auth_check_server">Έλεγχος διακομιστή</string>
     <string name="auth_host_url">Διεύθυνση διακομιστή https://…</string>
@@ -161,7 +161,7 @@
     <string name="pass_code_wrong">Εσφαλμένος κωδικός πρόσβασης</string>
     <string name="pass_code_removed">Ο κωδικός πρόσβασης αφαιρέθηκε</string>
     <string name="pass_code_stored">Ο κωδικός πρόσβασης αποθηκεύτηκε</string>
-    
+
     <string name="media_notif_ticker">%1$s αναπαραγωγή μουσικής</string>
     <string name="media_state_playing">%1$s (αναπαραγωγή)</string>
     <string name="media_state_loading">%1$s (φόρτωση)</string>
@@ -182,40 +182,40 @@
     <string name="media_play_pause_description">Κουμπί αναπαραγωγής ή παύσης</string>
     <string name="media_forward_description">Κουμπί προώθησης</string>
 
-	<string name="auth_getting_authorization">Λήψη πιστοποίησης &#8230;</string>
-	<string name="auth_trying_to_login">Προσπάθεια σύνδεσης &#8230;</string>
-	<string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
-	<string name="auth_nossl_plain_ok_title">Μη διαθέσιμη ασφαλής σύνδεση.</string>
-	<string name="auth_connection_established">Επετεύχθη σύνδεση</string>
-	<string name="auth_testing_connection">Έλεγχος σύνδεσης</string>
-	<string name="auth_not_configured_title">Λανθασμένες ρυθμίσεις διακομιστή</string>
-	<string name="auth_account_not_new">Ένας λογαριασμός για τον ίδιο χρήστη και διακομιστή υπάρχει ήδη στη συσκευή</string>
-	<string name="auth_account_not_the_same">Ο χρήστης που εισάγατε δεν ταιριάζει με το χρήστη αυτού του λογαριασμού</string>
-	<string name="auth_unknown_error_title">Παρουσιάστηκε άγνωστο σφάλμα!</string>
-	<string name="auth_unknown_host_title">Δεν βρέθηκε κόμβος</string>
-	<string name="auth_incorrect_path_title">Δεν βρέθηκε εγκατεστημένος διακομιστής</string>
-	<string name="auth_timeout_title">Ο διακομιστής αργεί πολύ να απαντήσει</string>
-	<string name="auth_incorrect_address_title">Εσφαλμένη μορφή διεύθυνσης διακομιστή</string>
-	<string name="auth_ssl_general_error_title">Η αρχικοποίηση του SLL απέτυχε</string>
-	<string name="auth_ssl_unverified_server_title">Αδυναμία επιβεβαίωσης της ταυτότητας του διακομιστή SSL </string>
-	<string name="auth_bad_oc_version_title">Μη-αναγνωρίσιμη έκδοση διακομιστή</string>
-	<string name="auth_wrong_connection_title">Δεν ήταν δυνατή η σύνδεση</string>
-	<string name="auth_secure_connection">Επιτεύχθηκε ασφαλής σύνδεση</string>
-	<string name="auth_unauthorized">Λάθος όνομα χρήστη ή κωδικός</string>
-	<string name="auth_oauth_error">Η πιστοποίηση απέτυχε</string>
-	<string name="auth_oauth_error_access_denied">Ο διακομιστής πιστοποίησης αρνήθηκε την πρόσβαση</string>
-	<string name="auth_wtf_reenter_URL">Απρόοπτη κατάσταση - παρακαλώ εισάγετε τη διεύθυνση URL του διακομιστή ξανά</string>
-	<string name="auth_expired_oauth_token_toast">Η πιστοποιίησή σας έληξε. Παρακαλώ πιστοποιήστε ξανά</string>
-	<string name="auth_expired_basic_auth_toast">Παρακαλώ εισάγετε τον τρέχοντα κωδικό πρόσβασης</string>
-	<string name="auth_expired_saml_sso_token_toast">Η συνεδρία σας έληξε. Παρακαλώ συνδεθείτε ξανά</string>
-	<string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης...</string>
-	<string name="auth_unsupported_auth_method">Ο διακομιστής δεν υποστηρίζει αυτή τη μέθοδο πιστοποίησης</string>
-	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
+    <string name="auth_getting_authorization">Λήψη πιστοποίησης &#8230;</string>
+    <string name="auth_trying_to_login">Προσπάθεια σύνδεσης &#8230;</string>
+    <string name="auth_no_net_conn_title">Δεν υπάρχει σύνδεση στο δίκτυο</string>
+    <string name="auth_nossl_plain_ok_title">Μη διαθέσιμη ασφαλής σύνδεση.</string>
+    <string name="auth_connection_established">Επετεύχθη σύνδεση</string>
+    <string name="auth_testing_connection">Έλεγχος σύνδεσης</string>
+    <string name="auth_not_configured_title">Λανθασμένες ρυθμίσεις διακομιστή</string>
+    <string name="auth_account_not_new">Ένας λογαριασμός για τον ίδιο χρήστη και διακομιστή υπάρχει ήδη στη συσκευή</string>
+    <string name="auth_account_not_the_same">Ο χρήστης που εισάγατε δεν ταιριάζει με το χρήστη αυτού του λογαριασμού</string>
+    <string name="auth_unknown_error_title">Παρουσιάστηκε άγνωστο σφάλμα!</string>
+    <string name="auth_unknown_host_title">Δεν βρέθηκε κόμβος</string>
+    <string name="auth_incorrect_path_title">Δεν βρέθηκε εγκατεστημένος διακομιστής</string>
+    <string name="auth_timeout_title">Ο διακομιστής αργεί πολύ να απαντήσει</string>
+    <string name="auth_incorrect_address_title">Εσφαλμένη μορφή διεύθυνσης διακομιστή</string>
+    <string name="auth_ssl_general_error_title">Η αρχικοποίηση του SLL απέτυχε</string>
+    <string name="auth_ssl_unverified_server_title">Αδυναμία επιβεβαίωσης της ταυτότητας του διακομιστή SSL </string>
+    <string name="auth_bad_oc_version_title">Μη-αναγνωρίσιμη έκδοση διακομιστή</string>
+    <string name="auth_wrong_connection_title">Δεν ήταν δυνατή η σύνδεση</string>
+    <string name="auth_secure_connection">Επιτεύχθηκε ασφαλής σύνδεση</string>
+    <string name="auth_unauthorized">Λάθος όνομα χρήστη ή κωδικός</string>
+    <string name="auth_oauth_error">Η πιστοποίηση απέτυχε</string>
+    <string name="auth_oauth_error_access_denied">Ο διακομιστής πιστοποίησης αρνήθηκε την πρόσβαση</string>
+    <string name="auth_wtf_reenter_URL">Απρόοπτη κατάσταση - παρακαλώ εισάγετε τη διεύθυνση URL του διακομιστή ξανά</string>
+    <string name="auth_expired_oauth_token_toast">Η πιστοποιίησή σας έληξε. Παρακαλώ πιστοποιήστε ξανά</string>
+    <string name="auth_expired_basic_auth_toast">Παρακαλώ εισάγετε τον τρέχοντα κωδικό πρόσβασης</string>
+    <string name="auth_expired_saml_sso_token_toast">Η συνεδρία σας έληξε. Παρακαλώ συνδεθείτε ξανά</string>
+    <string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης...</string>
+    <string name="auth_unsupported_auth_method">Ο διακομιστής δεν υποστηρίζει αυτή τη μέθοδο πιστοποίησης</string>
+    <string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
 	<string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλώ επικοινωνήστε με ένα διαχειριστή
 ⇥</string>
-	<string name="auth_can_not_auth_against_server">Δεν είναι δυνατή η πιστοποίηση με αυτόν το διακομιστή</string>
+    <string name="auth_can_not_auth_against_server">Δεν είναι δυνατή η πιστοποίηση με αυτόν το διακομιστή</string>
     <string name="auth_account_does_not_exist">Ο λογαριασμός δεν υπάρχει στη συσκευή ακόμα.</string>
-    
+
     <string name="favorite">Ορισμός ως διαθέσιμο εκτός σύνδεσης</string>
     <string name="common_rename">Μετονομασία</string>
     <string name="common_remove">Αφαίρεση</string>
@@ -237,10 +237,10 @@
     <string name="filedisplay_no_file_selected">Δεν επιλέχθηκαν αρχεία </string>
     <string name="activity_chooser_title">Αποστολή συνδέσμου σε &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Αντιγραφή αρχείου από ιδιωτική αποθήκευση</string>
-    
-    <string name="oauth_check_onoff">Σύνδεση με oAuth2</string> 
-    <string name="oauth_login_connection">Σύνδεση με το διακομιστή oAuth2 σε εξέλιξη...</string>    
-        
+
+    <string name="oauth_check_onoff">Σύνδεση με oAuth2</string>
+    <string name="oauth_login_connection">Σύνδεση με το διακομιστή oAuth2 σε εξέλιξη...</string>
+
     <string name="ssl_validator_header">Η ταυτότητα της σελίδας δεν μπορεί να επληθευτεί</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Το πιστοποιητικό του διακομιστή δεν είναι έμπιστο</string>
     <string name="ssl_validator_reason_cert_expired">- Το πιστοποιητικό του διακομιστή έχει λήξει</string>
@@ -284,7 +284,7 @@
     <string name="conflict_keep_both">Διατήρηση και των δύο</string>
     <string name="conflict_use_local_version">τοπική έκδοση</string>
     <string name="conflict_use_server_version">έκδοση διακομιστή</string>
-    
+
     <string name="preview_image_description">Προεπισκόπηση εικόνας</string>
     <string name="preview_image_error_unknown_format">Αυτή η εικόνα δεν μπορεί να προβληθεί</string>
 
@@ -292,10 +292,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Χρήση υποφακέλων</string>
     <string name="share_link_no_support_share_api">Λυπούμαστε, ο διαμοιρασμός δεν επιτρέπεται στο διακομιστή σας. Παρακαλούμε επικοινωνείστε με το
 		διαχειριστή σας.</string>
-	<string name="share_link_file_no_exist">Αδύνατη η κοινή χρήση. Παρακαλώ ελέγξτε αν ο φάκελος υπάρχει</string>
-	<string name="share_link_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
-	<string name="unshare_link_file_no_exist">Αδύνατη η διακοπή κοινής χρήσης.  Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
-	<string name="unshare_link_file_error">Ένα σφάλμα προέκυψε κατά τη διάρκεια ακύρωσης διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
+    <string name="share_link_file_no_exist">Αδύνατη η κοινή χρήση. Παρακαλώ ελέγξτε αν ο φάκελος υπάρχει</string>
+    <string name="share_link_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
+    <string name="unshare_link_file_no_exist">Αδύνατη η διακοπή κοινής χρήσης.  Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
+    <string name="unshare_link_file_error">Ένα σφάλμα προέκυψε κατά τη διάρκεια ακύρωσης διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
     <string name="update_link_file_no_exist">Αδύνατη η ενημέρωση. Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
     <string name="update_link_file_error">Ένα σφάλμα προέκυψε κατά την προσπάθεια ενημέρωσης του διαμοιρασμού</string>
     <string name="share_link_password_title">Εισάγετε ένα κωδικό πρόσβασης.</string>
@@ -323,18 +323,18 @@
     <string name="drawer_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="auth_redirect_non_secure_connection_title">Ασφαλής σύνδεση ανακατευθύνεται μέσω μιας μη ασφαλούς διαδρομής.</string>
 
-	<string name="actionbar_logger">Αρχεία καταγραφών</string>
-	<string name="log_send_history_button">Αποστολή ιστορικού</string>
-	<string name="log_send_no_mail_app">Δεν εντοπίστηκε εφαρμογή αποστολής αναφορών συστήματος. Παρακαλώ εγκαταστήστε την εφαρμογή ηλεκτρονικού ταχυδρομείου</string>
-	<string name="log_send_mail_subject">%1$s αναφορές της εφαρμογής Android</string>
-	<string name="log_progress_dialog_text">Φόρτωση δεδομένων &#8230;</string>
+    <string name="actionbar_logger">Αρχεία καταγραφών</string>
+    <string name="log_send_history_button">Αποστολή ιστορικού</string>
+    <string name="log_send_no_mail_app">Δεν εντοπίστηκε εφαρμογή αποστολής αναφορών συστήματος. Παρακαλώ εγκαταστήστε την εφαρμογή ηλεκτρονικού ταχυδρομείου</string>
+    <string name="log_send_mail_subject">%1$s αναφορές της εφαρμογής Android</string>
+    <string name="log_progress_dialog_text">Φόρτωση δεδομένων &#8230;</string>
 
-	<string name="saml_authentication_required_text">Απαιτείται πιστοποίηση</string>
-	<string name="saml_authentication_wrong_pass">Εσφαλμένος κωδικός πρόσβασης</string>
-	<string name="actionbar_move">Μετακίνηση</string>
+    <string name="saml_authentication_required_text">Απαιτείται πιστοποίηση</string>
+    <string name="saml_authentication_wrong_pass">Εσφαλμένος κωδικός πρόσβασης</string>
+    <string name="actionbar_move">Μετακίνηση</string>
     <string name="actionbar_copy">Αντιγραφή</string>
-	<string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
-	<string name="folder_picker_choose_button_text">Επιλέξτε</string>
+    <string name="file_list_empty_moving">Δεν υπάρχει τίποτα εδώ. Μπορείτε να προσθέσετε ένα φάκελο!</string>
+    <string name="folder_picker_choose_button_text">Επιλέξτε</string>
 
     <string name="move_file_not_found">Αδύνατη η μετακίνηση. Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
     <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
@@ -352,12 +352,12 @@
     <string name="prefs_category_instant_uploading">Στιγμιαίες μεταφορτώσεις</string>
     <string name="prefs_category_details">Λεπτομέρειες</string>
 
-	<string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
+    <string name="sync_folder_failed_content">Ο συγχρονισμός του φακέλου %1$s δεν μπόρεσε να ολοκληρωθεί</string>
 
-	<string name="shared_subject_header">διαμοιρασμένα</string>
-	<string name="with_you_subject_header">με εσάς</string>
-    
-	<string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
+    <string name="shared_subject_header">διαμοιρασμένα</string>
+    <string name="with_you_subject_header">με εσάς</string>
+
+    <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
     <string name="subject_shared_with_you">\"%1$s\" μοιράστηκε μαζί σας</string>
 
     <string name="auth_refresh_button">Ανανέωση σύνδεσης</string>
@@ -439,4 +439,4 @@
     </plurals>
     <string name="upload_file_dialog_filename">Όνομα αρχείου</string>
     <string name="upload_file_dialog_filetype">Τύπος αρχείου</string>
-    </resources>
+</resources>

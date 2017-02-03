@@ -13,9 +13,9 @@ limitations under the License.
 <!-- Layout used by CheckBoxPreference for the checkbox style. This is inflated
 inside android.R.layout.preference. -->
 <RadioButton xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+android:id/checkbox"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:layout_gravity="center"
-android:focusable="false"
-android:clickable="false" />
+             android:id="@+android:id/checkbox"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:focusable="false"
+             android:clickable="false"/>

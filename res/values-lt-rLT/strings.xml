@@ -14,8 +14,8 @@
     <string name="actionbar_sort">Rikiuoti</string>
     <string name="actionbar_sort_title">Rikiuoti pagal</string>
     <string-array name="actionbar_sortby">
-    	<item>A-Z</item>
-    	<item>Naujausi - Seniausi</item>
+        <item>A-Z</item>
+        <item>Naujausi - Seniausi</item>
     </string-array>
     <string name="drawer_item_all_files">Visi failai</string>
     <string name="drawer_item_settings">Parinktys</string>
@@ -39,8 +39,8 @@
     <string name="prefs_remember_last_share_location">Prisiminti bendrinimo vietą</string>
     <string name="prefs_remember_last_upload_location_summary">Prisiminti paskutinio bendrinimo įkėlimo vietą</string>
 
-	<string name="recommend_subject">Išbandykite %1$s savo išmaniajame telefone!</string>
-	<string name="recommend_text">Noriu pakviesti tave naudotis %1$s išmaniajame telefone!\nParsisiųks čia: %2$s</string>
+    <string name="recommend_subject">Išbandykite %1$s savo išmaniajame telefone!</string>
+    <string name="recommend_text">Noriu pakviesti tave naudotis %1$s išmaniajame telefone!\nParsisiųks čia: %2$s</string>
 
     <string name="auth_host_url">Serverio adresas </string>
     <string name="auth_username">Prisijungimo vardas</string>
@@ -119,7 +119,7 @@
     <string name="pass_code_wrong">Neteisingas užraktas</string>
     <string name="pass_code_removed">Užraktas pašalintas</string>
     <string name="pass_code_stored">Užraktas išsaugotas</string>
-    
+
     <string name="media_notif_ticker">%1$s muzikos grotuvas</string>
     <string name="media_state_playing">%1$s (grojama)</string>
     <string name="media_state_loading">%1$s (įkeliama)</string>
@@ -140,32 +140,32 @@
     <string name="media_play_pause_description">Grojimo arba pauzės mygtukas</string>
     <string name="media_forward_description">Prasukimo mygtukas</string>
 
-	<string name="auth_no_net_conn_title">Nėra tinklo ryšio</string>
-	<string name="auth_nossl_plain_ok_title">Saugus prisijungimas negalimas.</string>
-	<string name="auth_connection_established">Ryšys užmegztas</string>
-	<string name="auth_testing_connection">Bandomas sujungimas</string>
-	<string name="auth_not_configured_title">Sugadinta serverio konfigūracija</string>
-	<string name="auth_account_not_new">To paties vartotojo ir serverio paskyra jau egzistuoja šiame įrenginyje</string>
-	<string name="auth_account_not_the_same">Įvestas vartotojas neatitinka šios paskyros vartotojo</string>
-	<string name="auth_unknown_error_title">Įvyko nežinoma klaida!</string>
-	<string name="auth_unknown_host_title">Nepavyko rasti mazgo</string>
-	<string name="auth_incorrect_path_title">Šis serveris netinkamas</string>
-	<string name="auth_timeout_title">Serveris per ilgai neatsako</string>
-	<string name="auth_ssl_general_error_title">Nepavyko aktyvuoti SSL</string>
-	<string name="auth_ssl_unverified_server_title">Nepatikrinta SSL serverio tapatybė</string>
-	<string name="auth_bad_oc_version_title">Nežinoma serverio versija</string>
-	<string name="auth_wrong_connection_title">Nepavyko užmegzti ryšio</string>
-	<string name="auth_secure_connection">Užmegztas saugus ryšys</string>
-	<string name="auth_unauthorized">Neteisingas naudotojo vardas arba slaptažodis</string>
-	<string name="auth_oauth_error">Autorizacija nesėkminga</string>
-	<string name="auth_oauth_error_access_denied">Autorizacijos serveris draudžia priėjimą</string>
-	<string name="auth_expired_oauth_token_toast">Autorizacijos laikas baigėsi. Prašome autorizuotis iš naujo</string>
-	<string name="auth_expired_saml_sso_token_toast">Jūsų sesijos laikas baigėsi. Prašome prisijungti iš naujo</string>
-	<string name="auth_unsupported_auth_method">Serveris nepalaiko šio autentikacijos metodo</string>
-	<string name="auth_unsupported_multiaccount">%1$s nepalaiko kelių paskyrų iš karto</string>
-	<string name="auth_fail_get_user_name">Serveris negražina tinkamo vartotojo ID, susisiekite su administratoriumi</string>
-	<string name="auth_account_does_not_exist">Paskyra neegzistuoja įrenginyje</string>
-    
+    <string name="auth_no_net_conn_title">Nėra tinklo ryšio</string>
+    <string name="auth_nossl_plain_ok_title">Saugus prisijungimas negalimas.</string>
+    <string name="auth_connection_established">Ryšys užmegztas</string>
+    <string name="auth_testing_connection">Bandomas sujungimas</string>
+    <string name="auth_not_configured_title">Sugadinta serverio konfigūracija</string>
+    <string name="auth_account_not_new">To paties vartotojo ir serverio paskyra jau egzistuoja šiame įrenginyje</string>
+    <string name="auth_account_not_the_same">Įvestas vartotojas neatitinka šios paskyros vartotojo</string>
+    <string name="auth_unknown_error_title">Įvyko nežinoma klaida!</string>
+    <string name="auth_unknown_host_title">Nepavyko rasti mazgo</string>
+    <string name="auth_incorrect_path_title">Šis serveris netinkamas</string>
+    <string name="auth_timeout_title">Serveris per ilgai neatsako</string>
+    <string name="auth_ssl_general_error_title">Nepavyko aktyvuoti SSL</string>
+    <string name="auth_ssl_unverified_server_title">Nepatikrinta SSL serverio tapatybė</string>
+    <string name="auth_bad_oc_version_title">Nežinoma serverio versija</string>
+    <string name="auth_wrong_connection_title">Nepavyko užmegzti ryšio</string>
+    <string name="auth_secure_connection">Užmegztas saugus ryšys</string>
+    <string name="auth_unauthorized">Neteisingas naudotojo vardas arba slaptažodis</string>
+    <string name="auth_oauth_error">Autorizacija nesėkminga</string>
+    <string name="auth_oauth_error_access_denied">Autorizacijos serveris draudžia priėjimą</string>
+    <string name="auth_expired_oauth_token_toast">Autorizacijos laikas baigėsi. Prašome autorizuotis iš naujo</string>
+    <string name="auth_expired_saml_sso_token_toast">Jūsų sesijos laikas baigėsi. Prašome prisijungti iš naujo</string>
+    <string name="auth_unsupported_auth_method">Serveris nepalaiko šio autentikacijos metodo</string>
+    <string name="auth_unsupported_multiaccount">%1$s nepalaiko kelių paskyrų iš karto</string>
+    <string name="auth_fail_get_user_name">Serveris negražina tinkamo vartotojo ID, susisiekite su administratoriumi</string>
+    <string name="auth_account_does_not_exist">Paskyra neegzistuoja įrenginyje</string>
+
     <string name="common_rename">Pervadinti</string>
     <string name="common_remove">Pašalinti</string>
     <string name="confirmation_remove_alert">Ar tikrai norite pašalinti %1$s?</string>
@@ -187,10 +187,10 @@
     <string name="filedisplay_no_file_selected">Joks failas nebuvo pasirinktas</string>
     <string name="activity_chooser_title">Siųsti nuorodą asmeniui ...</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopijuoti failą iš privačios talpyklos</string>
-    
-    <string name="oauth_check_onoff">Prisijungti naudojant oAuth2</string> 
-    <string name="oauth_login_connection">Jungiamasi prie oAuth2 serverio...</string>    
-        
+
+    <string name="oauth_check_onoff">Prisijungti naudojant oAuth2</string>
+    <string name="oauth_login_connection">Jungiamasi prie oAuth2 serverio...</string>
+
     <string name="ssl_validator_header">Serverio tapatybė negali būti patikrinta</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Nepatikimas serverio sertifikatas</string>
     <string name="ssl_validator_reason_cert_expired">- Serverio sertifikatas galiojimo laikas pasibaigęs</string>
@@ -232,16 +232,16 @@
     <string name="conflict_keep_both">Palikti abu</string>
     <string name="conflict_use_local_version">Vietinė versija</string>
     <string name="conflict_use_server_version">Versija serveryje</string>
-    
+
     <string name="preview_image_description">Paveikslėlio peržiūra</string>
     <string name="preview_image_error_unknown_format">Neįmanoma parodyti šio paveikslėlio</string>
 
     <string name="error__upload__local_file_not_copied">%1$s negali būti nukopijuota į %2$s vietinį katalogą</string>
     <string name="share_link_no_support_share_api">Atsiprašome, bet serveris nepalaiko dalijimosi. Susisiekite su administratoriumi.</string>
-	<string name="share_link_file_no_exist">Nepavyko pasidalinti. Patikrinkite ar failas egzistuoja</string>
-	<string name="share_link_file_error">Įvyko klaida bandant dalinti šį failą ar aplanką</string>
-	<string name="unshare_link_file_no_exist">Nepavyksta nebedalinti. Patikrinkite ar failas egzistuoja</string>
-	<string name="unshare_link_file_error">Įvyko klaida bandant nebedalinti šio failu ar aplanku</string>
+    <string name="share_link_file_no_exist">Nepavyko pasidalinti. Patikrinkite ar failas egzistuoja</string>
+    <string name="share_link_file_error">Įvyko klaida bandant dalinti šį failą ar aplanką</string>
+    <string name="unshare_link_file_no_exist">Nepavyksta nebedalinti. Patikrinkite ar failas egzistuoja</string>
+    <string name="unshare_link_file_error">Įvyko klaida bandant nebedalinti šio failu ar aplanku</string>
     <string name="update_link_file_no_exist">Nepavyko atnaujinti. Prašau patikrinti ar failas egzistuoja</string>
     <string name="share_link_password_title">Įveskite slaptažodį</string>
     <string name="share_link_empty_password">Slaptažodis privalomas</string>
@@ -256,7 +256,7 @@
     <string name="network_error_socket_timeout_exception">Klaida prisijungiant prie serverio, operacija neįvykdyta</string>
     <string name="network_error_connect_timeout_exception">Klaida prisijungiant prie serverio, operacija neįvykdyta</string>
     <string name="network_host_not_available">Serveris nepasiekiamas, operacija negali būti atlikta</string>
-    <string name="empty" />
+    <string name="empty"/>
 
     <string name="forbidden_permissions">Neturite leidimo %s</string>
     <string name="forbidden_permissions_rename">pervadinti failo</string>
@@ -271,13 +271,13 @@
     <string name="prefs_add_account">Pridėti paskyrą</string>
     <string name="auth_redirect_non_secure_connection_title">Saugus sujungimas nukreiptas per nesaugų kelią</string>
 
-	<string name="actionbar_logger">Žurnalai</string>
-	<string name="log_send_mail_subject">%1$s Android žurnalai</string>
-	<string name="saml_authentication_required_text">Reikalinga autentikacija</string>
-	<string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
-	<string name="actionbar_move">perkelti</string>
-	<string name="file_list_empty_moving">Nieko nėra. Galite pridėti aplanką!</string>
-	<string name="folder_picker_choose_button_text">Pasirinkite</string>
+    <string name="actionbar_logger">Žurnalai</string>
+    <string name="log_send_mail_subject">%1$s Android žurnalai</string>
+    <string name="saml_authentication_required_text">Reikalinga autentikacija</string>
+    <string name="saml_authentication_wrong_pass">Neteisingas slaptažodis</string>
+    <string name="actionbar_move">perkelti</string>
+    <string name="file_list_empty_moving">Nieko nėra. Galite pridėti aplanką!</string>
+    <string name="folder_picker_choose_button_text">Pasirinkite</string>
 
     <string name="move_file_not_found">Negalima perkelti. Prašau patikrinti ar failas egzistuoja</string>
     <string name="move_file_invalid_into_descendent">Neįmanoma perkelti aplanko į poaplankį</string>
@@ -294,12 +294,12 @@
 
     <string name="prefs_category_details">Informacija</string>
 
-	<string name="sync_folder_failed_content">%1$s sinchronizavimas negali būti užbaigtas.</string>
+    <string name="sync_folder_failed_content">%1$s sinchronizavimas negali būti užbaigtas.</string>
 
-	<string name="shared_subject_header">Dalinamasi</string>
-	<string name="with_you_subject_header">su jumis</string>
-    
-	<string name="subject_user_shared_with_you">%1$s dalinamasi \"%2$s\" su jumis</string>
+    <string name="shared_subject_header">Dalinamasi</string>
+    <string name="with_you_subject_header">su jumis</string>
+
+    <string name="subject_user_shared_with_you">%1$s dalinamasi \"%2$s\" su jumis</string>
     <string name="subject_shared_with_you">\"%1$s\" dalinamasi su jumis</string>
 
     <string name="auth_refresh_button">Atnaujinti sujungimą</string>
@@ -343,4 +343,4 @@
     <string name="share_privilege_can_edit_create">sukurti</string>
     <string name="share_privilege_can_edit_change">keisti</string>
     <string name="share_privilege_can_edit_delete">ištrinti</string>
-    </resources>
+</resources>

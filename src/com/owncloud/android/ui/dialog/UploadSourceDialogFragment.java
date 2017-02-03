@@ -1,32 +1,31 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.dialog;
 
 import android.accounts.Account;
-import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -42,8 +41,8 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
  */
 public class UploadSourceDialogFragment extends DialogFragment {
 
-    private final static String TAG =  UploadSourceDialogFragment.class.getSimpleName();
-    private final static String ARG_ACCOUNT =  UploadSourceDialogFragment.class.getSimpleName() +
+    private final static String TAG = UploadSourceDialogFragment.class.getSimpleName();
+    private final static String ARG_ACCOUNT = UploadSourceDialogFragment.class.getSimpleName() +
             ".ARG_ACCOUNT";
 
     public static UploadSourceDialogFragment newInstance(Account account) {
@@ -75,7 +74,7 @@ public class UploadSourceDialogFragment extends DialogFragment {
                     Intent action = new Intent(getActivity(), UploadFilesActivity.class);
                     action.putExtra(
                             UploadFilesActivity.EXTRA_ACCOUNT,
-                            ((FileActivity)getActivity()).getAccount()
+                            ((FileActivity) getActivity()).getAccount()
                     );
                     //startActivityForResult(action, REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM);
                     // this flow seems broken;

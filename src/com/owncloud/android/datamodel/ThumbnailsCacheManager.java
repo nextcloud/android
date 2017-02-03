@@ -1,22 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author Tobias Kaminsky
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author Tobias Kaminsky
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.datamodel;
@@ -63,15 +62,15 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Manager for concurrent access to thumbnails cache.
  */
 public class ThumbnailsCacheManager {
-    
+
     private static final String TAG = ThumbnailsCacheManager.class.getSimpleName();
-    
+
     private static final String CACHE_FOLDER = "thumbnailCache";
 
     private static final Object mThumbnailsDiskCacheLock = new Object();
     private static DiskLruImageCache mThumbnailCache = null;
     private static boolean mThumbnailCacheStarting = true;
-    
+
     private static final int DISK_CACHE_SIZE = 1024 * 1024 * 10; // 10MB
     private static final CompressFormat mCompressFormat = CompressFormat.JPEG;
     private static final int mCompressQuality = 70;
@@ -89,7 +88,7 @@ public class ThumbnailsCacheManager {
                     R.drawable.file_movie
             );
 
-    
+
     public static class InitDiskCacheTask extends AsyncTask<File, Void, Void> {
 
         @Override
@@ -101,15 +100,15 @@ public class ThumbnailsCacheManager {
                     try {
                         // Check if media is mounted or storage is built-in, if so, 
                         // try and use external cache dir; otherwise use internal cache dir
-                        final String cachePath = 
-                                MainApp.getAppContext().getExternalCacheDir().getPath() + 
-                                File.separator + CACHE_FOLDER;
+                        final String cachePath =
+                                MainApp.getAppContext().getExternalCacheDir().getPath() +
+                                        File.separator + CACHE_FOLDER;
                         Log_OC.d(TAG, "create dir: " + cachePath);
                         final File diskCacheDir = new File(cachePath);
                         mThumbnailCache = new DiskLruImageCache(
-                                diskCacheDir, 
-                                DISK_CACHE_SIZE, 
-                                mCompressFormat, 
+                                diskCacheDir,
+                                DISK_CACHE_SIZE,
+                                mCompressFormat,
                                 mCompressQuality
                         );
                     } catch (Exception e) {
@@ -128,7 +127,7 @@ public class ThumbnailsCacheManager {
      * Converts size of file icon from dp to pixel
      * @return int
      */
-    private static int getThumbnailDimension(){
+    private static int getThumbnailDimension() {
         // Converts dp to pixel
         Resources r = MainApp.getAppContext().getResources();
         return Math.round(r.getDimension(R.dimen.file_icon_size_grid));
@@ -142,19 +141,19 @@ public class ThumbnailsCacheManager {
      * @param px:       thumbnail dp
      * @return Bitmap
      */
-    private static Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int px){
+    private static Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int px) {
 
         Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
 
         // Rotate image, obeying exif tag
-        thumbnail = BitmapUtils.rotateImage(thumbnail,path);
+        thumbnail = BitmapUtils.rotateImage(thumbnail, path);
 
         // Add thumbnail to cache
         addBitmapToCache(imageKey, thumbnail);
 
         return thumbnail;
     }
-    
+
     public static void addBitmapToCache(String key, Bitmap bitmap) {
         synchronized (mThumbnailsDiskCacheLock) {
             if (mThumbnailCache != null) {
@@ -199,7 +198,7 @@ public class ThumbnailsCacheManager {
             mAccount = account;
         }
 
-        public ThumbnailGenerationTask(FileDataStorageManager storageManager, Account account){
+        public ThumbnailGenerationTask(FileDataStorageManager storageManager, Account account) {
             if (storageManager == null) {
                 throw new IllegalArgumentException("storageManager must not be NULL");
             }
@@ -251,7 +250,7 @@ public class ThumbnailsCacheManager {
                     //} else {  do nothing
                 }
 
-            } catch(OutOfMemoryError oome) {
+            } catch (OutOfMemoryError oome) {
                 System.gc();
             } catch (Throwable t) {
                 // the app should never break due to a problem with thumbnails
@@ -261,15 +260,15 @@ public class ThumbnailsCacheManager {
             return thumbnail;
         }
 
-        protected void onPostExecute(Bitmap bitmap){
+        protected void onPostExecute(Bitmap bitmap) {
             if (bitmap != null && mImageViewReference != null) {
                 final ImageView imageView = mImageViewReference.get();
                 final ThumbnailGenerationTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
                 if (this == bitmapWorkerTask) {
                     String tagId = "";
-                    if (mFile instanceof OCFile){
-                        tagId = String.valueOf(((OCFile)mFile).getFileId());
-                    } else if (mFile instanceof File){
+                    if (mFile instanceof OCFile) {
+                        tagId = String.valueOf(((OCFile) mFile).getFileId());
+                    } else if (mFile instanceof File) {
                         tagId = String.valueOf(mFile.hashCode());
                     }
                     if (String.valueOf(imageView.getTag()).equals(tagId)) {
@@ -283,15 +282,15 @@ public class ThumbnailsCacheManager {
          * Converts size of file icon from dp to pixel
          * @return int
          */
-        private int getThumbnailDimension(){
+        private int getThumbnailDimension() {
             // Converts dp to pixel
             Resources r = MainApp.getAppContext().getResources();
-            Double d = Math.pow(2,Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid))/Math.log(2)));
+            Double d = Math.pow(2, Math.floor(Math.log(r.getDimension(R.dimen.file_icon_size_grid)) / Math.log(2)));
             return d.intValue();
         }
 
         private Bitmap doOCFileInBackground() {
-            OCFile file = (OCFile)mFile;
+            OCFile file = (OCFile) mFile;
 
             final String imageKey = String.valueOf(file.getRemoteId());
 
@@ -371,7 +370,7 @@ public class ThumbnailsCacheManager {
         }
 
         private Bitmap doFileInBackground() {
-            File file = (File)mFile;
+            File file = (File) mFile;
 
             final String imageKey;
             if (mImageKey != null) {
@@ -524,9 +523,9 @@ public class ThumbnailsCacheManager {
                 mUsername = params[0];
                 thumbnail = doAvatarInBackground();
 
-            } catch(OutOfMemoryError oome) {
+            } catch (OutOfMemoryError oome) {
                 System.gc(); // todo, does this really make sense?
-            } catch(Throwable t){
+            } catch (Throwable t) {
                 // the app should never break due to a problem with avatars
                 Log_OC.e(TAG, "Generation of avatar for " + mUsername + " failed", t);
             }
@@ -540,8 +539,8 @@ public class ThumbnailsCacheManager {
                 AvatarGenerationTask avatarWorkerTask = getAvatarWorkerTask(mCallContext);
                 if (this == avatarWorkerTask
                         && listener.shouldCallGeneratedCallback(mUsername, mCallContext)) {
-                        listener.avatarGenerated(new BitmapDrawable(bitmap), mCallContext);
-                    }
+                    listener.avatarGenerated(new BitmapDrawable(bitmap), mCallContext);
+                }
             }
         }
 
@@ -553,12 +552,12 @@ public class ThumbnailsCacheManager {
          * @param px:       thumbnail dp
          * @return Bitmap
          */
-        private Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int px){
+        private Bitmap addThumbnailToCache(String imageKey, Bitmap bitmap, String path, int px) {
 
             Bitmap thumbnail = ThumbnailUtils.extractThumbnail(bitmap, px, px);
 
             // Rotate image, obeying exif tag
-            thumbnail = BitmapUtils.rotateImage(thumbnail,path);
+            thumbnail = BitmapUtils.rotateImage(thumbnail, path);
 
             // Add thumbnail to cache
             addBitmapToCache(imageKey, thumbnail);
@@ -570,14 +569,14 @@ public class ThumbnailsCacheManager {
          * Converts size of file icon from dp to pixel
          * @return int
          */
-        private int getAvatarDimension(){
+        private int getAvatarDimension() {
             // Converts dp to pixel
             Resources r = MainApp.getAppContext().getResources();
             return Math.round(r.getDimension(R.dimen.file_avatar_size));
         }
 
         private Bitmap doAvatarInBackground() {
-            String username = (String) mUsername;
+            String username = mUsername;
 
             final String imageKey = "a_" + username;
 
@@ -652,7 +651,7 @@ public class ThumbnailsCacheManager {
         if (callContext instanceof ImageView) {
             return cancelPotentialAvatarWork(file, (ImageView) callContext);
         } else if (callContext instanceof MenuItem) {
-            return cancelPotentialAvatarWork(file, (MenuItem)callContext);
+            return cancelPotentialAvatarWork(file, (MenuItem) callContext);
         }
 
         return false;
@@ -707,7 +706,7 @@ public class ThumbnailsCacheManager {
         return null;
     }
 
-    public static Bitmap addVideoOverlay(Bitmap thumbnail){
+    public static Bitmap addVideoOverlay(Bitmap thumbnail) {
         Bitmap playButton = BitmapFactory.decodeResource(MainApp.getAppContext().getResources(),
                 R.drawable.view_play);
 
@@ -729,15 +728,15 @@ public class ThumbnailsCacheManager {
         int x3 = 0;
         int y3 = 0;
 
-        double ym = ( ((Math.pow(x3,2) - Math.pow(x1,2) + Math.pow(y3,2) - Math.pow(y1,2)) *
-                (x2 - x1)) - (Math.pow(x2,2) - Math.pow(x1,2) + Math.pow(y2,2) -
-                Math.pow(y1,2)) * (x3 - x1) )  /  (2 * ( ((y3 - y1) * (x2 - x1)) -
-                ((y2 - y1) * (x3 - x1)) ));
-        double xm = ( (Math.pow(x2,2) - Math.pow(x1,2)) + (Math.pow(y2,2) - Math.pow(y1,2)) -
-                (2*ym*(y2 - y1)) ) / (2*(x2 - x1));
+        double ym = (((Math.pow(x3, 2) - Math.pow(x1, 2) + Math.pow(y3, 2) - Math.pow(y1, 2)) *
+                (x2 - x1)) - (Math.pow(x2, 2) - Math.pow(x1, 2) + Math.pow(y2, 2) -
+                Math.pow(y1, 2)) * (x3 - x1)) / (2 * (((y3 - y1) * (x2 - x1)) -
+                ((y2 - y1) * (x3 - x1))));
+        double xm = ((Math.pow(x2, 2) - Math.pow(x1, 2)) + (Math.pow(y2, 2) - Math.pow(y1, 2)) -
+                (2 * ym * (y2 - y1))) / (2 * (x2 - x1));
 
         // offset to top left
-        double ox = - xm;
+        double ox = -xm;
 
 
         c.drawBitmap(thumbnail, 0, 0, null);
@@ -753,9 +752,9 @@ public class ThumbnailsCacheManager {
 
     public static AvatarGenerationTask getAvatarWorkerTask(Object callContext) {
         if (callContext instanceof ImageView) {
-            return getAvatarWorkerTask(((ImageView)callContext).getDrawable());
+            return getAvatarWorkerTask(((ImageView) callContext).getDrawable());
         } else if (callContext instanceof MenuItem) {
-            return getAvatarWorkerTask(((MenuItem)callContext).getIcon());
+            return getAvatarWorkerTask(((MenuItem) callContext).getIcon());
         }
 
         return null;
@@ -818,7 +817,7 @@ public class ThumbnailsCacheManager {
         }
     }
 
-    private static Bitmap handlePNG(Bitmap bitmap, int px){
+    private static Bitmap handlePNG(Bitmap bitmap, int px) {
         Bitmap resultBitmap = Bitmap.createBitmap(px,
                 px,
                 Bitmap.Config.ARGB_8888);

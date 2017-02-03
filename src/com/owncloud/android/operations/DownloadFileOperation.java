@@ -1,35 +1,31 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * @author masensio
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.operations;
 
-import java.io.File;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicBoolean;
+import android.accounts.Account;
+import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -37,14 +33,17 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.DownloadRemoteFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import android.accounts.Account;
-import android.webkit.MimeTypeMap;
+import java.io.File;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Remote mDownloadOperation performing the download of a file to an ownCloud server
  */
 public class DownloadFileOperation extends RemoteOperation {
-    
+
     private static final String TAG = DownloadFileOperation.class.getSimpleName();
 
     private Account mAccount;
@@ -53,10 +52,10 @@ public class DownloadFileOperation extends RemoteOperation {
     private long mModificationTimestamp = 0;
     private String mEtag = "";
     private final AtomicBoolean mCancellationRequested = new AtomicBoolean(false);
-    
+
     private DownloadRemoteFileOperation mDownloadOperation;
 
-    
+
     public DownloadFileOperation(Account account, OCFile file) {
         if (account == null) {
             throw new IllegalArgumentException("Illegal null account in DownloadFileOperation " +
@@ -66,7 +65,7 @@ public class DownloadFileOperation extends RemoteOperation {
             throw new IllegalArgumentException("Illegal null file in DownloadFileOperation " +
                     "creation");
         }
-        
+
         mAccount = account;
         mFile = file;
     }
@@ -75,7 +74,7 @@ public class DownloadFileOperation extends RemoteOperation {
     public Account getAccount() {
         return mAccount;
     }
-    
+
     public OCFile getFile() {
         return mFile;
     }
@@ -87,15 +86,15 @@ public class DownloadFileOperation extends RemoteOperation {
         }
         return FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
     }
-    
+
     public String getTmpPath() {
         return FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
     }
-    
+
     public String getTmpFolder() {
         return FileStorageUtils.getTemporalPath(mAccount.name);
     }
-    
+
     public String getRemotePath() {
         return mFile.getRemotePath();
     }
@@ -105,9 +104,9 @@ public class DownloadFileOperation extends RemoteOperation {
         if (mimeType == null || mimeType.length() <= 0) {
             try {
                 mimeType = MimeTypeMap.getSingleton()
-                    .getMimeTypeFromExtension(
-                            mFile.getRemotePath().substring(
-                                    mFile.getRemotePath().lastIndexOf('.') + 1));
+                        .getMimeTypeFromExtension(
+                                mFile.getRemotePath().substring(
+                                        mFile.getRemotePath().lastIndexOf('.') + 1));
             } catch (IndexOutOfBoundsException e) {
                 Log_OC.e(TAG, "Trying to find out MIME type of a file without extension: " +
                         mFile.getRemotePath());
@@ -118,11 +117,11 @@ public class DownloadFileOperation extends RemoteOperation {
         }
         return mimeType;
     }
-    
+
     public long getSize() {
         return mFile.getFileLength();
     }
-    
+
     public long getModificationTimestamp() {
         return (mModificationTimestamp > 0) ? mModificationTimestamp :
                 mFile.getModificationTimestamp();
@@ -137,26 +136,26 @@ public class DownloadFileOperation extends RemoteOperation {
         RemoteOperationResult result;
         File newFile;
         boolean moved;
-        
+
         /// download will be performed to a temporal file, then moved to the final location
         File tmpFile = new File(getTmpPath());
-        
-        String tmpFolder =  getTmpFolder();
-        
+
+        String tmpFolder = getTmpFolder();
+
         /// perform the download
-        synchronized(mCancellationRequested) {
+        synchronized (mCancellationRequested) {
             if (mCancellationRequested.get()) {
                 return new RemoteOperationResult(new OperationCancelledException());
             }
         }
-        
+
         mDownloadOperation = new DownloadRemoteFileOperation(mFile.getRemotePath(), tmpFolder);
         Iterator<OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
         while (listener.hasNext()) {
             mDownloadOperation.addDatatransferProgressListener(listener.next());
         }
         result = mDownloadOperation.execute(client);
-        
+
         if (result.isSuccess()) {
             mModificationTimestamp = mDownloadOperation.getModificationTimestamp();
             mEtag = mDownloadOperation.getEtag();
@@ -170,7 +169,7 @@ public class DownloadFileOperation extends RemoteOperation {
         }
         Log_OC.i(TAG, "Download of " + mFile.getRemotePath() + " to " + getSavePath() + ": " +
                 result.getLogMessage());
-        
+
         return result;
     }
 
@@ -182,12 +181,12 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
 
-    public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
+    public void addDatatransferProgressListener(OnDatatransferProgressListener listener) {
         synchronized (mDataTransferListeners) {
             mDataTransferListeners.add(listener);
         }
     }
-    
+
     public void removeDatatransferProgressListener(OnDatatransferProgressListener listener) {
         synchronized (mDataTransferListeners) {
             mDataTransferListeners.remove(listener);

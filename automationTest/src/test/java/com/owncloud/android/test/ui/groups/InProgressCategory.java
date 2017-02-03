@@ -1,5 +1,5 @@
 package com.owncloud.android.test.ui.groups;
 
-public interface InProgressCategory extends IgnoreTestCategory{
+public interface InProgressCategory extends IgnoreTestCategory {
 
 }

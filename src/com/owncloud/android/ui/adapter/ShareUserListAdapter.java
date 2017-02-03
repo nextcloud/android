@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.adapter;
@@ -44,10 +43,10 @@ public class ShareUserListAdapter extends ArrayAdapter {
     private ArrayList<OCShare> mShares;
     private ShareUserAdapterListener mListener;
 
-    public ShareUserListAdapter(Context context, int resource, ArrayList<OCShare>shares,
+    public ShareUserListAdapter(Context context, int resource, ArrayList<OCShare> shares,
                                 ShareUserAdapterListener listener) {
         super(context, resource);
-        mContext= context;
+        mContext = context;
         mShares = shares;
         mListener = listener;
     }
@@ -116,6 +115,7 @@ public class ShareUserListAdapter extends ArrayAdapter {
 
     public interface ShareUserAdapterListener {
         void unshareButtonPressed(OCShare share);
+
         void editShare(OCShare share);
     }
 }

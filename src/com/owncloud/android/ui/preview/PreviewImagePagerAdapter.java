@@ -1,30 +1,22 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015  ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2015  ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.preview;
-
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-import java.util.Vector;
 
 import android.accounts.Account;
 import android.support.v4.app.Fragment;
@@ -37,24 +29,31 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
 /**
  * Adapter class that provides Fragment instances
  */
 //public class PreviewImagePagerAdapter extends PagerAdapter {
 public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
-    
+
     private Vector<OCFile> mImageFiles;
     private Account mAccount;
     private Set<Object> mObsoleteFragments;
     private Set<Integer> mObsoletePositions;
     private Set<Integer> mDownloadErrors;
     private FileDataStorageManager mStorageManager;
-    
+
     private Map<Integer, FileFragment> mCachedFragments;
 
     /**
      * Constructor.
-     * 
+     *
      * @param fragmentManager   {@link FragmentManager} instance that will handle
      *                          the {@link Fragment}s provided by the adapter.
      * @param parentFolder      Folder where images will be searched for.
@@ -64,13 +63,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                                     Account account, FileDataStorageManager storageManager,
                                     boolean onlyOnDevice) {
         super(fragmentManager);
-        
+
         if (fragmentManager == null) {
             throw new IllegalArgumentException("NULL FragmentManager instance");
         }
         if (parentFolder == null) {
             throw new IllegalArgumentException("NULL parent folder");
-        } 
+        }
         if (storageManager == null) {
             throw new IllegalArgumentException("NULL storage manager");
         }
@@ -78,38 +77,38 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mAccount = account;
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
-        
+
         mImageFiles = FileStorageUtils.sortOcFolder(mImageFiles);
-        
+
         mObsoleteFragments = new HashSet<Object>();
         mObsoletePositions = new HashSet<Integer>();
         mDownloadErrors = new HashSet<Integer>();
         //mFragmentManager = fragmentManager;
         mCachedFragments = new HashMap<Integer, FileFragment>();
     }
-    
+
     /**
      * Returns the image files handled by the adapter.
-     * 
-     * @return  A vector with the image files handled by the adapter.
+     *
+     * @return A vector with the image files handled by the adapter.
      */
     protected OCFile getFileAt(int position) {
         return mImageFiles.get(position);
     }
 
-    
+
     public Fragment getItem(int i) {
         OCFile file = mImageFiles.get(i);
         Fragment fragment = null;
         if (file.isDown()) {
             fragment = PreviewImageFragment.newInstance(file,
                     mObsoletePositions.contains(Integer.valueOf(i)));
-            
+
         } else if (mDownloadErrors.contains(Integer.valueOf(i))) {
             fragment = FileDownloadFragment.newInstance(file, mAccount, true);
-            ((FileDownloadFragment)fragment).setError(true);
+            ((FileDownloadFragment) fragment).setError(true);
             mDownloadErrors.remove(Integer.valueOf(i));
-            
+
         } else {
             fragment = FileDownloadFragment.newInstance(
                     file, mAccount, mObsoletePositions.contains(Integer.valueOf(i))
@@ -122,7 +121,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     public int getFilePosition(OCFile file) {
         return mImageFiles.indexOf(file);
     }
-    
+
     @Override
     public int getCount() {
         return mImageFiles.size();
@@ -133,7 +132,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         return mImageFiles.get(position).getFileName();
     }
 
-    
+
     public void updateFile(int position, OCFile file) {
         FileFragment fragmentToUpdate = mCachedFragments.get(Integer.valueOf(position));
         if (fragmentToUpdate != null) {
@@ -142,8 +141,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mObsoletePositions.add(Integer.valueOf(position));
         mImageFiles.set(position, file);
     }
-    
-    
+
+
     public void updateWithDownloadError(int position) {
         FileFragment fragmentToUpdate = mCachedFragments.get(Integer.valueOf(position));
         if (fragmentToUpdate != null) {
@@ -151,7 +150,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         }
         mDownloadErrors.add(Integer.valueOf(position));
     }
-    
+
     public void clearErrorAt(int position) {
         FileFragment fragmentToUpdate = mCachedFragments.get(Integer.valueOf(position));
         if (fragmentToUpdate != null) {
@@ -159,8 +158,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         }
         mDownloadErrors.remove(Integer.valueOf(position));
     }
-    
-    
+
+
     @Override
     public int getItemPosition(Object object) {
         if (mObsoleteFragments.contains(object)) {
@@ -174,14 +173,14 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         Object fragment = super.instantiateItem(container, position);
-        mCachedFragments.put(Integer.valueOf(position), (FileFragment)fragment);
+        mCachedFragments.put(Integer.valueOf(position), (FileFragment) fragment);
         return fragment;
     }
-    
+
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-       mCachedFragments.remove(Integer.valueOf(position));
-       super.destroyItem(container, position, object);
+        mCachedFragments.remove(Integer.valueOf(position));
+        super.destroyItem(container, position, object);
     }
 
 
@@ -195,7 +194,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     public void resetZoom() {
         Iterator<FileFragment> entries = mCachedFragments.values().iterator();
         while (entries.hasNext()) {
-        FileFragment fileFragment = (FileFragment) entries.next();
+            FileFragment fileFragment = entries.next();
             if (fileFragment instanceof PreviewImageFragment) {
                 ((PreviewImageFragment) fileFragment).getImageView().resetZoom();
             }

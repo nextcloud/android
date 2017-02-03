@@ -1,22 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author masensio
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.operations;
@@ -69,7 +68,7 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         boolean publicShareExists = false;
         if (result.isSuccess()) {
             OCShare share = null;
-            for (int i=0 ; i<result.getData().size(); i++) {
+            for (int i = 0; i < result.getData().size(); i++) {
                 share = (OCShare) result.getData().get(i);
                 if (ShareType.PUBLIC_LINK.equals(share.getShareType())) {
                     publicShareExists = true;
@@ -89,16 +88,16 @@ public class CreateShareViaLinkOperation extends SyncOperation {
             createOp.setGetShareDetails(true);
             result = createOp.execute(client);
         }
-        
+
         if (result.isSuccess()) {
             if (result.getData().size() > 0) {
                 Object item = result.getData().get(0);
-                if (item instanceof  OCShare) {
+                if (item instanceof OCShare) {
                     updateData((OCShare) item);
                 } else {
                     ArrayList<Object> data = result.getData();
                     result = new RemoteOperationResult(
-                        RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
+                            RemoteOperationResult.ResultCode.SHARE_NOT_FOUND
                     );
                     result.setData(data);
                 }
@@ -106,10 +105,10 @@ public class CreateShareViaLinkOperation extends SyncOperation {
                 result = new RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
             }
         }
-        
+
         return result;
     }
-    
+
     public String getPath() {
         return mPath;
     }
@@ -128,10 +127,10 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         }
 
         getStorageManager().saveShare(share);
-        
+
         // Update OCFile with data from share: ShareByLink  and publicLink
         OCFile file = getStorageManager().getFileByPath(mPath);
-        if (file!=null) {
+        if (file != null) {
             file.setPublicLink(share.getShareLink());
             file.setShareViaLink(true);
             getStorageManager().saveFile(file);

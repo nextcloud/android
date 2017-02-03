@@ -18,11 +18,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="@dimen/standard_padding" >
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical"
+              android:padding="@dimen/standard_padding">
 
 
     <TextView
@@ -33,7 +33,7 @@
         android:textColor="@android:color/black"
         android:gravity="center_horizontal"
         android:textSize="@dimen/two_line_primary_text_size"
-         />
+        />
 
     <TextView
         android:id="@+id/explanation"
@@ -43,12 +43,12 @@
         android:textAppearance="@android:style/TextAppearance.Small"
         android:gravity="center_horizontal"
         android:textSize="@dimen/two_line_secondary_text_size"
-         />
-    
+        />
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal" >
+        android:gravity="center_horizontal">
 
         <EditText
             android:id="@+id/txt0"
@@ -56,7 +56,10 @@
             style="@style/PassCodeStyle"
             android:cursorVisible="true"
             android:imeOptions="flagNoExtractUi"
-            ><requestFocus/></EditText>
+            >
+
+            <requestFocus/>
+        </EditText>
 
         <EditText
             android:id="@+id/txt1"
@@ -85,6 +88,6 @@
         android:theme="@style/Button.Primary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/common_cancel" />
+        android:text="@string/common_cancel"/>
 
 </LinearLayout>

@@ -533,7 +533,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
             } else {
                 // not supported in ownCloud
                 Snackbar.make(getView(), R.string.files_drop_not_supported, Snackbar.LENGTH_LONG)
-                        .setAction(R.string.learn_more, new View.OnClickListener(){
+                        .setAction(R.string.learn_more, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
                                 Intent i = new Intent(Intent.ACTION_VIEW);
@@ -913,9 +913,9 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     /**
      * Starts a dialog that requests a password to the user to protect a share link.
      *
-     * @param   createShare     When 'true', the request for password will be followed by the creation of a new
-     *                          public link; when 'false', a public share is assumed to exist, and the password
-     *                          is bound to it.
+     * @param createShare When 'true', the request for password will be followed by the creation of a new
+     *                    public link; when 'false', a public share is assumed to exist, and the password
+     *                    is bound to it.
      */
     public void requestPasswordForShareViaLink(boolean createShare) {
         SharePasswordDialogFragment dialog = SharePasswordDialogFragment.newInstance(mFile, createShare);

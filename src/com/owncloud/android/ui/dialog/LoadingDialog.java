@@ -1,24 +1,21 @@
 /**
- *   ownCloud Android client application
- *
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * ownCloud Android client application
+ * <p>
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.dialog;
-
-import com.owncloud.android.R;
 
 import android.app.Dialog;
 import android.graphics.PorterDuff;
@@ -31,14 +28,16 @@ import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.owncloud.android.R;
+
 public class LoadingDialog extends DialogFragment {
 
     private String mMessage;
-    
+
     public LoadingDialog() {
         super();
     }
-    
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,17 +52,17 @@ public class LoadingDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Create a view by inflating desired layout
-        View v = inflater.inflate(R.layout.loading_dialog, container,  false);
-        
+        View v = inflater.inflate(R.layout.loading_dialog, container, false);
+
         // set value
-        TextView tv  = (TextView) v.findViewById(R.id.loadingText);
+        TextView tv = (TextView) v.findViewById(R.id.loadingText);
         tv.setText(mMessage);
 
         // set progress wheel color
-        ProgressBar progressBar  = (ProgressBar) v.findViewById(R.id.loadingBar);
+        ProgressBar progressBar = (ProgressBar) v.findViewById(R.id.loadingBar);
         progressBar.getIndeterminateDrawable().setColorFilter(
                 getResources().getColor(R.color.color_accent), PorterDuff.Mode.SRC_IN);
-        
+
         return v;
     }
 

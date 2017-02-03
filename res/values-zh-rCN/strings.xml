@@ -21,7 +21,7 @@
     <string name="drawer_item_settings">设置</string>
     <string name="drawer_item_uploads_list">上传</string>
     <string name="drawer_quota">%1$s 之 %2$s 已使用</string>
-	<string name="drawer_close">关闭</string>
+    <string name="drawer_close">关闭</string>
     <string name="drawer_open">打开</string>
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
@@ -50,8 +50,8 @@
     <string name="prefs_remember_last_share_location">记住共享位置</string>
     <string name="prefs_remember_last_upload_location_summary">记住上次共享上传的位置</string>
 
-	<string name="recommend_subject">在您的智能手机上试用 %1$s！</string>
-	<string name="recommend_text">我邀请你在智能手机上使用 %1$s\n下载路径：%2$s</string>
+    <string name="recommend_subject">在您的智能手机上试用 %1$s！</string>
+    <string name="recommend_text">我邀请你在智能手机上使用 %1$s\n下载路径：%2$s</string>
 
     <string name="auth_check_server">检查服务器</string>
     <string name="auth_host_url">服务器地址 https://...</string>
@@ -176,7 +176,7 @@
     <string name="foreign_files_remote_text">远程:%1$s</string>
     <string name="upload_query_move_foreign_files">没有足够的空间复制文件夹 %1$s，是否使用剪切？</string>
     <string name="pass_code_enter_pass_code">请输入你的密码</string>
-    
+
     <string name="pass_code_configure_your_pass_code">输入您的密码</string>
     <string name="pass_code_configure_your_pass_code_explanation">每次应用启动将会请求密码</string>
     <string name="pass_code_reenter_your_pass_code">请再次输入你的密码</string>
@@ -185,7 +185,7 @@
     <string name="pass_code_wrong">错误的密码</string>
     <string name="pass_code_removed">移除的密码</string>
     <string name="pass_code_stored">存储的密码</string>
-    
+
     <string name="media_notif_ticker">%1$s 音乐播放器</string>
     <string name="media_state_playing">%1$s (播放中)</string>
     <string name="media_state_loading">%1$s (载入中)</string>
@@ -206,40 +206,40 @@
     <string name="media_play_pause_description">播放暂停按钮</string>
     <string name="media_forward_description">快进按钮</string>
 
-	<string name="auth_getting_authorization">认证中 &#8230;</string>
-	<string name="auth_trying_to_login">尝试登录中 &#8230;</string>
-	<string name="auth_no_net_conn_title">没有网络连接</string>
-	<string name="auth_nossl_plain_ok_title">安全连接不可用。</string>
-	<string name="auth_connection_established">连接已建立。</string>
-	<string name="auth_testing_connection">测试连接</string>
-	<string name="auth_not_configured_title">服务器配置不正确</string>
-	<string name="auth_account_not_new">此设备中已经存在同名同服务器的帐号</string>
-	<string name="auth_account_not_the_same">输入用户与此帐户的用户不符</string>
-	<string name="auth_unknown_error_title">发生未知错误！</string>
-	<string name="auth_unknown_host_title">无法找到主机</string>
-	<string name="auth_incorrect_path_title">未发现服务器实例</string>
-	<string name="auth_timeout_title">看起来服务器不太给力</string>
-	<string name="auth_incorrect_address_title">错误的服务器地址</string>
-	<string name="auth_ssl_general_error_title">SSL初始化失败</string>
-	<string name="auth_ssl_unverified_server_title">无法验证 SSL 服务器的身份</string>
-	<string name="auth_bad_oc_version_title">不可辨识的服务器服务器版本</string>
-	<string name="auth_wrong_connection_title">无法建立连接</string>
-	<string name="auth_secure_connection">安全连接已建立</string>
-	<string name="auth_unauthorized">用户名或密码错误</string>
-	<string name="auth_oauth_error">认证不成功</string>
-	<string name="auth_oauth_error_access_denied">访问被认证服务器拒绝</string>
-	<string name="auth_wtf_reenter_URL">未知状态，请重新输入服务器地址</string>
-	<string name="auth_expired_oauth_token_toast">你的授权已经过期。请重新授权。</string>
-	<string name="auth_expired_basic_auth_toast">请输入当前的密码</string>
-	<string name="auth_expired_saml_sso_token_toast">您的会话超时了，请重新连接</string>
-	<string name="auth_connecting_auth_server">连接认证服务器...</string>
-	<string name="auth_unsupported_auth_method">服务器不支持这种验证方式</string>
-	<string name="auth_unsupported_multiaccount">%1$s不支持多个账户</string>
+    <string name="auth_getting_authorization">认证中 &#8230;</string>
+    <string name="auth_trying_to_login">尝试登录中 &#8230;</string>
+    <string name="auth_no_net_conn_title">没有网络连接</string>
+    <string name="auth_nossl_plain_ok_title">安全连接不可用。</string>
+    <string name="auth_connection_established">连接已建立。</string>
+    <string name="auth_testing_connection">测试连接</string>
+    <string name="auth_not_configured_title">服务器配置不正确</string>
+    <string name="auth_account_not_new">此设备中已经存在同名同服务器的帐号</string>
+    <string name="auth_account_not_the_same">输入用户与此帐户的用户不符</string>
+    <string name="auth_unknown_error_title">发生未知错误！</string>
+    <string name="auth_unknown_host_title">无法找到主机</string>
+    <string name="auth_incorrect_path_title">未发现服务器实例</string>
+    <string name="auth_timeout_title">看起来服务器不太给力</string>
+    <string name="auth_incorrect_address_title">错误的服务器地址</string>
+    <string name="auth_ssl_general_error_title">SSL初始化失败</string>
+    <string name="auth_ssl_unverified_server_title">无法验证 SSL 服务器的身份</string>
+    <string name="auth_bad_oc_version_title">不可辨识的服务器服务器版本</string>
+    <string name="auth_wrong_connection_title">无法建立连接</string>
+    <string name="auth_secure_connection">安全连接已建立</string>
+    <string name="auth_unauthorized">用户名或密码错误</string>
+    <string name="auth_oauth_error">认证不成功</string>
+    <string name="auth_oauth_error_access_denied">访问被认证服务器拒绝</string>
+    <string name="auth_wtf_reenter_URL">未知状态，请重新输入服务器地址</string>
+    <string name="auth_expired_oauth_token_toast">你的授权已经过期。请重新授权。</string>
+    <string name="auth_expired_basic_auth_toast">请输入当前的密码</string>
+    <string name="auth_expired_saml_sso_token_toast">您的会话超时了，请重新连接</string>
+    <string name="auth_connecting_auth_server">连接认证服务器...</string>
+    <string name="auth_unsupported_auth_method">服务器不支持这种验证方式</string>
+    <string name="auth_unsupported_multiaccount">%1$s不支持多个账户</string>
 	<string name="auth_fail_get_user_name">您的服务器没有返回一个正确的用户 id，请联系管理员
 	</string>
-	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
+    <string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_account_does_not_exist">设备中还未存在该帐号</string>
-    
+
     <string name="favorite">可以设置离线</string>
     <string name="unfavorite">不可以设置离线</string>
     <string name="common_rename">重命名</string>
@@ -264,10 +264,10 @@
     <string name="filedisplay_no_file_selected">未选择文件</string>
     <string name="activity_chooser_title">发送链接给 &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">从私有存储中拷贝文件</string>
-    
-    <string name="oauth_check_onoff">使用oAuth2登陆</string> 
-    <string name="oauth_login_connection">连接oAuth2 服务器...</string>    
-        
+
+    <string name="oauth_check_onoff">使用oAuth2登陆</string>
+    <string name="oauth_login_connection">连接oAuth2 服务器...</string>
+
     <string name="ssl_validator_header">站点身份无法验证</string>
     <string name="ssl_validator_reason_cert_not_trusted">- 不受信任的服务器证书</string>
     <string name="ssl_validator_reason_cert_expired">- 服务器证书过期</string>
@@ -314,7 +314,7 @@
     <string name="conflict_keep_both">保留两者</string>
     <string name="conflict_use_local_version">本地版本</string>
     <string name="conflict_use_server_version">服务器版本</string>
-    
+
     <string name="preview_image_description">图片预览</string>
     <string name="preview_image_error_unknown_format">无法显示图片</string>
 
@@ -325,11 +325,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
 
-	<string name="share_link_no_support_share_api">抱歉，共享功能未启用。请联系管理员。</string>
-	<string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
-	<string name="share_link_file_error">共享文件或目录出错</string>
-	<string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
-	<string name="unshare_link_file_error">解除文件或目录共享时出错</string>
+    <string name="share_link_no_support_share_api">抱歉，共享功能未启用。请联系管理员。</string>
+    <string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
+    <string name="share_link_file_error">共享文件或目录出错</string>
+    <string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
+    <string name="unshare_link_file_error">解除文件或目录共享时出错</string>
     <string name="update_link_file_no_exist">无法上传，请检查文件是否存在</string>
     <string name="update_link_file_error">更新共享时发生错误</string>
     <string name="share_link_password_title">输入密码</string>
@@ -386,18 +386,18 @@
     <string name="drawer_manage_accounts">管理账号</string>
     <string name="auth_redirect_non_secure_connection_title">安全连接是通过一个非安全路由定向的。</string>
 
-	<string name="actionbar_logger">日志</string>
-	<string name="log_send_history_button">发送历史日志</string>
-	<string name="log_send_no_mail_app">无法发送日志，请安装邮箱应用。</string>
-	<string name="log_send_mail_subject">%1$s Android 程序日志</string>
-	<string name="log_progress_dialog_text">加载数据 &#8230;</string>
+    <string name="actionbar_logger">日志</string>
+    <string name="log_send_history_button">发送历史日志</string>
+    <string name="log_send_no_mail_app">无法发送日志，请安装邮箱应用。</string>
+    <string name="log_send_mail_subject">%1$s Android 程序日志</string>
+    <string name="log_progress_dialog_text">加载数据 &#8230;</string>
 
-	<string name="saml_authentication_required_text">需要认证</string>
-	<string name="saml_authentication_wrong_pass">错误密码</string>
-	<string name="actionbar_move">移动</string>
+    <string name="saml_authentication_required_text">需要认证</string>
+    <string name="saml_authentication_wrong_pass">错误密码</string>
+    <string name="actionbar_move">移动</string>
     <string name="actionbar_copy">复制</string>
-	<string name="file_list_empty_moving">这里还什么都没有。上传些东西吧！</string>
-	<string name="folder_picker_choose_button_text">选择</string>
+    <string name="file_list_empty_moving">这里还什么都没有。上传些东西吧！</string>
+    <string name="folder_picker_choose_button_text">选择</string>
 
     <string name="move_file_not_found">无法移动。请检查文件是否存在</string>
     <string name="move_file_invalid_into_descendent">无法把一个目录移动到它的下级</string>
@@ -415,13 +415,13 @@
     <string name="prefs_category_instant_uploading">即时上传</string>
     <string name="prefs_category_details">详细信息</string>
 
-	<string name="prefs_instant_video_upload_path_title">实时上传视频目录</string>
+    <string name="prefs_instant_video_upload_path_title">实时上传视频目录</string>
     <string name="sync_folder_failed_content"> %1$s同步未完成。</string>
 
-	<string name="shared_subject_header">已共享</string>
-	<string name="with_you_subject_header">与你</string>
-    
-	<string name="subject_user_shared_with_you">%1$s和你分享了“%2$s”</string>
+    <string name="shared_subject_header">已共享</string>
+    <string name="with_you_subject_header">与你</string>
+
+    <string name="subject_user_shared_with_you">%1$s和你分享了“%2$s”</string>
     <string name="subject_shared_with_you">已与你分享“%1$s”</string>
 
     <string name="auth_refresh_button">刷新连接</string>

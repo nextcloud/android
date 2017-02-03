@@ -1,23 +1,22 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author LukeOwncloud
- *   @author masensio
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author LukeOwncloud
+ * @author masensio
+ * @author David A. Velasco
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.db;
@@ -41,7 +40,7 @@ import java.io.File;
 /**
  * Stores all information in order to start upload operations. PersistentUploadObject can
  * be stored persistently by {@link UploadsStorageManager}.
- * 
+ *
  */
 public class OCUpload implements Parcelable {
 
@@ -158,6 +157,7 @@ public class OCUpload implements Parcelable {
     public void setUploadId(long id) {
         mId = id;
     }
+
     public long getUploadId() {
         return mId;
     }
@@ -220,7 +220,7 @@ public class OCUpload implements Parcelable {
 
 
     /**
-     * @return  File size
+     * @return File size
      */
     public long getFileSize() {
         return mFileSize;
@@ -306,7 +306,7 @@ public class OCUpload implements Parcelable {
         mUploadEndTimeStamp = uploadEndTimestamp;
     }
 
-    public long getUploadEndTimestamp(){
+    public long getUploadEndTimestamp() {
         return mUploadEndTimeStamp;
     }
 
@@ -318,8 +318,8 @@ public class OCUpload implements Parcelable {
             String localPath = getLocalPath() != null ? getLocalPath() : "";
             return localPath + " status:" + getUploadStatus() + " result:" +
                     (getLastResult() == null ? "null" : getLastResult().getValue());
-        } catch (NullPointerException e){
-            Log_OC.d(TAG, "Exception " + e.toString() );
+        } catch (NullPointerException e) {
+            Log_OC.d(TAG, "Exception " + e.toString());
             return (e.toString());
         }
     }
@@ -392,6 +392,6 @@ public class OCUpload implements Parcelable {
         dest.writeInt(mCreatedBy);
     }
 
-    enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR};
+    enum CanUploadFileNowStatus {NOW, LATER, FILE_GONE, ERROR}
 
 }

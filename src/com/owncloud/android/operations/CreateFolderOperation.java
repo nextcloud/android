@@ -1,22 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * @author masensio
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.operations;
@@ -37,16 +36,16 @@ import com.owncloud.android.utils.MimeType;
  * Access to remote operation performing the creation of a new folder in the ownCloud server.
  * Save the new folder in Database
  */
-public class CreateFolderOperation extends SyncOperation implements OnRemoteOperationListener{
-    
+public class CreateFolderOperation extends SyncOperation implements OnRemoteOperationListener {
+
     private static final String TAG = CreateFolderOperation.class.getSimpleName();
-    
+
     protected String mRemotePath;
     private boolean mCreateFullPath;
-    
+
     /**
      * Constructor
-     * 
+     *
      * @param createFullPath        'True' means that all the ancestor folders should be created
      *                              if don't exist yet.
      */
@@ -59,14 +58,14 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         CreateRemoteFolderOperation operation = new CreateRemoteFolderOperation(mRemotePath, mCreateFullPath);
-        RemoteOperationResult result =  operation.execute(client);
-        
+        RemoteOperationResult result = operation.execute(client);
+
         if (result.isSuccess()) {
             saveFolderInDB();
         } else {
             Log_OC.e(TAG, mRemotePath + " hasn't been created");
         }
-        
+
         return result;
     }
 
@@ -76,13 +75,13 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             onCreateRemoteFolderOperationFinish(result);
         }
     }
-    
+
     private void onCreateRemoteFolderOperationFinish(RemoteOperationResult result) {
-       if (result.isSuccess()) {
-           saveFolderInDB();
-       } else {
-           Log_OC.e(TAG, mRemotePath + " hasn't been created");
-       }
+        if (result.isSuccess()) {
+            saveFolderInDB();
+        } else {
+            Log_OC.e(TAG, mRemotePath + " hasn't been created");
+        }
     }
 
     /**
@@ -90,9 +89,9 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
      */
     public void saveFolderInDB() {
         if (mCreateFullPath && getStorageManager().
-                getFileByPath(FileStorageUtils.getParentPath(mRemotePath)) == null){// When parent
-                                                                                    // of remote path
-                                                                                    // is not created 
+                getFileByPath(FileStorageUtils.getParentPath(mRemotePath)) == null) {// When parent
+            // of remote path
+            // is not created
             String[] subFolders = mRemotePath.split("/");
             String composedRemotePath = "/";
 

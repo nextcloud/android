@@ -5,34 +5,34 @@
 
     <!-- App name  and other strings-->
     <string name="app_name">Nextcloud</string>
-    <string name="account_type">nextcloud</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
-    <string name="authority">org.nextcloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="account_type">nextcloud</string>    <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
+    <string name="authority">org.nextcloud</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
     <string name="document_provider_authority">org.nextcloud.documents</string>
     <string name="file_provider_authority">org.nextcloud.files</string>
-    <string name ="db_file">nextcloud.db</string>
-    <string name ="db_name">nextcloud</string>
-    <string name ="data_folder">nextcloud</string>
-    <string name ="log_name">nextcloud</string>
-    <string name ="default_display_name_for_root_folder">Nextcloud</string>
-    <string name ="user_agent">Mozilla/5.0 (Android) ownCloud-android/%1$s</string>
-    
+    <string name="db_file">nextcloud.db</string>
+    <string name="db_name">nextcloud</string>
+    <string name="data_folder">nextcloud</string>
+    <string name="log_name">nextcloud</string>
+    <string name="default_display_name_for_root_folder">Nextcloud</string>
+    <string name="user_agent">Mozilla/5.0 (Android) ownCloud-android/%1$s</string>
+
     <!-- URLs and flags related -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
     <bool name="show_welcome_link">true</bool>
-	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
-	<string name="share_api_link"></string>
-    
+    <string name="welcome_link_url">"https://nextcloud.com/providers"</string>
+    <string name="share_api_link"></string>
+
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
     <string name="auth_method_saml_web_sso">off</string>
-    
+
     <!-- Flags to enable/disable some features -->
-    <string name = "send_files_to_other_apps">on</string>
-    <bool name = "share_via_link_feature">true</bool>
-    <bool name = "share_with_users_feature">true</bool>
-    
-    
+    <string name="send_files_to_other_apps">on</string>
+    <bool name="share_via_link_feature">true</bool>
+    <bool name="share_with_users_feature">true</bool>
+
+
     <!-- Colors -->
     <color name="login_text_color">@color/white</color>
     <color name="login_text_hint_color">#7fC0E3</color>
@@ -57,11 +57,11 @@
 
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">true</bool>
-    
+
     <!-- Help, imprint and feedback -->
     <bool name="calendar_contacts_enabled">true</bool>
     <bool name="help_enabled">true</bool>
-    <bool name="imprint_enabled">false</bool> 
+    <bool name="imprint_enabled">false</bool>
     <bool name="recommend_enabled">true</bool>
     <bool name="feedback_enabled">true</bool>
     <bool name="logger_enabled">false</bool>

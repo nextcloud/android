@@ -17,15 +17,14 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/textView1"
-    android:layout_width="wrap_content"
-    android:background="#fff"
-    android:layout_height="@dimen/min_list_item_size"
-    android:layout_marginLeft="@dimen/standard_half_margin"
-    android:gravity="left"
-    android:paddingLeft="@dimen/standard_padding"
-    android:paddingTop="@dimen/standard_half_padding"
-    android:textSize="@dimen/listrow_group_text_size"
-    android:groupIndicator="@android:color/transparent"
-/> 
+          android:id="@+id/textView1"
+          android:layout_width="wrap_content"
+          android:background="#fff"
+          android:layout_height="@dimen/min_list_item_size"
+          android:layout_marginLeft="@dimen/standard_half_margin"
+          android:gravity="left"
+          android:paddingLeft="@dimen/standard_padding"
+          android:paddingTop="@dimen/standard_half_padding"
+          android:textSize="@dimen/listrow_group_text_size"
+          android:groupIndicator="@android:color/transparent"
+    />

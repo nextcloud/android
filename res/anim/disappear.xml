@@ -19,9 +19,10 @@
 -->
 <set xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<alpha
-		android:interpolator="@android:anim/decelerate_interpolator"
-		android:fromAlpha="1.0" android:toAlpha="0.0"
-		android:duration="400"
-	/>
+    <alpha
+        android:interpolator="@android:anim/decelerate_interpolator"
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:duration="400"
+        />
 </set>

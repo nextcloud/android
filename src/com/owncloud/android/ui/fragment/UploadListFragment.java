@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author LukeOwncloud
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author LukeOwncloud
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.fragment;
 
@@ -53,7 +52,8 @@ public class UploadListFragment extends ExpandableListFragment {
     public void setBinderReady(boolean ready) {
         mBinderReady = ready;
     }
-    public boolean isBinderReady(){
+
+    public boolean isBinderReady() {
         return mBinderReady;
     }
 
@@ -68,7 +68,7 @@ public class UploadListFragment extends ExpandableListFragment {
         setOnRefreshListener(this);
         return v;
     }
-    
+
     @Override
     public void onRefresh() {
         // remove the progress circle as soon as pull is triggered, like in the list of files
@@ -100,7 +100,7 @@ public class UploadListFragment extends ExpandableListFragment {
     public void onStart() {
         Log_OC.d(TAG, "onStart() start");
         super.onStart();
-        mAdapter = new ExpandableUploadListAdapter((FileActivity)getActivity());
+        mAdapter = new ExpandableUploadListAdapter((FileActivity) getActivity());
         setListAdapter(mAdapter);
     }
 
@@ -120,7 +120,7 @@ public class UploadListFragment extends ExpandableListFragment {
     /**
      * Interface to implement by any Activity that includes some instance of
      * UploadListFragment
-     * 
+     *
      * @author LukeOwncloud
      */
     public interface ContainerActivity {
@@ -132,10 +132,10 @@ public class UploadListFragment extends ExpandableListFragment {
          * @param file the file that has been clicked on.
          * @return return true if click was handled.
          */
-        public boolean onUploadItemClick(OCUpload file);
+        boolean onUploadItemClick(OCUpload file);
     }
 
-    public void binderReady(){
+    public void binderReady() {
         setBinderReady(true);
 
         if (mAdapter != null) {
@@ -143,7 +143,7 @@ public class UploadListFragment extends ExpandableListFragment {
         }
     }
 
-    public void updateUploads(){
+    public void updateUploads() {
         if (mAdapter != null) {
             mAdapter.refreshView();
         }

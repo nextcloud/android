@@ -17,6 +17,7 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+
     <style name="Theme.ownCloud.Toolbar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="windowNoTitle">true</item>

@@ -1,30 +1,24 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2012 Bartek Przybylski
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.services.observer;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import android.accounts.Account;
 import android.app.Service;
@@ -44,15 +38,20 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 
 /**
  * Service keeping a list of {@link FolderObserver} instances that watch for local
  * changes in favorite files (formerly known as kept-in-sync files) and try to
  * synchronize them with the OC server as soon as possible.
- * 
+ *
  * Tries to be alive as long as possible; that is the reason why stopSelf() is
  * never called.
- * 
+ *
  * It is expected that the system eventually kills the service when runs low of
  * memory. To minimize the impact of this, the service always returns
  * Service.START_STICKY, and the later restart of the service is explicitly
@@ -75,9 +74,9 @@ public class FileObserverService extends Service {
 
     /**
      * Factory method to create intents that allow to start an ACTION_START_OBSERVE command.
-     * 
+     *
      * @param context   Android context of the caller component.
-     * @return          Intent that starts a command ACTION_START_OBSERVE when
+     * @return Intent that starts a command ACTION_START_OBSERVE when
      *                  {@link Context#startService(Intent)} is called.
      */
     public static Intent makeInitIntent(Context context) {
@@ -89,12 +88,12 @@ public class FileObserverService extends Service {
     /**
      * Factory method to create intents that allow to start or stop the
      * observance of a file.
-     * 
+     *
      * @param context       Android context of the caller component.
      * @param file          OCFile to start or stop to watch.
      * @param account       OC account containing file.
      * @param watchIt       'True' creates an intent to watch, 'false' an intent to stop watching.
-     * @return              Intent to start or stop the observance of a file through a call
+     * @return Intent to start or stop the observance of a file through a call
      *                      to {@link Context#startService(Intent)}.
      */
     public static Intent makeObservedFileIntent(
@@ -168,8 +167,8 @@ public class FileObserverService extends Service {
             return Service.START_STICKY;
 
         } else if (ACTION_ADD_OBSERVED_FILE.equals(intent.getAction())) {
-            OCFile file = (OCFile) intent.getParcelableExtra(ARG_FILE);
-            Account account = (Account) intent.getParcelableExtra(ARG_ACCOUNT);
+            OCFile file = intent.getParcelableExtra(ARG_FILE);
+            Account account = intent.getParcelableExtra(ARG_ACCOUNT);
             addObservedFile(file, account);
 
         } else if (ACTION_DEL_OBSERVED_FILE.equals(intent.getAction())) {
@@ -183,11 +182,11 @@ public class FileObserverService extends Service {
         return Service.START_STICKY;
     }
 
-    
+
     /**
      * Read from the local database the list of files that must to be kept
      * synchronized and starts observers to monitor local changes on them.
-     * 
+     *
      * Updates the list of currently observed files if called multiple times.
      */
     private void startObservation() {
@@ -195,10 +194,10 @@ public class FileObserverService extends Service {
 
         // query for any favorite file in any OC account
         Cursor cursorOnKeptInSync = getContentResolver().query(
-                ProviderTableMeta.CONTENT_URI, 
+                ProviderTableMeta.CONTENT_URI,
                 null,
-                ProviderTableMeta.FILE_KEEP_IN_SYNC + " = ?", 
-                new String[] { String.valueOf(1) }, 
+                ProviderTableMeta.FILE_KEEP_IN_SYNC + " = ?",
+                new String[]{String.valueOf(1)},
                 null
         );
 
@@ -219,7 +218,7 @@ public class FileObserverService extends Service {
                     if (!AccountUtils.exists(account, this) || localPath == null || localPath.length() <= 0) {
                         continue;
                     }
-                    
+
                     addObservedFile(localPath, account);
 
                 } while (cursorOnKeptInSync.moveToNext());
@@ -232,14 +231,14 @@ public class FileObserverService extends Service {
 
     }
 
-    
+
     /**
      * Registers the local copy of a remote file to be observed for local
      * changes, an automatically updated in the ownCloud server.
-     * 
+     *
      * This method does NOT perform a {@link SynchronizeFileOperation} over the
      * file.
-     * 
+     *
      * @param file      Object representing a remote file which local copy must be observed.
      * @param account   OwnCloud account containing file.
      */
@@ -260,17 +259,15 @@ public class FileObserverService extends Service {
             // file downloading or to be downloaded for the first time
             localPath = FileStorageUtils.getDefaultSavePathFor(account.name, file);
         }
-        
+
         addObservedFile(localPath, account);
-        
+
     }
 
-    
-    
-    
+
     /**
      * Registers a local file to be observed for changes.
-     * 
+     *
      * @param localPath     Absolute path in the local file system to the file to be observed.
      * @param account       OwnCloud account associated to the local file.
      */
@@ -283,15 +280,15 @@ public class FileObserverService extends Service {
             mFolderObserversMap.put(parentPath, observer);
             Log_OC.d(TAG, "Observer added for parent folder " + parentPath + "/");
         }
-        
+
         observer.startWatching(file.getName());
         Log_OC.d(TAG, "Added " + localPath + " to list of observed children");
     }
 
-    
+
     /**
      * Unregisters the local copy of a remote file to be observed for local changes.
-     * 
+     *
      * @param file      Object representing a remote file which local copy must be not 
      *                  observed longer.
      * @param account   OwnCloud account containing file.
@@ -316,10 +313,10 @@ public class FileObserverService extends Service {
         removeObservedFile(localPath);
     }
 
-    
+
     /**
      * Unregisters a local file from being observed for changes.
-     * 
+     *
      * @param localPath     Absolute path in the local file system to the target file.
      */
     private void removeObservedFile(String localPath) {
@@ -332,16 +329,16 @@ public class FileObserverService extends Service {
                 mFolderObserversMap.remove(parentPath);
                 Log_OC.d(TAG, "Observer removed for parent folder " + parentPath + "/");
             }
-        
+
         } else {
             Log_OC.d(TAG, "No observer to remove for path " + localPath);
         }
     }
 
-    
+
     /**
      * Private receiver listening to events broadcasted by the {@link FileDownloader} service.
-     * 
+     *
      * Pauses and resumes the observance on registered files while being download,
      * in order to avoid to unnecessary synchronizations.
      */

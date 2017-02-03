@@ -1,23 +1,23 @@
 /**
- *   Nextcloud Android client application
+ * Nextcloud Android client application
  *
- *   @author Andy Scherzinger
- *   Copyright (C) 2016 Andy Scherzinger
- *   Copyright (C) 2016 Nextcloud
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Andy Scherzinger
+ * Copyright (C) 2016 Andy Scherzinger
+ * Copyright (C) 2016 Nextcloud
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * <p>
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -304,7 +304,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 startActivity(uploadListIntent);
                 break;
             case R.id.nav_folder_sync:
-                Intent folderSyncIntent = new Intent(getApplicationContext(),FolderSyncActivity.class);
+                Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
                 startActivity(folderSyncIntent);
                 break;
             case R.id.nav_settings:
@@ -806,10 +806,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
         if (callContext instanceof MenuItem) {
-            MenuItem mi = (MenuItem)callContext;
+            MenuItem mi = (MenuItem) callContext;
             mi.setIcon(avatarDrawable);
         } else if (callContext instanceof ImageView) {
-            ImageView iv = (ImageView)callContext;
+            ImageView iv = (ImageView) callContext;
             iv.setImageDrawable(avatarDrawable);
         }
     }
@@ -817,10 +817,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     @Override
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
         if (callContext instanceof MenuItem) {
-            MenuItem mi = (MenuItem)callContext;
+            MenuItem mi = (MenuItem) callContext;
             return String.valueOf(mi.getTitle()).equals(tag);
         } else if (callContext instanceof ImageView) {
-            ImageView iv = (ImageView)callContext;
+            ImageView iv = (ImageView) callContext;
             return String.valueOf(iv.getTag()).equals(tag);
         }
         return false;

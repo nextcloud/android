@@ -306,20 +306,20 @@ public class ShareActivity extends FileActivity
             String username = AccountUtils.getUsernameForAccount(getAccount());
             if (username != null) {
                 intentToShareLink.putExtra(
-                    Intent.EXTRA_SUBJECT,
-                    getString(
-                        R.string.subject_user_shared_with_you,
-                        username,
-                        getFile().getFileName()
-                    )
+                        Intent.EXTRA_SUBJECT,
+                        getString(
+                                R.string.subject_user_shared_with_you,
+                                username,
+                                getFile().getFileName()
+                        )
                 );
             } else {
                 intentToShareLink.putExtra(
-                    Intent.EXTRA_SUBJECT,
-                    getString(
-                        R.string.subject_shared_with_you,
-                        getFile().getFileName()
-                    )
+                        Intent.EXTRA_SUBJECT,
+                        getString(
+                                R.string.subject_shared_with_you,
+                                getFile().getFileName()
+                        )
                 );
             }
 
@@ -330,23 +330,23 @@ public class ShareActivity extends FileActivity
         } else {
             // Detect Failure (403) --> maybe needs password
             String password = operation.getPassword();
-            if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN    &&
-                    (password == null || password.length() == 0)                        &&
+            if (result.getCode() == RemoteOperationResult.ResultCode.SHARE_FORBIDDEN &&
+                    (password == null || password.length() == 0) &&
                     getCapabilities().getFilesSharingPublicEnabled().isUnknown()) {
-                    // Was tried without password, but not sure that it's optional.
+                // Was tried without password, but not sure that it's optional.
 
                 // Try with password before giving up; see also ShareFileFragment#OnShareViaLinkListener
                 ShareFileFragment shareFileFragment = getShareFileFragment();
                 if (shareFileFragment != null
-                    && shareFileFragment.isAdded()) {   // only if added to the view hierarchy!!
+                        && shareFileFragment.isAdded()) {   // only if added to the view hierarchy!!
 
                     shareFileFragment.requestPasswordForShareViaLink(true);
                 }
 
             } else {
                 Toast t = Toast.makeText(this,
-                    ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-                    Toast.LENGTH_LONG);
+                        ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                        Toast.LENGTH_LONG);
                 t.show();
             }
         }

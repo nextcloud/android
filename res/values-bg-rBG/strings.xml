@@ -21,7 +21,7 @@
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Качени</string>
     <string name="drawer_quota">%1$s от %2$s използвани</string>
-	<string name="drawer_close">Затвори</string>
+    <string name="drawer_close">Затвори</string>
     <string name="drawer_open">Отвори</string>
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
@@ -50,8 +50,8 @@
     <string name="prefs_remember_last_share_location">Запомни мястото за споделяне</string>
     <string name="prefs_remember_last_upload_location_summary">Запомни мястото на последната споделена папка</string>
 
-	<string name="recommend_subject">Пробвайте %1$s на смартфона си!</string>
-	<string name="recommend_text">Бих желал да випоканя да пробвате %1$s на своя смартфон!\nМожете да изтеглите приложението от тук: %2$s</string>
+    <string name="recommend_subject">Пробвайте %1$s на смартфона си!</string>
+    <string name="recommend_text">Бих желал да випоканя да пробвате %1$s на своя смартфон!\nМожете да изтеглите приложението от тук: %2$s</string>
 
     <string name="auth_check_server">Проверяване на сървъра</string>
     <string name="auth_host_url">Адрес на сървъра https://…</string>
@@ -170,7 +170,7 @@
     <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
     <string name="upload_query_move_foreign_files">В папка %1$s няма достатъчно място за копиране на избраните файлове. Желаете ли да бъдат преместени?</string>
     <string name="pass_code_enter_pass_code">Моля, въведете кода за достъп</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
     <string name="pass_code_configure_your_pass_code_explanation">Кода ще бъде изискван при всяко стартиране на приложението</string>
     <string name="pass_code_reenter_your_pass_code">Моля, въведи отново кода за достъп</string>
@@ -179,7 +179,7 @@
     <string name="pass_code_wrong">Грешен код</string>
     <string name="pass_code_removed">Кодът е премахнат</string>
     <string name="pass_code_stored">Кодът е запаметен</string>
-    
+
     <string name="media_notif_ticker">%1$s музикален плеър</string>
     <string name="media_state_playing">%1$s (се възпроизвежда)</string>
     <string name="media_state_loading">%1$s (се зарежда)</string>
@@ -200,40 +200,40 @@
     <string name="media_play_pause_description">Бутон възпроизведи / пауза </string>
     <string name="media_forward_description">Бутон за превъртане напред</string>
 
-	<string name="auth_getting_authorization">Получаване оторизация &#8230;</string>
-	<string name="auth_trying_to_login">Опит за вписване &#8230;</string>
-	<string name="auth_no_net_conn_title">Няма връзка с интернет</string>
-	<string name="auth_nossl_plain_ok_title">Няма сигурна връзка.</string>
-	<string name="auth_connection_established">Осъществена е връзка</string>
-	<string name="auth_testing_connection">Проверка на връзката</string>
-	<string name="auth_not_configured_title">Неправилна сървърна конфигурация</string>
-	<string name="auth_account_not_new">Профил за същия потребител на същия сървър е вече настроен на устройството</string>
-	<string name="auth_account_not_the_same">Въведният потребител не съвпада с потребителя на профила</string>
-	<string name="auth_unknown_error_title">Неизвестна грешка!</string>
-	<string name="auth_unknown_host_title">Сървърът не може да бъде намерен</string>
-	<string name="auth_incorrect_path_title">Сървърът не е открит</string>
-	<string name="auth_timeout_title">Сървърът се забави прекалено много с отговора</string>
-	<string name="auth_incorrect_address_title">Грешен формат на адреса на сървъра</string>
-	<string name="auth_ssl_general_error_title">Неуспешна инициализация на SSL</string>
-	<string name="auth_ssl_unverified_server_title">SSL самоличността на сървъра не може да бъде потвърдена</string>
-	<string name="auth_bad_oc_version_title">Неизвестна версия на сървъра</string>
-	<string name="auth_wrong_connection_title">Не може да се осъществи връзка</string>
-	<string name="auth_secure_connection">Осъществена е сигурна връзка.</string>
-	<string name="auth_unauthorized">Грешно потребителско име или парола</string>
-	<string name="auth_oauth_error">Неуспешна оторизация</string>
-	<string name="auth_oauth_error_access_denied">Достъпът е отказан от оторизиращия сървър</string>
-	<string name="auth_wtf_reenter_URL">Неочаквано състояние. Моля, въведете адреса на сървъра отново</string>
-	<string name="auth_expired_oauth_token_toast">Оторизацията изтече. Моля, оторизирайте се отново.</string>
-	<string name="auth_expired_basic_auth_toast">Моля въведете текущата парола</string>
-	<string name="auth_expired_saml_sso_token_toast">Сесията изтече. Моля, свържете се отново</string>
-	<string name="auth_connecting_auth_server">Свързване към сървър за идентификация...</string>
-	<string name="auth_unsupported_auth_method">Сървърът не поддържа този метод за идентификация</string>
-	<string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
+    <string name="auth_getting_authorization">Получаване оторизация &#8230;</string>
+    <string name="auth_trying_to_login">Опит за вписване &#8230;</string>
+    <string name="auth_no_net_conn_title">Няма връзка с интернет</string>
+    <string name="auth_nossl_plain_ok_title">Няма сигурна връзка.</string>
+    <string name="auth_connection_established">Осъществена е връзка</string>
+    <string name="auth_testing_connection">Проверка на връзката</string>
+    <string name="auth_not_configured_title">Неправилна сървърна конфигурация</string>
+    <string name="auth_account_not_new">Профил за същия потребител на същия сървър е вече настроен на устройството</string>
+    <string name="auth_account_not_the_same">Въведният потребител не съвпада с потребителя на профила</string>
+    <string name="auth_unknown_error_title">Неизвестна грешка!</string>
+    <string name="auth_unknown_host_title">Сървърът не може да бъде намерен</string>
+    <string name="auth_incorrect_path_title">Сървърът не е открит</string>
+    <string name="auth_timeout_title">Сървърът се забави прекалено много с отговора</string>
+    <string name="auth_incorrect_address_title">Грешен формат на адреса на сървъра</string>
+    <string name="auth_ssl_general_error_title">Неуспешна инициализация на SSL</string>
+    <string name="auth_ssl_unverified_server_title">SSL самоличността на сървъра не може да бъде потвърдена</string>
+    <string name="auth_bad_oc_version_title">Неизвестна версия на сървъра</string>
+    <string name="auth_wrong_connection_title">Не може да се осъществи връзка</string>
+    <string name="auth_secure_connection">Осъществена е сигурна връзка.</string>
+    <string name="auth_unauthorized">Грешно потребителско име или парола</string>
+    <string name="auth_oauth_error">Неуспешна оторизация</string>
+    <string name="auth_oauth_error_access_denied">Достъпът е отказан от оторизиращия сървър</string>
+    <string name="auth_wtf_reenter_URL">Неочаквано състояние. Моля, въведете адреса на сървъра отново</string>
+    <string name="auth_expired_oauth_token_toast">Оторизацията изтече. Моля, оторизирайте се отново.</string>
+    <string name="auth_expired_basic_auth_toast">Моля въведете текущата парола</string>
+    <string name="auth_expired_saml_sso_token_toast">Сесията изтече. Моля, свържете се отново</string>
+    <string name="auth_connecting_auth_server">Свързване към сървър за идентификация...</string>
+    <string name="auth_unsupported_auth_method">Сървърът не поддържа този метод за идентификация</string>
+    <string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
 	<string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор. Моля, свържете се с администратора
 	</string>
-	<string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
+    <string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
     <string name="auth_account_does_not_exist">Профилът все още не съществува на устройството</string>
-    
+
     <string name="favorite">Задай като достъпна офлайн</string>
     <string name="unfavorite">Отмяна като достъпна офлайн</string>
     <string name="common_rename">Преименуване</string>
@@ -258,10 +258,10 @@
     <string name="filedisplay_no_file_selected">Не сте избрали файл</string>
     <string name="activity_chooser_title">Изпращане на връзката чрез &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копиране на файла от личното хранилище</string>
-    
-    <string name="oauth_check_onoff">Вписване с oAuth2</string> 
-    <string name="oauth_login_connection">Свързване с оАутх2 сървър...</string>    
-        
+
+    <string name="oauth_check_onoff">Вписване с oAuth2</string>
+    <string name="oauth_login_connection">Свързване с оАутх2 сървър...</string>
+
     <string name="ssl_validator_header">Самоличността на сървъра не може да бъде проверена</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Сертификатът на сървъра не е надежден</string>
     <string name="ssl_validator_reason_cert_expired">- Сертификатът на сървъра е изтекъл</string>
@@ -307,7 +307,7 @@
     <string name="conflict_keep_both">Запазване и на двата</string>
     <string name="conflict_use_local_version">локалната версия</string>
     <string name="conflict_use_server_version">версията на сървъра</string>
-    
+
     <string name="preview_image_description">Преглед на изображението</string>
     <string name="preview_image_error_unknown_format">Изображението не може да бъде показано</string>
 
@@ -320,10 +320,10 @@
 
 	<string name="share_link_no_support_share_api">За съжаление споделянето не е включено на сървъра ви. 
 Моля, свържете се с администратора.</string>
-	<string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, проверете съществува ли файла</string>
-	<string name="share_link_file_error">Възникна грешка при опита за споделяне на файл или папка</string>
-	<string name="unshare_link_file_no_exist">Неуспешен опит за прекратяване на споделянето. Проверете съществува ли файла</string>
-	<string name="unshare_link_file_error">Възникна грешка при опита за прекратяване на споделянето на файл или папка</string>
+    <string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, проверете съществува ли файла</string>
+    <string name="share_link_file_error">Възникна грешка при опита за споделяне на файл или папка</string>
+    <string name="unshare_link_file_no_exist">Неуспешен опит за прекратяване на споделянето. Проверете съществува ли файла</string>
+    <string name="unshare_link_file_error">Възникна грешка при опита за прекратяване на споделянето на файл или папка</string>
     <string name="update_link_file_no_exist">Не може да се актуализира. Моля, проверете дали файлът съществува</string>
     <string name="update_link_file_error">Възникна грешка при опита за обновяване на споделянето</string>
     <string name="share_link_password_title">Въведете парола</string>
@@ -380,18 +380,18 @@
     <string name="drawer_manage_accounts">Управление на профилите</string>
     <string name="auth_redirect_non_secure_connection_title">Сигурна връзка е пренасочена по несигурен път.</string>
 
-	<string name="actionbar_logger">Журнали</string>
-	<string name="log_send_history_button">Изпрати историята</string>
-	<string name="log_send_no_mail_app">Не е намерено приложение за изпращане на журнал. Моля инсталирайте имейл приложение.</string>
-	<string name="log_send_mail_subject">%1$s журнали от Android приложението</string>
-	<string name="log_progress_dialog_text">Зареждане на данни &#8230;</string>
+    <string name="actionbar_logger">Журнали</string>
+    <string name="log_send_history_button">Изпрати историята</string>
+    <string name="log_send_no_mail_app">Не е намерено приложение за изпращане на журнал. Моля инсталирайте имейл приложение.</string>
+    <string name="log_send_mail_subject">%1$s журнали от Android приложението</string>
+    <string name="log_progress_dialog_text">Зареждане на данни &#8230;</string>
 
-	<string name="saml_authentication_required_text">Нужна е идентификация</string>
-	<string name="saml_authentication_wrong_pass">Грешна парола</string>
-	<string name="actionbar_move">Преместване</string>
+    <string name="saml_authentication_required_text">Нужна е идентификация</string>
+    <string name="saml_authentication_wrong_pass">Грешна парола</string>
+    <string name="actionbar_move">Преместване</string>
     <string name="actionbar_copy">Копиране</string>
-	<string name="file_list_empty_moving">Тук няма нищо. Можете да добавите папка!</string>
-	<string name="folder_picker_choose_button_text">Избери</string>
+    <string name="file_list_empty_moving">Тук няма нищо. Можете да добавите папка!</string>
+    <string name="folder_picker_choose_button_text">Избери</string>
 
     <string name="move_file_not_found">Неуспешно преместване. Моля, провери дали файла съществува</string>
     <string name="move_file_invalid_into_descendent">Не може да премествате папка в нейна подпапка</string>
@@ -409,13 +409,13 @@
     <string name="prefs_category_instant_uploading">Незабавни качвания</string>
     <string name="prefs_category_details">Детайли</string>
 
-	<string name="prefs_instant_video_upload_path_title">Папка за незабавно качените видео клипове</string>
+    <string name="prefs_instant_video_upload_path_title">Папка за незабавно качените видео клипове</string>
     <string name="sync_folder_failed_content">Синхронизацията на папка %1$s не може да бъде завършена</string>
 
-	<string name="shared_subject_header">споделен</string>
-	<string name="with_you_subject_header">с вас</string>
-    
-	<string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
+    <string name="shared_subject_header">споделен</string>
+    <string name="with_you_subject_header">с вас</string>
+
+    <string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" бе споделено с вас</string>
 
     <string name="auth_refresh_button">Обнови връзката</string>

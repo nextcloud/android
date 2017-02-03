@@ -1,20 +1,19 @@
 /**
- *   ownCloud Android client application
- *
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * ownCloud Android client application
+ * <p>
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -80,7 +79,7 @@ public class LogHistoryActivity extends ToolbarActivity {
         TextView logTV = (TextView) findViewById(R.id.logTV);
 
         deleteHistoryButton.setOnClickListener(new OnClickListener() {
-            
+
             @Override
             public void onClick(View v) {
 
@@ -147,7 +146,7 @@ public class LogHistoryActivity extends ToolbarActivity {
         } catch (Exception e) {
             emailAddress = "";
         }
-        
+
         ArrayList<Uri> uris = new ArrayList<>();
 
         // Convert from paths to Android friendly Parcelable Uri's
@@ -191,9 +190,9 @@ public class LogHistoryActivity extends ToolbarActivity {
     private class LoadingLogTask extends AsyncTask<String, Void, String> {
         private final WeakReference<TextView> textViewReference;
 
-        public LoadingLogTask(TextView logTV){
+        public LoadingLogTask(TextView logTV) {
             // Use of a WeakReference to ensure the TextView can be garbage collected
-            textViewReference  = new WeakReference<>(logTV);
+            textViewReference = new WeakReference<>(logTV);
         }
 
         protected String doInBackground(String... args) {
@@ -225,8 +224,8 @@ public class LogHistoryActivity extends ToolbarActivity {
             try {
                 String line;
 
-                for (int i = logFileName.length-1; i >= 0; i--) {
-                    File file = new File(mLogPath,logFileName[i]);
+                for (int i = logFileName.length - 1; i >= 0; i--) {
+                    File file = new File(mLogPath, logFileName[i]);
                     if (file.exists()) {
                         // Check if FileReader is ready
                         final InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file), "UTF8");
@@ -240,10 +239,9 @@ public class LogHistoryActivity extends ToolbarActivity {
                         }
                     }
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 Log_OC.d(TAG, e.getMessage());
-                
+
             } finally {
                 if (br != null) {
                     try {
@@ -256,7 +254,7 @@ public class LogHistoryActivity extends ToolbarActivity {
 
             return text.toString();
         }
-   }
+    }
 
     /**
      * Show loading dialog
@@ -274,7 +272,7 @@ public class LogHistoryActivity extends ToolbarActivity {
     /**
      * Dismiss loading dialog
      */
-    public void dismissLoadingDialog(){
+    public void dismissLoadingDialog() {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag != null) {
             LoadingDialog loading = (LoadingDialog) frag;

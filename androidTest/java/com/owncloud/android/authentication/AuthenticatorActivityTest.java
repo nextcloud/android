@@ -1,24 +1,24 @@
 /**
- *   ownCloud Android client application
- *
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * ownCloud Android client application
+ * <p>
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.authentication;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +29,6 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.test.uiautomator.UiDevice;
 import android.test.suitebuilder.annotation.LargeTest;
 
-import static org.junit.Assert.assertTrue;
 import com.owncloud.android.R;
 
 import org.junit.Before;
@@ -39,18 +38,15 @@ import org.junit.runner.RunWith;
 
 import java.lang.reflect.Field;
 
-import android.app.Activity;
-
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static android.support.test.espresso.action.ViewActions.typeText;
-
+import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static android.support.test.espresso.matcher.ViewMatchers.isEnabled;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
-
-import static android.support.test.espresso.assertion.ViewAssertions.matches;
 import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 @LargeTest
@@ -67,7 +63,7 @@ public class AuthenticatorActivityTest {
 
     @Rule
     public ActivityTestRule<AuthenticatorActivity> mActivityRule = new ActivityTestRule<AuthenticatorActivity>(
-            AuthenticatorActivity.class){
+            AuthenticatorActivity.class) {
         @Override
         protected Intent getActivityIntent() {
 
@@ -81,7 +77,7 @@ public class AuthenticatorActivityTest {
     };
 
     @Before
-    public void init(){
+    public void init() {
         UiDevice uiDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation());
         /*Point[] coordinates = new Point[4];
         coordinates[0] = new Point(248, 1020);
@@ -100,7 +96,7 @@ public class AuthenticatorActivityTest {
 
     @Test
     public void check_login()
-        throws InterruptedException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
+            throws InterruptedException, NoSuchFieldException, IllegalArgumentException, IllegalAccessException {
         Bundle arguments = InstrumentationRegistry.getArguments();
 
         // Get values passed

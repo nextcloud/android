@@ -21,7 +21,7 @@
     <string name="drawer_item_settings">Nastavitve</string>
     <string name="drawer_item_uploads_list">Poslano</string>
     <string name="drawer_quota">%1$s od %2$s uporabljeno</string>
-	<string name="drawer_close">Zapri</string>
+    <string name="drawer_close">Zapri</string>
     <string name="drawer_open">Odpri</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
@@ -49,8 +49,8 @@
     <string name="prefs_remember_last_share_location">Zapomni si mesto souporabe</string>
     <string name="prefs_remember_last_upload_location_summary">Zapomni si zadnje mesto za pošiljanje v oblak</string>
 
-	<string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
-	<string name="recommend_text">Želim ti predstaviti %1$s na pametnem telefonu!\nPrejmeš ga lahko na: %2$s</string>
+    <string name="recommend_subject">Preizkusi %1$s na pametnem telefonu!</string>
+    <string name="recommend_text">Želim ti predstaviti %1$s na pametnem telefonu!\nPrejmeš ga lahko na: %2$s</string>
 
     <string name="auth_check_server">Preveri strežnik</string>
     <string name="auth_host_url">Naslov strežnika https://…</string>
@@ -168,7 +168,7 @@
     <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želite datoteke premakniti na novo mesto?</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
     <string name="pass_code_configure_your_pass_code_explanation">Koda bo zahtevana vsakič pred zagonom programa.</string>
     <string name="pass_code_reenter_your_pass_code">Ponovno vnesite kodo PIN</string>
@@ -177,7 +177,7 @@
     <string name="pass_code_wrong">Napačna koda PIN</string>
     <string name="pass_code_removed">Koda PIN je odstranjena</string>
     <string name="pass_code_stored">Koda PIN je shranjena</string>
-    
+
     <string name="media_notif_ticker">Predvajalnik glasbe %1$s</string>
     <string name="media_state_playing">%1$s (se predvaja)</string>
     <string name="media_state_loading">%1$s (se nalaga)</string>
@@ -198,40 +198,40 @@
     <string name="media_play_pause_description">Gumb za predvajanje in premor</string>
     <string name="media_forward_description">Gumb za hitro predvajanje naprej</string>
 
-	<string name="auth_getting_authorization">Pridobivanje podatkov overitve &#8230;</string>
-	<string name="auth_trying_to_login">Poteka povezovanje v oblak &#8230;</string>
-	<string name="auth_no_net_conn_title">Ni omrežne povezave</string>
-	<string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
-	<string name="auth_connection_established">Povezava je vzpostavljena</string>
-	<string name="auth_testing_connection">Preizkusna povezava</string>
-	<string name="auth_not_configured_title">Napačno oblikovane nastavitve strežnika</string>
-	<string name="auth_account_not_new">Na napravi račun za istega uporabnika in strežnik že obstaja</string>
-	<string name="auth_account_not_the_same">Vpisan uporabnik ni lastnik tega računa</string>
-	<string name="auth_unknown_error_title">Prišlo je do neznane napake!</string>
-	<string name="auth_unknown_host_title">Gostitelja ni mogoče najti</string>
-	<string name="auth_incorrect_path_title">Primerka strežnika ni mogoče najti</string>
-	<string name="auth_timeout_title">Odziv s strežnika je časovno pretekel</string>
-	<string name="auth_incorrect_address_title">Napačen zapis naslova strežnika</string>
-	<string name="auth_ssl_general_error_title">Začenjanje SSL je spodletelo</string>
-	<string name="auth_ssl_unverified_server_title">Ni mogoče overiti istovetnosti strežnika SSL</string>
-	<string name="auth_bad_oc_version_title">Nepoznana različica strežnika</string>
-	<string name="auth_wrong_connection_title">Ni mogoče vzpostaviti povezave</string>
-	<string name="auth_secure_connection">Varna povezava je vzpostavljena</string>
-	<string name="auth_unauthorized">Napačno uporabniško ime ali geslo</string>
-	<string name="auth_oauth_error">Overitev ni uspešno končana</string>
-	<string name="auth_oauth_error_access_denied">Dostop je zavrnjen s strani overitvenega strežnika</string>
-	<string name="auth_wtf_reenter_URL">Nepričakovano stanje. Znova vpišite podatke strežnika.</string>
-	<string name="auth_expired_oauth_token_toast">Overitev računa je potekla. Pred nadaljevanjem je treba prijavo ponovno overiti.</string>
-	<string name="auth_expired_basic_auth_toast">Vpišite trenutno geslo</string>
-	<string name="auth_expired_saml_sso_token_toast">Seja je potekla. Ponovno je treba vzpostaviti povezavo.</string>
-	<string name="auth_connecting_auth_server">Povezovanje s overitvenim strežnikom</string>
-	<string name="auth_unsupported_auth_method">Strežnik ne podpira tega načina overitve</string>
-	<string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
+    <string name="auth_getting_authorization">Pridobivanje podatkov overitve &#8230;</string>
+    <string name="auth_trying_to_login">Poteka povezovanje v oblak &#8230;</string>
+    <string name="auth_no_net_conn_title">Ni omrežne povezave</string>
+    <string name="auth_nossl_plain_ok_title">Varna povezava ni na voljo.</string>
+    <string name="auth_connection_established">Povezava je vzpostavljena</string>
+    <string name="auth_testing_connection">Preizkusna povezava</string>
+    <string name="auth_not_configured_title">Napačno oblikovane nastavitve strežnika</string>
+    <string name="auth_account_not_new">Na napravi račun za istega uporabnika in strežnik že obstaja</string>
+    <string name="auth_account_not_the_same">Vpisan uporabnik ni lastnik tega računa</string>
+    <string name="auth_unknown_error_title">Prišlo je do neznane napake!</string>
+    <string name="auth_unknown_host_title">Gostitelja ni mogoče najti</string>
+    <string name="auth_incorrect_path_title">Primerka strežnika ni mogoče najti</string>
+    <string name="auth_timeout_title">Odziv s strežnika je časovno pretekel</string>
+    <string name="auth_incorrect_address_title">Napačen zapis naslova strežnika</string>
+    <string name="auth_ssl_general_error_title">Začenjanje SSL je spodletelo</string>
+    <string name="auth_ssl_unverified_server_title">Ni mogoče overiti istovetnosti strežnika SSL</string>
+    <string name="auth_bad_oc_version_title">Nepoznana različica strežnika</string>
+    <string name="auth_wrong_connection_title">Ni mogoče vzpostaviti povezave</string>
+    <string name="auth_secure_connection">Varna povezava je vzpostavljena</string>
+    <string name="auth_unauthorized">Napačno uporabniško ime ali geslo</string>
+    <string name="auth_oauth_error">Overitev ni uspešno končana</string>
+    <string name="auth_oauth_error_access_denied">Dostop je zavrnjen s strani overitvenega strežnika</string>
+    <string name="auth_wtf_reenter_URL">Nepričakovano stanje. Znova vpišite podatke strežnika.</string>
+    <string name="auth_expired_oauth_token_toast">Overitev računa je potekla. Pred nadaljevanjem je treba prijavo ponovno overiti.</string>
+    <string name="auth_expired_basic_auth_toast">Vpišite trenutno geslo</string>
+    <string name="auth_expired_saml_sso_token_toast">Seja je potekla. Ponovno je treba vzpostaviti povezavo.</string>
+    <string name="auth_connecting_auth_server">Povezovanje s overitvenim strežnikom</string>
+    <string name="auth_unsupported_auth_method">Strežnik ne podpira tega načina overitve</string>
+    <string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
 	<string name="auth_fail_get_user_name">Strežnik ne vrača ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.
 	</string>
-	<string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
+    <string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
     <string name="auth_account_does_not_exist">Račun na napravi še ne obstaja.</string>
-    
+
     <string name="favorite">Nastavi dosegljivost brez povezave</string>
     <string name="unfavorite">Odstrani dosegljivost brez povezave</string>
     <string name="common_rename">Preimenuj</string>
@@ -256,10 +256,10 @@
     <string name="filedisplay_no_file_selected">Ni izbranih datotek</string>
     <string name="activity_chooser_title">Pošlji povezavo &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
-    
-    <string name="oauth_check_onoff">Prijava  z oAuth2</string> 
-    <string name="oauth_login_connection">Poteka povezovanje s strežnikom oAuth2 ...</string>    
-        
+
+    <string name="oauth_check_onoff">Prijava  z oAuth2</string>
+    <string name="oauth_login_connection">Poteka povezovanje s strežnikom oAuth2 ...</string>
+
     <string name="ssl_validator_header">Istovetnosti strani ni mogoče preveriti</string>
     <string name="ssl_validator_reason_cert_not_trusted">- potrdilo strežnika ni vredno zaupanja</string>
     <string name="ssl_validator_reason_cert_expired">- potrdilo strežnika je poteklo</string>
@@ -305,7 +305,7 @@
     <string name="conflict_keep_both">Ohrani obe</string>
     <string name="conflict_use_local_version">krajevna različica</string>
     <string name="conflict_use_server_version">različica strežnika</string>
-    
+
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
 
@@ -316,10 +316,10 @@
 
 	<string name="share_link_no_support_share_api">Souporaba je na strežniku onemogočena. Možnost lahko spreminjajo le
 		uporabniki s skrbniškimi dovoljenji.</string>
-	<string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
-	<string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
-	<string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
-	<string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
+    <string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
+    <string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
+    <string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
+    <string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
     <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preverite, ali datoteka obstaja.</string>
     <string name="update_link_file_error">Prišlo je do napake med posodabljanjem mesta souporabe</string>
     <string name="share_link_password_title">Vpis gesla</string>
@@ -354,17 +354,17 @@
     <string name="drawer_manage_accounts">Uredi račune</string>
     <string name="auth_redirect_non_secure_connection_title">Varna povezava je preusmerjena prek nevarovane poti.</string>
 
-	<string name="actionbar_logger">Dnevnik</string>
-	<string name="log_send_history_button">Pošlji zgodovino</string>
-	<string name="log_send_no_mail_app">Ni programa za pošiljanje dnevniških datotek. Namestite vsaj poštni program.</string>
-	<string name="log_send_mail_subject">%1$s dnevniki programa</string>
-	<string name="log_progress_dialog_text">Poteka nalaganje podatkov &#8230;</string>
+    <string name="actionbar_logger">Dnevnik</string>
+    <string name="log_send_history_button">Pošlji zgodovino</string>
+    <string name="log_send_no_mail_app">Ni programa za pošiljanje dnevniških datotek. Namestite vsaj poštni program.</string>
+    <string name="log_send_mail_subject">%1$s dnevniki programa</string>
+    <string name="log_progress_dialog_text">Poteka nalaganje podatkov &#8230;</string>
 
-	<string name="saml_authentication_required_text">Zahtevana je overitev</string>
-	<string name="saml_authentication_wrong_pass">Napačno geslo</string>
-	<string name="actionbar_move">Premakni</string>
+    <string name="saml_authentication_required_text">Zahtevana je overitev</string>
+    <string name="saml_authentication_wrong_pass">Napačno geslo</string>
+    <string name="actionbar_move">Premakni</string>
     <string name="file_list_empty_moving">Ni vsebine in datotek. Lahko ustvarite na primer mapo.</string>
-	<string name="folder_picker_choose_button_text">Izbor</string>
+    <string name="folder_picker_choose_button_text">Izbor</string>
 
     <string name="move_file_not_found">Ni mogoče premakniti datoteke. Preverite, ali obstaja.</string>
     <string name="move_file_invalid_into_descendent">Ni mogoče premakniti mape v podrejeno mapo.</string>
@@ -382,13 +382,13 @@
     <string name="prefs_category_instant_uploading">Hipno pošiljanje</string>
     <string name="prefs_category_details">Podrobnosti</string>
 
-	<string name="prefs_instant_video_upload_path_title">Mapa za hipno nalaganje videov</string>
+    <string name="prefs_instant_video_upload_path_title">Mapa za hipno nalaganje videov</string>
     <string name="sync_folder_failed_content">Usklajevanja mape %1$s ni mogoče zaključiti</string>
 
-	<string name="shared_subject_header">v souporabi</string>
-	<string name="with_you_subject_header">z vami</string>
-    
-	<string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
+    <string name="shared_subject_header">v souporabi</string>
+    <string name="with_you_subject_header">z vami</string>
+
+    <string name="subject_user_shared_with_you">Uporabnik %1$s je omogočil souporabo \"%2$s\"</string>
     <string name="subject_shared_with_you">\"%1$s\" vam je oddan v souporabo</string>
 
     <string name="auth_refresh_button">Osveži povezavo</string>
@@ -484,4 +484,4 @@
         <item quantity="few">%d izbranih</item>
         <item quantity="other">%d izbranih</item>
     </plurals>
-    </resources>
+</resources>

@@ -77,7 +77,7 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
             viewHolder.passwordButtonItem = (ImageView) convertView.findViewById(R.id.passwordButton);
             viewHolder.removeButtonItem = (ImageView) convertView.findViewById(R.id.removeButton);
 
-            if(mListener == null) {
+            if (mListener == null) {
                 viewHolder.passwordButtonItem.setVisibility(View.GONE);
                 viewHolder.removeButtonItem.setVisibility(View.GONE);
             }
@@ -183,12 +183,12 @@ public class AccountListAdapter extends ArrayAdapter<AccountListItem> implements
 
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
-        ((ImageView)callContext).setImageDrawable(avatarDrawable);
+        ((ImageView) callContext).setImageDrawable(avatarDrawable);
     }
 
     @Override
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
-        return String.valueOf(((ImageView)callContext).getTag()).equals(tag);
+        return String.valueOf(((ImageView) callContext).getTag()).equals(tag);
     }
 
     /**

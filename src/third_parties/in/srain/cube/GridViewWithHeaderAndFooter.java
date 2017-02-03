@@ -1,4 +1,3 @@
-
 /*
  * Copyright (C) 2013 The Android Open Source Project
  *
@@ -410,7 +409,7 @@ public class GridViewWithHeaderAndFooter extends GridView {
         }
     }
 
-    public boolean isCorrectAdapter(){
+    public boolean isCorrectAdapter() {
         return getAdapter() == null || getAdapter() instanceof HeaderViewGridAdapter;
     }
 
@@ -794,10 +793,9 @@ public class GridViewWithHeaderAndFooter extends GridView {
      * Sets the selected item and positions the selection y pixels from the top edge of the ListView.
      * (If in touch mode, the item will not be selected but it will still be positioned appropriately.)
      *
-     * @param position     Index (starting at 0) of the data item to be selected.
-     * @param y            The distance from the top edge of the ListView (plus padding)
-     *                     that the item will be positioned.
-     *
+     * @param position Index (starting at 0) of the data item to be selected.
+     * @param y        The distance from the top edge of the ListView (plus padding)
+     *                 that the item will be positioned.
      * @see <a href="http://grepcode.com/file/repository.grepcode.com/java/ext/com.google.android/android/4.4_r1/android/widget/ListView.java#ListView.setSelectionFromTop%28int%2Cint%29">Original code</a>
      */
     public void setSelectionFromTop(int position, int y) {

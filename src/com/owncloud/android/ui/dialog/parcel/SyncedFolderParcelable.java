@@ -64,7 +64,7 @@ public class SyncedFolderParcelable implements Parcelable {
         mFolderName = read.readString();
         mLocalPath = read.readString();
         mRemotePath = read.readString();
-        mWifiOnly = read.readInt()!= 0;
+        mWifiOnly = read.readInt() != 0;
         mChargingOnly = read.readInt() != 0;
         mEnabled = read.readInt() != 0;
         mSubfolderByDate = read.readInt() != 0;

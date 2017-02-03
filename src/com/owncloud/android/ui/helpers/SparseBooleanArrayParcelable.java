@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud GmbH.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2016 ownCloud GmbH.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.helpers;
@@ -32,32 +31,32 @@ public class SparseBooleanArrayParcelable implements Parcelable {
 
     @SuppressWarnings("PMD.SuspiciousConstantFieldName")
     public static Parcelable.Creator<SparseBooleanArrayParcelable> CREATOR =
-        new Parcelable.Creator<SparseBooleanArrayParcelable>() {
+            new Parcelable.Creator<SparseBooleanArrayParcelable>() {
 
-        @Override
-        public SparseBooleanArrayParcelable createFromParcel(Parcel source) {
-            // read size of array from source
-            int size = source.readInt();
+                @Override
+                public SparseBooleanArrayParcelable createFromParcel(Parcel source) {
+                    // read size of array from source
+                    int size = source.readInt();
 
-            // then pairs of (key, value)s, in the object to wrap
-            SparseBooleanArray sba = new SparseBooleanArray();
-            int key;
-            boolean value;
-            for (int i = 0; i < size; i++) {
-                key = source.readInt();
-                value = (source.readInt() != 0);
-                sba.put(key, value);
-            }
+                    // then pairs of (key, value)s, in the object to wrap
+                    SparseBooleanArray sba = new SparseBooleanArray();
+                    int key;
+                    boolean value;
+                    for (int i = 0; i < size; i++) {
+                        key = source.readInt();
+                        value = (source.readInt() != 0);
+                        sba.put(key, value);
+                    }
 
-            // wrap SparseBooleanArray
-            return new SparseBooleanArrayParcelable(sba);
-        }
+                    // wrap SparseBooleanArray
+                    return new SparseBooleanArrayParcelable(sba);
+                }
 
-        @Override
-        public SparseBooleanArrayParcelable[] newArray(int size) {
-            return new SparseBooleanArrayParcelable[size];
-        }
-    };
+                @Override
+                public SparseBooleanArrayParcelable[] newArray(int size) {
+                    return new SparseBooleanArrayParcelable[size];
+                }
+            };
 
     private final SparseBooleanArray mSba;
 

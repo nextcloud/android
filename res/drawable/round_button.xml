@@ -20,6 +20,6 @@
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
+       android:shape="oval">
     <solid android:color="@color/owncloud_blue_accent"/>
 </shape>

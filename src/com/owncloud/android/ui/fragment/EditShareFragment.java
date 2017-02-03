@@ -1,22 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author masensio
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.fragment;
@@ -102,7 +101,6 @@ public class EditShareFragment extends Fragment {
     }
 
 
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -122,7 +120,7 @@ public class EditShareFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.edit_share_layout, container, false);
 
-        ((TextView)view.findViewById(R.id.editShareTitle)).setText(
+        ((TextView) view.findViewById(R.id.editShareTitle)).setText(
                 getResources().getString(R.string.share_with_edit_title, mShare.getSharedWithDisplayName()));
 
         // Setup layout
@@ -146,7 +144,7 @@ public class EditShareFragment extends Fragment {
             CompoundButton compound;
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
-            if(isFederated) {
+            if (isFederated) {
                 compound.setVisibility(View.INVISIBLE);
             }
             compound.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
@@ -235,7 +233,7 @@ public class EditShareFragment extends Fragment {
             /// else, getView() cannot be NULL
 
             CompoundButton subordinate;
-            switch(compound.getId()) {
+            switch (compound.getId()) {
                 case R.id.canShareSwitch:
                     Log_OC.v(TAG, "canShareCheckBox toggled to " + isChecked);
                     updatePermissionsToShare();
@@ -254,7 +252,7 @@ public class EditShareFragment extends Fragment {
                                     subordinate = (CompoundButton) getView().findViewById(sSubordinateCheckBoxIds[i]);
                                     subordinate.setVisibility(View.VISIBLE);
                                     if (!subordinate.isChecked() &&
-                                        !mFile.isSharedWithMe()) {          // see (1)
+                                            !mFile.isSharedWithMe()) {          // see (1)
                                         toggleDisablingListener(subordinate);
                                     }
                                 }
@@ -279,8 +277,8 @@ public class EditShareFragment extends Fragment {
                         }
                     }
 
-                    if(!(mFile.isFolder() && isChecked && mFile.isSharedWithMe())       // see (1)
-                        || isFederated ) {
+                    if (!(mFile.isFolder() && isChecked && mFile.isSharedWithMe())       // see (1)
+                            || isFederated) {
                         updatePermissionsToShare();
                     }
 
@@ -331,7 +329,7 @@ public class EditShareFragment extends Fragment {
                 }
             } else {
                 boolean allDisabled = true;
-                for (int i=0; allDisabled && i<sSubordinateCheckBoxIds.length; i++) {
+                for (int i = 0; allDisabled && i < sSubordinateCheckBoxIds.length; i++) {
                     allDisabled &=
                             sSubordinateCheckBoxIds[i] == subordinateCheckBoxView.getId() ||
                                     !((CheckBox) getView().findViewById(sSubordinateCheckBoxIds[i])).isChecked()
@@ -339,7 +337,7 @@ public class EditShareFragment extends Fragment {
                 }
                 if (canEditCompound.isChecked() && allDisabled) {
                     toggleDisablingListener(canEditCompound);
-                    for (int i=0; i<sSubordinateCheckBoxIds.length; i++) {
+                    for (int i = 0; i < sSubordinateCheckBoxIds.length; i++) {
                         getView().findViewById(sSubordinateCheckBoxIds[i]).setVisibility(View.GONE);
                     }
                 }

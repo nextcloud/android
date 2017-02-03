@@ -1,24 +1,24 @@
 /**
- *  ownCloud Android client application
+ * ownCloud Android client application
  *
- *  @author Bartek Przybylski
- *  @author masensio
- *  @author Juan Carlos González Cabrero
- *  @author David A. Velasco
- *  Copyright (C) 2012  Bartek Przybylski
- *  Copyright (C) 2016 ownCloud Inc.
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License version 2,
- *  as published by the Free Software Foundation.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Bartek Przybylski
+ * @author masensio
+ * @author Juan Carlos González Cabrero
+ * @author David A. Velasco
+ * Copyright (C) 2012  Bartek Przybylski
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -202,8 +202,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
         } else {
             showErrorDialog(
-                R.string.uploader_error_message_no_file_to_upload,
-                R.string.uploader_error_title_no_file_to_upload
+                    R.string.uploader_error_message_no_file_to_upload,
+                    R.string.uploader_error_title_no_file_to_upload
             );
         }
 
@@ -231,7 +231,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         if (mSyncBroadcastReceiver != null) {
             unregisterReceiver(mSyncBroadcastReceiver);
         }
@@ -245,14 +245,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
             builder.setMessage(String.format(
-                                   getString(R.string.uploader_wrn_no_account_text),
-                                   getString(R.string.app_name)));
+                    getString(R.string.uploader_wrn_no_account_text),
+                    getString(R.string.app_name)));
             builder.setCancelable(false);
             builder.setPositiveButton(R.string.uploader_wrn_no_account_setup_btn_text, new OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if (android.os.Build.VERSION.SDK_INT >
-                        android.os.Build.VERSION_CODES.ECLAIR_MR1) {
+                            android.os.Build.VERSION_CODES.ECLAIR_MR1) {
                         // using string value since in API7 this
                         // constant is not defined
                         // in API7 < this constant is defined in
@@ -392,17 +392,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mText.add(internetShortcutUrlText(extraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
-                adapter.add(String.format(str,URL_FILE_SUFFIX));
+                adapter.add(String.format(str, URL_FILE_SUFFIX));
 
                 mText.add(internetShortcutWeblocText(extraText));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
-                adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
+                adapter.add(String.format(str, WEBLOC_FILE_SUFFIX));
 
                 mText.add(internetShortcutDesktopText(extraText, filename));
                 mFilenameBase.add(filename);
                 mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
-                adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
+                adapter.add(String.format(str, DESKTOP_FILE_SUFFIX));
 
                 selectPos = PreferenceManager.getUploadUrlFileExtensionUrlSelectedPos(getActivity());
                 mFileCategory = CATEGORY_URL;
@@ -412,17 +412,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 mText.add(internetShortcutUrlText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(URL_FILE_SUFFIX);
-                adapter.add(String.format(str,URL_FILE_SUFFIX));
+                adapter.add(String.format(str, URL_FILE_SUFFIX));
 
                 mText.add(internetShortcutWeblocText(texts[2]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(WEBLOC_FILE_SUFFIX);
-                adapter.add(String.format(str,WEBLOC_FILE_SUFFIX));
+                adapter.add(String.format(str, WEBLOC_FILE_SUFFIX));
 
                 mText.add(internetShortcutDesktopText(texts[2], texts[0]));
                 mFilenameBase.add(texts[0]);
                 mFilenameSuffix.add(DESKTOP_FILE_SUFFIX);
-                adapter.add(String.format(str,DESKTOP_FILE_SUFFIX));
+                adapter.add(String.format(str, DESKTOP_FILE_SUFFIX));
 
                 selectPos = PreferenceManager.getUploadMapFileExtensionUrlSelectedPos(getActivity());
                 mFileCategory = CATEGORY_MAPS_URL;
@@ -441,7 +441,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
             mSpinner = spinner;
 
-            Dialog filenameDialog =  createFilenameDialog(view, userInput, spinner);
+            Dialog filenameDialog = createFilenameDialog(view, userInput, spinner);
             filenameDialog.getWindow().setSoftInputMode(LayoutParams.SOFT_INPUT_STATE_VISIBLE);
             return filenameDialog;
         }
@@ -471,13 +471,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
             builder.setView(view);
             builder.setTitle(R.string.upload_file_dialog_title);
             builder.setPositiveButton(R.string.common_ok, new OnClickListener() {
-                public void onClick(DialogInterface dialog,int id) {
+                public void onClick(DialogInterface dialog, int id) {
                     int selectPos = spinner.getSelectedItemPosition();
 
                     // verify if file name has suffix
                     String filename = userInput.getText().toString();
                     String suffix = mFilenameSuffix.get(selectPos);
-                    if (!filename.endsWith(suffix)){
+                    if (!filename.endsWith(suffix)) {
                         filename += suffix;
                     }
 
@@ -487,11 +487,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     }
                     String tmpname = file.getAbsolutePath();
 
-                    ((ReceiveExternalFilesActivity)getActivity()).uploadFile(tmpname, filename);
+                    ((ReceiveExternalFilesActivity) getActivity()).uploadFile(tmpname, filename);
                 }
             });
             builder.setNegativeButton(R.string.common_cancel, new OnClickListener() {
-                public void onClick(DialogInterface dialog,int id) {
+                public void onClick(DialogInterface dialog, int id) {
                     dialog.cancel();
                 }
             });
@@ -528,8 +528,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
         }
 
-        private void setFilename(EditText inputText, int selectPos)
-        {
+        private void setFilename(EditText inputText, int selectPos) {
             String filename = mFilenameBase.get(selectPos) + mFilenameSuffix.get(selectPos);
             inputText.setText(filename);
             int selectionStart = 0;
@@ -599,16 +598,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         private String internetShortcutDesktopText(String url, String filename) {
             return "[Desktop Entry]\n" +
-                "Encoding=UTF-8\n" +
-                "Name=" + filename + "\n" +
-                "Type=Link\n" +
-                "URL=" + url + "\n" +
-                "Icon=text-html";
+                    "Encoding=UTF-8\n" +
+                    "Name=" + filename + "\n" +
+                    "Type=Link\n" +
+                    "URL=" + url + "\n" +
+                    "Icon=text-html";
         }
 
         @Nullable
         private File createTempFile(String filename, String text) {
-            File file = new File(((ReceiveExternalFilesActivity)getActivity()).getCacheDir(), filename);
+            File file = new File(getActivity().getCacheDir(), filename);
             FileWriter fw = null;
             try {
                 fw = new FileWriter(file);
@@ -645,7 +644,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // click on folder in the list
         Log_OC.d(TAG, "on item click");
-        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile , false);
+        Vector<OCFile> tmpfiles = getStorageManager().getFolderContent(mFile, false);
         sortFileList(tmpfiles);
 
         if (tmpfiles.size() <= 0) {
@@ -659,7 +658,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (files.size() < position) {
             throw new IndexOutOfBoundsException("Incorrect item selected");
         }
-        if (files.get(position).isFolder()){
+        if (files.get(position).isFolder()) {
             OCFile folderToEnter = files.get(position);
             startSyncFolderOperation(folderToEnter);
             mParents.push(folderToEnter.getFileName());
@@ -678,7 +677,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                     mUploadPath += p + OCFile.PATH_SEPARATOR;
                 }
 
-                if (mUploadFromTmpFile){
+                if (mUploadFromTmpFile) {
                     DialogInputUploadFilename dialog = DialogInputUploadFilename.newInstance(mSubjectText, mExtraText);
                     dialog.show(getSupportFragmentManager(), null);
                 } else {
@@ -754,11 +753,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
 
             UploaderAdapter sa = new UploaderAdapter(this,
-                                                data,
-                                                R.layout.uploader_list_item_layout,
-                                                new String[] {"dirname"},
-                                                new int[] {R.id.filename},
-                                                getStorageManager(), getAccount());
+                    data,
+                    R.layout.uploader_list_item_layout,
+                    new String[]{"dirname"},
+                    new int[]{R.id.filename},
+                    getStorageManager(), getAccount());
 
             mListView.setAdapter(sa);
             Button btnChooseFolder = (Button) findViewById(R.id.uploader_choose_folder);
@@ -782,15 +781,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
         mSyncInProgress = true;
 
         // perform folder synchronization
-        RemoteOperation synchFolderOp = new RefreshFolderOperation( folder,
-                                                                        currentSyncTime,
-                                                                        false,
-                                                                        false,
-                                                                        false,
-                                                                        getStorageManager(),
-                                                                        getAccount(),
-                                                                        getApplicationContext()
-                                                                      );
+        RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
+                currentSyncTime,
+                false,
+                false,
+                false,
+                getStorageManager(),
+                getAccount(),
+                getApplicationContext()
+        );
         synchFolderOp.execute(getAccount(), this, null, null);
     }
 
@@ -849,15 +848,15 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public void uploadFile(String tmpname, String filename) {
         FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
         requester.uploadNewFile(
-            getBaseContext(),
-            getAccount(),
-            tmpname,
-            mFile.getRemotePath() + filename,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
-            null,
-            true,
-            UploadFileOperation.CREATED_BY_USER
-            );
+                getBaseContext(),
+                getAccount(),
+                tmpname,
+                mFile.getRemotePath() + filename,
+                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                null,
+                true,
+                UploadFileOperation.CREATED_BY_USER
+        );
         finish();
     }
 
@@ -1001,7 +1000,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         return retval;
     }
 
-    private OCFile getCurrentFolder(){
+    private OCFile getCurrentFolder() {
         OCFile file = mFile;
         if (file != null) {
             if (file.isFolder()) {
@@ -1079,13 +1078,13 @@ public class ReceiveExternalFilesActivity extends FileActivity
                                 /// TODO refactor and make common
                                 synchResult != null && !synchResult.isSuccess()) {
 
-                            if(synchResult.getCode() == ResultCode.UNAUTHORIZED ||
-                                        (synchResult.isException() && synchResult.getException()
-                                                instanceof AuthenticatorException)) {
+                            if (synchResult.getCode() == ResultCode.UNAUTHORIZED ||
+                                    (synchResult.isException() && synchResult.getException()
+                                            instanceof AuthenticatorException)) {
 
                                 requestCredentialsUpdate(context);
 
-                            } else if(RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(synchResult.getCode())) {
+                            } else if (RemoteOperationResult.ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED.equals(synchResult.getCode())) {
 
                                 showUntrustedCertDialog(synchResult);
                             }
@@ -1122,27 +1121,29 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private void showErrorDialog(int messageResId, int messageResTitle) {
 
         ConfirmationDialogFragment errorDialog = ConfirmationDialogFragment.newInstance(
-            messageResId,
-            new String[]{getString(R.string.app_name)}, // see uploader_error_message_* in strings.xml
-            messageResTitle,
-            R.string.common_back,
-            -1,
-            -1
+                messageResId,
+                new String[]{getString(R.string.app_name)}, // see uploader_error_message_* in strings.xml
+                messageResTitle,
+                R.string.common_back,
+                -1,
+                -1
         );
         errorDialog.setCancelable(false);
         errorDialog.setOnConfirmationListener(
-            new ConfirmationDialogFragment.ConfirmationDialogFragmentListener() {
-                @Override
-                public void onConfirmation(String callerTag) {
-                    finish();
+                new ConfirmationDialogFragment.ConfirmationDialogFragmentListener() {
+                    @Override
+                    public void onConfirmation(String callerTag) {
+                        finish();
+                    }
+
+                    @Override
+                    public void onNeutral(String callerTag) {
+                    }
+
+                    @Override
+                    public void onCancel(String callerTag) {
+                    }
                 }
-
-                @Override
-                public void onNeutral(String callerTag) {}
-
-                @Override
-                public void onCancel(String callerTag) {}
-            }
         );
         errorDialog.show(getSupportFragmentManager(), FTAG_ERROR_FRAGMENT);
     }

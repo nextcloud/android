@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author masensio
- *   Copyright (C) 2014 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio
+ * Copyright (C) 2014 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 
@@ -55,7 +54,7 @@ public class ErrorMessageAdapter {
 
     public static String getErrorCauseMessage(RemoteOperationResult result,
                                               RemoteOperation operation, Resources res) {
-        
+
         String message = null;
 
         if (!result.isSuccess() && isNetworkError(result.getCode())) {
@@ -72,7 +71,7 @@ public class ErrorMessageAdapter {
                         || result.getCode() == ResultCode.LOCAL_STORAGE_NOT_COPIED) {
                     message = String.format(
                             res.getString(R.string.error__upload__local_file_not_copied),
-                            ((UploadFileOperation) operation).getFileName(), 
+                            ((UploadFileOperation) operation).getFileName(),
                             res.getString(R.string.app_name));
                 /*
                 } else if (result.getCode() == ResultCode.QUOTA_EXCEEDED) {
@@ -107,7 +106,7 @@ public class ErrorMessageAdapter {
                 } else {
                     message = String.format(
                             res.getString(R.string.downloader_download_failed_content), new File(
-                            ((DownloadFileOperation) operation).getSavePath()).getName());
+                                    ((DownloadFileOperation) operation).getSavePath()).getName());
                 }
             }
 
@@ -163,12 +162,12 @@ public class ErrorMessageAdapter {
                 message = res.getString(R.string.create_dir_fail_msg);
             }
         } else if (operation instanceof CreateShareViaLinkOperation ||
-                    operation instanceof CreateShareWithShareeOperation) {
+                operation instanceof CreateShareWithShareeOperation) {
 
             if (result.getData() != null && result.getData().size() > 0) {
                 message = (String) result.getData().get(0);     // share API sends its own error messages
 
-            } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND)  {
+            } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
                 message = res.getString(R.string.share_link_file_no_exist);
 
             } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
@@ -200,7 +199,7 @@ public class ErrorMessageAdapter {
             }
 
         } else if (operation instanceof UpdateShareViaLinkOperation ||
-                    operation instanceof UpdateSharePermissionsOperation) {
+                operation instanceof UpdateSharePermissionsOperation) {
 
             if (result.getData() != null && result.getData().size() > 0) {
                 message = (String) result.getData().get(0);     // share API sends its own error messages

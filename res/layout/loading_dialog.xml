@@ -17,11 +17,11 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/loadingLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="@dimen/standard_padding">
+              android:id="@+id/loadingLayout"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:padding="@dimen/standard_padding">
 
     <ProgressBar
         android:id="@+id/loadingBar"
@@ -38,6 +38,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/standard_margin"
-        android:text="TextView" />
+        android:text="TextView"/>
 
 </LinearLayout>

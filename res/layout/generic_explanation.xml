@@ -17,36 +17,36 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background_color" 
-    android:id="@+id/explanation"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background_color"
+              android:id="@+id/explanation"
+              android:orientation="vertical">
 
-	<TextView
-		android:id="@+id/message"
-		android:layout_width="match_parent"
-		android:layout_height="@dimen/zero"
-		android:layout_weight="2"
-	    android:padding="@dimen/alternate_padding_independent"
-	    android:scrollbarAlwaysDrawVerticalTrack="true"
-		android:text="@string/placeholder_sentence" 
-		/>
-    
-	<ListView 
-	    android:id="@+id/list"
-	    android:layout_width="match_parent"
-	    android:layout_height="@dimen/zero"
-		android:layout_weight="3"
-	    android:padding="@dimen/alternate_padding_independent"
-	    />
-	    
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/zero"
+        android:layout_weight="2"
+        android:padding="@dimen/alternate_padding_independent"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:text="@string/placeholder_sentence"
+        />
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/zero"
+        android:layout_weight="3"
+        android:padding="@dimen/alternate_padding_independent"
+        />
+
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/cancel"
@@ -54,16 +54,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/common_cancel" />
+            android:text="@string/common_cancel"/>
 
         <android.support.v7.widget.AppCompatButton
-		    android:id="@+id/ok"
+            android:id="@+id/ok"
             android:theme="@style/Button.Primary"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_weight="1"
-		    android:text="@string/common_ok" />
-		
-	</LinearLayout>
-	
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/common_ok"/>
+
+    </LinearLayout>
+
 </LinearLayout>

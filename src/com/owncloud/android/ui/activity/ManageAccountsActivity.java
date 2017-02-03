@@ -122,7 +122,7 @@ public class ManageAccountsActivity extends FileActivity
         resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged());
         resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged());
         setResult(RESULT_OK, resultIntent);
-        
+
         super.onBackPressed();
     }
 
@@ -233,9 +233,9 @@ public class ManageAccountsActivity extends FileActivity
                                 String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
                                 AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), name);
                                 mAccountListAdapter = new AccountListAdapter(
-                                    ManageAccountsActivity.this,
-                                    getAccountListItems(),
-                                    mTintedCheck
+                                        ManageAccountsActivity.this,
+                                        getAccountListItems(),
+                                        mTintedCheck
                                 );
                                 mListView.setAdapter(mAccountListAdapter);
                                 runOnUiThread(new Runnable() {
@@ -282,7 +282,7 @@ public class ManageAccountsActivity extends FileActivity
                     mDownloaderBinder.cancel(account);
                 }
             }
-            
+
             if (AccountUtils.getCurrentOwnCloudAccount(this) == null) {
                 String accountName = "";
                 Account[] accounts = AccountManager.get(this).getAccountsByType(MainApp.getAccountType());
@@ -311,7 +311,9 @@ public class ManageAccountsActivity extends FileActivity
         super.onDestroy();
     }
 
-    public Handler getHandler() { return mHandler; }
+    public Handler getHandler() {
+        return mHandler;
+    }
 
     @Override
     public FileUploader.FileUploaderBinder getFileUploaderBinder() {
@@ -402,8 +404,8 @@ public class ManageAccountsActivity extends FileActivity
                                     AccountManager am = (AccountManager) getActivity().getSystemService(ACCOUNT_SERVICE);
                                     am.removeAccount(
                                             mAccount,
-                                            (ManageAccountsActivity)getActivity(),
-                                            ((ManageAccountsActivity)getActivity()).getHandler());
+                                            (ManageAccountsActivity) getActivity(),
+                                            ((ManageAccountsActivity) getActivity()).getHandler());
                                 }
                             })
                     .setNegativeButton(R.string.common_cancel, null)

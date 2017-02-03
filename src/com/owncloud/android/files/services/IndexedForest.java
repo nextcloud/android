@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.files.services;
@@ -61,7 +60,7 @@ public class IndexedForest<V> {
 
         public Node<V> getParent() {
             return mParent;
-        };
+        }
 
         public Set<Node<V>> getChildren() {
             return mChildren;
@@ -103,8 +102,8 @@ public class IndexedForest<V> {
 
         Node<V> valuedNode = new Node(targetKey, value);
         Node<V> previousValue = mMap.putIfAbsent(
-            targetKey,
-            valuedNode
+                targetKey,
+                valuedNode
         );
         if (previousValue != null) {
             // remotePath already known; not replaced
@@ -141,7 +140,7 @@ public class IndexedForest<V> {
 
             return new Pair<String, String>(targetKey, linkedTo);
         }
-    };
+    }
 
 
     public Pair<V, String> removePayload(String accountName, String remotePath) {
@@ -223,11 +222,11 @@ public class IndexedForest<V> {
      * Remove the elements that contains account as a part of its key
      * @param accountName
      */
-    public void remove(String accountName){
+    public void remove(String accountName) {
         Iterator<String> it = mMap.keySet().iterator();
         while (it.hasNext()) {
             String key = it.next();
-            Log_OC.d("IndexedForest", "Number of pending downloads= "  + mMap.size());
+            Log_OC.d("IndexedForest", "Number of pending downloads= " + mMap.size());
             if (key.startsWith(accountName)) {
                 mMap.remove(key);
             }

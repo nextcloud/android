@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?> 
+<?xml version="1.0" encoding="utf-8"?>
 <!--
   ownCloud Android client application
 
@@ -17,10 +17,16 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android" 
-        android:shape="rectangle"> 
-        <corners android:radius="5dip" />
-        <solid android:color="#aac4d2" /> 
-        <padding android:left="15dp" android:top="5dp" android:right="15dp" android:bottom="5dp" />
-        <stroke android:width="2dip" android:color="#ffffff" />
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+    <corners android:radius="5dip"/>
+    <solid android:color="#aac4d2"/>
+    <padding
+        android:left="15dp"
+        android:top="5dp"
+        android:right="15dp"
+        android:bottom="5dp"/>
+    <stroke
+        android:width="2dip"
+        android:color="#ffffff"/>
 </shape>

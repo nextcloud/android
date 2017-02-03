@@ -21,7 +21,7 @@
     <string name="drawer_item_settings">Configuració</string>
     <string name="drawer_item_uploads_list">Fitxers carregats</string>
     <string name="drawer_quota">Usats %1$s de %2$s</string>
-	<string name="drawer_close">Tanca</string>
+    <string name="drawer_close">Tanca</string>
     <string name="drawer_open">Obre</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>
@@ -50,8 +50,8 @@
     <string name="prefs_remember_last_share_location">Recorda la ubicació de la compartició</string>
     <string name="prefs_remember_last_upload_location_summary">Recorda la ubicació de l\'última pujada compartida</string>
 
-	<string name="recommend_subject">Proveu %1$s al telèfon intel·ligent!</string>
-	<string name="recommend_text">Vull invitar-te a utilitzar %1$s al teu smartphone!\nDescarrega-ho aqui: %2$s</string>
+    <string name="recommend_subject">Proveu %1$s al telèfon intel·ligent!</string>
+    <string name="recommend_text">Vull invitar-te a utilitzar %1$s al teu smartphone!\nDescarrega-ho aqui: %2$s</string>
 
     <string name="auth_check_server">Comprova el funcionament del servidor</string>
     <string name="auth_host_url">Adreça del servidor https://…</string>
@@ -174,7 +174,7 @@
     <string name="foreign_files_remote_text">Remot: %1$s</string>
     <string name="upload_query_move_foreign_files">No hi ha espai suficient per copiar els fitxers seleccionats dins la carpeta %1$s. Voldreu moure-les en comptes d\'això?</string>
     <string name="pass_code_enter_pass_code">Escriviu el codi d\'accés</string>
-    
+
     <string name="pass_code_configure_your_pass_code">Escriviu codi d\'accés</string>
     <string name="pass_code_configure_your_pass_code_explanation">Es requerirà el codi d\'accés cada vegada que s\'iniciï l\'aplicació</string>
     <string name="pass_code_reenter_your_pass_code">Torneu a escriure el codi d\'accés</string>
@@ -183,7 +183,7 @@
     <string name="pass_code_wrong">Codi d\'accés incorrecte</string>
     <string name="pass_code_removed">Codi d\'accés eliminat</string>
     <string name="pass_code_stored">Codi d\'accés desat</string>
-    
+
     <string name="media_notif_ticker">reproductor de música %1$s</string>
     <string name="media_state_playing">%1$s (sonant)</string>
     <string name="media_state_loading">%1$s (carregant)</string>
@@ -204,39 +204,39 @@
     <string name="media_play_pause_description">Botó de reproducció o pausa</string>
     <string name="media_forward_description">Botó de reproducció ràpida</string>
 
-	<string name="auth_getting_authorization">Recuperant autorització&#8230;</string>
-	<string name="auth_trying_to_login">Intentat accedir&#8230;</string>
-	<string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
-	<string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
-	<string name="auth_connection_established">S\'ha establert la connexió</string>
-	<string name="auth_testing_connection">S\'està comprovant la connexió</string>
-	<string name="auth_not_configured_title">La configuració del servidor està malformada</string>
-	<string name="auth_account_not_new">Ja hi ha un compte al dispositiu pel mateix usuari i mateix servidor</string>
-	<string name="auth_account_not_the_same">L\'usuari introduït no coincideix amb l\'usuari d\'aquest compte</string>
-	<string name="auth_unknown_error_title">S\'ha produït un error desconegut</string>
-	<string name="auth_unknown_host_title">No s\'ha trobat el servidor</string>
-	<string name="auth_incorrect_path_title">No s\'ha trobat la instància del servidor</string>
-	<string name="auth_timeout_title">El servidor ha trigat massa en respondre</string>
-	<string name="auth_incorrect_address_title">Format de l\'adreça del servidor incorrecte</string>
-	<string name="auth_ssl_general_error_title">La inicialització SSL ha fallat</string>
-	<string name="auth_ssl_unverified_server_title">No s\'ha pogut verificar la identitat SSL del servidor</string>
-	<string name="auth_bad_oc_version_title">Versió del servidor desconeguda</string>
-	<string name="auth_wrong_connection_title">No s\'ha pogut establir la connexió</string>
-	<string name="auth_secure_connection">S\'ha establert la connexió segura</string>
-	<string name="auth_unauthorized">Nom d\'usuari o contrasenya incorrectes</string>
-	<string name="auth_oauth_error">Autorització sense èxit</string>
-	<string name="auth_oauth_error_access_denied">El servidor d\'autenticació us ha denegat l\'accés</string>
-	<string name="auth_wtf_reenter_URL">Estat inesperat; escriviu de nou l\'adreça del servidor</string>
-	<string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut. Acrediteu-vos de nou</string>
-	<string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
-	<string name="auth_expired_saml_sso_token_toast">La sessió ha vençut. Connecteu-vos de nou</string>
-	<string name="auth_connecting_auth_server">Connectant amb el servidor d\'autenticació...</string>
-	<string name="auth_unsupported_auth_method">El serivdor no permet aquest mètode d\'autenticació</string>
-	<string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
-	<string name="auth_fail_get_user_name">El servidor no retorna una id d\'usuari correcta, contacteu amb l\'administrador.</string>
-	<string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
+    <string name="auth_getting_authorization">Recuperant autorització&#8230;</string>
+    <string name="auth_trying_to_login">Intentat accedir&#8230;</string>
+    <string name="auth_no_net_conn_title">Sense connexió de xarxa</string>
+    <string name="auth_nossl_plain_ok_title">La connexió segura no està disponible.</string>
+    <string name="auth_connection_established">S\'ha establert la connexió</string>
+    <string name="auth_testing_connection">S\'està comprovant la connexió</string>
+    <string name="auth_not_configured_title">La configuració del servidor està malformada</string>
+    <string name="auth_account_not_new">Ja hi ha un compte al dispositiu pel mateix usuari i mateix servidor</string>
+    <string name="auth_account_not_the_same">L\'usuari introduït no coincideix amb l\'usuari d\'aquest compte</string>
+    <string name="auth_unknown_error_title">S\'ha produït un error desconegut</string>
+    <string name="auth_unknown_host_title">No s\'ha trobat el servidor</string>
+    <string name="auth_incorrect_path_title">No s\'ha trobat la instància del servidor</string>
+    <string name="auth_timeout_title">El servidor ha trigat massa en respondre</string>
+    <string name="auth_incorrect_address_title">Format de l\'adreça del servidor incorrecte</string>
+    <string name="auth_ssl_general_error_title">La inicialització SSL ha fallat</string>
+    <string name="auth_ssl_unverified_server_title">No s\'ha pogut verificar la identitat SSL del servidor</string>
+    <string name="auth_bad_oc_version_title">Versió del servidor desconeguda</string>
+    <string name="auth_wrong_connection_title">No s\'ha pogut establir la connexió</string>
+    <string name="auth_secure_connection">S\'ha establert la connexió segura</string>
+    <string name="auth_unauthorized">Nom d\'usuari o contrasenya incorrectes</string>
+    <string name="auth_oauth_error">Autorització sense èxit</string>
+    <string name="auth_oauth_error_access_denied">El servidor d\'autenticació us ha denegat l\'accés</string>
+    <string name="auth_wtf_reenter_URL">Estat inesperat; escriviu de nou l\'adreça del servidor</string>
+    <string name="auth_expired_oauth_token_toast">La vostra autorització ha vençut. Acrediteu-vos de nou</string>
+    <string name="auth_expired_basic_auth_toast">Escriviu la contrasenya actual</string>
+    <string name="auth_expired_saml_sso_token_toast">La sessió ha vençut. Connecteu-vos de nou</string>
+    <string name="auth_connecting_auth_server">Connectant amb el servidor d\'autenticació...</string>
+    <string name="auth_unsupported_auth_method">El serivdor no permet aquest mètode d\'autenticació</string>
+    <string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
+    <string name="auth_fail_get_user_name">El servidor no retorna una id d\'usuari correcta, contacteu amb l\'administrador.</string>
+    <string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
     <string name="auth_account_does_not_exist">El compte no existeix en aquest dispositiu encara</string>
-    
+
     <string name="favorite">Marca com a disponible fora de línia</string>
     <string name="unfavorite">Desmarca com a disponible fora de línia</string>
     <string name="common_rename">Reanomena</string>
@@ -261,10 +261,10 @@
     <string name="filedisplay_no_file_selected">No heu seleccionat cap fitxer</string>
     <string name="activity_chooser_title">Envia l\'enllaç a&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiant fitxer des d\'emmagatzematge privat</string>
-    
-    <string name="oauth_check_onoff">Accés amb oAuth2</string> 
-    <string name="oauth_login_connection">Connectant amb el servidor oAuth2...</string>    
-        
+
+    <string name="oauth_check_onoff">Accés amb oAuth2</string>
+    <string name="oauth_login_connection">Connectant amb el servidor oAuth2...</string>
+
     <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del lloc web</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificat del servidor no està autenticat</string>
     <string name="ssl_validator_reason_cert_expired">- El certificat del servidor ha expirat</string>
@@ -311,7 +311,7 @@
     <string name="conflict_keep_both">Mantén-los ambdós</string>
     <string name="conflict_use_local_version">Versió local</string>
     <string name="conflict_use_server_version">versió del servidor</string>
-    
+
     <string name="preview_image_description">Visualització prèvia d\'imatge</string>
     <string name="preview_image_error_unknown_format">Aquesta imatge no es pot mostrar</string>
 
@@ -322,11 +322,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Feu servir subcarpetes</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Desar a subcarpetes ordenades per any i mes</string>
 
-	<string name="share_link_no_support_share_api">La compartició no es troba disponible al vostre servidor. Contacteu amb l\'administrador.</string>
-	<string name="share_link_file_no_exist">No es pot compartir. Assegureu-vos que el fitxer existeix</string>
-	<string name="share_link_file_error">S\'ha produït un error en intentar compartir aquest fitxer o carpeta</string>
-	<string name="unshare_link_file_no_exist">No es pot deixar de compartir. Assegureu-vos que el fitxer existeix</string>
-	<string name="unshare_link_file_error">S\'ha produït un error en intentar deixar de compartir aquest fitxer o carpeta</string>
+    <string name="share_link_no_support_share_api">La compartició no es troba disponible al vostre servidor. Contacteu amb l\'administrador.</string>
+    <string name="share_link_file_no_exist">No es pot compartir. Assegureu-vos que el fitxer existeix</string>
+    <string name="share_link_file_error">S\'ha produït un error en intentar compartir aquest fitxer o carpeta</string>
+    <string name="unshare_link_file_no_exist">No es pot deixar de compartir. Assegureu-vos que el fitxer existeix</string>
+    <string name="unshare_link_file_error">S\'ha produït un error en intentar deixar de compartir aquest fitxer o carpeta</string>
     <string name="update_link_file_no_exist">No es pot actualitzar. Assegureu-vos que el fitxer existeix</string>
     <string name="update_link_file_error">S\'ha produït un error en tractar d\'actualitzar la compartició</string>
     <string name="share_link_password_title">Escriviu una contrasenya</string>
@@ -383,18 +383,18 @@
     <string name="drawer_manage_accounts">Gestió de comptes</string>
     <string name="auth_redirect_non_secure_connection_title">La connexió segura està essent redirigida a través d\'una ruta insegura</string>
 
-	<string name="actionbar_logger">Registres</string>
-	<string name="log_send_history_button">Enviar història</string>
-	<string name="log_send_no_mail_app">No hi ha cap aplicació per enviar registres. Instal•leu una aplicació de correu.</string>
-	<string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
-	<string name="log_progress_dialog_text">Carregant dades&#8230;</string>
+    <string name="actionbar_logger">Registres</string>
+    <string name="log_send_history_button">Enviar història</string>
+    <string name="log_send_no_mail_app">No hi ha cap aplicació per enviar registres. Instal•leu una aplicació de correu.</string>
+    <string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
+    <string name="log_progress_dialog_text">Carregant dades&#8230;</string>
 
-	<string name="saml_authentication_required_text">Es requereix autenticació</string>
-	<string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
-	<string name="actionbar_move">Moure</string>
+    <string name="saml_authentication_required_text">Es requereix autenticació</string>
+    <string name="saml_authentication_wrong_pass">Contrasenya incorrecta</string>
+    <string name="actionbar_move">Moure</string>
     <string name="actionbar_copy">Copia</string>
-	<string name="file_list_empty_moving">Res per aquí. Podeu afegir una carpeta!</string>
-	<string name="folder_picker_choose_button_text">Escull</string>
+    <string name="file_list_empty_moving">Res per aquí. Podeu afegir una carpeta!</string>
+    <string name="folder_picker_choose_button_text">Escull</string>
 
     <string name="move_file_not_found">No es pot moure. Assegureu-vos que el fitxer existeix</string>
     <string name="move_file_invalid_into_descendent">No es pot moure una carpeta a una subcarpeta seva</string>
@@ -412,13 +412,13 @@
     <string name="prefs_category_instant_uploading">Pujada instantània</string>
     <string name="prefs_category_details">Detalls</string>
 
-	<string name="prefs_instant_video_upload_path_title">Carpeta de pujada instantània de vídeos</string>
+    <string name="prefs_instant_video_upload_path_title">Carpeta de pujada instantània de vídeos</string>
     <string name="sync_folder_failed_content">La sincronització de la carpeta %1$s no s\'ha pogut completar</string>
 
-	<string name="shared_subject_header">compartit</string>
-	<string name="with_you_subject_header">amb tú</string>
-    
-	<string name="subject_user_shared_with_you">%1$s ha compartit %2$s amb tu</string>
+    <string name="shared_subject_header">compartit</string>
+    <string name="with_you_subject_header">amb tú</string>
+
+    <string name="subject_user_shared_with_you">%1$s ha compartit %2$s amb tu</string>
     <string name="subject_shared_with_you">\"%1$s\" s\'ha compartit amb tu</string>
 
     <string name="auth_refresh_button">Actualitza la connexió</string>

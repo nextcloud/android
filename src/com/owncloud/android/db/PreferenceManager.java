@@ -68,9 +68,11 @@ public abstract class PreferenceManager {
     public static boolean instantVideoUploadViaWiFiOnly(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI, false);
     }
+
     public static boolean instantPictureUploadWhenChargingOnly(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_upload_on_charging", false);
     }
+
     public static boolean instantVideoUploadWhenChargingOnly(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean("instant_video_upload_on_charging", false);
     }
@@ -198,7 +200,7 @@ public abstract class PreferenceManager {
     /**
      * Saves the uploader behavior which the user has set last.
      *
-     * @param context   Caller {@link Context}, used to access to shared preferences manager.
+     * @param context           Caller {@link Context}, used to access to shared preferences manager.
      * @param uploaderBehaviour the uploader behavior
      */
     public static void setUploaderBehaviour(Context context, int uploaderBehaviour) {
