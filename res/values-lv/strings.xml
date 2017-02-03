@@ -43,7 +43,10 @@
     <string name="prefs_recommend">Ieteikt draugam</string>
     <string name="prefs_feedback">Atsauksmes</string>
     <string name="prefs_imprint">Importēt</string>
-    <string name="recommend_subject">Izmēģini %1$s uz savu viedtālruni!</string>
+    <string name="prefs_remember_last_share_location">Atcerētis koplietošanas atrašanās vietu</string>
+    <string name="prefs_remember_last_upload_location_summary">Atcerētis pēdējo koplietošanas augšupielādes atrašanās vietu</string>
+
+	<string name="recommend_subject">Izmēģini %1$s uz savu viedtālruni!</string>
 	<string name="recommend_text">Aicinu tevi izmantot %1$s tavā ierīcē!\nLejupielādē šeit: %2$s</string>
 
     <string name="auth_check_server">Pārbaudīt serveri</string>
@@ -171,8 +174,17 @@
     <string name="pass_code_removed">Kods noņemts</string>
     <string name="pass_code_stored">Kods saglabāts</string>
     
+    <string name="media_notif_ticker">%1$s mūzikas atskaņotājs</string>
+    <string name="media_state_playing">%1$s (atskaņot)</string>
+    <string name="media_state_loading">%1$s (ielādēt)</string>
+    <string name="media_event_done">%1$s atskaņošana pabeigta</string>
     <string name="media_err_nothing_to_play">Nav atrasts neviens multivides fails</string>
-    <string name="auth_trying_to_login">Mēģina pieteikties &#8230;</string>
+    <string name="media_err_io">Media failu nevar nolasīt</string>
+    <string name="media_err_timeout">Mēģinot atskaņot taimauts</string>
+    <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
+    <string name="media_forward_description">Patīšanas poga</string>
+
+	<string name="auth_trying_to_login">Mēģina pieteikties &#8230;</string>
 	<string name="auth_no_net_conn_title">Nav tīkla savienojumu</string>
 	<string name="auth_nossl_plain_ok_title">Nav pieejams drošs savienojums.</string>
 	<string name="auth_connection_established">Savienojums ir izveidots</string>
@@ -393,6 +405,7 @@
     <string name="pref_behaviour_entries_delete_file">dzēsts</string>
     <string name="prefs_storage_path">Krātuves vieta</string>
     <string name="share_dialog_title">Dalīšanās</string>
+    <string name="share_file">Koplietots %1$s</string>
     <string name="share_with_user_section_title">Koplietot ar lietotājiem vai grupām</string>
     <string name="share_add_user_or_group">Pievienot lietotāju vai grupu</string>
     <string name="share_via_link_section_title">Koplietot saiti</string>
@@ -443,6 +456,7 @@
     <string name="learn_more">Uzziniet vairāk</string>
     <string name="drawer_folder_sync">Automātiska augšupielāde</string>
     <string name="participate_testing_headline">Palīdziet mums testēšanā</string>
+    <string name="participate_testing_report_text">Ziņojiet par problēmu Github</string>
     <string name="participate_beta_headline">Testēt Beta versiju</string>
     <string name="participate_contribute_translate_text">&lt;a href="%1$s">Tūlkot&lt;/a> programmu</string>
     <string name="move_to">Pārvietot uz&#8230;</string>
