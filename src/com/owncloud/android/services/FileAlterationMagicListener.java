@@ -57,22 +57,22 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
     @Override
     public void onStart(FileAlterationObserver observer) {
-
+        // This method is intentionally empty
     }
 
     @Override
     public void onDirectoryCreate(File directory) {
-
+        // This method is intentionally empty
     }
 
     @Override
     public void onDirectoryChange(File directory) {
-
+        // This method is intentionally empty
     }
 
     @Override
     public void onDirectoryDelete(File directory) {
-
+        // This method is intentionally empty
     }
 
     @Override
@@ -109,15 +109,16 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
     @Override
     public void onFileChange(File file) {
+        // This method is intentionally empty
     }
 
     @Override
     public void onFileDelete(File file) {
-
+        // This method is intentionally empty
     }
 
     @Override
     public void onStop(FileAlterationObserver observer) {
-
+        // This method is intentionally empty
     }
 }
