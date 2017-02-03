@@ -1,9 +1,11 @@
 /**
  * Nextcloud Android client application
  *
+ * @author Tobias Kaminsky
+ * @author Andy Scherzinger
  * @author Mario Danic
- * At least some parts are Copyright (C) 2017 Mario Danic
- * Those parts are under the following licence:
+ * Copyright (C) 2016 Tobias Kaminsky, Andy Scherzinger
+ * Copyright (C) 2017 Mario Danic
  * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -18,7 +20,6 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package com.owncloud.android.services.observer;
 
 import android.app.Service;
