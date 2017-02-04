@@ -73,8 +73,6 @@ public class FingerprintActivity extends AppCompatActivity {
     private static final String KEY_NAME = "Nextcloud";
     private Cipher cipher;
 
-    private FingerprintManager fingerprintManager;
-
     private FingerprintHandler helper;
 
     private FingerprintManager.CryptoObject cryptoObject;
@@ -94,7 +92,7 @@ public class FingerprintActivity extends AppCompatActivity {
     private void startFingerprint() {
         TextView fingerprinttext = (TextView) findViewById(R.id.scanfingerprinttext);
 
-        fingerprintManager = (FingerprintManager) MainApp.getAppContext().getSystemService(Context.FINGERPRINT_SERVICE);
+        FingerprintManager fingerprintManager = (FingerprintManager) MainApp.getAppContext().getSystemService(Context.FINGERPRINT_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
             return;
