@@ -185,7 +185,7 @@ public class FingerprintActivity extends AppCompatActivity {
         try {
             keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
         } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
-            throw new RuntimeException("Failed to get KeyGenerator instance", e);
+            return;
         }
 
 
@@ -204,7 +204,7 @@ public class FingerprintActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException |
                 InvalidAlgorithmParameterException
                 | CertificateException | IOException e) {
-            throw new RuntimeException(e);
+            return;
         }
     }
 
@@ -214,7 +214,7 @@ public class FingerprintActivity extends AppCompatActivity {
         try {
             cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
-            throw new RuntimeException("Failed to get Cipher", e);
+            return false;
         }
 
 
@@ -227,7 +227,7 @@ public class FingerprintActivity extends AppCompatActivity {
         } catch (KeyPermanentlyInvalidatedException e) {
             return false;
         } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new RuntimeException("Failed to init Cipher", e);
+            return false;
         }
     }
 
@@ -262,16 +262,7 @@ public class FingerprintActivity extends AppCompatActivity {
             return false;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!fingerprintManager.isHardwareDetected()) {
-                // Device doesn't support fingerprint authentication
-                return false;
-            } else if (!fingerprintManager.hasEnrolledFingerprints()) {
-                // User hasn't enrolled any fingerprints to authenticate with
-                return true;
-            } else {
-                // Everything is ready for fingerprint authentication
-                return true;
-            }
+            return !(!fingerprintManager.isHardwareDetected() || !fingerprintManager.hasEnrolledFingerprints());
         }
         return false;
     }
