@@ -540,6 +540,10 @@ lub</string>
     <string name="upload_file_dialog_title">Wprowadź nazwę i typ wysyłanego pliku</string>
     <string name="upload_file_dialog_filename">Nazwa pliku</string>
     <string name="upload_file_dialog_filetype">Typ pliku</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Wstawka tekstowa file(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Skrót internetowy file(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps skrót file(%s)</string>
+
     <string name="storage_description_default">Domyślny</string>
     <string name="storage_description_sd_no">karta SD %1$d</string>
     <string name="storage_description_unknown">Nieznany</string>
