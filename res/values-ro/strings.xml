@@ -475,7 +475,7 @@
     <string name="edit_share_unshare">Oprește partajarea</string>
     <string name="edit_share_done">finalizat</string>
 
-    <string name="action_retry_uploads">Reîncercare eșuată</string>
+    <string name="action_retry_uploads">Reîncearcă încărcarea</string>
     <string name="action_clear_failed_uploads">Eliminare eșuată</string>
     <string name="action_clear_successful_uploads">Eliminare reușită</string>
     <string name="action_clear_finished_uploads">Eliminare completă finalizată</string>
