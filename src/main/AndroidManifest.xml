@@ -43,6 +43,7 @@
 
     <!-- WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in
         API >= 23; the app needs to handle this -->
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Next permissions are always approved in installation time,
@@ -202,6 +203,7 @@
         <service android:name=".media.MediaService" />
 
         <activity android:name=".ui.activity.PassCodeActivity" />
+        <activity android:name=".ui.activity.FingerprintActivity"/>
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>

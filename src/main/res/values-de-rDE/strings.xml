@@ -42,6 +42,8 @@
     <string name="prefs_accounts">Konten</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_passcode">PIN gesperrt</string>
+    <string name="prefs_fingerprint">Fingerabdruck gesperrt</string>
+    <string name="prefs_fingerprint_notsetup">Es sind keine Fingerabdrücke eingerichtet.</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_instant_upload">Sofortiger Bilderupload</string>
     <string name="prefs_instant_upload_summary">Fotos von der Kamera sofort hochladen</string>

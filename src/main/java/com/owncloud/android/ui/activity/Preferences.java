@@ -93,6 +93,7 @@ public class Preferences extends PreferenceActivity
     private Uri mUri;
 
     private CheckBoxPreference pCode;
+    private CheckBoxPreference fPrint;
     private CheckBoxPreference mShowHiddenFiles;
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
@@ -156,6 +157,9 @@ public class Preferences extends PreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
+        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("details");
+
+
         pCode = (CheckBoxPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
         if (pCode != null) {
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -178,6 +182,49 @@ public class Preferences extends PreferenceActivity
             });
         }
 
+        boolean fPrintEnabled = getResources().getBoolean(R.bool.fingerprint_enabled);
+        fPrint = (CheckBoxPreference) findPreference(FingerprintActivity.PREFERENCE_USE_FINGERPRINT);
+        if (fPrint != null) {
+            if(FingerprintActivity.isFingerprintCapable(MainApp.getAppContext()) && fPrintEnabled) {
+                fPrint.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        Boolean incoming = (Boolean) newValue;
+
+                        if(FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
+                            SharedPreferences appPrefs =
+                                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = appPrefs.edit();
+                            editor.putBoolean("use_fingerprint", incoming);
+                            editor.commit();
+                            return true;
+                        } else {
+                            if(incoming) {
+                                Toast.makeText(
+                                        MainApp.getAppContext(),
+                                        R.string.prefs_fingerprint_notsetup,
+                                        Toast.LENGTH_LONG)
+                                        .show();
+                                fPrint.setChecked(false);
+                            }
+                            SharedPreferences appPrefs =
+                                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = appPrefs.edit();
+                            editor.putBoolean("use_fingerprint", false);
+                            editor.commit();
+                            return false;
+                        }
+                    }
+                });
+                if(!FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
+                    fPrint.setChecked(false);
+                }
+
+            } else {
+               preferenceCategory.removePreference(fPrint);
+            }
+        }
+
         mShowHiddenFiles = (CheckBoxPreference) findPreference("show_hidden_files");
         mShowHiddenFiles.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
@@ -191,7 +238,7 @@ public class Preferences extends PreferenceActivity
             }
         });
 
-        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
+        preferenceCategory = (PreferenceCategory) findPreference("more");
 
         boolean calendarContactsEnabled = getResources().getBoolean(R.bool.calendar_contacts_enabled);
         Preference pCalendarContacts = findPreference("calendar_contacts");

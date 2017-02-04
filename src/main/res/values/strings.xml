@@ -42,6 +42,8 @@
     <string name="prefs_accounts">Accounts</string>
     <string name="prefs_manage_accounts">Manage accounts</string>
     <string name="prefs_passcode">Passcode lock</string>
+    <string name="prefs_fingerprint">Fingerprint lock</string>
+    <string name="prefs_fingerprint_notsetup">No fingerprints have been set up.</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_instant_upload">Instant picture uploads</string>
     <string name="prefs_instant_upload_summary">Instantly upload pictures taken by camera</string>
@@ -605,6 +607,8 @@
     <string name="welcome_feature_3_text">Keep your photos safe</string>
 
     <string name="whats_new_skip">Skip</string>
+    <string name="fingerprint_scan_finger">Please scan your finger</string>
+    <string name="fingerprint_unknown">Finger not recognized</string>
 
     <!-- User information -->
     <string name="user_info_full_name">Full name</string>
