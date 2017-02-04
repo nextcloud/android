@@ -59,11 +59,7 @@ public class SyncedFolderObserverService extends Service {
         fileFilter = new FileFilter() {
             @Override
             public boolean accept(File pathname) {
-                if (pathname.getName().startsWith(".")) {
-                    return false;
-                }
-
-                return true;
+                return !pathname.getName().startsWith(".");
             }
         };
         Log_OC.d(TAG, "start");
@@ -74,15 +70,16 @@ public class SyncedFolderObserverService extends Service {
                 FileAlterationObserver observer = new FileAlterationObserver(syncedFolder.getLocalPath(), fileFilter);
                 observer.addListener(new FileAlterationMagicListener(syncedFolder));
                 monitor.addObserver(observer);
-                try {
-                    monitor.start();
-                    syncedFolderMap.put(syncedFolder.getLocalPath(), observer);
-                } catch (Exception e) {
-                    Log_OC.d(TAG, "Something went very wrong at onStartCommand");
-                }
-
+                syncedFolderMap.put(syncedFolder.getLocalPath(), observer);
             }
         }
+
+        try {
+            monitor.start();
+        } catch (Exception e) {
+            Log_OC.d(TAG, "Something went very wrong at onStartCommand");
+        }
+
 
         return Service.START_NOT_STICKY;
     }
