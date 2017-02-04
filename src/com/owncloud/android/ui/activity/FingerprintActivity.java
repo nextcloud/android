@@ -64,8 +64,6 @@ import javax.crypto.SecretKey;
 
 public class FingerprintActivity extends AppCompatActivity {
 
-    private static final String TAG = FingerprintActivity.class.getSimpleName();
-
     public final static String KEY_CHECK_RESULT = "KEY_CHECK_RESULT";
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
@@ -76,12 +74,6 @@ public class FingerprintActivity extends AppCompatActivity {
     private Cipher cipher;
 
     FingerprintManager fingerprintManager;
-
-    private CancellationSignal mCancellationSignal;
-
-    private boolean mSelfCancelled;
-
-    private TextView fingerprinttext;
 
     FingerprintHandler helper;
 
@@ -100,14 +92,9 @@ public class FingerprintActivity extends AppCompatActivity {
     }
 
     private void startFingerprint() {
-        fingerprinttext = (TextView) findViewById(R.id.scanfingerprinttext);
+        TextView fingerprinttext = (TextView) findViewById(R.id.scanfingerprinttext);
 
         fingerprintManager = (FingerprintManager) MainApp.getAppContext().getSystemService(Context.FINGERPRINT_SERVICE);
-
-        mCancellationSignal = new CancellationSignal();
-        mSelfCancelled = false;
-        // The line below prevents the false positive inspection from Android Studio
-        // noinspection ResourceType
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -145,7 +132,7 @@ public class FingerprintActivity extends AppCompatActivity {
                     }
                 };
 
-                helper = new FingerprintHandler(this, fingerprinttext, callback);
+                helper = new FingerprintHandler(fingerprinttext, callback);
                 cancellationSignal = new CancellationSignal();
                 if (ActivityCompat.checkSelfPermission(MainApp.getAppContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
                     return;
@@ -296,16 +283,7 @@ public class FingerprintActivity extends AppCompatActivity {
             return false;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!fingerprintManager.isHardwareDetected()) {
-                // Device doesn't support fingerprint authentication
-                return false;
-            } else if (!fingerprintManager.hasEnrolledFingerprints()) {
-                // User hasn't enrolled any fingerprints to authenticate with
-                return false;
-            } else {
-                // Everything is ready for fingerprint authentication
-                return true;
-            }
+            return fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints();
         }
         return false;
     }
@@ -317,14 +295,12 @@ public class FingerprintActivity extends AppCompatActivity {
 class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
 
-    private Context context;
     private TextView text;
     private Callback callback;
 
 
     // Constructor
-    public FingerprintHandler(Context mContext, TextView mtext, Callback mcallback) {
-        context = mContext;
+    FingerprintHandler(TextView mtext, Callback mcallback) {
         text = mtext;
         callback = mcallback;
     }
@@ -373,7 +349,7 @@ class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
         }
     }
 
-    public interface Callback {
+    interface Callback {
 
         void onAuthenticated();
 
