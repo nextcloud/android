@@ -1,3 +1,7 @@
+## 2017-02-05
+
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
 ## 2017-02-04
 - Master (nextcloud/master) [https://github.com/nextcloud/android] added
 
