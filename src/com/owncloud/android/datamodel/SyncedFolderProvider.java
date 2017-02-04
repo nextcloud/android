@@ -165,7 +165,7 @@ public class SyncedFolderProvider extends Observable {
         Cursor cursor = mContentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 null,
-                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + "==" + localPath,
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + "== \"" + localPath + "\"",
                 null,
                 null
         );
