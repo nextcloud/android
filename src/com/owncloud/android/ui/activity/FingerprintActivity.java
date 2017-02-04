@@ -73,13 +73,13 @@ public class FingerprintActivity extends AppCompatActivity {
     private static final String KEY_NAME = "Nextcloud";
     private Cipher cipher;
 
-    FingerprintManager fingerprintManager;
+    private FingerprintManager fingerprintManager;
 
-    FingerprintHandler helper;
+    private FingerprintHandler helper;
 
-    FingerprintManager.CryptoObject cryptoObject;
+    private FingerprintManager.CryptoObject cryptoObject;
 
-    CancellationSignal cancellationSignal;
+    private CancellationSignal cancellationSignal;
 
     /**
      * Initializes the activity.
