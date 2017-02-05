@@ -607,6 +607,7 @@
     <string name="welcome_feature_3_text">Keep your photos safe</string>
 
     <string name="whats_new_skip">Skip</string>
+
     <string name="fingerprint_scan_finger">Please scan your finger</string>
     <string name="fingerprint_unknown">Finger not recognized</string>
 
