@@ -560,7 +560,4 @@
 
     <string name="whats_new_skip">Überspringen</string>
 
-    <string name="fingerprint_scan_finger">Bitte scannen Sie Ihren Finger</string>
-    <string name="fingerprint_unknown">Finger wurde nicht erkannt</string>
-
 </resources>
