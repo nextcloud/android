@@ -78,6 +78,7 @@ public class SyncedFolderObserverService extends Service {
 
         file = new File(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath() + "/nc_persistence");
 
+        boolean readPerstistanceEntries = false;
 
         if (file.exists() ) {
             FileInputStream fis = null;
@@ -85,6 +86,7 @@ public class SyncedFolderObserverService extends Service {
                 fis = new FileInputStream(file);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 pairArrayList = (CopyOnWriteArrayList<Pair<SyncedFolder, FileEntry>>)ois.readObject();
+                readPerstistanceEntries = true;
             } catch (FileNotFoundException e) {
                 Log_OC.d(TAG, "Failed with FileNotFound while reading persistence file");
             } catch (IOException e) {
@@ -138,7 +140,7 @@ public class SyncedFolderObserverService extends Service {
             }
         }
 
-        writePersistenceEntries(file);
+        writePersistenceEntries(readPerstistanceEntries, file);
 
         try {
             monitor.start();
@@ -150,11 +152,11 @@ public class SyncedFolderObserverService extends Service {
         return Service.START_NOT_STICKY;
     }
 
-    private void writePersistenceEntries(File file) {
+    private void writePersistenceEntries(boolean readPerstistanceEntries, File file) {
         FileOutputStream fos = null;
 
         try {
-            if (pairArrayList.size() > 0) {
+            if (pairArrayList.size() > 0 && !readPerstistanceEntries) {
                 fos = MainApp.getAppContext().openFileOutput(file.getAbsolutePath(), Context.MODE_PRIVATE);
                 ObjectOutputStream os = new ObjectOutputStream(fos);
                 for (int i = 0; i < pairArrayList.size(); i++) {
@@ -199,7 +201,7 @@ public class SyncedFolderObserverService extends Service {
             }
         }
 
-        writePersistenceEntries(file);
+        writePersistenceEntries(false, file);
     }
 
     /**
@@ -262,7 +264,7 @@ public class SyncedFolderObserverService extends Service {
             }
         }
 
-        writePersistenceEntries(file);
+        writePersistenceEntries(false, file);
     }
 
     @Override
