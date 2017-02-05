@@ -1,3 +1,7 @@
+## 2017-02-06
+
+- New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] updated
+
 ## 2017-02-05
 
 - Master (nextcloud/master) [https://github.com/nextcloud/android] updated
