@@ -45,7 +45,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -73,7 +72,6 @@ public class SyncedFolderObserverService extends Service {
             }
         };
 
-        FileEntry rootEntry;
 
         FileOutputStream fos = null;
         ArrayList<Pair<SyncedFolder, FileEntry>> pairArrayList = new ArrayList<>();
@@ -82,19 +80,13 @@ public class SyncedFolderObserverService extends Service {
         for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder.getLocalPath())) {
                 Log_OC.d(TAG, "start observer: " + syncedFolder.getLocalPath());
-                FileAlterationObserver observer = new FileAlterationObserver(syncedFolder.getLocalPath(), fileFilter);
-                Field f;
+                FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
+                        syncedFolder.getLocalPath()), fileFilter);
+
                 try {
-                    observer.initialize();
-                    f = observer.getClass().getDeclaredField("rootEntry");
-                    f.setAccessible(true);
-                    rootEntry = (FileEntry) f.get(observer);
-                    Pair<SyncedFolder, FileEntry> pair = new Pair<>(syncedFolder, rootEntry);
+                    observer.init();
+                    Pair<SyncedFolder, FileEntry> pair = new Pair<>(syncedFolder, observer.getRootEntry());
                     pairArrayList.add(pair);
-                } catch (NoSuchFieldException e) {
-                    Log_OC.d(TAG, "Failed getting private field rootEntry via NoSuchFieldException");
-                } catch (IllegalAccessException e) {
-                    Log_OC.d(TAG, "Failed getting private field rootEntry via IllegalAccessException");
                 } catch (Exception e) {
                     Log_OC.d(TAG, "Failed getting an observer to intialize");
                 }
@@ -118,7 +110,6 @@ public class SyncedFolderObserverService extends Service {
         } catch (IOException e) {
             Log_OC.d(TAG, "Failed writing to nc_sync_persistance file via IOException");
         }
-
 
 
         try {
