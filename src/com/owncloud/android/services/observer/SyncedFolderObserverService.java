@@ -23,9 +23,11 @@
 package com.owncloud.android.services.observer;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.support.v4.util.Pair;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -39,7 +41,12 @@ import org.apache.commons.io.monitor.FileEntry;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SyncedFolderObserverService extends Service {
@@ -58,6 +65,7 @@ public class SyncedFolderObserverService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         monitor = new FileAlterationMonitor();
+
         fileFilter = new FileFilter() {
             @Override
             public boolean accept(File pathname) {
@@ -67,18 +75,22 @@ public class SyncedFolderObserverService extends Service {
 
         FileEntry rootEntry;
 
+        FileOutputStream fos = null;
+        ArrayList<Pair<SyncedFolder, FileEntry>> pairArrayList = new ArrayList<>();
+
         Log_OC.d(TAG, "start");
         for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder.getLocalPath())) {
                 Log_OC.d(TAG, "start observer: " + syncedFolder.getLocalPath());
                 FileAlterationObserver observer = new FileAlterationObserver(syncedFolder.getLocalPath(), fileFilter);
-                Field f = null;
+                Field f;
                 try {
                     observer.initialize();
                     f = observer.getClass().getDeclaredField("rootEntry");
                     f.setAccessible(true);
                     rootEntry = (FileEntry) f.get(observer);
-                    observer = new FileAlterationMagicObserver(rootEntry, fileFilter, null);
+                    Pair<SyncedFolder, FileEntry> pair = new Pair<>(syncedFolder, rootEntry);
+                    pairArrayList.add(pair);
                 } catch (NoSuchFieldException e) {
                     Log_OC.d(TAG, "Failed getting private field rootEntry via NoSuchFieldException");
                 } catch (IllegalAccessException e) {
@@ -92,6 +104,22 @@ public class SyncedFolderObserverService extends Service {
                 syncedFolderMap.put(syncedFolder.getLocalPath(), observer);
             }
         }
+
+        try {
+            fos = MainApp.getAppContext().openFileOutput("nc_sync_persistance.persist", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            for (int i = 0; i < pairArrayList.size(); i++) {
+                os.writeObject(pairArrayList.get(i));
+            }
+            os.close();
+            fos.close();
+        } catch (FileNotFoundException e) {
+            Log_OC.d(TAG, "Failed writing to nc_sync_persistance file via FileNotFound");
+        } catch (IOException e) {
+            Log_OC.d(TAG, "Failed writing to nc_sync_persistance file via IOException");
+        }
+
+
 
         try {
             monitor.start();
