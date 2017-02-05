@@ -101,8 +101,8 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
         applicationId "com.nextcloud.android.beta"
-        versionCode 20170205
-        versionName "20170205"
+        versionCode 20170206
+        versionName "20170206"
 
         // disable the experimental Jack build tools.
         jackOptions {
