@@ -515,7 +515,7 @@ sau</string>
     <string name="participate_release_candidate_text">Versiunea-candidat (RC - release candidate) pentru lansare este o copie a următoarei versiuni de \'release\' și ar trebui să fie stabilă. Testarea pe sistemul tău ne-ar putea ajuta să ne asigurăm de acest lucru. Înregistrează-te ca tester pe Play Store sau navighează în secțiunea \"versions\" din F-droid.</string>
     <string name="participate_contribute_headline">Contribuie în mod activ</string>
     <string name="participate_contribute_irc_text">Alătură-te chat-ului pe IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ajută-i pe alții pe <a href=\"%1$s\">forum</a></string>
+    <string name="participate_contribute_forum_text">Ajută-i pe alții pe &lt;a href=\"%1$s\">forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Tradu&lt;/a> aplicația</string>
     <string name="participate_contribute_github_text">Contribuie ca și dezvoltator, uită-te în &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> for details</string>
     <string name="move_to">Mută în&#8230;</string>
