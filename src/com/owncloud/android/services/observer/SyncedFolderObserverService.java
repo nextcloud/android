@@ -35,9 +35,11 @@ import com.owncloud.android.services.FileAlterationMagicListener;
 
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
+import org.apache.commons.io.monitor.FileEntry;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.lang.reflect.Field;
 import java.util.HashMap;
 
 public class SyncedFolderObserverService extends Service {
@@ -62,12 +64,29 @@ public class SyncedFolderObserverService extends Service {
                 return !pathname.getName().startsWith(".") && !pathname.getAbsolutePath().endsWith(".tmp");
             }
         };
+
+        FileEntry rootEntry;
+
         Log_OC.d(TAG, "start");
         for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder.getLocalPath())) {
                 Log_OC.d(TAG, "start observer: " + syncedFolder.getLocalPath());
-
                 FileAlterationObserver observer = new FileAlterationObserver(syncedFolder.getLocalPath(), fileFilter);
+                Field f = null;
+                try {
+                    observer.initialize();
+                    f = observer.getClass().getDeclaredField("rootEntry");
+                    f.setAccessible(true);
+                    rootEntry = (FileEntry) f.get(observer);
+                    observer = new FileAlterationMagicObserver(rootEntry, fileFilter, null);
+                } catch (NoSuchFieldException e) {
+                    Log_OC.d(TAG, "Failed getting private field rootEntry via NoSuchFieldException");
+                } catch (IllegalAccessException e) {
+                    Log_OC.d(TAG, "Failed getting private field rootEntry via IllegalAccessException");
+                } catch (Exception e) {
+                    Log_OC.d(TAG, "Failed getting an observer to intialize");
+                }
+
                 observer.addListener(new FileAlterationMagicListener(syncedFolder));
                 monitor.addObserver(observer);
                 syncedFolderMap.put(syncedFolder.getLocalPath(), observer);
