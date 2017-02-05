@@ -23,7 +23,6 @@
 package com.owncloud.android.services.observer;
 
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
@@ -76,7 +75,8 @@ public class SyncedFolderObserverService extends Service {
             }
         };
 
-        file = new File(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath() + "/nc_persistence");
+        file = new File(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath() + File.separator +
+                "nc_persistence");
 
         boolean readPerstistanceEntries = false;
 
@@ -157,7 +157,7 @@ public class SyncedFolderObserverService extends Service {
 
         try {
             if (pairArrayList.size() > 0 && !readPerstistanceEntries) {
-                fos = MainApp.getAppContext().openFileOutput(file.getAbsolutePath(), Context.MODE_PRIVATE);
+                fos = new FileOutputStream (new File(file.getAbsolutePath()), false);
                 ObjectOutputStream os = new ObjectOutputStream(fos);
                 for (int i = 0; i < pairArrayList.size(); i++) {
                     os.writeObject(pairArrayList.get(i));
