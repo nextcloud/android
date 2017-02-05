@@ -35,15 +35,18 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.FileAlterationMagicListener;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.apache.commons.io.monitor.FileEntry;
 
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,39 +75,88 @@ public class SyncedFolderObserverService extends Service {
             }
         };
 
+        File file = new File(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath() + "/nc_persistence");
 
         FileOutputStream fos = null;
+        boolean readPerstistanceEntries = false;
         ArrayList<Pair<SyncedFolder, FileEntry>> pairArrayList = new ArrayList<>();
 
-        Log_OC.d(TAG, "start");
-        for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder.getLocalPath())) {
-                Log_OC.d(TAG, "start observer: " + syncedFolder.getLocalPath());
-                FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
-                        syncedFolder.getLocalPath()), fileFilter);
-
+        if (file.exists() ) {
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(file);
+                ObjectInputStream ois = new ObjectInputStream(fis);
+                pairArrayList = (ArrayList<Pair<SyncedFolder, FileEntry>>)ois.readObject();
+                readPerstistanceEntries = true;
+            } catch (FileNotFoundException e) {
+                Log_OC.d(TAG, "Failed with FileNotFound while reading persistence file");
+            } catch (IOException e) {
+                Log_OC.d(TAG, "Failed with IOException while reading persistence file");
+            } catch (ClassNotFoundException e) {
+                Log_OC.d(TAG, "Failed with ClassNotFound while reading persistence file");
+            } finally {
                 try {
-                    observer.init();
-                    Pair<SyncedFolder, FileEntry> pair = new Pair<>(syncedFolder, observer.getRootEntry());
-                    pairArrayList.add(pair);
-                } catch (Exception e) {
-                    Log_OC.d(TAG, "Failed getting an observer to intialize");
+                    if (fis != null) {
+                        fis.close();
+                    }
+                } catch (IOException e) {
+                    Log_OC.d(TAG, "Failed with closing FIS");
                 }
+            }
 
-                observer.addListener(new FileAlterationMagicListener(syncedFolder));
+        }
+
+        Log_OC.d(TAG, "start");
+        if (pairArrayList.size() == 0) {
+            for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
+                if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder.getLocalPath())) {
+                    Log_OC.d(TAG, "start observer: " + syncedFolder.getLocalPath());
+                    FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
+                            syncedFolder.getLocalPath()), fileFilter);
+
+                    try {
+                        observer.init();
+                        Pair<SyncedFolder, FileEntry> pair = new Pair<>(syncedFolder, observer.getRootEntry());
+                        pairArrayList.add(pair);
+                    } catch (Exception e) {
+                        Log_OC.d(TAG, "Failed getting an observer to intialize");
+                    }
+
+                    observer.addListener(new FileAlterationMagicListener(syncedFolder));
+                    monitor.addObserver(observer);
+                    syncedFolderMap.put(syncedFolder.getLocalPath(), observer);
+                }
+            }
+        } else {
+            for(int i = 0; i < pairArrayList.size(); i++) {
+                SyncedFolder syncFolder = pairArrayList.get(i).first;
+                FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
+                        syncFolder.getLocalPath()), fileFilter);
+                observer.setRootEntry(pairArrayList.get(i).second);
+
+                observer.addListener(new FileAlterationMagicListener(syncFolder));
                 monitor.addObserver(observer);
-                syncedFolderMap.put(syncedFolder.getLocalPath(), observer);
+                syncedFolderMap.put(syncFolder.getLocalPath(), observer);
+
             }
         }
 
         try {
-            fos = MainApp.getAppContext().openFileOutput("nc_sync_persistance.persist", Context.MODE_PRIVATE);
-            ObjectOutputStream os = new ObjectOutputStream(fos);
-            for (int i = 0; i < pairArrayList.size(); i++) {
-                os.writeObject(pairArrayList.get(i));
+            if (pairArrayList.size() > 0 && !readPerstistanceEntries) {
+                fos = MainApp.getAppContext().openFileOutput(file.getAbsolutePath(), Context.MODE_PRIVATE);
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                for (int i = 0; i < pairArrayList.size(); i++) {
+                    os.writeObject(pairArrayList.get(i));
+                }
+                os.close();
+            } else if (file.exists() && pairArrayList.size() == 0) {
+                FileUtils.deleteQuietly(file);
             }
-            os.close();
-            fos.close();
+
+            if (fos != null) {
+                fos.close();
+            }
+
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, "Failed writing to nc_sync_persistance file via FileNotFound");
         } catch (IOException e) {
