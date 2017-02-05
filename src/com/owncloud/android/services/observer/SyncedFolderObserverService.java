@@ -47,8 +47,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SyncedFolderObserverService extends Service {
     private static final String TAG = "SyncedFolderObserverService";
@@ -57,7 +57,7 @@ public class SyncedFolderObserverService extends Service {
     private final IBinder mBinder = new SyncedFolderObserverBinder();
     private FileAlterationMonitor monitor;
     private FileFilter fileFilter;
-    private ArrayList<Pair<SyncedFolder, FileEntry>> pairArrayList = new ArrayList<>();
+    private CopyOnWriteArrayList<Pair<SyncedFolder, FileEntry>> pairArrayList = new CopyOnWriteArrayList<>();
     private File file;
 
     @Override
@@ -85,7 +85,7 @@ public class SyncedFolderObserverService extends Service {
             try {
                 fis = new FileInputStream(file);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                pairArrayList = (ArrayList<Pair<SyncedFolder, FileEntry>>)ois.readObject();
+                pairArrayList = (CopyOnWriteArrayList<Pair<SyncedFolder, FileEntry>>)ois.readObject();
                 readPerstistanceEntries = true;
             } catch (FileNotFoundException e) {
                 Log_OC.d(TAG, "Failed with FileNotFound while reading persistence file");
@@ -222,6 +222,14 @@ public class SyncedFolderObserverService extends Service {
             } catch (Exception e) {
                 Log_OC.d(TAG, "Something went very wrong at onDestroy");
             }
+
+            // remove it from the paired array list
+            for (int i = 0; i < pairArrayList.size(); i++) {
+                if (syncedFolder.equals(pairArrayList.get(i).first)) {
+                    pairArrayList.remove(i);
+                    break;
+                }
+            }
             syncedFolderMap.remove(syncedFolder);
         }
 
@@ -236,6 +244,15 @@ public class SyncedFolderObserverService extends Service {
             } else {
                 fileAlterationObserver = new FileAlterationMagicObserver(new File(syncedFolder.getLocalPath()),
                         fileFilter);
+
+                try {
+                    fileAlterationObserver.init();
+                    Pair<SyncedFolder, FileEntry> pair = new Pair<>(syncedFolder, fileAlterationObserver.getRootEntry());
+                    pairArrayList.add(pair);
+                } catch (Exception e) {
+                    Log_OC.d(TAG, "Failed getting an observer to intialize");
+                }
+
                 fileAlterationObserver.addListener(new FileAlterationMagicListener(syncedFolder));
                 monitor.addObserver(fileAlterationObserver);
                 try {
@@ -246,6 +263,8 @@ public class SyncedFolderObserverService extends Service {
 
             }
         }
+
+        writePersistenceEntries(false, file);
     }
 
     @Override
