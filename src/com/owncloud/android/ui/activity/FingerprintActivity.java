@@ -260,7 +260,7 @@ public class FingerprintActivity extends AppCompatActivity {
             return false;
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return !(!fingerprintManager.isHardwareDetected() || !fingerprintManager.hasEnrolledFingerprints());
+            return fingerprintManager.isHardwareDetected();
         }
         return false;
     }
