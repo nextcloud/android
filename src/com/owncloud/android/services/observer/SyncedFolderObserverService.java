@@ -157,6 +157,10 @@ public class SyncedFolderObserverService extends Service {
 
         try {
             if (pairArrayList.size() > 0 && !readPerstistanceEntries) {
+                File newFile = new File(file.getAbsolutePath());
+                if (!newFile.exists()) {
+                    newFile.createNewFile();
+                }
                 fos = new FileOutputStream (new File(file.getAbsolutePath()), false);
                 ObjectOutputStream os = new ObjectOutputStream(fos);
                 for (int i = 0; i < pairArrayList.size(); i++) {
