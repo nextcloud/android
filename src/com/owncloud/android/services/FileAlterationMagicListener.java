@@ -23,6 +23,7 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
+import android.os.Handler;
 import android.os.PersistableBundle;
 
 import com.owncloud.android.MainApp;
@@ -35,6 +36,8 @@ import org.apache.commons.io.monitor.FileAlterationObserver;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Magical file alteration listener
@@ -47,6 +50,9 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     private Context context;
 
     private SyncedFolder syncedFolder;
+    private Handler handler = new Handler();
+
+    private Map<String, Runnable> fileRunnable = new HashMap<>();
 
     public FileAlterationMagicListener(SyncedFolder syncedFolder) {
         super();
@@ -76,40 +82,53 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     }
 
     @Override
-    public void onFileCreate(File file) {
-        PersistableBundle bundle = new PersistableBundle();
-        // TODO extract
-        bundle.putString(SyncedFolderJobService.LOCAL_PATH, file.getAbsolutePath());
-        bundle.putString(SyncedFolderJobService.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
-                syncedFolder.getRemotePath(), file.getName(),
-                new Date().getTime(),
-                syncedFolder.getSubfolderByDate()));
-        bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
-        bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
+    public void onFileCreate(final File file) {
+        final Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                PersistableBundle bundle = new PersistableBundle();
+                // TODO extract
+                bundle.putString(SyncedFolderJobService.LOCAL_PATH, file.getAbsolutePath());
+                bundle.putString(SyncedFolderJobService.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
+                        syncedFolder.getRemotePath(), file.getName(),
+                        new Date().getTime(),
+                        syncedFolder.getSubfolderByDate()));
+                bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
+                bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
 
-        JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+                JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
-        Long date = new Date().getTime();
-        JobInfo job = new JobInfo.Builder(
-                date.intValue(),
-                new ComponentName(context, SyncedFolderJobService.class))
-                .setRequiresCharging(syncedFolder.getChargingOnly())
-                .setMinimumLatency(10000)
-                .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
-                .setExtras(bundle)
-                .setPersisted(true)
-                .build();
+                Long date = new Date().getTime();
+                JobInfo job = new JobInfo.Builder(
+                        date.intValue(),
+                        new ComponentName(context, SyncedFolderJobService.class))
+                        .setRequiresCharging(syncedFolder.getChargingOnly())
+                        .setMinimumLatency(10000)
+                        .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
+                        .setExtras(bundle)
+                        .setPersisted(true)
+                        .build();
 
-        Integer result = js.schedule(job);
-        if (result <= 0) {
-            Log_OC.d(TAG, "Job failed to start: " + result);
-        }
+                Integer result = js.schedule(job);
+                if (result <= 0) {
+                    Log_OC.d(TAG, "Job failed to start: " + result);
+                }
+
+                fileRunnable.remove(file.getAbsolutePath());
+            }
+        };
+
+        fileRunnable.put(file.getAbsolutePath(), runnable);
+        handler.postDelayed(runnable, 500);
 
     }
 
     @Override
     public void onFileChange(File file) {
-        // This method is intentionally empty
+        if (fileRunnable.containsKey(file.getAbsolutePath())) {
+            handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
+            handler.postDelayed(fileRunnable.get(file.getAbsolutePath()), 500);
+        }
     }
 
     @Override
