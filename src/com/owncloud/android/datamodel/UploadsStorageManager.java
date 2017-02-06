@@ -399,13 +399,15 @@ public class UploadsStorageManager extends Observable {
 
         ArrayList<OCUpload> list = new ArrayList<>();
 
-        for (JobInfo ji: js.getAllPendingJobs()) {
-            PersistableBundle extras = ji.getExtras();
-            OCUpload upload  = new OCUpload(extras.getString("filePath"),
-                    extras.getString("remotePath"),
-                    extras.getString("account"));
+        if (js != null) {
+            for (JobInfo ji : js.getAllPendingJobs()) {
+                PersistableBundle extras = ji.getExtras();
+                OCUpload upload = new OCUpload(extras.getString("filePath"),
+                        extras.getString("remotePath"),
+                        extras.getString("account"));
 
-            list.add(upload);
+                list.add(upload);
+            }
         }
 
         return list;
