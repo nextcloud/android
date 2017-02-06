@@ -19,6 +19,8 @@
  */
 package com.owncloud.android.datamodel;
 
+import android.support.v4.util.Pair;
+
 import org.apache.commons.io.monitor.FileEntry;
 
 import java.io.Serializable;
@@ -27,40 +29,23 @@ import java.io.Serializable;
  * Pair that we can serialize
  */
 
-public class RealPair implements Serializable {
-    private static final long serialVersionUID = 3823582869520000090L;
+public class SerializablePair<S, F> implements Serializable {
+    private transient Pair pair = null;
 
-    private SyncedFolder syncedFolder;
-    private FileEntry fileEntry;
-
-    public RealPair() {
-
+    public SerializablePair(SyncedFolder key, FileEntry value) {
+        this.pair = new Pair(key, value);
     }
 
-    public RealPair(SyncedFolder syncedFolder, FileEntry fileEntry) {
-
-        this.syncedFolder = syncedFolder;
-        this.fileEntry = fileEntry;
+    @Override
+    public String toString() {
+        return pair.toString();
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public SyncedFolder getKey() {
+        return (SyncedFolder)this.pair.first;
     }
 
-    public SyncedFolder getSyncedFolder() {
-        return syncedFolder;
+    public FileEntry getValue() {
+        return (FileEntry)this.pair.second;
     }
-
-    public void setSyncedFolder(SyncedFolder syncedFolder) {
-        this.syncedFolder = syncedFolder;
-    }
-
-    public FileEntry getFileEntry() {
-        return fileEntry;
-    }
-
-    public void setFileEntry(FileEntry fileEntry) {
-        this.fileEntry = fileEntry;
-    }
-
 }
