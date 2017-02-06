@@ -51,14 +51,14 @@
     <string name="prefs_remember_last_upload_location_summary">最後に共有アップロードした場所を記憶する</string>
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
-	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか！
+	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか！\n
 ここからダウンロードしてください: %2$s</string>
 
     <string name="auth_check_server">サーバーのチェック</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
-    <string name="auth_register">まだサーバーがありませんか？\\nここをクリックして、プロバイダーから取得してください</string>
+    <string name="auth_register">まだサーバーがありませんか？\nここをクリックして、プロバイダーから取得してください</string>
     <string name="sync_string_files">ファイル</string>
     <string name="setup_btn_connect">接続</string>
     <string name="uploader_btn_upload_text">アップロード</string>
@@ -504,7 +504,7 @@ or</string>
     <string name="folder_sync_no_results">メディアフォルダが見つかりませんでした</string>
     <string name="folder_sync_preferences">自動アップロードの設定</string>
     <string name="folder_sync_settings">設定</string>
-    <string name="folder_sync_new_info">インスタントアップロードは完全に刷新されました。 メインメニューから自動アップロードを再設定してください。 ご迷惑をおかけして申し訳ありません。\\n\\n新しく拡張された自動アップロード機能をお楽しみください！</string>
+    <string name="folder_sync_new_info">インスタントアップロードは完全に刷新されました。 メインメニューから自動アップロードを再設定してください。 ご迷惑をおかけして申し訳ありません。\n\n新しく拡張された自動アップロード機能をお楽しみください！</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
     </plurals>
