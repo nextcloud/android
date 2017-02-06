@@ -116,7 +116,7 @@ public class SyncedFolderObserverService extends Service {
         Log_OC.d(TAG, "start");
         if (pairArrayList.size() == 0) {
             for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
-                if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder.getLocalPath())) {
+                if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder)) {
                     Log_OC.d(TAG, "start observer: " + syncedFolder.getLocalPath());
                     FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
                             syncedFolder.getLocalPath()), fileFilter);
