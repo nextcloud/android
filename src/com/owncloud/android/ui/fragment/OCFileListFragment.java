@@ -246,6 +246,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                         mAdapter.getFilter().filter(mSearchQuery);
                     }
                 });
+                setEmptyListMessage(true);
             }
         });
 
@@ -265,6 +266,7 @@ public class OCFileListFragment extends ExtendedListFragment {
                     }
                 }, 250);
                 refreshDirectory();
+                setEmptyListMessage(false);
 
                 return false;
             }
@@ -883,7 +885,6 @@ public class OCFileListFragment extends ExtendedListFragment {
                 // set footer text
                 setFooterText(generateFooterText(filesCount, foldersCount));
             }
-
             // decide grid vs list view
             OwnCloudVersion version = AccountUtils.getServerVersion(
                     ((FileActivity) mContainerActivity).getAccount());
@@ -1039,6 +1040,14 @@ public class OCFileListFragment extends ExtendedListFragment {
         SharedPreferences.Editor editor = setting.edit();
         editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
         editor.apply();
+    }
+
+    public boolean isSearchOpen() {
+        if (mSearchView != null) {
+            return !mSearchView.isIconified();
+        }
+
+        return false;
     }
 
 }

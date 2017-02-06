@@ -487,12 +487,17 @@ public class ExtendedListFragment extends Fragment
     /**
      * Set message for empty list view.
      */
-    public void setEmptyListMessage() {
-        setMessageForEmptyList(
-                R.string.file_list_empty_headline,
-                R.string.file_list_empty,
-                R.drawable.ic_list_empty_folder
-        );
+    public void setEmptyListMessage(boolean isSearch) {
+        if (!isSearch) {
+            setMessageForEmptyList(
+                    R.string.file_list_empty_headline,
+                    R.string.file_list_empty,
+                    R.drawable.ic_list_empty_folder
+            );
+        } else {
+            setMessageForEmptyList(R.string.file_list_empty_headline_search,
+                    R.string.file_list_empty_search, R.drawable.ic_search_grey);
+        }
     }
 
     /**
