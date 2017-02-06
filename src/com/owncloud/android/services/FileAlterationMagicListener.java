@@ -128,7 +128,6 @@ public class FileAlterationMagicListener implements FileAlterationListener {
         if (fileRunnable.containsKey(file.getAbsolutePath())) {
             handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
             handler.postDelayed(fileRunnable.get(file.getAbsolutePath()), 500);
-            fileRunnable.remove(file.getAbsolutePath());
         }
     }
 
@@ -136,7 +135,6 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     public void onFileDelete(File file) {
         if (fileRunnable.containsKey(file.getAbsolutePath())) {
             handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
-            fileRunnable.remove(file.getAbsolutePath());
         }
     }
 
