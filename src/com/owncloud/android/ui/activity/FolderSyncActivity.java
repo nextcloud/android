@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -130,7 +131,16 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             public void run() {
                 final List<MediaFolder> mediaFolders = MediaProvider.getMediaFolders(getContentResolver(),
                         perFolderMediaItemLimit);
-                syncFolderItems = sortSyncedFolderItems(mergeFolderData(mSyncedFolderProvider.getSyncedFolders(),
+                List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
+                List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<SyncedFolder>();
+                Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(FolderSyncActivity.this);
+                for (SyncedFolder syncedFolder : syncedFolderArrayList) {
+                    if (syncedFolder.getAccount().equals(currentAccount.name)) {
+                        currentAccountSyncedFoldersList.add(syncedFolder);
+                    }
+                }
+
+                syncFolderItems = sortSyncedFolderItems(mergeFolderData(currentAccountSyncedFoldersList,
                         mediaFolders));
 
                 mHandler.post(new TimerTask() {
