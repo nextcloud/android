@@ -23,6 +23,7 @@ import android.support.v4.util.Pair;
 
 import org.apache.commons.io.monitor.FileEntry;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -30,10 +31,24 @@ import java.io.Serializable;
  */
 
 public class SerializablePair<S, F> implements Serializable {
+    private static final long serialVersionUID = -1710182118966395715L;
     private transient Pair pair = null;
 
     public SerializablePair(SyncedFolder key, FileEntry value) {
         this.pair = new Pair(key, value);
+    }
+
+    private void writeObject(java.io.ObjectOutputStream stream)
+            throws IOException {
+        stream.writeObject(pair.first);
+        stream.writeObject(pair.second);
+    }
+
+    private void readObject(java.io.ObjectInputStream stream)
+            throws IOException, ClassNotFoundException {
+        SyncedFolder syncedFolder = (SyncedFolder) stream.readObject();
+        FileEntry fileEntry = (FileEntry) stream.readObject();
+        pair = new Pair(syncedFolder, fileEntry);
     }
 
     @Override
