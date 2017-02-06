@@ -60,6 +60,7 @@
 
     <application
         android:name=".MainApp"
+        android:fullBackupContent="@xml/my_backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="Nextcloud beta"
         android:theme="@style/Theme.ownCloud.Toolbar"
