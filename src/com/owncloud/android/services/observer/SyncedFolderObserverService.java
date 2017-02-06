@@ -205,8 +205,7 @@ public class SyncedFolderObserverService extends Service {
 
     }
 
-    @Override
-    public void onDestroy() {
+    public void syncToDisk(boolean destructive) {
         for (SyncedFolder syncedFolder : syncedFolderMap.keySet()) {
             FileAlterationMagicObserver obs = syncedFolderMap.get(syncedFolder);
             for (int i = 0; i < pairArrayList.size(); i++) {
@@ -218,8 +217,11 @@ public class SyncedFolderObserverService extends Service {
                     break;
                 }
             }
-            monitor.removeObserver(obs);
-            syncedFolderMap.remove(obs);
+
+            if (destructive) {
+                monitor.removeObserver(obs);
+                syncedFolderMap.remove(obs);
+            }
 
             try {
                 obs.destroy();
@@ -228,7 +230,19 @@ public class SyncedFolderObserverService extends Service {
             }
         }
 
+        if (destructive) {
+            try {
+                monitor.stop();
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Something went very wrong at onDestroy");
+            }
+        }
         writePersistenceEntries(false, file);
+    }
+
+    @Override
+    public void onDestroy() {
+        syncToDisk(true);
     }
 
     /**
