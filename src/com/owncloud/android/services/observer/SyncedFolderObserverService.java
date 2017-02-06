@@ -85,7 +85,15 @@ public class SyncedFolderObserverService extends Service {
             try {
                 fis = new FileInputStream(file);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                pairArrayList = (CopyOnWriteArrayList<SerializablePair<SyncedFolder, FileEntry>>)ois.readObject();
+                boolean cont = true;
+                while(cont){
+                    Object obj = ois.readObject();
+                    if(obj != null)
+                        pairArrayList.add((SerializablePair<SyncedFolder, FileEntry>) obj);
+                    else
+                        cont = false;
+                }
+
                 readPerstistanceEntries = true;
             } catch (FileNotFoundException e) {
                 Log_OC.d(TAG, "Failed with FileNotFound while reading persistence file");
@@ -181,6 +189,7 @@ public class SyncedFolderObserverService extends Service {
         } catch (IOException e) {
             Log_OC.d(TAG, "Failed writing to nc_sync_persistance file via IOException");
         }
+
 
     }
 
