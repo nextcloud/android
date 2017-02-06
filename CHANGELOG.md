@@ -1,3 +1,7 @@
+## 2017-02-07
+
+-Beta branch was updated successfully] updated
+
 ## 2017-02-06
 
 - New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] updated
