@@ -28,7 +28,7 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.datamodel.RealPair;
+import com.owncloud.android.datamodel.SerializablePair;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -36,6 +36,7 @@ import com.owncloud.android.services.FileAlterationMagicListener;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
+import org.apache.commons.io.monitor.FileEntry;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -55,7 +56,7 @@ public class SyncedFolderObserverService extends Service {
     private final IBinder mBinder = new SyncedFolderObserverBinder();
     private FileAlterationMonitor monitor;
     private FileFilter fileFilter;
-    private CopyOnWriteArrayList<RealPair> pairArrayList = new CopyOnWriteArrayList<>();
+    private CopyOnWriteArrayList<SerializablePair<SyncedFolder, FileEntry>> pairArrayList = new CopyOnWriteArrayList<>();
     private File file;
 
     @Override
@@ -84,7 +85,7 @@ public class SyncedFolderObserverService extends Service {
             try {
                 fis = new FileInputStream(file);
                 ObjectInputStream ois = new ObjectInputStream(fis);
-                pairArrayList = (CopyOnWriteArrayList<RealPair>)ois.readObject();
+                pairArrayList = (CopyOnWriteArrayList<SerializablePair<SyncedFolder, FileEntry>>)ois.readObject();
                 readPerstistanceEntries = true;
             } catch (FileNotFoundException e) {
                 Log_OC.d(TAG, "Failed with FileNotFound while reading persistence file");
@@ -114,7 +115,8 @@ public class SyncedFolderObserverService extends Service {
 
                     try {
                         observer.init();
-                        RealPair pair = new RealPair(syncedFolder, observer.getRootEntry());
+                        SerializablePair<SyncedFolder, FileEntry> pair = new SerializablePair<>(syncedFolder,
+                                observer.getRootEntry());
                         pairArrayList.add(pair);
                     } catch (Exception e) {
                         Log_OC.d(TAG, "Failed getting an observer to intialize");
@@ -127,10 +129,10 @@ public class SyncedFolderObserverService extends Service {
             }
         } else {
             for(int i = 0; i < pairArrayList.size(); i++) {
-                SyncedFolder syncFolder = pairArrayList.get(i).getSyncedFolder();
+                SyncedFolder syncFolder = pairArrayList.get(i).getKey();
                 FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
                         syncFolder.getLocalPath()), fileFilter);
-                observer.setRootEntry(pairArrayList.get(i).getFileEntry());
+                observer.setRootEntry(pairArrayList.get(i).getValue());
 
                 observer.addListener(new FileAlterationMagicListener(syncFolder));
                 monitor.addObserver(observer);
@@ -153,15 +155,19 @@ public class SyncedFolderObserverService extends Service {
 
     private void writePersistenceEntries(boolean readPerstistanceEntries, File file) {
         FileOutputStream fos = null;
-        ObjectOutputStream os = null;
+
         try {
             if (pairArrayList.size() > 0 && !readPerstistanceEntries) {
-                if (!file.exists()) {
-                    file.createNewFile();
+                File newFile = new File(file.getAbsolutePath());
+                if (!newFile.exists()) {
+                    newFile.createNewFile();
                 }
-                fos = FileUtils.openOutputStream(file, false);
-                os = new ObjectOutputStream(fos);
-                os.writeObject(pairArrayList);
+                fos = new FileOutputStream (new File(file.getAbsolutePath()), false);
+                ObjectOutputStream os = new ObjectOutputStream(fos);
+                for (int i = 0; i < pairArrayList.size(); i++) {
+                    os.writeObject(pairArrayList.get(i));
+                }
+                os.close();
             } else if (file.exists() && pairArrayList.size() == 0) {
                 FileUtils.deleteQuietly(file);
             }
@@ -169,11 +175,6 @@ public class SyncedFolderObserverService extends Service {
             if (fos != null) {
                 fos.close();
             }
-
-            if (os != null) {
-                os.close();
-            }
-
 
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, "Failed writing to nc_sync_persistance file via FileNotFound");
@@ -189,9 +190,10 @@ public class SyncedFolderObserverService extends Service {
         for (SyncedFolder syncedFolder : syncedFolderMap.keySet()) {
             FileAlterationMagicObserver obs = syncedFolderMap.get(syncedFolder);
             for (int i = 0; i < pairArrayList.size(); i++) {
-                SyncedFolder pairSyncedFolder = pairArrayList.get(i).getSyncedFolder();
+                SyncedFolder pairSyncedFolder = pairArrayList.get(i).getKey();
                 if (pairSyncedFolder.equals(syncedFolder)) {
-                    RealPair newPairEntry = new RealPair(syncedFolder, obs.getRootEntry());
+                    SerializablePair<SyncedFolder, FileEntry> newPairEntry = new SerializablePair<>(syncedFolder,
+                            obs.getRootEntry());
                     pairArrayList.set(i, newPairEntry);
                     break;
                 }
@@ -230,7 +232,7 @@ public class SyncedFolderObserverService extends Service {
 
             // remove it from the paired array list
             for (int i = 0; i < pairArrayList.size(); i++) {
-                if (syncedFolder.equals(pairArrayList.get(i).getSyncedFolder())) {
+                if (syncedFolder.equals(pairArrayList.get(i).getKey())) {
                     pairArrayList.remove(i);
                     break;
                 }
@@ -252,7 +254,8 @@ public class SyncedFolderObserverService extends Service {
 
                 try {
                     fileAlterationObserver.init();
-                    RealPair pair = new RealPair(syncedFolder, fileAlterationObserver.getRootEntry());
+                    SerializablePair<SyncedFolder, FileEntry> pair = new SerializablePair<>(syncedFolder,
+                            fileAlterationObserver.getRootEntry());
                     pairArrayList.add(pair);
                 } catch (Exception e) {
                     Log_OC.d(TAG, "Failed getting an observer to intialize");
