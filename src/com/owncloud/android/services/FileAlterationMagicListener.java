@@ -133,7 +133,9 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
     @Override
     public void onFileDelete(File file) {
-        // This method is intentionally empty
+        if (fileRunnable.containsKey(file.getAbsolutePath())) {
+            handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
+        }
     }
 
     @Override
