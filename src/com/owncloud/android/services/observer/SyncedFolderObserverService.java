@@ -138,6 +138,15 @@ public class SyncedFolderObserverService extends Service {
         } else {
             for(int i = 0; i < pairArrayList.size(); i++) {
                 SyncedFolder syncFolder = pairArrayList.get(i).getKey();
+                for(SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
+                    if (syncFolder.getId() == syncedFolder.getId()) {
+                        syncFolder = syncedFolder;
+                        pairArrayList.set(i, new SerializablePair<SyncedFolder, FileEntry>(syncFolder,
+                                pairArrayList.get(i).getValue()));
+                        break;
+                    }
+                }
+
                 FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
                         syncFolder.getLocalPath()), fileFilter);
                 observer.setRootEntry(pairArrayList.get(i).getValue());
