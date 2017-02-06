@@ -151,6 +151,7 @@ public class MainApp extends Application {
             @Override
             public void onActivityDestroyed(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending" );
+                MainApp.getSyncedFolderObserverService().syncToDisk(false);
             }
         });
     }
