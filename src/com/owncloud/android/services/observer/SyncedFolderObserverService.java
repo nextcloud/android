@@ -38,6 +38,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileEntry;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -62,10 +63,6 @@ public class SyncedFolderObserverService extends Service {
     @Override
     public void onCreate() {
         mProvider = new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
         monitor = new FileAlterationMonitor();
 
         fileFilter = new FileFilter() {
@@ -97,6 +94,9 @@ public class SyncedFolderObserverService extends Service {
                 readPerstistanceEntries = true;
             } catch (FileNotFoundException e) {
                 Log_OC.d(TAG, "Failed with FileNotFound while reading persistence file");
+            } catch (EOFException e) {
+                Log_OC.d(TAG, "Failed with EOFException while reading persistence file");
+                readPerstistanceEntries = true;
             } catch (IOException e) {
                 Log_OC.d(TAG, "Failed with IOException while reading persistence file");
             } catch (ClassNotFoundException e) {
@@ -166,7 +166,10 @@ public class SyncedFolderObserverService extends Service {
             Log_OC.d(TAG, "Something went very wrong at onStartCommand");
         }
 
+    }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         return Service.START_NOT_STICKY;
     }
 
@@ -204,7 +207,6 @@ public class SyncedFolderObserverService extends Service {
 
     @Override
     public void onDestroy() {
-
         for (SyncedFolder syncedFolder : syncedFolderMap.keySet()) {
             FileAlterationMagicObserver obs = syncedFolderMap.get(syncedFolder);
             for (int i = 0; i < pairArrayList.size(); i++) {
