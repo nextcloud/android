@@ -135,6 +135,7 @@ public class MainApp extends Application {
             @Override
             public void onActivityPaused(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onPause() ending");
+                MainApp.getSyncedFolderObserverService().syncToDisk(false);
             }
 
             @Override
@@ -151,7 +152,6 @@ public class MainApp extends Application {
             @Override
             public void onActivityDestroyed(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending" );
-                MainApp.getSyncedFolderObserverService().syncToDisk(false);
             }
         });
     }
