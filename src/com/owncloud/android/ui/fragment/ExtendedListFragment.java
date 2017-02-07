@@ -496,7 +496,7 @@ public class ExtendedListFragment extends Fragment
             );
         } else {
             setMessageForEmptyList(R.string.file_list_empty_headline_search,
-                    R.string.file_list_empty_search, R.drawable.ic_search_grey);
+                    R.string.file_list_empty_search, R.drawable.ic_search_light_blue);
         }
     }
 
