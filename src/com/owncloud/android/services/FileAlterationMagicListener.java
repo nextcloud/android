@@ -135,6 +135,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     public void onFileDelete(File file) {
         if (fileRunnable.containsKey(file.getAbsolutePath())) {
             handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
+            fileRunnable.remove(file.getAbsolutePath());
         }
     }
 
