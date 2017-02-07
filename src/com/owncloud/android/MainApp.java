@@ -119,22 +119,24 @@ public class MainApp extends Application {
             SyncedFolderProvider mProvider = new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
 
             List<SyncedFolder> syncedFolderList = mProvider.getSyncedFolders();
-            Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
+            Map<Pair<String, String>, Pair<Long, Boolean>> syncedFolders = new HashMap<>();
             ArrayList<Long> ids = new ArrayList<>();
             ArrayList<SyncedFolder> syncedFolderArrayList = new ArrayList<>();
             for (SyncedFolder syncedFolder : syncedFolderList) {
                 Pair<String, String> checkPair = new Pair(syncedFolder.getAccount(), syncedFolder.getLocalPath());
                 if (syncedFolders.containsKey(checkPair)) {
-                    if (syncedFolder.getId() > syncedFolders.get(checkPair)) {
-                        syncedFolders.put(checkPair, syncedFolder.getId());
+                    if (syncedFolder.getId() > syncedFolders.get(checkPair).first) {
+                        syncedFolders.put(checkPair, new Pair(syncedFolder.getId(), true));
                     }
                 } else {
-                    syncedFolders.put(checkPair, syncedFolder.getId());
+                    syncedFolders.put(checkPair, new Pair(syncedFolder.getId(), false));
                 }
             }
 
-            for (Long value : syncedFolders.values()) {
-                ids.add(value);
+            for (Pair<Long, Boolean> pair : syncedFolders.values()) {
+                if (pair.second) {
+                    ids.add(pair.first);
+                }
             }
 
             for (SyncedFolder syncedFolder : syncedFolderList) {
