@@ -135,7 +135,9 @@ public class MainApp extends Application {
             @Override
             public void onActivityPaused(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onPause() ending");
-                MainApp.getSyncedFolderObserverService().syncToDisk(false);
+                if (MainApp.getSyncedFolderObserverService() != null) {
+                    MainApp.getSyncedFolderObserverService().syncToDisk(false);
+                }
             }
 
             @Override
