@@ -1,22 +1,21 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author masensio
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author masensio
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android;
 
@@ -33,8 +32,11 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.v4.util.Pair;
 
 import com.owncloud.android.authentication.PassCodeManager;
+import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
@@ -42,18 +44,18 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
-import com.owncloud.android.utils.ExceptionHandler;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * Main Application of the project
- * 
+ *
  * Contains methods to build the "static" strings. These strings were before constants in different
  * classes
  */
@@ -80,18 +82,14 @@ public class MainApp extends Application {
     private boolean mBound;
 
     @SuppressFBWarnings("ST")
-    public void onCreate(){
+    public void onCreate() {
         super.onCreate();
         MainApp.mContext = getApplicationContext();
-
-        // Setup handler for uncaught exceptions.
-        Thread.setDefaultUncaughtExceptionHandler(new ExceptionHandler(this));
-
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, Environment.
-                              getExternalStorageDirectory().getAbsolutePath());
+                getExternalStorageDirectory().getAbsolutePath());
 
         boolean isSamlAuth = AUTH_ON.equals(getString(R.string.auth_method_saml_web_sso));
 
@@ -105,39 +103,76 @@ public class MainApp extends Application {
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
+        if (BuildConfig.DEBUG) {
 
-        String dataFolder = getDataFolder() + getAppContext().getResources().getString(R.string.log_name);
+            String dataFolder = getDataFolder();
 
-        // Set folder for store logs
-        Log_OC.setLogDataFolder(dataFolder);
+            // Set folder for store logs
+            Log_OC.setLogDataFolder(dataFolder);
 
-        Log_OC.startLogging(MainApp.storagePath);
-        Log_OC.d("Debug", "start logging");
+            Log_OC.startLogging(MainApp.storagePath);
+            Log_OC.d("Debug", "start logging");
+        }
+
+        // clean broken synced folder entries
+        if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("legacyClean", false)) {
+            SyncedFolderProvider mProvider = new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+
+            List<SyncedFolder> syncedFolderList = mProvider.getSyncedFolders();
+            Map<Pair<String, String>, Pair<Long, Boolean>> syncedFolders = new HashMap<>();
+            ArrayList<Long> ids = new ArrayList<>();
+            ArrayList<SyncedFolder> syncedFolderArrayList = new ArrayList<>();
+            for (SyncedFolder syncedFolder : syncedFolderList) {
+                Pair<String, String> checkPair = new Pair(syncedFolder.getAccount(), syncedFolder.getLocalPath());
+                if (syncedFolders.containsKey(checkPair)) {
+                    if (syncedFolder.getId() > syncedFolders.get(checkPair).first) {
+                        syncedFolders.put(checkPair, new Pair(syncedFolder.getId(), true));
+                    }
+                } else {
+                    syncedFolders.put(checkPair, new Pair(syncedFolder.getId(), false));
+                }
+            }
+
+            for (Pair<Long, Boolean> pair : syncedFolders.values()) {
+                if (pair.second) {
+                    ids.add(pair.first);
+                }
+            }
+
+            for (SyncedFolder syncedFolder : syncedFolderList) {
+                if (ids.contains(syncedFolder.getId())) {
+                    syncedFolderArrayList.add(syncedFolder);
+                }
+            }
+
+            mProvider.deleteSyncFolders(mContext, syncedFolderArrayList, ids);
+        }
 
         Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
         Intent i = new Intent(this, SyncedFolderObserverService.class);
         startService(i);
         bindService(i, syncedFolderObserverServiceConnection, Context.BIND_AUTO_CREATE);
 
+
         // register global protection with pass code
-        registerActivityLifecycleCallbacks( new ActivityLifecycleCallbacks() {
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
 
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                Log_OC.d(activity.getClass().getSimpleName(),  "onCreate(Bundle) starting" );
+                Log_OC.d(activity.getClass().getSimpleName(), "onCreate(Bundle) starting");
                 WhatsNewActivity.runIfNeeded(activity);
                 PassCodeManager.getPassCodeManager().onActivityCreated(activity);
             }
 
             @Override
             public void onActivityStarted(Activity activity) {
-                Log_OC.d(activity.getClass().getSimpleName(),  "onStart() starting" );
+                Log_OC.d(activity.getClass().getSimpleName(), "onStart() starting");
                 PassCodeManager.getPassCodeManager().onActivityStarted(activity);
             }
 
             @Override
             public void onActivityResumed(Activity activity) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting" );
+                Log_OC.d(activity.getClass().getSimpleName(), "onResume() starting");
             }
 
             @Override
@@ -147,18 +182,21 @@ public class MainApp extends Application {
 
             @Override
             public void onActivityStopped(Activity activity) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending" );
+                Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending");
                 PassCodeManager.getPassCodeManager().onActivityStopped(activity);
+                if (MainApp.getSyncedFolderObserverService() != null) {
+                    MainApp.getSyncedFolderObserverService().syncToDisk(false);
+                }
             }
 
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onSaveInstanceState(Bundle) starting" );
+                Log_OC.d(activity.getClass().getSimpleName(), "onSaveInstanceState(Bundle) starting");
             }
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending" );
+                Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending");
             }
         });
     }
@@ -167,15 +205,15 @@ public class MainApp extends Application {
         return MainApp.mContext;
     }
 
-    public static String getStoragePath(){
+    public static String getStoragePath() {
         return MainApp.storagePath;
     }
 
-    public static void setStoragePath(String path){
+    public static void setStoragePath(String path) {
         MainApp.storagePath = path;
     }
 
-    // Methods to obtain Strings referring app_name
+    // Methods to obtain Strings referring app_name 
     //   From AccountAuthenticator 
     //   public static final String ACCOUNT_TYPE = "owncloud";    
     public static String getAccountType() {
@@ -198,42 +236,42 @@ public class MainApp extends Application {
     public static String getAuthority() {
         return getAppContext().getResources().getString(R.string.authority);
     }
-    
+
     //  From AccountAuthenticator
     //  public static final String AUTH_TOKEN_TYPE = "org.owncloud";
     public static String getAuthTokenType() {
         return getAppContext().getResources().getString(R.string.authority);
     }
-    
+
     //  From ProviderMeta 
     //  public static final String DB_FILE = "owncloud.db";
     public static String getDBFile() {
         return getAppContext().getResources().getString(R.string.db_file);
     }
-    
+
     //  From ProviderMeta
     //  private final String mDatabaseName = "ownCloud";
     public static String getDBName() {
         return getAppContext().getResources().getString(R.string.db_name);
     }
-     
+
     /**
      * name of data_folder, e.g., "owncloud"
      */
     public static String getDataFolder() {
         return getAppContext().getResources().getString(R.string.data_folder);
     }
-    
+
     // log_name
     public static String getLogName() {
         return getAppContext().getResources().getString(R.string.log_name);
     }
 
-    public static void showOnlyFilesOnDevice(boolean state){
+    public static void showOnlyFilesOnDevice(boolean state) {
         mOnlyOnDevice = state;
     }
 
-    public static boolean isOnlyOnDevice(){
+    public static boolean isOnlyOnDevice() {
         return mOnlyOnDevice;
     }
 

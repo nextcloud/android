@@ -6,17 +6,17 @@
  * @author Mario Danic
  * Copyright (C) 2016 Tobias Kaminsky, Andy Scherzinger
  * Copyright (C) 2017 Mario Danic
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -38,6 +38,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileEntry;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -62,10 +63,6 @@ public class SyncedFolderObserverService extends Service {
     @Override
     public void onCreate() {
         mProvider = new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
         monitor = new FileAlterationMonitor();
 
         fileFilter = new FileFilter() {
@@ -80,15 +77,15 @@ public class SyncedFolderObserverService extends Service {
 
         boolean readPerstistanceEntries = false;
 
-        if (file.exists() ) {
+        if (file.exists()) {
             FileInputStream fis = null;
             try {
                 fis = new FileInputStream(file);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 boolean cont = true;
-                while(cont){
+                while (cont) {
                     Object obj = ois.readObject();
-                    if(obj != null)
+                    if (obj != null)
                         pairArrayList.add((SerializablePair<SyncedFolder, FileEntry>) obj);
                     else
                         cont = false;
@@ -97,6 +94,9 @@ public class SyncedFolderObserverService extends Service {
                 readPerstistanceEntries = true;
             } catch (FileNotFoundException e) {
                 Log_OC.d(TAG, "Failed with FileNotFound while reading persistence file");
+            } catch (EOFException e) {
+                Log_OC.d(TAG, "Failed with EOFException while reading persistence file");
+                readPerstistanceEntries = true;
             } catch (IOException e) {
                 Log_OC.d(TAG, "Failed with IOException while reading persistence file");
             } catch (ClassNotFoundException e) {
@@ -116,7 +116,7 @@ public class SyncedFolderObserverService extends Service {
         Log_OC.d(TAG, "start");
         if (pairArrayList.size() == 0) {
             for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
-                if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder.getLocalPath())) {
+                if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder)) {
                     Log_OC.d(TAG, "start observer: " + syncedFolder.getLocalPath());
                     FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
                             syncedFolder.getLocalPath()), fileFilter);
@@ -136,8 +136,17 @@ public class SyncedFolderObserverService extends Service {
                 }
             }
         } else {
-            for(int i = 0; i < pairArrayList.size(); i++) {
+            for (int i = 0; i < pairArrayList.size(); i++) {
                 SyncedFolder syncFolder = pairArrayList.get(i).getKey();
+                for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
+                    if (syncFolder.getId() == syncedFolder.getId()) {
+                        syncFolder = syncedFolder;
+                        pairArrayList.set(i, new SerializablePair<SyncedFolder, FileEntry>(syncFolder,
+                                pairArrayList.get(i).getValue()));
+                        break;
+                    }
+                }
+
                 FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
                         syncFolder.getLocalPath()), fileFilter);
                 observer.setRootEntry(pairArrayList.get(i).getValue());
@@ -157,7 +166,10 @@ public class SyncedFolderObserverService extends Service {
             Log_OC.d(TAG, "Something went very wrong at onStartCommand");
         }
 
+    }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         return Service.START_NOT_STICKY;
     }
 
@@ -170,7 +182,7 @@ public class SyncedFolderObserverService extends Service {
                 if (!newFile.exists()) {
                     newFile.createNewFile();
                 }
-                fos = new FileOutputStream (new File(file.getAbsolutePath()), false);
+                fos = new FileOutputStream(new File(file.getAbsolutePath()), false);
                 ObjectOutputStream os = new ObjectOutputStream(fos);
                 for (int i = 0; i < pairArrayList.size(); i++) {
                     os.writeObject(pairArrayList.get(i));
@@ -193,9 +205,7 @@ public class SyncedFolderObserverService extends Service {
 
     }
 
-    @Override
-    public void onDestroy() {
-
+    public void syncToDisk(boolean destructive) {
         for (SyncedFolder syncedFolder : syncedFolderMap.keySet()) {
             FileAlterationMagicObserver obs = syncedFolderMap.get(syncedFolder);
             for (int i = 0; i < pairArrayList.size(); i++) {
@@ -207,8 +217,11 @@ public class SyncedFolderObserverService extends Service {
                     break;
                 }
             }
-            monitor.removeObserver(obs);
-            syncedFolderMap.remove(obs);
+
+            if (destructive) {
+                monitor.removeObserver(obs);
+                syncedFolderMap.remove(obs);
+            }
 
             try {
                 obs.destroy();
@@ -217,7 +230,19 @@ public class SyncedFolderObserverService extends Service {
             }
         }
 
+        if (destructive) {
+            try {
+                monitor.stop();
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Something went very wrong at onDestroy");
+            }
+        }
         writePersistenceEntries(false, file);
+    }
+
+    @Override
+    public void onDestroy() {
+        syncToDisk(true);
     }
 
     /**
@@ -229,35 +254,42 @@ public class SyncedFolderObserverService extends Service {
 
     public void restartObserver(SyncedFolder syncedFolder) {
         FileAlterationMagicObserver fileAlterationObserver;
-        if (syncedFolderMap.containsKey(syncedFolder)) {
-            Log_OC.d(TAG, "stop observer: " + syncedFolder.getLocalPath());
-            fileAlterationObserver = syncedFolderMap.get(syncedFolder);
-            monitor.removeObserver(fileAlterationObserver);
-            try {
-                fileAlterationObserver.destroy();
-            } catch (Exception e) {
-                Log_OC.d(TAG, "Something went very wrong at onDestroy");
-            }
+        Log_OC.d(TAG, "stop observer: " + syncedFolder.getLocalPath());
 
-            // remove it from the paired array list
-            for (int i = 0; i < pairArrayList.size(); i++) {
-                if (syncedFolder.equals(pairArrayList.get(i).getKey())) {
-                    pairArrayList.remove(i);
-                    break;
-                }
+        SyncedFolder syncy = null;
+        for (SyncedFolder syncyFolder : syncedFolderMap.keySet()) {
+            if (syncyFolder.getId() == syncedFolder.getId()) {
+                syncy = syncyFolder;
+                break;
             }
-            syncedFolderMap.remove(syncedFolder);
         }
 
+
         if (syncedFolder.isEnabled()) {
-            Log_OC.d(TAG, "start observer: " + syncedFolder.getLocalPath());
-            if (syncedFolderMap.containsKey(syncedFolder)) {
-                fileAlterationObserver = syncedFolderMap.get(syncedFolder);
-                if (fileAlterationObserver.getListeners() == null) {
-                    fileAlterationObserver.addListener(new FileAlterationMagicListener(syncedFolder));
-                }
+            if (syncy != null) {
+                Log_OC.d(TAG, "start observer Restart: " + syncedFolder.getLocalPath() + " " + syncedFolder.getAccount());
+                fileAlterationObserver = syncedFolderMap.get(syncy);
+                monitor.removeObserver(fileAlterationObserver);
+                fileAlterationObserver.removeListener(null);
+                fileAlterationObserver.addListener(new FileAlterationMagicListener(syncedFolder));
+                syncedFolderMap.remove(syncy);
+                syncedFolderMap.put(syncedFolder, fileAlterationObserver);
                 monitor.addObserver(fileAlterationObserver);
+
+                // remove it from the paired array list
+                for (int i = 0; i < pairArrayList.size(); i++) {
+                    if (syncy.getId() == pairArrayList.get(i).getKey().getId()) {
+                        pairArrayList.remove(i);
+                        break;
+                    }
+                }
+
+                pairArrayList.add(new SerializablePair<SyncedFolder, FileEntry>(syncedFolder,
+                        fileAlterationObserver.getRootEntry()));
+
             } else {
+                Log_OC.d(TAG, "start observer Restart noMap: " + syncedFolder.getLocalPath() + " " + syncedFolder.getAccount());
+
                 fileAlterationObserver = new FileAlterationMagicObserver(new File(syncedFolder.getLocalPath()),
                         fileFilter);
 
@@ -279,6 +311,24 @@ public class SyncedFolderObserverService extends Service {
                 }
 
             }
+        } else {
+            fileAlterationObserver = syncedFolderMap.get(syncy);
+            monitor.removeObserver(fileAlterationObserver);
+
+            try {
+                fileAlterationObserver.destroy();
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Something went very wrong at onDestroy");
+            }
+
+            // remove it from the paired array list
+            for (int i = 0; i < pairArrayList.size(); i++) {
+                if (syncy.getId() == pairArrayList.get(i).getKey().getId()) {
+                    pairArrayList.remove(i);
+                    break;
+                }
+            }
+            syncedFolderMap.remove(syncy);
         }
 
         writePersistenceEntries(false, file);
