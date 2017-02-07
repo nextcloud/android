@@ -1,9 +1,9 @@
-2017-02-07
+2017-02-08
 Branches: 12
 Beta branch was updated successfully
-[01 / 12] Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] CONFLICT
+[01 / 12] Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] no update needed
 [02 / 12] Feature user information (nextcloud/feature-user-information) [https://github.com/nextcloud/android/pull/585] CONFLICT
-[03 / 12] New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] no update needed
+[03 / 12] New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] CONFLICT
 [04 / 12] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
 [05 / 12] show SVG images (nextcloud/svgView) [https://github.com/nextcloud/android/pull/465] CONFLICT
 [06 / 12] Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://github.com/nextcloud/android/pull/451] CONFLICT
