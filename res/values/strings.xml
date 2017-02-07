@@ -81,7 +81,7 @@
     <string name="file_list_empty_headline">No files in here</string>
     <string name="file_list_empty_headline_search">No results in this folder</string>
     <string name="file_list_empty">Upload some content or sync with your devices!</string>
-    <string name="file_list_empty_search">Try looking in another folder? :)</string>
+    <string name="file_list_empty_search">Try looking in another folder?</string>
     <string name="file_list_loading">Loading&#8230;</string>
     <string name="file_list_no_app_for_file_type">No app found for file type!</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
