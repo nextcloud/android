@@ -28,10 +28,11 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,7 +41,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -50,7 +50,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
-import com.owncloud.android.ui.adapter.UserInfoAdapter;
+import com.owncloud.android.utils.DisplayUtils;
 
 import org.parceler.Parcels;
 
@@ -72,11 +72,6 @@ public class UserInfoActivity extends FileActivity {
 
     private static final int KEY_DELETE_CODE = 101;
 
-    @BindView(R.id.generic_rv)
-    public RecyclerView genericRecyclerView;
-
-    @BindView(R.id.multi_view)
-    public RelativeLayout multiView;
     @BindView(R.id.empty_list_view)
     public LinearLayout multiListContainer;
     @BindView(R.id.empty_list_view_text)
@@ -85,15 +80,53 @@ public class UserInfoActivity extends FileActivity {
     public TextView multiListHeadline;
     @BindView(R.id.empty_list_icon)
     public ImageView multiListIcon;
+    @BindView(R.id.user_info_view)
+    public LinearLayout userInfoView;
+    @BindView(R.id.user_icon)
+    public ImageView avatar;
+    @BindView(R.id.drawer_username)
+    public TextView userName;
+    @BindView(R.id.drawer_username_full)
+    public TextView fullName;
+
+    @BindView(R.id.phone_container)
+    public View mPhoneNumberContainer;
+    @BindView(R.id.phone_number)
+    public TextView mPhoneNumberTextView;
+    @BindView(R.id.phone_icon)
+    public ImageView mPhoneNumberIcon;
+
+    @BindView(R.id.email_container)
+    public View mEmailContainer;
+    @BindView(R.id.email_address)
+    public TextView mEmailAddressTextView;
+    @BindView(R.id.email_icon)
+    public ImageView mEmailIcon;
+
+    @BindView(R.id.address_container)
+    public View mAddressContainer;
+    @BindView(R.id.address)
+    public TextView mAddressTextView;
+    @BindView(R.id.address_icon)
+    public ImageView mAddressIcon;
+
+    @BindView(R.id.website_container)
+    public View mWebsiteContainer;
+    @BindView(R.id.website_address)
+    public TextView mWebsiteTextView;
+
+    @BindView(R.id.twitter_container)
+    public View mTwitterContainer;
+    @BindView(R.id.twitter_handle)
+    public TextView mTwitterHandleTextView;
+
     @BindView(R.id.empty_list_progress)
     public ProgressBar multiListProgressBar;
 
     @BindString(R.string.preview_sorry)
     public String sorryMessage;
 
-    private RecyclerView.Adapter adapter;
-
-    private RecyclerView.Adapter adapter;
+    private float mCurrentAccountAvatarRadiusDimension;
 
     private Unbinder unbinder;
 
@@ -115,6 +148,8 @@ public class UserInfoActivity extends FileActivity {
             userInfo = Parcels.unwrap(savedInstanceState.getParcelable(KEY_USER_DATA));
         }
 
+        mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.nav_drawer_header_avatar_radius);
+
         if (bundle.containsKey(KEY_DISPLAY_NAME)) {
             displayName = bundle.getString(KEY_DISPLAY_NAME);
         } else if (userInfo != null && !TextUtils.isEmpty(userInfo.getDisplayName())) {
@@ -125,26 +160,12 @@ public class UserInfoActivity extends FileActivity {
         unbinder = ButterKnife.bind(this);
 
         setupToolbar();
-        if (!TextUtils.isEmpty(displayName)) {
-            updateActionBarTitleAndHomeButtonByString(displayName);
-        } else {
-            updateActionBarTitleAndHomeButtonByString(getResources().getString(R.string.user_information_description));
-        }
-
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-        genericRecyclerView.setLayoutManager(layoutManager);
-
-        // This will be enabled once we migrate to new support libraries
-        
-        /*DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(genericRecyclerView.getContext(),
-                ((LinearLayoutManager)layoutManager).getOrientation());
-        genericRecyclerView.addItemDecoration(dividerItemDecoration);*/
+        updateActionBarTitleAndHomeButtonByString("");
 
         if (userInfo != null) {
-            adapter = new UserInfoAdapter(userInfo, UserInfoActivity.this);
-            genericRecyclerView.setAdapter(adapter);
-            multiView.setVisibility(View.GONE);
-            genericRecyclerView.setVisibility(View.VISIBLE);
+            populateUserInfoUi(userInfo);
+            multiListContainer.setVisibility(View.GONE);
+            userInfoView.setVisibility(View.VISIBLE);
         } else {
             setMultiListLoadingMessage();
             fetchAndSetData();
@@ -184,9 +205,8 @@ public class UserInfoActivity extends FileActivity {
         unbinder.unbind();
     }
 
-
     private void setMultiListLoadingMessage() {
-        if (multiView != null) {
+        if (multiListContainer != null) {
             multiListHeadline.setText(R.string.file_list_loading);
             multiListMessage.setText("");
 
@@ -196,11 +216,49 @@ public class UserInfoActivity extends FileActivity {
     }
 
     public void setMessageForMultiList(String headline, String message) {
-        if (multiView != null && multiListMessage != null) {
+        if (multiListContainer != null && multiListMessage != null) {
             multiListHeadline.setText(headline);
             multiListMessage.setText(message);
 
             multiListProgressBar.setVisibility(View.GONE);
+        }
+    }
+
+    public void populateUserInfoUi(UserInfo userInfo) {
+        userName.setText(account.name);
+        int tint = ContextCompat.getColor(this, R.color.primary);
+
+        if (userInfo != null) {
+            displayName = userInfo.getDisplayName();
+            if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
+                fullName.setText(userInfo.getDisplayName());
+            }
+
+            populateUserInfoElement(mPhoneNumberContainer, mPhoneNumberTextView, userInfo.getPhone(),
+                    mPhoneNumberIcon, tint);
+            populateUserInfoElement(mEmailContainer, mEmailAddressTextView, userInfo.getEmail(), mEmailIcon, tint);
+            populateUserInfoElement(mAddressContainer, mAddressTextView, userInfo.getAddress(), mAddressIcon, tint);
+
+            populateUserInfoElement(mWebsiteContainer, mWebsiteTextView, userInfo.getWebpage());
+            populateUserInfoElement(mTwitterContainer, mTwitterHandleTextView, userInfo.getTwitter());
+        }
+    }
+
+    private void populateUserInfoElement(View container, TextView textView, String text) {
+        if (!TextUtils.isEmpty(text)) {
+            textView.setText(text);
+        } else {
+            container.setVisibility(View.GONE);
+        }
+    }
+
+    private void populateUserInfoElement(View container, TextView textView, String text, ImageView icon, @ColorInt int
+            tint) {
+        if (!TextUtils.isEmpty(text)) {
+            textView.setText(text);
+            DrawableCompat.setTint(icon.getDrawable(), tint);
+        } else {
+            container.setVisibility(View.GONE);
         }
     }
 
@@ -277,14 +335,16 @@ public class UserInfoActivity extends FileActivity {
 
                 if (result.isSuccess() && result.getData() != null) {
                     userInfo = (UserInfo) result.getData().get(0);
-                    adapter = new UserInfoAdapter(userInfo, UserInfoActivity.this);
 
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            genericRecyclerView.setAdapter(adapter);
-                            multiView.setVisibility(View.GONE);
-                            genericRecyclerView.setVisibility(View.VISIBLE);
+                            populateUserInfoUi(userInfo);
+                            DisplayUtils.setAvatar(account, UserInfoActivity.this,
+                                    mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),
+                                    avatar);
+                            multiListContainer.setVisibility(View.GONE);
+                            userInfoView.setVisibility(View.VISIBLE);
                         }
                     });
                 } else {
@@ -298,8 +358,6 @@ public class UserInfoActivity extends FileActivity {
         t.start();
     }
 
-
-
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -307,5 +365,4 @@ public class UserInfoActivity extends FileActivity {
             outState.putParcelable(KEY_USER_DATA, Parcels.wrap(userInfo));
         }
     }
-
 }
