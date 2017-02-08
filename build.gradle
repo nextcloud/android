@@ -48,6 +48,7 @@ dependencies {
     compile 'com.github.nextcloud:android-library:1.0.13'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
+    compile "com.android.support:cardview-v7:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile 'com.getbase:floatingactionbutton:1.10.1'
