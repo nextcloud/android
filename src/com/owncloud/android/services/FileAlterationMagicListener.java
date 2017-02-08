@@ -119,7 +119,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
         };
 
         fileRunnable.put(file.getAbsolutePath(), runnable);
-        handler.postDelayed(runnable, 500);
+        handler.postDelayed(runnable, 1500);
 
     }
 
@@ -127,7 +127,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     public void onFileChange(File file) {
         if (fileRunnable.containsKey(file.getAbsolutePath())) {
             handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
-            handler.postDelayed(fileRunnable.get(file.getAbsolutePath()), 500);
+            handler.postDelayed(fileRunnable.get(file.getAbsolutePath()), 1500);
         }
     }
 
