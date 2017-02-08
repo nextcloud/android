@@ -147,14 +147,18 @@ public class SyncedFolderObserverService extends Service {
                     }
                 }
 
-                FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
-                        syncFolder.getLocalPath()), fileFilter);
-                observer.setRootEntry(pairArrayList.get(i).getValue());
+                if (syncFolder.isEnabled()) {
+                    FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
+                            syncFolder.getLocalPath()), fileFilter);
+                    observer.setRootEntry(pairArrayList.get(i).getValue());
 
-                observer.addListener(new FileAlterationMagicListener(syncFolder));
-                monitor.addObserver(observer);
-                syncedFolderMap.put(syncFolder, observer);
+                    observer.addListener(new FileAlterationMagicListener(syncFolder));
+                    monitor.addObserver(observer);
+                    syncedFolderMap.put(syncFolder, observer);
+                } else {
+                    pairArrayList.remove(i);
 
+                }
             }
         }
 
