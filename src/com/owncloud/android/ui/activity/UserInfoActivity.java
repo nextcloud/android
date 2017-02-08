@@ -68,7 +68,6 @@ public class UserInfoActivity extends FileActivity {
 
     private static final String KEY_USER_DATA = "USER_DATA";
     private static final String KEY_ACCOUNT = "ACCOUNT";
-    private static final String KEY_DISPLAY_NAME = "DISPLAY_NAME";
 
     private static final int KEY_DELETE_CODE = 101;
 
