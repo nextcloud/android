@@ -133,8 +133,6 @@ public class UserInfoActivity extends FileActivity {
     private UserInfo userInfo;
     private Account account;
 
-    private String displayName;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -149,12 +147,6 @@ public class UserInfoActivity extends FileActivity {
         }
 
         mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.nav_drawer_header_avatar_radius);
-
-        if (bundle.containsKey(KEY_DISPLAY_NAME)) {
-            displayName = bundle.getString(KEY_DISPLAY_NAME);
-        } else if (userInfo != null && !TextUtils.isEmpty(userInfo.getDisplayName())) {
-            displayName = userInfo.getDisplayName();
-        }
 
         setContentView(R.layout.user_info_layout);
         unbinder = ButterKnife.bind(this);
@@ -229,7 +221,6 @@ public class UserInfoActivity extends FileActivity {
         int tint = ContextCompat.getColor(this, R.color.primary);
 
         if (userInfo != null) {
-            displayName = userInfo.getDisplayName();
             if (!TextUtils.isEmpty(userInfo.getDisplayName())) {
                 fullName.setText(userInfo.getDisplayName());
             }
