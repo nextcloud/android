@@ -136,6 +136,7 @@ public class SyncedFolderObserverService extends Service {
                 }
             }
         } else {
+            int foundLocation = -1;
             for (int i = 0; i < pairArrayList.size(); i++) {
                 SyncedFolder syncFolder = pairArrayList.get(i).getKey();
                 for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
@@ -143,18 +144,23 @@ public class SyncedFolderObserverService extends Service {
                         syncFolder = syncedFolder;
                         pairArrayList.set(i, new SerializablePair<SyncedFolder, FileEntry>(syncFolder,
                                 pairArrayList.get(i).getValue()));
+                        foundLocation = i;
                         break;
                     }
                 }
 
-                FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
-                        syncFolder.getLocalPath()), fileFilter);
-                observer.setRootEntry(pairArrayList.get(i).getValue());
+                if (syncFolder.isEnabled()) {
+                    FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
+                            syncFolder.getLocalPath()), fileFilter);
+                    observer.setRootEntry(pairArrayList.get(i).getValue());
 
-                observer.addListener(new FileAlterationMagicListener(syncFolder));
-                monitor.addObserver(observer);
-                syncedFolderMap.put(syncFolder, observer);
+                    observer.addListener(new FileAlterationMagicListener(syncFolder));
+                    monitor.addObserver(observer);
+                    syncedFolderMap.put(syncFolder, observer);
+                } else {
+                    pairArrayList.remove(foundLocation);
 
+                }
             }
         }
 
