@@ -193,7 +193,7 @@ public class SyncedFolderProvider extends Observable {
 
         int result = mContentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
-                ProviderMeta.ProviderTableMeta._ID + " IN (?)",
+                ProviderMeta.ProviderTableMeta._ID + " NOT IN (?)",
                 new String[]{String.valueOf(ids)}
         );
 
