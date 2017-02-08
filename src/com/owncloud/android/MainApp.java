@@ -134,13 +134,11 @@ public class MainApp extends Application {
             }
 
             for (Pair<Long, Boolean> pair : syncedFolders.values()) {
-                if (pair.second) {
-                    ids.add(pair.first);
-                }
+                ids.add(pair.first);
             }
 
             for (SyncedFolder syncedFolder : syncedFolderList) {
-                if (ids.contains(syncedFolder.getId())) {
+                if (!ids.contains(syncedFolder.getId())) {
                     syncedFolderArrayList.add(syncedFolder);
                 }
             }
