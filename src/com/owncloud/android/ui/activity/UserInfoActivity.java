@@ -224,7 +224,7 @@ public class UserInfoActivity extends FileActivity {
         }
     }
 
-    public void populateUserInfoUi(UserInfo userInfo) {
+    private void populateUserInfoUi(UserInfo userInfo) {
         userName.setText(account.name);
         int tint = ContextCompat.getColor(this, R.color.primary);
 
