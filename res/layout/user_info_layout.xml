@@ -1,34 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2017 Andy Scherzinger
+  Copyright (C) 2017 Nextcloud
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:card_view="http://schemas.android.com/apk/res-auto"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent">
 
-
     <include
-        layout="@layout/toolbar_standard"></include>
+        layout="@layout/toolbar_user_information"/>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/generic_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-    </android.support.v7.widget.RecyclerView>
+    <include layout="@layout/empty_list"/>
 
     <RelativeLayout
         android:id="@+id/multi_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/nav_drawer_header_height">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
 
-            <include layout="@layout/empty_list"/>
+            <LinearLayout
+                android:id="@+id/user_info_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/primary_user_info_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/standard_half_margin"
+                    card_view:cardCornerRadius="3dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/phone_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/phone_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/standard_margin"
+                                android:src="@drawable/ic_phone"/>
+
+                            <TextView
+                                android:id="@+id/phone_number"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="@dimen/standard_padding"
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:layout_marginTop="@dimen/standard_margin"
+                                android:layout_toEndOf="@id/phone_icon"
+                                android:layout_toRightOf="@id/phone_icon"
+                                android:maxLines="3"
+                                android:text="@string/placeholder_filename"
+                                android:textAppearance="?android:attr/textAppearanceListItem"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/email_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/list_divider_background"/>
+
+                            <ImageView
+                                android:id="@+id/email_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/standard_margin"
+                                android:src="@drawable/ic_email"/>
+
+                            <TextView
+                                android:id="@+id/email_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="@dimen/standard_padding"
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:layout_marginTop="@dimen/standard_margin"
+                                android:layout_toEndOf="@id/email_icon"
+                                android:layout_toRightOf="@id/email_icon"
+                                android:maxLines="3"
+                                android:text="@string/placeholder_filename"
+                                android:textAppearance="?android:attr/textAppearanceListItem"/>
+
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/address_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/list_divider_background"/>
+
+                            <ImageView
+                                android:id="@+id/address_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/standard_margin"
+                                android:src="@drawable/ic_map_marker"/>
+
+                            <TextView
+                                android:id="@+id/address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="@dimen/standard_padding"
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:layout_marginTop="@dimen/standard_margin"
+                                android:layout_toEndOf="@id/address_icon"
+                                android:layout_toRightOf="@id/address_icon"
+                                android:maxLines="3"
+                                android:text="@string/placeholder_filename"
+                                android:textAppearance="?android:attr/textAppearanceListItem"/>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/secondary_user_info_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="@dimen/standard_half_margin"
+                    card_view:cardCornerRadius="3dp"
+                    card_view:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:id="@+id/website_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="@dimen/standard_margin"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/website_headline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/user_info_website"
+                                android:textAppearance="?android:attr/textAppearanceListItem"/>
+
+                            <TextView
+                                android:id="@+id/website_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:maxLines="3"
+                                android:text="@string/user_info_twitter"
+                                android:textColor="?android:attr/textColorSecondary"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/twitter_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="@dimen/standard_margin"
+                            android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:background="@color/list_divider_background"/>
+
+                            <TextView
+                                android:id="@+id/twitter_headline"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/standard_margin"
+                                android:layout_marginLeft="@dimen/standard_margin"
+                                android:text="Twitter"
+                                android:textAppearance="?android:attr/textAppearanceListItem"/>
+
+                            <TextView
+                                android:id="@+id/twitter_handle"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/standard_margin"
+                                android:layout_marginLeft="@dimen/standard_margin"
+                                android:maxLines="1"
+                                android:text="@string/placeholder_filename"
+                                android:textColor="?android:attr/textColorSecondary"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+            </LinearLayout>
 
         </ScrollView>
+
     </RelativeLayout>
 
 
