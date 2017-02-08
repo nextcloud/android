@@ -14,7 +14,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginBottom="4dp"
         android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:text="@string/placeholder_filename"/>
 
     <TextView
         android:id="@+id/attribute_value_tv"
@@ -24,6 +25,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:textSize="16sp"/>
+        android:textSize="16sp"
+        android:text="@string/placeholder_filename"/>
 
 </RelativeLayout>
