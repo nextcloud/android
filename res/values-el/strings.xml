@@ -28,6 +28,7 @@
     <string name="prefs_accounts">Λογαριασμοί</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="prefs_passcode">Κλείδωμα με κωδικό πρόσβασης</string>
+    <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_instant_upload">Στιγμιαίες μεταφορτώσεις εικόνων</string>
     <string name="prefs_instant_upload_summary">Μεταφορτώστε απευθείας φωτογραφίες από την κάμερα</string>
     <string name="prefs_instant_video_upload">Στιγμιαίες μεταφορτώσεις βίντεο</string>
@@ -55,6 +56,7 @@
     <string name="sync_string_files">Αρχεία</string>
     <string name="setup_btn_connect">Σύνδεση</string>
     <string name="uploader_btn_upload_text">Μεταφόρτωση</string>
+    <string name="uploader_top_message">Επιλογή φακέλου μεταφόρτωσης</string>
     <string name="uploader_wrn_no_account_title">Δεν βρέθηκε λογαριασμός</string>
     <string name="uploader_wrn_no_account_text">Δεν υπάρχουν λογαριασμοί %1$s στη συσκευή σας. Παρακαλώ ρυθμίστε πρώτα ένα λογαριασμό.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Ρύθμιση</string>
@@ -67,6 +69,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Διατήρηση του αρχείου στον πηγαίο φάκελο</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Διαγραφή αρχείου από τον πηγαίο φάκελο</string>
     <string name="file_list_seconds_ago">δευτερόλεπτα πριν</string>
+    <string name="file_list_empty_headline">Δεν υπάρχουν αρχεία</string>
     <string name="file_list_loading">Φόρτωση&#8230;</string>
     <string name="file_list_no_app_for_file_type">Δεν βρέθηκε εφαρμογή για τον τύπο αρχείου!</string>
     <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
@@ -90,6 +93,7 @@
     <string name="common_cancel_sync">Ακύρωση συγχρονισμού</string>
     <string name="common_cancel">Άκυρο</string>
     <string name="common_back">Επιστροφή</string>
+    <string name="common_save">Αποθήκευση</string>
     <string name="common_save_exit">Αποθήκευση &amp; έξοδος</string>
     <string name="common_error">Σφάλμα</string>
     <string name="common_loading">Φόρτωση &#8230;</string>
