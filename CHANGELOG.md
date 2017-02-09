@@ -1,3 +1,9 @@
+## 2017-02-10
+- Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://github.com/nextcloud/android/pull/451] added
+
+-Beta branch was updated successfully] updated
+- Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://github.com/nextcloud/android/pull/451] updated
+
 ## 2017-02-09
 
 -Beta branch was updated successfully] updated
