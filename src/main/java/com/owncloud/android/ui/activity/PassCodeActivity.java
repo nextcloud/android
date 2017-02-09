@@ -37,6 +37,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -47,6 +48,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -192,6 +195,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     private static final boolean ENABLE_SWITCH_SOFT_KEYBOARD = true;
     private static final int GUARD_TIME = 3000;    // (ms)
     private static final boolean ENABLE_SUFFLE_BUTTONS = false;
+    private static final boolean ENABLE_SUB_TEXT = false;
 
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
@@ -230,7 +234,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             "Back"
     };
     private static String mButtonsSubStr[] = {
-            "",
+            "...",
             "",
             "abc",
             "def",
@@ -243,11 +247,27 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             "",
             "softkey..."
     };
-    private static final String mButtonFormat = "<big>%s</big><br/><font color=\"grey\"><small>%s</small></font>";
+    private static final String mButtonsCtrlStr[] = {
+            "fill",
+            "h+",
+            "",
+            "w+",
+            "h-",
+            "reset",
+            "w-",
+            "right",
+            "center",
+            "left",
+            "",
+            "Back"
+    };
+    private static final String mButtonFormat1 = "<big>%s</big><br/><font color=\"grey\"><small></small></font>";
+    private static final String mButtonFormat2 = "<big>%s</big><br/><font color=\"grey\"><small>%s</small></font>";
     private Integer[] mButtonsIDListShuffle = new Integer[12];
     private AppCompatButton[] mButtonsList = new AppCompatButton[12];
-    private int mButtonVisibilityPrev = 0;       // 0=startup/1=visible/2=invisible
-    private boolean mSoftKeyboardMode;
+    private int mButtonVisibilityPrev = 0;      // 0=startup/1=visible/2=invisible
+    private boolean mSoftKeyboardMode;          // true=soft keyboard / false=buttons
+    private boolean mCtrlKeyboardMode;
     private boolean mShowButtonsWhenSoftKeyboardClose = true;
     private SoftKeyboardUtil mSoftKeyboard;
 
@@ -395,15 +415,41 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                 int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
                 buttonAnimation(b, true, duration);
                 b.setClickable(true);
-                String s = String.format(mButtonFormat, mButtonsMainStr[j], mButtonsSubStr[j]);
-                b.setText(Html.fromHtml(s));
-                b.setOnClickListener(new ButtonClicked(mPassCodeEditText, j));
+                if (mCtrlKeyboardMode == false) {
+                    String s;
+                    if ((j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) || j == 0 || ENABLE_SUB_TEXT == true) {
+                        s = String.format(mButtonFormat2, mButtonsMainStr[j], mButtonsSubStr[j]);
+                    } else {
+                        s = String.format(mButtonFormat1, mButtonsMainStr[j]);
+                    }
+                    b.setText(Html.fromHtml(s));
+                } else {
+                    b.setText(mButtonsCtrlStr[j]);
+                }
+                if (mCtrlKeyboardMode == false) {
+                    b.setOnClickListener(new ButtonClicked(mPassCodeEditText, j));
+                } else {
+                    b.setOnClickListener(new CtrlButtonClicked(j));
+                }
                 if (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) {
                     b.setLongClickable(true);
                     b.setOnLongClickListener(new OnLongClickListener() {
                         @Override
                         public boolean onLongClick(View v) {
                             mSoftKeyboardMode = !mSoftKeyboardMode;
+                            setupKeyboard();
+                            return true;
+                        }
+                    });
+                }
+                if (j == 0) {
+                    b.setLongClickable(true);
+                    b.setOnLongClickListener(new OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View v) {
+                            mCtrlKeyboardMode = true;
+                            mSoftKeyboardMode = false;
+                            setButtonsVisibility(false);
                             setupKeyboard();
                             return true;
                         }
@@ -696,6 +742,92 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                         new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL, 0));
                 mEditText.dispatchKeyEvent(
                         new KeyEvent(0, 0, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL, 0));
+            }
+        }
+    }
+
+    private class CtrlButtonClicked implements OnClickListener {
+
+        private int mIndex;
+
+        public CtrlButtonClicked(int index) {
+            mIndex = index;
+        }
+
+        public void onClick(View v) {
+            switch (mIndex) {
+            case 11:
+                mCtrlKeyboardMode = false;
+                mSoftKeyboardMode = false;
+                setButtonsVisibility(false);
+                setupKeyboard();
+                break;
+            case 1: {
+                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
+                int n = ll.getLayoutParams().height;
+                ll.getLayoutParams().height = (ll.getLayoutParams().height + 10);
+                ll.requestLayout();
+                break;
+            }
+            case 4: {
+                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
+                ll.getLayoutParams().height = (ll.getLayoutParams().height - 10);
+                ll.requestLayout();
+                break;
+            }
+            case 3: {
+                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
+                ll.getLayoutParams().width = (ll.getLayoutParams().width + 10);
+                ll.requestLayout();
+                break;
+            }
+            case 6: {
+                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
+                ll.getLayoutParams().width = (ll.getLayoutParams().width - 10);
+                ll.requestLayout();
+                break;
+            }
+            case 0: {
+                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
+                ll.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+                ll.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
+                ll.requestLayout();
+                break;
+            }
+            case 5: {
+                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
+                ll.getLayoutParams().width = 500;
+                ll.getLayoutParams().height = 500;
+                ll.requestLayout();
+                break;
+            }
+            case 7: {
+                // left
+                RelativeLayout rl = (RelativeLayout) findViewById(R.id.RELATIVE_LAYOUT);
+                int n = rl.getGravity();
+                n &= ~Gravity.HORIZONTAL_GRAVITY_MASK;
+                n |= Gravity.LEFT | Gravity.BOTTOM;
+                rl.setGravity(n);
+                break;
+            }
+            case 8: {
+                // center
+                RelativeLayout rl = (RelativeLayout) findViewById(R.id.RELATIVE_LAYOUT);
+                int n = rl.getGravity();
+                n &= ~Gravity.HORIZONTAL_GRAVITY_MASK;
+                n |= Gravity.CENTER | Gravity.BOTTOM;
+                rl.setGravity(n);
+                break;
+            }
+            case 9: {
+                // right
+                RelativeLayout rl = (RelativeLayout) findViewById(R.id.RELATIVE_LAYOUT);
+                int n = rl.getGravity();
+                n &= ~Gravity.HORIZONTAL_GRAVITY_MASK;
+                n |= Gravity.RIGHT | Gravity.BOTTOM;
+                rl.setGravity(n);
+                break;
+            }
             }
         }
     }
