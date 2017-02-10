@@ -164,6 +164,8 @@ public class ExtendedListFragment extends Fragment
         mSearchView = (SearchView) MenuItemCompat.getActionView(mMenuItem);
         mSearchView.setOnQueryTextListener(this);
 
+        mSearchView.setMaxWidth(Integer.MAX_VALUE);
+
         super.onCreateOptionsMenu(menu, inflater);
 
     }
