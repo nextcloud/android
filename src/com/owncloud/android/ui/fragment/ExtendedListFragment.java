@@ -164,6 +164,20 @@ public class ExtendedListFragment extends Fragment
         mSearchView = (SearchView) MenuItemCompat.getActionView(mMenuItem);
         mSearchView.setOnQueryTextListener(this);
 
+        mSearchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    collapseFab();
+                    setFabEnabled(false);
+                    setFooterEnabled(false);
+                } else {
+                    setFabEnabled(true);
+                    setFooterEnabled(true);
+                }
+            }
+        });
+
         mSearchView.setMaxWidth(Integer.MAX_VALUE);
 
         super.onCreateOptionsMenu(menu, inflater);
