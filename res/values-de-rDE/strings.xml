@@ -517,7 +517,7 @@
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
     <string name="participate_contribute_irc_text">An Unterhaltungen teilnehmen im IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Helfen Sie anderen im &lt;a href="%1$s">Forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">Die App &lt;a href="%1$s">Übersetzen&lt;/a></string>
+    <string name="participate_contribute_translate_text">Die App &lt;a href=\"%1$s\">übersetzen&lt;/a></string>
     <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
@@ -526,7 +526,7 @@
     <string name="folder_sync_no_results">Keine Medienordner gefunden.</string>
     <string name="folder_sync_preferences">Auto Upload Einstellungen</string>
     <string name="folder_sync_settings">Einstellungen</string>
-    <string name="folder_sync_new_info">Sofortiger Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto Upload gehen und neu configurieren. Bitte entschuldigen Sie die Unannehmlichkeiten.\n\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto Uploads!</string>
+    <string name="folder_sync_new_info">Auto-Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto-Upload gehen und neu konfigurieren. Bitte entschuldigen Sie die Unannehmlichkeiten.\\n\\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto-Uploads!</string>
     <string name="folder_sync_preferences_folder_path">Für %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>

@@ -386,7 +386,7 @@
     <string name="auth_redirect_non_secure_connection_title">Le connexion sécurisée est redirigée vers une route non-sécurisée.</string>
 
 	<string name="actionbar_logger">Journaux</string>
-	<string name="log_send_history_button">Envoyer l\'historique</string>
+	<string name="log_send_history_button">Envoyer le journal</string>
 	<string name="log_send_no_mail_app">Aucune application n\'a été trouvée pour envoyer les journaux. Merci d\'installer une application de messagerie.</string>
 	<string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
 	<string name="log_progress_dialog_text">Chargement des données &#8230;</string>
