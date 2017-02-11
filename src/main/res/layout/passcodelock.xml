@@ -88,14 +88,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom|center"
-        android:id="@+id/RELATIVE_LAYOUT">
+        android:id="@+id/RelativeLayout">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_gravity="bottom|left"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:id="@+id/LINEARLAYOUT">
+            android:id="@+id/LinearLayout">
 
             <LinearLayout
                 android:orientation="horizontal"

@@ -37,6 +37,7 @@ import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
 import android.text.Html;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -190,12 +191,17 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     public final static String PREFERENCE_PASSCODE_D3 = "PrefPinCode3";
     public final static String PREFERENCE_PASSCODE_D4 = "PrefPinCode4";
 
-    private static final boolean ENABLE_GO_HOME = false;
+    // TODO:save
     private static final boolean INIT_SOFT_KEYBOARD_MODE = false;  // true=soft keyboard / false=buttons
+    private static final boolean ENABLE_SUB_TEXT = false;
+    private static final boolean KEYPAD_SIZE_FILL = false;
+    private static final float KEYPAD_SIZE_INCH = 1.4F;   // = 3.556cm
+    private static final int KEYPAD_POS = Gravity.CENTER;
+
+    private static final boolean ENABLE_GO_HOME = false;
     private static final boolean ENABLE_SWITCH_SOFT_KEYBOARD = true;
     private static final int GUARD_TIME = 3000;    // (ms)
     private static final boolean ENABLE_SUFFLE_BUTTONS = false;
-    private static final boolean ENABLE_SUB_TEXT = false;
 
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
@@ -248,9 +254,9 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             "softkey..."
     };
     private static final String mButtonsCtrlStr[] = {
-            "fill",
-            "h+",
             "",
+            "h+",
+            "fill",
             "w+",
             "h-",
             "reset",
@@ -258,7 +264,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             "right",
             "center",
             "left",
-            "",
+            "subtext",
             "Back"
     };
     private static final String mButtonFormat1 = "<big>%s</big><br/><font color=\"grey\"><small></small></font>";
@@ -376,6 +382,8 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             setButtonsVisibility(false);
         } else {
             hideSoftKeyboard();
+            setupKeypadSize();
+            setupKeypadPos(KEYPAD_POS);
             setButtonsVisibility(true);
         }
     }
@@ -412,10 +420,10 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             }
             for (int i = 0; i < mButtonsList.length; i++) {
                 AppCompatButton b = mButtonsList[i];
-                int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
                 buttonAnimation(b, true, duration);
                 b.setClickable(true);
                 if (mCtrlKeyboardMode == false) {
+                    int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
                     String s;
                     if ((j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) || j == 0 || ENABLE_SUB_TEXT == true) {
                         s = String.format(mButtonFormat2, mButtonsMainStr[j], mButtonsSubStr[j]);
@@ -423,37 +431,34 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                         s = String.format(mButtonFormat1, mButtonsMainStr[j]);
                     }
                     b.setText(Html.fromHtml(s));
-                } else {
-                    b.setText(mButtonsCtrlStr[j]);
-                }
-                if (mCtrlKeyboardMode == false) {
                     b.setOnClickListener(new ButtonClicked(mPassCodeEditText, j));
+                    if (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) {
+                        b.setLongClickable(true);
+                        b.setOnLongClickListener(new OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                mSoftKeyboardMode = !mSoftKeyboardMode;
+                                setupKeyboard();
+                                return true;
+                            }
+                        });
+                    }
+                    if (j == 0) {
+                        b.setLongClickable(true);
+                        b.setOnLongClickListener(new OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View v) {
+                                mCtrlKeyboardMode = true;
+                                mSoftKeyboardMode = false;
+                                setButtonsVisibility(false);
+                                setupKeyboard();
+                                return true;
+                            }
+                        });
+                    }
                 } else {
-                    b.setOnClickListener(new CtrlButtonClicked(j));
-                }
-                if (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) {
-                    b.setLongClickable(true);
-                    b.setOnLongClickListener(new OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-                            mSoftKeyboardMode = !mSoftKeyboardMode;
-                            setupKeyboard();
-                            return true;
-                        }
-                    });
-                }
-                if (j == 0) {
-                    b.setLongClickable(true);
-                    b.setOnLongClickListener(new OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-                            mCtrlKeyboardMode = true;
-                            mSoftKeyboardMode = false;
-                            setButtonsVisibility(false);
-                            setupKeyboard();
-                            return true;
-                        }
-                    });
+                    b.setText(mButtonsCtrlStr[i]);
+                    b.setOnClickListener(new CtrlButtonClicked(i, this));
                 }
             }
         } else if (!visible && mButtonVisibilityPrev != 2) {
@@ -746,14 +751,64 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         }
     }
 
+    private void setupKeypadSize() {
+        int width;
+        int height;
+        if (KEYPAD_SIZE_FILL) {
+            width = LinearLayout.LayoutParams.MATCH_PARENT;
+            height = LinearLayout.LayoutParams.MATCH_PARENT;
+        } else {
+            DisplayMetrics metrics = new DisplayMetrics();
+            getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            int densityDip = metrics.densityDpi;
+            width = (int)(KEYPAD_SIZE_INCH * densityDip);
+            height = (int)(KEYPAD_SIZE_INCH * densityDip);
+        }
+        LinearLayout ll = (LinearLayout) findViewById(R.id.LinearLayout);
+        ll.getLayoutParams().width = width;
+        ll.getLayoutParams().height = height;
+    }
+
+    private void setupKeypadPos(int pos) {
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.RelativeLayout);
+        int n = pos | Gravity.BOTTOM;
+        rl.setGravity(n);
+    }
+
     private class CtrlButtonClicked implements OnClickListener {
 
+        private final static float INC_DEC_INCH_UNIT = 0.1F;
         private int mIndex;
+        private LinearLayout mLinearLayout;
+        private int mDensityDip;
 
-        public CtrlButtonClicked(int index) {
+        public CtrlButtonClicked(int index, AppCompatActivity activity) {
             mIndex = index;
+            mLinearLayout = (LinearLayout) findViewById(R.id.LinearLayout);
+            DisplayMetrics metrics = new DisplayMetrics();
+            activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
+            mDensityDip = metrics.densityDpi;
         }
 
+        private boolean IsMatchParent() {
+            return mLinearLayout.getLayoutParams().width == LinearLayout.LayoutParams.MATCH_PARENT;
+        }
+
+        private void addWidthInch(float inch) {
+            if (!IsMatchParent()) {
+                mLinearLayout.getLayoutParams().width += (int)(inch * mDensityDip);
+                mLinearLayout.requestLayout();
+            }
+        }
+
+        private void addHeightInch(float inch) {
+            if (!IsMatchParent()) {
+                mLinearLayout.getLayoutParams().height += (int)(inch * mDensityDip);
+                mLinearLayout.requestLayout();
+            }
+        }
+
+        @Override
         public void onClick(View v) {
             switch (mIndex) {
             case 11:
@@ -762,70 +817,39 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                 setButtonsVisibility(false);
                 setupKeyboard();
                 break;
-            case 1: {
-                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
-                int n = ll.getLayoutParams().height;
-                ll.getLayoutParams().height = (ll.getLayoutParams().height + 10);
-                ll.requestLayout();
+            case 1:
+                addHeightInch(INC_DEC_INCH_UNIT);
                 break;
-            }
-            case 4: {
-                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
-                ll.getLayoutParams().height = (ll.getLayoutParams().height - 10);
-                ll.requestLayout();
+            case 4:
+                addHeightInch(-INC_DEC_INCH_UNIT);
                 break;
-            }
-            case 3: {
-                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
-                ll.getLayoutParams().width = (ll.getLayoutParams().width + 10);
-                ll.requestLayout();
+            case 3:
+                addWidthInch(INC_DEC_INCH_UNIT);
                 break;
-            }
-            case 6: {
-                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
-                ll.getLayoutParams().width = (ll.getLayoutParams().width - 10);
-                ll.requestLayout();
+            case 6:
+                addWidthInch(-INC_DEC_INCH_UNIT);
                 break;
-            }
-            case 0: {
-                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
-                ll.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
-                ll.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
-                ll.requestLayout();
+            case 2:
+                if (!IsMatchParent()) {
+                    mLinearLayout.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
+                    mLinearLayout.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
+                    mLinearLayout.requestLayout();
+                }
                 break;
-            }
-            case 5: {
-                LinearLayout ll = (LinearLayout) findViewById(R.id.LINEARLAYOUT);
-                ll.getLayoutParams().width = 500;
-                ll.getLayoutParams().height = 500;
-                ll.requestLayout();
+            case 5:
+                setupKeypadSize();
+                mLinearLayout.requestLayout();
                 break;
-            }
-            case 7: {
-                // left
-                RelativeLayout rl = (RelativeLayout) findViewById(R.id.RELATIVE_LAYOUT);
-                int n = rl.getGravity();
-                n &= ~Gravity.HORIZONTAL_GRAVITY_MASK;
-                n |= Gravity.LEFT | Gravity.BOTTOM;
-                rl.setGravity(n);
+            case 7:
+            case 8:
+            case 9:
+                setupKeypadPos(
+                    mIndex == 7 ? Gravity.LEFT :
+                    mIndex == 8 ? Gravity.CENTER :
+                    Gravity.RIGHT );
                 break;
-            }
-            case 8: {
-                // center
-                RelativeLayout rl = (RelativeLayout) findViewById(R.id.RELATIVE_LAYOUT);
-                int n = rl.getGravity();
-                n &= ~Gravity.HORIZONTAL_GRAVITY_MASK;
-                n |= Gravity.CENTER | Gravity.BOTTOM;
-                rl.setGravity(n);
-                break;
-            }
-            case 9: {
-                // right
-                RelativeLayout rl = (RelativeLayout) findViewById(R.id.RELATIVE_LAYOUT);
-                int n = rl.getGravity();
-                n &= ~Gravity.HORIZONTAL_GRAVITY_MASK;
-                n |= Gravity.RIGHT | Gravity.BOTTOM;
-                rl.setGravity(n);
+            case 10: {
+                //subtext enable/disable
                 break;
             }
             }
