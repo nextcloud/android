@@ -294,7 +294,7 @@ public class ThumbnailsCacheManager {
                     if (MimeTypeUtil.isVideo((OCFile) mFile) && thumbnail != null) {
                         thumbnail = addVideoOverlay(thumbnail);
                     }
-                } else if (mFile instanceof File) {
+                }  else if (mFile instanceof File) {
                     thumbnail = doFileInBackground(mIsThumbnail);
 
                     String url = ((File) mFile).getAbsolutePath();
