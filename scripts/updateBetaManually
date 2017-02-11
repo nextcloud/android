@@ -1,15 +1,10 @@
 #!/bin/bash
 
-# echo "git pull:"
-# git pull  || exit
-# echo
-
-# branches=$(tempfile)
-# scripts/getBranchesForBeta > $branches
+echo "git pull:"
+git pull  || exit
+echo
 
 branches=$(scripts/getBranchesForBeta)
-
-
 branchesCount=$(echo "$branches" | wc -l)
 
 count=1
