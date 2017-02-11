@@ -177,7 +177,7 @@
 
         <provider
             android:name=".ui.adapter.DiskLruImageCacheFileProvider"
-            android:authorities="@string/authorityCache"
+            android:authorities="com.owncloud.imageCache.provider"
             android:exported="true">
         </provider>
 
@@ -224,7 +224,7 @@
         <activity android:name=".ui.activity.UploadListActivity" />
         <activity android:name=".ui.activity.WhatsNewActivity"
                   android:theme="@style/Theme.ownCloud.noActionBar.Login" />
-        
+
         <receiver android:name=".files.services.ConnectivityActionReceiver"
 		    android:enabled="true" android:label="ConnectivityActionReceiver">
 		    <intent-filter>
