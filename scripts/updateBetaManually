@@ -9,25 +9,33 @@ branchesCount=$(echo $branches | tr " " "\n" | wc -l)
 count=1
 echo "Branches: $branchesCount" 
 
-for branch in $branches; do
-    echo "[$count / $branchesCount]" $branch
-    
-    if [ $(echo $branch | grep -c "^origin") -eq 0 ] ; then
+while read -r branch; do
+    echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] "
+
+    branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
+
+    if [ $(echo $branchName | grep -c "^origin") -eq 0 ] ; then
         # remote repo
-        git fetch $(echo $branch | cut -f1 -d"/")
+        git fetch -q $(echo $branchName | cut -f1 -d"/") 1> /dev/null
     fi
-    
+
     git merge --no-edit $branch 1> /dev/null
-    
+
     if [ $? -ne 0 ] ; then
         echo "resolve conflict in androidStudio, after resolving press RETURN"
         read
         git add . && git commit --no-edit 1> /dev/null
-    else 
+    else
         echo " merged"
     fi
-    
-    let count++
-done
 
-git push
+    let count++
+
+done <<< "$branches"
+
+echo "git push? [y/n]"
+read -r result
+
+if [ $result = "y" ] ; then
+    git push
+fi
