@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "git pull:"
+echo -n "git pull:"
 git pull  || exit
 echo
 
