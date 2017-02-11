@@ -81,7 +81,7 @@
 		<android.preference.CheckBoxPreference android:title="@string/prefs_show_hidden_files" android:key="show_hidden_files" />
 		<EditTextPreference android:title="@string/pref_cache_size" android:key="pref_cache_size" android:digits="0123456789"/>
 	</PreferenceCategory>
-
+	
 	<PreferenceCategory android:title="@string/prefs_category_more" android:key="more">
 		<Preference android:title="@string/prefs_calendar_contacts"
 					android:key="calendar_contacts"
