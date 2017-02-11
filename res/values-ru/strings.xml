@@ -59,7 +59,7 @@
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_password">Пароль</string>
     <string name="auth_register">Ещё нет сервера?
-Щёлкните здесь что бы получить от провайдера</string>
+Щёлкните здесь чтобы получить от провайдера</string>
     <string name="sync_string_files">Файлы</string>
     <string name="setup_btn_connect">Подключиться</string>
     <string name="uploader_btn_upload_text">Загрузить</string>

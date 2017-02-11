@@ -57,6 +57,7 @@
     <string name="auth_host_url">Adresa e serverit https://… </string>
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_password">Fjalëkalim</string>
+    <string name="auth_register">Nuk keni akoma një server?\\nKlikoni këtu për të marrë një nga ofruesit</string>
     <string name="sync_string_files">Kartela</string>
     <string name="setup_btn_connect">Lidhuni</string>
     <string name="uploader_btn_upload_text">Ngarkoni</string>
@@ -515,7 +516,7 @@ ose</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
     <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;a href="%1$s">forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s">Translate&lt;/a> aplikacioni</string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Përktheni&lt;/a> aplikacionin</string>
     <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih&lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
