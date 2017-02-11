@@ -63,7 +63,6 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -437,10 +436,14 @@ public class Preferences extends PreferenceActivity
                         return true;
                     }
                 });
-        }
+            }
 
-        mPrefInstantUploadCategory =
-                (PreferenceCategory) findPreference(INSTANT_UPLOADING_CATEGORY);
+            mPrefInstantUploadCategory = (PreferenceCategory) findPreference(INSTANT_UPLOADING_CATEGORY);
+
+            mPrefInstantVideoUploadUseSubfolders = findPreference(INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS);
+            mPrefInstantVideoUploadPathWiFi = findPreference(INSTANT_VIDEO_UPLOAD_ON_WIFI);
+            mPrefInstantVideoUpload = findPreference(INSTANT_VIDEO_UPLOADING);
+            mPrefInstantVideoUploadOnlyOnCharging = findPreference(INSTANT_VIDEO_UPLOAD_ON_CHARGING);
 
         mPrefInstantUploadUseSubfolders = findPreference(INSTANT_UPLOAD_PATH_USE_SUBFOLDERS);
         mPrefInstantUploadPathWiFi =  findPreference(INSTANT_UPLOAD_ON_WIFI);
@@ -479,10 +482,7 @@ public class Preferences extends PreferenceActivity
                 });
             }
 
-            mPrefInstantVideoUploadUseSubfolders = findPreference(INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS);
-            mPrefInstantVideoUploadPathWiFi = findPreference(INSTANT_VIDEO_UPLOAD_ON_WIFI);
-            mPrefInstantVideoUpload = findPreference(INSTANT_VIDEO_UPLOADING);
-            mPrefInstantVideoUploadOnlyOnCharging = findPreference(INSTANT_VIDEO_UPLOAD_ON_CHARGING);
+
             toggleInstantVideoOptions(((CheckBoxPreference) mPrefInstantVideoUpload).isChecked());
             mPrefInstantVideoUpload.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
@@ -507,13 +507,8 @@ public class Preferences extends PreferenceActivity
             getPreferenceScreen().removePreference(mPrefInstantUploadCategory);
         }
 
-        mPrefInstantUploadBehaviour = findPreference(PREFS_INSTANT_BEHAVIOUR);
-        toggleInstantUploadBehaviour(
-                ((CheckBoxPreference)mPrefInstantVideoUpload).isChecked(),
-                ((CheckBoxPreference)mPrefInstantUpload).isChecked());
-
         /* About App */
-       pAboutApp = (Preference) findPreference(ABOUT_APP);
+        pAboutApp = findPreference(ABOUT_APP);
        if (pAboutApp != null) {
                pAboutApp.setTitle(String.format(getString(R.string.about_android),
                        getString(R.string.app_name)));
