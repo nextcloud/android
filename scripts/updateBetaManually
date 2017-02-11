@@ -11,9 +11,10 @@ count=1
 echo "Branches: $branchesCount" 
 
 while read -u 3 -r branch; do
-    echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] "
-
     branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
+
+    echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] $branchName"
+
 
     if [ $(echo $branchName | grep -c "^origin") -eq 0 ] ; then
         # remote repo

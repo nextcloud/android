@@ -76,6 +76,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.ManageAccountsActivity" />
+        <activity android:name=".ui.activity.UserInfoActivity" />
         <activity android:name=".ui.activity.ParticipateActivity" />
         <activity android:name=".ui.activity.FolderSyncActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
