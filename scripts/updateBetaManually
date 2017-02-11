@@ -1,15 +1,21 @@
 #!/bin/bash
 
-echo "git pull:"
-git pull  || exit
-echo 
+# echo "git pull:"
+# git pull  || exit
+# echo
+
+# branches=$(tempfile)
+# scripts/getBranchesForBeta > $branches
 
 branches=$(scripts/getBranchesForBeta)
-branchesCount=$(echo $branches | tr " " "\n" | wc -l)
+
+
+branchesCount=$(echo "$branches" | wc -l)
+
 count=1
 echo "Branches: $branchesCount" 
 
-while read -r branch; do
+while read -u 3 -r branch; do
     echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] "
 
     branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
@@ -19,7 +25,7 @@ while read -r branch; do
         git fetch -q $(echo $branchName | cut -f1 -d"/") 1> /dev/null
     fi
 
-    git merge --no-edit $branch 1> /dev/null
+    git merge --no-edit $branchName 1> /dev/null
 
     if [ $? -ne 0 ] ; then
         echo "resolve conflict in androidStudio, after resolving press RETURN"
@@ -31,7 +37,7 @@ while read -r branch; do
 
     let count++
 
-done <<< "$branches"
+done 3<<< "$branches"
 
 echo "git push? [y/n]"
 read -r result
