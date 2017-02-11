@@ -37,6 +37,11 @@ repositories {
     }
 }
 
+configurations.all {
+    resolutionStrategy.cacheDynamicVersionsFor 1, 'minutes'
+    resolutionStrategy.cacheChangingModulesFor 1, 'minutes'
+}
+
 dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
