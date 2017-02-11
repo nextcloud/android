@@ -1,6 +1,5 @@
-2017-02-11
+2017-02-12
 Branches: 13
-Beta branch was updated successfully
 [01 / 13] Added fingerprint support (Flole998/master) [https://github.com/nextcloud/android/pull/624] no update needed
 [02 / 13] Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] no update needed
 [03 / 13] Feature user information (nextcloud/feature-user-information) [https://github.com/nextcloud/android/pull/585] no update needed
