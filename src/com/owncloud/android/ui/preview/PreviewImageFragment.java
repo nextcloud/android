@@ -40,12 +40,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-<<<<<<< HEAD
 import com.owncloud.android.MainApp;
-=======
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
->>>>>>> nextcloud/svgView
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;

@@ -54,14 +54,10 @@ dependencies {
     compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.google.code.findbugs:annotations:2.0.1'
-<<<<<<< HEAD
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
-=======
     compile 'com.caverock:androidsvg:1.2.1'
-
->>>>>>> nextcloud/svgView
 
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'
