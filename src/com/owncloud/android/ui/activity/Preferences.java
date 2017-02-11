@@ -63,6 +63,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -219,7 +220,6 @@ public class Preferences extends PreferenceActivity
             }
         });
 
-        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(MORE);
         final Preference pCacheSize = findPreference("pref_cache_size");
         if (pCacheSize != null){
             final SharedPreferences appPrefs =
@@ -240,6 +240,8 @@ public class Preferences extends PreferenceActivity
                 }
             });
         }
+
+        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference(MORE);
 
         boolean calendarContactsEnabled = getResources().getBoolean(R.bool.calendar_contacts_enabled);
         Preference pCalendarContacts = findPreference("calendar_contacts");
