@@ -465,7 +465,7 @@
     <string name="share_with_title">Compartilhar com &#8230;</string>
     <string name="share_with_edit_title">Compartilhar com %1$s</string>
 
-    <string name="share_search">Perquisar</string>
+    <string name="share_search">Pesquisar</string>
 
     <string name="search_users_and_groups_hint">Pesquisar usuários e grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
