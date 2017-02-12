@@ -143,7 +143,11 @@ public class MainApp extends Application {
                 }
             }
 
-            mProvider.deleteSyncFolders(mContext, syncedFolderArrayList, ids);
+            if (ids.size() > 0) {
+                mProvider.deleteSyncFolders(mContext, syncedFolderArrayList, ids);
+            } else {
+                PreferenceManager.getDefaultSharedPreferences(mContext).edit().putBoolean("legacyClean", true).apply();
+            }
         }
 
         Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
