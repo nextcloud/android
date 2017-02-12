@@ -1,3 +1,9 @@
+## 2017-02-13
+- Fix for #448. Rotation change in FolderPicker caused app crash. (carstendev/rotation-crash-fix) [https://github.com/nextcloud/android/pull/649] added
+
+- Fix for #448. Rotation change in FolderPicker caused app crash. (carstendev/rotation-crash-fix) [https://github.com/nextcloud/android/pull/649] updated
+- New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] updated
+
 ## 2017-02-12
 
 
