@@ -1,15 +1,16 @@
-2017-02-12
-Branches: 13
-[01 / 13] Added fingerprint support (Flole998/master) [https://github.com/nextcloud/android/pull/624] no update needed
-[02 / 13] Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] no update needed
-[03 / 13] Feature user information (nextcloud/feature-user-information) [https://github.com/nextcloud/android/pull/585] no update needed
-[04 / 13] New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] no update needed
-[05 / 13] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] no update needed
-[06 / 13] show SVG images (nextcloud/svgView) [https://github.com/nextcloud/android/pull/465] no update needed
-[07 / 13] Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://github.com/nextcloud/android/pull/451] no update needed
-[08 / 13] Updated federated sharing edit options (nextcloud/federated_sharing_edit_options) [https://github.com/nextcloud/android/pull/395] no update needed
-[09 / 13] Streaming (nextcloud/streaming) [https://github.com/nextcloud/android/pull/183] no update needed
-[10 / 13] Resize cache (nextcloud/resizeCache) [https://github.com/nextcloud/android/pull/144] no update needed
-[11 / 13] Instant upload in the context of multi account support (nextcloud/instant_upload_multi_account) [https://github.com/nextcloud/android/pull/98] no update needed
-[12 / 13] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
-[13 / 13] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
+2017-02-13
+Branches: 14
+[01 / 14] Fix for #448. Rotation change in FolderPicker caused app crash. (carstendev/rotation-crash-fix) [https://github.com/nextcloud/android/pull/649] merged successfully
+[02 / 14] Added fingerprint support (Flole998/master) [https://github.com/nextcloud/android/pull/624] no update needed
+[03 / 14] Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] no update needed
+[04 / 14] Feature user information (nextcloud/feature-user-information) [https://github.com/nextcloud/android/pull/585] CONFLICT
+[05 / 14] New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] merged successfully
+[06 / 14] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
+[07 / 14] show SVG images (nextcloud/svgView) [https://github.com/nextcloud/android/pull/465] CONFLICT
+[08 / 14] Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://github.com/nextcloud/android/pull/451] CONFLICT
+[09 / 14] Updated federated sharing edit options (nextcloud/federated_sharing_edit_options) [https://github.com/nextcloud/android/pull/395] CONFLICT
+[10 / 14] Streaming (nextcloud/streaming) [https://github.com/nextcloud/android/pull/183] no update needed
+[11 / 14] Resize cache (nextcloud/resizeCache) [https://github.com/nextcloud/android/pull/144] no update needed
+[12 / 14] Instant upload in the context of multi account support (nextcloud/instant_upload_multi_account) [https://github.com/nextcloud/android/pull/98] no update needed
+[13 / 14] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
+[14 / 14] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
