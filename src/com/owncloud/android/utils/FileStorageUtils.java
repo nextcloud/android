@@ -39,6 +39,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,7 +47,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.Vector;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -128,15 +128,13 @@ public class FileStorageUtils {
         if (date == 0) {
             return "";
         }
-        try {
-            SimpleDateFormat formatter = new SimpleDateFormat(
-                    "yyyy" + OCFile.PATH_SEPARATOR + "MM" + OCFile.PATH_SEPARATOR, Locale.ENGLISH);
-            return formatter.format(new Date(date));
-        }
-        catch(RuntimeException ex) {
-            Log_OC.w(TAG, "could not extract date from timestamp");
-            return "";
-        }
+
+        Date d = new Date(date);
+        DateFormat df = new SimpleDateFormat("yyyy/MM/");
+
+        return df.format(d);
+
+
     }
 
     /**
