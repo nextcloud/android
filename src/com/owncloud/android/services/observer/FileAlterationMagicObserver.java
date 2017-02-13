@@ -34,6 +34,8 @@
  */
 package com.owncloud.android.services.observer;
 
+import com.owncloud.android.datamodel.SyncedFolder;
+
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
 import org.apache.commons.io.monitor.FileAlterationListener;
@@ -55,16 +57,26 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
     private FileEntry rootEntry;
     private FileFilter fileFilter;
     private Comparator<File> comparator;
+    private SyncedFolder syncedFolder;
 
     static final FileEntry[] EMPTY_ENTRIES = new FileEntry[0];
 
 
-    public FileAlterationMagicObserver(File directory, FileFilter fileFilter) {
-        super(directory, fileFilter);
+    public FileAlterationMagicObserver(SyncedFolder syncedFolder, FileFilter fileFilter) {
+        super(syncedFolder.getLocalPath(), fileFilter);
 
-        this.rootEntry = new FileEntry(directory);
+        this.rootEntry = new FileEntry(new File(syncedFolder.getLocalPath()));
         this.fileFilter = fileFilter;
+        this.syncedFolder = syncedFolder;
         comparator = NameFileComparator.NAME_SYSTEM_COMPARATOR;
+    }
+
+    public long getSyncedFolderID() {
+        return syncedFolder.getId();
+    }
+
+    public SyncedFolder getSyncedFolder() {
+        return syncedFolder;
     }
 
     /**
