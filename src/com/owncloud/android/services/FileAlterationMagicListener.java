@@ -88,11 +88,10 @@ public class FileAlterationMagicListener implements FileAlterationListener {
                 @Override
                 public void run() {
                     PersistableBundle bundle = new PersistableBundle();
-                    // TODO extract
                     bundle.putString(SyncedFolderJobService.LOCAL_PATH, file.getAbsolutePath());
                     bundle.putString(SyncedFolderJobService.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
                             syncedFolder.getRemotePath(), file.getName(),
-                            new Date().getTime(),
+                            file.lastModified(),
                             syncedFolder.getSubfolderByDate()));
                     bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
                     bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
