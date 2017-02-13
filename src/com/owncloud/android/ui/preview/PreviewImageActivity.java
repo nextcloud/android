@@ -33,7 +33,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 
 import com.ortiz.touch.ExtendedViewPager;
 import com.owncloud.android.MainApp;
@@ -66,16 +65,12 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class PreviewImageActivity extends FileActivity implements
         FileFragment.ContainerActivity,
         ViewPager.OnPageChangeListener, OnRemoteOperationListener {
-    
-    public static final int DIALOG_SHORT_WAIT = 0;
 
     public static final String TAG = PreviewImageActivity.class.getSimpleName();
     
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
-
-    private static final int INITIAL_HIDE_DELAY = 0; // immediate hide
 
     private ExtendedViewPager mViewPager;
     private PreviewImagePagerAdapter mPreviewImagePagerAdapter;
@@ -90,9 +85,14 @@ public class PreviewImageActivity extends FileActivity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        requestWindowFeature(Window.FEATURE_ACTION_BAR_OVERLAY);
-
         super.onCreate(savedInstanceState);
+
+        final ActionBar actionBar = getSupportActionBar();
+
+        if (savedInstanceState != null && !savedInstanceState.getBoolean(KEY_SYSTEM_VISIBLE, true) &&
+                actionBar != null) {
+            actionBar.hide();
+        }
 
         setContentView(R.layout.preview_image_activity);
 
@@ -100,7 +100,6 @@ public class PreviewImageActivity extends FileActivity implements
         setupDrawer();
 
         // ActionBar
-        ActionBar actionBar = getSupportActionBar();
         updateActionBarTitleAndHomeButton(null);
 
         mFullScreenAnchorView = getWindow().getDecorView();
@@ -111,7 +110,6 @@ public class PreviewImageActivity extends FileActivity implements
                     @Override
                     public void onSystemUiVisibilityChange(int flags) {
                         boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
-                        ActionBar actionBar = getSupportActionBar();
                         if (visible) {
                             actionBar.show();
                             setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
@@ -124,9 +122,6 @@ public class PreviewImageActivity extends FileActivity implements
          
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
-            if (!savedInstanceState.getBoolean(KEY_SYSTEM_VISIBLE, true)) {
-                hideSystemUI(mFullScreenAnchorView);
-            }
         } else {
             mRequestWaitingForBinder = false;
         }
@@ -424,7 +419,10 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     public boolean getSystemUIVisible() {
-        return (mFullScreenAnchorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
+        if (getSupportActionBar() != null) {
+            return (getSupportActionBar().isShowing());
+        }
+        return true;
     }
 
     @SuppressLint("InlinedApi")
@@ -507,7 +505,7 @@ public class PreviewImageActivity extends FileActivity implements
         anchorView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE           // draw full window;     Android >= 4.1
             |   View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN       // draw full window;     Android >= 4.1
-            |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.1
+            |   View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION  // draw full window;     Android >= 4.
         );
     }
 }
