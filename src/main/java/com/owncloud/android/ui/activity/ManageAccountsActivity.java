@@ -348,10 +348,7 @@ public class ManageAccountsActivity extends FileActivity
 
     private void performAccountRemoval(Account account) {
         AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
-        am.removeAccount(
-                account,
-                this,
-                this.getHandler());
+        am.removeAccount(account, this, this.getHandler());
     }
 
     /**
