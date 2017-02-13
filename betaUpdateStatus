@@ -1,9 +1,9 @@
-2017-02-13
+2017-02-14
 Branches: 13
 Beta branch was updated successfully
 [01 / 13] Added fingerprint support (Flole998/master) [https://github.com/nextcloud/android/pull/624] no update needed
-[02 / 13] Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] CONFLICT
-[03 / 13] Feature user information (nextcloud/feature-user-information) [https://github.com/nextcloud/android/pull/585] CONFLICT
+[02 / 13] Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] no update needed
+[03 / 13] Show user information (nextcloud/feature-user-information) [https://github.com/nextcloud/android/pull/585] CONFLICT
 [04 / 13] New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] no update needed
 [05 / 13] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
 [06 / 13] show SVG images (nextcloud/svgView) [https://github.com/nextcloud/android/pull/465] CONFLICT
@@ -12,5 +12,5 @@ Beta branch was updated successfully
 [09 / 13] Streaming (nextcloud/streaming) [https://github.com/nextcloud/android/pull/183] no update needed
 [10 / 13] Resize cache (nextcloud/resizeCache) [https://github.com/nextcloud/android/pull/144] no update needed
 [11 / 13] Instant upload in the context of multi account support (nextcloud/instant_upload_multi_account) [https://github.com/nextcloud/android/pull/98] no update needed
-[12 / 13] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
+[12 / 13] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] CONFLICT
 [13 / 13] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
