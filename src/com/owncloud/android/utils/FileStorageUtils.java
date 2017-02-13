@@ -24,7 +24,6 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.webkit.MimeTypeMap;
 
@@ -93,7 +92,7 @@ public class FileStorageUtils {
      * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
      */
     public static String getTemporalPath(String accountName) {
-        return Environment.getExternalStorageDirectory().getAbsolutePath()
+        return MainApp.getStoragePath()
                 + File.separator
                 + MainApp.getDataFolder()
                 + File.separator
