@@ -35,6 +35,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.FileAlterationMagicListener;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.apache.commons.io.monitor.FileEntry;
@@ -218,21 +219,39 @@ public class SyncedFolderObserverService extends Service {
      */
 
     public void restartObserver(SyncedFolder syncedFolder) {
+        boolean found = false;
+        FileAlterationMagicObserver fileAlterationMagicObserver;
         for (FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
-            FileAlterationMagicObserver fileAlterationMagicObserver =
+            fileAlterationMagicObserver =
                     (FileAlterationMagicObserver) fileAlterationObserver;
             if (fileAlterationMagicObserver.getSyncedFolderID() == syncedFolder.getId()) {
                 if (syncedFolder.isEnabled()) {
-                    fileAlterationObserver.removeListener(null);
+                    for (FileAlterationListener fileAlterationListener : fileAlterationMagicObserver.getListeners()) {
+                        fileAlterationMagicObserver.removeListener(fileAlterationListener);
+                    }
                     fileAlterationObserver.addListener(new FileAlterationMagicListener(syncedFolder));
                 } else {
                     monitor.removeObserver(fileAlterationObserver);
                 }
-                return;
+                found = true;
+                break;
             }
         }
 
+        if (!found) {
+            fileAlterationMagicObserver = new FileAlterationMagicObserver(syncedFolder, fileFilter);
+            try {
+                fileAlterationMagicObserver.init();
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Failed getting an observer to intialize");
+            }
+
+            fileAlterationMagicObserver.addListener(new FileAlterationMagicListener(syncedFolder));
+            monitor.addObserver(fileAlterationMagicObserver);
+        }
+
         syncToDisk(false);
+
     }
 
     @Override
