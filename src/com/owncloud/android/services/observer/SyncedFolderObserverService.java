@@ -36,6 +36,7 @@ import com.owncloud.android.services.FileAlterationMagicListener;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
+import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.apache.commons.io.monitor.FileEntry;
 
 import java.io.EOFException;
@@ -47,13 +48,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.HashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SyncedFolderObserverService extends Service {
     private static final String TAG = "SyncedFolderObserverService";
     private SyncedFolderProvider mProvider;
-    private HashMap<SyncedFolder, FileAlterationMagicObserver> syncedFolderMap = new HashMap<>();
     private final IBinder mBinder = new SyncedFolderObserverBinder();
     private FileAlterationMonitor monitor;
     private FileFilter fileFilter;
@@ -113,52 +112,36 @@ public class SyncedFolderObserverService extends Service {
 
         }
 
-        Log_OC.d(TAG, "start");
-        if (pairArrayList.size() == 0) {
+
+        if (readPerstistanceEntries && pairArrayList.size() > 0) {
+            for (int i = 0; i < pairArrayList.size(); i++) {
+                SyncedFolder syncFolder = pairArrayList.get(i).getKey();
+                FileAlterationMagicObserver observer = new FileAlterationMagicObserver(syncFolder, fileFilter);
+                observer.setRootEntry(pairArrayList.get(i).getValue());
+                observer.addListener(new FileAlterationMagicListener(syncFolder));
+                monitor.addObserver(observer);
+
+            }
+        } else {
             for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
-                if (syncedFolder.isEnabled() && !syncedFolderMap.containsKey(syncedFolder)) {
-                    Log_OC.d(TAG, "start observer: " + syncedFolder.getLocalPath());
-                    FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
-                            syncedFolder.getLocalPath()), fileFilter);
+                if (syncedFolder.isEnabled()) {
+                    FileAlterationMagicObserver observer = new FileAlterationMagicObserver(syncedFolder, fileFilter);
 
                     try {
                         observer.init();
-                        SerializablePair<SyncedFolder, FileEntry> pair = new SerializablePair<>(syncedFolder,
-                                observer.getRootEntry());
-                        pairArrayList.add(pair);
                     } catch (Exception e) {
                         Log_OC.d(TAG, "Failed getting an observer to intialize");
                     }
 
                     observer.addListener(new FileAlterationMagicListener(syncedFolder));
                     monitor.addObserver(observer);
-                    syncedFolderMap.put(syncedFolder, observer);
                 }
-            }
-        } else {
-            for (int i = 0; i < pairArrayList.size(); i++) {
-                SyncedFolder syncFolder = pairArrayList.get(i).getKey();
-                for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
-                    if (syncFolder.getId() == syncedFolder.getId()) {
-                        syncFolder = syncedFolder;
-                        pairArrayList.set(i, new SerializablePair<SyncedFolder, FileEntry>(syncFolder,
-                                pairArrayList.get(i).getValue()));
-                        break;
-                    }
-                }
-
-                FileAlterationMagicObserver observer = new FileAlterationMagicObserver(new File(
-                        syncFolder.getLocalPath()), fileFilter);
-                observer.setRootEntry(pairArrayList.get(i).getValue());
-
-                observer.addListener(new FileAlterationMagicListener(syncFolder));
-                monitor.addObserver(observer);
-                syncedFolderMap.put(syncFolder, observer);
-
             }
         }
 
-        writePersistenceEntries(readPerstistanceEntries, file);
+        if (!readPerstistanceEntries) {
+            syncToDisk(false);
+        }
 
         try {
             monitor.start();
@@ -173,71 +156,53 @@ public class SyncedFolderObserverService extends Service {
         return Service.START_NOT_STICKY;
     }
 
-    private void writePersistenceEntries(boolean readPerstistanceEntries, File file) {
-        FileOutputStream fos = null;
+    public void syncToDisk(boolean destructive) {
+        pairArrayList = new CopyOnWriteArrayList<>();
+        for (FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
+            FileAlterationMagicObserver fileAlterationMagicObserver =
+                    (FileAlterationMagicObserver) fileAlterationObserver;
+            pairArrayList.add(new SerializablePair<SyncedFolder, FileEntry>(fileAlterationMagicObserver.getSyncedFolder(),
+                    fileAlterationMagicObserver.getRootEntry()));
+        }
 
-        try {
-            if (pairArrayList.size() > 0 && !readPerstistanceEntries) {
+        if (pairArrayList.size() > 0) {
+            try {
                 File newFile = new File(file.getAbsolutePath());
+
                 if (!newFile.exists()) {
                     newFile.createNewFile();
                 }
-                fos = new FileOutputStream(new File(file.getAbsolutePath()), false);
+                FileOutputStream fos = new FileOutputStream(new File(file.getAbsolutePath()), false);
                 ObjectOutputStream os = new ObjectOutputStream(fos);
                 for (int i = 0; i < pairArrayList.size(); i++) {
                     os.writeObject(pairArrayList.get(i));
                 }
                 os.close();
-            } else if (file.exists() && pairArrayList.size() == 0) {
-                FileUtils.deleteQuietly(file);
-            }
 
-            if (fos != null) {
-                fos.close();
-            }
-
-        } catch (FileNotFoundException e) {
-            Log_OC.d(TAG, "Failed writing to nc_sync_persistance file via FileNotFound");
-        } catch (IOException e) {
-            Log_OC.d(TAG, "Failed writing to nc_sync_persistance file via IOException");
-        }
-
-
-    }
-
-    public void syncToDisk(boolean destructive) {
-        for (SyncedFolder syncedFolder : syncedFolderMap.keySet()) {
-            FileAlterationMagicObserver obs = syncedFolderMap.get(syncedFolder);
-            for (int i = 0; i < pairArrayList.size(); i++) {
-                SyncedFolder pairSyncedFolder = pairArrayList.get(i).getKey();
-                if (pairSyncedFolder.equals(syncedFolder)) {
-                    SerializablePair<SyncedFolder, FileEntry> newPairEntry = new SerializablePair<>(syncedFolder,
-                            obs.getRootEntry());
-                    pairArrayList.set(i, newPairEntry);
-                    break;
+                if (fos != null) {
+                    fos.close();
                 }
+
+            } catch (FileNotFoundException e) {
+                Log_OC.d(TAG, "Failed writing to nc_sync_persistance file via FileNotFound");
+            } catch (IOException e) {
+                Log_OC.d(TAG, "Failed writing to nc_persisten file via IOException");
             }
 
-            if (destructive) {
-                monitor.removeObserver(obs);
-                syncedFolderMap.remove(obs);
-            }
-
-            try {
-                obs.destroy();
-            } catch (Exception e) {
-                Log_OC.d(TAG, "Something went very wrong at onDestroy");
+        } else {
+            if (file.exists()) {
+                FileUtils.deleteQuietly(file);
             }
         }
 
         if (destructive) {
+            monitor.removeObserver(null);
             try {
                 monitor.stop();
             } catch (Exception e) {
-                Log_OC.d(TAG, "Something went very wrong at onDestroy");
+                Log_OC.d(TAG, "Failed in stopping monitor");
             }
         }
-        writePersistenceEntries(false, file);
     }
 
     @Override
@@ -253,85 +218,21 @@ public class SyncedFolderObserverService extends Service {
      */
 
     public void restartObserver(SyncedFolder syncedFolder) {
-        FileAlterationMagicObserver fileAlterationObserver;
-        Log_OC.d(TAG, "stop observer: " + syncedFolder.getLocalPath());
-
-        SyncedFolder syncy = null;
-        for (SyncedFolder syncyFolder : syncedFolderMap.keySet()) {
-            if (syncyFolder.getId() == syncedFolder.getId()) {
-                syncy = syncyFolder;
-                break;
+        for (FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
+            FileAlterationMagicObserver fileAlterationMagicObserver =
+                    (FileAlterationMagicObserver) fileAlterationObserver;
+            if (fileAlterationMagicObserver.getSyncedFolderID() == syncedFolder.getId()) {
+                if (syncedFolder.isEnabled()) {
+                    fileAlterationObserver.removeListener(null);
+                    fileAlterationObserver.addListener(new FileAlterationMagicListener(syncedFolder));
+                } else {
+                    monitor.removeObserver(fileAlterationObserver);
+                }
+                return;
             }
         }
 
-
-        if (syncedFolder.isEnabled()) {
-            if (syncy != null) {
-                Log_OC.d(TAG, "start observer Restart: " + syncedFolder.getLocalPath() + " " + syncedFolder.getAccount());
-                fileAlterationObserver = syncedFolderMap.get(syncy);
-                monitor.removeObserver(fileAlterationObserver);
-                fileAlterationObserver.removeListener(null);
-                fileAlterationObserver.addListener(new FileAlterationMagicListener(syncedFolder));
-                syncedFolderMap.remove(syncy);
-                syncedFolderMap.put(syncedFolder, fileAlterationObserver);
-                monitor.addObserver(fileAlterationObserver);
-
-                // remove it from the paired array list
-                for (int i = 0; i < pairArrayList.size(); i++) {
-                    if (syncy.getId() == pairArrayList.get(i).getKey().getId()) {
-                        pairArrayList.remove(i);
-                        break;
-                    }
-                }
-
-                pairArrayList.add(new SerializablePair<SyncedFolder, FileEntry>(syncedFolder,
-                        fileAlterationObserver.getRootEntry()));
-
-            } else {
-                Log_OC.d(TAG, "start observer Restart noMap: " + syncedFolder.getLocalPath() + " " + syncedFolder.getAccount());
-
-                fileAlterationObserver = new FileAlterationMagicObserver(new File(syncedFolder.getLocalPath()),
-                        fileFilter);
-
-                try {
-                    fileAlterationObserver.init();
-                    SerializablePair<SyncedFolder, FileEntry> pair = new SerializablePair<>(syncedFolder,
-                            fileAlterationObserver.getRootEntry());
-                    pairArrayList.add(pair);
-                } catch (Exception e) {
-                    Log_OC.d(TAG, "Failed getting an observer to intialize");
-                }
-
-                fileAlterationObserver.addListener(new FileAlterationMagicListener(syncedFolder));
-                monitor.addObserver(fileAlterationObserver);
-                try {
-                    syncedFolderMap.put(syncedFolder, fileAlterationObserver);
-                } catch (Exception e) {
-                    Log_OC.d(TAG, "Something went very wrong on RestartObserver");
-                }
-
-            }
-        } else {
-            fileAlterationObserver = syncedFolderMap.get(syncy);
-            monitor.removeObserver(fileAlterationObserver);
-
-            try {
-                fileAlterationObserver.destroy();
-            } catch (Exception e) {
-                Log_OC.d(TAG, "Something went very wrong at onDestroy");
-            }
-
-            // remove it from the paired array list
-            for (int i = 0; i < pairArrayList.size(); i++) {
-                if (syncy.getId() == pairArrayList.get(i).getKey().getId()) {
-                    pairArrayList.remove(i);
-                    break;
-                }
-            }
-            syncedFolderMap.remove(syncy);
-        }
-
-        writePersistenceEntries(false, file);
+        syncToDisk(false);
     }
 
     @Override
