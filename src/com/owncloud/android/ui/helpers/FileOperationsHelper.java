@@ -29,7 +29,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.webkit.MimeTypeMap;
@@ -371,8 +370,8 @@ public class FileOperationsHelper {
      */
     public void showShareFile(OCFile file){
         Intent intent = new Intent(mFileActivity, ShareActivity.class);
-        intent.putExtra(mFileActivity.EXTRA_FILE, (Parcelable) file);
-        intent.putExtra(mFileActivity.EXTRA_ACCOUNT, mFileActivity.getAccount());
+        intent.putExtra(FileActivity.EXTRA_FILE, file);
+        intent.putExtra(FileActivity.EXTRA_ACCOUNT, mFileActivity.getAccount());
         mFileActivity.startActivity(intent);
 
     }
@@ -524,7 +523,7 @@ public class FileOperationsHelper {
     public void sendCachedImage(OCFile file) {
         // TODO check if already exists in cache, else download resized image first
         if (file != null) {
-            Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
+            Intent sendIntent = new Intent(Intent.ACTION_SEND);
             // set MimeType
             sendIntent.setType(file.getMimetype());
             sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath()));
