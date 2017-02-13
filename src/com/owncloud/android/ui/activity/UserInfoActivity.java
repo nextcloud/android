@@ -232,6 +232,9 @@ public class UserInfoActivity extends FileActivity {
 
     private void populateUserInfoUi(UserInfo userInfo) {
         userName.setText(account.name);
+        DisplayUtils.setAvatar(account, UserInfoActivity.this,
+                mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),avatar);
+
         int tint = ContextCompat.getColor(this, R.color.primary);
 
         if (userInfo != null) {
@@ -345,9 +348,7 @@ public class UserInfoActivity extends FileActivity {
                         @Override
                         public void run() {
                             populateUserInfoUi(userInfo);
-                            DisplayUtils.setAvatar(account, UserInfoActivity.this,
-                                    mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),
-                                    avatar);
+
                             multiListContainer.setVisibility(View.GONE);
                             userInfoView.setVisibility(View.VISIBLE);
                         }
