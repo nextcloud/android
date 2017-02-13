@@ -129,7 +129,7 @@ public class FileStorageUtils {
      * string is returned
      *
      * @param date: date in microseconds since 1st January 1970
-     * @return
+     * @return string: yyyy/mm/
      */
     private static String getSubpathFromDate(long date) {
         if (date == 0) {
@@ -147,11 +147,11 @@ public class FileStorageUtils {
     }
 
     /**
-     * Returns the InstantUploadFilePath on the owncloud instance
+     * Returns the InstantUploadFilePath on the nextcloud instance
      *
-     * @param fileName
+     * @param fileName complete file name
      * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
-     * @return
+     * @return instantUpload path, eg. /Camera/2017/01/fileName
      */
     public static String getInstantUploadFilePath(String remotePath, String fileName, long dateTaken,
                                                   Boolean subfolderByDate) {
