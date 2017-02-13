@@ -117,11 +117,17 @@ public class SyncedFolderObserverService extends Service {
         if (readPerstistanceEntries && pairArrayList.size() > 0) {
             for (int i = 0; i < pairArrayList.size(); i++) {
                 SyncedFolder syncFolder = pairArrayList.get(i).getKey();
+                for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
+                    if (syncedFolder.getId() == pairArrayList.get(i).getKey().getId()) {
+                        syncFolder = syncedFolder;
+                        break;
+                    }
+                }
+
                 FileAlterationMagicObserver observer = new FileAlterationMagicObserver(syncFolder, fileFilter);
                 observer.setRootEntry(pairArrayList.get(i).getValue());
                 observer.addListener(new FileAlterationMagicListener(syncFolder));
                 monitor.addObserver(observer);
-
             }
         } else {
             for (SyncedFolder syncedFolder : mProvider.getSyncedFolders()) {
@@ -140,9 +146,7 @@ public class SyncedFolderObserverService extends Service {
             }
         }
 
-        if (!readPerstistanceEntries) {
-            syncToDisk(false);
-        }
+        syncToDisk(false);
 
         try {
             monitor.start();
@@ -238,7 +242,7 @@ public class SyncedFolderObserverService extends Service {
             }
         }
 
-        if (!found) {
+        if (!found && syncedFolder.isEnabled()) {
             fileAlterationMagicObserver = new FileAlterationMagicObserver(syncedFolder, fileFilter);
             try {
                 fileAlterationMagicObserver.init();
