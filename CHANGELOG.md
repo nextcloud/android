@@ -1,4 +1,9 @@
 ## 2017-02-13
+
+-Beta branch was updated successfully] updated
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
+## 2017-02-13
 - Fix for #448. Rotation change in FolderPicker caused app crash. (carstendev/rotation-crash-fix) [https://github.com/nextcloud/android/pull/649] added
 
 - Fix for #448. Rotation change in FolderPicker caused app crash. (carstendev/rotation-crash-fix) [https://github.com/nextcloud/android/pull/649] updated
