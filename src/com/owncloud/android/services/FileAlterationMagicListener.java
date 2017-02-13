@@ -23,10 +23,8 @@ import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
-import android.media.ExifInterface;
 import android.os.Handler;
 import android.os.PersistableBundle;
-import android.text.TextUtils;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -37,14 +35,9 @@ import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 
 import java.io.File;
-import java.io.IOException;
-import java.text.ParsePosition;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 
 /**
  * Magical file alteration listener
@@ -91,40 +84,14 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     @Override
     public void onFileCreate(final File file) {
         if (file != null) {
-
-            String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
-            Long dateFolder = file.lastModified();
-            final Locale current = context.getResources().getConfiguration().locale;
-
-            if (mimetypeString.equalsIgnoreCase("image/jpeg") || mimetypeString.equals("image/tiff")) {
-                try {
-                    ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
-                    if (!TextUtils.isEmpty(exifInterface.getAttribute(ExifInterface.TAG_DATETIME))) {
-                        String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
-                        ParsePosition pos = new ParsePosition(0);
-                        SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", current);
-                        sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
-                        Date datetime = sFormatter.parse(exifDate, pos);
-                        dateFolder = datetime.getTime();
-                    }
-
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
-                }
-            }
-
-
-            final Long finalDateFolder = dateFolder;
-
-                final Runnable runnable = new Runnable() {
+            final Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
                     PersistableBundle bundle = new PersistableBundle();
                     bundle.putString(SyncedFolderJobService.LOCAL_PATH, file.getAbsolutePath());
                     bundle.putString(SyncedFolderJobService.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
-                            current,
                             syncedFolder.getRemotePath(), file.getName(),
-                            finalDateFolder,
+                            file.lastModified(),
                             syncedFolder.getSubfolderByDate()));
                     bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
                     bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
