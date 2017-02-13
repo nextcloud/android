@@ -27,6 +27,13 @@
     android:background="@drawable/background"
     android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
+    <android.support.v7.widget.Toolbar
+        android:id="@id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_scrollFlags="scroll|enterAlways|snap"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -76,7 +83,6 @@
                     android:shadowDx="0.5"
                     android:shadowDy="0"
                     android:shadowRadius="2"
-                    android:text="@string/app_name"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/drawer_header_text"
                     android:textStyle="bold"/>
@@ -92,7 +98,6 @@
                     android:shadowDx="0.5"
                     android:shadowDy="0"
                     android:shadowRadius="2"
-                    android:text="@string/app_name"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/drawer_header_subtext"/>
             </LinearLayout>
@@ -100,19 +105,5 @@
         </RelativeLayout>
 
     </LinearLayout>
-
-    <android.support.v7.widget.Toolbar
-        android:id="@id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_scrollFlags="scroll|enterAlways|snap"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_scrollFlags="scroll|enterAlways|snap"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
 </android.support.design.widget.AppBarLayout>
