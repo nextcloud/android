@@ -73,49 +73,64 @@ public class UserInfoActivity extends FileActivity {
 
     @BindView(R.id.empty_list_view)
     public LinearLayout multiListContainer;
+
     @BindView(R.id.empty_list_view_text)
     public TextView multiListMessage;
+
     @BindView(R.id.empty_list_view_headline)
     public TextView multiListHeadline;
+
     @BindView(R.id.empty_list_icon)
     public ImageView multiListIcon;
+
     @BindView(R.id.user_info_view)
     public LinearLayout userInfoView;
+
     @BindView(R.id.user_icon)
     public ImageView avatar;
+
     @BindView(R.id.drawer_username)
     public TextView userName;
+
     @BindView(R.id.drawer_username_full)
     public TextView fullName;
 
     @BindView(R.id.phone_container)
     public View mPhoneNumberContainer;
+
     @BindView(R.id.phone_number)
     public TextView mPhoneNumberTextView;
+
     @BindView(R.id.phone_icon)
     public ImageView mPhoneNumberIcon;
 
     @BindView(R.id.email_container)
     public View mEmailContainer;
+
     @BindView(R.id.email_address)
     public TextView mEmailAddressTextView;
+
     @BindView(R.id.email_icon)
     public ImageView mEmailIcon;
 
     @BindView(R.id.address_container)
     public View mAddressContainer;
+
     @BindView(R.id.address)
     public TextView mAddressTextView;
+
     @BindView(R.id.address_icon)
     public ImageView mAddressIcon;
 
     @BindView(R.id.website_container)
     public View mWebsiteContainer;
+
     @BindView(R.id.website_address)
     public TextView mWebsiteTextView;
 
     @BindView(R.id.twitter_container)
     public View mTwitterContainer;
+
     @BindView(R.id.twitter_handle)
     public TextView mTwitterHandleTextView;
 
