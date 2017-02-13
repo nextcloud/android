@@ -48,6 +48,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.Vector;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -130,16 +132,31 @@ public class FileStorageUtils {
      * @param date: date in microseconds since 1st January 1970
      * @return string: yyyy/mm/
      */
+    private static String getSubpathFromDate(long date, Locale currentLocale) {
+        if (date == 0) {
+            return "";
+        }
+
+        Date d = new Date(date);
+
+        DateFormat df = new SimpleDateFormat("yyyy/MM/", currentLocale);
+        df.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
+
+        return df.format(d);
+
+
+    }
+
     private static String getSubpathFromDate(long date) {
         if (date == 0) {
             return "";
         }
 
         Date d = new Date(date);
+
         DateFormat df = new SimpleDateFormat("yyyy/MM/");
 
         return df.format(d);
-
 
     }
 
@@ -150,11 +167,20 @@ public class FileStorageUtils {
      * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
      * @return instantUpload path, eg. /Camera/2017/01/fileName
      */
+    public static String getInstantUploadFilePath(Locale current, String remotePath, String fileName, long dateTaken,
+                                                  Boolean subfolderByDate) {
+        String subPath = "";
+        if (subfolderByDate) {
+           subPath = getSubpathFromDate(dateTaken, current);
+        }
+        return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
+    }
+
     public static String getInstantUploadFilePath(String remotePath, String fileName, long dateTaken,
                                                   Boolean subfolderByDate) {
         String subPath = "";
         if (subfolderByDate) {
-           subPath = getSubpathFromDate(dateTaken);
+            subPath = getSubpathFromDate(dateTaken);
         }
         return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
     }
@@ -166,6 +192,7 @@ public class FileStorageUtils {
     public static Account getInstantUploadAccount(Context context) {
         return getAccount(context, "instant_upload_path_account");
     }
+
 
     /**
      * Returns account for instant video upload or null, if not defined.
