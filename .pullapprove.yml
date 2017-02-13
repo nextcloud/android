@@ -25,6 +25,7 @@ group_defaults:
 groups:
   code-review:
     required: 2
+    reject_value: -99
     users:
       - AndyScherzinger
       - tobiasKaminsky
@@ -38,6 +39,7 @@ groups:
     reset_on_push:
       enabled: false
     required: 1
+    reject_value: -99
     users:
       - jancborchardt 
       - eppfel
