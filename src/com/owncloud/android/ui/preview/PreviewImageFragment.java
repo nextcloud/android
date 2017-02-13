@@ -98,6 +98,8 @@ public class PreviewImageFragment extends FileFragment {
 
     private LoadBitmapTask mLoadBitmapTask = null;
 
+    private View primaryView;
+
     /**
      * Public factory method to create a new fragment that previews an image.
      *
@@ -159,11 +161,11 @@ public class PreviewImageFragment extends FileFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
-        mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
+        primaryView = inflater.inflate(R.layout.preview_image_fragment, container, false);
+        mImageView = (TouchImageViewCustom) primaryView.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
 
-        view.setOnClickListener(new OnClickListener() {
+        primaryView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((PreviewImageActivity) getActivity()).toggleFullScreen();
@@ -179,12 +181,12 @@ public class PreviewImageFragment extends FileFragment {
             }
         });
         
-        mMultiView = (RelativeLayout) view.findViewById(R.id.multi_view);
+        mMultiView = (RelativeLayout) primaryView.findViewById(R.id.multi_view);
 
-        setupMultiView(view);
+        setupMultiView(primaryView);
         setMultiListLoadingMessage();
 
-        return view;
+        return primaryView;
     }
 
     protected void setupMultiView(View view) {
@@ -558,6 +560,8 @@ public class PreviewImageFragment extends FileFragment {
         private void showErrorMessage() {
             mImageView.setBackgroundColor(Color.TRANSPARENT);
             setMessageForMultiList(mErrorMessageId, R.string.preview_sorry, R.drawable.file_image);
+            primaryView.setOnClickListener(null);
+            mImageView.setOnClickListener(null);
         }
     }
 
