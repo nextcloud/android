@@ -57,7 +57,7 @@
     <string name="auth_host_url">Server-Adresse https://…</string>
     <string name="auth_username">Benutzername</string>
     <string name="auth_password">Passwort</string>
-    <string name="auth_register">Ist %1$s neu für dich?</string>
+    <string name="auth_register">Du hast noch keinen Server?\nKlicke hier um Server-Anbieter zu finden</string>
     <string name="sync_string_files">Dateien</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
@@ -129,7 +129,7 @@
     <string name="uploader_upload_failed_content_single">Hochladen von  %1$s konnte nicht abgeschlossen werden</string>
     <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="uploads_view_title">Uploads</string>
-    <string name="uploads_view_group_current_uploads">Wird hochgeladen</string>
+    <string name="uploads_view_group_current_uploads">Aktuell</string>
     <string name="uploads_view_group_failed_uploads">Fehlgeschlagen (Tippen zum Wiederholen)</string>
     <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
     <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
@@ -516,8 +516,8 @@
     <string name="participate_release_candidate_text">Die Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test auf der eigenen Umgebung hilft uns die Stabilität sicherzustellen. Melde dich als Tester im Play Store an oder suche und installiere die passende Version von F-Droid unter \"Versionen\".</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
     <string name="participate_contribute_irc_text">An Chats teilnehmen auf IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Hilf anderen im &lt;a href="%1$s>Forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href="%1$s>Übersetze&lt;/a> die App</string>
+    <string name="participate_contribute_forum_text">Hilf anderen im &lt;a href="%1$s">Forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">Die App &lt;a href="%1$s">Übersetzen&lt;/a></string>
     <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>

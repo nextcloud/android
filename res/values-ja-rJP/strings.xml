@@ -51,14 +51,14 @@
     <string name="prefs_remember_last_upload_location_summary">最後に共有アップロードした場所を記憶する</string>
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
-	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか！
+	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか！\n
 ここからダウンロードしてください: %2$s</string>
 
     <string name="auth_check_server">サーバーのチェック</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
-    <string name="auth_register">%1$sは初めてですか？</string>
+    <string name="auth_register">まだサーバーがありませんか？\nここをクリックして、プロバイダーから取得してください</string>
     <string name="sync_string_files">ファイル</string>
     <string name="setup_btn_connect">接続</string>
     <string name="uploader_btn_upload_text">アップロード</string>
@@ -80,10 +80,12 @@
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ファイルをソースフォルダから削除する</string>
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_list_empty_headline">ファイルがありません。</string>
+    <string name="file_list_empty">何かコンテンツをアップロードするか、デバイスからファイルを同期してください！</string>
     <string name="file_list_loading">読込中&#8230;</string>
     <string name="file_list_no_app_for_file_type">ファイルタイプ に対応するアプリはありません！</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
+    <string name="upload_list_empty_text">何かコンテンツをアップロードするか、自動アップロードを有効にしてください！</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_folders">フォルダー</string>
     <string name="file_list_file">ファイル</string>
@@ -301,6 +303,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">WiFi経由でのみアップロード</string>
     <string name="instant_upload_on_wifi">WiFi経由でのみ画像をアップロード</string>
     <string name="instant_video_upload_on_wifi">WiFi経由でのみ動画をアップロード</string>
     <string name="instant_video_upload_on_charging">充電中のみアップロード</string>
@@ -317,6 +320,7 @@
 
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
     <string name="prefs_instant_upload_path_title">自動アップロードフォルダー</string>
+    <string name="prefs_folder_sync_local_path_title">ローカルフォルダー</string>
     <string name="prefs_folder_sync_remote_path_title">リモートフォルダー</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
@@ -356,13 +360,28 @@
     <string name="uploader_upload_forbidden_permissions">フォルダーをアップロード</string>
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
 
+    <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
     <string name="file_migration_finish_button">完了</string>
+    <string name="file_migration_preparing">移行の準備中&#8230;</string>
+    <string name="file_migration_checking_destination">宛先の確認中&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">アカウント設定を保存中&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">未完了の同期を待機中&#8230;</string>
+    <string name="file_migration_migrating">データの移動中&#8230;</string>
+    <string name="file_migration_updating_index">インデックスの更新中&#8230;</string>
+    <string name="file_migration_cleaning">クリーニング中&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中&#8230;</string>
+    <string name="file_migration_ok_finished">完了</string>
     <string name="file_migration_failed_not_enough_space">十分な空き容量がありません</string>
     <string name="file_migration_failed_not_writable">ファイルが書き込み可能ではありません。</string>
     <string name="file_migration_failed_not_readable">ファイルが読み取り可能ではありません。</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloudのディレクトリはすでに存在します。</string>
+    <string name="file_migration_failed_while_coping">エラー: 移行中</string>
+    <string name="file_migration_failed_while_updating_index">エラー: インデックスの更新中</string>
+
     <string name="file_migration_directory_already_exists">データフォルダはすでに存在します。どうしますか?</string>
     <string name="file_migration_override_data_folder">上書き</string>
+    <string name="file_migration_use_data_folder">既存を使用する</string>
+
     <string name="prefs_category_accounts">アカウント</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="drawer_manage_accounts">アカウント管理</string>
@@ -397,7 +416,8 @@
     <string name="prefs_category_instant_uploading">自動アップロード</string>
     <string name="prefs_category_details">詳細</string>
 
-	<string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>
+	<string name="prefs_instant_video_upload_path_title">自動アップロード動画フォルダー</string>
+    <string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>
 
 	<string name="shared_subject_header">共有中</string>
 	<string name="with_you_subject_header">あなたと</string>
@@ -451,6 +471,7 @@
     <string name="search_users_and_groups_hint">ユーザーとグループを検索</string>
     <string name="share_group_clarification">%1$s (グループ)</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
+    <string name="share_email_clarification">%1$s (メール)</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s で)</string>
 
     <string name="share_sharee_unavailable">申し訳ありませんが、このサーバーのバージョンではこのクライアントアプリ上で他のユーザーと共有することができません。
@@ -482,17 +503,23 @@
     <string name="confirmation_remove_folders_alert">本当に 洗濯したアイテム およびそのコンテンツを削除してもよろしいですか？</string>
     <string name="uploads_view_upload_status_waiting_for_charging">デバイスの充電を待機中</string>
     <string name="actionbar_search">検索</string>
+    <string name="files_drop_not_supported">これはNextCloudの機能です。更新してください。</string>
     <string name="learn_more">もっと見る</string>
     <string name="drawer_folder_sync">自動アップロード</string>
+    <string name="drawer_participate">参加する</string>
+    <string name="participate_testing_headline">テストを手伝ってください</string>
+    <string name="participate_testing_bug_text">バグがありましたか? なにか問題がありますか?</string>
     <string name="participate_testing_report_text">Githubでエラーを報告する</string>
+    <string name="participate_testing_version_text">次のバージョンのテストに興味がありますか?</string>
     <string name="participate_beta_headline">ベータバージョンを試してみる</string>
     <string name="participate_beta_text">これは、すべての最新の機能が含まれており、非常に最前端です。 バグやエラーが発生する可能性があり、もしそれが起こった場合、私たちに報告してください。lt;br/>&lt;a href=\"%2$s\">APKファイルをダウンロードする&lt;/a>
 or</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_release_candidate_text">リリース候補(RC)は、今後のリリースのスナップショット であり、安定性が期待されます。 個々の設定をテストすることで、これを確実にすることができます。 Playストアでのテストに登録するか、F-Droidの「バージョン」セクションを手動で参照してください。</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
-    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s>フォーラム&lt;/a> で他の人を助ける</string>
-    <string name="participate_contribute_translate_text">アプリを&lt;a href=\"%1$s>翻訳する&lt;/a></string>
+    <string name="participate_contribute_irc_text">IRCでチャットに参加してください: &lt;a href=\"%1$s\">#nextcloud-モバイル&lt;/a></string>
+    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s\">フォーラム&lt;/a> で他の人を助けてください</string>
+    <string name="participate_contribute_translate_text">アプリを &lt;a href=\"%1$s\">翻訳する&lt;/a></string>
     <string name="participate_contribute_github_text">開発者として貢献には、 &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> をご覧ください。</string>
     <string name="move_to">&#8230;に移動</string>
     <string name="copy_to">&#8230;にコピー</string>
@@ -501,22 +528,27 @@ or</string>
     <string name="folder_sync_no_results">メディアフォルダが見つかりませんでした</string>
     <string name="folder_sync_preferences">自動アップロードの設定</string>
     <string name="folder_sync_settings">設定</string>
-    <string name="folder_sync_new_info">インスタントアップロードは完全に刷新されました。 メインメニューから自動アップロードを再設定してください。 ご迷惑をおかけして申し訳ありません。\\n\\n新しく拡張された自動アップロード機能をお楽しみください！</string>
+    <string name="folder_sync_new_info">インスタントアップロードは完全に刷新されました。 メインメニューから自動アップロードを再設定してください。 ご迷惑をおかけして申し訳ありません。\n\n新しく拡張された自動アップロード機能をお楽しみください！</string>
+    <string name="folder_sync_preferences_folder_path">%1$s の</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
     </plurals>
     <string name="upload_file_dialog_title">アップロードファイル名とファイルタイプを入力</string>
     <string name="upload_file_dialog_filename">ファイル名</string>
     <string name="upload_file_dialog_filetype">ファイルタイプ</string>
+    <string name="upload_file_dialog_filetype_snippet_text">スニペットテキストファイル(.txt)</string>
     <string name="upload_file_dialog_filetype_internet_shortcut">インターネットショートカットファイル(%s)</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Googleマップショートカットファイル(%s)</string>
 
     <string name="storage_description_default">デフォルト</string>
+    <string name="storage_description_sd_no">SD カード %1$d</string>
     <string name="storage_description_unknown">不明</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">Nextcloudの新しい点:</string>
 
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">すべてのデータの安全なホーム</string>
     <string name="welcome_feature_1_text">アクセス、共有＆amp; 自宅や企業でファイルを保護する</string>
 
     <string name="welcome_feature_2_title">マルチアカウント</string>

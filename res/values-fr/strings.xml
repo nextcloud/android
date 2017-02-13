@@ -57,7 +57,7 @@
     <string name="auth_host_url">Adresse du serveur https://…</string>
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_password">Mot de passe</string>
-    <string name="auth_register">Nouveau dans %1$s ?</string>
+    <string name="auth_register">Vous n\'avez pas encore un serveur ?\nCliquez ici pour en obtenir un d\'un fournisseur</string>
     <string name="sync_string_files">Fichiers</string>
     <string name="setup_btn_connect">Connecter</string>
     <string name="uploader_btn_upload_text">Téléverser</string>
@@ -83,7 +83,7 @@
     <string name="file_list_loading">Chargement&#8230;</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
-    <string name="upload_list_empty_headline">Aucun téléversement disponible</string>
+    <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
     <string name="upload_list_empty_text">Téléversez du contenu ou activez le téléversement instantané !</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_folders">dossiers</string>
@@ -185,7 +185,7 @@
     <string name="pass_code_removed">Code de sécurité supprimé</string>
     <string name="pass_code_stored">Code de sécurité enregistré</string>
     
-    <string name="media_notif_ticker">lecteur de musique %1$s</string>
+    <string name="media_notif_ticker">Lecteur de musique %1$s</string>
     <string name="media_state_playing">%1$s (lecture)</string>
     <string name="media_state_loading">%1$s (chargement)</string>
     <string name="media_event_done">Lecture de %1$s terminée</string>
@@ -299,7 +299,7 @@
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_filetype">Image PNG</string>
     <string name="placeholder_filesize">389 Ko</string>
-    <string name="placeholder_timestamp">18/05/2012 12:23</string>
+    <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Téléverse par wifi uniquement</string>
@@ -309,8 +309,8 @@
     <string name="instant_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Conflit de fichiers</string>
-    <string name="conflict_message">Quel(s) fichier(s) voulez-vous garder ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
-    <string name="conflict_keep_both">Garder les deux versions</string>
+    <string name="conflict_message">Quels fichiers voulez-vous conserver ? Si vous sélectionnez les deux, un chiffre sera ajouté au nom du fichier local.</string>
+    <string name="conflict_keep_both">Conserver les deux</string>
     <string name="conflict_use_local_version">version locale</string>
     <string name="conflict_use_server_version">version serveur</string>
     
@@ -329,7 +329,7 @@
 	<string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
 	<string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
 	<string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
-    <string name="update_link_file_no_exist">Actualisation impossible. Veuillez vérifier que ce fichier existe</string>
+    <string name="update_link_file_no_exist">Mise à jour impossible. Veuillez vérifier que ce fichier existe</string>
     <string name="update_link_file_error">Une erreur est survenue lors de la mise à jour du partage</string>
     <string name="share_link_password_title">Saisissez un mot de passe</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
@@ -372,7 +372,7 @@
     <string name="file_migration_failed_not_enough_space">ERREUR : Espace insufisant</string>
     <string name="file_migration_failed_not_writable">ERREUR : Le fichier n\'est pas modifiable</string>
     <string name="file_migration_failed_not_readable">ERREUR : Le fichier est illisible</string>
-    <string name="file_migration_failed_dir_already_exists">ERREUR : Le répertoire Nextcloud existe déjà</string>
+    <string name="file_migration_failed_dir_already_exists">ERREUR : Le dossier Nextcloud existe déjà</string>
     <string name="file_migration_failed_while_coping">ERREUR : Lors de la migration</string>
     <string name="file_migration_failed_while_updating_index">ERREUR : Lors de la mise à jour de l\'index</string>
 
@@ -386,7 +386,7 @@
     <string name="auth_redirect_non_secure_connection_title">Le connexion sécurisée est redirigée vers une route non-sécurisée.</string>
 
 	<string name="actionbar_logger">Journaux</string>
-	<string name="log_send_history_button">Envoyer l\'historique</string>
+	<string name="log_send_history_button">Envoyer le journal</string>
 	<string name="log_send_no_mail_app">Aucune application n\'a été trouvée pour envoyer les journaux. Merci d\'installer une application de messagerie.</string>
 	<string name="log_send_mail_subject">Journaux de l\'application Android %1$s</string>
 	<string name="log_progress_dialog_text">Chargement des données &#8230;</string>
@@ -396,7 +396,7 @@
 	<string name="actionbar_move">Déplacer</string>
     <string name="actionbar_copy">Copier</string>
 	<string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier !</string>
-	<string name="folder_picker_choose_button_text">Choisir</string>
+	<string name="folder_picker_choose_button_text">Sélectionner</string>
 
     <string name="move_file_not_found">Impossible de déplacer. Vérifiez que le fichier existe</string>
     <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
@@ -412,7 +412,7 @@
     <string name="forbidden_permissions_copy">de copier ce fichier</string>
 
     <string name="prefs_category_instant_uploading">Téléversement immédiat</string>
-    <string name="prefs_category_details">Détails</string>
+    <string name="prefs_category_details">Propriétés</string>
 
 	<string name="prefs_instant_video_upload_path_title">Téléversement immédiat du dossier vidéos</string>
     <string name="sync_folder_failed_content">La synchronisation du dossier %1$s n\'a pas pu être terminée</string>
@@ -452,15 +452,15 @@
     <string name="share_dialog_title">Partage</string>
     <string name="share_file">Partager %1$s</string>
     <string name="share_with_user_section_title">Partager avec des utilisateurs et des groupes</string>
-    <string name="share_no_users">Aucune donnée partagée avec des utilisateurs pour le moment</string>
+    <string name="share_no_users">Vous n\'avez partagé aucune donnée avec des utilisateurs pour l\'instant.</string>
     <string name="share_add_user_or_group">Ajouter un Utilisateur ou un Groupe</string>
     <string name="share_via_link_section_title">Partager par lien public</string>
-    <string name="share_via_link_expiration_date_label">Spécifier une date d\'expiration</string>
+    <string name="share_via_link_expiration_date_label">Indiquer une date d\'expiration</string>
     <string name="share_via_link_password_label">Protéger par un mot de passe</string>
     <string name="share_via_link_password_title">Sécurisé</string>
     <string name="share_via_link_edit_permission_label">Permettre la modification</string>
     <string name="share_via_link_hide_file_listing_permission_label">Masquer la liste des fichiers</string>
-    <string name="share_get_public_link_button">Obtenir le lien</string>
+    <string name="share_get_public_link_button">Partager le lien</string>
     <string name="share_with_title">Partager avec &#8230;</string>
     <string name="share_with_edit_title">Partager avec %1$s</string>
 
@@ -482,7 +482,7 @@
     <string name="edit_share_unshare">Terminer le partage</string>
     <string name="edit_share_done">Terminé</string>
 
-    <string name="action_retry_uploads">Nouvel essai échoué</string>
+    <string name="action_retry_uploads">Relancer les échoués</string>
     <string name="action_clear_failed_uploads">Effacer les échecs</string>
     <string name="action_clear_successful_uploads">Effacer les réussis</string>
     <string name="action_clear_finished_uploads">Effacer tous les terminés</string>
@@ -491,36 +491,36 @@
     <string name="action_switch_list_view">Affichage Liste</string>
 
     <string name="manage_space_title">Gestion de l\'espace</string>
-    <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCe processus peut prendre du temps.</string>
+    <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
     <string name="manage_space_clear_data">Effacer les données</string>
     <string name="manage_space_error">Certains fichiers n\'ont pu être supprimés.</string>
 
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser &amp; télécharger des fichiers.</string>
     <string name="local_file_not_found_toast">Le fichier n\'a pas été trouvé sur le système de fichier local</string>
-    <string name="confirmation_remove_files_alert">Voulez-vous vraiment supprimer les objets sélectionnés?</string>
-    <string name="confirmation_remove_folders_alert">Voulez-vous vraiment supprimer les objets sélectionnés et leurs contenus?</string>
+    <string name="confirmation_remove_files_alert">Voulez-vous vraiment supprimer les éléments sélectionnés ?</string>
+    <string name="confirmation_remove_folders_alert">Voulez-vous vraiment supprimer les éléments sélectionnés et leurs contenus ?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
     <string name="actionbar_search">Rechercher</string>
     <string name="files_drop_not_supported">Il s\'agit d\'une fonctionnalité de Nextcloud ; veuillez mettre à jour..</string>
     <string name="learn_more">En apprendre plus</string>
     <string name="drawer_folder_sync">Téléversement automatique</string>
     <string name="drawer_participate">Participer</string>
-    <string name="participate_testing_headline">Aidez nous à tester</string>
+    <string name="participate_testing_headline">Aidez nous à améliorer NextCloud</string>
     <string name="participate_testing_bug_text">Vous avez trouvé un bug ? Quelque chose vous semble étrange ?</string>
     <string name="participate_testing_report_text">Signaler un problème sur Github</string>
-    <string name="participate_testing_version_text">Interessé par nous aider à tester la future Version ?</string>
+    <string name="participate_testing_version_text">Vous avez envie de nous aider en testant les futures versions ?</string>
     <string name="participate_beta_headline">Testez la version bêta</string>
-    <string name="participate_beta_text">Ceci inclut toutes les fonctionnalités à venir qui sont encore toutes fraîches.
-Des erreurs peuvent se produire et si c\'est le cas, veuillez nous les reporter s\'il vous plaît.
+    <string name="participate_beta_text">La version Beta inclut les dernières fonctionnalités qui sont encore toutes fraîches.
+Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler.
 &lt;br/>&lt;a href=\"%2$s\">Télécharger l\'APK&lt;/a>
 ou</string>
-    <string name="participate_release_candidate_headline">Release candidate</string>
+    <string name="participate_release_candidate_headline">Testez la version Release candidate</string>
     <string name="participate_release_candidate_text">La version « release candidate » (RC) est un instantanné de la dernière version supposée stable. Le test de votre configuration pourrait nous aider à nous assurer que cette version est entièrement stable. Inscrivez vous pour être testeur sur le Play store ou allez jeter un œil dans la section \"versions\" de F-Droid.</string>
     <string name="participate_contribute_headline">Contribuer activement</string>
-    <string name="participate_contribute_irc_text">Rejoingez la discussion sur IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Aidez les autres sur le &lt;a href=\"%1$s>forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduisez&lt;/a> l\'application</string>
-    <string name="participate_contribute_github_text">Développeurs ? Contribuez ! Plus de détails sur la page &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
+    <string name="participate_contribute_irc_text">Rejoignez la discussion sur IRC &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a>.</string>
+    <string name="participate_contribute_forum_text">Aidez les autres sur le &lt;a href=\"%1$s\">forum&lt;/a>.</string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traduisez&lt;/a> l\'application.</string>
+    <string name="participate_contribute_github_text">Vous êtes développeur ? Consultez &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a>.</string>
     <string name="move_to">Déplacer vers&#8230;</string>
     <string name="copy_to">Copier vers&#8230;</string>
     <string name="choose_remote_folder">Choisir le dossier&#8230;</string>

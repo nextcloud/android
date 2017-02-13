@@ -87,13 +87,6 @@ public class EditShareFragment extends Fragment {
     }
 
     /**
-     * Required empty public constructor
-     */
-    public EditShareFragment() {
-    }
-
-
-    /**
      * {@inheritDoc}
      */
     @Override

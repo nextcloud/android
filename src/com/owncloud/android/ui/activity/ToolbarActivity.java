@@ -28,7 +28,6 @@ import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.ProgressBar;
 
 import com.owncloud.android.R;
@@ -91,11 +90,6 @@ public abstract class ToolbarActivity extends BaseActivity {
         // set the chosen title
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(titleToSet);
-
-        // also as content description
-        View actionBarTitleView = getWindow().getDecorView().findViewById(
-                getResources().getIdentifier("action_bar_title", "id", "android")
-        );
 
         // set home button properties
         actionBar.setDisplayHomeAsUpEnabled(true);

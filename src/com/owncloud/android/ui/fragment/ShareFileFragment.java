@@ -76,8 +76,7 @@ import java.util.Date;
  * Use the {@link ShareFileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ShareFileFragment extends Fragment
-        implements ShareUserListAdapter.ShareUserAdapterListener {
+public class ShareFileFragment extends Fragment implements ShareUserListAdapter.ShareUserAdapterListener {
 
     private static final String TAG = ShareFileFragment.class.getSimpleName();
 
@@ -164,12 +163,6 @@ public class ShareFileFragment extends Fragment
         args.putParcelable(ARG_ACCOUNT, account);
         fragment.setArguments(args);
         return fragment;
-    }
-
-    /**
-     * Required empty public constructor.
-     */
-    public ShareFileFragment() {
     }
 
     @Override

@@ -57,7 +57,7 @@
     <string name="auth_host_url">Adreça del servidor https://…</string>
     <string name="auth_username">Nom d\'usuari</string>
     <string name="auth_password">Contrasenya</string>
-    <string name="auth_register">Nou a %1$s?</string>
+    <string name="auth_register">No tens un servidor, encara? \\nClica aquí per conseguir-ne un d\\\'un proveïdor</string>
     <string name="sync_string_files">Fitxers</string>
     <string name="setup_btn_connect">Connecta</string>
     <string name="uploader_btn_upload_text">Puja</string>
@@ -515,8 +515,7 @@ o</string>
     <string name="participate_release_candidate_text">La versió candidata (RC) és una instantània de la versió següent i se suposa que és estable. Provar la vostra configuració individual pot ajudar a garantir-ho. Registreu-vos a Play Store per fer les proves o bé mireu la secció \"versions\" a F-Droid.</string>
     <string name="participate_contribute_headline">Contribuïu activament</string>
     <string name="participate_contribute_irc_text">Uniu-vos al xat a IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ajudeu a altres al &lt;a href=\"%1$s>fòrum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduïu&lt;/a> l\'app</string>
+    <string name="participate_contribute_forum_text">Ajuda a altres a &lt;a href=\"%1$s\">forum&lt;/a></string>
     <string name="participate_contribute_github_text">Contribuïu com a desenvolupador, mireu &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> per detalls</string>
     <string name="move_to">Mou a&#8230;</string>
     <string name="copy_to">Copia a&#8230;</string>

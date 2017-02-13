@@ -33,7 +33,7 @@
     <string name="prefs_instant_upload_summary">Wysyłaj od razu zdjęcia zrobione aparatem</string>
     <string name="prefs_instant_video_upload">Natychmiastowa wysyłka wideo</string>
     <string name="prefs_instant_video_upload_summary">Wysyłaj od razu filmy nakręcone aparatem</string>
-    <string name="prefs_log_title">Włącz historię logowania</string>
+    <string name="prefs_log_title">Włącz logowanie</string>
     <string name="prefs_log_summary">To jest używane do logowania problemów</string>
     <string name="prefs_log_title_history">Historia logowania</string>
     <string name="prefs_log_summary_history">To pokazuje zapisane logi</string>
@@ -45,34 +45,34 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów i kalendarza została skonfigurowana</string>
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_recommend">Poleć znajomemu</string>
-    <string name="prefs_feedback">Wsparcie</string>
+    <string name="prefs_feedback">Opinie</string>
     <string name="prefs_imprint">Stopka</string>
-    <string name="prefs_remember_last_share_location">Zapamiętaj położenie udostępnienia</string>
+    <string name="prefs_remember_last_share_location">Zapamiętaj lokalizację udostępnienia</string>
     <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wgrywania</string>
 
-	<string name="recommend_subject">Wypróbuj %1$s na swoim smartphonie!</string>
-	<string name="recommend_text">Chciałbym zaprosić Cię do używania %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
+	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
+	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\\nŚciągnij tutaj: %2$s</string>
 
     <string name="auth_check_server">Sprawdź serwer</string>
     <string name="auth_host_url">Adres serwera https://...</string>
     <string name="auth_username">Nazwa użytkownika</string>
     <string name="auth_password">Hasło</string>
-    <string name="auth_register">Nowe %1$s?</string>
+    <string name="auth_register">Nie masz jeszcze serwera?\\nKliknij tu i zdobądź go od dostawcy</string>
     <string name="sync_string_files">Pliki</string>
     <string name="setup_btn_connect">Połącz</string>
     <string name="uploader_btn_upload_text">Wyślij</string>
-    <string name="uploader_top_message">Wybierz folder do wgrywania plików</string>
+    <string name="uploader_top_message">Wybierz folder do przesyłania plików</string>
     <string name="uploader_wrn_no_account_title">Nie znaleziono konta</string>
-    <string name="uploader_wrn_no_account_text">Brak kont %1$s na Twoim urządzeniu. Załóż konto.</string>
+    <string name="uploader_wrn_no_account_text">Brak %1$s kont na Twoim urządzeniu. Załóż konto.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Ustawienia</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Wyjdź</string>
     <string name="uploader_error_title_no_file_to_upload">Brak plików do przesłania</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s: Nie można przesłać części tekstu jako pliku.</string>
-    <string name="uploader_error_message_no_file_to_upload">Odebrane dane nie zawierają jakiegokolwiek prawidłowego pliku.</string>
+    <string name="uploader_error_message_received_piece_of_text">%1$s nie można przesłać części tekstu jako pliku.</string>
+    <string name="uploader_error_message_no_file_to_upload">Odebrane dane nie zawierają prawidłowego pliku.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Plik nie może być przesłany</string>
-    <string name="uploader_error_message_read_permission_not_granted">%1$s jest nieautoryzowany do odczytu odebranego pliku</string>
-    <string name="uploader_error_message_source_file_not_found">Plik do wysłania nie został znaleziony w swojej własnej lokalizacji. Proszę sprawdzić, czy w ogóle istnieje.</string>
-    <string name="uploader_error_message_source_file_not_copied">Wystąpił błąd podczas kopiowania pliku do folderu tymczasowego. Proszę spróbować go przesłać ponownie.</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s nie jest autoryzowany do odczytu odebranego pliku</string>
+    <string name="uploader_error_message_source_file_not_found">Plik do wysłania nie został znaleziony w swojej lokalizacji. Proszę sprawdzić czy w ogóle istnieje.</string>
+    <string name="uploader_error_message_source_file_not_copied">Wystąpił błąd podczas kopiowania pliku do folderu tymczasowego. Proszę spróbować przesłać go ponownie.</string>
     <string name="uploader_upload_files_behaviour">Opcja wysłania:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Przenieś plik do folderu Nextcloud</string>
     <string name="uploader_upload_files_behaviour_only_upload">Zachowaj plik w katalogu źródłowym</string>
@@ -201,7 +201,7 @@
     <string name="media_err_security_ex">Błąd zabezpieczeń podczas próby odtworzenia %1$s</string>
     <string name="media_err_io_ex">Błąd wprowadzania podczas próby odtworzenia %1$s</string>
     <string name="media_err_unexpected">Nieoczekiwany błąd podczas próby odtworzenia %1$s</string>
-    <string name="media_rewind_description">Przycisk przewijania</string>
+    <string name="media_rewind_description">Przycisk przewijania do tyłu</string>
     <string name="media_play_pause_description">Przycisk odtwarzania / pauzowania</string>
     <string name="media_forward_description">Przycisk przewijania do przodu</string>
 
@@ -220,7 +220,7 @@
 	<string name="auth_timeout_title">Serwer zbyt długo nie odpowiadał</string>
 	<string name="auth_incorrect_address_title">Nieprawidłowy format adresu serwera</string>
 	<string name="auth_ssl_general_error_title">Inicjowanie SSL nie powiodło się</string>
-	<string name="auth_ssl_unverified_server_title">Nie można zweryfikować tożsamości SSl serwera</string>
+	<string name="auth_ssl_unverified_server_title">Nie można zweryfikować tożsamości SSL serwera</string>
 	<string name="auth_bad_oc_version_title">Nie rozpoznano wersji serwera</string>
 	<string name="auth_wrong_connection_title">Nie można ustanowić połączenia</string>
 	<string name="auth_secure_connection">Nawiązano bezpieczne połączenie</string>
@@ -483,7 +483,7 @@
     <string name="edit_share_unshare">Cofnij udostępnianie</string>
     <string name="edit_share_done">zakończono</string>
 
-    <string name="action_retry_uploads">Wyślij ponownie nieudane</string>
+    <string name="action_retry_uploads">Wysłanie ponowne się nie udało</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane</string>
     <string name="action_clear_successful_uploads">Wyczyść udane</string>
     <string name="action_clear_finished_uploads">Wyszyczść wszystkie zakończone</string>
@@ -518,10 +518,10 @@ lub</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
     <string name="participate_release_candidate_text">Release Candidate (RC) jest zarysem nadchodzącego wydania i oczekujemy że będzie stabilne. Testowanie indywidualnej konfiguracji może pomóc, aby to zapewnić. Zapisz się do testowania w sklepie Play lub ręcznie szukaj w sekcji \"wersje\" na F-Droid.</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
-    <string name="participate_contribute_irc_text">Dołącz do chatu (IRC): &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Pomoż innym na &lt;a href=\"%1$s>forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Tłumacz&lt;/a> aplikację</string>
-    <string name="participate_contribute_github_text">Wspomóż nas jako programista, po więcej szczegółów odwiedź &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> </string>
+    <string name="participate_contribute_irc_text">Dołącz do chatu (IRC): &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Pomóż innym na &lt;a href="%1$s">forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href="%1$s">Tłumacz&lt;/a> aplikację</string>
+    <string name="participate_contribute_github_text">Wspomóż nas jako programista, po więcej szczegółów odwiedź &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a> </string>
     <string name="move_to">Przenieś do&#8230;</string>
     <string name="copy_to">Skopiuj do&#8230;</string>
     <string name="choose_remote_folder">Wybierz folder&#8230;</string>
@@ -534,11 +534,16 @@ lub</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d zaznaczony</item>
         <item quantity="few">%d zaznaczone</item>
+        <item quantity="many">%d zaznaczonych</item>
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
     <string name="upload_file_dialog_title">Wprowadź nazwę i typ wysyłanego pliku</string>
     <string name="upload_file_dialog_filename">Nazwa pliku</string>
     <string name="upload_file_dialog_filetype">Typ pliku</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Wstawka tekstowa file(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Skrót internetowy file(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps skrót file(%s)</string>
+
     <string name="storage_description_default">Domyślny</string>
     <string name="storage_description_sd_no">karta SD %1$d</string>
     <string name="storage_description_unknown">Nieznany</string>

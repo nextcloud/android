@@ -68,6 +68,7 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
+import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
@@ -79,7 +80,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
-import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation.UserInfo;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
 import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
@@ -91,9 +91,11 @@ import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.DisplayUtils;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import java.security.cert.X509Certificate;
 import java.util.Map;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This Activity is used to add an ownCloud account to the App
@@ -401,7 +403,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param savedInstanceState Saved activity state, as in {{@link #onCreate(Bundle)}
      */
     private void initServerPreFragment(Bundle savedInstanceState) {
-        boolean checkHostUrl = true;
 
         /// step 1 - load and process relevant inputs (resources, intent, savedInstanceState)
         boolean isUrlInputAllowed = getResources().getBoolean(R.bool.show_server_url_input);
@@ -444,9 +445,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mHostUrlInput.setFocusable(false);
         }
         if (isUrlInputAllowed) {
-            if (mServerInfo.mBaseUrl.isEmpty()) {
-                checkHostUrl = false;
-            }
             mRefreshButton = findViewById(R.id.embeddedRefreshButton);
         } else {
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
@@ -1088,8 +1086,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (result.isSuccess()) {
             boolean success = false;
             String username;
-            if (result.getData().get(0) instanceof GetRemoteUserInfoOperation.UserInfo) {
-                username = ((GetRemoteUserInfoOperation.UserInfo) result.getData().get(0)).mDisplayName;
+            if (result.getData().get(0) instanceof UserInfo) {
+                username = ((UserInfo) result.getData().get(0)).getDisplayName();
             } else {
                 username = (String) result.getData().get(0);
             }
@@ -1650,7 +1648,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 try {
                     UserInfo userInfo = (UserInfo) authResult.getData().get(0);
                     mAccountMgr.setUserData(
-                            mAccount, Constants.KEY_DISPLAY_NAME, userInfo.mDisplayName
+                            mAccount, Constants.KEY_DISPLAY_NAME, userInfo.getDisplayName()
                     );
                 } catch (ClassCastException c) {
                     Log_OC.w(TAG, "Couldn't get display name for " + username);

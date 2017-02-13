@@ -1,5 +1,11 @@
-## 1.4.1 (January, 2017)
+## 1.4.1 (January 27, 2017)
 - Share URLs to Nextcloud
+- Improve performance of Auto Upload view
+- Fix for removing files
+- Proper email sharee handling
+- Navigation drawer: Fix lag on older devices
+- Android 7: Pending jobs in upload view
+- Android 7: Auto upload: ignore ".tmp" files and folders
 - Bugfixes and design improvements
 
 ## 1.4.0 (December 8, 2016)

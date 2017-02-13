@@ -12,7 +12,7 @@
     <string name="actionbar_see_details">Details</string>
     <string name="actionbar_send_file">Senden</string>
     <string name="actionbar_sort">Sortieren</string>
-    <string name="actionbar_sort_title">Sortieren nach</string>
+    <string name="actionbar_sort_title">Sortiere nach</string>
     <string name="menu_item_sort_by_name">A - Z</string>
     <string name="menu_item_sort_by_date">Neueste - Älteste</string>
     <string name="menu_item_sort_by_size">Größte - Kleinste</string>
@@ -57,7 +57,7 @@
     <string name="auth_host_url">Server-Adresse https://…</string>
     <string name="auth_username">Benutzername</string>
     <string name="auth_password">Passwort</string>
-    <string name="auth_register">Ist %1$s neu für Sie?</string>
+    <string name="auth_register">Sie haben bislang keinen Server?\nHier klicken um Server-Anbieter zu finden</string>
     <string name="sync_string_files">Dateien</string>
     <string name="setup_btn_connect">Verbinden</string>
     <string name="uploader_btn_upload_text">Hochladen</string>
@@ -516,8 +516,8 @@
     <string name="participate_release_candidate_text">Die Vorabversion auch Release Candidate (RC) genannt ist ein stabiler Stand der kommenden, finalen Version. Ein Test auf der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version von F-Droid unter \"Versionen\".</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
     <string name="participate_contribute_irc_text">An Unterhaltungen teilnehmen im IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Helfen Sie anderen im &lt;a href="%1$s>Forum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href="%1$s>Übersetzen&lt;/a> Sie die App</string>
+    <string name="participate_contribute_forum_text">Helfen Sie anderen im &lt;a href="%1$s">Forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">Die App &lt;a href=\"%1$s\">übersetzen&lt;/a></string>
     <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
@@ -526,7 +526,7 @@
     <string name="folder_sync_no_results">Keine Medienordner gefunden.</string>
     <string name="folder_sync_preferences">Auto Upload Einstellungen</string>
     <string name="folder_sync_settings">Einstellungen</string>
-    <string name="folder_sync_new_info">Sofortiger Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto Upload gehen und neu configurieren. Bitte entschuldigen Sie die Unannehmlichkeiten.\n\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto Uploads!</string>
+    <string name="folder_sync_new_info">Auto-Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto-Upload gehen und neu konfigurieren. Bitte entschuldigen Sie die Unannehmlichkeiten.\\n\\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto-Uploads!</string>
     <string name="folder_sync_preferences_folder_path">Für %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>

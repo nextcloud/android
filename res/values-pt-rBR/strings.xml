@@ -57,7 +57,7 @@
     <string name="auth_host_url">Endereço do servidor https://...</string>
     <string name="auth_username">Nome de usuário</string>
     <string name="auth_password">Senha</string>
-    <string name="auth_register">Novo usuário do %1$s?</string>
+    <string name="auth_register">Ainda não tem um servidor?\nClique aqui para obter um de um fornecedor</string>
     <string name="sync_string_files">Arquivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Enviar</string>
@@ -465,7 +465,7 @@
     <string name="share_with_title">Compartilhar com &#8230;</string>
     <string name="share_with_edit_title">Compartilhar com %1$s</string>
 
-    <string name="share_search">Perquisar</string>
+    <string name="share_search">Pesquisar</string>
 
     <string name="search_users_and_groups_hint">Pesquisar usuários e grupos</string>
     <string name="share_group_clarification">%1$s (grupo)</string>
@@ -517,10 +517,10 @@
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">O release candidate (RC) é um instantâneo do lançamento e espera-se que seja estável. Testar a sua configuração individual pode contribuir para assegurar-la. Registe-se para testar na Play Store ou procurar manualmente na seção \"versões\" na F-Droid.</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
-    <string name="participate_contribute_irc_text">Participe de uma conversa no IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">Ajude as outras pessoas no &lt;a href=\"%1$s>fórum&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s>Traduzir&lt;/a> o aplicativo</string>
-    <string name="participate_contribute_github_text">Contribuir como desenvolvedor, veja &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> para detalhes</string>
+    <string name="participate_contribute_irc_text">Participe de uma conversa no IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Ajude outros no &lt;a href="%1$s">forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href="%1$s">Traduza&lt;/a> the app</string>
+    <string name="participate_contribute_github_text">Contribuir como desenvolvedor, veja &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a> para detalhes</string>
     <string name="move_to">Mover para&#8230;</string>
     <string name="copy_to">Copiar para&#8230;</string>
     <string name="choose_remote_folder">Escolha a pasta&#8230;</string>

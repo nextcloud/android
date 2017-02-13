@@ -121,6 +121,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         mSystemBarColor = getResources().getColor(R.color.primary_dark);
         mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
         mProgressBarColor = getResources().getColor(R.color.primary);
+        mMultiChoiceModeListener = new MultiChoiceModeListener();
     }
 
     /**
@@ -530,7 +531,6 @@ public class OCFileListFragment extends ExtendedListFragment {
      */
     private void setChoiceModeAsMultipleModal(Bundle savedInstanceState) {
         setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-        mMultiChoiceModeListener = new MultiChoiceModeListener();
         if (savedInstanceState != null) {
             mMultiChoiceModeListener.loadStateFrom(savedInstanceState);
         }

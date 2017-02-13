@@ -20,7 +20,7 @@
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
     <bool name="show_welcome_link">true</bool>
-	<string name="welcome_link_url">"https://nextcloud.com"</string>
+	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
 	<string name="share_api_link"></string>
     
     <!-- Flags to setup the authentication methods available in the app -->

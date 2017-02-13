@@ -89,10 +89,6 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
         return fragment;
     }
 
-    public SearchShareesFragment() {
-        // Required empty public constructor
-    }
-
     /**
      * {@inheritDoc}
      */

@@ -45,8 +45,6 @@ import java.util.List;
  */
 public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAdapter.MainViewHolder> {
 
-    private static final String TAG = FolderSyncAdapter.class.getSimpleName();
-
     private final Context mContext;
     private final int mGridWidth;
     private final int mGridTotal;

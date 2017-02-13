@@ -33,6 +33,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Build;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.IBinder;
@@ -673,19 +674,18 @@ public class FileUploader extends Service
                 upload = mCurrentUpload;
             }
             if (upload != null) {
-                boolean pending = !upload.isUploadInProgress();
                 upload.cancel();
                 // need to update now table in mUploadsStorageManager,
                 // since the operation will not get to be run by FileUploader#uploadFile
                 mUploadsStorageManager.removeUpload(accountName, remotePath);
-            } else {
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 // try to cancel job in jobScheduler
                 mUploadsStorageManager.cancelPendingJob(accountName, remotePath);
             }
         }
 
         /**
-         * Cancels all the uploads for an account
+         * Cancels all the uploads for an account.
          *
          * @param account ownCloud account.
          */
