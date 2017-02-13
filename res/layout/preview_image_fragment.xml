@@ -47,9 +47,7 @@
     <RelativeLayout
         android:id="@+id/multi_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerInParent="true"
-        android:layout_margin="@dimen/zero">
+        android:layout_height="match_parent">
 
         <ScrollView
             android:layout_width="match_parent"
