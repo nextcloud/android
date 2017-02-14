@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
@@ -53,6 +54,8 @@ import com.owncloud.android.ui.adapter.FilterableListAdapter;
 import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
+
+import static com.owncloud.android.R.id.searchView;
 
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
@@ -97,6 +100,10 @@ public class ExtendedListFragment extends Fragment
     private View mGridFooterView;
 
     private FilterableListAdapter mAdapter;
+
+    private SearchView searchView;
+    private String searchQuery;
+    private Handler handler = new Handler();
 
     protected void setListAdapter(FilterableListAdapter listAdapter) {
         mAdapter = listAdapter;
@@ -151,17 +158,37 @@ public class ExtendedListFragment extends Fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         final MenuItem item = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
+
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    mFabMain.collapse();
+                }
+                setFabEnabled(!hasFocus);
+            }
+        });
+
     }
 
-    public boolean onQueryTextChange(String query) {
-        mAdapter.filter(query);
+    public boolean onQueryTextChange(final String query) {
+        handler.removeCallbacksAndMessages(null);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                searchQuery = query;
+                mAdapter.filter(query);
+            }
+        }, 500);
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
+        searchQuery = query;
         mAdapter.filter(query);
         return true;
     }
@@ -203,6 +230,8 @@ public class ExtendedListFragment extends Fragment
 
         mCurrentListView = mListView;   // list by default
         if (savedInstanceState != null) {
+
+
             if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false)) {
                 switchToGridView();
             }

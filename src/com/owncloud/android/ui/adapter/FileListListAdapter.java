@@ -53,6 +53,8 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Vector;
 
 
@@ -455,20 +457,24 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
     }
 
     public void filter(String text){
+
+        mFiles = new Vector<>();
+        Set<OCFile> unique = new HashSet<>();
+        unique.addAll(mFilesAll);
+
         if(text.isEmpty()){
-            mFiles.clear();
-            mFiles.addAll(mFilesAll);
+            mFiles.addAll(unique);
         } else {
             ArrayList<OCFile> result = new ArrayList<>();
             text = text.toLowerCase();
-            for(OCFile file: mFilesAll){
+            for(OCFile file: unique){
                 if(file.getFileName().toLowerCase().contains(text)){
                     result.add(file);
                 }
             }
-            mFiles.clear();
             mFiles.addAll(result);
         }
+        mFiles = FileStorageUtils.sortOcFolder(mFiles);
         notifyDataSetChanged();
     }
 
@@ -483,7 +489,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
         OCFile current;
         for (int i = 0; i < files.size(); i++) {
             current = files.get(i);
-            if (!current.isHidden()) {
+            if (!current.isHidden() && !ret.contains(current)) {
                 ret.add(current);
             }
         }
