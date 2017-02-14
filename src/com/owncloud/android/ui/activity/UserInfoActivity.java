@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Mario Danic
+ * @author Andy Scherzinger
  * Copyright (C) 2017 Mario Danic
+ * Copyright (C) 2017 Andy Scherzinger
  * Copyright (C) 2017 Nextcloud GmbH.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -62,7 +64,6 @@ import butterknife.Unbinder;
 /**
  * This Activity presents the user information.
  */
-
 public class UserInfoActivity extends FileActivity {
     private static final String TAG = UserInfoActivity.class.getSimpleName();
 
@@ -72,16 +73,16 @@ public class UserInfoActivity extends FileActivity {
     private static final int KEY_DELETE_CODE = 101;
 
     @BindView(R.id.empty_list_view)
-    public LinearLayout multiListContainer;
+    public LinearLayout emptyContentContainer;
 
     @BindView(R.id.empty_list_view_text)
-    public TextView multiListMessage;
+    public TextView emptyContentMessage;
 
     @BindView(R.id.empty_list_view_headline)
-    public TextView multiListHeadline;
+    public TextView emptyContentHeadline;
 
     @BindView(R.id.empty_list_icon)
-    public ImageView multiListIcon;
+    public ImageView emptyContentIcon;
 
     @BindView(R.id.user_info_view)
     public LinearLayout userInfoView;
@@ -170,7 +171,7 @@ public class UserInfoActivity extends FileActivity {
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
-            multiListContainer.setVisibility(View.GONE);
+            emptyContentContainer.setVisibility(View.GONE);
             userInfoView.setVisibility(View.VISIBLE);
         } else {
             setMultiListLoadingMessage();
@@ -212,19 +213,19 @@ public class UserInfoActivity extends FileActivity {
     }
 
     private void setMultiListLoadingMessage() {
-        if (multiListContainer != null) {
-            multiListHeadline.setText(R.string.file_list_loading);
-            multiListMessage.setText("");
+        if (emptyContentContainer != null) {
+            emptyContentHeadline.setText(R.string.file_list_loading);
+            emptyContentMessage.setText("");
 
-            multiListIcon.setVisibility(View.GONE);
+            emptyContentIcon.setVisibility(View.GONE);
             multiListProgressBar.setVisibility(View.VISIBLE);
         }
     }
 
-    public void setMessageForMultiList(String headline, String message) {
-        if (multiListContainer != null && multiListMessage != null) {
-            multiListHeadline.setText(headline);
-            multiListMessage.setText(message);
+    private void setMessageForMultiList(String headline, String message) {
+        if (emptyContentContainer != null && emptyContentMessage != null) {
+            emptyContentHeadline.setText(headline);
+            emptyContentMessage.setText(message);
 
             multiListProgressBar.setVisibility(View.GONE);
         }
@@ -333,7 +334,6 @@ public class UserInfoActivity extends FileActivity {
         }
     }
 
-
     private void fetchAndSetData() {
         Thread t = new Thread(new Runnable() {
             public void run() {
@@ -349,7 +349,7 @@ public class UserInfoActivity extends FileActivity {
                         public void run() {
                             populateUserInfoUi(userInfo);
 
-                            multiListContainer.setVisibility(View.GONE);
+                            emptyContentContainer.setVisibility(View.GONE);
                             userInfoView.setVisibility(View.VISIBLE);
                         }
                     });
