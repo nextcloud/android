@@ -46,7 +46,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -94,6 +97,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import static com.owncloud.android.R.id.searchView;
 import static com.owncloud.android.db.PreferenceManager.getSortOrder;
 
 /**
@@ -116,6 +120,7 @@ public class FileDisplayActivity extends HookActivity
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
+    private static final String KEY_SEARCH_QUERY = "KEY_SEARCH_QUERY";
 
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
@@ -138,7 +143,9 @@ public class FileDisplayActivity extends HookActivity
     private OCFile mWaitingToSend;
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
+    private String searchQuery;
 
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,6 +167,7 @@ public class FileDisplayActivity extends HookActivity
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
             mWaitingToSend = (OCFile) savedInstanceState.getParcelable(
                     FileDisplayActivity.KEY_WAITING_TO_SEND);
+            searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
         } else {
             mWaitingToPreview = null;
             mSyncInProgress = false;
@@ -394,7 +402,7 @@ public class FileDisplayActivity extends HookActivity
         if (getAccount() != null && getFile() != null) {
             /// First fragment
             OCFileListFragment listOfFiles = getListOfFilesFragment();
-            if (listOfFiles != null) {
+            if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
                 listOfFiles.listDirectory(getCurrentDir(), MainApp.isOnlyOnDevice());
             } else {
                 Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
@@ -590,12 +598,27 @@ public class FileDisplayActivity extends HookActivity
         inflater.inflate(R.menu.main_menu, menu);
         menu.findItem(R.id.action_create_dir).setVisible(false);
 
+        final MenuItem item = menu.findItem(R.id.action_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(item);
+
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(4);
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sort));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_sync_account));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_switch_view));
         mDrawerMenuItemstoShowHideList.add(menu.findItem(R.id.action_search));
+
+        //focus the SearchView
+        if (!TextUtils.isEmpty(searchQuery)) {
+            searchView.post(new Runnable() {
+                @Override
+                public void run() {
+                    searchView.setIconified(false);
+                    searchView.setQuery(searchQuery, false);
+                    searchView.clearFocus();
+                }
+            });
+        }
 
         return true;
     }
@@ -910,7 +933,9 @@ public class FileDisplayActivity extends HookActivity
         //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS,
         // mRefreshSharesInProgress);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
-
+        if (searchView != null) {
+            outState.putString(KEY_SEARCH_QUERY, searchView.getQuery().toString());
+        }
         Log_OC.v(TAG, "onSaveInstanceState() end");
     }
 
