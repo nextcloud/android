@@ -186,9 +186,6 @@ public class MainApp extends Application {
             public void onActivityStopped(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending");
                 PassCodeManager.getPassCodeManager().onActivityStopped(activity);
-                if (MainApp.getSyncedFolderObserverService() != null) {
-                    MainApp.getSyncedFolderObserverService().syncToDisk(false);
-                }
             }
 
             @Override
