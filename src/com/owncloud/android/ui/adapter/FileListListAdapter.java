@@ -57,8 +57,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Vector;
 
 
@@ -514,11 +512,8 @@ public class FileListListAdapter extends BaseAdapter {
                         ocFileVector.add(currentFile);
                     }
                 }
-            } else {
-                Set<OCFile> unique = new HashSet<>();
-                unique.addAll(mFilesAll);
-                ocFileVector.addAll(unique);
             }
+
             results.values = ocFileVector;
             results.count = ocFileVector.size();
 
