@@ -448,6 +448,8 @@
     <string name="pref_behaviour_entries_move">μετακινήθηκε στον φάκελο εφαρμογών</string>
     <string name="pref_behaviour_entries_delete_file">διαγράφηκε</string>
     <string name="prefs_storage_path">Διαδρομή αποθηκευτικού χώρου</string>
+    <string name="prefs_common">Κοινές</string>
+
     <string name="share_dialog_title">Γίνεται διαμοιρασμός</string>
     <string name="share_file">Διαμοιρασμός %1$s</string>
     <string name="share_with_user_section_title">Διαμοιρασμός με χρήστες και ομάδες</string>
@@ -471,8 +473,8 @@
     <string name="share_email_clarification">%1$s (ηλ. ταχυδρομείο)</string>
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
 
-    <string name="share_sharee_unavailable">Δεν επιτρέπεται ο διαμοιρασμός μεταξύ χρηστών μέσω εφαρμογής, σε αυτή την έκδοση.
-\nΕπικοινωνήστε με το διαχειριστή του συστήματος</string>
+    <string name="share_sharee_unavailable">Δεν επιτρέπεται ο διαμοιρασμός μεταξύ χρηστών μέσω εφαρμογής, σε αυτή την έκδοση διακομιστή.
+\\nΕπικοινωνήστε με το διαχειριστή</string>
     <string name="share_privilege_can_share">δυνατότητα διαμοιρασμού</string>
     <string name="share_privilege_can_edit">δυνατότητα επεξεργασίας</string>
     <string name="share_privilege_can_edit_create">δημιουργία</string>
@@ -481,27 +483,80 @@
     <string name="edit_share_unshare">Διακοπή διαμοιρασμού</string>
     <string name="edit_share_done">ολοκληρώθηκε</string>
 
+    <string name="action_retry_uploads">Αποτυχία επανάληψης</string>
+    <string name="action_clear_failed_uploads">Αποτυχία εκκαθάρισης</string>
+    <string name="action_clear_successful_uploads">Επιτυχία εκκαθάρισης</string>
+    <string name="action_clear_finished_uploads">Ολοκλήρωση εκκαθάρισης όλων</string>
+
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
 
     <string name="manage_space_title">Διαχείριση χώρου</string>
+    <string name="manage_space_description">Τα πιστοποιητικά ρυθμίσεων, βάσης δεδομένων και διακομιστή από τα δεδομένα %1$s\'s θα διαγραφούν μόνιμα.\\n\\nΤα ληφθέντα αρχεία θα παραμείνουν ανέπαφα.\\n\\nΑυτή η διαδικασία ενδεχομένως να διαρκέσει λίγο.</string>
     <string name="manage_space_clear_data">Εκκαθάριση δεδομένων</string>
     <string name="manage_space_error">Μερικά αρχεία δεν μπορούν να διαγραφούν.</string>
 
     <string name="permission_storage_access">Επιπλέον διακαιώματα απαιτούνται για μεταφόρτωση &amp; λήψη αρχείων.</string>
+    <string name="local_file_not_found_toast">Το αρχείο δεν βρέθηκε στο τοπικό σύστημα αρχείων</string>
+    <string name="confirmation_remove_files_alert">Θέλετε να αφαιρέσετε τα επιλεγμένα αντικείμενα;</string>
+    <string name="confirmation_remove_folders_alert">Θέλετε ν αφαιρέσετε τα επιλεγμένα αντικείμενα με τα περιεχόμενά τους;</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Αναμονή για φόρτιση συσκευής</string>
     <string name="actionbar_search">Αναζήτηση</string>
+    <string name="files_drop_not_supported">Αυτό είναι χαρακτηριστικό του Nextcloud, παρακαλώ ενημερώστε.</string>
     <string name="learn_more">Μάθετε περισσότερα</string>
+    <string name="drawer_folder_sync">Αυτόματη μεταφόρτωση</string>
     <string name="drawer_participate">Συμμετοχή</string>
     <string name="participate_testing_headline">Βοηθήστε μας στις δοκιμές</string>
     <string name="participate_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
     <string name="participate_testing_report_text">Αναφέρετε σφάλμα στο Github</string>
     <string name="participate_testing_version_text">Σας ενδιαφέρει να μας βοηθήσετε να δοκιμάσουμε την επόμενη έκδοση;</string>
     <string name="participate_beta_headline">Δοκιμάστε την έκδοση Beta</string>
+    <string name="participate_beta_text">Συμπεριλαμβάνει όλες τις επερχόμενες δυνατότητες και είναι πολύ πρωτοποριακό. Μπορεί να
+παρουσιαστούν σφάλματα και όταν συμβεί αυτό, παρακαλούμε αναφέρετέ τα σε εμάς. &lt;br/>&lt;a href=\"%2$s\">Λήψη του APK&lt;/a>
+ή</string>
+    <string name="participate_release_candidate_headline">Υποψήφια κυκλοφορία</string>
+    <string name="participate_release_candidate_text">Η υποψήφια κυκλοφορία (RC) είναι ένα στιγμιότυπο της επερχόμενης έκδοσης και αναμένεται να είναι σταθερό. Η δοκιμή της μεμονωμένης εγκατάστασής σας θα βοηθήσει στην εξασφάλιση αυτού. Εγγραφείτε για δοκιμές στο Play store ή χειροκίνητα αναζητείστε στο τμήμα \"εκδόσεις\" στο F-Droid.</string>
+    <string name="participate_contribute_headline">Ενεργή συνεισφορά</string>
+    <string name="participate_contribute_irc_text">Συμμετέχετε στη συνομιλία στο IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Βοηθήστε τους άλλους στο &lt;a href=\"%1$s\">forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Μετάφραση&lt;/a> της εφαρμογής</string>
+    <string name="participate_contribute_github_text">Συνεισφέρετε ως προγραμματιστής, για περισσότερες λεπτομέρειες δείτε &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">ΣΥΝΕΙΣΦΕΡΕΤΕ.md&lt;/a></string>
+    <string name="move_to">Μετακίνηση σε&#8230;</string>
+    <string name="copy_to">Αντιγραφή σε&#8230;</string>
+    <string name="choose_remote_folder">Επιλογή φακέλου&#8230;</string>
+    <string name="folder_sync_loading_folders">Φόρτωση φακέλων&#8230;</string>
+    <string name="folder_sync_no_results">Δεν βρέθηκαν φάκελοι πολυμέσων.</string>
+    <string name="folder_sync_preferences">Αυτόματη μεταφόρτωση προτιμήσεων</string>
     <string name="folder_sync_settings">Ρυθμίσεις</string>
+    <string name="folder_sync_new_info">Η άμεση μεταφόρτωση έχει ανανεωθεί τελείως. Παρακαλώ δείτε το κυρίως μενού και ρυθμίστε ξανά την αυτόματη μεταφόρτωση. Σας ζητούμε συγγνώμη για την ενόχληση\\n\\nΑπολαύστε τις νέες και εκτεταμένες δυνατότητες της αυτόματης μεταφόρτωσης!</string>
+    <string name="folder_sync_preferences_folder_path">Για %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d επιλέχθηκε</item>
         <item quantity="other">%d επιλέχθηκαν</item>
     </plurals>
+    <string name="upload_file_dialog_title">Εισαγωγή ονόματος και τύπου αρχείου μεταφόρτωσης</string>
     <string name="upload_file_dialog_filename">Όνομα αρχείου</string>
     <string name="upload_file_dialog_filetype">Τύπος αρχείου</string>
-    </resources>
+    <string name="upload_file_dialog_filetype_snippet_text">Απόσπασμα αρχείου κειμένου(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Αρχείο συντόμευσης Internet(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Αρχείο συντόμευσης Google Maps(%s)</string>
+
+    <string name="storage_description_default">Προεπιλογή</string>
+    <string name="storage_description_sd_no">Κάρτα SD %1$d</string>
+    <string name="storage_description_unknown">Άγνωστο</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Τι νέο υπάρχει στο Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Μια ασφαλής τοποθεσία για όλα σας τα δεδομένα</string>
+    <string name="welcome_feature_1_text">Πρόσβαση, διαμοιρασμός &amp; προστασία των αρχείων σας στο σπίτι και στην εταιρία σας</string>
+
+    <string name="welcome_feature_2_title">Πολλαπλός λογαριασμός</string>
+    <string name="welcome_feature_2_text">Σύνδεση με όλα τα clouds σας</string>
+
+    <string name="welcome_feature_3_title">Άμεση μεταφόρτωση</string>
+    <string name="welcome_feature_3_text">Διατήρηση των φωτογραφιών σας με ασφάλεια</string>
+
+    <string name="whats_new_skip">Παράλειψη</string>
+</resources>
