@@ -888,6 +888,7 @@ public class FileUploader extends Service
                 }
             }
             Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
+            mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
 
         }
