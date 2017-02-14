@@ -49,6 +49,7 @@ import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
@@ -170,10 +171,8 @@ public class ExtendedListFragment extends Fragment
                 if (hasFocus) {
                     collapseFab();
                     setFabEnabled(false);
-                    setFooterEnabled(false);
                 } else {
                     setFabEnabled(true);
-                    setFooterEnabled(true);
                 }
             }
         });
@@ -596,6 +595,66 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
+    private String generateFooterText(int filesCount, int foldersCount) {
+        String output;
+        if (filesCount <= 0) {
+            if (foldersCount <= 0) {
+                output = "";
+
+            } else if (foldersCount == 1) {
+                output = getResources().getString(R.string.file_list__footer__folder);
+
+            } else { // foldersCount > 1
+                output = getResources().getString(R.string.file_list__footer__folders, foldersCount);
+            }
+
+        } else if (filesCount == 1) {
+            if (foldersCount <= 0) {
+                output = getResources().getString(R.string.file_list__footer__file);
+
+            } else if (foldersCount == 1) {
+                output = getResources().getString(R.string.file_list__footer__file_and_folder);
+
+            } else { // foldersCount > 1
+                output = getResources().getString(R.string.file_list__footer__file_and_folders, foldersCount);
+            }
+        } else {    // filesCount > 1
+            if (foldersCount <= 0) {
+                output = getResources().getString(R.string.file_list__footer__files, filesCount);
+
+            } else if (foldersCount == 1) {
+                output = getResources().getString(R.string.file_list__footer__files_and_folder, filesCount);
+
+            } else { // foldersCount > 1
+                output = getResources().getString(
+                        R.string.file_list__footer__files_and_folders, filesCount, foldersCount
+                );
+
+            }
+        }
+        return output;
+    }
+
+    protected void updateFooterText() {
+            int filesCount = 0, foldersCount = 0;
+            int count = mAdapter.getCount();
+            OCFile file;
+            for (int i = 0; i < count; i++) {
+                file = (OCFile) mAdapter.getItem(i);
+                if (file.isFolder()) {
+                    foldersCount++;
+                } else {
+                    if (!file.isHidden()) {
+                        filesCount++;
+                    }
+                }
+            }
+
+            // set footer text
+            setFooterText(generateFooterText(filesCount, foldersCount));
+    }
+
+
     /**
      * set the list/grid footer text.
      *
@@ -617,6 +676,7 @@ public class ExtendedListFragment extends Fragment
         mRefreshGridLayout.setRefreshing(false);
         mRefreshListLayout.setRefreshing(false);
         mRefreshEmptyLayout.setRefreshing(false);
+        updateFooterText();
     }
 
     @Override

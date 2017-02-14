@@ -8,16 +8,16 @@
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
  * Copyright (C) 2017 Mario Danic
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -185,7 +185,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             mFile = savedInstanceState.getParcelable(KEY_FILE);
         }
 
-        if (mJustFolders || mSearchIsOpen) {
+        if (mJustFolders) {
             setFooterEnabled(false);
         } else {
             setFooterEnabled(true);
@@ -233,7 +233,6 @@ public class OCFileListFragment extends ExtendedListFragment {
             public void onClick(View v) {
                 mSearchIsOpen = true;
                 mHandler.removeCallbacksAndMessages(null);
-                setFooterEnabled(false);
                 setFabEnabled(false);
                 mRefreshListLayout.setEnabled(false);
                 mHandler.removeCallbacksAndMessages(null);
@@ -254,7 +253,6 @@ public class OCFileListFragment extends ExtendedListFragment {
             @Override
             public boolean onClose() {
                 mHandler.removeCallbacksAndMessages(null);
-                setFooterEnabled(true);
                 mSearchIsOpen = false;
                 mSearchQuery = null;
                 mRefreshListLayout.setEnabled(true);
@@ -867,24 +865,8 @@ public class OCFileListFragment extends ExtendedListFragment {
 
     private void updateLayout() {
         if (!mJustFolders) {
-            if (!mSearchIsOpen && (mSearchQuery == null || mSearchQuery.isEmpty())) {
-                int filesCount = 0, foldersCount = 0;
-                int count = mAdapter.getCount();
-                OCFile file;
-                for (int i = 0; i < count; i++) {
-                    file = (OCFile) mAdapter.getItem(i);
-                    if (file.isFolder()) {
-                        foldersCount++;
-                    } else {
-                        if (!file.isHidden()) {
-                            filesCount++;
-                        }
-                    }
-                }
+            updateFooterText();
 
-                // set footer text
-                setFooterText(generateFooterText(filesCount, foldersCount));
-            }
             // decide grid vs list view
             OwnCloudVersion version = AccountUtils.getServerVersion(
                     ((FileActivity) mContainerActivity).getAccount());
@@ -904,45 +886,6 @@ public class OCFileListFragment extends ExtendedListFragment {
         }
     }
 
-    private String generateFooterText(int filesCount, int foldersCount) {
-        String output;
-        if (filesCount <= 0) {
-            if (foldersCount <= 0) {
-                output = "";
-
-            } else if (foldersCount == 1) {
-                output = getResources().getString(R.string.file_list__footer__folder);
-
-            } else { // foldersCount > 1
-                output = getResources().getString(R.string.file_list__footer__folders, foldersCount);
-            }
-
-        } else if (filesCount == 1) {
-            if (foldersCount <= 0) {
-                output = getResources().getString(R.string.file_list__footer__file);
-
-            } else if (foldersCount == 1) {
-                output = getResources().getString(R.string.file_list__footer__file_and_folder);
-
-            } else { // foldersCount > 1
-                output = getResources().getString(R.string.file_list__footer__file_and_folders, foldersCount);
-            }
-        } else {    // filesCount > 1
-            if (foldersCount <= 0) {
-                output = getResources().getString(R.string.file_list__footer__files, filesCount);
-
-            } else if (foldersCount == 1) {
-                output = getResources().getString(R.string.file_list__footer__files_and_folder, filesCount);
-
-            } else { // foldersCount > 1
-                output = getResources().getString(
-                        R.string.file_list__footer__files_and_folders, filesCount, foldersCount
-                );
-
-            }
-        }
-        return output;
-    }
 
     public void sortByName(boolean descending) {
         mAdapter.setSortOrder(FileStorageUtils.SORT_NAME, descending);
@@ -1049,5 +992,4 @@ public class OCFileListFragment extends ExtendedListFragment {
 
         return false;
     }
-
 }
