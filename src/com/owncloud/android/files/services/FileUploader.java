@@ -354,7 +354,7 @@ public class FileUploader extends Service
 
         notification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
                 getResources().getString(R.string.app_name))
-                .setContentText("Uploading...")
+                .setContentText("Upload service ready")
                 .build();
 
         int failedCounter = mUploadsStorageManager.failInProgressUploads(
