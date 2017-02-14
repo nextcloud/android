@@ -27,6 +27,7 @@ package com.owncloud.android.files.services;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.OnAccountsUpdateListener;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -108,6 +109,8 @@ public class FileUploader extends Service
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
     public static final String KEY_MIME_TYPE = "MIME_TYPE";
+
+    private Notification notification;
 
     /**
      * Call this Service with only this Intent key if all pending uploads are to be retried.
@@ -349,6 +352,11 @@ public class FileUploader extends Service
 
         mUploadsStorageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
 
+        notification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
+                getResources().getString(R.string.app_name))
+                .setContentText("Uploading...")
+                .build();
+
         int failedCounter = mUploadsStorageManager.failInProgressUploads(
             UploadResult.SERVICE_INTERRUPTED    // Add UploadResult.KILLED?
         );
@@ -401,6 +409,8 @@ public class FileUploader extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
+
+        startForeground(411, notification);
 
         boolean retry = intent.getBooleanExtra(KEY_RETRY, false);
         AbstractList<String> requestedUploads = new Vector<String>();
@@ -846,6 +856,7 @@ public class FileUploader extends Service
 
     }
 
+
     /**
      * Upload worker. Performs the pending uploads in the order they were
      * requested.
@@ -878,6 +889,7 @@ public class FileUploader extends Service
             }
             Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
             mService.stopSelf(msg.arg1);
+
         }
     }
 
