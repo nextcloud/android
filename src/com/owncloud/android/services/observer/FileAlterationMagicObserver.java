@@ -59,7 +59,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
     private Comparator<File> comparator;
     private SyncedFolder syncedFolder;
 
-    static final FileEntry[] EMPTY_ENTRIES = new FileEntry[0];
+    private static final FileEntry[] EMPTY_ENTRIES = new FileEntry[0];
 
 
     public FileAlterationMagicObserver(SyncedFolder syncedFolder, FileFilter fileFilter) {
@@ -144,6 +144,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      */
     public void initialize() {
+        // does nothing - hack the monitor
     }
 
 
@@ -165,6 +166,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @throws Exception if an error occurs
      */
     public void destroy() throws Exception {
+        // does nothing
     }
 
     /**
