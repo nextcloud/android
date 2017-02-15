@@ -23,6 +23,7 @@ package com.owncloud.android.files.services;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.OnAccountsUpdateListener;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -96,6 +97,7 @@ public class FileDownloader extends Service
     private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
 
+    private Notification notification;
 
     public static String getDownloadAddedMessage() {
         return FileDownloader.class.getName() + DOWNLOAD_ADDED_MESSAGE;
@@ -119,6 +121,10 @@ public class FileDownloader extends Service
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileDownloaderBinder();
+
+        notification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
+                getResources().getString(R.string.app_name))
+                .build();
 
         // add AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
@@ -155,6 +161,8 @@ public class FileDownloader extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
+
+        startForeground(412, notification);
 
         if (!intent.hasExtra(EXTRA_ACCOUNT) ||
                 !intent.hasExtra(EXTRA_FILE)
@@ -383,6 +391,7 @@ public class FileDownloader extends Service
                 }
             }
             Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
+            mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
         }
     }
