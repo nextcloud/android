@@ -254,25 +254,33 @@ public class FingerprintActivity extends AppCompatActivity {
 
 
     final static public boolean isFingerprintCapable(Context context) {
-        FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
+        try {
+            FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                return fingerprintManager.isHardwareDetected();
+            }
+        } catch(Exception e) {
             return false;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return fingerprintManager.isHardwareDetected();
         }
         return false;
     }
 
     final static public boolean isFingerprintReady(Context context) {
-        FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
+        try {
+            FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+                return false;
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                return fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints();
+            }
+        } catch(Exception e) {
             return false;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints();
         }
         return false;
     }
