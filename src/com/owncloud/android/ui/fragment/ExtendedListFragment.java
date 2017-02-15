@@ -101,7 +101,6 @@ public class ExtendedListFragment extends Fragment
     private FilterableListAdapter mAdapter;
 
     private SearchView searchView;
-    private String searchQuery;
     private Handler handler = new Handler();
 
     protected void setListAdapter(FilterableListAdapter listAdapter) {
@@ -187,7 +186,6 @@ public class ExtendedListFragment extends Fragment
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                searchQuery = query;
                 mAdapter.filter(query);
             }
         }, 500);
@@ -196,7 +194,6 @@ public class ExtendedListFragment extends Fragment
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        searchQuery = query;
         mAdapter.filter(query);
         return true;
     }
