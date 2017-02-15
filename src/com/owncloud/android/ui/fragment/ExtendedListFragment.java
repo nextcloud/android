@@ -38,6 +38,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -50,7 +51,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.adapter.FilterableListAdapter;
+import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
 import java.util.ArrayList;
 
@@ -98,12 +101,12 @@ public class ExtendedListFragment extends Fragment
     private GridViewWithHeaderAndFooter mGridView;
     private View mGridFooterView;
 
-    private FilterableListAdapter mAdapter;
+    private BaseAdapter mAdapter;
 
     private SearchView searchView;
     private Handler handler = new Handler();
 
-    protected void setListAdapter(FilterableListAdapter listAdapter) {
+    protected void setListAdapter(BaseAdapter listAdapter) {
         mAdapter = listAdapter;
         mCurrentListView.setAdapter(listAdapter);
         mCurrentListView.invalidateViews();
@@ -182,21 +185,50 @@ public class ExtendedListFragment extends Fragment
     }
 
     public boolean onQueryTextChange(final String query) {
-        handler.removeCallbacksAndMessages(null);
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mAdapter.filter(query);
-            }
-        }, 500);
+        performSearch(query, false);
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        mAdapter.filter(query);
+        performSearch(query, true);
         return true;
     }
+
+    private void performSearch(final String query, boolean isSubmit) {
+        handler.removeCallbacksAndMessages(null);
+
+        int delay = 500;
+
+        if (isSubmit) {
+            delay = 0;
+        }
+
+        if (mAdapter != null && mAdapter instanceof FileListListAdapter) {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
+                    fileListListAdapter.getFilter().filter(query);
+                }
+            }, delay);
+        } else if (mAdapter != null && mAdapter instanceof LocalFileListAdapter) {
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+                    localFileListAdapter.filter(query);
+                }
+            }, delay);
+        }
+
+        if (searchView != null && delay == 0) {
+            searchView.clearFocus();
+        }
+
+
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
