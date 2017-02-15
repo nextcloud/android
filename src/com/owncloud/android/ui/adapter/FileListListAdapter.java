@@ -27,12 +27,14 @@ import android.accounts.Account;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -63,7 +65,7 @@ import java.util.Vector;
  * This Adapter populates a ListView with all files and folders in an ownCloud
  * instance.
  */
-public class FileListListAdapter extends BaseAdapter implements FilterableListAdapter {
+public class FileListListAdapter extends BaseAdapter {
 
     private Context mContext;
     private Vector<OCFile> mFilesAll = new Vector<OCFile>();
@@ -75,6 +77,8 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
     private ExtendedListFragmentInterface extendedListFragmentInterface;
+
+    private FilesFilter mFilesFilter;
 
     public FileListListAdapter(
             boolean justFolders,
@@ -460,28 +464,54 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
         return files;
     }
 
-    public void filter(String text){
-
-        mFiles = new Vector<>();
-        Set<OCFile> unique = new HashSet<>();
-        unique.addAll(mFilesAll);
-
-        if(text.isEmpty()){
-            mFiles.addAll(unique);
-        } else {
-            ArrayList<OCFile> result = new ArrayList<>();
-            text = text.toLowerCase();
-            for(OCFile file: unique){
-                if(file.getFileName().toLowerCase().contains(text)){
-                    result.add(file);
-                }
-            }
-            mFiles.addAll(result);
+    public Filter getFilter() {
+        if (mFilesFilter == null) {
+            mFilesFilter = new FilesFilter();
         }
-        mFiles = FileStorageUtils.sortOcFolder(mFiles);
-        notifyDataSetChanged();
-        extendedListFragmentInterface.finishedFiltering();
+        return mFilesFilter;
     }
+
+    private class FilesFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+            Vector<OCFile> ocFileVector = new Vector<>();
+
+            if (!TextUtils.isEmpty(constraint)) {
+                for (int i = 0; i < mFilesAll.size(); i++) {
+                    OCFile currentFile = mFilesAll.get(i);
+                    if (currentFile.getFileName().toLowerCase().contains(constraint) &&
+                            !ocFileVector.contains(currentFile)) {
+                        ocFileVector.add(currentFile);
+                    }
+                }
+            } else {
+                Set<OCFile> unique = new HashSet<>();
+                unique.addAll(mFilesAll);
+                ocFileVector.addAll(unique);
+            }
+            results.values = ocFileVector;
+            results.count = ocFileVector.size();
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, Filter.FilterResults results) {
+            Vector<OCFile> ocFiles = (Vector<OCFile>) results.values;
+            mFiles = new Vector<>();
+            if (ocFiles != null && ocFiles.size() > 0) {
+                mFiles.addAll(ocFiles);
+                mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            }
+
+            notifyDataSetChanged();
+            extendedListFragmentInterface.finishedFiltering();
+
+        }
+    }
+
 
     /**
      * Filter for hidden files
