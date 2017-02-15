@@ -121,7 +121,6 @@ public class MainApp extends Application {
             List<SyncedFolder> syncedFolderList = mProvider.getSyncedFolders();
             Map<Pair<String, String>, Pair<Long, Boolean>> syncedFolders = new HashMap<>();
             ArrayList<Long> ids = new ArrayList<>();
-            ArrayList<SyncedFolder> syncedFolderArrayList = new ArrayList<>();
             for (SyncedFolder syncedFolder : syncedFolderList) {
                 Pair<String, String> checkPair = new Pair(syncedFolder.getAccount(), syncedFolder.getLocalPath());
                 if (syncedFolders.containsKey(checkPair)) {
@@ -137,14 +136,9 @@ public class MainApp extends Application {
                 ids.add(pair.first);
             }
 
-            for (SyncedFolder syncedFolder : syncedFolderList) {
-                if (!ids.contains(syncedFolder.getId())) {
-                    syncedFolderArrayList.add(syncedFolder);
-                }
-            }
 
             if (ids.size() > 0) {
-                mProvider.deleteSyncFolders(mContext, syncedFolderArrayList, ids);
+                mProvider.deleteOtherSyncedFolders(mContext, ids);
             } else {
                 PreferenceManager.getDefaultSharedPreferences(mContext).edit().putBoolean("legacyClean", true).apply();
             }
