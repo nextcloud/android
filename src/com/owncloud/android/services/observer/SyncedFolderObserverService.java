@@ -28,7 +28,6 @@ import android.os.Binder;
 import android.os.IBinder;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.datamodel.SerializablePair;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -37,11 +36,9 @@ import com.owncloud.android.services.FileAlterationMagicListener;
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
-import org.apache.commons.io.monitor.FileEntry;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SyncedFolderObserverService extends Service {
     private static final String TAG = "SyncedFolderObserverService";
@@ -49,8 +46,6 @@ public class SyncedFolderObserverService extends Service {
     private final IBinder mBinder = new SyncedFolderObserverBinder();
     private FileAlterationMonitor monitor;
     private FileFilter fileFilter;
-    private CopyOnWriteArrayList<SerializablePair<SyncedFolder, FileEntry>> pairArrayList = new CopyOnWriteArrayList<>();
-    private File file;
 
     @Override
     public void onCreate() {

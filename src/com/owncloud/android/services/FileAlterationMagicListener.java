@@ -96,7 +96,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
             Long dateFolder = file.lastModified();
             final Locale current = context.getResources().getConfiguration().locale;
 
-            if (mimetypeString.equalsIgnoreCase("image/jpeg") || mimetypeString.equals("image/tiff")) {
+            if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".equalsIgnoreCase(mimetypeString)) {
                 try {
                     ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
                     if (!TextUtils.isEmpty(exifInterface.getAttribute(ExifInterface.TAG_DATETIME))) {
