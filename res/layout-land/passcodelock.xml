@@ -33,9 +33,9 @@
         android:layout_height="wrap_content"
         android:text="@string/pass_code_enter_pass_code"
         android:textColor="@android:color/black"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:textSize="@dimen/two_line_primary_text_size"
-        />
+        android:layout_gravity="center" />
 
     <TextView
         android:id="@+id/explanation"
@@ -58,7 +58,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:errorEnabled="true"
-            android:layout_weight="10">
+            android:layout_weight="10"
+            app:counterEnabled="true"
+            android:contextClickable="false"
+            app:counterMaxLength="4">
 
             <EditText
                 android:id="@+id/passcodeEditText"
@@ -73,8 +76,8 @@
                 android:digits="1234567890"
                 android:maxLength="4"
                 android:maxLines="1"
-                android:textIsSelectable="false"
-                android:longClickable="false">
+                android:longClickable="false"
+                android:textIsSelectable="false">
                 <requestFocus/>
             </EditText>
 
@@ -89,137 +92,146 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:gravity="bottom|center"
+        android:id="@+id/RelativeLayout">
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:orientation="vertical"
+            android:layout_gravity="bottom|left"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:id="@+id/LinearLayout">
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button1"
-                android:text="1"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
+                android:layout_weight="1">
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button2"
-                android:text="2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button1"
+                    android:text="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
 
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button3"
-                android:text="3"
-                android:layout_width="0dp"
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button2"
+                    android:text="2"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button3"
+                    android:text="3"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
+                android:layout_weight="1">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button4"
+                    android:text="4"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button5"
+                    android:text="5"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button6"
+                    android:text="6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button7"
+                    android:text="7"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button8"
+                    android:text="8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button9"
+                    android:text="9"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/clear"
+                    android:text="CLEAR"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button0"
+                    android:text="0"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:theme="@style/Button"/>
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/back"
+                    android:text="BACK\nSoftKey"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:theme="@style/Button"/>
+
+            </LinearLayout>
 
         </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button4"
-                android:text="4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button5"
-                android:text="5"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button6"
-                android:text="6"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button7"
-                android:text="7"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button8"
-                android:text="8"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button9"
-                android:text="9"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/clear"
-                android:text="CLEAR"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/button0"
-                android:text="0"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:theme="@style/Button"/>
-
-            <android.support.v7.widget.AppCompatButton
-                android:id="@+id/back"
-                android:text="BACK\nSoftKey"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:theme="@style/Button"/>
-
-        </LinearLayout>
-
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

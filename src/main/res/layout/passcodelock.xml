@@ -69,8 +69,8 @@
             android:digits="1234567890"
             android:maxLength="4"
             android:maxLines="1"
-            android:textIsSelectable="false"
-            android:longClickable="false">
+            android:longClickable="false"
+            android:textIsSelectable="false">
             <requestFocus/>
         </EditText>
 
@@ -109,8 +109,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:theme="@style/Button"
-                    android:textSize="14sp" />
+                    android:theme="@style/Button"/>
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/button2"
