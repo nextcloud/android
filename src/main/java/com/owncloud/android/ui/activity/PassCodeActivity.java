@@ -431,29 +431,38 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         objectAnimator.start();
     }
 
-    private void showKeypad() {
-        int duration = mButtonVisibilityPrev == 0 ? 0 : 500;
+    private void suffleButtonsIDList() {
         if (ENABLE_SUFFLE_BUTTONS) {
             List<Integer> list = Arrays.asList(mButtonsIDListShuffle);
             Collections.shuffle(list);
             mButtonsIDListShuffle = list.toArray(new Integer[list.size()]);
         }
+    }
+
+    private void setKeypadString(AppCompatButton b, int j, KeypadParam keypadParam) {
+        boolean switch_soft_keyboard = (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD);
+        boolean switch_ctrl_keyboard = (j == 0);
+        String s;
+        if (keypadParam.subtext || switch_ctrl_keyboard || switch_soft_keyboard) {
+            s = String.format(mButtonFormat2, mButtonsMainStr[j], mButtonsSubStr[j]);
+        } else {
+            s = String.format(mButtonFormat1, mButtonsMainStr[j]);
+        }
+        b.setText(Html.fromHtml(s));
+    }
+    
+    private void showKeypad() {
+        int duration = mButtonVisibilityPrev == 0 ? 0 : 500;
+        suffleButtonsIDList();
         KeypadParam keypadParam = getKeypadParam();
         for (int i = 0; i < mButtonsList.length; i++) {
             AppCompatButton b = mButtonsList[i];
             buttonAnimation(b, true, duration);
             b.setClickable(true);
             int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
-            boolean switch_soft_keyboard = (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD);
-            boolean switch_ctrl_keyboard = (j == 0);
-            String s;
-            if (keypadParam.subtext || switch_ctrl_keyboard || switch_soft_keyboard) {
-                s = String.format(mButtonFormat2, mButtonsMainStr[j], mButtonsSubStr[j]);
-            } else {
-                s = String.format(mButtonFormat1, mButtonsMainStr[j]);
-            }
-            b.setText(Html.fromHtml(s));
+            setKeypadString(b, j, keypadParam);
             b.setOnClickListener(new ButtonClicked(mPassCodeEditText, j));
+            boolean switch_soft_keyboard = (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD);
             if (switch_soft_keyboard) {
                 b.setLongClickable(true);
                 b.setOnLongClickListener(new OnLongClickListener() {
@@ -465,6 +474,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                     }
                 });
             }
+            boolean switch_ctrl_keyboard = (j == 0);
             if (switch_ctrl_keyboard) {
                 b.setLongClickable(true);
                 b.setOnLongClickListener(new OnLongClickListener() {
