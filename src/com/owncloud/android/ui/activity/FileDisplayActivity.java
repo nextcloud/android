@@ -389,13 +389,13 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private void createMinFragments() {
-        OCFileListFragment listOfFiles = new OCFileListFragment();
+        /*OCFileListFragment listOfFiles = new OCFileListFragment();
         Bundle args = new Bundle();
         args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
         listOfFiles.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
-        transaction.commit();
+        transaction.commit();*/
     }
 
     private void initFragmentsWithFile() {
@@ -1125,7 +1125,12 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
             if (!mSyncInProgress) {
-                ocFileListFragment.setEmptyListMessage();
+                if (!TextUtils.isEmpty(searchQuery) || (searchView != null &&
+                        !TextUtils.isEmpty(searchView.getQuery().toString()))) {
+                    ocFileListFragment.setEmptyListMessage(true);
+                } else {
+                    ocFileListFragment.setEmptyListMessage(false);
+                }
             } else {
                 ocFileListFragment.setEmptyListLoadingMessage();
             }
