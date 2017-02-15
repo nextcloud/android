@@ -188,7 +188,7 @@ public class SyncedFolderProvider extends Observable {
 
     }
 
-    public int deleteSyncFolders(Context context, ArrayList<SyncedFolder> syncedFolders, ArrayList<Long> ids) {
+    public int deleteOtherSyncedFolders(Context context, ArrayList<Long> ids) {
 
 
         int result = mContentResolver.delete(
@@ -198,10 +198,6 @@ public class SyncedFolderProvider extends Observable {
         );
 
         if (result > 0) {
-            for (SyncedFolder syncedFolder : syncedFolders) {
-                notifyFolderSyncObservers(syncedFolder);
-            }
-
             if (context != null) {
                 PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("legacyClean", true).apply();
             }
