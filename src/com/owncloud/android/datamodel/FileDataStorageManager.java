@@ -1627,6 +1627,7 @@ public class FileDataStorageManager {
         if (path != null) {
             Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
             intent.setData(Uri.fromFile(new File(path)));
+            intent.setPackage(MainApp.getAppContext().getPackageName())
             MainApp.getAppContext().sendBroadcast(intent);
         }
     }
