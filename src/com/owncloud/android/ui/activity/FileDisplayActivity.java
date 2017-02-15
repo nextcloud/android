@@ -93,6 +93,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
 
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -377,7 +379,7 @@ public class FileDisplayActivity extends HookActivity
             if (!stateWasRecovered) {
                 Log_OC.d(TAG, "Initializing Fragments in onAccountChanged..");
                 initFragmentsWithFile();
-                if (file.isFolder()) {
+                if (file.isFolder() && TextUtils.isEmpty(searchQuery)) {
                     startSyncFolderOperation(file, false);
                 }
 
@@ -614,7 +616,7 @@ public class FileDisplayActivity extends HookActivity
                 @Override
                 public void run() {
                     searchView.setIconified(false);
-                    searchView.setQuery(searchQuery, false);
+                    searchView.setQuery(searchQuery, true);
                     searchView.clearFocus();
                 }
             });
@@ -946,6 +948,10 @@ public class FileDisplayActivity extends HookActivity
 
         // refresh list of files
         refreshListOfFilesFragment();
+
+        if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
+            searchView.setQuery(searchQuery, true);
+        }
 
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
@@ -1706,43 +1712,44 @@ public class FileDisplayActivity extends HookActivity
 
         // the execution is slightly delayed to allow the activity get the window focus if it's being started
         // or if the method is called from a dialog that is being dismissed
-        getHandler().postDelayed(
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        if (hasWindowFocus()) {
-                            long currentSyncTime = System.currentTimeMillis();
-                            mSyncInProgress = true;
+        if (TextUtils.isEmpty(searchQuery)) {
+            getHandler().postDelayed(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            if (hasWindowFocus()) {
+                                long currentSyncTime = System.currentTimeMillis();
+                                mSyncInProgress = true;
 
-                            // perform folder synchronization
-                            RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
-                                    currentSyncTime,
-                                    false,
-                                    getFileOperationsHelper().isSharedSupported(),
-                                    ignoreETag,
-                                    getStorageManager(),
-                                    getAccount(),
-                                    getApplicationContext()
-                            );
-                            synchFolderOp.execute(
-                                    getAccount(),
-                                    MainApp.getAppContext(),
-                                    FileDisplayActivity.this,
-                                    null,
-                                    null
-                            );
+                                // perform folder synchronization
+                                RemoteOperation synchFolderOp = new RefreshFolderOperation(folder,
+                                        currentSyncTime,
+                                        false,
+                                        getFileOperationsHelper().isSharedSupported(),
+                                        ignoreETag,
+                                        getStorageManager(),
+                                        getAccount(),
+                                        getApplicationContext()
+                                );
+                                synchFolderOp.execute(
+                                        getAccount(),
+                                        MainApp.getAppContext(),
+                                        FileDisplayActivity.this,
+                                        null,
+                                        null
+                                );
 
-                            setIndeterminate(true);
+                                setIndeterminate(true);
 
-                            setBackgroundText();
+                                setBackgroundText();
 
-                        }   // else: NOTHING ; lets' not refresh when the user rotates the device but there is
-                        // another window floating over
-                    }
-                },
-                DELAY_TO_REQUEST_REFRESH_OPERATION_LATER
-        );
-
+                            }   // else: NOTHING ; lets' not refresh when the user rotates the device but there is
+                            // another window floating over
+                        }
+                    },
+                    DELAY_TO_REQUEST_REFRESH_OPERATION_LATER
+            );
+        }
     }
 
     private void requestForDownload(OCFile file) {
