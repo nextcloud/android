@@ -389,13 +389,13 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private void createMinFragments() {
-        /*OCFileListFragment listOfFiles = new OCFileListFragment();
+        OCFileListFragment listOfFiles = new OCFileListFragment();
         Bundle args = new Bundle();
         args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
         listOfFiles.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
-        transaction.commit();*/
+        transaction.commit();
     }
 
     private void initFragmentsWithFile() {
