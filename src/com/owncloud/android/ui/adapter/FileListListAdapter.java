@@ -56,8 +56,6 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Vector;
 
 
@@ -79,6 +77,7 @@ public class FileListListAdapter extends BaseAdapter {
     private ExtendedListFragmentInterface extendedListFragmentInterface;
 
     private FilesFilter mFilesFilter;
+    private OCFile currentDirectory;
 
     public FileListListAdapter(
             boolean justFolders,
@@ -284,7 +283,7 @@ public class FileListListAdapter extends BaseAdapter {
             AbsListView parentList = (AbsListView) parent;
             if (parentList.getChoiceMode() != AbsListView.CHOICE_MODE_NONE &&
                     parentList.getCheckedItemCount() > 0
-                ) {
+                    ) {
                 if (parentList.isItemChecked(position)) {
                     view.setBackgroundColor(mContext.getResources().getColor(
                             R.color.selected_item_background));
@@ -335,9 +334,9 @@ public class FileListListAdapter extends BaseAdapter {
                             }
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                     new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                    mContext.getResources(), 
-                                    thumbnail, 
-                                    task
+                                            mContext.getResources(),
+                                            thumbnail,
+                                            task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
                             task.execute(file);
@@ -387,7 +386,7 @@ public class FileListListAdapter extends BaseAdapter {
     /**
      * Change the adapted directory for a new one
      *
-     * @param directory                New folder to adapt. Can be NULL, meaning
+     * @param directory             New folder to adapt. Can be NULL, meaning
      *                              "no content to adapt".
      * @param updatedStorageManager Optional updated storage manager; used to replace
      *                              mStorageManager if is different (and not NULL)
@@ -409,6 +408,8 @@ public class FileListListAdapter extends BaseAdapter {
             }
             mFiles = FileStorageUtils.sortOcFolder(mFiles);
             mFilesAll.addAll(mFiles);
+
+            currentDirectory = directory;
         } else {
             mFiles = null;
             mFilesAll.clear();
@@ -420,8 +421,8 @@ public class FileListListAdapter extends BaseAdapter {
     /**
      * Filter for getting only the folders
      *
-     * @param files             Collection of files to filter
-     * @return                  Folders in the input
+     * @param files Collection of files to filter
+     * @return Folders in the input
      */
     public Vector<OCFile> getFolders(Vector<OCFile> files) {
         Vector<OCFile> ret = new Vector<>();
@@ -440,7 +441,7 @@ public class FileListListAdapter extends BaseAdapter {
 
         PreferenceManager.setSortOrder(mContext, order);
         PreferenceManager.setSortAscending(mContext, ascending);
-        
+
         FileStorageUtils.mSortOrder = order;
         FileStorageUtils.mSortAscending = ascending;
 
@@ -453,11 +454,11 @@ public class FileListListAdapter extends BaseAdapter {
         SparseBooleanArray checkedPositions = parentList.getCheckedItemPositions();
         ArrayList<OCFile> files = new ArrayList<>();
         Object item;
-        for (int i=0; i < checkedPositions.size(); i++) {
+        for (int i = 0; i < checkedPositions.size(); i++) {
             if (checkedPositions.valueAt(i)) {
                 item = getItem(checkedPositions.keyAt(i));
                 if (item != null) {
-                    files.add((OCFile)item);
+                    files.add((OCFile) item);
                 }
             }
         }
@@ -481,16 +482,14 @@ public class FileListListAdapter extends BaseAdapter {
             if (!TextUtils.isEmpty(constraint)) {
                 for (int i = 0; i < mFilesAll.size(); i++) {
                     OCFile currentFile = mFilesAll.get(i);
-                    if (currentFile.getFileName().toLowerCase().contains(constraint) &&
+                    if (currentFile.getRemotePath().startsWith(currentDirectory.getRemotePath()) &&
+                            currentFile.getFileName().toLowerCase().contains(constraint) &&
                             !ocFileVector.contains(currentFile)) {
                         ocFileVector.add(currentFile);
                     }
                 }
-            } else {
-                Set<OCFile> unique = new HashSet<>();
-                unique.addAll(mFilesAll);
-                ocFileVector.addAll(unique);
             }
+
             results.values = ocFileVector;
             results.count = ocFileVector.size();
 
@@ -503,6 +502,9 @@ public class FileListListAdapter extends BaseAdapter {
             mFiles = new Vector<>();
             if (ocFiles != null && ocFiles.size() > 0) {
                 mFiles.addAll(ocFiles);
+                if (!mShowHiddenFiles) {
+                    mFiles = filterHiddenFiles(mFiles);
+                }
                 mFiles = FileStorageUtils.sortOcFolder(mFiles);
             }
 
@@ -516,8 +518,8 @@ public class FileListListAdapter extends BaseAdapter {
     /**
      * Filter for hidden files
      *
-     * @param files             Collection of files to filter
-     * @return                  Non-hidden files
+     * @param files Collection of files to filter
+     * @return Non-hidden files
      */
     public Vector<OCFile> filterHiddenFiles(Vector<OCFile> files) {
         Vector<OCFile> ret = new Vector<>();

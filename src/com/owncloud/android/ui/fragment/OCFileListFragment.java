@@ -593,7 +593,7 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
             }   // exit is granted because storageManager.getFileByPath("/") never returns null
             mFile = parentDir;
 
-            listDirectory(mFile, MainApp.isOnlyOnDevice());
+            listDirectory(mFile, MainApp.isOnlyOnDevice(), false);
 
             onRefresh(false);
 
@@ -611,7 +611,7 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
         if (file != null) {
             if (file.isFolder()) {
                 // update state and view of this fragment
-                listDirectory(file, MainApp.isOnlyOnDevice());
+                listDirectory(file, MainApp.isOnlyOnDevice(), false);
                 // then, notify parent activity to let it update its state and view
                 mContainerActivity.onBrowsedDownTo(file);
                 // save index and top position
@@ -749,12 +749,12 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
     /**
      * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean)} with a null parameter
      */
-    public void listDirectory(boolean onlyOnDevice){
-        listDirectory(null, onlyOnDevice);
+    public void listDirectory(boolean onlyOnDevice, boolean fromSearch){
+        listDirectory(null, onlyOnDevice, fromSearch);
     }
 
     public void refreshDirectory(){
-        listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice());
+        listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
     /**
@@ -764,7 +764,7 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
      *
      * @param directory File to be listed
      */
-    public void listDirectory(OCFile directory, boolean onlyOnDevice) {
+    public void listDirectory(OCFile directory, boolean onlyOnDevice, boolean fromSearch) {
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager != null) {
 
@@ -785,6 +785,11 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
             if (!directory.isFolder()) {
                 Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
                 directory = storageManager.getFileById(directory.getParentId());
+            }
+
+            if (searchView != null && !searchView.isIconified() && !fromSearch) {
+                searchView.setQuery("", false);
+                searchView.onActionViewCollapsed();
             }
 
             mAdapter.swapDirectory(directory, storageManager, onlyOnDevice);
