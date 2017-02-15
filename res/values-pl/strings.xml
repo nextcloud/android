@@ -20,7 +20,7 @@
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_settings">Ustawienia</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
-    <string name="drawer_quota">%1$s z %2$s zajęte</string>
+    <string name="drawer_quota">Użyto %1$s z %2$s</string>
 	<string name="drawer_close">Zamknij</string>
     <string name="drawer_open">Otwórz</string>
     <string name="prefs_category_general">Ogólne</string>
@@ -32,7 +32,7 @@
     <string name="prefs_instant_upload">Natychmiastowa wysyłka obrazów</string>
     <string name="prefs_instant_upload_summary">Wysyłaj od razu zdjęcia zrobione aparatem</string>
     <string name="prefs_instant_video_upload">Natychmiastowa wysyłka wideo</string>
-    <string name="prefs_instant_video_upload_summary">Wysyłaj od razu filmy nakręcone aparatem</string>
+    <string name="prefs_instant_video_upload_summary">Wysyłaj od razu filmy nagrane aparatem</string>
     <string name="prefs_log_title">Włącz logowanie</string>
     <string name="prefs_log_summary">To jest używane do logowania problemów</string>
     <string name="prefs_log_title_history">Historia logowania</string>
@@ -42,13 +42,13 @@
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVdroid (v1.3.0+) dla obecnego konta</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera dla konta nie mógł został przekonwertowany do DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Brak aplikacji Google Play lub F-Droida</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów i kalendarza została skonfigurowana</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów i kalendarza została skonfigurowana pomyślnie</string>
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_feedback">Opinie</string>
     <string name="prefs_imprint">Stopka</string>
     <string name="prefs_remember_last_share_location">Zapamiętaj lokalizację udostępnienia</string>
-    <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wgrywania</string>
+    <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wysyłania</string>
 
 	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
 	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\\nŚciągnij tutaj: %2$s</string>
