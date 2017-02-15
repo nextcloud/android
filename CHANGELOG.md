@@ -1,3 +1,11 @@
+## 2017-02-16
+- Added fingerprint support (Flole998/master) [https://github.com/nextcloud/android/pull/624] added
+- Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] added
+
+- Added fingerprint support (Flole998/master) [https://github.com/nextcloud/android/pull/624] updated
+- Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] updated
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
 ## 2017-02-15
 
 -Beta branch was updated successfully] updated
