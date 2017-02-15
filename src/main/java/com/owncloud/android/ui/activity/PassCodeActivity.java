@@ -431,71 +431,50 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         objectAnimator.start();
     }
 
-    private void setButtonsVisibility(boolean visible) {
+    private void showKeypad() {
         int duration = mButtonVisibilityPrev == 0 ? 0 : 500;
-        if (visible) {
-            if (mButtonVisibilityPrev != 1) {
-                mButtonVisibilityPrev = 1;
-                if (ENABLE_SUFFLE_BUTTONS) {
-                    List<Integer> list = Arrays.asList(mButtonsIDListShuffle);
-                    Collections.shuffle(list);
-                    mButtonsIDListShuffle = list.toArray(new Integer[list.size()]);
-                }
-                KeypadParam keypadParam = getKeypadParam();
-                for (int i = 0; i < mButtonsList.length; i++) {
-                    AppCompatButton b = mButtonsList[i];
-                    buttonAnimation(b, true, duration);
-                    b.setClickable(true);
-                    if (!mCtrlKeyboardMode) {
-                        int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
-                        String s;
-                        if ((j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) || j == 0 || keypadParam.subtext) {
-                            s = String.format(mButtonFormat2, mButtonsMainStr[j], mButtonsSubStr[j]);
-                        } else {
-                            s = String.format(mButtonFormat1, mButtonsMainStr[j]);
-                        }
-                        b.setText(Html.fromHtml(s));
-                        b.setOnClickListener(new ButtonClicked(mPassCodeEditText, j));
-                        if (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) {
-                            b.setLongClickable(true);
-                            b.setOnLongClickListener(new OnLongClickListener() {
-                                @Override
-                                public boolean onLongClick(View v) {
-                                    mSoftKeyboardMode = !mSoftKeyboardMode;
-                                    setupKeyboard();
-                                    return true;
-                                }
-                            });
-                        }
-                        if (j == 0) {
-                            b.setLongClickable(true);
-                            b.setOnLongClickListener(new OnLongClickListener() {
-                                @Override
-                                public boolean onLongClick(View v) {
-                                    mCtrlKeyboardMode = true;
-                                    mSoftKeyboardMode = false;
-                                    setButtonsVisibility(false);
-                                    setupKeyboard();
-                                    return true;
-                                }
-                            });
-                        }
-                    } else {
-                        b.setText(mButtonsCtrlStr[i]);
-                        b.setOnClickListener(new CtrlButtonClicked(i, this, keypadParam));
-                    }
-                }
+        if (ENABLE_SUFFLE_BUTTONS) {
+            List<Integer> list = Arrays.asList(mButtonsIDListShuffle);
+            Collections.shuffle(list);
+            mButtonsIDListShuffle = list.toArray(new Integer[list.size()]);
+        }
+        KeypadParam keypadParam = getKeypadParam();
+        for (int i = 0; i < mButtonsList.length; i++) {
+            AppCompatButton b = mButtonsList[i];
+            buttonAnimation(b, true, duration);
+            b.setClickable(true);
+            int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
+            String s;
+            if ((j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) || j == 0 || keypadParam.subtext) {
+                s = String.format(mButtonFormat2, mButtonsMainStr[j], mButtonsSubStr[j]);
+            } else {
+                s = String.format(mButtonFormat1, mButtonsMainStr[j]);
             }
-        } else {
-            if (mButtonVisibilityPrev != 2) {
-                mButtonVisibilityPrev = 2;
-                for (AppCompatButton b: mButtonsList) {
-                    buttonAnimation(b, false, duration);
-                    b.setClickable(false);
-                    b.setOnClickListener(null);
-                    b.setLongClickable(false);
-                    b.setOnLongClickListener(null);
-                }
+            b.setText(Html.fromHtml(s));
+            b.setOnClickListener(new ButtonClicked(mPassCodeEditText, j));
+            if (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) {
+                b.setLongClickable(true);
+                b.setOnLongClickListener(new OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mSoftKeyboardMode = !mSoftKeyboardMode;
+                        setupKeyboard();
+                        return true;
+                    }
+                });
+            }
+            if (j == 0) {
+                b.setLongClickable(true);
+                b.setOnLongClickListener(new OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        mCtrlKeyboardMode = true;
+                        mSoftKeyboardMode = false;
+                        setButtonsVisibility(false);
+                        setupKeyboard();
+                        return true;
+                    }
+                });
             }
         }
     }
@@ -504,6 +483,44 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     protected void onResume() {
         super.onResume();
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
+    }
+
+    private void showCtrlKeypad() {
+        int duration = mButtonVisibilityPrev == 0 ? 0 : 500;
+        KeypadParam keypadParam = getKeypadParam();
+        for (int i = 0; i < mButtonsList.length; i++) {
+            AppCompatButton b = mButtonsList[i];
+            buttonAnimation(b, true, duration);
+            b.setClickable(true);
+            b.setText(mButtonsCtrlStr[i]);
+            b.setOnClickListener(new CtrlButtonClicked(i, this, keypadParam));
+        }
+    }
+
+    private void hideKeypad() {
+        int duration = mButtonVisibilityPrev == 0 ? 0 : 500;
+        for (AppCompatButton b: mButtonsList) {
+            buttonAnimation(b, false, duration);
+            b.setClickable(false);
+            b.setOnClickListener(null);
+            b.setLongClickable(false);
+            b.setOnLongClickListener(null);
+        }
+    }
+    
+    private void setButtonsVisibility(boolean visible) {
+        if (visible && mButtonVisibilityPrev != 1) {
+            if (!mCtrlKeyboardMode) {
+                showKeypad();
+            } else {
+                showCtrlKeypad();
+            }
+            mButtonVisibilityPrev = 1;
+        }
+        if (!visible && mButtonVisibilityPrev != 2) {
+            hideKeypad();
+            mButtonVisibilityPrev = 2;
+        }
     }
 
     /**
