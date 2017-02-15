@@ -59,6 +59,10 @@ import com.owncloud.android.R;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
@@ -429,28 +433,28 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
     private void showKeypad() {
         int duration = mButtonVisibilityPrev == 0 ? 0 : 500;
-/*
         if (ENABLE_SUFFLE_BUTTONS) {
             List<Integer> list = Arrays.asList(mButtonsIDListShuffle);
             Collections.shuffle(list);
             mButtonsIDListShuffle = list.toArray(new Integer[list.size()]);
         }
-*/
         KeypadParam keypadParam = getKeypadParam();
         for (int i = 0; i < mButtonsList.length; i++) {
             AppCompatButton b = mButtonsList[i];
             buttonAnimation(b, true, duration);
             b.setClickable(true);
             int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
+            boolean switch_soft_keyboard = (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD);
+            boolean switch_ctrl_keyboard = (j == 0);
             String s;
-            if ((j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) || j == 0 || keypadParam.subtext) {
+            if (keypadParam.subtext || switch_ctrl_keyboard || switch_soft_keyboard) {
                 s = String.format(mButtonFormat2, mButtonsMainStr[j], mButtonsSubStr[j]);
             } else {
                 s = String.format(mButtonFormat1, mButtonsMainStr[j]);
             }
             b.setText(Html.fromHtml(s));
             b.setOnClickListener(new ButtonClicked(mPassCodeEditText, j));
-            if (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD) {
+            if (switch_soft_keyboard) {
                 b.setLongClickable(true);
                 b.setOnLongClickListener(new OnLongClickListener() {
                     @Override
@@ -461,7 +465,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                     }
                 });
             }
-            if (j == 0) {
+            if (switch_ctrl_keyboard) {
                 b.setLongClickable(true);
                 b.setOnLongClickListener(new OnLongClickListener() {
                     @Override
