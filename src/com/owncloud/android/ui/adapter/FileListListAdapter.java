@@ -48,6 +48,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.interfaces.ExtendedListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -73,13 +74,16 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
+    private ExtendedListFragmentInterface extendedListFragmentInterface;
 
     public FileListListAdapter(
             boolean justFolders,
             Context context,
-            ComponentsGetter transferServiceGetter
+            ComponentsGetter transferServiceGetter,
+            ExtendedListFragmentInterface extendedListFragmentInterface
     ) {
 
+        this.extendedListFragmentInterface = extendedListFragmentInterface;
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
@@ -476,6 +480,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
         }
         mFiles = FileStorageUtils.sortOcFolder(mFiles);
         notifyDataSetChanged();
+        extendedListFragmentInterface.finishedFiltering();
     }
 
     /**
