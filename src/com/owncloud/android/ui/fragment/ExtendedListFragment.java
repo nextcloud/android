@@ -20,6 +20,7 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.animation.LayoutTransition;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
@@ -54,8 +55,6 @@ import com.owncloud.android.ui.adapter.FilterableListAdapter;
 import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
-
-import static com.owncloud.android.R.id.searchView;
 
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
@@ -179,6 +178,8 @@ public class ExtendedListFragment extends Fragment
             }
         });
 
+        LinearLayout searchBar = (LinearLayout) searchView.findViewById(R.id.search_bar);
+        searchBar.setLayoutTransition(new LayoutTransition());
     }
 
     public boolean onQueryTextChange(final String query) {
@@ -381,6 +382,11 @@ public class ExtendedListFragment extends Fragment
 
     @Override
     public void onRefresh() {
+
+        if (searchView != null) {
+            searchView.onActionViewCollapsed();
+        }
+
         mRefreshListLayout.setRefreshing(false);
         mRefreshGridLayout.setRefreshing(false);
         mRefreshEmptyLayout.setRefreshing(false);
@@ -389,6 +395,7 @@ public class ExtendedListFragment extends Fragment
             mOnRefreshListener.onRefresh();
         }
     }
+
     public void setOnRefreshListener(OnEnforceableRefreshListener listener) {
         mOnRefreshListener = listener;
     }
@@ -489,7 +496,6 @@ public class ExtendedListFragment extends Fragment
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
         // Colors in animations
         refreshLayout.setColorSchemeResources(R.color.color_accent, R.color.primary, R.color.primary_dark);
-
         refreshLayout.setOnRefreshListener(this);
     }
 
