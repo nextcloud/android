@@ -59,10 +59,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
@@ -433,11 +429,13 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
     private void showKeypad() {
         int duration = mButtonVisibilityPrev == 0 ? 0 : 500;
+/*
         if (ENABLE_SUFFLE_BUTTONS) {
             List<Integer> list = Arrays.asList(mButtonsIDListShuffle);
             Collections.shuffle(list);
             mButtonsIDListShuffle = list.toArray(new Integer[list.size()]);
         }
+*/
         KeypadParam keypadParam = getKeypadParam();
         for (int i = 0; i < mButtonsList.length; i++) {
             AppCompatButton b = mButtonsList[i];
