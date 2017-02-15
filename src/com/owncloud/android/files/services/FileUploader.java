@@ -1124,6 +1124,7 @@ public class FileUploader extends Service
     private void sendBroadcastUploadsAdded() {
         Intent start = new Intent(getUploadsAddedMessage());
         // nothing else needed right now
+        start.setPackage(getPackageName());
         sendStickyBroadcast(start);
     }
 
@@ -1144,6 +1145,7 @@ public class FileUploader extends Service
         start.putExtra(EXTRA_OLD_FILE_PATH, upload.getOriginalStoragePath());
         start.putExtra(ACCOUNT_NAME, upload.getAccount().name);
 
+        start.setPackage(getPackageName());
         sendStickyBroadcast(start);
     }
 
@@ -1177,7 +1179,7 @@ public class FileUploader extends Service
         if (unlinkedFromRemotePath != null) {
             end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath);
         }
-
+        end.setPackage(getPackageName());
         sendStickyBroadcast(end);
     }
 
