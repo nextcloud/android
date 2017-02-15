@@ -29,6 +29,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -50,6 +51,7 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.adapter.FilterableListAdapter;
@@ -58,6 +60,8 @@ import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
+
+import static android.R.attr.delay;
 
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
@@ -103,7 +107,7 @@ public class ExtendedListFragment extends Fragment
 
     private BaseAdapter mAdapter;
 
-    private SearchView searchView;
+    protected SearchView searchView;
     private Handler handler = new Handler();
 
     protected void setListAdapter(BaseAdapter listAdapter) {
@@ -198,34 +202,41 @@ public class ExtendedListFragment extends Fragment
     private void performSearch(final String query, boolean isSubmit) {
         handler.removeCallbacksAndMessages(null);
 
-        int delay = 500;
+        if (!TextUtils.isEmpty(query)) {
 
-        if (isSubmit) {
-            delay = 0;
+            int delay = 500;
+
+            if (isSubmit) {
+                delay = 0;
+            }
+
+            if (mAdapter != null && mAdapter instanceof FileListListAdapter) {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
+                        fileListListAdapter.getFilter().filter(query);
+                    }
+                }, delay);
+            } else if (mAdapter != null && mAdapter instanceof LocalFileListAdapter) {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+                        localFileListAdapter.filter(query);
+                    }
+                }, delay);
+            }
+
+            if (searchView != null && delay == 0) {
+                searchView.clearFocus();
+            }
+        } else {
+            if (getActivity() != null) {
+                ((FileDisplayActivity) getActivity()).refreshListOfFilesFragment(true);
+
+            }
         }
-
-        if (mAdapter != null && mAdapter instanceof FileListListAdapter) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
-                    fileListListAdapter.getFilter().filter(query);
-                }
-            }, delay);
-        } else if (mAdapter != null && mAdapter instanceof LocalFileListAdapter) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
-                    localFileListAdapter.filter(query);
-                }
-            }, delay);
-        }
-
-        if (searchView != null && delay == 0) {
-            searchView.clearFocus();
-        }
-
 
     }
 

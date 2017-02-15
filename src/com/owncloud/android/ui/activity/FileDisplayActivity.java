@@ -402,7 +402,7 @@ public class FileDisplayActivity extends HookActivity
             /// First fragment
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (listOfFiles != null && TextUtils.isEmpty(searchQuery)) {
-                listOfFiles.listDirectory(getCurrentDir(), MainApp.isOnlyOnDevice());
+                listOfFiles.listDirectory(getCurrentDir(), MainApp.isOnlyOnDevice(), false);
             } else {
                 Log_OC.e(TAG, "Still have a chance to lose the initializacion of list fragment >(");
             }
@@ -528,10 +528,10 @@ public class FileDisplayActivity extends HookActivity
         updateActionBarTitleAndHomeButton(null);
     }
 
-    protected void refreshListOfFilesFragment() {
+    public void refreshListOfFilesFragment(boolean fromSearch) {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
-            fileListFragment.listDirectory(MainApp.isOnlyOnDevice());
+            fileListFragment.listDirectory(MainApp.isOnlyOnDevice(), fromSearch);
         }
     }
 
@@ -944,10 +944,11 @@ public class FileDisplayActivity extends HookActivity
         super.onResume();
 
         // refresh list of files
-        refreshListOfFilesFragment();
 
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
             searchView.setQuery(searchQuery, true);
+        } else {
+            refreshListOfFilesFragment(false);
         }
 
         // Listen for sync messages
@@ -1066,7 +1067,7 @@ public class FileDisplayActivity extends HookActivity
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir,
-                                    MainApp.isOnlyOnDevice());
+                                    MainApp.isOnlyOnDevice(), false);
                                 }
                             }
                             setFile(currentFile);
@@ -1165,7 +1166,7 @@ public class FileDisplayActivity extends HookActivity
                     String linkedToRemotePath =
                             intent.getStringExtra(FileUploader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                        refreshListOfFilesFragment();
+                        refreshListOfFilesFragment(false);
                     }
                 }
 
@@ -1258,7 +1259,7 @@ public class FileDisplayActivity extends HookActivity
                     String linkedToRemotePath =
                             intent.getStringExtra(FileDownloader.EXTRA_LINKED_TO_PATH);
                     if (linkedToRemotePath == null || isAscendant(linkedToRemotePath)) {
-                        refreshListOfFilesFragment();
+                        refreshListOfFilesFragment(false);
                     }
                     refreshSecondFragment(
                             intent.getAction(),
@@ -1311,7 +1312,7 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment listOfFiles = getListOfFilesFragment();
         if (listOfFiles != null) {  // should never be null, indeed
             OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
-            listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice());
+            listOfFiles.listDirectory(root, MainApp.isOnlyOnDevice(), false);
             setFile(listOfFiles.getCurrentFile());
             startSyncFolderOperation(root, false);
         }
@@ -1402,7 +1403,7 @@ public class FileDisplayActivity extends HookActivity
             // getFileDownloadBinder() - THIS IS A MESS
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (listOfFiles != null) {
-                listOfFiles.listDirectory(MainApp.isOnlyOnDevice());
+                listOfFiles.listDirectory(MainApp.isOnlyOnDevice(), false);
             }
             FileFragment secondFragment = getSecondFragment();
             if (secondFragment instanceof FileDetailFragment) {
@@ -1503,7 +1504,7 @@ public class FileDisplayActivity extends HookActivity
                 cleanSecondFragment();
             }
             if (getStorageManager().getFileById(removedFile.getParentId()).equals(getCurrentDir())) {
-                refreshListOfFilesFragment();
+                refreshListOfFilesFragment(false);
             }
             invalidateOptionsMenu();
         } else {
@@ -1525,7 +1526,7 @@ public class FileDisplayActivity extends HookActivity
     private void onMoveFileOperationFinish(MoveFileOperation operation,
                                            RemoteOperationResult result) {
         if (result.isSuccess()) {
-            refreshListOfFilesFragment();
+            refreshListOfFilesFragment(false);
         } else {
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this,
@@ -1548,7 +1549,7 @@ public class FileDisplayActivity extends HookActivity
      */
     private void onCopyFileOperationFinish(CopyFileOperation operation, RemoteOperationResult result) {
         if (result.isSuccess()) {
-            refreshListOfFilesFragment();
+            refreshListOfFilesFragment(false);
         } else {
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this,
@@ -1601,7 +1602,7 @@ public class FileDisplayActivity extends HookActivity
             }
 
             if (getStorageManager().getFileById(renamedFile.getParentId()).equals(getCurrentDir())) {
-                refreshListOfFilesFragment();
+                refreshListOfFilesFragment(false);
             }
 
         } else {
@@ -1638,7 +1639,7 @@ public class FileDisplayActivity extends HookActivity
     private void onCreateFolderOperationFinish(CreateFolderOperation operation,
                                                RemoteOperationResult result) {
         if (result.isSuccess()) {
-            refreshListOfFilesFragment();
+            refreshListOfFilesFragment(false);
         } else {
             try {
                 Toast msg = Toast.makeText(FileDisplayActivity.this,
@@ -1658,7 +1659,7 @@ public class FileDisplayActivity extends HookActivity
      */
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
-        refreshListOfFilesFragment();
+        refreshListOfFilesFragment(false);
         FileFragment details = getSecondFragment();
         if (details instanceof FileDetailFragment &&
                 file.equals(details.getFile())) {
