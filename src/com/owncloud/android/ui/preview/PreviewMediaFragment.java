@@ -192,7 +192,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             }
         }
         else {
-            file = (OCFile) savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
+            file = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
             setFile(file);
             mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
             mSavedPlaybackPosition =
@@ -342,15 +342,6 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
             item.setVisible(false);
             item.setEnabled(false);
         }
-
-
-        // additional restriction for this fragment
-        item = menu.findItem(R.id.action_search);
-        if (item != null) {
-            item.setVisible(false);
-            item.setEnabled(false);
-        }
-    }
 
 
         // additional restriction for this fragment

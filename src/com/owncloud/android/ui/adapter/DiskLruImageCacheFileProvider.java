@@ -34,6 +34,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -42,6 +43,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class DiskLruImageCacheFileProvider extends ContentProvider {
+    private static String TAG = FileDataStorageManager.class.getSimpleName();
     public static final String AUTHORITY = "org.nextcloud.beta.imageCache.provider";
 
     @Override
