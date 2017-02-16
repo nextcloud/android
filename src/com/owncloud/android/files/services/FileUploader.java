@@ -109,7 +109,7 @@ public class FileUploader extends Service
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
     public static final String KEY_MIME_TYPE = "MIME_TYPE";
 
-    private Notification notification;
+    private Notification mNotification;
 
     /**
      * Call this Service with only this Intent key if all pending uploads are to be retried.
@@ -351,7 +351,7 @@ public class FileUploader extends Service
 
         mUploadsStorageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
 
-        notification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
+        mNotification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
                 getResources().getString(R.string.app_name))
                 .build();
 
@@ -408,7 +408,7 @@ public class FileUploader extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
-        startForeground(411, notification);
+        startForeground(411, mNotification);
 
         boolean retry = intent.getBooleanExtra(KEY_RETRY, false);
         AbstractList<String> requestedUploads = new Vector<String>();

@@ -93,19 +93,19 @@ public class FileAlterationMagicListener implements FileAlterationListener {
         if (file != null) {
 
             String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
-            Long dateFolder = file.lastModified();
-            final Locale current = context.getResources().getConfiguration().locale;
+            Long lastModificationTime = file.lastModified();
+            final Locale currentLocale = context.getResources().getConfiguration().locale;
 
             if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".equalsIgnoreCase(mimetypeString)) {
                 try {
                     ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
-                    if (!TextUtils.isEmpty(exifInterface.getAttribute(ExifInterface.TAG_DATETIME))) {
-                        String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+                    String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+                    if (!TextUtils.isEmpty(exifDate)) {
                         ParsePosition pos = new ParsePosition(0);
-                        SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", current);
+                        SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale);
                         sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
-                        Date datetime = sFormatter.parse(exifDate, pos);
-                        dateFolder = datetime.getTime();
+                        Date dateTime = sFormatter.parse(exifDate, pos);
+                        lastModificationTime = dateTime.getTime();
                     }
 
                 } catch (IOException e) {
@@ -114,7 +114,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
             }
 
 
-            final Long finalDateFolder = dateFolder;
+            final Long finalLastModificationTime = lastModificationTime;
 
                 final Runnable runnable = new Runnable() {
                 @Override
@@ -122,9 +122,9 @@ public class FileAlterationMagicListener implements FileAlterationListener {
                     PersistableBundle bundle = new PersistableBundle();
                     bundle.putString(SyncedFolderJobService.LOCAL_PATH, file.getAbsolutePath());
                     bundle.putString(SyncedFolderJobService.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
-                            current,
+                            currentLocale,
                             syncedFolder.getRemotePath(), file.getName(),
-                            finalDateFolder,
+                            finalLastModificationTime,
                             syncedFolder.getSubfolderByDate()));
                     bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
                     bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
@@ -137,7 +137,8 @@ public class FileAlterationMagicListener implements FileAlterationListener {
                             new ComponentName(context, SyncedFolderJobService.class))
                             .setRequiresCharging(syncedFolder.getChargingOnly())
                             .setMinimumLatency(10000)
-                            .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED : JobInfo.NETWORK_TYPE_ANY)
+                            .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobInfo.NETWORK_TYPE_UNMETERED :
+                                    JobInfo.NETWORK_TYPE_ANY)
                             .setExtras(bundle)
                             .setPersisted(true)
                             .build();
