@@ -114,31 +114,33 @@ public class MainApp extends Application {
             Log_OC.d("Debug", "start logging");
         }
 
-        // clean broken synced folder entries
-        if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("legacyClean", false)) {
-            SyncedFolderProvider mProvider = new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+        // previous versions of application created broken entries in the syncedfolderprovider
+        // database, and this cleans all that and leaves 1 (newest) entry per synced folder
 
-            List<SyncedFolder> syncedFolderList = mProvider.getSyncedFolders();
-            Map<Pair<String, String>, Pair<Long, Boolean>> syncedFolders = new HashMap<>();
+        if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("legacyClean", false)) {
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+
+            List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
+            Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
             ArrayList<Long> ids = new ArrayList<>();
             for (SyncedFolder syncedFolder : syncedFolderList) {
                 Pair<String, String> checkPair = new Pair(syncedFolder.getAccount(), syncedFolder.getLocalPath());
                 if (syncedFolders.containsKey(checkPair)) {
-                    if (syncedFolder.getId() > syncedFolders.get(checkPair).first) {
-                        syncedFolders.put(checkPair, new Pair(syncedFolder.getId(), true));
+                    if (syncedFolder.getId() > syncedFolders.get(checkPair)) {
+                        syncedFolders.put(checkPair, syncedFolder.getId());
                     }
                 } else {
-                    syncedFolders.put(checkPair, new Pair(syncedFolder.getId(), false));
+                    syncedFolders.put(checkPair, syncedFolder.getId());
                 }
             }
 
-            for (Pair<Long, Boolean> pair : syncedFolders.values()) {
-                ids.add(pair.first);
+            for (Long idValue : syncedFolders.values()) {
+                ids.add(idValue);
             }
 
 
             if (ids.size() > 0) {
-                mProvider.deleteOtherSyncedFolders(mContext, ids);
+                syncedFolderProvider.deleteOtherSyncedFolders(mContext, ids);
             } else {
                 PreferenceManager.getDefaultSharedPreferences(mContext).edit().putBoolean("legacyClean", true).apply();
             }
