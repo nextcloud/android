@@ -57,7 +57,7 @@
     <string name="auth_host_url">Adresa servera https://...</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_password">Heslo</string>
-    <string name="auth_register">Ešte nemáte server? \\nKliknite sem pre jeho získanie od poskytovateľa</string>
+    <string name="auth_register">Ešte nemáte server? \nKliknite sem pre jeho získanie od poskytovateľa</string>
     <string name="sync_string_files">Súbory</string>
     <string name="setup_btn_connect">Pripojiť</string>
     <string name="uploader_btn_upload_text">Nahrať</string>
@@ -114,7 +114,7 @@
     <string name="about_title">O</string>
     <string name="change_password">Zmeniť heslo</string>
     <string name="delete_account">Odstrániť účet</string>
-    <string name="delete_account_warning">Zmazanie účtu %s?\\n\\nZmazanie nebude možné vrátiť späť.</string>
+    <string name="delete_account_warning">Zmazanie účtu %s?\n\nZmazanie nebude možné vrátiť späť.</string>
     <string name="create_account">Vytvoriť účet</string>
     <string name="upload_chooser_title">Odoslať z ...</string>
     <string name="uploader_info_dirname">Názov priečinka</string>
@@ -458,7 +458,7 @@
     <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_sharee_unavailable">Je nám ľúto, verzia vášho servera neumožňuje sprístupňovanie obsahu používateľom alebo skupinám.
-\\nProsím, obráťte sa na svojho správcu</string>
+\nProsím, obráťte sa na svojho správcu</string>
     <string name="share_privilege_can_share">môže sprístupniť</string>
     <string name="share_privilege_can_edit">môže upraviť</string>
     <string name="share_privilege_can_edit_create">vytvoriť</string>
@@ -499,7 +499,7 @@
     <string name="folder_sync_no_results">Neboli nájdené žiadne multimediálne priečinky.</string>
     <string name="folder_sync_preferences">Nastavenia automatického nahratia</string>
     <string name="folder_sync_settings">Nastavenia</string>
-    <string name="folder_sync_new_info">Okamžité nahrávanie bolo kompletne prepracované. Prezrite si prosím hlavné menu a znovu nastavte automatické nahrávanie. Ospravedlňujeme sa za vzniknuté problémy.\\n\\nUžite si nové, rozšírene možnosti automatického nahrávania!</string>
+    <string name="folder_sync_new_info">Okamžité nahrávanie bolo kompletne prepracované. Prezrite si prosím hlavné menu a znovu nastavte automatické nahrávanie. Ospravedlňujeme sa za vzniknuté problémy.\n\nUžite si nové, rozšírene možnosti automatického nahrávania!</string>
     <string name="folder_sync_preferences_folder_path">Pre %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d vybraný</item>
