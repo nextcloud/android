@@ -97,7 +97,7 @@ public class FileDownloader extends Service
     private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
 
-    private Notification notification;
+    private Notification mNotification;
 
     public static String getDownloadAddedMessage() {
         return FileDownloader.class.getName() + DOWNLOAD_ADDED_MESSAGE;
@@ -122,7 +122,7 @@ public class FileDownloader extends Service
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileDownloaderBinder();
 
-        notification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
+        mNotification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
                 getResources().getString(R.string.app_name))
                 .build();
 
@@ -162,7 +162,7 @@ public class FileDownloader extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
-        startForeground(412, notification);
+        startForeground(412, mNotification);
 
         if (!intent.hasExtra(EXTRA_ACCOUNT) ||
                 !intent.hasExtra(EXTRA_FILE)

@@ -14,8 +14,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- * Modified a bit by Mario Danic
+ * Original source code:
+ * https://github.com/apache/commons-io/blob/master/src/main/java/org/apache/commons/io/monitor/FileAlterationObserver.java
+ *
+ * Modified by Mario Danic
  * Changes are Copyright (C) 2017 Mario Danic
+ * Copyright (C) 2017 Nextcloud GmbH
  *
  * Those changes are under the following licence:
  *
@@ -170,7 +174,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
     }
 
     /**
-     * Check whether the file and its chlidren have been created, modified or deleted.
+     * Check whether the file and its children have been created, modified or deleted.
      */
     public void checkAndNotify() {
 
