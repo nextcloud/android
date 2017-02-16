@@ -159,7 +159,6 @@ public class FileDisplayActivity extends HookActivity
     private MediaServiceBinder mMediaServiceBinder =  null;
     private MediaServiceConnection mMediaServiceConnection = null;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
