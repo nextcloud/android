@@ -255,7 +255,7 @@ public class FileDisplayActivity extends HookActivity
      * Opens a pop up info for the new instant upload and disabled the old instant upload.
      */
     private void upgradeNotificationForInstantUpload() {
-        // check for Android 5+ if legacy instant upload is activated --> disable + show info
+        // check for Android 6+ if legacy instant upload is activated --> disable + show info
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 (PreferenceManager.instantPictureUploadEnabled(this) ||
                         PreferenceManager.instantPictureUploadEnabled(this))) {
