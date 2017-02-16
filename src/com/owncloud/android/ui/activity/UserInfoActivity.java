@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Mario Danic
+ * @author Andy Scherzinger
  * Copyright (C) 2017 Mario Danic
+ * Copyright (C) 2017 Andy Scherzinger
  * Copyright (C) 2017 Nextcloud GmbH.
  *
  * This program is free software: you can redistribute it and/or modify
@@ -62,7 +64,6 @@ import butterknife.Unbinder;
 /**
  * This Activity presents the user information.
  */
-
 public class UserInfoActivity extends FileActivity {
     private static final String TAG = UserInfoActivity.class.getSimpleName();
 
@@ -72,50 +73,65 @@ public class UserInfoActivity extends FileActivity {
     private static final int KEY_DELETE_CODE = 101;
 
     @BindView(R.id.empty_list_view)
-    public LinearLayout multiListContainer;
+    public LinearLayout emptyContentContainer;
+
     @BindView(R.id.empty_list_view_text)
-    public TextView multiListMessage;
+    public TextView emptyContentMessage;
+
     @BindView(R.id.empty_list_view_headline)
-    public TextView multiListHeadline;
+    public TextView emptyContentHeadline;
+
     @BindView(R.id.empty_list_icon)
-    public ImageView multiListIcon;
+    public ImageView emptyContentIcon;
+
     @BindView(R.id.user_info_view)
     public LinearLayout userInfoView;
+
     @BindView(R.id.user_icon)
     public ImageView avatar;
+
     @BindView(R.id.drawer_username)
     public TextView userName;
+
     @BindView(R.id.drawer_username_full)
     public TextView fullName;
 
     @BindView(R.id.phone_container)
     public View mPhoneNumberContainer;
+
     @BindView(R.id.phone_number)
     public TextView mPhoneNumberTextView;
+
     @BindView(R.id.phone_icon)
     public ImageView mPhoneNumberIcon;
 
     @BindView(R.id.email_container)
     public View mEmailContainer;
+
     @BindView(R.id.email_address)
     public TextView mEmailAddressTextView;
+
     @BindView(R.id.email_icon)
     public ImageView mEmailIcon;
 
     @BindView(R.id.address_container)
     public View mAddressContainer;
+
     @BindView(R.id.address)
     public TextView mAddressTextView;
+
     @BindView(R.id.address_icon)
     public ImageView mAddressIcon;
 
     @BindView(R.id.website_container)
     public View mWebsiteContainer;
+
     @BindView(R.id.website_address)
     public TextView mWebsiteTextView;
 
     @BindView(R.id.twitter_container)
     public View mTwitterContainer;
+
     @BindView(R.id.twitter_handle)
     public TextView mTwitterHandleTextView;
 
@@ -155,7 +171,7 @@ public class UserInfoActivity extends FileActivity {
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
-            multiListContainer.setVisibility(View.GONE);
+            emptyContentContainer.setVisibility(View.GONE);
             userInfoView.setVisibility(View.VISIBLE);
         } else {
             setMultiListLoadingMessage();
@@ -197,19 +213,19 @@ public class UserInfoActivity extends FileActivity {
     }
 
     private void setMultiListLoadingMessage() {
-        if (multiListContainer != null) {
-            multiListHeadline.setText(R.string.file_list_loading);
-            multiListMessage.setText("");
+        if (emptyContentContainer != null) {
+            emptyContentHeadline.setText(R.string.file_list_loading);
+            emptyContentMessage.setText("");
 
-            multiListIcon.setVisibility(View.GONE);
+            emptyContentIcon.setVisibility(View.GONE);
             multiListProgressBar.setVisibility(View.VISIBLE);
         }
     }
 
-    public void setMessageForMultiList(String headline, String message) {
-        if (multiListContainer != null && multiListMessage != null) {
-            multiListHeadline.setText(headline);
-            multiListMessage.setText(message);
+    private void setMessageForMultiList(String headline, String message) {
+        if (emptyContentContainer != null && emptyContentMessage != null) {
+            emptyContentHeadline.setText(headline);
+            emptyContentMessage.setText(message);
 
             multiListProgressBar.setVisibility(View.GONE);
         }
@@ -217,6 +233,9 @@ public class UserInfoActivity extends FileActivity {
 
     private void populateUserInfoUi(UserInfo userInfo) {
         userName.setText(account.name);
+        DisplayUtils.setAvatar(account, UserInfoActivity.this,
+                mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),avatar);
+
         int tint = ContextCompat.getColor(this, R.color.primary);
 
         if (userInfo != null) {
@@ -315,7 +334,6 @@ public class UserInfoActivity extends FileActivity {
         }
     }
 
-
     private void fetchAndSetData() {
         Thread t = new Thread(new Runnable() {
             public void run() {
@@ -330,10 +348,8 @@ public class UserInfoActivity extends FileActivity {
                         @Override
                         public void run() {
                             populateUserInfoUi(userInfo);
-                            DisplayUtils.setAvatar(account, UserInfoActivity.this,
-                                    mCurrentAccountAvatarRadiusDimension, getResources(), getStorageManager(),
-                                    avatar);
-                            multiListContainer.setVisibility(View.GONE);
+
+                            emptyContentContainer.setVisibility(View.GONE);
                             userInfoView.setVisibility(View.VISIBLE);
                         }
                     });
