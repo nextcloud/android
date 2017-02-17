@@ -30,12 +30,14 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -59,8 +61,6 @@ import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
-
-import static android.R.attr.delay;
 
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
@@ -167,6 +167,7 @@ public class ExtendedListFragment extends Fragment
 
         final Handler handler = new Handler();
         searchView.setMaxWidth(Integer.MAX_VALUE);
+
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, final boolean hasFocus) {
@@ -182,6 +183,32 @@ public class ExtendedListFragment extends Fragment
                 }, 100);
             }
         });
+
+        final View mSearchEditFrame = searchView
+                .findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
+
+        ViewTreeObserver vto = mSearchEditFrame.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            int oldVisibility = -1;
+
+            @Override
+            public void onGlobalLayout() {
+
+                int currentVisibility = mSearchEditFrame.getVisibility();
+
+                if (currentVisibility != oldVisibility) {
+                    if (currentVisibility == View.VISIBLE) {
+                        setEmptyListMessage(true);
+                    } else {
+                        setEmptyListMessage(false);
+                    }
+
+                    oldVisibility = currentVisibility;
+                }
+
+            }
+        });
+
 
         LinearLayout searchBar = (LinearLayout) searchView.findViewById(R.id.search_bar);
         searchBar.setLayoutTransition(new LayoutTransition());
