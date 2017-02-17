@@ -54,7 +54,6 @@ import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
-import com.owncloud.android.ui.adapter.FilterableListAdapter;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
 import java.util.ArrayList;
