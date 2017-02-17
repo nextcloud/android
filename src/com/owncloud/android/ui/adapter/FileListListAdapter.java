@@ -482,7 +482,7 @@ public class FileListListAdapter extends BaseAdapter {
             if (!TextUtils.isEmpty(constraint)) {
                 for (int i = 0; i < mFilesAll.size(); i++) {
                     OCFile currentFile = mFilesAll.get(i);
-                    if (currentFile.getRemotePath().startsWith(currentDirectory.getRemotePath()) &&
+                    if (currentFile.getRemotePath().replace(currentFile.getFileName(), "").equals(currentDirectory.getRemotePath()) &&
                             currentFile.getFileName().toLowerCase().contains(constraint) &&
                             !ocFileVector.contains(currentFile)) {
                         ocFileVector.add(currentFile);
