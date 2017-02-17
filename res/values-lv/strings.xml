@@ -426,6 +426,8 @@
     <string name="share_email_clarification">%1$s (e-pasts)</string>
     <string name="share_known_remote_clarification">%1$s ( uz %2$s )</string>
 
+    <string name="share_sharee_unavailable">Atvainojiet, jūsu servera versija neļauj koplietot ar lietotājiem klientiem.
+        \\nLūdzu, sazinieties ar administratoru</string>
     <string name="share_privilege_can_share">var koplietot</string>
     <string name="share_privilege_can_edit">var rediģēt</string>
     <string name="share_privilege_can_edit_create">izveidot</string>
