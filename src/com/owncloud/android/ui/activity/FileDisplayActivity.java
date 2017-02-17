@@ -1129,12 +1129,7 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
             if (!mSyncInProgress) {
-                if (!TextUtils.isEmpty(searchQuery) || (searchView != null &&
-                        !TextUtils.isEmpty(searchView.getQuery().toString()))) {
-                    ocFileListFragment.setEmptyListMessage(true);
-                } else {
                     ocFileListFragment.setEmptyListMessage(false);
-                }
             } else {
                 ocFileListFragment.setEmptyListLoadingMessage();
             }
