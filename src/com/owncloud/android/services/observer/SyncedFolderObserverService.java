@@ -60,21 +60,20 @@ public class SyncedFolderObserverService extends Service {
         };
 
 
-            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                if (syncedFolder.isEnabled()) {
-                    FileAlterationMagicObserver observer = new FileAlterationMagicObserver(syncedFolder, fileFilter);
+        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            if (syncedFolder.isEnabled()) {
+                FileAlterationMagicObserver observer = new FileAlterationMagicObserver(syncedFolder, fileFilter);
 
-                    try {
-                        observer.init();
-                    } catch (Exception e) {
-                        Log_OC.d(TAG, "Failed getting an observer to intialize");
-                    }
-
+                try {
+                    observer.init();
                     observer.addListener(new FileAlterationMagicListener(syncedFolder));
                     monitor.addObserver(observer);
+                } catch (Exception e) {
+                    Log_OC.d(TAG, "Failed getting an observer to intialize");
                 }
+
             }
-        //}
+        }
 
 
         try {
@@ -118,15 +117,15 @@ public class SyncedFolderObserverService extends Service {
         }
 
         if (!found && syncedFolder.isEnabled()) {
-            fileAlterationMagicObserver = new FileAlterationMagicObserver(syncedFolder, fileFilter);
             try {
+                fileAlterationMagicObserver = new FileAlterationMagicObserver(syncedFolder, fileFilter);
                 fileAlterationMagicObserver.init();
+                fileAlterationMagicObserver.addListener(new FileAlterationMagicListener(syncedFolder));
+                monitor.addObserver(fileAlterationMagicObserver);
             } catch (Exception e) {
                 Log_OC.d(TAG, "Failed getting an observer to intialize");
             }
 
-            fileAlterationMagicObserver.addListener(new FileAlterationMagicListener(syncedFolder));
-            monitor.addObserver(fileAlterationMagicObserver);
         }
 
     }
