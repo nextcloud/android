@@ -197,10 +197,8 @@ public class SyncedFolderProvider extends Observable {
                 new String[]{String.valueOf(ids)}
         );
 
-        if (result > 0) {
-            if (context != null) {
-                PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("legacyClean", true).apply();
-            }
+        if (result > 0 && context != null) {
+            PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("legacyClean", true).apply();
         }
 
         return result;
