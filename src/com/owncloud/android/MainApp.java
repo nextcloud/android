@@ -114,38 +114,8 @@ public class MainApp extends Application {
             Log_OC.d("Debug", "start logging");
         }
 
-        // previous versions of application created broken entries in the syncedfolderprovider
-        // database, and this cleans all that and leaves 1 (newest) entry per synced folder
-
-        if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("legacyClean", false)) {
-            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
-
-            List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
-            Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
-            ArrayList<Long> ids = new ArrayList<>();
-            for (SyncedFolder syncedFolder : syncedFolderList) {
-                Pair<String, String> checkPair = new Pair(syncedFolder.getAccount(), syncedFolder.getLocalPath());
-                if (syncedFolders.containsKey(checkPair)) {
-                    if (syncedFolder.getId() > syncedFolders.get(checkPair)) {
-                        syncedFolders.put(checkPair, syncedFolder.getId());
-                    }
-                } else {
-                    syncedFolders.put(checkPair, syncedFolder.getId());
-                }
-            }
-
-            for (Long idValue : syncedFolders.values()) {
-                ids.add(idValue);
-            }
-
-
-            if (ids.size() > 0) {
-                syncedFolderProvider.deleteOtherSyncedFolders(mContext, ids);
-            } else {
-                PreferenceManager.getDefaultSharedPreferences(mContext).edit().putBoolean("legacyClean", true).apply();
-            }
-        }
-
+        cleanOldEntries();
+        
         Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
         Intent i = new Intent(this, SyncedFolderObserverService.class);
         startService(i);
@@ -294,6 +264,40 @@ public class MainApp extends Application {
         String userAgent = String.format(appString, version);
 
         return userAgent;
+    }
+
+    private void cleanOldEntries() {
+        // previous versions of application created broken entries in the syncedfolderprovider
+        // database, and this cleans all that and leaves 1 (newest) entry per synced folder
+
+        if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("legacyClean", false)) {
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+
+            List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
+            Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
+            ArrayList<Long> ids = new ArrayList<>();
+            for (SyncedFolder syncedFolder : syncedFolderList) {
+                Pair<String, String> checkPair = new Pair(syncedFolder.getAccount(), syncedFolder.getLocalPath());
+                if (syncedFolders.containsKey(checkPair)) {
+                    if (syncedFolder.getId() > syncedFolders.get(checkPair)) {
+                        syncedFolders.put(checkPair, syncedFolder.getId());
+                    }
+                } else {
+                    syncedFolders.put(checkPair, syncedFolder.getId());
+                }
+            }
+
+            for (Long idValue : syncedFolders.values()) {
+                ids.add(idValue);
+            }
+
+
+            if (ids.size() > 0) {
+                syncedFolderProvider.deleteOtherSyncedFolders(mContext, ids);
+            } else {
+                PreferenceManager.getDefaultSharedPreferences(mContext).edit().putBoolean("legacyClean", true).apply();
+            }
+        }
     }
 
     /** Defines callbacks for service binding, passed to bindService() */
