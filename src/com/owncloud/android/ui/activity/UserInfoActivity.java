@@ -46,6 +46,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -168,6 +169,9 @@ public class UserInfoActivity extends FileActivity {
 
         setupToolbar();
         updateActionBarTitleAndHomeButtonByString("");
+
+        setAccount(AccountUtils.getCurrentOwnCloudAccount(this));
+        onAccountSet(false);
 
         if (userInfo != null) {
             populateUserInfoUi(userInfo);
