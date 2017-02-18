@@ -189,9 +189,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
             checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile));
         } else if (rootEntry.isExists()) {
             checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY);
-        } else {
-            // Didn't exist and still doesn't
-        }
+        } // else didn't exist and still doesn't
 
         /* fire onStop() */
         for (final FileAlterationListener listener : listeners) {

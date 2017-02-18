@@ -42,14 +42,14 @@ import java.io.FileFilter;
 
 public class SyncedFolderObserverService extends Service {
     private static final String TAG = "SyncedFolderObserverService";
-    private SyncedFolderProvider syncedFolderProvider;
     private final IBinder mBinder = new SyncedFolderObserverBinder();
     private FileAlterationMonitor monitor;
     private FileFilter fileFilter;
 
     @Override
     public void onCreate() {
-        syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+        SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().
+                getContentResolver());
         monitor = new FileAlterationMonitor();
 
         fileFilter = new FileFilter() {
