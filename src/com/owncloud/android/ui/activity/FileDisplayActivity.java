@@ -465,6 +465,13 @@ public class FileDisplayActivity extends HookActivity
      * @param fragment New second Fragment to set.
      */
     private void setSecondFragment(Fragment fragment) {
+        searchView.post(new Runnable() {
+            @Override
+            public void run() {
+                searchView.setQuery("", true);
+            }
+        });
+        setDrawerIndicatorEnabled(false);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.right_fragment_container, fragment, TAG_SECOND_FRAGMENT);
         transaction.commit();
@@ -623,6 +630,14 @@ public class FileDisplayActivity extends HookActivity
         final View mSearchEditFrame = searchView
                 .findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
 
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+                return false;
+            }
+        });
+
         ViewTreeObserver vto = mSearchEditFrame.getViewTreeObserver();
         vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             int oldVisibility = -1;
@@ -634,9 +649,9 @@ public class FileDisplayActivity extends HookActivity
 
                 if (currentVisibility != oldVisibility) {
                     if (currentVisibility == View.VISIBLE) {
-                        mDrawerToggle.setDrawerIndicatorEnabled(false);
+                        setDrawerIndicatorEnabled(false);
                     } else {
-                        mDrawerToggle.setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+                        setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
                     }
 
                     oldVisibility = currentVisibility;
@@ -663,7 +678,7 @@ public class FileDisplayActivity extends HookActivity
                 if (isDrawerOpen()) {
                     closeDrawer();
                 } else if ((currentDir != null && currentDir.getParentId() != 0) ||
-                        (second != null && second.getFile() != null)) {
+                        (second != null && second.getFile() != null) || isSearchOpen()) {
                     onBackPressed();
 
                 } else {
@@ -933,7 +948,9 @@ public class FileDisplayActivity extends HookActivity
          *    4. navigate up (only if drawer and FAB aren't open)
          */
         if (isSearchOpen && searchView != null) {
+            searchView.setQuery("", true);
             searchView.onActionViewCollapsed();
+            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
         } else if(isDrawerOpen && isFabOpen) {
             // close drawer first
             super.onBackPressed();
