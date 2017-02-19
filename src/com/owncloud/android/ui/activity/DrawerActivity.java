@@ -507,8 +507,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         super.updateActionBarTitleAndHomeButton(chosenFile);
 
         /// set home button properties
-        if (mDrawerToggle != null) {
+        if (mDrawerToggle != null && chosenFile != null) {
             mDrawerToggle.setDrawerIndicatorEnabled(isRoot(chosenFile));
+        } else {
+            mDrawerToggle.setDrawerIndicatorEnabled(false);
         }
     }
 

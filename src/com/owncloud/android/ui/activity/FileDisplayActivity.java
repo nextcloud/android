@@ -633,8 +633,20 @@ public class FileDisplayActivity extends HookActivity
         searchView.setOnCloseListener(new SearchView.OnCloseListener() {
             @Override
             public boolean onClose() {
-                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-                return false;
+                if (TextUtils.isEmpty(searchView.getQuery().toString())) {
+                    searchView.onActionViewCollapsed();
+                    setDrawerIndicatorEnabled(isDrawerIndicatorAvailable()); // order matters
+                    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                    mDrawerToggle.syncState();
+                } else {
+                    searchView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchView.setQuery("", true);
+                        }
+                    });
+                }
+                return true;
             }
         });
 
@@ -650,8 +662,6 @@ public class FileDisplayActivity extends HookActivity
                 if (currentVisibility != oldVisibility) {
                     if (currentVisibility == View.VISIBLE) {
                         setDrawerIndicatorEnabled(false);
-                    } else {
-                        setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
                     }
 
                     oldVisibility = currentVisibility;
