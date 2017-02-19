@@ -166,7 +166,6 @@ public class ExtendedListFragment extends Fragment
         searchView.setOnQueryTextListener(this);
 
         final Handler handler = new Handler();
-        //searchView.setMaxWidth(Integer.MAX_VALUE);
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
