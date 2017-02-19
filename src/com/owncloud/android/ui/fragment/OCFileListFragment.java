@@ -788,8 +788,12 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
             }
 
             if (searchView != null && !searchView.isIconified() && !fromSearch) {
-                searchView.setQuery("", false);
-                searchView.onActionViewCollapsed();
+                searchView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchView.setQuery("", false);
+                    }
+                });
             }
 
             mAdapter.swapDirectory(directory, storageManager, onlyOnDevice);
