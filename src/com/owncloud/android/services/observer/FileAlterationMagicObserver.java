@@ -38,7 +38,10 @@
  */
 package com.owncloud.android.services.observer;
 
+import android.os.SystemClock;
+
 import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.services.FileAlterationMagicListener;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
@@ -170,7 +173,13 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @throws Exception if an error occurs
      */
     public void destroy() throws Exception {
-        // does nothing
+        while (getListeners().iterator().hasNext()) {
+            FileAlterationMagicListener fileAlterationListener = (FileAlterationMagicListener)
+                    getListeners().iterator().next();
+            while (fileAlterationListener.getActiveTasksCount() > 0) {
+                SystemClock.sleep(250);
+            }
+        }
     }
 
     /**
