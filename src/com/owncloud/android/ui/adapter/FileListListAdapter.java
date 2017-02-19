@@ -477,21 +477,22 @@ public class FileListListAdapter extends BaseAdapter {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
-            Vector<OCFile> ocFileVector = new Vector<>();
+            Vector<OCFile> filteredFiles = new Vector<>();
 
             if (!TextUtils.isEmpty(constraint)) {
                 for (int i = 0; i < mFilesAll.size(); i++) {
                     OCFile currentFile = mFilesAll.get(i);
-                    if (currentFile.getRemotePath().replace(currentFile.getFileName(), "").equals(currentDirectory.getRemotePath()) &&
+                    if (currentFile.getRemotePath().replace(currentFile.getFileName(), "")
+                            .equals(currentDirectory.getRemotePath()) &&
                             currentFile.getFileName().toLowerCase().contains(constraint) &&
-                            !ocFileVector.contains(currentFile)) {
-                        ocFileVector.add(currentFile);
+                            !filteredFiles.contains(currentFile)) {
+                        filteredFiles.add(currentFile);
                     }
                 }
             }
 
-            results.values = ocFileVector;
-            results.count = ocFileVector.size();
+            results.values = filteredFiles;
+            results.count = filteredFiles.size();
 
             return results;
         }
