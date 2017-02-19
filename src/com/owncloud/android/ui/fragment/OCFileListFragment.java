@@ -787,11 +787,21 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
                 directory = storageManager.getFileById(directory.getParentId());
             }
 
+
             if (searchView != null && !searchView.isIconified() && !fromSearch) {
+
                 searchView.post(new Runnable() {
                     @Override
                     public void run() {
                         searchView.setQuery("", false);
+                        searchView.onActionViewCollapsed();
+                        if (getActivity() != null) {
+                            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                            if (getCurrentFile() != null) {
+                                fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
+                            }
+                        }
+
                     }
                 });
             }
