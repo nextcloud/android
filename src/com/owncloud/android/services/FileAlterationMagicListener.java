@@ -40,10 +40,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -59,7 +59,9 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     private SyncedFolder syncedFolder;
     private Handler handler = new Handler();
 
-    private Map<String, Runnable> fileRunnable = new HashMap<>();
+    //private Map<String, Runnable> fileRunnable = new HashMap<>();
+
+    private List<String> filesList = new ArrayList<>();
 
     public FileAlterationMagicListener(SyncedFolder syncedFolder) {
         super();
@@ -91,6 +93,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     @Override
     public void onFileCreate(final File file) {
         if (file != null) {
+            filesList.add(file.getAbsolutePath());
 
             String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
             Long lastModificationTime = file.lastModified();
@@ -148,34 +151,41 @@ public class FileAlterationMagicListener implements FileAlterationListener {
                         Log_OC.d(TAG, "Job failed to start: " + result);
                     }
 
-                    fileRunnable.remove(file.getAbsolutePath());
+                    //fileRunnable.remove(file.getAbsolutePath());
+                    filesList.remove(file.getAbsolutePath());
                 }
             };
 
-            fileRunnable.put(file.getAbsolutePath(), runnable);
-            handler.postDelayed(runnable, 1500);
+            //fileRunnable.put(file.getAbsolutePath(), runnable);
+            handler.post(runnable);
         }
 
     }
 
     @Override
     public void onFileChange(File file) {
+        /* Left here for later
         if (fileRunnable.containsKey(file.getAbsolutePath())) {
             handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
             handler.postDelayed(fileRunnable.get(file.getAbsolutePath()), 1500);
-        }
+        }*/
     }
 
     @Override
     public void onFileDelete(File file) {
+        /* Left here for later
         if (fileRunnable.containsKey(file.getAbsolutePath())) {
             handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
             fileRunnable.remove(file.getAbsolutePath());
-        }
+        }*/
     }
 
     @Override
     public void onStop(FileAlterationObserver observer) {
         // This method is intentionally empty
+    }
+
+    public int getActiveTasksCount() {
+        return filesList.size();
     }
 }
