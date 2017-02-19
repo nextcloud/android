@@ -26,6 +26,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -85,6 +86,21 @@ public class SyncedFolderObserverService extends Service {
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d("MARIO", "DESTROY");
+        for(FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
+            FileAlterationMagicObserver fileAlterationMagicObserver = (FileAlterationMagicObserver)
+                    fileAlterationObserver;
+            try {
+                fileAlterationMagicObserver.destroy();
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Something went very wrong on trying to destroy observers");
+            }
+        }
+    }
+
+    @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return Service.START_NOT_STICKY;
     }
@@ -121,7 +137,6 @@ public class SyncedFolderObserverService extends Service {
                 fileAlterationMagicObserver = new FileAlterationMagicObserver(syncedFolder, fileFilter);
                 fileAlterationMagicObserver.init();
                 fileAlterationMagicObserver.addListener(new FileAlterationMagicListener(syncedFolder));
-                monitor.addObserver(fileAlterationMagicObserver);
             } catch (Exception e) {
                 Log_OC.d(TAG, "Failed getting an observer to intialize");
             }
