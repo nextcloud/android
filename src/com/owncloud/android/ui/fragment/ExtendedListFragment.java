@@ -30,6 +30,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -165,7 +166,12 @@ public class ExtendedListFragment extends Fragment
         searchView.setOnQueryTextListener(this);
 
         final Handler handler = new Handler();
-        searchView.setMaxWidth(Integer.MAX_VALUE);
+        //searchView.setMaxWidth(Integer.MAX_VALUE);
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int width = displaymetrics.widthPixels;
+        searchView.setMaxWidth((int)(width * 0.7));
 
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
