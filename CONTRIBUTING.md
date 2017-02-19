@@ -44,10 +44,9 @@ If your issue appears to be a bug, and hasn't been reported, open a new issue.
 
 
 ### Pull request
-* 1 to develop
-* 2 developing
-* 3 to review
-* 4 to release
+* 1 developing
+* 2 to review
+* 3 to release
 
 
 ### Issue
@@ -131,7 +130,8 @@ Before releasing a new stable version there is at least one release candidate. I
 
 ### Development Beta
 Done as a standalone app that can be installed in parallel to the stable app.
-Any PR which is labelled "ready for beta" will be automatically included in the beta app. This label should only set by the main developers.
+Any PR which is labelled "ready for beta" will be automatically included in the beta app. This label should only set by the main developers. 
+Same applies for the android-library. This repository also has a branch called beta which includes all upcoming features. The beta branch on this repository must always use the android-library beta branch.
 
 ## Version Name and number
 ### Stable / Release candidate
