@@ -159,7 +159,21 @@ public class FileDisplayActivity extends HookActivity
             Intent initObserversIntent = FileObserverService.makeInitIntent(this);
             startService(initObserversIntent);
         }
-        
+
+        /// Load of saved instance state
+        if (savedInstanceState != null) {
+            mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(
+                    FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
+            mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
+            mWaitingToSend = (OCFile) savedInstanceState.getParcelable(
+                    FileDisplayActivity.KEY_WAITING_TO_SEND);
+            searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
+        } else {
+            mWaitingToPreview = null;
+            mSyncInProgress = false;
+            mWaitingToSend = null;
+        }
+
         /// USER INTERFACE
 
         // Inflate and set the layout view
@@ -946,22 +960,6 @@ public class FileDisplayActivity extends HookActivity
                 setFile(listOfFiles.getCurrentFile());
             }
             cleanSecondFragment();
-        }
-    }
-
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        if (savedInstanceState != null) {
-            mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(
-                    FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
-            mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = (OCFile) savedInstanceState.getParcelable(
-                    FileDisplayActivity.KEY_WAITING_TO_SEND);
-            searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
-        } else {
-            mWaitingToPreview = null;
-            mSyncInProgress = false;
-            mWaitingToSend = null;
         }
     }
 
