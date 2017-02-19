@@ -288,7 +288,7 @@ public class ExtendedListFragment extends Fragment
         mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
         mRefreshGridLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_grid);
         mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_empty);
-        
+
         onCreateSwipeToRefresh(mRefreshListLayout);
         onCreateSwipeToRefresh(mRefreshGridLayout);
         onCreateSwipeToRefresh(mRefreshEmptyLayout);
@@ -450,6 +450,11 @@ public class ExtendedListFragment extends Fragment
 
         if (searchView != null) {
             searchView.onActionViewCollapsed();
+
+            if (getActivity() != null) {
+                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isDrawerIndicatorAvailable());
+            }
         }
 
         mRefreshListLayout.setRefreshing(false);
