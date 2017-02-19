@@ -92,7 +92,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     /**
      * Reference to the drawer toggle.
      */
-    private ActionBarDrawerToggle mDrawerToggle;
+    protected ActionBarDrawerToggle mDrawerToggle;
 
     /**
      * Reference to the navigation view.
