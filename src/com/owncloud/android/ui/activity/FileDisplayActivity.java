@@ -54,6 +54,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -619,6 +620,31 @@ public class FileDisplayActivity extends HookActivity
             });
         }
 
+        final View mSearchEditFrame = searchView
+                .findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
+
+        ViewTreeObserver vto = mSearchEditFrame.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            int oldVisibility = -1;
+
+            @Override
+            public void onGlobalLayout() {
+
+                int currentVisibility = mSearchEditFrame.getVisibility();
+
+                if (currentVisibility != oldVisibility) {
+                    if (currentVisibility == View.VISIBLE) {
+                        mDrawerToggle.setDrawerIndicatorEnabled(false);
+                    } else {
+                        mDrawerToggle.setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+                    }
+
+                    oldVisibility = currentVisibility;
+                }
+
+            }
+        });
+
         return true;
     }
 
@@ -881,18 +907,34 @@ public class FileDisplayActivity extends HookActivity
         getFileOperationsHelper().copyFiles(files, folderToMoveAt);
     }
 
+    private boolean isSearchOpen() {
+        final View mSearchEditFrame = searchView
+                .findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
+
+        if (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE) {
+            return true;
+        }
+
+        return false;
+    }
+
+
     @Override
     public void onBackPressed() {
         boolean isFabOpen = isFabOpen();
         boolean isDrawerOpen = isDrawerOpen();
+        boolean isSearchOpen = isSearchOpen();
 
         /*
          * BackPressed priority/hierarchy:
-         *    1. close drawer if opened
-         *    2. close FAB if open (only if drawer isn't open)
-         *    3. navigate up (only if drawer and FAB aren't open)
+         *    1. close search view if opened
+         *    2. close drawer if opened
+         *    3. close FAB if open (only if drawer isn't open)
+         *    4. navigate up (only if drawer and FAB aren't open)
          */
-        if(isDrawerOpen && isFabOpen) {
+        if (isSearchOpen && searchView != null) {
+            searchView.onActionViewCollapsed();
+        } else if(isDrawerOpen && isFabOpen) {
             // close drawer first
             super.onBackPressed();
         } else if(isDrawerOpen && !isFabOpen) {
