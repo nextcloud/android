@@ -1,22 +1,22 @@
 /**
- *   Nextcloud Android client application
+ * Nextcloud Android client application
  *
- *   @author Tobias Kaminsky
- *   Copyright (C) 2016 Tobias Kaminsky
- *   Copyright (C) 2016 Nextcloud
- *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Tobias Kaminsky
+ * Copyright (C) 2016 Tobias Kaminsky
+ * Copyright (C) 2016 Nextcloud
+ * <p>
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * <p>
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.services;
@@ -28,6 +28,7 @@ import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Handler;
 import android.os.PersistableBundle;
 
 import com.owncloud.android.MainApp;
@@ -55,33 +56,40 @@ public class SyncedFolderJobService extends JobService {
 
     @Override
     public boolean onStartJob(JobParameters params) {
-        Context context = MainApp.getAppContext();
+        final Context context = MainApp.getAppContext();
         PersistableBundle bundle = params.getExtras();
-        String filePath = bundle.getString(LOCAL_PATH);
-        String remotePath = bundle.getString(REMOTE_PATH);
-        Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT));
-        Integer uploadBehaviour = bundle.getInt(UPLOAD_BEHAVIOUR);
+        final String filePath = bundle.getString(LOCAL_PATH);
+        final String remotePath = bundle.getString(REMOTE_PATH);
+        final Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT));
+        final Integer uploadBehaviour = bundle.getInt(UPLOAD_BEHAVIOUR);
 
         Log_OC.d(TAG, "startJob: " + params.getJobId() + ", filePath: " + filePath);
 
         File file = new File(filePath);
 
+        Handler handler = new Handler();
+
         // File can be deleted between job generation and job execution. If file does not exist, just ignore it
         if (file.exists()) {
-            String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
+            final String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
 
-            FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+            final FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
 
-            requester.uploadNewFile(
-                    context,
-                    account,
-                    filePath,
-                    remotePath,
-                    uploadBehaviour,
-                    mimeType,
-                    true,           // create parent folder if not existent
-                    UploadFileOperation.CREATED_AS_INSTANT_PICTURE
-            );
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    requester.uploadNewFile(
+                            context,
+                            account,
+                            filePath,
+                            remotePath,
+                            uploadBehaviour,
+                            mimeType,
+                            true,           // create parent folder if not existent
+                            UploadFileOperation.CREATED_AS_INSTANT_PICTURE
+                    );
+                }
+            }, 5000);
         }
         return false;
     }
