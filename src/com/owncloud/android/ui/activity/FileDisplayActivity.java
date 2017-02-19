@@ -933,14 +933,8 @@ public class FileDisplayActivity extends HookActivity
     }
 
     private boolean isSearchOpen() {
-        final View mSearchEditFrame = searchView
-                .findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
-
-        if (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE) {
-            return true;
-        }
-
-        return false;
+        final View mSearchEditFrame = searchView.findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
+        return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
     }
 
 

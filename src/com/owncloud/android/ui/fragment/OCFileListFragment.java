@@ -747,7 +747,7 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
     }
 
     /**
-     * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean)} with a null parameter
+     * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean, boolean)} with a null parameter
      */
     public void listDirectory(boolean onlyOnDevice, boolean fromSearch){
         listDirectory(null, onlyOnDevice, fromSearch);
