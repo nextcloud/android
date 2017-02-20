@@ -54,6 +54,7 @@ import java.io.FileFilter;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -173,12 +174,13 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @throws Exception if an error occurs
      */
     public void destroy() throws Exception {
-        while (getListeners().iterator().hasNext()) {
-            FileAlterationMagicListener fileAlterationListener = (FileAlterationMagicListener)
-                    getListeners().iterator().next();
+        Iterator iterator = getListeners().iterator();
+        while (iterator.hasNext()) {
+            FileAlterationMagicListener fileAlterationListener = (FileAlterationMagicListener) iterator.next();
             while (fileAlterationListener.getActiveTasksCount() > 0) {
                 SystemClock.sleep(250);
             }
+
         }
     }
 
