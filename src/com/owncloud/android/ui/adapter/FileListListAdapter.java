@@ -407,6 +407,7 @@ public class FileListListAdapter extends BaseAdapter {
                 mFiles = filterHiddenFiles(mFiles);
             }
             mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            mFilesAll.clear();
             mFilesAll.addAll(mFiles);
 
             currentDirectory = directory;
