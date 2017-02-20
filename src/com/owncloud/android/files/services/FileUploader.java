@@ -55,7 +55,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -65,10 +64,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.io.File;
@@ -1137,6 +1136,7 @@ public class FileUploader extends Service
     private void sendBroadcastUploadsAdded() {
         Intent start = new Intent(getUploadsAddedMessage());
         // nothing else needed right now
+        start.setPackage(getPackageName());
         sendStickyBroadcast(start);
     }
 
@@ -1157,6 +1157,7 @@ public class FileUploader extends Service
         start.putExtra(EXTRA_OLD_FILE_PATH, upload.getOriginalStoragePath());
         start.putExtra(ACCOUNT_NAME, upload.getAccount().name);
 
+        start.setPackage(getPackageName());
         sendStickyBroadcast(start);
     }
 
@@ -1190,7 +1191,7 @@ public class FileUploader extends Service
         if (unlinkedFromRemotePath != null) {
             end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath);
         }
-
+        end.setPackage(getPackageName());
         sendStickyBroadcast(end);
     }
 
