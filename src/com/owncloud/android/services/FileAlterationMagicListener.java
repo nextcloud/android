@@ -157,7 +157,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
             };
 
             //fileRunnable.put(file.getAbsolutePath(), runnable);
-            handler.post(runnable);
+            handler.postDelayed(runnable, 1500);
         }
 
     }
