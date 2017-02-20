@@ -26,7 +26,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -70,7 +69,7 @@ public class SyncedFolderObserverService extends Service {
                     observer.addListener(new FileAlterationMagicListener(syncedFolder));
                     monitor.addObserver(observer);
                 } catch (Exception e) {
-                    Log_OC.d(TAG, "Failed getting an observer to intialize");
+                    Log_OC.d(TAG, "Failed getting an observer to intialize " + e);
                 }
 
             }
@@ -88,7 +87,6 @@ public class SyncedFolderObserverService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("MARIO", "DESTROY");
         for(FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
             FileAlterationMagicObserver fileAlterationMagicObserver = (FileAlterationMagicObserver)
                     fileAlterationObserver;
