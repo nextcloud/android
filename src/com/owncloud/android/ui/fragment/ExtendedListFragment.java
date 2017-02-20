@@ -62,8 +62,6 @@ import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
-import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
 
@@ -172,11 +170,7 @@ public class ExtendedListFragment extends Fragment
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int width = displaymetrics.widthPixels;
-        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
-            searchView.setMaxWidth((int)(width * 0.8));
-        } else {
-            searchView.setMaxWidth((int)(width * 0.7));
-        }
+        searchView.setMaxWidth((int)(width * 0.7));
 
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
