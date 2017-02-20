@@ -135,6 +135,7 @@ public class SyncedFolderObserverService extends Service {
                 fileAlterationMagicObserver = new FileAlterationMagicObserver(syncedFolder, fileFilter);
                 fileAlterationMagicObserver.init();
                 fileAlterationMagicObserver.addListener(new FileAlterationMagicListener(syncedFolder));
+                monitor.addObserver(fileAlterationMagicObserver);
             } catch (Exception e) {
                 Log_OC.d(TAG, "Failed getting an observer to intialize");
             }
