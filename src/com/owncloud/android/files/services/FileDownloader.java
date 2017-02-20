@@ -631,6 +631,7 @@ public class FileDownloader extends Service
         if (unlinkedFromRemotePath != null) {
             end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath);
         }
+        end.setPackage(getPackageName());
         sendStickyBroadcast(end);
     }
 
@@ -648,6 +649,7 @@ public class FileDownloader extends Service
         added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         added.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         added.putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath);
+        added.setPackage(getPackageName());
         sendStickyBroadcast(added);
     }
 
