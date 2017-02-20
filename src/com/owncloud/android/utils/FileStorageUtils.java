@@ -167,7 +167,7 @@ public class FileStorageUtils {
         if (subfolderByDate) {
            subPath = getSubpathFromDate(dateTaken, current);
         }
-        return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
+        return remotePath + subPath + (fileName == null ? "" : fileName);
     }
 
     public static String getInstantUploadFilePath(String remotePath, String fileName, long dateTaken,
@@ -176,7 +176,7 @@ public class FileStorageUtils {
         if (subfolderByDate) {
             subPath = getSubpathFromDate(dateTaken);
         }
-        return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
+        return remotePath + subPath + (fileName == null ? "" : fileName);
     }
 
 
@@ -194,7 +194,7 @@ public class FileStorageUtils {
         if (com.owncloud.android.db.PreferenceManager.instantVideoUploadPathUseSubfolders(context)) {
             subPath = getSubpathFromDate(dateTaken);
         }
-        return uploadVideoPath + OCFile.PATH_SEPARATOR + subPath
+        return uploadVideoPath + subPath
                 + (fileName == null ? "" : fileName);
     }
     
