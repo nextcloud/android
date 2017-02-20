@@ -523,6 +523,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             intent.putExtra(FileSyncAdapter.EXTRA_FOLDER_PATH, dirRemotePath);
         }
         intent.putExtra(FileSyncAdapter.EXTRA_RESULT, result);
+        intent.setPackage(mContext.getPackageName());
         mContext.sendStickyBroadcast(intent);
         //LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
