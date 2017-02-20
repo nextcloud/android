@@ -69,7 +69,7 @@ public class SyncedFolderObserverService extends Service {
                     observer.addListener(new FileAlterationMagicListener(syncedFolder));
                     monitor.addObserver(observer);
                 } catch (Exception e) {
-                    Log_OC.d(TAG, "Failed getting an observer to intialize");
+                    Log_OC.d(TAG, "Failed getting an observer to intialize " + e);
                 }
 
             }
