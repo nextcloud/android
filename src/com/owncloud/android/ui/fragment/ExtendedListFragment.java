@@ -173,7 +173,7 @@ public class ExtendedListFragment extends Fragment
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int width = displaymetrics.widthPixels;
         if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
-            searchView.setMaxWidth((int)(width * 0.8));
+            searchView.setMaxWidth((int)(width * 0.4));
         } else {
             searchView.setMaxWidth((int)(width * 0.7));
         }
