@@ -28,7 +28,6 @@ import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
-import android.os.Handler;
 import android.os.PersistableBundle;
 
 import com.owncloud.android.MainApp;
@@ -67,7 +66,6 @@ public class SyncedFolderJobService extends JobService {
 
         File file = new File(filePath);
 
-        Handler handler = new Handler();
 
         // File can be deleted between job generation and job execution. If file does not exist, just ignore it
         if (file.exists()) {
@@ -75,21 +73,16 @@ public class SyncedFolderJobService extends JobService {
 
             final FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
 
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    requester.uploadNewFile(
-                            context,
-                            account,
-                            filePath,
-                            remotePath,
-                            uploadBehaviour,
-                            mimeType,
-                            true,           // create parent folder if not existent
-                            UploadFileOperation.CREATED_AS_INSTANT_PICTURE
-                    );
-                }
-            }, 5000);
+            requester.uploadNewFile(
+                    context,
+                    account,
+                    filePath,
+                    remotePath,
+                    uploadBehaviour,
+                    mimeType,
+                    true,           // create parent folder if not existent
+                    UploadFileOperation.CREATED_AS_INSTANT_PICTURE
+            );
         }
         return false;
     }
