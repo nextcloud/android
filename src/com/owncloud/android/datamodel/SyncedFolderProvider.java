@@ -21,8 +21,10 @@ package com.owncloud.android.datamodel;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 import com.owncloud.android.MainApp;
@@ -165,7 +167,7 @@ public class SyncedFolderProvider extends Observable {
         Cursor cursor = mContentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 null,
-                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + "==" + localPath,
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH + "== \"" + localPath + "\"",
                 null,
                 null
         );
@@ -186,6 +188,29 @@ public class SyncedFolderProvider extends Observable {
 
     }
 
+    public int deleteSyncFolders(Context context, ArrayList<SyncedFolder> syncedFolders, ArrayList<Long> ids) {
+
+
+        int result = mContentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                ProviderMeta.ProviderTableMeta._ID + " NOT IN (?)",
+                new String[]{String.valueOf(ids)}
+        );
+
+        if (result > 0) {
+            for (SyncedFolder syncedFolder : syncedFolders) {
+                notifyFolderSyncObservers(syncedFolder);
+            }
+
+            if (context != null) {
+                PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("legacyClean", true).apply();
+            }
+        }
+
+        return result;
+
+
+    }
     /**
      * update given synced folder.
      *

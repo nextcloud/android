@@ -26,7 +26,6 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_gravity="center_vertical"
-        android:singleLine="false"
         android:layout_margin="@dimen/standard_margin"
         style="?android:attr/editTextPreferenceStyle"
         android:text="@string/manage_space_description"

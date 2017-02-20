@@ -48,12 +48,15 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
+import com.owncloud.android.ui.adapter.DiskLruImageCacheFileProvider;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -66,7 +69,7 @@ import java.util.regex.Pattern;
 public class FileOperationsHelper {
 
     private static final String TAG = FileOperationsHelper.class.getSimpleName();
-    
+
     private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 
     protected FileActivity mFileActivity = null;
@@ -475,8 +478,17 @@ public class FileOperationsHelper {
         if (hideFileListing) {
             updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.CREATE_PERMISSION_FLAG);
         } else {
-            updateShareIntent.
-                    putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER);
+            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
+
+            if (serverVersion != null && serverVersion.isNotReshareableFederatedSupported()) {
+                updateShareIntent.
+                        putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
+                                OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9);
+            } else {
+                updateShareIntent.
+                        putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
+                                OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9);
+            }
         }
 
         queueShareIntent(updateShareIntent);
@@ -519,6 +531,26 @@ public class FileOperationsHelper {
             syncFile(file);
         }
     }
+
+    public void sendCachedImage(OCFile file) {
+        // TODO check if already exists in cache, else download resized image first
+        if (file != null) {
+            Intent sendIntent = new Intent(android.content.Intent.ACTION_SEND);
+            // set MimeType
+            sendIntent.setType(file.getMimetype());
+            sendIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse("content://" + DiskLruImageCacheFileProvider.AUTHORITY + file.getRemotePath()));
+            sendIntent.putExtra(Intent.ACTION_SEND, true);      // Send Action
+
+            // Show dialog, without the own app
+            String[] packagesToExclude = new String[] { mFileActivity.getPackageName() };
+            DialogFragment chooserDialog = ShareLinkToDialog.newInstance(sendIntent, packagesToExclude);
+            chooserDialog.show(mFileActivity.getSupportFragmentManager(), FTAG_CHOOSER_DIALOG);
+        } else {
+            Log_OC.wtf(TAG, "Trying to send a NULL OCFile");
+        }
+    }
+
+
 
     /**
      * Request the synchronization of a file or folder with the OC server, including its contents.

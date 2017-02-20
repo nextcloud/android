@@ -149,6 +149,7 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
      */
     private OnHideFileListingPermissionInteractionListener mOnHideFileListingPermissionInteractionListener = null;
 
+
     /**
      * Public factory method to create new ShareFileFragment instances.
      *
@@ -550,7 +551,6 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
             switchView.setOnCheckedChangeListener(mOnHideFileListingPermissionInteractionListener);
         }
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

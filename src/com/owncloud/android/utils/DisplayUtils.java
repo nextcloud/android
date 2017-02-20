@@ -43,6 +43,7 @@ import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
@@ -101,24 +102,20 @@ public class DisplayUtils {
      *     <li>rounds the size based on the suffix to 0,1 or 2 decimals</li>
      * </ul>
      *
-     * @param bytes Input file size
+     * @param bytes        Input file size
      * @return something readable like "12 MB", {@link com.owncloud.android.R.string#common_pending} for negative
      * byte values
      */
     public static String bytesToHumanReadable(long bytes) {
-        if (bytes < 0) {
-            return MainApp.getAppContext().getString(R.string.common_pending);
-        } else {
-            double result = bytes;
-            int suffixIndex = 0;
-            while (result > 1024 && suffixIndex < sizeSuffixes.length) {
-                result /= 1024.;
-                suffixIndex++;
-            }
-
-            return new BigDecimal(String.valueOf(result)).setScale(
-                    sizeScales[suffixIndex], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[suffixIndex];
+        double result = bytes;
+        int suffixIndex = 0;
+        while (result > 1024 && suffixIndex < sizeSuffixes.length) {
+            result /= 1024.;
+            suffixIndex++;
         }
+
+        return new BigDecimal(String.valueOf(result)).setScale(
+                sizeScales[suffixIndex], BigDecimal.ROUND_HALF_UP) + " " + sizeSuffixes[suffixIndex];
     }
 
     /**
@@ -318,6 +315,17 @@ public class DisplayUtils {
     public static void colorPreLollipopHorizontalProgressBar(ProgressBar progressBar) {
         if (progressBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             colorHorizontalProgressBar(progressBar, progressBar.getResources().getColor(R.color.color_accent));
+        }
+    }
+
+    /**
+     * sets the tinting of the given ImageButton's icon to color_accent.
+     *
+     * @param imageButton the image button who's icon should be colored
+     */
+    public static void colorImageButton(ImageButton imageButton, @ColorInt int color) {
+        if (imageButton != null) {
+            imageButton.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
         }
     }
 

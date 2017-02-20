@@ -38,11 +38,11 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
-import com.owncloud.android.providers.UsersAndGroupsSearchProvider;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
 import com.owncloud.android.ui.fragment.EditShareFragment;
 import com.owncloud.android.ui.fragment.SearchShareesFragment;
@@ -50,6 +50,8 @@ import com.owncloud.android.ui.fragment.ShareFileFragment;
 import com.owncloud.android.ui.fragment.ShareFragmentListener;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
+
+import org.nextcloud.providers.UsersAndGroupsSearchProvider;
 
 
 /**
@@ -142,11 +144,28 @@ public class ShareActivity extends FileActivity
         if (getFile().isSharedWithMe()) {
             return OCShare.READ_PERMISSION_FLAG;    // minimum permissions
 
-        } else if (getFile().isFolder()) {
-            return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER : OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER;
-
-        } else {    // isFile
-            return (isFederated) ? OCShare.FEDERATED_PERMISSIONS_FOR_FILE : OCShare.MAXIMUM_PERMISSIONS_FOR_FILE;
+        } else if (isFederated) {
+            OwnCloudVersion serverVersion =
+                    com.owncloud.android.authentication.AccountUtils.getServerVersion(getAccount());
+            if (serverVersion != null && serverVersion.isNotReshareableFederatedSupported()) {
+                return (
+                        getFile().isFolder() ?
+                                OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9 :
+                                OCShare.FEDERATED_PERMISSIONS_FOR_FILE_AFTER_OC9
+                );
+            } else {
+                return (
+                        getFile().isFolder() ?
+                                OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9 :
+                                OCShare.FEDERATED_PERMISSIONS_FOR_FILE_UP_TO_OC9
+                );
+            }
+        } else {
+            return (
+                    getFile().isFolder() ?
+                            OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER :
+                            OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
+            );
         }
     }
 

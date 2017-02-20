@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -130,7 +131,16 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             public void run() {
                 final List<MediaFolder> mediaFolders = MediaProvider.getMediaFolders(getContentResolver(),
                         perFolderMediaItemLimit);
-                syncFolderItems = sortSyncedFolderItems(mergeFolderData(mSyncedFolderProvider.getSyncedFolders(),
+                List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
+                List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<SyncedFolder>();
+                Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(FolderSyncActivity.this);
+                for (SyncedFolder syncedFolder : syncedFolderArrayList) {
+                    if (syncedFolder.getAccount().equals(currentAccount.name)) {
+                        currentAccountSyncedFoldersList.add(syncedFolder);
+                    }
+                }
+
+                syncFolderItems = sortSyncedFolderItems(mergeFolderData(currentAccountSyncedFoldersList,
                         mediaFolders));
 
                 mHandler.post(new TimerTask() {
@@ -323,9 +333,13 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     @Override
     public void onSyncStatusToggleClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem) {
         if (syncedFolderDisplayItem.getId() > UNPERSISTED_ID) {
-            mSyncedFolderProvider.updateFolderSyncEnabled(syncedFolderDisplayItem.getId(), syncedFolderDisplayItem.isEnabled());
+            mSyncedFolderProvider.updateFolderSyncEnabled(syncedFolderDisplayItem.getId(),
+                    syncedFolderDisplayItem.isEnabled());
         } else {
-            mSyncedFolderProvider.storeFolderSync(syncedFolderDisplayItem);
+            long storedId = mSyncedFolderProvider.storeFolderSync(syncedFolderDisplayItem);
+            if (storedId != -1) {
+                syncedFolderDisplayItem.setId(storedId);
+            }
         }
     }
 
@@ -362,7 +376,11 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
         if (syncedFolder.getId() == UNPERSISTED_ID) {
             // newly set up folder sync config
-            mSyncedFolderProvider.storeFolderSync(item);
+            long storedId = mSyncedFolderProvider.storeFolderSync(item);
+            if (storedId != -1) {
+                item.setId(storedId);
+            }
+
         } else {
             // existing synced folder setup to be updated
             mSyncedFolderProvider.updateSyncFolder(item);

@@ -118,7 +118,7 @@ public class UploaderAdapter extends SimpleAdapter {
                             task
                     );
                     fileIcon.setImageDrawable(asyncDrawable);
-                    task.execute(file);
+                    task.execute(file, true);
                 }
             }
         } else {

@@ -3,8 +3,7 @@
  *
  *   @author Andy Scherzinger
  *   Copyright (C) 2016 Andy Scherzinger
- *   Copyright (C) 2016 Nextcloud
- *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2016 Nextcloud.
  *
  *   This program is free software; you can redistribute it and/or
  *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -175,8 +174,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
             setupQuotaElement();
 
-            // show folder sync menu item only for Android 7+
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // show folder sync menu item only for Android 5+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
                 mNavigationView.getMenu().removeItem(R.id.nav_folder_sync);
             }
         }

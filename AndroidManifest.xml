@@ -20,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="10040201"
-    android:versionName="1.4.2 RC1">
+    android:versionCode="20170213"
+    android:versionName="20170213" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -44,6 +44,7 @@
     <!-- WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in
         API >= 23; the app needs to handle this -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
 
     <!-- Next permissions are always approved in installation time,
         the apps needs to do nothing special in runtime -->
@@ -55,17 +56,19 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
 
 
     <application
         android:name=".MainApp"
+        android:fullBackupContent="@xml/my_backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Nextcloud beta"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
-            android:label="@string/app_name"
+            android:label="Nextcloud beta"
             android:theme="@style/Theme.ownCloud.Toolbar.Drawer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -74,6 +77,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.ManageAccountsActivity" />
+        <activity android:name=".ui.activity.UserInfoActivity" />
         <activity android:name=".ui.activity.ParticipateActivity" />
         <activity android:name=".ui.activity.FolderSyncActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
@@ -81,6 +85,7 @@
                   
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
+                  android:label="Nextcloud beta"
                   android:theme="@style/Theme.ownCloud.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -102,7 +107,7 @@
             android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
             android:name=".ui.preview.PreviewVideoActivity"
-            android:label="@string/app_name"
+            android:label="Nextcloud beta"
             android:theme="@style/Theme.ownCloud.Fullscreen" />
 
         <service
@@ -142,8 +147,8 @@
             android:syncable="true" />
 
         <provider
-            android:name=".providers.UsersAndGroupsSearchProvider"
-            android:authorities="com.nextcloud.android.providers.UsersAndGroupsSearchProvider"
+            android:name="org.nextcloud.providers.UsersAndGroupsSearchProvider"
+            android:authorities="org.nextcloud.beta.android.providers.UsersAndGroupsSearchProvider"
             android:enabled="true"
             android:exported="false"
             android:label="@string/search_users_and_groups_hint" />
@@ -169,6 +174,12 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/exposed_filepaths" />
+        </provider>
+
+        <provider
+            android:name=".ui.adapter.DiskLruImageCacheFileProvider"
+            android:authorities="com.owncloud.imageCache.provider"
+            android:exported="true">
         </provider>
 
         <activity
@@ -203,17 +214,19 @@
         <service android:name=".media.MediaService" />
 
         <activity android:name=".ui.activity.PassCodeActivity" />
+        <activity android:name=".ui.activity.FingerprintActivity"/>
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>
         <activity android:name=".ui.activity.ErrorsWhileCopyingHandlerActivity"/>
-        
+
         <activity android:name=".ui.activity.LogHistoryActivity"/>
+        <activity android:name=".ui.activity.ErrorReportActivity"/>
 
         <activity android:name=".ui.errorhandling.ErrorShowActivity" />
         <activity android:name=".ui.activity.UploadListActivity" />
         <activity android:name=".ui.activity.WhatsNewActivity"
                   android:theme="@style/Theme.ownCloud.noActionBar.Login" />
-        
+
         <receiver android:name=".files.services.ConnectivityActionReceiver"
 		    android:enabled="true" android:label="ConnectivityActionReceiver">
 		    <intent-filter>
@@ -250,16 +263,16 @@
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
             android:icon="@drawable/copy_link"
-            android:label="@string/copy_link" />
+            android:label="Copy link" />
         <activity
             android:name=".ui.activity.FolderPickerActivity"
-            android:label="@string/app_name" />
+            android:label="Nextcloud beta" />
         <activity
             android:name=".ui.activity.UploadPathActivity"
-            android:label="@string/app_name" />
+            android:label="Nextcloud beta" />
         <activity
             android:name=".ui.activity.ShareActivity"
-            android:label="@string/share_dialog_title"
+            android:label="Sharing"
             android:theme="@style/Theme.ownCloud.Dialog.NoTitle"
             android:launchMode="singleTop"
             android:windowSoftInputMode="adjustResize" >
@@ -270,7 +283,7 @@
                        android:resource="@xml/users_and_groups_searchable"/>
         </activity>
         <activity android:name=".ui.activity.ManageSpaceActivity"
-                  android:label="@string/manage_space_title"
+                  android:label="Manage space"
                   android:theme="@style/Theme.ownCloud" />
     </application>
 

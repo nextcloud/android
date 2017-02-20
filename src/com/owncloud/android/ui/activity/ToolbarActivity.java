@@ -54,8 +54,10 @@ public abstract class ToolbarActivity extends BaseActivity {
         setSupportActionBar(toolbar);
 
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
-        mProgressBar.setIndeterminateDrawable(
-                ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
+        if (mProgressBar != null) {
+            mProgressBar.setIndeterminateDrawable(
+                    ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
+        }
     }
 
     /**

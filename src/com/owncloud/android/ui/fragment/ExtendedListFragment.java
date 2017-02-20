@@ -26,8 +26,11 @@ import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.GestureDetector;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,9 +45,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
@@ -59,7 +65,7 @@ public class ExtendedListFragment extends Fragment
 
     protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
-    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION"; 
+    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION";
 
     private static final String KEY_INDEXES = "INDEXES";
     private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
@@ -67,9 +73,12 @@ public class ExtendedListFragment extends Fragment
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
     private static final String KEY_IS_GRID_VISIBLE = "IS_GRID_VISIBLE";
+    public static final float minColumnSize = 2.0f;
+    public static final float maxColumnSize = 10.0f;
 
+    private ScaleGestureDetector mScaleGestureDetector = null;
     protected SwipeRefreshLayout mRefreshListLayout;
-    private SwipeRefreshLayout mRefreshGridLayout;
+    protected SwipeRefreshLayout mRefreshGridLayout;
     protected SwipeRefreshLayout mRefreshEmptyLayout;
     protected LinearLayout mEmptyListContainer;
     protected TextView mEmptyListMessage;
@@ -97,6 +106,8 @@ public class ExtendedListFragment extends Fragment
     private View mGridFooterView;
 
     private FilterableListAdapter mAdapter;
+
+    private float mScale = -1f;
 
     protected void setListAdapter(FilterableListAdapter listAdapter) {
         mAdapter = listAdapter;
@@ -179,10 +190,35 @@ public class ExtendedListFragment extends Fragment
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
         mGridView = (GridViewWithHeaderAndFooter) (v.findViewById(R.id.grid_root));
-        mGridView.setNumColumns(GridView.AUTO_FIT);
+
+        mScale = PreferenceManager.getGridColumns(getContext());
+        setGridViewColumns(1f);
+        //mGridView.setNumColumns(GridView.AUTO_FIT);
         mGridView.setOnItemClickListener(this);
 
         mGridFooterView = inflater.inflate(R.layout.list_footer, null, false);
+
+        mScaleGestureDetector = new ScaleGestureDetector(MainApp.getAppContext(),new ScaleListener());
+//        gestureDetector = new GestureDetector(MainApp.getAppContext(), new SingleTapConfirm());
+
+        mGridView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                mScaleGestureDetector.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
+
+        if (savedInstanceState != null) {
+            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
+            if (mCurrentListView!= null && mCurrentListView.equals(mListView)) {
+                Log_OC.v(TAG, "Setting and centering around list position " + referencePosition);
+                mListView.setAndCenterSelection(referencePosition);
+            } else {
+                Log_OC.v(TAG, "Setting grid position " + referencePosition);
+                mGridView.setSelection(referencePosition);
+            }
+        }
 
         // Pull-down to refresh layout
         mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
@@ -219,6 +255,36 @@ public class ExtendedListFragment extends Fragment
         return v;
     }
 
+    private class SingleTapConfirm extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            return true;
+        }
+    }
+
+    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
+        @Override
+        public boolean onScale(ScaleGestureDetector detector) {
+            setGridViewColumns(detector.getScaleFactor());
+
+            PreferenceManager.setGridColumns(getContext(), mScale);
+
+            return true;
+        }
+    }
+
+    private void setGridViewColumns(float scaleFactor) {
+        if (mScale == -1f) {
+            mGridView.setNumColumns(GridView.AUTO_FIT);
+            mScale = mGridView.getNumColumns();
+        }
+        mScale *= 1.f - (scaleFactor - 1.f);
+        mScale = Math.max(minColumnSize, Math.min(mScale, maxColumnSize));
+        Integer scaleInt = Math.round(mScale);
+        mGridView.setNumColumns(scaleInt);
+        mGridView.invalidateViews();
+    }
+
     protected void setupEmptyList(View view) {
         mEmptyListContainer = (LinearLayout) view.findViewById(R.id.empty_list_view);
         mEmptyListMessage = (TextView) view.findViewById(R.id.empty_list_view_text);
@@ -247,7 +313,9 @@ public class ExtendedListFragment extends Fragment
             mTops = new ArrayList<>();
             mHeightCell = 0;
         }
-    }    
+
+        mScale = PreferenceManager.getGridColumns(getContext());
+    }
     
     
     @Override
@@ -261,6 +329,8 @@ public class ExtendedListFragment extends Fragment
         savedInstanceState.putIntegerArrayList(KEY_TOPS, mTops);
         savedInstanceState.putInt(KEY_HEIGHT_CELL, mHeightCell);
         savedInstanceState.putString(KEY_EMPTY_LIST_MESSAGE, getEmptyViewText());
+
+        PreferenceManager.setGridColumns(getContext(), mScale);
     }
 
     /**
@@ -281,6 +351,10 @@ public class ExtendedListFragment extends Fragment
         } else {
             return 0;
         }
+    }
+
+    public int getColumnSize() {
+        return Math.round(mScale);
     }
 
 

@@ -48,6 +48,7 @@ import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -62,6 +63,7 @@ import java.util.Vector;
  */
 public class FileListListAdapter extends BaseAdapter implements FilterableListAdapter {
 
+    public static final int showFilenameColumnThreshold = 4;
     private Context mContext;
     private Vector<OCFile> mFilesAll = new Vector<OCFile>();
     private Vector<OCFile> mFiles = null;
@@ -71,16 +73,19 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
+    private OCFileListFragment mListFragment;
 
     public FileListListAdapter(
             boolean justFolders,
             Context context,
-            ComponentsGetter transferServiceGetter
+            ComponentsGetter transferServiceGetter,
+            OCFileListFragment listFragment
     ) {
 
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
+        mListFragment = listFragment;
 
         mTransferServiceGetter = transferServiceGetter;
 
@@ -202,8 +207,13 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                 case GRID_ITEM:
                     // filename
                     fileName = (TextView) view.findViewById(R.id.Filename);
+
                     name = file.getFileName();
                     fileName.setText(name);
+
+                    if (mListFragment.getColumnSize() > showFilenameColumnThreshold && viewType == ViewType.GRID_ITEM) {
+                        fileName.setVisibility(View.GONE);
+                    }
 
                 case GRID_IMAGE:
                     // sharedIcon
@@ -223,12 +233,9 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                     // local state
                     ImageView localStateView = (ImageView) view.findViewById(R.id.localFileIndicator);
                     localStateView.bringToFront();
-                    FileDownloaderBinder downloaderBinder =
-                            mTransferServiceGetter.getFileDownloaderBinder();
-                    FileUploaderBinder uploaderBinder =
-                            mTransferServiceGetter.getFileUploaderBinder();
-                    OperationsServiceBinder opsBinder =
-                            mTransferServiceGetter.getOperationsServiceBinder();
+                    FileDownloaderBinder downloaderBinder = mTransferServiceGetter.getFileDownloaderBinder();
+                    FileUploaderBinder uploaderBinder = mTransferServiceGetter.getFileUploaderBinder();
+                    OperationsServiceBinder opsBinder = mTransferServiceGetter.getOperationsServiceBinder();
 
                     localStateView.setVisibility(View.INVISIBLE);   // default first
 
@@ -300,7 +307,9 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
             if (!file.isFolder()) {
                 if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                     // Thumbnail in Cache?
-                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.getRemoteId());
+                    Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
+                            "t" + file.getRemoteId()
+                    );
                     if (thumbnail != null && !file.needsUpdateThumbnail()) {
 
                         if (MimeTypeUtil.isVideo(file)) {
@@ -330,7 +339,7 @@ public class FileListListAdapter extends BaseAdapter implements FilterableListAd
                                     task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
+                            task.execute(file, true);
                         }
                     }
 

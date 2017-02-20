@@ -383,10 +383,6 @@ public class PreviewImageActivity extends FileActivity implements
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
             setDrawerIndicatorEnabled(false);
-            if (!currentFile.isDown()
-                    && !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
-                requestForDownload(currentFile);
-            }
 
             // Call to reset image zoom to initial state
             ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
@@ -497,7 +493,7 @@ public class PreviewImageActivity extends FileActivity implements
             if (file.getFileId() > FileDataStorageManager.ROOT_PARENT_ID) {
                 file = getStorageManager().getFileById(file.getFileId());
             }
-            
+
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
                 setFile(file);  // reset after getting it fresh from storageManager

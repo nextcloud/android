@@ -22,6 +22,8 @@ package com.owncloud.android.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
@@ -38,15 +40,23 @@ public abstract class PreferenceManager {
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_MAP_URL = "prefs_upload_file_extension_map_url";
     private static final String AUTO_PREF__UPLOAD_FILE_EXTENSION_URL = "prefs_upload_file_extension_url";
     private static final String AUTO_PREF__UPLOADER_BEHAVIOR = "prefs_uploader_behaviour";
+    private static final String AUTO_PREF__GRID_COLUMNS = "grid_columns";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
+    private static final String PREF__INSTANT_UPLOAD_PATH_ACCOUNT = "instant_upload_path_account";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
     private static final String PREF__INSTANT_UPLOAD_PATH_USE_SUBFOLDERS = "instant_upload_path_use_subfolders";
     private static final String PREF__INSTANT_UPLOAD_ON_WIFI = "instant_upload_on_wifi";
     private static final String PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI = "instant_video_upload_on_wifi";
     private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS = "instant_video_upload_path_use_subfolders";
+    private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT = "instant_video_upload_path_account";
 
     public static boolean instantPictureUploadEnabled(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOADING, false);
+    }
+
+    public static String instantPictureUploadPathAccount(Context context) {
+        return getDefaultSharedPreferences(context).getString(PREF__INSTANT_UPLOAD_PATH_ACCOUNT,
+                AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()).name);
     }
 
     public static boolean instantVideoUploadEnabled(Context context) {
@@ -59,6 +69,11 @@ public abstract class PreferenceManager {
 
     public static boolean instantPictureUploadViaWiFiOnly(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOAD_ON_WIFI, false);
+    }
+
+    public static String instantVideoUploadPathAccount(Context context) {
+        return getDefaultSharedPreferences(context).getString(PREF__INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT,
+                AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()).name);
     }
 
     public static boolean instantVideoUploadPathUseSubfolders(Context context) {
@@ -205,22 +220,44 @@ public abstract class PreferenceManager {
         saveIntPreference(context, AUTO_PREF__UPLOADER_BEHAVIOR, uploaderBehaviour);
     }
 
-    public static void saveBooleanPreference(Context context, String key, boolean value) {
+    /**
+     * Gets the grid columns which the user has set last.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return grid columns     grid columns
+     */
+    public static float getGridColumns(Context context) {
+        return getDefaultSharedPreferences(context).getFloat(AUTO_PREF__GRID_COLUMNS, -1.0f);
+    }
+
+    /**
+     * Saves the grid columns which the user has set last.
+     *
+     * @param context   Caller {@link Context}, used to access to shared preferences manager.
+     * @param gridColumns the uploader behavior
+     */
+    public static void setGridColumns(Context context, float gridColumns) {
+        saveFloatPreference(context, AUTO_PREF__GRID_COLUMNS, gridColumns);
+    }
+
+    private static void saveBooleanPreference(Context context, String key, boolean value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putBoolean(key, value);
-        appPreferences.apply();
+        appPreferences.putBoolean(key, value).apply();
     }
 
     private static void saveStringPreference(Context context, String key, String value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putString(key, value);
-        appPreferences.apply();
+        appPreferences.putString(key, value).apply();
     }
 
     private static void saveIntPreference(Context context, String key, int value) {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
-        appPreferences.putInt(key, value);
-        appPreferences.apply();
+        appPreferences.putInt(key, value).apply();
+    }
+
+    private static void saveFloatPreference(Context context, String key, float value) {
+        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
+        appPreferences.putFloat(key, value).apply();
     }
 
     public static SharedPreferences getDefaultSharedPreferences(Context context) {

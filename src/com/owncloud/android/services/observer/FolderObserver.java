@@ -147,7 +147,7 @@ public class FolderObserver extends FileObserver {
     public void startWatching(String fileName) {
         synchronized (mObservedChildren) {
             if (!mObservedChildren.containsKey(fileName)) {
-                mObservedChildren.put(fileName, Boolean.FALSE);
+                mObservedChildren.put(fileName, false);
             }
         }
         

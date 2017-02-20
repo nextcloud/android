@@ -24,11 +24,13 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.webkit.MimeTypeMap;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
@@ -91,7 +93,7 @@ public class FileStorageUtils {
      * Get absolute path to tmp folder inside datafolder in sd-card for given accountName.
      */
     public static String getTemporalPath(String accountName) {
-        return MainApp.getStoragePath()
+        return Environment.getExternalStorageDirectory().getAbsolutePath()
                 + File.separator
                 + MainApp.getDataFolder()
                 + File.separator
@@ -114,7 +116,12 @@ public class FileStorageUtils {
     }
     
     public static String getLogPath()  {
-        return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "log";
+        return MainApp.getStoragePath()
+                + File.separator
+                + MainApp.getDataFolder()
+                + MainApp.getAppContext().getResources().getString(R.string.log_name)
+                + File.separator
+                + "log";
     }
 
     /**
@@ -122,7 +129,7 @@ public class FileStorageUtils {
      * string is returned
      *
      * @param date: date in microseconds since 1st January 1970
-     * @return
+     * @return string: yyyy/mm/
      */
     private static String getSubpathFromDate(long date) {
         if (date == 0) {
@@ -140,11 +147,11 @@ public class FileStorageUtils {
     }
 
     /**
-     * Returns the InstantUploadFilePath on the owncloud instance
+     * Returns the InstantUploadFilePath on the nextcloud instance
      *
-     * @param fileName
+     * @param fileName complete file name
      * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
-     * @return
+     * @return instantUpload path, eg. /Camera/2017/01/fileName
      */
     public static String getInstantUploadFilePath(String remotePath, String fileName, long dateTaken,
                                                   Boolean subfolderByDate) {
@@ -154,7 +161,31 @@ public class FileStorageUtils {
         }
         return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
     }
+    
+    /**
+     * Returns account for instant upload or null, if not defined.
+     * @return instant upload account or null
+     */
+    public static Account getInstantUploadAccount(Context context) {
+        return getAccount(context, "instant_upload_path_account");
+    }
 
+    /**
+     * Returns account for instant video upload or null, if not defined.
+     * @return instant video upload account or null
+     */
+    public static Account getInstantVideoUploadAccount(Context context) {
+        return getAccount(context, "instant_video_upload_path_account");
+    }
+
+    private static Account getAccount(Context context, String prefName) {
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        String accountName = pref.getString(prefName, null);
+        Account account = AccountUtils.getOwnCloudAccountByName(MainApp.getAppContext(),
+                accountName);
+        return account;
+    }
+    
     /**
      * Gets the composed path when video is or must be stored
      * @param context
@@ -258,14 +289,14 @@ public class FileStorageUtils {
 
         return files;
     }
-    
+
     /**
      * Sorts list by Date
      * @param files
      */
     public static Vector<OCFile> sortOCFilesByDate(Vector<OCFile> files){
         final int multiplier = mSortAscending ? 1 : -1;
-        
+
         Collections.sort(files, new Comparator<OCFile>() {
             @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
             public int compare(OCFile o1, OCFile o2) {
@@ -273,7 +304,7 @@ public class FileStorageUtils {
             return multiplier * obj1.compareTo(o2.getModificationTimestamp());
             }
         });
-        
+
         return files;
     }
 
