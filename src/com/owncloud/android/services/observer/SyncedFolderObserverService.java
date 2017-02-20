@@ -26,7 +26,6 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.util.Log;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -88,7 +87,6 @@ public class SyncedFolderObserverService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.d("MARIO", "DESTROY");
         for(FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
             FileAlterationMagicObserver fileAlterationMagicObserver = (FileAlterationMagicObserver)
                     fileAlterationObserver;
