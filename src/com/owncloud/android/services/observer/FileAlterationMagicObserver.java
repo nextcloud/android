@@ -41,6 +41,7 @@ package com.owncloud.android.services.observer;
 import android.os.SystemClock;
 
 import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.FileAlterationMagicListener;
 
 import org.apache.commons.io.FileUtils;
@@ -199,7 +200,18 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
         if (rootFile.exists()) {
             checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile));
         } else if (rootEntry.isExists()) {
-            checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY);
+            try {
+                // try to init once more
+                init();
+                if (rootEntry.getFile().exists()) {
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()));
+                } else {
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY);
+                }
+            } catch (Exception e) {
+                Log_OC.d("FileAlterationMagicObserver", "Failed getting an observer to intialize " + e);
+                checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY);
+            }
         } // else didn't exist and still doesn't
 
         /* fire onStop() */
