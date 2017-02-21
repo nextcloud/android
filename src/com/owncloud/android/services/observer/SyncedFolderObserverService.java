@@ -91,6 +91,7 @@ public class SyncedFolderObserverService extends Service {
             FileAlterationMagicObserver fileAlterationMagicObserver = (FileAlterationMagicObserver)
                     fileAlterationObserver;
             try {
+                fileAlterationMagicObserver.checkAndNotify();
                 fileAlterationMagicObserver.destroy();
             } catch (Exception e) {
                 Log_OC.d(TAG, "Something went very wrong on trying to destroy observers");
