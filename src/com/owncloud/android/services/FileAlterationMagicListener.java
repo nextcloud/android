@@ -132,6 +132,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
                     .setExtras(bundle)
                     .setPersisted(true)
                     .setRequirementsEnforced(true)
+                    .setUpdateCurrent(false)
                     .build()
                     .schedule();
 
