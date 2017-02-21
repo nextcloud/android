@@ -38,7 +38,7 @@ import java.io.File;
 public class AutoUploadJob extends Job {
     public static final String TAG = "AutoUploadJob";
 
-    private static final String LOCAL_PATH = "filePath";
+    public static final String LOCAL_PATH = "filePath";
     public static final String REMOTE_PATH = "remotePath";
     public static final String ACCOUNT = "account";
     public static final String UPLOAD_BEHAVIOUR = "uploadBehaviour";
