@@ -86,6 +86,7 @@ public class SyncedFolderObserverService extends Service {
 
     @Override
     public void onDestroy() {
+
         super.onDestroy();
         for(FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
             FileAlterationMagicObserver fileAlterationMagicObserver = (FileAlterationMagicObserver)
