@@ -61,7 +61,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Contains methods to build the "static" strings. These strings were before constants in different
  * classes
  */
-public class MainApp extends Application {
+public class MainApp extends MultiDexApplication {
 
     private static final String TAG = MainApp.class.getSimpleName();
 

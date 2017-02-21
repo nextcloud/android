@@ -46,6 +46,7 @@ repositories {
 dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
+    compile 'com.android.support:multidex:1.0.1'
 
     compile 'com.github.nextcloud:android-library:1.0.11'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
@@ -108,6 +109,7 @@ android {
         testInstrumentationRunnerArgument "TEST_PASSWORD", "\"$System.env.OCTEST_APP_PASSWORD\""
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
+        multiDexEnabled true
         applicationId "com.nextcloud.client"
     }
 
