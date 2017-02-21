@@ -86,6 +86,7 @@ public class MainApp extends Application {
     @SuppressFBWarnings("ST")
     public void onCreate() {
         super.onCreate();
+        JobManager.create(this).addJobCreator(new NCJobCreator());
         MainApp.mContext = getApplicationContext();
 
         SharedPreferences appPrefs =
@@ -118,8 +119,8 @@ public class MainApp extends Application {
 
         cleanOldEntries();
 
-        JobManager.create(this).addJobCreator(new NCJobCreator());
 
+        JobManager.instance().setVerbose(true);
         Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
         Intent i = new Intent(this, SyncedFolderObserverService.class);
         startService(i);
