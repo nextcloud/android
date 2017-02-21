@@ -125,7 +125,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
 
             new JobRequest.Builder(AutoUploadJob.TAG)
-                    .setExecutionWindow(30_000L, 40_000L)
+                    .setExecutionWindow(30_000L, 80_000L)
                     .setRequiresCharging(syncedFolder.getChargingOnly())
                     .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
                             JobRequest.NetworkType.ANY)
