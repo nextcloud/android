@@ -91,6 +91,7 @@ public class SyncedFolderObserverService extends Service {
             FileAlterationMagicObserver fileAlterationMagicObserver = (FileAlterationMagicObserver)
                     fileAlterationObserver;
             try {
+                monitor.removeObserver(fileAlterationMagicObserver);
                 fileAlterationMagicObserver.checkAndNotify();
                 fileAlterationMagicObserver.destroy();
             } catch (Exception e) {
