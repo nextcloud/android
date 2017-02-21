@@ -22,47 +22,37 @@
 package com.owncloud.android.services;
 
 import android.accounts.Account;
-import android.annotation.TargetApi;
-import android.app.job.JobParameters;
-import android.app.job.JobService;
 import android.content.Context;
-import android.content.Intent;
-import android.os.Build;
-import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
 
+import com.evernote.android.job.Job;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class SyncedFolderJobService extends JobService {
-    private static final String TAG = "SyncedFolderJobService";
+public class AutoUploadJob extends Job {
+    public static final String TAG = "AutoUploadJob";
 
-    public static final String LOCAL_PATH = "filePath";
+    private static final String LOCAL_PATH = "filePath";
     public static final String REMOTE_PATH = "remotePath";
     public static final String ACCOUNT = "account";
     public static final String UPLOAD_BEHAVIOUR = "uploadBehaviour";
 
+    @NonNull
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        return START_REDELIVER_INTENT;
-    }
-
-    @Override
-    public boolean onStartJob(JobParameters params) {
+    protected Result onRunJob(Params params) {
         final Context context = MainApp.getAppContext();
-        PersistableBundle bundle = params.getExtras();
-        final String filePath = bundle.getString(LOCAL_PATH);
-        final String remotePath = bundle.getString(REMOTE_PATH);
-        final Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT));
-        final Integer uploadBehaviour = bundle.getInt(UPLOAD_BEHAVIOUR);
+        PersistableBundleCompat bundle = params.getExtras();
+        final String filePath = bundle.getString(LOCAL_PATH, "");
+        final String remotePath = bundle.getString(REMOTE_PATH, "");
+        final Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT, ""));
+        final Integer uploadBehaviour = bundle.getInt(UPLOAD_BEHAVIOUR, -1);
 
-        Log_OC.d(TAG, "startJob: " + params.getJobId() + ", filePath: " + filePath);
 
         File file = new File(filePath);
 
@@ -72,7 +62,6 @@ public class SyncedFolderJobService extends JobService {
             final String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
 
             final FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-
             requester.uploadNewFile(
                     context,
                     account,
@@ -84,11 +73,7 @@ public class SyncedFolderJobService extends JobService {
                     UploadFileOperation.CREATED_AS_INSTANT_PICTURE
             );
         }
-        return false;
-    }
 
-    @Override
-    public boolean onStopJob(JobParameters params) {
-        return false;
+        return Result.SUCCESS;
     }
 }
