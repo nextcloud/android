@@ -31,8 +31,6 @@ import com.owncloud.android.MainApp;
  */
 
 public class ShutdownReceiver extends BroadcastReceiver {
-    private static final String TAG = "ShutdownReceiver";
-
     @Override
     public void onReceive(final Context context, final Intent intent) {
         if (MainApp.getSyncedFolderObserverService() != null) {

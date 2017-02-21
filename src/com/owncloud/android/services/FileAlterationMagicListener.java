@@ -19,10 +19,8 @@
  */
 package com.owncloud.android.services;
 
-import android.app.job.JobScheduler;
 import android.content.Context;
 import android.media.ExifInterface;
-import android.os.Handler;
 import android.text.TextUtils;
 
 import com.evernote.android.job.JobRequest;
@@ -56,9 +54,6 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     private Context context;
 
     private SyncedFolder syncedFolder;
-    private Handler handler = new Handler();
-
-    //private Map<String, Runnable> fileRunnable = new HashMap<>();
 
     private List<String> filesList = new ArrayList<>();
 
@@ -128,9 +123,8 @@ public class FileAlterationMagicListener implements FileAlterationListener {
             bundle.putString(AutoUploadJob.ACCOUNT, syncedFolder.getAccount());
             bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
 
-            JobScheduler js = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
-            int jobId = new JobRequest.Builder(AutoUploadJob.TAG)
+            new JobRequest.Builder(AutoUploadJob.TAG)
                     .setExecutionWindow(30_000L, 40_000L)
                     .setRequiresCharging(syncedFolder.getChargingOnly())
                     .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
@@ -140,31 +134,20 @@ public class FileAlterationMagicListener implements FileAlterationListener {
                     .build()
                     .schedule();
 
-            //fileRunnable.remove(file.getAbsolutePath());
             filesList.remove(file.getAbsolutePath());
 
-            //fileRunnable.put(file.getAbsolutePath(), runnable);
-            //handler.post(runnable);
         }
 
     }
 
     @Override
     public void onFileChange(File file) {
-        /* Left here for later
-        if (fileRunnable.containsKey(file.getAbsolutePath())) {
-            handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
-            handler.postDelayed(fileRunnable.get(file.getAbsolutePath()), 1500);
-        }*/
+        // This method is intentionally empty
     }
 
     @Override
     public void onFileDelete(File file) {
-        /* Left here for later
-        if (fileRunnable.containsKey(file.getAbsolutePath())) {
-            handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
-            fileRunnable.remove(file.getAbsolutePath());
-        }*/
+        // This method is intentionally empty
     }
 
     @Override
