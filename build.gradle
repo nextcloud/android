@@ -98,6 +98,11 @@ android {
         htmlReport true
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
     }
+
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
+
     compileSdkVersion 24
     buildToolsVersion "24.0.2"
 
