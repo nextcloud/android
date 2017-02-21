@@ -181,7 +181,6 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
             while (fileAlterationListener.getActiveTasksCount() > 0) {
                 SystemClock.sleep(250);
             }
-
         }
     }
 
