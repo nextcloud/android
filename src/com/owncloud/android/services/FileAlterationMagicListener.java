@@ -130,7 +130,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
                     .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
                             JobRequest.NetworkType.ANY)
                     .setExtras(bundle)
-                    .setPersisted(true)
+                    .setPersisted(false)
                     .setRequirementsEnforced(true)
                     .setUpdateCurrent(false)
                     .build()
