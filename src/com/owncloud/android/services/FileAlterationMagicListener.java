@@ -131,6 +131,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
                             JobRequest.NetworkType.ANY)
                     .setExtras(bundle)
                     .setPersisted(true)
+                    .setRequirementsEnforced(true)
                     .build()
                     .schedule();
 
