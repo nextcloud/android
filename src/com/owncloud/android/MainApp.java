@@ -119,8 +119,6 @@ public class MainApp extends Application {
 
         cleanOldEntries();
 
-
-        JobManager.instance().setVerbose(true);
         Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
         Intent i = new Intent(this, SyncedFolderObserverService.class);
         startService(i);
