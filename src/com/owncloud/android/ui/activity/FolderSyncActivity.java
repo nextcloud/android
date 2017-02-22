@@ -49,6 +49,7 @@ import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -167,13 +168,20 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         Map<String, SyncedFolder> syncedFoldersMap = createSyncedFoldersMap(syncedFolders);
         List<SyncedFolderDisplayItem> result = new ArrayList<>();
 
+
         for (MediaFolder mediaFolder : mediaFolders) {
             if (syncedFoldersMap.containsKey(mediaFolder.absolutePath)) {
                 SyncedFolder syncedFolder = syncedFoldersMap.get(mediaFolder.absolutePath);
+                syncedFoldersMap.remove(mediaFolder.absolutePath);
                 result.add(createSyncedFolder(syncedFolder, mediaFolder));
             } else {
                 result.add(createSyncedFolderFromMediaFolder(mediaFolder));
             }
+        }
+
+        for (SyncedFolder syncedFolder : syncedFoldersMap.values()) {
+            SyncedFolderDisplayItem syncedFolderDisplayItem = createSyncedFolderWithoutMediaFolder(syncedFolder);
+            result.add(syncedFolderDisplayItem);
         }
 
         return result;
@@ -218,6 +226,22 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         });
 
         return syncFolderItemList;
+    }
+
+    @NonNull
+    private SyncedFolderDisplayItem createSyncedFolderWithoutMediaFolder(@NonNull SyncedFolder syncedFolder) {
+        File file = new File(syncedFolder.getLocalPath());
+        return new SyncedFolderDisplayItem(
+                syncedFolder.getId(),
+                syncedFolder.getLocalPath(),
+                syncedFolder.getRemotePath(),
+                syncedFolder.getWifiOnly(),
+                syncedFolder.getChargingOnly(),
+                syncedFolder.getSubfolderByDate(),
+                syncedFolder.getAccount(),
+                syncedFolder.getUploadAction(),
+                syncedFolder.isEnabled(),
+                new File(syncedFolder.getLocalPath()).getName());
     }
 
     /**
@@ -283,7 +307,6 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }
         return result;
     }
-
     /**
      * show/hide recycler view list or the empty message / progress info.
      *
