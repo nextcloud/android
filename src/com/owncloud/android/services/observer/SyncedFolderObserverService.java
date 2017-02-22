@@ -27,47 +27,30 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
-import com.evernote.android.job.JobManager;
-import com.evernote.android.job.JobRequest;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.FileAlterationMagicListener;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
 public class SyncedFolderObserverService extends Service {
     private static final String TAG = "SyncedFolderObserverService";
     private final IBinder mBinder = new SyncedFolderObserverBinder();
     private FileAlterationMonitor monitor;
     private FileFilter fileFilter;
-
-    private File file;
-
+    
     @Override
     public void onCreate() {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().
                 getContentResolver());
         monitor = new FileAlterationMonitor();
-
-        file = new File(MainApp.getAppContext().getExternalFilesDir(null).getAbsolutePath() + File.separator +
-                "nc_persistence");
-
-        //schedulePersistedJobs();
 
         fileFilter = new FileFilter() {
             @Override
@@ -101,77 +84,6 @@ public class SyncedFolderObserverService extends Service {
 
     }
 
-    private void schedulePersistedJobs() {
-        if (!android.os.Build.MANUFACTURER.toLowerCase().contains("alcatel")) {
-            if (file.exists()) {
-                FileInputStream fis = null;
-                try {
-                    fis = new FileInputStream(file);
-                    ObjectInputStream ois = new ObjectInputStream(fis);
-                    boolean cont = true;
-                    while (cont) {
-                        Object obj = ois.readObject();
-                        if (obj != null) {
-                            JobRequest jobRequest = (JobRequest) obj;
-                            JobManager.instance().schedule(jobRequest);
-                        } else
-                            cont = false;
-                    }
-
-                } catch (FileNotFoundException e) {
-                    Log_OC.d(TAG, "Failed with FileNotFound while reading persistence file");
-                } catch (EOFException e) {
-                    Log_OC.d(TAG, "Failed with EOFException while reading persistence file");
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Failed with IOException while reading persistence file");
-                } catch (ClassNotFoundException e) {
-                    Log_OC.d(TAG, "Failed with ClassNotFound while reading persistence file");
-                } finally {
-                    try {
-                        if (fis != null) {
-                            fis.close();
-                        }
-                    } catch (IOException e) {
-                        Log_OC.d(TAG, "Failed with closing FIS");
-                    }
-                }
-            }
-            FileUtils.deleteQuietly(file);
-        }
-    }
-
-    private void syncToDisk() {
-        if (!android.os.Build.MANUFACTURER.toLowerCase().contains("alcatel")) {
-
-            if (JobManager.instance().getAllJobRequests().size() > 0) {
-                try {
-                    File newFile = new File(file.getAbsolutePath());
-
-                    if (!newFile.exists()) {
-                        newFile.createNewFile();
-                    }
-
-                    FileOutputStream fos = new FileOutputStream(new File(file.getAbsolutePath()), false);
-                    ObjectOutputStream os = new ObjectOutputStream(fos);
-                    for (JobRequest jobRequest : JobManager.instance().getAllJobRequests()) {
-                        os.writeObject(jobRequest);
-                    }
-
-                    os.close();
-                    fos.close();
-
-                } catch (FileNotFoundException e) {
-                    Log_OC.d(TAG, "Failed writing to nc_sync_persistance file via FileNotFound");
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Failed writing to nc_persisten file via IOException");
-                }
-            } else {
-                FileUtils.deleteQuietly(file);
-            }
-        }
-
-    }
-
     @Override
     public void onDestroy() {
 
@@ -187,8 +99,6 @@ public class SyncedFolderObserverService extends Service {
                 Log_OC.d(TAG, "Something went very wrong on trying to destroy observers");
             }
         }
-
-        //syncToDisk();
     }
 
     @Override
