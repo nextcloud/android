@@ -33,7 +33,6 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.FileAlterationMagicListener;
 
-import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 
@@ -93,7 +92,7 @@ public class SyncedFolderObserverService extends Service {
                     fileAlterationObserver;
             try {
                 monitor.removeObserver(fileAlterationMagicObserver);
-                fileAlterationMagicObserver.checkAndNotify();
+                fileAlterationMagicObserver.checkAndNotifyNow();
                 fileAlterationMagicObserver.destroy();
             } catch (Exception e) {
                 Log_OC.d(TAG, "Something went very wrong on trying to destroy observers");
@@ -121,8 +120,9 @@ public class SyncedFolderObserverService extends Service {
                     (FileAlterationMagicObserver) fileAlterationObserver;
             if (fileAlterationMagicObserver.getSyncedFolderID() == syncedFolder.getId()) {
                 if (syncedFolder.isEnabled()) {
-                    for (FileAlterationListener fileAlterationListener : fileAlterationMagicObserver.getListeners()) {
-                        fileAlterationMagicObserver.removeListener(fileAlterationListener);
+                    for (FileAlterationMagicListener fileAlterationMagicListener :
+                            fileAlterationMagicObserver.getMagicListeners()) {
+                        fileAlterationMagicObserver.removeListener(fileAlterationMagicListener);
                     }
                     fileAlterationObserver.addListener(new FileAlterationMagicListener(syncedFolder));
                 } else {

@@ -46,7 +46,6 @@ import com.owncloud.android.services.FileAlterationMagicListener;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
-import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.apache.commons.io.monitor.FileEntry;
 
@@ -62,15 +61,14 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class FileAlterationMagicObserver extends FileAlterationObserver implements Serializable {
 
     private static final long serialVersionUID = 1185122225658782848L;
-    private final List<FileAlterationListener> listeners = new CopyOnWriteArrayList<>();
+    private final List<FileAlterationMagicListener> listeners = new CopyOnWriteArrayList<>();
     private FileEntry rootEntry;
     private FileFilter fileFilter;
     private Comparator<File> comparator;
     private SyncedFolder syncedFolder;
 
     private static final FileEntry[] EMPTY_ENTRIES = new FileEntry[0];
-
-
+    
     public FileAlterationMagicObserver(SyncedFolder syncedFolder, FileFilter fileFilter) {
         super(syncedFolder.getLocalPath(), fileFilter);
 
@@ -120,7 +118,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param listener The file system listener
      */
-    public void addListener(final FileAlterationListener listener) {
+    public void addListener(final FileAlterationMagicListener listener) {
         if (listener != null) {
             listeners.add(listener);
         }
@@ -131,7 +129,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param listener The file system listener
      */
-    public void removeListener(final FileAlterationListener listener) {
+    public void removeListener(final FileAlterationMagicListener listener) {
         if (listener != null) {
             while (listeners.remove(listener)) {
             }
@@ -143,7 +141,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @return The file system listeners
      */
-    public Iterable<FileAlterationListener> getListeners() {
+    public Iterable<FileAlterationMagicListener> getMagicListeners() {
         return listeners;
     }
 
@@ -175,46 +173,77 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @throws Exception if an error occurs
      */
     public void destroy() throws Exception {
-        Iterator iterator = getListeners().iterator();
+        Iterator iterator = getMagicListeners().iterator();
         while (iterator.hasNext()) {
-            FileAlterationMagicListener fileAlterationListener = (FileAlterationMagicListener) iterator.next();
-            while (fileAlterationListener.getActiveTasksCount() > 0) {
+            FileAlterationMagicListener FileAlterationMagicListener = (FileAlterationMagicListener) iterator.next();
+            while (FileAlterationMagicListener.getActiveTasksCount() > 0) {
                 SystemClock.sleep(250);
             }
         }
     }
 
-    /**
-     * Check whether the file and its children have been created, modified or deleted.
-     */
-    public void checkAndNotify() {
-
-        /* fire onStart() */
-        for (final FileAlterationListener listener : listeners) {
+    public void checkAndNotifyNow() {
+                /* fire onStart() */
+        for (final FileAlterationMagicListener listener : listeners) {
             listener.onStart(this);
         }
 
         /* fire directory/file events */
         final File rootFile = rootEntry.getFile();
         if (rootFile.exists()) {
-            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile));
+            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile), 0);
         } else if (rootEntry.isExists()) {
             try {
                 // try to init once more
                 init();
                 if (rootEntry.getFile().exists()) {
-                    checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()));
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()), 0);
                 } else {
-                    checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY);
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 0);
                 }
             } catch (Exception e) {
                 Log_OC.d("FileAlterationMagicObserver", "Failed getting an observer to intialize " + e);
-                checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY);
+                checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 0);
             }
         } // else didn't exist and still doesn't
 
         /* fire onStop() */
-        for (final FileAlterationListener listener : listeners) {
+        for (final FileAlterationMagicListener listener : listeners) {
+            listener.onStop(this);
+        }
+    }
+    
+    /**
+     * Check whether the file and its children have been created, modified or deleted.
+     */
+    public void checkAndNotify() {
+
+        /* fire onStart() */
+        for (final FileAlterationMagicListener listener : listeners) {
+            listener.onStart(this);
+        }
+
+        /* fire directory/file events */
+        final File rootFile = rootEntry.getFile();
+        if (rootFile.exists()) {
+            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile), 2000);
+        } else if (rootEntry.isExists()) {
+            try {
+                // try to init once more
+                init();
+                if (rootEntry.getFile().exists()) {
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()), 2000);
+                } else {
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2000);
+                }
+            } catch (Exception e) {
+                Log_OC.d("FileAlterationMagicObserver", "Failed getting an observer to intialize " + e);
+                checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2000);
+            }
+        } // else didn't exist and still doesn't
+
+        /* fire onStop() */
+        for (final FileAlterationMagicListener listener : listeners) {
             listener.onStop(this);
         }
     }
@@ -226,28 +255,28 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @param previous The original list of files
      * @param files    The current list of files
      */
-    private void checkAndNotify(final FileEntry parent, final FileEntry[] previous, final File[] files) {
+    private void checkAndNotify(final FileEntry parent, final FileEntry[] previous, final File[] files, int delay) {
         int c = 0;
         final FileEntry[] current = files.length > 0 ? new FileEntry[files.length] : EMPTY_ENTRIES;
         for (final FileEntry entry : previous) {
             while (c < files.length && comparator.compare(entry.getFile(), files[c]) > 0) {
                 current[c] = createFileEntry(parent, files[c]);
-                doCreate(current[c]);
+                doCreate(current[c], delay);
                 c++;
             }
             if (c < files.length && comparator.compare(entry.getFile(), files[c]) == 0) {
-                doMatch(entry, files[c]);
-                checkAndNotify(entry, entry.getChildren(), listFiles(files[c]));
+                doMatch(entry, files[c], delay);
+                checkAndNotify(entry, entry.getChildren(), listFiles(files[c]), delay);
                 current[c] = entry;
                 c++;
             } else {
-                checkAndNotify(entry, entry.getChildren(), FileUtils.EMPTY_FILE_ARRAY);
-                doDelete(entry);
+                checkAndNotify(entry, entry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, delay);
+                doDelete(entry, delay);
             }
         }
         for (; c < files.length; c++) {
             current[c] = createFileEntry(parent, files[c]);
-            doCreate(current[c]);
+            doCreate(current[c], delay);
         }
         parent.setChildren(current);
     }
@@ -288,17 +317,17 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param entry The file entry
      */
-    private void doCreate(final FileEntry entry) {
-        for (final FileAlterationListener listener : listeners) {
+    private void doCreate(final FileEntry entry, int delay) {
+        for (final FileAlterationMagicListener listener : listeners) {
             if (entry.isDirectory()) {
                 listener.onDirectoryCreate(entry.getFile());
             } else {
-                listener.onFileCreate(entry.getFile());
+                listener.onFileCreate(entry.getFile(), delay);
             }
         }
         final FileEntry[] children = entry.getChildren();
         for (final FileEntry aChildren : children) {
-            doCreate(aChildren);
+            doCreate(aChildren, delay);
         }
     }
 
@@ -308,13 +337,13 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @param entry The previous file system entry
      * @param file  The current file
      */
-    private void doMatch(final FileEntry entry, final File file) {
+    private void doMatch(final FileEntry entry, final File file, int delay) {
         if (entry.refresh(file)) {
-            for (final FileAlterationListener listener : listeners) {
+            for (final FileAlterationMagicListener listener : listeners) {
                 if (entry.isDirectory()) {
                     listener.onDirectoryChange(file);
                 } else {
-                    listener.onFileChange(file);
+                    listener.onFileChange(file, delay);
                 }
             }
         }
@@ -325,8 +354,8 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param entry The file entry
      */
-    private void doDelete(final FileEntry entry) {
-        for (final FileAlterationListener listener : listeners) {
+    private void doDelete(final FileEntry entry, int delay) {
+        for (final FileAlterationMagicListener listener : listeners) {
             if (entry.isDirectory()) {
                 listener.onDirectoryDelete(entry.getFile());
             } else {
