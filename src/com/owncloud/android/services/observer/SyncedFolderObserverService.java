@@ -50,7 +50,7 @@ public class SyncedFolderObserverService extends Service {
     public void onCreate() {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().
                 getContentResolver());
-        monitor = new FileAlterationMonitor();
+        monitor = new FileAlterationMonitor(1000);
 
         fileFilter = new FileFilter() {
             @Override
