@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Beta indicator -->
-    <bool name="is_beta">false</bool>
+    <bool name="is_beta">true</bool>
 
     <!-- App name  and other strings-->
-    <string name="app_name">Nextcloud beta</string>
+    <string name="app_name">Nextcloud nightly</string>
     <string name="account_type">nextcloud.beta</string>	<!-- better if was a domain name; but changing it now would require
     migrate accounts when the app is updated -->
     <string name="authority">org.nextcloud.beta.provider</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->

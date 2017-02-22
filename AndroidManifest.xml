@@ -63,12 +63,12 @@
         android:name=".MainApp"
         android:fullBackupContent="@xml/my_backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="Nextcloud beta"
+        android:label="Nextcloud nightly"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
-            android:label="Nextcloud beta"
+            android:label="Nextcloud nightly"
             android:theme="@style/Theme.ownCloud.Toolbar.Drawer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -82,10 +82,10 @@
         <activity android:name=".ui.activity.FolderSyncActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
-                  
+
                   android:taskAffinity=""
                   android:excludeFromRecents="true"
-                  android:label="Nextcloud beta"
+                  android:label="Nextcloud nightly"
                   android:theme="@style/Theme.ownCloud.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
@@ -107,7 +107,7 @@
             android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
             android:name=".ui.preview.PreviewVideoActivity"
-            android:label="Nextcloud beta"
+            android:label="Nextcloud nightly"
             android:theme="@style/Theme.ownCloud.Fullscreen" />
 
         <service
@@ -273,10 +273,10 @@
             android:label="Copy link" />
         <activity
             android:name=".ui.activity.FolderPickerActivity"
-            android:label="Nextcloud beta" />
+            android:label="Nextcloud nightly"/>
         <activity
             android:name=".ui.activity.UploadPathActivity"
-            android:label="Nextcloud beta" />
+            android:label="Nextcloud nightly"/>
         <activity
             android:name=".ui.activity.ShareActivity"
             android:label="Sharing"
