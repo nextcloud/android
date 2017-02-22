@@ -88,6 +88,10 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
     @Override
     public void onFileCreate(final File file) {
+        onFileCreate(file, 2000);
+    }
+
+    public void onFileCreate(final File file, int delay) {
         if (file != null) {
             uploadMap.put(file.getAbsolutePath(), null);
 
@@ -146,26 +150,35 @@ public class FileAlterationMagicListener implements FileAlterationListener {
             };
 
             uploadMap.put(file.getAbsolutePath(), runnable);
-            handler.postDelayed(runnable, 2000);
+            handler.postDelayed(runnable, delay);
         }
-
     }
 
     @Override
     public void onFileChange(File file) {
-        // This method is intentionally empty
+        onFileChange(file, 2000);
+    }
+
+    public void onFileChange(File file, int delay) {
         if (uploadMap.containsKey(file.getAbsolutePath())) {
             if (uploadMap.get(file.getAbsolutePath()) != null) {
-                handler.removeCallbacks(uploadMap.get(file.getAbsolutePath()));
+                Runnable runnable = uploadMap.get(file.getAbsolutePath());
+                handler.removeCallbacks(runnable);
+                handler.postDelayed(runnable, delay);
             }
-            uploadMap.remove(file.getAbsolutePath());
         }
-        onFileCreate(file);
     }
 
     @Override
     public void onFileDelete(File file) {
         // This method is intentionally empty
+        if (uploadMap.containsKey(file.getAbsolutePath())) {
+            if (uploadMap.get(file.getAbsolutePath()) != null) {
+                Runnable runnable = uploadMap.get(file.getAbsolutePath());
+                handler.removeCallbacks(runnable);
+                uploadMap.remove(file.getAbsolutePath());
+            }
+        }
     }
 
     @Override
