@@ -21,6 +21,7 @@ package com.owncloud.android.services;
 
 import android.content.Context;
 import android.media.ExifInterface;
+import android.os.Handler;
 import android.text.TextUtils;
 
 import com.evernote.android.job.JobRequest;
@@ -37,10 +38,10 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 
 /**
@@ -55,7 +56,8 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
     private SyncedFolder syncedFolder;
 
-    private List<String> filesList = new ArrayList<>();
+    private Map<String, Runnable> uploadMap = new HashMap<>();
+    private Handler handler = new Handler();
 
     public FileAlterationMagicListener(SyncedFolder syncedFolder) {
         super();
@@ -87,7 +89,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     @Override
     public void onFileCreate(final File file) {
         if (file != null) {
-            filesList.add(file.getAbsolutePath());
+            uploadMap.put(file.getAbsolutePath(), null);
 
             String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
             Long lastModificationTime = file.lastModified();
@@ -113,31 +115,38 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
             final Long finalLastModificationTime = lastModificationTime;
 
-            PersistableBundleCompat bundle = new PersistableBundleCompat();
-            bundle.putString(AutoUploadJob.LOCAL_PATH, file.getAbsolutePath());
-            bundle.putString(AutoUploadJob.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
-                    currentLocale,
-                    syncedFolder.getRemotePath(), file.getName(),
-                    finalLastModificationTime,
-                    syncedFolder.getSubfolderByDate()));
-            bundle.putString(AutoUploadJob.ACCOUNT, syncedFolder.getAccount());
-            bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    PersistableBundleCompat bundle = new PersistableBundleCompat();
+                    bundle.putString(AutoUploadJob.LOCAL_PATH, file.getAbsolutePath());
+                    bundle.putString(AutoUploadJob.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
+                            currentLocale,
+                            syncedFolder.getRemotePath(), file.getName(),
+                            finalLastModificationTime,
+                            syncedFolder.getSubfolderByDate()));
+                    bundle.putString(AutoUploadJob.ACCOUNT, syncedFolder.getAccount());
+                    bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
 
 
-            new JobRequest.Builder(AutoUploadJob.TAG)
-                    .setExecutionWindow(30_000L, 80_000L)
-                    .setRequiresCharging(syncedFolder.getChargingOnly())
-                    .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
-                            JobRequest.NetworkType.ANY)
-                    .setExtras(bundle)
-                    .setPersisted(false)
-                    .setRequirementsEnforced(true)
-                    .setUpdateCurrent(false)
-                    .build()
-                    .schedule();
+                    new JobRequest.Builder(AutoUploadJob.TAG)
+                            .setExecutionWindow(30_000L, 80_000L)
+                            .setRequiresCharging(syncedFolder.getChargingOnly())
+                            .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
+                                    JobRequest.NetworkType.ANY)
+                            .setExtras(bundle)
+                            .setPersisted(false)
+                            .setRequirementsEnforced(true)
+                            .setUpdateCurrent(false)
+                            .build()
+                            .schedule();
 
-            filesList.remove(file.getAbsolutePath());
+                    uploadMap.remove(file.getAbsolutePath());
+                }
+            };
 
+            uploadMap.put(file.getAbsolutePath(), runnable);
+            handler.postDelayed(runnable, 2000);
         }
 
     }
@@ -145,6 +154,13 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     @Override
     public void onFileChange(File file) {
         // This method is intentionally empty
+        if (uploadMap.containsKey(file.getAbsolutePath())) {
+            if (uploadMap.get(file.getAbsolutePath()) != null) {
+                handler.removeCallbacks(uploadMap.get(file.getAbsolutePath()));
+            }
+            uploadMap.remove(file.getAbsolutePath());
+        }
+        onFileCreate(file);
     }
 
     @Override
@@ -158,6 +174,6 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     }
 
     public int getActiveTasksCount() {
-        return filesList.size();
+        return uploadMap.size();
     }
 }
