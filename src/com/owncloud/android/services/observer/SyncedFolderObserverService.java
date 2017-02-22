@@ -119,12 +119,23 @@ public class SyncedFolderObserverService extends Service {
             fileAlterationMagicObserver =
                     (FileAlterationMagicObserver) fileAlterationObserver;
             if (fileAlterationMagicObserver.getSyncedFolderID() == syncedFolder.getId()) {
+                monitor.removeObserver(fileAlterationObserver);
+                fileAlterationMagicObserver.checkAndNotifyNow();
+                try {
+                    fileAlterationMagicObserver.destroy();
+                } catch (Exception e) {
+                    Log_OC.d(TAG, "Failed to destroy the observer in restart");
+                }
+
                 if (syncedFolder.isEnabled()) {
-                    for (FileAlterationMagicListener fileAlterationMagicListener :
-                            fileAlterationMagicObserver.getMagicListeners()) {
-                        fileAlterationMagicObserver.removeListener(fileAlterationMagicListener);
+                    try {
+                        fileAlterationMagicObserver = new FileAlterationMagicObserver(syncedFolder, fileFilter);
+                        fileAlterationMagicObserver.init();
+                        fileAlterationMagicObserver.addListener(new FileAlterationMagicListener(syncedFolder));
+                        monitor.addObserver(fileAlterationMagicObserver);
+                    } catch (Exception e) {
+                        Log_OC.d(TAG, "Failed getting an observer to intialize");
                     }
-                    fileAlterationObserver.addListener(new FileAlterationMagicListener(syncedFolder));
                 } else {
                     monitor.removeObserver(fileAlterationObserver);
                 }
