@@ -1,5 +1,6 @@
-2017-02-22
+2017-02-23
 Branches: 13
+Beta branch was updated successfully
 [01 / 13] Added fingerprint support (Flole998/master) [https://github.com/nextcloud/android/pull/624] no update needed
 [02 / 13] Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] CONFLICT
 [03 / 13] Show user information (nextcloud/feature-user-information) [https://github.com/nextcloud/android/pull/585] CONFLICT
@@ -10,6 +11,6 @@ Branches: 13
 [08 / 13] Updated federated sharing edit options (nextcloud/federated_sharing_edit_options) [https://github.com/nextcloud/android/pull/395] CONFLICT
 [09 / 13] Streaming (nextcloud/streaming) [https://github.com/nextcloud/android/pull/183] CONFLICT
 [10 / 13] Resize cache (nextcloud/resizeCache) [https://github.com/nextcloud/android/pull/144] CONFLICT
-[11 / 13] Instant upload in the context of multi account support (nextcloud/instant_upload_multi_account) [https://github.com/nextcloud/android/pull/98] CONFLICT
+[11 / 13] Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] CONFLICT
 [12 / 13] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
 [13 / 13] Master (nextcloud/master) [https://github.com/nextcloud/android] merged successfully
