@@ -24,7 +24,7 @@
           android:title="@string/actionbar_search"
           android:contentDescription="@string/actionbar_search"
           app:actionViewClass="android.support.v7.widget.SearchView"
-          app:showAsAction="ifRoom|collapseActionView"/>
+          app:showAsAction="always"/>
     <item
         android:id="@+id/action_select_all"
         android:checkable="true"

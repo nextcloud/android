@@ -568,4 +568,5 @@
     <string name="welcome_feature_3_text">Keep your photos safe</string>
 
     <string name="whats_new_skip">Skip</string>
+    <string name="list_fragment_search_message">Showing first 100 results.</string>
 </resources>

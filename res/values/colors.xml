@@ -40,6 +40,7 @@
     <color name="secondaryTextColor">#a0a0a0</color>
     <color name="listItemHighlighted">#f8f8f8</color>
     <color name="highlightTextColor">#55739a</color>
+    <color name="light_grey">#D3D3D3</color>
 
     <!-- Colors -->
     <color name="color_accent">@color/owncloud_blue_accent</color>
