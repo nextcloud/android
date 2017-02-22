@@ -230,7 +230,6 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     @NonNull
     private SyncedFolderDisplayItem createSyncedFolderWithoutMediaFolder(@NonNull SyncedFolder syncedFolder) {
-        File file = new File(syncedFolder.getLocalPath());
         return new SyncedFolderDisplayItem(
                 syncedFolder.getId(),
                 syncedFolder.getLocalPath(),
