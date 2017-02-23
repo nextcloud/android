@@ -48,9 +48,9 @@ import java.util.TimeZone;
  * Magical file alteration listener
  */
 
-public class FileAlterationMagicListener implements FileAlterationListener {
+public class AdvancedFileAlterationListener implements FileAlterationListener {
 
-    public static final String TAG = "FileAlterationMagicListener";
+    public static final String TAG = "AdvancedFileAlterationListener";
 
     private Context context;
 
@@ -59,7 +59,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     private Map<String, Runnable> uploadMap = new HashMap<>();
     private Handler handler = new Handler();
 
-    public FileAlterationMagicListener(SyncedFolder syncedFolder) {
+    public AdvancedFileAlterationListener(SyncedFolder syncedFolder) {
         super();
 
         context = MainApp.getAppContext();

@@ -42,7 +42,7 @@ import android.os.SystemClock;
 
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.services.FileAlterationMagicListener;
+import com.owncloud.android.services.AdvancedFileAlterationListener;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
@@ -58,10 +58,10 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class FileAlterationMagicObserver extends FileAlterationObserver implements Serializable {
+public class AdvancedFileAlterationObserver extends FileAlterationObserver implements Serializable {
 
     private static final long serialVersionUID = 1185122225658782848L;
-    private final List<FileAlterationMagicListener> listeners = new CopyOnWriteArrayList<>();
+    private final List<AdvancedFileAlterationListener> listeners = new CopyOnWriteArrayList<>();
     private FileEntry rootEntry;
     private FileFilter fileFilter;
     private Comparator<File> comparator;
@@ -69,7 +69,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
 
     private static final FileEntry[] EMPTY_ENTRIES = new FileEntry[0];
     
-    public FileAlterationMagicObserver(SyncedFolder syncedFolder, FileFilter fileFilter) {
+    public AdvancedFileAlterationObserver(SyncedFolder syncedFolder, FileFilter fileFilter) {
         super(syncedFolder.getLocalPath(), fileFilter);
 
         this.rootEntry = new FileEntry(new File(syncedFolder.getLocalPath()));
@@ -118,7 +118,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param listener The file system listener
      */
-    public void addListener(final FileAlterationMagicListener listener) {
+    public void addListener(final AdvancedFileAlterationListener listener) {
         if (listener != null) {
             listeners.add(listener);
         }
@@ -129,7 +129,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param listener The file system listener
      */
-    public void removeListener(final FileAlterationMagicListener listener) {
+    public void removeListener(final AdvancedFileAlterationListener listener) {
         if (listener != null) {
             while (listeners.remove(listener)) {
             }
@@ -141,7 +141,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @return The file system listeners
      */
-    public Iterable<FileAlterationMagicListener> getMagicListeners() {
+    public Iterable<AdvancedFileAlterationListener> getMagicListeners() {
         return listeners;
     }
 
@@ -175,8 +175,8 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
     public void destroy() throws Exception {
         Iterator iterator = getMagicListeners().iterator();
         while (iterator.hasNext()) {
-            FileAlterationMagicListener FileAlterationMagicListener = (FileAlterationMagicListener) iterator.next();
-            while (FileAlterationMagicListener.getActiveTasksCount() > 0) {
+            AdvancedFileAlterationListener AdvancedFileAlterationListener = (AdvancedFileAlterationListener) iterator.next();
+            while (AdvancedFileAlterationListener.getActiveTasksCount() > 0) {
                 SystemClock.sleep(250);
             }
         }
@@ -184,7 +184,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
 
     public void checkAndNotifyNow() {
                 /* fire onStart() */
-        for (final FileAlterationMagicListener listener : listeners) {
+        for (final AdvancedFileAlterationListener listener : listeners) {
             listener.onStart(this);
         }
 
@@ -202,13 +202,13 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
                     checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 0);
                 }
             } catch (Exception e) {
-                Log_OC.d("FileAlterationMagicObserver", "Failed getting an observer to intialize " + e);
+                Log_OC.d("AdvancedFileAlterationObserver", "Failed getting an observer to intialize " + e);
                 checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 0);
             }
         } // else didn't exist and still doesn't
 
         /* fire onStop() */
-        for (final FileAlterationMagicListener listener : listeners) {
+        for (final AdvancedFileAlterationListener listener : listeners) {
             listener.onStop(this);
         }
     }
@@ -219,7 +219,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
     public void checkAndNotify() {
 
         /* fire onStart() */
-        for (final FileAlterationMagicListener listener : listeners) {
+        for (final AdvancedFileAlterationListener listener : listeners) {
             listener.onStart(this);
         }
 
@@ -237,13 +237,13 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
                     checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2500);
                 }
             } catch (Exception e) {
-                Log_OC.d("FileAlterationMagicObserver", "Failed getting an observer to intialize " + e);
+                Log_OC.d("AdvancedFileAlterationObserver", "Failed getting an observer to intialize " + e);
                 checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2500);
             }
         } // else didn't exist and still doesn't
 
         /* fire onStop() */
-        for (final FileAlterationMagicListener listener : listeners) {
+        for (final AdvancedFileAlterationListener listener : listeners) {
             listener.onStop(this);
         }
     }
@@ -320,7 +320,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @param entry The file entry
      */
     private void doCreate(final FileEntry entry, int delay) {
-        for (final FileAlterationMagicListener listener : listeners) {
+        for (final AdvancedFileAlterationListener listener : listeners) {
             if (entry.isDirectory()) {
                 listener.onDirectoryCreate(entry.getFile());
             } else {
@@ -341,7 +341,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      */
     private void doMatch(final FileEntry entry, final File file, int delay) {
         if (entry.refresh(file)) {
-            for (final FileAlterationMagicListener listener : listeners) {
+            for (final AdvancedFileAlterationListener listener : listeners) {
                 if (entry.isDirectory()) {
                     listener.onDirectoryChange(file);
                 } else {
@@ -357,7 +357,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @param entry The file entry
      */
     private void doDelete(final FileEntry entry) {
-        for (final FileAlterationMagicListener listener : listeners) {
+        for (final AdvancedFileAlterationListener listener : listeners) {
             if (entry.isDirectory()) {
                 listener.onDirectoryDelete(entry.getFile());
             } else {
