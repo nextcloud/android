@@ -1,22 +1,22 @@
 /**
- *  ownCloud Android client application
+ * ownCloud Android client application
  *
- *  @author Bartek Przybylski
- *  @author David A. Velasco
- *  Copyright (C) 2011  Bartek Przybylski
- *  Copyright (C) 2016 ownCloud Inc.
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License version 2,
- *  as published by the Free Software Foundation.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Bartek Przybylski
+ * @author David A. Velasco
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -175,7 +175,7 @@ public class FileDisplayActivity extends HookActivity
         setupToolbar();
 
         // setup drawer
-        if(MainApp.isOnlyOnDevice()) {
+        if (MainApp.isOnlyOnDevice()) {
             setupDrawer(R.id.nav_on_device);
         } else {
             setupDrawer(R.id.nav_all_files);
@@ -577,7 +577,7 @@ public class FileDisplayActivity extends HookActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = isDrawerOpen();
 
-        for (MenuItem menuItem:mDrawerMenuItemstoShowHideList) {
+        for (MenuItem menuItem : mDrawerMenuItemstoShowHideList) {
             menuItem.setVisible(!drawerOpen);
         }
 
@@ -708,16 +708,16 @@ public class FileDisplayActivity extends HookActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS &&
-            (resultCode == RESULT_OK ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+                (resultCode == RESULT_OK ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
 
             requestUploadOfContentFromApps(data, resultCode);
 
         } else if (requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
-            (resultCode == RESULT_OK ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_DO_NOTHING ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
+                (resultCode == RESULT_OK ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_DO_NOTHING ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
 
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
@@ -806,8 +806,8 @@ public class FileDisplayActivity extends HookActivity
 
         //getClipData is only supported on api level 16+, Jelly Bean
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
-            contentIntent.getClipData() != null &&
-            contentIntent.getClipData().getItemCount() > 0) {
+                contentIntent.getClipData() != null &&
+                contentIntent.getClipData().getItemCount() > 0) {
 
             for (int i = 0; i < contentIntent.getClipData().getItemCount(); i++) {
                 streamsToUpload.add(contentIntent.getClipData().getItemAt(i).getUri());
@@ -870,10 +870,10 @@ public class FileDisplayActivity extends HookActivity
          *    2. close FAB if open (only if drawer isn't open)
          *    3. navigate up (only if drawer and FAB aren't open)
          */
-        if(isDrawerOpen && isFabOpen) {
+        if (isDrawerOpen && isFabOpen) {
             // close drawer first
             super.onBackPressed();
-        } else if(isDrawerOpen && !isFabOpen) {
+        } else if (isDrawerOpen && !isFabOpen) {
             // close drawer
             super.onBackPressed();
         } else if (!isDrawerOpen && isFabOpen) {
@@ -972,7 +972,7 @@ public class FileDisplayActivity extends HookActivity
     }
 
     public boolean isFabOpen() {
-        if(getListOfFilesFragment() != null
+        if (getListOfFilesFragment() != null
                 && getListOfFilesFragment().getFabMain() != null
                 && getListOfFilesFragment().getFabMain().isExpanded()) {
             return true;
@@ -1038,7 +1038,7 @@ public class FileDisplayActivity extends HookActivity
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir,
-                                    MainApp.isOnlyOnDevice());
+                                            MainApp.isOnlyOnDevice());
                                 }
                             }
                             setFile(currentFile);
@@ -1100,7 +1100,7 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
             if (!mSyncInProgress) {
-                ocFileListFragment.setEmptyListMessage();
+                ocFileListFragment.setEmptyListMessage(ocFileListFragment.isSearchOpen());
             } else {
                 ocFileListFragment.setEmptyListLoadingMessage();
             }
@@ -1175,8 +1175,7 @@ public class FileDisplayActivity extends HookActivity
                         OCFile ocFile = getFile();
                         if (PreviewImageFragment.canBePreviewed(ocFile)) {
                             startImagePreview(getFile());
-                        }
-                        else if (PreviewTextFragment.canBePreviewed(ocFile)) {
+                        } else if (PreviewTextFragment.canBePreviewed(ocFile)) {
                             startTextPreview(ocFile);
                         }
                         // TODO what about other kind of previews?
@@ -1455,8 +1454,8 @@ public class FileDisplayActivity extends HookActivity
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
         Toast msg = Toast.makeText(this,
-            ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-            Toast.LENGTH_LONG);
+                ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                Toast.LENGTH_LONG);
         msg.show();
 
         if (result.isSuccess()) {
@@ -1835,7 +1834,7 @@ public class FileDisplayActivity extends HookActivity
      * @param files collection of {@link OCFile} files which operations are wanted to be cancel
      */
     public void cancelTransference(Collection<OCFile> files) {
-        for(OCFile file: files) {
+        for (OCFile file : files) {
             cancelTransference(file);
         }
     }
@@ -1886,5 +1885,6 @@ public class FileDisplayActivity extends HookActivity
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
         getListOfFilesFragment().refreshDirectory();
+
     }
 }
