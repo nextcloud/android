@@ -31,7 +31,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.services.FileAlterationMagicListener;
+import com.owncloud.android.services.AdvancedFileAlterationListener;
 
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
@@ -61,11 +61,11 @@ public class SyncedFolderObserverService extends Service {
 
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             if (syncedFolder.isEnabled()) {
-                FileAlterationMagicObserver observer = new FileAlterationMagicObserver(syncedFolder, fileFilter);
+                AdvancedFileAlterationObserver observer = new AdvancedFileAlterationObserver(syncedFolder, fileFilter);
 
                 try {
                     observer.init();
-                    observer.addListener(new FileAlterationMagicListener(syncedFolder));
+                    observer.addListener(new AdvancedFileAlterationListener(syncedFolder));
                     monitor.addObserver(observer);
                 } catch (Exception e) {
                     Log_OC.d(TAG, "Failed getting an observer to intialize " + e);
@@ -88,12 +88,12 @@ public class SyncedFolderObserverService extends Service {
 
         super.onDestroy();
         for (FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
-            FileAlterationMagicObserver fileAlterationMagicObserver = (FileAlterationMagicObserver)
+            AdvancedFileAlterationObserver advancedFileAlterationObserver = (AdvancedFileAlterationObserver)
                     fileAlterationObserver;
             try {
-                monitor.removeObserver(fileAlterationMagicObserver);
-                fileAlterationMagicObserver.checkAndNotifyNow();
-                fileAlterationMagicObserver.destroy();
+                monitor.removeObserver(advancedFileAlterationObserver);
+                advancedFileAlterationObserver.checkAndNotifyNow();
+                advancedFileAlterationObserver.destroy();
             } catch (Exception e) {
                 Log_OC.d(TAG, "Something went very wrong on trying to destroy observers");
             }
@@ -114,25 +114,25 @@ public class SyncedFolderObserverService extends Service {
 
     public void restartObserver(SyncedFolder syncedFolder) {
         boolean found = false;
-        FileAlterationMagicObserver fileAlterationMagicObserver;
+        AdvancedFileAlterationObserver advancedFileAlterationObserver;
         for (FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
-            fileAlterationMagicObserver =
-                    (FileAlterationMagicObserver) fileAlterationObserver;
-            if (fileAlterationMagicObserver.getSyncedFolderID() == syncedFolder.getId()) {
+            advancedFileAlterationObserver =
+                    (AdvancedFileAlterationObserver) fileAlterationObserver;
+            if (advancedFileAlterationObserver.getSyncedFolderID() == syncedFolder.getId()) {
                 monitor.removeObserver(fileAlterationObserver);
-                fileAlterationMagicObserver.checkAndNotifyNow();
+                advancedFileAlterationObserver.checkAndNotifyNow();
                 try {
-                    fileAlterationMagicObserver.destroy();
+                    advancedFileAlterationObserver.destroy();
                 } catch (Exception e) {
                     Log_OC.d(TAG, "Failed to destroy the observer in restart");
                 }
 
                 if (syncedFolder.isEnabled()) {
                     try {
-                        fileAlterationMagicObserver = new FileAlterationMagicObserver(syncedFolder, fileFilter);
-                        fileAlterationMagicObserver.init();
-                        fileAlterationMagicObserver.addListener(new FileAlterationMagicListener(syncedFolder));
-                        monitor.addObserver(fileAlterationMagicObserver);
+                        advancedFileAlterationObserver = new AdvancedFileAlterationObserver(syncedFolder, fileFilter);
+                        advancedFileAlterationObserver.init();
+                        advancedFileAlterationObserver.addListener(new AdvancedFileAlterationListener(syncedFolder));
+                        monitor.addObserver(advancedFileAlterationObserver);
                     } catch (Exception e) {
                         Log_OC.d(TAG, "Failed getting an observer to intialize");
                     }
@@ -146,10 +146,10 @@ public class SyncedFolderObserverService extends Service {
 
         if (!found && syncedFolder.isEnabled()) {
             try {
-                fileAlterationMagicObserver = new FileAlterationMagicObserver(syncedFolder, fileFilter);
-                fileAlterationMagicObserver.init();
-                fileAlterationMagicObserver.addListener(new FileAlterationMagicListener(syncedFolder));
-                monitor.addObserver(fileAlterationMagicObserver);
+                advancedFileAlterationObserver = new AdvancedFileAlterationObserver(syncedFolder, fileFilter);
+                advancedFileAlterationObserver.init();
+                advancedFileAlterationObserver.addListener(new AdvancedFileAlterationListener(syncedFolder));
+                monitor.addObserver(advancedFileAlterationObserver);
             } catch (Exception e) {
                 Log_OC.d(TAG, "Failed getting an observer to intialize");
             }
