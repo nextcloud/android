@@ -2,8 +2,8 @@
 date=$(date +%Y%m%d)
 
 # use the current date
-mkdir -p apks
-echo $date > apks/latest
+mkdir -p ~/apks
+echo $date > ~/apks/latest
 sed -i s"#android:versionCode=.*#android:versionCode=\"$date\"#" AndroidManifest.xml
 sed -i s"#versionCode .*#versionCode $date#" build.gradle
 
@@ -20,11 +20,12 @@ if [ $? != 0 ] ; then
 	exit
 fi
 
-mv build/outputs/apk/android-release.apk apks/nextcloud-beta-$date.apk
-cp apks/nextcloud-beta-$date.apk apks/latest.apk
+mv build/outputs/apk/android-release.apk ~/apks/nextcloud-beta-$date.apk
+ln -s nextcloud-beta-$date.apk latest.apk
+mv latest.apk ~/apks/
 
 # remove all but the latest 5 apks
-/bin/ls -t apks/*.apk | awk 'NR>6' | xargs rm -f
+/bin/ls -t ~/apks/*.apk | awk 'NR>6' | xargs rm -f
 
 git add .
 git commit
