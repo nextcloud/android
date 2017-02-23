@@ -256,29 +256,31 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @param files    The current list of files
      */
     private void checkAndNotify(final FileEntry parent, final FileEntry[] previous, final File[] files, int delay) {
-        int c = 0;
-        final FileEntry[] current = files.length > 0 ? new FileEntry[files.length] : EMPTY_ENTRIES;
-        for (final FileEntry entry : previous) {
-            while (c < files.length && comparator.compare(entry.getFile(), files[c]) > 0) {
+        if (files != null && files.length > 0) {
+            int c = 0;
+            final FileEntry[] current = files.length > 0 ? new FileEntry[files.length] : EMPTY_ENTRIES;
+            for (final FileEntry entry : previous) {
+                while (c < files.length && comparator.compare(entry.getFile(), files[c]) > 0) {
+                    current[c] = createFileEntry(parent, files[c]);
+                    doCreate(current[c], delay);
+                    c++;
+                }
+                if (c < files.length && comparator.compare(entry.getFile(), files[c]) == 0) {
+                    doMatch(entry, files[c], delay);
+                    checkAndNotify(entry, entry.getChildren(), listFiles(files[c]), delay);
+                    current[c] = entry;
+                    c++;
+                } else {
+                    checkAndNotify(entry, entry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, delay);
+                    doDelete(entry, delay);
+                }
+            }
+            for (; c < files.length; c++) {
                 current[c] = createFileEntry(parent, files[c]);
                 doCreate(current[c], delay);
-                c++;
             }
-            if (c < files.length && comparator.compare(entry.getFile(), files[c]) == 0) {
-                doMatch(entry, files[c], delay);
-                checkAndNotify(entry, entry.getChildren(), listFiles(files[c]), delay);
-                current[c] = entry;
-                c++;
-            } else {
-                checkAndNotify(entry, entry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, delay);
-                doDelete(entry, delay);
-            }
+            parent.setChildren(current);
         }
-        for (; c < files.length; c++) {
-            current[c] = createFileEntry(parent, files[c]);
-            doCreate(current[c], delay);
-        }
-        parent.setChildren(current);
     }
 
     /**
