@@ -88,7 +88,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
     @Override
     public void onFileCreate(final File file) {
-        onFileCreate(file, 2000);
+        onFileCreate(file, 2500);
     }
 
     public void onFileCreate(final File file, int delay) {
@@ -156,7 +156,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
     @Override
     public void onFileChange(File file) {
-        onFileChange(file, 2000);
+        onFileChange(file, 2500);
     }
 
     public void onFileChange(File file, int delay) {
