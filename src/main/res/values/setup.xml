@@ -88,6 +88,9 @@
 
     <!-- login data links -->
     <string name="login_data_own_scheme" translatable="false">cloud</string>
+
+    <!-- analytics_tracking_id - to be used only with custom* build variants -->
+    <string name="analytics_tracking_id" translatable="false"></string>
 </resources>
 
 

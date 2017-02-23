@@ -3,7 +3,10 @@
  *
  *   @author masensio
  *   @author David A. Velasco
+ *   @author Mario Danic
  *   Copyright (C) 2015 ownCloud Inc.
+ *   Copyright (C) 2017 Mario Danic
+ *   Copyright (C) 2017 Nextcloud GmbH
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -17,8 +20,21 @@
  *   You should have received a copy of the GNU General Public License
  *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
+ *   All changes by Mario Danic are under AGPL3+
+ *
+ *   This program is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Affero General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   at your option) any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU Affero General Public License for more details.
+ *
+ *   You should have received a copy of the GNU Affero General Public License
+ *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android;
 
 import android.app.Activity;
 import android.app.Application;
@@ -33,7 +49,13 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
+import com.owncloud.android.BuildConfig;
+import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -42,8 +64,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -75,6 +95,8 @@ public class MainApp extends Application {
 
     @SuppressWarnings("unused")
     private boolean mBound;
+
+    private Tracker mTracker;
 
     @SuppressFBWarnings("ST")    public void onCreate(){
         super.onCreate();
@@ -113,8 +135,17 @@ public class MainApp extends Application {
         startService(i);
         bindService(i, syncedFolderObserverServiceConnection, Context.BIND_AUTO_CREATE);
 
+        boolean analyticsEnabled = false;
+        String analyticsId;
+
+        if (!TextUtils.isEmpty(analyticsId = getAppContext().getResources().getString(R.string.analytics_tracking_id))) {
+            analyticsEnabled = true;
+            mTracker = getDefaultTracker(analyticsId);
+        }
+
         // register global protection with pass code
-        registerActivityLifecycleCallbacks( new ActivityLifecycleCallbacks() {
+        final boolean finalAnalyticsEnabled = analyticsEnabled;
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
 
             @Override
             public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -127,6 +158,10 @@ public class MainApp extends Application {
             public void onActivityStarted(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(),  "onStart() starting" );
                 PassCodeManager.getPassCodeManager().onActivityStarted(activity);
+                if (finalAnalyticsEnabled) {
+                    mTracker.setScreenName(activity.getClass().getSimpleName());
+                    mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+                }
             }
 
             @Override
@@ -143,6 +178,10 @@ public class MainApp extends Application {
             public void onActivityStopped(Activity activity) {
                 Log_OC.d(activity.getClass().getSimpleName(), "onStop() ending" );
                 PassCodeManager.getPassCodeManager().onActivityStopped(activity);
+                if (finalAnalyticsEnabled) {
+                    mTracker.setScreenName(activity.getClass().getSimpleName());
+                    mTracker.send(new HitBuilders.ScreenViewBuilder().build());
+                }
             }
 
             @Override
@@ -156,6 +195,17 @@ public class MainApp extends Application {
             }
         });
     }
+
+    synchronized public Tracker getDefaultTracker(String analyticsID) {
+        if (mTracker == null) {
+            GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+            // To enable debug logging use: adb shell setprop log.tag.GAv4 DEBUG
+            //mTracker = analytics.newTracker(R.xml.global_tracker);
+            mTracker = analytics.newTracker(analyticsID);
+        }
+        return mTracker;
+    }
+
 
     public static Context getAppContext() {
         return MainApp.mContext;
