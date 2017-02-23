@@ -167,7 +167,8 @@ public class FileStorageUtils {
         if (subfolderByDate) {
            subPath = getSubpathFromDate(dateTaken, current);
         }
-        return remotePath + subPath + (fileName == null ? "" : fileName);
+        String path = remotePath + OCFile.PATH_SEPARATOR  + subPath + (fileName == null ? "" : fileName);
+        return path;
     }
 
     public static String getInstantUploadFilePath(String remotePath, String fileName, long dateTaken,
@@ -176,7 +177,8 @@ public class FileStorageUtils {
         if (subfolderByDate) {
             subPath = getSubpathFromDate(dateTaken);
         }
-        return remotePath + subPath + (fileName == null ? "" : fileName);
+        String path =  remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
+        return path;
     }
 
 
