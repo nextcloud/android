@@ -16,7 +16,7 @@
     <string name="menu_item_sort_by_name">A - Z</string>
     <string name="menu_item_sort_by_date">最新 - 最舊</string>
     <string name="menu_item_sort_by_size">最大 - 最小</string>
-    <string name="drawer_item_all_files">所有檔案</string>
+    <string name="files_drawer_toolbar">所有檔案</string>
     <string name="drawer_item_on_device">在裝置上</string>
     <string name="drawer_item_settings">設定</string>
     <string name="drawer_item_uploads_list">上傳</string>

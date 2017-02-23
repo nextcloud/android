@@ -57,7 +57,16 @@
 
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">true</bool>
-    
+
+    <!-- Drawer options -->
+    <bool name="recently_added_enabled">false</bool>
+    <bool name="recently_modified_enabled">false</bool>
+    <bool name="shared_enabled">false</bool>
+    <bool name="videos_enabled">false</bool>
+
+    <!-- Bottom toolbar -->
+    <bool name="bottom_toolbar_enabled">false</bool>
+
     <!-- Help, imprint and feedback -->
     <bool name="calendar_contacts_enabled">true</bool>
     <bool name="help_enabled">true</bool>
@@ -91,6 +100,10 @@
 
     <!-- analytics_tracking_id - to be used only with custom* build variants -->
     <string name="analytics_tracking_id" translatable="false"></string>
+
+    <!-- custom things -->
+    <string name="files_drawer_toolbar">Files</string>
+
 </resources>
 
 

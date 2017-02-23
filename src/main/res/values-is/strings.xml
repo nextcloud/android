@@ -16,7 +16,7 @@
     <string name="menu_item_sort_by_name">A - Z</string>
     <string name="menu_item_sort_by_date">Nýjast - Elst</string>
     <string name="menu_item_sort_by_size">Stærst - Minnst</string>
-    <string name="drawer_item_all_files">Allar skrár</string>
+    <string name="files_drawer_toolbar">Allar skrár</string>
     <string name="drawer_item_on_device">á tækinu</string>
     <string name="drawer_item_settings">Stillingar</string>
     <string name="drawer_item_uploads_list">Innsendingar</string>
