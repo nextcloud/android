@@ -46,7 +46,10 @@ import com.owncloud.android.services.FileAlterationMagicListener;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.comparator.NameFileComparator;
+<<<<<<< HEAD
 import org.apache.commons.io.monitor.FileAlterationListener;
+=======
+>>>>>>> rewrite-auto-upload
 import org.apache.commons.io.monitor.FileAlterationObserver;
 import org.apache.commons.io.monitor.FileEntry;
 
@@ -62,15 +65,23 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class FileAlterationMagicObserver extends FileAlterationObserver implements Serializable {
 
     private static final long serialVersionUID = 1185122225658782848L;
+<<<<<<< HEAD
     private final List<FileAlterationListener> listeners = new CopyOnWriteArrayList<>();
+=======
+    private final List<FileAlterationMagicListener> listeners = new CopyOnWriteArrayList<>();
+>>>>>>> rewrite-auto-upload
     private FileEntry rootEntry;
     private FileFilter fileFilter;
     private Comparator<File> comparator;
     private SyncedFolder syncedFolder;
 
     private static final FileEntry[] EMPTY_ENTRIES = new FileEntry[0];
+<<<<<<< HEAD
 
 
+=======
+    
+>>>>>>> rewrite-auto-upload
     public FileAlterationMagicObserver(SyncedFolder syncedFolder, FileFilter fileFilter) {
         super(syncedFolder.getLocalPath(), fileFilter);
 
@@ -120,7 +131,11 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param listener The file system listener
      */
+<<<<<<< HEAD
     public void addListener(final FileAlterationListener listener) {
+=======
+    public void addListener(final FileAlterationMagicListener listener) {
+>>>>>>> rewrite-auto-upload
         if (listener != null) {
             listeners.add(listener);
         }
@@ -131,7 +146,11 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param listener The file system listener
      */
+<<<<<<< HEAD
     public void removeListener(final FileAlterationListener listener) {
+=======
+    public void removeListener(final FileAlterationMagicListener listener) {
+>>>>>>> rewrite-auto-upload
         if (listener != null) {
             while (listeners.remove(listener)) {
             }
@@ -143,7 +162,11 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @return The file system listeners
      */
+<<<<<<< HEAD
     public Iterable<FileAlterationListener> getListeners() {
+=======
+    public Iterable<FileAlterationMagicListener> getMagicListeners() {
+>>>>>>> rewrite-auto-upload
         return listeners;
     }
 
@@ -175,6 +198,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @throws Exception if an error occurs
      */
     public void destroy() throws Exception {
+<<<<<<< HEAD
         Iterator iterator = getListeners().iterator();
         while (iterator.hasNext()) {
             FileAlterationMagicListener fileAlterationListener = (FileAlterationMagicListener) iterator.next();
@@ -185,25 +209,76 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
         }
     }
 
-    /**
-     * Check whether the file and its children have been created, modified or deleted.
-     */
-    public void checkAndNotify() {
+=======
+        Iterator iterator = getMagicListeners().iterator();
+        while (iterator.hasNext()) {
+            FileAlterationMagicListener FileAlterationMagicListener = (FileAlterationMagicListener) iterator.next();
+            while (FileAlterationMagicListener.getActiveTasksCount() > 0) {
+                SystemClock.sleep(250);
+            }
+        }
+    }
 
-        /* fire onStart() */
-        for (final FileAlterationListener listener : listeners) {
+    public void checkAndNotifyNow() {
+                /* fire onStart() */
+        for (final FileAlterationMagicListener listener : listeners) {
             listener.onStart(this);
         }
 
         /* fire directory/file events */
         final File rootFile = rootEntry.getFile();
         if (rootFile.exists()) {
-            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile));
+            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile), 0);
         } else if (rootEntry.isExists()) {
             try {
                 // try to init once more
                 init();
                 if (rootEntry.getFile().exists()) {
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()), 0);
+                } else {
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 0);
+                }
+            } catch (Exception e) {
+                Log_OC.d("FileAlterationMagicObserver", "Failed getting an observer to intialize " + e);
+                checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 0);
+            }
+        } // else didn't exist and still doesn't
+
+        /* fire onStop() */
+        for (final FileAlterationMagicListener listener : listeners) {
+            listener.onStop(this);
+        }
+    }
+    
+>>>>>>> rewrite-auto-upload
+    /**
+     * Check whether the file and its children have been created, modified or deleted.
+     */
+    public void checkAndNotify() {
+
+        /* fire onStart() */
+<<<<<<< HEAD
+        for (final FileAlterationListener listener : listeners) {
+=======
+        for (final FileAlterationMagicListener listener : listeners) {
+>>>>>>> rewrite-auto-upload
+            listener.onStart(this);
+        }
+
+        /* fire directory/file events */
+        final File rootFile = rootEntry.getFile();
+        if (rootFile.exists()) {
+<<<<<<< HEAD
+            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile));
+=======
+            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile), 2500);
+>>>>>>> rewrite-auto-upload
+        } else if (rootEntry.isExists()) {
+            try {
+                // try to init once more
+                init();
+                if (rootEntry.getFile().exists()) {
+<<<<<<< HEAD
                     checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()));
                 } else {
                     checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY);
@@ -211,11 +286,24 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
             } catch (Exception e) {
                 Log_OC.d("FileAlterationMagicObserver", "Failed getting an observer to intialize " + e);
                 checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY);
+=======
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()), 2500);
+                } else {
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2500);
+                }
+            } catch (Exception e) {
+                Log_OC.d("FileAlterationMagicObserver", "Failed getting an observer to intialize " + e);
+                checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2500);
+>>>>>>> rewrite-auto-upload
             }
         } // else didn't exist and still doesn't
 
         /* fire onStop() */
+<<<<<<< HEAD
         for (final FileAlterationListener listener : listeners) {
+=======
+        for (final FileAlterationMagicListener listener : listeners) {
+>>>>>>> rewrite-auto-upload
             listener.onStop(this);
         }
     }
@@ -227,6 +315,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @param previous The original list of files
      * @param files    The current list of files
      */
+<<<<<<< HEAD
     private void checkAndNotify(final FileEntry parent, final FileEntry[] previous, final File[] files) {
         int c = 0;
         final FileEntry[] current = files.length > 0 ? new FileEntry[files.length] : EMPTY_ENTRIES;
@@ -251,6 +340,34 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
             doCreate(current[c]);
         }
         parent.setChildren(current);
+=======
+    private void checkAndNotify(final FileEntry parent, final FileEntry[] previous, final File[] files, int delay) {
+        if (files != null && files.length > 0) {
+            int c = 0;
+            final FileEntry[] current = files.length > 0 ? new FileEntry[files.length] : EMPTY_ENTRIES;
+            for (final FileEntry entry : previous) {
+                while (c < files.length && comparator.compare(entry.getFile(), files[c]) > 0) {
+                    current[c] = createFileEntry(parent, files[c]);
+                    doCreate(current[c], delay);
+                    c++;
+                }
+                if (c < files.length && comparator.compare(entry.getFile(), files[c]) == 0) {
+                    doMatch(entry, files[c], delay);
+                    checkAndNotify(entry, entry.getChildren(), listFiles(files[c]), delay);
+                    current[c] = entry;
+                    c++;
+                } else {
+                    checkAndNotify(entry, entry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, delay);
+                    doDelete(entry, delay);
+                }
+            }
+            for (; c < files.length; c++) {
+                current[c] = createFileEntry(parent, files[c]);
+                doCreate(current[c], delay);
+            }
+            parent.setChildren(current);
+        }
+>>>>>>> rewrite-auto-upload
     }
 
     /**
@@ -289,17 +406,30 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param entry The file entry
      */
+<<<<<<< HEAD
     private void doCreate(final FileEntry entry) {
         for (final FileAlterationListener listener : listeners) {
             if (entry.isDirectory()) {
                 listener.onDirectoryCreate(entry.getFile());
             } else {
                 listener.onFileCreate(entry.getFile());
+=======
+    private void doCreate(final FileEntry entry, int delay) {
+        for (final FileAlterationMagicListener listener : listeners) {
+            if (entry.isDirectory()) {
+                listener.onDirectoryCreate(entry.getFile());
+            } else {
+                listener.onFileCreate(entry.getFile(), delay);
+>>>>>>> rewrite-auto-upload
             }
         }
         final FileEntry[] children = entry.getChildren();
         for (final FileEntry aChildren : children) {
+<<<<<<< HEAD
             doCreate(aChildren);
+=======
+            doCreate(aChildren, delay);
+>>>>>>> rewrite-auto-upload
         }
     }
 
@@ -309,6 +439,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      * @param entry The previous file system entry
      * @param file  The current file
      */
+<<<<<<< HEAD
     private void doMatch(final FileEntry entry, final File file) {
         if (entry.refresh(file)) {
             for (final FileAlterationListener listener : listeners) {
@@ -316,6 +447,15 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
                     listener.onDirectoryChange(file);
                 } else {
                     listener.onFileChange(file);
+=======
+    private void doMatch(final FileEntry entry, final File file, int delay) {
+        if (entry.refresh(file)) {
+            for (final FileAlterationMagicListener listener : listeners) {
+                if (entry.isDirectory()) {
+                    listener.onDirectoryChange(file);
+                } else {
+                    listener.onFileChange(file, delay);
+>>>>>>> rewrite-auto-upload
                 }
             }
         }
@@ -326,8 +466,13 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param entry The file entry
      */
+<<<<<<< HEAD
     private void doDelete(final FileEntry entry) {
         for (final FileAlterationListener listener : listeners) {
+=======
+    private void doDelete(final FileEntry entry, int delay) {
+        for (final FileAlterationMagicListener listener : listeners) {
+>>>>>>> rewrite-auto-upload
             if (entry.isDirectory()) {
                 listener.onDirectoryDelete(entry.getFile());
             } else {

@@ -18,28 +18,12 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.services;
-
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-
-import com.owncloud.android.MainApp;
+package com.owncloud.android.ui.interfaces;
 
 /**
- * Handles shutdown procedure - basically just waits a little bit for all jobs to finish
+ * Interface for signaling filter finish
  */
 
-public class ShutdownReceiver extends BroadcastReceiver {
-<<<<<<< HEAD
-    private static final String TAG = "ShutdownReceiver";
-
-=======
->>>>>>> rewrite-auto-upload
-    @Override
-    public void onReceive(final Context context, final Intent intent) {
-        if (MainApp.getSyncedFolderObserverService() != null) {
-            MainApp.getSyncedFolderObserverService().onDestroy();
-        }
-    }
+public interface ExtendedListFragmentInterface {
+    void finishedFiltering();
 }

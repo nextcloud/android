@@ -20,7 +20,6 @@
 package com.owncloud.android;
 
 import android.app.Activity;
-import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -32,8 +31,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 
+import com.evernote.android.job.JobManager;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
@@ -41,6 +42,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.services.NCJobCreator;
 import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
@@ -59,7 +61,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * Contains methods to build the "static" strings. These strings were before constants in different
  * classes
  */
-public class MainApp extends Application {
+public class MainApp extends MultiDexApplication {
 
     private static final String TAG = MainApp.class.getSimpleName();
 
@@ -84,6 +86,7 @@ public class MainApp extends Application {
     @SuppressFBWarnings("ST")
     public void onCreate() {
         super.onCreate();
+        JobManager.create(this).addJobCreator(new NCJobCreator());
         MainApp.mContext = getApplicationContext();
 
         SharedPreferences appPrefs =
@@ -115,7 +118,7 @@ public class MainApp extends Application {
         }
 
         cleanOldEntries();
-        
+
         Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
         Intent i = new Intent(this, SyncedFolderObserverService.class);
         startService(i);

@@ -3,22 +3,35 @@
  *
  * @author Mario Danic
  * Copyright (C) 2017 Mario Danic
+<<<<<<< HEAD
  *
+=======
+ * <p>
+>>>>>>> rewrite-auto-upload
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * at your option) any later version.
+<<<<<<< HEAD
  *
+=======
+ * <p>
+>>>>>>> rewrite-auto-upload
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Affero General Public License for more details.
+<<<<<<< HEAD
  *
+=======
+ * <p>
+>>>>>>> rewrite-auto-upload
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.services;
 
+<<<<<<< HEAD
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
@@ -28,6 +41,15 @@ import android.os.Handler;
 import android.os.PersistableBundle;
 import android.text.TextUtils;
 
+=======
+import android.content.Context;
+import android.media.ExifInterface;
+import android.os.Handler;
+import android.text.TextUtils;
+
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
+>>>>>>> rewrite-auto-upload
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -40,10 +62,17 @@ import java.io.File;
 import java.io.IOException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+=======
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+>>>>>>> rewrite-auto-upload
 import java.util.TimeZone;
 
 /**
@@ -57,11 +86,17 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     private Context context;
 
     private SyncedFolder syncedFolder;
+<<<<<<< HEAD
     private Handler handler = new Handler();
 
     //private Map<String, Runnable> fileRunnable = new HashMap<>();
 
     private List<String> filesList = new ArrayList<>();
+=======
+
+    private Map<String, Runnable> uploadMap = new HashMap<>();
+    private Handler handler = new Handler();
+>>>>>>> rewrite-auto-upload
 
     public FileAlterationMagicListener(SyncedFolder syncedFolder) {
         super();
@@ -92,8 +127,17 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
     @Override
     public void onFileCreate(final File file) {
+<<<<<<< HEAD
         if (file != null) {
             filesList.add(file.getAbsolutePath());
+=======
+        onFileCreate(file, 2500);
+    }
+
+    public void onFileCreate(final File file, int delay) {
+        if (file != null) {
+            uploadMap.put(file.getAbsolutePath(), null);
+>>>>>>> rewrite-auto-upload
 
             String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
             Long lastModificationTime = file.lastModified();
@@ -119,16 +163,26 @@ public class FileAlterationMagicListener implements FileAlterationListener {
 
             final Long finalLastModificationTime = lastModificationTime;
 
+<<<<<<< HEAD
                 final Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
                     PersistableBundle bundle = new PersistableBundle();
                     bundle.putString(SyncedFolderJobService.LOCAL_PATH, file.getAbsolutePath());
                     bundle.putString(SyncedFolderJobService.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
+=======
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    PersistableBundleCompat bundle = new PersistableBundleCompat();
+                    bundle.putString(AutoUploadJob.LOCAL_PATH, file.getAbsolutePath());
+                    bundle.putString(AutoUploadJob.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
+>>>>>>> rewrite-auto-upload
                             currentLocale,
                             syncedFolder.getRemotePath(), file.getName(),
                             finalLastModificationTime,
                             syncedFolder.getSubfolderByDate()));
+<<<<<<< HEAD
                     bundle.putString(SyncedFolderJobService.ACCOUNT, syncedFolder.getAccount());
                     bundle.putInt(SyncedFolderJobService.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
 
@@ -160,24 +214,69 @@ public class FileAlterationMagicListener implements FileAlterationListener {
             handler.postDelayed(runnable, 1500);
         }
 
+=======
+                    bundle.putString(AutoUploadJob.ACCOUNT, syncedFolder.getAccount());
+                    bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
+
+
+                    new JobRequest.Builder(AutoUploadJob.TAG)
+                            .setExecutionWindow(30_000L, 80_000L)
+                            .setRequiresCharging(syncedFolder.getChargingOnly())
+                            .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
+                                    JobRequest.NetworkType.ANY)
+                            .setExtras(bundle)
+                            .setPersisted(false)
+                            .setRequirementsEnforced(true)
+                            .setUpdateCurrent(false)
+                            .build()
+                            .schedule();
+
+                    uploadMap.remove(file.getAbsolutePath());
+                }
+            };
+
+            uploadMap.put(file.getAbsolutePath(), runnable);
+            handler.postDelayed(runnable, delay);
+        }
+>>>>>>> rewrite-auto-upload
     }
 
     @Override
     public void onFileChange(File file) {
+<<<<<<< HEAD
         /* Left here for later
         if (fileRunnable.containsKey(file.getAbsolutePath())) {
             handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
             handler.postDelayed(fileRunnable.get(file.getAbsolutePath()), 1500);
         }*/
+=======
+        onFileChange(file, 2500);
+    }
+
+    public void onFileChange(File file, int delay) {
+        Runnable runnable;
+        if ((runnable = uploadMap.get(file.getAbsolutePath())) != null) {
+            handler.removeCallbacks(runnable);
+            handler.postDelayed(runnable, delay);
+        }
+>>>>>>> rewrite-auto-upload
     }
 
     @Override
     public void onFileDelete(File file) {
+<<<<<<< HEAD
         /* Left here for later
         if (fileRunnable.containsKey(file.getAbsolutePath())) {
             handler.removeCallbacks(fileRunnable.get(file.getAbsolutePath()));
             fileRunnable.remove(file.getAbsolutePath());
         }*/
+=======
+        Runnable runnable;
+        if ((runnable = uploadMap.get(file.getAbsolutePath())) != null) {
+            handler.removeCallbacks(runnable);
+            uploadMap.remove(file.getAbsolutePath());
+        }
+>>>>>>> rewrite-auto-upload
     }
 
     @Override
@@ -186,6 +285,10 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     }
 
     public int getActiveTasksCount() {
+<<<<<<< HEAD
         return filesList.size();
+=======
+        return uploadMap.size();
+>>>>>>> rewrite-auto-upload
     }
 }
