@@ -411,7 +411,7 @@
     <string name="pref_behaviour_entries_move">pārvietot uz programmu mapi</string>
     <string name="pref_behaviour_entries_delete_file">dzēsts</string>
     <string name="prefs_storage_path">Krātuves vieta</string>
-    <string name="share_dialog_title">Dalīšanās</string>
+    <string name="share_dialog_title">Koplietošana</string>
     <string name="share_file">Koplietots %1$s</string>
     <string name="share_with_user_section_title">Koplietot ar lietotājiem vai grupām</string>
     <string name="share_add_user_or_group">Pievienot lietotāju vai grupu</string>
@@ -440,7 +440,7 @@
     <string name="share_privilege_can_edit_create">izveidot</string>
     <string name="share_privilege_can_edit_change">mainīt</string>
     <string name="share_privilege_can_edit_delete">dzēst</string>
-    <string name="edit_share_unshare">Beigt dalīšanos</string>
+    <string name="edit_share_unshare">Beigt koplietošanu</string>
     <string name="edit_share_done">pabeigts</string>
 
     <string name="action_retry_uploads">Atkārtošana neizdevās</string>
