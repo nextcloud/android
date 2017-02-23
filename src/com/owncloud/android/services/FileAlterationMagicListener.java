@@ -160,24 +160,19 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     }
 
     public void onFileChange(File file, int delay) {
-        if (uploadMap.containsKey(file.getAbsolutePath())) {
-            if (uploadMap.get(file.getAbsolutePath()) != null) {
-                Runnable runnable = uploadMap.get(file.getAbsolutePath());
-                handler.removeCallbacks(runnable);
-                handler.postDelayed(runnable, delay);
-            }
+        Runnable runnable;
+        if ((runnable = uploadMap.get(file.getAbsolutePath())) != null) {
+            handler.removeCallbacks(runnable);
+            handler.postDelayed(runnable, delay);
         }
     }
 
     @Override
     public void onFileDelete(File file) {
-        // This method is intentionally empty
-        if (uploadMap.containsKey(file.getAbsolutePath())) {
-            if (uploadMap.get(file.getAbsolutePath()) != null) {
-                Runnable runnable = uploadMap.get(file.getAbsolutePath());
-                handler.removeCallbacks(runnable);
-                uploadMap.remove(file.getAbsolutePath());
-            }
+        Runnable runnable;
+        if ((runnable = uploadMap.get(file.getAbsolutePath())) != null) {
+            handler.removeCallbacks(runnable);
+            uploadMap.remove(file.getAbsolutePath());
         }
     }
 
