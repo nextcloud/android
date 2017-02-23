@@ -20,22 +20,28 @@
 
 package com.owncloud.android.ui.fragment;
 
+import android.animation.LayoutTransition;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.SearchView;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -47,12 +53,16 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
-import com.owncloud.android.ui.adapter.FilterableListAdapter;
+import com.owncloud.android.ui.adapter.FileListListAdapter;
+import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
 import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
+
+import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
 
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
@@ -96,9 +106,12 @@ public class ExtendedListFragment extends Fragment
     private GridViewWithHeaderAndFooter mGridView;
     private View mGridFooterView;
 
-    private FilterableListAdapter mAdapter;
+    private BaseAdapter mAdapter;
 
-    protected void setListAdapter(FilterableListAdapter listAdapter) {
+    protected SearchView searchView;
+    private Handler handler = new Handler();
+
+    protected void setListAdapter(BaseAdapter listAdapter) {
         mAdapter = listAdapter;
         mCurrentListView.setAdapter(listAdapter);
         mCurrentListView.invalidateViews();
@@ -151,20 +164,118 @@ public class ExtendedListFragment extends Fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         final MenuItem item = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
+        searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
+
+        final Handler handler = new Handler();
+
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int width = displaymetrics.widthPixels;
+        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
+            searchView.setMaxWidth((int)(width * 0.4));
+        } else {
+            searchView.setMaxWidth((int)(width * 0.7));
+        }
+
+        searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, final boolean hasFocus) {
+                if (hasFocus) {
+                    mFabMain.collapse();
+                }
+
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        setFabEnabled(!hasFocus);
+                    }
+                }, 100);
+            }
+        });
+
+        final View mSearchEditFrame = searchView
+                .findViewById(android.support.v7.appcompat.R.id.search_edit_frame);
+
+        ViewTreeObserver vto = mSearchEditFrame.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            int oldVisibility = -1;
+
+            @Override
+            public void onGlobalLayout() {
+
+                int currentVisibility = mSearchEditFrame.getVisibility();
+
+                if (currentVisibility != oldVisibility) {
+                    if (currentVisibility == View.VISIBLE) {
+                        setEmptyListMessage(true);
+                    } else {
+                        setEmptyListMessage(false);
+                    }
+
+                    oldVisibility = currentVisibility;
+                }
+
+            }
+        });
+
+
+        LinearLayout searchBar = (LinearLayout) searchView.findViewById(R.id.search_bar);
+        searchBar.setLayoutTransition(new LayoutTransition());
     }
 
-    public boolean onQueryTextChange(String query) {
-        mAdapter.filter(query);
+    public boolean onQueryTextChange(final String query) {
+        performSearch(query, false);
         return true;
     }
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        mAdapter.filter(query);
+        performSearch(query, true);
         return true;
     }
+
+    private void performSearch(final String query, boolean isSubmit) {
+        handler.removeCallbacksAndMessages(null);
+
+        if (!TextUtils.isEmpty(query)) {
+
+            int delay = 500;
+
+            if (isSubmit) {
+                delay = 0;
+            }
+
+            if (mAdapter != null && mAdapter instanceof FileListListAdapter) {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
+                        fileListListAdapter.getFilter().filter(query);
+                    }
+                }, delay);
+            } else if (mAdapter != null && mAdapter instanceof LocalFileListAdapter) {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+                        localFileListAdapter.filter(query);
+                    }
+                }, delay);
+            }
+
+            if (searchView != null && delay == 0) {
+                searchView.clearFocus();
+            }
+        } else {
+            if (getActivity() != null) {
+                ((FileDisplayActivity) getActivity()).refreshListOfFilesFragment(true);
+
+            }
+        }
+
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -188,7 +299,7 @@ public class ExtendedListFragment extends Fragment
         mRefreshListLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_list);
         mRefreshGridLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_grid);
         mRefreshEmptyLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_containing_empty);
-        
+
         onCreateSwipeToRefresh(mRefreshListLayout);
         onCreateSwipeToRefresh(mRefreshGridLayout);
         onCreateSwipeToRefresh(mRefreshEmptyLayout);
@@ -203,6 +314,8 @@ public class ExtendedListFragment extends Fragment
 
         mCurrentListView = mListView;   // list by default
         if (savedInstanceState != null) {
+
+
             if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false)) {
                 switchToGridView();
             }
@@ -345,6 +458,16 @@ public class ExtendedListFragment extends Fragment
 
     @Override
     public void onRefresh() {
+
+        if (searchView != null) {
+            searchView.onActionViewCollapsed();
+
+            if (getActivity() != null) {
+                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isDrawerIndicatorAvailable());
+            }
+        }
+
         mRefreshListLayout.setRefreshing(false);
         mRefreshGridLayout.setRefreshing(false);
         mRefreshEmptyLayout.setRefreshing(false);
@@ -353,6 +476,7 @@ public class ExtendedListFragment extends Fragment
             mOnRefreshListener.onRefresh();
         }
     }
+
     public void setOnRefreshListener(OnEnforceableRefreshListener listener) {
         mOnRefreshListener = listener;
     }
@@ -415,15 +539,18 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
-    /**
-     * Set message for empty list view.
-     */
-    public void setEmptyListMessage() {
-        setMessageForEmptyList(
-                R.string.file_list_empty_headline,
-                R.string.file_list_empty,
-                R.drawable.ic_list_empty_folder
-        );
+    public void setEmptyListMessage(boolean isSearch) {
+        if (isSearch) {
+            setMessageForEmptyList(R.string.file_list_empty_headline_search,
+                    R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
+
+        } else {
+            setMessageForEmptyList(
+                    R.string.file_list_empty_headline,
+                    R.string.file_list_empty,
+                    R.drawable.ic_list_empty_folder
+            );
+        }
     }
 
     /**
@@ -451,7 +578,6 @@ public class ExtendedListFragment extends Fragment
     protected void onCreateSwipeToRefresh(SwipeRefreshLayout refreshLayout) {
         // Colors in animations
         refreshLayout.setColorSchemeResources(R.color.color_accent, R.color.primary, R.color.primary_dark);
-
         refreshLayout.setOnRefreshListener(this);
     }
 
