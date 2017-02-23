@@ -1,3 +1,9 @@
+## 2017-02-24
+
+-Beta branch was updated successfully] updated
+- New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] updated
+- Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://github.com/nextcloud/android/pull/451] updated
+
 ## 2017-02-23
 
 -Beta branch was updated successfully] updated
