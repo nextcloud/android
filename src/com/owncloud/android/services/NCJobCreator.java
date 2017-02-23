@@ -20,26 +20,21 @@
  */
 package com.owncloud.android.services;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-
-import com.owncloud.android.MainApp;
+import com.evernote.android.job.Job;
+import com.evernote.android.job.JobCreator;
 
 /**
- * Handles shutdown procedure - basically just waits a little bit for all jobs to finish
+ * Job creator for android-job
  */
 
-public class ShutdownReceiver extends BroadcastReceiver {
-<<<<<<< HEAD
-    private static final String TAG = "ShutdownReceiver";
-
-=======
->>>>>>> rewrite-auto-upload
+public class NCJobCreator implements JobCreator {
     @Override
-    public void onReceive(final Context context, final Intent intent) {
-        if (MainApp.getSyncedFolderObserverService() != null) {
-            MainApp.getSyncedFolderObserverService().onDestroy();
+    public Job create(String tag) {
+        switch (tag) {
+            case AutoUploadJob.TAG:
+                return new AutoUploadJob();
+            default:
+                return null;
         }
     }
 }

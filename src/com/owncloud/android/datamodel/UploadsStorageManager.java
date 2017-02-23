@@ -21,17 +21,17 @@
 package com.owncloud.android.datamodel;
 
 import android.accounts.Account;
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
-import android.os.PersistableBundle;
 import android.support.annotation.RequiresApi;
 
+import com.evernote.android.job.JobManager;
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -46,6 +46,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
+import java.util.Set;
 
 /**
  * Database helper for storing list of files to be uploaded, including status
@@ -400,22 +401,20 @@ public class UploadsStorageManager extends Observable {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private List<OCUpload> getPendingJobs() {
-        JobScheduler js = (JobScheduler) mContext.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        Set<JobRequest> jobRequests = JobManager.create(mContext).getAllJobRequests();
 
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         ArrayList<OCUpload> list = new ArrayList<>();
 
-        if (js != null) {
-            for (JobInfo ji : js.getAllPendingJobs()) {
-                PersistableBundle extras = ji.getExtras();
-                if (extras.get("account").equals(currentAccount.name)) {
-                    OCUpload upload = new OCUpload(extras.getString("filePath"),
-                            extras.getString("remotePath"),
-                            extras.getString("account"));
+        for (JobRequest ji : jobRequests) {
+            PersistableBundleCompat extras = ji.getExtras();
+            if (extras.get("account").equals(currentAccount.name)) {
+                OCUpload upload = new OCUpload(extras.getString("filePath", ""),
+                        extras.getString("remotePath", ""),
+                        extras.getString("account", ""));
 
-                    list.add(upload);
-                }
+                list.add(upload);
             }
         }
 
@@ -424,16 +423,15 @@ public class UploadsStorageManager extends Observable {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     public void cancelPendingJob(String accountName, String remotePath){
-        JobScheduler js = (JobScheduler) mContext.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        JobManager jobManager = JobManager.create(mContext);
+        Set<JobRequest> jobRequests = jobManager.getAllJobRequests();
 
-        if (js != null) {
-            for (JobInfo ji : js.getAllPendingJobs()) {
-                PersistableBundle extras = ji.getExtras();
-                if (remotePath.equalsIgnoreCase(extras.getString("remotePath")) &&
-                        accountName.equalsIgnoreCase(extras.getString("account"))) {
-                    js.cancel(ji.getId());
-                    break;
-                }
+        for (JobRequest ji : jobRequests) {
+            PersistableBundleCompat extras = ji.getExtras();
+            if (remotePath.equalsIgnoreCase(extras.getString("remotePath", "")) &&
+                    accountName.equalsIgnoreCase(extras.getString("account", ""))) {
+                jobManager.cancel(ji.getJobId());
+                break;
             }
         }
     }

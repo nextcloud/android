@@ -33,7 +33,6 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.FileAlterationMagicListener;
 
-import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationMonitor;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 
@@ -45,12 +44,12 @@ public class SyncedFolderObserverService extends Service {
     private final IBinder mBinder = new SyncedFolderObserverBinder();
     private FileAlterationMonitor monitor;
     private FileFilter fileFilter;
-
+    
     @Override
     public void onCreate() {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().
                 getContentResolver());
-        monitor = new FileAlterationMonitor();
+        monitor = new FileAlterationMonitor(1000);
 
         fileFilter = new FileFilter() {
             @Override
@@ -86,11 +85,14 @@ public class SyncedFolderObserverService extends Service {
 
     @Override
     public void onDestroy() {
+
         super.onDestroy();
-        for(FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
+        for (FileAlterationObserver fileAlterationObserver : monitor.getObservers()) {
             FileAlterationMagicObserver fileAlterationMagicObserver = (FileAlterationMagicObserver)
                     fileAlterationObserver;
             try {
+                monitor.removeObserver(fileAlterationMagicObserver);
+                fileAlterationMagicObserver.checkAndNotifyNow();
                 fileAlterationMagicObserver.destroy();
             } catch (Exception e) {
                 Log_OC.d(TAG, "Something went very wrong on trying to destroy observers");
@@ -117,11 +119,23 @@ public class SyncedFolderObserverService extends Service {
             fileAlterationMagicObserver =
                     (FileAlterationMagicObserver) fileAlterationObserver;
             if (fileAlterationMagicObserver.getSyncedFolderID() == syncedFolder.getId()) {
+                monitor.removeObserver(fileAlterationObserver);
+                fileAlterationMagicObserver.checkAndNotifyNow();
+                try {
+                    fileAlterationMagicObserver.destroy();
+                } catch (Exception e) {
+                    Log_OC.d(TAG, "Failed to destroy the observer in restart");
+                }
+
                 if (syncedFolder.isEnabled()) {
-                    for (FileAlterationListener fileAlterationListener : fileAlterationMagicObserver.getListeners()) {
-                        fileAlterationMagicObserver.removeListener(fileAlterationListener);
+                    try {
+                        fileAlterationMagicObserver = new FileAlterationMagicObserver(syncedFolder, fileFilter);
+                        fileAlterationMagicObserver.init();
+                        fileAlterationMagicObserver.addListener(new FileAlterationMagicListener(syncedFolder));
+                        monitor.addObserver(fileAlterationMagicObserver);
+                    } catch (Exception e) {
+                        Log_OC.d(TAG, "Failed getting an observer to intialize");
                     }
-                    fileAlterationObserver.addListener(new FileAlterationMagicListener(syncedFolder));
                 } else {
                     monitor.removeObserver(fileAlterationObserver);
                 }
