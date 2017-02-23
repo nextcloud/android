@@ -77,9 +77,12 @@
     <string name="uploader_upload_files_behaviour_only_upload">Manter o ficheiro na pasta fonte</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eliminar ficheiro da pasta fonte</string>
     <string name="file_list_seconds_ago">segundos atrás</string>
+    <string name="file_list_empty_headline">Não hà ficheiros aqui</string>
+    <string name="file_list_empty">Carregue algum conteúdo ou sincronize com os seus dispositivos!</string>
     <string name="file_list_loading">A carregar&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhuma aplicação encontrada para o tipo de ficheiro!</string>
     <string name="local_file_list_empty">Não existem ficheiros nesta pasta.</string>
+    <string name="upload_list_empty_headline">Não há carregamentos disponíveis.</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_folders">pastas</string>
     <string name="file_list_file">ficheiro</string>
@@ -102,6 +105,7 @@
     <string name="common_cancel_sync">Cancelar sincronização</string>
     <string name="common_cancel">Cancelar</string>
     <string name="common_back">Voltar</string>
+    <string name="common_save">Guardar</string>
     <string name="common_save_exit">Guardar e sair</string>
     <string name="common_error">Erro</string>
     <string name="common_loading">A carregar&#8230;</string>
@@ -292,8 +296,11 @@
     <string name="placeholder_timestamp">2012/05/18 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">Carregar somente via wifi</string>
     <string name="instant_upload_on_wifi">Enviar as fotos apenas via wi-fi</string>
     <string name="instant_video_upload_on_wifi">Enviar vídeos apenas via wi-fi</string>
+    <string name="instant_video_upload_on_charging">Carregar somente enquanto carrega a bateria</string>
+    <string name="instant_upload_on_charging">Carregar somente enquanto carrega a bateria</string>
     <string name="instant_upload_path">/Envio Instantâneo </string>
     <string name="conflict_title">Conflito de ficheiro</string>
     <string name="conflict_message">Quais os ficheiros que pretende manter? Se selecionar ambas as versões, o ficheiro local irá ter um número adicionado ao seu nome.</string>
@@ -305,6 +312,7 @@
     <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
 
     <string name="error__upload__local_file_not_copied">Não foi possível copiar %1$s para a pasta local %2$s</string>
+    <string name="prefs_instant_upload_path_title">Pasta de carregamentos instantaneos </string>
     <string name="share_link_no_support_share_api">Lamentamos mas não é possível partilhar através do seu servidor. Por favor contacte o seu administrador.</string>
 	<string name="share_link_file_no_exist">Não é possível partilhar. Por favor verifique se o ficheiro existe</string>
 	<string name="share_link_file_error">Ocorreu um erro enquanto tentava partilhar este ficheiro ou pasta</string>
@@ -442,4 +450,39 @@
 
     <string name="permission_storage_access">São necessárias permissões adicionais para carregar &amp; descarregar ficheiros.</string>
     <string name="local_file_not_found_toast">O ficheiro não foi encontrado no sistema de ficheiros local</string>
-    </resources>
+    <string name="confirmation_remove_files_alert">Quer realmente remover os itens selecionados?</string>
+    <string name="confirmation_remove_folders_alert">Quer realmente remover os itens selecionados e os seus conteúdos?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">A espera que o dispositivo esteja a carregar </string>
+    <string name="actionbar_search">Procura</string>
+    <string name="learn_more">Conheça melhor</string>
+    <string name="drawer_folder_sync">Carregar automaticamente</string>
+    <string name="drawer_participate">Participe</string>
+    <string name="participate_testing_headline">Ajude-nos a testar</string>
+    <string name="participate_testing_bug_text">Encontrou um erro? Algo está a funcionar estranhamente?</string>
+    <string name="participate_testing_report_text">Reportar um problema no Github</string>
+    <string name="participate_testing_version_text">Interessado em nos ajudar a testar a próxima versão?</string>
+    <string name="participate_beta_headline">Teste a versão Beta</string>
+    <string name="folder_sync_no_results">Dossiês multimédia não encontrados</string>
+    <string name="folder_sync_preferences">Carregar preferências automaticamente</string>
+    <string name="folder_sync_settings">Parametros</string>
+    <string name="upload_file_dialog_title">Introduza o nome e tipo de ficheiro a ser carregado</string>
+    <string name="upload_file_dialog_filename">Nome do ficheiro</string>
+    <string name="upload_file_dialog_filetype">Tipo de ficheiro</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Atalhos(%s) de Internet</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Ficheiro(%s) de atalho do Google Maps</string>
+
+    <string name="storage_description_default">Por defeito</string>
+    <string name="storage_description_sd_no">Cartão SD %1$d</string>
+    <string name="storage_description_unknown">Desconhecido</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">O que há de novo da Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Um lugar seguro para todos os seus dados</string>
+    <string name="welcome_feature_2_title">Conta multipla</string>
+    <string name="welcome_feature_2_text">Ligar-se a todas as suas contas cloud</string>
+
+    <string name="welcome_feature_3_title">Carregamento instantâneo </string>
+    <string name="whats_new_skip">Passar à frente</string>
+</resources>
