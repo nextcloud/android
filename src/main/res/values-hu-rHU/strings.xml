@@ -16,7 +16,7 @@
     <string name="menu_item_sort_by_name">A - Z</string>
     <string name="menu_item_sort_by_date">Újabb - régebbi</string>
     <string name="menu_item_sort_by_size">Nagyobb - kisebb</string>
-    <string name="drawer_item_all_files">Összes fájl</string>
+    <string name="files_drawer_toolbar">Összes fájl</string>
     <string name="drawer_item_on_device">Az eszközön</string>
     <string name="drawer_item_settings">Beállítások</string>
     <string name="drawer_item_uploads_list">Feltöltések</string>

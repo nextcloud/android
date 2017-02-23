@@ -18,7 +18,7 @@
     	<item>A-Z</item>
     	<item>Nei - Al</item>
     </string-array>
-    <string name="drawer_item_all_files">All d\'Fichieren</string>
+    <string name="files_drawer_toolbar">All d\'Fichieren</string>
     <string name="drawer_item_settings">Astellungen</string>
     <string name="drawer_close">Zoumaachen</string>
     <string name="drawer_open">Opmaachen</string>
