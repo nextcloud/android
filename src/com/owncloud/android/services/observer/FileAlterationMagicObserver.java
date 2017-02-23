@@ -226,19 +226,19 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
         /* fire directory/file events */
         final File rootFile = rootEntry.getFile();
         if (rootFile.exists()) {
-            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile), 2000);
+            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile), 2500);
         } else if (rootEntry.isExists()) {
             try {
                 // try to init once more
                 init();
                 if (rootEntry.getFile().exists()) {
-                    checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()), 2000);
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()), 2500);
                 } else {
-                    checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2000);
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2500);
                 }
             } catch (Exception e) {
                 Log_OC.d("FileAlterationMagicObserver", "Failed getting an observer to intialize " + e);
-                checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2000);
+                checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2500);
             }
         } // else didn't exist and still doesn't
 
