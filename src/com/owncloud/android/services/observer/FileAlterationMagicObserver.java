@@ -272,7 +272,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
                     c++;
                 } else {
                     checkAndNotify(entry, entry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, delay);
-                    doDelete(entry, delay);
+                    doDelete(entry);
                 }
             }
             for (; c < files.length; c++) {
@@ -356,7 +356,7 @@ public class FileAlterationMagicObserver extends FileAlterationObserver implemen
      *
      * @param entry The file entry
      */
-    private void doDelete(final FileEntry entry, int delay) {
+    private void doDelete(final FileEntry entry) {
         for (final FileAlterationMagicListener listener : listeners) {
             if (entry.isDirectory()) {
                 listener.onDirectoryDelete(entry.getFile());
