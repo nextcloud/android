@@ -92,7 +92,7 @@ public class FileAlterationMagicListener implements FileAlterationListener {
     }
 
     public void onFileCreate(final File file, int delay) {
-        if (file != null && !uploadMap.containsKey(file.getAbsolutePath())) {
+        if (file != null) {
             uploadMap.put(file.getAbsolutePath(), null);
 
             String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
