@@ -57,6 +57,7 @@
     <string name="auth_host_url">Sunucu adresi https://…</string>
     <string name="auth_username">Kullanıcı Adı</string>
     <string name="auth_password">Parola</string>
+    <string name="auth_register">Henüz bir sunucuya sahip değil misiniz?\nBuraya tıklayarak bir sağlayici tarafindan edinebilirsiniz</string>
     <string name="sync_string_files">Dosyalar</string>
     <string name="setup_btn_connect">Bağlan</string>
     <string name="uploader_btn_upload_text">Yükle</string>
@@ -83,6 +84,7 @@
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı!</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
+    <string name="upload_list_empty_text">Buraya birşeyler yükleyin yada anında yüklemeyi aktif edin!</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_folders">klasör</string>
     <string name="file_list_file">dosya</string>
