@@ -102,9 +102,6 @@
          note that it will always log basic stuff when you have google-services.json-->
     <bool name="firebase_analytics_enabled">false</bool>
 
-    <!-- custom things -->
-    <string name="files_drawer_toolbar">Files</string>
-
 </resources>
 
 
