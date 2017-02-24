@@ -58,7 +58,7 @@ android {
 
 
         productFlavors{
-            generic {
+            abuild {
                 applicationId 'com.nextcloud.client'
             }
 
