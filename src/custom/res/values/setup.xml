@@ -19,7 +19,7 @@
     <!-- URLs and flags related -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
-    <bool name="show_welcome_link">true</bool>
+    <bool name="show_welcome_link">false</bool>
 	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
 	<string name="share_api_link"></string>
     
@@ -100,10 +100,10 @@
 
     <!-- firebase_analytics_enabled - to be used only with custom* build variants
          note that it will always log basic stuff when you have google-services.json-->
-    <bool name="firebase_analytics_enabled">false</bool>
+    <bool name="firebase_analytics_enabled">true</bool>
 
     <!-- custom things -->
-    <string name="files_drawer_toolbar">Files</string>
+    <string name="files_drawer_toolbar">Home</string>
 
 </resources>
 
