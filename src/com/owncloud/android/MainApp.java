@@ -296,7 +296,7 @@ public class MainApp extends MultiDexApplication {
 
 
             if (ids.size() > 0) {
-                syncedFolderProvider.deleteOtherSyncedFolders(mContext, ids);
+                syncedFolderProvider.deleteSyncedFoldersNotInList(mContext, ids);
             } else {
                 PreferenceManager.getDefaultSharedPreferences(mContext).edit().putBoolean("legacyClean", true).apply();
             }

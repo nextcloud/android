@@ -188,9 +188,14 @@ public class SyncedFolderProvider extends Observable {
 
     }
 
-    public int deleteOtherSyncedFolders(Context context, ArrayList<Long> ids) {
-
-
+    /**
+     * delete any records of synchronized folders that are not within the given list of ids.
+     *
+     * @param context the context.
+     * @param ids     the list of ids to be excluded from deletion.
+     * @return number of deleted records.
+     */
+    public int deleteSyncedFoldersNotInList(Context context, ArrayList<Long> ids) {
         int result = mContentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 ProviderMeta.ProviderTableMeta._ID + " NOT IN (?)",
@@ -202,9 +207,8 @@ public class SyncedFolderProvider extends Observable {
         }
 
         return result;
-
-
     }
+
     /**
      * update given synced folder.
      *
@@ -233,21 +237,29 @@ public class SyncedFolderProvider extends Observable {
     /**
      * maps a cursor into a SyncedFolder object.
      *
-     * @param cursor the cursor
+     * @param cursor the db cursor
      * @return the mapped SyncedFolder, null if cursor is null
      */
     private SyncedFolder createSyncedFolderFromCursor(Cursor cursor) {
         SyncedFolder syncedFolder = null;
         if (cursor != null) {
             long id = cursor.getLong(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta._ID));
-            String localPath = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH));
-            String remotePath = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH));
-            Boolean wifiOnly = cursor.getInt(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY)) == 1;
-            Boolean chargingOnly = cursor.getInt(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY)) == 1;
-            Boolean subfolderByDate = cursor.getInt(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE)) == 1;
-            String accountName = cursor.getString(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT));
-            Integer uploadAction = cursor.getInt(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION));
-            Boolean enabled = cursor.getInt(cursor.getColumnIndex(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED)) == 1;
+            String localPath = cursor.getString(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH));
+            String remotePath = cursor.getString(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_REMOTE_PATH));
+            Boolean wifiOnly = cursor.getInt(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_WIFI_ONLY)) == 1;
+            Boolean chargingOnly = cursor.getInt(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_CHARGING_ONLY)) == 1;
+            Boolean subfolderByDate = cursor.getInt(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE)) == 1;
+            String accountName = cursor.getString(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT));
+            Integer uploadAction = cursor.getInt(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION));
+            Boolean enabled = cursor.getInt(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED)) == 1;
 
             syncedFolder = new SyncedFolder(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate,
                     accountName, uploadAction, enabled);
@@ -277,6 +289,8 @@ public class SyncedFolderProvider extends Observable {
 
     /**
      * Inform all observers about data change.
+     *
+     * @param syncedFolder changed, synchronized folder
      */
     private void notifyFolderSyncObservers(SyncedFolder syncedFolder) {
         MainApp.getSyncedFolderObserverService().restartObserver(syncedFolder);
