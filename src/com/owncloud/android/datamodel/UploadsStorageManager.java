@@ -382,7 +382,6 @@ public class UploadsStorageManager extends Observable {
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         OCUpload[] uploads = getUploads(
-            ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
             ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR " +
             ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue() + " OR " +
             ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
@@ -403,19 +402,15 @@ public class UploadsStorageManager extends Observable {
     private List<OCUpload> getPendingJobs() {
         Set<JobRequest> jobRequests = JobManager.create(mContext).getAllJobRequests();
 
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
-
         ArrayList<OCUpload> list = new ArrayList<>();
 
         for (JobRequest ji : jobRequests) {
             PersistableBundleCompat extras = ji.getExtras();
-            if (extras.get("account").equals(currentAccount.name)) {
                 OCUpload upload = new OCUpload(extras.getString("filePath", ""),
                         extras.getString("remotePath", ""),
                         extras.getString("account", ""));
 
                 list.add(upload);
-            }
         }
 
         return list;
@@ -443,7 +438,6 @@ public class UploadsStorageManager extends Observable {
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         return getUploads(
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
                 ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value, null);
     }
 
@@ -453,8 +447,7 @@ public class UploadsStorageManager extends Observable {
     public OCUpload[] getFinishedUploads() {
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
-        return getUploads(ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
     }
 
     /**
@@ -464,9 +457,7 @@ public class UploadsStorageManager extends Observable {
     public OCUpload[] getFailedButNotDelayedUploads() {
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
-        return getUploads(
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
             null
@@ -481,7 +472,6 @@ public class UploadsStorageManager extends Observable {
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         long result = getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
                 ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
@@ -499,7 +489,6 @@ public class UploadsStorageManager extends Observable {
 
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
                 ProviderTableMeta.UPLOADS_STATUS + "=="+ UploadStatus.UPLOAD_SUCCEEDED.value, null
         );
         Log_OC.d(TAG, "delete all successful uploads");
@@ -517,7 +506,6 @@ public class UploadsStorageManager extends Observable {
         whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
                 ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=? AND " +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
