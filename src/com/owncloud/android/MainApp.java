@@ -280,7 +280,7 @@ public class MainApp extends MultiDexApplication {
             Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
             ArrayList<Long> ids = new ArrayList<>();
             for (SyncedFolder syncedFolder : syncedFolderList) {
-                Pair<String, String> checkPair = new Pair(syncedFolder.getAccount(), syncedFolder.getLocalPath());
+                Pair<String, String> checkPair = new Pair<>(syncedFolder.getAccount(), syncedFolder.getLocalPath());
                 if (syncedFolders.containsKey(checkPair)) {
                     if (syncedFolder.getId() > syncedFolders.get(checkPair)) {
                         syncedFolders.put(checkPair, syncedFolder.getId());
