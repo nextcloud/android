@@ -26,19 +26,13 @@
     android:minWidth="300dp"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:id="@+id/header"
-            style="@style/Base.DialogWindowTitle.AppCompat"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_margin"
-            android:text="@string/sort_by"/>
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/header"
+        style="@style/Base.DialogWindowTitle.AppCompat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        android:text="@string/sort_by"/>
 
     <ScrollView
         android:id="@+id/scrollableSortings"
@@ -46,15 +40,13 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <LinearLayout
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <ImageButton
                     android:id="@+id/sortByNameAscending"
@@ -70,7 +62,7 @@
 
                 <TextView
                     android:id="@+id/sortByNameAZText"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
@@ -83,13 +75,11 @@
                     android:textColor="@color/standard_grey"
                     android:textSize="@dimen/two_line_primary_text_size"/>
 
-            </LinearLayout>
+            </TableRow>
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/standard_margin"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <ImageButton
                     android:id="@+id/sortByNameDescending"
@@ -105,7 +95,7 @@
 
                 <TextView
                     android:id="@+id/sortByNameZAText"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
@@ -118,12 +108,12 @@
                     android:textColor="@color/standard_grey"
                     android:textSize="@dimen/two_line_primary_text_size"/>
 
-            </LinearLayout>
+            </TableRow>
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_marginTop="@dimen/standard_half_margin">
 
                 <ImageButton
                     android:id="@+id/sortByModificationDateDescending"
@@ -139,7 +129,7 @@
 
                 <TextView
                     android:id="@+id/sortByModificationDateNewestFirstText"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
@@ -152,13 +142,11 @@
                     android:textColor="@color/standard_grey"
                     android:textSize="@dimen/two_line_primary_text_size"/>
 
-            </LinearLayout>
+            </TableRow>
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/standard_margin"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <ImageButton
                     android:id="@+id/sortByModificationDateAscending"
@@ -174,7 +162,7 @@
 
                 <TextView
                     android:id="@+id/sortByModificationDateOldestFirstText"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
@@ -187,12 +175,13 @@
                     android:textColor="@color/standard_grey"
                     android:textSize="@dimen/two_line_primary_text_size"/>
 
-            </LinearLayout>
+            </TableRow>
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+
+                android:layout_marginTop="@dimen/standard_half_margin">
 
                 <ImageButton
                     android:id="@+id/sortBySizeDescending"
@@ -208,7 +197,7 @@
 
                 <TextView
                     android:id="@+id/sortBySizeBiggestFirstText"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
@@ -221,13 +210,11 @@
                     android:textColor="@color/standard_grey"
                     android:textSize="@dimen/two_line_primary_text_size"/>
 
-            </LinearLayout>
+            </TableRow>
 
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/standard_margin"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <ImageButton
                     android:id="@+id/sortBySizeAscending"
@@ -243,7 +230,7 @@
 
                 <TextView
                     android:id="@+id/sortBySizeSmallestFirstText"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
@@ -256,9 +243,9 @@
                     android:textColor="@color/standard_grey"
                     android:textSize="@dimen/two_line_primary_text_size"/>
 
-            </LinearLayout>
+            </TableRow>
 
-        </LinearLayout>
+        </TableLayout>
 
     </ScrollView>
 
