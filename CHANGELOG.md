@@ -1,5 +1,9 @@
 ## 2017-02-25
 
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
+## 2017-02-25
+
 - Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://github.com/nextcloud/android/pull/451] updated
 
 ## 2017-02-24
