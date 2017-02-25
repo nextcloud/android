@@ -35,6 +35,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.owncloud.android;
 
 import android.app.Activity;
 import android.app.Application;
@@ -51,8 +52,6 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.owncloud.android.BuildConfig;
-import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
