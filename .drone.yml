@@ -8,7 +8,7 @@ pipeline:
       # build app and assemble APK, in debug mode
       - ./gradlew assembleDebug
       # run all the local unit tests of app module
-      - ./gradlew :testDebug
+      - ./gradlew :testGenericDebugUnitTest
       # run all the instrumented tests of app module - DISABLED until we get an stable setup for Espresso in Travis
       # - ./gradlew connectedDebugAndroidTest --info
       # install app, then assemble and install instrumented tests of app module
