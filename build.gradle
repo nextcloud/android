@@ -38,6 +38,13 @@ repositories {
     }
 }
 
+tasks.withType(Test) {
+    /// increased logging for tests
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+}
+
 android {
     lintOptions {
         abortOnError true
@@ -96,6 +103,7 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
     }
+
     task checkstyle(type: Checkstyle) {
         configFile = file("${rootProject.projectDir}/checkstyle.xml")
         configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
