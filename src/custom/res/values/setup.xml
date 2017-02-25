@@ -31,8 +31,7 @@
     <string name = "send_files_to_other_apps">on</string>
     <bool name = "share_via_link_feature">true</bool>
     <bool name = "share_with_users_feature">true</bool>
-    
-    
+
     <!-- Colors -->
     <color name="login_text_color">@color/white</color>
     <color name="login_text_hint_color">#7fC0E3</color>
@@ -59,13 +58,13 @@
     <bool name="multiaccount_support">true</bool>
 
     <!-- Drawer options -->
-    <bool name="recently_added_enabled">false</bool>
-    <bool name="recently_modified_enabled">false</bool>
-    <bool name="shared_enabled">false</bool>
-    <bool name="videos_enabled">false</bool>
+    <bool name="recently_added_enabled">true</bool>
+    <bool name="recently_modified_enabled">true</bool>
+    <bool name="shared_enabled">true</bool>
+    <bool name="videos_enabled">true</bool>
 
     <!-- Bottom toolbar -->
-    <bool name="bottom_toolbar_enabled">false</bool>
+    <bool name="bottom_toolbar_enabled">true</bool>
 
     <!-- Help, imprint and feedback -->
     <bool name="calendar_contacts_enabled">true</bool>
