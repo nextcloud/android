@@ -97,7 +97,7 @@
 
     <!-- login data links -->
     <string name="login_data_own_scheme" translatable="false">cloud</string>
-    
+
 </resources>
 
 
