@@ -97,11 +97,7 @@
 
     <!-- login data links -->
     <string name="login_data_own_scheme" translatable="false">cloud</string>
-
-    <!-- firebase_analytics_enabled - to be used only with custom* build variants
-         note that it will always log basic stuff when you have google-services.json-->
-    <bool name="firebase_analytics_enabled">false</bool>
-
+    
 </resources>
 
 
