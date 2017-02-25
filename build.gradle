@@ -22,6 +22,10 @@ apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
 
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 ext {
     supportLibraryVersion = '25.2.0'
 
@@ -119,7 +123,14 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
         multiDexEnabled true
-        applicationId "com.nextcloud.client"
+        applicationId "com.nextcloud.android.beta"
+        versionCode 20170207
+        versionName "20170207"
+
+        // disable the experimental Jack build tools.
+        jackOptions {
+            enabled false
+        }
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
@@ -161,6 +172,7 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+        incremental false
     }
 
     lintOptions {
@@ -170,6 +182,10 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
     }
+    signingConfigs {
+        release
+    }
+
     task checkstyle(type: Checkstyle) {
         configFile = file("${rootProject.projectDir}/checkstyle.xml")
         configProperties.checkstyleSuppressionsPath = file("${project.rootDir}/config/quality/checkstyle/suppressions.xml").absolutePath
@@ -221,4 +237,16 @@ android {
     }
     check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
 
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+}
+
+if (project.hasProperty('RELEASE_STORE_FILE')) {
+    android.signingConfigs.release.storeFile = file(RELEASE_STORE_FILE)
+    android.signingConfigs.release.storePassword = RELEASE_STORE_PASSWORD
+    android.signingConfigs.release.keyAlias = RELEASE_KEY_ALIAS
+    android.signingConfigs.release.keyPassword = RELEASE_KEY_PASSWORD
 }
