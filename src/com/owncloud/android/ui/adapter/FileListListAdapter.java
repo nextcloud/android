@@ -339,7 +339,7 @@ public class FileListListAdapter extends BaseAdapter {
                                             task
                                     );
                             fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
+                            task.execute(file, true);
                         }
                     }
 

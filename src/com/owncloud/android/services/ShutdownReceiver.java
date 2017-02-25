@@ -31,11 +31,8 @@ import com.owncloud.android.MainApp;
  */
 
 public class ShutdownReceiver extends BroadcastReceiver {
-<<<<<<< HEAD
     private static final String TAG = "ShutdownReceiver";
 
-=======
->>>>>>> rewrite-auto-upload
     @Override
     public void onReceive(final Context context, final Intent intent) {
         if (MainApp.getSyncedFolderObserverService() != null) {

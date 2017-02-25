@@ -166,10 +166,10 @@ public class FileDisplayActivity extends HookActivity
 
         /// Load of saved instance state
         if (savedInstanceState != null) {
-            mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(
+            mWaitingToPreview = savedInstanceState.getParcelable(
                     FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = (OCFile) savedInstanceState.getParcelable(
+            mWaitingToSend = savedInstanceState.getParcelable(
                     FileDisplayActivity.KEY_WAITING_TO_SEND);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
         } else {
@@ -1056,13 +1056,9 @@ public class FileDisplayActivity extends HookActivity
     }
 
     public boolean isFabOpen() {
-        if(getListOfFilesFragment() != null
+        return getListOfFilesFragment() != null
                 && getListOfFilesFragment().getFabMain() != null
-                && getListOfFilesFragment().getFabMain().isExpanded()) {
-            return true;
-        } else {
-            return false;
-        }
+                && getListOfFilesFragment().getFabMain().isExpanded();
     }
 
     @Override
@@ -1998,5 +1994,9 @@ public class FileDisplayActivity extends HookActivity
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
         getListOfFilesFragment().refreshDirectory();
+    }
+
+    public void setSearchQuery(String query) {
+        searchQuery = query;
     }
 }
