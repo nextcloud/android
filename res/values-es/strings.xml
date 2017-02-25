@@ -83,6 +83,8 @@
     <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">¡Aplicación no encontrada para el tipo de archivo!</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
+    <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
+    <string name="file_list_empty_search">¿A intentado buscar en otra carpeta?</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
     <string name="upload_list_empty_text">¡Suba algún contenido o active subidas instantáneas!</string>
     <string name="file_list_folder">carpeta</string>

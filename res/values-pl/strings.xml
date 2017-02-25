@@ -83,6 +83,8 @@
     <string name="file_list_loading">Wczytywanie&#8230;</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików!</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
+    <string name="file_list_empty_headline_search">Brak wyników w tym folderze</string>
+    <string name="file_list_empty_search">Spróbować szukać w innym folderze?</string>
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
     <string name="upload_list_empty_text">Wyślij jakieś dane lub włącz wysyłanie natychmiastowe!</string>
     <string name="file_list_folder">folder</string>
@@ -234,7 +236,7 @@
 	<string name="auth_connecting_auth_server">Łączenie z serwerem poświadczeń...</string>
 	<string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
 	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
-	<string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego id użytkownika, proszę skontaktuj się z administratorem
+	<string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego identyfikatora użytkownika, proszę skontaktuj się z administratorem
 	</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_account_does_not_exist">Konto jeszcze nie istnieje na tym urządzeniu.</string>
