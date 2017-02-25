@@ -16,6 +16,7 @@
     <string name="menu_item_sort_by_name">A - Z</string>
     <string name="menu_item_sort_by_date">Newest - Oldest</string>
     <string name="menu_item_sort_by_size">Biggest - Smallest</string>
+    <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_on_device">On device</string>
     <string name="drawer_item_settings">Settings</string>
     <string name="drawer_item_uploads_list">Uploads</string>
