@@ -534,7 +534,7 @@
     <string name="participate_testing_bug_text">Found a bug? Something is odd?</string>
     <string name="participate_testing_report_text">Report an issue on Github</string>
     <string name="participate_testing_version_text">Interested in helping us testing the next Version?</string>
-    <string name="participate_beta_headline">Test the Beta version</string>
+    <string name="participate_beta_headline">Test the Nightly version</string>
     <string name="participate_beta_text">This includes all upcoming features and is very bleeding edge. Bugs/errors
         can occur and if they do, please report them to us. &lt;br/>&lt;a href="%2$s">Download the APK&lt;/a>
         or</string>
@@ -575,7 +575,7 @@
     <string name="storage_description_default">Default</string>
     <string name="storage_description_sd_no">SD card %1$d</string>
     <string name="storage_description_unknown">Unknown</string>
-    <string name="prefs_category_beta">Beta</string>
+    <string name="prefs_category_beta">Nightly</string>
 
     <!-- What's new feature and texts to show -->
     <string name="whats_new_title">What\'s new in Nextcloud</string>

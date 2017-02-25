@@ -577,7 +577,7 @@ public class Preferences extends PreferenceActivity
         INSTANT_UPLOAD_PATH_LABEL = getResources().getString(R.string.prefs_instant_upload_path);
 
        loadStoragePath();
-        /* Link to Beta apks */
+        /* Link to Nightly apks */
         Preference pBetaLink =  findPreference("beta_link");
         if (pBetaLink != null ){
             pBetaLink.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -617,7 +617,7 @@ public class Preferences extends PreferenceActivity
             });
         }
 
-        /* Link to beta changelog */
+        /* Link to nightly changelog */
         Preference pChangelogLink =  findPreference("changelog_link");
         if (pChangelogLink != null) {
             pChangelogLink.setOnPreferenceClickListener(new OnPreferenceClickListener() {

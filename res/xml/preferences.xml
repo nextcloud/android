@@ -97,11 +97,11 @@
 
 	<PreferenceCategory android:title="@string/prefs_category_beta" android:key="beta_category">
 		<Preference android:id="@+id/beta_link"
-					android:title="Download latest beta version"
+					android:title="Download latest nightly version"
 					android:key="beta_link" />
 
 		<Preference android:id="@+id/changelog_link"
-					android:title="Changelog beta version"
+					android:title="Changelog nightly version"
 					android:key="changelog_link" />
 	</PreferenceCategory>
 
