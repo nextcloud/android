@@ -72,7 +72,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final int RESULTS_PER_PAGE = 50;
     private static final int REQUESTED_PAGE = 1;
 
-    public static final String AUTHORITY = "com.nextcloud.android.providers.UsersAndGroupsSearchProvider";
+    public static String AUTHORITY;
     public static final String ACTION_SHARE_WITH = AUTHORITY + ".action.SHARE_WITH";
 
     public static final String CONTENT = "content";
@@ -106,6 +106,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+        AUTHORITY = getContext().getResources().getString(R.string.users_and_groups_search_authority);
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         mUriMatcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SEARCH);
         return true;
