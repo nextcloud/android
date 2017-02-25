@@ -60,13 +60,13 @@
     <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
-        android:label="Nextcloud beta"
+        android:label="Nextcloud nightly"
         android:fullBackupContent="@xml/backup_config"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
         <activity
             android:name=".ui.activity.FileDisplayActivity"
-            android:label="Nextcloud beta"
+            android:label="Nextcloud nightly"
             android:theme="@style/Theme.ownCloud.Toolbar.Drawer">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -103,7 +103,7 @@
             android:theme="@style/Theme.ownCloud.Overlay" />
         <activity
             android:name=".ui.preview.PreviewVideoActivity"
-            android:label="Nextcloud beta"
+            android:label="Nextcloud nightly"
             android:theme="@style/Theme.ownCloud.Fullscreen" />
 
         <service
@@ -257,10 +257,10 @@
             android:label="Copy link" />
         <activity
             android:name=".ui.activity.FolderPickerActivity"
-            android:label="Nextcloud beta" />
+            android:label="Nextcloud nightly"/>
         <activity
             android:name=".ui.activity.UploadPathActivity"
-            android:label="Nextcloud beta" />
+            android:label="Nextcloud nightly"/>
         <activity
             android:name=".ui.activity.ShareActivity"
             android:label="Sharing"
