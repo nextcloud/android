@@ -83,6 +83,8 @@
     <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
+    <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
+    <string name="file_list_empty_search">In einem anderen Ordner suchen?</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text">Laden Sie Inhalt hoch oder aktivieren Sie den Sofortupload!</string>
     <string name="file_list_folder">Ordner</string>

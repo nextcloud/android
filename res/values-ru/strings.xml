@@ -85,6 +85,8 @@
     <string name="file_list_loading">Загрузка&#8230;</string>
     <string name="file_list_no_app_for_file_type">Приложение для этого типа файла не найдено!</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
+    <string name="file_list_empty_headline_search">В этом катадлоге результатов не найдено</string>
+    <string name="file_list_empty_search">Искать в другом каталоге?</string>
     <string name="upload_list_empty_headline">Нет доступных загрузок</string>
     <string name="upload_list_empty_text">Загрузите что-нибудь или включите автоматическую загрузку!</string>
     <string name="file_list_folder">каталог</string>

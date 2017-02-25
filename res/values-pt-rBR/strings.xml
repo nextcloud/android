@@ -83,6 +83,8 @@
     <string name="file_list_loading">Carregando&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhum aplicativo encontrado para esse tipo de arquivo!</string>
     <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
+    <string name="file_list_empty_headline_search">Nenhum resultado nesta pasta</string>
+    <string name="file_list_empty_search">Tentar encontrar em outra pasta?</string>
     <string name="upload_list_empty_headline">Nenhum envio disponível</string>
     <string name="upload_list_empty_text">Envie algum conteúdo ou ative o envio instantâneo!</string>
     <string name="file_list_folder">pasta</string>
