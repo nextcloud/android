@@ -13,7 +13,7 @@
     <string name="actionbar_send_file">ส่ง</string>
     <string name="actionbar_sort">จัดเรียง</string>
     <string name="actionbar_sort_title">เรียงตาม</string>
-    <string name="files_drawer_toolbar">ไฟล์ทั้งหมด</string>
+    <string name="drawer_item_all_files">ไฟล์ทั้งหมด</string>
     <string name="drawer_item_settings">ตั้งค่า</string>
     <string name="drawer_item_uploads_list">อัพโหลด</string>
     <string name="drawer_close">ปิด</string>

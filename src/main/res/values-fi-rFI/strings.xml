@@ -13,7 +13,7 @@
     <string name="actionbar_send_file">Lähetä</string>
     <string name="actionbar_sort">Lajittele</string>
     <string name="actionbar_sort_title">Lajittelujärjestys</string>
-    <string name="files_drawer_toolbar">Kaikki tiedostot</string>
+    <string name="drawer_item_all_files">Kaikki tiedostot</string>
     <string name="drawer_item_on_device">Laitteessa</string>
     <string name="drawer_item_settings">Asetukset</string>
     <string name="drawer_item_uploads_list">Lataukset</string>

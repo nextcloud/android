@@ -16,7 +16,7 @@
     <string name="menu_item_sort_by_name">A - Z</string>
     <string name="menu_item_sort_by_date">Nowsze - Starsze</string>
     <string name="menu_item_sort_by_size">Największe - Najmniejsze</string>
-    <string name="files_drawer_toolbar">Wszystkie pliki</string>
+    <string name="drawer_item_all_files">Wszystkie pliki</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_settings">Ustawienia</string>
     <string name="drawer_item_uploads_list">Wysłane</string>

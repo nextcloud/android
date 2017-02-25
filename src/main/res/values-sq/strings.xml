@@ -16,7 +16,7 @@
     <string name="menu_item_sort_by_name">A - Z</string>
     <string name="menu_item_sort_by_date">Më e reja - Më e vjetra</string>
     <string name="menu_item_sort_by_size">Më i madh - Më i vogël</string>
-    <string name="files_drawer_toolbar">Të gjithë skedarët</string>
+    <string name="drawer_item_all_files">Të gjithë skedarët</string>
     <string name="drawer_item_on_device">Në pajisjen</string>
     <string name="drawer_item_settings">Rregullime</string>
     <string name="drawer_item_uploads_list">Ngarkimet</string>
