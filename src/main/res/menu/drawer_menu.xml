@@ -26,7 +26,7 @@
             android:orderInCategory="0"
             android:id="@+id/nav_all_files"
             android:icon="@drawable/ic_folder_open"
-            android:title="@string/files_drawer_toolbar"/>
+            android:title="@string/drawer_item_all_files"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_on_device"

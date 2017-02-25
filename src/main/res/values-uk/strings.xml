@@ -18,7 +18,7 @@
     	<item>А-Я</item>
     	<item>Новіші-Старіші</item>
     </string-array>
-    <string name="files_drawer_toolbar">Усі файли</string>
+    <string name="drawer_item_all_files">Усі файли</string>
     <string name="drawer_item_settings">Налаштування</string>
     <string name="drawer_item_uploads_list">Завантаженнь</string>
     <string name="drawer_close">Закрити</string>

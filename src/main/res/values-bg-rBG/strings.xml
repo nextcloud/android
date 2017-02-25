@@ -16,7 +16,7 @@
     <string name="menu_item_sort_by_name">А - Я</string>
     <string name="menu_item_sort_by_date">Нови - Стари</string>
     <string name="menu_item_sort_by_size">Големи - Малки</string>
-    <string name="files_drawer_toolbar">Всички файлове</string>
+    <string name="drawer_item_all_files">Всички файлове</string>
     <string name="drawer_item_on_device">На устройството</string>
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Качени</string>

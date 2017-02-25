@@ -16,7 +16,7 @@
     <string name="menu_item_sort_by_name">A - Z</string>
     <string name="menu_item_sort_by_date">Más reciente - Más antiguo</string>
     <string name="menu_item_sort_by_size">Más grande - Más pequeño</string>
-    <string name="files_drawer_toolbar">Todos los archivos</string>
+    <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_on_device">En su dispositivo</string>
     <string name="drawer_item_settings">Ajustes</string>
     <string name="drawer_item_uploads_list">Subidas</string>

@@ -13,7 +13,7 @@
     <string name="actionbar_send_file">Saada</string>
     <string name="actionbar_sort">Sorteeri</string>
     <string name="actionbar_sort_title">Sorteeri</string>
-    <string name="files_drawer_toolbar">Kõik failid</string>
+    <string name="drawer_item_all_files">Kõik failid</string>
     <string name="drawer_item_settings">Seaded</string>
     <string name="drawer_item_uploads_list">Üleslaadimised</string>
     <string name="drawer_close">Sulge</string>
