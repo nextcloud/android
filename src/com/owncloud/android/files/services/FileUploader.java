@@ -104,6 +104,8 @@ public class FileUploader extends Service
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
 
+    private static final int FOREGROUND_SERVICE_ID = 411;
+
     public static final String KEY_FILE = "FILE";
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
@@ -408,7 +410,7 @@ public class FileUploader extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
-        startForeground(411, mNotification);
+        startForeground(FOREGROUND_SERVICE_ID, mNotification);
 
         boolean retry = intent.getBooleanExtra(KEY_RETRY, false);
         AbstractList<String> requestedUploads = new Vector<String>();
