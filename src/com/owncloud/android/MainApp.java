@@ -30,7 +30,6 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 
@@ -39,6 +38,7 @@ import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -270,11 +270,12 @@ public class MainApp extends MultiDexApplication {
     }
 
     private void cleanOldEntries() {
-        // previous versions of application created broken entries in the syncedfolderprovider
+        // previous versions of application created broken entries in the SyncedFolderProvider
         // database, and this cleans all that and leaves 1 (newest) entry per synced folder
 
-        if (!PreferenceManager.getDefaultSharedPreferences(mContext).getBoolean("legacyClean", false)) {
-            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+        if (!PreferenceManager.getLegacyClean(this)) {
+            SyncedFolderProvider syncedFolderProvider =
+                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
 
             List<SyncedFolder> syncedFolderList = syncedFolderProvider.getSyncedFolders();
             Map<Pair<String, String>, Long> syncedFolders = new HashMap<>();
@@ -293,12 +294,11 @@ public class MainApp extends MultiDexApplication {
             for (Long idValue : syncedFolders.values()) {
                 ids.add(idValue);
             }
-
-
+            
             if (ids.size() > 0) {
                 syncedFolderProvider.deleteSyncedFoldersNotInList(mContext, ids);
             } else {
-                PreferenceManager.getDefaultSharedPreferences(mContext).edit().putBoolean("legacyClean", true).apply();
+                PreferenceManager.setLegacyClean(this, true);
             }
         }
     }
@@ -308,7 +308,8 @@ public class MainApp extends MultiDexApplication {
 
         @Override
         public void onServiceConnected(ComponentName className, IBinder service) {
-            SyncedFolderObserverService.SyncedFolderObserverBinder binder = (SyncedFolderObserverService.SyncedFolderObserverBinder) service;
+            SyncedFolderObserverService.SyncedFolderObserverBinder binder =
+                    (SyncedFolderObserverService.SyncedFolderObserverBinder) service;
             mObserverService = binder.getService();
             mBound = true;
         }
@@ -318,5 +319,4 @@ public class MainApp extends MultiDexApplication {
             mBound = false;
         }
     };
-
 }
