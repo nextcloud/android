@@ -132,7 +132,6 @@ public class AdvancedFileAlterationListener implements FileAlterationListener {
                     bundle.putString(AutoUploadJob.ACCOUNT, syncedFolder.getAccount());
                     bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
 
-
                     new JobRequest.Builder(AutoUploadJob.TAG)
                             .setExecutionWindow(30_000L, 80_000L)
                             .setRequiresCharging(syncedFolder.getChargingOnly())
