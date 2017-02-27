@@ -66,6 +66,8 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
+import static com.owncloud.android.services.AdvancedFileAlterationListener.DELAY_INVOCATION_MS;
+
 public class FileDownloader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener {
 
@@ -79,6 +81,8 @@ public class FileDownloader extends Service
     public static final String EXTRA_REMOTE_PATH = "REMOTE_PATH";
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
+
+    private static final int FOREGROUND_SERVICE_ID = 412;
 
     private static final String TAG = FileDownloader.class.getSimpleName();
 
@@ -162,7 +166,7 @@ public class FileDownloader extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
-        startForeground(412, mNotification);
+        startForeground(FOREGROUND_SERVICE_ID, mNotification);
 
         if (!intent.hasExtra(EXTRA_ACCOUNT) ||
                 !intent.hasExtra(EXTRA_FILE)
