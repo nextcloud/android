@@ -24,10 +24,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 import com.owncloud.android.MainApp;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -203,7 +203,7 @@ public class SyncedFolderProvider extends Observable {
         );
 
         if (result > 0 && context != null) {
-            PreferenceManager.getDefaultSharedPreferences(context).edit().putBoolean("legacyClean", true).apply();
+            PreferenceManager.setLegacyClean(context, true);
         }
 
         return result;
