@@ -294,7 +294,7 @@ public class MainApp extends MultiDexApplication {
             for (Long idValue : syncedFolders.values()) {
                 ids.add(idValue);
             }
-            
+
             if (ids.size() > 0) {
                 syncedFolderProvider.deleteSyncedFoldersNotInList(mContext, ids);
             } else {
