@@ -64,6 +64,7 @@ public class FileStorageUtils {
     public static final Integer SORT_NAME = 0;
     public static final Integer SORT_DATE = 1;
     public static final Integer SORT_SIZE = 2;
+    public static final String PATTERN_YYYY_MM = "yyyy/MM/";
     public static Integer mSortOrder = SORT_NAME;
     public static Boolean mSortAscending = true;
 
@@ -133,7 +134,7 @@ public class FileStorageUtils {
 
         Date d = new Date(date);
 
-        DateFormat df = new SimpleDateFormat("yyyy/MM/", currentLocale);
+        DateFormat df = new SimpleDateFormat(PATTERN_YYYY_MM, currentLocale);
         df.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
 
         return df.format(d);
@@ -148,7 +149,7 @@ public class FileStorageUtils {
 
         Date d = new Date(date);
 
-        DateFormat df = new SimpleDateFormat("yyyy/MM/");
+        DateFormat df = new SimpleDateFormat(PATTERN_YYYY_MM);
 
         return df.format(d);
 
