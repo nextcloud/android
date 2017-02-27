@@ -21,20 +21,8 @@
  * Changes are Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud GmbH
  *
- * Those changes are under the following licence:
+ * All changes are under the same licence as the original.
  *
- *  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.services.observer;
 
@@ -61,6 +49,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class AdvancedFileAlterationObserver extends FileAlterationObserver implements Serializable {
 
     private static final long serialVersionUID = 1185122225658782848L;
+    private static final int DELAY_INVOCATION_MS = 2500;
     private final List<AdvancedFileAlterationListener> listeners = new CopyOnWriteArrayList<>();
     private FileEntry rootEntry;
     private FileFilter fileFilter;
@@ -226,19 +215,20 @@ public class AdvancedFileAlterationObserver extends FileAlterationObserver imple
         /* fire directory/file events */
         final File rootFile = rootEntry.getFile();
         if (rootFile.exists()) {
-            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile), 2500);
+            checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootFile), DELAY_INVOCATION_MS);
         } else if (rootEntry.isExists()) {
             try {
                 // try to init once more
                 init();
                 if (rootEntry.getFile().exists()) {
-                    checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()), 2500);
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), listFiles(rootEntry.getFile()),
+                            DELAY_INVOCATION_MS);
                 } else {
-                    checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2500);
+                    checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, DELAY_INVOCATION_MS);
                 }
             } catch (Exception e) {
                 Log_OC.d("AdvancedFileAlterationObserver", "Failed getting an observer to intialize " + e);
-                checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, 2500);
+                checkAndNotify(rootEntry, rootEntry.getChildren(), FileUtils.EMPTY_FILE_ARRAY, DELAY_INVOCATION_MS);
             }
         } // else didn't exist and still doesn't
 

@@ -41,6 +41,9 @@ import java.io.FileFilter;
 
 public class SyncedFolderObserverService extends Service {
     private static final String TAG = "SyncedFolderObserverService";
+
+    private static final int MONITOR_SCAN_INTERVAL = 1000;
+
     private final IBinder mBinder = new SyncedFolderObserverBinder();
     private FileAlterationMonitor monitor;
     private FileFilter fileFilter;
@@ -49,7 +52,7 @@ public class SyncedFolderObserverService extends Service {
     public void onCreate() {
         SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(MainApp.getAppContext().
                 getContentResolver());
-        monitor = new FileAlterationMonitor(1000);
+        monitor = new FileAlterationMonitor(MONITOR_SCAN_INTERVAL);
 
         fileFilter = new FileFilter() {
             @Override

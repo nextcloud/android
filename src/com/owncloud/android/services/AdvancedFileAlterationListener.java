@@ -51,7 +51,7 @@ import java.util.TimeZone;
 public class AdvancedFileAlterationListener implements FileAlterationListener {
 
     public static final String TAG = "AdvancedFileAlterationListener";
-
+    public static final int DELAY_INVOCATION_MS = 2500;
     private Context context;
 
     private SyncedFolder syncedFolder;
@@ -88,7 +88,7 @@ public class AdvancedFileAlterationListener implements FileAlterationListener {
 
     @Override
     public void onFileCreate(final File file) {
-        onFileCreate(file, 2500);
+        onFileCreate(file, DELAY_INVOCATION_MS);
     }
 
     public void onFileCreate(final File file, int delay) {
