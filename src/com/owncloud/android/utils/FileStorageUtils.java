@@ -138,8 +138,6 @@ public class FileStorageUtils {
         df.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
 
         return df.format(d);
-
-
     }
 
     private static String getSubpathFromDate(long date) {
@@ -152,7 +150,6 @@ public class FileStorageUtils {
         DateFormat df = new SimpleDateFormat(PATTERN_YYYY_MM);
 
         return df.format(d);
-
     }
 
     /**
@@ -162,30 +159,36 @@ public class FileStorageUtils {
      * @param dateTaken: Time in milliseconds since 1970 when the picture was taken.
      * @return instantUpload path, eg. /Camera/2017/01/fileName
      */
-    public static String getInstantUploadFilePath(Locale current, String remotePath, String fileName, long dateTaken,
+    public static String getInstantUploadFilePath(Locale current,
+                                                  String remotePath,
+                                                  String fileName,
+                                                  long dateTaken,
                                                   Boolean subfolderByDate) {
         String subPath = "";
         if (subfolderByDate) {
            subPath = getSubpathFromDate(dateTaken, current);
         }
-        String path = remotePath + OCFile.PATH_SEPARATOR  + subPath + (fileName == null ? "" : fileName);
-        return path;
+
+        return remotePath + OCFile.PATH_SEPARATOR  + subPath + (fileName == null ? "" : fileName);
     }
 
-    public static String getInstantUploadFilePath(String remotePath, String fileName, long dateTaken,
+    public static String getInstantUploadFilePath(String remotePath,
+                                                  String fileName,
+                                                  long dateTaken,
                                                   Boolean subfolderByDate) {
         String subPath = "";
         if (subfolderByDate) {
             subPath = getSubpathFromDate(dateTaken);
         }
-        String path =  remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
-        return path;
+
+        return remotePath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
     }
 
 
     /**
-     * Gets the composed path when video is or must be stored
-     * @param context
+     * Gets the composed path when video is or must be stored.
+     *
+     * @param context app context
      * @param fileName: video file name
      * @return String: video file path composed
      */
@@ -197,8 +200,7 @@ public class FileStorageUtils {
         if (com.owncloud.android.db.PreferenceManager.instantVideoUploadPathUseSubfolders(context)) {
             subPath = getSubpathFromDate(dateTaken);
         }
-        return uploadVideoPath + subPath
-                + (fileName == null ? "" : fileName);
+        return uploadVideoPath + subPath + (fileName == null ? "" : fileName);
     }
     
     public static String getParentPath(String remotePath) {
@@ -269,7 +271,9 @@ public class FileStorageUtils {
     }
 
     /**
-     * Sorts all filenames, regarding last user decision
+     * Sorts all filenames, regarding last user decision.
+     *
+     * @param files of files to sort
      */
     public static File[] sortLocalFolder(File[] files){
         switch (mSortOrder){
@@ -288,8 +292,9 @@ public class FileStorageUtils {
     }
     
     /**
-     * Sorts list by Date
-     * @param files
+     * Sorts list by Date.
+     *
+     * @param files list of files to sort
      */
     public static Vector<OCFile> sortOCFilesByDate(Vector<OCFile> files){
         final int multiplier = mSortAscending ? 1 : -1;
@@ -306,8 +311,9 @@ public class FileStorageUtils {
     }
 
     /**
-     * Sorts list by Date
-     * @param filesArray
+     * Sorts list by Date.
+     *
+     * @param filesArray list of files to sort
      */
     public static File[] sortLocalFilesByDate(File[] filesArray){
         final int multiplier = mSortAscending ? 1 : -1;
@@ -327,7 +333,9 @@ public class FileStorageUtils {
     }
 
     /**
-     * Sorts list by Size
+     * Sorts list by Size.
+     *
+     * @param files list of files to sort
      */
     public static Vector<OCFile> sortOCFilesBySize(Vector<OCFile> files){
         final int multiplier = mSortAscending ? 1 : -1;
@@ -354,7 +362,9 @@ public class FileStorageUtils {
     }
 
     /**
-     * Sorts list by Size
+     * Sorts list by Size.
+     *
+     * @param filesArray list of files to sort
      */
     public static File[] sortLocalFilesBySize(File[] filesArray) {
         final int multiplier = mSortAscending ? 1 : -1;
@@ -384,8 +394,9 @@ public class FileStorageUtils {
     }
 
     /**
-     * Sorts list by Name
-     * @param files     files to sort
+     * Sorts list by Name.
+     *
+     * @param files files to sort
      */
     @SuppressFBWarnings(value = "Bx")
     public static Vector<OCFile> sortOCFilesByName(Vector<OCFile> files){
@@ -408,8 +419,9 @@ public class FileStorageUtils {
     }
 
     /**
-     * Sorts list by Name
-     * @param filesArray    files to sort
+     * Sorts list by Name.
+     *
+     * @param filesArray files to sort
      */
     public static File[] sortLocalFilesByName(File[] filesArray) {
         final int multiplier = mSortAscending ? 1 : -1;
@@ -435,8 +447,9 @@ public class FileStorageUtils {
     }
 
     /**
-     * Sorts list by Favourites
-     * @param files     files to sort
+     * Sorts list by Favourites.
+     *
+     * @param files files to sort
      */
     public static Vector<OCFile> sortOCFilesByFavourite(Vector<OCFile> files){
         Collections.sort(files, new Comparator<OCFile>() {
