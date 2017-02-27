@@ -66,8 +66,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
-import static com.owncloud.android.services.AdvancedFileAlterationListener.DELAY_INVOCATION_MS;
-
 public class FileDownloader extends Service
         implements OnDatatransferProgressListener, OnAccountsUpdateListener {
 
