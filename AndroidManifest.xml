@@ -20,8 +20,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owncloud.android"
-    android:versionCode="20170228"
-    android:versionName="20170228">
+    android:versionCode="20170301"
+    android:versionName="20170301">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -60,7 +60,7 @@
     <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Nextcloud beta"
         android:fullBackupContent="@xml/backup_config"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
