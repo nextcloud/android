@@ -80,6 +80,8 @@ public class FileDownloader extends Service
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
 
+    private static final int FOREGROUND_SERVICE_ID = 412;
+
     private static final String TAG = FileDownloader.class.getSimpleName();
 
     private Looper mServiceLooper;
@@ -162,7 +164,7 @@ public class FileDownloader extends Service
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
 
-        startForeground(412, mNotification);
+        startForeground(FOREGROUND_SERVICE_ID, mNotification);
 
         if (!intent.hasExtra(EXTRA_ACCOUNT) ||
                 !intent.hasExtra(EXTRA_FILE)
