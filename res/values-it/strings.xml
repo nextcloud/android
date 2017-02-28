@@ -83,6 +83,8 @@
     <string name="file_list_loading">Caricamento in corso&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione trovata per il tipo di file!</string>
     <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
+    <string name="file_list_empty_headline_search">Nessun risultato in questa cartella</string>
+    <string name="file_list_empty_search">Provare a cercare in una nuova cartella?</string>
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
     <string name="upload_list_empty_text">Carica alcuni contenuti o attiva il caricamento istantaneo!</string>
     <string name="file_list_folder">cartella</string>
