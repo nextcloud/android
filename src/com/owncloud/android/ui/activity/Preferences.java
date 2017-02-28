@@ -465,7 +465,7 @@ public class Preferences extends PreferenceActivity
         mPrefInstantUploadCategory = (PreferenceCategory) findPreference(INSTANT_UPLOADING_CATEGORY);
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            // Instant upload via preferences on pre pre M
+            // Instant upload via preferences on pre Android Marshmallow
             mPrefInstantUploadPath = findPreference("instant_upload_path");
             if (mPrefInstantUploadPath != null) {
 

@@ -321,7 +321,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean result;
+        boolean result = true;
         switch (item.getItemId()) {
             case android.R.id.home: {
                 if (isDrawerOpen()) {
@@ -329,6 +329,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 } else {
                     openDrawer();
                 }
+                break;
             }
 
             default:

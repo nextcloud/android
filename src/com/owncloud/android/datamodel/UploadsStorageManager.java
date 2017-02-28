@@ -20,7 +20,6 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -32,7 +31,6 @@ import android.support.annotation.RequiresApi;
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.db.UploadResult;
@@ -403,19 +401,15 @@ public class UploadsStorageManager extends Observable {
     private List<OCUpload> getPendingJobs() {
         Set<JobRequest> jobRequests = JobManager.create(mContext).getAllJobRequests();
 
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
-
         ArrayList<OCUpload> list = new ArrayList<>();
 
         for (JobRequest ji : jobRequests) {
             PersistableBundleCompat extras = ji.getExtras();
-            if (extras.get("account").equals(currentAccount.name)) {
                 OCUpload upload = new OCUpload(extras.getString("filePath", ""),
                         extras.getString("remotePath", ""),
                         extras.getString("account", ""));
 
                 list.add(upload);
-            }
         }
 
         return list;
@@ -440,10 +434,8 @@ public class UploadsStorageManager extends Observable {
      * Get all failed uploads.
      */
     public OCUpload[] getFailedUploads() {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         return getUploads(
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
                 ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value, null);
     }
 
@@ -451,10 +443,8 @@ public class UploadsStorageManager extends Observable {
      * Get all uploads which where successfully completed.
      */
     public OCUpload[] getFinishedUploads() {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
-        return getUploads(ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
     }
 
     /**
@@ -462,11 +452,8 @@ public class UploadsStorageManager extends Observable {
      * @return      Array of failed uploads, except for those that were not performed due to lack of Wifi connection.
      */
     public OCUpload[] getFailedButNotDelayedUploads() {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
-        return getUploads(
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
-                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
             null
@@ -481,7 +468,6 @@ public class UploadsStorageManager extends Observable {
         Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         long result = getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
                 ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
@@ -495,7 +481,6 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearSuccessfulUploads() {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
@@ -510,7 +495,6 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearAllFinishedButNotDelayedUploads() {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
 
         String[] whereArgs = new String[2];
         whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
