@@ -127,6 +127,11 @@ android {
         applicationId "com.nextcloud.android.beta"
         versionCode 20170228
         versionName "20170228"
+
+        // disable the experimental Jack build tools.
+        jackOptions {
+            enabled false
+        }
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
