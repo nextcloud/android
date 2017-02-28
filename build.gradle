@@ -124,7 +124,9 @@ android {
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "\"$System.env.OCTEST_SERVER_BASE_URL\""
 
         multiDexEnabled true
-        applicationId "com.nextcloud.client"
+        applicationId "com.nextcloud.android.beta"
+        versionCode 20170228
+        versionName "20170228"
     }
 
     // adapt structure from Eclipse to Gradle/Android Studio expectations;
