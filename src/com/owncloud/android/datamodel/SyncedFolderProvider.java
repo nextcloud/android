@@ -24,7 +24,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 
 import com.owncloud.android.MainApp;

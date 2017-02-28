@@ -377,14 +377,11 @@ public class UploadsStorageManager extends Observable {
      */
     public OCUpload[] getCurrentAndPendingUploads() {
 
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
-
         OCUpload[] uploads = getUploads(
-            ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
-            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR " +
-            ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue() + " OR " +
-            ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
-            null
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value + " OR " +
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_WIFI.getValue() + " OR " +
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "==" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
+                null
         );
 
         // add pending Jobs
@@ -465,13 +462,12 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearFailedButNotDelayedUploads() {
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
         long result = getDB().delete(
-            ProviderTableMeta.CONTENT_URI_UPLOADS,
+                ProviderTableMeta.CONTENT_URI_UPLOADS,
                 ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
-                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
-                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
-            null
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
+                null
         );
         Log_OC.d(TAG, "delete all failed uploads but those delayed for Wifi");
         if (result > 0) {
@@ -484,7 +480,6 @@ public class UploadsStorageManager extends Observable {
 
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
                 ProviderTableMeta.UPLOADS_STATUS + "=="+ UploadStatus.UPLOAD_SUCCEEDED.value, null
         );
         Log_OC.d(TAG, "delete all successful uploads");
@@ -501,10 +496,9 @@ public class UploadsStorageManager extends Observable {
         whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
-                ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "==\"" + currentAccount.name + "\" AND " +
                 ProviderTableMeta.UPLOADS_STATUS + "=? OR " + ProviderTableMeta.UPLOADS_STATUS + "=? AND " +
-                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
-                ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
+                        ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
                 whereArgs
         );
         Log_OC.d(TAG, "delete all finished uploads");
