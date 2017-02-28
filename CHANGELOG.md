@@ -1,3 +1,7 @@
+## 2017-03-01
+
+-Beta branch was updated successfully] updated
+
 ## 2017-02-28
 
 - Master (nextcloud/master) [https://github.com/nextcloud/android] updated
