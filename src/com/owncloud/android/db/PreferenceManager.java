@@ -43,6 +43,7 @@ public abstract class PreferenceManager {
     private static final String AUTO_PREF__GRID_COLUMNS = "grid_columns";
     private static final String PREF__INSTANT_UPLOADING = "instant_uploading";
     private static final String PREF__INSTANT_UPLOAD_PATH_ACCOUNT = "instant_upload_path_account";
+    private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_ACCOUNT = "instant_video_upload_path_account";
     private static final String PREF__INSTANT_VIDEO_UPLOADING = "instant_video_uploading";
     private static final String PREF__INSTANT_UPLOAD_PATH_USE_SUBFOLDERS = "instant_upload_path_use_subfolders";
     private static final String PREF__INSTANT_UPLOAD_ON_WIFI = "instant_upload_on_wifi";
