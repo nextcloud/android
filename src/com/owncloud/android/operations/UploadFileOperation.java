@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud GmbH.
+ *   Copyright (C) 2016 ownCloud Inc.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -75,6 +75,8 @@ public class UploadFileOperation extends SyncOperation {
     public static final int CREATED_BY_USER = 0;
     public static final int CREATED_AS_INSTANT_PICTURE = 1;
     public static final int CREATED_AS_INSTANT_VIDEO = 2;
+
+    private String expectedPath;
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
 
@@ -346,29 +348,40 @@ public class UploadFileOperation extends SyncOperation {
                 throw new OperationCancelledException();
             }
 
-            String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
+            expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
             expectedFile = new File(expectedPath);
+
+            /// copy the file locally before uploading
+            if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY &&
+                    !mOriginalStoragePath.equals(expectedPath)) {
+
+                String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                mFile.setStoragePath(temporalPath);
+                temporalFile = new File(temporalPath);
+
+                result = copy(originalFile, temporalFile);
+                if (result != null) {
+                    return result;
+                }
+            }
 
             if (mCancellationRequested.get()) {
                 throw new OperationCancelledException();
             }
-
-            // Get the last modification date of the file from the file system
-            Long timeStampLong = originalFile.lastModified()/1000;
-            String timeStamp = timeStampLong.toString();
 
             /// perform the upload
             if ( mChunked &&
                     (new File(mFile.getStoragePath())).length() >
                             ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
             }
-            for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
-                mUploadOperation.addDatatransferProgressListener(mDataTransferListener);
+            Iterator <OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
+            while (listener.hasNext()) {
+                mUploadOperation.addDatatransferProgressListener(listener.next());
             }
 
             if (mCancellationRequested.get()) {
@@ -379,30 +392,7 @@ public class UploadFileOperation extends SyncOperation {
 
             /// move local temporal file or original file to its corresponding
             // location in the ownCloud local folder
-            if (result.isSuccess()) {
-                if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
-                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
-                    if (mOriginalStoragePath.equals(temporalPath)) {
-                        // delete local file is was pre-copied in temporary folder (see .ui.helpers.UriUploader)
-                        temporalFile = new File(temporalPath);
-                        temporalFile.delete();
-                    }
-                    mFile.setStoragePath("");
-
-                } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE) {
-                    originalFile.delete();
-                    getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
-                } else {
-                    mFile.setStoragePath(expectedPath);
-
-                    if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE) {
-                        move(originalFile, expectedFile);
-                        getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
-                    }
-                    FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
-                }
-
-            } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
+            if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
 
@@ -424,14 +414,15 @@ public class UploadFileOperation extends SyncOperation {
                 if (result.getException() != null) {
                     if(result.isCancelled()){
                         Log_OC.w(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
-                                " has been canceled: " + result.getLogMessage());
+                                ": " + result.getLogMessage());
                     } else {
                         Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
                                 ": " + result.getLogMessage(), result.getException());
                     }
+
                 } else {
-                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath + "ResultCode(" +
-                            result.getCode().name() + "): " + result.getLogMessage());
+                    Log_OC.e(TAG, "Upload of " + mOriginalStoragePath + " to " + mRemotePath +
+                            ": " + result.getLogMessage());
                 }
             }
         }
@@ -439,6 +430,36 @@ public class UploadFileOperation extends SyncOperation {
         if (result.isSuccess()) {
             saveUploadedFile(client);
 
+            if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
+                String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                if (mOriginalStoragePath.equals(temporalPath)) {
+                    // delete local file is was pre-copied in temporary folder (see .ui.helpers.UriUploader)
+                    temporalFile = new File(temporalPath);
+                    temporalFile.delete();
+                }
+                mFile.setStoragePath("");
+
+            } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE) {
+                originalFile.delete();
+            } else {
+                mFile.setStoragePath(expectedPath);
+
+                if (temporalFile != null) {         // FileUploader.LOCAL_BEHAVIOUR_COPY
+                    try {
+                        move(temporalFile, expectedFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {                            // FileUploader.LOCAL_BEHAVIOUR_MOVE
+                    try {
+                        move(originalFile, expectedFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
+                }
+                FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
+            }
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
