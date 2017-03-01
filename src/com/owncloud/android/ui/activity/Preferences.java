@@ -577,6 +577,7 @@ public class Preferences extends PreferenceActivity
         INSTANT_UPLOAD_PATH_LABEL = getResources().getString(R.string.prefs_instant_upload_path);
 
        loadStoragePath();
+
         /* Link to Nightly apks */
         Preference pBetaLink =  findPreference("beta_link");
         if (pBetaLink != null ){
@@ -586,8 +587,7 @@ public class Preferences extends PreferenceActivity
                     Integer latestVersion = -1;
                     Integer currentVersion = -1;
                     try {
-                        currentVersion = getPackageManager().getPackageInfo
-                                                 (getPackageName(), 0).versionCode;
+                        currentVersion = getPackageManager().getPackageInfo(getPackageName(), 0).versionCode;
                         LoadingVersionNumberTask loadTask = new LoadingVersionNumberTask();
                         loadTask.execute();
                         latestVersion = loadTask.get();
@@ -595,12 +595,10 @@ public class Preferences extends PreferenceActivity
                         Log_OC.e(TAG, "Error detecting app version", e);
                     }
                     if (latestVersion == -1 || currentVersion == -1) {
-                        Toast.makeText(getApplicationContext(), "No information available!",
-                                       Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "No information available!", Toast.LENGTH_SHORT).show();
                     }
                     if (latestVersion > currentVersion) {
-                        String betaLinkWeb = (String) getText(R.string.beta_link) +
-                                                              latestVersion + ".apk";
+                        String betaLinkWeb = (String) getText(R.string.beta_link) + latestVersion + ".apk";
                         if (betaLinkWeb != null && betaLinkWeb.length() > 0) {
                             Uri uriUrl = Uri.parse(betaLinkWeb);
                             Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
@@ -608,8 +606,7 @@ public class Preferences extends PreferenceActivity
                             return true;
                         }
                     } else {
-                        Toast.makeText(getApplicationContext(), "No new version available!",
-                                       Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "No new version available!", Toast.LENGTH_SHORT).show();
                         return true;
                     }
                     return true;
