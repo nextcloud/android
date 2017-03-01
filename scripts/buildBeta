@@ -4,6 +4,10 @@ date=$(date +%Y%m%d)
 # use the current date
 mkdir -p ~/apks
 echo $date > ~/apks/latest
+
+# always use beta branch
+sed -i  s"#'com.github.nextcloud:android-library.*#'com.github.nextcloud:android-library:beta-SNAPSHOT'#" build.gradle
+
 sed -i s"#android:versionCode=.*#android:versionCode=\"$date\"#" AndroidManifest.xml
 sed -i s"#versionCode .*#versionCode $date#" build.gradle
 
