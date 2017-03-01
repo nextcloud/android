@@ -441,6 +441,7 @@ public class UploadFileOperation extends SyncOperation {
 
             } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE) {
                 originalFile.delete();
+                getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
             } else {
                 mFile.setStoragePath(expectedPath);
 
