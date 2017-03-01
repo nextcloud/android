@@ -392,27 +392,7 @@ public class UploadFileOperation extends SyncOperation {
 
             /// move local temporal file or original file to its corresponding
             // location in the ownCloud local folder
-            if (result.isSuccess()) {
-
-<<<<<<< HEAD
-                } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE) {
-                    originalFile.delete();
-                    getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
-                } else {
-                    mFile.setStoragePath(expectedPath);
-
-                    if (temporalFile != null) {         // FileUploader.LOCAL_BEHAVIOUR_COPY
-                        move(temporalFile, expectedFile);
-                    } else {                            // FileUploader.LOCAL_BEHAVIOUR_MOVE
-                        move(originalFile, expectedFile);
-                        getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
-                    }
-                    FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
-                }
-=======
->>>>>>> parent of e7da3ed... Revert "Try to fix changes between upload behaviour"
-
-            } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
+            if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
 
