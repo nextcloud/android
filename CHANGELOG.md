@@ -1,6 +1,10 @@
 ## 2017-03-01
 
 -Beta branch was updated successfully] updated
+
+## 2017-03-01
+
+-Beta branch was updated successfully] updated
 - Rewrite auto upload (nextcloud/rewrite-auto-upload) [https://github.com/nextcloud/android/pull/615] updated
 
 ## 2017-03-01
