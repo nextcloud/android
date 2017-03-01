@@ -486,9 +486,9 @@
     <string name="edit_share_unshare">Закрыть общий доступ</string>
     <string name="edit_share_done">завершено</string>
 
-    <string name="action_retry_uploads">Повторить загрузки, завершившиеся сбоем</string>
-    <string name="action_clear_failed_uploads">Очистить завершившиеся сбоем загрузки</string>
-    <string name="action_clear_successful_uploads">Очистить успешно завершённые загрузки</string>
+    <string name="action_retry_uploads">Повторить неудавшиеся</string>
+    <string name="action_clear_failed_uploads">Очистить неудавшиеся</string>
+    <string name="action_clear_successful_uploads">Очистить успешные</string>
     <string name="action_clear_finished_uploads">Очистить все завершённые</string>
 
     <string name="action_switch_grid_view">Вид сеткой</string>
