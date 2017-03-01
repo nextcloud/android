@@ -17,11 +17,11 @@ sed -i s"#versionName .*#versionName \"$date\"#" build.gradle
 sed -e 's#\@string/app_name#Nextcloud nightly#' -e 's#\@string/copy_link#Copy link#' -e 's#\@string/share_dialog_title#Sharing#' -e 's#\@string/manage_space_title#Manage space#' AndroidManifest.xml -i
 
 # build signed apk
-gradle assembleRelease
+gradle assembleRelease >> /tmp/beta.log 2>&1
 
 if [ $? != 0 ] ; then 
 	echo "Build error!"
-	exit
+	exit 1
 fi
 
 mv build/outputs/apk/android-release.apk ~/apks/nextcloud-beta-$date.apk
