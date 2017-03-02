@@ -58,7 +58,6 @@ public class DataHolderUtil {
         }
     }
 
-
     public String nextItemId() {
         String nextItemId = new BigInteger(130, random).toString(32);
         while (data.containsKey(nextItemId)) {
@@ -66,6 +65,4 @@ public class DataHolderUtil {
         }
         return nextItemId;
     }
-
-
 }
