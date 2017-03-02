@@ -29,7 +29,7 @@ class SyncedFolderObserver extends RecursiveFileObserver {
 
 
     public SyncedFolderObserver(SyncedFolder syncedFolder) {
-        super(syncedFolder.getLocalPath(), FileObserver.CREATE + FileObserver.MOVED_TO);
+        super(syncedFolder.getLocalPath(), FileObserver.CLOSE_WRITE);
 
         context = MainApp.getAppContext();
         this.syncedFolder = syncedFolder;
@@ -45,7 +45,8 @@ class SyncedFolderObserver extends RecursiveFileObserver {
         File temp = new File(path);
 
         // do not upload "null"-files, test if file exists and is a real file
-        if (!temp.getName().equalsIgnoreCase("null") && temp.isFile() && !temp.getName().endsWith(".tmp")) {
+        if (!temp.getName().equalsIgnoreCase("null") && temp.isFile() && !temp.getName().endsWith(".tmp")
+                && !temp.getName().startsWith(".")) {
             PersistableBundle bundle = new PersistableBundle();
             // TODO extract
             bundle.putString(SyncedFolderJobService.LOCAL_PATH, path);
