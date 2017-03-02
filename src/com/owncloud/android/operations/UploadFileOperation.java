@@ -76,8 +76,6 @@ public class UploadFileOperation extends SyncOperation {
     public static final int CREATED_AS_INSTANT_PICTURE = 1;
     public static final int CREATED_AS_INSTANT_VIDEO = 2;
 
-    private String expectedPath;
-
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
 
         // MIME type
@@ -348,7 +346,7 @@ public class UploadFileOperation extends SyncOperation {
                 throw new OperationCancelledException();
             }
 
-            expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
+            String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
             expectedFile = new File(expectedPath);
 
             /// copy the file locally before uploading
