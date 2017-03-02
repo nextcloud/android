@@ -30,7 +30,7 @@ import java.util.Map;
  */
 
 public class DataHolderUtil {
-    Map<String, WeakReference<Object>> data = new HashMap<String, WeakReference<Object>>();
+    private Map<String, WeakReference<Object>> data = new HashMap<String, WeakReference<Object>>();
 
     private static DataHolderUtil instance;
 
