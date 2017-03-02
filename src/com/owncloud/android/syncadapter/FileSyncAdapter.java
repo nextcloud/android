@@ -376,8 +376,8 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
 
         if (result != null) {
             DataHolderUtil dataHolderUtil = DataHolderUtil.getInstance();
-            String dataHolderItemId;
-            dataHolderUtil.save(dataHolderItemId = dataHolderUtil.nextItemId(), result);
+            String dataHolderItemId = dataHolderUtil.nextItemId();
+            dataHolderUtil.save(dataHolderUtil.nextItemId(), result);
             intent.putExtra(FileSyncAdapter.EXTRA_RESULT, dataHolderItemId);
         }
 
