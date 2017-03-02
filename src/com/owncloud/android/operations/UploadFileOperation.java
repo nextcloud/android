@@ -293,6 +293,7 @@ public class UploadFileOperation extends SyncOperation {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
         RemoteOperationResult result = null;
+        String expectedPath = null;
         File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
 
         try {
@@ -346,7 +347,7 @@ public class UploadFileOperation extends SyncOperation {
                 throw new OperationCancelledException();
             }
 
-            String expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
+            expectedPath = FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
             expectedFile = new File(expectedPath);
 
             /// copy the file locally before uploading
