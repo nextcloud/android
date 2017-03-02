@@ -99,9 +99,6 @@
     <!-- login data links -->
     <string name="login_data_own_scheme" translatable="false">cloud</string>
 
-    <!-- firebase analytics -->
-    <bool name="enable_analytics">false</bool>
-
 </resources>
 
 

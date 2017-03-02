@@ -41,12 +41,10 @@ public class CustomApp extends MainApp {
         /*
         In order for Firebase Analytics to work, you also need to
         put a proper google-services.json in src/custom folder
+
+        If that file is flawed, nothing will be sent to Firebase
          */
-        if (getResources().getBoolean(R.bool.enable_analytics)) {
-            return firebaseAnalytics;
-        } else {
-            return null;
-        }
+        return firebaseAnalytics;
     }
 
 }
