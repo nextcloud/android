@@ -53,7 +53,9 @@ public class DataHolderUtil {
     }
 
     public void delete(String id) {
-        data.remove(id);
+        if (id != null) {
+            data.remove(id);
+        }
     }
 
 
