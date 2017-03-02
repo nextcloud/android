@@ -38,11 +38,11 @@
     <string name="prefs_log_title_history">Protokollverlauf</string>
     <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokolle</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
-    <string name="prefs_calendar_contacts">Sync Kalender &amp; Kontakte</string>
+    <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto einrichten</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder Google Play Store noch F-Droid App installiert</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; Kontakte Sychronisierung erfolgreich konfiguriert</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Kontakte-Synchronisierung erfolgreich konfiguriert</string>
     <string name="prefs_help">Hilfe</string>
     <string name="prefs_recommend">Dies einem Freund empfehlen</string>
     <string name="prefs_feedback">Rückmeldungen</string>
@@ -75,18 +75,18 @@
     <string name="uploader_error_message_source_file_not_copied">Es ist ein Fehler beim Kopieren dieser Datei in einen temporären Ordner aufgetreten. Bitte versuchen Sie erneut die Datei zu senden.</string>
     <string name="uploader_upload_files_behaviour">Upload Option:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">In Nextcloud Ordner verschieben</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Hochladen und Datei im Quellordner behalten</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Lösche Datei aus Quellordner</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Hochladen und Datei im ursprünglichen Ordner behalten</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Lösche Datei aus dem ursprünglichen Ordner</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_list_empty_headline">Keine Dateien vorhanden</string>
-    <string name="file_list_empty">Laden Sie Inhalt hoch oder synchronisieren Sie mit Ihren Geräten!</string>
+    <string name="file_list_empty">Laden Sie Inhalte hoch oder synchronisieren Sie sie mit Ihren Geräten!</string>
     <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
     <string name="file_list_empty_search">In einem anderen Ordner suchen?</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
-    <string name="upload_list_empty_text">Laden Sie Inhalt hoch oder aktivieren Sie den Sofortupload!</string>
+    <string name="upload_list_empty_text">Laden Sie Inhalte hoch oder aktivieren Sie den Sofort-Upload!</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_folders">Ordner</string>
     <string name="file_list_file">Datei</string>
@@ -147,10 +147,10 @@
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_service_interrupted">Die Anwendung wurde beendet</string>
     <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Warte auf W-Lan Verbindung</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Warte auf WLAN-Verbindung</string>
     <string name="uploads_view_later_waiting_to_upload">Warten auf das Hochladen</string>
     <string name="downloader_download_in_progress_ticker">Herunterladen &#8230;</string>
-    <string name="downloader_download_in_progress_content">%1$d%% lädt %2$s herunter</string>
+    <string name="downloader_download_in_progress_content">%1$d%% beim Laden von %2$s</string>
     <string name="downloader_download_succeeded_ticker">Herunterladen erfolgreich</string>
     <string name="downloader_download_succeeded_content">%1$s wurde erfolgreich heruntergeladen</string>
     <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
@@ -203,8 +203,8 @@
     <string name="media_err_security_ex">Sicherheitsfehler bei der Wiedergabe von %1$s</string>
     <string name="media_err_io_ex">Eingabefehler beim Versuch %1$s abzuspielen</string>
     <string name="media_err_unexpected">Unerwarteter Fehler beim Versuch %1$s wiederzugeben</string>
-    <string name="media_rewind_description">Zurückspul-Knopf</string>
-    <string name="media_play_pause_description">Wiedergabe oder Pause Knopf</string>
+    <string name="media_rewind_description">Zurückspulknopf</string>
+    <string name="media_play_pause_description">Wiedergabe- oder Pause-Knopf</string>
     <string name="media_forward_description">Vorspul-Knopf</string>
 
 	<string name="auth_getting_authorization">Erhalte Genehmigung &#8230;</string>
@@ -291,7 +291,7 @@
     <string name="ssl_validator_label_validity_to">An:</string>
     <string name="ssl_validator_label_signature">Signatur:</string>
     <string name="ssl_validator_label_signature_algorithm">Algorithmus:</string>
-    <string name="digest_algorithm_not_available">Dieser Algorithmus-Auszug ist auf Ihrem Handy nicht Verfügbar.</string>
+    <string name="digest_algorithm_not_available">Dieser Hash-Algorithmus ist auf Ihrem Handy nicht Verfügbar.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Fingerabdruck:</string>
     <string name="certificate_load_problem">Es ist ein Problem beim Laden des Zertifikats aufgetreten.</string>
     <string name="ssl_validator_null_cert">Das Zertifikat konnte nicht angezeigt werden.</string>
@@ -304,9 +304,9 @@
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Nur über W-Lan hochladen</string>
-    <string name="instant_upload_on_wifi">Fotos nur über W-Lan hochladen</string>
-    <string name="instant_video_upload_on_wifi">Videos nur über W-Lan hochladen</string>
+    <string name="auto_upload_on_wifi">Nur über WLAN hochladen</string>
+    <string name="instant_upload_on_wifi">Fotos nur über WLAN hochladen</string>
+    <string name="instant_video_upload_on_wifi">Videos nur über WLAN hochladen</string>
     <string name="instant_video_upload_on_charging">Hochladen nur während des Ladens</string>
     <string name="instant_upload_on_charging">Hochladen nur während des Ladens</string>
     <string name="instant_upload_path">/SofortUpload</string>
@@ -390,7 +390,7 @@
 
 	<string name="actionbar_logger">Protokolle</string>
 	<string name="log_send_history_button">Verlauf senden</string>
-	<string name="log_send_no_mail_app">Keine App zum Versenden der Meldungen gefunden. Bitte installieren Sie die Mail-App!</string>
+	<string name="log_send_no_mail_app">Keine App zum Versenden der Meldungen gefunden. Bitte installieren Sie eine Mail-App!</string>
 	<string name="log_send_mail_subject">%1$s Android-App Meldungen</string>
 	<string name="log_progress_dialog_text">Lade Daten &#8230;</string>
 
@@ -528,7 +528,7 @@
     <string name="folder_sync_no_results">Keine Medienordner gefunden.</string>
     <string name="folder_sync_preferences">Auto Upload Einstellungen</string>
     <string name="folder_sync_settings">Einstellungen</string>
-    <string name="folder_sync_new_info">Auto-Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto-Upload gehen und neu konfigurieren. Bitte entschuldigen Sie die Unannehmlichkeiten.\\n\\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto-Uploads!</string>
+    <string name="folder_sync_new_info">Der Auto-Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto-Upload gehen und neu konfigurieren. Bitte entschuldigen Sie die Unannehmlichkeiten.\n\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto-Uploads!</string>
     <string name="folder_sync_preferences_folder_path">Für %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
@@ -537,9 +537,9 @@
     <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
     <string name="upload_file_dialog_filename">Dateiname</string>
     <string name="upload_file_dialog_filetype">Dateityp</string>
-    <string name="upload_file_dialog_filetype_snippet_text">Schnipsel Textdatei (.txt)</string>
-    <string name="upload_file_dialog_filetype_internet_shortcut">Internet Abkürzungs-Datei (%s)</string>
-    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps Abkürzungs-Datei (%s)</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Schnipsel-Textdatei (.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Website-Verknüpfungsdatei (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps-Verknüpfungsdatei (%s)</string>
 
     <string name="storage_description_default">Standard</string>
     <string name="storage_description_sd_no">SD Karte %1$d</string>
