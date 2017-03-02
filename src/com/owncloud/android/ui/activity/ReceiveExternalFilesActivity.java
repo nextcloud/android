@@ -86,6 +86,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
+import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileStorageUtils;
 
@@ -1032,9 +1033,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 String accountName = intent.getStringExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME);
                 String synchFolderRemotePath =
                         intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
-                RemoteOperationResult synchResult =
-                        (RemoteOperationResult) intent.getSerializableExtra(
-                                FileSyncAdapter.EXTRA_RESULT);
+                RemoteOperationResult synchResult = (RemoteOperationResult)
+                        DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
                 boolean sameAccount = (getAccount() != null &&
                         accountName.equals(getAccount().name) && getStorageManager() != null);
 
@@ -1099,6 +1099,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 // avoid app crashes after changing the serial id of RemoteOperationResult
                 // in owncloud library with broadcast notifications pending to process
                 removeStickyBroadcast(intent);
+                DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
             }
         }
     }

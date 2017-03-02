@@ -91,6 +91,7 @@ import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewVideoActivity;
+import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
@@ -1103,9 +1104,8 @@ public class FileDisplayActivity extends HookActivity
 
                 String synchFolderRemotePath =
                         intent.getStringExtra(FileSyncAdapter.EXTRA_FOLDER_PATH);
-                RemoteOperationResult synchResult =
-                        (RemoteOperationResult) intent.getSerializableExtra(
-                                FileSyncAdapter.EXTRA_RESULT);
+                RemoteOperationResult synchResult = (RemoteOperationResult)
+                        DataHolderUtil.getInstance().retrieve(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
                 boolean sameAccount = (getAccount() != null &&
                         accountName.equals(getAccount().name) && getStorageManager() != null);
 
@@ -1174,6 +1174,8 @@ public class FileDisplayActivity extends HookActivity
 
                         }
                         removeStickyBroadcast(intent);
+                        DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
+
                         Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
                         setIndeterminate(mSyncInProgress);
 
@@ -1189,6 +1191,7 @@ public class FileDisplayActivity extends HookActivity
                 // avoid app crashes after changing the serial id of RemoteOperationResult
                 // in owncloud library with broadcast notifications pending to process
                 removeStickyBroadcast(intent);
+                DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT));
             }
         }
     }
