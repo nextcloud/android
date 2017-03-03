@@ -445,7 +445,6 @@ public class UploadFileOperation extends SyncOperation {
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                 saveUploadedFile(client);
             } else {
-                mFile.setStoragePath(expectedPath);
 
                 if (temporalFile != null) {         // FileUploader.LOCAL_BEHAVIOUR_COPY
                     try {
