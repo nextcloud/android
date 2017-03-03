@@ -58,7 +58,7 @@ public class InstantUploadBroadcastReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             Log_OC.d(TAG, "Received: " + intent.getAction());
             if (intent.getAction().equals(NEW_PHOTO_ACTION_UNOFFICIAL)) {
                 handleNewPictureAction(context, intent);

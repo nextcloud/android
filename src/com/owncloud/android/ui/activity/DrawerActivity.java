@@ -175,8 +175,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
             setupQuotaElement();
 
-            // show folder sync menu item only for Android 7+
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
+            // show folder sync menu item only for Android 6+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
                 mNavigationView.getMenu().removeItem(R.id.nav_folder_sync);
             }
         }

@@ -44,6 +44,7 @@ public abstract class PreferenceManager {
     private static final String PREF__INSTANT_UPLOAD_ON_WIFI = "instant_upload_on_wifi";
     private static final String PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI = "instant_video_upload_on_wifi";
     private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS = "instant_video_upload_path_use_subfolders";
+    private static final String PREF__LEGACY_CLEAN = "legacyClean";
 
     public static boolean instantPictureUploadEnabled(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOADING, false);
@@ -185,14 +186,33 @@ public abstract class PreferenceManager {
     }
 
     /**
+     * Gets the legacy cleaning flag last set.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return ascending order     the alegacy cleaning flag, default is false
+     */
+    public static boolean getLegacyClean(Context context) {
+        return getDefaultSharedPreferences(context).getBoolean(PREF__LEGACY_CLEAN, false);
+    }
+
+    /**
+     * Saves the legacy cleaning flag which the user has set last.
+     *
+     * @param context   Caller {@link Context}, used to access to shared preferences manager.
+     * @param legacyClean flag if it is a legacy cleaning
+     */
+    public static void setLegacyClean(Context context, boolean legacyClean) {
+        saveBooleanPreference(context, PREF__LEGACY_CLEAN, legacyClean);
+    }
+
+    /**
      * Gets the uploader behavior which the user has set last.
      *
      * @param context Caller {@link Context}, used to access to shared preferences manager.
      * @return uploader behavior     the uploader behavior
      */
     public static int getUploaderBehaviour(Context context) {
-        return getDefaultSharedPreferences(context)
-                .getInt(AUTO_PREF__UPLOADER_BEHAVIOR, 1);
+        return getDefaultSharedPreferences(context).getInt(AUTO_PREF__UPLOADER_BEHAVIOR, 1);
     }
 
     /**

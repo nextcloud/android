@@ -20,17 +20,17 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.app.job.JobInfo;
-import android.app.job.JobScheduler;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
-import android.os.PersistableBundle;
 import android.support.annotation.RequiresApi;
 
+import com.evernote.android.job.JobManager;
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.db.UploadResult;
@@ -44,6 +44,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.Observable;
+import java.util.Set;
 
 /**
  * Database helper for storing list of files to be uploaded, including status
@@ -395,17 +396,17 @@ public class UploadsStorageManager extends Observable {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private List<OCUpload> getPendingJobs() {
-        JobScheduler js = (JobScheduler) mContext.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        Set<JobRequest> jobRequests = JobManager.create(mContext).getAllJobRequests();
 
         ArrayList<OCUpload> list = new ArrayList<>();
 
-        for (JobInfo ji: js.getAllPendingJobs()) {
-            PersistableBundle extras = ji.getExtras();
-            OCUpload upload  = new OCUpload(extras.getString("filePath"),
-                    extras.getString("remotePath"),
-                    extras.getString("account"));
+        for (JobRequest ji : jobRequests) {
+            PersistableBundleCompat extras = ji.getExtras();
+                OCUpload upload = new OCUpload(extras.getString("filePath", ""),
+                        extras.getString("remotePath", ""),
+                        extras.getString("account", ""));
 
-            list.add(upload);
+                list.add(upload);
         }
 
         return list;
@@ -413,13 +414,14 @@ public class UploadsStorageManager extends Observable {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     public void cancelPendingJob(String accountName, String remotePath){
-        JobScheduler js = (JobScheduler) mContext.getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        JobManager jobManager = JobManager.create(mContext);
+        Set<JobRequest> jobRequests = jobManager.getAllJobRequests();
 
-        for (JobInfo ji: js.getAllPendingJobs()) {
-            PersistableBundle extras = ji.getExtras();
-            if (remotePath.equalsIgnoreCase(extras.getString("remotePath")) &&
-                accountName.equalsIgnoreCase(extras.getString("account"))){
-                js.cancel(ji.getId());
+        for (JobRequest ji : jobRequests) {
+            PersistableBundleCompat extras = ji.getExtras();
+            if (remotePath.equalsIgnoreCase(extras.getString("remotePath", "")) &&
+                    accountName.equalsIgnoreCase(extras.getString("account", ""))) {
+                jobManager.cancel(ji.getJobId());
                 break;
             }
         }
@@ -429,13 +431,16 @@ public class UploadsStorageManager extends Observable {
      * Get all failed uploads.
      */
     public OCUpload[] getFailedUploads() {
-        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value, null);
+
+        return getUploads(
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value, null);
     }
 
     /**
      * Get all uploads which where successfully completed.
      */
     public OCUpload[] getFinishedUploads() {
+
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_SUCCEEDED.value, null);
     }
 
@@ -444,8 +449,8 @@ public class UploadsStorageManager extends Observable {
      * @return      Array of failed uploads, except for those that were not performed due to lack of Wifi connection.
      */
     public OCUpload[] getFailedButNotDelayedUploads() {
-        return getUploads(
-            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
+
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
             null
@@ -459,7 +464,7 @@ public class UploadsStorageManager extends Observable {
     public long clearFailedButNotDelayedUploads() {
         long result = getDB().delete(
             ProviderTableMeta.CONTENT_URI_UPLOADS,
-            ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
+                ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_FAILED.value + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_WIFI.getValue() + AND +
                 ProviderTableMeta.UPLOADS_LAST_RESULT + "<>" + UploadResult.DELAYED_FOR_CHARGING.getValue(),
             null
@@ -472,6 +477,7 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearSuccessfulUploads() {
+
         long result = getDB().delete(
                 ProviderTableMeta.CONTENT_URI_UPLOADS,
                 ProviderTableMeta.UPLOADS_STATUS + "=="+ UploadStatus.UPLOAD_SUCCEEDED.value, null
@@ -484,6 +490,7 @@ public class UploadsStorageManager extends Observable {
     }
 
     public long clearAllFinishedButNotDelayedUploads() {
+
         String[] whereArgs = new String[2];
         whereArgs[0] = String.valueOf(UploadStatus.UPLOAD_SUCCEEDED.value);
         whereArgs[1] = String.valueOf(UploadStatus.UPLOAD_FAILED.value);

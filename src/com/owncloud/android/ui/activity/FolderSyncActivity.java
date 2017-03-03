@@ -21,6 +21,7 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -48,6 +49,7 @@ import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -130,7 +132,16 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
             public void run() {
                 final List<MediaFolder> mediaFolders = MediaProvider.getMediaFolders(getContentResolver(),
                         perFolderMediaItemLimit);
-                syncFolderItems = sortSyncedFolderItems(mergeFolderData(mSyncedFolderProvider.getSyncedFolders(),
+                List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
+                List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<SyncedFolder>();
+                Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(FolderSyncActivity.this);
+                for (SyncedFolder syncedFolder : syncedFolderArrayList) {
+                    if (syncedFolder.getAccount().equals(currentAccount.name)) {
+                        currentAccountSyncedFoldersList.add(syncedFolder);
+                    }
+                }
+
+                syncFolderItems = sortSyncedFolderItems(mergeFolderData(currentAccountSyncedFoldersList,
                         mediaFolders));
 
                 mHandler.post(new TimerTask() {
@@ -157,13 +168,20 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         Map<String, SyncedFolder> syncedFoldersMap = createSyncedFoldersMap(syncedFolders);
         List<SyncedFolderDisplayItem> result = new ArrayList<>();
 
+
         for (MediaFolder mediaFolder : mediaFolders) {
             if (syncedFoldersMap.containsKey(mediaFolder.absolutePath)) {
                 SyncedFolder syncedFolder = syncedFoldersMap.get(mediaFolder.absolutePath);
+                syncedFoldersMap.remove(mediaFolder.absolutePath);
                 result.add(createSyncedFolder(syncedFolder, mediaFolder));
             } else {
                 result.add(createSyncedFolderFromMediaFolder(mediaFolder));
             }
+        }
+
+        for (SyncedFolder syncedFolder : syncedFoldersMap.values()) {
+            SyncedFolderDisplayItem syncedFolderDisplayItem = createSyncedFolderWithoutMediaFolder(syncedFolder);
+            result.add(syncedFolderDisplayItem);
         }
 
         return result;
@@ -208,6 +226,21 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         });
 
         return syncFolderItemList;
+    }
+
+    @NonNull
+    private SyncedFolderDisplayItem createSyncedFolderWithoutMediaFolder(@NonNull SyncedFolder syncedFolder) {
+        return new SyncedFolderDisplayItem(
+                syncedFolder.getId(),
+                syncedFolder.getLocalPath(),
+                syncedFolder.getRemotePath(),
+                syncedFolder.getWifiOnly(),
+                syncedFolder.getChargingOnly(),
+                syncedFolder.getSubfolderByDate(),
+                syncedFolder.getAccount(),
+                syncedFolder.getUploadAction(),
+                syncedFolder.isEnabled(),
+                new File(syncedFolder.getLocalPath()).getName());
     }
 
     /**
@@ -273,7 +306,6 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         }
         return result;
     }
-
     /**
      * show/hide recycler view list or the empty message / progress info.
      *
@@ -289,7 +321,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean result;
+        boolean result = true;
         switch (item.getItemId()) {
             case android.R.id.home: {
                 if (isDrawerOpen()) {
@@ -297,6 +329,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 } else {
                     openDrawer();
                 }
+                break;
             }
 
             default:
@@ -323,9 +356,13 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     @Override
     public void onSyncStatusToggleClick(int section, SyncedFolderDisplayItem syncedFolderDisplayItem) {
         if (syncedFolderDisplayItem.getId() > UNPERSISTED_ID) {
-            mSyncedFolderProvider.updateFolderSyncEnabled(syncedFolderDisplayItem.getId(), syncedFolderDisplayItem.isEnabled());
+            mSyncedFolderProvider.updateFolderSyncEnabled(syncedFolderDisplayItem.getId(),
+                    syncedFolderDisplayItem.isEnabled());
         } else {
-            mSyncedFolderProvider.storeFolderSync(syncedFolderDisplayItem);
+            long storedId = mSyncedFolderProvider.storeFolderSync(syncedFolderDisplayItem);
+            if (storedId != -1) {
+                syncedFolderDisplayItem.setId(storedId);
+            }
         }
     }
 
@@ -362,7 +399,11 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
 
         if (syncedFolder.getId() == UNPERSISTED_ID) {
             // newly set up folder sync config
-            mSyncedFolderProvider.storeFolderSync(item);
+            long storedId = mSyncedFolderProvider.storeFolderSync(item);
+            if (storedId != -1) {
+                item.setId(storedId);
+            }
+
         } else {
             // existing synced folder setup to be updated
             mSyncedFolderProvider.updateSyncFolder(item);
