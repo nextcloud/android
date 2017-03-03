@@ -25,7 +25,7 @@
 
     <uses-sdk
         android:minSdkVersion="14"
-        android:targetSdkVersion="24" />
+        android:targetSdkVersion="25" />
 
     <!-- GET_ACCOUNTS is needed for API < 23.
         For API >= 23 results in the addition of CONTACTS group to the list of permissions that may be
@@ -61,6 +61,7 @@
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:fullBackupContent="@xml/backup_config"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
         <activity
@@ -128,10 +129,6 @@
                 android:name="android.content.SyncAdapter"
                 android:resource="@xml/syncadapter_files" />
         </service>
-        <service
-            android:name=".services.SyncedFolderJobService"
-            android:permission="android.permission.BIND_JOB_SERVICE"
-            android:exported="true"/>
 
         <provider
             android:name=".providers.FileContentProvider"
@@ -244,6 +241,13 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".services.ShutdownReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
+                <action android:name="android.intent.action.QUICKBOOT_POWEROFF" />
+            </intent-filter>
+        </receiver>
+
 
         <service android:name=".services.observer.FileObserverService" />
 

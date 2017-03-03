@@ -21,11 +21,14 @@
 
 package com.owncloud.android.datamodel;
 
+import java.io.Serializable;
+
 /**
  * Synced folder entity containing all information per synced folder.
  */
-public class SyncedFolder {
+public class SyncedFolder implements Serializable {
     public static final long UNPERSISTED_ID = Long.MIN_VALUE;
+    private static final long serialVersionUID = -793476118299906429L;
     private long id = UNPERSISTED_ID;
     private String localPath;
     private String remotePath;
