@@ -152,6 +152,10 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     }
 
     static public void runIfNeeded(Context context) {
+        if (!context.getResources().getBoolean(R.bool.show_whats_new)) {
+            return;
+        }
+
         if (context instanceof WhatsNewActivity) {
             return;
         }
