@@ -555,7 +555,7 @@
     <string name="whats_new_title">Что нового в Nextcloud</string>
 
     <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Безопасное хранилище для всех ваших данных</string>
+    <string name="welcome_feature_1_title">Надежный дом для всех ваших данных</string>
     <string name="welcome_feature_1_text">Доступ, общий доступ и защита ваших файлов для дома и предприятия</string>
 
     <string name="welcome_feature_2_title">Работа с несколькими аккаунтами</string>
