@@ -135,7 +135,7 @@ public class PreviewImageActivity extends FileActivity implements
         } else {
             mRequestWaitingForBinder = false;
         }
-        
+
     }
 
     private void initViewPager() {
@@ -275,9 +275,9 @@ public class PreviewImageActivity extends FileActivity implements
                 mUploaderBinder = null;
             }
         }
-    };    
-    
-    
+    }
+
+
     @Override
     public void onStop() {
         super.onStop();

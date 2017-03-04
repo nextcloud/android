@@ -159,6 +159,7 @@ public class PreviewImageFragment extends FileFragment {
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
+        mImageView.setPreviewImageFragment(this);
         mImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -210,6 +211,8 @@ public class PreviewImageFragment extends FileFragment {
             mImageView.setTag(getFile().getFileId());
 
             if (mShowResizedImage){
+                mImageView.setMaxZoom(2f);
+
                 Bitmap resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(
                         String.valueOf("r" + getFile().getRemoteId()));
 
@@ -419,6 +422,10 @@ public class PreviewImageFragment extends FileFragment {
     private void openFile() {
         mContainerActivity.getFileOperationsHelper().openFile(getFile());
         finish();
+    }
+
+    public void downloadFile() {
+        mContainerActivity.getFileOperationsHelper().syncFile(getFile());
     }
 
     
