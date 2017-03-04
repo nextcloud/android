@@ -63,6 +63,7 @@ import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
+import com.owncloud.android.ui.interfaces.ExtendedListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
@@ -79,7 +80,7 @@ import java.util.List;
  *
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
-public class OCFileListFragment extends ExtendedListFragment {
+public class OCFileListFragment extends ExtendedListFragment implements ExtendedListFragmentInterface {
 
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
@@ -194,7 +195,8 @@ public class OCFileListFragment extends ExtendedListFragment {
         mAdapter = new FileListListAdapter(
                 mJustFolders,
                 getActivity(),
-                mContainerActivity
+                mContainerActivity,
+                this
         );
         setListAdapter(mAdapter);
 
@@ -350,6 +352,11 @@ public class OCFileListFragment extends ExtendedListFragment {
                 com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
         ((TextView) getFabUploadFromApp().getTag(
                 com.getbase.floatingactionbutton.R.id.fab_label)).setVisibility(View.GONE);
+    }
+
+    @Override
+    public void finishedFiltering() {
+        updateFooter();
     }
 
     /**
@@ -587,7 +594,7 @@ public class OCFileListFragment extends ExtendedListFragment {
             }   // exit is granted because storageManager.getFileByPath("/") never returns null
             mFile = parentDir;
 
-            listDirectory(mFile, MainApp.isOnlyOnDevice());
+            listDirectory(mFile, MainApp.isOnlyOnDevice(), false);
 
             onRefresh(false);
 
@@ -605,7 +612,7 @@ public class OCFileListFragment extends ExtendedListFragment {
         if (file != null) {
             if (file.isFolder()) {
                 // update state and view of this fragment
-                listDirectory(file, MainApp.isOnlyOnDevice());
+                listDirectory(file, MainApp.isOnlyOnDevice(), false);
                 // then, notify parent activity to let it update its state and view
                 mContainerActivity.onBrowsedDownTo(file);
                 // save index and top position
@@ -746,14 +753,14 @@ public class OCFileListFragment extends ExtendedListFragment {
     }
 
     /**
-     * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean)} with a null parameter
+     * Calls {@link OCFileListFragment#listDirectory(OCFile, boolean, boolean)} with a null parameter
      */
-    public void listDirectory(boolean onlyOnDevice){
-        listDirectory(null, onlyOnDevice);
+    public void listDirectory(boolean onlyOnDevice, boolean fromSearch){
+        listDirectory(null, onlyOnDevice, fromSearch);
     }
 
     public void refreshDirectory(){
-        listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice());
+        listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
     /**
@@ -763,7 +770,7 @@ public class OCFileListFragment extends ExtendedListFragment {
      *
      * @param directory File to be listed
      */
-    public void listDirectory(OCFile directory, boolean onlyOnDevice) {
+    public void listDirectory(OCFile directory, boolean onlyOnDevice, boolean fromSearch) {
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         if (storageManager != null) {
 
@@ -786,6 +793,25 @@ public class OCFileListFragment extends ExtendedListFragment {
                 directory = storageManager.getFileById(directory.getParentId());
             }
 
+
+            if (searchView != null && !searchView.isIconified() && !fromSearch) {
+
+                searchView.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchView.setQuery("", false);
+                        searchView.onActionViewCollapsed();
+                        if (getActivity() != null) {
+                            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                            if (getCurrentFile() != null) {
+                                fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
+                            }
+                        }
+
+                    }
+                });
+            }
+
             mAdapter.swapDirectory(directory, storageManager, onlyOnDevice);
             if (mFile == null || !mFile.equals(directory)) {
                 mCurrentListView.setSelection(0);
@@ -797,12 +823,12 @@ public class OCFileListFragment extends ExtendedListFragment {
         }
     }
 
-    private void updateLayout() {
+    private void updateFooter() {
         if (!mJustFolders) {
             int filesCount = 0, foldersCount = 0;
             int count = mAdapter.getCount();
             OCFile file;
-            for (int i=0; i < count ; i++) {
+            for (int i = 0; i < count; i++) {
                 file = (OCFile) mAdapter.getItem(i);
                 if (file.isFolder()) {
                     foldersCount++;
@@ -814,7 +840,12 @@ public class OCFileListFragment extends ExtendedListFragment {
             }
             // set footer text
             setFooterText(generateFooterText(filesCount, foldersCount));
+        }
+    }
 
+    private void updateLayout() {
+        if (!mJustFolders) {
+            updateFooter();
             // decide grid vs list view
             OwnCloudVersion version = AccountUtils.getServerVersion(
                     ((FileActivity)mContainerActivity).getAccount());

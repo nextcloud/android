@@ -25,9 +25,10 @@
     <string name="drawer_open">開啟</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">更多</string>
-    <string name="prefs_accounts">帳號</string>
-    <string name="prefs_manage_accounts">管理帳號</string>
+    <string name="prefs_accounts">帳戶</string>
+    <string name="prefs_manage_accounts">管理帳戶</string>
     <string name="prefs_passcode">密碼鎖</string>
+    <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_instant_upload">即時圖片上傳</string>
     <string name="prefs_instant_upload_summary">即時上傳相機照片</string>
     <string name="prefs_instant_video_upload">即時影像上傳</string>
@@ -38,8 +39,8 @@
     <string name="prefs_log_summary_history">顯示之前的記錄檔</string>
     <string name="prefs_log_delete_history_button">刪除記錄</string>
     <string name="prefs_calendar_contacts">設定日曆與聯絡人同步</string>
-    <string name="prefs_calendar_contacts_summary">設定目前帳號所使用的 DAVdroid (V1.3.0+)</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">帳號的伺服器位址無法被 DAVdroid 辨認</string>
+    <string name="prefs_calendar_contacts_summary">設定目前帳戶所使用的 DAVdroid (V1.3.0+)</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">帳戶的伺服器位址無法被 DAVdroid 辨認</string>
     <string name="prefs_calendar_contacts_no_store_error">未安裝 Google Play 商店或是 F-Droid 應用程式</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">成功設定日曆與聯絡人同步</string>
     <string name="prefs_help">說明</string>
@@ -61,7 +62,7 @@
     <string name="uploader_btn_upload_text">上傳</string>
     <string name="uploader_top_message">選擇上傳檔案夾</string>
     <string name="uploader_wrn_no_account_title">找不到帳號</string>
-    <string name="uploader_wrn_no_account_text">無 %1$s 帳號，請先建立帳號。</string>
+    <string name="uploader_wrn_no_account_text">無 %1$s 帳戶，請先建立帳戶。</string>
     <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
     <string name="uploader_wrn_no_account_quit_btn_text">離開</string>
     <string name="uploader_error_title_no_file_to_upload">沒有要上傳的檔案</string>
@@ -76,6 +77,8 @@
     <string name="uploader_upload_files_behaviour_only_upload">在來源資料夾保留檔案</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">刪除來源資料夾中的檔案</string>
     <string name="file_list_seconds_ago">幾秒前</string>
+    <string name="file_list_empty_headline">這裡沒有檔案</string>
+    <string name="file_list_empty">上傳一些項目或與你的設備同步！</string>
     <string name="file_list_loading">載入中&#8230;</string>
     <string name="file_list_no_app_for_file_type">檔案格式無對應的應用程式可開啟</string>
     <string name="local_file_list_empty">這個資料夾中沒有任何檔案</string>
@@ -101,6 +104,7 @@
     <string name="common_cancel_sync">取消同步</string>
     <string name="common_cancel">取消</string>
     <string name="common_back">返回</string>
+    <string name="common_save">儲存</string>
     <string name="common_save_exit">儲存並離開</string>
     <string name="common_error">錯誤</string>
     <string name="common_loading">載入中&#8230;</string>
@@ -109,9 +113,9 @@
     <string name="common_pending">等候中</string>
     <string name="about_title">關於</string>
     <string name="change_password">變更密碼</string>
-    <string name="delete_account">刪除帳號</string>
+    <string name="delete_account">刪除帳戶</string>
     <string name="delete_account_warning">刪除帳號 %s ？\\n\\n刪除後將無法回復</string>
-    <string name="create_account">建立帳號</string>
+    <string name="create_account">建立帳戶</string>
     <string name="upload_chooser_title">上傳自&#8230;</string>
     <string name="uploader_info_dirname">資料夾名稱</string>
     <string name="uploader_upload_in_progress_ticker">上傳中&#8230;</string>
@@ -148,7 +152,7 @@
     <string name="downloader_download_failed_content">下載 %1$s 未完成</string>
     <string name="downloader_not_downloaded_yet">尚未下載</string>
     <string name="downloader_download_failed_credentials_error">下載失敗，請重新登入</string>
-    <string name="common_choose_account">選擇帳號</string>
+    <string name="common_choose_account">選擇帳戶</string>
     <string name="sync_fail_ticker">同步失敗</string>
     <string name="sync_fail_ticker_unauthorized">同步失敗，請重新登入</string>
     <string name="sync_fail_content">%1$s 同步無法完成</string>
@@ -295,8 +299,9 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="instant_upload_on_wifi">只經由 wifi 上傳圖片</string>
-    <string name="instant_video_upload_on_wifi">只經由 wifi 上傳影片</string>
+    <string name="auto_upload_on_wifi">只透過 WiFi 上傳</string>
+    <string name="instant_upload_on_wifi">只透過 WiFi 上傳圖片</string>
+    <string name="instant_video_upload_on_wifi">只透過 WiFi 上傳影片</string>
     <string name="instant_video_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -351,7 +356,7 @@
 
     <string name="file_migration_dialog_title">更新儲存路徑</string>
     <string name="file_migration_finish_button">完成</string>
-    <string name="file_migration_saving_accounts_configuration">保存帳號設置&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">保存帳戶設置&#8230;</string>
     <string name="file_migration_migrating">移動資料&#8230;</string>
     <string name="file_migration_ok_finished">完成</string>
     <string name="file_migration_failed_not_enough_space">錯誤: 空間不足</string>
@@ -359,9 +364,9 @@
     <string name="file_migration_failed_not_readable">錯誤: 檔案不能讀取</string>
     <string name="file_migration_failed_dir_already_exists">錯誤: Nextcloud 資料夾已經存在</string>
     <string name="file_migration_override_data_folder">覆蓋</string>
-    <string name="prefs_category_accounts">帳號</string>
-    <string name="prefs_add_account">新增帳號</string>
-    <string name="drawer_manage_accounts">管理帳號</string>
+    <string name="prefs_category_accounts">帳戶</string>
+    <string name="prefs_add_account">新增帳戶</string>
+    <string name="drawer_manage_accounts">管理帳戶</string>
     <string name="auth_redirect_non_secure_connection_title">安全連線是由一個不安全連線重導向過來的</string>
 
 	<string name="actionbar_logger">紀錄</string>

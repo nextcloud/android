@@ -23,6 +23,7 @@ package com.owncloud.android.files.services;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.OnAccountsUpdateListener;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -79,6 +80,8 @@ public class FileDownloader extends Service
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
 
+    private static final int FOREGROUND_SERVICE_ID = 412;
+
     private static final String TAG = FileDownloader.class.getSimpleName();
 
     private Looper mServiceLooper;
@@ -96,6 +99,7 @@ public class FileDownloader extends Service
     private NotificationCompat.Builder mNotificationBuilder;
     private int mLastPercent;
 
+    private Notification mNotification;
 
     public static String getDownloadAddedMessage() {
         return FileDownloader.class.getName() + DOWNLOAD_ADDED_MESSAGE;
@@ -119,6 +123,10 @@ public class FileDownloader extends Service
         mServiceLooper = thread.getLooper();
         mServiceHandler = new ServiceHandler(mServiceLooper, this);
         mBinder = new FileDownloaderBinder();
+
+        mNotification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
+                getResources().getString(R.string.app_name))
+                .build();
 
         // add AccountsUpdatedListener
         AccountManager am = AccountManager.get(getApplicationContext());
@@ -155,6 +163,8 @@ public class FileDownloader extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
+
+        startForeground(FOREGROUND_SERVICE_ID, mNotification);
 
         if (!intent.hasExtra(EXTRA_ACCOUNT) ||
                 !intent.hasExtra(EXTRA_FILE)
@@ -383,6 +393,7 @@ public class FileDownloader extends Service
                 }
             }
             Log_OC.d(TAG, "Stopping after command with id " + msg.arg1);
+            mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
         }
     }
@@ -631,6 +642,7 @@ public class FileDownloader extends Service
         if (unlinkedFromRemotePath != null) {
             end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath);
         }
+        end.setPackage(getPackageName());
         sendStickyBroadcast(end);
     }
 
@@ -648,6 +660,7 @@ public class FileDownloader extends Service
         added.putExtra(EXTRA_REMOTE_PATH, download.getRemotePath());
         added.putExtra(EXTRA_FILE_PATH, download.getSavePath());
         added.putExtra(EXTRA_LINKED_TO_PATH, linkedToRemotePath);
+        added.setPackage(getPackageName());
         sendStickyBroadcast(added);
     }
 

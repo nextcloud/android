@@ -2,14 +2,14 @@
 <resources>
     <string name="about_android">Application Android %1$s</string>
     <string name="about_version">version %1$s</string>
-    <string name="actionbar_sync">Actualiser le compte</string>
+    <string name="actionbar_sync">Actualiser</string>
     <string name="actionbar_upload">Téléverser</string>
     <string name="actionbar_upload_from_apps">Contenu d\'autres applications</string>
     <string name="actionbar_upload_files">Fichiers</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_settings">Paramètres</string>
-    <string name="actionbar_see_details">Détails</string>
+    <string name="actionbar_see_details">Propriétés</string>
     <string name="actionbar_send_file">Envoyer</string>
     <string name="actionbar_sort">Trier</string>
     <string name="actionbar_sort_title">Trier par</string>
@@ -17,7 +17,7 @@
     <string name="menu_item_sort_by_date">du plus récent au plus ancien</string>
     <string name="menu_item_sort_by_size">du plus grand au plus petit</string>
     <string name="drawer_item_all_files">Tous les fichiers</string>
-    <string name="drawer_item_on_device">Sur le périphérique</string>
+    <string name="drawer_item_on_device">Sur l\'appareil</string>
     <string name="drawer_item_settings">Paramètres</string>
     <string name="drawer_item_uploads_list">Téléversements</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
@@ -37,7 +37,7 @@
     <string name="prefs_log_summary">Cela est utilisé pour la journalisation des problèmes</string>
     <string name="prefs_log_title_history">Historique de la journalisation</string>
     <string name="prefs_log_summary_history">Cela affiche les logs enregistrés</string>
-    <string name="prefs_log_delete_history_button">Supprimer l\'historique</string>
+    <string name="prefs_log_delete_history_button">Effacer le journal</string>
     <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda &amp; des contacts</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Une  adresse de serveur pour le compte pourrait ne pas être résolue par DAVdroid</string>
@@ -45,13 +45,13 @@
     <string name="prefs_calendar_contacts_sync_setup_successful">La synchronisation de l\'agenda &amp; des contacts a bien été configurée.</string>
     <string name="prefs_help">Aide</string>
     <string name="prefs_recommend">Recommander à un ami</string>
-    <string name="prefs_feedback">Commentaires</string>
+    <string name="prefs_feedback">Nous contacter par mail</string>
     <string name="prefs_imprint">Mentions</string>
     <string name="prefs_remember_last_share_location">Mémoriser l\'emplacement de partage</string>
     <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement de téléversement</string>
 
 	<string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
-	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone!\nTéléchargez-le ici : %2$s</string>
+	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !\\nTéléchargez-le ici : %2$s.</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_host_url">Adresse du serveur https://…</string>
@@ -83,6 +83,8 @@
     <string name="file_list_loading">Chargement&#8230;</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
+    <string name="file_list_empty_headline_search">Aucun résultat dans ce dossier</string>
+    <string name="file_list_empty_search">Essayez de chercher dans un autre dossier ?</string>
     <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
     <string name="upload_list_empty_text">Téléversez du contenu ou activez le téléversement instantané !</string>
     <string name="file_list_folder">dossier</string>
@@ -117,7 +119,7 @@
     <string name="about_title">À propos de</string>
     <string name="change_password">Changer de mot de passe</string>
     <string name="delete_account">Supprimer le compte</string>
-    <string name="delete_account_warning">Supprimer le compte %s?\n\nLa suppression est irréversible. </string>
+    <string name="delete_account_warning">Supprimer le compte %s ?\n\nCette suppression sera irréversible.</string>
     <string name="create_account">Créer un compte</string>
     <string name="upload_chooser_title">Téléverser depuis&#8230;</string>
     <string name="uploader_info_dirname">Nom du dossier</string>
@@ -243,7 +245,7 @@
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
     <string name="common_rename">Renommer</string>
     <string name="common_remove">Supprimer</string>
-    <string name="confirmation_remove_file_alert">Voulez-vous vraiment supprimer %1$s?</string>
+    <string name="confirmation_remove_file_alert">Voulez-vous vraiment supprimer %1$s ?</string>
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="remove_success_msg">Suppression effectuée avec succès</string>
@@ -505,7 +507,7 @@
     <string name="learn_more">En apprendre plus</string>
     <string name="drawer_folder_sync">Téléversement automatique</string>
     <string name="drawer_participate">Participer</string>
-    <string name="participate_testing_headline">Aidez nous à améliorer NextCloud</string>
+    <string name="participate_testing_headline">Aidez-nous à améliorer Nextcloud</string>
     <string name="participate_testing_bug_text">Vous avez trouvé un bug ? Quelque chose vous semble étrange ?</string>
     <string name="participate_testing_report_text">Signaler un problème sur Github</string>
     <string name="participate_testing_version_text">Vous avez envie de nous aider en testant les futures versions ?</string>
@@ -516,7 +518,7 @@ Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler.
 ou</string>
     <string name="participate_release_candidate_headline">Testez la version Release candidate</string>
     <string name="participate_release_candidate_text">La version « release candidate » (RC) est un instantanné de la dernière version supposée stable. Le test de votre configuration pourrait nous aider à nous assurer que cette version est entièrement stable. Inscrivez vous pour être testeur sur le Play store ou allez jeter un œil dans la section \"versions\" de F-Droid.</string>
-    <string name="participate_contribute_headline">Contribuer activement</string>
+    <string name="participate_contribute_headline">Participez activement</string>
     <string name="participate_contribute_irc_text">Rejoignez la discussion sur IRC &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a>.</string>
     <string name="participate_contribute_forum_text">Aidez les autres sur le &lt;a href=\"%1$s\">forum&lt;/a>.</string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Traduisez&lt;/a> l\'application.</string>

@@ -38,11 +38,11 @@
     <string name="prefs_log_title_history">Protokollierungs-Historie</string>
     <string name="prefs_log_summary_history">Dies zeigt die gespeicherten Protokollierungen</string>
     <string name="prefs_log_delete_history_button">Verlauf löschen</string>
-    <string name="prefs_calendar_contacts">Sync Kalender &amp; Kontakte</string>
+    <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto einrichten</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder Google Play Store noch F-Droid App installiert</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; Kontakte Sychronisierung erfolgreich konfiguriert</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Kontakte-Synchronisierung erfolgreich konfiguriert</string>
     <string name="prefs_help">Hilfe</string>
     <string name="prefs_recommend">Empfehle dies einem Freund</string>
     <string name="prefs_feedback">Rückmeldungen</string>
@@ -83,6 +83,8 @@
     <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
+    <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
+    <string name="file_list_empty_search">Soll in einem anderen Ordner nachgesehen werden?</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text">Lade Inhalt hoch oder aktiviere den Sofortupload!</string>
     <string name="file_list_folder">Ordner</string>
@@ -166,7 +168,7 @@
     <string name="sync_fail_in_favourites_content">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (%2$d Konflikte)</string>
     <string name="sync_foreign_files_forgotten_ticker">Einige lokale Dateien wurden vergessen</string>
     <string name="sync_foreign_files_forgotten_content">%1$d Dateien aus dem %2$s Verzeichnis konnten nicht kopiert werden nach</string>
-    <string name="sync_foreign_files_forgotten_explanation">Mit Version 1.3.16 werden Dateien die von diesem Gerät aus hochgeladen werden in den lokalen Ordner %1$s kopiert um Datenverlust zu vermeiden, wenn eine einzelne Datei mit mehreren Accounts synchronisiert wird.\n\nInfolge dieser Änderung wurden alle Dateien, die mit vorherigen Versionen dieser App hochgeladen wurden, in den Ordner %2$s verschoben. Jedoch ist während der Konto-Synchronisation ein Fehler aufgetreten, der das Abschließen dieses Vorgangs verhindert hat. Die Datei(en) können entweder wie sie sind belassen und den Link zu %3$s entfernt werden oder die Datei(en) in den Ordner %1$s verschoben und  den Link zu %4$s beibehalten werden.\n\nUnten befindet sich eine Liste der lokalen Datei(en) und der mit ihnen verbundenen Remote-Datei(en) in %5$s.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Seit Version 1.3.16 werden Dateien die von diesem Gerät aus hochgeladen werden in den lokalen Ordner %1$s kopiert um Datenverlust zu vermeiden, wenn eine einzelne Datei mit mehreren Accounts synchronisiert wird.\n\nInfolge dieser Änderung wurden alle Dateien, die mit vorherigen Versionen dieser App hochgeladen wurden, in den Ordner %2$s verschoben. Jedoch ist während der Konto-Synchronisation ein Fehler aufgetreten, der das Abschließen dieses Vorgangs verhindert hat. Die Datei(en) können entweder wie sie sind belassen und den Link zu %3$s entfernt werden oder die Datei(en) in den Ordner %1$s verschoben und  den Link zu %4$s beibehalten werden.\n\nUnten befindet sich eine Liste der lokalen Datei(en) und der mit ihnen verbundenen Remote-Datei(en) in %5$s.</string>
     <string name="sync_current_folder_was_removed">Das Verzeichnis %1$s existiert nicht mehr</string>
     <string name="foreign_files_move">Verschiebe alle</string>
     <string name="foreign_files_success">Alle Dateien wurden verschoben</string>
@@ -302,7 +304,7 @@
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Nur über W-Lan hochladen</string>
+    <string name="auto_upload_on_wifi">Nur über WLAN hochladen</string>
     <string name="instant_upload_on_wifi">Bilder nur über Wifi hochladen</string>
     <string name="instant_video_upload_on_wifi">Videos nur über Wifi hochladen</string>
     <string name="instant_video_upload_on_charging">Hochladen nur während des Ladens</string>

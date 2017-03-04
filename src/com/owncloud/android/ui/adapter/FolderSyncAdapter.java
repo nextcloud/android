@@ -77,7 +77,11 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     @Override
     public int getItemCount(int section) {
-        return mSyncFolderItems.get(section).getFilePaths().size();
+        if (mSyncFolderItems.get(section).getFilePaths() != null) {
+            return mSyncFolderItems.get(section).getFilePaths().size();
+        } else {
+            return 1;
+        }
     }
 
     @Override
@@ -108,37 +112,44 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     @Override
     public void onBindViewHolder(MainViewHolder holder, int section, int relativePosition, int absolutePosition) {
 
-        File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
+        if (mSyncFolderItems.get(section).getFilePaths() != null) {
+            File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
-        ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
-                new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image);
+            ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
+                    new ThumbnailsCacheManager.MediaThumbnailGenerationTask(holder.image);
 
-        ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
-                new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
-                        mContext.getResources(),
-                        ThumbnailsCacheManager.mDefaultImg,
-                        task
-                );
-        holder.image.setImageDrawable(asyncDrawable);
+            ThumbnailsCacheManager.AsyncMediaThumbnailDrawable asyncDrawable =
+                    new ThumbnailsCacheManager.AsyncMediaThumbnailDrawable(
+                            mContext.getResources(),
+                            ThumbnailsCacheManager.mDefaultImg,
+                            task
+                    );
+            holder.image.setImageDrawable(asyncDrawable);
 
-        task.execute(file);
+            task.execute(file);
 
-        // set proper tag
-        holder.image.setTag(file.hashCode());
+            // set proper tag
+            holder.image.setTag(file.hashCode());
 
-        holder.itemView.setTag(relativePosition % mGridWidth);
+            holder.itemView.setTag(relativePosition % mGridWidth);
 
-        if (mSyncFolderItems.get(section).getNumberOfFiles() > mGridTotal && relativePosition >= mGridTotal - 1) {
-            holder.counterValue.setText(Long.toString(mSyncFolderItems.get(section).getNumberOfFiles() - mGridTotal));
+            if (mSyncFolderItems.get(section).getNumberOfFiles() > mGridTotal && relativePosition >= mGridTotal - 1) {
+                holder.counterValue.setText(Long.toString(mSyncFolderItems.get(section).getNumberOfFiles() - mGridTotal));
+                holder.counterBar.setVisibility(View.VISIBLE);
+                holder.thumbnailDarkener.setVisibility(View.VISIBLE);
+            } else {
+                holder.counterBar.setVisibility(View.GONE);
+                holder.thumbnailDarkener.setVisibility(View.GONE);
+            }
+
+            //holder.itemView.setTag(String.format(Locale.getDefault(), "%d:%d:%d", section, relativePos, absolutePos));
+            //holder.itemView.setOnClickListener(this);
+        } else {
+            holder.itemView.setTag(relativePosition % mGridWidth);
+            holder.counterValue.setText(Long.toString(0));
             holder.counterBar.setVisibility(View.VISIBLE);
             holder.thumbnailDarkener.setVisibility(View.VISIBLE);
-        } else {
-            holder.counterBar.setVisibility(View.GONE);
-            holder.thumbnailDarkener.setVisibility(View.GONE);
         }
-
-        //holder.itemView.setTag(String.format(Locale.getDefault(), "%d:%d:%d", section, relativePos, absolutePos));
-        //holder.itemView.setOnClickListener(this);
     }
 
     @Override

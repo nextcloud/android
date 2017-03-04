@@ -84,6 +84,8 @@
     <string name="file_list_loading">加载中&#8230;</string>
     <string name="file_list_no_app_for_file_type">没有找到程序打开文件格式！</string>
     <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
+    <string name="file_list_empty_headline_search">此文件夹无结果</string>
+    <string name="file_list_empty_search">在其他文件夹找找试试？</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
     <string name="upload_list_empty_text">上传一些内容或者激活实时上传</string>
     <string name="file_list_folder">文件夹</string>

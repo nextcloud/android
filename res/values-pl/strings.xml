@@ -20,7 +20,7 @@
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_settings">Ustawienia</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
-    <string name="drawer_quota">%1$s z %2$s zajęte</string>
+    <string name="drawer_quota">Użyto %1$s z %2$s</string>
 	<string name="drawer_close">Zamknij</string>
     <string name="drawer_open">Otwórz</string>
     <string name="prefs_category_general">Ogólne</string>
@@ -32,7 +32,7 @@
     <string name="prefs_instant_upload">Natychmiastowa wysyłka obrazów</string>
     <string name="prefs_instant_upload_summary">Wysyłaj od razu zdjęcia zrobione aparatem</string>
     <string name="prefs_instant_video_upload">Natychmiastowa wysyłka wideo</string>
-    <string name="prefs_instant_video_upload_summary">Wysyłaj od razu filmy nakręcone aparatem</string>
+    <string name="prefs_instant_video_upload_summary">Wysyłaj od razu filmy nagrane aparatem</string>
     <string name="prefs_log_title">Włącz logowanie</string>
     <string name="prefs_log_summary">To jest używane do logowania problemów</string>
     <string name="prefs_log_title_history">Historia logowania</string>
@@ -42,13 +42,13 @@
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVdroid (v1.3.0+) dla obecnego konta</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera dla konta nie mógł został przekonwertowany do DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Brak aplikacji Google Play lub F-Droida</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów i kalendarza została skonfigurowana</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów i kalendarza została skonfigurowana pomyślnie</string>
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_feedback">Opinie</string>
     <string name="prefs_imprint">Stopka</string>
     <string name="prefs_remember_last_share_location">Zapamiętaj lokalizację udostępnienia</string>
-    <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wgrywania</string>
+    <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wysyłania</string>
 
 	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
 	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\\nŚciągnij tutaj: %2$s</string>
@@ -83,6 +83,8 @@
     <string name="file_list_loading">Wczytywanie&#8230;</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików!</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
+    <string name="file_list_empty_headline_search">Brak wyników w tym folderze</string>
+    <string name="file_list_empty_search">Spróbować szukać w innym folderze?</string>
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
     <string name="upload_list_empty_text">Wyślij jakieś dane lub włącz wysyłanie natychmiastowe!</string>
     <string name="file_list_folder">folder</string>
@@ -234,7 +236,7 @@
 	<string name="auth_connecting_auth_server">Łączenie z serwerem poświadczeń...</string>
 	<string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
 	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
-	<string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego id użytkownika, proszę skontaktuj się z administratorem
+	<string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego identyfikatora użytkownika, proszę skontaktuj się z administratorem
 	</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_account_does_not_exist">Konto jeszcze nie istnieje na tym urządzeniu.</string>
@@ -483,7 +485,7 @@
     <string name="edit_share_unshare">Cofnij udostępnianie</string>
     <string name="edit_share_done">zakończono</string>
 
-    <string name="action_retry_uploads">Wysłanie ponowne się nie udało</string>
+    <string name="action_retry_uploads">Wysyłanie ponowne się nie udało</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane</string>
     <string name="action_clear_successful_uploads">Wyczyść udane</string>
     <string name="action_clear_finished_uploads">Wyszyczść wszystkie zakończone</string>

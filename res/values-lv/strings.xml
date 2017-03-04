@@ -180,7 +180,13 @@
     <string name="media_event_done">%1$s atskaņošana pabeigta</string>
     <string name="media_err_nothing_to_play">Nav atrasts neviens multivides fails</string>
     <string name="media_err_io">Media failu nevar nolasīt</string>
+    <string name="media_err_malformed">Multivides fails nav pareizi kodēts</string>
     <string name="media_err_timeout">Mēģinot atskaņot taimauts</string>
+    <string name="media_err_invalid_progressive_playback">Nevar straumēt multivides failu</string>
+    <string name="media_err_unknown">Multivides failu nevar atskaņot ar multivides atskaņotāju</string>
+    <string name="media_err_security_ex">Drošības kļūda, mēģinot atskaņot %1$s</string>
+    <string name="media_err_io_ex">Ievades kļūda, mēģinot atskaņot %1$s</string>
+    <string name="media_rewind_description">Attīšanas poga</string>
     <string name="media_play_pause_description">Atskaņot vai pauzēt</string>
     <string name="media_forward_description">Patīšanas poga</string>
 
@@ -292,6 +298,7 @@
     <string name="share_link_no_support_share_api">Atvainojiet, koplietošana nav iespējota jūsu serverī. Lūdzu, sazinieties ar
 		administratoru.</string>
 	<string name="share_link_file_no_exist">Nevar koplietot. Lūdzu, pārbaudiet, vai fails pastāv</string>
+	<string name="share_link_file_error">Radās kļūda, mēģinot koplietot šo failu vai mapi</string>
 	<string name="update_link_file_no_exist">Nevar atjaunināt. Lūdzu, pārbaudiet, vai fails pastāv</string>
     <string name="update_link_file_error">Radās kļūda, mēģinot atjaunināt koplietojumu</string>
     <string name="share_link_password_title">Ievadiet paroli</string>
@@ -404,7 +411,7 @@
     <string name="pref_behaviour_entries_move">pārvietot uz programmu mapi</string>
     <string name="pref_behaviour_entries_delete_file">dzēsts</string>
     <string name="prefs_storage_path">Krātuves vieta</string>
-    <string name="share_dialog_title">Dalīšanās</string>
+    <string name="share_dialog_title">Koplietošana</string>
     <string name="share_file">Koplietots %1$s</string>
     <string name="share_with_user_section_title">Koplietot ar lietotājiem vai grupām</string>
     <string name="share_add_user_or_group">Pievienot lietotāju vai grupu</string>
@@ -426,12 +433,14 @@
     <string name="share_email_clarification">%1$s (e-pasts)</string>
     <string name="share_known_remote_clarification">%1$s ( uz %2$s )</string>
 
+    <string name="share_sharee_unavailable">Atvainojiet, jūsu servera versija neļauj koplietot ar lietotājiem klientiem.
+        \\nLūdzu, sazinieties ar administratoru</string>
     <string name="share_privilege_can_share">var koplietot</string>
     <string name="share_privilege_can_edit">var rediģēt</string>
     <string name="share_privilege_can_edit_create">izveidot</string>
     <string name="share_privilege_can_edit_change">mainīt</string>
     <string name="share_privilege_can_edit_delete">dzēst</string>
-    <string name="edit_share_unshare">Beigt dalīšanos</string>
+    <string name="edit_share_unshare">Beigt koplietošanu</string>
     <string name="edit_share_done">pabeigts</string>
 
     <string name="action_retry_uploads">Atkārtošana neizdevās</string>
@@ -458,6 +467,8 @@
     <string name="participate_testing_headline">Palīdziet mums testēšanā</string>
     <string name="participate_testing_report_text">Ziņojiet par problēmu Github</string>
     <string name="participate_beta_headline">Testēt Beta versiju</string>
+    <string name="participate_contribute_irc_text">Pievienojieties tērzēšanas ar IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_forum_text">Palīdziet citiem &lt;a href=\"%1$s\">forumā&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href="%1$s">Tūlkot&lt;/a> programmu</string>
     <string name="move_to">Pārvietot uz&#8230;</string>
     <string name="copy_to">Kopēt uz&#8230;</string>

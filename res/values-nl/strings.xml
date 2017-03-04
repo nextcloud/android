@@ -84,6 +84,8 @@
     <string name="file_list_loading">Laden&#8230;</string>
     <string name="file_list_no_app_for_file_type">Geen app gevonden voor dit bestandsformaat!</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
+    <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
+    <string name="file_list_empty_search">In een andere map kijken?</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text">Upload bestanden of activeer directe uploads!</string>
     <string name="file_list_folder">map</string>

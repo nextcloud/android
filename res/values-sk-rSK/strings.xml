@@ -57,6 +57,7 @@
     <string name="auth_host_url">Adresa servera https://...</string>
     <string name="auth_username">Používateľské meno</string>
     <string name="auth_password">Heslo</string>
+    <string name="auth_register">Ešte nemáte server? \nKliknite sem pre jeho získanie od poskytovateľa</string>
     <string name="sync_string_files">Súbory</string>
     <string name="setup_btn_connect">Pripojiť</string>
     <string name="uploader_btn_upload_text">Nahrať</string>
@@ -80,6 +81,7 @@
     <string name="file_list_no_app_for_file_type">Aplikácia pre váš typ súboru sa nenašla!</string>
     <string name="local_file_list_empty">V tomto priečinku nie sú žiadne súbory.</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
+    <string name="upload_list_empty_text">Nahrajte nejaký obsah alebo aktivujte okamžité nahrávanie!</string>
     <string name="file_list_folder">priečinok</string>
     <string name="file_list_folders">priečinky</string>
     <string name="file_list_file">súbor</string>
@@ -112,7 +114,7 @@
     <string name="about_title">O</string>
     <string name="change_password">Zmeniť heslo</string>
     <string name="delete_account">Odstrániť účet</string>
-    <string name="delete_account_warning">Zmazanie účtu %s?\\n\\nZmazanie nebude možné vrátiť späť.</string>
+    <string name="delete_account_warning">Zmazanie účtu %s?\n\nZmazanie nebude možné vrátiť späť.</string>
     <string name="create_account">Vytvoriť účet</string>
     <string name="upload_chooser_title">Odoslať z ...</string>
     <string name="uploader_info_dirname">Názov priečinka</string>
@@ -349,7 +351,13 @@
     <string name="uploader_upload_forbidden_permissions">nahrávať do tohto priečinka</string>
     <string name="downloader_download_file_not_found">Súbor už na serveri nie je dostupný</string>
 
+    <string name="file_migration_dialog_title">Aktualizujem cestu k úložisku</string>
     <string name="file_migration_finish_button">Dokončiť</string>
+    <string name="file_migration_preparing">Pripravujem na presun&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Ukladám konfiguráciu účtov&#8230;</string>
+    <string name="file_migration_migrating">Presúvam dáta&#8230;</string>
+    <string name="file_migration_updating_index">Aktualizujem zoznam&#8230;</string>
+    <string name="file_migration_cleaning">Čistenie&#8230;</string>
     <string name="file_migration_ok_finished">Hotovo</string>
     <string name="file_migration_failed_not_enough_space">CHYBA: Nedostatok miesta</string>
     <string name="file_migration_failed_not_writable">CHYBA: Súbor nie je zapisovateľný</string>
@@ -368,7 +376,10 @@
     <string name="auth_redirect_non_secure_connection_title">Zabezpečené spojenie je presmerované nezabezpečenou cestou.</string>
 
 	<string name="actionbar_logger">Logy</string>
+	<string name="log_send_history_button">Odoslať históriu</string>
 	<string name="log_send_mail_subject">%1$s Android app logs</string>
+	<string name="log_progress_dialog_text">Načítavam dáta &#8230;</string>
+
 	<string name="saml_authentication_required_text">Vyžaduje sa overenie</string>
 	<string name="saml_authentication_wrong_pass">Nesprávne heslo</string>
 	<string name="actionbar_move">Presunúť</string>
@@ -437,6 +448,7 @@
     <string name="share_via_link_password_label">Chrániť heslom</string>
     <string name="share_via_link_password_title">Zabezpečené</string>
     <string name="share_via_link_edit_permission_label">Povoliť úpravy</string>
+    <string name="share_via_link_hide_file_listing_permission_label">Skryť zobrazenie súborov</string>
     <string name="share_get_public_link_button">Získať odkaz</string>
     <string name="share_with_title">Sprístupniť pre &#8230;</string>
     <string name="share_with_edit_title">Sprístupniť pre %1$s</string>
@@ -446,7 +458,7 @@
     <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_sharee_unavailable">Je nám ľúto, verzia vášho servera neumožňuje sprístupňovanie obsahu používateľom alebo skupinám.
-\\nProsím, obráťte sa na svojho správcu</string>
+\nProsím, obráťte sa na svojho správcu</string>
     <string name="share_privilege_can_share">môže sprístupniť</string>
     <string name="share_privilege_can_edit">môže upraviť</string>
     <string name="share_privilege_can_edit_create">vytvoriť</string>
@@ -463,9 +475,11 @@
     <string name="action_switch_grid_view">Zobrazenie mriežky</string>
     <string name="action_switch_list_view">Zobrazenie zoznamu</string>
 
+    <string name="manage_space_title">Spravovať miesto</string>
     <string name="manage_space_clear_data">Vyčistiť dáta</string>
     <string name="manage_space_error">Niektoré súbory nebolo možné zmazať.</string>
 
+    <string name="local_file_not_found_toast">Súbor nebolo možné nájsť na lokálnom úložisku</string>
     <string name="confirmation_remove_files_alert">Naozaj chcete odstrániť vybraté položky?</string>
     <string name="confirmation_remove_folders_alert">Naozaj chcete odstrániť vybraté položky a ich obsah?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čakám na nabíjanie zariadenia</string>
@@ -474,8 +488,10 @@
     <string name="drawer_folder_sync">Automatické nahratie</string>
     <string name="drawer_participate">Zúčastniť sa</string>
     <string name="participate_testing_headline">Pomôžte nám s testovaním.</string>
+    <string name="participate_testing_report_text">Nahlásiť chybu na Githube</string>
     <string name="participate_beta_headline">Testovať Beta verziu</string>
     <string name="participate_contribute_headline">Aktívne prispievať</string>
+    <string name="participate_contribute_forum_text">Pomôž ostatným na &lt;a href=\"%1$s\">fóre&lt;/a></string>
     <string name="move_to">Presunúť do&#8230;</string>
     <string name="copy_to">Kopírovať do&#8230;</string>
     <string name="choose_remote_folder">Vybrať priečinok&#8230;</string>
@@ -483,7 +499,7 @@
     <string name="folder_sync_no_results">Neboli nájdené žiadne multimediálne priečinky.</string>
     <string name="folder_sync_preferences">Nastavenia automatického nahratia</string>
     <string name="folder_sync_settings">Nastavenia</string>
-    <string name="folder_sync_new_info">Okamžité nahrávanie bolo kompletne prepracované. Prezrite si prosím hlavné menu a znovu nastavte automatické nahrávanie. Ospravedlňujeme sa za vzniknuté problémy.\\n\\nUžite si nové, rozšírene možnosti automatického nahrávania!</string>
+    <string name="folder_sync_new_info">Okamžité nahrávanie bolo kompletne prepracované. Prezrite si prosím hlavné menu a znovu nastavte automatické nahrávanie. Ospravedlňujeme sa za vzniknuté problémy.\n\nUžite si nové, rozšírene možnosti automatického nahrávania!</string>
     <string name="folder_sync_preferences_folder_path">Pre %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d vybraný</item>
@@ -493,6 +509,9 @@
     <string name="upload_file_dialog_title">Zadaj meno a typ súboru na nahratie</string>
     <string name="upload_file_dialog_filename">Názov súboru</string>
     <string name="upload_file_dialog_filetype">Typ súboru</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Internetový odkaz(%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Odkaz na Google mapy(%s)</string>
+
     <string name="storage_description_default">Predvolené</string>
     <string name="storage_description_sd_no">SD karta %1$d</string>
     <string name="storage_description_unknown">Neznámy</string>

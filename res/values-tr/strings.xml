@@ -57,6 +57,7 @@
     <string name="auth_host_url">Sunucu adresi https://…</string>
     <string name="auth_username">Kullanıcı Adı</string>
     <string name="auth_password">Parola</string>
+    <string name="auth_register">Henüz bir sunucunuz yok mu?\nBuraya tıklayarak bir hizmet sağlayıcıdan sunucu edinebilirsiniz</string>
     <string name="sync_string_files">Dosyalar</string>
     <string name="setup_btn_connect">Bağlan</string>
     <string name="uploader_btn_upload_text">Yükle</string>
@@ -77,12 +78,15 @@
     <string name="uploader_upload_files_behaviour_only_upload">Dosya kaynak klasörde tutulsun</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dosya kaynak klasörden silinsin</string>
     <string name="file_list_seconds_ago">saniye önce</string>
-    <string name="file_list_empty_headline">Burada hiç dosya yok</string>
-    <string name="file_list_empty">Bir şeyler yükleyin veya aygıtlarınızla eşitleyin!</string>
+    <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
+    <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin!</string>
     <string name="file_list_loading">Yükleniyor&#8230;</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı!</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
+    <string name="file_list_empty_headline_search">Bu klasörde herhangi bir sonuç yok</string>
+    <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
+    <string name="upload_list_empty_text">Buraya bazı içerikler yükleyin ya da anında yüklemeyi etkinleştirin!</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_folders">klasör</string>
     <string name="file_list_file">dosya</string>
@@ -300,7 +304,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Yalnız kablosuz ağ üzerinden yüklensin</string>
+    <string name="auto_upload_on_wifi">Yalnız kablosuz ağ bağlıyken yüklensin</string>
     <string name="instant_upload_on_wifi">Fotoğraflar yalnız kablosuz ağ üzerinden yüklensin</string>
     <string name="instant_video_upload_on_wifi">Görüntüler yalnız kablosuz ağ üzerinden yüklensin</string>
     <string name="instant_video_upload_on_charging">Yalnız şarj edilirken yüklensin</string>
@@ -468,7 +472,7 @@
     <string name="search_users_and_groups_hint">Kullanıcı ve Grup Arama</string>
     <string name="share_group_clarification">%1$s (grup)</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
-    <string name="share_email_clarification">%1$s (Email)</string>
+    <string name="share_email_clarification">%1$s (E-posta)</string>
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
 
     <string name="share_sharee_unavailable">Maalesef sunucu sürümünüz istemcilerden kullanıcılar ile paylaşıma izin vermiyor.
@@ -516,7 +520,7 @@ ya da</string>
     <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümlere\" bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
     <string name="participate_contribute_irc_text">IRC sohbetine katılın: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
-    <string name="participate_contribute_forum_text">&lt;a href="%1$s">forum&lt;/a> üzerinde başkalarına yardımcı olun</string>
+    <string name="participate_contribute_forum_text">&lt;a href=\"%1$s\">forum&lt;/a> üzerinde diğer kişilere yardımcı olun</string>
     <string name="participate_contribute_translate_text">Uygulamayı &lt;a href="%1$s">çevirin&lt;/a> </string>
     <string name="participate_contribute_github_text">Yazılımcı olarak katkıda bulunun! Ayrıntılı bilgi almak için &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">KATKIDA BULUNMA&lt;/a> sayfasına bakın</string>
     <string name="move_to">Taşı&#8230;</string>
@@ -532,9 +536,11 @@ ya da</string>
         <item quantity="one">%d seçili</item>
         <item quantity="other">%d seçili</item>
     </plurals>
-    <string name="upload_file_dialog_filename">Dosya ismi</string>
-    <string name="upload_file_dialog_filetype">Dosya tipi</string>
-    <string name="upload_file_dialog_filetype_internet_shortcut">internet haritalar kısayol dosya(%s)</string>
+    <string name="upload_file_dialog_title">Yüklenecek dosya adını ve dosya türünü belirtin</string>
+    <string name="upload_file_dialog_filename">Dosya adı</string>
+    <string name="upload_file_dialog_filetype">Dosya türü</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Kod parçası metin dosyası(.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">İnternet kısayol dosya(%s)</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google haritalar kısayol dosya(%s)</string>
 
     <string name="storage_description_default">Varsayılan</string>

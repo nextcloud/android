@@ -390,31 +390,7 @@ public class UploadFileOperation extends SyncOperation {
 
             /// move local temporal file or original file to its corresponding
             // location in the ownCloud local folder
-            if (result.isSuccess()) {
-                if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
-                    String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
-                    if (mOriginalStoragePath.equals(temporalPath)) {
-                        // delete local file is was pre-copied in temporary folder (see .ui.helpers.UriUploader)
-                        temporalFile = new File(temporalPath);
-                        temporalFile.delete();
-                    }
-                    mFile.setStoragePath("");
-
-                } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE) {
-                    originalFile.delete();
-                } else {
-                    mFile.setStoragePath(expectedPath);
-
-                    if (temporalFile != null) {         // FileUploader.LOCAL_BEHAVIOUR_COPY
-                        move(temporalFile, expectedFile);
-                    } else {                            // FileUploader.LOCAL_BEHAVIOUR_MOVE
-                        move(originalFile, expectedFile);
-                        getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
-                    }
-                    FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
-                }
-
-            } else if (result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
+            if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED ) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
             }
 
@@ -450,8 +426,43 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         if (result.isSuccess()) {
-            saveUploadedFile(client);
 
+            if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
+
+                String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
+                if (mOriginalStoragePath.equals(temporalPath)) {
+                    // delete local file is was pre-copied in temporary folder (see .ui.helpers.UriUploader)
+                    temporalFile = new File(temporalPath);
+                    temporalFile.delete();
+                }
+                mFile.setStoragePath("");
+                saveUploadedFile(client);
+
+
+            } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE) {
+                originalFile.delete();
+                getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
+                saveUploadedFile(client);
+            } else {
+
+                if (temporalFile != null) {         // FileUploader.LOCAL_BEHAVIOUR_COPY
+                    try {
+                        move(temporalFile, expectedFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                } else {                            // FileUploader.LOCAL_BEHAVIOUR_MOVE
+                    try {
+                        move(originalFile, expectedFile);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
+                }
+                mFile.setStoragePath(expectedFile.getAbsolutePath());
+                saveUploadedFile(client);
+                FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
+            }
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }

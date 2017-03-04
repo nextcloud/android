@@ -182,6 +182,7 @@ class SyncFolderHandler extends Handler {
         added.putExtra(FileDownloader.EXTRA_REMOTE_PATH, remotePath);
         added.putExtra(FileDownloader.EXTRA_FILE_PATH, FileStorageUtils.getSavePath(account.name)
                 + remotePath);
+        added.setPackage(mService.getPackageName());
         mService.sendStickyBroadcast(added);
     }
 
@@ -197,6 +198,7 @@ class SyncFolderHandler extends Handler {
         finished.putExtra(FileDownloader.EXTRA_FILE_PATH,
                 FileStorageUtils.getSavePath(account.name) + remotePath);
         finished.putExtra(FileDownloader.EXTRA_DOWNLOAD_RESULT, success);
+        finished.setPackage(mService.getPackageName());
         mService.sendStickyBroadcast(finished);
     }
 }

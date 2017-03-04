@@ -38,6 +38,7 @@ import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.GetRemoteSharesForFileOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
@@ -519,10 +520,17 @@ public class RefreshFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Send broadcast " + event);
         Intent intent = new Intent(event);
         intent.putExtra(FileSyncAdapter.EXTRA_ACCOUNT_NAME, mAccount.name);
+
         if (dirRemotePath != null) {
             intent.putExtra(FileSyncAdapter.EXTRA_FOLDER_PATH, dirRemotePath);
         }
-        intent.putExtra(FileSyncAdapter.EXTRA_RESULT, result);
+
+        DataHolderUtil dataHolderUtil = DataHolderUtil.getInstance();
+        String dataHolderItemId = dataHolderUtil.nextItemId();
+        dataHolderUtil.save(dataHolderItemId, result);
+        intent.putExtra(FileSyncAdapter.EXTRA_RESULT, dataHolderItemId);
+
+        intent.setPackage(mContext.getPackageName());
         mContext.sendStickyBroadcast(intent);
         //LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }

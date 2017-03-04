@@ -27,6 +27,7 @@ package com.owncloud.android.files.services;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.OnAccountsUpdateListener;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -54,7 +55,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.UploadResult;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -64,10 +64,10 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
+import com.owncloud.android.ui.notifications.NotificationUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 import java.io.File;
@@ -104,10 +104,14 @@ public class FileUploader extends Service
     public static final String EXTRA_LINKED_TO_PATH = "LINKED_TO";
     public static final String ACCOUNT_NAME = "ACCOUNT_NAME";
 
+    private static final int FOREGROUND_SERVICE_ID = 411;
+
     public static final String KEY_FILE = "FILE";
     public static final String KEY_LOCAL_FILE = "LOCAL_FILE";
     public static final String KEY_REMOTE_FILE = "REMOTE_FILE";
     public static final String KEY_MIME_TYPE = "MIME_TYPE";
+
+    private Notification mNotification;
 
     /**
      * Call this Service with only this Intent key if all pending uploads are to be retried.
@@ -349,6 +353,10 @@ public class FileUploader extends Service
 
         mUploadsStorageManager = new UploadsStorageManager(getContentResolver(), getApplicationContext());
 
+        mNotification = new NotificationCompat.Builder(this).setContentTitle(getApplicationContext().
+                getResources().getString(R.string.app_name))
+                .build();
+
         int failedCounter = mUploadsStorageManager.failInProgressUploads(
             UploadResult.SERVICE_INTERRUPTED    // Add UploadResult.KILLED?
         );
@@ -401,6 +409,8 @@ public class FileUploader extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log_OC.d(TAG, "Starting command with id " + startId);
+
+        startForeground(FOREGROUND_SERVICE_ID, mNotification);
 
         boolean retry = intent.getBooleanExtra(KEY_RETRY, false);
         AbstractList<String> requestedUploads = new Vector<String>();
@@ -846,6 +856,7 @@ public class FileUploader extends Service
 
     }
 
+
     /**
      * Upload worker. Performs the pending uploads in the order they were
      * requested.
@@ -877,7 +888,9 @@ public class FileUploader extends Service
                 }
             }
             Log_OC.d(TAG, "Stopping command after id " + msg.arg1);
+            mService.stopForeground(true);
             mService.stopSelf(msg.arg1);
+
         }
     }
 
@@ -1124,6 +1137,7 @@ public class FileUploader extends Service
     private void sendBroadcastUploadsAdded() {
         Intent start = new Intent(getUploadsAddedMessage());
         // nothing else needed right now
+        start.setPackage(getPackageName());
         sendStickyBroadcast(start);
     }
 
@@ -1144,6 +1158,7 @@ public class FileUploader extends Service
         start.putExtra(EXTRA_OLD_FILE_PATH, upload.getOriginalStoragePath());
         start.putExtra(ACCOUNT_NAME, upload.getAccount().name);
 
+        start.setPackage(getPackageName());
         sendStickyBroadcast(start);
     }
 
@@ -1177,7 +1192,7 @@ public class FileUploader extends Service
         if (unlinkedFromRemotePath != null) {
             end.putExtra(EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath);
         }
-
+        end.setPackage(getPackageName());
         sendStickyBroadcast(end);
     }
 

@@ -22,25 +22,6 @@
 
 package com.owncloud.android.syncadapter;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.jackrabbit.webdav.DavException;
-
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.operations.RefreshFolderOperation;
-import com.owncloud.android.operations.UpdateOCVersionOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
-
 import android.accounts.Account;
 import android.accounts.AccountsException;
 import android.app.NotificationManager;
@@ -53,6 +34,26 @@ import android.content.Intent;
 import android.content.SyncResult;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.RefreshFolderOperation;
+import com.owncloud.android.operations.UpdateOCVersionOperation;
+import com.owncloud.android.ui.activity.ErrorsWhileCopyingHandlerActivity;
+import com.owncloud.android.utils.DataHolderUtil;
+
+import org.apache.jackrabbit.webdav.DavException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Implementation of {@link AbstractThreadedSyncAdapter} responsible for synchronizing 
@@ -82,8 +83,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
     public static final String EXTRA_FOLDER_PATH = FileSyncAdapter.class.getName() +
             ".EXTRA_FOLDER_PATH";
     public static final String EXTRA_RESULT = FileSyncAdapter.class.getName() + ".EXTRA_RESULT";
-    
-    
+
     /** Time stamp for the current synchronization process, used to distinguish fresh data */
     private long mCurrentSyncTime;
     
@@ -373,9 +373,15 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         if (dirRemotePath != null) {
             intent.putExtra(FileSyncAdapter.EXTRA_FOLDER_PATH, dirRemotePath);
         }
+
         if (result != null) {
-            intent.putExtra(FileSyncAdapter.EXTRA_RESULT, result);
+            DataHolderUtil dataHolderUtil = DataHolderUtil.getInstance();
+            String dataHolderItemId = dataHolderUtil.nextItemId();
+            dataHolderUtil.save(dataHolderUtil.nextItemId(), result);
+            intent.putExtra(FileSyncAdapter.EXTRA_RESULT, dataHolderItemId);
         }
+
+        intent.setPackage(getContext().getPackageName());
         getContext().sendStickyBroadcast(intent);
         //LocalBroadcastManager.getInstance(getContext()).sendBroadcast(intent);
     }
