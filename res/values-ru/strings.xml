@@ -508,7 +508,7 @@
     <string name="files_drop_not_supported">Это есть в новой версии Nextcloud, пожалуйста обновитесь</string>
     <string name="learn_more">Узнать больше</string>
     <string name="drawer_folder_sync">Автоматическая загрузка</string>
-    <string name="drawer_participate">Участвовать</string>
+    <string name="drawer_participate">Участие</string>
     <string name="participate_testing_headline">Помогите нам в тестировании</string>
     <string name="participate_testing_bug_text">Нашли ошибку? Что-то необычное?</string>
     <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>
@@ -555,7 +555,7 @@
     <string name="whats_new_title">Что нового в Nextcloud</string>
 
     <!-- Welcome to Nc intro features -->
-    <string name="welcome_feature_1_title">Безопасное хранилище для всех ваших данных</string>
+    <string name="welcome_feature_1_title">Надежный дом для всех ваших данных</string>
     <string name="welcome_feature_1_text">Доступ, общий доступ и защита ваших файлов для дома и предприятия</string>
 
     <string name="welcome_feature_2_title">Работа с несколькими аккаунтами</string>

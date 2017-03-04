@@ -526,8 +526,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
         DataHolderUtil dataHolderUtil = DataHolderUtil.getInstance();
-        String dataHolderItemId;
-        dataHolderUtil.save(dataHolderItemId = dataHolderUtil.nextItemId(), result);
+        String dataHolderItemId = dataHolderUtil.nextItemId();
+        dataHolderUtil.save(dataHolderItemId, result);
         intent.putExtra(FileSyncAdapter.EXTRA_RESULT, dataHolderItemId);
 
         intent.setPackage(mContext.getPackageName());

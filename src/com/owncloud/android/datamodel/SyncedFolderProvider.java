@@ -227,6 +227,27 @@ public class SyncedFolderProvider extends Observable {
     }
 
     /**
+     * delete any records of synchronized folders that are not within the given list of ids.
+     *
+     * @param context the context.
+     * @param ids     the list of ids to be excluded from deletion.
+     * @return number of deleted records.
+     */
+    public int deleteSyncedFoldersNotInList(Context context, ArrayList<Long> ids) {
+        int result = mContentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                ProviderMeta.ProviderTableMeta._ID + " NOT IN (?)",
+                new String[]{String.valueOf(ids)}
+        );
+
+        if (result > 0 && context != null) {
+            PreferenceManager.setLegacyClean(context, true);
+        }
+
+        return result;
+    }
+
+    /**
      * update given synced folder.
      *
      * @param syncedFolder the synced folder to be updated.

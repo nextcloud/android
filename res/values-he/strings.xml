@@ -13,6 +13,9 @@
     <string name="actionbar_send_file">שליחה</string>
     <string name="actionbar_sort">מיון</string>
     <string name="actionbar_sort_title">מיון על בסיס</string>
+    <string name="menu_item_sort_by_name">א - ת</string>
+    <string name="menu_item_sort_by_date">חדש - ישן</string>
+    <string name="menu_item_sort_by_size">גדול - קטן</string>
     <string name="drawer_item_all_files">כל הקבצים</string>
     <string name="drawer_item_settings">הגדרות</string>
     <string name="drawer_item_uploads_list">העלאות</string>
@@ -23,6 +26,7 @@
     <string name="prefs_accounts">חשבונות</string>
     <string name="prefs_manage_accounts">ניהול חשבונות</string>
     <string name="prefs_passcode">נעילת סיסמא</string>
+    <string name="prefs_show_hidden_files">הצגת קבצים נסתרים</string>
     <string name="prefs_instant_upload">העלאת תמונות מהירה</string>
     <string name="prefs_instant_upload_summary">העלאה מהירה של תמונות שצולמו במצלמה</string>
     <string name="prefs_instant_video_upload">העלאת סרטים מהירה</string>
@@ -60,7 +64,9 @@
     <string name="uploader_error_message_read_permission_not_granted">ל- %1$s אסור לקרוא קובץ מתקבל</string>
     <string name="uploader_error_message_source_file_not_found">הקובץ להעלאה לא נמצא במיקום שלו. יש לבדוק אם הקובץ קיים.</string>
     <string name="uploader_error_message_source_file_not_copied">שגיאה אירעה בזמן העתקת הקובץ לתיקייה הזמנית. יש לנסות לשלוח שוב.</string>
+    <string name="uploader_upload_files_behaviour">אפשרויות העלאה:</string>
     <string name="file_list_seconds_ago">שניות</string>
+    <string name="file_list_empty_headline">אין כאן קבצים</string>
     <string name="file_list_loading">בטעינה …</string>
     <string name="file_list_no_app_for_file_type">לא נמצא יישום עבור סוג זה!</string>
     <string name="local_file_list_empty">אין קבצים בתיקייה זו:</string>
@@ -86,11 +92,13 @@
     <string name="common_cancel_sync">ביטול סנכרון</string>
     <string name="common_cancel">ביטול</string>
     <string name="common_back">אחורה</string>
+    <string name="common_save">שמירה</string>
     <string name="common_save_exit">שמירה ויציאה</string>
     <string name="common_error">שגיאה</string>
     <string name="common_loading">בטעינה …</string>
     <string name="common_unknown">לא ידוע</string>
     <string name="common_error_unknown">שגיאה בלתי ידועה</string>
+    <string name="common_pending">ממתין</string>
     <string name="about_title">על אודות</string>
     <string name="change_password">שינוי ססמה</string>
     <string name="delete_account">הסרת חשבון</string>
@@ -273,6 +281,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
+    <string name="auto_upload_on_wifi">העלאה על בסיס חיבור wifi בלבד</string>
     <string name="instant_upload_on_wifi">העלאת תמונות על בסיס חיבור wifi בלבד</string>
     <string name="instant_video_upload_on_wifi">העלאת סרטים על בסיס חיבור wifi בלבד</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -286,6 +295,8 @@
     <string name="preview_image_error_unknown_format">תמונה זו לא ניתנת לצפייה</string>
 
     <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
+    <string name="prefs_folder_sync_local_path_title">תיקייה מקומית</string>
+    <string name="prefs_folder_sync_remote_path_title">תיקייה מרוחקת</string>
     <string name="share_link_no_support_share_api">מצטערים, שיתוף אינו מורשה על השרת שלך. יש ליצור קשר עם
 ⇥⇥מנהל.</string>
 	<string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
@@ -318,8 +329,12 @@
     <string name="uploader_upload_forbidden_permissions">להעלאה לתיקייה זו</string>
     <string name="downloader_download_file_not_found">הקובץ אינו זמין יותר על השרת</string>
 
+    <string name="file_migration_finish_button">סיים</string>
+    <string name="file_migration_ok_finished">הסתיים</string>
+    <string name="file_migration_override_data_folder">שכתב</string>
     <string name="prefs_category_accounts">חשבונות</string>
     <string name="prefs_add_account">הוספת חשבון</string>
+    <string name="drawer_manage_accounts">ניהול חשבונות</string>
     <string name="auth_redirect_non_secure_connection_title">חיבור מאובטח מנותב דרך נתיב לא מאובטח</string>
 
 	<string name="actionbar_logger">לוגים</string>
@@ -331,7 +346,8 @@
 	<string name="saml_authentication_required_text">נדרש אימות</string>
 	<string name="saml_authentication_wrong_pass">סיסמא שגוייה</string>
 	<string name="actionbar_move">העברה</string>
-    <string name="file_list_empty_moving">אין כאן כלום. ניתן להוסיף תיקייה!</string>
+    <string name="actionbar_copy">העתק</string>
+	<string name="file_list_empty_moving">אין כאן כלום. ניתן להוסיף תיקייה!</string>
 	<string name="folder_picker_choose_button_text">בחירה</string>
 
     <string name="move_file_not_found">לא ניתן להעביר. יש לבדוק אם הקובץ קיים</string>
@@ -376,8 +392,14 @@
     <string name="prefs_instant_behaviour_title">&#8230;קובץ מקורי יהיה</string>
     <string name="upload_copy_files">העתקת קובץ</string>
     <string name="upload_move_files">העברת קובץ</string>
+    <string name="select_all">בחר הכל</string>
+
     <string name="pref_behaviour_entries_keep_file">נשמר בתיקייה מקורית</string>
     <string name="pref_behaviour_entries_move">הועבר לתיקיית ישומים</string>
+    <string name="pref_behaviour_entries_delete_file">נמחק</string>
+    <string name="prefs_storage_path">נתיב אחסון</string>
+    <string name="prefs_common">משותף</string>
+
     <string name="share_dialog_title">שיתוף</string>
     <string name="share_file">שיתוף %1$s</string>
     <string name="share_with_user_section_title">שיתוף עם משתמשים וקבוצות</string>
@@ -424,4 +446,20 @@
 
     <string name="permission_storage_access">נדרשות הרשאות נוספות להעלאה והורדת קבצים.</string>
     <string name="local_file_not_found_toast">הקובץ לא נמצא במערכת הקבצים המקומית</string>
-    </resources>
+    <string name="actionbar_search">חיפוש</string>
+    <string name="learn_more">לקריאה נוספת</string>
+    <string name="move_to">העבר אל&#8230;
+</string>
+    <string name="copy_to">העתק אל&#8230;
+</string>
+    <string name="choose_remote_folder">בחר תיקייה&#8230;</string>
+    <string name="folder_sync_no_results">לא נמצאו תיקיות מדיה</string>
+    <string name="folder_sync_settings">הגדרות</string>
+    <string name="upload_file_dialog_filename">שם קובץ</string>
+    <string name="upload_file_dialog_filetype">סוג קובץ</string>
+    <string name="storage_description_default">ברירת מחדל</string>
+    <string name="storage_description_unknown">לא ידוע</string>
+
+    <string name="welcome_feature_2_title">חשבונות מרובים</string>
+    <string name="whats_new_skip">דלג</string>
+</resources>
