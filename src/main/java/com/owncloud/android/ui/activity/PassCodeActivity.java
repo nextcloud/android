@@ -59,6 +59,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -288,6 +289,9 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     private SoftKeyboardUtil mSoftKeyboard;
     private SharedPreferences mPref;
     private boolean mNeedKeyboardSetup;
+    private int count;
+    ArrayList<Integer> passFields = new ArrayList<> ();
+
 
     /**
      * Initializes the activity.
@@ -312,6 +316,11 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         if (!ENABLE_SWITCH_SOFT_KEYBOARD) {
             mButtonsSubStr[11] = "";
         }
+
+        passFields.add (R.id.pass_1);
+        passFields.add (R.id.pass_2);
+        passFields.add (R.id.pass_3);
+        passFields.add (R.id.pass_4);
 
         mNeedKeyboardSetup = true;
         if (ACTION_CHECK.equals(getIntent().getAction())) {
@@ -443,12 +452,13 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         boolean switch_soft_keyboard = (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD);
         boolean switch_ctrl_keyboard = (j == 0);
         String s;
-        if (keypadParam.subtext || switch_ctrl_keyboard || switch_soft_keyboard) {
-            s = String.format(mButtonFormat2, mButtonsMainStr[j], mButtonsSubStr[j]);
-        } else {
-            s = String.format(mButtonFormat1, mButtonsMainStr[j]);
-        }
-        b.setText(Html.fromHtml(s));
+//        if (keypadParam.subtext || switch_ctrl_keyboard || switch_soft_keyboard) {
+//            s = String.format(mButtonFormat2, mButtonsMainStr[j], mButtonsSubStr[j]);
+//        } else {
+//            s = String.format(mButtonFormat1, mButtonsMainStr[j]);
+//        }
+//        b.setText(Html.fromHtml(s));
+        b.setText(mButtonsMainStr[j]);
     }
     
     private void showKeypad() {
@@ -779,6 +789,15 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         outState.putString(PassCodeActivity.KEY_PASSCODE, mConfirmingPassCode);
     }
 
+    private void fillPassFields() {
+        if (count < 4) {
+            int id = passFields.get(count);
+
+            findViewById(id).setBackground (getResources().getDrawable (R.drawable.passcode_circular_fill));
+            count++;
+        }
+    }
+
     private class ButtonClicked implements OnClickListener {
 
         private int mIndex;
@@ -797,6 +816,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                         new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, key, 0));
                 mEditText.dispatchKeyEvent(
                         new KeyEvent(0, 0, KeyEvent.ACTION_UP, key, 0));
+                fillPassFields();
             } else if (mIndex == 10) {
                 // clear
                 mEditText.setText("");
@@ -827,6 +847,13 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         param.heightInch = mPref.getFloat("Pref" + orientation + "Height", KEYPAD_SIZE_INCH);
         param.pos = mPref.getInt("Pref" + orientation + "Pos", KEYPAD_POS);
         param.subtext = mPref.getBoolean("PrefSubtext", KEYPAD_SUBTEXT);
+
+        param.fill = KEYPAD_SIZE_FILL;
+        param.widthInch = KEYPAD_SIZE_INCH;
+        param.heightInch = KEYPAD_SIZE_INCH;
+        param.pos = KEYPAD_POS;
+        param.subtext = KEYPAD_SUBTEXT;
+
         return param;
     }
 
@@ -868,8 +895,8 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
 
     private void setKeypadPos(int pos) {
-        RelativeLayout rl = (RelativeLayout) findViewById(R.id.RelativeLayout);
-        rl.setGravity(pos);
+//        RelativeLayout rl = (RelativeLayout) findViewById(R.id.RelativeLayout);
+//        rl.setGravity(pos);
     }
 
     private class CtrlButtonClicked implements OnClickListener {
