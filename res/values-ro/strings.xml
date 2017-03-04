@@ -83,6 +83,8 @@
     <string name="file_list_loading">Se încarcă...</string>
     <string name="file_list_no_app_for_file_type">Nici o aplicație găsită pentru acest tip de fișier!</string>
     <string name="local_file_list_empty">În acest folder nu sunt fișiere.</string>
+    <string name="file_list_empty_headline_search">Niciun element găsit în acest director</string>
+    <string name="file_list_empty_search">Încerci să cauți în alt folder?</string>
     <string name="upload_list_empty_headline">Nu există încărcări disponibile</string>
     <string name="upload_list_empty_text">Încărcați conținut sau activați încărcarea instantă!</string>
     <string name="file_list_folder">director</string>
@@ -117,6 +119,7 @@
     <string name="about_title">Despre</string>
     <string name="change_password">Schimbă parola</string>
     <string name="delete_account">Sterge contul</string>
+    <string name="delete_account_warning">Ștergi contul %s?\n\nȘtergerea nu poate fi anulată.</string>
     <string name="create_account">Crează cont</string>
     <string name="upload_chooser_title">Încarcă din...</string>
     <string name="uploader_info_dirname">Nume director</string>
@@ -346,6 +349,7 @@
     <string name="network_error_socket_timeout_exception">A apărut o eroare în timp ce se aștepta pentru server; operațiunea nu s-a executat</string>
     <string name="network_error_connect_timeout_exception">A apărut o eroare în timp ce se aștepta pentru server; operațiunea nu s-a executat</string>
     <string name="network_host_not_available">Operațiunea nu a putut fi finalizată; serverul este indisponibil</string>
+    <string name="forbidden_permissions">Nu ai permisiunea %s</string>
     <string name="forbidden_permissions_rename">pentru a redenumi acest fișier</string>
     <string name="forbidden_permissions_delete">pentru a șterge acest fișier</string>
     <string name="share_link_forbidden_permissions">de a share acest fișier</string>
@@ -527,8 +531,18 @@ sau</string>
     <string name="folder_sync_settings">Setări</string>
     <string name="folder_sync_new_info">Funcționalitatea de încărcare automată a fost refăcută complet. Vă rugăm să accesați meniul principal și să refaceți setările de încărcare automată. Ne cerem scuze pentru inconveniență.\\n\\nBucură-te de noile capabilități extinse ale funcției de încărcare automată!</string>
     <string name="folder_sync_preferences_folder_path">Pentru %1$s</string>
+    <plurals name="items_selected_count">
+        <item quantity="one">%d selectat</item>
+        <item quantity="few">%d selectate</item>
+        <item quantity="other">%d selectate</item>
+    </plurals>
+    <string name="upload_file_dialog_title">Introdu numele și tipul fișierului de încărcat</string>
     <string name="upload_file_dialog_filename">Numele fișierului</string>
     <string name="upload_file_dialog_filetype">Tipul fișierului</string>
+    <string name="upload_file_dialog_filetype_snippet_text">Fragment de fișier (.txt)</string>
+    <string name="upload_file_dialog_filetype_internet_shortcut">Fișier scurtătură pe Internet (%s)</string>
+    <string name="upload_file_dialog_filetype_googlemap_shortcut">Fișier scurtătură pe Google Maps (%s)</string>
+
     <string name="storage_description_default">Implicit</string>
     <string name="storage_description_sd_no">Card SD %1$d</string>
     <string name="storage_description_unknown">Necunoscut</string>
