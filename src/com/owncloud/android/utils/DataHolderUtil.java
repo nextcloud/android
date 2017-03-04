@@ -30,7 +30,7 @@ import java.util.Map;
  */
 
 public class DataHolderUtil {
-    Map<String, WeakReference<Object>> data = new HashMap<String, WeakReference<Object>>();
+    private Map<String, WeakReference<Object>> data = new HashMap<String, WeakReference<Object>>();
 
     private static DataHolderUtil instance;
 
@@ -53,9 +53,10 @@ public class DataHolderUtil {
     }
 
     public void delete(String id) {
-        data.remove(id);
+        if (id != null) {
+            data.remove(id);
+        }
     }
-
 
     public String nextItemId() {
         String nextItemId = new BigInteger(130, random).toString(32);
@@ -64,6 +65,4 @@ public class DataHolderUtil {
         }
         return nextItemId;
     }
-
-
 }

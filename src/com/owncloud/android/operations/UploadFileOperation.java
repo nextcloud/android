@@ -432,9 +432,9 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         if (result.isSuccess()) {
-            saveUploadedFile(client);
 
             if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_FORGET) {
+
                 String temporalPath = FileStorageUtils.getTemporalPath(mAccount.name) + mFile.getRemotePath();
                 if (mOriginalStoragePath.equals(temporalPath)) {
                     // delete local file is was pre-copied in temporary folder (see .ui.helpers.UriUploader)
@@ -442,12 +442,14 @@ public class UploadFileOperation extends SyncOperation {
                     temporalFile.delete();
                 }
                 mFile.setStoragePath("");
+                saveUploadedFile(client);
+
 
             } else if (mLocalBehaviour == FileUploader.LOCAL_BEHAVIOUR_DELETE) {
                 originalFile.delete();
                 getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
+                saveUploadedFile(client);
             } else {
-                mFile.setStoragePath(expectedPath);
 
                 if (temporalFile != null) {         // FileUploader.LOCAL_BEHAVIOUR_COPY
                     try {
@@ -463,6 +465,8 @@ public class UploadFileOperation extends SyncOperation {
                     }
                     getStorageManager().deleteFileInMediaScan(originalFile.getAbsolutePath());
                 }
+                mFile.setStoragePath(expectedFile.getAbsolutePath());
+                saveUploadedFile(client);
                 FileDataStorageManager.triggerMediaScan(expectedFile.getAbsolutePath());
             }
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {

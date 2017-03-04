@@ -63,6 +63,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="Nextcloud beta"
         android:fullBackupContent="@xml/backup_config"
+        android:fullBackupContent="@xml/backup_config"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
         <activity
@@ -76,6 +77,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activity.ManageAccountsActivity" />
+        <activity android:name=".ui.activity.UserInfoActivity" />
         <activity android:name=".ui.activity.ParticipateActivity" />
         <activity android:name=".ui.activity.FolderSyncActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
