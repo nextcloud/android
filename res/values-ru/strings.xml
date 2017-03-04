@@ -508,7 +508,7 @@
     <string name="files_drop_not_supported">Это есть в новой версии Nextcloud, пожалуйста обновитесь</string>
     <string name="learn_more">Узнать больше</string>
     <string name="drawer_folder_sync">Автоматическая загрузка</string>
-    <string name="drawer_participate">Участвовать</string>
+    <string name="drawer_participate">Участие</string>
     <string name="participate_testing_headline">Помогите нам в тестировании</string>
     <string name="participate_testing_bug_text">Нашли ошибку? Что-то необычное?</string>
     <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>

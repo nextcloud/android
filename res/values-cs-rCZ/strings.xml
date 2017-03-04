@@ -83,6 +83,8 @@
     <string name="file_list_loading">Načítání&#8230;</string>
     <string name="file_list_no_app_for_file_type">Pro tento typ souboru nebyla nalezena aplikace!</string>
     <string name="local_file_list_empty">V tomto adresáři nejsou žádné soubory.</string>
+    <string name="file_list_empty_headline_search">V této složce nebylo nic nalezeno</string>
+    <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text">Nahrajte nějaký obsah, nebo aktivujte okamžité nahrání!</string>
     <string name="file_list_folder">adresář</string>
