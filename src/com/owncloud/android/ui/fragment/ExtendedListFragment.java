@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
@@ -268,8 +269,14 @@ public class ExtendedListFragment extends Fragment
                 searchView.clearFocus();
             }
         } else {
-            if (getActivity() != null) {
-                ((FileDisplayActivity) getActivity()).refreshListOfFilesFragment(true);
+            Activity activity;
+            if ((activity = getActivity()) != null) {
+                if (activity instanceof FileDisplayActivity) {
+                    ((FileDisplayActivity) activity).refreshListOfFilesFragment(true);
+                } else {
+                    LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+                    localFileListAdapter.filter(query);
+                }
 
             }
         }
