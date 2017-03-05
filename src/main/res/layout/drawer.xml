@@ -61,6 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/drawer_quota"/>
+
         </LinearLayout>
 
     </android.support.design.widget.NavigationView>

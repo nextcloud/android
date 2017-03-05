@@ -140,7 +140,7 @@
 
         <provider
             android:name=".providers.UsersAndGroupsSearchProvider"
-            android:authorities="com.nextcloud.android.providers.UsersAndGroupsSearchProvider"
+            android:authorities="@string/users_and_groups_search_authority"
             android:enabled="true"
             android:exported="false"
             android:label="@string/search_users_and_groups_hint" />

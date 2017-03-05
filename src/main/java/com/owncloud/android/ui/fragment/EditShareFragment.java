@@ -66,8 +66,7 @@ public class EditShareFragment extends Fragment {
 
     /** Listener for changes on privilege checkboxes */
     private CompoundButton.OnCheckedChangeListener mOnPrivilegeChangeListener;
-
-
+    
     /**
      * Public factory method to create new EditShareFragment instances.
      *

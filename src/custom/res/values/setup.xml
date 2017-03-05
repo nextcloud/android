@@ -6,9 +6,10 @@
     <!-- App name  and other strings-->
     <string name="app_name">Nextcloud</string>
     <string name="account_type">nextcloud</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
-    <string name="authority">org.nextcloud</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
-    <string name="document_provider_authority">org.nextcloud.documents</string>
-    <string name="file_provider_authority">org.nextcloud.files</string>
+    <string name="authority">com.custom.client.provider</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="users_and_groups_search_authority">com.custom.client.provider.UsersAndGroupsSearch</string>
+    <string name="document_provider_authority">com.custom.provider.Documents</string>
+    <string name="file_provider_authority">com.custom.provider.Files</string>
     <string name ="db_file">nextcloud.db</string>
     <string name ="db_name">nextcloud</string>
     <string name ="data_folder">nextcloud</string>
@@ -19,7 +20,7 @@
     <!-- URLs and flags related -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
-    <bool name="show_welcome_link">true</bool>
+    <bool name="show_welcome_link">false</bool>
 	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
 	<string name="share_api_link"></string>
     
@@ -31,8 +32,7 @@
     <string name = "send_files_to_other_apps">on</string>
     <bool name = "share_via_link_feature">true</bool>
     <bool name = "share_with_users_feature">true</bool>
-    
-    
+
     <!-- Colors -->
     <color name="login_text_color">@color/white</color>
     <color name="login_text_hint_color">#7fC0E3</color>
@@ -57,7 +57,16 @@
 
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">true</bool>
-    
+
+    <!-- Drawer options -->
+    <bool name="recently_added_enabled">true</bool>
+    <bool name="recently_modified_enabled">true</bool>
+    <bool name="shared_enabled">true</bool>
+    <bool name="videos_enabled">true</bool>
+
+    <!-- Bottom toolbar -->
+    <bool name="bottom_toolbar_enabled">true</bool>
+
     <!-- Help, imprint and feedback -->
     <bool name="calendar_contacts_enabled">true</bool>
     <bool name="help_enabled">true</bool>
@@ -88,6 +97,7 @@
 
     <!-- login data links -->
     <string name="login_data_own_scheme" translatable="false">cloud</string>
+
 </resources>
 
 
