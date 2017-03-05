@@ -55,11 +55,6 @@ public class ParticipateActivity extends FileActivity {
 
     private void setupContent() {
         TextView betaView = (TextView) findViewById(R.id.participate_beta_text);
-        betaView.setMovementMethod(LinkMovementMethod.getInstance());
-        betaView.setText(Html.fromHtml(getString(R.string.participate_beta_text,
-                getString(R.string.fdroid_beta_link),
-                getString(R.string.beta_apk_link))));
-
 
         TextView rcView = (TextView) findViewById(R.id.participate_release_candidate_text);
         rcView.setMovementMethod(LinkMovementMethod.getInstance());
@@ -107,6 +102,10 @@ public class ParticipateActivity extends FileActivity {
 
     public void onGetRCPlayStoreClick(View view) {
         startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.play_store_register_beta))));
+    }
+
+    public void onGetBetaApkClick(View view) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(getString(R.string.beta_apk_link))));
     }
 
     @Override
