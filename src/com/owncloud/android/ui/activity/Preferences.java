@@ -116,6 +116,7 @@ public class Preferences extends PreferenceActivity
         public static final String STORAGE_PATH = "storage_path";
         public static final String INSTANT_UPLOAD_PATH = "instant_upload_path";
         public static final String INSTANT_VIDEO_UPLOAD_PATH = "instant_video_upload_path";
+        public static final String RESIZED_BEHAVIOUR = "resized_behaviour";
     }
 
     @SuppressWarnings("deprecation")

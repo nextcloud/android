@@ -27,6 +27,7 @@ import java.util.Set;
 import java.util.Vector;
 
 import android.accounts.Account;
+import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -49,6 +50,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     private Set<Integer> mObsoletePositions;
     private Set<Integer> mDownloadErrors;
     private FileDataStorageManager mStorageManager;
+    private Context mContext;
     
     private Map<Integer, FileFragment> mCachedFragments;
 
@@ -62,7 +64,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
      */
     public PreviewImagePagerAdapter(FragmentManager fragmentManager, OCFile parentFolder,
                                     Account account, FileDataStorageManager storageManager,
-                                    boolean onlyOnDevice) {
+                                    boolean onlyOnDevice, Context context) {
         super(fragmentManager);
         
         if (fragmentManager == null) {
@@ -75,6 +77,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
             throw new IllegalArgumentException("NULL storage manager");
         }
 
+        mContext = context;
         mAccount = account;
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
@@ -102,20 +105,18 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         OCFile file = mImageFiles.get(i);
         Fragment fragment = null;
         if (file.isDown()) {
-            fragment = PreviewImageFragment.newInstance(file,
-                    mObsoletePositions.contains(Integer.valueOf(i)), false);
+            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
             
         } else {
-            if (mDownloadErrors.contains(Integer.valueOf(i))) {
+            if (mDownloadErrors.contains(i)) {
                 fragment = FileDownloadFragment.newInstance(file, mAccount, true);
                 ((FileDownloadFragment)fragment).setError(true);
-                mDownloadErrors.remove(Integer.valueOf(i));
+                mDownloadErrors.remove(i);
             } else {
-                fragment = PreviewImageFragment.newInstance(file,
-                        mObsoletePositions.contains(Integer.valueOf(i)), true);
+                fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
             }
         }
-        mObsoletePositions.remove(Integer.valueOf(i));
+        mObsoletePositions.remove(i);
         return fragment;
     }
 

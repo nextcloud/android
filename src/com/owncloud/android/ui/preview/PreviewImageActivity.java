@@ -149,7 +149,7 @@ public class PreviewImageActivity extends FileActivity implements
         }
 
         mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice());
+                parentFolder, getAccount(), getStorageManager(), MainApp.isOnlyOnDevice(), getApplicationContext());
 
         mViewPager = (ExtendedViewPager) findViewById(R.id.fragmentPager);
         int position = mHasSavedPosition ? mSavedPosition :

@@ -12,6 +12,7 @@ package third_parties.michaelOrtiz;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -25,6 +26,7 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -37,6 +39,7 @@ import android.widget.OverScroller;
 import android.widget.Scroller;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.preview.ImageViewCustom;
 
 /**
@@ -893,6 +896,9 @@ public class TouchImageViewCustom extends ImageViewCustom {
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         private boolean snackShown = false;
 
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(previewImageFragment.getContext());
+        String test = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH)
+
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
             setState(State.ZOOM);
@@ -902,6 +908,14 @@ public class TouchImageViewCustom extends ImageViewCustom {
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
         	scaleImage(detector.getScaleFactor(), detector.getFocusX(), detector.getFocusY(), true);
+
+
+//            MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, Environment.
+//                    getExternalStorageDirectory().getAbsolutePath());
+
+            if (!snackShown && getCurrentZoom() > 2 && !previewImageFragment.getFile().isDown()) {
+                showDownloadSnackbar();
+            }
 
         	//
         	// OnTouchImageViewListener is set: TouchImageView pinch zoomed by user.
@@ -915,7 +929,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
         private void showDownloadSnackbar(){
             snackShown = true;
 
-            Snackbar.make(getRootView(), "Download full image?", Snackbar.LENGTH_INDEFINITE)
+            Snackbar.make(getRootView(), "Download full image?", Snackbar.LENGTH_LONG)
                     .setAction("Yes", new OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -927,7 +941,7 @@ public class TouchImageViewCustom extends ImageViewCustom {
                         @Override
                         public void onDismissed(Snackbar snackbar, int event) {
                             super.onDismissed(snackbar, event);
-                            Log_OC.d("Snack", "download closed without action");
+                            showNeverDownloadSnackBar();
                             snackShown = false;
                         }
                     })
@@ -948,6 +962,18 @@ public class TouchImageViewCustom extends ImageViewCustom {
                         public void onDismissed(Snackbar snackbar, int event) {
                             super.onDismissed(snackbar, event);
                             Log_OC.d("Snack", "always download closed without action");
+                        }
+                    })
+                    .show();
+        }
+
+        private void showNeverDownloadSnackBar(){
+            Snackbar.make(getRootView(), "Never download full image?", Snackbar.LENGTH_LONG)
+                    .setAction("Yes", new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Todo Set permanent
+                            showSettingsSnackBar();
                         }
                     })
                     .show();
