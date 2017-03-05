@@ -51,13 +51,13 @@
     <string name="prefs_remember_last_upload_location_summary">Zapamiętaj ostatnią lokalizację wysyłania</string>
 
 	<string name="recommend_subject">Wypróbuj %1$s na swoim smartfonie!</string>
-	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\\nŚciągnij tutaj: %2$s</string>
+	<string name="recommend_text">Zapraszam do użycia %1$s na swoim smartfonie!\nŚciągnij tutaj: %2$s</string>
 
     <string name="auth_check_server">Sprawdź serwer</string>
     <string name="auth_host_url">Adres serwera https://...</string>
     <string name="auth_username">Nazwa użytkownika</string>
     <string name="auth_password">Hasło</string>
-    <string name="auth_register">Nie masz jeszcze serwera?\\nKliknij tu i zdobądź go od dostawcy</string>
+    <string name="auth_register">Nie masz jeszcze serwera?\nKliknij tu i zdobądź go od dostawcy</string>
     <string name="sync_string_files">Pliki</string>
     <string name="setup_btn_connect">Połącz</string>
     <string name="uploader_btn_upload_text">Wyślij</string>
@@ -531,7 +531,7 @@ lub</string>
     <string name="folder_sync_no_results">Nie znaleziono folderów multimedialnych.</string>
     <string name="folder_sync_preferences">Preferencje automatycznego przesyłania</string>
     <string name="folder_sync_settings">Ustawienia</string>
-    <string name="folder_sync_new_info">Natychmiastowe wysyłanie zostało kompletnie zmienione. Proszę sprawdzić główne menu i zrekonfigurować automatyczne wysyłanie. Przepraszamy za niedogodności.\\n\\nCiesz się z nowych i rozbudowanych możliwości automatycznego wysyłania!</string>
+    <string name="folder_sync_new_info">Natychmiastowe wysyłanie zostało kompletnie zmienione. Proszę sprawdzić główne menu i zrekonfigurować automatyczne wysyłanie. Przepraszamy za niedogodności.\n\nCiesz się z nowych i rozbudowanych możliwości automatycznego wysyłania!</string>
     <string name="folder_sync_preferences_folder_path">Dla %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d zaznaczony</item>
