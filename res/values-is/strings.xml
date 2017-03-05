@@ -40,6 +40,7 @@
     <string name="prefs_log_delete_history_button">Eyða ferli</string>
     <string name="prefs_calendar_contacts">Samstilla dagatal &amp; tengiliði</string>
     <string name="prefs_calendar_contacts_summary">Setja upp DAVdroid (v1.3.0+) fyrir þennan aðgang</string>
+    <string name="prefs_calendar_contacts_address_resolve_error">Ekki var hægt að leysa vistfang þjóns fyrir aðganginn í DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Hvorki Google Play né F-Droid appið eru uppsett</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Tókst að setja upp samstillingu dagatals og tengiliða</string>
     <string name="prefs_help">Hjálp</string>
@@ -82,6 +83,8 @@
     <string name="file_list_loading">Hleð inn&#8230;</string>
     <string name="file_list_no_app_for_file_type">Engin forrit fundust fyrir skráategund!</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
+    <string name="file_list_empty_headline_search">Engar niðurstöður í þessari möppu</string>
+    <string name="file_list_empty_search">Reyna að leita í annarri möppu?</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text">Sendu inn eitthvað efni eða virkjaðu beina innsendingu!</string>
     <string name="file_list_folder">mappa</string>
@@ -375,6 +378,7 @@
     <string name="file_migration_failed_while_updating_index">VILLA: við að uppfæra atriðaskrá</string>
 
     <string name="file_migration_directory_already_exists">Gagnamappan er þegar til, hvað skal gera?</string>
+    <string name="file_migration_override_data_folder">Taka yfir</string>
     <string name="file_migration_use_data_folder">Nota fyrirliggjandi</string>
 
     <string name="prefs_category_accounts">Notandaaðgangar</string>
