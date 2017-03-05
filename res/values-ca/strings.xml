@@ -57,7 +57,7 @@
     <string name="auth_host_url">Adreça del servidor https://…</string>
     <string name="auth_username">Nom d\'usuari</string>
     <string name="auth_password">Contrasenya</string>
-    <string name="auth_register">No tens un servidor, encara? \\nClica aquí per conseguir-ne un d\\\'un proveïdor</string>
+    <string name="auth_register">No tens un servidor, encara? \nClica aquí per conseguir-ne un d\'un proveïdor</string>
     <string name="sync_string_files">Fitxers</string>
     <string name="setup_btn_connect">Connecta</string>
     <string name="uploader_btn_upload_text">Puja</string>
@@ -490,7 +490,7 @@
     <string name="action_switch_list_view">Vista de llista</string>
 
     <string name="manage_space_title">Gestió d\'espai</string>
-    <string name="manage_space_description">S\'esborrarà permanentment la configuració, la base de dades i els certificats del servidor de les dades de %1$s  \\n\\nEls fitxers baixats es mantindran intactes. \\n\\nAquest procés pot trigar un temps.</string>
+    <string name="manage_space_description">S\'esborrarà permanentment la configuració, la base de dades i els certificats del servidor de les dades de %1$s  \n\nEls fitxers baixats es mantindran intactes. \n\nAquest procés pot trigar un temps.</string>
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_error">Alguns fitxers no s\'han pogut esborrar</string>
 

@@ -51,7 +51,7 @@
     <string name="prefs_remember_last_upload_location_summary">Mémoriser le dernier emplacement de téléversement</string>
 
 	<string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
-	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !\\nTéléchargez-le ici : %2$s.</string>
+	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone !\nTéléchargez-le ici : %2$s.</string>
 
     <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_host_url">Adresse du serveur https://…</string>
