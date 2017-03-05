@@ -51,7 +51,7 @@
     <string name="prefs_remember_last_upload_location_summary">Geteilten Upload-Speicherort merken</string>
 
 	<string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
-	<string name="recommend_text">Ich empfehle Dir die Nutzung von %1$s auf Deinem Smartphone!\\nLade es hier herunter: %2$s</string>
+	<string name="recommend_text">Ich empfehle Dir die Nutzung von %1$s auf Deinem Smartphone!\nLade es hier herunter: %2$s</string>
 
     <string name="auth_check_server">Server überprüfen</string>
     <string name="auth_host_url">Server-Adresse https://…</string>

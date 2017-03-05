@@ -51,13 +51,13 @@
     <string name="prefs_remember_last_upload_location_summary">Mba mend vendin e fundit të ngarkimit për ndarje me të tjerët</string>
 
 	<string name="recommend_subject">Provojeni %1$s te telefoni juaj!</string>
-	<string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\\nShkarkojeni prej këtu: %2$s</string>
+	<string name="recommend_text">Dua t’ju ftoj të përdorni %1$s në telefonin tuaj!\nShkarkojeni këtu: %2$s</string>
 
     <string name="auth_check_server">Kontrollo serverin</string>
     <string name="auth_host_url">Adresa e serverit https://… </string>
     <string name="auth_username">Emër përdoruesi</string>
     <string name="auth_password">Fjalëkalim</string>
-    <string name="auth_register">Nuk keni akoma një server?\\nKlikoni këtu për të marrë një nga ofruesit</string>
+    <string name="auth_register">Nuk keni akoma një server?\nKlikoni këtu për të marrë një nga ofruesit</string>
     <string name="sync_string_files">Kartela</string>
     <string name="setup_btn_connect">Lidhuni</string>
     <string name="uploader_btn_upload_text">Ngarkoni</string>
@@ -83,6 +83,8 @@
     <string name="file_list_loading">Po ngarkohet&#8230;</string>
     <string name="file_list_no_app_for_file_type">S’u gjet aplikacion për llojin e kartelës!</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
+    <string name="file_list_empty_headline_search">Nuk ka rezultate në këtë dosje</string>
+    <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
     <string name="upload_list_empty_text">Ngarko disa të dhëna ose aktivizo ngarkimin e menjëhershëm!</string>
     <string name="file_list_folder">dosje</string>
@@ -117,7 +119,7 @@
     <string name="about_title">Rreth</string>
     <string name="change_password">Ndryshoni fjalëkalimin</string>
     <string name="delete_account">Hiqe llogarinë</string>
-    <string name="delete_account_warning">Fshij llogarinë %s?\\n\\nFshirja nuk mund të zhbëhet.</string>
+    <string name="delete_account_warning">Fshij llogarinë %s?\n\nFshirja nuk mund të zhbëhet.</string>
     <string name="create_account">Krijoni llogari</string>
     <string name="upload_chooser_title">Ngarkojeni prej &#8230;</string>
     <string name="uploader_info_dirname">Emër dosjeje</string>
@@ -166,7 +168,7 @@
     <string name="sync_fail_in_favourites_content">Përmbajtja e %1$d skedarëve s\\’u sinkronizua dot (%2$d përplasje)</string>
     <string name="sync_foreign_files_forgotten_ticker">Disa kartela vendore u harruan</string>
     <string name="sync_foreign_files_forgotten_content">%1$d skedar nga dosja %2$s s\\’u kopjuan dot</string>
-    <string name="sync_foreign_files_forgotten_explanation">Nga versioni 1.3.16 e tutje, skedarët e ngarkuar nga kjo pajisje kopjohen te dosja vendore %1$s, për të parandaluar humbje të dhënash, kur një skedar i vetëm sinkronizohet me disa llogari.\\n\\nPër shkak të këtij ndryshimi, të gjithë skedarët e ngarkuar nën versione të mëparshëm të këtij aplikacioni u kopjuan në dosjen %2$s. Por plotësimin e këtij veprimi e pengoi një gabim gjatë sinkronizimit të llogarisë. Ose mund t\\’i lini kartelat siç janë, dhe të hiqni lidhjen për te %3$s, ose të kaloni skedarët te dosja %1$s dhe të mbani lidhjen për te %4$s.\\n\\nMë poshtë radhiten skedarët vendor, dhe skedarët e largët te %5$s me të cilët lidhen.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Nga versioni 1.3.16 e tutje, skedarët e ngarkuar nga kjo pajisje kopjohen te dosja vendore %1$s, për të parandaluar humbje të dhënash, kur një skedar i vetëm sinkronizohet me disa llogari.\n\nPër shkak të këtij ndryshimi, të gjithë skedarët e ngarkuar nën versione të mëparshëm të këtij aplikacioni u kopjuan në dosjen %2$s. Por plotësimin e këtij veprimi e pengoi një gabim gjatë sinkronizimit të llogarisë. Ose mund t\’i lini kartelat siç janë, dhe të hiqni lidhjen për te %3$s, ose të kaloni skedarët te dosja %1$s dhe të mbani lidhjen për te %4$s.\n\nMë poshtë radhiten skedarët vendor, dhe skedarët e largët te %5$s me të cilët lidhen.</string>
     <string name="sync_current_folder_was_removed">Dosja %1$s s\’ekziston më</string>
     <string name="foreign_files_move">Zhvendosi të gjitha</string>
     <string name="foreign_files_success">U zhvendosën të gjithë skedarët</string>
@@ -472,7 +474,7 @@
     <string name="share_known_remote_clarification">%1$s ( te %2$s )</string>
 
     <string name="share_sharee_unavailable">Na ndjeni, versioni juaj i serverit nuk lejon ndarje me përdorues brenda klientësh.
-        \\nJu lutemi, lidhuni me përgjegjësin tuaj</string>
+        \nJu lutemi, lidhuni me përgjegjësin tuaj</string>
     <string name="share_privilege_can_share">mund të ndajë</string>
     <string name="share_privilege_can_edit">mund të përpunojnë</string>
     <string name="share_privilege_can_edit_create">krijoje</string>
@@ -490,7 +492,7 @@
     <string name="action_switch_list_view">Pamje listë</string>
 
     <string name="manage_space_title">Administroni hapësirë</string>
-    <string name="manage_space_description">Rregullimet, baza e të dhënave dhe dëshmitë e serverit prej të dhënave nga %1$s do të fshihen përgjithmonë. \\n\\nSkedarët e shkarkuar do të ruhen të paprekura.\\n\\nKy proces mund të kërkoj ca kohë.</string>
+    <string name="manage_space_description">Rregullimet, baza e të dhënave dhe dëshmitë e serverit prej të dhënave nga %1$s do të fshihen përgjithmonë. \n\nSkedarët e shkarkuar do të ruhen të paprekura.\n\nKy proces mund të kërkoj ca kohë.</string>
     <string name="manage_space_clear_data">Pastroji të dhënat</string>
     <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
 
@@ -525,7 +527,7 @@ ose</string>
     <string name="folder_sync_no_results">Nuk u gjetën dosje media</string>
     <string name="folder_sync_preferences">Ngarko automatikisht preferencat</string>
     <string name="folder_sync_settings">Konfigurimet</string>
-    <string name="folder_sync_new_info">Ngarkimi i menjëhershëm është ngritur plotësisht. Ju lutemi shikoni menun kryesore dhe ri-konfiguroni ngarkimet tuaja automatike. Ju kërkojmë ndjes për shqetësimin.\\n\\nShijojini aftësitë e reja dhe të zgjeruara të ngarkimit automatik.</string>
+    <string name="folder_sync_new_info">Ngarkimi i menjëhershëm është ngritur plotësisht. Ju lutemi shikoni menun kryesore dhe ri-konfiguroni ngarkimet tuaja automatike. Ju kërkojmë ndjes për shqetësimin.\n\nShijojini aftësitë e reja dhe të zgjeruara të ngarkimit automatik.</string>
     <string name="folder_sync_preferences_folder_path">Për %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d të përzgjedhura</item>

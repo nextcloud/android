@@ -57,7 +57,7 @@
     <string name="auth_host_url">Adresa serverului https://...</string>
     <string name="auth_username">Nume utilizator</string>
     <string name="auth_password">Parolă</string>
-    <string name="auth_register">Nu dețineți un server?\\nClick aici pentru a obține unul de la un furnizor</string>
+    <string name="auth_register">Nu dețineți un server?\nClick aici pentru a obține unul de la un furnizor</string>
     <string name="sync_string_files">Fișiere</string>
     <string name="setup_btn_connect">Conectare</string>
     <string name="uploader_btn_upload_text">Încărcare</string>
@@ -474,7 +474,7 @@
     <string name="share_known_remote_clarification">%1$s ( la %2$s )</string>
 
     <string name="share_sharee_unavailable">Ne cerem scuze, serverul tău nu permite partajarea cu utilizatori care sunt parte a clienților.
-\\nVă rugăm contactați admninistratorul dumneavoastră</string>
+\nVă rugăm contactați admninistratorul dumneavoastră</string>
     <string name="share_privilege_can_share">se poate partaja</string>
     <string name="share_privilege_can_edit">se poate edita</string>
     <string name="share_privilege_can_edit_create">creare</string>
@@ -492,7 +492,7 @@
     <string name="action_switch_list_view">Afișare în listă</string>
 
     <string name="manage_space_title">Administrare spațiu</string>
-    <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \\n\\nFișierele descărcate vor fi păstrate intacte.\\n\\nAcest proces poate dura mai mult timp.</string>
+    <string name="manage_space_description">Setările, bazele de date și certificatele serverului ale %1$s vor fi șterse permanent. \n\nFișierele descărcate vor fi păstrate intacte.\n\nAcest proces poate dura mai mult timp.</string>
     <string name="manage_space_clear_data">Elimină datele</string>
     <string name="manage_space_error">Unele fișiere nu au putut fi șterse.</string>
 
@@ -529,7 +529,7 @@ sau</string>
     <string name="folder_sync_no_results">Nu au fost găsite dosare media.</string>
     <string name="folder_sync_preferences">Preferințe pentru încărcare automată</string>
     <string name="folder_sync_settings">Setări</string>
-    <string name="folder_sync_new_info">Funcționalitatea de încărcare automată a fost refăcută complet. Vă rugăm să accesați meniul principal și să refaceți setările de încărcare automată. Ne cerem scuze pentru inconveniență.\\n\\nBucură-te de noile capabilități extinse ale funcției de încărcare automată!</string>
+    <string name="folder_sync_new_info">Funcționalitatea de încărcare automată a fost refăcută complet. Vă rugăm să accesați meniul principal și să refaceți setările de încărcare automată. Ne cerem scuze pentru inconveniență.\n\nBucură-te de noile capabilități extinse ale funcției de încărcare automată!</string>
     <string name="folder_sync_preferences_folder_path">Pentru %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d selectat</item>
