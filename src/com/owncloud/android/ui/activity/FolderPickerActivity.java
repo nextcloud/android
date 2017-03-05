@@ -235,7 +235,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         Log_OC.e(TAG, "onResume() start");
         
         // refresh list of files
-        refreshListOfFilesFragment();
+        refreshListOfFilesFragment(false);
 
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START);
@@ -309,10 +309,10 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         return null;
     }
     
-    protected void refreshListOfFilesFragment() {
+    public void refreshListOfFilesFragment(boolean fromSearch) {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
-            fileListFragment.listDirectory(false, false);
+            fileListFragment.listDirectory(false, fromSearch);
         }
     }
 
@@ -405,7 +405,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             ) {
         
         if (result.isSuccess()) {
-            refreshListOfFilesFragment();
+            refreshListOfFilesFragment(false);
         } else {
             try {
                 Toast msg = Toast.makeText(FolderPickerActivity.this, 
