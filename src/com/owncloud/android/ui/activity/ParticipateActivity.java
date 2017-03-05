@@ -54,8 +54,6 @@ public class ParticipateActivity extends FileActivity {
     }
 
     private void setupContent() {
-        TextView betaView = (TextView) findViewById(R.id.participate_beta_text);
-
         TextView rcView = (TextView) findViewById(R.id.participate_release_candidate_text);
         rcView.setMovementMethod(LinkMovementMethod.getInstance());
 
