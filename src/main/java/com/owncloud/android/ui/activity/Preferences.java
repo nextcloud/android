@@ -78,6 +78,8 @@ public class Preferences extends PreferenceActivity
     
     private static final String TAG = Preferences.class.getSimpleName();
 
+    private static final String SCREEN_NAME = "Settings";
+
     private static final int ACTION_SELECT_UPLOAD_PATH = 1;
     private static final int ACTION_SELECT_UPLOAD_VIDEO_PATH = 2;
     private static final int ACTION_REQUEST_PASSCODE = 5;
@@ -559,6 +561,8 @@ public class Preferences extends PreferenceActivity
     @Override
     protected void onResume() {
         super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         boolean state = appPrefs.getBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false);

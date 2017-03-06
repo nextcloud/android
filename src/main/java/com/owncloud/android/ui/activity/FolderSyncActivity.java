@@ -69,6 +69,10 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     private static final String SYNCED_FOLDER_PREFERENCES_DIALOG_TAG = "SYNCED_FOLDER_PREFERENCES_DIALOG";
     public static final String PRIORITIZED_FOLDER = "Camera";
 
+    private static final String SCREEN_NAME = "Auto upload";
+
+    private static final String TAG = FolderSyncActivity.class.getSimpleName();
+
     private RecyclerView mRecyclerView;
     private FolderSyncAdapter mAdapter;
     private LinearLayout mProgress;
@@ -91,6 +95,12 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         getSupportActionBar().setTitle(getString(R.string.drawer_folder_sync));
 
         setupContent();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
     }
 
     /**

@@ -32,6 +32,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -42,6 +43,8 @@ public class ManageSpaceActivity extends AppCompatActivity {
     private static final String TAG = ManageSpaceActivity.class.getSimpleName();
 
     private static final String LIB_FOLDER = "lib";
+
+    private static final String SCREEN_NAME = "Manage space";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +68,12 @@ public class ManageSpaceActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

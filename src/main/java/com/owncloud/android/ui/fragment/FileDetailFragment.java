@@ -74,6 +74,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
 
+    private static final String SCREEN_NAME = "File details";
 
     /**
      * Public factory method to create new FileDetailFragment instances.

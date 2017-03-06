@@ -107,6 +107,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private static final String TAG = AuthenticatorActivity.class.getSimpleName();
 
+    private static final String SCREEN_NAME = "Login";
+
     public static final String EXTRA_ACTION = "ACTION";
     public static final String EXTRA_ACCOUNT = "ACCOUNT";
 
@@ -713,6 +715,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Override
     protected void onResume() {
         super.onResume();
+
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
 
         // bound here to avoid spurious changes triggered by Android on device rotations
         mHostUrlInput.setOnFocusChangeListener(this);

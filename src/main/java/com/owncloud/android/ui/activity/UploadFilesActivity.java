@@ -41,6 +41,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -72,7 +73,9 @@ public class UploadFilesActivity extends FileActivity implements
     private Account mAccountOnCreation;
     private DialogFragment mCurrentDialog;
     private Menu mOptionsMenu;
-    
+
+    private static final String SCREEN_NAME = "Choose local files to upload";
+
     public static final String EXTRA_CHOSEN_FILES =
             UploadFilesActivity.class.getCanonicalName() + ".EXTRA_CHOSEN_FILES";
 
@@ -294,7 +297,13 @@ public class UploadFilesActivity extends FileActivity implements
                 mOptionsMenu.findItem(R.id.action_select_all).isChecked());
         Log_OC.d(TAG, "onSaveInstanceState() end");
     }
-    
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+    }
+
     /**
      * Pushes a directory to the drop down list
      * @param directory to push

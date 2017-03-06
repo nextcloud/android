@@ -51,6 +51,8 @@ public class EditShareFragment extends Fragment {
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
 
+    private static final String SCREEN_NAME = "Share with Sharee";
+
     /** Ids of CheckBoxes depending on R.id.canEdit CheckBox */
     private static final int sSubordinateCheckBoxIds[] = {
             R.id.canEditCreateCheckBox,
@@ -373,6 +375,12 @@ public class EditShareFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
 
     /**
      * Get {@link OCShare} instance from DB and updates the UI.

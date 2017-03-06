@@ -63,6 +63,8 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
 
+    private static final String SCREEN_NAME = "Sharee search";
+
     // Parameters
     private OCFile mFile;
     private Account mAccount;

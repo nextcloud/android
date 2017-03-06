@@ -32,6 +32,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 
 import java.util.ArrayList;
@@ -51,8 +52,11 @@ public class GenericExplanationActivity  extends AppCompatActivity {
             ".EXTRA_LIST_2";
     public static final String MESSAGE = GenericExplanationActivity.class.getCanonicalName() +
             ".MESSAGE";
-    
-    
+
+    private static final String TAG = GenericExplanationActivity.class.getSimpleName();
+
+    private static final String SCREEN_NAME = "Information";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +84,13 @@ public class GenericExplanationActivity  extends AppCompatActivity {
             listView.setVisibility(View.GONE);
         }
     }
-    
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+    }
+
     public class ExplanationListAdapterView extends ArrayAdapter<String> {
         
         ArrayList<String> mList;
