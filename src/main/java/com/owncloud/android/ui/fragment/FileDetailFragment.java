@@ -107,6 +107,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         mProgressListener = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+        }
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

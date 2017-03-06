@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -70,7 +71,15 @@ public class UploadListFragment extends ExpandableListFragment {
         setOnRefreshListener(this);
         return v;
     }
-    
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+        }
+    }
+
     @Override
     public void onRefresh() {
         // remove the progress circle as soon as pull is triggered, like in the list of files
