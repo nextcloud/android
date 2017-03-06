@@ -322,7 +322,7 @@ public class FileMenuFilter {
 
     private boolean allFavorites() {
         for(OCFile file: mFiles) {
-            if(!file.isFavorite()) {
+            if(!file.isAvailableOffline()) {
                 return false;
             }
         }
@@ -331,7 +331,7 @@ public class FileMenuFilter {
 
     private boolean allUnfavorites() {
         for(OCFile file: mFiles) {
-            if(file.isFavorite()) {
+            if(file.isAvailableOffline()) {
                 return false;
             }
         }

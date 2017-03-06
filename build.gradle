@@ -23,6 +23,11 @@ apply plugin: 'checkstyle'
 apply plugin: 'pmd'
 apply plugin: 'findbugs'
 
+configurations.all {
+    // check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 ext {
     supportLibraryVersion = '25.0.0'
 
@@ -168,7 +173,7 @@ dependencies {
     compile name: 'touch-image-view'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.github.nextcloud:android-library:1.0.11'
+    compile 'com.github.nextcloud:android-library:favorites-branch-SNAPSHOT'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
