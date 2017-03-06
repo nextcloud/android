@@ -40,6 +40,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -70,7 +71,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
 
     private static final String TAG = FolderPickerActivity.class.getSimpleName();
-    
+
+    private static final String SCREEN_NAME = "Choose upload folder";
+
     private static final String TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS";
        
     private boolean mSyncInProgress = false;
@@ -83,7 +86,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.d(TAG, "onCreate() start");
 
-        super.onCreate(savedInstanceState); 
+        super.onCreate(savedInstanceState);
 
         setContentView(R.layout.files_folder_picker);
         
@@ -233,7 +236,9 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     protected void onResume() {
         super.onResume();
         Log_OC.e(TAG, "onResume() start");
-        
+
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+
         // refresh list of files
         refreshListOfFilesFragment(false);
 

@@ -86,6 +86,8 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
     private static final String ARG_FILE = "FILE";
     private static final String ARG_ACCOUNT = "ACCOUNT";
 
+    private static final String SCREEN_NAME = "Share file/folder";
+
 //    /** Tag for dialog */
 //    private static final String FTAG_CHOOSER_DIALOG = "CHOOSER_DIALOG";
 

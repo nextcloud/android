@@ -22,10 +22,7 @@
  */
 package com.owncloud.android.ui.activity;
 
-import java.util.Arrays;
-
 import android.content.Intent;
-
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -41,12 +38,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.util.Arrays;
 
 public class PassCodeActivity extends AppCompatActivity {
 
     private static final String TAG = PassCodeActivity.class.getSimpleName();
+
+    private static final String SCREEN_NAME = "Passcode lock";
 
     public final static String ACTION_REQUEST_WITH_RESULT = "ACTION_REQUEST_WITH_RESULT";
     public final static String ACTION_CHECK_WITH_RESULT = "ACTION_CHECK_WITH_RESULT";
@@ -139,6 +141,11 @@ public class PassCodeActivity extends AppCompatActivity {
         setTextListeners();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+    }
 
     /**
      * Enables or disables the cancel button to allow the user interrupt the ACTION

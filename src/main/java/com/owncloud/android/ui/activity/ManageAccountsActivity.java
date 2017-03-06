@@ -80,6 +80,8 @@ public class ManageAccountsActivity extends FileActivity
     String mOriginalCurrentAccount;
     private Drawable mTintedCheck;
 
+    private static final String SCREEN_NAME = "Logs";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -114,6 +116,12 @@ public class ManageAccountsActivity extends FileActivity
         });
 
         initializeComponentGetters();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
     }
 
     @Override

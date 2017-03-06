@@ -20,9 +20,6 @@
 
 package com.owncloud.android.ui.activity;
 
-import java.io.File;
-import java.util.ArrayList;
-
 import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
@@ -42,13 +39,16 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
-
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.utils.FileStorageUtils;
+
+import java.io.File;
+import java.util.ArrayList;
 
 
 
@@ -65,7 +65,9 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity
         implements OnClickListener {
 
     private static final String TAG = ErrorsWhileCopyingHandlerActivity.class.getSimpleName();
-    
+
+    private static final String SCREEN_NAME = "Error while copying";
+
     public static final String EXTRA_ACCOUNT =
             ErrorsWhileCopyingHandlerActivity.class.getCanonicalName() + ".EXTRA_ACCOUNT";
     public static final String EXTRA_LOCAL_PATHS =
@@ -89,8 +91,8 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        /// read extra parameters in intent
+
+                /// read extra parameters in intent
         Intent intent = getIntent();
         mAccount = intent.getParcelableExtra(EXTRA_ACCOUNT);
         mRemotePaths = intent.getStringArrayListExtra(EXTRA_REMOTE_PATHS);
@@ -131,12 +133,17 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity
         cancelBtn.setOnClickListener(this);
         okBtn.setOnClickListener(this);
     }
-    
-    
-    /**
-     * Customized adapter, showing the local files as main text in two-lines list item and the
-     * remote files as the secondary text.
-     */
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+    }
+
+        /**
+         * Customized adapter, showing the local files as main text in two-lines list item and the
+         * remote files as the secondary text.
+         */
     public class ErrorsWhileCopyingListAdapter extends ArrayAdapter<String> {
         
         ErrorsWhileCopyingListAdapter() {

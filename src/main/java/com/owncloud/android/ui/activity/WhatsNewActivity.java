@@ -57,6 +57,10 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
     private static final String KEY_LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
 
+    private static final String SCREEN_NAME = "What's new";
+
+    private static final String TAG = WhatsNewActivity.class.getSimpleName();
+
     private ImageButton mForwardFinishButton;
     private Button mSkipButton;
     private ProgressIndicator mProgress;
@@ -112,6 +116,12 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         tv.setText(isFirstRun() ? R.string.empty : R.string.whats_new_title);
 
         updateNextButtonIfNeeded();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
     }
 
     @Override

@@ -98,6 +98,8 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
 
+    private static final String SCREEN_NAME = "Remote/Server file browser";
+
     private FileFragment.ContainerActivity mContainerActivity;
 
     private OCFile mFile = null;
