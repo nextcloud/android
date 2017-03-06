@@ -10,7 +10,7 @@
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_settings">Paramètres</string>
     <string name="actionbar_see_details">Propriétés</string>
-    <string name="actionbar_send_file">Envoyer</string>
+    <string name="actionbar_send_file">Exporter</string>
     <string name="actionbar_sort">Trier</string>
     <string name="actionbar_sort_title">Trier par</string>
     <string name="menu_item_sort_by_name">A - Z</string>
@@ -19,7 +19,7 @@
     <string name="drawer_item_all_files">Tous les fichiers</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
     <string name="drawer_item_settings">Paramètres</string>
-    <string name="drawer_item_uploads_list">Téléversements</string>
+    <string name="drawer_item_uploads_list">Historique des envois</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
 	<string name="drawer_close">Fermer</string>
     <string name="drawer_open">Ouvrir</string>
@@ -61,7 +61,7 @@
     <string name="sync_string_files">Fichiers</string>
     <string name="setup_btn_connect">Connecter</string>
     <string name="uploader_btn_upload_text">Téléverser</string>
-    <string name="uploader_top_message">Choisir le dossier de téléversement</string>
+    <string name="uploader_top_message">Sélectionner le dossier de téléversement</string>
     <string name="uploader_wrn_no_account_title">Aucun compte n\'a été trouvé</string>
     <string name="uploader_wrn_no_account_text">Aucun compte %1$s sur l\'appareil. Veuillez configurer un compte au préalable.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configuration</string>
@@ -130,7 +130,7 @@
     <string name="uploader_upload_failed_ticker">Échec du téléversement</string>
     <string name="uploader_upload_failed_content_single">Le téléversement de %1$s a échoué</string>
     <string name="uploader_upload_failed_credentials_error">Le téléversement a échoué, vous devez vous reconnecter</string>
-    <string name="uploads_view_title">Téléversements</string>
+    <string name="uploads_view_title">Historique des envois</string>
     <string name="uploads_view_group_current_uploads">Actuellement</string>
     <string name="uploads_view_group_failed_uploads">Échoué (appuyer pour réessayer)</string>
     <string name="uploads_view_group_finished_uploads">Téléversé</string>
@@ -398,7 +398,7 @@
 	<string name="actionbar_move">Déplacer</string>
     <string name="actionbar_copy">Copier</string>
 	<string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier !</string>
-	<string name="folder_picker_choose_button_text">Sélectionner</string>
+	<string name="folder_picker_choose_button_text">Valider</string>
 
     <string name="move_file_not_found">Impossible de déplacer. Vérifiez que le fichier existe</string>
     <string name="move_file_invalid_into_descendent">Il n\'est pas possible de déplacer un dossier vers un de ses descendants</string>
@@ -511,12 +511,12 @@
     <string name="participate_testing_bug_text">Vous avez trouvé un bug ? Quelque chose vous semble étrange ?</string>
     <string name="participate_testing_report_text">Signaler un problème sur Github</string>
     <string name="participate_testing_version_text">Vous avez envie de nous aider en testant les futures versions ?</string>
-    <string name="participate_beta_headline">Testez la version bêta</string>
+    <string name="participate_beta_headline">Testez la version Bêta</string>
     <string name="participate_beta_text">La version Beta inclut les dernières fonctionnalités qui sont encore toutes fraîches.
 Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler.
 &lt;br/>&lt;a href=\"%2$s\">Télécharger l\'APK&lt;/a>
 ou</string>
-    <string name="participate_release_candidate_headline">Testez la version Release candidate</string>
+    <string name="participate_release_candidate_headline">Testez la version Release Candidate</string>
     <string name="participate_release_candidate_text">La version « release candidate » (RC) est un instantanné de la dernière version supposée stable. Le test de votre configuration pourrait nous aider à nous assurer que cette version est entièrement stable. Inscrivez vous pour être testeur sur le Play store ou allez jeter un œil dans la section \"versions\" de F-Droid.</string>
     <string name="participate_contribute_headline">Participez activement</string>
     <string name="participate_contribute_irc_text">Rejoignez la discussion sur IRC &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a>.</string>
@@ -525,7 +525,7 @@ ou</string>
     <string name="participate_contribute_github_text">Vous êtes développeur ? Consultez &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a>.</string>
     <string name="move_to">Déplacer vers&#8230;</string>
     <string name="copy_to">Copier vers&#8230;</string>
-    <string name="choose_remote_folder">Choisir le dossier&#8230;</string>
+    <string name="choose_remote_folder">Sélectionner le dossier&#8230;</string>
     <string name="folder_sync_loading_folders">Chargement des dossiers&#8230;</string>
     <string name="folder_sync_no_results">Aucun dossier média trouvé.</string>
     <string name="folder_sync_preferences">Préférences du téléversement automatique</string>
