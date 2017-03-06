@@ -293,11 +293,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 return true;
             }
             case R.id.action_favorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), true);
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), true);
                 return true;
             }
             case R.id.action_unfavorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), false);
                 return true;
             }
             default:
@@ -310,7 +310,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         switch (v.getId()) {
             case R.id.fdFavorite: {
                 CheckBox cb = (CheckBox) getView().findViewById(R.id.fdFavorite);
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(),cb.isChecked());
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(),cb.isChecked());
                 break;
             }
             case R.id.fdCancelBtn: {
@@ -369,7 +369,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             setTimeModified(file.getModificationTimestamp());
             
             CheckBox cb = (CheckBox)getView().findViewById(R.id.fdFavorite);
-            cb.setChecked(file.isFavorite());
+            cb.setChecked(file.isAvailableOffline());
 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();
