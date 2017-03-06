@@ -57,7 +57,7 @@ implements ConfirmationDialogFragmentListener {
         
         int messageStringId = R.string.confirmation_remove_file_alert;
         
-        int localRemoveButton = (!file.isFavorite() && (file.isFolder() || file.isDown())) ?
+        int localRemoveButton = (!file.isAvailableOffline() && (file.isFolder() || file.isDown())) ?
             R.string.confirmation_remove_local : -1;
 
         if (file.isFolder()) {
@@ -115,7 +115,7 @@ implements ConfirmationDialogFragmentListener {
         if (mTargetFile.isFolder()) {
             Vector<OCFile> files = storageManager.getFolderContent(mTargetFile, false);
             for(OCFile file: files) {
-                containsFavorite = file.isFavorite() || containsFavorite;
+                containsFavorite = file.isAvailableOffline() || containsFavorite;
 
                 if (containsFavorite) {
                     break;
@@ -125,7 +125,7 @@ implements ConfirmationDialogFragmentListener {
 
         // Remove etag for parent, if file is a favorite
         // or is a folder and contains favorite
-        if (mTargetFile.isFavorite() || containsFavorite) {
+        if (mTargetFile.isAvailableOffline() || containsFavorite) {
             OCFile folder = null;
             if (mTargetFile.isFolder()) {
                 folder = mTargetFile;

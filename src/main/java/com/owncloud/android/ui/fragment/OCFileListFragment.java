@@ -721,11 +721,11 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
                 return true;
             }
             case R.id.action_favorite_file: {
-                mContainerActivity.getFileOperationsHelper().toggleFavorites(checkedFiles, true);
+                mContainerActivity.getFileOperationsHelper().toogleOfflineFiles(checkedFiles, true);
                 return true;
             }
             case R.id.action_unfavorite_file: {
-                mContainerActivity.getFileOperationsHelper().toggleFavorites(checkedFiles, false);
+                mContainerActivity.getFileOperationsHelper().toogleOfflineFiles(checkedFiles, false);
                 return true;
             }
             case R.id.action_move: {
