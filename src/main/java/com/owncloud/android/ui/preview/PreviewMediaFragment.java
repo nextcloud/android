@@ -50,6 +50,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -96,6 +97,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
     private static final String TAG = PreviewMediaFragment.class.getSimpleName();
 
+    private static final String SCREEN_NAME = "Audio/Video Preview";
 
     /**
      * Creates a fragment to preview a file.
@@ -514,6 +516,9 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        if (getActivity() != null) {
+            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+        }
         Log_OC.v(TAG, "onResume");
     }
 

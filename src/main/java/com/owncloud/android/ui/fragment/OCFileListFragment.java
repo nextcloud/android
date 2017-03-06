@@ -166,7 +166,14 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
         return v;
     }
 
-    
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+        }
+    }
+
     @Override
     public void onDetach() {
         setOnRefreshListener(null);

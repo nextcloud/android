@@ -32,6 +32,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
@@ -45,7 +46,7 @@ import java.util.ArrayList;
  * A Fragment that lists all files and folders in a given LOCAL path.
  */
 public class LocalFileListFragment extends ExtendedListFragment {
-    private static final String TAG = "LocalFileListFragment";
+    private static final String TAG = LocalFileListFragment.class.getSimpleName();
     
     /** Reference to the Activity which this fragment is attached to. For callbacks */
     private LocalFileListFragment.ContainerActivity mContainerActivity;
@@ -62,6 +63,14 @@ public class LocalFileListFragment extends ExtendedListFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+        }
     }
 
     /**

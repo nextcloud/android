@@ -33,6 +33,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -58,6 +59,8 @@ public class PreviewTextFragment extends FileFragment {
     private static final String EXTRA_FILE = "FILE";
     private static final String EXTRA_ACCOUNT = "ACCOUNT";
     private static final String TAG = PreviewTextFragment.class.getSimpleName();
+
+    private static final String SCREEN_NAME = "Text Preview";
 
     private Account mAccount;
     private TextView mTextPreview;
@@ -394,6 +397,9 @@ public class PreviewTextFragment extends FileFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (getActivity() != null) {
+            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+        }
         Log_OC.e(TAG, "onResume");
     }
 

@@ -33,6 +33,7 @@ import android.support.v7.app.AlertDialog;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -59,6 +60,8 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     public static final String EXTRA_START_POSITION = "START_POSITION";
     
     private static final String TAG = PreviewVideoActivity.class.getSimpleName();
+
+    private static final String SCREEN_NAME = "Video Preview";
 
     private int mSavedPlaybackPosition;         // in the unit time handled by MediaPlayer.getCurrentPosition()
     private boolean mAutoplay;                  // when 'true', the playback starts immediately with the activity
@@ -101,9 +104,14 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
           
         // keep the screen on while the playback is performed (prevents screen off by battery save)
         mVideoPlayer.setKeepScreenOn(true);
-    }    
-    
-    
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+    }
+
     /**
      * {@inheritDoc}
      */

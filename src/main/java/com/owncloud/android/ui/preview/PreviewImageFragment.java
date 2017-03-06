@@ -39,6 +39,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -71,6 +72,8 @@ public class PreviewImageFragment extends FileFragment {
 
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
+
+    private static final String SCREEN_NAME = "Image Preview";
 
     private TouchImageViewCustom mImageView;
     private TextView mMessageView;
@@ -333,8 +336,10 @@ public class PreviewImageFragment extends FileFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (getActivity() != null) {
+            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+        }
     }
-
 
     @Override
     public void onPause() {
