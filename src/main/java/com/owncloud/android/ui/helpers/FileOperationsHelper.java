@@ -546,10 +546,10 @@ public class FileOperationsHelper {
         }
     }
 
-    public void toggleFavorites(Collection<OCFile> files, boolean isFavorite){
+    public void toogleOfflineFiles(Collection<OCFile> files, boolean isAvailableOffline){
         List<OCFile> alreadyRightStateList = new ArrayList<>();
         for(OCFile file : files) {
-            if(file.isFavorite() == isFavorite) {
+            if(file.isAvailableOffline() == isAvailableOffline) {
                 alreadyRightStateList.add(file);
             }
         }
@@ -557,13 +557,13 @@ public class FileOperationsHelper {
         files.removeAll(alreadyRightStateList);
 
         for (OCFile file: files) {
-            toggleFavorite(file, isFavorite);
+            toggleOfflineFile(file, isAvailableOffline);
         }
     }
 
-    public void toggleFavorite(OCFile file, boolean isFavorite) {
-        if (file.isFavorite() != isFavorite) {
-            file.setFavorite(isFavorite);
+    public void toggleOfflineFile(OCFile file, boolean isAvailableOffline) {
+        if (file.isAvailableOffline() != isAvailableOffline) {
+            file.setAvailableOffline(isAvailableOffline);
             mFileActivity.getStorageManager().saveFile(file);
 
             /// register the OCFile instance in the observer service to monitor local updates
@@ -571,11 +571,11 @@ public class FileOperationsHelper {
                     mFileActivity,
                     file,
                     mFileActivity.getAccount(),
-                    isFavorite);
+                    isAvailableOffline);
             mFileActivity.startService(observedFileIntent);
 
             /// immediate content synchronization
-            if (file.isFavorite()) {
+            if (file.isAvailableOffline()) {
                 syncFile(file);
             }
         }

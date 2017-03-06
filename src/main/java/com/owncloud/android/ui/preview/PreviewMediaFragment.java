@@ -380,11 +380,11 @@ public class PreviewMediaFragment extends FileFragment implements
                 return true;
             }
             case R.id.action_favorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), true);
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), true);
                 return true;
             }
             case R.id.action_unfavorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), false);
                 return true;
             }
             default:

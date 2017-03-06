@@ -454,11 +454,11 @@ public class FileStorageUtils {
     public static Vector<OCFile> sortOCFilesByFavourite(Vector<OCFile> files){
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFavorite() && o2.isFavorite()) {
+                if (o1.isAvailableOffline() && o2.isAvailableOffline()) {
                     return 0;
-                } else if (o1.isFavorite()) {
+                } else if (o1.isAvailableOffline()) {
                     return -1;
-                } else if (o2.isFavorite()) {
+                } else if (o2.isAvailableOffline()) {
                     return 1;
                 }
                 return 0;
