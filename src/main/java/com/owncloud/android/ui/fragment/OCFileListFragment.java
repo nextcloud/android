@@ -22,6 +22,7 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -795,8 +796,9 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
                     public void run() {
                         searchView.setQuery("", false);
                         searchView.onActionViewCollapsed();
-                        if (getActivity() != null) {
-                            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+                        Activity activity;
+                        if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
+                            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
                             if (getCurrentFile() != null) {
                                 fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
                             }
