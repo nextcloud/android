@@ -66,6 +66,7 @@ dependencies {
     compile "com.android.support:cardview-v7:${supportLibraryVersion}"
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.caverock:androidsvg:1.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
 
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'
