@@ -24,6 +24,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.evernote.android.job.JobManager;
 import com.owncloud.android.MainApp;
 
 /**
@@ -35,6 +36,9 @@ public class ShutdownReceiver extends BroadcastReceiver {
     public void onReceive(final Context context, final Intent intent) {
         if (MainApp.getSyncedFolderObserverService() != null) {
             MainApp.getSyncedFolderObserverService().onDestroy();
+
+            // as without GCM pending uploads are uploaded more than once try to cancel them
+            JobManager.instance().cancelAll();
         }
     }
 }
