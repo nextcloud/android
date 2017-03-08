@@ -508,16 +508,16 @@
     <string name="learn_more">Mehr</string>
     <string name="drawer_folder_sync">Auto-Upload</string>
     <string name="drawer_participate">Mitmachen</string>
-    <string name="participate_testing_headline">Helfen Sie uns beim Test</string>
-    <string name="participate_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
+    <string name="participate_testing_headline">Helfen Sie uns beim Testen</string>
+    <string name="participate_testing_bug_text">Fehler gefunden? Merkwürdiges Verhalten?</string>
     <string name="participate_testing_report_text">Fehler melden auf Github</string>
-    <string name="participate_testing_version_text">Interessiert uns beim Test der nächsten Version zu unterstützen?</string>
+    <string name="participate_testing_version_text">Möchten Sie uns beim Testen der nächsten Version unterstützen?</string>
     <string name="participate_beta_headline">Testen Sie die Beta Version</string>
-    <string name="participate_beta_text">Dies beinhaltet alle kommenden Funktionen und ist nicht vollumfänglich qualitätsgesichert. Es können Fehler auftreten und wenn das passiert melden Sie uns diese bitte.&lt;br/>&lt;a href=\"%2$s\">APK herunterladen&lt;/a> oder</string>
-    <string name="participate_release_candidate_headline">Vorabversion</string>
-    <string name="participate_release_candidate_text">Die Vorabversion auch Release Candidate (RC) genannt ist ein stabiler Stand der kommenden, finalen Version. Ein Test auf der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version von F-Droid unter \"Versionen\".</string>
+    <string name="participate_beta_text">Die Beta-Version beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler auftreten, die Sie uns dann bitte melden.&lt;br/>&lt;a href=\"%2$s\">APK herunterladen&lt;/a> oder</string>
+    <string name="participate_release_candidate_headline">Vorabversionen</string>
+    <string name="participate_release_candidate_text">Eine Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test in der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version bei F-Droid unter „Versionen“.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
-    <string name="participate_contribute_irc_text">An Unterhaltungen teilnehmen im IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
+    <string name="participate_contribute_irc_text">An Diskussionen im IRC teilnehmen: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Helfen Sie anderen im &lt;a href="%1$s">Forum&lt;/a></string>
     <string name="participate_contribute_translate_text">Die App &lt;a href=\"%1$s\">übersetzen&lt;/a></string>
     <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>

@@ -199,7 +199,7 @@
     <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
     <string name="media_err_timeout">Délai dépassé pour la lecture du morceau</string>
     <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
-    <string name="media_err_unknown">Le fichier média ne peut être joué avec le lecteur standard</string>
+    <string name="media_err_unknown">Le fichier média ne peut être lu avec le lecteur intégré</string>
     <string name="media_err_security_ex">Erreur de sécurité à la lecture de %1$s</string>
     <string name="media_err_io_ex">Erreur d\'entrée à la lecture de %1$s</string>
     <string name="media_err_unexpected">Erreur inattendue à la lecture de %1$s </string>
