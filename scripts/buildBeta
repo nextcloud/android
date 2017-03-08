@@ -32,7 +32,7 @@ mv latest.apk ~/apks/
 /bin/ls -t ~/apks/*.apk | awk 'NR>6' | xargs rm -f
 
 git add .
-git commit
+git commit -m "daily nightly build"
 git push
 
 git tag beta-$date
