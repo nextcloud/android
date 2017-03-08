@@ -86,7 +86,7 @@
     <string name="file_list_empty_headline_search">No results in this folder</string>
     <string name="file_list_empty_search">Try looking in another folder?</string>
     <string name="upload_list_empty_headline">No uploads available</string>
-    <string name="upload_list_empty_text">Upload some content or activate instant upload!\nPlease note that currently all pending uploads are removed on reboot!</string>
+    <string name="upload_list_empty_text">Upload some content or activate instant upload!\nPlease note that currently on nightly all pending uploads are removed on reboot!</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">folders</string>
     <string name="file_list_file">file</string>
