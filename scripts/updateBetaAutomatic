@@ -73,5 +73,5 @@ echo >> CHANGELOG.md
 cat $tmpFile >> CHANGELOG.md
 
 git add .
-git commit -m "daily beta build"
+git commit -m "update nightly"
 git push
