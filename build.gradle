@@ -125,8 +125,8 @@ android {
 
         multiDexEnabled true
         applicationId "com.nextcloud.android.beta"
-        versionCode 20170306
-        versionName "20170306"
+        versionCode 20170308
+        versionName "20170308"
 
         // disable the experimental Jack build tools.
         jackOptions {
