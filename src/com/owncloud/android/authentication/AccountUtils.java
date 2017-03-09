@@ -332,4 +332,28 @@ public class AccountUtils {
         }
         return (serverVersion != null ? serverVersion.isSearchUsersSupported() : false);
     }
+
+    /**
+     * Returns account for instant upload or null, if not defined.
+     * @return instant upload account or null
+     */
+    public static Account getInstantUploadAccount(Context context) {
+        return getAccount(com.owncloud.android.db.PreferenceManager.instantPictureUploadPathAccount(context));
+    }
+
+    /**
+     * Returns account for instant video upload or null, if not defined.
+     * @return instant video upload account or null
+     */
+    public static Account getInstantVideoUploadAccount(Context context) {
+        return getAccount(com.owncloud.android.db.PreferenceManager.instantVideoUploadPathAccount(context));
+    }
+
+    /**
+     * Returns account for given account name or null, if not defined.
+     * @return account named accountNam or null
+     */
+    private static Account getAccount(String accountName) {
+        return getOwnCloudAccountByName(MainApp.getAppContext(), accountName);
+    }
 }
