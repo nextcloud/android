@@ -1,5 +1,6 @@
 2017-03-09
 Branches: 12
+Beta branch was updated successfully
 [01 / 12] Participate apk image (nextcloud/participateApkImage) [https://github.com/nextcloud/android/pull/716] no update needed
 [02 / 12] Added fingerprint support (Flole998/master) [https://github.com/nextcloud/android/pull/624] no update needed
 [03 / 12] Show user information (nextcloud/feature-user-information) [https://github.com/nextcloud/android/pull/585] no update needed
@@ -11,4 +12,4 @@ Branches: 12
 [09 / 12] Streaming (nextcloud/streaming) [https://github.com/nextcloud/android/pull/183] CONFLICT
 [10 / 12] Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] CONFLICT
 [11 / 12] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] no update needed
-[12 / 12] Master (nextcloud/master) [https://github.com/nextcloud/android] no update needed
+[12 / 12] Master (nextcloud/master) [https://github.com/nextcloud/android] merged successfully
