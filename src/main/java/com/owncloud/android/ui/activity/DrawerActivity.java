@@ -35,7 +35,6 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,10 +56,13 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.utils.DisplayUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -292,9 +294,16 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
-            navigationView.getMenu().findItem(R.id.nav_all_files).setVisible(false);
-        } else if (!TextUtils.isEmpty(getResources().getString(R.string.custom_files_title))) {
-            navigationView.getMenu().findItem(R.id.nav_all_files).setTitle(R.string.custom_files_title);
+            navigationView.getMenu().removeItem(R.id.nav_all_files);
+            navigationView.getMenu().removeItem(R.id.nav_settings);
+            navigationView.getMenu().removeItem(R.id.nav_favorites);
+        } else if (getResources().getBoolean(R.bool.use_home)) {
+            navigationView.getMenu().findItem(R.id.nav_all_files).setTitle(getResources().
+                    getString(R.string.drawer_item_home));
+        }
+
+        if (!getResources().getBoolean(R.bool.participate_enabled)) {
+            navigationView.getMenu().removeItem(R.id.nav_participate);
         }
 
         if (AccountUtils.hasSearchSupport(AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()))) {
@@ -316,12 +325,31 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
     }
 
-    private void selectNavigationItem(final MenuItem menuItem) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(MenuItemClickEvent event) {
+        switch (event.menuItem.getItemId()) {
+            case R.id.nav_bar_files:
+                showFiles(false);
+                break;
+            case R.id.nav_bar_settings:
+                Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
+                startActivity(settingsIntent);
+            default:
+                break;
+        }
+    }
+
+        private void selectNavigationItem(final MenuItem menuItem) {
         switch (menuItem.getItemId()) {
             case R.id.nav_all_files:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
                 showFiles(false);
+                break;
+            case R.id.nav_favorites:
+                menuItem.setChecked(true);
+                mCheckedMenuItem = menuItem.getItemId();
+                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.FAVORITE_SEARCH));
                 break;
             case R.id.nav_on_device:
                 menuItem.setChecked(true);
@@ -356,8 +384,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
                 break;
             case R.id.nav_recently_added:
+                EventBus.getDefault().post(new SearchEvent("%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH));
                 break;
             case R.id.nav_recently_modified:
+                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH));
                 break;
             case R.id.nav_shared:
                 break;
@@ -886,5 +916,17 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
     public boolean isDrawerIndicatorAvailable() {
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
     }
 }
