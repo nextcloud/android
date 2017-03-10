@@ -228,6 +228,7 @@ public class FileStorageUtils {
         file.setEtag(remote.getEtag());
         file.setPermissions(remote.getPermissions());
         file.setRemoteId(remote.getRemoteId());
+        file.setFavorite(remote.getIsFavorite());
         return file;
     }
     
@@ -246,6 +247,7 @@ public class FileStorageUtils {
         file.setEtag(ocFile.getEtag());
         file.setPermissions(ocFile.getPermissions());
         file.setRemoteId(ocFile.getRemoteId());
+        file.setFavorite(ocFile.getIsFavorite());
         return file;
     }
     
@@ -454,11 +456,11 @@ public class FileStorageUtils {
     public static Vector<OCFile> sortOCFilesByFavourite(Vector<OCFile> files){
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
-                if (o1.isAvailableOffline() && o2.isAvailableOffline()) {
+                if (o1.getIsFavorite() && o2.getIsFavorite()) {
                     return 0;
-                } else if (o1.isAvailableOffline()) {
+                } else if (o1.getIsFavorite()) {
                     return -1;
-                } else if (o2.isAvailableOffline()) {
+                } else if (o2.getIsFavorite()) {
                     return 1;
                 }
                 return 0;
