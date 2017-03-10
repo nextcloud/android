@@ -279,7 +279,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
             
             if (result.getCode() == ResultCode.SYNC_CONFLICT) {
                 mConflictsFound += synchFolderOp.getConflictsFound();
-                mFailsInFavouritesFound += synchFolderOp.getFailsInFavouritesFound();
+                mFailsInFavouritesFound += synchFolderOp.getFailsInKeptInSyncFound();
             }
             if (synchFolderOp.getForgottenLocalFiles().size() > 0) {
                 mForgottenLocalFiles.putAll(synchFolderOp.getForgottenLocalFiles());

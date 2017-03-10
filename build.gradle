@@ -173,7 +173,7 @@ dependencies {
     compile name: 'touch-image-view'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.github.nextcloud:android-library:favorites-branch-SNAPSHOT'
+    compile 'com.github.nextcloud:android-library:search-SNAPSHOT'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
@@ -183,6 +183,7 @@ dependencies {
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
     compile 'com.google.android.gms:play-services:10.2.0'
     compile 'com.github.evernote:android-job:v1.1.7'
+    compile 'org.greenrobot:eventbus:3.0.0'
 
     customCompile 'com.google.firebase:firebase-core:10.2.0'
 
