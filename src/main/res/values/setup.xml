@@ -103,6 +103,9 @@
     <!-- analytics enabled -->
     <bool name="analytics_enabled">false</bool>
 
+    <!-- custom Files title -->
+    <string name="custom_files_title" translatable="true"></string>
+
 </resources>
 
 
