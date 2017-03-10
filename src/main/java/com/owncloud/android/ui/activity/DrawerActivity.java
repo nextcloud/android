@@ -35,6 +35,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,9 +54,13 @@ import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.utils.DisplayUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -285,6 +290,30 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         } else {
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+            navigationView.getMenu().findItem(R.id.nav_all_files).setVisible(false);
+        } else if (!TextUtils.isEmpty(getResources().getString(R.string.custom_files_title))) {
+            navigationView.getMenu().findItem(R.id.nav_all_files).setTitle(R.string.custom_files_title);
+        }
+
+        if (AccountUtils.hasSearchSupport(AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()))) {
+            if (getResources().getBoolean(R.bool.recently_added_enabled)) {
+                navigationView.getMenu().findItem(R.id.nav_recently_added).setVisible(true);
+            }
+
+            if (getResources().getBoolean(R.bool.recently_modified_enabled)) {
+                navigationView.getMenu().findItem(R.id.nav_recently_modified).setVisible(true);
+            }
+
+            if (getResources().getBoolean(R.bool.shared_enabled)) {
+                navigationView.getMenu().findItem(R.id.nav_shared).setVisible(true);
+            }
+
+            if (getResources().getBoolean(R.bool.videos_enabled)) {
+                navigationView.getMenu().findItem(R.id.nav_videos).setVisible(true);
+            }
+        }
     }
 
     private void selectNavigationItem(final MenuItem menuItem) {
@@ -326,6 +355,15 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         ManageAccountsActivity.class);
                 startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
                 break;
+            case R.id.nav_recently_added:
+                break;
+            case R.id.nav_recently_modified:
+                break;
+            case R.id.nav_shared:
+                break;
+            case R.id.nav_videos:
+                EventBus.getDefault().post(new SearchEvent("video/%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH));
+                break;
             case Menu.NONE:
                 // account clicked
                 accountClicked(menuItem.getTitle().toString());
@@ -340,6 +378,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * @param onDeviceOnly flag to decide if all files or only the ones on the device should be shown
      */
     public abstract void showFiles(boolean onDeviceOnly);
+
 
     /**
      * sets the new/current account and restarts. In case the given account equals the actual/current account the

@@ -20,13 +20,14 @@
     <!--
       standard menu
       all items in this group MUST have orderInCategory="0" set
+
     -->
     <group android:id="@+id/drawer_menu_standard" android:checkableBehavior="single">
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_all_files"
             android:icon="@drawable/ic_folder_open"
-            android:title="@string/drawer_item_all_files"/>
+            android:title="@string/drawer_item_files"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_on_device"
@@ -34,9 +35,24 @@
             android:title="@string/drawer_item_on_device"/>
         <item
             android:orderInCategory="0"
-            android:id="@+id/nav_uploads"
-            android:icon="@drawable/ic_uploads"
-            android:title="@string/drawer_item_uploads_list"/>
+            android:id="@+id/nav_recently_added"
+            android:title="@string/drawer_item_recently_added"
+            android:visible="false"/>
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_recently_modified"
+            android:title="@string/drawer_item_recently_modified"
+            android:visible="false"/>
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_shared"
+            android:title="@string/drawer_item_shared"
+            android:visible="false"/>
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_videos"
+            android:title="@string/drawer_item_videos"
+            android:visible="false"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_folder_sync"
@@ -66,6 +82,11 @@
       all items in this group MUST have orderInCategory="3" set
     -->
     <group android:id="@+id/drawer_menu_bottom" android:checkableBehavior="single">
+        <item
+            android:orderInCategory="2"
+            android:id="@+id/nav_uploads"
+            android:icon="@drawable/ic_uploads"
+            android:title="@string/drawer_item_uploads_list"/>
         <item
             android:orderInCategory="3"
             android:id="@+id/nav_settings"
