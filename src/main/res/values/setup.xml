@@ -86,6 +86,8 @@
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>
 
+    <!-- Determine is participate enabled -->
+    <bool name="participate_enabled">true</bool>
     <!-- Participate links -->
     <string name="fdroid_beta_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.android.beta</string>
     <string name="beta_apk_link" translatable="false">https://github.com/nextcloud/android/raw/beta/apks/latest.apk</string>
@@ -103,8 +105,8 @@
     <!-- analytics enabled -->
     <bool name="analytics_enabled">false</bool>
 
-    <!-- custom Files title -->
-    <string name="custom_files_title" translatable="true"></string>
+    <!-- Files becomes Home -->
+    <bool name="use_home">false</bool>
 
 </resources>
 

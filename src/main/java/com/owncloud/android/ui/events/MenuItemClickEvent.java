@@ -19,29 +19,16 @@
  */
 package com.owncloud.android.ui.events;
 
-import com.owncloud.android.lib.resources.files.SearchOperation;
+import android.view.MenuItem;
 
 /**
- * Search event
+ * Menu item click event
  */
 
-public class SearchEvent {
-    public final String searchQuery;
+public class MenuItemClickEvent {
+    public final MenuItem menuItem;
 
-    public final SearchOperation.SearchType searchType;
-
-
-    public SearchEvent(String searchQuery, SearchOperation.SearchType searchType) {
-
-        this.searchQuery = searchQuery;
-        this.searchType = searchType;
-    }
-
-    public String getSearchQuery() {
-        return searchQuery;
-    }
-
-    public SearchOperation.SearchType getSearchType() {
-        return searchType;
+    public MenuItemClickEvent(MenuItem menuItem) {
+        this.menuItem = menuItem;
     }
 }

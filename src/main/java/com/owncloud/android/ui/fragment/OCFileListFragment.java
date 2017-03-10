@@ -32,6 +32,8 @@ import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.SparseBooleanArray;
@@ -71,6 +73,7 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -130,6 +133,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     private ActionMode mActiveActionMode;
     private OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
 
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -171,6 +176,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
+        bottomNavigationView = (BottomNavigationView) v.findViewById(R.id.bottom_navigation_view);
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            prepareBottomNavigationView();
+        }
+
         Bundle args = getArguments();
         boolean allowContextualActions = (args != null) && args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false);
         if (allowContextualActions) {
@@ -178,6 +190,40 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
         Log_OC.i(TAG, "onCreateView() end");
         return v;
+    }
+
+    private void prepareBottomNavigationView() {
+        if (getResources().getBoolean(R.bool.use_home)) {
+            bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setTitle(getResources().
+                    getString(R.string.drawer_item_home));
+        }
+
+        bottomNavigationView.getMenu().findItem(R.id.nav_bar_settings).setCheckable(false);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.nav_bar_files:
+                        EventBus.getDefault().post(new MenuItemClickEvent(item));
+                        break;
+                    case R.id.nav_bar_favorites:
+                        EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.FAVORITE_SEARCH));
+                        break;
+                    case R.id.nav_bar_photos:
+                        EventBus.getDefault().post(new SearchEvent("image/%",
+                                SearchOperation.SearchType.CONTENT_TYPE_SEARCH));
+                        break;
+                    case R.id.nav_bar_settings:
+                        EventBus.getDefault().post(new MenuItemClickEvent(item));
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
     }
 
     @Override
