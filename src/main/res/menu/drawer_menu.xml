@@ -30,6 +30,11 @@
             android:title="@string/drawer_item_files"/>
         <item
             android:orderInCategory="0"
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/ic_favorite"
+            android:title="@string/drawer_item_favorites"/>
+        <item
+            android:orderInCategory="0"
             android:id="@+id/nav_on_device"
             android:icon="@drawable/ic_action_available_offline"
             android:title="@string/drawer_item_on_device"/>
@@ -52,6 +57,7 @@
             android:orderInCategory="0"
             android:id="@+id/nav_videos"
             android:title="@string/drawer_item_videos"
+            android:icon="@drawable/file_movie"
             android:visible="false"/>
         <item
             android:orderInCategory="0"
