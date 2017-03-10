@@ -91,7 +91,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private int mConflictsFound;
 
     /** Counter of failed operations in synchronization of kept-in-sync files */
-    private int mFailsInFavouritesFound;
+    private int mFailsInKeptInSyncFound;
 
     /**
      * Map of remote and local paths to files that where locally stored in a location 
@@ -156,8 +156,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         return mConflictsFound;
     }
     
-    public int getFailsInFavouritesFound() {
-        return mFailsInFavouritesFound;
+    public int getFailsInKeptInSyncFound() {
+        return mFailsInKeptInSyncFound;
     }
     
     public Map<String, String> getForgottenLocalFiles() {
@@ -182,7 +182,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
-        mFailsInFavouritesFound = 0;
+        mFailsInKeptInSyncFound = 0;
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
         
@@ -316,7 +316,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         
         if (result.isSuccess()) {
             synchronizeData(result.getData());
-            if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
+            if (mConflictsFound > 0  || mFailsInKeptInSyncFound > 0) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   
                     // should be a different result code, but will do the job
             }
@@ -463,7 +463,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
                     mConflictsFound++;
                 } else {
-                    mFailsInFavouritesFound++;
+                    mFailsInKeptInSyncFound++;
                     if (contentsResult.getException() != null) {
                         Log_OC.e(TAG, "Error while synchronizing favourites : " 
                                 +  contentsResult.getLogMessage(), contentsResult.getException());

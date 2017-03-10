@@ -22,6 +22,9 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -51,7 +54,12 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -63,15 +71,21 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
-import com.owncloud.android.ui.interfaces.ExtendedListFragmentInterface;
+import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,7 +94,7 @@ import java.util.List;
  *
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
-public class OCFileListFragment extends ExtendedListFragment implements ExtendedListFragmentInterface {
+public class OCFileListFragment extends ExtendedListFragment implements OCFileListFragmentInterface {
 
     private static final String TAG = OCFileListFragment.class.getSimpleName();
 
@@ -1007,5 +1021,46 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
         editor.apply();
     }
 
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(SearchEvent event) {
+        Account currentAccount = com.owncloud.android.authentication.AccountUtils.
+                getCurrentOwnCloudAccount(MainApp.getAppContext());
 
+        try {
+            OwnCloudAccount ocAccount = new OwnCloudAccount(
+                    currentAccount,
+                    MainApp.getAppContext()
+            );
+
+            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                    getClientFor(ocAccount, MainApp.getAppContext());
+            SearchOperation operation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
+            RemoteOperationResult remoteOperationResult = operation.execute(mClient);
+            if (remoteOperationResult.isSuccess() || remoteOperationResult.getData() != null) {
+                mAdapter.setData(remoteOperationResult.getData());
+            }
+        } catch (AuthenticatorException e) {
+            e.printStackTrace();
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (OperationCanceledException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        EventBus.getDefault().unregister(this);
+        super.onStop();
+    }
 }

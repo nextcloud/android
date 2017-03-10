@@ -27,6 +27,8 @@ import android.accounts.Account;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -48,9 +50,10 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.interfaces.ExtendedListFragmentInterface;
+import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -74,7 +77,7 @@ public class FileListListAdapter extends BaseAdapter {
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
     private ComponentsGetter mTransferServiceGetter;
-    private ExtendedListFragmentInterface extendedListFragmentInterface;
+    private OCFileListFragmentInterface OCFileListFragmentInterface;
 
     private FilesFilter mFilesFilter;
     private OCFile currentDirectory;
@@ -83,10 +86,10 @@ public class FileListListAdapter extends BaseAdapter {
             boolean justFolders,
             Context context,
             ComponentsGetter transferServiceGetter,
-            ExtendedListFragmentInterface extendedListFragmentInterface
+            OCFileListFragmentInterface OCFileListFragmentInterface
     ) {
 
-        this.extendedListFragmentInterface = extendedListFragmentInterface;
+        this.OCFileListFragmentInterface = OCFileListFragmentInterface;
         mJustFolders = justFolders;
         mContext = context;
         mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
@@ -419,6 +422,31 @@ public class FileListListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    public void setData(ArrayList<Object> objects) {
+        mFiles = new Vector<>();
+        for (int i = 0; i < objects.size(); i++) {
+            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
+            mFiles.add(ocFile);
+        }
+
+        if (!mShowHiddenFiles) {
+            mFiles = filterHiddenFiles(mFiles);
+        }
+
+        mFiles = FileStorageUtils.sortOcFolder(mFiles);
+
+        mFilesAll = new Vector<>();
+        mFilesAll.addAll(mFiles);
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                notifyDataSetChanged();
+                OCFileListFragmentInterface.finishedFiltering();
+            }
+        });
+    }
+
     /**
      * Filter for getting only the folders
      *
@@ -477,6 +505,8 @@ public class FileListListAdapter extends BaseAdapter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
+
+
             FilterResults results = new FilterResults();
             Vector<OCFile> filteredFiles = new Vector<>();
 
@@ -510,7 +540,7 @@ public class FileListListAdapter extends BaseAdapter {
             }
 
             notifyDataSetChanged();
-            extendedListFragmentInterface.finishedFiltering();
+            OCFileListFragmentInterface.finishedFiltering();
 
         }
     }

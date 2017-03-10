@@ -182,6 +182,7 @@ public class AccountUtils {
             if (AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).equals(authTokenType)) {
                 return SAML_SSO_PATH;
             }
+
             return WEBDAV_PATH_4_0_AND_LATER;
         }
         return null;
@@ -321,7 +322,7 @@ public class AccountUtils {
         return serverVersion;
     }
 
-    public static boolean hasSearchUsersSupport(Account account){
+    private static OwnCloudVersion getOwnCloudVersion(Account account) {
         OwnCloudVersion serverVersion = null;
         if (account != null) {
             AccountManager accountMgr = AccountManager.get(MainApp.getAppContext());
@@ -330,6 +331,16 @@ public class AccountUtils {
                 serverVersion = new OwnCloudVersion(serverVersionStr);
             }
         }
-        return (serverVersion != null ? serverVersion.isSearchUsersSupported() : false);
+        return serverVersion;
+
+    }
+    public static boolean hasSearchUsersSupport(Account account){
+        OwnCloudVersion serverVersion = getOwnCloudVersion(account);
+        return (serverVersion != null && serverVersion.isSearchUsersSupported());
+    }
+
+    public static boolean hasSearchSupport(Account account) {
+        OwnCloudVersion serverVersion = getOwnCloudVersion(account);
+        return (serverVersion != null && serverVersion.isSearchSupported());
     }
 }
