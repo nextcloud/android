@@ -198,8 +198,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     getString(R.string.drawer_item_home));
         }
 
-        bottomNavigationView.getMenu().findItem(R.id.nav_bar_settings).setCheckable(false);
-
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
