@@ -41,6 +41,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -940,7 +941,6 @@ public class FileDisplayActivity extends HookActivity
         return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
     }
 
-
     @Override
     public void onBackPressed() {
         boolean isFabOpen = isFabOpen();
@@ -954,6 +954,15 @@ public class FileDisplayActivity extends HookActivity
          *    3. close FAB if open (only if drawer isn't open)
          *    4. navigate up (only if drawer and FAB aren't open)
          */
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+            BottomNavigationView bottomNavigationView = (BottomNavigationView) getListOfFilesFragment().getView()
+                    .findViewById(R.id.bottom_navigation_view);
+            if (bottomNavigationView.getMenu().findItem(R.id.nav_bar_settings).isChecked()) {
+                bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setChecked(true);
+            }
+        }
+
         if (isSearchOpen && searchView != null) {
             searchView.setQuery("", true);
             searchView.onActionViewCollapsed();
