@@ -133,7 +133,7 @@
     <string name="uploads_view_title">Historique des envois</string>
     <string name="uploads_view_group_current_uploads">Actuellement</string>
     <string name="uploads_view_group_failed_uploads">Échoué (appuyer pour réessayer)</string>
-    <string name="uploads_view_group_finished_uploads">Téléversé</string>
+    <string name="uploads_view_group_finished_uploads">Envoyé</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_cancelled">Annulé</string>
     <string name="uploads_view_upload_status_paused">En pause</string>
