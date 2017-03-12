@@ -329,6 +329,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(MenuItemClickEvent event) {
+        unsetAllDrawerMenuItems();
+
         switch (event.menuItem.getItemId()) {
             case R.id.nav_bar_files:
                 showFiles(false);
