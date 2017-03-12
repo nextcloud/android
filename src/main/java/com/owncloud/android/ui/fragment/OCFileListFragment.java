@@ -88,6 +88,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.parceler.Parcels;
 
 import java.io.File;
 import java.io.IOException;
@@ -113,6 +114,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
     private static final String KEY_FAB_EVER_CLICKED = "FAB_EVER_CLICKED";
 
+    private static final String KEY_CURRENT_SEARCH_TYPE = "CURRENT_SEARCH_TYPE";
+
     private static final String GRID_IS_PREFERED_PREFERENCE = "gridIsPrefered";
 
     private static final String DIALOG_CREATE_FOLDER = "DIALOG_CREATE_FOLDER";
@@ -136,6 +139,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     private OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
 
     private BottomNavigationView bottomNavigationView;
+
+    private SearchType currentSearchType;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -179,6 +184,12 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
         bottomNavigationView = (BottomNavigationView) v.findViewById(R.id.bottom_navigation_view);
+
+        if (savedInstanceState != null) {
+            currentSearchType = Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE));
+        } else {
+            currentSearchType = SearchType.NO_SEARCH;
+        }
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
@@ -622,6 +633,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_FILE, mFile);
+        outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, Parcels.wrap(currentSearchType));
         mMultiChoiceModeListener.storeStateIn(outState);
     }
 
@@ -1094,6 +1106,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             unsetAllMenuItems(true);
         }
 
+
         Account currentAccount = com.owncloud.android.authentication.AccountUtils.
                 getCurrentOwnCloudAccount(MainApp.getAppContext());
 
@@ -1111,18 +1124,24 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
                 if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
                     setEmptyListMessage(SearchType.FILE_SEARCH);
+                    currentSearchType = SearchType.FILE_SEARCH;
                 } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
                     if (event.getSearchQuery().equals("image/%")) {
                         setEmptyListMessage(SearchType.PHOTO_SEARCH);
+                        currentSearchType = SearchType.PHOTO_SEARCH;
                     } else if (event.getSearchQuery().equals("video/%")) {
                         setEmptyListMessage(SearchType.VIDEO_SEARCH);
+                        currentSearchType = SearchType.VIDEO_SEARCH;
                     }
                 } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
                     setEmptyListMessage(SearchType.FAVORITE_SEARCH);
+                    currentSearchType = SearchType.FAVORITE_SEARCH;
                 } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
                     setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
+                    currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
                 } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
                     setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
+                    currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
                 }
 
                 mAdapter.setData(remoteOperationResult.getData());
