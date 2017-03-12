@@ -27,17 +27,16 @@
             android:orderInCategory="0"
             android:id="@+id/nav_all_files"
             android:icon="@drawable/ic_folder_open"
-            android:title="@string/drawer_item_files"/>
+            android:title="@string/drawer_item_all_files"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_favorite"
             android:title="@string/drawer_item_favorites"/>
         <item
-            android:orderInCategory="0"
-            android:id="@+id/nav_on_device"
-            android:icon="@drawable/ic_action_available_offline"
-            android:title="@string/drawer_item_on_device"/>
+            android:id="@+id/nav_photos"
+            android:icon="@drawable/file_image"
+            android:title="@string/drawer_item_photos"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_recently_added"
@@ -59,6 +58,11 @@
             android:title="@string/drawer_item_videos"
             android:icon="@drawable/file_movie"
             android:visible="false"/>
+        <item
+            android:orderInCategory="0"
+            android:id="@+id/nav_on_device"
+            android:icon="@drawable/ic_action_available_offline"
+            android:title="@string/drawer_item_on_device"/>
         <item
             android:orderInCategory="0"
             android:id="@+id/nav_folder_sync"
