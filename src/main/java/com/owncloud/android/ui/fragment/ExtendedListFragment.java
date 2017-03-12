@@ -62,6 +62,8 @@ import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
@@ -127,8 +129,7 @@ public class ExtendedListFragment extends Fragment
     protected SearchView searchView;
     private Handler handler = new Handler();
 
-    protected Menu mMenu;
-
+    @Parcel
     public enum SearchType {
         NO_SEARCH,
         REGULAR_FILTER,
@@ -144,7 +145,6 @@ public class ExtendedListFragment extends Fragment
         RECENTLY_ADDED_SEARCH,
         RECENTLY_ADDED_SEARCH_FILTER
     }
-
 
     protected void setListAdapter(BaseAdapter listAdapter) {
         mAdapter = listAdapter;
@@ -198,7 +198,6 @@ public class ExtendedListFragment extends Fragment
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        mMenu = menu;
         final MenuItem item = menu.findItem(R.id.action_search);
         searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(this);
