@@ -1,23 +1,23 @@
 /**
- *   Nextcloud Android client application
+ * Nextcloud Android client application
  *
- *   @author Andy Scherzinger
- *   Copyright (C) 2016 Andy Scherzinger
- *   Copyright (C) 2016 Nextcloud
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Andy Scherzinger
+ * Copyright (C) 2016 Andy Scherzinger
+ * Copyright (C) 2016 Nextcloud
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * <p>
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -56,6 +56,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.utils.DisplayUtils;
@@ -294,6 +295,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+            navigationView.getMenu().removeItem(R.id.nav_photos);
             navigationView.getMenu().removeItem(R.id.nav_all_files);
             navigationView.getMenu().removeItem(R.id.nav_settings);
             navigationView.getMenu().removeItem(R.id.nav_favorites);
@@ -339,7 +341,14 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
     }
 
-        private void selectNavigationItem(final MenuItem menuItem) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(DummyDrawerEvent event) {
+        unsetAllDrawerMenuItems();
+    }
+
+
+    private void selectNavigationItem(final MenuItem menuItem) {
+
         switch (menuItem.getItemId()) {
             case R.id.nav_all_files:
                 menuItem.setChecked(true);
@@ -349,7 +358,12 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case R.id.nav_favorites:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
-                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.FAVORITE_SEARCH));
+                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.FAVORITE_SEARCH,
+                        SearchEvent.UnsetType.NO_UNSET));
+                break;
+            case R.id.nav_photos:
+                EventBus.getDefault().post(new SearchEvent("image/%",
+                        SearchOperation.SearchType.CONTENT_TYPE_SEARCH, SearchEvent.UnsetType.NO_UNSET));
                 break;
             case R.id.nav_on_device:
                 menuItem.setChecked(true);
@@ -363,7 +377,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 startActivity(uploadListIntent);
                 break;
             case R.id.nav_folder_sync:
-                Intent folderSyncIntent = new Intent(getApplicationContext(),FolderSyncActivity.class);
+                Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
                 startActivity(folderSyncIntent);
                 break;
             case R.id.nav_settings:
@@ -384,15 +398,26 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 startActivityForResult(manageAccountsIntent, ACTION_MANAGE_ACCOUNTS);
                 break;
             case R.id.nav_recently_added:
-                EventBus.getDefault().post(new SearchEvent("%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH));
+                menuItem.setChecked(true);
+                mCheckedMenuItem = menuItem.getItemId();
+                EventBus.getDefault().post(new SearchEvent("%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
+                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR));
                 break;
             case R.id.nav_recently_modified:
-                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH));
+                menuItem.setChecked(true);
+                mCheckedMenuItem = menuItem.getItemId();
+                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
+                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR));
                 break;
             case R.id.nav_shared:
+                menuItem.setChecked(true);
+                mCheckedMenuItem = menuItem.getItemId();
                 break;
             case R.id.nav_videos:
-                EventBus.getDefault().post(new SearchEvent("video/%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH));
+                menuItem.setChecked(true);
+                mCheckedMenuItem = menuItem.getItemId();
+                EventBus.getDefault().post(new SearchEvent("video/%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
+                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR));
                 break;
             case Menu.NONE:
                 // account clicked
@@ -654,9 +679,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     /**
      * configured the quota to be displayed.
      *
-     * @param usedSpace the used space
+     * @param usedSpace  the used space
      * @param totalSpace the total space
-     * @param relative the percentage of space already used
+     * @param relative   the percentage of space already used
      */
     private void setQuotaInformation(long usedSpace, long totalSpace, int relative) {
         mQuotaProgressBar.setProgress(relative);
@@ -668,6 +693,17 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 DisplayUtils.bytesToHumanReadable(totalSpace)));
 
         showQuota(true);
+    }
+
+    protected void unsetAllDrawerMenuItems() {
+        if (mNavigationView != null && mNavigationView.getMenu() != null) {
+            Menu menu = mNavigationView.getMenu();
+            for (int i = 0; i < menu.size(); i++) {
+                menu.getItem(i).setChecked(false);
+            }
+        }
+
+        mCheckedMenuItem = Menu.NONE;
     }
 
     /**
@@ -881,10 +917,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
         if (callContext instanceof MenuItem) {
-            MenuItem mi = (MenuItem)callContext;
+            MenuItem mi = (MenuItem) callContext;
             mi.setIcon(avatarDrawable);
         } else if (callContext instanceof ImageView) {
-            ImageView iv = (ImageView)callContext;
+            ImageView iv = (ImageView) callContext;
             iv.setImageDrawable(avatarDrawable);
         }
     }
@@ -892,10 +928,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     @Override
     public boolean shouldCallGeneratedCallback(String tag, Object callContext) {
         if (callContext instanceof MenuItem) {
-            MenuItem mi = (MenuItem)callContext;
+            MenuItem mi = (MenuItem) callContext;
             return String.valueOf(mi.getTitle()).equals(tag);
         } else if (callContext instanceof ImageView) {
-            ImageView iv = (ImageView)callContext;
+            ImageView iv = (ImageView) callContext;
             return String.valueOf(iv.getTag()).equals(tag);
         }
         return false;
@@ -904,7 +940,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     /**
      * Adds other listeners to react on changes of the drawer layout.
      *
-     * @param listener      Object interested in changes of the drawer layout.
+     * @param listener Object interested in changes of the drawer layout.
      */
     public void addDrawerListener(DrawerLayout.DrawerListener listener) {
         if (mDrawerLayout != null) {

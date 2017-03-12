@@ -81,6 +81,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -317,27 +318,6 @@ public class FileDisplayActivity extends HookActivity
                 return;
             }
         }
-    }
-
-    @Override
-    protected void onStart() {
-        Log_OC.v(TAG, "onStart() start");
-        super.onStart();
-        Log_OC.v(TAG, "onStart() end");
-    }
-
-    @Override
-    protected void onStop() {
-        Log_OC.v(TAG, "onStop() start");
-        super.onStop();
-        Log_OC.v(TAG, "onStop() end");
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log_OC.v(TAG, "onDestroy() start");
-        super.onDestroy();
-        Log_OC.v(TAG, "onDestroy() end");
     }
 
     /**
@@ -941,6 +921,16 @@ public class FileDisplayActivity extends HookActivity
         return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
     }
 
+    private void revertBottomNavigationBarToAllFiles() {
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+            BottomNavigationView bottomNavigationView = (BottomNavigationView) getListOfFilesFragment().getView()
+                    .findViewById(R.id.bottom_navigation_view);
+            if (bottomNavigationView.getMenu().findItem(R.id.nav_bar_settings).isChecked()) {
+                bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setChecked(true);
+            }
+        }
+    }
+
     @Override
     public void onBackPressed() {
         boolean isFabOpen = isFabOpen();
@@ -954,14 +944,6 @@ public class FileDisplayActivity extends HookActivity
          *    3. close FAB if open (only if drawer isn't open)
          *    4. navigate up (only if drawer and FAB aren't open)
          */
-
-        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
-            BottomNavigationView bottomNavigationView = (BottomNavigationView) getListOfFilesFragment().getView()
-                    .findViewById(R.id.bottom_navigation_view);
-            if (bottomNavigationView.getMenu().findItem(R.id.nav_bar_settings).isChecked()) {
-                bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setChecked(true);
-            }
-        }
 
         if (isSearchOpen && searchView != null) {
             searchView.setQuery("", true);
@@ -1018,6 +1000,7 @@ public class FileDisplayActivity extends HookActivity
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
 
+        revertBottomNavigationBarToAllFiles();
         // refresh list of files
 
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
@@ -1206,7 +1189,7 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
             if (!mSyncInProgress) {
-                    ocFileListFragment.setEmptyListMessage(false);
+                    ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
             } else {
                 ocFileListFragment.setEmptyListLoadingMessage();
             }

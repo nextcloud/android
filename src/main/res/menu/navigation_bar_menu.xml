@@ -3,7 +3,7 @@
     <item
         android:id="@+id/nav_bar_files"
         android:icon="@drawable/ic_folder_open"
-        android:title="@string/drawer_item_files"/>
+        android:title="@string/drawer_item_all_files"/>
     <item
         android:id="@+id/nav_bar_favorites"
         android:icon="@drawable/ic_favorite"
