@@ -19,42 +19,9 @@
  */
 package com.owncloud.android.ui.events;
 
-import com.owncloud.android.lib.resources.files.SearchOperation;
-
 /**
- * Search event
+ * Dummy drawer event
  */
 
-public class SearchEvent {
-    public final String searchQuery;
-
-    public final SearchOperation.SearchType searchType;
-
-    public final UnsetType unsetType;
-
-    public enum UnsetType {
-        NO_UNSET,
-        UNSET_DRAWER,
-        UNSET_BOTTOM_NAV_BAR;
-    }
-
-    public SearchEvent(String searchQuery, SearchOperation.SearchType searchType, UnsetType unsetType) {
-
-        this.searchQuery = searchQuery;
-        this.searchType = searchType;
-        this.unsetType = unsetType;
-
-    }
-
-    public UnsetType getUnsetType() {
-        return unsetType;
-    }
-
-    public String getSearchQuery() {
-        return searchQuery;
-    }
-
-    public SearchOperation.SearchType getSearchType() {
-        return searchType;
-    }
+public class DummyDrawerEvent {
 }
