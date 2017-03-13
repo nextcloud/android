@@ -415,7 +415,7 @@
     <string name="prefs_category_instant_uploading">Direct uploaden</string>
     <string name="prefs_category_details">Details</string>
 
-	<string name="prefs_instant_video_upload_path_title">Directe-uploadmap voor video's</string>
+	<string name="prefs_instant_video_upload_path_title">Directe-uploadmap voor video\'s</string>
     <string name="sync_folder_failed_content">Synchronisatie van map %1$s kon niet worden voltooid</string>
 
 	<string name="shared_subject_header">gedeeld</string>
