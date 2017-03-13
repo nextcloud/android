@@ -510,7 +510,7 @@
     <string name="drawer_folder_sync">Автоматическая загрузка</string>
     <string name="drawer_participate">Участие</string>
     <string name="participate_testing_headline">Помогите нам в тестировании</string>
-    <string name="participate_testing_bug_text">Нашли ошибку? Что-то необычное?</string>
+    <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
     <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>
     <string name="participate_testing_version_text">Вам интересно участие в тестировании следующих версий?</string>
     <string name="participate_beta_headline">Тестирование бета-версии</string>
@@ -523,7 +523,7 @@
     <string name="participate_contribute_headline">Активное участие</string>
     <string name="participate_contribute_irc_text">Присоединиться к IRC-чату: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Помогите другим на нашем &lt;a href="%1$s">форуме&lt;/a></string>
-    <string name="participate_contribute_translate_text">&lt;a href="%1$s">Перевести&lt;/a> приложение</string>
+    <string name="participate_contribute_translate_text">Участвовать в &lt;a href=\"%1$s\">переводе&lt;/a> приложения</string>
     <string name="participate_contribute_github_text">Участвовать в качестве разработчика: подробности по ссылке &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a>.</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
