@@ -248,7 +248,7 @@
     <string name="confirmation_remove_file_alert">Voulez-vous vraiment supprimer %1$s ?</string>
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
-    <string name="remove_success_msg">Suppression effectuée avec succès</string>
+    <string name="remove_success_msg">Suppression terminée avec succès</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">La version locale ne peut être renommée ; veuillez réessayer avec un nom différent</string>
