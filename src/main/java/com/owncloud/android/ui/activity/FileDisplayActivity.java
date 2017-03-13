@@ -1,22 +1,22 @@
 /**
- *  ownCloud Android client application
+ * ownCloud Android client application
  *
- *  @author Bartek Przybylski
- *  @author David A. Velasco
- *  Copyright (C) 2011  Bartek Przybylski
- *  Copyright (C) 2016 ownCloud Inc.
- *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License version 2,
- *  as published by the Free Software Foundation.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Bartek Przybylski
+ * @author David A. Velasco
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2016 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -81,6 +81,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.events.ToggleMenuItemsVisibilityEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -96,6 +97,9 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -146,9 +150,14 @@ public class FileDisplayActivity extends HookActivity
     private OCFile mWaitingToSend;
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
+    private Collection<MenuItem> mMenuItemsToHide = new ArrayList<>();
+    private Collection<MenuItem> mMenuItemsToShow = new ArrayList<>();
+
     private String searchQuery;
 
     private SearchView searchView;
+
+    private Menu mMenu;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -186,7 +195,7 @@ public class FileDisplayActivity extends HookActivity
         setupToolbar();
 
         // setup drawer
-        if(MainApp.isOnlyOnDevice()) {
+        if (MainApp.isOnlyOnDevice()) {
             setupDrawer(R.id.nav_on_device);
         } else {
             setupDrawer(R.id.nav_all_files);
@@ -576,17 +585,62 @@ public class FileDisplayActivity extends HookActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = isDrawerOpen();
 
-        for (MenuItem menuItem:mDrawerMenuItemstoShowHideList) {
+        for (MenuItem menuItem : mDrawerMenuItemstoShowHideList) {
             menuItem.setVisible(!drawerOpen);
         }
 
+        for (MenuItem menuItem : mMenuItemsToHide) {
+            menuItem.setVisible(false);
+        }
+
+        for (MenuItem menuItem : mMenuItemsToShow) {
+            menuItem.setVisible(true);
+        }
+
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(final ToggleMenuItemsVisibilityEvent event) {
+        mMenuItemsToHide = new ArrayList<>();
+        mMenuItemsToShow = new ArrayList<>();
+
+        if (mMenu != null) {
+            if (event.getMenuHideType().equals(
+                    ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_LIST_GRID_SWITCH_ITEM)) {
+                if (event.isHideMenuItems()) {
+                    mMenuItemsToHide.add(mMenu.findItem(R.id.action_switch_view));
+                } else {
+                    mMenuItemsToShow.add(mMenu.findItem(R.id.action_switch_view));
+                }
+            } else if (event.getMenuHideType().equals(
+                    ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_SORT_AND_LG_SWITCH_ITEM)) {
+                if (event.isHideMenuItems()) {
+                    mMenuItemsToHide.add(mMenu.findItem(R.id.action_switch_view));
+                    mMenuItemsToHide.add(mMenu.findItem(R.id.action_sort));
+                } else {
+                    mMenuItemsToShow.add(mMenu.findItem(R.id.action_switch_view));
+                    mMenuItemsToHide.add(mMenu.findItem(R.id.action_sort));
+                }
+
+            } else if (event.getMenuHideType().equals(
+                    ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_SORT_ITEM)) {
+                if (event.isHideMenuItems()) {
+                    mMenuItemsToHide.add(mMenu.findItem(R.id.action_sort));
+                } else {
+                    mMenuItemsToShow.add(mMenu.findItem(R.id.action_sort));
+                }
+            }
+        }
+
+        invalidateOptionsMenu();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
+        mMenu = menu;
         menu.findItem(R.id.action_create_dir).setVisible(false);
 
         final MenuItem item = menu.findItem(R.id.action_search);
@@ -765,16 +819,16 @@ public class FileDisplayActivity extends HookActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS &&
-            (resultCode == RESULT_OK ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+                (resultCode == RESULT_OK ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
 
             requestUploadOfContentFromApps(data, resultCode);
 
         } else if (requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
-            (resultCode == RESULT_OK ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_DO_NOTHING ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
+                (resultCode == RESULT_OK ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_DO_NOTHING ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
 
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
@@ -863,8 +917,8 @@ public class FileDisplayActivity extends HookActivity
 
         //getClipData is only supported on api level 16+, Jelly Bean
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
-            contentIntent.getClipData() != null &&
-            contentIntent.getClipData().getItemCount() > 0) {
+                contentIntent.getClipData() != null &&
+                contentIntent.getClipData().getItemCount() > 0) {
 
             for (int i = 0; i < contentIntent.getClipData().getItemCount(); i++) {
                 streamsToUpload.add(contentIntent.getClipData().getItemAt(i).getUri());
@@ -949,10 +1003,10 @@ public class FileDisplayActivity extends HookActivity
             searchView.setQuery("", true);
             searchView.onActionViewCollapsed();
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-        } else if(isDrawerOpen && isFabOpen) {
+        } else if (isDrawerOpen && isFabOpen) {
             // close drawer first
             super.onBackPressed();
-        } else if(isDrawerOpen && !isFabOpen) {
+        } else if (isDrawerOpen && !isFabOpen) {
             // close drawer
             super.onBackPressed();
         } else if (!isDrawerOpen && isFabOpen) {
@@ -1059,7 +1113,7 @@ public class FileDisplayActivity extends HookActivity
     }
 
     public boolean isFabOpen() {
-        if(getListOfFilesFragment() != null
+        if (getListOfFilesFragment() != null
                 && getListOfFilesFragment().getFabMain() != null
                 && getListOfFilesFragment().getFabMain().isExpanded()) {
             return true;
@@ -1124,7 +1178,7 @@ public class FileDisplayActivity extends HookActivity
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir,
-                                    MainApp.isOnlyOnDevice(), false);
+                                            MainApp.isOnlyOnDevice(), false);
                                 }
                             }
                             setFile(currentFile);
@@ -1189,7 +1243,7 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
             if (!mSyncInProgress) {
-                    ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
+                ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
             } else {
                 ocFileListFragment.setEmptyListLoadingMessage();
             }
@@ -1264,8 +1318,7 @@ public class FileDisplayActivity extends HookActivity
                         OCFile ocFile = getFile();
                         if (PreviewImageFragment.canBePreviewed(ocFile)) {
                             startImagePreview(getFile());
-                        }
-                        else if (PreviewTextFragment.canBePreviewed(ocFile)) {
+                        } else if (PreviewTextFragment.canBePreviewed(ocFile)) {
                             startTextPreview(ocFile);
                         }
                         // TODO what about other kind of previews?
@@ -1544,8 +1597,8 @@ public class FileDisplayActivity extends HookActivity
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
         Toast msg = Toast.makeText(this,
-            ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-            Toast.LENGTH_LONG);
+                ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                Toast.LENGTH_LONG);
         msg.show();
 
         if (result.isSuccess()) {
@@ -1925,7 +1978,7 @@ public class FileDisplayActivity extends HookActivity
      * @param files collection of {@link OCFile} files which operations are wanted to be cancel
      */
     public void cancelTransference(Collection<OCFile> files) {
-        for(OCFile file: files) {
+        for (OCFile file : files) {
             cancelTransference(file);
         }
     }

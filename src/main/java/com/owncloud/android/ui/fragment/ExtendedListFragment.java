@@ -52,8 +52,11 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -61,7 +64,9 @@ import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.ui.events.SearchEvent;
 
+import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
@@ -306,8 +311,14 @@ public class ExtendedListFragment extends Fragment
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
-                        fileListListAdapter.getFilter().filter(query);
+                        if (AccountUtils.hasSearchSupport(AccountUtils.
+                                getCurrentOwnCloudAccount(MainApp.getAppContext()))) {
+                            EventBus.getDefault().post(new SearchEvent(query, SearchOperation.SearchType.FILE_SEARCH,
+                                    SearchEvent.UnsetType.NO_UNSET));
+                        } else {
+                            FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
+                            fileListListAdapter.getFilter().filter(query);
+                        }
                     }
                 }, delay);
             } else if (mAdapter != null && mAdapter instanceof LocalFileListAdapter) {
@@ -444,12 +455,12 @@ public class ExtendedListFragment extends Fragment
      * Calculates the position of the item that will be used as a reference to
      * reposition the visible items in the list when the device is turned to
      * other position.
-     *
+     * <p>
      * The current policy is take as a reference the visible item in the center
      * of the screen.
      *
      * @return The position in the list of the visible item in the center of the
-     *         screen.
+     * screen.
      */
     protected int getReferencePosition() {
         if (mCurrentListView != null) {
@@ -549,12 +560,12 @@ public class ExtendedListFragment extends Fragment
 
     /**
      * Disables swipe gesture.
-     *
+     * <p>
      * Sets the 'enabled' state of the refresh layouts contained in the fragment.
-     *
+     * <p>
      * When 'false' is set, prevents user gestures but keeps the option to refresh programatically,
      *
-     * @param   enabled     Desired state for capturing swipe gesture.
+     * @param enabled Desired state for capturing swipe gesture.
      */
     public void setSwipeEnabled(boolean enabled) {
         mRefreshListLayout.setEnabled(enabled);
@@ -564,10 +575,10 @@ public class ExtendedListFragment extends Fragment
 
     /**
      * Sets the 'visibility' state of the FAB contained in the fragment.
-     *
+     * <p>
      * When 'false' is set, FAB visibility is set to View.GONE programmatically,
      *
-     * @param   enabled     Desired visibility for the FAB.
+     * @param enabled Desired visibility for the FAB.
      */
     public void setFabEnabled(boolean enabled) {
         if (enabled) {
@@ -593,77 +604,84 @@ public class ExtendedListFragment extends Fragment
      * @param message  the message
      * @param icon     the icon to be shown
      */
-    public void setMessageForEmptyList(@StringRes int headline, @StringRes int message, @DrawableRes int icon) {
-        if (mEmptyListContainer != null && mEmptyListMessage != null) {
-            mEmptyListHeadline.setText(headline);
-            mEmptyListMessage.setText(message);
-            mEmptyListIcon.setImageResource(icon);
+    public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message, @DrawableRes final int icon) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
 
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
+                if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                    mEmptyListHeadline.setText(headline);
+                    mEmptyListMessage.setText(message);
+                    mEmptyListIcon.setImageResource(icon);
+
                     mEmptyListIcon.setVisibility(View.VISIBLE);
                     mEmptyListProgress.setVisibility(View.GONE);
                 }
-            });
-        }
+            }
+        });
     }
 
-    public void setEmptyListMessage(SearchType searchType) {
-        if (searchType == NO_SEARCH) {
-            setMessageForEmptyList(
-                    R.string.file_list_empty_headline,
-                    R.string.file_list_empty,
-                    R.drawable.ic_list_empty_folder
-            );
-        } else if (searchType == FILE_SEARCH) {
-            setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty, R.drawable.ic_search_light_grey);
-        } else if (searchType == FAVORITE_SEARCH) {
-            setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty_favorites, R.drawable.ic_search_light_grey);
-        } else if (searchType == VIDEO_SEARCH) {
-            setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
-                    R.string.file_list_empty_text_videos, R.drawable.ic_search_light_grey);
-        } else if (searchType == PHOTO_SEARCH) {
-            setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
-                    R.string.file_list_empty_text_photos, R.drawable.ic_search_light_grey);
-        } else if (searchType == RECENTLY_MODIFIED_SEARCH) {
-            setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty_recently_modified, R.drawable.ic_search_light_grey);
-        } else if (searchType == RECENTLY_ADDED_SEARCH) {
-            setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                    R.string.file_list_empty_recently_added, R.drawable.ic_search_light_grey);
-        } else if (searchType == REGULAR_FILTER) {
-            setMessageForEmptyList(R.string.file_list_empty_headline_search,
-                    R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
-        } else if (searchType == FAVORITE_SEARCH_FILTER) {
+    public void setEmptyListMessage(final SearchType searchType) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
 
-        } else if (searchType == VIDEO_SEARCH_FILTER) {
+                if (searchType == NO_SEARCH) {
+                    setMessageForEmptyList(
+                            R.string.file_list_empty_headline,
+                            R.string.file_list_empty,
+                            R.drawable.ic_list_empty_folder
+                    );
+                } else if (searchType == FILE_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty, R.drawable.ic_search_light_grey);
+                } else if (searchType == FAVORITE_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_favorites, R.drawable.ic_search_light_grey);
+                } else if (searchType == VIDEO_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
+                            R.string.file_list_empty_text_videos, R.drawable.ic_search_light_grey);
+                } else if (searchType == PHOTO_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
+                            R.string.file_list_empty_text_photos, R.drawable.ic_search_light_grey);
+                } else if (searchType == RECENTLY_MODIFIED_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_recently_modified, R.drawable.ic_search_light_grey);
+                } else if (searchType == RECENTLY_ADDED_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_recently_added, R.drawable.ic_search_light_grey);
+                } else if (searchType == REGULAR_FILTER) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_search,
+                            R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
+                } else if (searchType == FAVORITE_SEARCH_FILTER) {
 
-        } else if (searchType == RECENTLY_MODIFIED_SEARCH_FILTER) {
+                } else if (searchType == VIDEO_SEARCH_FILTER) {
 
-        } else if (searchType == RECENTLY_ADDED_SEARCH_FILTER) {
+                } else if (searchType == RECENTLY_MODIFIED_SEARCH_FILTER) {
 
-        }
+                } else if (searchType == RECENTLY_ADDED_SEARCH_FILTER) {
+
+                }
+            }
+        });
     }
 
     /**
      * Set message for empty list view.
      */
     public void setEmptyListLoadingMessage() {
-        if (mEmptyListContainer != null && mEmptyListMessage != null) {
-            mEmptyListHeadline.setText(R.string.file_list_loading);
-            mEmptyListMessage.setText("");
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                    mEmptyListHeadline.setText(R.string.file_list_loading);
+                    mEmptyListMessage.setText("");
 
-            new Handler(Looper.getMainLooper()).post(new Runnable() {
-                @Override
-                public void run() {
                     mEmptyListIcon.setVisibility(View.GONE);
                     mEmptyListProgress.setVisibility(View.VISIBLE);
                 }
-            });
-        }
+            }
+        });
     }
 
     /**

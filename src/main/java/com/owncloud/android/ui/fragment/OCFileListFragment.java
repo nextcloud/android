@@ -77,6 +77,7 @@ import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.events.ToggleMenuItemsVisibilityEvent;
 import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -97,7 +98,7 @@ import java.util.List;
 
 /**
  * A Fragment that lists all files and folders in a given path.
- *
+ * <p>
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
 public class OCFileListFragment extends ExtendedListFragment implements OCFileListFragmentInterface {
@@ -407,8 +408,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     /**
      * records a click on a mini FAB and thus:
      * <ol>
-     *     <li>persists the click fact</li>
-     *     <li>removes the mini FAB labels</li>
+     * <li>persists the click fact</li>
+     * <li>removes the mini FAB labels</li>
      * </ol>
      */
     private void recordMiniFabClick() {
@@ -442,9 +443,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     /**
      * Handler for multiple selection mode.
-     *
+     * <p>
      * Manages input from the user when one or more files or folders are selected in the list.
-     *
+     * <p>
      * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened
      * and closed.
      */
@@ -478,7 +479,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
          * When the navigation drawer is closed, action mode is recovered in the same state as was
          * when the drawer was (started to be) opened.
          *
-         * @param drawerView        Navigation drawer just closed.
+         * @param drawerView Navigation drawer just closed.
          */
         @Override
         public void onDrawerClosed(View drawerView) {
@@ -499,7 +500,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
          * If the action mode is active when the navigation drawer starts to move, the action
          * mode is closed and the selection stored to be recovered when the drawer is closed.
          *
-         * @param newState     One of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
+         * @param newState One of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
          */
         @Override
         public void onDrawerStateChanged(int newState) {
@@ -644,7 +645,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     /**
      * Call this, when the user presses the up button.
-     *
+     * <p>
      * Tries to move up the current folder one level. If the parent folder was removed from the
      * database, it continues browsing up until finding an existing folders.
      * <p/>
@@ -730,8 +731,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     /**
      * Start the appropriate action(s) on the currently selected files given menu selected by the user.
      *
-     * @param menuId        Identifier of the action menu selected by the user
-     * @return              'true' if the menu selection started any action, 'false' otherwise.
+     * @param menuId Identifier of the action menu selected by the user
+     * @return 'true' if the menu selection started any action, 'false' otherwise.
      */
     public boolean onFileActionChosen(int menuId) {
         final ArrayList<OCFile> checkedFiles = mAdapter.getCheckedItems(getListView());
@@ -998,8 +999,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     /**
      * Determines if user set folder to grid or list view. If folder is not set itself,
      * it finds a parent that is set (at least root is set).
-     * @param file      Folder to check.
-     * @return          'true' is folder should be shown in grid mode, 'false' if list mode is preferred.
+     *
+     * @param file Folder to check.
+     * @return 'true' is folder should be shown in grid mode, 'false' if list mode is preferred.
      */
     public boolean isGridViewPreferred(OCFile file) {
         if (file != null) {
@@ -1106,6 +1108,39 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             unsetAllMenuItems(true);
         }
 
+        if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
+            setEmptyListMessage(SearchType.FILE_SEARCH);
+            currentSearchType = SearchType.FILE_SEARCH;
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
+            if (event.getSearchQuery().equals("image/%")) {
+                setEmptyListMessage(SearchType.PHOTO_SEARCH);
+                currentSearchType = SearchType.PHOTO_SEARCH;
+            } else if (event.getSearchQuery().equals("video/%")) {
+                setEmptyListMessage(SearchType.VIDEO_SEARCH);
+                currentSearchType = SearchType.VIDEO_SEARCH;
+            }
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
+            setEmptyListMessage(SearchType.FAVORITE_SEARCH);
+            currentSearchType = SearchType.FAVORITE_SEARCH;
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
+            setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
+            currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
+            setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
+            currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
+        }
+
+
+        Runnable switchViewsRunnable = new Runnable() {
+            @Override
+            public void run() {
+                if (isGridViewPreferred(mFile) && !isGridEnabled()) {
+                    switchToGridView();
+                } else if (!isGridViewPreferred(mFile) && isGridEnabled()) {
+                    switchToListView();
+                }
+            }
+        };
 
         Account currentAccount = com.owncloud.android.authentication.AccountUtils.
                 getCurrentOwnCloudAccount(MainApp.getAppContext());
@@ -1120,33 +1155,33 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     getClientFor(ocAccount, MainApp.getAppContext());
             SearchOperation operation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
             RemoteOperationResult remoteOperationResult = operation.execute(mClient);
-            if (remoteOperationResult.isSuccess() || remoteOperationResult.getData() != null) {
+            if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
 
-                if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
-                    setEmptyListMessage(SearchType.FILE_SEARCH);
-                    currentSearchType = SearchType.FILE_SEARCH;
-                } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
-                    if (event.getSearchQuery().equals("image/%")) {
-                        setEmptyListMessage(SearchType.PHOTO_SEARCH);
-                        currentSearchType = SearchType.PHOTO_SEARCH;
-                    } else if (event.getSearchQuery().equals("video/%")) {
-                        setEmptyListMessage(SearchType.VIDEO_SEARCH);
-                        currentSearchType = SearchType.VIDEO_SEARCH;
-                    }
-                } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
-                    setEmptyListMessage(SearchType.FAVORITE_SEARCH);
-                    currentSearchType = SearchType.FAVORITE_SEARCH;
-                } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
-                    setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
-                    currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
-                } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
-                    setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
-                    currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
-                }
-
-                mAdapter.setData(remoteOperationResult.getData());
-
+                mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
             }
+
+            if (currentSearchType.equals(SearchType.PHOTO_SEARCH)) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        switchToGridView();
+                    }
+                });
+
+                EventBus.getDefault().post(new ToggleMenuItemsVisibilityEvent(
+                        ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_SORT_AND_LG_SWITCH_ITEM, true));
+            } else if (currentSearchType.equals(SearchType.NO_SEARCH) || currentSearchType.equals(
+                    SearchType.REGULAR_FILTER)) {
+                EventBus.getDefault().post(new ToggleMenuItemsVisibilityEvent(
+                        ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_SORT_AND_LG_SWITCH_ITEM, false));
+
+                new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
+            } else {
+                EventBus.getDefault().post(new ToggleMenuItemsVisibilityEvent(
+                        ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_SORT_ITEM, true));
+                new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
+            }
+
         } catch (AuthenticatorException e) {
             e.printStackTrace();
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
