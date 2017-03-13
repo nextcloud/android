@@ -287,7 +287,7 @@
     <string name="ssl_validator_label_signature_algorithm">Алгоритъм:</string>
     <string name="digest_algorithm_not_available">Алгоритъмът не се поддържа от вашия телефон.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Отпечатък:</string>
-    <string name="certificate_load_problem">Възникна проблем при зареждане на сертификата.</string>
+    <string name="certificate_load_problem">Проблем при зареждане на сертификата.</string>
     <string name="ssl_validator_null_cert">Сертификатът не може да бъде показан.</string>
     <string name="ssl_validator_no_info_about_error">- Няма информация за грешката</string>
 
