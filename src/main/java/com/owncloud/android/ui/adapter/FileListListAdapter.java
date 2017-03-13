@@ -53,6 +53,7 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -81,6 +82,7 @@ public class FileListListAdapter extends BaseAdapter {
 
     private FilesFilter mFilesFilter;
     private OCFile currentDirectory;
+    private boolean isSpecialFilter;
 
     public FileListListAdapter(
             boolean justFolders,
@@ -300,7 +302,7 @@ public class FileListListAdapter extends BaseAdapter {
                 checkBoxV.setVisibility(View.VISIBLE);
             }
 
-            // this if-else is needed even though favorite icon is visible by default
+            // this if-else is needed even though kept-in-sync icon is visible by default
             // because android reuses views in listview
             if (!file.isAvailableOffline()) {
                 view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
@@ -396,6 +398,8 @@ public class FileListListAdapter extends BaseAdapter {
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
             , boolean onlyOnDevice) {
+        isSpecialFilter = false;
+
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
@@ -422,18 +426,37 @@ public class FileListListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
-    public void setData(ArrayList<Object> objects) {
+    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
+        isSpecialFilter = true;
+
         mFiles = new Vector<>();
         for (int i = 0; i < objects.size(); i++) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
             mFiles.add(ocFile);
         }
 
-        if (!mShowHiddenFiles) {
+        /*if (!mShowHiddenFiles) {
             mFiles = filterHiddenFiles(mFiles);
-        }
+        }*/
 
-        mFiles = FileStorageUtils.sortOcFolder(mFiles);
+        if (searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH) ||
+                searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH_FILTER) ||
+                searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) ||
+                searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) ||
+                searchType.equals(ExtendedListFragment.SearchType.PHOTO_SEARCH) ||
+                searchType.equals(ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER) ||
+                searchType.equals(ExtendedListFragment.SearchType.VIDEO_SEARCH) ||
+                searchType.equals(ExtendedListFragment.SearchType.VIDEO_SEARCH_FILTER)) {
+            Integer tempSortOrder = FileStorageUtils.mSortOrder;
+            Boolean tempSortAsc = FileStorageUtils.mSortAscending;
+            FileStorageUtils.mSortOrder = 1;
+            FileStorageUtils.mSortAscending = false;
+            mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            FileStorageUtils.mSortOrder = tempSortOrder;
+            FileStorageUtils.mSortAscending = tempSortAsc;
+        } else {
+            mFiles = FileStorageUtils.sortOcFolder(mFiles);
+        }
 
         mFilesAll = new Vector<>();
         mFilesAll.addAll(mFiles);
@@ -505,18 +528,23 @@ public class FileListListAdapter extends BaseAdapter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-
-
             FilterResults results = new FilterResults();
             Vector<OCFile> filteredFiles = new Vector<>();
 
             if (!TextUtils.isEmpty(constraint)) {
                 for (int i = 0; i < mFilesAll.size(); i++) {
                     OCFile currentFile = mFilesAll.get(i);
-                    if (currentFile.getParentRemotePath().equals(currentDirectory.getRemotePath()) &&
-                            currentFile.getFileName().toLowerCase().contains(constraint.toString().toLowerCase()) &&
-                            !filteredFiles.contains(currentFile)) {
-                        filteredFiles.add(currentFile);
+                    if (!isSpecialFilter) {
+                        if (currentFile.getParentRemotePath().equals(currentDirectory.getRemotePath()) &&
+                                currentFile.getFileName().toLowerCase().contains(constraint.toString().toLowerCase()) &&
+                                !filteredFiles.contains(currentFile)) {
+                            filteredFiles.add(currentFile);
+                        }
+                    } else {
+                        if (currentFile.getFileName().toLowerCase().contains(constraint.toString().toLowerCase()) &&
+                                !filteredFiles.contains(currentFile)) {
+                            filteredFiles.add(currentFile);
+                        }
                     }
                 }
             }
