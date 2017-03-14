@@ -89,6 +89,7 @@
     <string name="file_list_empty_headline">No files in here</string>
     <string name="file_list_empty">Upload some content or sync with your devices!</string>
     <string name="file_list_empty_favorites">Favorite some files or sync with your devices!</string>
+    <string name="file_list_empty_favorites_filter">No favorited files found for your query!</string>
     <string name="file_list_loading">Loading&#8230;</string>
     <string name="file_list_no_app_for_file_type">No app found for file type!</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
@@ -97,10 +98,15 @@
     <string name="file_list_empty_headline_server_search_videos">No videos</string>
     <string name="file_list_empty_headline_server_search_photos">No photos</string>
     <string name="file_list_empty_search">Try looking in another folder?</string>
-    <string name="file_list_empty_recently_modified">No recently modified files found</string>
+    <string name="file_list_empty_recently_modified">No files modified in the last 7 days found</string>
+    <string name="file_list_empty_recently_modified_filter">No files for your query that were modified
+        in the last 7 days found!</string>
     <string name="file_list_empty_recently_added">No recently added files found</string>
+    <string name="file_list_empty_recently_added_filter">No recently added files for your query found!</string>
     <string name="file_list_empty_text_photos">Upload some photos or activate auto upload!</string>
+    <string name="file_list_empty_text_photos_filter">No photos for your query found!</string>
     <string name="file_list_empty_text_videos">Upload some videos or activate auto upload!</string>
+    <string name="file_list_empty_text_videos_filter">No videos for your query found!</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text">Upload some content or activate instant upload!</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload!</string>

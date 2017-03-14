@@ -81,7 +81,6 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
-import com.owncloud.android.ui.events.ToggleMenuItemsVisibilityEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -97,9 +96,6 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -150,8 +146,6 @@ public class FileDisplayActivity extends HookActivity
     private OCFile mWaitingToSend;
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
-    private Collection<MenuItem> mMenuItemsToHide = new ArrayList<>();
-    private Collection<MenuItem> mMenuItemsToShow = new ArrayList<>();
 
     private String searchQuery;
 
@@ -589,51 +583,7 @@ public class FileDisplayActivity extends HookActivity
             menuItem.setVisible(!drawerOpen);
         }
 
-        for (MenuItem menuItem : mMenuItemsToHide) {
-            menuItem.setVisible(false);
-        }
-
-        for (MenuItem menuItem : mMenuItemsToShow) {
-            menuItem.setVisible(true);
-        }
-
         return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(final ToggleMenuItemsVisibilityEvent event) {
-        mMenuItemsToHide = new ArrayList<>();
-        mMenuItemsToShow = new ArrayList<>();
-
-        if (mMenu != null) {
-            if (event.getMenuHideType().equals(
-                    ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_LIST_GRID_SWITCH_ITEM)) {
-                if (event.isHideMenuItems()) {
-                    mMenuItemsToHide.add(mMenu.findItem(R.id.action_switch_view));
-                } else {
-                    mMenuItemsToShow.add(mMenu.findItem(R.id.action_switch_view));
-                }
-            } else if (event.getMenuHideType().equals(
-                    ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_SORT_AND_LG_SWITCH_ITEM)) {
-                if (event.isHideMenuItems()) {
-                    mMenuItemsToHide.add(mMenu.findItem(R.id.action_switch_view));
-                    mMenuItemsToHide.add(mMenu.findItem(R.id.action_sort));
-                } else {
-                    mMenuItemsToShow.add(mMenu.findItem(R.id.action_switch_view));
-                    mMenuItemsToHide.add(mMenu.findItem(R.id.action_sort));
-                }
-
-            } else if (event.getMenuHideType().equals(
-                    ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_SORT_ITEM)) {
-                if (event.isHideMenuItems()) {
-                    mMenuItemsToHide.add(mMenu.findItem(R.id.action_sort));
-                } else {
-                    mMenuItemsToShow.add(mMenu.findItem(R.id.action_sort));
-                }
-            }
-        }
-
-        invalidateOptionsMenu();
     }
 
     @Override
