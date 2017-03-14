@@ -210,6 +210,7 @@ public class FileListListAdapter extends BaseAdapter {
                     lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.getModificationTimestamp()));
 
 
+
                     fileSizeSeparatorV.setVisibility(View.VISIBLE);
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
@@ -306,9 +307,15 @@ public class FileListListAdapter extends BaseAdapter {
             // this if-else is needed even though kept-in-sync icon is visible by default
             // because android reuses views in listview
             if (!file.isAvailableOffline()) {
-                view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
+                view.findViewById(R.id.keptOfflineIcon).setVisibility(View.GONE);
             } else {
-                view.findViewById(R.id.favoriteIcon).setVisibility(View.VISIBLE);
+                view.findViewById(R.id.keptOfflineIcon).setVisibility(View.VISIBLE);
+            }
+
+            if (file.getIsFavorite()) {
+                view.findViewById(R.id.favorite_action).setSelected(true);
+            } else {
+                view.findViewById(R.id.favorite_action).setSelected(false);
             }
 
             // No Folder
