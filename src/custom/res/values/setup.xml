@@ -8,6 +8,7 @@
     <string name="account_type">nextcloud</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
     <string name="authority">com.custom.client.provider</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
     <string name="users_and_groups_search_authority">com.custom.client.provider.UsersAndGroupsSearch</string>
+    <string name="users_and_groups_share_with">com.custom.client.provider.UsersAndGroupsSearch.action.SHARE_WITH</string>
     <string name="document_provider_authority">com.custom.provider.Documents</string>
     <string name="file_provider_authority">com.custom.provider.Files</string>
     <string name ="db_file">nextcloud.db</string>
