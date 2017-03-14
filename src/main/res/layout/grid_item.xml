@@ -46,7 +46,8 @@
             android:layout_marginStart="6dp"
             android:layout_marginEnd="6dp"
             android:layout_gravity="top|left"
-            android:background="@drawable/favorite_button_selector"/>
+            android:background="@drawable/favorite_button_selector"
+            android:focusable="false"/>
 
         <ImageView
             android:id="@+id/sharedIcon"

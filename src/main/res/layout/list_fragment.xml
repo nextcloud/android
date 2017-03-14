@@ -40,7 +40,8 @@
             android:layout_height="match_parent"
             android:divider="@color/list_divider_background"
             android:dividerHeight="1px"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:focusable="true"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -61,7 +62,8 @@
             android:horizontalSpacing="@dimen/list_fragment_spacing"
             android:stretchMode="columnWidth"
             android:verticalSpacing="@dimen/list_fragment_spacing"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:focusable="true"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
