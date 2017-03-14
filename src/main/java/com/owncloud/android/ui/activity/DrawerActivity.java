@@ -303,6 +303,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
                 navigationView.getMenu().removeItem(R.id.nav_settings);
             }
+            if (!searchSupported) {
+                navigationView.getMenu().removeItem(R.id.nav_videos);
+            }
             navigationView.getMenu().removeItem(R.id.nav_favorites);
         }
 
