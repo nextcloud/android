@@ -448,13 +448,10 @@ public class FileListListAdapter extends BaseAdapter {
             mFiles.add(ocFile);
         }
 
-        /*if (!searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH) &&
+        if (!searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH) &&
                 !searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH_FILTER) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER)) {
-            mFiles = FileStorageUtils.sortOcFolder(mFiles);
-
-
             Integer tempSortOrder = FileStorageUtils.mSortOrder;
             Boolean tempSortAsc = FileStorageUtils.mSortAscending;
             FileStorageUtils.mSortOrder = 1;
@@ -464,7 +461,7 @@ public class FileListListAdapter extends BaseAdapter {
             FileStorageUtils.mSortAscending = tempSortAsc;
         } else {
             mFiles = FileStorageUtils.sortOcFolder(mFiles);
-        }*/
+        }
 
         mFilesAll = new Vector<>();
         mFilesAll.addAll(mFiles);
