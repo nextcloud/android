@@ -1,3 +1,10 @@
+## 2017-03-15 00:30
+- Participate apk image (nextcloud/participateApkImage) [https://github.com/nextcloud/android/pull/716] added
+
+-Beta branch was updated successfully] updated
+- Participate apk image (nextcloud/participateApkImage) [https://github.com/nextcloud/android/pull/716] updated
+- New sorting order dialog (nextcloud/newSortingLayout) [https://github.com/nextcloud/android/pull/575] updated
+
 ## 2017-03-14 00:31
 
 - Master (nextcloud/master) [https://github.com/nextcloud/android] updated
