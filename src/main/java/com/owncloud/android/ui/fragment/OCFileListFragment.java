@@ -1149,39 +1149,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             unsetAllMenuItems(true);
         }
 
-        if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
-            setEmptyListMessage(SearchType.FILE_SEARCH);
-            currentSearchType = SearchType.FILE_SEARCH;
-
-        } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
-            if (event.getSearchQuery().equals("image/%")) {
-                setEmptyListMessage(SearchType.PHOTO_SEARCH);
-                currentSearchType = SearchType.PHOTO_SEARCH;
-
-                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
-            } else if (event.getSearchQuery().equals("video/%")) {
-                setEmptyListMessage(SearchType.VIDEO_SEARCH);
-                currentSearchType = SearchType.VIDEO_SEARCH;
-
-                menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT;
-            }
-        } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
-            setEmptyListMessage(SearchType.FAVORITE_SEARCH);
-            currentSearchType = SearchType.FAVORITE_SEARCH;
-            menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT;
-        } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
-            setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
-            currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
-        } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
-            setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
-            currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
-            menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-        }
-
-        if (getActivity() != null) {
-            getActivity().invalidateOptionsMenu();
-        }
-
         Runnable switchViewsRunnable = new Runnable() {
             @Override
             public void run() {
@@ -1206,8 +1173,42 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     getClientFor(ocAccount, MainApp.getAppContext());
             SearchOperation operation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
             RemoteOperationResult remoteOperationResult = operation.execute(mClient);
+
             if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
                 mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
+            }
+
+            if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
+                setEmptyListMessage(SearchType.FILE_SEARCH);
+                currentSearchType = SearchType.FILE_SEARCH;
+
+            } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
+                if (event.getSearchQuery().equals("image/%")) {
+                    setEmptyListMessage(SearchType.PHOTO_SEARCH);
+                    currentSearchType = SearchType.PHOTO_SEARCH;
+
+                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
+                } else if (event.getSearchQuery().equals("video/%")) {
+                    setEmptyListMessage(SearchType.VIDEO_SEARCH);
+                    currentSearchType = SearchType.VIDEO_SEARCH;
+
+                    menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT;
+                }
+            } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
+                setEmptyListMessage(SearchType.FAVORITE_SEARCH);
+                currentSearchType = SearchType.FAVORITE_SEARCH;
+                menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT;
+            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
+                setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
+                currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
+            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
+                setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
+                currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
+                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
+            }
+
+            if (getActivity() != null) {
+                //getActivity().invalidateOptionsMenu();
             }
 
             if (currentSearchType.equals(SearchType.PHOTO_SEARCH)) {
