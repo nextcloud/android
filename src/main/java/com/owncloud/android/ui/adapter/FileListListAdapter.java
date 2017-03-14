@@ -59,6 +59,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -426,27 +427,34 @@ public class FileListListAdapter extends BaseAdapter {
         notifyDataSetChanged();
     }
 
+    private void searchForLocalFileInDefaultPath(OCFile file) {
+        if (file.getStoragePath() == null && !file.isFolder()) {
+            File f = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
+            if (f.exists()) {
+                file.setStoragePath(f.getAbsolutePath());
+                file.setLastSyncDateForData(f.lastModified());
+            }
+        }
+    }
+
     public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
         isSpecialFilter = true;
 
         mFiles = new Vector<>();
         for (int i = 0; i < objects.size(); i++) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
+            searchForLocalFileInDefaultPath(ocFile);
+
             mFiles.add(ocFile);
         }
 
-        /*if (!mShowHiddenFiles) {
-            mFiles = filterHiddenFiles(mFiles);
-        }*/
+        /*if (!searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH) &&
+                !searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH_FILTER) &&
+                !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) &&
+                !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER)) {
+            mFiles = FileStorageUtils.sortOcFolder(mFiles);
 
-        if (searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH) ||
-                searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH_FILTER) ||
-                searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) ||
-                searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) ||
-                searchType.equals(ExtendedListFragment.SearchType.PHOTO_SEARCH) ||
-                searchType.equals(ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER) ||
-                searchType.equals(ExtendedListFragment.SearchType.VIDEO_SEARCH) ||
-                searchType.equals(ExtendedListFragment.SearchType.VIDEO_SEARCH_FILTER)) {
+
             Integer tempSortOrder = FileStorageUtils.mSortOrder;
             Boolean tempSortAsc = FileStorageUtils.mSortAscending;
             FileStorageUtils.mSortOrder = 1;
@@ -456,7 +464,7 @@ public class FileListListAdapter extends BaseAdapter {
             FileStorageUtils.mSortAscending = tempSortAsc;
         } else {
             mFiles = FileStorageUtils.sortOcFolder(mFiles);
-        }
+        }*/
 
         mFilesAll = new Vector<>();
         mFilesAll.addAll(mFiles);

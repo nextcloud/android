@@ -78,6 +78,7 @@ import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.F
 import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.FAVORITE_SEARCH_FILTER;
 import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.FILE_SEARCH;
 import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.NO_SEARCH;
+import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER;
 import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.PHOTO_SEARCH;
 import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.RECENTLY_ADDED_SEARCH;
 import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.RECENTLY_ADDED_SEARCH_FILTER;
@@ -637,30 +638,37 @@ public class ExtendedListFragment extends Fragment
                             R.string.file_list_empty, R.drawable.ic_search_light_grey);
                 } else if (searchType == FAVORITE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty_favorites, R.drawable.ic_search_light_grey);
+                            R.string.file_list_empty_favorites, R.drawable.ic_favorite_grey);
                 } else if (searchType == VIDEO_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
-                            R.string.file_list_empty_text_videos, R.drawable.ic_search_light_grey);
+                            R.string.file_list_empty_text_videos, R.drawable.ic_list_empty_video);
                 } else if (searchType == PHOTO_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
-                            R.string.file_list_empty_text_photos, R.drawable.ic_search_light_grey);
+                            R.string.file_list_empty_text_photos, R.drawable.ic_list_empty_image);
                 } else if (searchType == RECENTLY_MODIFIED_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty_recently_modified, R.drawable.ic_search_light_grey);
+                            R.string.file_list_empty_recently_modified, R.drawable.ic_list_empty_recent);
                 } else if (searchType == RECENTLY_ADDED_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty_recently_added, R.drawable.ic_search_light_grey);
+                            R.string.file_list_empty_recently_added, R.drawable.ic_list_empty_recent);
                 } else if (searchType == REGULAR_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_search,
                             R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
                 } else if (searchType == FAVORITE_SEARCH_FILTER) {
-
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_favorites_filter, R.drawable.ic_favorite_grey);
                 } else if (searchType == VIDEO_SEARCH_FILTER) {
-
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
+                            R.string.file_list_empty_text_videos_filter, R.drawable.ic_list_empty_video);
+                } else if (searchType == PHOTOS_SEARCH_FILTER) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
+                            R.string.file_list_empty_text_photos_filter, R.drawable.ic_list_empty_image);
                 } else if (searchType == RECENTLY_MODIFIED_SEARCH_FILTER) {
-
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_recently_modified_filter, R.drawable.ic_list_empty_recent);
                 } else if (searchType == RECENTLY_ADDED_SEARCH_FILTER) {
-
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_recently_added_filter, R.drawable.ic_list_empty_recent);
                 }
             }
         });
