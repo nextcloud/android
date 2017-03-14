@@ -142,6 +142,16 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     private SearchType currentSearchType;
 
+    private enum MenuItemAddRemove {
+        DO_NOTHING, REMOVE_SORT, REMOVE_GRID_AND_SORT, ADD_SORT, ADD_GRID_AND_SORT
+    }
+
+    private MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.DO_NOTHING;
+
+    private ArrayList<MenuItem> mOriginalMenuItems = new ArrayList<>();
+
+    private Menu mMenu;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -640,7 +650,36 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+        mMenu = menu;
+
+        if (mOriginalMenuItems.size() == 0) {
+            mOriginalMenuItems.add(mMenu.findItem(R.id.action_switch_view));
+            mOriginalMenuItems.add(mMenu.findItem(R.id.action_sort));
+        }
+
         changeGridIcon(menu);   // this is enough if the option stays out of the action bar
+
+        if (menuItemAddRemoveValue.equals(MenuItemAddRemove.ADD_SORT)) {
+            if (menu.findItem(R.id.action_sort) == null) {
+                MenuItem menuItemOrig = mOriginalMenuItems.get(1);
+                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
+                        menuItemOrig.getTitle());
+            }
+        } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.ADD_GRID_AND_SORT)) {
+            if (menu.findItem(R.id.action_sort) == null && menu.findItem(R.id.action_switch_view) == null) {
+                MenuItem menuItemOrig = mOriginalMenuItems.get(0);
+                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
+                        menuItemOrig.getTitle());
+                menuItemOrig = mOriginalMenuItems.get(1);
+                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
+                        menuItemOrig.getTitle());
+            }
+        } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.REMOVE_SORT)) {
+            menu.removeItem(R.id.action_sort);
+        } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.REMOVE_GRID_AND_SORT)) {
+            menu.removeItem(R.id.action_sort);
+            menu.removeItem(R.id.action_switch_view);
+        }
     }
 
     /**
@@ -1053,12 +1092,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     private void changeGridIcon(Menu menu) {
         MenuItem menuItem = menu.findItem(R.id.action_switch_view);
-        if (isGridViewPreferred(mFile)) {
-            menuItem.setTitle(getString(R.string.action_switch_list_view));
-            menuItem.setIcon(R.drawable.ic_view_list);
-        } else {
-            menuItem.setTitle(getString(R.string.action_switch_grid_view));
-            menuItem.setIcon(R.drawable.ic_view_module);
+        if (menuItem != null) {
+            if (isGridViewPreferred(mFile)) {
+                menuItem.setTitle(getString(R.string.action_switch_list_view));
+                menuItem.setIcon(R.drawable.ic_view_list);
+            } else {
+                menuItem.setTitle(getString(R.string.action_switch_grid_view));
+                menuItem.setIcon(R.drawable.ic_view_module);
+            }
         }
     }
 
@@ -1111,25 +1152,35 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
             setEmptyListMessage(SearchType.FILE_SEARCH);
             currentSearchType = SearchType.FILE_SEARCH;
+
         } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
             if (event.getSearchQuery().equals("image/%")) {
                 setEmptyListMessage(SearchType.PHOTO_SEARCH);
                 currentSearchType = SearchType.PHOTO_SEARCH;
+
+                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
             } else if (event.getSearchQuery().equals("video/%")) {
                 setEmptyListMessage(SearchType.VIDEO_SEARCH);
                 currentSearchType = SearchType.VIDEO_SEARCH;
+
+                menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT;
             }
         } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
             setEmptyListMessage(SearchType.FAVORITE_SEARCH);
             currentSearchType = SearchType.FAVORITE_SEARCH;
+            menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT;
         } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
             setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
             currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
         } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
             setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
             currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
+            menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
         }
 
+        if (getActivity() != null) {
+            getActivity().invalidateOptionsMenu();
+        }
 
         Runnable switchViewsRunnable = new Runnable() {
             @Override
