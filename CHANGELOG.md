@@ -1,5 +1,5 @@
-## 1.4.2 (March , 2017)
-- Auto Upload (Android 6+)
+## 1.4.2 (March 14, 2017)
+- Auto Upload for newly taken photos/images (Android 6+)
 - Auto Upload improvements and fixes
 - Filtering improvements
 - Fix for Android permissions (removed read phone state permission)
