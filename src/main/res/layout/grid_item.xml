@@ -39,6 +39,15 @@
             android:layout_marginRight="@dimen/alternate_margin"
             android:src="@drawable/ic_menu_archive" />
 
+        <Button
+            android:id="@+id/favorite_action"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_gravity="top|left"
+            android:background="@drawable/favorite_button_selector"/>
+
         <ImageView
             android:id="@+id/sharedIcon"
             android:layout_width="wrap_content"
@@ -57,7 +66,7 @@
             android:src="@drawable/ic_synced" />
 
         <ImageView
-            android:id="@+id/favoriteIcon"
+            android:id="@+id/keptOfflineIcon"
             android:layout_width="@dimen/favorite_icon_size"
             android:layout_height="@dimen/favorite_icon_size"
             android:layout_gravity="bottom|right"
