@@ -201,7 +201,10 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             currentSearchType = SearchType.NO_SEARCH;
         }
 
-        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+        boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
+                getCurrentOwnCloudAccount(MainApp.getAppContext()));
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && searchSupported) {
             bottomNavigationView.setVisibility(View.VISIBLE);
             prepareBottomNavigationView();
         }
