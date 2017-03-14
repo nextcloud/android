@@ -6,4 +6,5 @@ nextcloud/encodeShareLinkPassword
 nextcloud/fix_file_modification_date_on_upload
 nextcloud/master
 nextcloud/newSortingLayout
+nextcloud/participateApkImage
 nextcloud/rewrite-auto-upload
