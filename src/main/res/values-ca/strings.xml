@@ -83,6 +83,8 @@
     <string name="file_list_loading">Carregant&#8230;</string>
     <string name="file_list_no_app_for_file_type">No s\'ha trobat cap aplicació per a aquest tipus de fitxer!</string>
     <string name="local_file_list_empty">No hi ha fitxers a aquesta carpeta</string>
+    <string name="file_list_empty_headline_search">Cap resultat en aquesta carpeta</string>
+    <string name="file_list_empty_search">Vols mirar en una altra carpeta?</string>
     <string name="upload_list_empty_headline">No hi ha pujades disponibles</string>
     <string name="upload_list_empty_text">Puja algun contingut o activa la pujada instantània!</string>
     <string name="file_list_folder">carpeta</string>
@@ -516,6 +518,7 @@ o</string>
     <string name="participate_contribute_headline">Contribuïu activament</string>
     <string name="participate_contribute_irc_text">Uniu-vos al xat a IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Ajuda a altres a &lt;a href=\"%1$s\">forum&lt;/a></string>
+    <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">tradueix&lt;/a> l\'aplicació</string>
     <string name="participate_contribute_github_text">Contribuïu com a desenvolupador, mireu &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> per detalls</string>
     <string name="move_to">Mou a&#8230;</string>
     <string name="copy_to">Copia a&#8230;</string>
