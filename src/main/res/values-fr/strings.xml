@@ -125,7 +125,7 @@
     <string name="uploader_info_dirname">Nom du dossier</string>
     <string name="uploader_upload_in_progress_ticker">Téléversement&#8230;</string>
     <string name="uploader_upload_in_progress_content">Téléversement de %2$s : %1$d%%</string>
-    <string name="uploader_upload_succeeded_ticker">Téléversement réussi</string>
+    <string name="uploader_upload_succeeded_ticker">Envoi terminé</string>
     <string name="uploader_upload_succeeded_content_single">%1$s téléversé</string>
     <string name="uploader_upload_failed_ticker">Échec du téléversement</string>
     <string name="uploader_upload_failed_content_single">Le téléversement de %1$s a échoué</string>
@@ -133,7 +133,7 @@
     <string name="uploads_view_title">Historique des envois</string>
     <string name="uploads_view_group_current_uploads">Actuellement</string>
     <string name="uploads_view_group_failed_uploads">Échoué (appuyer pour réessayer)</string>
-    <string name="uploads_view_group_finished_uploads">Téléversé</string>
+    <string name="uploads_view_group_finished_uploads">Envoyé</string>
     <string name="uploads_view_upload_status_succeeded">Terminé</string>
     <string name="uploads_view_upload_status_cancelled">Annulé</string>
     <string name="uploads_view_upload_status_paused">En pause</string>
@@ -151,7 +151,7 @@
     <string name="uploads_view_later_waiting_to_upload">En attente de téléversement</string>
     <string name="downloader_download_in_progress_ticker">Téléchargement en cours&#8230;</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
-    <string name="downloader_download_succeeded_ticker">Téléchargement réussi</string>
+    <string name="downloader_download_succeeded_ticker">Réception terminée</string>
     <string name="downloader_download_succeeded_content">%1$s téléchargé</string>
     <string name="downloader_download_failed_ticker">Le téléchargement a échoué</string>
     <string name="downloader_download_failed_content">Le téléchargement de %1$s a échoué</string>
@@ -199,7 +199,7 @@
     <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
     <string name="media_err_timeout">Délai dépassé pour la lecture du morceau</string>
     <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
-    <string name="media_err_unknown">Le fichier média ne peut être joué avec le lecteur standard</string>
+    <string name="media_err_unknown">Le fichier média ne peut être lu avec le lecteur intégré</string>
     <string name="media_err_security_ex">Erreur de sécurité à la lecture de %1$s</string>
     <string name="media_err_io_ex">Erreur d\'entrée à la lecture de %1$s</string>
     <string name="media_err_unexpected">Erreur inattendue à la lecture de %1$s </string>
@@ -248,7 +248,7 @@
     <string name="confirmation_remove_file_alert">Voulez-vous vraiment supprimer %1$s ?</string>
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
-    <string name="remove_success_msg">Suppression effectuée avec succès</string>
+    <string name="remove_success_msg">Suppression terminée avec succès</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="rename_local_fail_msg">La version locale ne peut être renommée ; veuillez réessayer avec un nom différent</string>

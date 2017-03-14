@@ -25,9 +25,9 @@
     <string name="drawer_open">Opna</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
-    <string name="prefs_accounts">Notandaaðgangar</string>
+    <string name="prefs_accounts">Notendaaðgangar</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
-    <string name="prefs_passcode">Læsing með lykilorði</string>
+    <string name="prefs_passcode">Læsing með lykilkóða</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_instant_upload">Hlaða strax inn myndum</string>
     <string name="prefs_instant_upload_summary">Hlaða strax inn myndum teknum á myndavél</string>
@@ -55,7 +55,7 @@
 
     <string name="auth_check_server">Athuga með þjón</string>
     <string name="auth_host_url">Vistfang þjóns https://…</string>
-    <string name="auth_username">Notendanafn</string>
+    <string name="auth_username">Notandanafn</string>
     <string name="auth_password">Lykilorð</string>
     <string name="auth_register">Ertu ekki enn með skýjaþjón?\nSmelltu hér til að fá þér einn frá þjónustuaðila</string>
     <string name="sync_string_files">Skrár</string>
@@ -77,7 +77,7 @@
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Flytja skrá í Nextcloud-möppu</string>
     <string name="uploader_upload_files_behaviour_only_upload">Halda skrá í upprunamöppu</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eyða skrá úr upprunamöppu</string>
-    <string name="file_list_seconds_ago">sek.</string>
+    <string name="file_list_seconds_ago">sek. síðan</string>
     <string name="file_list_empty_headline">Engar skrár hér</string>
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín!</string>
     <string name="file_list_loading">Hleð inn&#8230;</string>
@@ -116,7 +116,7 @@
     <string name="common_unknown">óþekkt</string>
     <string name="common_error_unknown">Óþekkt villa</string>
     <string name="common_pending">Í bið</string>
-    <string name="about_title">Um</string>
+    <string name="about_title">Um hugbúnaðinn</string>
     <string name="change_password">Breyta lykilorði</string>
     <string name="delete_account">Fjarlægja notandaaðgang</string>
     <string name="delete_account_warning">Eyða aðgangi %s?\n\nEyðing er óafturkræf.</string>
@@ -168,6 +168,7 @@
     <string name="sync_fail_in_favourites_content">Efni %1$d skráa var ekki hægt að samstilla (%2$d árekstrar)</string>
     <string name="sync_foreign_files_forgotten_ticker">Sumar staðværar skrár gleymdust</string>
     <string name="sync_foreign_files_forgotten_content">%1$d skrár úr %2$s möppunni var ekki hægt að afrita í</string>
+    <string name="sync_foreign_files_forgotten_explanation">Frá og með útgáfu 1.3.16, munu skrár sem sendar eru frá þessu tæki verða afritaðar inn í staðværu %1$s möppuna, í þeim tilgangi að koma í veg fyrir gagnatap þegar stök skrá er samstillt við marga notendaaðganga.\n\nVegna þessarar breytingar hafa allar skrár sem sendar hafa verið inn í eldri útgáfum kerfisins verið afritaðar í %2$s möppuna. Hins vegar, núna kom villa í veg fyrir að þessari aðgerð lyki um leið og aðgangar voru samstilltir. Þú getur annað hvort látið skrárnar vera eins og þær eru og fjarlægt tengilinn í %3$s, eða fært skrárnar inn í %1$s möppuna og halda tenglinum í %4$s.\n\nStaðværar skrár eru taldar upp hér fyrir neðan, ásamt þeim fjartengdu skrám í %5$s sem þær voru tengdar við.</string>
     <string name="sync_current_folder_was_removed">Mappan %1$s er ekki lengur til staðar</string>
     <string name="foreign_files_move">Færa allt</string>
     <string name="foreign_files_success">Allar skrár voru færðar</string>
@@ -177,14 +178,14 @@
     <string name="upload_query_move_foreign_files">Það er ekki nægilegt pláss til að afrita völdu skrárnar í %1$s möppuna. Vilt þú kannski færa þær í staðinn? </string>
     <string name="pass_code_enter_pass_code">Settu inn lykilkóðann þinn</string>
     
-    <string name="pass_code_configure_your_pass_code">Settu inn lykilorð</string>
-    <string name="pass_code_configure_your_pass_code_explanation">Lykilorðsins verður krafist í hvert skipti sem appið er ræst</string>
-    <string name="pass_code_reenter_your_pass_code">Settu aftur inn lykilorðið þitt</string>
-    <string name="pass_code_remove_your_pass_code">Fjarlægðu lykilorðið þitt</string>
-    <string name="pass_code_mismatch">Lykilorðin eru ekki eins</string>
-    <string name="pass_code_wrong">Rangt lykilorð</string>
-    <string name="pass_code_removed">Fjarlægði lykilorð</string>
-    <string name="pass_code_stored">Geymdi lykilorð</string>
+    <string name="pass_code_configure_your_pass_code">Settu inn lykilkóða</string>
+    <string name="pass_code_configure_your_pass_code_explanation">Lykilkóðans verður krafist í hvert skipti sem forritið er ræst</string>
+    <string name="pass_code_reenter_your_pass_code">Settu aftur inn lykilkóðann þinn</string>
+    <string name="pass_code_remove_your_pass_code">Fjarlægðu lykilkóðann þinn</string>
+    <string name="pass_code_mismatch">Lykilkóðarnir eru ekki eins</string>
+    <string name="pass_code_wrong">Rangur lykilkóði</string>
+    <string name="pass_code_removed">Fjarlægði lykilkóða</string>
+    <string name="pass_code_stored">Geymdi lykilkóða</string>
     
     <string name="media_notif_ticker">%1$s tónlistarspilari</string>
     <string name="media_state_playing">%1$s (afspilun)</string>
@@ -290,16 +291,17 @@
     <string name="ssl_validator_label_validity_to">Til:</string>
     <string name="ssl_validator_label_signature">Undirritun:</string>
     <string name="ssl_validator_label_signature_algorithm">Reiknirit:</string>
+    <string name="digest_algorithm_not_available">Þetta reiknirit fyrir gátsummur er ekki tiltækt á símanum þínum.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Fingrafar:</string>
     <string name="certificate_load_problem">Það kom upp vandamál við að lesa inn skilríkið.</string>
     <string name="ssl_validator_null_cert">Ekki var hægt að birta þetta skilríki.</string>
     <string name="ssl_validator_no_info_about_error">- Engar upplýsingar um villuna</string>
 
     <string name="placeholder_sentence">Þetta er frátökutákn</string>
-    <string name="placeholder_filename">staðgengi.txt</string>
+    <string name="placeholder_filename">frátökutákn.txt</string>
     <string name="placeholder_filetype">PNG mynd</string>
     <string name="placeholder_filesize">389 KB</string>
-    <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="placeholder_timestamp">2012/05/18 12:23 EH</string>
     <string name="placeholder_media_time">12:23:45</string>
 
     <string name="auto_upload_on_wifi">Einungis senda inn um þráðlaus net</string>
@@ -383,7 +385,7 @@
 
     <string name="prefs_category_accounts">Notandaaðgangar</string>
     <string name="prefs_add_account">Bæta við notandaaðgangi</string>
-    <string name="drawer_manage_accounts">Sýsla með notandaaðganga</string>
+    <string name="drawer_manage_accounts">Sýsla með notendaaðganga</string>
     <string name="auth_redirect_non_secure_connection_title">Öruggri tengingu er endurbeint í gegnum óörugga leið.</string>
 
 	<string name="actionbar_logger">Annálar</string>
@@ -425,10 +427,10 @@
     <string name="subject_shared_with_you">\"%1$s\" hefur verið deilt með þér</string>
 
     <string name="auth_refresh_button">Endurlesa tengingu</string>
-    <string name="auth_host_address">Host nafn netþjóns</string>
+    <string name="auth_host_address">Vistfang þjóns</string>
     <string name="common_error_out_memory">Ekki nægilegt minni</string>
 
-    <string name="username">Notendanafn</string>
+    <string name="username">Notandanafn</string>
 
     <string name="file_list__footer__folder">1 mappa</string>
     <string name="file_list__footer__folders">%1$d möppur</string>
@@ -455,7 +457,7 @@
     <string name="share_with_user_section_title">Deila með notendum eða hópum</string>
     <string name="share_no_users">Engum gögnum ennþá deilt með notendum</string>
     <string name="share_add_user_or_group">Bæta við notanda eða hóp</string>
-    <string name="share_via_link_section_title">Deila hlekk</string>
+    <string name="share_via_link_section_title">Deilitengill</string>
     <string name="share_via_link_expiration_date_label">Setja gildistíma</string>
     <string name="share_via_link_password_label">Verja með lykilorði</string>
     <string name="share_via_link_password_title">Öruggt</string>
@@ -477,9 +479,9 @@
 \nHafðu samband við kerfisstjóra</string>
     <string name="share_privilege_can_share">getur deilt</string>
     <string name="share_privilege_can_edit">getur breytt</string>
-    <string name="share_privilege_can_edit_create">mynda</string>
-    <string name="share_privilege_can_edit_change">breyta</string>
-    <string name="share_privilege_can_edit_delete">eyða</string>
+    <string name="share_privilege_can_edit_create">búið til</string>
+    <string name="share_privilege_can_edit_change">breytt</string>
+    <string name="share_privilege_can_edit_delete">eytt</string>
     <string name="edit_share_unshare">Hætta deilingu</string>
     <string name="edit_share_done">lokið</string>
 
@@ -492,6 +494,7 @@
     <string name="action_switch_list_view">Listi</string>
 
     <string name="manage_space_title">Sýsla með geymslurými</string>
+    <string name="manage_space_description">Stillingar, gagnagrunnur og skilríki þjóna úr gögnum %1$s verður eytt endanlega. \n\nSóttar skrár verða skildar eftir ósnertar.\n\nÞetta ferli getur tekið drjúgan tíma.</string>
     <string name="manage_space_clear_data">Hreinsa gögn</string>
     <string name="manage_space_error">Ekki tókst að eyða öllum skrám.</string>
 
@@ -505,12 +508,16 @@
     <string name="learn_more">Læra meira</string>
     <string name="drawer_folder_sync">Sjálfvirk innsending</string>
     <string name="drawer_participate">Taka þátt</string>
-    <string name="participate_testing_headline">Hjálpa okkur við prófanir</string>
+    <string name="participate_testing_headline">Hjálpaðu okkur við prófanir</string>
     <string name="participate_testing_bug_text">Fannstu villu? Eitthvað er skrýtið?</string>
     <string name="participate_testing_report_text">Tilkynna um vandamál á Github</string>
-    <string name="participate_testing_version_text">Hefurðu þahuga á að hjálpa okkur með næstu útgáfu?</string>
+    <string name="participate_testing_version_text">Hefurðu áhuga á að hjálpa okkur með næstu útgáfu?</string>
     <string name="participate_beta_headline">Prufukeyra Beta-prófunarútgáfuna</string>
+    <string name="participate_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðri framþróunarinnar.
+Villur geta komið í ljós, láttu okkur vita af þeim. &lt;br/>&lt;a href=\"%2$s\">Sækja APK-pakkann&lt;/a>
+        eða</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
+    <string name="participate_release_candidate_text">Útgáfukandídatinn (release candidate = RC) er skyndiútgáfa af væntanlegri útgáfu og er ætlað að vera nokkuð stöðug. Þú getur hjálpað til við að tryggja stöðugleikann með því að prófa þína eigin uppsetningu. Skráðu þig í prófanir í Play Store eða handvirkt með því að fara í \"útgáfur\"-hlutann í F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
     <string name="participate_contribute_irc_text">Taktu þátt í spjalli á IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Hjálpaðu öðrum á &lt;a href=\"%1$s\">spjallvefnum&lt;/a></string>
@@ -523,6 +530,7 @@
     <string name="folder_sync_no_results">Engar margmiðlunarmöppur fundust</string>
     <string name="folder_sync_preferences">Kjörstillingar fyrir sjálfvirka innsendingu</string>
     <string name="folder_sync_settings">Stillingar</string>
+    <string name="folder_sync_new_info">Beinar innsendingar hafa verið algerlega endurhannaðar. Skoðaðu aðalvalmyndina og endurstilltu sjálfvirku innsendingarnar þínar. Við biðjumst samt velvirðingar á þessum óþægindum.\n\nNjóttu hinna nýju og öflugu innsendingareiginleika!</string>
     <string name="folder_sync_preferences_folder_path">Fyrir %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d valið</item>
