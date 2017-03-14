@@ -239,7 +239,10 @@ public class ExtendedListFragment extends Fragment
                         if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)) {
                             setFabEnabled(!hasFocus);
 
-                            if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+                            boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
+                                    getCurrentOwnCloudAccount(MainApp.getAppContext()));
+
+                            if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && searchSupported ) {
                                 BottomNavigationView bottomNavigationView = (BottomNavigationView) getActivity().
                                         findViewById(R.id.bottom_navigation_view);
                                 if (hasFocus) {
@@ -656,7 +659,7 @@ public class ExtendedListFragment extends Fragment
                             R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
                 } else if (searchType == FAVORITE_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty_favorites_filter, R.drawable.ic_favorite_grey);
+                            R.string.file_list_empty_favorites_filter, R.drawable.ic_star_light_grey);
                 } else if (searchType == VIDEO_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
                             R.string.file_list_empty_text_videos_filter, R.drawable.ic_list_empty_video);

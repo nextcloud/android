@@ -294,10 +294,15 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
 
-        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+        boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
+                getCurrentOwnCloudAccount(MainApp.getAppContext()));
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) || !searchSupported) {
             navigationView.getMenu().removeItem(R.id.nav_photos);
             navigationView.getMenu().removeItem(R.id.nav_all_files);
-            navigationView.getMenu().removeItem(R.id.nav_settings);
+            if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+                navigationView.getMenu().removeItem(R.id.nav_settings);
+            }
             navigationView.getMenu().removeItem(R.id.nav_favorites);
         }
 
