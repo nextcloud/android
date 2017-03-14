@@ -299,9 +299,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().removeItem(R.id.nav_all_files);
             navigationView.getMenu().removeItem(R.id.nav_settings);
             navigationView.getMenu().removeItem(R.id.nav_favorites);
-        } else if (getResources().getBoolean(R.bool.use_home)) {
+        }
+
+        if (getResources().getBoolean(R.bool.use_home) && navigationView.getMenu().findItem(R.id.nav_all_files) !=
+                null) {
             navigationView.getMenu().findItem(R.id.nav_all_files).setTitle(getResources().
                     getString(R.string.drawer_item_home));
+            navigationView.getMenu().findItem(R.id.nav_all_files).setIcon(R.drawable.ic_home);
         }
 
         if (!getResources().getBoolean(R.bool.participate_enabled)) {
@@ -309,20 +313,20 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
 
         if (AccountUtils.hasSearchSupport(AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()))) {
-            if (getResources().getBoolean(R.bool.recently_added_enabled)) {
-                navigationView.getMenu().findItem(R.id.nav_recently_added).setVisible(true);
+            if (!getResources().getBoolean(R.bool.recently_added_enabled)) {
+                navigationView.getMenu().removeItem(R.id.nav_recently_added);
             }
 
-            if (getResources().getBoolean(R.bool.recently_modified_enabled)) {
-                navigationView.getMenu().findItem(R.id.nav_recently_modified).setVisible(true);
+            if (!getResources().getBoolean(R.bool.recently_modified_enabled)) {
+                navigationView.getMenu().removeItem(R.id.nav_recently_modified);
             }
 
-            if (getResources().getBoolean(R.bool.shared_enabled)) {
-                navigationView.getMenu().findItem(R.id.nav_shared).setVisible(true);
+            if (!getResources().getBoolean(R.bool.shared_enabled)) {
+                navigationView.getMenu().removeItem(R.id.nav_shared);
             }
 
-            if (getResources().getBoolean(R.bool.videos_enabled)) {
-                navigationView.getMenu().findItem(R.id.nav_videos).setVisible(true);
+            if (!getResources().getBoolean(R.bool.videos_enabled)) {
+                navigationView.getMenu().removeItem(R.id.nav_videos);
             }
         }
     }

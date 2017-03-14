@@ -77,7 +77,6 @@ import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
-import com.owncloud.android.ui.events.ToggleMenuItemsVisibilityEvent;
 import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -210,6 +209,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         if (getResources().getBoolean(R.bool.use_home)) {
             bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setTitle(getResources().
                     getString(R.string.drawer_item_home));
+            bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setIcon(R.drawable.ic_home);
         }
 
         bottomNavigationView.setOnNavigationItemSelectedListener(
@@ -1156,7 +1156,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             SearchOperation operation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
             RemoteOperationResult remoteOperationResult = operation.execute(mClient);
             if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
-
                 mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
             }
 
@@ -1167,18 +1166,10 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                         switchToGridView();
                     }
                 });
-
-                EventBus.getDefault().post(new ToggleMenuItemsVisibilityEvent(
-                        ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_SORT_AND_LG_SWITCH_ITEM, true));
             } else if (currentSearchType.equals(SearchType.NO_SEARCH) || currentSearchType.equals(
                     SearchType.REGULAR_FILTER)) {
-                EventBus.getDefault().post(new ToggleMenuItemsVisibilityEvent(
-                        ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_SORT_AND_LG_SWITCH_ITEM, false));
-
                 new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
             } else {
-                EventBus.getDefault().post(new ToggleMenuItemsVisibilityEvent(
-                        ToggleMenuItemsVisibilityEvent.MenuHideType.HIDE_SORT_ITEM, true));
                 new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
             }
 
