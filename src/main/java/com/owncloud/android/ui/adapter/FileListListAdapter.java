@@ -448,8 +448,8 @@ public class FileListListAdapter extends BaseAdapter {
             mFiles.add(ocFile);
         }
 
-        if (!searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH) &&
-                !searchType.equals(ExtendedListFragment.SearchType.FAVORITE_SEARCH_FILTER) &&
+        if (!searchType.equals(ExtendedListFragment.SearchType.PHOTO_SEARCH) &&
+                !searchType.equals(ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER)) {
             Integer tempSortOrder = FileStorageUtils.mSortOrder;
