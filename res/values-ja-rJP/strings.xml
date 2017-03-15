@@ -176,7 +176,6 @@
     <string name="foreign_files_fail">一部のファイルは移動できませんでした</string>
     <string name="foreign_files_local_text">ローカル: %1$s</string>
     <string name="foreign_files_remote_text">リモート: %1$s</string>
-    <string name="upload_query_move_foreign_files">%1$s フォルダに選択されたファイルをコピーするのに十分な空き領域がありません。コピーする代わりに移動にしますか？</string>
     <string name="pass_code_enter_pass_code">パスコードを入力してください</string>
     
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
@@ -237,8 +236,6 @@
 	<string name="auth_connecting_auth_server">認証サーバーに接続中...</string>
 	<string name="auth_unsupported_auth_method">サーバーはこの認証方式をサポートしていません</string>
 	<string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
-	<string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返しませんでした。管理者に問い合わせてください。
-	</string>
 	<string name="auth_can_not_auth_against_server">認証サーバーに接続できません</string>
     <string name="auth_account_does_not_exist">デバイス上にまだアカウントが存在しません</string>
     
@@ -327,13 +324,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
 
-	<string name="share_link_no_support_share_api">すみませんが、サーバーで共有が有効になっていません。
-		管理者に問い合わせてください。</string>
 	<string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>
 	<string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
 	<string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
 	<string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
-    <string name="update_link_file_no_exist">更新できません。ファイルがあるか確認してください。</string>
     <string name="update_link_file_error">共有を更新する際にエラーが発生しました</string>
     <string name="share_link_password_title">パスワードを入力</string>
     <string name="share_link_empty_password">パスワードを入力しなければなりません</string>
@@ -476,8 +470,6 @@
     <string name="share_email_clarification">%1$s (メール)</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s で)</string>
 
-    <string name="share_sharee_unavailable">申し訳ありませんが、このサーバーのバージョンではこのクライアントアプリ上で他のユーザーと共有することができません。
-        \n管理者に相談してしてください。</string>
     <string name="share_privilege_can_share">共有可</string>
     <string name="share_privilege_can_edit">編集を許可</string>
     <string name="share_privilege_can_edit_create">作成</string>
@@ -514,8 +506,6 @@
     <string name="participate_testing_report_text">Githubでエラーを報告する</string>
     <string name="participate_testing_version_text">次のバージョンのテストに興味がありますか?</string>
     <string name="participate_beta_headline">ベータバージョンを試してみる</string>
-    <string name="participate_beta_text">これは、すべての最新の機能が含まれており、非常に最前端です。 バグやエラーが発生する可能性があり、もしそれが起こった場合、私たちに報告してください。lt;br/>&lt;a href=\"%2$s\">APKファイルをダウンロードする&lt;/a>
-or</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_release_candidate_text">リリース候補(RC)は、今後のリリースのスナップショット であり、安定性が期待されます。 個々の設定をテストすることで、これを確実にすることができます。 Playストアでのテストに登録するか、F-Droidの「バージョン」セクションを手動で参照してください。</string>
     <string name="participate_contribute_headline">積極的な貢献</string>

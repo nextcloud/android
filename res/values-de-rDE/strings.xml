@@ -175,7 +175,6 @@
     <string name="foreign_files_fail">Einige Dateien konnten nicht verschoben werden</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Entfernte Freigabe: %1$s</string>
-    <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung um die ausgewählten Dateien in den Ordner %1$s zu kopieren. Möchten Sie diese stattdessen verschieben?</string>
     <string name="pass_code_enter_pass_code">Bitte geben Sie ihre PIN ein</string>
     
     <string name="pass_code_configure_your_pass_code">Bitte PIN eingeben</string>
@@ -236,8 +235,6 @@
 	<string name="auth_connecting_auth_server">Verbinde mit dem Authentifizierungs-Server…</string>
 	<string name="auth_unsupported_auth_method">Der Server unterstützt diese Legitimierungsmethode nicht</string>
 	<string name="auth_unsupported_multiaccount">%1$s unterstützt nicht mehrere Benutzerkonten</string>
-	<string name="auth_fail_get_user_name">Ihr Server gibt keine richtige Benutzerkennung zurück, bitte kontaktieren Sie einen Administrator
-⇥</string>
 	<string name="auth_can_not_auth_against_server">Die Authentifizierung gegenüber dem Server konnte nicht durchgeführt werden</string>
     <string name="auth_account_does_not_exist">Das Benutzerkonto ist bislang auf dem Gerät nicht vorhanden</string>
     
@@ -326,13 +323,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Verwende Unterordner</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Speichere in Unterordnern basierend auf Jahr und Monat</string>
 
-	<string name="share_link_no_support_share_api">Entschuldigung, Freigaben sind auf Ihrem Server nicht aktiviert. Bitte kontaktieren Sie Ihren
-⇥⇥Administrator.</string>
 	<string name="share_link_file_no_exist">Teilen nicht möglich. Prüfen Sie, ob die Datei existiert</string>
 	<string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
 	<string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfen Sie, ob die Datei existiert</string>
 	<string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
-    <string name="update_link_file_no_exist">Update nicht möglich. Bitte überprüfen Sie, ob die Datei existiert</string>
     <string name="update_link_file_error">Es ist ein Fehler beim Aktualisieren der Freigabe aufgetreten</string>
     <string name="share_link_password_title">Passwort eingeben</string>
     <string name="share_link_empty_password">Sie müssen ein Passwort eingeben</string>
@@ -475,8 +469,6 @@
     <string name="share_email_clarification">%1$s (E-Mail)</string>
     <string name="share_known_remote_clarification">%1$s ( auf %2$s )</string>
 
-    <string name="share_sharee_unavailable">Entschuldigung, Ihre Serverversion erlaubt das Teilen mit Nutzern innerhalb der Clients nicht.
-\nBitte kontaktieren Sie Ihren Administrator</string>
     <string name="share_privilege_can_share">kann teilen</string>
     <string name="share_privilege_can_edit">kann bearbeiten</string>
     <string name="share_privilege_can_edit_create">erstellen</string>
@@ -513,7 +505,6 @@
     <string name="participate_testing_report_text">Fehler melden auf Github</string>
     <string name="participate_testing_version_text">Möchten Sie uns beim Testen der nächsten Version unterstützen?</string>
     <string name="participate_beta_headline">Testen Sie die Beta Version</string>
-    <string name="participate_beta_text">Die Beta-Version beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler auftreten, die Sie uns dann bitte melden.&lt;br/>&lt;a href=\"%2$s\">APK herunterladen&lt;/a> oder</string>
     <string name="participate_release_candidate_headline">Vorabversionen</string>
     <string name="participate_release_candidate_text">Eine Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test in der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version bei F-Droid unter „Versionen“.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>

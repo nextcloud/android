@@ -173,7 +173,6 @@
     <string name="foreign_files_fail">Egyes fájlokat nem sikerült áthelyezni</string>
     <string name="foreign_files_local_text">Helyi: %1$s</string>
     <string name="foreign_files_remote_text">Távoli: %1$s</string>
-    <string name="upload_query_move_foreign_files">Nincs elég hely ahhoz, hogy a kiválasztott fájlokat átmásoljuk a %1$s mappába. Ezért ehelyett áthelyezzük inkább ide a fájlokat? </string>
     <string name="pass_code_enter_pass_code">Kérlek add meg a számkódot</string>
     
     <string name="pass_code_configure_your_pass_code">Írd be a számkódodat</string>
@@ -234,7 +233,6 @@
 	<string name="auth_connecting_auth_server">Kapcsolódás a hitelesítő szerverhez...</string>
 	<string name="auth_unsupported_auth_method">A szerver nem támogatja ezt a felhasználóazonosítási módszert</string>
 	<string name="auth_unsupported_multiaccount">%1$s nem támogat több bejelenkezési jogosultságot</string>
-	<string name="auth_fail_get_user_name">Az Ön szervere nem küld megfelelő felhasználói azonosítót, kérem lépjen kapcsolatba a rendszergazdával.</string>
 	<string name="auth_can_not_auth_against_server">Nem lehet hitelesíteni a szerverhez</string>
     <string name="auth_account_does_not_exist">A fiók még nem létezik az eszközön</string>
     
@@ -323,12 +321,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
 
-	<string name="share_link_no_support_share_api">Sajnáljuk, de a megosztás nincs engedélyezve a szerveren. Kérem lépjen kapcsolatba a rendszergazdával.</string>
 	<string name="share_link_file_no_exist">Nem lehet megosztani. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
 	<string name="share_link_file_error">Hiba lépett fel a mappa megosztásakor</string>
 	<string name="unshare_link_file_no_exist">Nem lehet a megosztást kikapcsolni. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
 	<string name="unshare_link_file_error">Hiba lépett fel a mappa megosztásának visszavonásakor</string>
-    <string name="update_link_file_no_exist">Nem lehet frissíteni. Kérem ellenőrizze, hogy a fájl létezik-e?</string>
     <string name="update_link_file_error">Hiba történt a megosztás frissítése közben.</string>
     <string name="share_link_password_title">Jelszó beírása</string>
     <string name="share_link_empty_password">Meg kell adnia a jelszavát</string>
@@ -471,8 +467,6 @@
     <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
 
-    <string name="share_sharee_unavailable">Sajnáljuk, de az Ön szerver verziója nem engedi a kliensen belüli megosztást felhasználók között.
-\nKérem keresse a rendszergazdát.</string>
     <string name="share_privilege_can_share">megosztható</string>
     <string name="share_privilege_can_edit">módosíthat</string>
     <string name="share_privilege_can_edit_create">létrehoz</string>
@@ -509,8 +503,6 @@
     <string name="participate_testing_report_text">Jelentsd a problémát a Githubon</string>
     <string name="participate_testing_version_text">Érdekel a következő verzió tesztelési lehetősége?</string>
     <string name="participate_beta_headline">Teszteld a Béta verziót</string>
-    <string name="participate_beta_text">Ez tartalmazza az összes közelgő tulajdonságot és nagyon újszerű. Bugok és hibák felléphetnek, ha ilyeneket tapasztal. Kérem jelentse nekünk. &lt;br/>&lt;a href=\"%2$s\">APK letöltése&lt;/a>
-vagy</string>
     <string name="participate_release_candidate_headline">Kiadásra jelölt</string>
     <string name="participate_release_candidate_text">A kiadásra jelölt (RC) változat az egy pillanatképe a közelgő új változatnak, és stabilnak mondható. Az egyedi telepítésekkel segíthet nekünk, hogy ezt biztosítsuk. Jelentkezzen tesztelésre a Play Áruházban vagy manuálisan nézzen bele a verziók részbe F-Droid-on.</string>
     <string name="participate_contribute_headline">Aktívan hozzájárul</string>

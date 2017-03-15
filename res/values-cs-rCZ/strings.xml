@@ -175,7 +175,6 @@
     <string name="foreign_files_fail">Některé soubory nebylo možno přesunout</string>
     <string name="foreign_files_local_text">Místní: %1$s</string>
     <string name="foreign_files_remote_text">Vzdálené: %1$s</string>
-    <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do %1$s adresáře není dostatek volného místa. Chcete je místo toho přesunout?</string>
     <string name="pass_code_enter_pass_code">Zadejte prosím svůj bezpečnostní kód</string>
     
     <string name="pass_code_configure_your_pass_code">Zadejte svůj bezpečnostní kód</string>
@@ -236,7 +235,6 @@
 	<string name="auth_connecting_auth_server">Připojování k ověřovacímu serveru ...</string>
 	<string name="auth_unsupported_auth_method">Server nepodporuje tuto přihlašovací metodu</string>
 	<string name="auth_unsupported_multiaccount">%1$s nepodporuje více účtů</string>
-	<string name="auth_fail_get_user_name">Váš server nevrací správné přihlašovací ID, kontaktujte prosím svého správce systému</string>
 	<string name="auth_can_not_auth_against_server">Na tomto serveru nelze ověřit</string>
     <string name="auth_account_does_not_exist">V zařízení není zatím nastaven účet</string>
     
@@ -325,13 +323,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podadresáře</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podadresářích podle roku a měsíce</string>
 
-	<string name="share_link_no_support_share_api">Je nám líto, ale sdílení není na vašem serveru povoleno. Kontaktujte svého
-správce systému.</string>
 	<string name="share_link_file_no_exist">Nelze sdílet. Zkontrolujte prosím že soubor existuje</string>
 	<string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či adresáře nastala chyba</string>
 	<string name="unshare_link_file_no_exist">Nelze ukončit sdílení. Zkontrolujte prosím že soubor existuje</string>
 	<string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či adresáře nastala chyba</string>
-    <string name="update_link_file_no_exist">Nelze aktulizovat. Ověřte že soubor existuje</string>
     <string name="update_link_file_error">Došlo k chybě při pokusu o aktualizaci sdílení</string>
     <string name="share_link_password_title">Zadejte heslo</string>
     <string name="share_link_empty_password">Musíte zadat heslo</string>
@@ -474,8 +469,6 @@ správce systému.</string>
     <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( v %2$s )</string>
 
-    <string name="share_sharee_unavailable">Omlouváme se, verze vašeho serveru neumožňuje v klientské aplikaci sdílení dat mezi uživateli.
-\nKontaktujte prosím svého administrátora</string>
     <string name="share_privilege_can_share">může sdílet</string>
     <string name="share_privilege_can_edit">lze upravovat</string>
     <string name="share_privilege_can_edit_create">vytvořit</string>
@@ -512,7 +505,6 @@ správce systému.</string>
     <string name="participate_testing_report_text">Nahlásit chybu na Github</string>
     <string name="participate_testing_version_text">Chceš nám pomoci testovat další verzi?</string>
     <string name="participate_beta_headline">Vyzkoušej beta verzi</string>
-    <string name="participate_beta_text">Toto obsahuje všechny připravované funkce a není plnohodnotně přezkoušeno. Může dojít k chybám. Pokud se tak stane, nahlas nám je, prosím.&lt;br/>&lt;a href="%2$s">Download APK&lt;/a> nebo</string>
     <string name="participate_release_candidate_headline">Předběžná verze</string>
     <string name="participate_release_candidate_text">Předběžná verze nebo také Release Candidate (RC) je stabilní stav připravované, finální verze. Přihlas se jako tester v Play store nebo si najdi a instaluj hodící se verzi z F-Droid pod \"Verze\".</string>
     <string name="participate_contribute_headline">Aktivně něčím přispět</string>

@@ -175,7 +175,6 @@
     <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
     <string name="foreign_files_local_text">Lokaal: %1$s</string>
     <string name="foreign_files_remote_text">Extern: %1$s</string>
-    <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopieren naar %1$s. Wilt u ze in plaats daarvan verplaatsen? </string>
     <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
     
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
@@ -236,7 +235,6 @@
 	<string name="auth_connecting_auth_server">Verbinden met authenticatieserver&#160;&#8230;</string>
 	<string name="auth_unsupported_auth_method">De server ondersteunt deze authenticatiemethode niet</string>
 	<string name="auth_unsupported_multiaccount">%1$s ondersteunt het gebruik van meerdere accounts niet</string>
-	<string name="auth_fail_get_user_name">Je server geeft geen goede userid terug, neem contact op met je beheerder</string>
 	<string name="auth_can_not_auth_against_server">Kan niet autenticeren tegen deze server</string>
     <string name="auth_account_does_not_exist">Het account bestaat nog niet in dit apparaat</string>
     
@@ -325,12 +323,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
 
-	<string name="share_link_no_support_share_api">Sorry, delen is niet mogelijk op jouw server. Neem contact op met je beheerder.</string>
 	<string name="share_link_file_no_exist">Kan dit niet delen. Controleer of dit bestand wel bestaat</string>
 	<string name="share_link_file_error">Er trad een fout op bij uw poging dit bestand of deze map te delen</string>
 	<string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat</string>
 	<string name="unshare_link_file_error">Er trad een fout op bij uw poging het delen van dit bestand of deze map te beëindigen</string>
-    <string name="update_link_file_no_exist">Kan niet bijwerken. Ga na of het bestand bestaat</string>
     <string name="update_link_file_error">Er trad een fout op bij uw poging de share bij te werken</string>
     <string name="share_link_password_title">Vul het wachtwoord in</string>
     <string name="share_link_empty_password">Je moet een wachtwoord opgeven</string>
@@ -473,7 +469,6 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( op %2$s )</string>
 
-    <string name="share_sharee_unavailable">Helaas, je serverversie staat niet toe om binnen clients te delen met gebruikers.\nNeem contact op met je beheerder</string>
     <string name="share_privilege_can_share">kan delen</string>
     <string name="share_privilege_can_edit">kan bewerken</string>
     <string name="share_privilege_can_edit_create">creëer</string>
@@ -510,7 +505,6 @@
     <string name="participate_testing_report_text">Meld het op Github</string>
     <string name="participate_testing_version_text">Geïnteresseerd om ons te helpen de volgende versie te testen?</string>
     <string name="participate_beta_headline">Test de Beta-versie</string>
-    <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden. &lt;br/>&lt;a href=\"%2$s\">Download de APK&lt;/a> of</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">De Release Candidate (RC) is een kopie van de komende release en zou stabiel moeten zijn. Testen van jouw installatie kan ons helpen om dit te bevestigen. Meld je aan om te testen op de Play Store of bekijk handmatig de \"versies\"-sectie op F-Droid.</string>
     <string name="participate_contribute_headline">Actief meedoen</string>
