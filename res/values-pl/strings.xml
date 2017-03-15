@@ -175,7 +175,6 @@
     <string name="foreign_files_fail">Niektóre pliki nie mogły być przeniesione</string>
     <string name="foreign_files_local_text">Lokalnie: %1$s</string>
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
-    <string name="upload_query_move_foreign_files">Nie ma wystarczającej ilości wolnej przestrzeni by skopiować zaznaczone pliki do folderu %1$s. Chcesz je przenieść?</string>
     <string name="pass_code_enter_pass_code">Wymyśl kod PIN.</string>
     
     <string name="pass_code_configure_your_pass_code">Wpisz kod PIN.</string>
@@ -236,8 +235,6 @@
 	<string name="auth_connecting_auth_server">Łączenie z serwerem poświadczeń...</string>
 	<string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
 	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
-	<string name="auth_fail_get_user_name">Twój serwer nie zwraca prawidłowego identyfikatora użytkownika, proszę skontaktuj się z administratorem
-	</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
     <string name="auth_account_does_not_exist">Konto jeszcze nie istnieje na tym urządzeniu.</string>
     
@@ -326,13 +323,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Zapisz w podfolderach opartych na roku oraz miesiącu</string>
 
-	<string name="share_link_no_support_share_api">Przepraszamy, ale współdzielenie nie jest włączone na Twoim serwerze. Proszę skontaktuj się z
-		administratorem.</string>
 	<string name="share_link_file_no_exist">Nie można udostępnić. Proszę sprawdzić, czy plik istnieje</string>
 	<string name="share_link_file_error">Wystąpił błąd podczas udostępniania tego pliku lub folderu.</string>
 	<string name="unshare_link_file_no_exist">Nie można wyłączyć udostępniania. Proszę sprawdzić, czy plik istnieje</string>
 	<string name="unshare_link_file_error">Wystąpił błąd podczas anulowania udostępniania tego pliku lub folderu.</string>
-    <string name="update_link_file_no_exist">Błąd aktualizacji. Upewnij się, że plik istnieje.</string>
     <string name="update_link_file_error">Wystąpił błąd podczas aktualizacji udziału</string>
     <string name="share_link_password_title">Wprowadź hasło</string>
     <string name="share_link_empty_password">Musisz wprowadzić hasło</string>
@@ -475,8 +469,6 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( w %2$s )</string>
 
-    <string name="share_sharee_unavailable">Niestety Twój serwer nie umożliwia współdzielenia z użytkownikami z poziomu aplikacji.
-\nSkontaktuj się z administratorem.</string>
     <string name="share_privilege_can_share">może współdzielić</string>
     <string name="share_privilege_can_edit">może edytować</string>
     <string name="share_privilege_can_edit_create">utwórz</string>
@@ -513,10 +505,6 @@
     <string name="participate_testing_report_text">Zgłoś błąd na GitHubie</string>
     <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
     <string name="participate_beta_headline">Testuj wersję Beta</string>
-    <string name="participate_beta_text">Zawiera to wszystkie nadchodzące funkcje i jest bardzo nowatorskie.
-Bugi/błędy
-mogą się pojawiać, a wtedy prosimy o raportowanie ich do nas. &lt;br/>&lt;a href=\"%2$s\">Pobierz APK&lt;/a>
-lub</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
     <string name="participate_release_candidate_text">Release Candidate (RC) jest zarysem nadchodzącego wydania i oczekujemy że będzie stabilne. Testowanie indywidualnej konfiguracji może pomóc, aby to zapewnić. Zapisz się do testowania w sklepie Play lub ręcznie szukaj w sekcji \"wersje\" na F-Droid.</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>

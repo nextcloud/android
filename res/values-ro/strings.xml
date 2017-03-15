@@ -175,7 +175,6 @@
     <string name="foreign_files_fail">Unele fișiere nu au putut fi mutate</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_remote_text">La distanță: %1$s</string>
-    <string name="upload_query_move_foreign_files">Nu există spațiu suficient pentru a copia fișierele selectate în %1$s dosar. Doriți să le mutați?</string>
     <string name="pass_code_enter_pass_code">Vă rugăm introduceți parola</string>
     
     <string name="pass_code_configure_your_pass_code">Introdu parola</string>
@@ -236,7 +235,6 @@
 	<string name="auth_connecting_auth_server">Se conecteaza la serverul de autentificare ...</string>
 	<string name="auth_unsupported_auth_method">Serverul nu soporta aceasta metoda de autentificare </string>
 	<string name="auth_unsupported_multiaccount">%1$s nu suporta conturi multiple</string>
-	<string name="auth_fail_get_user_name">Server-ul dvs. nu  întoarce un ID de utilizator corect, vă rugăm să contactați un administrator </string>
 	<string name="auth_can_not_auth_against_server">Nu se poate autentifica la acest server</string>
     <string name="auth_account_does_not_exist">Contul nu există încă în dispozitiv</string>
     
@@ -325,12 +323,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Folosește subdosare</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Stocați in subdosar bazat pe an și lună</string>
 
-	<string name="share_link_no_support_share_api">Ne pare rău, partajarea nu este activată pe server. Vă rugăm să contactați administratorul dvs.</string>
 	<string name="share_link_file_no_exist">Imposibil de partajat. Te rugăm să verifici dacă există fișierul.</string>
 	<string name="share_link_file_error">A apărut o eroare în timp ce încerca să partajeze acest fișier sau folder</string>
 	<string name="unshare_link_file_no_exist">Imposibil de șters partajarea. Te rugăm să verifici dacă există fișierul.</string>
 	<string name="unshare_link_file_error">A apărut o eroare în timp ce încerca să departajeze sau unshare acest fișier sau folder</string>
-    <string name="update_link_file_no_exist">Actualizare nereușită. Vă rugăm să verificați existența fișierului</string>
     <string name="update_link_file_error">Eroare aparută în timpul actualizării partajării</string>
     <string name="share_link_password_title">Introduceţi parola</string>
     <string name="share_link_empty_password">Trebuie să introduci o parolă</string>
@@ -473,8 +469,6 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( la %2$s )</string>
 
-    <string name="share_sharee_unavailable">Ne cerem scuze, serverul tău nu permite partajarea cu utilizatori care sunt parte a clienților.
-\nVă rugăm contactați admninistratorul dumneavoastră</string>
     <string name="share_privilege_can_share">se poate partaja</string>
     <string name="share_privilege_can_edit">se poate edita</string>
     <string name="share_privilege_can_edit_create">creare</string>
@@ -511,10 +505,6 @@
     <string name="participate_testing_report_text">Raportează o problemă pe Github</string>
     <string name="participate_testing_version_text">Vrei să ne ajuți în testarea următoarei versiuni?</string>
     <string name="participate_beta_headline">Testează versiunea Beta</string>
-    <string name="participate_beta_text">Aceasta include toate funcționalitățile viitoare și este foarte avansată. Dacă apar
-buguri/erori vă rugăm să ni le raportați.
-&lt;br/>&lt;a href=\"%2$s\">Descarcă APK&lt;/a>
-sau</string>
     <string name="participate_release_candidate_headline">Candidatul pentru lansare</string>
     <string name="participate_release_candidate_text">Versiunea-candidat (RC - release candidate) pentru lansare este o copie a următoarei versiuni de \'release\' și ar trebui să fie stabilă. Testarea pe sistemul tău ne-ar putea ajuta să ne asigurăm de acest lucru. Înregistrează-te ca tester pe Play Store sau navighează în secțiunea \"versions\" din F-droid.</string>
     <string name="participate_contribute_headline">Contribuie în mod activ</string>

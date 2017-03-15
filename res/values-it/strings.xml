@@ -175,7 +175,6 @@
     <string name="foreign_files_fail">Alcuni file non possono essere spostati</string>
     <string name="foreign_files_local_text">Locale: %1$s</string>
     <string name="foreign_files_remote_text">Remoto %1$s</string>
-    <string name="upload_query_move_foreign_files">Non c\'è spazio sufficiente per copiare i file selezionati nella cartella %1$s. Vuoi invece spostarli?</string>
     <string name="pass_code_enter_pass_code">Digita il tuo codice segreto</string>
     
     <string name="pass_code_configure_your_pass_code">Digita il tuo codice segreto</string>
@@ -236,8 +235,6 @@
 	<string name="auth_connecting_auth_server">Connessione al server di autenticazione in corso...</string>
 	<string name="auth_unsupported_auth_method">Il server non supporta questo metodo di autenticazione</string>
 	<string name="auth_unsupported_multiaccount">%1$s non supporta account multipli</string>
-	<string name="auth_fail_get_user_name">Il tuo server non ha restituito un id utente corretto, contatta un amministratore
-	</string>
 	<string name="auth_can_not_auth_against_server">Impossibile autenticarsi a questo server</string>
     <string name="auth_account_does_not_exist">L\'account non esiste ancora sul dispositivo</string>
     
@@ -326,13 +323,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usa sottocartelle</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivia in sottocartelle in base a anno e mese</string>
 
-	<string name="share_link_no_support_share_api">Spiacenti, la condivisione non è abilitata sul tuo server. Contatta il tuo
-		amministratore.</string>
 	<string name="share_link_file_no_exist">Impossibile condividere. Assicurati che il file esista</string>
 	<string name="share_link_file_error">Si è verificato un errore durante il tentativo di condivisione del file o della cartella</string>
 	<string name="unshare_link_file_no_exist">Impossibile rimuovere dalla condivisione. Assicurati che il file esista</string>
 	<string name="unshare_link_file_error">Si è verificato un errore durante il tentativo di rimuovere la condivisione del file o della cartella</string>
-    <string name="update_link_file_no_exist">Impossibile aggiornare. Assicurati che il file esista</string>
     <string name="update_link_file_error">Si è verificato un errore durante il tentativo di aggiornare la condivisione.</string>
     <string name="share_link_password_title">Digita una password</string>
     <string name="share_link_empty_password">Devi digitare una password</string>
@@ -475,8 +469,6 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( su %2$s )</string>
 
-    <string name="share_sharee_unavailable">Spiacenti, la versione del tuo server non consente la condivisione con utenti dai client.
-\nContatta il tuo amministratore.</string>
     <string name="share_privilege_can_share">può condividere</string>
     <string name="share_privilege_can_edit">può modificare</string>
     <string name="share_privilege_can_edit_create">crea</string>
@@ -513,10 +505,6 @@
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_testing_version_text">Sei interessato ad aiutarci a provare la nostra prossima versione?</string>
     <string name="participate_beta_headline">Prova la versione beta</string>
-    <string name="participate_beta_text">Ciò include tutte le nuove funzionalità ed è molto rischioso.
-Bug/errori
-possono verificarsi e se accade, inviaci una segnalazione. &lt;br/>&lt;a href=\"%2$s\">Scarica l\'APK&lt;/a>
-o</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_release_candidate_text">Questa candidata al rilascio (RC) è uno snapshot della prossima versione e dovrebbe essere stabile. La prova della tua specifica configurazione potrebbe aiutare ad assicurare che lo sia. Registrati per i test su Google Play o controlla manualmente nella sezione \"versioni\" su F-Droid.</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>

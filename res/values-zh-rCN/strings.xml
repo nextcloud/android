@@ -176,7 +176,6 @@
     <string name="foreign_files_fail">某些文件无法被移动</string>
     <string name="foreign_files_local_text">本地: %1$s</string>
     <string name="foreign_files_remote_text">远程:%1$s</string>
-    <string name="upload_query_move_foreign_files">没有足够的空间复制文件夹 %1$s，是否使用剪切？</string>
     <string name="pass_code_enter_pass_code">请输入你的密码</string>
     
     <string name="pass_code_configure_your_pass_code">输入您的密码</string>
@@ -237,8 +236,6 @@
 	<string name="auth_connecting_auth_server">连接认证服务器...</string>
 	<string name="auth_unsupported_auth_method">服务器不支持这种验证方式</string>
 	<string name="auth_unsupported_multiaccount">%1$s不支持多个账户</string>
-	<string name="auth_fail_get_user_name">您的服务器没有返回一个正确的用户 id，请联系管理员
-	</string>
 	<string name="auth_can_not_auth_against_server">无法连接认证服务器</string>
     <string name="auth_account_does_not_exist">设备中还未存在该帐号</string>
     
@@ -327,12 +324,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">基于年和月存于子文件夹</string>
 
-	<string name="share_link_no_support_share_api">抱歉，共享功能未启用。请联系管理员。</string>
 	<string name="share_link_file_no_exist">无法共享。请检查文件是否存在</string>
 	<string name="share_link_file_error">共享文件或目录出错</string>
 	<string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在</string>
 	<string name="unshare_link_file_error">解除文件或目录共享时出错</string>
-    <string name="update_link_file_no_exist">无法上传，请检查文件是否存在</string>
     <string name="update_link_file_error">更新共享时发生错误</string>
     <string name="share_link_password_title">输入密码</string>
     <string name="share_link_empty_password">您必须输入密码</string>
@@ -475,7 +470,6 @@
     <string name="share_email_clarification">%1$s (邮件)</string>
     <string name="share_known_remote_clarification">%1$s ( 在 %2$s )</string>
 
-    <string name="share_sharee_unavailable">对不起，共享服务功能未开启，请联系管理员</string>
     <string name="share_privilege_can_share">可共享</string>
     <string name="share_privilege_can_edit">可编辑</string>
     <string name="share_privilege_can_edit_create">创建</string>
@@ -512,8 +506,6 @@
     <string name="participate_testing_report_text">在GIthub在报告问题</string>
     <string name="participate_testing_version_text">有感兴趣帮我们测试下一个版本吗？</string>
     <string name="participate_beta_headline">测试Beta版</string>
-    <string name="participate_beta_text">这包括所有的即将实现的特征和新的前沿技术。如果出现错误，请报告给我们，&lt;br/>&lt;a href=\"%2$s\">请下载&lt;/a>
-或者</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
     <string name="participate_release_candidate_text">候选发行版(RC)是下一个版本的快照，希望它是稳定的，你可以帮助测试以确认这一点。可以注册登陆在应用商店或手工在F-Droid的版本部分查找，并进行测试。</string>
     <string name="participate_contribute_headline">活跃的候选版</string>

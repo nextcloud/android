@@ -173,7 +173,6 @@
     <string name="foreign_files_fail">Μερικά αρχεία δεν μπόρεσαν να μετακινηθούν</string>
     <string name="foreign_files_local_text">Τοπικά: %1$s</string>
     <string name="foreign_files_remote_text">Απομακρυσμένα: %1$s</string>
-    <string name="upload_query_move_foreign_files">Δεν υπάρχει αρκετός διαθέσιμος αποθηκευτικός χώρος για να αντιγραφούν τα επιλεγμένα αρχεία στον φάκελο %1$s. Θα θέλατε να τα μετακινήσετε αντί αυτού;</string>
     <string name="pass_code_enter_pass_code">Παρακαλώ εισάγετε τον κωδικό πρόσβασης</string>
     
     <string name="pass_code_configure_your_pass_code">Εισάγετε τον κωδικό πρόσβασης</string>
@@ -234,8 +233,6 @@
 	<string name="auth_connecting_auth_server">Σύνδεση με το διακομιστή πιστοποίησης ...</string>
 	<string name="auth_unsupported_auth_method">Ο διακομιστής δεν υποστηρίζει αυτή τη μέθοδο πιστοποίησης</string>
 	<string name="auth_unsupported_multiaccount">Ο %1$s  δεν υποστηρίζει πολλαπλούς λογαριασμούς</string>
-	<string name="auth_fail_get_user_name">Ο διακομιστής σας δεν επιστρέφει το σωστό αναγνωριστικό χρήστη, παρακαλώ επικοινωνήστε με ένα διαχειριστή
-⇥</string>
 	<string name="auth_can_not_auth_against_server">Αδυαμία πιστοποίησης με αυτόν το διακομιστή</string>
     <string name="auth_account_does_not_exist">Ο λογαριασμός δεν υπάρχει στη συσκευή ακόμα.</string>
     
@@ -324,13 +321,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Χρήση υποφακέλων</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Αποθήκευση σε υποφακέλους με βάση το χρόνο και μήνα</string>
 
-	<string name="share_link_no_support_share_api">Λυπούμαστε, ο διαμοιρασμός δεν είναι διαθέσιμος στο διακομιστή σας. Παρακαλούμε επικοινωνήστε με τον
-		διαχειριστή σας.</string>
 	<string name="share_link_file_no_exist">Αδύνατη η κοινή χρήση. Παρακαλώ ελέγξτε αν υπάρχει ο φάκελος</string>
 	<string name="share_link_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
 	<string name="unshare_link_file_no_exist">Αδύνατη η διακοπή κοινής χρήσης.  Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
 	<string name="unshare_link_file_error">Παρουσιάρτηκε σφάλμα κατά τη διάρκεια ακύρωσης διαμοιρασμού αυτού του αρχείου ή φακέλου</string>
-    <string name="update_link_file_no_exist">Αδύνατη η ενημέρωση. Παρακαλώ ελέγξτε αν το αρχείο υπάρχει</string>
     <string name="update_link_file_error">Παρουσιάστηκε σφάλμα κατά την προσπάθεια ενημέρωσης του διαμοιρασμού</string>
     <string name="share_link_password_title">Εισάγετε ένα συνθηματικό</string>
     <string name="share_link_empty_password">Πρέπει να εισάγετε ένα συνθηματικό</string>
@@ -473,8 +467,6 @@
     <string name="share_email_clarification">%1$s (ηλ. ταχυδρομείο)</string>
     <string name="share_known_remote_clarification">%1$s ( στο %2$s )</string>
 
-    <string name="share_sharee_unavailable">Δεν επιτρέπεται ο διαμοιρασμός μεταξύ χρηστών μέσω εφαρμογής, σε αυτή την έκδοση διακομιστή.
-\\nΕπικοινωνήστε με το διαχειριστή</string>
     <string name="share_privilege_can_share">δυνατότητα διαμοιρασμού</string>
     <string name="share_privilege_can_edit">δυνατότητα επεξεργασίας</string>
     <string name="share_privilege_can_edit_create">δημιουργία</string>
@@ -511,9 +503,6 @@
     <string name="participate_testing_report_text">Αναφέρετε σφάλμα στο Github</string>
     <string name="participate_testing_version_text">Σας ενδιαφέρει να μας βοηθήσετε να δοκιμάσουμε την επόμενη έκδοση;</string>
     <string name="participate_beta_headline">Δοκιμάστε την έκδοση Beta</string>
-    <string name="participate_beta_text">Συμπεριλαμβάνει όλες τις επερχόμενες δυνατότητες και είναι πολύ πρωτοποριακό. Μπορεί να
-παρουσιαστούν σφάλματα και όταν συμβεί αυτό, παρακαλούμε αναφέρετέ τα σε εμάς. &lt;br/>&lt;a href=\"%2$s\">Λήψη του APK&lt;/a>
-ή</string>
     <string name="participate_release_candidate_headline">Υποψήφια κυκλοφορία</string>
     <string name="participate_release_candidate_text">Η υποψήφια κυκλοφορία (RC) είναι ένα στιγμιότυπο της επερχόμενης έκδοσης και αναμένεται να είναι σταθερό. Η δοκιμή της μεμονωμένης εγκατάστασής σας θα βοηθήσει στην εξασφάλιση αυτού. Εγγραφείτε για δοκιμές στο Play store ή χειροκίνητα αναζητείστε στο τμήμα \"εκδόσεις\" στο F-Droid.</string>
     <string name="participate_contribute_headline">Ενεργή συνεισφορά</string>

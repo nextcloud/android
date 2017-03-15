@@ -168,7 +168,6 @@
     <string name="foreign_files_fail">Algunos archivos no han podido ser movidos</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
-    <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados en la carpeta %1$s. ¿Le gustaría moverlos en su lugar?</string>
     <string name="pass_code_enter_pass_code">Por favor entre su código de seguridad</string>
     
     <string name="pass_code_configure_your_pass_code">Ingrese su código de seguridad</string>
@@ -229,8 +228,6 @@
 	<string name="auth_connecting_auth_server">Conectando al servidor de autenticación ...</string>
 	<string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
-	<string name="auth_fail_get_user_name">Su servidor no esta regresando un id de usuario correcto, por favor contacte un administrador
-	</string>
 	<string name="auth_can_not_auth_against_server">No se puede autenticar a este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta no existe aun en el dispositivo</string>
     
@@ -318,13 +315,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subdirectorios</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en subdirectorios basados en año y mes</string>
 
-	<string name="share_link_no_support_share_api">Lo sentimos, compartir no esta habilitado en su servidor. Por favor contacte a su 
-		administrador.</string>
 	<string name="share_link_file_no_exist">Incapaz de compartir. Por favor revise si existe el archivo</string>
 	<string name="share_link_file_error">Ocurrió un error mientras se trataba de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">Incapaz de dejar de compartir. Por favor revise si existe el archivo</string>
 	<string name="unshare_link_file_error">Ocurrió un error al tratar de dejar de compartir este archivo o carpeta</string>
-    <string name="update_link_file_no_exist">Incapaz de actualizar. Por favor revise si existe el archivo</string>
     <string name="update_link_file_error">Ocurrió un error mientras se intentaba actualizar el recurso compartido</string>
     <string name="share_link_password_title">Ingrese una contraseña</string>
     <string name="share_link_empty_password">Debe ingresar una contraseña</string>
