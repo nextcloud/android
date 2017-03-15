@@ -48,6 +48,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -390,6 +391,21 @@ public class ExtendedListFragment extends Fragment
         mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
         mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
         mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
+
+        boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
+                getCurrentOwnCloudAccount(MainApp.getAppContext()));
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && searchSupported) {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mFabMain.getLayoutParams();
+            final float scale = v.getResources().getDisplayMetrics().density;
+
+            BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                    v.findViewById(R.id.bottom_navigation_view);
+
+            // convert the DP into pixel
+            int pixel =  (int)(32 * scale + 0.5f);
+            layoutParams.setMargins(0, 0, pixel/2, bottomNavigationView.getMeasuredHeight() + pixel * 2);
+        }
 
         mCurrentListView = mListView;   // list by default
         if (savedInstanceState != null) {

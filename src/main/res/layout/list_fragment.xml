@@ -22,7 +22,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/list_fragment_layout">
@@ -82,7 +82,7 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
-</FrameLayout>
+</android.support.design.widget.CoordinatorLayout>
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/fab_main"
@@ -135,7 +135,6 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottom_navigation_view"
         android:visibility="gone"
-        android:layout_below="@+id/fab_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
