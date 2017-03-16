@@ -91,6 +91,7 @@
                         android:layout_height="wrap_content">
 
                         <com.owncloud.android.ui.components.CustomEditText
+                            android:id="@+id/hostUrlInput"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
