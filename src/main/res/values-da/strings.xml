@@ -209,7 +209,6 @@
 	<string name="auth_expired_saml_sso_token_toast">Din session udløb. Forbind venligst igen</string>
 	<string name="auth_unsupported_auth_method">Serveren understøtter ikke denne godkendelsesmetode</string>
 	<string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
-	<string name="auth_fail_get_user_name">Din server retunere ikke et korrekt bruger-id. Kontakt venligst din administrator</string>
 	<string name="auth_account_does_not_exist">Kontoen findes endnu ikke på enheden</string>
     
     <string name="common_rename">Omdøb</string>
@@ -288,9 +287,7 @@
     <string name="prefs_folder_sync_local_path_title">Lokal mappe</string>
     <string name="prefs_folder_sync_remote_path_title">Ekstern mappe</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Benyt undermapper</string>
-    <string name="share_link_no_support_share_api">Beklager, deling er ikke slået til på din server. Kontakt venligst din
-⇥⇥administrator.</string>
-	<string name="share_link_file_no_exist">Kan ikke dele. Tjek venligst om filen findes.</string>
+    <string name="share_link_file_no_exist">Kan ikke dele. Tjek venligst om filen findes.</string>
 	<string name="share_link_file_error">Der opstod en fejl ved deling af denne fil eller mappe</string>
 	<string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Tjek venligst om filen findes.</string>
 	<string name="unshare_link_file_error">Der opstod en fejl ved stopning af deling af denne mappe.</string>

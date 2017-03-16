@@ -295,12 +295,9 @@
     <string name="prefs_folder_sync_local_path_title">Lokāla mape</string>
     <string name="prefs_folder_sync_remote_path_title">Attālinātā mape</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Lietot apakšmapi</string>
-    <string name="share_link_no_support_share_api">Atvainojiet, koplietošana nav iespējota jūsu serverī. Lūdzu, sazinieties ar
-		administratoru.</string>
-	<string name="share_link_file_no_exist">Nevar koplietot. Lūdzu, pārbaudiet, vai fails pastāv</string>
+    <string name="share_link_file_no_exist">Nevar koplietot. Lūdzu, pārbaudiet, vai fails pastāv</string>
 	<string name="share_link_file_error">Radās kļūda, mēģinot koplietot šo failu vai mapi</string>
-	<string name="update_link_file_no_exist">Nevar atjaunināt. Lūdzu, pārbaudiet, vai fails pastāv</string>
-    <string name="update_link_file_error">Radās kļūda, mēģinot atjaunināt koplietojumu</string>
+	<string name="update_link_file_error">Radās kļūda, mēģinot atjaunināt koplietojumu</string>
     <string name="share_link_password_title">Ievadiet paroli</string>
     <string name="share_link_empty_password">Jums ir jāievada paroli</string>
 
@@ -433,8 +430,6 @@
     <string name="share_email_clarification">%1$s (e-pasts)</string>
     <string name="share_known_remote_clarification">%1$s ( uz %2$s )</string>
 
-    <string name="share_sharee_unavailable">Atvainojiet, jūsu servera versija neļauj koplietot ar lietotājiem klientiem.
-        \\nLūdzu, sazinieties ar administratoru</string>
     <string name="share_privilege_can_share">var koplietot</string>
     <string name="share_privilege_can_edit">var rediģēt</string>
     <string name="share_privilege_can_edit_create">izveidot</string>
