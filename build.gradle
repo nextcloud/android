@@ -13,7 +13,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
+        classpath 'com.android.tools.build:gradle:2.3.0'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -54,7 +54,7 @@ android {
     }
 
     compileSdkVersion 24
-    buildToolsVersion "24.0.2"
+    buildToolsVersion '25.0.0'
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -74,7 +74,7 @@ android {
                 applicationId 'com.nextcloud.client'
             }
 
-            custom {
+            modified {
                 // structure is:
                 // domain tld
                 // domain name
@@ -84,7 +84,7 @@ android {
         }
 
         configurations {
-            customCompile
+            modifiedCompile
         }
     }
 
@@ -179,7 +179,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:10.2.0'
     compile 'com.github.evernote:android-job:v1.1.7'
 
-    customCompile 'com.google.firebase:firebase-core:10.2.0'
+    modifiedCompile 'com.google.firebase:firebase-core:10.2.0'
 
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'

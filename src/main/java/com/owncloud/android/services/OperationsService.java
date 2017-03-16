@@ -553,6 +553,7 @@ public class OperationsService extends Service {
                 );
                 
                 String action = operationIntent.getAction();
+
                 if (action.equals(ACTION_CREATE_SHARE_VIA_LINK)) {  // Create public share via link
                     String remotePath = operationIntent.getStringExtra(EXTRA_REMOTE_PATH);
                     String password = operationIntent.getStringExtra(EXTRA_SHARE_PASSWORD);
