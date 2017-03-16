@@ -175,6 +175,7 @@
     <string name="foreign_files_fail">Ekki tókst að færa allar skrár</string>
     <string name="foreign_files_local_text">Staðvært: %1$s</string>
     <string name="foreign_files_remote_text">Fjartengt: %1$s</string>
+    <string name="upload_query_move_foreign_files">Það er ekki nægilegt pláss til að afrita völdu skrárnar í %1$s möppuna. Vilt þú kannski færa þær í staðinn? </string>
     <string name="pass_code_enter_pass_code">Settu inn lykilkóðann þinn</string>
     
     <string name="pass_code_configure_your_pass_code">Settu inn lykilkóða</string>
@@ -235,6 +236,7 @@
 	<string name="auth_connecting_auth_server">Tengist við auðkenningarþjón …</string>
 	<string name="auth_unsupported_auth_method">Þjónninn styður ekki þessa auðkenningaraðferð</string>
 	<string name="auth_unsupported_multiaccount">%1$s styður ekki fjölaðganga</string>
+	<string name="auth_fail_get_user_name">Þjónninn skilar ekki réttu notandaauðkenni, hafðu samband við kerfisstjóra </string>
 	<string name="auth_can_not_auth_against_server">Get ekki auðkennt á þessum þjóni</string>
     <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá fyrir hendi á tækinu</string>
     
@@ -323,10 +325,12 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Nota undirmöppur</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Geyma í undirmöppum byggðum á ári og mánuðum</string>
 
+	<string name="share_link_no_support_share_api">Því miður, deiling gagna er ekki virk á þjóninum. Hafðu samband við kerfisstjóra.</string>
 	<string name="share_link_file_no_exist">Get ekki deilt. Athugaðu hvort skráin sé til</string>
 	<string name="share_link_file_error">Villa kom upp við að reyna að deila þessari skrá eða möppu</string>
 	<string name="unshare_link_file_no_exist">Get ekki hætt deilingu. Athugaðu hvort skráin sé til</string>
 	<string name="unshare_link_file_error">Villa kom upp við að reyna að hætta deilingu á þessari skrá eða möppu</string>
+    <string name="update_link_file_no_exist">Get ekki uppfært. Athugaðu hvort skráin sé til</string>
     <string name="update_link_file_error">Villa kom upp við að reyna að uppfæra sameignina</string>
     <string name="share_link_password_title">Settu inn lykilorð</string>
     <string name="share_link_empty_password">Þú verður að setja inn lykilorð</string>
@@ -469,6 +473,7 @@
     <string name="share_email_clarification">%1$s (tölvupóstur)</string>
     <string name="share_known_remote_clarification">%1$s ( á %2$s )</string>
 
+    <string name="share_sharee_unavailable">Því miður, deiling gagna með notendum innan forrita er ekki leyfð í þessari útgáfu þjónsins. \nHafðu samband við kerfisstjóra</string>
     <string name="share_privilege_can_share">getur deilt</string>
     <string name="share_privilege_can_edit">getur breytt</string>
     <string name="share_privilege_can_edit_create">búið til</string>
@@ -505,6 +510,7 @@
     <string name="participate_testing_report_text">Tilkynna um vandamál á Github</string>
     <string name="participate_testing_version_text">Hefurðu áhuga á að hjálpa okkur með næstu útgáfu?</string>
     <string name="participate_beta_headline">Prufukeyra Beta-prófunarútgáfuna</string>
+    <string name="participate_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðri framþróunarinnar. Villur geta komið í ljós, láttu okkur vita af þeim. &lt;br/>&lt;a href="%2$s">Sækja APK-pakkann&lt;/a> eða</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
     <string name="participate_release_candidate_text">Útgáfukandídatinn (release candidate = RC) er skyndiútgáfa af væntanlegri útgáfu og er ætlað að vera nokkuð stöðug. Þú getur hjálpað til við að tryggja stöðugleikann með því að prófa þína eigin uppsetningu. Skráðu þig í prófanir í Play Store eða handvirkt með því að fara í \"útgáfur\"-hlutann í F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>

@@ -175,6 +175,7 @@
     <string name="foreign_files_fail">Bazı dosyalar taşınamadı</string>
     <string name="foreign_files_local_text">Yerel: %1$s</string>
     <string name="foreign_files_remote_text">Uzak: %1$s</string>
+    <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
     <string name="pass_code_enter_pass_code">Lütfen parolanızı yazın</string>
     
     <string name="pass_code_configure_your_pass_code">Parolanızı yazın</string>
@@ -235,6 +236,7 @@
 	<string name="auth_connecting_auth_server">Kimlik doğrulama sunucusuna bağlanılıyor…</string>
 	<string name="auth_unsupported_auth_method">Sunucu bu kimlik doğrulama yöntemini desteklemiyor</string>
 	<string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
+	<string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün</string>
 	<string name="auth_can_not_auth_against_server">Bu sunucuda kimlik doğrulanamadı</string>
     <string name="auth_account_does_not_exist">Aygıt üzerinde henüz bu hesap açılmamış</string>
     
@@ -323,10 +325,12 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Alt klasörler kullanılsın</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Yıla ve aya göre alt klasörlere kaydedilsin</string>
 
+	<string name="share_link_no_support_share_api">Maalesef, sunucunuzda paylaşım etkin değil. Lütfen yöneticinizle görüşün.</string>
 	<string name="share_link_file_no_exist">Paylaşılamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
 	<string name="share_link_file_error">Bu dosya ya da klasör paylaşılmaya çalışılırken bir sorun çıktı</string>
 	<string name="unshare_link_file_no_exist">Paylaşımı kaldırılamadı. Lütfen dosyanın var olup olmadığını denetleyin</string>
 	<string name="unshare_link_file_error">Bu dosya ya da klasör paylaşımı kaldırılmaya çalışılırken bir sorun çıktı</string>
+    <string name="update_link_file_no_exist">Güncellenemedi. Lütfen dosyanın var olup olmadığını denetleyin</string>
     <string name="update_link_file_error">Paylaşım güncellenmeye çalışılırken bir sorun çıktı</string>
     <string name="share_link_password_title">Bir parola yazın</string>
     <string name="share_link_empty_password">Bir parola yazmalısınız</string>
@@ -469,6 +473,7 @@
     <string name="share_email_clarification">%1$s (E-posta)</string>
     <string name="share_known_remote_clarification">%1$s (%2$s üzerinde)</string>
 
+    <string name="share_sharee_unavailable">Maalesef sunucu sürümünüz istemciler içindeki kullanıcılar ile paylaşıma izin vermiyor.\nLütfen yöneticinizle görüşün</string>
     <string name="share_privilege_can_share">paylaşabilir</string>
     <string name="share_privilege_can_edit">düzenleyebilir</string>
     <string name="share_privilege_can_edit_create">oluştur</string>
@@ -505,6 +510,8 @@
     <string name="participate_testing_report_text">Github üzerinden bir sorun bildirin</string>
     <string name="participate_testing_version_text">Gelecek sürümler için bize yardımcı olmak ister misiniz?</string>
     <string name="participate_beta_headline">Beta sürümünü deneyin</string>
+    <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan hata ve sorunlar olabilir. Bir hata ya da soruna rastlarsanız bize iletin. <br/><a href=\"%2$s\">APK dosyasını indirin</a>
+ya da</string>
     <string name="participate_release_candidate_headline">Yayın adayı</string>
     <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümlere\" bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>

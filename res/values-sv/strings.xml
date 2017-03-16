@@ -173,6 +173,7 @@
     <string name="foreign_files_fail">Vissa filer kunde inte flyttas</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Extern: %1$s</string>
+    <string name="upload_query_move_foreign_files">Det finns inte tillräckligt med utrymme för att kopiera filerna till målmappen %1$s. Vill du flytta filerna istället?</string>
     <string name="pass_code_enter_pass_code">Var god ange ditt lösenord</string>
     
     <string name="pass_code_configure_your_pass_code">Skriv in ditt lösenord</string>
@@ -233,6 +234,7 @@
 	<string name="auth_connecting_auth_server">Ansluter till autentiseringsserver ...</string>
 	<string name="auth_unsupported_auth_method">Servern har inte stöd för denna autentiseringsmetod</string>
 	<string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
+	<string name="auth_fail_get_user_name">Din server returnerar inte ett korrekt användare id, vänligen kontakta en administratör</string>
 	<string name="auth_can_not_auth_against_server">Det går inte att autentisera mot denna server</string>
     <string name="auth_account_does_not_exist">Det finns inget konto på denna enhet än</string>
     
@@ -321,10 +323,12 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Använd undermappar</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Spara i undermappar baserat på år och månad</string>
 
+	<string name="share_link_no_support_share_api">Ledsen, delning är inte aktiverat på din server. Vänligen kontakta din administratör.</string>
 	<string name="share_link_file_no_exist">Lyckades ej dela. Vänligen kontrollera om filen eisterar</string>
 	<string name="share_link_file_error">Ett fel uppstod vid försök att dela denna fil eller mapp</string>
 	<string name="unshare_link_file_no_exist">Lyckades ej sluta dela. Vänligen kontrollera om filen existerar</string>
 	<string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp</string>
+    <string name="update_link_file_no_exist">Kunde inte uppdatera. Var god kolla om filen existerar.</string>
     <string name="update_link_file_error">Ett fel inträffade när delningen skulle uppdateras</string>
     <string name="share_link_password_title">Ange ett lösenord</string>
     <string name="share_link_empty_password">Du måste ange ett lösenord</string>
@@ -467,6 +471,7 @@
     <string name="share_email_clarification">%1$s (e-post)</string>
     <string name="share_known_remote_clarification">%1$s ( på %2$s )</string>
 
+    <string name="share_sharee_unavailable">Tyvärr tillåter inte din serverversion delning med användare inom klienter. \nVar god kontakta din administrator.</string>
     <string name="share_privilege_can_share">får dela</string>
     <string name="share_privilege_can_edit">kan redigera</string>
     <string name="share_privilege_can_edit_create">skapa</string>
@@ -503,6 +508,7 @@
     <string name="participate_testing_report_text">Rapportera ett problem på Github</string>
     <string name="participate_testing_version_text">Är du intresserad utav att hjälpa oss testa nästa version?</string>
     <string name="participate_beta_headline">Testa betaversionen</string>
+    <string name="participate_beta_text">Denna version innehåller de absolut senaste funktionerna. Buggar/fel kan inträffa och om du hittar några, vänligen rapportera dem till oss. &lt;br/>&lt;a href="%2$s">Ladda ner APK\'n&lt;/a> eller</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Release candidate (RC) är en snapshot av den kommande versionen och den förväntas vara stabil. Att du testar din individuella setup skulle kunna hjälpa till att säkerställa detta. Registrera dig på Play Store, eller kolla \"versioner\" manuellt på F-droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>

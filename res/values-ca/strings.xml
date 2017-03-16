@@ -175,6 +175,7 @@
     <string name="foreign_files_fail">Alguns fitxers no s\'han pogut moure</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_remote_text">Remot: %1$s</string>
+    <string name="upload_query_move_foreign_files">No hi ha espai suficient per copiar els fitxers seleccionats dins la carpeta %1$s. Voldreu moure-les en comptes d\'això?</string>
     <string name="pass_code_enter_pass_code">Escriviu el codi d\'accés</string>
     
     <string name="pass_code_configure_your_pass_code">Escriviu codi d\'accés</string>
@@ -235,6 +236,7 @@
 	<string name="auth_connecting_auth_server">Connectant amb el servidor d\'autenticació...</string>
 	<string name="auth_unsupported_auth_method">El serivdor no permet aquest mètode d\'autenticació</string>
 	<string name="auth_unsupported_multiaccount">%1$s no permet comptes múltiples</string>
+	<string name="auth_fail_get_user_name">El servidor no retorna una id d\'usuari correcta, contacteu amb l\'administrador.</string>
 	<string name="auth_can_not_auth_against_server">No es pot autenticar en aquest servidor</string>
     <string name="auth_account_does_not_exist">El compte no existeix en aquest dispositiu encara</string>
     
@@ -323,10 +325,12 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Feu servir subcarpetes</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Desar a subcarpetes ordenades per any i mes</string>
 
+	<string name="share_link_no_support_share_api">La compartició no es troba disponible al vostre servidor. Contacteu amb l\'administrador.</string>
 	<string name="share_link_file_no_exist">No es pot compartir. Assegureu-vos que el fitxer existeix</string>
 	<string name="share_link_file_error">S\'ha produït un error en intentar compartir aquest fitxer o carpeta</string>
 	<string name="unshare_link_file_no_exist">No es pot deixar de compartir. Assegureu-vos que el fitxer existeix</string>
 	<string name="unshare_link_file_error">S\'ha produït un error en intentar deixar de compartir aquest fitxer o carpeta</string>
+    <string name="update_link_file_no_exist">No es pot actualitzar. Assegureu-vos que el fitxer existeix</string>
     <string name="update_link_file_error">S\'ha produït un error en tractar d\'actualitzar la compartició</string>
     <string name="share_link_password_title">Escriviu una contrasenya</string>
     <string name="share_link_empty_password">Heu d\'escriure una contrasenya</string>
@@ -469,6 +473,7 @@
     <string name="share_email_clarification">%1$s (correu electrònic)</string>
     <string name="share_known_remote_clarification">%1$s (a %2$s)</string>
 
+    <string name="share_sharee_unavailable">La vostra versió de servidor no permet compartir amb usuaris entre clients \nContacteu amb el vostre administrador</string>
     <string name="share_privilege_can_share">pot compartir</string>
     <string name="share_privilege_can_edit">pot editar</string>
     <string name="share_privilege_can_edit_create">crear</string>
@@ -505,6 +510,7 @@
     <string name="participate_testing_report_text">Informeu d\'un problema a Github</string>
     <string name="participate_testing_version_text">Us interessa ajudar-nos a provar la següent versió?</string>
     <string name="participate_beta_headline">Proveu la versió Beta</string>
+    <string name="participate_beta_text">Inclou totes les característiques futures i és d\'alt risc. Si apareixen errors informeu-nos siusplau. &lt;br/>&lt;a href="%2$s">Baixeu l\'APK&lt;/a> o</string>
     <string name="participate_release_candidate_headline">Versió candidata</string>
     <string name="participate_release_candidate_text">La versió candidata (RC) és una instantània de la versió següent i se suposa que és estable. Provar la vostra configuració individual pot ajudar a garantir-ho. Registreu-vos a Play Store per fer les proves o bé mireu la secció \"versions\" a F-Droid.</string>
     <string name="participate_contribute_headline">Contribuïu activament</string>

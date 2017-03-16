@@ -466,6 +466,7 @@
     <string name="share_email_clarification">%1$s (имейл)</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
+    <string name="share_sharee_unavailable">За съжаление версията на сървъра не позволява споделяне от клиента. \nМоля, уведомете системния админинстратор</string>
     <string name="share_privilege_can_share">може да споделя</string>
     <string name="share_privilege_can_edit">може да променя</string>
     <string name="share_privilege_can_edit_create">създаване</string>
