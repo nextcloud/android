@@ -43,9 +43,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.InputType;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -99,8 +97,6 @@ import java.security.cert.X509Certificate;
 import java.util.Map;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
-import static android.provider.ContactsContract.CommonDataKinds.StructuredName.PREFIX;
 
 /**
  * This Activity is used to add an ownCloud account to the App
