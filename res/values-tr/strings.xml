@@ -510,7 +510,7 @@
     <string name="participate_testing_report_text">Github üzerinden bir sorun bildirin</string>
     <string name="participate_testing_version_text">Gelecek sürümler için bize yardımcı olmak ister misiniz?</string>
     <string name="participate_beta_headline">Beta sürümünü deneyin</string>
-    <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan hata ve sorunlar olabilir. Bir hata ya da soruna rastlarsanız bize iletin. <br/>&lt;a href =\"%2$s\">APK dosyasını indirin</a> ya da</string>
+    <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan hata ve sorunlar olabilir. Bir hata ya da soruna rastlarsanız bize iletin. <br/>&lt;a href =\"%2$s\">APK dosyasını indirin&lt;/a> ya da</string>
     <string name="participate_release_candidate_headline">Yayın adayı</string>
     <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümlere\" bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
