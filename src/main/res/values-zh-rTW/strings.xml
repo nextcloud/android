@@ -170,7 +170,6 @@
     <string name="foreign_files_fail">部份檔案無法被移動</string>
     <string name="foreign_files_local_text">本地： %1$s</string>
     <string name="foreign_files_remote_text">遠端： %1$s</string>
-    <string name="upload_query_move_foreign_files">沒有足夠的空間來複製檔案到資料夾 %1$s ，是否改用搬移的方式來處理？</string>
     <string name="pass_code_enter_pass_code">請輸入通行碼</string>
     
     <string name="pass_code_configure_your_pass_code">輸入通行碼</string>
@@ -231,8 +230,6 @@
 	<string name="auth_connecting_auth_server">連接認證伺服器中…</string>
 	<string name="auth_unsupported_auth_method">伺服器不支援這種認證方式</string>
 	<string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
-	<string name="auth_fail_get_user_name">你的伺服器並沒有傳回正確的使用者 ID，請聯絡伺服器管理員
-</string>
 	<string name="auth_can_not_auth_against_server">無法與伺服器認證</string>
     <string name="auth_account_does_not_exist">帳號目前不存在於本裝置</string>
     
@@ -319,13 +316,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子資料夾</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">依據年月存在子資料夾內</string>
 
-	<string name="share_link_no_support_share_api">很抱歉，您的伺服器並未開啟分享功能，請聯絡您的
-		伺服器管理員</string>
 	<string name="share_link_file_no_exist">無法分享，請檢查檔案是否存在</string>
 	<string name="share_link_file_error">在分享檔案或資料夾時發生了錯誤</string>
 	<string name="unshare_link_file_no_exist">無法取消分享，請檢查檔案是否存在</string>
 	<string name="unshare_link_file_error">在取消分享檔案或資料夾時發生了錯誤</string>
-    <string name="update_link_file_no_exist">無法更新，請檢查檔案是否存在</string>
     <string name="update_link_file_error">當嘗試更新分享時發生錯誤</string>
     <string name="share_link_password_title">輸入密碼</string>
     <string name="share_link_empty_password">您必須輸入密碼</string>
@@ -453,8 +447,6 @@
     <string name="share_remote_clarification">%1$s （遠端）</string>
     <string name="share_known_remote_clarification">%1$s （在 %2$s ）</string>
 
-    <string name="share_sharee_unavailable">抱歉，您的伺服器不允許使用者在客戶端啟用分享功能
-\\n請連線你的伺服器管理員</string>
     <string name="share_privilege_can_share">可分享</string>
     <string name="share_privilege_can_edit">可編輯</string>
     <string name="share_privilege_can_edit_create">建立</string>
@@ -490,8 +482,6 @@
     <string name="participate_testing_report_text">在 Github 上回報</string>
     <string name="participate_testing_version_text">有興趣幫我們測試下一個版本嗎？</string>
     <string name="participate_beta_headline">測試 Beta 版</string>
-    <string name="participate_beta_text">這包含所有最新功能，但可能有問題，若發現問題請與我們回報。&lt;br/>&lt;a href=\"%2$s\">下載 APK 檔&lt;/a>
-或</string>
     <string name="participate_release_candidate_headline">最終測試版</string>
     <string name="participate_release_candidate_text">最終測試版是新版本發行前的快照，應該相當穩定，您的測試將協助我們確保穩定性，在 Play 商店中註冊成為測試者，或是在 F-Droid 中尋找「版本」區塊</string>
     <string name="participate_contribute_headline">積極貢獻</string>

@@ -228,8 +228,7 @@
 	<string name="auth_connecting_auth_server">Pripájam sa na autentifikačný server ...</string>
 	<string name="auth_unsupported_auth_method">Server nepodporuje túto autentifikačnú metódu</string>
 	<string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
-	<string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému
-	</string>
+	<string name="auth_fail_get_user_name">Váš server nevracia správne používateľské id, kontaktujte prosím správcu systému </string>
 	<string name="auth_can_not_auth_against_server">Nie je možné sa overiť voči tomuto serveru</string>
     <string name="auth_account_does_not_exist">Účet zatiaľ v zariadení neexistuje</string>
     
@@ -316,8 +315,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Použi podpriečinky</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ulož v podpriečinkoch podľa roku a mesiaca</string>
 
-	<string name="share_link_no_support_share_api">Sprístupňovanie obsahu nie je na vašom serveri povolené. Prosím kontaktujte vášho
-		administrátora.</string>
+	<string name="share_link_no_support_share_api">Sprístupňovanie obsahu nie je na vašom serveri povolené. Prosím kontaktujte vášho administrátora.</string>
 	<string name="share_link_file_no_exist">Sprístupnenie nie je možné. Skontrolujte, či súbor existuje</string>
 	<string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe</string>
 	<string name="unshare_link_file_no_exist">Sprístupnenie nie je možné zrušiť. Skontrolujte, či súbor existuje</string>
@@ -457,8 +455,7 @@
 
     <string name="search_users_and_groups_hint">Vyhľadať používateľov alebo skupiny</string>
     <string name="share_group_clarification">%1$s (skupina)</string>
-    <string name="share_sharee_unavailable">Je nám ľúto, verzia vášho servera neumožňuje sprístupňovanie obsahu používateľom alebo skupinám.
-\nProsím, obráťte sa na svojho správcu</string>
+    <string name="share_sharee_unavailable">Je nám ľúto, verzia vášho servera neumožňuje sprístupňovanie obsahu používateľom alebo skupinám. \nProsím, obráťte sa na svojho správcu</string>
     <string name="share_privilege_can_share">môže sprístupniť</string>
     <string name="share_privilege_can_edit">môže upraviť</string>
     <string name="share_privilege_can_edit_create">vytvoriť</string>

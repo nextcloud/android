@@ -236,8 +236,7 @@
 	<string name="auth_connecting_auth_server">Menyambungkan ke server otentikasi ...</string>
 	<string name="auth_unsupported_auth_method">Server tidak mendukung medote otentikasi ini</string>
 	<string name="auth_unsupported_multiaccount">%1$s tidak mendukung banyak akun </string>
-	<string name="auth_fail_get_user_name">Server Anda tidak membalas id pengguna dengan banar, Sialakn hubungi Administrator
-	</string>
+	<string name="auth_fail_get_user_name">Server Anda tidak membalas id pengguna dengan banar, Sialakn hubungi Administrator </string>
 	<string name="auth_can_not_auth_against_server">Tidak terotentikasi ke server ini</string>
     <string name="auth_account_does_not_exist">Akun tidak ada di perangkat ini</string>
     
@@ -326,8 +325,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Gunakan subfolder</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Simpan dalam subfolder berdasarkan tahun dan bulan</string>
 
-	<string name="share_link_no_support_share_api">Maaf, berbagi tidak diaktifkan pada server Anda. Silakan hubungi
-		administrator Anda.</string>
+	<string name="share_link_no_support_share_api">Maaf, berbagi tidak diaktifkan pada server Anda. Silakan hubungi administrator Anda.</string>
 	<string name="share_link_file_no_exist">Tidak dapat berbagi. Mohon periksa apakah berkas ada</string>
 	<string name="share_link_file_error">Terjadi kesalahan saat mencoba membagikan berkas atau folder ini</string>
 	<string name="unshare_link_file_no_exist">Tidak dapat menghapus berbagi. Mohon periksa apakah berkas ada</string>
@@ -475,8 +473,7 @@
     <string name="share_email_clarification">%1$s (surel)</string>
     <string name="share_known_remote_clarification">%1$s ( di %2$s )</string>
 
-    <string name="share_sharee_unavailable">Maaf, server Anda tidak mengizinkan untuk berbagi dengan pengguna didalam klien
-\nHubungi administrator Anda</string>
+    <string name="share_sharee_unavailable">Maaf, server Anda tidak mengizinkan untuk berbagi dengan pengguna didalam klien \nHubungi administrator Anda</string>
     <string name="share_privilege_can_share">dapat berbagi</string>
     <string name="share_privilege_can_edit">dapat disunting</string>
     <string name="share_privilege_can_edit_create">buat</string>
@@ -513,9 +510,7 @@
     <string name="participate_testing_report_text">Laporkan isu di Github</string>
     <string name="participate_testing_version_text">Tertarik dalam membantu kami menguji Versi selanjutnya?</string>
     <string name="participate_beta_headline">Uji versi Beta</string>
-    <string name="participate_beta_text">Ini termasuk semua fitur yang akan datang sangat terbaru. Kutu/galat
-dapat terjadi dan jika terjadi, harap laporkan ke kami. &lt;br/>&lt;a href="%2$s">Unduh APK&lt;/a>
-atau</string>
+    <string name="participate_beta_text">Ini termasuk semua fitur yang akan datang sangat terbaru. Kutu/galat dapat terjadi dan jika terjadi, harap laporkan ke kami. &lt;br/>&lt;a href="%2$s">Unduh APK&lt;/a> atau</string>
     <string name="participate_release_candidate_headline">Kandidat rilis</string>
     <string name="participate_release_candidate_text">Kandidat rilis (RC) adalah potret rilis berikutnya dan diharapkan akan stabil. Uji pengaturan pribadi anda dapat membantu untuk memastikan hal ini. Daftar untuk menguji di Play Store atau secara manual lihat di seksi \"versi\" di F-Droid.</string>
     <string name="participate_contribute_headline">Berkontribusi Aktif</string>
