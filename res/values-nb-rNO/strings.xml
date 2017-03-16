@@ -173,6 +173,7 @@
     <string name="foreign_files_fail">Noen filer kunne ikke fjernes</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Ekstern: %1$s</string>
+    <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
     <string name="pass_code_enter_pass_code">Sett inn passordet ditt</string>
     
     <string name="pass_code_configure_your_pass_code">Skriv inn passordet ditt</string>
@@ -233,6 +234,7 @@
 	<string name="auth_connecting_auth_server">Kobler til autentiseringstjener..</string>
 	<string name="auth_unsupported_auth_method">Tjeneren støtter ikke denne autorisasjonsmetoden</string>
 	<string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
+	<string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, vennligst ta kontakt med en administrator </string>
 	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne tjeneren</string>
     <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
     
@@ -321,10 +323,12 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre filer i undermapper basert på år og måned</string>
 
+	<string name="share_link_no_support_share_api">Beklager, deling er ikke skrudd på for din tjener. Ta kontakt med administratoren.</string>
 	<string name="share_link_file_no_exist">Kan ikke dele. Sjekk om filen eksisterer.</string>
 	<string name="share_link_file_error">Det skjedde en feil under deling av denne filen eller mappen</string>
 	<string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Sjekk om filen eksisterer.</string>
 	<string name="unshare_link_file_error">En feil oppstod ved avslutting av delingen av denne filen eller mappen</string>
+    <string name="update_link_file_no_exist">Kan ikke oppdatere. Sjekk om filen eksisterer</string>
     <string name="update_link_file_error">Det oppstod en feil ved oppdatering av delingen</string>
     <string name="share_link_password_title">Skriv inn ett passord</string>
     <string name="share_link_empty_password">Du må skrive inn ett passord</string>
@@ -467,6 +471,7 @@
     <string name="share_email_clarification">%1$s (e-post)</string>
     <string name="share_known_remote_clarification">%1$s ( hos %2$s )</string>
 
+    <string name="share_sharee_unavailable">Beklager, tjenerversjonen din tillater ikke klienter å dele med brukere. \nKontakt systemadministratoren</string>
     <string name="share_privilege_can_share">kan dele</string>
     <string name="share_privilege_can_edit">kan endre</string>
     <string name="share_privilege_can_edit_create">opprette</string>
@@ -503,6 +508,7 @@
     <string name="participate_testing_report_text">Meld en feil på Github</string>
     <string name="participate_testing_version_text">Er du interessert i å hjelpe oss å teste ned neste versjonen?</string>
     <string name="participate_beta_headline">Test betaversjonen</string>
+    <string name="participate_beta_text">Dette inkludere alle kommende funksjoner og er helt på kanten. Feil/Feilmeldinger kan oppstå og hvis de gjør, vennligst meld de til oss. &lt;br/>&lt;a href="%2$s">Last ned APK&lt;/a> eller</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Release candidate (RC) er en pakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett vil kunne hjelpe oss å sikre dette. Meld deg på for testen i Play butikken eller se i versjonsseksjonen i F-Droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
