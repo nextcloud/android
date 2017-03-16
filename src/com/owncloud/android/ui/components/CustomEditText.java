@@ -1,22 +1,23 @@
 /**
- * Nextcloud Android client application
+ *   Nextcloud Android client application
  *
- * @author Mario Danic
- * Copyright (C) 2017 Mario Danic
- * <p>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * at your option) any later version.
- * <p>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- * <p>
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *   @author Mario Danic
+ *   Copyright (C) 2017 Mario Danic
+ *
+ *   This program is free software; you can redistribute it and/or
+ *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ *   License as published by the Free Software Foundation; either
+ *   version 3 of the License, or any later version.
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ *   You should have received a copy of the GNU Affero General Public
+ *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 package com.owncloud.android.ui.components;
 
 import android.content.Context;
@@ -31,7 +32,6 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 /**
  * Custom edit text to support fixed suffix or prefix
  */
-
 public class CustomEditText extends android.support.v7.widget.AppCompatEditText {
     private Rect fixedRect = new Rect();
     private String fixedText = "";
@@ -53,8 +53,6 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
         if (TextUtils.isEmpty(fixedText)) {
             setHint(R.string.auth_host_url);
         }
-
-
     }
 
     public String getFullServerUrl() {
@@ -80,11 +78,10 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
         super.onDraw(canvas);
         if (!TextUtils.isEmpty(fixedText)) {
             if (isPrefixFixed) {
-                canvas.drawText(fixedText, super.getCompoundPaddingLeft(),
-                        getBaseline(), getPaint());
+                canvas.drawText(fixedText, super.getCompoundPaddingLeft(), getBaseline(), getPaint());
             } else {
-                canvas.drawText(fixedText, super.getCompoundPaddingLeft() + getPaint().measureText(
-                        getText().toString()), getBaseline(), getPaint());
+                canvas.drawText(fixedText, super.getCompoundPaddingLeft()
+                        + getPaint().measureText(getText().toString()), getBaseline(), getPaint());
             }
         }
     }
@@ -97,5 +94,4 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
             return super.getCompoundPaddingLeft();
         }
     }
-
 }

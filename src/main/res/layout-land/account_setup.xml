@@ -90,7 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-						<com.owncloud.android.ui.components.CustomEditText
+                        <com.owncloud.android.ui.components.CustomEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
