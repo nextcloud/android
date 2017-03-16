@@ -464,7 +464,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     serverInputType.equals(SUBDOMAIN_SERVER_INPUT_TYPE)) {
                 mHostUrlInput.setText("");
             }
-
         } else {
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
             mRefreshButton = findViewById(R.id.centeredRefreshButton);
@@ -486,7 +485,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             public void afterTextChanged(Editable s) {
                 if (mOkButton.isEnabled() &&
                         !mServerInfo.mBaseUrl.equals(
-                                normalizeUrl(s.toString(), mServerInfo.mIsSslConn))) {
+                                normalizeUrl(mHostUrlInput.getFullServerUrl(), mServerInfo.mIsSslConn))) {
                     mOkButton.setEnabled(false);
                 }
             }
@@ -867,7 +866,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     private void checkOcServer() {
-        String uri = mHostUrlInput.getText().toString().trim();
+        String uri = mHostUrlInput.getFullServerUrl().trim();
         mServerIsValid = false;
         mServerIsChecked = false;
         mOkButton.setEnabled(false);

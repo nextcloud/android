@@ -33,7 +33,7 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
  */
 
 public class CustomEditText extends android.support.v7.widget.AppCompatEditText {
-    private Rect mFixedRect = new Rect();
+    private Rect fixedRect = new Rect();
     private String fixedText = "";
     private boolean isPrefixFixed;
 
@@ -50,6 +50,11 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
             fixedText = "." + getResources().getString(R.string.server_url);
         }
 
+        if (TextUtils.isEmpty(fixedText)) {
+            setHint(R.string.auth_host_url);
+        }
+
+
     }
 
     public String getFullServerUrl() {
@@ -65,13 +70,7 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         if (!TextUtils.isEmpty(fixedText)) {
-            getPaint().getTextBounds(fixedText, 0, fixedText.length(), mFixedRect);
-
-            if (isPrefixFixed) {
-                mFixedRect.right += getPaint().measureText(fixedText);
-            } else {
-                mFixedRect.right += getPaint().measureText(fixedText);
-            }
+            getPaint().getTextBounds(fixedText, 0, fixedText.length(), fixedRect);
         }
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
@@ -81,12 +80,22 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
         super.onDraw(canvas);
         if (!TextUtils.isEmpty(fixedText)) {
             if (isPrefixFixed) {
-                canvas.drawText(fixedText, super.getCompoundPaddingLeft() + getPaint().measureText(fixedText),
+                canvas.drawText(fixedText, super.getCompoundPaddingLeft(),
                         getBaseline(), getPaint());
             } else {
-                canvas.drawText(fixedText, super.getCompoundPaddingLeft() + getPaint().measureText(getText().toString()),
-                        getBaseline(), getPaint());
+                canvas.drawText(fixedText, super.getCompoundPaddingLeft() + getPaint().measureText(
+                        getText().toString()), getBaseline(), getPaint());
             }
         }
     }
+
+    @Override
+    public int getCompoundPaddingLeft() {
+        if (!TextUtils.isEmpty(fixedText) && isPrefixFixed) {
+            return super.getCompoundPaddingLeft() + fixedRect.width();
+        } else {
+            return super.getCompoundPaddingLeft();
+        }
+    }
+
 }
