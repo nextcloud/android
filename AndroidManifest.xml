@@ -61,7 +61,7 @@
     <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"
-        android:label="Nextcloud beta"
+        android:label="Nextcloud nightly"
         android:fullBackupContent="@xml/backup_config"
         android:theme="@style/Theme.ownCloud.Toolbar"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
