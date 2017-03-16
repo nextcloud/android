@@ -9,14 +9,14 @@ pipeline:
       - ./gradlew assembleDebug
       # run all the local unit tests of app module
       - ./gradlew :testGenericDebugUnitTest
-      - ./gradlew :testCustomDebugUnitTest
+      - ./gradlew :testModifiedDebugUnitTest
       # run all the instrumented tests of app module - DISABLED until we get an stable setup for Espresso in Travis
       # - ./gradlew connectedDebugAndroidTest --info
       # install app, then assemble and install instrumented tests of app module
       - ./gradlew :installGenericDebug
-      - ./gradlew :installCustomDebug
+      - ./gradlew :installModifiedDebug
       - ./gradlew :installGenericDebugAndroidTest
-      - ./gradlew :installCustomDebugAndroidTest
+      - ./gradlew :installModifiedDebugAndroidTest
       # run sample instrumented unit test
       # TODO fails because test runner is not available
       #- adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
