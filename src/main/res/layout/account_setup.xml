@@ -90,7 +90,6 @@
                     android:layout_gravity="bottom"
                     android:contentDescription="@string/auth_host_address"
                     android:drawablePadding="@dimen/alternate_half_padding"
-                    android:hint="@string/auth_host_url"
                     android:inputType="textUri"
                     android:paddingRight="@dimen/alternate_padding_right"
                     android:textColor="@color/login_text_color"
