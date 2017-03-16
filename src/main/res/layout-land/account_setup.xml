@@ -90,8 +90,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                        <EditText
-                            android:id="@+id/hostUrlInput"
+						<com.owncloud.android.ui.components.CustomEditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
@@ -105,7 +104,7 @@
                             >
 
                             <requestFocus/>
-                        </EditText>
+                        </com.owncloud.android.ui.components.CustomEditText>
 
                     </android.support.design.widget.TextInputLayout>
 

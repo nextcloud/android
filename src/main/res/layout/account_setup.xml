@@ -83,7 +83,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <com.owncloud.android.ui.components.CustomEditText
                     android:id="@+id/hostUrlInput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                     android:textColorHint="@color/login_text_color">
 
                     <requestFocus/>
-                </EditText>
+                </com.owncloud.android.ui.components.CustomEditText>
 
             </android.support.design.widget.TextInputLayout>
 
