@@ -169,6 +169,7 @@
     <string name="foreign_files_fail">Някои файлове не могат да бъдат преместени</string>
     <string name="foreign_files_local_text">Локален: %1$s</string>
     <string name="foreign_files_remote_text">Отдалечен: %1$s</string>
+    <string name="upload_query_move_foreign_files">В папка %1$s няма достатъчно място за копиране на избраните файлове. Желаете ли да бъдат преместени?</string>
     <string name="pass_code_enter_pass_code">Моля, въведете кода за достъп</string>
     
     <string name="pass_code_configure_your_pass_code">Въведете кода за достъп</string>
@@ -229,6 +230,7 @@
 	<string name="auth_connecting_auth_server">Свързване към сървър за идентификация...</string>
 	<string name="auth_unsupported_auth_method">Сървърът не поддържа този метод за идентификация</string>
 	<string name="auth_unsupported_multiaccount">%1$s не поддържа множество профили</string>
+	<string name="auth_fail_get_user_name">Вашият сървър не връща правилен потребителски индентификатор. Моля, свържете се с администратора</string>
 	<string name="auth_can_not_auth_against_server">Неуспешно идентифициране към сървъра</string>
     <string name="auth_account_does_not_exist">Профилът все още не съществува на устройството</string>
     
@@ -316,6 +318,8 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Ползване на подпапки</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Съхраняване в подпапки, разделени по година и месец</string>
 
+	<string name="share_link_no_support_share_api">За съжаление споделянето не е включено на сървъра ви. 
+Моля, свържете се с администратора.</string>
 	<string name="share_link_file_no_exist">Неуспешен опит за споделяне. Моля, проверете съществува ли файла</string>
 	<string name="share_link_file_error">Възникна грешка при опита за споделяне на файл или папка</string>
 	<string name="unshare_link_file_no_exist">Неуспешен опит за прекратяване на споделянето. Проверете съществува ли файла</string>

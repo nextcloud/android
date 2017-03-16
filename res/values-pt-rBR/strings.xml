@@ -175,6 +175,7 @@
     <string name="foreign_files_fail">Alguns arquivos não puderam ser movidos</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
+    <string name="upload_query_move_foreign_files">Não há espaço suficiente para copiar os arquivos selecionados para a pasta %1$s. Gostaria de movê-los em vez disso?</string>
     <string name="pass_code_enter_pass_code">Digite sua senha</string>
     
     <string name="pass_code_configure_your_pass_code">Digite o código de acesso</string>
@@ -235,6 +236,7 @@
 	<string name="auth_connecting_auth_server">Conectando ao servidor de autenticação ...</string>
 	<string name="auth_unsupported_auth_method">O servidor não suporta este método de autenticação</string>
 	<string name="auth_unsupported_multiaccount">%1$s não suporta múltiplas contas</string>
+	<string name="auth_fail_get_user_name">Seu servidor não está retornando um id de usuário correto, entre em contato com um administrador</string>
 	<string name="auth_can_not_auth_against_server">Não é possível obter autenticação neste servidor</string>
     <string name="auth_account_does_not_exist">Conta ainda não existe no dispositivo</string>
     
@@ -323,10 +325,12 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subpastas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Armazena em subpastas com base no ano e mês</string>
 
+	<string name="share_link_no_support_share_api">Lamentamos, mas o compartilhamento não está ativada no servidor. Entre em contato com o administrador.</string>
 	<string name="share_link_file_no_exist">Não é possível compartilhar. Por favor verifique se o arquivo existe</string>
 	<string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
 	<string name="unshare_link_file_no_exist">Não é possível cancelar o compartilhamento. Por favor verifique se o arquivo existe</string>
 	<string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta</string>
+    <string name="update_link_file_no_exist">Não é possível atualizar. Verifique se o arquivo existe</string>
     <string name="update_link_file_error">Ocorreu um erro enquanto tentava atualizar o compartilhamento</string>
     <string name="share_link_password_title">Digite uma senha</string>
     <string name="share_link_empty_password">Você deve digitar uma senha</string>
@@ -469,6 +473,8 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( em %2$s )</string>
 
+    <string name="share_sharee_unavailable">Lamentamos, mas a versão do seu servidor não permite partilhar com utilizadores nos clientes. 
+Contacte o administrador</string>
     <string name="share_privilege_can_share">pode compartilhar</string>
     <string name="share_privilege_can_edit">pode editar</string>
     <string name="share_privilege_can_edit_create">criar</string>
@@ -505,6 +511,7 @@
     <string name="participate_testing_report_text">Relate o problema no Github</string>
     <string name="participate_testing_version_text">Está interessado em ajudar-nos a testar a próxima versão?</string>
     <string name="participate_beta_headline">Testar a versão beta</string>
+    <string name="participate_beta_text">Isso inclui todos os próximos recursos e é um recurso muitíssimo novo. Bugs/erros podem ocorrer e se ocorrerem, por favor informe-nos. &lt;br/>&lt;a href=\"%2$s\">Faça o download do APK&lt;/a> ou</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">O release candidate (RC) é um instantâneo do lançamento e espera-se que seja estável. Testar a sua configuração individual pode contribuir para assegurar-la. Registe-se para testar na Play Store ou procurar manualmente na seção \"versões\" na F-Droid.</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
