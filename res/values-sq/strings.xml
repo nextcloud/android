@@ -510,7 +510,7 @@
     <string name="participate_testing_report_text">Raportoni një problem në Github</string>
     <string name="participate_testing_version_text">Jeni të interesuar për të na ndihmuar në testimin e versionit të ardhshëm?</string>
     <string name="participate_beta_headline">Testoni versionin Beta</string>
-    <string name="participate_beta_text">Kjo përfshin të gjitha tiparet e ardhshme dhe është teknologji shumë e re. Baget/gabime mund të ndodhin dhe nëse ata ndodhin, ju lutem raportojini ato tek ne.&Lt; br/>&lt; a href ="%2$s">Shkarko APK &lt;/a> ose</string>
+    <string name="participate_beta_text">Kjo përfshin të gjitha tiparet e ardhshme dhe është teknologji shumë e re. Baget/gabime mund të ndodhin dhe nëse ata ndodhin, ju lutem raportojini ato tek ne.&lt; br/>&lt; a href =\"%2$s\">Shkarko APK &lt;/a> ose</string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
     <string name="participate_release_candidate_text">Lëshimi i kandidatit  (RC) është një fragment i lëshimit të ardhshme dhe pritet të jetë i qëndrueshëm. Testimi i setup-it tuaj individuale mund të ndihmojë për ta siguruar këtë. Regjistrohuni për testimin në Play Store ose manualisht  shikoni në seksionin \"versionet\" në F-Droid.</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
