@@ -73,24 +73,17 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     private static final int REQUESTED_PAGE = 1;
 
     public static String AUTHORITY;
-    public static final String ACTION_SHARE_WITH = AUTHORITY + ".action.SHARE_WITH";
+    public static String ACTION_SHARE_WITH;
 
     public static final String CONTENT = "content";
 
-    public static final String DATA_USER = AUTHORITY + ".data.user";
-    public static final String DATA_GROUP = AUTHORITY + ".data.group";
-    public static final String DATA_REMOTE = AUTHORITY + ".data.remote";
+    public static String DATA_USER;
+    public static String DATA_GROUP;
+    public static String DATA_REMOTE;
 
     private UriMatcher mUriMatcher;
 
-    private static HashMap<String, ShareType> sShareTypes;
-
-    static {
-        sShareTypes = new HashMap<>();
-        sShareTypes.put(DATA_USER, ShareType.USER);
-        sShareTypes.put(DATA_GROUP, ShareType.GROUP);
-        sShareTypes.put(DATA_REMOTE, ShareType.FEDERATED);
-    }
+    private static HashMap<String, ShareType> sShareTypes = new HashMap<>();
 
     public static ShareType getShareType(String authority) {
 
@@ -106,7 +99,17 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     @Override
     public boolean onCreate() {
+
         AUTHORITY = getContext().getResources().getString(R.string.users_and_groups_search_authority);
+        ACTION_SHARE_WITH = getContext().getResources().getString(R.string.users_and_groups_share_with);
+        DATA_USER = AUTHORITY + ".data.user";
+        DATA_GROUP = AUTHORITY + ".data.group";
+        DATA_REMOTE = AUTHORITY + ".data.remote";
+
+        sShareTypes.put(DATA_USER, ShareType.USER);
+        sShareTypes.put(DATA_GROUP, ShareType.GROUP);
+        sShareTypes.put(DATA_REMOTE, ShareType.FEDERATED);
+
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         mUriMatcher.addURI(AUTHORITY, SearchManager.SUGGEST_URI_PATH_QUERY + "/*", SEARCH);
         return true;
