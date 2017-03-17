@@ -147,8 +147,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
     public static final String PROTOCOL_SUFFIX = "://";
     public static final String LOGIN_URL_DATA_KEY_VALUE_SEPARATOR = ":";
-    private static final String HTTPS_PROTOCOL = "https://";
-    private static final String HTTP_PROTOCOL = "http://";
+    public static final String HTTPS_PROTOCOL = "https://";
+    public static final String HTTP_PROTOCOL = "http://";
 
     public static final String REGULAR_SERVER_INPUT_TYPE = "regular";
     public static final String SUBDOMAIN_SERVER_INPUT_TYPE = "prefix";
