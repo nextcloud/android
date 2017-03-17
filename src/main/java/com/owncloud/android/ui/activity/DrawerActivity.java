@@ -558,6 +558,12 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             if (mIsAccountChooserActive) {
                 mAccountChooserToggle.setImageResource(R.drawable.ic_up);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, true);
+
+                if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+                        mNavigationView.getMenu().findItem(R.id.drawer_menu_account_add) != null) {
+                    mNavigationView.getMenu().removeItem(R.id.drawer_menu_account_add);
+                }
+
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, false);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_bottom, false);
             } else {
