@@ -6,16 +6,16 @@
  * @author masensio
  * Copyright (C) 2012  Bartek Przybylski
  * Copyright (C) 2015 ownCloud Inc.
- *
+ * <p>
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -456,9 +456,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (isUrlInputAllowed) {
             mRefreshButton = findViewById(R.id.embeddedRefreshButton);
-            if (serverInputType.equals(DIRECTORY_SERVER_INPUT_TYPE) ||
-                    serverInputType.equals(SUBDOMAIN_SERVER_INPUT_TYPE)) {
-                mHostUrlInput.setText("");
+            if (mAction == ACTION_CREATE) {
+                if (serverInputType.equals(DIRECTORY_SERVER_INPUT_TYPE) ||
+                        serverInputType.equals(SUBDOMAIN_SERVER_INPUT_TYPE)) {
+                    mHostUrlInput.setText("");
+                }
             }
         } else {
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
@@ -1794,7 +1796,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 inputField.equals(mHostUrlInput) &&
                 AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).
                         equals(mAuthTokenType)) {
-                checkOcServer();
+            checkOcServer();
         }
         return false;   // always return false to grant that the software keyboard is hidden anyway
     }

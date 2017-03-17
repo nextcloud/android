@@ -1,21 +1,21 @@
 /**
- *   Nextcloud Android client application
+ * Nextcloud Android client application
  *
- *   @author Mario Danic
- *   Copyright (C) 2017 Mario Danic
- *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * @author Mario Danic
+ * Copyright (C) 2017 Mario Danic
+ * <p>
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * <p>
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.components;
@@ -56,7 +56,8 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
     }
 
     public String getFullServerUrl() {
-        if (TextUtils.isEmpty(fixedText)) {
+        if (TextUtils.isEmpty(fixedText) || getText().toString().startsWith("http://")
+                || getText().toString().startsWith("https://")) {
             return getText().toString();
         } else if (isPrefixFixed) {
             return (getResources().getString(R.string.server_url) + "/" + getText().toString());
@@ -76,7 +77,8 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (!TextUtils.isEmpty(fixedText)) {
+        if (!getText().toString().startsWith("http://") && !getText().toString().startsWith("https://")
+                && !TextUtils.isEmpty(fixedText)) {
             if (isPrefixFixed) {
                 canvas.drawText(fixedText, super.getCompoundPaddingLeft(), getBaseline(), getPaint());
             } else {
