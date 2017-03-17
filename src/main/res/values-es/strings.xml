@@ -236,8 +236,7 @@
 	<string name="auth_connecting_auth_server">Conectando al servidor de autentificación</string>
 	<string name="auth_unsupported_auth_method">El servidor no soporta este método de autenticación</string>
 	<string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
-	<string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador
-	</string>
+	<string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador </string>
 	<string name="auth_can_not_auth_against_server">No se puedo autenticar a este servidor</string>
     <string name="auth_account_does_not_exist">Aún no existe la cuenta en el dispositivo</string>
     
@@ -326,8 +325,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcarpetas</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Archivar en subcarpetas basadas en año y mes.</string>
 
-	<string name="share_link_no_support_share_api">La función Compartir no está activada en su servidor. Contacte a su
-		administrador.</string>
+	<string name="share_link_no_support_share_api">La función Compartir no está activada en su servidor. Contacte a su administrador.</string>
 	<string name="share_link_file_no_exist">No se puede compartir. Revise si el archivo existe</string>
 	<string name="share_link_file_error">Ocurrió un error al tratar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">No se puede dejar de compartir. Revise si el archivo existe</string>
@@ -512,9 +510,7 @@
     <string name="participate_testing_report_text">Informa de un problema en Github</string>
     <string name="participate_testing_version_text">¿Interesado en ayudarnos a probar la próxima versión?</string>
     <string name="participate_beta_headline">Probar la versión Beta</string>
-    <string name="participate_beta_text">Esto incluye todas las características por llegar y es de última generación. Pueden aparecer
-errores/fallos. Si lo hacen, por favor, infórmenos. &lt;br/>&lt;a href=\"%2$s\">Download the APK&lt;/a>
-o</string>
+    <string name="participate_beta_text">Esto incluye todas las características por llegar y es de última generación. Pueden aparecer errores/fallos. Si lo hacen, por favor, infórmenos. &lt;br/>&lt;a href="%2$s">Download the APK&lt;/a> o</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">La release candidate (RC) es una instantánea de la próxima versión y se espera que sea estable. Probar su configuración individual podría ayudar a asegurar esto. Regístrese para probarla en Play Store o busque manualmente en la sección \"versiones\" de F-Droid.</string>
     <string name="participate_contribute_headline">Contribuye activamente</string>

@@ -325,8 +325,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podadresáře</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Ukládat v podadresářích podle roku a měsíce</string>
 
-	<string name="share_link_no_support_share_api">Je nám líto, ale sdílení není na vašem serveru povoleno. Kontaktujte svého
-správce systému.</string>
+	<string name="share_link_no_support_share_api">Je nám líto, ale sdílení není na vašem serveru povoleno. Kontaktujte svého správce systému.</string>
 	<string name="share_link_file_no_exist">Nelze sdílet. Zkontrolujte prosím že soubor existuje</string>
 	<string name="share_link_file_error">Při pokusu o sdílení tohoto souboru či adresáře nastala chyba</string>
 	<string name="unshare_link_file_no_exist">Nelze ukončit sdílení. Zkontrolujte prosím že soubor existuje</string>
@@ -474,8 +473,7 @@ správce systému.</string>
     <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( v %2$s )</string>
 
-    <string name="share_sharee_unavailable">Omlouváme se, verze vašeho serveru neumožňuje v klientské aplikaci sdílení dat mezi uživateli.
-\nKontaktujte prosím svého administrátora</string>
+    <string name="share_sharee_unavailable">Omlouváme se, verze vašeho serveru neumožňuje v klientské aplikaci sdílení dat mezi uživateli. \nKontaktujte prosím svého administrátora</string>
     <string name="share_privilege_can_share">může sdílet</string>
     <string name="share_privilege_can_edit">lze upravovat</string>
     <string name="share_privilege_can_edit_create">vytvořit</string>

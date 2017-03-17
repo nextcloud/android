@@ -175,7 +175,7 @@
     <string name="foreign_files_fail">Certains fichiers n\'ont pu être déplacés</string>
     <string name="foreign_files_local_text">Local : %1$s</string>
     <string name="foreign_files_remote_text">Distant : %1$s</string>
-    <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace disque pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
+    <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="pass_code_enter_pass_code">Veuillez saisir votre code de sécurité</string>
     
     <string name="pass_code_configure_your_pass_code">Saisissez votre code de sécurité</string>
@@ -236,8 +236,7 @@
 	<string name="auth_connecting_auth_server">Connexion au serveur d\'authentification…</string>
 	<string name="auth_unsupported_auth_method">Le serveur ne prend pas en charge cette méthode d\'authentification</string>
 	<string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
-	<string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez prendre contact avec votre administrateur
-</string>
+	<string name="auth_fail_get_user_name">Votre serveur a retourné un identifiant d\'utilisateur incorrect. Veuillez contacter un administrateur</string>
 	<string name="auth_can_not_auth_against_server">Impossible de s\'authentifier sur ce serveur</string>
     <string name="auth_account_does_not_exist">Le compte n\'existe pas encore sur ce périphérique</string>
     
@@ -292,7 +291,7 @@
     <string name="ssl_validator_label_signature">Signature :</string>
     <string name="ssl_validator_label_signature_algorithm">Algorithme :</string>
     <string name="digest_algorithm_not_available">Cet algorithme de hachage n\'est pas disponible sur votre appareil.</string>
-    <string name="ssl_validator_label_certificate_fingerprint">Empreinte numérique :</string>
+    <string name="ssl_validator_label_certificate_fingerprint">Empreinte digitale :</string>
     <string name="certificate_load_problem">Le chargement du certificat pose problème.</string>
     <string name="ssl_validator_null_cert">Impossible d\'afficher le certificat.</string>
     <string name="ssl_validator_no_info_about_error">- Aucune information sur l\'erreur</string>
@@ -331,7 +330,7 @@
 	<string name="share_link_file_error">Une erreur est survenue lors de la tentative de partage de ce fichier ou répertoire</string>
 	<string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier est bien présent</string>
 	<string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d’annulation du partage de ce fichier ou répertoire</string>
-    <string name="update_link_file_no_exist">Mise à jour impossible. Veuillez vérifier que ce fichier existe</string>
+    <string name="update_link_file_no_exist">Impossible de mettre à jour. Vérifiez que le fichier est bien présent</string>
     <string name="update_link_file_error">Une erreur est survenue lors de la mise à jour du partage</string>
     <string name="share_link_password_title">Saisissez un mot de passe</string>
     <string name="share_link_empty_password">Vous devez saisir un mot de passe</string>
@@ -474,8 +473,7 @@
     <string name="share_email_clarification">%1$s (courriel)</string>
     <string name="share_known_remote_clarification">%1$s (sur %2$s)</string>
 
-    <string name="share_sharee_unavailable">Désolé, la version du serveur ne permet pas aux applications d\'initier des partage avec d\'autres utilisateurs.
-\nVeuillez contacter votre administrateur</string>
+    <string name="share_sharee_unavailable">Désolé, la version de votre serveur ne permet pas aux applications d\'initier des partages avec d\'autres utilisateurs.\nVeuillez contacter votre administrateur</string>
     <string name="share_privilege_can_share">peut partager</string>
     <string name="share_privilege_can_edit">peut modifier</string>
     <string name="share_privilege_can_edit_create">création</string>
@@ -485,8 +483,8 @@
     <string name="edit_share_done">Terminé</string>
 
     <string name="action_retry_uploads">Relancer les échoués</string>
-    <string name="action_clear_failed_uploads">Effacer les échecs</string>
-    <string name="action_clear_successful_uploads">Effacer les réussis</string>
+    <string name="action_clear_failed_uploads">Effacer les échoués</string>
+    <string name="action_clear_successful_uploads">Effacer les envoyés</string>
     <string name="action_clear_finished_uploads">Effacer tous les terminés</string>
 
     <string name="action_switch_grid_view">Affichage Mosaïque</string>
@@ -512,10 +510,7 @@
     <string name="participate_testing_report_text">Signaler un problème sur Github</string>
     <string name="participate_testing_version_text">Vous avez envie de nous aider en testant les futures versions ?</string>
     <string name="participate_beta_headline">Testez la version Bêta</string>
-    <string name="participate_beta_text">La version Beta inclut les dernières fonctionnalités qui sont encore toutes fraîches.
-Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler.
-&lt;br/>&lt;a href=\"%2$s\">Télécharger l\'APK&lt;/a>
-ou</string>
+    <string name="participate_beta_text">La version Beta inclut les dernières fonctionnalités qui sont encore toutes fraîches. Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler. &lt;br/>&lt;a href="%2$s">Télécharger l\'APK&lt;/a> ou</string>
     <string name="participate_release_candidate_headline">Testez la version Release Candidate</string>
     <string name="participate_release_candidate_text">La version « release candidate » (RC) est un instantanné de la dernière version supposée stable. Le test de votre configuration pourrait nous aider à nous assurer que cette version est entièrement stable. Inscrivez vous pour être testeur sur le Play store ou allez jeter un œil dans la section \"versions\" de F-Droid.</string>
     <string name="participate_contribute_headline">Participez activement</string>

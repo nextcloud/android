@@ -83,6 +83,8 @@
     <string name="file_list_loading">Loading&#8230;</string>
     <string name="file_list_no_app_for_file_type">No app found for file type!</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
+    <string name="file_list_empty_headline_search">No results in this folder</string>
+    <string name="file_list_empty_search">Try looking in another folder?</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text">Upload some content or activate instant upload!</string>
     <string name="file_list_folder">folder</string>
@@ -173,7 +175,7 @@
     <string name="foreign_files_fail">Some files could not be moved</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_remote_text">Remote: %1$s</string>
-    <string name="upload_query_move_foreign_files">There is not enough space to copy the selected files into the %1$s folder. Would you like to move them instead? </string>
+    <string name="upload_query_move_foreign_files">There is not enough space to copy the selected files into the %1$s folder. Would you like to move them instead?</string>
     <string name="pass_code_enter_pass_code">Please enter your passcode</string>
     
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
@@ -234,8 +236,7 @@
 	<string name="auth_connecting_auth_server">Connecting to authentication server …</string>
 	<string name="auth_unsupported_auth_method">The server does not support this authentication method</string>
 	<string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
-	<string name="auth_fail_get_user_name">Your server is not returning a correct user id, please contact an administrator
-	</string>
+	<string name="auth_fail_get_user_name">Your server is not returning a correct user id, please contact an administrator </string>
 	<string name="auth_can_not_auth_against_server">Cannot authenticate to this server</string>
     <string name="auth_account_does_not_exist">Account does not exist in the device yet</string>
     
@@ -324,13 +325,12 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Store in subfolders based on year and month</string>
 
-	<string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your
-		administrator.</string>
+	<string name="share_link_no_support_share_api">Sorry, sharing is not enabled on your server. Please contact your administrator.</string>
 	<string name="share_link_file_no_exist">Unable to share. Please check whether the file exists</string>
 	<string name="share_link_file_error">An error occurred while trying to share this file or folder</string>
 	<string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists</string>
 	<string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder</string>
-    <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists </string>
+    <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists</string>
     <string name="update_link_file_error">An error occurred while trying to update the share</string>
     <string name="share_link_password_title">Enter a password</string>
     <string name="share_link_empty_password">You must enter a password</string>
@@ -473,8 +473,7 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( at %2$s )</string>
 
-    <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients.
-        \nPlease contact your administrator</string>
+    <string name="share_sharee_unavailable">Sorry, your server version does not allow share with users within clients. \nPlease contact your administrator</string>
     <string name="share_privilege_can_share">can share</string>
     <string name="share_privilege_can_edit">can edit</string>
     <string name="share_privilege_can_edit_create">create</string>
