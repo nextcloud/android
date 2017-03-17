@@ -79,7 +79,7 @@ android {
                 applicationId 'com.nextcloud.client'
             }
 
-            custom {
+            modified {
                 // structure is:
                 // domain tld
                 // domain name
@@ -89,7 +89,7 @@ android {
         }
 
         configurations {
-            customCompile
+            modifiedCompile
         }
     }
 
@@ -188,7 +188,7 @@ dependencies {
     compile 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'
 
-    customCompile 'com.google.firebase:firebase-core:10.2.0'
+    modifiedCompile 'com.google.firebase:firebase-core:10.2.0'
 
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'
