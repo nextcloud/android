@@ -56,8 +56,8 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
     }
 
     public String getFullServerUrl() {
-        if (TextUtils.isEmpty(fixedText) || getText().toString().startsWith("http://")
-                || getText().toString().startsWith("https://")) {
+        if (TextUtils.isEmpty(fixedText) || getText().toString().startsWith(AuthenticatorActivity.HTTP_PROTOCOL)
+                || getText().toString().startsWith(AuthenticatorActivity.HTTPS_PROTOCOL)) {
             return getText().toString();
         } else if (isPrefixFixed) {
             return (getResources().getString(R.string.server_url) + "/" + getText().toString());
@@ -77,7 +77,8 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        if (!getText().toString().startsWith("http://") && !getText().toString().startsWith("https://")
+        if (!getText().toString().startsWith(AuthenticatorActivity.HTTP_PROTOCOL)
+                && !getText().toString().startsWith(AuthenticatorActivity.HTTPS_PROTOCOL)
                 && !TextUtils.isEmpty(fixedText)) {
             if (isPrefixFixed) {
                 canvas.drawText(fixedText, super.getCompoundPaddingLeft(), getBaseline(), getPaint());
