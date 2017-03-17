@@ -471,8 +471,7 @@
     <string name="share_email_clarification">%1$s (e-mail)</string>
     <string name="share_known_remote_clarification">%1$s ( itt: %2$s )</string>
 
-    <string name="share_sharee_unavailable">Sajnáljuk, de az Ön szerver verziója nem engedi a kliensen belüli megosztást felhasználók között.
-\nKérem keresse a rendszergazdát.</string>
+    <string name="share_sharee_unavailable">Sajnáljuk, de az Ön szerver verziója nem engedi a kliensen belüli megosztást felhasználók között. \nKérem keresse a rendszergazdát.</string>
     <string name="share_privilege_can_share">megosztható</string>
     <string name="share_privilege_can_edit">módosíthat</string>
     <string name="share_privilege_can_edit_create">létrehoz</string>
@@ -509,8 +508,7 @@
     <string name="participate_testing_report_text">Jelentsd a problémát a Githubon</string>
     <string name="participate_testing_version_text">Érdekel a következő verzió tesztelési lehetősége?</string>
     <string name="participate_beta_headline">Teszteld a Béta verziót</string>
-    <string name="participate_beta_text">Ez tartalmazza az összes közelgő tulajdonságot és nagyon újszerű. Bugok és hibák felléphetnek, ha ilyeneket tapasztal. Kérem jelentse nekünk. &lt;br/>&lt;a href=\"%2$s\">APK letöltése&lt;/a>
-vagy</string>
+    <string name="participate_beta_text">Ez tartalmazza az összes közelgő tulajdonságot és nagyon újszerű. Bugok és hibák felléphetnek, ha ilyeneket tapasztal. Kérem jelentse nekünk. &lt;br/>&lt;a href="%2$s">APK letöltése&lt;/a> vagy</string>
     <string name="participate_release_candidate_headline">Kiadásra jelölt</string>
     <string name="participate_release_candidate_text">A kiadásra jelölt (RC) változat az egy pillanatképe a közelgő új változatnak, és stabilnak mondható. Az egyedi telepítésekkel segíthet nekünk, hogy ezt biztosítsuk. Jelentkezzen tesztelésre a Play Áruházban vagy manuálisan nézzen bele a verziók részbe F-Droid-on.</string>
     <string name="participate_contribute_headline">Aktívan hozzájárul</string>

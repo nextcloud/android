@@ -156,7 +156,6 @@
     <string name="foreign_files_fail">לא ניתן להעביר חלק מהקבצים</string>
     <string name="foreign_files_local_text">מקומי: %1$s</string>
     <string name="foreign_files_remote_text">מרוחק: %1$s</string>
-    <string name="upload_query_move_foreign_files">אין מספיק מקום להעתיק את הקבצים הנבחרים לתוך תיקיית %1$s. האם ברצונך להעביר אותם במקום להעתיק? </string>
     <string name="pass_code_configure_your_pass_code">יש להכניס את הקוד שלך</string>
     <string name="pass_code_configure_your_pass_code_explanation">בכל פעם שיישום זה נפתח יהיה צורך להכניס את הקוד</string>
     <string name="pass_code_reenter_your_pass_code">יש להכניס את הקוד שנית</string>
@@ -215,8 +214,6 @@
 	<string name="auth_connecting_auth_server">מתחבר לשרת אימות...</string>
 	<string name="auth_unsupported_auth_method">השרת אינו תומך בשיטת אימות זו</string>
 	<string name="auth_unsupported_multiaccount">%1$s אינו תומך בריבוי חשבונות</string>
-	<string name="auth_fail_get_user_name">השרת אינו מחזיר מספר משתמש נכון, יש ליצור קשר עם מנהל
-⇥</string>
 	<string name="auth_can_not_auth_against_server">לא ניתן לאמת עבור שרת זה</string>
     <string name="auth_account_does_not_exist">עדיין לא קיים חשבון במכשיר</string>
     
@@ -297,13 +294,10 @@
     <string name="error__upload__local_file_not_copied">%1$s לא ניתן להעתקה לתיקייה מקומית %2$s</string>
     <string name="prefs_folder_sync_local_path_title">תיקייה מקומית</string>
     <string name="prefs_folder_sync_remote_path_title">תיקייה מרוחקת</string>
-    <string name="share_link_no_support_share_api">מצטערים, שיתוף אינו מורשה על השרת שלך. יש ליצור קשר עם
-⇥⇥מנהל.</string>
-	<string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
+    <string name="share_link_file_no_exist">לא ניתן לשתף. יש לבדוק אם הקובץ קיים</string>
 	<string name="share_link_file_error">שגיאה אירעה בזמן ניסיון לשתף קובץ זה או תיקייה זו</string>
 	<string name="unshare_link_file_no_exist">לא ניתן לבטל שיתוף. יש לבדוק אם הקובץ קיים</string>
 	<string name="unshare_link_file_error">שגיאה אירעה בזמן ניסיון לבטל שיתוף לקובץ זה או לתיקייה זו</string>
-    <string name="update_link_file_no_exist">לא ניתן לעדכן. יש לבדוק אם הקובץ קיים</string>
     <string name="update_link_file_error">שגיאה אירעה בניסיון לעדכן את השיתוף</string>
     <string name="share_link_password_title">הכנסת סיסמא</string>
     <string name="share_link_empty_password">יש להכניס סיסמא</string>
@@ -421,8 +415,6 @@
     <string name="share_remote_clarification">%1$s (נשלט מרחוק)</string>
     <string name="share_known_remote_clarification">%1$s ( ב- %2$s )</string>
 
-    <string name="share_sharee_unavailable">מצטערים, גרסת השרת שלך לא מאפשרת שיתוף עם משתמשים בין לקוחות.
-        \nיש ליצור קשר עם המנהל</string>
     <string name="share_privilege_can_share">ניתן לשתף</string>
     <string name="share_privilege_can_edit">ניתן לערוך</string>
     <string name="share_privilege_can_edit_create">יצירה</string>

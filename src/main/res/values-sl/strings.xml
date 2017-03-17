@@ -166,7 +166,6 @@
     <string name="foreign_files_fail">Nekaterih datotek ni mogoče premakniti</string>
     <string name="foreign_files_local_text">Krajevno: %1$s</string>
     <string name="foreign_files_remote_text">Oddaljeno: %1$s</string>
-    <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želite datoteke premakniti na novo mesto?</string>
     <string name="pass_code_enter_pass_code">Vnesite kodo PIN</string>
     
     <string name="pass_code_configure_your_pass_code">Vnesite kodo PIN programa</string>
@@ -227,8 +226,6 @@
 	<string name="auth_connecting_auth_server">Povezovanje s overitvenim strežnikom</string>
 	<string name="auth_unsupported_auth_method">Strežnik ne podpira tega načina overitve</string>
 	<string name="auth_unsupported_multiaccount">%1$s ne omogoča podpore več računom</string>
-	<string name="auth_fail_get_user_name">Strežnik ne vrača ustreznega ID uporabnika. Stopite v stik s skrbnikom sistema.
-	</string>
 	<string name="auth_can_not_auth_against_server">Povezave s strežnikom ni mogoče overiti</string>
     <string name="auth_account_does_not_exist">Račun na napravi še ne obstaja.</string>
     
@@ -314,13 +311,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Shrani v podmape kot leto in mesec</string>
 
-	<string name="share_link_no_support_share_api">Souporaba je na strežniku onemogočena. Možnost lahko spreminjajo le
-		uporabniki s skrbniškimi dovoljenji.</string>
 	<string name="share_link_file_no_exist">Souporaba ni mogoča. Preverite, ali datoteka obstaja.</string>
 	<string name="share_link_file_error">Prišlo je do napake med poskusom omogočanja souporabe te datoteke ali mape</string>
 	<string name="unshare_link_file_no_exist">Ni mogoče prekiniti souporabe. Preverite, ali datoteka obstaja.</string>
 	<string name="unshare_link_file_error">Prišlo je do napake med poskusom odstranjevanja souporabe te datoteke ali mape</string>
-    <string name="update_link_file_no_exist">Posodobitev ni mogoča. Preverite, ali datoteka obstaja.</string>
     <string name="update_link_file_error">Prišlo je do napake med posodabljanjem mesta souporabe</string>
     <string name="share_link_password_title">Vpis gesla</string>
     <string name="share_link_empty_password">Vpisati je treba geslo.</string>
@@ -436,8 +430,6 @@
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_known_remote_clarification">%1$s ( pri %2$s )</string>
 
-    <string name="share_sharee_unavailable">Različica strežnika ne omogoča souporabe predmetov z uporabniki med strankami.
-\nStopite v stik s skrbnikom sistema.</string>
     <string name="share_privilege_can_share">lahko omogoči souporabo</string>
     <string name="share_privilege_can_edit">lahko ureja</string>
     <string name="share_privilege_can_edit_create">ustvari</string>

@@ -211,8 +211,6 @@
 	<string name="auth_connecting_auth_server">인증 서버에 연결 ...</string>
 	<string name="auth_unsupported_auth_method">서버에서 이 인증 방법을 지원하지 않습니다.</string>
 	<string name="auth_unsupported_multiaccount">%1$s에서 다중 계정을 지원하지 않습니다</string>
-	<string name="auth_fail_get_user_name">서버에서 올바른 사용자 ID를 반환하지 않았습니다. 관리자에게 연락하십시오
-	</string>
 	<string name="auth_can_not_auth_against_server">이 서버에 인증 할 수 없습니다</string>
     <string name="auth_account_does_not_exist">장치에 아직 계정이 없음</string>
     
@@ -296,12 +294,10 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">하위 폴더 사용</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">연도와 월을 기준으로 하위 폴더에 보관</string>
 
-	<string name="share_link_no_support_share_api">서버에서 공유가 비활성화되어 있습니다. 관리자에게 연락하십시오.</string>
 	<string name="share_link_file_no_exist">공유할 수 없습니다. 파일이 있는지 확인하십시오</string>
 	<string name="share_link_file_error">이 파일이나 폴더를 공유하는 중 오류 발생</string>
 	<string name="unshare_link_file_no_exist">공유를 해제할 수 없습니다. 파일이 있는지 확인하십시오</string>
 	<string name="unshare_link_file_error">이 파일이나 폴더의 공유를 해제하는 중 오류 발생</string>
-    <string name="update_link_file_no_exist">업데이트에 실패하였습니다. 이미 파일이 존재하지는 않는지 확인해주세요.</string>
     <string name="update_link_file_error">공유를 업데이트하는 중 오류 발생</string>
     <string name="share_link_password_title">암호 입력</string>
     <string name="share_link_empty_password">암호를 입력해야 합니다</string>
@@ -416,8 +412,6 @@
     <string name="share_remote_clarification">%1$s (원격)</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s에서 )</string>
 
-    <string name="share_sharee_unavailable">죄송합니다. 이 버전에서는 사용자들이 클라이언트에서 공유하는 것을 허용하지 않습니다.
-\n서버의 관리자에게 문의하시기 바랍니다.</string>
     <string name="share_privilege_can_share">공유 가능</string>
     <string name="share_privilege_can_edit">편집 가능</string>
     <string name="share_privilege_can_edit_create">생성</string>

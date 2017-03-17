@@ -175,7 +175,7 @@
     <string name="foreign_files_fail">Een paar bestanden konden niet worden verplaatst</string>
     <string name="foreign_files_local_text">Lokaal: %1$s</string>
     <string name="foreign_files_remote_text">Extern: %1$s</string>
-    <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopieren naar %1$s. Wilt u ze in plaats daarvan verplaatsen? </string>
+    <string name="upload_query_move_foreign_files">Er is niet genoeg ruimte om de geselecteerde bestanden te kopieren naar %1$s. Wilt u ze in plaats daarvan verplaatsen?</string>
     <string name="pass_code_enter_pass_code">Voer je toegangscode in</string>
     
     <string name="pass_code_configure_your_pass_code">Toegangscode invoeren</string>
@@ -510,7 +510,7 @@
     <string name="participate_testing_report_text">Meld het op Github</string>
     <string name="participate_testing_version_text">Geïnteresseerd om ons te helpen de volgende versie te testen?</string>
     <string name="participate_beta_headline">Test de Beta-versie</string>
-    <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden. &lt;br/>&lt;a href=\"%2$s\">Download de APK&lt;/a> of</string>
+    <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden. &lt;br/>&lt;a href="%2$s">Download de APK&lt;/a> of</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">De Release Candidate (RC) is een kopie van de komende release en zou stabiel moeten zijn. Testen van jouw installatie kan ons helpen om dit te bevestigen. Meld je aan om te testen op de Play Store of bekijk handmatig de \"versies\"-sectie op F-Droid.</string>
     <string name="participate_contribute_headline">Actief meedoen</string>
