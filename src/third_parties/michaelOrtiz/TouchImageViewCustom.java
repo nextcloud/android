@@ -12,7 +12,6 @@ package third_parties.michaelOrtiz;
 
 import android.annotation.TargetApi;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -26,7 +25,6 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -39,7 +37,6 @@ import android.widget.OverScroller;
 import android.widget.Scroller;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.preview.ImageViewCustom;
 
 /**
@@ -896,8 +893,8 @@ public class TouchImageViewCustom extends ImageViewCustom {
     private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
         private boolean snackShown = false;
 
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(previewImageFragment.getContext());
-        String test = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH)
+//        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(previewImageFragment.getContext());
+//        String test = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH)
 
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {

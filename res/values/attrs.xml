@@ -32,4 +32,12 @@
 		<item>@string/menu_item_sort_by_date</item>
 		<item>@string/menu_item_sort_by_size</item>
 	</string-array>
+
+	<string-array name="preview_behaviour" translatable="false">
+		<item>@string/preview_behaviour_resized</item>
+		<item>@string/preview_behaviour_resizedAfterZoom</item>
+		<item>@string/preview_behaviour_downloadAndSave</item>
+		<item>@string/preview_behaviour_fullsizePreview</item>
+	</string-array>
+
 </resources>

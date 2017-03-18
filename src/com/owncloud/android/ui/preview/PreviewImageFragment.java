@@ -22,15 +22,15 @@ package com.owncloud.android.ui.preview;
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,10 +46,8 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -215,6 +213,42 @@ public class PreviewImageFragment extends FileFragment {
         super.onStart();
         if (getFile() != null) {
             mImageView.setTag(getFile().getFileId());
+
+            Snackbar.make(mImageView, R.string.preview_behaviour_snackbar, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.preview_behaviour_snackbar_change, new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setTitle(R.string.preview_behaviour_caption)
+                                    .setSingleChoiceItems(R.array.preview_behaviour, 0,
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    switch (which) {
+                                                        case 0:
+//                                                            sortByName(true);
+                                                            break;
+                                                        case 1:
+//                                                            sortByDate(false);
+                                                            break;
+                                                        case 2:
+//                                                            sortBySize(false);
+                                                    }
+
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                            builder.create().show();
+                        }
+                    })
+                    .setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            super.onDismissed(snackbar, event);
+//                            showNeverDownloadSnackBar();
+//                            snackShown = false;
+                        }
+                    })
+                    .show();
 
             if (mShowResizedImage){
                 mImageView.setMaxZoom(2f);
