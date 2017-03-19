@@ -41,6 +41,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -198,6 +199,13 @@ public class FileListListAdapter extends BaseAdapter {
 
             LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.ListItemLayout);
             linearLayout.setContentDescription("LinearLayout-" + name);
+
+            ((ImageView) view.findViewById(R.id.favorite_action)).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "WORKS!", Toast.LENGTH_LONG).show();
+                }
+            });
 
             switch (viewType) {
                 case LIST_ITEM:

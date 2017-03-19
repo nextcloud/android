@@ -29,7 +29,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
-        <Button
+        <ImageButton
             android:id="@+id/favorite_action"
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -38,7 +38,7 @@
             android:layout_gravity="center_vertical"
             android:background="@drawable/favorite_button_selector"
             android:focusable="false"
-            />
+            android:focusableInTouchMode="false" />
 
         <FrameLayout
             android:layout_width="60dp"

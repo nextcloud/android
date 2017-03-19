@@ -72,8 +72,8 @@ public class GridViewWithHeaderAndFooter extends GridView {
     private int mRowHeight = -1;
     private static final String LOG_TAG = "grid-view-with-header-and-footer";
 
-    private ArrayList<FixedViewInfo> mHeaderViewInfos = new ArrayList<FixedViewInfo>();
-    private ArrayList<FixedViewInfo> mFooterViewInfos = new ArrayList<FixedViewInfo>();
+    private ArrayList<FixedViewInfo> mHeaderViewInfos = new ArrayList<>();
+    private ArrayList<FixedViewInfo> mFooterViewInfos = new ArrayList<>();
 
     private void initHeaderGridView() {
     }
