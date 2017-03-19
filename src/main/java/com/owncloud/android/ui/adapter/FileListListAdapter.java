@@ -489,7 +489,7 @@ public class FileListListAdapter extends BaseAdapter {
     public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
         isSpecialFilter = true;
 
-        
+
         mFiles = new Vector<>();
         for (int i = 0; i < objects.size(); i++) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
