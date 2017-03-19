@@ -414,7 +414,6 @@ public class RefreshFolderOperation extends RemoteOperation {
                 updatedFile.setShareViaLink(localFile.isSharedViaLink());
                 updatedFile.setShareWithSharee(localFile.isSharedWithSharee());
                 updatedFile.setEtagInConflict(localFile.getEtagInConflict());
-                updatedFile.setFavorite(localFile.getIsFavorite());
             } else {
                 // remote eTag will not be updated unless file CONTENTS are synchronized
                 updatedFile.setEtag("");
