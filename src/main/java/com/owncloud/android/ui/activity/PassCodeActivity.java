@@ -23,21 +23,29 @@
 package com.owncloud.android.ui.activity;
 
 import android.animation.ObjectAnimator;
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.text.Editable;
-import android.text.Html;
+import android.text.InputType;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -48,10 +56,12 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.BaseInputConnection;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,6 +77,95 @@ import java.util.List;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 
+class NumberKeyLinearLayout extends LinearLayout implements View.OnFocusChangeListener  {
+
+    public NumberKeyLinearLayout(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public void initialize(Context context) {
+        setFocusableInTouchMode(true);
+        setFocusable(true);
+        setOnFocusChangeListener(this);
+    }
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (hasFocus) {
+            imm.showSoftInput(v, 0);
+        } else {
+            imm.hideSoftInputFromWindow(getWindowToken(), 0);
+        }
+    }
+
+    private class PassInputConnection extends BaseInputConnection {
+        private SpannableStringBuilder _editable;
+
+        PassInputConnection(View targetView, boolean fullEditor) {
+            super(targetView, fullEditor);
+        }
+
+        @Override
+        public boolean deleteSurroundingText(int beforeLength, int afterLength) {
+            sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
+            sendKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL));
+            return true;
+        }
+
+        // @Override
+        // public Editable getEditable() {
+        //     if (_editable == null) {
+        //         _editable = (SpannableStringBuilder) Editable.Factory.getInstance()
+        //                 .newEditable("Placeholder");
+        //     }
+        //     return _editable;
+        // }
+
+        // @Override
+        // public boolean commitText(CharSequence text, int newCursorPosition) {
+        //     _editable.append(text);
+        //     return true;
+        // }
+
+        @Override
+        public boolean sendKeyEvent(KeyEvent event)
+        {
+            int keyCode = event.getKeyCode();
+
+            if (keyCode > 60 && keyCode < 68) {
+                return super.sendKeyEvent(event);
+            }
+            else {
+                return super.sendKeyEvent(event);
+            }
+        }
+    }
+    
+    @Override
+    public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
+        PassInputConnection ic = new PassInputConnection(this, false);
+        outAttrs.inputType = InputType.TYPE_CLASS_NUMBER;
+        //outAttrs.imeOptions = EditorInfo.IME_ACTION_DONE;
+        outAttrs.imeOptions = EditorInfo.IME_ACTION_NONE;
+        return ic;
+    }
+
+    // @Override
+    // public boolean onCheckIsTextEditor() {
+    //     return true;
+    // }
+
+    // @Override
+    // public boolean onKeyDown (int keyCode, KeyEvent event){
+    //     if (keyCode == KeyEvent.KEYCODE_BACK) {
+    //         View v = (View)getParent();
+    //         String s = v.getClass().getName();
+    //     }
+    //     return false;
+    // }
+}
+
 class SoftKeyboardUtil {
     private static final String TAG = SoftKeyboardUtil.class.getSimpleName();
 
@@ -74,8 +173,9 @@ class SoftKeyboardUtil {
     private boolean mIsSoftKeyboardOpened;
     private SoftKeyboardListener mSoftKeyboardListener;
     private int mHideCount;
+    private View mView;
 
-    public interface SoftKeyboardListener {
+    interface SoftKeyboardListener {
         void onClose();
     }
 
@@ -127,8 +227,9 @@ class SoftKeyboardUtil {
         });
     }
 
-    public SoftKeyboardUtil(AppCompatActivity activity, SoftKeyboardListener softKeyboardListener) {
+    public SoftKeyboardUtil(AppCompatActivity activity, View view, SoftKeyboardListener softKeyboardListener) {
         mActivity = activity;
+        mView = view;
         mSoftKeyboardListener = softKeyboardListener;
         if (softKeyboardListener != null) {
             setListenerToRootView();
@@ -146,10 +247,18 @@ class SoftKeyboardUtil {
 
     public void show() {
         mHideCount = 0;
-        View focusedView = mActivity.getCurrentFocus();
+        View focusedView = mView;
+        if (focusedView == null) {
+            focusedView = mActivity.getCurrentFocus();
+        }
         if (focusedView != null) {
             InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(INPUT_METHOD_SERVICE);
-            imm.showSoftInput(focusedView, 0);
+            String s = focusedView.getClass().getName();
+            if (s.indexOf("EditText") != -1) {
+                imm.showSoftInput(focusedView, 0);
+            } else {
+                imm.toggleSoftInput(0, 0);
+            }
         } else {
             Log_OC.i(TAG, "focusedView = null in show()");
             new Handler().postDelayed(new Runnable() {
@@ -216,7 +325,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
     private TextView mPassCodeHdr;
     private TextView mPassCodeHdrExplanation;
-    private EditText mPassCodeEditText;
+    // private EditText mPassCodeEditText;
 
     private String mConfirmingPassCode;
     private boolean mConfirmingPassCodeFlag = false;
@@ -290,6 +399,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     private SharedPreferences mPref;
     private boolean mNeedKeyboardSetup;
     private int count;
+    private String mPassCodeStr;
     ArrayList<Integer> passFields = new ArrayList<> ();
 
 
@@ -310,9 +420,12 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         mPassCodeHdr = (TextView) findViewById(R.id.header);
         mPassCodeHdrExplanation = (TextView) findViewById(R.id.explanation);
         setupButtons();
-        setupPassCodeEditText();
+        // setupPassCodeEditText();
         mSoftKeyboardMode = mPref.getBoolean(AUTO_PREF__SOFT_KEYBOARD_MODE, INIT_SOFT_KEYBOARD_MODE);
-        mSoftKeyboard = new SoftKeyboardUtil(this, this);
+        NumberKeyLinearLayout ll = (NumberKeyLinearLayout)findViewById(R.id.LinearLayout);
+        ll.initialize(this);
+        // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        mSoftKeyboard = new SoftKeyboardUtil(this, ll, this);
         if (!ENABLE_SWITCH_SOFT_KEYBOARD) {
             mButtonsSubStr[11] = "";
         }
@@ -440,7 +553,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         objectAnimator.start();
     }
 
-    private void suffleButtonsIDList() {
+    private void shuffleButtonsIDList() {
         if (ENABLE_SUFFLE_BUTTONS) {
             List<Integer> list = Arrays.asList(mButtonsIDListShuffle);
             Collections.shuffle(list);
@@ -463,7 +576,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     
     private void showKeypad() {
         int duration = mButtonVisibilityPrev == 0 ? 0 : 500;
-        suffleButtonsIDList();
+        shuffleButtonsIDList();
         KeypadParam keypadParam = getKeypadParam();
         for (int i = 0; i < mButtonsList.length; i++) {
             AppCompatButton b = mButtonsList[i];
@@ -471,7 +584,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             b.setClickable(true);
             int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
             setKeypadString(b, j, keypadParam);
-            b.setOnClickListener(new ButtonClicked(mPassCodeEditText, j));
+            b.setOnClickListener(new ButtonClicked(j));
             boolean switch_soft_keyboard = (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD);
             if (switch_soft_keyboard) {
                 b.setLongClickable(true);
@@ -567,36 +680,36 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         }
     }
 
-    protected void setupPassCodeEditText() {
-        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-        EditText et = til.getEditText();
-        //et.setTextIsSelectable(false);     // TODO:no effect for double tap?
-        //et.setContextClickable(false);
-        if (Build.VERSION.SDK_INT >= 21) {
-            et.setShowSoftInputOnFocus(false);  // for disabling popup soft keyboard when double clicked
-        }
-        et.requestFocus();
-        et.addTextChangedListener(new TextWatcher(){
-            @Override
-            public void afterTextChanged(Editable s) {
-                String passCode = mPassCodeEditText.getText().toString();
-                if (passCode.length() == 4) {
-                    processFullPassCode(passCode);
-                }
-            }
+    // protected void setupPassCodeEditText() {
+    //     TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+    //     EditText et = til.getEditText();
+    //     //et.setTextIsSelectable(false);     // TODO:no effect for double tap?
+    //     //et.setContextClickable(false);
+    //     if (Build.VERSION.SDK_INT >= 21) {
+    //         et.setShowSoftInputOnFocus(false);  // for disabling popup soft keyboard when double clicked
+    //     }
+    //     et.requestFocus();
+    //     et.addTextChangedListener(new TextWatcher(){
+    //         @Override
+    //         public void afterTextChanged(Editable s) {
+    //             String passCode = mPassCodeEditText.getText().toString();
+    //             if (passCode.length() == 4) {
+    //                 processFullPassCode(passCode);
+    //             }
+    //         }
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                // nothing to do
-            }
+    //         @Override
+    //         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+    //             // nothing to do
+    //         }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                // nothing to do
-            }
-        });
-        mPassCodeEditText = et;
-    }
+    //         @Override
+    //         public void onTextChanged(CharSequence s, int start, int before, int count) {
+    //             // nothing to do
+    //         }
+    //     });
+    //     mPassCodeEditText = et;
+    // }
 
     /**
      * Processes the pass code entered by the user just after the last digit was in.
@@ -651,14 +764,14 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
 
     private void showErrorMessage(int errorMessage) {
-        CharSequence errorSeq = getString(errorMessage);
-        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-        til.setError(errorSeq);
+        // CharSequence errorSeq = getString(errorMessage);
+        // TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+        // til.setError(errorSeq);
     }
 
     private void eraseErrorMessage() {
-        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-        til.setError(null);
+        // TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+        // til.setError(null);
     }
 
     private void startGuard() {
@@ -667,12 +780,12 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         } else {
             hideSoftKeyboard();
         }
-//        mPassCodeEditText.setFocusable(false);
-        mPassCodeEditText.setClickable(false);
-        Animation animation = AnimationUtils.loadAnimation(PassCodeActivity.this, R.anim.shake);
-        mPassCodeEditText.startAnimation(animation);
-        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-        til.setPasswordVisibilityToggleEnabled(false);
+// //        mPassCodeEditText.setFocusable(false);
+//         mPassCodeEditText.setClickable(false);
+//         Animation animation = AnimationUtils.loadAnimation(PassCodeActivity.this, R.anim.shake);
+//         mPassCodeEditText.startAnimation(animation);
+//         TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+//         til.setPasswordVisibilityToggleEnabled(false);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -682,11 +795,11 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
 
     private void endGuard() {
-        mPassCodeEditText.setClickable(true);
-        mPassCodeEditText.requestFocus();
+        // mPassCodeEditText.setClickable(true);
+        // mPassCodeEditText.requestFocus();
         eraseErrorMessage();
-        TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-        til.setPasswordVisibilityToggleEnabled(true);
+        // TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
+        // til.setPasswordVisibilityToggleEnabled(true);
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             setupKeyboard();
             clearPassCodeEditText();
@@ -741,7 +854,8 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
      * Sets the input fields to empty strings and puts the focus on the first one.
      */
     protected void clearPassCodeEditText() {
-        mPassCodeEditText.setText("");
+        mPassCodeStr = "";
+        // mPassCodeEditText.setText("");
     }
 
     /**
@@ -771,7 +885,19 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                 }
             }
             return true;
+        } else if (KeyEvent.KEYCODE_0 <= keyCode &&  keyCode <= KeyEvent.KEYCODE_9) {
+            mPassCodeStr += (char)('0' + (keyCode - KeyEvent.KEYCODE_0));
+            fillPassFields();
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_DEL) {
+            int len = mPassCodeStr.length();
+            if (len >= 1) {
+                mPassCodeStr = mPassCodeStr.substring(0, len - 1);
+                fillPassFields();
+                return true;
+            }
         }
+            
         return super.onKeyDown(keyCode, event);
     }
 
@@ -789,43 +915,81 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         outState.putString(PassCodeActivity.KEY_PASSCODE, mConfirmingPassCode);
     }
 
-    private void fillPassFields() {
-        if (count < 4) {
-            int id = passFields.get(count);
+    private void setBackground15(View v, Drawable drawable) {
+        v.setBackgroundDrawable(drawable);
+    }
 
-            findViewById(id).setBackground (getResources().getDrawable (R.drawable.passcode_circular_fill));
-            count++;
+    @TargetApi(android.os.Build.VERSION_CODES.JELLY_BEAN)
+    private void setBackground16(View v, Drawable drawable) {
+        v.setBackground(drawable);
+    }
+
+    private void setBackground(View v, Drawable drawable) {
+        int sdk = android.os.Build.VERSION.SDK_INT;
+        if (sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            setBackground15(v, drawable);
+        } else {
+            setBackground16(v, drawable);
+        }
+    }
+    
+    private void fillPassFields() {
+        int len = mPassCodeStr.length();
+
+        Resources res = getResources();
+        for (int i = 0 ; i < 4; i++) {
+            int id;
+            if (i < len) {
+                id = R.drawable.passcode_circular_fill;
+            } else {
+                id = R.drawable.passcode_circular_border;
+            }
+            Drawable drawable = ResourcesCompat.getDrawable(res, id, null);
+            View v = findViewById(passFields.get(i));
+            setBackground(v, drawable);
+        }
+
+        if (len == 4) {
+            processFullPassCode(mPassCodeStr);
         }
     }
 
     private class ButtonClicked implements OnClickListener {
 
         private int mIndex;
-        private EditText mEditText;
+        private char mChar;
 
-        ButtonClicked(EditText editText, int index) {
-            mEditText = editText;
+        ButtonClicked(int index) {
             mIndex = index;
+            mChar = (char)('0' + index);
         }
 
         public void onClick(View v) {
             if (mIndex <= 9) {
                 // 0,1,2,...,8,9
-                int key = KeyEvent.KEYCODE_0 + mIndex;
-                mEditText.dispatchKeyEvent(
-                        new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, key, 0));
-                mEditText.dispatchKeyEvent(
-                        new KeyEvent(0, 0, KeyEvent.ACTION_UP, key, 0));
+                // int key = KeyEvent.KEYCODE_0 + mIndex;
+                // mEditText.dispatchKeyEvent(
+                //         new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, key, 0));
+                // mEditText.dispatchKeyEvent(
+                //         new KeyEvent(0, 0, KeyEvent.ACTION_UP, key, 0));
+                mPassCodeStr += mChar;
                 fillPassFields();
             } else if (mIndex == 10) {
                 // clear
-                mEditText.setText("");
+                // mEditText.setText("");
+                clearPassCodeEditText();        // TODO: mPassCodeStr = "";
+                fillPassFields();
             } else {
                 // delete
-                mEditText.dispatchKeyEvent(
-                        new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL, 0));
-                mEditText.dispatchKeyEvent(
-                        new KeyEvent(0, 0, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL, 0));
+                // mEditText.dispatchKeyEvent(
+                //         new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL, 0));
+                // mEditText.dispatchKeyEvent(
+                //         new KeyEvent(0, 0, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL, 0));
+                int len = mPassCodeStr.length();
+                if (len >= 1) {
+                    mPassCodeStr = mPassCodeStr.substring(0, len - 1);
+                    fillPassFields();
+                }
             }
         }
     }

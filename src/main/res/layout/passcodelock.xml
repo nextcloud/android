@@ -45,74 +45,45 @@
         android:textSize="@dimen/two_line_secondary_text_size"
         android:layout_gravity="center" />
 
-    <LinearLayout
+    <com.owncloud.android.ui.activity.NumberKeyLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/LinearLayout">
 
         <TextView
             android:id="@+id/pass_1"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_margin="13dp"
             android:background="@drawable/passcode_circular_border"
             android:gravity="center" />
 
         <TextView
             android:id="@+id/pass_2"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_margin="13dp"
             android:background="@drawable/passcode_circular_border"
             android:gravity="center" />
 
         <TextView
             android:id="@+id/pass_3"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_margin="13dp"
             android:background="@drawable/passcode_circular_border"
             android:gravity="center" />
 
         <TextView
             android:id="@+id/pass_4"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_margin="13dp"
             android:background="@drawable/passcode_circular_border"
             android:gravity="center" />
-    </LinearLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/passcode"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        app:errorEnabled="true"
-        android:layout_gravity="center"
-        app:counterEnabled="true"
-        android:contextClickable="false"
-        app:counterMaxLength="4">
-
-        <EditText
-            android:id="@+id/passcodeEditText"
-            android:focusable="true"
-            android:cursorVisible="true"
-            android:imeOptions="flagNoExtractUi"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:gravity="center"
-            android:layout_margin="10dp"
-            android:inputType="numberPassword"
-            android:digits="1234567890"
-            android:maxLength="4"
-            android:maxLines="1"
-            android:longClickable="false"
-            android:textIsSelectable="false">
-            <requestFocus/>
-        </EditText>
-
-    </android.support.design.widget.TextInputLayout>
+    </com.owncloud.android.ui.activity.NumberKeyLinearLayout>
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/cancel"
@@ -126,8 +97,7 @@
             android:orientation="vertical"
             android:layout_gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/LinearLayout">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:orientation="horizontal"
