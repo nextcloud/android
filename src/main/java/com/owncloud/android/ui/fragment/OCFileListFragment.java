@@ -232,6 +232,10 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                         switch (item.getItemId()) {
                             case R.id.nav_bar_files:
                                 EventBus.getDefault().post(new MenuItemClickEvent(item));
+                                menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT;
+                                if (getActivity() != null) {
+                                    getActivity().invalidateOptionsMenu();
+                                }
                                 break;
                             case R.id.nav_bar_favorites:
                                 EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.FAVORITE_SEARCH,
