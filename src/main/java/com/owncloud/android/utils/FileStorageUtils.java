@@ -250,7 +250,20 @@ public class FileStorageUtils {
         file.setFavorite(ocFile.getIsFavorite());
         return file;
     }
-    
+
+    public static Vector<OCFile> sortOcFolderDescDateModified(Vector<OCFile> files) {
+        final int multiplier = -1;
+        Collections.sort(files, new Comparator<OCFile>() {
+            @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
+            public int compare(OCFile o1, OCFile o2) {
+                Long obj1 = o1.getModificationTimestamp();
+                return multiplier * obj1.compareTo(o2.getModificationTimestamp());
+            }
+        });
+
+        return sortOCFilesByFavourite(files);
+    }
+
     /**
      * Sorts all filenames, regarding last user decision 
      */

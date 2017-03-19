@@ -501,15 +501,9 @@ public class FileListListAdapter extends BaseAdapter {
                 !searchType.equals(ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH) &&
                 !searchType.equals(ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER)) {
-            Integer tempSortOrder = FileStorageUtils.mSortOrder;
-            Boolean tempSortAsc = FileStorageUtils.mSortAscending;
-            FileStorageUtils.mSortOrder = 1;
-            FileStorageUtils.mSortAscending = false;
             mFiles = FileStorageUtils.sortOcFolder(mFiles);
-            FileStorageUtils.mSortOrder = tempSortOrder;
-            FileStorageUtils.mSortAscending = tempSortAsc;
         } else {
-            mFiles = FileStorageUtils.sortOcFolder(mFiles);
+            mFiles = FileStorageUtils.sortOcFolderDescDateModified(mFiles);
         }
 
         mFilesAll = new Vector<>();
