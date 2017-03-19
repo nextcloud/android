@@ -1213,6 +1213,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(SearchEvent event) {
         setEmptyListLoadingMessage();
+        mAdapter.setData(new ArrayList<Object>(), SearchType.NO_SEARCH);
 
         if (event.getUnsetType().equals(SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR)) {
             unsetAllMenuItems(false);
