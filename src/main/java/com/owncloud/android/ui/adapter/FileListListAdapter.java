@@ -54,11 +54,14 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -132,6 +135,29 @@ public class FileListListAdapter extends BaseAdapter {
             return null;
         }
         return mFiles.get(position);
+    }
+
+    public void setFavoriteAttributeForItemID(String fileId, boolean favorite) {
+        for (int i = 0; i < mFiles.size(); i++) {
+            if (mFiles.get(i).getRemoteId().equals(fileId)) {
+                mFiles.get(i).setFavorite(favorite);
+                break;
+            }
+        }
+
+        for (int i = 0; i < mFilesAll.size(); i++) {
+            if (mFilesAll.get(i).getRemoteId().equals(fileId)) {
+                mFilesAll.get(i).setFavorite(favorite);
+                break;
+            }
+        }
+
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -216,7 +242,6 @@ public class FileListListAdapter extends BaseAdapter {
 
                     lastModV.setVisibility(View.VISIBLE);
                     lastModV.setText(DisplayUtils.getRelativeTimestamp(mContext, file.getModificationTimestamp()));
-
 
 
                     fileSizeSeparatorV.setVisibility(View.VISIBLE);
@@ -325,6 +350,15 @@ public class FileListListAdapter extends BaseAdapter {
             } else {
                 view.findViewById(R.id.favorite_action).setSelected(false);
             }
+
+            final OCFile finalFile = file;
+            view.findViewById(R.id.favorite_action).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new FavoriteEvent(finalFile.getRemotePath(),
+                            !finalFile.getIsFavorite(), finalFile.getRemoteId()));
+                }
+            });
 
             // No Folder
             if (!file.isFolder()) {

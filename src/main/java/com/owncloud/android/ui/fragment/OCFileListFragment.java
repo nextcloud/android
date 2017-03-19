@@ -63,6 +63,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
+import com.owncloud.android.lib.resources.files.ToggleFavoriteOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -75,6 +76,7 @@ import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
+import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
@@ -1145,6 +1147,43 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         });
 
     }
+
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void onMessageEvent(FavoriteEvent event) {
+        Account currentAccount = com.owncloud.android.authentication.AccountUtils.
+                getCurrentOwnCloudAccount(MainApp.getAppContext());
+
+        OwnCloudAccount ocAccount = null;
+        try {
+            ocAccount = new OwnCloudAccount(
+                        currentAccount,
+                        MainApp.getAppContext()
+                );
+
+            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                    getClientFor(ocAccount, MainApp.getAppContext());
+
+            ToggleFavoriteOperation toggleFavoriteOperation = new ToggleFavoriteOperation(event.shouldFavorite,
+                    event.remotePath);
+            RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(mClient);
+
+            if (remoteOperationResult.isSuccess()) {
+                mAdapter.setFavoriteAttributeForItemID(event.remoteId, event.shouldFavorite);
+            }
+
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            e.printStackTrace();
+        } catch (AuthenticatorException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (OperationCanceledException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(SearchEvent event) {
