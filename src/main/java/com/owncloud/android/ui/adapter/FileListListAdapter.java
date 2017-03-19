@@ -346,9 +346,9 @@ public class FileListListAdapter extends BaseAdapter {
             }
 
             if (file.getIsFavorite()) {
-                view.findViewById(R.id.favorite_action).setSelected(true);
+                view.findViewById(R.id.favorite_action).setPressed(true);
             } else {
-                view.findViewById(R.id.favorite_action).setSelected(false);
+                view.findViewById(R.id.favorite_action).setPressed(false);
             }
 
             final OCFile finalFile = file;
