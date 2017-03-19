@@ -64,6 +64,7 @@ import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.IOException;
@@ -110,13 +111,14 @@ public class Preferences extends PreferenceActivity
     private Preference mPrefInstantVideoUploadOnlyOnCharging;
     private String mUploadVideoPath;
     private ListPreference mPrefStoragePath;
+    private ListPreference mPrefPreviewBehaviour;
     private String mStoragePath;
 
     public static class PreferenceKeys {
         public static final String STORAGE_PATH = "storage_path";
         public static final String INSTANT_UPLOAD_PATH = "instant_upload_path";
         public static final String INSTANT_VIDEO_UPLOAD_PATH = "instant_video_upload_path";
-        public static final String RESIZED_BEHAVIOUR = "resized_behaviour";
+        public static final String PREVIEW_BEHAVIOUR = "preview_behaviour";
     }
 
     @SuppressWarnings("deprecation")
@@ -366,6 +368,15 @@ public class Preferences extends PreferenceActivity
             });
 
         }
+
+        mPrefPreviewBehaviour = (ListPreference) findPreference(PreferenceKeys.PREVIEW_BEHAVIOUR);
+
+        String[] behaviourValues = new String[]{ PreviewImageActivity.PREVIEW_BEHAVIOUR_RESIZED,
+                PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_AFTER_ZOOM,
+                PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_AND_SAVE,
+                PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_ONLY};
+
+        mPrefPreviewBehaviour.setEntryValues(behaviourValues);
 
         mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
 

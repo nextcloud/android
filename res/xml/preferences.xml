@@ -22,6 +22,13 @@
 		<ListPreference
 			android:title="@string/prefs_storage_path"
 			android:key="storage_path" />
+
+		<ListPreference
+			android:title="@string/preview_behaviour_preference_caption"
+			android:key="preview_behaviour"
+			android:entries="@array/preview_behaviour"
+			android:summary="%s"
+			/>
 	</PreferenceCategory>
 
     <PreferenceCategory android:title="@string/prefs_category_instant_uploading" android:key="instant_uploading_category">

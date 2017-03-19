@@ -163,10 +163,10 @@ public class FileDisplayActivity extends HookActivity
 
         /// Load of saved instance state
         if (savedInstanceState != null) {
-            mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(
+            mWaitingToPreview = savedInstanceState.getParcelable(
                     FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = (OCFile) savedInstanceState.getParcelable(
+            mWaitingToSend = savedInstanceState.getParcelable(
                     FileDisplayActivity.KEY_WAITING_TO_SEND);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
         } else {
@@ -466,12 +466,14 @@ public class FileDisplayActivity extends HookActivity
      * @param fragment New second Fragment to set.
      */
     private void setSecondFragment(Fragment fragment) {
-        searchView.post(new Runnable() {
-            @Override
-            public void run() {
-                searchView.setQuery("", true);
-            }
-        });
+        if (searchView != null) {
+            searchView.post(new Runnable() {
+                @Override
+                public void run() {
+                    searchView.setQuery("", true);
+                }
+            });
+        }
         setDrawerIndicatorEnabled(false);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.right_fragment_container, fragment, TAG_SECOND_FRAGMENT);
@@ -1065,13 +1067,9 @@ public class FileDisplayActivity extends HookActivity
     }
 
     public boolean isFabOpen() {
-        if(getListOfFilesFragment() != null
+        return getListOfFilesFragment() != null
                 && getListOfFilesFragment().getFabMain() != null
-                && getListOfFilesFragment().getFabMain().isExpanded()) {
-            return true;
-        } else {
-            return false;
-        }
+                && getListOfFilesFragment().getFabMain().isExpanded();
     }
 
 

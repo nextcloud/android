@@ -35,9 +35,9 @@
 
 	<string-array name="preview_behaviour" translatable="false">
 		<item>@string/preview_behaviour_resized</item>
-		<item>@string/preview_behaviour_resizedAfterZoom</item>
-		<item>@string/preview_behaviour_downloadAndSave</item>
-		<item>@string/preview_behaviour_fullsizePreview</item>
+		<item>@string/preview_behaviour_fullsize_after_zoom</item>
+		<item>@string/preview_behaviour_fullsize_and_save</item>
+		<item>@string/preview_behaviour_fullsize_only</item>
 	</string-array>
 
 </resources>

@@ -22,6 +22,7 @@ package com.owncloud.android.db;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.utils.FileStorageUtils;
 
 /**
@@ -45,6 +46,7 @@ public abstract class PreferenceManager {
     private static final String PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI = "instant_video_upload_on_wifi";
     private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS = "instant_video_upload_path_use_subfolders";
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
+    private static final String PREF__PREVIEW_BEHAVIOUR = "preview_behaviour";
 
     public static boolean instantPictureUploadEnabled(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOADING, false);
@@ -154,6 +156,29 @@ public abstract class PreferenceManager {
     public static int getSortOrder(Context context) {
         return getDefaultSharedPreferences(context).getInt(AUTO_PREF__SORT_ORDER, FileStorageUtils.SORT_NAME);
     }
+
+    /**
+     * Gets the preview behaviour.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return preview behaviour the preview behaviour,
+     * default is {@link PreviewImageActivity#PREVIEW_BEHAVIOUR_FULLSIZE_ONLY} (download full image, but not store it)
+     */
+    public static String getPreviewBehaviour(Context context) {
+        return getDefaultSharedPreferences(context).getString(PREF__PREVIEW_BEHAVIOUR,
+                                                              PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_ONLY);
+    }
+
+    /**
+     * Save the preview behaviour.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return preview behaviour the preview behaviour
+     */
+    public static void setPreviewBehaviour(Context context, String behaviour) {
+        saveStringPreference(context, PREF__PREVIEW_BEHAVIOUR, behaviour);
+    }
+
 
     /**
      * Save the sort order which the user has set last.

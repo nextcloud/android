@@ -46,6 +46,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -66,7 +67,7 @@ import third_parties.michaelOrtiz.TouchImageViewCustom;
  *
  * Trying to get an instance with a NULL {@link OCFile} will produce an
  * {@link IllegalStateException}.
- * 
+ *
  * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
  * instantiation too.
  */
@@ -110,8 +111,6 @@ public class PreviewImageFragment extends FileFragment {
     public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState,
             boolean showResizedImage){
         PreviewImageFragment frag = new PreviewImageFragment();
-        // TODO put in bundle
-        frag.mShowResizedImage = showResizedImage;
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, imageFile);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
@@ -121,13 +120,13 @@ public class PreviewImageFragment extends FileFragment {
     }
 
 
-    
+
     /**
      *  Creates an empty fragment for image previews.
-     * 
+     *
      *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically
      *  (for instance, when the device is turned a aside).
-     * 
+     *
      *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
      *  construction
      */
@@ -214,59 +213,25 @@ public class PreviewImageFragment extends FileFragment {
         if (getFile() != null) {
             mImageView.setTag(getFile().getFileId());
 
-            Snackbar.make(mImageView, R.string.preview_behaviour_snackbar, Snackbar.LENGTH_LONG)
-                    .setAction(R.string.preview_behaviour_snackbar_change, new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                            builder.setTitle(R.string.preview_behaviour_caption)
-                                    .setSingleChoiceItems(R.array.preview_behaviour, 0,
-                                            new DialogInterface.OnClickListener() {
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    switch (which) {
-                                                        case 0:
-//                                                            sortByName(true);
-                                                            break;
-                                                        case 1:
-//                                                            sortByDate(false);
-                                                            break;
-                                                        case 2:
-//                                                            sortBySize(false);
-                                                    }
+            showBehaviourInfoSnackbar();
 
-                                                    dialog.dismiss();
-                                                }
-                                            });
-                            builder.create().show();
-                        }
-                    })
-                    .setCallback(new Snackbar.Callback() {
-                        @Override
-                        public void onDismissed(Snackbar snackbar, int event) {
-                            super.onDismissed(snackbar, event);
-//                            showNeverDownloadSnackBar();
-//                            snackShown = false;
-                        }
-                    })
-                    .show();
-
-            if (mShowResizedImage){
+            if (mShowResizedImage) {
                 mImageView.setMaxZoom(2f);
 
                 Bitmap resizedImage = ThumbnailsCacheManager.getBitmapFromDiskCache(
                         String.valueOf("r" + getFile().getRemoteId()));
 
-                if (resizedImage != null && !getFile().needsUpdateThumbnail()){
+                if (resizedImage != null && !getFile().needsUpdateThumbnail()) {
                     mProgressWheel.setVisibility(View.GONE);
                     mImageView.setImageBitmap(resizedImage);
                     mImageView.setVisibility(View.VISIBLE);
-                    mBitmap  = resizedImage;
+                    mBitmap = resizedImage;
                 } else {
                     // show thumbnail while loading resized image
                     Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                             String.valueOf("t" + getFile().getRemoteId()));
 
-                    if (thumbnail != null){
+                    if (thumbnail != null) {
                         mImageView.setImageBitmap(thumbnail);
                         mProgressWheel.setVisibility(View.VISIBLE);
                         mImageView.setVisibility(View.VISIBLE);
@@ -277,7 +242,7 @@ public class PreviewImageFragment extends FileFragment {
 
                     // generate new resized image
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), mImageView) &&
-                        mContainerActivity.getStorageManager() != null) {
+                            mContainerActivity.getStorageManager() != null) {
                         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                                 new ThumbnailsCacheManager.ThumbnailGenerationTask(
                                         mImageView, mContainerActivity.getStorageManager(),
@@ -295,12 +260,84 @@ public class PreviewImageFragment extends FileFragment {
                         mImageView.setImageDrawable(asyncDrawable);
                         task.execute(getFile(), false);
                     }
-            }
+                }
             } else {
                 mLoadBitmapTask = new LoadBitmapTask(mImageView, mMessageView, mProgressWheel);
                 mLoadBitmapTask.execute(getFile());
             }
         }
+    }
+
+    private void showBehaviourInfoSnackbar() {
+
+        int behaviour = -1;
+        switch (PreferenceManager.getPreviewBehaviour(getContext())) {
+            case PreviewImageActivity.PREVIEW_BEHAVIOUR_RESIZED:
+                behaviour = 0;
+                break;
+
+            case PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_AFTER_ZOOM:
+                behaviour = 1;
+                break;
+
+            case PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_AND_SAVE:
+                behaviour = 2;
+                break;
+
+            case PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_ONLY:
+                behaviour = 3;
+                break;
+
+        }
+
+        final int finalBehaviour = behaviour;
+
+        if (behaviour == -1) {
+            Snackbar.make(mImageView, R.string.preview_behaviour_snackbar, Snackbar.LENGTH_LONG)
+                    .setAction(R.string.preview_behaviour_snackbar_change, new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setTitle(R.string.preview_behaviour_caption)
+                                    .setSingleChoiceItems(R.array.preview_behaviour, finalBehaviour,
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    switch (which) {
+                                                        case 0:
+                                                            // resized
+                                                            PreferenceManager.setPreviewBehaviour(getContext(),
+                                                                    PreviewImageActivity.PREVIEW_BEHAVIOUR_RESIZED);
+                                                            break;
+                                                        case 1:
+                                                            // fullsize after zoom
+                                                            PreferenceManager.setPreviewBehaviour(getContext(),
+                                                            PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_AFTER_ZOOM);
+                                                            break;
+                                                        case 2:
+                                                            // fullsize and save
+                                                            PreferenceManager.setPreviewBehaviour(getContext(),
+                                                            PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_AND_SAVE);
+                                                            break;
+                                                        case 3:
+                                                            // fullsize only
+                                                            PreferenceManager.setPreviewBehaviour(getContext(),
+                                                            PreviewImageActivity.PREVIEW_BEHAVIOUR_FULLSIZE_ONLY);
+                                                            break;
+                                                    }
+
+                                                    dialog.dismiss();
+                                                    showBehaviourChangeSnackbar();
+                                                }
+                                            });
+                            builder.create().show();
+                        }
+                    })
+                    .show();
+        }
+    }
+
+    private void showBehaviourChangeSnackbar() {
+        Snackbar.make(mImageView, R.string.preview_behaviour_saved, Snackbar.LENGTH_LONG).show();
     }
 
 
@@ -468,7 +505,7 @@ public class PreviewImageFragment extends FileFragment {
         mContainerActivity.getFileOperationsHelper().syncFile(getFile());
     }
 
-    
+
     private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
 
         /**
@@ -490,7 +527,7 @@ public class PreviewImageFragment extends FileFragment {
 
         /**
          * Weak reference to the target {@link ProgressBar} shown while the load is in progress.
-         * 
+         *
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from
          * memory before the load finishes.
          */
@@ -660,7 +697,7 @@ public class PreviewImageFragment extends FileFragment {
     /**
      * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
      * to be previewed.
-     * 
+     *
      * @param file      File to test if can be previewed.
      * @return          'True' if the file can be handled by the fragment.
      */

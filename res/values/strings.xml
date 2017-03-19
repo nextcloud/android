@@ -17,9 +17,9 @@
     <string name="menu_item_sort_by_date">Newest - Oldest</string>
     <string name="menu_item_sort_by_size">Biggest - Smallest</string>
     <string name="preview_behaviour_resized">Screen adapted preview</string>
-    <string name="preview_behaviour_resizedAfterZoom">Preview, temporary full size on zoom</string>
-    <string name="preview_behaviour_fullsizePreview">Full image is shown, but not saved</string>
-    <string name="preview_behaviour_downloadAndSave">Full size, saved</string>
+    <string name="preview_behaviour_fullsize_after_zoom">Preview, temporary full size on zoom</string>
+    <string name="preview_behaviour_fullsize_only">Full image is shown, but not saved</string>
+    <string name="preview_behaviour_fullsize_and_save">Full size, saved</string>
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_on_device">On device</string>
     <string name="drawer_item_settings">Settings</string>
@@ -577,4 +577,6 @@
     <string name="preview_behaviour_caption">Which image should be shown?</string>
     <string name="preview_behaviour_snackbar">Full image is shown, but not saved</string>
     <string name="preview_behaviour_snackbar_change">Change</string>
+    <string name="preview_behaviour_preference_caption">What should be shown on image preview?</string>
+    <string name="preview_behaviour_saved">Behaviour can be changed in preferences</string>
 </resources>

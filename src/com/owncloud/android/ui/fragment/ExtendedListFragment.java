@@ -21,6 +21,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.DrawableRes;
@@ -54,7 +55,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
+import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
 
@@ -170,12 +173,19 @@ public class ExtendedListFragment extends Fragment
         final Handler handler = new Handler();
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int width = displaymetrics.widthPixels;
-        if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
-            searchView.setMaxWidth((int)(width * 0.4));
-        } else {
-            searchView.setMaxWidth((int)(width * 0.7));
+        Activity activity;
+        if ((activity = getActivity()) != null) {
+            activity.getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+            int width = displaymetrics.widthPixels;
+            if (getResources().getConfiguration().orientation == ORIENTATION_LANDSCAPE) {
+                searchView.setMaxWidth((int) (width * 0.4));
+            } else {
+                if (activity instanceof FolderPickerActivity) {
+                    searchView.setMaxWidth((int) (width * 0.8));
+                } else {
+                    searchView.setMaxWidth((int) (width * 0.7));
+                }
+            }
         }
 
         searchView.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
@@ -188,7 +198,9 @@ public class ExtendedListFragment extends Fragment
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        setFabEnabled(!hasFocus);
+                        if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)) {
+                            setFabEnabled(!hasFocus);
+                        }
                     }
                 }, 100);
             }
@@ -268,8 +280,16 @@ public class ExtendedListFragment extends Fragment
                 searchView.clearFocus();
             }
         } else {
-            if (getActivity() != null) {
-                ((FileDisplayActivity) getActivity()).refreshListOfFilesFragment(true);
+            Activity activity;
+            if ((activity = getActivity()) != null) {
+                if (activity instanceof FileDisplayActivity) {
+                    ((FileDisplayActivity) activity).refreshListOfFilesFragment(true);
+                } else if (activity instanceof UploadFilesActivity){
+                    LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
+                    localFileListAdapter.filter(query);
+                } else if (activity instanceof FolderPickerActivity) {
+                    ((FolderPickerActivity)activity).refreshListOfFilesFragment(true);
+                }
 
             }
         }
@@ -462,8 +482,9 @@ public class ExtendedListFragment extends Fragment
         if (searchView != null) {
             searchView.onActionViewCollapsed();
 
-            if (getActivity() != null) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
+            Activity activity;
+            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
+                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
                 fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isDrawerIndicatorAvailable());
             }
         }

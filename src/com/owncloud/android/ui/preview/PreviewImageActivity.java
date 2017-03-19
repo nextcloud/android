@@ -44,6 +44,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -76,6 +77,12 @@ public class PreviewImageActivity extends FileActivity implements
     
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
+
+    public static final String PREVIEW_BEHAVIOUR_UNDEFINED = "PREVIEW_BEHAVIOUR_UNDEFINED";
+    public static final String PREVIEW_BEHAVIOUR_RESIZED = "PREVIEW_BEHAVIOUR_RESIZED";
+    public static final String PREVIEW_BEHAVIOUR_FULLSIZE_AFTER_ZOOM = "PREVIEW_BEHAVIOUR_FULLSIZE_AFTER_ZOOM";
+    public static final String PREVIEW_BEHAVIOUR_FULLSIZE_AND_SAVE = "PREVIEW_BEHAVIOUR_FULLSIZE_AND_SAVE";
+    public static final String PREVIEW_BEHAVIOUR_FULLSIZE_ONLY = "PREVIEW_BEHAVIOUR_FULLSIZE_ONLY";
 
     private static final int INITIAL_HIDE_DELAY = 0; // immediate hide
 
@@ -383,6 +390,13 @@ public class PreviewImageActivity extends FileActivity implements
             OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position); 
             getSupportActionBar().setTitle(currentFile.getFileName());
             setDrawerIndicatorEnabled(false);
+
+            if (!currentFile.isDown()
+                    && !mPreviewImagePagerAdapter.pendingErrorAt(position) &&
+                    !PreferenceManager.getPreviewBehaviour(getBaseContext()).equalsIgnoreCase(
+                    PreviewImageActivity.PREVIEW_BEHAVIOUR_RESIZED)) {
+                requestForDownload(currentFile);
+            }
 
             // Call to reset image zoom to initial state
             ((PreviewImagePagerAdapter) mViewPager.getAdapter()).resetZoom();
