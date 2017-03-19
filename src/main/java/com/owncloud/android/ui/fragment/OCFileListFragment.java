@@ -145,7 +145,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     private SearchType currentSearchType;
 
     private enum MenuItemAddRemove {
-        DO_NOTHING, REMOVE_SORT, REMOVE_GRID_AND_SORT, ADD_SORT, ADD_GRID_AND_SORT
+        DO_NOTHING, REMOVE_SORT, REMOVE_GRID_AND_SORT, ADD_SORT, ADD_GRID_AND_SORT, ADD_GRID_AND_SORT_WITH_SEARCH,
+        REMOVE_SEARCH
     }
 
     private MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.DO_NOTHING;
@@ -664,18 +665,24 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         if (mOriginalMenuItems.size() == 0) {
             mOriginalMenuItems.add(mMenu.findItem(R.id.action_switch_view));
             mOriginalMenuItems.add(mMenu.findItem(R.id.action_sort));
+            mOriginalMenuItems.add(mMenu.findItem(R.id.action_search));
         }
 
         changeGridIcon(menu);   // this is enough if the option stays out of the action bar
 
         if (menuItemAddRemoveValue.equals(MenuItemAddRemove.ADD_SORT)) {
-            if (menu.findItem(R.id.action_sort) == null) {
+            if (menu.findItem(R.id.action_sort) == null && menu.findItem(R.id.action_search) != null) {
                 MenuItem menuItemOrig = mOriginalMenuItems.get(1);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                         menuItemOrig.getTitle());
+                MenuItem menuItemOrigSearch = mOriginalMenuItems.get(2);
+                menu.add(menuItemOrigSearch.getGroupId(), menuItemOrigSearch.getItemId(), menuItemOrigSearch.getOrder(),
+                        menuItemOrigSearch.getTitle());
             }
+
         } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.ADD_GRID_AND_SORT)) {
-            if (menu.findItem(R.id.action_sort) == null && menu.findItem(R.id.action_switch_view) == null) {
+            if (menu.findItem(R.id.action_sort) == null && menu.findItem(R.id.action_switch_view) == null
+                    && menu.findItem(R.id.action_search) != null) {
                 MenuItem menuItemOrig = mOriginalMenuItems.get(0);
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                         menuItemOrig.getTitle());
@@ -683,11 +690,29 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
                         menuItemOrig.getTitle());
             }
+        } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.REMOVE_SEARCH)) {
+            menu.removeItem(R.id.action_search);
+        } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH)) {
+            if (menu.findItem(R.id.action_sort) == null && menu.findItem(R.id.action_switch_view) == null
+                    && menu.findItem(R.id.action_search) != null) {
+                MenuItem menuItemOrig = mOriginalMenuItems.get(0);
+                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
+                        menuItemOrig.getTitle());
+                menuItemOrig = mOriginalMenuItems.get(1);
+                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
+                        menuItemOrig.getTitle());
+
+                menuItemOrig = mOriginalMenuItems.get(2);
+                menu.add(menuItemOrig.getGroupId(), menuItemOrig.getItemId(), menuItemOrig.getOrder(),
+                        menuItemOrig.getTitle());
+            }
         } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.REMOVE_SORT)) {
             menu.removeItem(R.id.action_sort);
+            menu.removeItem(R.id.action_search);
         } else if (menuItemAddRemoveValue.equals(MenuItemAddRemove.REMOVE_GRID_AND_SORT)) {
             menu.removeItem(R.id.action_sort);
             menu.removeItem(R.id.action_switch_view);
+            menu.removeItem(R.id.action_search);
         }
     }
 
@@ -1238,23 +1263,26 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                     setEmptyListMessage(SearchType.VIDEO_SEARCH);
                     currentSearchType = SearchType.VIDEO_SEARCH;
 
-                    menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT;
+                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
                 }
             } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
                 setEmptyListMessage(SearchType.FAVORITE_SEARCH);
                 currentSearchType = SearchType.FAVORITE_SEARCH;
-                menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT;
+
+                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
             } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
                 setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
                 currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
+                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
             } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
                 setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
                 currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
+
             }
 
-            if (getActivity() != null) {
-                //getActivity().invalidateOptionsMenu();
+            if (!currentSearchType.equals(SearchType.FILE_SEARCH) && getActivity() != null) {
+                    getActivity().invalidateOptionsMenu();
             }
 
             if (currentSearchType.equals(SearchType.PHOTO_SEARCH)) {
