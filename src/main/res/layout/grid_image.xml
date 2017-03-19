@@ -38,15 +38,16 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_menu_archive"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/favorite_action"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginStart="6dp"
             android:layout_marginEnd="6dp"
-            android:layout_gravity="top|start"
+            android:layout_gravity="bottom|left"
             android:background="@drawable/favorite_button_selector"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         <ImageView
             android:id="@+id/sharedIcon"

@@ -28,7 +28,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal" >
+        android:layout_gravity="center_horizontal">
 
         <ImageView
             android:id="@+id/thumbnail"
@@ -37,34 +37,35 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/fragment_margin"
             android:layout_marginRight="@dimen/alternate_margin"
-            android:src="@drawable/ic_menu_archive" />
+            android:src="@drawable/ic_menu_archive"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/favorite_action"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_marginStart="6dp"
+            android:layout_gravity="bottom|left"
             android:layout_marginEnd="6dp"
-            android:layout_gravity="top|left"
+            android:layout_marginStart="6dp"
             android:background="@drawable/favorite_button_selector"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
 
         <ImageView
             android:id="@+id/sharedIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/standard_quarter_margin"
             android:layout_gravity="top|right"
-            android:src="@drawable/shared_via_link" />
+            android:layout_margin="@dimen/standard_quarter_margin"
+            android:src="@drawable/shared_via_link"/>
 
         <ImageView
             android:id="@+id/localFileIndicator"
             android:layout_width="@dimen/file_icon_size"
             android:layout_height="@dimen/file_icon_size"
             android:layout_gravity="bottom|right"
-            android:layout_marginTop="@dimen/standard_eighth_margin"
             android:layout_marginRight="@dimen/standard_eighth_margin"
-            android:src="@drawable/ic_synced" />
+            android:layout_marginTop="@dimen/standard_eighth_margin"
+            android:src="@drawable/ic_synced"/>
 
         <ImageView
             android:id="@+id/keptOfflineIcon"
@@ -73,7 +74,7 @@
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="@dimen/standard_eighth_margin"
             android:layout_marginRight="@dimen/standard_eighth_margin"
-            android:src="@drawable/ic_available_offline" />
+            android:src="@drawable/ic_available_offline"/>
 
         <ImageView
             android:id="@+id/custom_checkbox"
@@ -82,8 +83,8 @@
             android:layout_gravity="center_vertical|top"
             android:layout_marginLeft="@dimen/standard_quarter_margin"
             android:layout_marginRight="@dimen/standard_quarter_margin"
-            android:src="@android:drawable/checkbox_off_background"
-            android:elevation="@dimen/elevation" />
+            android:elevation="@dimen/elevation"
+            android:src="@android:drawable/checkbox_off_background"/>
 
     </FrameLayout>
 
