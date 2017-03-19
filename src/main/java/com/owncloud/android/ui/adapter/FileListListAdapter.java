@@ -87,7 +87,6 @@ public class FileListListAdapter extends BaseAdapter {
 
     private FilesFilter mFilesFilter;
     private OCFile currentDirectory;
-    private boolean isSpecialFilter;
 
     public FileListListAdapter(
             boolean justFolders,
@@ -346,9 +345,13 @@ public class FileListListAdapter extends BaseAdapter {
             }
 
             if (file.getIsFavorite()) {
-                view.findViewById(R.id.favorite_action).setPressed(true);
+                if (!view.findViewById(R.id.favorite_action).isSelected()) {
+                    view.findViewById(R.id.favorite_action).setSelected(true);
+                }
             } else {
-                view.findViewById(R.id.favorite_action).setPressed(false);
+                if (view.findViewById(R.id.favorite_action).isSelected()) {
+                    view.findViewById(R.id.favorite_action).setSelected(false);
+                }
             }
 
             final OCFile finalFile = file;
@@ -448,8 +451,6 @@ public class FileListListAdapter extends BaseAdapter {
      */
     public void swapDirectory(OCFile directory, FileDataStorageManager updatedStorageManager
             , boolean onlyOnDevice) {
-        isSpecialFilter = false;
-
         if (updatedStorageManager != null && !updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
             mAccount = AccountUtils.getCurrentOwnCloudAccount(mContext);
@@ -487,9 +488,6 @@ public class FileListListAdapter extends BaseAdapter {
     }
 
     public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
-        isSpecialFilter = true;
-
-
         mFiles = new Vector<>();
         for (int i = 0; i < objects.size(); i++) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
@@ -583,17 +581,10 @@ public class FileListListAdapter extends BaseAdapter {
             if (!TextUtils.isEmpty(constraint)) {
                 for (int i = 0; i < mFilesAll.size(); i++) {
                     OCFile currentFile = mFilesAll.get(i);
-                    if (!isSpecialFilter) {
-                        if (currentFile.getParentRemotePath().equals(currentDirectory.getRemotePath()) &&
-                                currentFile.getFileName().toLowerCase().contains(constraint.toString().toLowerCase()) &&
-                                !filteredFiles.contains(currentFile)) {
-                            filteredFiles.add(currentFile);
-                        }
-                    } else {
-                        if (currentFile.getFileName().toLowerCase().contains(constraint.toString().toLowerCase()) &&
-                                !filteredFiles.contains(currentFile)) {
-                            filteredFiles.add(currentFile);
-                        }
+                    if (currentFile.getParentRemotePath().equals(currentDirectory.getRemotePath()) &&
+                            currentFile.getFileName().toLowerCase().contains(constraint.toString().toLowerCase()) &&
+                            !filteredFiles.contains(currentFile)) {
+                        filteredFiles.add(currentFile);
                     }
                 }
             }
