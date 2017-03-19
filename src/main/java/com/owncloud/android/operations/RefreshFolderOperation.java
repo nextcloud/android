@@ -197,7 +197,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (mRemoteFolderChanged) {
                 result = fetchAndSyncRemoteFolder(client);
             } else {
-                fetchFavoritesToSyncFromLocalData();
+                fetchKeptInSyncFilesToSyncFromLocalData();
                 mChildren = mStorageManager.getFolderContent(mLocalFolder, false);
             }
 
@@ -414,6 +414,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 updatedFile.setShareViaLink(localFile.isSharedViaLink());
                 updatedFile.setShareWithSharee(localFile.isSharedWithSharee());
                 updatedFile.setEtagInConflict(localFile.getEtagInConflict());
+                updatedFile.setFavorite(localFile.getIsFavorite());
             } else {
                 // remote eTag will not be updated unless file CONTENTS are synchronized
                 updatedFile.setEtag("");
@@ -536,7 +537,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
 
-    private void fetchFavoritesToSyncFromLocalData() {
+    private void fetchKeptInSyncFilesToSyncFromLocalData() {
         List<OCFile> children = mStorageManager.getFolderContent(mLocalFolder, false);
         for (OCFile child : children) {
             if (!child.isFolder() && child.isAvailableOffline() && !child.isInConflict()) {
