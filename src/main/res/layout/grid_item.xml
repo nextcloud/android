@@ -43,7 +43,7 @@
             android:id="@+id/favorite_action"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:layout_gravity="bottom|left"
+            android:layout_gravity="start|left"
             android:layout_marginEnd="6dp"
             android:layout_marginStart="6dp"
             android:background="@drawable/favorite_button_selector"
