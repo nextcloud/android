@@ -378,7 +378,7 @@
     <string name="share_with_user_section_title">Jaa käyttäjien ja ryhmien kanssa</string>
     <string name="share_add_user_or_group">Lisää käyttäjä tai ryhmä</string>
     <string name="share_via_link_section_title">Jaa linkki</string>
-    <string name="share_via_link_expiration_date_label">Aseta päättymispäivä</string>
+    <string name="share_via_link_expiration_date_label">Aseta vanhenemispäivä</string>
     <string name="share_via_link_password_label">Suojaa salasanalla</string>
     <string name="share_via_link_password_title">Turvattu</string>
     <string name="share_via_link_edit_permission_label">Salli muokkaus</string>
