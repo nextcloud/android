@@ -41,6 +41,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
@@ -127,6 +128,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
 
         // Listen for upload messages
         mUploadMessagesReceiver = new UploadMessagesReceiver();
@@ -331,7 +334,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 mUploaderBinder = null;
             }
         }
-    }
+    };
 
     /**
      * Once the file upload has changed its status -> update uploads list view

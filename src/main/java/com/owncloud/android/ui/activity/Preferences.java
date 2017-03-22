@@ -612,6 +612,7 @@ public class Preferences extends PreferenceActivity
     @Override
     protected void onResume() {
         super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
