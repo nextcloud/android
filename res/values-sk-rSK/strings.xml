@@ -207,6 +207,7 @@
     <string name="media_forward_description">Tlačidlo \"rýchlo vpred\"</string>
 
 	<string name="auth_getting_authorization">Získavam autorizáciu &#8230;</string>
+	<string name="auth_trying_to_login">Prihlasujem sa &#8230;</string>
 	<string name="auth_no_net_conn_title">Bez sieťového pripojenia</string>
 	<string name="auth_nossl_plain_ok_title">Nie je k dispozícii bezpečné pripojenie</string>
 	<string name="auth_connection_established">Pripojenie vytvorené</string>
