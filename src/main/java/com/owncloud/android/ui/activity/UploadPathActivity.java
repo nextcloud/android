@@ -23,6 +23,7 @@ import android.accounts.Account;
 import android.os.Bundle;
 import android.view.View.OnClickListener;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -46,6 +47,12 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
         OCFile folder = new OCFile(instantUploadPath);
 
         setFile(folder);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
     }
 
     /**

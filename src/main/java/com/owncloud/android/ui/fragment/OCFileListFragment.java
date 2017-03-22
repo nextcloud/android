@@ -252,6 +252,10 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         if (remoteOperationAsyncTask != null) {
             remoteOperationAsyncTask.cancel(true);
         }
+
+        if (getActivity() != null) {
+            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+        }
     }
 
     @Override

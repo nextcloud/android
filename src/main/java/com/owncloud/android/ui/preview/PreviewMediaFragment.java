@@ -54,6 +54,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.FileMenuFilter;
@@ -236,7 +237,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
         }
         else {
-            file = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
+            file = (OCFile) savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
             setFile(file);
             mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
             mSavedPlaybackPosition =
@@ -564,6 +565,9 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        if (getActivity() != null) {
+            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+        }
         Log_OC.v(TAG, "onResume");
     }
 
