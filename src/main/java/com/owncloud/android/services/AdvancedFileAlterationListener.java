@@ -134,6 +134,7 @@ public class AdvancedFileAlterationListener implements FileAlterationListener {
 
                     new JobRequest.Builder(AutoUploadJob.TAG)
                             .setExecutionWindow(30_000L, 80_000L)
+                            .setBackoffCriteria(5_000L, JobRequest.BackoffPolicy.EXPONENTIAL)
                             .setRequiresCharging(syncedFolder.getChargingOnly())
                             .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
                                     JobRequest.NetworkType.ANY)
