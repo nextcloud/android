@@ -36,7 +36,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.LoadingDialog;
@@ -117,12 +116,6 @@ public class LogHistoryActivity extends ToolbarActivity {
             mLogText = savedInstanceState.getString(KEY_LOG_TEXT);
             logTV.setText(mLogText);
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
     }
 
     @Override

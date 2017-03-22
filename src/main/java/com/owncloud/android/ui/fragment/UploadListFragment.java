@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -70,14 +69,6 @@ public class UploadListFragment extends ExpandableListFragment {
         );
         setOnRefreshListener(this);
         return v;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (getActivity() != null) {
-            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
-        }
     }
 
     @Override
@@ -143,7 +134,7 @@ public class UploadListFragment extends ExpandableListFragment {
          * @param file the file that has been clicked on.
          * @return return true if click was handled.
          */
-        public boolean onUploadItemClick(OCUpload file);
+        boolean onUploadItemClick(OCUpload file);
     }
 
     public void binderReady(){
