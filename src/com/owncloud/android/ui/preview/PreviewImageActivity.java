@@ -26,11 +26,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -76,6 +73,7 @@ public class PreviewImageActivity extends FileActivity implements
     
     public static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
+    private static final String KEY_SYSTEM_VISIBLE = "TRUE";
 
     private static final int INITIAL_HIDE_DELAY = 0; // immediate hide
 
@@ -104,8 +102,6 @@ public class PreviewImageActivity extends FileActivity implements
         // ActionBar
         ActionBar actionBar = getSupportActionBar();
         updateActionBarTitleAndHomeButton(null);
-        actionBar.hide();
-
 
         mFullScreenAnchorView = getWindow().getDecorView();
         // to keep our UI controls visibility in line with system bars visibility
@@ -125,13 +121,12 @@ public class PreviewImageActivity extends FileActivity implements
                         }
                     }
                 });
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(getResources().getColor(R.color.owncloud_blue_dark_transparent));
-        }
-            
+         
         if (savedInstanceState != null) {
             mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
+            if (!savedInstanceState.getBoolean(KEY_SYSTEM_VISIBLE, true)) {
+                hideSystemUI(mFullScreenAnchorView);
+            }
         } else {
             mRequestWaitingForBinder = false;
         }
@@ -164,43 +159,7 @@ public class PreviewImageActivity extends FileActivity implements
             mRequestWaitingForBinder = true;
         }
     }
-    
-    
-    protected void onPostCreate(Bundle savedInstanceState)  {
-        super.onPostCreate(savedInstanceState);
-        
-        // Trigger the initial hide() shortly after the activity has been 
-        // created, to briefly hint to the user that UI controls 
-        // are available
-        delayedHide(INITIAL_HIDE_DELAY);
-        
-    }
-    
-    Handler mHideSystemUiHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            hideSystemUI(mFullScreenAnchorView);
-            getSupportActionBar().hide();
-        }
-    };
-    
-    private void delayedHide(int delayMillis)   {
-        mHideSystemUiHandler.removeMessages(0);
-        mHideSystemUiHandler.sendEmptyMessageDelayed(0, delayMillis);
-    }
-    
-    /// handle Window Focus changes
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        
-        // When the window loses focus (e.g. the action overflow is shown),
-        // cancel any pending hide action.
-        if (!hasFocus) {
-            mHideSystemUiHandler.removeMessages(0);
-        }
-    }
-    
+
     @Override
     public void onStart() {
         super.onStart();
@@ -209,7 +168,8 @@ public class PreviewImageActivity extends FileActivity implements
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);    
+        outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);
+        outState.putBoolean(KEY_SYSTEM_VISIBLE, getSystemUIVisible());
     }
 
     @Override
@@ -461,6 +421,10 @@ public class PreviewImageActivity extends FileActivity implements
             removeStickyBroadcast(intent);
         }
 
+    }
+
+    public boolean getSystemUIVisible() {
+        return (mFullScreenAnchorView.getSystemUiVisibility() & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
     }
 
     @SuppressLint("InlinedApi")
