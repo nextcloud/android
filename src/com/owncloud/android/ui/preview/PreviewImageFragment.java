@@ -37,6 +37,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -75,6 +76,7 @@ public class PreviewImageFragment extends FileFragment {
     private TouchImageViewCustom mImageView;
     private TextView mMessageView;
     private ProgressBar mProgressWheel;
+    private RelativeLayout mRelativeLayout;
 
     public Bitmap mBitmap = null;
 
@@ -83,6 +85,8 @@ public class PreviewImageFragment extends FileFragment {
     private boolean mIgnoreFirstSavedState;
 
     private LoadBitmapTask mLoadBitmapTask = null;
+
+    private boolean weZoomedAlready;
 
 
     /**
@@ -149,18 +153,49 @@ public class PreviewImageFragment extends FileFragment {
         super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
+        mRelativeLayout = (RelativeLayout) view.findViewById(R.id.top);
         mImageView.setVisibility(View.GONE);
+
+        mImageView.setOnTouchImageViewListener(new TouchImageViewCustom.OnTouchImageViewListener() {
+            @Override
+            public void onMove() {
+                if (!weZoomedAlready && mImageView.isZoomed()) {
+                    weZoomedAlready = true;
+                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+                    layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                    mImageView.setLayoutParams(layoutParams);
+                    mRelativeLayout.invalidate();
+                } else if (!mImageView.isZoomed()) {
+                    weZoomedAlready = false;
+                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                            RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                    layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                    mImageView.setLayoutParams(layoutParams);
+                    mRelativeLayout.invalidate();
+                }
+            }
+        });
+
+        view.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PreviewImageActivity) getActivity()).toggleFullScreen();
+            }
+        });
+
         mImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((PreviewImageActivity) getActivity()).toggleFullScreen();
             }
-
         });
+
         mMessageView = (TextView)view.findViewById(R.id.message);
         mMessageView.setVisibility(View.GONE);
         mProgressWheel = (ProgressBar)view.findViewById(R.id.progressWheel);
         mProgressWheel.setVisibility(View.VISIBLE);
+
         return view;
     }
 
@@ -441,8 +476,10 @@ public class PreviewImageFragment extends FileFragment {
                             Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
                             break;
                         } else {
-                            // Rotate image, obeying exif tag.
-                            result = BitmapUtils.rotateImage(result, storagePath);
+                            if (ocFile.getFileName().endsWith(".jpg") || ocFile.getFileName().endsWith(".jpeg")) {
+                                // Rotate image, obeying exif tag.
+                                result = BitmapUtils.rotateImage(result, storagePath);
+                            }
                         }
 
                     } catch (OutOfMemoryError e) {
@@ -507,6 +544,7 @@ public class PreviewImageFragment extends FileFragment {
             if (imageView != null) {
                 Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
                         bitmap.getHeight());
+
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                     Drawable backrepeat = getResources().getDrawable(R.drawable.backrepeat);
