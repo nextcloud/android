@@ -41,7 +41,6 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -296,12 +295,6 @@ public class UploadFilesActivity extends FileActivity implements
         outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED,
                 mOptionsMenu.findItem(R.id.action_select_all).isChecked());
         Log_OC.d(TAG, "onSaveInstanceState() end");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
     }
 
     /**

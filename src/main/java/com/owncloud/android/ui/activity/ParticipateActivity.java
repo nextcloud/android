@@ -30,7 +30,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 
 /**
@@ -57,11 +56,6 @@ public class ParticipateActivity extends FileActivity {
         setupContent();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
-    }
 
     private void setupContent() {
         TextView betaView = (TextView) findViewById(R.id.participate_beta_text);
