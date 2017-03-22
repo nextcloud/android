@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Beta indicator -->
+    <bool name="is_beta">false</bool>
+
+    <!-- App name  and other strings-->
+    <string name="app_name">Nextcloud</string>
+    <string name="account_type">nextcloud</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
+    <string name="authority">com.custom.client.provider</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="users_and_groups_search_authority">com.custom.client.provider.UsersAndGroupsSearch</string>
+    <string name="users_and_groups_share_with">com.custom.client.provider.UsersAndGroupsSearch.action.SHARE_WITH</string>
+    <string name="document_provider_authority">com.custom.client.provider.Documents</string>
+    <string name="file_provider_authority">com.custom.client.provider.Files</string>
+    <string name ="db_file">nextcloud.db</string>
+    <string name ="db_name">nextcloud</string>
+    <string name ="data_folder">nextcloud</string>
+    <string name ="log_name">nextcloud</string>
+    <string name ="default_display_name_for_root_folder">Nextcloud</string>
+    <string name ="user_agent">Mozilla/5.0 (Android) ownCloud-android/%1$s</string>
+    
+    <!-- URLs and flags related -->
+    <string name="server_url"></string>
+    <bool name="show_server_url_input">true</bool>
+    <bool name="show_welcome_link">false</bool>
+	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
+	<string name="share_api_link"></string>
+    
+    <!-- Flags to setup the authentication methods available in the app -->
+    <string name="auth_method_oauth2">off</string>
+    <string name="auth_method_saml_web_sso">off</string>
+    
+    <!-- Flags to enable/disable some features -->
+    <string name = "send_files_to_other_apps">on</string>
+    <bool name = "share_via_link_feature">true</bool>
+    <bool name = "share_with_users_feature">true</bool>
+
+    <!-- Colors -->
+    <color name="login_text_color">@color/white</color>
+    <color name="login_text_hint_color">#7fC0E3</color>
+    <color name="login_background_color">#FFFFFF</color>
+    <color name="login_logo_background_color">#FFFFFF</color>
+    <color name="background_color">#FFFFFF</color>
+    <color name="actionbar_start_color">#0082c9</color>
+    <color name="actionbar_end_color">#0082c9</color>
+    <color name="primary_button_background_color">@color/owncloud_blue_accent</color>
+    <color name="primary_button_text_color">@color/white</color>
+    <color name="secondary_button_background_color">#D6D7D7</color>
+    <color name="secondary_button_text_color">@color/black</color>
+    <color name="drawer_header_color">@color/owncloud_blue_accent</color>
+
+    <!-- Button -->
+    <color name="button_text_color">#000000</color>
+
+    <!-- Multiselect backgrounds -->
+    <color name="action_mode_background">#757575</color>
+    <color name="action_mode_status_bar_background">#616161</color>
+    <color name="selected_item_background">#ECECEC</color>
+
+    <!-- Multiaccount support -->
+    <bool name="multiaccount_support">true</bool>
+
+    <!-- Drawer options -->
+    <bool name="recently_added_enabled">true</bool>
+    <bool name="recently_modified_enabled">true</bool>
+    <bool name="shared_enabled">true</bool>
+    <bool name="videos_enabled">true</bool>
+
+    <!-- Bottom toolbar -->
+    <bool name="bottom_toolbar_enabled">true</bool>
+
+    <!-- Help, imprint and feedback -->
+    <bool name="calendar_contacts_enabled">true</bool>
+    <bool name="help_enabled">true</bool>
+    <bool name="imprint_enabled">false</bool> 
+    <bool name="recommend_enabled">true</bool>
+    <bool name="feedback_enabled">true</bool>
+    <bool name="logger_enabled">false</bool>
+    <string name="url_help">https://help.nextcloud.com/c/feature</string>
+    <string name="url_imprint"></string>
+    <string name="mail_recommend">"mailto:"</string>
+    <string name="mail_feedback">"mailto:android@nextcloud.com"</string>
+    <string name="url_app_download">"https://play.google.com/store/apps/details?id=com.nextcloud.client"</string>
+    <string name="url_server_install">https://nextcloud.com/install</string>
+
+    <!--Destination mail for sending log files -->
+    <string name="mail_logger"></string>
+
+    <!-- Participate links -->
+    <string name="fdroid_beta_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.android.beta</string>
+    <string name="beta_apk_link" translatable="false">https://github.com/nextcloud/android/raw/beta/apks/latest.apk</string>
+    <string name="play_store_register_beta" translatable="false">https://play.google.com/apps/testing/com.nextcloud.client</string>
+    <string name="fdroid_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.client</string>
+    <string name="irc_weblink" translatable="false">http://webchat.freenode.net?channels=nextcloud-mobile</string>
+    <string name="help_link" translatable="false">https://help.nextcloud.com/c/clients/android</string>
+    <string name="translation_link" translatable="false">https://www.transifex.com/nextcloud/nextcloud/android/</string>
+    <string name="contributing_link" translatable="false">https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md</string>
+    <string name="report_issue_link" translatable="false">https://github.com/nextcloud/android/issues</string>
+
+    <!-- login data links -->
+    <string name="login_data_own_scheme" translatable="false">cloud</string>
+
+    <!-- analytics enabled -->
+    <bool name="analytics_enabled">false</bool>
+
+</resources>
+
+
