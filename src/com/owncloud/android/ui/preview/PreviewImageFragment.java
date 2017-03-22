@@ -1,33 +1,37 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
+ * <p>
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
+ * <p>
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * <p>
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -61,7 +65,7 @@ import third_parties.michaelOrtiz.TouchImageViewCustom;
  *
  * Trying to get an instance with a NULL {@link OCFile} will produce an
  * {@link IllegalStateException}.
- * 
+ *
  * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on
  * instantiation too.
  */
@@ -84,7 +88,6 @@ public class PreviewImageFragment extends FileFragment {
 
     private LoadBitmapTask mLoadBitmapTask = null;
 
-
     /**
      * Public factory method to create a new fragment that previews an image.
      *
@@ -99,7 +102,7 @@ public class PreviewImageFragment extends FileFragment {
      *                                  {@link FragmentStatePagerAdapter}
      *                                  ; TODO better solution
      */
-    public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState){
+    public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState) {
         PreviewImageFragment frag = new PreviewImageFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, imageFile);
@@ -109,13 +112,12 @@ public class PreviewImageFragment extends FileFragment {
     }
 
 
-    
     /**
      *  Creates an empty fragment for image previews.
-     * 
+     *
      *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically
      *  (for instance, when the device is turned a aside).
-     * 
+     *
      *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
      *  construction
      */
@@ -131,9 +133,9 @@ public class PreviewImageFragment extends FileFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        setFile((OCFile)args.getParcelable(ARG_FILE));
-            // TODO better in super, but needs to check ALL the class extending FileFragment;
-            // not right now
+        setFile((OCFile) args.getParcelable(ARG_FILE));
+        // TODO better in super, but needs to check ALL the class extending FileFragment;
+        // not right now
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         setHasOptionsMenu(true);
@@ -150,17 +152,28 @@ public class PreviewImageFragment extends FileFragment {
         View view = inflater.inflate(R.layout.preview_image_fragment, container, false);
         mImageView = (TouchImageViewCustom) view.findViewById(R.id.image);
         mImageView.setVisibility(View.GONE);
+
+        view.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((PreviewImageActivity) getActivity()).toggleFullScreen();
+                toggleImageBackground();
+            }
+        });
+
         mImageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 ((PreviewImageActivity) getActivity()).toggleFullScreen();
+                toggleImageBackground();
             }
-
         });
-        mMessageView = (TextView)view.findViewById(R.id.message);
+
+        mMessageView = (TextView) view.findViewById(R.id.message);
         mMessageView.setVisibility(View.GONE);
-        mProgressWheel = (ProgressBar)view.findViewById(R.id.progressWheel);
+        mProgressWheel = (ProgressBar) view.findViewById(R.id.progressWheel);
         mProgressWheel.setVisibility(View.VISIBLE);
+
         return view;
     }
 
@@ -240,10 +253,10 @@ public class PreviewImageFragment extends FileFragment {
             setFile(mContainerActivity.getStorageManager().getFileById(getFile().getFileId()));
 
             FileMenuFilter mf = new FileMenuFilter(
-                getFile(),
-                mContainerActivity.getStorageManager().getAccount(),
-                mContainerActivity,
-                getActivity()
+                    getFile(),
+                    mContainerActivity.getStorageManager().getAccount(),
+                    mContainerActivity,
+                    getActivity()
             );
             mf.filter(menu);
         }
@@ -287,39 +300,39 @@ public class PreviewImageFragment extends FileFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_share_file: {
+            case R.id.action_share_file:
                 mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
                 return true;
-            }
-            case R.id.action_open_file_with: {
+            
+            case R.id.action_open_file_with:
                 openFile();
                 return true;
-            }
-            case R.id.action_remove_file: {
+
+            case R.id.action_remove_file:
                 RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
                 dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
                 return true;
-            }
-            case R.id.action_see_details: {
+
+            case R.id.action_see_details:
                 seeDetails();
                 return true;
-            }
-            case R.id.action_send_file: {
+
+            case R.id.action_send_file:
                 mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
                 return true;
-            }
-            case R.id.action_sync_file: {
+
+            case R.id.action_sync_file:
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
-            }
-            case R.id.action_favorite_file:{
+
+            case R.id.action_favorite_file:
                 mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), true);
                 return true;
-            }
-            case R.id.action_unfavorite_file:{
+
+            case R.id.action_unfavorite_file:
                 mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
                 return true;
-            }
+
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -347,9 +360,9 @@ public class PreviewImageFragment extends FileFragment {
         if (mBitmap != null) {
             mBitmap.recycle();
             System.gc();
-                // putting this in onStop() is just the same; the fragment is always destroyed by
-                // {@link FragmentStatePagerAdapter} when the fragment in swiped further than the
-                // valid offscreen distance, and onStop() is never called before than that
+            // putting this in onStop() is just the same; the fragment is always destroyed by
+            // {@link FragmentStatePagerAdapter} when the fragment in swiped further than the
+            // valid offscreen distance, and onStop() is never called before than that
         }
         super.onDestroy();
     }
@@ -363,7 +376,7 @@ public class PreviewImageFragment extends FileFragment {
         finish();
     }
 
-    
+
     private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
 
         /**
@@ -385,7 +398,7 @@ public class PreviewImageFragment extends FileFragment {
 
         /**
          * Weak reference to the target {@link ProgressBar} shown while the load is in progress.
-         * 
+         *
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from
          * memory before the load finishes.
          */
@@ -441,8 +454,10 @@ public class PreviewImageFragment extends FileFragment {
                             Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
                             break;
                         } else {
-                            // Rotate image, obeying exif tag.
-                            result = BitmapUtils.rotateImage(result, storagePath);
+                            if (ocFile.getFileName().endsWith(".jpg") || ocFile.getFileName().endsWith(".jpeg")) {
+                                // Rotate image, obeying exif tag.
+                                result = BitmapUtils.rotateImage(result, storagePath);
+                            }
                         }
 
                     } catch (OutOfMemoryError e) {
@@ -490,11 +505,10 @@ public class PreviewImageFragment extends FileFragment {
             hideProgressWheel();
             if (result.bitmap != null) {
                 showLoadedImage(result);
-            }
-            else {
+            } else {
                 showErrorMessage();
             }
-            if (result.bitmap != null && mBitmap != result.bitmap)  {
+            if (result.bitmap != null && mBitmap != result.bitmap) {
                 // unused bitmap, release it! (just in case)
                 result.bitmap.recycle();
             }
@@ -508,19 +522,33 @@ public class PreviewImageFragment extends FileFragment {
                 Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
                         bitmap.getHeight());
 
+
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
-                    Drawable backrepeat = getResources().getDrawable(R.drawable.backrepeat);
-                    imageView.setBackground(backrepeat);
+                    if (getResources() != null) {
+                        Resources r = getResources();
+                        Drawable[] layers = new Drawable[2];
+                        layers[0] = r.getDrawable(R.color.white);
+                        Drawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+                        layers[1] = bitmapDrawable;
+                        LayerDrawable layerDrawable = new LayerDrawable(layers);
+                        layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                        layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                        layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                        layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                        imageView.setImageDrawable(layerDrawable);
+                    } else {
+                        imageView.setImageBitmap(bitmap);
+                    }
                 }
 
                 if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
                     imageView.setGIFImageFromStoragePath(result.ocFile.getStoragePath());
-                } else {
+                } else if (!result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
                     imageView.setImageBitmap(bitmap);
                 }
 
                 imageView.setVisibility(View.VISIBLE);
-                mBitmap  = bitmap;  // needs to be kept for recycling when not useful
+                mBitmap = bitmap;  // needs to be kept for recycling when not useful
             }
 
             final TextView messageView = mMessageViewRef.get();
@@ -555,7 +583,7 @@ public class PreviewImageFragment extends FileFragment {
     /**
      * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
      * to be previewed.
-     * 
+     *
      * @param file      File to test if can be previewed.
      * @return          'True' if the file can be handled by the fragment.
      */
@@ -572,6 +600,35 @@ public class PreviewImageFragment extends FileFragment {
         container.finish();
     }
 
+    private void toggleImageBackground() {
+        if (getFile() != null && getFile().getMimetype().equalsIgnoreCase("image/png") && getActivity() != null
+                && getActivity() instanceof PreviewImageActivity && getResources() != null) {
+            PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
+            LayerDrawable layerDrawable = (LayerDrawable) mImageView.getDrawable();
+            Drawable layerOne;
+
+            if (previewImageActivity.getSystemUIVisible()) {
+                layerOne = getResources().getDrawable(R.color.white);
+            } else {
+                layerOne = getResources().getDrawable(R.drawable.backrepeat);
+            }
+
+            layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne);
+
+            mImageView.setImageDrawable(layerDrawable);
+            mImageView.invalidate();
+        }
+    }
+
+
+    private static int convertDpToPixel(float dp, Context context) {
+        Resources resources = context.getResources();
+        DisplayMetrics metrics = resources.getDisplayMetrics();
+        int px = (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
+    }
+
+
     public TouchImageViewCustom getImageView() {
         return mImageView;
     }
@@ -580,7 +637,7 @@ public class PreviewImageFragment extends FileFragment {
         private Bitmap bitmap;
         private OCFile ocFile;
 
-        public LoadImage(Bitmap bitmap, OCFile ocFile){
+        public LoadImage(Bitmap bitmap, OCFile ocFile) {
             this.bitmap = bitmap;
             this.ocFile = ocFile;
         }
