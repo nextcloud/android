@@ -804,6 +804,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     protected void onResume() {
         super.onResume();
 
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+
         if (!webViewLoginMethod) {
             // bound here to avoid spurious changes triggered by Android on device rotations
             mHostUrlInput.setOnFocusChangeListener(this);
