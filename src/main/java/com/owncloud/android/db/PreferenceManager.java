@@ -45,6 +45,8 @@ public abstract class PreferenceManager {
     private static final String PREF__INSTANT_VIDEO_UPLOAD_ON_WIFI = "instant_video_upload_on_wifi";
     private static final String PREF__INSTANT_VIDEO_UPLOAD_PATH_USE_SUBFOLDERS = "instant_video_upload_path_use_subfolders";
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
+    private static final String PREF__AUTO_UPLOAD_UPDATE_PATH = "autoUploadPathUpdate";
+
 
     public static boolean instantPictureUploadEnabled(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__INSTANT_UPLOADING, false);
@@ -189,11 +191,22 @@ public abstract class PreferenceManager {
      * Gets the legacy cleaning flag last set.
      *
      * @param context Caller {@link Context}, used to access to shared preferences manager.
-     * @return ascending order     the alegacy cleaning flag, default is false
+     * @return ascending order     the legacy cleaning flag, default is false
      */
     public static boolean getLegacyClean(Context context) {
         return getDefaultSharedPreferences(context).getBoolean(PREF__LEGACY_CLEAN, false);
     }
+
+    /**
+     * Gets the auto upload paths flag last set.
+     *
+     * @param context Caller {@link Context}, used to access to shared preferences manager.
+     * @return ascending order     the legacy cleaning flag, default is false
+     */
+    public static boolean getAutoUploadPathsUpdate(Context context) {
+        return getDefaultSharedPreferences(context).getBoolean(PREF__AUTO_UPLOAD_UPDATE_PATH, false);
+    }
+
 
     /**
      * Saves the legacy cleaning flag which the user has set last.
@@ -204,6 +217,17 @@ public abstract class PreferenceManager {
     public static void setLegacyClean(Context context, boolean legacyClean) {
         saveBooleanPreference(context, PREF__LEGACY_CLEAN, legacyClean);
     }
+
+    /**
+     * Saves the legacy cleaning flag which the user has set last.
+     *
+     * @param context   Caller {@link Context}, used to access to shared preferences manager.
+     * @param pathUpdate flag if it is a auto upload path update
+     */
+    public static void setAutoUploadPathsUpdate(Context context, boolean pathUpdate) {
+        saveBooleanPreference(context, PREF__AUTO_UPLOAD_UPDATE_PATH, pathUpdate);
+    }
+
 
     /**
      * Gets the uploader behavior which the user has set last.
