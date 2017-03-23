@@ -190,6 +190,22 @@ public class SyncedFolderProvider extends Observable {
     }
 
     /**
+     * Delete a synced folder from the db
+     *
+     * @param id for the synced folder.
+     */
+
+    private int deleteSyncFolderWithId(long id) {
+        int result = mContentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                ProviderMeta.ProviderTableMeta._ID + " = ?",
+                new String[]{String.valueOf(id)}
+        );
+
+        return result;
+    }
+
+    /**
      * Try to figure out if a path exists for synced folder, and if not, go one folder back
      * Otherwise, delete the entry
      *
@@ -209,6 +225,7 @@ public class SyncedFolderProvider extends Observable {
                     syncedFolders.get(i).setLocalPath(localPath);
                     updateSyncFolder(syncedFolder);
                 } else {
+                    deleteSyncFolderWithId(syncedFolder.getId());
                 }
             }
         }
