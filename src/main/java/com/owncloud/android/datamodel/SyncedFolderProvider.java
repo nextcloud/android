@@ -31,6 +31,7 @@ import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
@@ -189,6 +190,35 @@ public class SyncedFolderProvider extends Observable {
     }
 
     /**
+     * Try to figure out if a path exists for synced folder, and if not, go one folder back
+     * Otherwise, delete the entry
+     *
+     * @param context the context.
+     */
+    public void updateAutoUploadPaths(Context context) {
+        List<SyncedFolder> syncedFolders = getSyncedFolders();
+        for (int i = 0; i < syncedFolders.size(); i++) {
+            SyncedFolder syncedFolder = syncedFolders.get(i);
+            if (!new File(syncedFolder.getLocalPath()).exists()) {
+                String localPath = syncedFolder.getLocalPath();
+                if (localPath.endsWith("/")) {
+                    localPath = localPath.substring(0, localPath.lastIndexOf("/"));
+                }
+                localPath = localPath.substring(0, localPath.lastIndexOf("/"));
+                if (new File(localPath).exists()) {
+                    syncedFolders.get(i).setLocalPath(localPath);
+                    updateSyncFolder(syncedFolder);
+                } else {
+                }
+            }
+        }
+
+        if (context != null) {
+            PreferenceManager.setAutoUploadPathsUpdate(context, true);
+        }
+    }
+
+    /**
      * delete any records of synchronized folders that are not within the given list of ids.
      *
      * @param context the context.
@@ -293,7 +323,9 @@ public class SyncedFolderProvider extends Observable {
      * @param syncedFolder changed, synchronized folder
      */
     private void notifyFolderSyncObservers(SyncedFolder syncedFolder) {
-        MainApp.getSyncedFolderObserverService().restartObserver(syncedFolder);
-        Log_OC.d(TAG, "notifying folder sync data observers for changed/added: " + syncedFolder.getLocalPath());
+        if (syncedFolder != null) {
+            MainApp.getSyncedFolderObserverService().restartObserver(syncedFolder);
+            Log_OC.d(TAG, "notifying folder sync data observers for changed/added: " + syncedFolder.getLocalPath());
+        }
     }
 }
