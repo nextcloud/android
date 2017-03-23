@@ -51,6 +51,7 @@
 
     <!-- WRITE_EXTERNAL_STORAGE may be enabled or disabled by the user after installation in
         API >= 23; the app needs to handle this -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- Next permissions are always approved in installation time, the apps needs to do nothing special in runtime -->

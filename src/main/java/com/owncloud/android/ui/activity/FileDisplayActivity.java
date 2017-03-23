@@ -288,6 +288,32 @@ public class FileDisplayActivity extends HookActivity
             }
         }
 
+        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+            // Check if we should show an explanation
+            if (PermissionUtil.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Show explanation to the user and then request permission
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.ListLayout), R.string.permission_storage_access,
+                        Snackbar.LENGTH_INDEFINITE)
+                        .setAction(R.string.common_ok, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                PermissionUtil.requesReadExternalStoreagePermission(FileDisplayActivity.this);
+                            }
+                        });
+
+                DisplayUtils.colorSnackbar(this, snackbar);
+
+                snackbar.show();
+            } else {
+                // No explanation needed, request the permission.
+                PermissionUtil.requesReadExternalStoreagePermission(this);
+            }
+        }
+
+
+        if (savedInstanceState == null) {
+            createMinFragments();
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment(savedInstanceState);
 
