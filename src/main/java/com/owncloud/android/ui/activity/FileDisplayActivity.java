@@ -311,6 +311,9 @@ public class FileDisplayActivity extends HookActivity
             }
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            PermissionUtil.requestIgnoreBatteryOptimizationsPermission(this);
+        }
 
         if (savedInstanceState == null) {
             createMinFragments();
