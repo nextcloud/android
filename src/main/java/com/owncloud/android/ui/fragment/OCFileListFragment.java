@@ -260,9 +260,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     @Override
     public void onResume() {
         super.onResume();
-        if (getActivity() != null) {
-            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
-        }
     }
 
     @Override
