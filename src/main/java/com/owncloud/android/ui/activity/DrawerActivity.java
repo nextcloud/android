@@ -56,6 +56,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -376,6 +377,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
                 showFiles(false);
+                EventBus.getDefault().post(new ChangeMenuEvent());
                 break;
             case R.id.nav_favorites:
                 menuItem.setChecked(true);
