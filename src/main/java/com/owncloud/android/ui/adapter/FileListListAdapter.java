@@ -244,7 +244,16 @@ public class FileListListAdapter extends BaseAdapter {
                         }
                     });
 
-                    break;
+                    if (file.getIsFavorite()) {
+                        if (!view.findViewById(R.id.favorite_action).isSelected()) {
+                            view.findViewById(R.id.favorite_action).setSelected(true);
+                        }
+                    } else {
+                        if (view.findViewById(R.id.favorite_action).isSelected()) {
+                            view.findViewById(R.id.favorite_action).setSelected(false);
+                        }
+                    }
+
 
                 case GRID_ITEM:
                     // filename
@@ -252,7 +261,6 @@ public class FileListListAdapter extends BaseAdapter {
                     name = file.getFileName();
                     fileName.setText(name);
 
-                    break;
                 case GRID_IMAGE:
                     // sharedIcon
                     ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
@@ -342,16 +350,6 @@ public class FileListListAdapter extends BaseAdapter {
                 view.findViewById(R.id.keptOfflineIcon).setVisibility(View.GONE);
             } else {
                 view.findViewById(R.id.keptOfflineIcon).setVisibility(View.VISIBLE);
-            }
-
-            if (file.getIsFavorite()) {
-                if (!view.findViewById(R.id.favorite_action).isSelected()) {
-                    view.findViewById(R.id.favorite_action).setSelected(true);
-                }
-            } else {
-                if (view.findViewById(R.id.favorite_action).isSelected()) {
-                    view.findViewById(R.id.favorite_action).setSelected(false);
-                }
             }
 
 
