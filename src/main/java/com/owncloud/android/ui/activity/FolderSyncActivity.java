@@ -97,12 +97,6 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         setupContent();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
-    }
-
     /**
      * sets up the UI elements and loads all media/synced folders.
      */

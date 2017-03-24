@@ -119,12 +119,6 @@ public class ManageAccountsActivity extends FileActivity
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
-    }
-
-    @Override
     public void onBackPressed() {
         Intent resultIntent = new Intent();
         resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged());
