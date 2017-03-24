@@ -60,6 +60,7 @@ import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.db.PreferenceManager;
@@ -194,6 +195,7 @@ public class FileDisplayActivity extends HookActivity
         } else {
             setupDrawer(R.id.nav_all_files);
         }
+
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
@@ -357,6 +359,7 @@ public class FileDisplayActivity extends HookActivity
 
             if (mAccountWasSet) {
                 setAccountInDrawer(getAccount());
+                setupDrawer();
             }
 
             if (!stateWasRecovered) {
@@ -1003,6 +1006,7 @@ public class FileDisplayActivity extends HookActivity
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+
 
         revertBottomNavigationBarToAllFiles();
         // refresh list of files
