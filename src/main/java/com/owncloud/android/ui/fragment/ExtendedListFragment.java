@@ -75,19 +75,6 @@ import java.util.ArrayList;
 import third_parties.in.srain.cube.GridViewWithHeaderAndFooter;
 
 import static android.content.res.Configuration.ORIENTATION_LANDSCAPE;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.FAVORITE_SEARCH;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.FAVORITE_SEARCH_FILTER;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.FILE_SEARCH;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.NO_SEARCH;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.PHOTOS_SEARCH_FILTER;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.PHOTO_SEARCH;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.RECENTLY_ADDED_SEARCH;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.RECENTLY_ADDED_SEARCH_FILTER;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.RECENTLY_MODIFIED_SEARCH_FILTER;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.REGULAR_FILTER;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.VIDEO_SEARCH;
-import static com.owncloud.android.ui.fragment.ExtendedListFragment.SearchType.VIDEO_SEARCH_FILTER;
 
 public class ExtendedListFragment extends Fragment
         implements OnItemClickListener, OnEnforceableRefreshListener, SearchView.OnQueryTextListener {
@@ -243,7 +230,7 @@ public class ExtendedListFragment extends Fragment
                             boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
                                     getCurrentOwnCloudAccount(MainApp.getAppContext()));
 
-                            if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && searchSupported ) {
+                            if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && searchSupported) {
                                 BottomNavigationView bottomNavigationView = (BottomNavigationView) getActivity().
                                         findViewById(R.id.bottom_navigation_view);
                                 if (hasFocus) {
@@ -276,7 +263,7 @@ public class ExtendedListFragment extends Fragment
 
                         setEmptyListMessage(SearchType.REGULAR_FILTER);
                     } else {
-                        setEmptyListMessage(NO_SEARCH);
+                        setEmptyListMessage(SearchType.NO_SEARCH);
                     }
 
                     oldVisibility = currentVisibility;
@@ -403,8 +390,8 @@ public class ExtendedListFragment extends Fragment
                     v.findViewById(R.id.bottom_navigation_view);
 
             // convert the DP into pixel
-            int pixel =  (int)(32 * scale + 0.5f);
-            layoutParams.setMargins(0, 0, pixel/2, bottomNavigationView.getMeasuredHeight() + pixel * 2);
+            int pixel = (int) (32 * scale + 0.5f);
+            layoutParams.setMargins(0, 0, pixel / 2, bottomNavigationView.getMeasuredHeight() + pixel * 2);
         }
 
         mCurrentListView = mListView;   // list by default
@@ -646,46 +633,46 @@ public class ExtendedListFragment extends Fragment
             @Override
             public void run() {
 
-                if (searchType == NO_SEARCH) {
+                if (searchType == SearchType.NO_SEARCH) {
                     setMessageForEmptyList(
                             R.string.file_list_empty_headline,
                             R.string.file_list_empty,
                             R.drawable.ic_list_empty_folder
                     );
-                } else if (searchType == FILE_SEARCH) {
+                } else if (searchType == SearchType.FILE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                             R.string.file_list_empty, R.drawable.ic_search_light_grey);
-                } else if (searchType == FAVORITE_SEARCH) {
+                } else if (searchType == SearchType.FAVORITE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                             R.string.file_list_empty_favorites, R.drawable.ic_favorite_grey);
-                } else if (searchType == VIDEO_SEARCH) {
+                } else if (searchType == SearchType.VIDEO_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
                             R.string.file_list_empty_text_videos, R.drawable.ic_list_empty_video);
-                } else if (searchType == PHOTO_SEARCH) {
+                } else if (searchType == SearchType.PHOTO_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
                             R.string.file_list_empty_text_photos, R.drawable.ic_list_empty_image);
-                } else if (searchType == RECENTLY_MODIFIED_SEARCH) {
+                } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                             R.string.file_list_empty_recently_modified, R.drawable.ic_list_empty_recent);
-                } else if (searchType == RECENTLY_ADDED_SEARCH) {
+                } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                             R.string.file_list_empty_recently_added, R.drawable.ic_list_empty_recent);
-                } else if (searchType == REGULAR_FILTER) {
+                } else if (searchType == SearchType.REGULAR_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_search,
                             R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
-                } else if (searchType == FAVORITE_SEARCH_FILTER) {
+                } else if (searchType == SearchType.FAVORITE_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                             R.string.file_list_empty_favorites_filter, R.drawable.ic_star_light_grey);
-                } else if (searchType == VIDEO_SEARCH_FILTER) {
+                } else if (searchType == SearchType.VIDEO_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
                             R.string.file_list_empty_text_videos_filter, R.drawable.ic_list_empty_video);
-                } else if (searchType == PHOTOS_SEARCH_FILTER) {
+                } else if (searchType == SearchType.PHOTOS_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
                             R.string.file_list_empty_text_photos_filter, R.drawable.ic_list_empty_image);
-                } else if (searchType == RECENTLY_MODIFIED_SEARCH_FILTER) {
+                } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                             R.string.file_list_empty_recently_modified_filter, R.drawable.ic_list_empty_recent);
-                } else if (searchType == RECENTLY_ADDED_SEARCH_FILTER) {
+                } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                             R.string.file_list_empty_recently_added_filter, R.drawable.ic_list_empty_recent);
                 }

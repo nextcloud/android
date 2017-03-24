@@ -152,8 +152,6 @@ public class FileDisplayActivity extends HookActivity
 
     private SearchView searchView;
 
-    private Menu mMenu;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -593,7 +591,6 @@ public class FileDisplayActivity extends HookActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.main_menu, menu);
-        mMenu = menu;
         menu.findItem(R.id.action_create_dir).setVisible(false);
 
         final MenuItem item = menu.findItem(R.id.action_search);
@@ -1067,13 +1064,9 @@ public class FileDisplayActivity extends HookActivity
     }
 
     public boolean isFabOpen() {
-        if (getListOfFilesFragment() != null
+        return (getListOfFilesFragment() != null
                 && getListOfFilesFragment().getFabMain() != null
-                && getListOfFilesFragment().getFabMain().isExpanded()) {
-            return true;
-        } else {
-            return false;
-        }
+                && getListOfFilesFragment().getFabMain().isExpanded());
     }
 
 
