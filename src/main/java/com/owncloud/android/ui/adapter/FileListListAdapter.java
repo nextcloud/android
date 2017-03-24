@@ -39,9 +39,7 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -222,16 +220,6 @@ public class FileListListAdapter extends BaseAdapter {
             TextView fileName;
             String name = file.getFileName();
 
-            LinearLayout linearLayout = (LinearLayout) view.findViewById(R.id.ListItemLayout);
-            linearLayout.setContentDescription("LinearLayout-" + name);
-
-            ((ImageView) view.findViewById(R.id.favorite_action)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, "WORKS!", Toast.LENGTH_LONG).show();
-                }
-            });
-
             switch (viewType) {
                 case LIST_ITEM:
                     TextView fileSizeV = (TextView) view.findViewById(R.id.file_size);
@@ -247,12 +235,24 @@ public class FileListListAdapter extends BaseAdapter {
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
+                    final OCFile finalFile = file;
+                    view.findViewById(R.id.favorite_action).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            EventBus.getDefault().post(new FavoriteEvent(finalFile.getRemotePath(),
+                                    !finalFile.getIsFavorite(), finalFile.getRemoteId()));
+                        }
+                    });
+
+                    break;
+
                 case GRID_ITEM:
                     // filename
                     fileName = (TextView) view.findViewById(R.id.Filename);
                     name = file.getFileName();
                     fileName.setText(name);
 
+                    break;
                 case GRID_IMAGE:
                     // sharedIcon
                     ImageView sharedIconV = (ImageView) view.findViewById(R.id.sharedIcon);
@@ -354,14 +354,6 @@ public class FileListListAdapter extends BaseAdapter {
                 }
             }
 
-            final OCFile finalFile = file;
-            view.findViewById(R.id.favorite_action).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    EventBus.getDefault().post(new FavoriteEvent(finalFile.getRemotePath(),
-                            !finalFile.getIsFavorite(), finalFile.getRemoteId()));
-                }
-            });
 
             // No Folder
             if (!file.isFolder()) {

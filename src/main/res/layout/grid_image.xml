@@ -23,7 +23,7 @@
     android:layout_gravity="center_horizontal"
     android:background="@drawable/list_selector"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -38,16 +38,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_menu_archive"/>
 
-        <ImageButton
-            android:id="@+id/favorite_action"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="6dp"
-            android:layout_marginEnd="6dp"
-            android:layout_gravity="start|left"
-            android:background="@drawable/favorite_button_selector"
-            android:focusable="false"
-            android:focusableInTouchMode="false"/>
 
         <ImageView
             android:id="@+id/sharedIcon"
@@ -80,11 +70,11 @@
             android:id="@+id/custom_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|top"
             android:layout_marginLeft="@dimen/standard_quarter_margin"
             android:layout_marginRight="@dimen/standard_quarter_margin"
-            android:gravity=""
-            android:src="@android:drawable/checkbox_off_background" />
+            android:layout_gravity="center_vertical|top"
+            android:src="@android:drawable/checkbox_off_background"
+            />
     </FrameLayout>
 
 </LinearLayout>

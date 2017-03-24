@@ -41,9 +41,7 @@
             android:divider="@color/list_divider_background"
             android:dividerHeight="1px"
             android:visibility="visible"
-            android:focusable="true"
-            android:clickable="true"
-            android:descendantFocusability="beforeDescendants"/>
+            android:descendantFocusability="blocksDescendants"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
@@ -64,10 +62,7 @@
             android:horizontalSpacing="@dimen/list_fragment_spacing"
             android:stretchMode="columnWidth"
             android:verticalSpacing="@dimen/list_fragment_spacing"
-            android:visibility="visible"
-            android:focusable="true"
-            android:clickable="true"
-            android:descendantFocusability="beforeDescendants"/>
+            android:visibility="visible"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
