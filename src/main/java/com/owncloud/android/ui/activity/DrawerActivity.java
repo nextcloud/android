@@ -184,7 +184,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             setupQuotaElement();
 
             // show folder sync menu item only for Android 6+
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M &&
+                    mNavigationView.getMenu().findItem(R.id.nav_folder_sync) != null) {
                 mNavigationView.getMenu().removeItem(R.id.nav_folder_sync);
             }
         }
@@ -294,10 +295,12 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
         }
 
-        boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
-                getCurrentOwnCloudAccount(MainApp.getAppContext()));
+        Account account = AccountUtils.
+                getCurrentOwnCloudAccount(MainApp.getAppContext());
+        boolean searchSupported = AccountUtils.hasSearchSupport(account);
 
-        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) || !searchSupported) {
+        if ((getResources().getBoolean(R.bool.bottom_toolbar_enabled) || (!searchSupported)) &&
+                (account != null)){
             navigationView.getMenu().removeItem(R.id.nav_photos);
             if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
                 navigationView.getMenu().removeItem(R.id.nav_all_files);
@@ -324,7 +327,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().removeItem(R.id.nav_shared);
         }
 
-        if (AccountUtils.hasSearchSupport(AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()))) {
+        if (AccountUtils.hasSearchSupport(account)) {
             if (!getResources().getBoolean(R.bool.recently_added_enabled)) {
                 navigationView.getMenu().removeItem(R.id.nav_recently_added);
             }
@@ -336,7 +339,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             if (!getResources().getBoolean(R.bool.videos_enabled)) {
                 navigationView.getMenu().removeItem(R.id.nav_videos);
             }
-        } else {
+        } else if (account != null) {
             navigationView.getMenu().removeItem(R.id.nav_recently_added);
             navigationView.getMenu().removeItem(R.id.nav_recently_modified);
             navigationView.getMenu().removeItem(R.id.nav_videos);
@@ -621,7 +624,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         /// set home button properties
         if (mDrawerToggle != null && chosenFile != null) {
             mDrawerToggle.setDrawerIndicatorEnabled(isRoot(chosenFile));
-        } else {
+        } else if (mDrawerToggle != null){
             mDrawerToggle.setDrawerIndicatorEnabled(false);
         }
     }
