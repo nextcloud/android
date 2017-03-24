@@ -200,7 +200,7 @@ public class FileStorageUtils {
         if (com.owncloud.android.db.PreferenceManager.instantVideoUploadPathUseSubfolders(context)) {
             subPath = getSubpathFromDate(dateTaken);
         }
-        return uploadVideoPath + subPath + (fileName == null ? "" : fileName);
+        return uploadVideoPath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
     }
     
     public static String getParentPath(String remotePath) {
