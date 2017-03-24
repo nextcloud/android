@@ -299,14 +299,14 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) || !searchSupported) {
             navigationView.getMenu().removeItem(R.id.nav_photos);
-            navigationView.getMenu().removeItem(R.id.nav_all_files);
             if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+                navigationView.getMenu().removeItem(R.id.nav_all_files);
                 navigationView.getMenu().removeItem(R.id.nav_settings);
             }
             if (!searchSupported) {
                 navigationView.getMenu().removeItem(R.id.nav_videos);
+                navigationView.getMenu().removeItem(R.id.nav_favorites);
             }
-            navigationView.getMenu().removeItem(R.id.nav_favorites);
         }
 
         if (getResources().getBoolean(R.bool.use_home) && navigationView.getMenu().findItem(R.id.nav_all_files) !=
@@ -320,6 +320,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().removeItem(R.id.nav_participate);
         }
 
+        if (!getResources().getBoolean(R.bool.shared_enabled)) {
+            navigationView.getMenu().removeItem(R.id.nav_shared);
+        }
+
         if (AccountUtils.hasSearchSupport(AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext()))) {
             if (!getResources().getBoolean(R.bool.recently_added_enabled)) {
                 navigationView.getMenu().removeItem(R.id.nav_recently_added);
@@ -329,13 +333,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 navigationView.getMenu().removeItem(R.id.nav_recently_modified);
             }
 
-            if (!getResources().getBoolean(R.bool.shared_enabled)) {
-                navigationView.getMenu().removeItem(R.id.nav_shared);
-            }
-
             if (!getResources().getBoolean(R.bool.videos_enabled)) {
                 navigationView.getMenu().removeItem(R.id.nav_videos);
             }
+        } else {
+            navigationView.getMenu().removeItem(R.id.nav_recently_added);
+            navigationView.getMenu().removeItem(R.id.nav_recently_modified);
+            navigationView.getMenu().removeItem(R.id.nav_videos);
         }
     }
 
