@@ -106,7 +106,7 @@ class PassFieldLinearLayout extends LinearLayout implements View.OnFocusChangeLi
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         PassThroughInputConnection ic = new PassThroughInputConnection(this, false);
         outAttrs.inputType = InputType.TYPE_CLASS_NUMBER;
-        outAttrs.imeOptions = EditorInfo.IME_ACTION_DONE;
+        outAttrs.imeOptions = EditorInfo.IME_ACTION_DONE | EditorInfo.IME_FLAG_NO_FULLSCREEN;
         return ic;
     }
 }
@@ -258,10 +258,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
     // Preference
     private static final boolean INIT_SOFT_KEYBOARD_MODE = true;  // true=soft keyboard / false=buttons
-    // private static final boolean KEYPAD_SUBTEXT = true;
-    // private static final boolean KEYPAD_SIZE_FILL = false;
-    // private static final float KEYPAD_SIZE_INCH = 1.4F;   // = 3.556cm
-    // private static final int KEYPAD_POS = Gravity.CENTER | Gravity.BOTTOM;
 
     private static final boolean ENABLE_GO_HOME = false;
     private static final boolean ENABLE_SWITCH_SOFT_KEYBOARD = true;
@@ -269,7 +265,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     private static final boolean ENABLE_SUFFLE_BUTTONS = false;
 
     private TextView mPassCodeHdr;
-    // private TextView mPassCodeHdrExplanation;
 
     private String mConfirmingPassCode;
     private boolean mConfirmingPassCodeFlag = false;
@@ -309,25 +304,10 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             R.id.passField3,
             R.id.passField4,
     };
-    // private static final String mButtonsCtrlStr[] = {
-    //         "",
-    //         "h+",
-    //         "fill",
-    //         "w+",
-    //         "h-",
-    //         "reset",
-    //         "w-",
-    //         "right",
-    //         "center",
-    //         "left",
-    //         "subtext",
-    //         "set"
-    // };
     private Integer[] mButtonsIDListShuffle = new Integer[12];
     private AppCompatButton[] mButtonsList = new AppCompatButton[12];
     private int mButtonVisibilityPrev;          // 0=startup/1=visible/2=invisible
     private boolean mSoftKeyboardMode;          // true=soft keyboard / false=buttons
-    // private boolean mCtrlKeyboardMode;
     private boolean mShowButtonsWhenSoftKeyboardClose = true;
     private SoftKeyboardUtil mSoftKeyboard;
     private SharedPreferences mPref;
@@ -350,7 +330,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
         mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mPassCodeHdr = (TextView) findViewById(R.id.header);
-        // mPassCodeHdrExplanation = (TextView) findViewById(R.id.explanation);
         setupButtons();
         mSoftKeyboardMode = mPref.getBoolean(AUTO_PREF__SOFT_KEYBOARD_MODE, INIT_SOFT_KEYBOARD_MODE);
         PassFieldLinearLayout ll = (PassFieldLinearLayout)findViewById(R.id.PasscodeLinearLayout);
@@ -360,8 +339,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         int explanationId = 0;
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             /// this is a pass code request; the user has to input the right value
-            // mPassCodeHdr.setText(R.string.pass_code_enter_pass_code);
-            // mPassCodeHdrExplanation.setVisibility(View.INVISIBLE);
             setCancelButtonEnabled(false);      // no option to cancel
 
         } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
@@ -372,8 +349,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             if (!mConfirmingPassCodeFlag) {
                 /// pass code preference has just been activated in Preferences;
                 // will receive and confirm pass code value
-                // mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
-                // mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
                 explanationId = R.string.pass_code_configure_your_pass_code_explanation;
 
             } else {
@@ -385,9 +360,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
             /// pass code preference has just been disabled in Preferences;
             // will confirm user knows pass code, then remove it
-            //mPassCodeHdr.setText(R.string.pass_code_remove_your_pass_code);
             explanationId = R.string.pass_code_remove_your_pass_code;
-            // mPassCodeHdrExplanation.setVisibility(View.INVISIBLE);
             setCancelButtonEnabled(true);
 
         } else {
@@ -451,7 +424,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             setButtonsVisibility(false);
         } else {
             hideSoftKeyboard();
-            // setupKeypadParam();
             setButtonsVisibility(true);
         }
     }
@@ -507,20 +479,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                     }
                 });
             }
-            // boolean switch_ctrl_keyboard = (j == 0);
-            // if (switch_ctrl_keyboard) {
-            //     b.setLongClickable(true);
-            //     b.setOnLongClickListener(new OnLongClickListener() {
-            //         @Override
-            //         public boolean onLongClick(View v) {
-            //             mCtrlKeyboardMode = true;
-            //             mSoftKeyboardMode = false;
-            //             setButtonsVisibility(false);
-            //             setupKeyboard();
-            //             return true;
-            //         }
-            //     });
-            // }
         }
     }
 
@@ -556,11 +514,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     private void setButtonsVisibility(boolean visible) {
         if (visible && mButtonVisibilityPrev != 1) {
             showKeypad();
-            // if (!mCtrlKeyboardMode) {
-            //     showKeypad();
-            // } else {
-            //     showCtrlKeypad();
-            // }
             mButtonVisibilityPrev = 1;
         }
         if (!visible && mButtonVisibilityPrev != 2) {
@@ -644,19 +597,12 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
 
     private void showErrorMessage(int errorMessage) {
-        // CharSequence errorSeq = getString(errorMessage);
-        // TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-        // til.setError(errorSeq);
-
         View view = findViewById(android.R.id.content);
-        //Snackbar snackbar = Snackbar.make(view, errorMessage, Snackbar.LENGTH_LONG);
         mSnackbar = Snackbar.make(view, errorMessage, Snackbar.LENGTH_INDEFINITE);
         mSnackbar.show();
     }
 
     private void eraseErrorMessage() {
-        // TextInputLayout til = (TextInputLayout) findViewById(R.id.passcode);
-        // til.setError(null);
         mSnackbar.dismiss();
         mSnackbar = null;
     }
@@ -667,11 +613,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         } else {
             hideSoftKeyboard();
         }
-        // mPassCodeEditText.setFocusable(false);
-        // mPassCodeEditText.setClickable(false);
-        // Animation animation = AnimationUtils.loadAnimation(PassCodeActivity.this, R.anim.shake);
-        // mPassCodeEditText.startAnimation(animation);
-
         Animation animation = AnimationUtils.loadAnimation(PassCodeActivity.this, R.anim.shake);
         PassFieldLinearLayout ll = (PassFieldLinearLayout)findViewById(R.id.PasscodeLinearLayout);
         ll.startAnimation(animation);
@@ -685,8 +626,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
 
     private void endGuard() {
-        // mPassCodeEditText.setClickable(true);
-        // mPassCodeEditText.requestFocus();
         eraseErrorMessage();
         if (ACTION_CHECK.equals(getIntent().getAction())) {
             setupKeyboard();
@@ -699,7 +638,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
             setupKeyboard();
             clearPassCodeEditText();
-            // mPassCodeHdrExplanation.setVisibility(View.VISIBLE);
             mConfirmingPassCodeFlag = false;
         }
     }
@@ -720,7 +658,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     protected void requestPassCodeConfirmation() {
         clearPassCodeEditText();
         mPassCodeHdr.setText(R.string.pass_code_reenter_your_pass_code);
-        // mPassCodeHdrExplanation.setVisibility(View.INVISIBLE);
     }
 
     /**
@@ -757,13 +694,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            // if (mCtrlKeyboardMode) {
-            //     mCtrlKeyboardMode = false;
-            //     mSoftKeyboardMode = false;
-            //     setButtonsVisibility(false);
-            //     setupKeyboard();
-            //     return true;
-            // }
             if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction()) ||
                     ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
                 finish();
@@ -787,6 +717,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         } else if (keyCode == KeyEvent.KEYCODE_CLEAR) {
             clearPassCodeEditText();
             fillPassFields();
+            return true;
         }
             
         return super.onKeyDown(keyCode, event);
@@ -858,212 +789,17 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             if (mIndex <= 9) {
                 // 0,1,2,...,8,9
                 key = KeyEvent.KEYCODE_0 + mIndex;
-                // PassCodeActivity.this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, key));
-                // PassCodeActivity.this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, key));
             } else if (mIndex == 10) {
                 // clear
-                // mEditText.setText("");
-                // clearPassCodeEditText();
-                // fillPassFields();
                 key = KeyEvent.KEYCODE_CLEAR;
-                // PassCodeActivity.this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_CLEAR));
-                // PassCodeActivity.this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, KeyEvent.KEYCODE_CLEAR));
             } else {
                 // delete
-                // mEditText.dispatchKeyEvent(
-                //         new KeyEvent(0, 0, KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL, 0));
-                // mEditText.dispatchKeyEvent(
-                //         new KeyEvent(0, 0, KeyEvent.ACTION_UP, KeyEvent.KEYCODE_DEL, 0));
-                // int len = mPassCodeStr.length();
-                // if (len >= 1) {
-                //     mPassCodeStr = mPassCodeStr.substring(0, len - 1);
-                //     fillPassFields();
-                // }
                 key = KeyEvent.KEYCODE_DEL;
             }
             PassCodeActivity.this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, key));
             PassCodeActivity.this.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_UP, key));
         }
     }
-
-    // class KeypadParam {
-    //     public boolean fill;
-    //     public float widthInch;
-    //     public float heightInch;
-    //     public int pos;
-    //     public boolean subtext;
-    // }
-
-    // private KeypadParam getKeypadParam() {
-    //     KeypadParam param = new KeypadParam();
-    //     Configuration config = getResources().getConfiguration();
-    //     String orientation = config.orientation == Configuration.ORIENTATION_PORTRAIT ? "Portrait" : "Landscape";
-    //     param.fill = mPref.getBoolean("Pref" + orientation + "Fill", KEYPAD_SIZE_FILL);
-    //     param.widthInch = mPref.getFloat("Pref" + orientation + "Width", KEYPAD_SIZE_INCH);
-    //     param.heightInch = mPref.getFloat("Pref" + orientation + "Height", KEYPAD_SIZE_INCH);
-    //     param.pos = mPref.getInt("Pref" + orientation + "Pos", KEYPAD_POS);
-    //     param.subtext = mPref.getBoolean("PrefSubtext", KEYPAD_SUBTEXT);
-
-    //     param.fill = KEYPAD_SIZE_FILL;
-    //     param.widthInch = KEYPAD_SIZE_INCH;
-    //     param.heightInch = KEYPAD_SIZE_INCH;
-    //     param.pos = KEYPAD_POS;
-    //     param.subtext = KEYPAD_SUBTEXT;
-
-    //     return param;
-    // }
-
-    // private void saveKeypadParam(KeypadParam param) {
-    //     SharedPreferences.Editor editor = mPref.edit();
-    //     Configuration config = getResources().getConfiguration();
-    //     String orientation = config.orientation == Configuration.ORIENTATION_PORTRAIT ? "Portrait" : "Landscape";
-    //     editor.putBoolean("Pref" + orientation + "Fill", param.fill);
-    //     editor.putFloat("Pref" + orientation + "Width", param.widthInch);
-    //     editor.putFloat("Pref" + orientation + "Height", param.heightInch);
-    //     editor.putInt("Pref" + orientation + "Pos", param.pos);
-    //     editor.putBoolean("PrefSubtext", param.subtext);
-    //     editor.apply();
-    // }
-
-    // private void setupKeypadParam() {
-    //     KeypadParam keyParam = getKeypadParam();
-    //     setKeypadParam(keyParam);
-    // }
-
-    // private void setKeypadParam(KeypadParam keyParam) {
-    //     int width;
-    //     int height;
-    //     if (keyParam.fill) {
-    //         width = LinearLayout.LayoutParams.MATCH_PARENT;
-    //         height = LinearLayout.LayoutParams.MATCH_PARENT;
-    //     } else {
-    //         DisplayMetrics metrics = new DisplayMetrics();
-    //         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-    //         int densityDip = metrics.densityDpi;
-    //         width = (int)(keyParam.widthInch * densityDip);
-    //         height = (int)(keyParam.heightInch * densityDip);
-    //     }
-    //     LinearLayout ll = (LinearLayout) findViewById(R.id.ButtonsLinearLayout);
-    //     ll.getLayoutParams().width = width;
-    //     ll.getLayoutParams().height = height;
-
-    //     setKeypadPos(keyParam.pos);
-    // }
-
-    // private void setKeypadPos(int pos) {
-    //     RelativeLayout rl = (RelativeLayout) findViewById(R.id.RelativeLayout);
-    //     rl.setGravity(pos);
-    // }
-
-    // @Override
-    // public boolean dispatchKeyEvent(KeyEvent e) {
-    //     if (e.getKeyCode() == KeyEvent.KEYCODE_DEL) {
-    //         int a = 0;
-    //     }
-    //     if (e.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-    //         return true;
-    //     }
-    //     //tv01.setText("KeyCode:"+e.getKeyCode());
-    //     return super.dispatchKeyEvent(e);
-    // }
-
-    // private class CtrlButtonClicked implements OnClickListener {
-
-    //     private final static float INC_DEC_INCH_UNIT = 0.1F;
-    //     private int mIndex;
-    //     private LinearLayout mLinearLayout;
-    //     private int mDensityDip;
-    //     private KeypadParam mKeypadParam;
-
-    //     CtrlButtonClicked(int index, AppCompatActivity activity, KeypadParam keypadParam) {
-    //         mIndex = index;
-    //         mLinearLayout = (LinearLayout) findViewById(R.id.ButtonsLinearLayout);
-    //         DisplayMetrics metrics = new DisplayMetrics();
-    //         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-    //         mDensityDip = metrics.densityDpi;
-    //         mKeypadParam = keypadParam;
-    //     }
-
-    //     private boolean isMatchParent() {
-    //         return mLinearLayout.getLayoutParams().width == LinearLayout.LayoutParams.MATCH_PARENT;
-    //     }
-
-    //     private void addWidthInch(float inch) {
-    //         if (!isMatchParent()) {
-    //             mLinearLayout.getLayoutParams().width += (int)(inch * mDensityDip);
-    //             mLinearLayout.requestLayout();
-    //         }
-    //     }
-
-    //     private void addHeightInch(float inch) {
-    //         if (!isMatchParent()) {
-    //             mLinearLayout.getLayoutParams().height += (int)(inch * mDensityDip);
-    //             mLinearLayout.requestLayout();
-    //         }
-    //     }
-
-    //     @Override
-    //     public void onClick(View v) {
-
-    //         switch (mIndex) {
-    //             case 11:
-    //             default:
-    //                 mKeypadParam.fill = isMatchParent();
-    //                 mKeypadParam.widthInch = (float)mLinearLayout.getLayoutParams().width / mDensityDip;
-    //                 mKeypadParam.heightInch = (float)mLinearLayout.getLayoutParams().height / mDensityDip;
-    //                 saveKeypadParam(mKeypadParam);
-    //                 mCtrlKeyboardMode = false;
-    //                 mSoftKeyboardMode = false;
-    //                 setButtonsVisibility(false);
-    //                 setupKeyboard();
-    //                 break;
-    //             case 1:
-    //                 addHeightInch(INC_DEC_INCH_UNIT);
-    //                 break;
-    //             case 4:
-    //                 addHeightInch(-INC_DEC_INCH_UNIT);
-    //                 break;
-    //             case 3:
-    //                 addWidthInch(INC_DEC_INCH_UNIT);
-    //                 break;
-    //             case 6:
-    //                 addWidthInch(-INC_DEC_INCH_UNIT);
-    //                 break;
-    //             case 2:
-    //                 if (!isMatchParent()) {
-    //                     mLinearLayout.getLayoutParams().width = LinearLayout.LayoutParams.MATCH_PARENT;
-    //                     mLinearLayout.getLayoutParams().height = LinearLayout.LayoutParams.MATCH_PARENT;
-    //                     mLinearLayout.requestLayout();
-    //                 }
-    //                 break;
-    //             case 5:
-    //                 mKeypadParam.fill = KEYPAD_SIZE_FILL;
-    //                 mKeypadParam.widthInch = KEYPAD_SIZE_INCH;
-    //                 mKeypadParam.heightInch = KEYPAD_SIZE_INCH;
-    //                 mKeypadParam.pos = KEYPAD_POS;
-    //                 mKeypadParam.subtext = KEYPAD_SUBTEXT;
-    //                 setKeypadParam(mKeypadParam);
-    //                 mLinearLayout.requestLayout();
-    //                 break;
-    //             case 7:
-    //             case 8:
-    //             case 9:
-    //                 int gravity =
-    //                     mIndex == 7 ? Gravity.START :
-    //                     mIndex == 8 ? Gravity.CENTER :
-    //                     Gravity.END;
-    //                 gravity = gravity | Gravity.BOTTOM;
-    //                 mKeypadParam.pos = gravity;
-    //                 setKeypadPos(gravity);
-    //                 break;
-    //             case 10:
-    //                 mKeypadParam.subtext = !mKeypadParam.subtext;
-    //                 String text = mKeypadParam.subtext ? "on" : "off";
-    //                 Toast.makeText(PassCodeActivity.this, text, Toast.LENGTH_SHORT).show();
-    //                 break;
-    //         }
-    //     }
-    // }
 
     // when softKeyboard close
     @Override
