@@ -153,8 +153,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     private ArrayList<MenuItem> mOriginalMenuItems = new ArrayList<>();
 
-    private Menu mMenu;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -660,7 +658,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        mMenu = menu;
+        Menu mMenu = menu;
 
         if (mOriginalMenuItems.size() == 0) {
             mOriginalMenuItems.add(mMenu.findItem(R.id.action_switch_view));
@@ -1175,15 +1173,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(FavoriteEvent event) {
-        Account currentAccount = com.owncloud.android.authentication.AccountUtils.
-                getCurrentOwnCloudAccount(MainApp.getAppContext());
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
         OwnCloudAccount ocAccount = null;
         try {
             ocAccount = new OwnCloudAccount(
-                        currentAccount,
-                        MainApp.getAppContext()
-                );
+                    currentAccount,
+                    MainApp.getAppContext()
+            );
 
             OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                     getClientFor(ocAccount, MainApp.getAppContext());
@@ -1207,7 +1204,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
 
     }
-
 
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1290,7 +1286,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             }
 
             if (!currentSearchType.equals(SearchType.FILE_SEARCH) && getActivity() != null) {
-                    getActivity().invalidateOptionsMenu();
+                getActivity().invalidateOptionsMenu();
             }
 
             if (currentSearchType.equals(SearchType.PHOTO_SEARCH)) {

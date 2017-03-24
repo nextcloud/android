@@ -357,6 +357,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case R.id.nav_bar_settings:
                 Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
                 startActivity(settingsIntent);
+                break;
             default:
                 break;
         }
