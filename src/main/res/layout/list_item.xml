@@ -22,7 +22,8 @@
     android:layout_width="match_parent"
     android:background="@drawable/list_selector"
     android:orientation="vertical"
-    android:layout_height="@dimen/standard_list_item_size">
+    android:layout_height="@dimen/standard_list_item_size"
+    android:descendantFocusability="blocksDescendants">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -37,17 +38,14 @@
             android:layout_marginEnd="6dp"
             android:layout_gravity="center_vertical"
             android:background="@drawable/favorite_button_selector"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
+            />
 
         <FrameLayout
             android:layout_width="60dp"
             android:layout_height="@dimen/standard_list_item_size"
             android:paddingBottom="@dimen/standard_padding"
             android:paddingTop="@dimen/standard_padding"
-            android:paddingRight="4dp"
-            android:focusable="false"
-            android:focusableInTouchMode="false">
+            android:paddingRight="4dp">
 
             <ImageView
                 android:id="@+id/localFileIndicator"

@@ -760,6 +760,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     @Override
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         OCFile file = (OCFile) mAdapter.getItem(position);
+
         if (file != null) {
             if (file.isFolder()) {
                 // update state and view of this fragment
