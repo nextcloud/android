@@ -182,7 +182,7 @@ dependencies {
     compile 'com.google.code.findbugs:annotations:2.0.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
     compile 'com.google.android.gms:play-services:10.2.0'
-    compile 'com.github.evernote:android-job:v1.1.7'
+    compile 'com.github.evernote:android-job:v1.1.8'
     compile 'org.greenrobot:eventbus:3.0.0'
 
     compile 'org.parceler:parceler-api:1.1.6'
