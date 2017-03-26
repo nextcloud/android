@@ -285,7 +285,7 @@
     <string name="conflict_keep_both">모두 저장</string>
     <string name="conflict_use_local_version">로컬 버전</string>
     <string name="conflict_use_server_version">서버 버전</string>
-    
+
     <string name="preview_image_description">사진 미리 보기</string>
     <string name="preview_image_error_unknown_format">이 사진을 미리 볼 수 없습니다</string>
 

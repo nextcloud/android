@@ -83,6 +83,8 @@
     <string name="file_list_loading">Laster&#8230;</string>
     <string name="file_list_no_app_for_file_type">Ingen applikasjon funnet for filtypen!</string>
     <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
+    <string name="file_list_empty_headline_search">Ingen resultater i denne mappen</string>
+    <string name="file_list_empty_search">Vil du prøve i en annen mappe?</string>
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
     <string name="upload_list_empty_text">Last opp innhold eller aktiver umiddelbar opplasting.</string>
     <string name="file_list_folder">mappe</string>
@@ -312,7 +314,7 @@
     <string name="conflict_keep_both">Behold begge</string>
     <string name="conflict_use_local_version">lokal versjon</string>
     <string name="conflict_use_server_version">tjenerversjon</string>
-    
+
     <string name="preview_image_description">Bildeforhåndsvisning</string>
     <string name="preview_image_error_unknown_format">Dette bildet kan ikke vises</string>
 
@@ -554,4 +556,5 @@
     <string name="welcome_feature_3_text">Hold bildene dine trygge</string>
 
     <string name="whats_new_skip">Hopp over</string>
-</resources>
+
+    </resources>

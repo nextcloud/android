@@ -128,6 +128,10 @@
                     android:text="@string/participate_beta_text"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
                 <ImageButton
                     android:id="@+id/participate_beta_fdroid"
                     android:layout_width="wrap_content"
@@ -136,6 +140,17 @@
                     android:onClick="onGetBetaFDroidClick"
                     android:padding="@dimen/zero"
                     android:src="@drawable/fdroid"/>
+
+                <ImageButton
+                    android:id="@+id/participate_beta_apk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:onClick="onGetBetaApkClick"
+                    android:padding="@dimen/zero"
+                    android:src="@drawable/apk"/>
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/participate_contribute_headline"

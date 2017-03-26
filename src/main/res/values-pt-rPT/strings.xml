@@ -305,7 +305,7 @@
     <string name="conflict_keep_both">Manter ambos</string>
     <string name="conflict_use_local_version">versão local</string>
     <string name="conflict_use_server_version">versão servidor</string>
-    
+
     <string name="preview_image_description">Pré-Visualizar imagem</string>
     <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
 
@@ -479,4 +479,5 @@
 
     <string name="welcome_feature_3_title">Carregamento instantâneo </string>
     <string name="whats_new_skip">Passar à frente</string>
-</resources>
+
+    </resources>

@@ -85,6 +85,7 @@ import com.owncloud.android.operations.GetServerInfoOperation;
 import com.owncloud.android.operations.OAuth2GetAccessToken;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
+import com.owncloud.android.ui.components.CustomEditText;
 import com.owncloud.android.ui.dialog.CredentialsDialogFragment;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
@@ -146,8 +147,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
     public static final String PROTOCOL_SUFFIX = "://";
     public static final String LOGIN_URL_DATA_KEY_VALUE_SEPARATOR = ":";
-    private static final String HTTPS_PROTOCOL = "https://";
-    private static final String HTTP_PROTOCOL = "http://";
+    public static final String HTTPS_PROTOCOL = "https://";
+    public static final String HTTP_PROTOCOL = "http://";
+
+    public static final String REGULAR_SERVER_INPUT_TYPE = "regular";
+    public static final String SUBDOMAIN_SERVER_INPUT_TYPE = "prefix";
+    public static final String DIRECTORY_SERVER_INPUT_TYPE = "suffix";
 
     /// parameters from EXTRAs in starter Intent
     private byte mAction;
@@ -164,7 +169,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     /// Server PRE-Fragment elements 
-    private EditText mHostUrlInput;
+    private CustomEditText mHostUrlInput;
     private View mRefreshButton;
     private TextView mServerStatusView;
 
@@ -438,7 +443,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         /// step 2 - set properties of UI elements (text, visibility, enabled...)
-        mHostUrlInput = (EditText) findViewById(R.id.hostUrlInput);
+        mHostUrlInput = (CustomEditText) findViewById(R.id.hostUrlInput);
         // Convert IDN to Unicode
         mHostUrlInput.setText(DisplayUtils.convertIdn(mServerInfo.mBaseUrl, false));
         if (mAction != ACTION_CREATE) {
@@ -446,12 +451,21 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mHostUrlInput.setEnabled(false);
             mHostUrlInput.setFocusable(false);
         }
+
+        String serverInputType = getResources().getString(R.string.server_input_type);
+
         if (isUrlInputAllowed) {
             mRefreshButton = findViewById(R.id.embeddedRefreshButton);
+            if (mAction == ACTION_CREATE &&
+                    (serverInputType.equals(DIRECTORY_SERVER_INPUT_TYPE) ||
+                    serverInputType.equals(SUBDOMAIN_SERVER_INPUT_TYPE))) {
+                mHostUrlInput.setText("");
+            }
         } else {
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
             mRefreshButton = findViewById(R.id.centeredRefreshButton);
         }
+
         showRefreshButton(mServerIsChecked && !mServerIsValid &&
                 mWaitingForOpId > Integer.MAX_VALUE);
         mServerStatusView = (TextView) findViewById(R.id.server_status_text);
@@ -468,7 +482,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             public void afterTextChanged(Editable s) {
                 if (mOkButton.isEnabled() &&
                         !mServerInfo.mBaseUrl.equals(
-                                normalizeUrl(s.toString(), mServerInfo.mIsSslConn))) {
+                                normalizeUrl(mHostUrlInput.getFullServerUrl(), mServerInfo.mIsSslConn))) {
                     mOkButton.setEnabled(false);
                 }
             }
@@ -849,7 +863,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
 
     private void checkOcServer() {
-        String uri = mHostUrlInput.getText().toString().trim();
+        String uri = mHostUrlInput.getFullServerUrl().trim();
         mServerIsValid = false;
         mServerIsChecked = false;
         mOkButton.setEnabled(false);
@@ -1781,7 +1795,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 inputField.equals(mHostUrlInput) &&
                 AccountTypeUtils.getAuthTokenTypeSamlSessionCookie(MainApp.getAccountType()).
                         equals(mAuthTokenType)) {
-                checkOcServer();
+            checkOcServer();
         }
         return false;   // always return false to grant that the software keyboard is hidden anyway
     }

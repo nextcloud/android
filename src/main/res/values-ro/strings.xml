@@ -314,7 +314,7 @@
     <string name="conflict_keep_both">Pastreaza amandoua</string>
     <string name="conflict_use_local_version">versiunea locală</string>
     <string name="conflict_use_server_version">versiunea de pe server</string>
-    
+
     <string name="preview_image_description">Previzualizare imagine</string>
     <string name="preview_image_error_unknown_format">Aceasta imagine nu poate fi arătată</string>
 
@@ -557,4 +557,5 @@
     <string name="welcome_feature_3_text">Păstrează-ți fotografiile în siguranță</string>
 
     <string name="whats_new_skip">Sari peste</string>
-</resources>
+
+    </resources>
