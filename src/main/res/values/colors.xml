@@ -26,6 +26,7 @@
     <color name="list_item_lastmod_and_filesize_text">@color/secondaryTextColor</color>
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="white2">#F7F7F7</color>
     <color name="fab_white">#fafafa</color>
     <color name="white_pressed">#f1f1f1</color>
     <color name="half_black">#808080</color>
