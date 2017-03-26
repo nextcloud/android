@@ -302,7 +302,7 @@
     <string name="conflict_keep_both">Ohrani obe</string>
     <string name="conflict_use_local_version">krajevna različica</string>
     <string name="conflict_use_server_version">različica strežnika</string>
-    
+
     <string name="preview_image_description">Predogled slike</string>
     <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
 

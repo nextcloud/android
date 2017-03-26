@@ -314,7 +314,7 @@
     <string name="conflict_keep_both">Zatrzymaj oba</string>
     <string name="conflict_use_local_version">wersja lokalna</string>
     <string name="conflict_use_server_version">wersja zdalna</string>
-    
+
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
 
@@ -558,4 +558,5 @@
     <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
 
     <string name="whats_new_skip">Pominąć</string>
-</resources>
+
+    </resources>

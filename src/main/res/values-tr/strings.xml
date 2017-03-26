@@ -314,7 +314,7 @@
     <string name="conflict_keep_both">İkisini de sakla</string>
     <string name="conflict_use_local_version">yerel sürümü</string>
     <string name="conflict_use_server_version">sunucu sürümünü</string>
-    
+
     <string name="preview_image_description">Görsel önizleme</string>
     <string name="preview_image_error_unknown_format">Bu görsel görüntülenemiyor</string>
 
@@ -556,4 +556,5 @@
     <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
 
     <string name="whats_new_skip">Atla</string>
-</resources>
+
+    </resources>

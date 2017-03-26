@@ -314,7 +314,7 @@
     <string name="conflict_keep_both">Beide bewaren</string>
     <string name="conflict_use_local_version">lokale versie</string>
     <string name="conflict_use_server_version">serverversie</string>
-    
+
     <string name="preview_image_description">Voorvertoning van afbeelding</string>
     <string name="preview_image_error_unknown_format">Deze afbeelding kan niet worden getoond</string>
 
@@ -556,4 +556,5 @@
     <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
 
     <string name="whats_new_skip">Overslaan</string>
-</resources>
+
+    </resources>

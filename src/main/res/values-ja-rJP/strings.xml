@@ -315,7 +315,7 @@
     <string name="conflict_keep_both">両方を保持</string>
     <string name="conflict_use_local_version">ローカルのもの</string>
     <string name="conflict_use_server_version">サーバーのもの</string>
-    
+
     <string name="preview_image_description">イメージプレビュー</string>
     <string name="preview_image_error_unknown_format">この画像は表示できません</string>
 
@@ -556,4 +556,5 @@
     <string name="welcome_feature_3_text">あなたの写真を安全に保つ</string>
 
     <string name="whats_new_skip">スキップ</string>
-</resources>
+
+    </resources>
