@@ -307,7 +307,7 @@
     <string name="conflict_keep_both">保留兩者</string>
     <string name="conflict_use_local_version">本地版本</string>
     <string name="conflict_use_server_version">伺服器版本</string>
-    
+
     <string name="preview_image_description">圖片預覽</string>
     <string name="preview_image_error_unknown_format">無法顯示圖片</string>
 

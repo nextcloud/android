@@ -315,7 +315,7 @@
     <string name="conflict_keep_both">保留两者</string>
     <string name="conflict_use_local_version">本地版本</string>
     <string name="conflict_use_server_version">服务器版本</string>
-    
+
     <string name="preview_image_description">图片预览</string>
     <string name="preview_image_error_unknown_format">无法显示图片</string>
 
@@ -556,4 +556,5 @@
     <string name="welcome_feature_3_text">保护你的照片安全</string>
 
     <string name="whats_new_skip">跳过</string>
-</resources>
+
+    </resources>

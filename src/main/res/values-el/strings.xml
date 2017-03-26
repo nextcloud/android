@@ -312,7 +312,7 @@
     <string name="conflict_keep_both">Διατήρηση και των δύο</string>
     <string name="conflict_use_local_version">τοπική έκδοση</string>
     <string name="conflict_use_server_version">έκδοση διακομιστή</string>
-    
+
     <string name="preview_image_description">Προεπισκόπηση εικόνας</string>
     <string name="preview_image_error_unknown_format">Αδυναμία εμφάνισης εικόνας</string>
 
@@ -553,4 +553,5 @@
     <string name="welcome_feature_3_text">Διατήρηση των φωτογραφιών σας με ασφάλεια</string>
 
     <string name="whats_new_skip">Παράλειψη</string>
-</resources>
+
+    </resources>

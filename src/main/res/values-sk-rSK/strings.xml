@@ -63,6 +63,7 @@
     <string name="uploader_btn_upload_text">Nahrať</string>
     <string name="uploader_top_message">Vyber priečinok pre nahratie</string>
     <string name="uploader_wrn_no_account_title">Účet sa nenašiel</string>
+    <string name="uploader_wrn_no_account_text">Na zariadení nie sú žiadne %1$s účty. Prosím najprv nastavte účet.</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Nastavenie</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Koniec</string>
     <string name="uploader_error_title_no_file_to_upload">Žiadny súbor pre nahratie</string>
@@ -313,7 +314,7 @@
     <string name="conflict_keep_both">Ponechať oba</string>
     <string name="conflict_use_local_version">lokálnu verziu</string>
     <string name="conflict_use_server_version">serverovú verziu</string>
-    
+
     <string name="preview_image_description">Ukážka obrazu</string>
     <string name="preview_image_error_unknown_format">Obrázok nemožno zobraziť</string>
 
@@ -549,4 +550,5 @@
     <string name="welcome_feature_3_text">Udržujte svoje fotografie v bezpečí</string>
 
     <string name="whats_new_skip">Preskočiť</string>
-</resources>
+
+    </resources>

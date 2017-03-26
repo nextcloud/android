@@ -314,7 +314,7 @@
     <string name="conflict_keep_both">Conserver les deux</string>
     <string name="conflict_use_local_version">version locale</string>
     <string name="conflict_use_server_version">version serveur</string>
-    
+
     <string name="preview_image_description">Prévisualisation de l\'image</string>
     <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
 
@@ -556,4 +556,5 @@
     <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
     <string name="whats_new_skip">Ignorer</string>
-</resources>
+
+    </resources>

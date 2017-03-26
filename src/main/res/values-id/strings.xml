@@ -314,7 +314,7 @@
     <string name="conflict_keep_both">Biarkan keduannya</string>
     <string name="conflict_use_local_version">versi lokal</string>
     <string name="conflict_use_server_version">versi server</string>
-    
+
     <string name="preview_image_description">Pratilik gambar</string>
     <string name="preview_image_error_unknown_format">Gambar ini tidak dapat ditampilkan</string>
 
@@ -555,4 +555,5 @@
     <string name="welcome_feature_3_text">Jaga foto anda tetap aman</string>
 
     <string name="whats_new_skip">Lewat</string>
-</resources>
+
+    </resources>
