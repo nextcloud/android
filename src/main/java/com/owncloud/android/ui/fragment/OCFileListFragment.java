@@ -1260,8 +1260,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             }
         };
 
-        Account currentAccount = com.owncloud.android.authentication.AccountUtils.
-                getCurrentOwnCloudAccount(MainApp.getAppContext());
+        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
         try {
             OwnCloudAccount ocAccount = new OwnCloudAccount(
