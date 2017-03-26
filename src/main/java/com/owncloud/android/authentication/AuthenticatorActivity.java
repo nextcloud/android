@@ -456,11 +456,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (isUrlInputAllowed) {
             mRefreshButton = findViewById(R.id.embeddedRefreshButton);
-            if (mAction == ACTION_CREATE) {
-                if (serverInputType.equals(DIRECTORY_SERVER_INPUT_TYPE) ||
-                        serverInputType.equals(SUBDOMAIN_SERVER_INPUT_TYPE)) {
-                    mHostUrlInput.setText("");
-                }
+            if (mAction == ACTION_CREATE &&
+                    (serverInputType.equals(DIRECTORY_SERVER_INPUT_TYPE) ||
+                    serverInputType.equals(SUBDOMAIN_SERVER_INPUT_TYPE))) {
+                mHostUrlInput.setText("");
             }
         } else {
             findViewById(R.id.hostUrlFrame).setVisibility(View.GONE);
