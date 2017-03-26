@@ -49,8 +49,6 @@ repositories {
     }
 }
 
-
-
 android {
     lintOptions {
         abortOnError true
