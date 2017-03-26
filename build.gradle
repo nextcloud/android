@@ -51,18 +51,6 @@ repositories {
     }
 }
 
-
-    compile 'com.github.nextcloud:android-library:fix_file_modification_date_on_upload-SNAPSHOT-SNAPSHOT'
-    compile "com.android.support:support-v4:${supportLibraryVersion}"
-    compile "com.android.support:design:${supportLibraryVersion}"
-    compile 'com.jakewharton:disklrucache:2.0.2'
-    compile "com.android.support:appcompat-v7:${supportLibraryVersion}"
-    compile 'com.getbase:floatingactionbutton:1.10.1'
-    compile 'com.google.code.findbugs:annotations:2.0.1'
-    compile group: 'commons-io', name: 'commons-io', version: '2.4'
-    compile 'com.google.android.gms:play-services:10.2.0'
-    compile 'com.github.evernote:android-job:v1.1.7'
-
 android {
     lintOptions {
         abortOnError true
