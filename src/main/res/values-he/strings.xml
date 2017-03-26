@@ -287,7 +287,7 @@
     <string name="conflict_keep_both">להשאיר את שניהם</string>
     <string name="conflict_use_local_version">גרסה מקומית</string>
     <string name="conflict_use_server_version">גרסת שרת</string>
-    
+
     <string name="preview_image_description">תצוגה מקדימה לתמונה</string>
     <string name="preview_image_error_unknown_format">תמונה זו לא ניתנת לצפייה</string>
 
@@ -454,4 +454,5 @@
 
     <string name="welcome_feature_2_title">חשבונות מרובים</string>
     <string name="whats_new_skip">דלג</string>
-</resources>
+
+    </resources>

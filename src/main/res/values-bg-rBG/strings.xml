@@ -307,7 +307,7 @@
     <string name="conflict_keep_both">Запазване и на двата</string>
     <string name="conflict_use_local_version">локалната версия</string>
     <string name="conflict_use_server_version">версията на сървъра</string>
-    
+
     <string name="preview_image_description">Преглед на изображението</string>
     <string name="preview_image_error_unknown_format">Изображението не може да бъде показано</string>
 
@@ -537,4 +537,5 @@
     <string name="welcome_feature_3_text">Съхранявайте вашите снимки безопасно</string>
 
     <string name="whats_new_skip">Пропусни</string>
-</resources>
+
+    </resources>

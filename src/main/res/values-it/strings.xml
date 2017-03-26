@@ -84,7 +84,7 @@
     <string name="file_list_no_app_for_file_type">Nessuna applicazione trovata per il tipo di file!</string>
     <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
     <string name="file_list_empty_headline_search">Nessun risultato in questa cartella</string>
-    <string name="file_list_empty_search">Provare a cercare in una nuova cartella?</string>
+    <string name="file_list_empty_search">Vuoi provare a cercare in un\'altra cartella?</string>
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
     <string name="upload_list_empty_text">Carica alcuni contenuti o attiva il caricamento istantaneo!</string>
     <string name="file_list_folder">cartella</string>
@@ -314,7 +314,7 @@
     <string name="conflict_keep_both">Mantieni entrambi</string>
     <string name="conflict_use_local_version">Versione locale</string>
     <string name="conflict_use_server_version">versione del server</string>
-    
+
     <string name="preview_image_description">Anteprima dell\'immagine</string>
     <string name="preview_image_error_unknown_format">Questa immagine non può essere mostrata</string>
 
@@ -556,4 +556,5 @@
     <string name="welcome_feature_3_text">Tieni al sicuro le tue foto</string>
 
     <string name="whats_new_skip">Salta</string>
-</resources>
+
+    </resources>

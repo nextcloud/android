@@ -279,7 +279,7 @@
     <string name="conflict_keep_both">Behold begge</string>
     <string name="conflict_use_local_version">lokal version</string>
     <string name="conflict_use_server_version">serverversion</string>
-    
+
     <string name="preview_image_description">Forhåndsvisning af billede</string>
     <string name="preview_image_error_unknown_format">Dette billede kan ikke vises</string>
 
@@ -449,4 +449,5 @@
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et sikket hjem til alt dit data</string>
     <string name="whats_new_skip">Spring over</string>
-</resources>
+
+    </resources>

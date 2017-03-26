@@ -21,6 +21,9 @@
     <!-- URLs and flags related -->
     <string name="server_url"></string>
     <bool name="show_server_url_input">true</bool>
+    <!-- Can be regular (full input), prefix (subdomain input) and suffix (directory input) -->
+    <!-- Requires server url to be set -->
+    <string name="server_input_type">regular</string>
     <bool name="show_welcome_link">true</bool>
 	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
 	<string name="share_api_link"></string>
@@ -33,7 +36,7 @@
     <string name = "send_files_to_other_apps">on</string>
     <bool name = "share_via_link_feature">true</bool>
     <bool name = "share_with_users_feature">true</bool>
-    
+    <bool name="show_whats_new">true</bool>
     
     <!-- Colors -->
     <color name="login_text_color">@color/white</color>
@@ -90,7 +93,7 @@
     <bool name="participate_enabled">true</bool>
     <!-- Participate links -->
     <string name="fdroid_beta_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.android.beta</string>
-    <string name="beta_apk_link" translatable="false">https://github.com/nextcloud/android/raw/beta/apks/latest.apk</string>
+    <string name="beta_apk_link" translatable="false">https://download.nextcloud.com/android/nightly/latest.apk</string>
     <string name="play_store_register_beta" translatable="false">https://play.google.com/apps/testing/com.nextcloud.client</string>
     <string name="fdroid_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.client</string>
     <string name="irc_weblink" translatable="false">http://webchat.freenode.net?channels=nextcloud-mobile</string>
