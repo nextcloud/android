@@ -56,7 +56,8 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
     }
 
     public String getFullServerUrl() {
-        if (TextUtils.isEmpty(fixedText) || getText().toString().startsWith(AuthenticatorActivity.HTTP_PROTOCOL)
+        if (TextUtils.isEmpty(fixedText)
+                || getText().toString().startsWith(AuthenticatorActivity.HTTP_PROTOCOL)
                 || getText().toString().startsWith(AuthenticatorActivity.HTTPS_PROTOCOL)) {
             return getText().toString();
         } else if (isPrefixFixed) {
@@ -81,7 +82,10 @@ public class CustomEditText extends android.support.v7.widget.AppCompatEditText 
                 && !getText().toString().startsWith(AuthenticatorActivity.HTTPS_PROTOCOL)
                 && !TextUtils.isEmpty(fixedText)) {
             if (isPrefixFixed) {
-                canvas.drawText(fixedText, super.getCompoundPaddingLeft(), getBaseline(), getPaint());
+                canvas.drawText(fixedText,
+                        super.getCompoundPaddingLeft(),
+                        getBaseline(),
+                        getPaint());
             } else {
                 canvas.drawText(fixedText, super.getCompoundPaddingLeft()
                         + getPaint().measureText(getText().toString()), getBaseline(), getPaint());
