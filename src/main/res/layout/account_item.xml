@@ -21,7 +21,7 @@
 -->
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="@dimen/account_item_layout_height"
     android:orientation="horizontal"
     android:weightSum="1">
@@ -60,9 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_toEndOf="@id/avatar_container"
-        android:layout_toLeftOf="@+id/passwordButton"
         android:layout_toRightOf="@id/avatar_container"
-        android:layout_toStartOf="@id/passwordButton"
         android:orientation="vertical">
 
         <TextView
@@ -95,33 +93,5 @@
             android:text="@string/placeholder_sentence"
             android:textColor="?android:attr/textColorSecondary"/>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/passwordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_vertical"
-        android:layout_toLeftOf="@+id/removeButton"
-        android:layout_toStartOf="@id/removeButton"
-        android:paddingBottom="@dimen/standard_padding"
-        android:paddingLeft="@dimen/standard_half_padding"
-        android:paddingRight="@dimen/standard_half_padding"
-        android:paddingTop="@dimen/standard_padding"
-        android:src="@drawable/ic_key"/>
-
-    <ImageView
-        android:id="@+id/removeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center_vertical"
-        android:paddingBottom="@dimen/standard_padding"
-        android:paddingLeft="@dimen/standard_half_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_padding"
-        android:src="@drawable/ic_action_delete_grey"/>
 
 </RelativeLayout>
