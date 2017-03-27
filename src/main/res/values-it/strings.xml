@@ -509,8 +509,6 @@
     <string name="participate_testing_bug_text">Hai trovato un bug? Qualcosa di strano?</string>
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_testing_version_text">Sei interessato ad aiutarci a provare la nostra prossima versione?</string>
-    <string name="participate_beta_headline">Prova la versione beta</string>
-    <string name="participate_beta_text">Ciò include tutte le nuove funzionalità ed è molto rischioso. Bug/errori possono verificarsi e se accade, inviaci una segnalazione. &lt;br/>&lt;a href="%2$s">Scarica l\'APK&lt;/a> o</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_release_candidate_text">Questa candidata al rilascio (RC) è uno snapshot della prossima versione e dovrebbe essere stabile. La prova della tua specifica configurazione potrebbe aiutare ad assicurare che lo sia. Registrati per i test su Google Play o controlla manualmente nella sezione \"versioni\" su F-Droid.</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>

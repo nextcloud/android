@@ -481,7 +481,6 @@
     <string name="participate_testing_bug_text">發現問題？</string>
     <string name="participate_testing_report_text">在 Github 上回報</string>
     <string name="participate_testing_version_text">有興趣幫我們測試下一個版本嗎？</string>
-    <string name="participate_beta_headline">測試 Beta 版</string>
     <string name="participate_release_candidate_headline">最終測試版</string>
     <string name="participate_release_candidate_text">最終測試版是新版本發行前的快照，應該相當穩定，您的測試將協助我們確保穩定性，在 Play 商店中註冊成為測試者，或是在 F-Droid 中尋找「版本」區塊</string>
     <string name="participate_contribute_headline">積極貢獻</string>

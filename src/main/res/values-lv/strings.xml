@@ -461,7 +461,6 @@
     <string name="drawer_folder_sync">Automātiska augšupielāde</string>
     <string name="participate_testing_headline">Palīdziet mums testēšanā</string>
     <string name="participate_testing_report_text">Ziņojiet par problēmu Github</string>
-    <string name="participate_beta_headline">Testēt Beta versiju</string>
     <string name="participate_contribute_irc_text">Pievienojieties tērzēšanas ar IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Palīdziet citiem &lt;a href=\"%1$s\">forumā&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href="%1$s">Tūlkot&lt;/a> programmu</string>

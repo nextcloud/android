@@ -509,8 +509,6 @@
     <string name="participate_testing_bug_text">Ai găsit un bug? Se intamplă ceva ciudat?</string>
     <string name="participate_testing_report_text">Raportează o problemă pe Github</string>
     <string name="participate_testing_version_text">Vrei să ne ajuți în testarea următoarei versiuni?</string>
-    <string name="participate_beta_headline">Testează versiunea Beta</string>
-    <string name="participate_beta_text">Aceasta include toate funcționalitățile viitoare și este foarte avansată. Dacă apar buguri/erori vă rugăm să ni le raportați. &lt;br/>&lt;a href="%2$s">Descarcă APK&lt;/a> sau</string>
     <string name="participate_release_candidate_headline">Candidatul pentru lansare</string>
     <string name="participate_release_candidate_text">Versiunea-candidat (RC - release candidate) pentru lansare este o copie a următoarei versiuni de \'release\' și ar trebui să fie stabilă. Testarea pe sistemul tău ne-ar putea ajuta să ne asigurăm de acest lucru. Înregistrează-te ca tester pe Play Store sau navighează în secțiunea \"versions\" din F-droid.</string>
     <string name="participate_contribute_headline">Contribuie în mod activ</string>
