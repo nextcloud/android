@@ -167,6 +167,7 @@ public class NotificationsActivity extends FileActivity {
         recyclerView.addItemDecoration(dividerItemDecoration);
 
         fetchAndSetData();
+        fetchAndSetData();
     }
 
     private void populateList(List<Notification> notifications) {
