@@ -166,16 +166,12 @@ public class DisplayUtils {
             return "";
         }
 
-        if (url.length() >= 7) {
-            if (url.substring(0,7).equalsIgnoreCase(HTTP_PROTOCOLL)) {
-                return url.substring(HTTP_PROTOCOLL.length());
-            }
+        if (url.length() >= 7 && url.substring(0, 7).equalsIgnoreCase(HTTP_PROTOCOLL)) {
+            return url.substring(HTTP_PROTOCOLL.length());
         }
 
-        if (url.length() >= 8) {
-            if (url.substring(0,8).equalsIgnoreCase(HTTPS_PROTOCOLL)) {
-                return url.substring(HTTPS_PROTOCOLL.length());
-            }
+        if (url.length() >= 8 && url.substring(0, 8).equalsIgnoreCase(HTTPS_PROTOCOLL)) {
+            return url.substring(HTTPS_PROTOCOLL.length());
         }
 
         return url;
