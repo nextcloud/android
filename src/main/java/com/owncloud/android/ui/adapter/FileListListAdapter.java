@@ -52,14 +52,11 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.ui.events.FavoriteEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -235,25 +232,6 @@ public class FileListListAdapter extends BaseAdapter {
                     fileSizeV.setVisibility(View.VISIBLE);
                     fileSizeV.setText(DisplayUtils.bytesToHumanReadable(file.getFileLength()));
 
-                    final OCFile finalFile = file;
-                    view.findViewById(R.id.favorite_action).setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            EventBus.getDefault().post(new FavoriteEvent(finalFile.getRemotePath(),
-                                    !finalFile.getIsFavorite(), finalFile.getRemoteId()));
-                        }
-                    });
-
-                    if (file.getIsFavorite()) {
-                        if (!view.findViewById(R.id.favorite_action).isSelected()) {
-                            view.findViewById(R.id.favorite_action).setSelected(true);
-                        }
-                    } else {
-                        if (view.findViewById(R.id.favorite_action).isSelected()) {
-                            view.findViewById(R.id.favorite_action).setSelected(false);
-                        }
-                    }
-
 
                 case GRID_ITEM:
                     // filename
@@ -322,6 +300,12 @@ public class FileListListAdapter extends BaseAdapter {
             }
 
             // For all Views
+
+            if (file.getIsFavorite()) {
+                view.findViewById(R.id.favorite_action).setVisibility(View.VISIBLE);
+            } else {
+                view.findViewById(R.id.favorite_action).setVisibility(View.GONE);
+            }
 
             ImageView checkBoxV = (ImageView) view.findViewById(R.id.custom_checkbox);
             checkBoxV.setVisibility(View.GONE);
