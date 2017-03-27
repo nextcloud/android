@@ -130,11 +130,17 @@ public class UserInfoActivity extends FileActivity {
     @BindView(R.id.website_address)
     public TextView mWebsiteTextView;
 
+    @BindView(R.id.website_icon)
+    public ImageView mWebsiteIcon;
+
     @BindView(R.id.twitter_container)
     public View mTwitterContainer;
 
     @BindView(R.id.twitter_handle)
     public TextView mTwitterHandleTextView;
+
+    @BindView(R.id.twitter_icon)
+    public ImageView mTwitterIcon;
 
     @BindView(R.id.empty_list_progress)
     public ProgressBar multiListProgressBar;
@@ -252,16 +258,18 @@ public class UserInfoActivity extends FileActivity {
             populateUserInfoElement(mEmailContainer, mEmailAddressTextView, userInfo.getEmail(), mEmailIcon, tint);
             populateUserInfoElement(mAddressContainer, mAddressTextView, userInfo.getAddress(), mAddressIcon, tint);
 
-            populateUserInfoElement(mWebsiteContainer, mWebsiteTextView, userInfo.getWebpage());
-            populateUserInfoElement(mTwitterContainer, mTwitterHandleTextView, userInfo.getTwitter());
-        }
-    }
-
-    private void populateUserInfoElement(View container, TextView textView, String text) {
-        if (!TextUtils.isEmpty(text)) {
-            textView.setText(text);
-        } else {
-            container.setVisibility(View.GONE);
+            populateUserInfoElement(
+                    mWebsiteContainer,
+                    mWebsiteTextView,
+                    DisplayUtils.beautifyURL(userInfo.getWebpage()),
+                    mWebsiteIcon,
+                    tint);
+            populateUserInfoElement(
+                    mTwitterContainer,
+                    mTwitterHandleTextView,
+                    DisplayUtils.beautifyTwitterHandle(userInfo.getTwitter()),
+                    mTwitterIcon,
+                    tint);
         }
     }
 
@@ -274,7 +282,6 @@ public class UserInfoActivity extends FileActivity {
             container.setVisibility(View.GONE);
         }
     }
-
 
     private void changeAccountPassword(Account account) {
         Intent updateAccountCredentials = new Intent(UserInfoActivity.this, AuthenticatorActivity.class);
