@@ -78,6 +78,10 @@ public class DisplayUtils {
     private static final int RELATIVE_THRESHOLD_CRITICAL = 95;
     private static final String MIME_TYPE_UNKNOWN = "Unknown type";
 
+    private static final String HTTP_PROTOCOLL = "http://";
+    private static final String HTTPS_PROTOCOLL = "https://";
+    private static final String TWITTER_HANDLE_PREFIX = "@";
+
     private static Map<String, String> mimeType2HumanReadable;
 
     static {
@@ -149,6 +153,50 @@ public class DisplayUtils {
         Date date = new Date(milliseconds);
         DateFormat df = DateFormat.getDateTimeInstance();
         return df.format(date);
+    }
+
+    /**
+     * beautifies a given URL by removing any http/https protocol prefix.
+     *
+     * @param url to be beautified url
+     * @return beautified url
+     */
+    public static String beautifyURL(String url) {
+        if (url == null) {
+            return "";
+        }
+
+        if (url.length() >= 7) {
+            if (url.substring(0,7).equalsIgnoreCase(HTTP_PROTOCOLL)) {
+                return url.substring(HTTP_PROTOCOLL.length());
+            }
+        }
+
+        if (url.length() >= 8) {
+            if (url.substring(0,8).equalsIgnoreCase(HTTPS_PROTOCOLL)) {
+                return url.substring(HTTPS_PROTOCOLL.length());
+            }
+        }
+
+        return url;
+    }
+
+    /**
+     * beautifies a given twitter handle by prefixing it with an @ in case it is missing.
+     *
+     * @param handle to be beautified twitter handle
+     * @return beautified twitter handle
+     */
+    public static String beautifyTwitterHandle(String handle) {
+        if (handle == null) {
+            return "";
+        }
+
+        if (handle.startsWith(TWITTER_HANDLE_PREFIX)) {
+            return handle;
+        } else {
+            return TWITTER_HANDLE_PREFIX + handle;
+        }
     }
     
     /**

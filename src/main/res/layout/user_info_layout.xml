@@ -174,17 +174,27 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:id="@+id/website_container"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="@dimen/standard_margin"
-                            android:orientation="vertical">
+                            android:layout_height="wrap_content">
+
+                            <ImageView
+                                android:id="@+id/website_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_web"
+                                android:layout_margin="@dimen/standard_margin"/>
 
                             <TextView
                                 android:id="@+id/website_headline"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/standard_margin"
+                                android:layout_marginTop="@dimen/standard_margin"
+                                android:layout_toEndOf="@id/website_icon"
+                                android:layout_toRightOf="@id/website_icon"
+                                android:maxLines="1"
                                 android:text="@string/user_info_website"
                                 android:textAppearance="?android:attr/textAppearanceListItem"/>
 
@@ -192,31 +202,43 @@
                                 android:id="@+id/website_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/standard_margin"
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:layout_below="@+id/website_headline"
+                                android:layout_toEndOf="@id/website_icon"
+                                android:layout_toRightOf="@id/website_icon"
                                 android:maxLines="3"
-                                android:text="@string/user_info_twitter"
+                                android:text="@string/user_info_website"
                                 android:textColor="?android:attr/textColorSecondary"/>
 
-                        </LinearLayout>
+                        </RelativeLayout>
 
-                        <LinearLayout
+                        <RelativeLayout
                             android:id="@+id/twitter_container"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="@dimen/standard_margin"
-                            android:orientation="vertical">
+                            android:layout_height="wrap_content">
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"
-                                android:layout_marginBottom="@dimen/standard_margin"
                                 android:background="@color/list_divider_background"/>
+
+                            <ImageView
+                                android:id="@+id/twitter_icon"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_margin="@dimen/standard_margin"
+                                android:src="@drawable/ic_twitter"/>
 
                             <TextView
                                 android:id="@+id/twitter_headline"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="@dimen/standard_margin"
-                                android:layout_marginLeft="@dimen/standard_margin"
+                                android:layout_marginTop="@dimen/standard_margin"
+                                android:layout_toEndOf="@id/twitter_icon"
+                                android:layout_toRightOf="@id/twitter_icon"
+                                android:maxLines="1"
                                 android:text="Twitter"
                                 android:textAppearance="?android:attr/textAppearanceListItem"/>
 
@@ -225,12 +247,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="@dimen/standard_margin"
-                                android:layout_marginLeft="@dimen/standard_margin"
-                                android:maxLines="1"
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:layout_below="@+id/twitter_headline"
+                                android:layout_toEndOf="@id/twitter_icon"
+                                android:layout_toRightOf="@id/twitter_icon"
+                                android:maxLines="3"
                                 android:text="@string/placeholder_filename"
                                 android:textColor="?android:attr/textColorSecondary"/>
 
-                        </LinearLayout>
+                        </RelativeLayout>
 
                     </LinearLayout>
 
