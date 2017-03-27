@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
+ * @author Mario Danic
  * Copyright (C) 2017 Andy Scherzinger
+ * Copyright (C) 2017 Mario Danic
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -36,7 +38,9 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.GetRemoteNotificationsOperation;
-import com.owncloud.android.lib.resources.notifications.Notification;
+import com.owncloud.android.lib.resources.notifications.models.Notification;
+
+import java.util.List;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -105,7 +109,7 @@ public class NotificationsActivity extends FileActivity {
         fetchAndSetData();
     }
 
-    private void populateList(Notification notifications) {
+    private void populateList(List<Notification> notifications) {
 
     }
 
@@ -118,7 +122,7 @@ public class NotificationsActivity extends FileActivity {
                         getRemoteNotificationOperation.execute(account, NotificationsActivity.this);
 
                 if (result.isSuccess() && result.getData() != null) {
-                    final Notification notifications = (Notification) result.getData().get(0);
+                    final List<Notification> notifications = result.getNotificationData();
 
                     runOnUiThread(new Runnable() {
                         @Override
