@@ -49,39 +49,8 @@
                 android:layout_marginLeft="-3dp"
                 android:layout_marginBottom="-3dp"/>
 
-            <LinearLayout
-                android:id="@android:id/progress"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
+            <include layout="@layout/empty_list"/>
 
-                <ProgressBar
-                    android:id="@+id/notificationsSyncProgressBar"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
-                    android:layout_gravity="center_horizontal"/>
-
-                <TextView
-                    android:id="@+id/progressText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_margin="@dimen/standard_half_margin"
-                    android:text="@string/notifications_loading_activity"
-                    android:textSize="26sp"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@android:id/empty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/standard_margin"
-                android:gravity="center"
-                android:text="@string/notifications_no_results"
-                android:visibility="gone" />
         </FrameLayout>
 
     </LinearLayout>
