@@ -505,8 +505,6 @@
     <string name="participate_testing_bug_text">Našli ste chybu? Niečo nefunguje?</string>
     <string name="participate_testing_report_text">Nahlásiť chybu na Githube</string>
     <string name="participate_testing_version_text">Máte záujem pomôcť nám s testovaním ďalšej Verzie?</string>
-    <string name="participate_beta_headline">Testovať Beta verziu</string>
-    <string name="participate_beta_text">Táto verzia obsahuje všetký pripravované funkcie. Je veľmi nestabilná a môže obsahovať chyby. Ak na ne natrafíte, prosím nahláste nám ich. &lt;br/>&lt;a href=\"%2$s\">Stiahnúť APK&lt;/a> alebo</string>
     <string name="participate_contribute_headline">Aktívne prispievať</string>
     <string name="participate_contribute_irc_text">Vst=upte do chatu na IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Pomôž ostatným na &lt;a href=\"%1$s\">fóre&lt;/a></string>

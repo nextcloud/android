@@ -507,7 +507,6 @@
     <string name="participate_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
     <string name="participate_testing_report_text">Αναφέρετε σφάλμα στο Github</string>
     <string name="participate_testing_version_text">Σας ενδιαφέρει να μας βοηθήσετε να δοκιμάσουμε την επόμενη έκδοση;</string>
-    <string name="participate_beta_headline">Δοκιμάστε την έκδοση Beta</string>
     <string name="participate_release_candidate_headline">Υποψήφια κυκλοφορία</string>
     <string name="participate_release_candidate_text">Η υποψήφια κυκλοφορία (RC) είναι ένα στιγμιότυπο της επερχόμενης έκδοσης και αναμένεται να είναι σταθερό. Η δοκιμή της μεμονωμένης εγκατάστασής σας θα βοηθήσει στην εξασφάλιση αυτού. Εγγραφείτε για δοκιμές στο Play store ή χειροκίνητα αναζητείστε στο τμήμα \"εκδόσεις\" στο F-Droid.</string>
     <string name="participate_contribute_headline">Ενεργή συνεισφορά</string>

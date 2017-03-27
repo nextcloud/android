@@ -510,8 +510,6 @@ Contacte o administrador</string>
     <string name="participate_testing_bug_text">Encontrou um erro? Algo está estranho?</string>
     <string name="participate_testing_report_text">Relate o problema no Github</string>
     <string name="participate_testing_version_text">Está interessado em ajudar-nos a testar a próxima versão?</string>
-    <string name="participate_beta_headline">Testar a versão beta</string>
-    <string name="participate_beta_text">Isso inclui todos os próximos recursos e é um recurso muitíssimo novo. Bugs/erros podem ocorrer e se ocorrerem, por favor informe-nos. &lt;br/>&lt;a href=\"%2$s\">Faça o download do APK&lt;/a> ou</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">O release candidate (RC) é um instantâneo do lançamento e espera-se que seja estável. Testar a sua configuração individual pode contribuir para assegurar-la. Registe-se para testar na Play Store ou procurar manualmente na seção \"versões\" na F-Droid.</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>

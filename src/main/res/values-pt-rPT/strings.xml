@@ -455,7 +455,6 @@
     <string name="participate_testing_bug_text">Encontrou um erro? Algo está a funcionar estranhamente?</string>
     <string name="participate_testing_report_text">Reportar um problema no Github</string>
     <string name="participate_testing_version_text">Interessado em nos ajudar a testar a próxima versão?</string>
-    <string name="participate_beta_headline">Teste a versão Beta</string>
     <string name="folder_sync_no_results">Dossiês multimédia não encontrados</string>
     <string name="folder_sync_preferences">Carregar preferências automaticamente</string>
     <string name="folder_sync_settings">Parametros</string>
