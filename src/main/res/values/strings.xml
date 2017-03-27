@@ -583,7 +583,8 @@
     <string name="activity_list_no_results">No activities found.</string>
 
     <string name="notifications_loading_activity">Loading notifications&#8230;</string>
-    <string name="notifications_no_results">No notifications.</string>
+    <string name="notifications_no_results_headline">No notifications</string>
+    <string name="notifications_no_results_message">Please check back later.</string>
 
     <string name="upload_file_dialog_title">Input upload filename and filetype</string>
     <string name="upload_file_dialog_filename">Filename</string>
