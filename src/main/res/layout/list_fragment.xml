@@ -88,8 +88,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         app:fab_addButtonColorNormal="@color/primary_button_background_color"
         app:fab_addButtonColorPressed="@color/owncloud_blue"
         app:fab_addButtonPlusIconColor="@color/white"
@@ -97,6 +95,7 @@
         android:layout_marginBottom="@dimen/standard_margin"
         android:layout_marginRight="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_margin"
+        android:layout_above="@+id/bottom_navigation_view"
         android:visibility="gone">
 
         <com.getbase.floatingactionbutton.FloatingActionButton

@@ -48,6 +48,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -206,6 +207,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
             prepareBottomNavigationView();
+        } else {
+            View fabView = v.findViewById(R.id.fab_main);
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
+                    fabView.getLayoutParams();
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
+            fabView.setLayoutParams(layoutParams);
+            fabView.invalidate();
         }
 
         Bundle args = getArguments();
