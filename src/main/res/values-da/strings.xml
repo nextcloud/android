@@ -38,6 +38,7 @@
     <string name="prefs_log_summary_history">Dette viser de optagne logger</string>
     <string name="prefs_log_delete_history_button">Slet historik</string>
     <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
+    <string name="prefs_calendar_contacts_summary">Indstil DAVdroid (v1.3.0+) for aktiv konto</string>
     <string name="prefs_help">Hjælp</string>
     <string name="prefs_recommend">Anbefal til en ven</string>
     <string name="prefs_feedback">Feedback</string>
@@ -429,7 +430,6 @@
     <string name="participate_testing_headline">Hjælp os med at teste</string>
     <string name="participate_testing_report_text">Rapporter fejl på Github</string>
     <string name="participate_testing_version_text">Interesseret i at hjælpe os med at teste den næste version?</string>
-    <string name="participate_beta_headline">Test beta-version</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="move_to">Flyt til&#8230;</string>
     <string name="copy_to">Kopiér til&#8230;</string>
@@ -450,4 +450,8 @@
     <string name="welcome_feature_1_title">Et sikket hjem til alt dit data</string>
     <string name="whats_new_skip">Spring over</string>
 
+    <!-- User information -->
+    <string name="user_info_full_name">Fulde navn</string>
+    <string name="user_info_email">E-post</string>
+    <string name="user_info_phone">Telefonnummer</string>
     </resources>

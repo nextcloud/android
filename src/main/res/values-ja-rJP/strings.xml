@@ -316,6 +316,7 @@
     <string name="conflict_use_local_version">ローカルのもの</string>
     <string name="conflict_use_server_version">サーバーのもの</string>
 
+    <string name="preview_sorry">申し訳ありません!</string>
     <string name="preview_image_description">イメージプレビュー</string>
     <string name="preview_image_error_unknown_format">この画像は表示できません</string>
 
@@ -510,8 +511,6 @@
     <string name="participate_testing_bug_text">バグがありましたか? なにか問題がありますか?</string>
     <string name="participate_testing_report_text">Githubでエラーを報告する</string>
     <string name="participate_testing_version_text">次のバージョンのテストに興味がありますか?</string>
-    <string name="participate_beta_headline">ベータバージョンを試してみる</string>
-    <string name="participate_beta_text">これは、すべての最新の機能が含まれており、非常に最前端です。 バグやエラーが発生する可能性があり、もしそれが起こった場合、私たちに報告してください。lt;br/>&lt;a href="%2$s">APKファイルをダウンロードする&lt;/a> or</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_release_candidate_text">リリース候補(RC)は、今後のリリースのスナップショット であり、安定性が期待されます。 個々の設定をテストすることで、これを確実にすることができます。 Playストアでのテストに登録するか、F-Droidの「バージョン」セクションを手動で参照してください。</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
@@ -557,4 +556,14 @@
 
     <string name="whats_new_skip">スキップ</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">氏名</string>
+    <string name="user_info_email">メール</string>
+    <string name="user_info_phone">電話番号</string>
+    <string name="user_info_address">住所</string>
+    <string name="user_info_website">ウェブサイト</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">ユーザー情報</string>
+
+</resources>

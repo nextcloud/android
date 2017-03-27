@@ -315,6 +315,7 @@
     <string name="conflict_use_local_version">wersja lokalna</string>
     <string name="conflict_use_server_version">wersja zdalna</string>
 
+    <string name="preview_sorry">Przykro mi z tego powodu!</string>
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
 
@@ -509,8 +510,6 @@
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
     <string name="participate_testing_report_text">Zgłoś błąd na GitHubie</string>
     <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
-    <string name="participate_beta_headline">Testuj wersję Beta</string>
-    <string name="participate_beta_text">To obejmuje wszystkie nadchodzące funkcjonalności, które są \"bleeding-edge\". Mogą występować błędy i jeśli wystąpią proszę zgłosić je do nas. &lt;br/>&lt;a href=\"%2$s\">Ściągnij APK&lt;/a> or</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
     <string name="participate_release_candidate_text">Release Candidate (RC) jest zarysem nadchodzącego wydania i oczekujemy że będzie stabilne. Testowanie indywidualnej konfiguracji może pomóc, aby to zapewnić. Zapisz się do testowania w sklepie Play lub ręcznie szukaj w sekcji \"wersje\" na F-Droid.</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
@@ -559,4 +558,14 @@
 
     <string name="whats_new_skip">Pominąć</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">Pełna nazwa</string>
+    <string name="user_info_email">E-mail</string>
+    <string name="user_info_phone">Numer telefonu</string>
+    <string name="user_info_address">Adres</string>
+    <string name="user_info_website">Strona WWW</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Informacje użytkownika</string>
+
+</resources>

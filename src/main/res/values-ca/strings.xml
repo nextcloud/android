@@ -509,8 +509,6 @@
     <string name="participate_testing_bug_text">Heu trobat un error? Alguna cosa estranya?</string>
     <string name="participate_testing_report_text">Informeu d\'un problema a Github</string>
     <string name="participate_testing_version_text">Us interessa ajudar-nos a provar la següent versió?</string>
-    <string name="participate_beta_headline">Proveu la versió Beta</string>
-    <string name="participate_beta_text">Inclou totes les característiques futures i és d\'alt risc. Si apareixen errors informeu-nos siusplau. &lt;br/>&lt;a href="%2$s">Baixeu l\'APK&lt;/a> o</string>
     <string name="participate_release_candidate_headline">Versió candidata</string>
     <string name="participate_release_candidate_text">La versió candidata (RC) és una instantània de la versió següent i se suposa que és estable. Provar la vostra configuració individual pot ajudar a garantir-ho. Registreu-vos a Play Store per fer les proves o bé mireu la secció \"versions\" a F-Droid.</string>
     <string name="participate_contribute_headline">Contribuïu activament</string>
