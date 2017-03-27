@@ -221,6 +221,10 @@ dependencies {
 
 }
 
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 tasks.withType(Test) {
     /// increased logging for tests
     testLogging {
