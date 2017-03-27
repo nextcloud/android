@@ -21,10 +21,21 @@
 package com.owncloud.android.ui.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
+import butterknife.BindString;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Activity displaying all server side stored activity items.
@@ -33,12 +44,39 @@ public class NotificationsActivity extends FileActivity {
 
     private static final String TAG = NotificationsActivity.class.getSimpleName();
 
+    @BindView(R.id.empty_list_view)
+    public LinearLayout emptyContentContainer;
+
+    @BindView(R.id.empty_list_view_text)
+    public TextView emptyContentMessage;
+
+    @BindView(R.id.empty_list_view_headline)
+    public TextView emptyContentHeadline;
+
+    @BindView(R.id.empty_list_icon)
+    public ImageView emptyContentIcon;
+
+    @BindView(R.id.empty_list_progress)
+    public ProgressBar emptyContentProgressBar;
+
+    @BindView(android.R.id.list)
+    public RecyclerView recyclerView;
+
+    @BindString(R.string.notifications_no_results_headline)
+    public String noResultsHeadline;
+
+    @BindString(R.string.notifications_no_results_message)
+    public String noResultsMessage;
+
+    private Unbinder unbinder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.notifications_layout);
+        unbinder = ButterKnife.bind(this);
 
         // setup toolbar
         setupToolbar();
@@ -54,6 +92,9 @@ public class NotificationsActivity extends FileActivity {
      * sets up the UI elements and loads all activity items.
      */
     private void setupContent() {
+        emptyContentIcon.setImageResource(R.drawable.ic_notification_light_grey);
+        setEmptyContent(noResultsHeadline,noResultsMessage);
+
         // TODO add all (recycler) view relevant code + data loading + adapter etc.
     }
 
@@ -74,5 +115,23 @@ public class NotificationsActivity extends FileActivity {
         }
 
         return retval;
+    }
+
+    private void setLoadingMessage() {
+        emptyContentHeadline.setText(R.string.file_list_loading);
+        emptyContentMessage.setText("");
+
+        emptyContentIcon.setVisibility(View.GONE);
+        emptyContentProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void setEmptyContent(String headline, String message) {
+        if (emptyContentContainer != null && emptyContentMessage != null) {
+            emptyContentHeadline.setText(headline);
+            emptyContentMessage.setText(message);
+
+            emptyContentProgressBar.setVisibility(View.GONE);
+            emptyContentIcon.setVisibility(View.VISIBLE);
+        }
     }
 }
