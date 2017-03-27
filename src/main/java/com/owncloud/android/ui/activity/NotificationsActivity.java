@@ -20,6 +20,7 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
@@ -30,7 +31,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.notifications.GetRemoteNotificationsOperation;
+import com.owncloud.android.lib.resources.notifications.Notification;
 
 import butterknife.BindString;
 import butterknife.BindView;
@@ -96,6 +102,42 @@ public class NotificationsActivity extends FileActivity {
         setEmptyContent(noResultsHeadline,noResultsMessage);
 
         // TODO add all (recycler) view relevant code + data loading + adapter etc.
+        fetchAndSetData();
+    }
+
+    private void populateList(Notification notifications) {
+
+    }
+
+    private void fetchAndSetData() {
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                Account account = AccountUtils.getCurrentOwnCloudAccount(NotificationsActivity.this);
+                RemoteOperation getRemoteNotificationOperation = new GetRemoteNotificationsOperation();
+                RemoteOperationResult result =
+                        getRemoteNotificationOperation.execute(account, NotificationsActivity.this);
+
+                if (result.isSuccess() && result.getData() != null) {
+                    final Notification notifications = (Notification) result.getData().get(0);
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            populateList(notifications);
+
+                            emptyContentContainer.setVisibility(View.GONE);
+                            recyclerView.setVisibility(View.VISIBLE);
+                        }
+                    });
+                } else {
+                    // show error
+                    setEmptyContent(noResultsHeadline, result.getLogMessage());
+                    Log_OC.d(TAG, result.getLogMessage());
+                }
+            }
+        });
+
+        t.start();
     }
 
     @Override
