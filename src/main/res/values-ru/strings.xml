@@ -317,6 +317,7 @@
     <string name="conflict_use_local_version">локальная версия</string>
     <string name="conflict_use_server_version">версия сервера</string>
 
+    <string name="preview_sorry">Приносим извинения.</string>
     <string name="preview_image_description">Предпросмотр</string>
     <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
 
@@ -511,8 +512,6 @@
     <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
     <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>
     <string name="participate_testing_version_text">Вам интересно участие в тестировании следующих версий?</string>
-    <string name="participate_beta_headline">Тестирование бета-версии</string>
-    <string name="participate_beta_text">Эта версия включает грядущие улучшения, но в ней могут встречаться ошибки. Если что-то работает неправильно, сообщите нам об этом. &lt;br/>&lt;a href="%2$s">Скачать APK&lt;/a> или</string>
     <string name="participate_release_candidate_headline">Кандидат в релизы</string>
     <string name="participate_release_candidate_text">Релиз-кандидат (RC) - это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или используйте раздел \"версии\" в каталоге приложений F-Droid.</string>
     <string name="participate_contribute_headline">Активное участие</string>
@@ -561,4 +560,14 @@
 
     <string name="whats_new_skip">Пропустить</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">Полное имя</string>
+    <string name="user_info_email">Эл. почта</string>
+    <string name="user_info_phone">Номер телефона</string>
+    <string name="user_info_address">Адрес</string>
+    <string name="user_info_website">Сайт</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Пользовательская информация</string>
+
+</resources>

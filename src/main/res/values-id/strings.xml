@@ -509,8 +509,6 @@
     <string name="participate_testing_bug_text">Menemukan kutu? Sesuatu yang aneh?</string>
     <string name="participate_testing_report_text">Laporkan isu di Github</string>
     <string name="participate_testing_version_text">Tertarik dalam membantu kami menguji Versi selanjutnya?</string>
-    <string name="participate_beta_headline">Uji versi Beta</string>
-    <string name="participate_beta_text">Ini termasuk semua fitur yang akan datang sangat terbaru. Kutu/galat dapat terjadi dan jika terjadi, harap laporkan ke kami. &lt;br/>&lt;a href="%2$s">Unduh APK&lt;/a> atau</string>
     <string name="participate_release_candidate_headline">Kandidat rilis</string>
     <string name="participate_release_candidate_text">Kandidat rilis (RC) adalah potret rilis berikutnya dan diharapkan akan stabil. Uji pengaturan pribadi anda dapat membantu untuk memastikan hal ini. Daftar untuk menguji di Play Store atau secara manual lihat di seksi \"versi\" di F-Droid.</string>
     <string name="participate_contribute_headline">Berkontribusi Aktif</string>

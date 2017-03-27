@@ -464,7 +464,6 @@
     <string name="participate_testing_bug_text">Napaka? Je kaj čudno?</string>
     <string name="participate_testing_report_text">Prijavi napako na Github</string>
     <string name="participate_testing_version_text">Te zanima pomoč in testiranje naslednje verzije?</string>
-    <string name="participate_beta_headline">Testiraj beta verzijo</string>
     <string name="participate_release_candidate_headline">Kandidat za objavo</string>
     <string name="participate_contribute_headline">Aktivni prispevek</string>
     <string name="participate_contribute_github_text">Prispevaj kot razvijalec, poglej detajle v &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>

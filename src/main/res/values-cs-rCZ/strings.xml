@@ -509,8 +509,6 @@
     <string name="participate_testing_bug_text">Našel jsi chybu? Něco nefunguje?</string>
     <string name="participate_testing_report_text">Nahlásit chybu na Github</string>
     <string name="participate_testing_version_text">Chceš nám pomoci testovat další verzi?</string>
-    <string name="participate_beta_headline">Vyzkoušej beta verzi</string>
-    <string name="participate_beta_text">Toto obsahuje všechny připravované funkce a není plnohodnotně přezkoušeno. Může dojít k chybám. Pokud se tak stane, nahlas nám je, prosím.&lt;br/>&lt;a href="%2$s">Download APK&lt;/a> nebo</string>
     <string name="participate_release_candidate_headline">Předběžná verze</string>
     <string name="participate_release_candidate_text">Předběžná verze nebo také Release Candidate (RC) je stabilní stav připravované, finální verze. Přihlas se jako tester v Play store nebo si najdi a instaluj hodící se verzi z F-Droid pod \"Verze\".</string>
     <string name="participate_contribute_headline">Aktivně něčím přispět</string>

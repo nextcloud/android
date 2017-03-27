@@ -507,8 +507,6 @@
     <string name="participate_testing_bug_text">Har du hittat en bugg? Är det något som är fel?</string>
     <string name="participate_testing_report_text">Rapportera ett problem på Github</string>
     <string name="participate_testing_version_text">Är du intresserad utav att hjälpa oss testa nästa version?</string>
-    <string name="participate_beta_headline">Testa betaversionen</string>
-    <string name="participate_beta_text">Denna version innehåller de absolut senaste funktionerna. Buggar/fel kan inträffa och om du hittar några, vänligen rapportera dem till oss. &lt;br/>&lt;a href="%2$s">Ladda ner APK\'n&lt;/a> eller</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Release candidate (RC) är en snapshot av den kommande versionen och den förväntas vara stabil. Att du testar din individuella setup skulle kunna hjälpa till att säkerställa detta. Registrera dig på Play Store, eller kolla \"versioner\" manuellt på F-droid.</string>
     <string name="participate_contribute_headline">Bidra aktivt</string>
