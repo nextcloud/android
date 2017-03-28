@@ -48,6 +48,7 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.authentication.ModifiedAuthenticatorActivity;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -284,7 +285,15 @@ public class UserInfoActivity extends FileActivity {
     }
 
     private void changeAccountPassword(Account account) {
-        Intent updateAccountCredentials = new Intent(UserInfoActivity.this, AuthenticatorActivity.class);
+        // let the user update credentials with one click
+        Intent updateAccountCredentials;
+        if (!getResources().getBoolean(R.bool.push_enabled) &&
+                !getResources().getBoolean(R.bool.analytics_enabled)) {
+            updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
+        } else {
+            updateAccountCredentials = new Intent(this, ModifiedAuthenticatorActivity.class);
+        }
+
         updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
         updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
                 AuthenticatorActivity.ACTION_UPDATE_TOKEN);
