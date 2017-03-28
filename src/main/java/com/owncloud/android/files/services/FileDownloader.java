@@ -41,7 +41,6 @@ import android.util.Pair;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.authentication.ModifiedAuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
@@ -580,14 +579,7 @@ public class FileDownloader extends Service
             if (needsToUpdateCredentials) {
 
                 // let the user update credentials with one click
-                Intent updateAccountCredentials;
-                if (!getResources().getBoolean(R.bool.push_enabled)
-                        && !getResources().getBoolean(R.bool.analytics_enabled)) {
-                    updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-                } else {
-                    updateAccountCredentials = new Intent(this, ModifiedAuthenticatorActivity.class);
-                }
-
+                Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
                 updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT,
                         download.getAccount());
                 updateAccountCredentials.putExtra(
