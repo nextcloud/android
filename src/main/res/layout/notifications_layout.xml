@@ -44,10 +44,7 @@
                 android:clipToPadding="false"
                 android:scrollbarStyle="outsideOverlay"
                 android:scrollbars="vertical"
-                android:visibility="visible"
-                android:layout_marginRight="-3dp"
-                android:layout_marginLeft="-3dp"
-                android:layout_marginBottom="-3dp"/>
+                android:visibility="visible"/>
 
             <include layout="@layout/empty_list"/>
 

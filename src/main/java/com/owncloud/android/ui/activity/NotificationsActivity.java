@@ -24,6 +24,7 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.GetRemoteNotificationsOperation;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
+import com.owncloud.android.ui.adapter.NotificationListAdapter;
 
 import java.util.List;
 
@@ -80,6 +82,8 @@ public class NotificationsActivity extends FileActivity {
 
     private Unbinder unbinder;
 
+    private NotificationListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
@@ -98,19 +102,27 @@ public class NotificationsActivity extends FileActivity {
         setupContent();
     }
 
+    public void onDestroy() {
+        super.onDestroy();
+        unbinder.unbind();
+    }
+
     /**
      * sets up the UI elements and loads all activity items.
      */
     private void setupContent() {
         emptyContentIcon.setImageResource(R.drawable.ic_notification_light_grey);
-        setEmptyContent(noResultsHeadline,noResultsMessage);
+        setLoadingMessage();
 
-        // TODO add all (recycler) view relevant code + data loading + adapter etc.
+        adapter = new NotificationListAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         fetchAndSetData();
     }
 
     private void populateList(List<Notification> notifications) {
-
+        adapter.setNotificationItems(notifications);
     }
 
     private void fetchAndSetData() {
@@ -118,6 +130,7 @@ public class NotificationsActivity extends FileActivity {
             public void run() {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(NotificationsActivity.this);
                 RemoteOperation getRemoteNotificationOperation = new GetRemoteNotificationsOperation();
+                Log_OC.d(TAG, "BEFORE getRemoteNotificationOperation.execute");
                 final RemoteOperationResult result =
                         getRemoteNotificationOperation.execute(account, NotificationsActivity.this);
 
@@ -127,10 +140,13 @@ public class NotificationsActivity extends FileActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            populateList(notifications);
-
-                            emptyContentContainer.setVisibility(View.GONE);
-                            recyclerView.setVisibility(View.VISIBLE);
+                            if (notifications.size() > 0) {
+                                populateList(notifications);
+                                emptyContentContainer.setVisibility(View.GONE);
+                                recyclerView.setVisibility(View.VISIBLE);
+                            } else {
+                                setEmptyContent(noResultsHeadline, noResultsMessage);
+                            }
                         }
                     });
                 } else {
