@@ -40,7 +40,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.authentication.ModifiedAuthenticatorActivity;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
@@ -397,13 +396,7 @@ public abstract class FileActivity extends DrawerActivity
             }
 
             /// step 2 - request credentials to user
-            Intent updateAccountCredentials;
-            if (!getResources().getBoolean(R.bool.push_enabled) &&
-                    !getResources().getBoolean(R.bool.analytics_enabled)) {
-                updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
-            } else {
-                updateAccountCredentials = new Intent(this, ModifiedAuthenticatorActivity.class);
-            }
+            Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
             updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
             updateAccountCredentials.putExtra(
                     AuthenticatorActivity.EXTRA_ACTION,
