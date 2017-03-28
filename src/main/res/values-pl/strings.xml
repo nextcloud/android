@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Wyślij</string>
     <string name="actionbar_sort">Sortuj</string>
     <string name="actionbar_sort_title">Sortuj według</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Nowsze - Starsze</string>
-    <string name="menu_item_sort_by_size">Największe - Najmniejsze</string>
     <string name="drawer_item_all_files">Wszystkie pliki</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_settings">Ustawienia</string>
@@ -510,6 +507,7 @@
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
     <string name="participate_testing_report_text">Zgłoś błąd na GitHubie</string>
     <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
+    <string name="participate_beta_headline">Testuj wersję nocną</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
     <string name="participate_release_candidate_text">Release Candidate (RC) jest zarysem nadchodzącego wydania i oczekujemy że będzie stabilne. Testowanie indywidualnej konfiguracji może pomóc, aby to zapewnić. Zapisz się do testowania w sklepie Play lub ręcznie szukaj w sekcji \"wersje\" na F-Droid.</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>

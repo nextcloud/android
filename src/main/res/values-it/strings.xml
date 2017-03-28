@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Invia</string>
     <string name="actionbar_sort">Ordina</string>
     <string name="actionbar_sort_title">Ordina per</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Più recente - Più datato</string>
-    <string name="menu_item_sort_by_size">Più grande - Più piccolo</string>
     <string name="drawer_item_all_files">Tutti i file</string>
     <string name="drawer_item_on_device">Su dispositivo</string>
     <string name="drawer_item_settings">Impostazioni</string>

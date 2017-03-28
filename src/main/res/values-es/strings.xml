@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
     <string name="actionbar_sort_title">Ordenar por</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Más nuevo - Más antiguo</string>
-    <string name="menu_item_sort_by_size">Mayor - Menor</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_settings">Ajustes</string>
@@ -315,6 +312,7 @@
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión del servidor</string>
 
+    <string name="preview_sorry">¡Lo sentimos!</string>
     <string name="preview_image_description">Previsualización de imagen</string>
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
 
@@ -509,6 +507,8 @@
     <string name="participate_testing_bug_text">¿Encontró un error? ¿Algo está mal?</string>
     <string name="participate_testing_report_text">Informa de un problema en Github</string>
     <string name="participate_testing_version_text">¿Interesado en ayudarnos a probar la próxima versión?</string>
+    <string name="participate_beta_headline">Pruebe la versión \"nightly\"</string>
+    <string name="participate_beta_text">Esto incluye todas las características por llegar y está al filo de la novedad. Pueden ocurrir fallos y errores y, si sucede, por favor infórmanos.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">La release candidate (RC) es una instantánea de la próxima versión y se espera que sea estable. Probar su configuración individual podría ayudar a asegurar esto. Regístrese para probarla en Play Store o busque manualmente en la sección \"versiones\" de F-Droid.</string>
     <string name="participate_contribute_headline">Contribuye activamente</string>
@@ -555,4 +555,14 @@
 
     <string name="whats_new_skip">Omitir</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">Nombre completo</string>
+    <string name="user_info_email">Correo electrónico</string>
+    <string name="user_info_phone">Número de teléfono</string>
+    <string name="user_info_address">Dirección</string>
+    <string name="user_info_website">Sitio web</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Información de usuario</string>
+
+</resources>

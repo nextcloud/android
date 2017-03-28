@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">שליחה</string>
     <string name="actionbar_sort">מיון</string>
     <string name="actionbar_sort_title">מיון על בסיס</string>
-    <string name="menu_item_sort_by_name">א - ת</string>
-    <string name="menu_item_sort_by_date">חדש - ישן</string>
-    <string name="menu_item_sort_by_size">גדול - קטן</string>
     <string name="drawer_item_all_files">כל הקבצים</string>
     <string name="drawer_item_settings">הגדרות</string>
     <string name="drawer_item_uploads_list">העלאות</string>

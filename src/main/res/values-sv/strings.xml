@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Skicka</string>
     <string name="actionbar_sort">Sortera</string>
     <string name="actionbar_sort_title">Sortera efter</string>
-    <string name="menu_item_sort_by_name">A - Ö</string>
-    <string name="menu_item_sort_by_date">Nyast - Äldst</string>
-    <string name="menu_item_sort_by_size">Störst - Minst</string>
     <string name="drawer_item_all_files">Alla filer</string>
     <string name="drawer_item_on_device">Filer på enheten</string>
     <string name="drawer_item_settings">Inställningar</string>
