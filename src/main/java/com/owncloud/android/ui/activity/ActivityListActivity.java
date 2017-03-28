@@ -26,6 +26,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -53,6 +54,9 @@ public class ActivityListActivity extends FileActivity {
 
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
+
+    @BindView((android.R.id.empty))
+    public TextView empty;
 
     private ActivityListAdapter adapter;
     private Unbinder unbinder;
@@ -109,10 +113,10 @@ public class ActivityListActivity extends FileActivity {
                         public void run() {
                             if (activities.size() > 0) {
                                 populateList(activities);
-                                //emptyContentContainer.setVisibility(View.GONE);
+                                empty.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
                             } else {
-                                //setEmptyContent(noResultsHeadline, noResultsMessage);
+                                empty.setVisibility(View.VISIBLE);
                             }
                         }
                     });
@@ -122,7 +126,7 @@ public class ActivityListActivity extends FileActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            //setEmptyContent(noResultsHeadline, result.getLogMessage());
+                            empty.setVisibility(View.VISIBLE);
                         }
                     });
                 }
@@ -132,9 +136,9 @@ public class ActivityListActivity extends FileActivity {
         t.start();
     }
 
-    private void populateList(List<Object> notifications) {
+    private void populateList(List<Object> activities) {
 
-        adapter.setActivityItems(notifications);
+        adapter.setActivityItems(activities);
     }
 
     @Override
