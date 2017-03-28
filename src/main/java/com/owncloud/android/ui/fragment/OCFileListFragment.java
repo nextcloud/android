@@ -204,17 +204,19 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             currentSearchType = SearchType.NO_SEARCH;
         }
 
+
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
             prepareBottomNavigationView();
-        } else {
-            View fabView = v.findViewById(R.id.fab_main);
-            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
-                    fabView.getLayoutParams();
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
-            fabView.setLayoutParams(layoutParams);
-            fabView.invalidate();
         }
+
+
+        View fabView = v.findViewById(R.id.fab_main);
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
+                fabView.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, 1);
+        fabView.setLayoutParams(layoutParams);
+        fabView.invalidate();
 
         Bundle args = getArguments();
         boolean allowContextualActions = (args != null) && args.getBoolean(ARG_ALLOW_CONTEXTUAL_ACTIONS, false);
