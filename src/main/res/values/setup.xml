@@ -118,7 +118,6 @@
 
     <!-- analytics enabled -->
     <bool name="analytics_enabled">false</bool>
-    <bool name="push_enabled">false</bool>
     <!-- Files becomes Home -->
     <bool name="use_home">false</bool>
 
