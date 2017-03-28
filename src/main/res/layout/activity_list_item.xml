@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Nextcloud Android client application
+
+  Copyright (C) 2017 Andy Scherzinger
+
+  This program is free software; you can redistribute it and/or
+  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+  License as published by the Free Software Foundation; either
+  version 3 of the License, or any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+
+  You should have received a copy of the GNU Affero General Public
+  License along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:weightSum="1">
+
+    <FrameLayout
+        android:id="@+id/activity_icon_container"
+        android:layout_width="@dimen/account_item_layout_height"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <ImageView
+            android:id="@+id/activity_icon"
+            android:layout_width="@dimen/user_icon_size"
+            android:layout_height="@dimen/user_icon_size"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_gravity="top|left"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:src="@drawable/ic_menu_archive"/>
+
+    </FrameLayout>
+d
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_toEndOf="@id/activity_icon_container"
+        android:layout_toRightOf="@id/activity_icon_container"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/activity_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:ellipsize="end"
+            android:gravity="bottom"
+            android:maxLines="2"
+            android:text="@string/placeholder_filename"
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
+
+        <TextView
+            android:id="@+id/activity_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:ellipsize="end"
+            android:gravity="top"
+            android:maxLines="3"
+            android:text="@string/placeholder_sentence"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+        <TextView
+            android:id="@+id/activity_datetime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_half_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:maxLines="3"
+            android:text="@string/placeholder_sentence"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+    </LinearLayout>
+</RelativeLayout>
