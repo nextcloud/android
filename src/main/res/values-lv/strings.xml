@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Sūtīt</string>
     <string name="actionbar_sort">Kārtot</string>
     <string name="actionbar_sort_title">Kārtot pēc</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Jaunākie - vecākie</string>
-    <string name="menu_item_sort_by_size">Lielākie - mazākie</string>
     <string name="drawer_item_all_files">Visas datnes</string>
     <string name="drawer_item_on_device">Ierīcē</string>
     <string name="drawer_item_settings">Iestatījumi</string>

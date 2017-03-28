@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
     <string name="actionbar_sort_title">Ordenar por</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Más reciente - Más antiguo</string>
-    <string name="menu_item_sort_by_size">Mayor - Menor</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_settings">Ajustes</string>
@@ -315,6 +312,7 @@
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión de servidor</string>
 
+    <string name="preview_sorry">¡Disculpas por eso!</string>
     <string name="preview_image_description">Vista previa de imagen</string>
     <string name="preview_image_error_unknown_format">Esta imagen no puede ser mostrada</string>
 
@@ -509,6 +507,8 @@
     <string name="participate_testing_bug_text">¿Encontró una falla? ¿Hay algo raro?</string>
     <string name="participate_testing_report_text">Reportar un tema en Github</string>
     <string name="participate_testing_version_text">¿Le interesaría ayudarnos a probar la siguiente Versión?</string>
+    <string name="participate_beta_headline">Probar la versión nocturna</string>
+    <string name="participate_beta_text">Esto incluye todas las próximas características y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, favor de reportarnoslos. </string>
     <string name="participate_release_candidate_headline">Candidato a lanzamiento</string>
     <string name="participate_release_candidate_text">El candidato a lanzamiento (CL) es una foto del más próximo lanzamiento y se espera que sea estable. Las pruebas a su configuración individual podría ayudarnos a asegurar esto. Regístrese para hacer pruebas en la Play Store o consulte directamente la sección de  \"versiones\" en F-Droid. </string>
     <string name="participate_contribute_headline">Contribuya activamente</string>
@@ -555,4 +555,14 @@
 
     <string name="whats_new_skip">Saltar</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">Nombre completo</string>
+    <string name="user_info_email">Correo electrónico</string>
+    <string name="user_info_phone">Número telefónico</string>
+    <string name="user_info_address">Dirección</string>
+    <string name="user_info_website">Sitio web</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Información del usuario</string>
+
+</resources>

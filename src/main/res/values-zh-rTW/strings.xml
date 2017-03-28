@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">寄出</string>
     <string name="actionbar_sort">排序</string>
     <string name="actionbar_sort_title">排序依照</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">最新 - 最舊</string>
-    <string name="menu_item_sort_by_size">最大 - 最小</string>
     <string name="drawer_item_all_files">所有檔案</string>
     <string name="drawer_item_on_device">在裝置上</string>
     <string name="drawer_item_settings">設定</string>

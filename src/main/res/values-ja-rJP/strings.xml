@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">送信</string>
     <string name="actionbar_sort">ソート</string>
     <string name="actionbar_sort_title">ソート: </string>
-    <string name="menu_item_sort_by_name">A-Z</string>
-    <string name="menu_item_sort_by_date">更新の降順</string>
-    <string name="menu_item_sort_by_size">サイズの降順</string>
     <string name="drawer_item_all_files">すべてのファイル</string>
     <string name="drawer_item_on_device">デバイス上</string>
     <string name="drawer_item_settings">設定</string>

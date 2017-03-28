@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">보내기</string>
     <string name="actionbar_sort">정렬</string>
     <string name="actionbar_sort_title">정렬 순서</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">최신 - 오래된</string>
-    <string name="menu_item_sort_by_size">가장 큰 - 가장 작은</string>
     <string name="drawer_item_all_files">모든 파일</string>
     <string name="drawer_item_on_device">장치</string>
     <string name="drawer_item_settings">설정</string>
