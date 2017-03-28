@@ -1,7 +1,6 @@
 package com.owncloud.android.authentication;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.owncloud.android.utils.GooglePlayUtils;
 
@@ -30,7 +29,6 @@ public class ModifiedAuthenticatorActivity extends AuthenticatorActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("MARIO", "HERE");
         GooglePlayUtils.checkPlayServices(this);
     }
 
