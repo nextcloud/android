@@ -118,10 +118,10 @@ public class NotificationsActivity extends FileActivity {
             public void run() {
                 Account account = AccountUtils.getCurrentOwnCloudAccount(NotificationsActivity.this);
                 RemoteOperation getRemoteNotificationOperation = new GetRemoteNotificationsOperation();
-                RemoteOperationResult result =
+                final RemoteOperationResult result =
                         getRemoteNotificationOperation.execute(account, NotificationsActivity.this);
 
-                if (result.isSuccess() && result.getData() != null) {
+                if (result.isSuccess() && result.getNotificationData() != null) {
                     final List<Notification> notifications = result.getNotificationData();
 
                     runOnUiThread(new Runnable() {
@@ -134,9 +134,14 @@ public class NotificationsActivity extends FileActivity {
                         }
                     });
                 } else {
-                    // show error
-                    setEmptyContent(noResultsHeadline, result.getLogMessage());
                     Log_OC.d(TAG, result.getLogMessage());
+                    // show error
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            setEmptyContent(noResultsHeadline, result.getLogMessage());
+                        }
+                    });
                 }
             }
         });
