@@ -94,7 +94,14 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
                 return e.getFailureBundle();
             }
 
-            Intent intent = new Intent(mContext, AuthenticatorActivity.class);
+            Intent intent;
+            if (!mContext.getResources().getBoolean(R.bool.push_enabled) &&
+                    !mContext.getResources().getBoolean(R.bool.analytics_enabled)) {
+                intent = new Intent(mContext, AuthenticatorActivity.class);
+            } else {
+                intent = new Intent(mContext, ModifiedAuthenticatorActivity.class);
+            }
+
             intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
             intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
             intent.putExtra(KEY_REQUIRED_FEATURES, requiredFeatures);
@@ -138,7 +145,14 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             return e.getFailureBundle();
         }
 
-        Intent intent = new Intent(mContext, AuthenticatorActivity.class);
+        Intent intent;
+        if (!mContext.getResources().getBoolean(R.bool.push_enabled)
+                && !mContext.getResources().getBoolean(R.bool.analytics_enabled)) {
+            intent = new Intent(mContext, AuthenticatorActivity.class);
+        } else {
+            intent = new Intent(mContext, ModifiedAuthenticatorActivity.class);
+        }
+
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
                 response);
         intent.putExtra(KEY_ACCOUNT, account);
@@ -189,7 +203,13 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         }
         
         /// if not stored, return Intent to access the AuthenticatorActivity and UPDATE the token for the account
-        Intent intent = new Intent(mContext, AuthenticatorActivity.class);
+        Intent intent;
+        if (!mContext.getResources().getBoolean(R.bool.push_enabled)
+                && !mContext.getResources().getBoolean(R.bool.analytics_enabled)) {
+            intent = new Intent(mContext, AuthenticatorActivity.class);
+        } else {
+            intent = new Intent(mContext, ModifiedAuthenticatorActivity.class);
+        }
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
         intent.putExtra(KEY_LOGIN_OPTIONS, options);
@@ -220,7 +240,13 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             Account account, String authTokenType, Bundle options)
             throws NetworkErrorException {
 
-        Intent intent = new Intent(mContext, AuthenticatorActivity.class);
+        Intent intent;
+        if (!mContext.getResources().getBoolean(R.bool.push_enabled) &&
+                !mContext.getResources().getBoolean(R.bool.analytics_enabled)) {
+            intent = new Intent(mContext, AuthenticatorActivity.class);
+        } else {
+            intent = new Intent(mContext, ModifiedAuthenticatorActivity.class);
+        }
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
         intent.putExtra(KEY_ACCOUNT, account);
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
