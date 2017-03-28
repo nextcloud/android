@@ -25,7 +25,7 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal">
@@ -34,48 +34,61 @@
             android:id="@+id/thumbnail"
             android:layout_width="@dimen/standard_list_item_size"
             android:layout_height="@dimen/standard_list_item_size"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/fragment_margin"
-            android:layout_marginRight="@dimen/alternate_margin"
+            android:layout_centerInParent="true"
             android:src="@drawable/ic_menu_archive"/>
 
         <ImageView
-            android:id="@+id/sharedIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|right"
-            android:layout_margin="@dimen/standard_quarter_margin"
-            android:src="@drawable/shared_via_link"/>
+            android:id="@+id/favorite_action"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignTop="@id/thumbnail"
+            android:layout_marginRight="4dp"
+            android:layout_toRightOf="@id/thumbnail"
+            android:src="@drawable/ic_favorite"
+            />
 
         <ImageView
             android:id="@+id/localFileIndicator"
-            android:layout_width="@dimen/file_icon_size"
-            android:layout_height="@dimen/file_icon_size"
-            android:layout_gravity="bottom|right"
-            android:layout_marginRight="@dimen/standard_eighth_margin"
-            android:layout_marginTop="@dimen/standard_eighth_margin"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_alignBottom="@id/thumbnail"
+            android:layout_margin="@dimen/standard_quarter_margin"
+            android:layout_toRightOf="@id/thumbnail"
             android:src="@drawable/ic_synced"/>
 
         <ImageView
+            android:id="@+id/sharedIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_below="@id/favorite_action"
+            android:layout_margin="@dimen/standard_quarter_margin"
+            android:layout_toRightOf="@id/thumbnail"
+            android:layout_above="@id/localFileIndicator"
+            android:src="@drawable/shared_via_link"/>
+
+        <ImageView
             android:id="@+id/keptOfflineIcon"
-            android:layout_width="@dimen/favorite_icon_size"
-            android:layout_height="@dimen/favorite_icon_size"
-            android:layout_gravity="bottom|right"
-            android:layout_marginBottom="@dimen/standard_eighth_margin"
-            android:layout_marginRight="@dimen/standard_eighth_margin"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_above="@id/localFileIndicator"
+            android:layout_margin="@dimen/standard_quarter_margin"
+            android:layout_toLeftOf="@id/localFileIndicator"
+            android:layout_alignBottom="@id/thumbnail"
             android:src="@drawable/ic_available_offline"/>
+
 
         <ImageView
             android:id="@+id/custom_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|top"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
             android:layout_marginLeft="@dimen/standard_quarter_margin"
             android:layout_marginRight="@dimen/standard_quarter_margin"
             android:elevation="@dimen/elevation"
             android:src="@android:drawable/checkbox_off_background"/>
 
-    </FrameLayout>
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/Filename"
