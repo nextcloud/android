@@ -37,7 +37,6 @@ import android.support.v4.app.NotificationCompat;
 
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.authentication.ModifiedAuthenticatorActivity;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -401,14 +400,7 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         if (needsToUpdateCredentials) {
             // let the user update credentials with one click
             // let the user update credentials with one click
-            Intent updateAccountCredentials;
-            if (!getContext().getResources().getBoolean(R.bool.push_enabled)
-                    && !getContext().getResources().getBoolean(R.bool.analytics_enabled)) {
-                updateAccountCredentials = new Intent(getContext(), AuthenticatorActivity.class);
-            } else {
-                updateAccountCredentials = new Intent(getContext(), ModifiedAuthenticatorActivity.class);
-            }
-
+            Intent updateAccountCredentials = new Intent(getContext(), AuthenticatorActivity.class);
             updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
             updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
                     AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
