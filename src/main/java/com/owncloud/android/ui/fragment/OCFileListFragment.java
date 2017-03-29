@@ -6,16 +6,16 @@
  * @author David A. Velasco
  * Copyright (C) 2011  Bartek Przybylski
  * Copyright (C) 2016 ownCloud Inc.
- * <p>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -102,7 +102,7 @@ import java.util.List;
 
 /**
  * A Fragment that lists all files and folders in a given path.
- * <p>
+ *
  * TODO refactor to get rid of direct dependency on FileDisplayActivity
  */
 public class OCFileListFragment extends ExtendedListFragment implements OCFileListFragmentInterface {
@@ -467,9 +467,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     /**
      * Handler for multiple selection mode.
-     * <p>
+     *
      * Manages input from the user when one or more files or folders are selected in the list.
-     * <p>
+     *
      * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened
      * and closed.
      */
@@ -730,7 +730,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     /**
      * Call this, when the user presses the up button.
-     * <p>
+     *
      * Tries to move up the current folder one level. If the parent folder was removed from the
      * database, it continues browsing up until finding an existing folders.
      * <p/>
@@ -1225,22 +1225,20 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             }
 
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "Account not found", e);
         } catch (AuthenticatorException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "Authentication failed", e);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "IO error", e);
         } catch (OperationCanceledException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "Operation has been canceled", e);
         }
-
     }
-
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(SearchEvent event) {
         setEmptyListLoadingMessage();
-        mAdapter.setData(new ArrayList<Object>(), SearchType.NO_SEARCH);
+        mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH);
 
         if (event.getUnsetType().equals(SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR)) {
             unsetAllMenuItems(false);

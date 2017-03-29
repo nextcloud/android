@@ -22,6 +22,5 @@ package com.owncloud.android.ui.events;
 /**
  * Currently a dummy event to restore grid view, sort, and search
  */
-
 public class ChangeMenuEvent {
 }

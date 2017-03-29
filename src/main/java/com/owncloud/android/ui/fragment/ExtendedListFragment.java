@@ -1,18 +1,20 @@
 /**
  * ownCloud Android client application
- * <p>
+ *
+ * @author Mario Danic
+ * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2012 Bartek Przybylski
  * Copyright (C) 2012-2016 ownCloud Inc.
- * <p>
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2,
  * as published by the Free Software Foundation.
- * <p>
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * <p>
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -464,7 +466,7 @@ public class ExtendedListFragment extends Fragment
      * Calculates the position of the item that will be used as a reference to
      * reposition the visible items in the list when the device is turned to
      * other position.
-     * <p>
+     *
      * The current policy is take as a reference the visible item in the center
      * of the screen.
      *
@@ -569,9 +571,9 @@ public class ExtendedListFragment extends Fragment
 
     /**
      * Disables swipe gesture.
-     * <p>
+     *
      * Sets the 'enabled' state of the refresh layouts contained in the fragment.
-     * <p>
+     *
      * When 'false' is set, prevents user gestures but keeps the option to refresh programatically,
      *
      * @param enabled Desired state for capturing swipe gesture.
@@ -584,7 +586,7 @@ public class ExtendedListFragment extends Fragment
 
     /**
      * Sets the 'visibility' state of the FAB contained in the fragment.
-     * <p>
+     *
      * When 'false' is set, FAB visibility is set to View.GONE programmatically,
      *
      * @param enabled Desired visibility for the FAB.

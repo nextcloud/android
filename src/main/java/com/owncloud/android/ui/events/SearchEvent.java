@@ -24,7 +24,6 @@ import com.owncloud.android.lib.resources.files.SearchOperation;
 /**
  * Search event
  */
-
 public class SearchEvent {
     public final String searchQuery;
 

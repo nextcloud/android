@@ -22,7 +22,6 @@ package com.owncloud.android.ui.events;
 /**
  * Event for making favoriting work
  */
-
 public class FavoriteEvent {
     public final String remotePath;
     public final boolean shouldFavorite;
