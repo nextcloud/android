@@ -137,7 +137,9 @@ public class ExtendedListFragment extends Fragment
         RECENTLY_MODIFIED_SEARCH,
         RECENTLY_MODIFIED_SEARCH_FILTER,
         RECENTLY_ADDED_SEARCH,
-        RECENTLY_ADDED_SEARCH_FILTER
+        RECENTLY_ADDED_SEARCH_FILTER,
+        // not a real filter, but nevertheless
+        SHARED_FILTER
     }
 
     protected void setListAdapter(BaseAdapter listAdapter) {

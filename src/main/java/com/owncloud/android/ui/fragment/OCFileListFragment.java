@@ -65,6 +65,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteOperation;
+import com.owncloud.android.lib.resources.shares.GetRemoteSharesOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
@@ -1262,6 +1263,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
         } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
             currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_FILTER)) {
+            currentSearchType = SearchType.SHARED_FILTER;
         }
 
         Runnable switchViewsRunnable = new Runnable() {
@@ -1285,11 +1288,18 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
             OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                     getClientFor(ocAccount, MainApp.getAppContext());
-            SearchOperation operation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
-            RemoteOperationResult remoteOperationResult = operation.execute(mClient);
-
-            if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
-                mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
+            if (!currentSearchType.equals(SearchType.SHARED_FILTER)) {
+                SearchOperation operation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
+                RemoteOperationResult remoteOperationResult = operation.execute(mClient);
+                if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
+                    mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
+                }
+            } else {
+                GetRemoteSharesOperation operation = new GetRemoteSharesOperation();
+                RemoteOperationResult remoteOperationResult = operation.execute(mClient);
+                if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
+                    mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
+                }
             }
 
             if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
