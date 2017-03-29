@@ -589,6 +589,7 @@ public class FileOperationsHelper {
         }
     }
 
+
     public void toggleOfflineFile(OCFile file, boolean isAvailableOffline) {
         if (file.isAvailableOffline() != isAvailableOffline) {
             file.setAvailableOffline(isAvailableOffline);

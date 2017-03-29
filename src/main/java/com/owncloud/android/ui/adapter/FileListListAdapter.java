@@ -50,6 +50,7 @@ import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.files.RemoteFile;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
@@ -463,11 +464,25 @@ public class FileListListAdapter extends BaseAdapter {
 
     public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
         mFiles = new Vector<>();
+        if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
+            ArrayList<OCShare> shares = new ArrayList<>();
+            for (int i = 0; i < objects.size(); i++) {
+                shares.add((OCShare) objects.get(i));
+            }
+            mStorageManager.saveShares(shares);
+        }
         for (int i = 0; i < objects.size(); i++) {
-            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
-            searchForLocalFileInDefaultPath(ocFile);
-
-            mFiles.add(ocFile);
+            if (!searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
+                OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
+                searchForLocalFileInDefaultPath(ocFile);
+                mFiles.add(ocFile);
+            } else {
+                OCShare ocShare = (OCShare) objects.get(i);
+                OCFile ocFile = mStorageManager.getFileByPath(ocShare.getPath());
+                if (!mFiles.contains(ocFile)) {
+                    mFiles.add(ocFile);
+                }
+            }
         }
 
         if (!searchType.equals(ExtendedListFragment.SearchType.PHOTO_SEARCH) &&

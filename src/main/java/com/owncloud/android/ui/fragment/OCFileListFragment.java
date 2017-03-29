@@ -1263,7 +1263,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             currentSearchType = SearchType.RECENTLY_ADDED_SEARCH;
         } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
             currentSearchType = SearchType.RECENTLY_MODIFIED_SEARCH;
-        } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_FILTER)) {
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
             currentSearchType = SearchType.SHARED_FILTER;
         }
 
@@ -1322,6 +1322,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
                 setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
+            } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
+                setEmptyListMessage(SearchType.SHARED_FILTER);
+                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
             }
 
             if (!currentSearchType.equals(SearchType.FILE_SEARCH) && getActivity() != null) {

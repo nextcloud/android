@@ -436,6 +436,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case R.id.nav_shared:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
+                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.SHARED_SEARCH,
+                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR));
                 break;
             case R.id.nav_videos:
                 menuItem.setChecked(true);
