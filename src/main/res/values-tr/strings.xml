@@ -13,6 +13,14 @@
     <string name="actionbar_send_file">Gönder</string>
     <string name="actionbar_sort">Sırala</string>
     <string name="actionbar_sort_title">Şuna göre sırala</string>
+    <string name="sort_by">Sıralama</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Yeniden - Eskiye</string>
+    <string name="menu_item_sort_by_date_oldest_first">Eskiden Yeniye</string>
+    <string name="menu_item_sort_by_size_biggest_first">Büyükten Küçüğe</string>
+    <string name="menu_item_sort_by_size_smallest_first">Küçükten Büyüğe</string>
+
     <string name="drawer_item_all_files">Tüm dosyalar</string>
     <string name="drawer_item_on_device">Aygıt üzerinde</string>
     <string name="drawer_item_settings">Ayarlar</string>

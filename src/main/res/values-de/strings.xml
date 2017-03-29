@@ -13,6 +13,14 @@
     <string name="actionbar_send_file">Senden</string>
     <string name="actionbar_sort">Sortieren</string>
     <string name="actionbar_sort_title">Sortieren nach</string>
+    <string name="sort_by">Sortieren nach</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Neueste zuerst</string>
+    <string name="menu_item_sort_by_date_oldest_first">Älteste zuerst</string>
+    <string name="menu_item_sort_by_size_biggest_first">Größte zuerst</string>
+    <string name="menu_item_sort_by_size_smallest_first">Kleinste zuerst</string>
+
     <string name="drawer_item_all_files">Alle Dateien</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
     <string name="drawer_item_settings">Einstellungen</string>
