@@ -22,6 +22,5 @@ package com.owncloud.android.ui.events;
 /**
  * Dummy drawer event
  */
-
 public class DummyDrawerEvent {
 }

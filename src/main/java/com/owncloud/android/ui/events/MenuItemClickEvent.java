@@ -24,7 +24,6 @@ import android.view.MenuItem;
 /**
  * Menu item click event
  */
-
 public class MenuItemClickEvent {
     public final MenuItem menuItem;
 
