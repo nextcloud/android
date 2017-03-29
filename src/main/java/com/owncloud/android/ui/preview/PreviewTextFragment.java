@@ -331,6 +331,21 @@ public class PreviewTextFragment extends FileFragment {
             item.setVisible(false);
             item.setEnabled(false);
         }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_favorite);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_unset_favorite);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
     }
 
     /**

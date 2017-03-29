@@ -49,6 +49,9 @@ import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.ShareActivity;
 import com.owncloud.android.ui.dialog.ShareLinkToDialog;
+import com.owncloud.android.ui.events.FavoriteEvent;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -59,6 +62,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.owncloud.android.R.drawable.file;
+import static com.owncloud.android.R.layout.files;
 
 /**
  *
@@ -545,6 +551,28 @@ public class FileOperationsHelper {
 
         }
     }
+
+    public void toggleFavoriteFiles(Collection<OCFile> files, boolean shouldBeFavorite) {
+        List<OCFile> alreadyRightStateList = new ArrayList<>();
+        for(OCFile file : files) {
+            if(file.getIsFavorite() == shouldBeFavorite) {
+                alreadyRightStateList.add(file);
+            }
+        }
+
+        files.removeAll(alreadyRightStateList);
+
+        for (OCFile file: files) {
+            toggleFavoriteFile(file, shouldBeFavorite);
+        }
+    }
+
+    public void toggleFavoriteFile(OCFile file, boolean shouldBeFavorite) {
+        if(file.getIsFavorite() != shouldBeFavorite) {
+            EventBus.getDefault().post(new FavoriteEvent(file.getRemotePath(), shouldBeFavorite, file.getRemoteId()));
+        }
+    }
+
 
     public void toogleOfflineFiles(Collection<OCFile> files, boolean isAvailableOffline){
         List<OCFile> alreadyRightStateList = new ArrayList<>();

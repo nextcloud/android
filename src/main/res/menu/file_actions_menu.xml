@@ -93,16 +93,28 @@
         android:showAsAction="never"
         android:orderInCategory="1" />
     <item
-        android:id="@+id/action_favorite_file"
+        android:id="@+id/action_keep_files_offline"
         android:title="@string/favorite"
         android:icon="@drawable/ic_action_set_available_offline_white"
         app:showAsAction="never"
         android:showAsAction="never"
         android:orderInCategory="1" />
     <item
-        android:id="@+id/action_unfavorite_file"
+        android:id="@+id/action_unset_keep_files_offline"
         android:title="@string/unfavorite"
         android:icon="@drawable/ic_action_unset_available_offline_white"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:orderInCategory="1" />
+    <item
+        android:id="@+id/action_favorite"
+        android:title="@string/favorite_real"
+        app:showAsAction="never"
+        android:showAsAction="never"
+        android:orderInCategory="1" />
+    <item
+        android:id="@+id/action_unset_favorite"
+        android:title="@string/unset_favorite_real"
         app:showAsAction="never"
         android:showAsAction="never"
         android:orderInCategory="1" />
