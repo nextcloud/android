@@ -41,8 +41,8 @@
 
         <ImageView
             android:id="@+id/favorite_action"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="top|right"
             android:layout_margin="@dimen/standard_quarter_margin"
             android:src="@drawable/ic_favorite"
@@ -54,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
             android:layout_marginTop="24dp"
+            android:layout_marginRight="4dp"
             android:src="@drawable/shared_via_link"/>
 
         <ImageView
