@@ -219,6 +219,21 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             item.setEnabled(false);
         }
 
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_favorite);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_unset_favorite);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+
         Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
 
         item = menu.findItem(R.id.action_switch_view);
@@ -283,14 +298,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 else {
                     mContainerActivity.getFileOperationsHelper().sendDownloadedFile(getFile());
                 }
-                return true;
-            }
-            case R.id.action_favorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), true);
-                return true;
-            }
-            case R.id.action_unfavorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(), false);
                 return true;
             }
             default:

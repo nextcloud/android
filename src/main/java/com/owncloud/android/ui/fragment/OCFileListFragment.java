@@ -879,12 +879,20 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 ((FileDisplayActivity) mContainerActivity).cancelTransference(checkedFiles);
                 return true;
             }
-            case R.id.action_favorite_file: {
+            case R.id.action_keep_files_offline: {
                 mContainerActivity.getFileOperationsHelper().toogleOfflineFiles(checkedFiles, true);
                 return true;
             }
-            case R.id.action_unfavorite_file: {
+            case R.id.action_unset_keep_files_offline: {
                 mContainerActivity.getFileOperationsHelper().toogleOfflineFiles(checkedFiles, false);
+                return true;
+            }
+            case R.id.action_favorite: {
+                mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, true);
+                return true;
+            }
+            case R.id.action_unset_favorite: {
+                mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
                 return true;
             }
             case R.id.action_move: {
