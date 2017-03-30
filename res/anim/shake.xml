@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:interpolator="@anim/shake_interpolator"
 	android:duration="500"
-	android:fromXDelta="0.0"
-	android:toXDelta="5.0"
+	android:fromXDelta="0.0%p"
+	android:toXDelta="10.0%p"
 	>
 </translate>
