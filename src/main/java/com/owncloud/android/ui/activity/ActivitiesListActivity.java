@@ -23,6 +23,9 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -36,14 +39,19 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -159,56 +167,83 @@ public class ActivitiesListActivity extends FileActivity {
     }
 
     private void fetchAndSetData() {
+        final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        final Context context = MainApp.getAppContext();
+
         Thread t = new Thread(new Runnable() {
+
+
             public void run() {
-                Account account = AccountUtils.getCurrentOwnCloudAccount(ActivitiesListActivity.this);
-                RemoteOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
-                Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
-                final RemoteOperationResult result =
-                        getRemoteNotificationOperation.execute(account, ActivitiesListActivity.this);
+                OwnCloudAccount ocAccount = null;
+                try {
+                    ocAccount = new OwnCloudAccount(
+                            currentAccount,
+                            context
+                            );
+                    OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, MainApp.getAppContext());
+                    mClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
 
-                if (result.isSuccess() && result.getData() != null) {
-                    final ArrayList<Object> activities = result.getData();
+                    RemoteOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
+                    Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
+                    final RemoteOperationResult result =
+                            getRemoteNotificationOperation.execute(mClient);
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (activities.size() > 0) {
-                                populateList(activities);
-                                swipeEmptyListRefreshLayout.setVisibility(View.GONE);
-                                swipeListRefreshLayout.setVisibility(View.VISIBLE);
-                            } else {
-                                setEmptyContent(noResultsHeadline, noResultsMessage);
+                    if (result.isSuccess() && result.getData() != null) {
+                        final ArrayList<Object> activities = result.getData();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (activities.size() > 0) {
+                                    populateList(activities);
+                                    swipeEmptyListRefreshLayout.setVisibility(View.GONE);
+                                    swipeListRefreshLayout.setVisibility(View.VISIBLE);
+                                } else {
+                                    setEmptyContent(noResultsHeadline, noResultsMessage);
+                                }
                             }
+                        });
+                    } else {
+                        Log_OC.d(TAG, result.getLogMessage());
+                        // show error
+                        String logMessage = result.getLogMessage();
+                        if (result.getHttpCode() == 304) {
+                            logMessage = noResultsMessage;
                         }
-                    });
-                } else {
-                    Log_OC.d(TAG, result.getLogMessage());
-                    // show error
-                    String logMessage = result.getLogMessage();
-                    if (result.getHttpCode() == 304) {
-                        logMessage = noResultsMessage;
+                        final String finalLogMessage = logMessage;
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setEmptyContent(noResultsHeadline, finalLogMessage);
+                            }
+                        });
                     }
-                    final String finalLogMessage = logMessage;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setEmptyContent(noResultsHeadline, finalLogMessage);
-                        }
-                    });
-                }
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        swipeListRefreshLayout.setRefreshing(false);
-                        swipeEmptyListRefreshLayout.setRefreshing(false);
-                    }
-                });
+                    hideRefreshLayoutLoader();
+                } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                    Log_OC.e(TAG, "Account not found", e);
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "IO error", e);
+                } catch (OperationCanceledException e) {
+                    Log_OC.e(TAG, "Operation has been canceled", e);
+                } catch (AuthenticatorException e) {
+                    Log_OC.e(TAG, "Authentication Exception", e);
+                }
             }
         });
 
         t.start();
+    }
+
+    private void hideRefreshLayoutLoader() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                swipeListRefreshLayout.setRefreshing(false);
+                swipeEmptyListRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     private void populateList(List<Object> activities) {
