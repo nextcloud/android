@@ -13,6 +13,14 @@
     <string name="actionbar_send_file">Küldés</string>
     <string name="actionbar_sort">Rendezés</string>
     <string name="actionbar_sort_title">Rendezés elve</string>
+    <string name="sort_by">Rendezés elve</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Újabbak elöl</string>
+    <string name="menu_item_sort_by_date_oldest_first">Régebbieak elöl</string>
+    <string name="menu_item_sort_by_size_biggest_first">Nagyobbak elöl</string>
+    <string name="menu_item_sort_by_size_smallest_first">Kisebbek elöl</string>
+
     <string name="drawer_item_all_files">Összes fájl</string>
     <string name="drawer_item_on_device">Az eszközön</string>
     <string name="drawer_item_settings">Beállítások</string>
@@ -55,6 +63,7 @@
     <string name="auth_host_url">Szerver címe https://...</string>
     <string name="auth_username">Felhasználónév</string>
     <string name="auth_password">Jelszó</string>
+    <string name="auth_register">Nincs még szervered?\nKattints ide és szerezz egyet egy szolgáltatótól!</string>
     <string name="sync_string_files">Fájlok</string>
     <string name="setup_btn_connect">Kapcsolódás</string>
     <string name="uploader_btn_upload_text">Feltöltés</string>
@@ -80,6 +89,8 @@
     <string name="file_list_loading">Betöltés&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nem található alkalmazás a fálj típushoz.</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
+    <string name="file_list_empty_headline_search">Nincsenek eredmények ebben a mappában</string>
+    <string name="file_list_empty_search">Megpróbálsz másik mappában keresni?</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text">Tölts fel valami tartalmat vagy kapcsold be az azonnali feltöltést!</string>
     <string name="file_list_folder">mappa</string>
@@ -310,6 +321,7 @@
     <string name="conflict_use_local_version">helyi verzió</string>
     <string name="conflict_use_server_version">szerver verzió</string>
 
+    <string name="preview_sorry">Elnézést kérek!</string>
     <string name="preview_image_description">Előnézeti kép</string>
     <string name="preview_image_error_unknown_format">Ez a kép nem jeleníthető meg</string>
 
@@ -504,6 +516,7 @@
     <string name="participate_testing_bug_text">Hibát találtál? Valami furcsa?</string>
     <string name="participate_testing_report_text">Jelentsd a problémát a Githubon</string>
     <string name="participate_testing_version_text">Érdekel a következő verzió tesztelési lehetősége?</string>
+    <string name="participate_beta_headline">Nightly verzió tesztelése</string>
     <string name="participate_release_candidate_headline">Kiadásra jelölt</string>
     <string name="participate_release_candidate_text">A kiadásra jelölt (RC) változat az egy pillanatképe a közelgő új változatnak, és stabilnak mondható. Az egyedi telepítésekkel segíthet nekünk, hogy ezt biztosítsuk. Jelentkezzen tesztelésre a Play Áruházban vagy manuálisan nézzen bele a verziók részbe F-Droid-on.</string>
     <string name="participate_contribute_headline">Aktívan hozzájárul</string>
@@ -550,4 +563,14 @@
 
     <string name="whats_new_skip">Kihagy</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">Teljes név</string>
+    <string name="user_info_email">E-mail</string>
+    <string name="user_info_phone">Telefonszám</string>
+    <string name="user_info_address">Cím</string>
+    <string name="user_info_website">Weboldal</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Felhasználói információ</string>
+
+</resources>
