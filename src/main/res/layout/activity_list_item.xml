@@ -22,51 +22,54 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingTop="@dimen/standard_padding"
+    android:paddingRight="@dimen/standard_padding"
+    android:paddingBottom="@dimen/standard_padding"
+    android:paddingLeft="12dp">
 
     <ImageView
         android:id="@+id/activity_icon"
         android:layout_width="@dimen/user_icon_size"
         android:layout_height="@dimen/user_icon_size"
-        android:layout_centerVertical="true"
-        android:layout_margin="@dimen/standard_quarter_margin"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="24dp"
         android:src="@drawable/ic_activity"/>
 
-    <TextView
-        android:id="@+id/activity_subject"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_quarter_margin"
-        android:layout_toRightOf="@id/activity_icon"
+        android:orientation="vertical"
         android:layout_alignTop="@id/activity_icon"
-        android:ellipsize="end"
-        android:gravity="bottom"
-        android:maxLines="2"
-        android:text="@string/placeholder_filename"
-        android:textAppearance="?android:attr/textAppearanceListItem"/>
+        android:layout_toRightOf="@id/activity_icon">
 
-    <TextView
-        android:id="@+id/activity_message"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/activity_subject"
-        android:layout_margin="@dimen/standard_quarter_margin"
-        android:layout_toRightOf="@id/activity_icon"
-        android:ellipsize="end"
-        android:gravity="top"
-        android:maxLines="3"
-        android:text="@string/placeholder_sentence"
-        android:textColor="?android:attr/textColorSecondary"/>
+        <TextView
+            android:id="@+id/activity_subject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@string/placeholder_filename"
+            android:textAppearance="?android:attr/textAppearanceListItem"/>
 
-    <TextView
-        android:id="@+id/activity_datetime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/standard_quarter_margin"
-        android:ellipsize="end"
-        android:text="@string/placeholder_sentence"
-        android:textColor="?android:attr/textColorSecondary"/>
+        <TextView
+            android:id="@+id/activity_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:text="@string/placeholder_sentence"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+        <TextView
+            android:id="@+id/activity_datetime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:ellipsize="end"
+            android:text="@string/placeholder_sentence"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -83,8 +83,20 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((ActivityViewHolder) holder).dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
                     activity.getDate().getTime()));
         }
-        ((ActivityViewHolder)holder).subject.setText(activity.getSubject());
-        ((ActivityViewHolder)holder).message.setText(activity.getMessage());
+
+        if (!TextUtils.isEmpty(activity.getSubject())) {
+            ((ActivityViewHolder) holder).subject.setText(activity.getSubject());
+            ((ActivityViewHolder) holder).subject.setVisibility(View.VISIBLE);
+        } else {
+            ((ActivityViewHolder) holder).subject.setVisibility(View.GONE);
+        }
+
+        if (!TextUtils.isEmpty(activity.getMessage())) {
+            ((ActivityViewHolder) holder).message.setText(activity.getMessage());
+            ((ActivityViewHolder) holder).message.setVisibility(View.VISIBLE);
+        } else {
+            ((ActivityViewHolder) holder).message.setVisibility(View.GONE);
+        }
 
         if (!TextUtils.isEmpty(activity.getIcon())) {
             downloadIcon(activity.getIcon(), ((ActivityViewHolder) holder).activityIcon);
@@ -132,8 +144,5 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             message = (TextView) itemView.findViewById(R.id.activity_message);
             dateTime = (TextView) itemView.findViewById(R.id.activity_datetime);
         }
-
     }
-
-
 }
