@@ -588,8 +588,8 @@
     <string name="user_information_description">User information</string>
 
     <!-- Activities -->
-    <string name="activities_no_results_headline">No activities</string>
-    <string name="activities_no_results_message">Please check back later.</string>
+    <string name="activities_no_results_headline">No activity yet</string>
+    <string name="activities_no_results_message">This stream will show events like\nadditions, changes &amp; shares</string>
 
 
 </resources>
