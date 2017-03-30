@@ -1343,15 +1343,17 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
             }
 
-        } catch (AuthenticatorException e) {
-            e.printStackTrace();
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "Account not found", e);
+        } catch (AuthenticatorException e) {
+            Log_OC.e(TAG, "Authentication failed", e);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "IO error", e);
         } catch (OperationCanceledException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "Operation has been canceled", e);
         }
+
+
     }
 
     @Override
