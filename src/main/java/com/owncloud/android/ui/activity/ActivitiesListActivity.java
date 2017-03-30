@@ -23,7 +23,9 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -59,6 +61,12 @@ public class ActivitiesListActivity extends FileActivity {
 
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
+
+    @BindView(R.id.swipe_containing_list)
+    public SwipeRefreshLayout swipeListRefreshLayout;
+
+    @BindView(R.id.swipe_containing_empty)
+    public SwipeRefreshLayout swipeEmptyListRefreshLayout;
 
     @BindView(R.id.empty_list_view_text)
     public TextView emptyContentMessage;
@@ -98,12 +106,36 @@ public class ActivitiesListActivity extends FileActivity {
         setupDrawer(R.id.nav_activity);
         getSupportActionBar().setTitle(getString(R.string.drawer_item_activities));
 
+        swipeListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setLoadingMessage();
+                fetchAndSetData();
+            }
+        });
+
+        swipeEmptyListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setLoadingMessage();
+                fetchAndSetData();
+
+            }
+        });
         setupContent();
     }
 
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @Override
+    public void showFiles(boolean onDeviceOnly) {
+        super.showFiles(onDeviceOnly);
+        Intent i = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     /**
@@ -143,8 +175,8 @@ public class ActivitiesListActivity extends FileActivity {
                         public void run() {
                             if (activities.size() > 0) {
                                 populateList(activities);
-                                emptyContentContainer.setVisibility(View.GONE);
-                                recyclerView.setVisibility(View.VISIBLE);
+                                swipeEmptyListRefreshLayout.setVisibility(View.GONE);
+                                swipeListRefreshLayout.setVisibility(View.VISIBLE);
                             } else {
                                 setEmptyContent(noResultsHeadline, noResultsMessage);
                             }
@@ -153,13 +185,26 @@ public class ActivitiesListActivity extends FileActivity {
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
                     // show error
+                    String logMessage = result.getLogMessage();
+                    if (result.getHttpCode() == 304) {
+                        logMessage = noResultsMessage;
+                    }
+                    final String finalLogMessage = logMessage;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            setEmptyContent(noResultsHeadline, result.getLogMessage());
+                            setEmptyContent(noResultsHeadline, finalLogMessage);
                         }
                     });
                 }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        swipeListRefreshLayout.setRefreshing(false);
+                        swipeEmptyListRefreshLayout.setRefreshing(false);
+                    }
+                });
             }
         });
 

@@ -17,8 +17,8 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<android.support.v4.widget.DrawerLayout android:id="@+id/drawer_layout"
-                                        xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                        android:id="@+id/drawer_layout"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:clickable="true"
@@ -37,19 +37,37 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@android:id/list"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_containing_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:scrollbarStyle="outsideOverlay"
-                android:scrollbars="vertical"
-                android:visibility="visible"
-                android:layout_marginRight="-3dp"
-                android:layout_marginLeft="-3dp"
-                android:layout_marginBottom="-3dp"/>
+                android:footerDividersEnabled="false"
+                android:visibility="visible">
 
-            <include layout="@layout/empty_list"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@android:id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="-3dp"
+                    android:layout_marginLeft="-3dp"
+                    android:layout_marginRight="-3dp"
+                    android:clipToPadding="false"
+                    android:scrollbarStyle="outsideOverlay"
+                    android:scrollbars="vertical"
+                    android:visibility="visible"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipe_containing_empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:footerDividersEnabled="false"
+                android:visibility="visible">
+
+                <include layout="@layout/empty_list"/>
+            </android.support.v4.widget.SwipeRefreshLayout>
+
         </FrameLayout>
 
     </LinearLayout>

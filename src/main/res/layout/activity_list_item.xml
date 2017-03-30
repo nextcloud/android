@@ -22,70 +22,51 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:weightSum="1">
+    android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/activity_icon_container"
-        android:layout_width="@dimen/account_item_layout_height"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+    <ImageView
+        android:id="@+id/activity_icon"
+        android:layout_width="@dimen/user_icon_size"
+        android:layout_height="@dimen/user_icon_size"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/standard_quarter_margin"
+        android:src="@drawable/ic_activity"/>
 
-        <ImageView
-            android:id="@+id/activity_icon"
-            android:layout_width="@dimen/user_icon_size"
-            android:layout_height="@dimen/user_icon_size"
-            android:layout_marginLeft="@dimen/standard_margin"
-            android:layout_gravity="top|left"
-            android:layout_marginTop="@dimen/standard_half_margin"
-            android:src="@drawable/ic_menu_archive"/>
-
-    </FrameLayout>
-d
-    <LinearLayout
+    <TextView
+        android:id="@+id/activity_subject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_toEndOf="@id/activity_icon_container"
-        android:layout_toRightOf="@id/activity_icon_container"
-        android:orientation="vertical">
+        android:layout_margin="@dimen/standard_quarter_margin"
+        android:layout_toRightOf="@id/activity_icon"
+        android:layout_alignTop="@id/activity_icon"
+        android:ellipsize="end"
+        android:gravity="bottom"
+        android:maxLines="2"
+        android:text="@string/placeholder_filename"
+        android:textAppearance="?android:attr/textAppearanceListItem"/>
 
-        <TextView
-            android:id="@+id/activity_subject"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:layout_marginTop="@dimen/standard_half_margin"
-            android:ellipsize="end"
-            android:gravity="bottom"
-            android:maxLines="2"
-            android:text="@string/placeholder_filename"
-            android:textAppearance="?android:attr/textAppearanceListItem"/>
+    <TextView
+        android:id="@+id/activity_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/activity_subject"
+        android:layout_margin="@dimen/standard_quarter_margin"
+        android:layout_toRightOf="@id/activity_icon"
+        android:ellipsize="end"
+        android:gravity="top"
+        android:maxLines="3"
+        android:text="@string/placeholder_sentence"
+        android:textColor="?android:attr/textColorSecondary"/>
 
-        <TextView
-            android:id="@+id/activity_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:ellipsize="end"
-            android:gravity="top"
-            android:maxLines="3"
-            android:text="@string/placeholder_sentence"
-            android:textColor="?android:attr/textColorSecondary"/>
+    <TextView
+        android:id="@+id/activity_datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/standard_quarter_margin"
+        android:ellipsize="end"
+        android:text="@string/placeholder_sentence"
+        android:textColor="?android:attr/textColorSecondary"/>
 
-        <TextView
-            android:id="@+id/activity_datetime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/standard_half_margin"
-            android:layout_marginRight="@dimen/standard_margin"
-            android:ellipsize="end"
-            android:gravity="right"
-            android:maxLines="3"
-            android:text="@string/placeholder_sentence"
-            android:textColor="?android:attr/textColorSecondary"/>
-
-    </LinearLayout>
 </RelativeLayout>
