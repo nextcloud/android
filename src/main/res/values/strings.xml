@@ -100,6 +100,8 @@
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="file_list_empty_headline_search">No results in this folder</string>
     <string name="file_list_empty_headline_server_search">No results</string>
+    <string name="file_list_empty_shared_headline">No shared files</string>
+    <string name="file_list_empty_shared">Share a photo with a friend?</string>
     <string name="file_list_empty_headline_server_search_videos">No videos</string>
     <string name="file_list_empty_headline_server_search_photos">No photos</string>
     <string name="file_list_empty_search">Try looking in another folder?</string>
