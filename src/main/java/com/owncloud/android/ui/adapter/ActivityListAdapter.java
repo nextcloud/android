@@ -51,7 +51,7 @@ import java.util.List;
  * Adapter for the activity view
  */
 
-public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapter.ActivityViewHolder> {
 
     private Context context;
     private List<Object> mValues;
@@ -68,38 +68,38 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ActivityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item, parent, false);
         return new ActivityViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(ActivityViewHolder holder, int position) {
         Activity activity = (Activity) mValues.get(position);
         if (activity.getDatetime() != null) {
-            ((ActivityViewHolder) holder).dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
+            holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
                     activity.getDatetime().getTime()));
         } else {
-            ((ActivityViewHolder) holder).dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
+            holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
                     activity.getDate().getTime()));
         }
 
         if (!TextUtils.isEmpty(activity.getSubject())) {
-            ((ActivityViewHolder) holder).subject.setText(activity.getSubject());
-            ((ActivityViewHolder) holder).subject.setVisibility(View.VISIBLE);
+            holder.subject.setText(activity.getSubject());
+            holder.subject.setVisibility(View.VISIBLE);
         } else {
-            ((ActivityViewHolder) holder).subject.setVisibility(View.GONE);
+            holder.subject.setVisibility(View.GONE);
         }
 
         if (!TextUtils.isEmpty(activity.getMessage())) {
-            ((ActivityViewHolder) holder).message.setText(activity.getMessage());
-            ((ActivityViewHolder) holder).message.setVisibility(View.VISIBLE);
+            holder.message.setText(activity.getMessage());
+            holder.message.setVisibility(View.VISIBLE);
         } else {
-            ((ActivityViewHolder) holder).message.setVisibility(View.GONE);
+            holder.message.setVisibility(View.GONE);
         }
 
         if (!TextUtils.isEmpty(activity.getIcon())) {
-            downloadIcon(activity.getIcon(), ((ActivityViewHolder) holder).activityIcon);
+            downloadIcon(activity.getIcon(), holder.activityIcon);
         }
     }
 
@@ -110,7 +110,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 .as(SVG.class)
                 .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
                 .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
+                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
                 .decoder(new SvgDecoder())
                 .placeholder(R.drawable.ic_activity)
                 .error(R.drawable.ic_activity)
