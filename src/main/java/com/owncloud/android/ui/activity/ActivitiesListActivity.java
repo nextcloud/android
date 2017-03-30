@@ -2,7 +2,9 @@
  * Nextcloud Android client application
  *
  * @author Andy Scherzinger
+ * @author Mario Danic
  * Copyright (C) 2017 Andy Scherzinger
+ * Copyright (C) 2017 Mario Danic
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -22,10 +24,14 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -34,12 +40,12 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
-import com.owncloud.android.lib.resources.activities.models.Activity;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -47,16 +53,33 @@ import butterknife.Unbinder;
 /**
  * Activity displaying all server side stored activity items.
  */
-public class ActivityListActivity extends FileActivity {
+public class ActivitiesListActivity extends FileActivity {
 
-    private static final String TAG = ActivityListActivity.class.getSimpleName();
+    private static final String TAG = ActivitiesListActivity.class.getSimpleName();
 
+    @BindView(R.id.empty_list_view)
+    public LinearLayout emptyContentContainer;
+
+    @BindView(R.id.empty_list_view_text)
+    public TextView emptyContentMessage;
+
+    @BindView(R.id.empty_list_view_headline)
+    public TextView emptyContentHeadline;
+
+    @BindView(R.id.empty_list_icon)
+    public ImageView emptyContentIcon;
+
+    @BindView(R.id.empty_list_progress)
+    public ProgressBar emptyContentProgressBar;
 
     @BindView(android.R.id.list)
     public RecyclerView recyclerView;
 
-    @BindView((android.R.id.empty))
-    public TextView empty;
+    @BindString(R.string.activities_no_results_headline)
+    public String noResultsHeadline;
+
+    @BindString(R.string.activities_no_results_message)
+    public String noResultsMessage;
 
     private ActivityListAdapter adapter;
     private Unbinder unbinder;
@@ -66,14 +89,14 @@ public class ActivityListActivity extends FileActivity {
         Log_OC.v(TAG, "onCreate() start");
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activitiy_list_layout);
+        setContentView(R.layout.activity_list_layout);
         unbinder = ButterKnife.bind(this);
         // setup toolbar
         setupToolbar();
 
         // setup drawer
         setupDrawer(R.id.nav_activity);
-        getSupportActionBar().setTitle(getString(R.string.drawer_item_activity));
+        getSupportActionBar().setTitle(getString(R.string.drawer_item_activities));
 
         setupContent();
     }
@@ -87,11 +110,18 @@ public class ActivityListActivity extends FileActivity {
      * sets up the UI elements and loads all activity items.
      */
     private void setupContent() {
-        // TODO add all (recycler) view relevant code + data loading + adapter etc.
+        emptyContentIcon.setImageResource(R.drawable.ic_activity_light_grey);
+        setLoadingMessage();
 
         adapter = new ActivityListAdapter(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                layoutManager.getOrientation());
+
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(dividerItemDecoration);
 
         fetchAndSetData();
     }
@@ -99,11 +129,11 @@ public class ActivityListActivity extends FileActivity {
     private void fetchAndSetData() {
         Thread t = new Thread(new Runnable() {
             public void run() {
-                Account account = AccountUtils.getCurrentOwnCloudAccount(ActivityListActivity.this);
+                Account account = AccountUtils.getCurrentOwnCloudAccount(ActivitiesListActivity.this);
                 RemoteOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
                 Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
                 final RemoteOperationResult result =
-                        getRemoteNotificationOperation.execute(account, ActivityListActivity.this);
+                        getRemoteNotificationOperation.execute(account, ActivitiesListActivity.this);
 
                 if (result.isSuccess() && result.getData() != null) {
                     final ArrayList<Object> activities = result.getData();
@@ -113,10 +143,10 @@ public class ActivityListActivity extends FileActivity {
                         public void run() {
                             if (activities.size() > 0) {
                                 populateList(activities);
-                                empty.setVisibility(View.GONE);
+                                emptyContentContainer.setVisibility(View.GONE);
                                 recyclerView.setVisibility(View.VISIBLE);
                             } else {
-                                empty.setVisibility(View.VISIBLE);
+                                setEmptyContent(noResultsHeadline, noResultsMessage);
                             }
                         }
                     });
@@ -126,7 +156,7 @@ public class ActivityListActivity extends FileActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            empty.setVisibility(View.VISIBLE);
+                            setEmptyContent(noResultsHeadline, result.getLogMessage());
                         }
                     });
                 }
@@ -159,4 +189,23 @@ public class ActivityListActivity extends FileActivity {
 
         return retval;
     }
+
+    private void setLoadingMessage() {
+        emptyContentHeadline.setText(R.string.file_list_loading);
+        emptyContentMessage.setText("");
+
+        emptyContentIcon.setVisibility(View.GONE);
+        emptyContentProgressBar.setVisibility(View.VISIBLE);
+    }
+
+    private void setEmptyContent(String headline, String message) {
+        if (emptyContentContainer != null && emptyContentMessage != null) {
+            emptyContentHeadline.setText(headline);
+            emptyContentMessage.setText(message);
+
+            emptyContentProgressBar.setVisibility(View.GONE);
+            emptyContentIcon.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

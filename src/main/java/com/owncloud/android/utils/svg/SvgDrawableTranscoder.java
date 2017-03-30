@@ -1,8 +1,14 @@
-package com.owncloud.android.utils;
-
-/**
- * Created by alejandro on 29/03/17.
+/*
+ * Nextcloud Android client application
+ *
+ * Copyright 2014 Google, Inc. All rights reserved.
+ * Licenced under the BSD licence
+ *
+ * Borrowed from:
+ * https://github.com/bumptech/glide/blob/master/samples/svg/src/main/java/com/bumptech/glide/samples/svg/
+ * SvgDrawableTranscoder.java
  */
+package com.owncloud.android.utils.svg;
 
 import android.graphics.Picture;
 import android.graphics.drawable.PictureDrawable;
