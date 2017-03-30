@@ -54,7 +54,7 @@
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Nombre de usuario</string>
     <string name="auth_password">Contraseña</string>
-    <string name="auth_register">Aún no tiene un servidor? \nDa click aqui para obtener uno de un proveedor</string>
+    <string name="auth_register">Aún no tiene un servidor? \nDa click aquí para obtener uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Cargar</string>
@@ -75,7 +75,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el archivo en la carpeta de origen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar el archivo de la carpeta de origen</string>
     <string name="file_list_seconds_ago">hace algunos segundos</string>
-    <string name="file_list_empty_headline">No hay archivos aqui</string>
+    <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty">¡Cargue algún contenido o sincronice con sus dispositivos!</string>
     <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">¡No se encontró una aplicación para este tipo de archivo!</string>
@@ -536,7 +536,7 @@
     <string name="upload_file_dialog_filetype_internet_shortcut">Archivo de acceso directo a Internet(%s)</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Archivo de acceso directo a Google Maps(%s)</string>
 
-    <string name="storage_description_default">Por omisión</string>
+    <string name="storage_description_default">Predeterminado</string>
     <string name="storage_description_sd_no">tarjeta SD %1$d</string>
     <string name="storage_description_unknown">Desconocido</string>
 
