@@ -679,6 +679,9 @@ public class ExtendedListFragment extends Fragment
                 } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                             R.string.file_list_empty_recently_added_filter, R.drawable.ic_list_empty_recent);
+                } else if (searchType == SearchType.SHARED_FILTER) {
+                    setMessageForEmptyList(R.string.file_list_empty_shared_headline,
+                            R.string.file_list_empty_shared, R.drawable.ic_list_empty_shared);
                 }
             }
         });
