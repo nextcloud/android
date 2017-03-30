@@ -253,7 +253,7 @@ public class ActivitiesListActivity extends FileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval;
+        boolean retval = true;
 
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -262,8 +262,9 @@ public class ActivitiesListActivity extends FileActivity {
                 } else {
                     openDrawer();
                 }
-
+                break;
             default:
+                Log_OC.w(TAG, "Unknown menu item triggered");
                 retval = super.onOptionsItemSelected(item);
         }
 
