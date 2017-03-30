@@ -32,6 +32,11 @@ ext {
     preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 }
 
+configurations.all {
+    // Check for updates every build
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+}
+
 repositories {
     jcenter()
     maven { url "https://jitpack.io" }
