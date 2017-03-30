@@ -23,6 +23,7 @@ import android.content.Context;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,12 +75,20 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        Activity activity =(Activity) mValues.get(position);
-        ((ActivityViewHolder)holder).dateTime.setText(DisplayUtils.getRelativeTimestamp(context, activity.getDatetime().getTime()));
+        Activity activity = (Activity) mValues.get(position);
+        if (activity.getDatetime() != null) {
+            ((ActivityViewHolder) holder).dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
+                    activity.getDatetime().getTime()));
+        } else {
+            ((ActivityViewHolder) holder).dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
+                    activity.getDate().getTime()));
+        }
         ((ActivityViewHolder)holder).subject.setText(activity.getSubject());
         ((ActivityViewHolder)holder).message.setText(activity.getMessage());
 
-        downloadIcon(activity.getIcon(),((ActivityViewHolder)holder).activityIcon);
+        if (!TextUtils.isEmpty(activity.getIcon())) {
+            downloadIcon(activity.getIcon(), ((ActivityViewHolder) holder).activityIcon);
+        }
     }
 
     private void downloadIcon(String icon, ImageView itemViewType) {
