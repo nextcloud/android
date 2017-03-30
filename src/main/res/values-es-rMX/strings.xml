@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
     <string name="actionbar_sort_title">Ordenar por</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Más reciente - Más antiguo</string>
-    <string name="menu_item_sort_by_size">Mayor - Menor</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_settings">Ajustes</string>
@@ -57,7 +54,7 @@
     <string name="auth_host_url">Dirección del servidor https://…</string>
     <string name="auth_username">Nombre de usuario</string>
     <string name="auth_password">Contraseña</string>
-    <string name="auth_register">Aún no tiene un servidor? \nDa click aqui para obtener uno de un proveedor</string>
+    <string name="auth_register">Aún no tiene un servidor? \nDa click aquí para obtener uno de un proveedor</string>
     <string name="sync_string_files">Archivos</string>
     <string name="setup_btn_connect">Conectar</string>
     <string name="uploader_btn_upload_text">Cargar</string>
@@ -78,7 +75,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el archivo en la carpeta de origen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar el archivo de la carpeta de origen</string>
     <string name="file_list_seconds_ago">hace algunos segundos</string>
-    <string name="file_list_empty_headline">No hay archivos aqui</string>
+    <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty">¡Cargue algún contenido o sincronice con sus dispositivos!</string>
     <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">¡No se encontró una aplicación para este tipo de archivo!</string>
@@ -315,6 +312,7 @@
     <string name="conflict_use_local_version">versión local</string>
     <string name="conflict_use_server_version">versión de servidor</string>
 
+    <string name="preview_sorry">¡Disculpas por eso!</string>
     <string name="preview_image_description">Vista previa de imagen</string>
     <string name="preview_image_error_unknown_format">Esta imagen no puede ser mostrada</string>
 
@@ -509,6 +507,8 @@
     <string name="participate_testing_bug_text">¿Encontró una falla? ¿Hay algo raro?</string>
     <string name="participate_testing_report_text">Reportar un tema en Github</string>
     <string name="participate_testing_version_text">¿Le interesaría ayudarnos a probar la siguiente Versión?</string>
+    <string name="participate_beta_headline">Probar la versión nocturna</string>
+    <string name="participate_beta_text">Esto incluye todas las próximas características y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, favor de reportarnoslos. </string>
     <string name="participate_release_candidate_headline">Candidato a lanzamiento</string>
     <string name="participate_release_candidate_text">El candidato a lanzamiento (CL) es una foto del más próximo lanzamiento y se espera que sea estable. Las pruebas a su configuración individual podría ayudarnos a asegurar esto. Regístrese para hacer pruebas en la Play Store o consulte directamente la sección de  \"versiones\" en F-Droid. </string>
     <string name="participate_contribute_headline">Contribuya activamente</string>
@@ -536,7 +536,7 @@
     <string name="upload_file_dialog_filetype_internet_shortcut">Archivo de acceso directo a Internet(%s)</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Archivo de acceso directo a Google Maps(%s)</string>
 
-    <string name="storage_description_default">Por omisión</string>
+    <string name="storage_description_default">Predeterminado</string>
     <string name="storage_description_sd_no">tarjeta SD %1$d</string>
     <string name="storage_description_unknown">Desconocido</string>
 
@@ -555,4 +555,14 @@
 
     <string name="whats_new_skip">Saltar</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">Nombre completo</string>
+    <string name="user_info_email">Correo electrónico</string>
+    <string name="user_info_phone">Número telefónico</string>
+    <string name="user_info_address">Dirección</string>
+    <string name="user_info_website">Sitio web</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Información del usuario</string>
+
+</resources>

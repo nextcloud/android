@@ -13,9 +13,14 @@
     <string name="actionbar_send_file">Odoslať</string>
     <string name="actionbar_sort">Zoradiť</string>
     <string name="actionbar_sort_title">Zoradiť podľa</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Od najnovších</string>
-    <string name="menu_item_sort_by_size">Od najväčších</string>
+    <string name="sort_by">Zoradiť podľa</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Najnovšie prvé</string>
+    <string name="menu_item_sort_by_date_oldest_first">Najstaršie prvé</string>
+    <string name="menu_item_sort_by_size_biggest_first">Najväčšie prvé</string>
+    <string name="menu_item_sort_by_size_smallest_first">Najmenšie prvé</string>
+
     <string name="drawer_item_all_files">Všetky súbory</string>
     <string name="drawer_item_on_device">V zariadení</string>
     <string name="drawer_item_settings">Nastavenia</string>
@@ -315,6 +320,7 @@
     <string name="conflict_use_local_version">lokálnu verziu</string>
     <string name="conflict_use_server_version">serverovú verziu</string>
 
+    <string name="preview_sorry">Je nám to ľúto!</string>
     <string name="preview_image_description">Ukážka obrazu</string>
     <string name="preview_image_error_unknown_format">Obrázok nemožno zobraziť</string>
 
@@ -471,6 +477,8 @@
     <string name="share_group_clarification">%1$s (skupina)</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_email_clarification">%1$s (email)</string>
+    <string name="share_known_remote_clarification">%1$s ( na %2$s )</string>
+
     <string name="share_sharee_unavailable">Je nám ľúto, verzia vášho servera neumožňuje sprístupňovanie obsahu používateľom alebo skupinám. \nProsím, obráťte sa na svojho správcu</string>
     <string name="share_privilege_can_share">môže sprístupniť</string>
     <string name="share_privilege_can_edit">môže upraviť</string>
@@ -498,6 +506,7 @@
     <string name="confirmation_remove_folders_alert">Naozaj chcete odstrániť vybraté položky a ich obsah?</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Čakám na nabíjanie zariadenia</string>
     <string name="actionbar_search">Hľadať</string>
+    <string name="files_drop_not_supported">Toto je funkcia Nextcloudu, aktualizujte prosím.</string>
     <string name="learn_more">Dozvedieť sa viac</string>
     <string name="drawer_folder_sync">Automatické nahratie</string>
     <string name="drawer_participate">Zúčastniť sa</string>
@@ -505,6 +514,9 @@
     <string name="participate_testing_bug_text">Našli ste chybu? Niečo nefunguje?</string>
     <string name="participate_testing_report_text">Nahlásiť chybu na Githube</string>
     <string name="participate_testing_version_text">Máte záujem pomôcť nám s testovaním ďalšej Verzie?</string>
+    <string name="participate_beta_headline">Testovať nočnú verziu</string>
+    <string name="participate_beta_text">Táto verzia obsahuje všetký pripravované funkcie. Je veľmi nestabilná a môže obsahovať chyby. Ak na ne natrafíte, prosím nahláste nám ich. </string>
+    <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_contribute_headline">Aktívne prispievať</string>
     <string name="participate_contribute_irc_text">Vst=upte do chatu na IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Pomôž ostatným na &lt;a href=\"%1$s\">fóre&lt;/a></string>
@@ -549,4 +561,14 @@
 
     <string name="whats_new_skip">Preskočiť</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">Celé meno</string>
+    <string name="user_info_email">Email</string>
+    <string name="user_info_phone">Telefónne číslo</string>
+    <string name="user_info_address">Adresa</string>
+    <string name="user_info_website">Web stránka</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Informácie o používateľovi</string>
+
+</resources>
