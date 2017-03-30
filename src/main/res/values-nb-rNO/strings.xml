@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Send</string>
     <string name="actionbar_sort">Sorter</string>
     <string name="actionbar_sort_title">Sorter etter</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Nyest - Eldst</string>
-    <string name="menu_item_sort_by_size">Størst - Minst</string>
     <string name="drawer_item_all_files">Alle filer</string>
     <string name="drawer_item_on_device">På enheten</string>
     <string name="drawer_item_settings">Innstillinger</string>

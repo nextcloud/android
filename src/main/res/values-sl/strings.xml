@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Pošlji</string>
     <string name="actionbar_sort">Razvrsti</string>
     <string name="actionbar_sort_title">Razvrsti ...</string>
-    <string name="menu_item_sort_by_name">A - Ž</string>
-    <string name="menu_item_sort_by_date">Novo - Staro</string>
-    <string name="menu_item_sort_by_size">Večje - Manjše</string>
     <string name="drawer_item_all_files">Vse datoteke</string>
     <string name="drawer_item_on_device">Na napravi</string>
     <string name="drawer_item_settings">Nastavitve</string>

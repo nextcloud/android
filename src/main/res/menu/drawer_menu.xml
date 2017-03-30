@@ -70,6 +70,11 @@
             android:orderInCategory="0"
             android:title="@string/drawer_item_on_device"/>
         <item
+            android:id="@+id/nav_activity"
+            android:icon="@drawable/ic_activity"
+            android:title="@string/drawer_item_activities"/>
+        <item
+            android:orderInCategory="0"
             android:id="@+id/nav_folder_sync"
             android:icon="@drawable/ic_cloud_upload"
             android:orderInCategory="0"

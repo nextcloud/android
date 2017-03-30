@@ -13,9 +13,14 @@
     <string name="actionbar_send_file">Senden</string>
     <string name="actionbar_sort">Sortieren</string>
     <string name="actionbar_sort_title">Sortiere nach</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Neueste - Älteste</string>
-    <string name="menu_item_sort_by_size">Größte - Kleinste</string>
+    <string name="sort_by">Sortiere nach</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Neueste zuerst</string>
+    <string name="menu_item_sort_by_date_oldest_first">Älteste zuerst</string>
+    <string name="menu_item_sort_by_size_biggest_first">Größte zuerst</string>
+    <string name="menu_item_sort_by_size_smallest_first">Kleinste zuerst</string>
+
     <string name="drawer_item_all_files">Alle Dateien</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
     <string name="drawer_item_settings">Einstellungen</string>
@@ -510,6 +515,8 @@
     <string name="participate_testing_bug_text">Fehler gefunden? Merkwürdiges Verhalten?</string>
     <string name="participate_testing_report_text">Fehler melden auf Github</string>
     <string name="participate_testing_version_text">Möchten Sie uns beim Testen der nächsten Version unterstützen?</string>
+    <string name="participate_beta_headline">Teste die \"nightly\" Version</string>
+    <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melden Sie uns diese bitte.</string>
     <string name="participate_release_candidate_headline">Vorabversionen</string>
     <string name="participate_release_candidate_text">Eine Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test in der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version bei F-Droid unter „Versionen“.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>

@@ -33,6 +33,7 @@
     <string name="drawer_item_videos">Videos</string>
     <string name="drawer_item_settings">Settings</string>
     <string name="drawer_item_uploads_list">Uploads</string>
+    <string name="drawer_item_activities">Activities</string>
     <string name="drawer_quota">%1$s of %2$s used</string>
 	<string name="drawer_close">Close</string>
     <string name="drawer_open">Open</string>
@@ -573,6 +574,10 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">Loading activities&#8230;</string>
+    <string name="activity_list_no_results">No activities found.</string>
+
     <string name="upload_file_dialog_title">Input upload filename and filetype</string>
     <string name="upload_file_dialog_filename">Filename</string>
     <string name="upload_file_dialog_filetype">Filetype</string>
@@ -608,5 +613,10 @@
     <string name="user_info_twitter">Twitter</string>
 
     <string name="user_information_description">User information</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">No activity yet</string>
+    <string name="activities_no_results_message">This stream will show events like\nadditions, changes &amp; shares</string>
+
 
 </resources>

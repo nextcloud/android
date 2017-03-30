@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Senda</string>
     <string name="actionbar_sort">Raða</string>
     <string name="actionbar_sort_title">Raða sem</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Nýjast - Elst</string>
-    <string name="menu_item_sort_by_size">Stærst - Minnst</string>
     <string name="drawer_item_all_files">Allar skrár</string>
     <string name="drawer_item_on_device">á tækinu</string>
     <string name="drawer_item_settings">Stillingar</string>

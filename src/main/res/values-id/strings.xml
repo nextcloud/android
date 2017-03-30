@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Kirim</string>
     <string name="actionbar_sort">Urutkan</string>
     <string name="actionbar_sort_title">Urutan</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Terbaru - Terlama</string>
-    <string name="menu_item_sort_by_size">Terbesar - Terkecil</string>
     <string name="drawer_item_all_files">Semua berkas</string>
     <string name="drawer_item_on_device">Dalam perangkat</string>
     <string name="drawer_item_settings">Pengaturan</string>

@@ -400,6 +400,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 uploadListIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(uploadListIntent);
                 break;
+            case R.id.nav_activity:
+                Intent activityIntent = new Intent(getApplicationContext(), ActivitiesListActivity.class);
+                activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(activityIntent);
+                break;
             case R.id.nav_folder_sync:
                 Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
                 startActivity(folderSyncIntent);

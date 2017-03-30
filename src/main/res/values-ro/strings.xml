@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Expediază</string>
     <string name="actionbar_sort">Sortare</string>
     <string name="actionbar_sort_title">Sortare după</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Noi - Vechi</string>
-    <string name="menu_item_sort_by_size">Mari - Mici</string>
     <string name="drawer_item_all_files">Toate fișierele</string>
     <string name="drawer_item_on_device">Pe dispozitiv</string>
     <string name="drawer_item_settings">Setări</string>
