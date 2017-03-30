@@ -118,6 +118,7 @@ public class MainApp extends MultiDexApplication {
         }
 
         cleanOldEntries();
+        updateAutoUploadEntries();
 
         Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
         Intent i = new Intent(this, SyncedFolderObserverService.class);
@@ -269,6 +270,14 @@ public class MainApp extends MultiDexApplication {
         return userAgent;
     }
 
+    private void updateAutoUploadEntries() {
+        // updates entries to reflect their true paths
+        if (!PreferenceManager.getAutoUploadPathsUpdate(this)) {
+            SyncedFolderProvider syncedFolderProvider =
+                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+            syncedFolderProvider.updateAutoUploadPaths(mContext);
+        }
+    }
     private void cleanOldEntries() {
         // previous versions of application created broken entries in the SyncedFolderProvider
         // database, and this cleans all that and leaves 1 (newest) entry per synced folder
