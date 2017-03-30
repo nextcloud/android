@@ -23,6 +23,7 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -106,6 +107,14 @@ public class NotificationsActivity extends FileActivity {
     public void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @Override
+    public void showFiles(boolean onDeviceOnly) {
+        super.showFiles(onDeviceOnly);
+        Intent i = new Intent(getApplicationContext(), FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     /**
