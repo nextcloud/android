@@ -39,7 +39,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.text.InputType;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -81,7 +80,7 @@ class PassFieldLinearLayout extends LinearLayout implements View.OnFocusChangeLi
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-        InputMethodManager imm = (InputMethodManager)getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        InputMethodManager imm = (InputMethodManager)getContext().getSystemService(INPUT_METHOD_SERVICE);
         if (hasFocus) {
             imm.showSoftInput(v, 0);
         } else {
