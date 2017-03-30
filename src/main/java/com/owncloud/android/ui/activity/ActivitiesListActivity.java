@@ -266,6 +266,7 @@ public class ActivitiesListActivity extends FileActivity {
             default:
                 Log_OC.w(TAG, "Unknown menu item triggered");
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
 
         return retval;
