@@ -23,8 +23,12 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -35,8 +39,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -44,6 +52,7 @@ import com.owncloud.android.lib.resources.notifications.GetRemoteNotificationsOp
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.BindString;
@@ -60,6 +69,12 @@ public class NotificationsActivity extends FileActivity {
 
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
+
+    @BindView(R.id.swipe_containing_list)
+    public SwipeRefreshLayout swipeListRefreshLayout;
+
+    @BindView(R.id.swipe_containing_empty)
+    public SwipeRefreshLayout swipeEmptyListRefreshLayout;
 
     @BindView(R.id.empty_list_view_text)
     public TextView emptyContentMessage;
@@ -100,6 +115,23 @@ public class NotificationsActivity extends FileActivity {
         // setup drawer
         setupDrawer(R.id.nav_notifications);
         getSupportActionBar().setTitle(getString(R.string.drawer_item_notifications));
+
+        swipeListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setLoadingMessage();
+                fetchAndSetData();
+            }
+        });
+
+        swipeEmptyListRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                setLoadingMessage();
+                fetchAndSetData();
+
+            }
+        });
 
         setupContent();
     }
@@ -142,44 +174,78 @@ public class NotificationsActivity extends FileActivity {
     }
 
     private void fetchAndSetData() {
+        final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        final Context context = MainApp.getAppContext();
+
         Thread t = new Thread(new Runnable() {
             public void run() {
-                Account account = AccountUtils.getCurrentOwnCloudAccount(NotificationsActivity.this);
-                RemoteOperation getRemoteNotificationOperation = new GetRemoteNotificationsOperation();
-                Log_OC.d(TAG, "BEFORE getRemoteNotificationOperation.execute");
-                final RemoteOperationResult result =
-                        getRemoteNotificationOperation.execute(account, NotificationsActivity.this);
+                OwnCloudAccount ocAccount = null;
+                try {
+                    ocAccount = new OwnCloudAccount(
+                            currentAccount,
+                            context
+                    );
+                    OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                            getClientFor(ocAccount, MainApp.getAppContext());
+                    mClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
 
-                if (result.isSuccess() && result.getNotificationData() != null) {
-                    final List<Notification> notifications = result.getNotificationData();
+                    RemoteOperation getRemoteNotificationOperation = new GetRemoteNotificationsOperation();
+                    final RemoteOperationResult result =
+                            getRemoteNotificationOperation.execute(mClient);
 
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (notifications.size() > 0) {
-                                populateList(notifications);
-                                emptyContentContainer.setVisibility(View.GONE);
-                                recyclerView.setVisibility(View.VISIBLE);
-                            } else {
-                                setEmptyContent(noResultsHeadline, noResultsMessage);
+                    if (result.isSuccess() && result.getNotificationData() != null) {
+                        final List<Notification> notifications = result.getNotificationData();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (notifications.size() > 0) {
+                                    populateList(notifications);
+                                    swipeEmptyListRefreshLayout.setVisibility(View.GONE);
+                                    swipeListRefreshLayout.setVisibility(View.VISIBLE);
+                                } else {
+                                    setEmptyContent(noResultsHeadline, noResultsMessage);
+                                }
                             }
-                        }
-                    });
-                } else {
-                    Log_OC.d(TAG, result.getLogMessage());
-                    // show error
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            setEmptyContent(noResultsHeadline, result.getLogMessage());
-                        }
-                    });
+                        });
+                    } else {
+                        Log_OC.d(TAG, result.getLogMessage());
+                        // show error
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                setEmptyContent(noResultsHeadline, result.getLogMessage());
+                            }
+                        });
+                    }
+
+                    hideRefreshLayoutLoader();
+                } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                    Log_OC.e(TAG, "Account not found", e);
+                } catch (IOException e) {
+                    Log_OC.e(TAG, "IO error", e);
+                } catch (OperationCanceledException e) {
+                    Log_OC.e(TAG, "Operation has been canceled", e);
+                } catch (AuthenticatorException e) {
+                    Log_OC.e(TAG, "Authentication Exception", e);
                 }
             }
         });
 
         t.start();
+
     }
+
+    private void hideRefreshLayoutLoader() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                swipeListRefreshLayout.setRefreshing(false);
+                swipeEmptyListRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
