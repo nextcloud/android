@@ -1,6 +1,15 @@
-package com.owncloud.android.utils;
+/*
+ * Nextcloud Android client application
+ *
+ * Copyright 2014 Google, Inc. All rights reserved.
+ * Licenced under the BSD licence
+ *
+ * Borrowed from:
+ * https://github.com/bumptech/glide/blob/master/samples/svg/src/main/java/com/bumptech/glide/samples/svg/
+ * SvgDecoder.java
+ */
 
-
+package com.owncloud.android.utils.svg;
 
 import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;

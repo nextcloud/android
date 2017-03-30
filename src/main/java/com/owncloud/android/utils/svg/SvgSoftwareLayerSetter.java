@@ -1,4 +1,14 @@
-package com.owncloud.android.utils;
+/*
+ * Nextcloud Android client application
+ *
+ * Copyright 2014 Google, Inc. All rights reserved.
+ * Licenced under the BSD licence
+ *
+ * Borrowed from:
+ * https://github.com/bumptech/glide/blob/master/samples/svg/src/main/java/com/bumptech/glide/samples/svg/
+ * SvgSoftwareLayerSetter.java
+ */
+package com.owncloud.android.utils.svg;
 
 import android.annotation.TargetApi;
 import android.graphics.drawable.PictureDrawable;
@@ -9,13 +19,6 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.target.Target;
 
-/**
- * Listener which updates the {@link ImageView} to be software rendered,
- * because {@link com.caverock.androidsvg.SVG SVG}/{@link android.graphics.Picture Picture}
- * can't render on a hardware backed {@link android.graphics.Canvas Canvas}.
- *
- * @param <T> not used, here to prevent unchecked warnings at usage
- */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class SvgSoftwareLayerSetter<T> implements RequestListener<T, PictureDrawable> {
 

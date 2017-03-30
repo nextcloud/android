@@ -1,3 +1,22 @@
+/**
+ * Nextcloud Android client application
+ *
+ * @author Alejandro Bautista
+ * Copyright (C) 2017 Alejandro Bautista
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
@@ -19,16 +38,16 @@ import com.caverock.androidsvg.SVG;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.activities.models.Activity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.SvgDecoder;
-import com.owncloud.android.utils.SvgDrawableTranscoder;
-import com.owncloud.android.utils.SvgSoftwareLayerSetter;
+import com.owncloud.android.utils.svg.SvgDecoder;
+import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
+import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by alejandro on 28/03/17.
+ * Adapter for the activity view
  */
 
 public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -60,10 +79,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         ((ActivityViewHolder)holder).subject.setText(activity.getSubject());
         ((ActivityViewHolder)holder).message.setText(activity.getMessage());
 
-        // Todo set proper action icon (to be clarified how to pick)
-
         downloadIcon(activity.getIcon(),((ActivityViewHolder)holder).activityIcon);
-        //((ActivityViewHolder)holder).activityIcon.setImageResource(R.drawable.ic_action_share);
     }
 
     private void downloadIcon(String icon, ImageView itemViewType) {
@@ -75,8 +91,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 .sourceEncoder(new StreamEncoder())
                 .cacheDecoder(new FileToStreamDecoder<SVG>(new SvgDecoder()))
                 .decoder(new SvgDecoder())
-                .placeholder(R.drawable.ic_menu_archive)
-                .error(R.drawable.ic_web)
+                .placeholder(R.drawable.ic_activity)
+                .error(R.drawable.ic_activity)
                 .animate(android.R.anim.fade_in)
                 .listener(new SvgSoftwareLayerSetter<Uri>());
 
@@ -84,7 +100,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         Uri uri = Uri.parse(icon);
         requestBuilder
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                // SVG cannot be serialized so it's not worth to cache it
                 .load(uri)
                 .into(itemViewType);
     }
@@ -92,15 +107,6 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public int getItemCount() {
         return mValues.size();
-    }
-
-
-    class HeaderViewHolder extends RecyclerView.ViewHolder {
-
-        public HeaderViewHolder(View v) {
-            super(v);
-        }
-
     }
 
     class ActivityViewHolder extends RecyclerView.ViewHolder {

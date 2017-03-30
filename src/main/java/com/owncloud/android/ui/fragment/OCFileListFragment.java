@@ -999,6 +999,4 @@ public class OCFileListFragment extends ExtendedListFragment implements Extended
         editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
         editor.apply();
     }
-
-
 }
