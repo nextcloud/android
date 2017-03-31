@@ -241,7 +241,8 @@ public class LocalFileListAdapter extends BaseAdapter implements FilterableListA
 
             // not GONE; the alignment changes; ugly way to keep it
             view.findViewById(R.id.localFileIndicator).setVisibility(View.INVISIBLE);   
-            view.findViewById(R.id.favoriteIcon).setVisibility(View.GONE);
+            view.findViewById(R.id.keptOfflineIcon).setVisibility(View.GONE);
+            view.findViewById(R.id.favorite_action).setVisibility(View.GONE);
             
             view.findViewById(R.id.sharedIcon).setVisibility(View.GONE);
         }

@@ -1,22 +1,22 @@
 /**
- *  ownCloud Android client application
+ * ownCloud Android client application
  *
- *  @author Bartek Przybylski
- *  @author David A. Velasco
- *  Copyright (C) 2011  Bartek Przybylski
- *  Copyright (C) 2016 ownCloud Inc.
+ * @author Bartek Przybylski
+ * @author David A. Velasco
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2016 ownCloud Inc.
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License version 2,
- *  as published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
  *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.activity;
@@ -41,6 +41,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.Parcelable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -81,6 +82,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
+import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
@@ -148,6 +150,7 @@ public class FileDisplayActivity extends HookActivity
     private OCFile mWaitingToSend;
 
     private Collection<MenuItem> mDrawerMenuItemstoShowHideList;
+
     private String searchQuery;
 
     private SearchView searchView;
@@ -188,11 +191,12 @@ public class FileDisplayActivity extends HookActivity
         setupToolbar();
 
         // setup drawer
-        if(MainApp.isOnlyOnDevice()) {
+        if (MainApp.isOnlyOnDevice()) {
             setupDrawer(R.id.nav_on_device);
         } else {
             setupDrawer(R.id.nav_all_files);
         }
+
 
         mDualPane = getResources().getBoolean(R.bool.large_land_layout);
         mLeftFragmentContainer = findViewById(R.id.left_fragment_container);
@@ -322,27 +326,6 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    @Override
-    protected void onStart() {
-        Log_OC.v(TAG, "onStart() start");
-        super.onStart();
-        Log_OC.v(TAG, "onStart() end");
-    }
-
-    @Override
-    protected void onStop() {
-        Log_OC.v(TAG, "onStop() start");
-        super.onStop();
-        Log_OC.v(TAG, "onStop() end");
-    }
-
-    @Override
-    protected void onDestroy() {
-        Log_OC.v(TAG, "onDestroy() start");
-        super.onDestroy();
-        Log_OC.v(TAG, "onDestroy() end");
-    }
-
     /**
      * Called when the ownCloud {@link Account} associated to the Activity was just updated.
      */
@@ -377,6 +360,7 @@ public class FileDisplayActivity extends HookActivity
 
             if (mAccountWasSet) {
                 setAccountInDrawer(getAccount());
+                setupDrawer();
             }
 
             if (!stateWasRecovered) {
@@ -599,7 +583,7 @@ public class FileDisplayActivity extends HookActivity
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean drawerOpen = isDrawerOpen();
 
-        for (MenuItem menuItem:mDrawerMenuItemstoShowHideList) {
+        for (MenuItem menuItem : mDrawerMenuItemstoShowHideList) {
             menuItem.setVisible(!drawerOpen);
         }
 
@@ -776,16 +760,16 @@ public class FileDisplayActivity extends HookActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if (requestCode == REQUEST_CODE__SELECT_CONTENT_FROM_APPS &&
-            (resultCode == RESULT_OK ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
+                (resultCode == RESULT_OK ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE)) {
 
             requestUploadOfContentFromApps(data, resultCode);
 
         } else if (requestCode == REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM &&
-            (resultCode == RESULT_OK ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_DO_NOTHING ||
-            resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
+                (resultCode == RESULT_OK ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_MOVE ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_DO_NOTHING ||
+                        resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
 
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
@@ -874,8 +858,8 @@ public class FileDisplayActivity extends HookActivity
 
         //getClipData is only supported on api level 16+, Jelly Bean
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN &&
-            contentIntent.getClipData() != null &&
-            contentIntent.getClipData().getItemCount() > 0) {
+                contentIntent.getClipData() != null &&
+                contentIntent.getClipData().getItemCount() > 0) {
 
             for (int i = 0; i < contentIntent.getClipData().getItemCount(); i++) {
                 streamsToUpload.add(contentIntent.getClipData().getItemAt(i).getUri());
@@ -932,6 +916,15 @@ public class FileDisplayActivity extends HookActivity
         return (mSearchEditFrame != null && mSearchEditFrame.getVisibility() == View.VISIBLE);
     }
 
+    private void revertBottomNavigationBarToAllFiles() {
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+            BottomNavigationView bottomNavigationView = (BottomNavigationView) getListOfFilesFragment().getView()
+                    .findViewById(R.id.bottom_navigation_view);
+            if (bottomNavigationView.getMenu().findItem(R.id.nav_bar_settings).isChecked()) {
+                bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setChecked(true);
+            }
+        }
+    }
 
     @Override
     public void onBackPressed() {
@@ -946,14 +939,15 @@ public class FileDisplayActivity extends HookActivity
          *    3. close FAB if open (only if drawer isn't open)
          *    4. navigate up (only if drawer and FAB aren't open)
          */
+
         if (isSearchOpen && searchView != null) {
             searchView.setQuery("", true);
             searchView.onActionViewCollapsed();
             setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-        } else if(isDrawerOpen && isFabOpen) {
+        } else if (isDrawerOpen && isFabOpen) {
             // close drawer first
             super.onBackPressed();
-        } else if(isDrawerOpen && !isFabOpen) {
+        } else if (isDrawerOpen && !isFabOpen) {
             // close drawer
             super.onBackPressed();
         } else if (!isDrawerOpen && isFabOpen) {
@@ -1001,6 +995,8 @@ public class FileDisplayActivity extends HookActivity
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
 
+
+        revertBottomNavigationBarToAllFiles();
         // refresh list of files
 
         if (searchView != null && !TextUtils.isEmpty(searchQuery)) {
@@ -1059,13 +1055,9 @@ public class FileDisplayActivity extends HookActivity
     }
 
     public boolean isFabOpen() {
-        if(getListOfFilesFragment() != null
+        return (getListOfFilesFragment() != null
                 && getListOfFilesFragment().getFabMain() != null
-                && getListOfFilesFragment().getFabMain().isExpanded()) {
-            return true;
-        } else {
-            return false;
-        }
+                && getListOfFilesFragment().getFabMain().isExpanded());
     }
 
     @Override
@@ -1151,7 +1143,7 @@ public class FileDisplayActivity extends HookActivity
                                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                                 if (fileListFragment != null) {
                                     fileListFragment.listDirectory(currentDir,
-                                    MainApp.isOnlyOnDevice(), false);
+                                            MainApp.isOnlyOnDevice(), false);
                                 }
                             }
                             setFile(currentFile);
@@ -1216,7 +1208,7 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
             if (!mSyncInProgress) {
-                    ocFileListFragment.setEmptyListMessage(false);
+                ocFileListFragment.setEmptyListMessage(ExtendedListFragment.SearchType.NO_SEARCH);
             } else {
                 ocFileListFragment.setEmptyListLoadingMessage();
             }
@@ -1291,8 +1283,7 @@ public class FileDisplayActivity extends HookActivity
                         OCFile ocFile = getFile();
                         if (PreviewImageFragment.canBePreviewed(ocFile)) {
                             startImagePreview(getFile());
-                        }
-                        else if (PreviewTextFragment.canBePreviewed(ocFile)) {
+                        } else if (PreviewTextFragment.canBePreviewed(ocFile)) {
                             startTextPreview(ocFile);
                         }
                         // TODO what about other kind of previews?
@@ -1571,8 +1562,8 @@ public class FileDisplayActivity extends HookActivity
     private void onRemoveFileOperationFinish(RemoveFileOperation operation,
                                              RemoteOperationResult result) {
         Toast msg = Toast.makeText(this,
-            ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
-            Toast.LENGTH_LONG);
+                ErrorMessageAdapter.getErrorCauseMessage(result, operation, getResources()),
+                Toast.LENGTH_LONG);
         msg.show();
 
         if (result.isSuccess()) {
@@ -1952,7 +1943,7 @@ public class FileDisplayActivity extends HookActivity
      * @param files collection of {@link OCFile} files which operations are wanted to be cancel
      */
     public void cancelTransference(Collection<OCFile> files) {
-        for(OCFile file: files) {
+        for (OCFile file : files) {
             cancelTransference(file);
         }
     }
