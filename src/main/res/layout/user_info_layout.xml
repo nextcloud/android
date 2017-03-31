@@ -71,7 +71,10 @@
                                 android:id="@+id/phone_icon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/standard_margin"
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                                android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
+                                android:layout_marginTop="@dimen/standard_margin"
                                 android:src="@drawable/ic_phone"/>
 
                             <TextView
@@ -104,7 +107,10 @@
                                 android:id="@+id/email_icon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/standard_margin"
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                                android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
+                                android:layout_marginTop="@dimen/standard_margin"
                                 android:src="@drawable/ic_email"/>
 
                             <TextView
@@ -137,7 +143,10 @@
                                 android:id="@+id/address_icon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/standard_margin"
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                                android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
+                                android:layout_marginTop="@dimen/standard_margin"
                                 android:src="@drawable/ic_map_marker"/>
 
                             <TextView
@@ -148,67 +157,47 @@
                                 android:layout_marginRight="@dimen/standard_padding"
                                 android:layout_marginBottom="@dimen/standard_margin"
                                 android:layout_marginTop="@dimen/standard_margin"
-                                android:layout_toEndOf="@id/address_icon"
-                                android:layout_toRightOf="@id/address_icon"
                                 android:maxLines="3"
                                 android:text="@string/placeholder_filename"
-                                android:textAppearance="?android:attr/textAppearanceListItem"/>
+                                android:textAppearance="?android:attr/textAppearanceListItem"
+                                android:layout_toRightOf="@+id/address_icon"
+                                android:layout_toEndOf="@+id/address_icon"/>
 
                         </RelativeLayout>
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/secondary_user_info_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="@dimen/standard_half_margin"
-                    card_view:cardCornerRadius="3dp"
-                    card_view:cardUseCompatPadding="true">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
 
                         <RelativeLayout
                             android:id="@+id/website_container"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/list_divider_background"/>
+
                             <ImageView
                                 android:id="@+id/website_icon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:src="@drawable/ic_web"
-                                android:layout_margin="@dimen/standard_margin"/>
-
-                            <TextView
-                                android:id="@+id/website_headline"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/standard_margin"
-                                android:layout_marginTop="@dimen/standard_margin"
-                                android:layout_toEndOf="@id/website_icon"
-                                android:layout_toRightOf="@id/website_icon"
-                                android:maxLines="1"
-                                android:text="@string/user_info_website"
-                                android:textAppearance="?android:attr/textAppearanceListItem"/>
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                                android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
+                                android:layout_marginTop="@dimen/standard_margin"/>
 
                             <TextView
                                 android:id="@+id/website_address"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/standard_margin"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="@dimen/standard_padding"
                                 android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_below="@+id/website_headline"
+                                android:layout_marginTop="@dimen/standard_margin"
                                 android:layout_toEndOf="@id/website_icon"
                                 android:layout_toRightOf="@id/website_icon"
                                 android:maxLines="3"
-                                android:text="@string/user_info_website"
+                                android:text="@string/placeholder_filename"
+                                android:textAppearance="?android:attr/textAppearanceListItem"
                                 android:textColor="?android:attr/textColorSecondary"/>
 
                         </RelativeLayout>
@@ -227,32 +216,25 @@
                                 android:id="@+id/twitter_icon"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_margin="@dimen/standard_margin"
-                                android:src="@drawable/ic_twitter"/>
-
-                            <TextView
-                                android:id="@+id/twitter_headline"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/standard_margin"
+                                android:layout_marginBottom="@dimen/standard_margin"
+                                android:layout_marginLeft="@dimen/standard_icon_list_horizontal_margin"
+                                android:layout_marginRight="@dimen/standard_icon_list_horizontal_margin"
                                 android:layout_marginTop="@dimen/standard_margin"
-                                android:layout_toEndOf="@id/twitter_icon"
-                                android:layout_toRightOf="@id/twitter_icon"
-                                android:maxLines="1"
-                                android:text="Twitter"
-                                android:textAppearance="?android:attr/textAppearanceListItem"/>
+                                android:src="@drawable/ic_twitter"/>
 
                             <TextView
                                 android:id="@+id/twitter_handle"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/standard_margin"
+                                android:layout_centerInParent="true"
+                                android:layout_marginRight="@dimen/standard_padding"
                                 android:layout_marginBottom="@dimen/standard_margin"
-                                android:layout_below="@+id/twitter_headline"
+                                android:layout_marginTop="@dimen/standard_margin"
                                 android:layout_toEndOf="@id/twitter_icon"
                                 android:layout_toRightOf="@id/twitter_icon"
                                 android:maxLines="3"
                                 android:text="@string/placeholder_filename"
+                                android:textAppearance="?android:attr/textAppearanceListItem"
                                 android:textColor="?android:attr/textColorSecondary"/>
 
                         </RelativeLayout>
