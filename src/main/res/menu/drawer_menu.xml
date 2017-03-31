@@ -32,7 +32,7 @@
             android:title="@string/drawer_item_all_files"/>
         <item
             android:id="@+id/nav_favorites"
-            android:icon="@drawable/ic_favorite"
+            android:icon="@drawable/ic_star"
             android:orderInCategory="0"
             android:title="@string/drawer_item_favorites"/>
         <item

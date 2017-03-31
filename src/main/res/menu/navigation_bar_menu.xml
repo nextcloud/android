@@ -6,7 +6,7 @@
         android:title="@string/drawer_item_all_files"/>
     <item
         android:id="@+id/nav_bar_favorites"
-        android:icon="@drawable/ic_favorite"
+        android:icon="@drawable/ic_star"
         android:title="@string/drawer_item_favorites"/>
     <item
         android:id="@+id/nav_bar_photos"
