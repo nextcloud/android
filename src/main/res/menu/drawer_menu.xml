@@ -31,6 +31,10 @@
             android:orderInCategory="0"
             android:title="@string/drawer_item_all_files"/>
         <item
+            android:id="@+id/nav_activity"
+            android:icon="@drawable/ic_activity"
+            android:title="@string/drawer_item_activities"/>
+        <item
             android:id="@+id/nav_favorites"
             android:icon="@drawable/ic_star"
             android:orderInCategory="0"
@@ -40,6 +44,23 @@
             android:icon="@drawable/file_image"
             android:title="@string/drawer_item_photos"
             android:visible="false"/>
+        <item
+            android:id="@+id/nav_videos"
+            android:icon="@drawable/file_movie"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_videos"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_shared"
+            android:orderInCategory="0"
+            android:icon="@drawable/ic_shared"
+            android:title="@string/drawer_item_shared"
+            android:visible="false"/>
+        <item
+            android:id="@+id/nav_on_device"
+            android:icon="@drawable/ic_action_available_offline"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_on_device"/>
         <item
             android:id="@+id/nav_recently_added"
             android:icon="@drawable/ic_recent"
@@ -53,31 +74,15 @@
             android:title="@string/drawer_item_recently_modified"
             android:visible="false"/>
         <item
-            android:id="@+id/nav_shared"
-            android:orderInCategory="0"
-            android:icon="@drawable/ic_shared"
-            android:title="@string/drawer_item_shared"
-            android:visible="false"/>
-        <item
-            android:id="@+id/nav_videos"
-            android:icon="@drawable/file_movie"
-            android:orderInCategory="0"
-            android:title="@string/drawer_item_videos"
-            android:visible="false"/>
-        <item
-            android:id="@+id/nav_on_device"
-            android:icon="@drawable/ic_action_available_offline"
-            android:orderInCategory="0"
-            android:title="@string/drawer_item_on_device"/>
-        <item
-            android:id="@+id/nav_activity"
-            android:icon="@drawable/ic_activity"
-            android:title="@string/drawer_item_activities"/>
-        <item
             android:orderInCategory="0"
             android:id="@+id/nav_folder_sync"
             android:icon="@drawable/ic_cloud_upload"
             android:title="@string/drawer_folder_sync"/>
+        <item
+            android:id="@+id/nav_uploads"
+            android:icon="@drawable/ic_uploads"
+            android:orderInCategory="2"
+            android:title="@string/drawer_item_uploads_list"/>
     </group>
 
     <!--
@@ -104,11 +109,6 @@
     <group
         android:id="@+id/drawer_menu_bottom"
         android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_uploads"
-            android:icon="@drawable/ic_uploads"
-            android:orderInCategory="2"
-            android:title="@string/drawer_item_uploads_list"/>
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
