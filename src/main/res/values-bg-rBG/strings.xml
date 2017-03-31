@@ -514,6 +514,7 @@
         <item quantity="one">%d избран</item>
         <item quantity="other">%d избрани</item>
     </plurals>
+
     <string name="upload_file_dialog_filename">Име на файла</string>
     <string name="upload_file_dialog_filetype">Тип на файла</string>
     <string name="storage_description_default">По подразбиране</string>

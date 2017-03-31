@@ -13,6 +13,12 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Ordenar</string>
     <string name="actionbar_sort_title">Ordenar por</string>
+    <string name="sort_by">Ordenar por</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Más reciente primero</string>
+    <string name="menu_item_sort_by_date_oldest_first">Más antiguo primero</string>
+    <string name="menu_item_sort_by_size_biggest_first">Más grande primero</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_settings">Ajustes</string>
@@ -227,7 +233,7 @@
 	<string name="auth_oauth_error">Autorización no exitosa</string>
 	<string name="auth_oauth_error_access_denied">Acceso denegado por el servidor de autorización</string>
 	<string name="auth_wtf_reenter_URL">Estado inesperado; Favor de reingresar la dirección del servidor</string>
-	<string name="auth_expired_oauth_token_toast">Su autorización ha expirado. Favor de autorizar de nuevo</string>
+	<string name="auth_expired_oauth_token_toast">Su autorización ha expirado. Favor de volver a autorizar</string>
 	<string name="auth_expired_basic_auth_toast">Por favor ingrese su contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">Su sesión ha expirado. Favor de conectarse de nuevo</string>
 	<string name="auth_connecting_auth_server">Conectando al servidor de autenticación ...</string>
@@ -454,7 +460,7 @@
     <string name="share_no_users">Aún no se ha compartido información con los usuarios</string>
     <string name="share_add_user_or_group">Agregar usuario o grupo</string>
     <string name="share_via_link_section_title">Compartir liga</string>
-    <string name="share_via_link_expiration_date_label">Establecer fecha de caducidad</string>
+    <string name="share_via_link_expiration_date_label">Establecer fecha de expiración</string>
     <string name="share_via_link_password_label">Proteger con contraseña</string>
     <string name="share_via_link_password_title">Asegurado</string>
     <string name="share_via_link_edit_permission_label">Permitir edición</string>
@@ -529,6 +535,7 @@
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionado</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Ingrese el nombre del archivo y el tipo del archivo a cargar</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
     <string name="upload_file_dialog_filetype">Tipo de archivo</string>
@@ -565,4 +572,4 @@
 
     <string name="user_information_description">Información del usuario</string>
 
-</resources>
+    </resources>

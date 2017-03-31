@@ -536,6 +536,7 @@
         <item quantity="few">%d vybraných</item>
         <item quantity="other">%d vybraných</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Zadaj meno a typ súboru na nahratie</string>
     <string name="upload_file_dialog_filename">Názov súboru</string>
     <string name="upload_file_dialog_filetype">Typ súboru</string>
@@ -571,4 +572,4 @@
 
     <string name="user_information_description">Informácie o používateľovi</string>
 
-</resources>
+    </resources>

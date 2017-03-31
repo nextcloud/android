@@ -449,4 +449,5 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d 선택</item>
     </plurals>
+
     </resources>

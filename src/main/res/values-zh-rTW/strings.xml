@@ -488,6 +488,7 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d 已選</item>
     </plurals>
+
     <string name="storage_description_default">預設</string>
     <string name="storage_description_sd_no">SD 卡 %1$d</string>
     <string name="storage_description_unknown">未知</string>

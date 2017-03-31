@@ -529,6 +529,7 @@
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Opgeven upload bestandsnaam en bestandstype</string>
     <string name="upload_file_dialog_filename">Bestandsnaam</string>
     <string name="upload_file_dialog_filetype">Bestandstype</string>
@@ -565,4 +566,4 @@
 
     <string name="user_information_description">Gebruikersinformatie</string>
 
-</resources>
+    </resources>

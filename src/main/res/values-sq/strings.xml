@@ -526,6 +526,7 @@
         <item quantity="one">%d të përzgjedhura</item>
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
     <string name="upload_file_dialog_filename">Emri dokumentit</string>
     <string name="upload_file_dialog_filetype">Tipi dokumentit</string>

@@ -537,6 +537,7 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
     <string name="upload_file_dialog_filename">Dateiname</string>
     <string name="upload_file_dialog_filetype">Dateityp</string>
@@ -573,4 +574,4 @@
 
     <string name="user_information_description">Benutzerinformation</string>
 
-</resources>
+    </resources>

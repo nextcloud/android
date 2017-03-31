@@ -524,6 +524,7 @@
         <item quantity="one">%d επιλέχθηκε</item>
         <item quantity="other">%d επιλέχθηκαν</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Εισαγωγή ονόματος και τύπου αρχείου μεταφόρτωσης</string>
     <string name="upload_file_dialog_filename">Όνομα αρχείου</string>
     <string name="upload_file_dialog_filetype">Τύπος αρχείου</string>

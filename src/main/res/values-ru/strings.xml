@@ -541,6 +541,7 @@
         <item quantity="many">%d выбрано</item>
         <item quantity="other">%d выбрано</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Ввод имени и типа загружаемого файла </string>
     <string name="upload_file_dialog_filename">Имя файла</string>
     <string name="upload_file_dialog_filetype">Тип файла</string>
@@ -577,4 +578,4 @@
 
     <string name="user_information_description">Пользовательская информация</string>
 
-</resources>
+    </resources>

@@ -530,6 +530,7 @@
         <item quantity="few">vybráno %d</item>
         <item quantity="other">vybráno %d</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Zadejte jméno a typ souboru k nahrání</string>
     <string name="upload_file_dialog_filename">Jméno souboru</string>
     <string name="upload_file_dialog_filetype">Typ souboru</string>
@@ -566,4 +567,4 @@
 
     <string name="user_information_description">Uživatelské informace</string>
 
-</resources>
+    </resources>
