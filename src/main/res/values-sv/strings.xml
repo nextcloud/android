@@ -524,6 +524,7 @@
         <item quantity="one">%d vald</item>
         <item quantity="other">%d vald</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Ange filnamn och filtyp på uppladdningen</string>
     <string name="upload_file_dialog_filename">Filnamn</string>
     <string name="upload_file_dialog_filetype">Filtyp</string>

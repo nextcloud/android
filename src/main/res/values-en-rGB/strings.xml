@@ -526,6 +526,7 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Input upload filename and filetype</string>
     <string name="upload_file_dialog_filename">Filename</string>
     <string name="upload_file_dialog_filetype">Filetype</string>

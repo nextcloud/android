@@ -527,6 +527,7 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
     </plurals>
+
     <string name="upload_file_dialog_title">アップロードファイル名とファイルタイプを入力</string>
     <string name="upload_file_dialog_filename">ファイル名</string>
     <string name="upload_file_dialog_filetype">ファイルタイプ</string>
@@ -563,4 +564,4 @@
 
     <string name="user_information_description">ユーザー情報</string>
 
-</resources>
+    </resources>

@@ -526,6 +526,7 @@
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Settu inn skráaheiti og skráagerð fyrir innsendingu</string>
     <string name="upload_file_dialog_filename">Skráarheiti</string>
     <string name="upload_file_dialog_filetype">Skráartegund</string>

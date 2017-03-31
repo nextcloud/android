@@ -539,6 +539,7 @@
         <item quantity="many">%d zaznaczonych</item>
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Wprowadź nazwę i typ wysyłanego pliku</string>
     <string name="upload_file_dialog_filename">Nazwa pliku</string>
     <string name="upload_file_dialog_filetype">Typ pliku</string>
@@ -575,4 +576,4 @@
 
     <string name="user_information_description">Informacje użytkownika</string>
 
-</resources>
+    </resources>

@@ -526,6 +526,7 @@
         <item quantity="one">%d seleccionat</item>
         <item quantity="other">%d seleccionats</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Entreu el nom de fitxer i el tipus de fitxer de la pujada</string>
     <string name="upload_file_dialog_filename">Nom de fitxer</string>
     <string name="upload_file_dialog_filetype">Tipus de fitxer</string>

@@ -537,6 +537,7 @@
         <item quantity="one">%d seçili</item>
         <item quantity="other">%d seçili</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Yüklenecek dosya adını ve dosya türünü belirtin</string>
     <string name="upload_file_dialog_filename">Dosya adı</string>
     <string name="upload_file_dialog_filetype">Dosya türü</string>
@@ -573,4 +574,4 @@
 
     <string name="user_information_description">Kullanıcı bilgileri</string>
 
-</resources>
+    </resources>

@@ -527,6 +527,7 @@
         <item quantity="few">%d selectate</item>
         <item quantity="other">%d selectate</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Introdu numele și tipul fișierului de încărcat</string>
     <string name="upload_file_dialog_filename">Numele fișierului</string>
     <string name="upload_file_dialog_filetype">Tipul fișierului</string>

@@ -473,6 +473,7 @@
         <item quantity="one">%d atlasīts</item>
         <item quantity="other">%d atlasīts</item>
     </plurals>
+
     <string name="upload_file_dialog_filename">Faila nosaukums</string>
     <string name="upload_file_dialog_filetype">Faila tips</string>
     <string name="upload_file_dialog_filetype_snippet_text">Mazs teksta fails(.txt)</string>

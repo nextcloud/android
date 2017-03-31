@@ -470,4 +470,5 @@
         <item quantity="few">%d izbranih</item>
         <item quantity="other">%d izbranih</item>
     </plurals>
+
     </resources>

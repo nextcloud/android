@@ -537,6 +537,7 @@
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Spécifiez le nom et le type du fichier téléversé</string>
     <string name="upload_file_dialog_filename">Nom de fichier</string>
     <string name="upload_file_dialog_filetype">Type de fichier</string>
@@ -573,4 +574,4 @@
 
     <string name="user_information_description">Information d\'utilisateur</string>
 
-</resources>
+    </resources>
