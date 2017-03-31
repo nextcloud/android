@@ -91,7 +91,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     private int mConflictsFound;
 
     /** Counter of failed operations in synchronization of kept-in-sync files */
-    private int mFailsInFavouritesFound;
+    private int mFailsInKeptInSyncFound;
 
     /**
      * Map of remote and local paths to files that where locally stored in a location 
@@ -156,8 +156,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         return mConflictsFound;
     }
     
-    public int getFailsInFavouritesFound() {
-        return mFailsInFavouritesFound;
+    public int getFailsInKeptInSyncFound() {
+        return mFailsInKeptInSyncFound;
     }
     
     public Map<String, String> getForgottenLocalFiles() {
@@ -182,7 +182,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     @Override
     protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
-        mFailsInFavouritesFound = 0;
+        mFailsInKeptInSyncFound = 0;
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
         
@@ -197,7 +197,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             if (mRemoteFolderChanged) {
                 result = fetchAndSyncRemoteFolder(client);
             } else {
-                fetchFavoritesToSyncFromLocalData();
+                fetchKeptInSyncFilesToSyncFromLocalData();
                 mChildren = mStorageManager.getFolderContent(mLocalFolder, false);
             }
 
@@ -316,7 +316,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         
         if (result.isSuccess()) {
             synchronizeData(result.getData());
-            if (mConflictsFound > 0  || mFailsInFavouritesFound > 0) { 
+            if (mConflictsFound > 0  || mFailsInKeptInSyncFound > 0) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);   
                     // should be a different result code, but will do the job
             }
@@ -394,7 +394,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             updatedFile.setLastSyncDateForProperties(mCurrentSyncTime);
             if (localFile != null) {
                 updatedFile.setFileId(localFile.getFileId());
-                updatedFile.setFavorite(localFile.isFavorite());
+                updatedFile.setAvailableOffline(localFile.isAvailableOffline());
                 updatedFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
                 updatedFile.setModificationTimestampAtLastSyncForData(
                         localFile.getModificationTimestampAtLastSyncForData()
@@ -423,7 +423,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             FileStorageUtils.searchForLocalFileInDefaultPath(updatedFile, mAccount);
 
             /// prepare content synchronization for kept-in-sync files
-            if (updatedFile.isFavorite()) {
+            if (updatedFile.isAvailableOffline()) {
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(  localFile,        
                                                                                     remoteFile, 
                                                                                     mAccount, 
@@ -463,7 +463,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 if (contentsResult.getCode() == ResultCode.SYNC_CONFLICT) {
                     mConflictsFound++;
                 } else {
-                    mFailsInFavouritesFound++;
+                    mFailsInKeptInSyncFound++;
                     if (contentsResult.getException() != null) {
                         Log_OC.e(TAG, "Error while synchronizing favourites : " 
                                 +  contentsResult.getLogMessage(), contentsResult.getException());
@@ -536,10 +536,10 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
 
-    private void fetchFavoritesToSyncFromLocalData() {
+    private void fetchKeptInSyncFilesToSyncFromLocalData() {
         List<OCFile> children = mStorageManager.getFolderContent(mLocalFolder, false);
         for (OCFile child : children) {
-            if (!child.isFolder() && child.isFavorite() && !child.isInConflict()) {
+            if (!child.isFolder() && child.isAvailableOffline() && !child.isInConflict()) {
                 SynchronizeFileOperation operation = new SynchronizeFileOperation(
                         child,
                         child,  // cheating with the remote file to get an update to server; to refactor

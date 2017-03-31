@@ -23,7 +23,7 @@
     android:layout_gravity="center_horizontal"
     android:background="@drawable/list_selector"
     android:gravity="center_horizontal"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -38,42 +38,53 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_menu_archive"/>
 
+
+        <ImageView
+            android:id="@+id/favorite_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_margin="@dimen/standard_quarter_margin"
+            android:src="@drawable/ic_favorite"
+            />
+
         <ImageView
             android:id="@+id/sharedIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top|right"
-            android:layout_margin="@dimen/standard_quarter_margin"
-            android:src="@drawable/shared_via_link" />
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="4dp"
+            android:src="@drawable/shared_via_link"/>
 
         <ImageView
             android:id="@+id/localFileIndicator"
-            android:layout_width="@dimen/file_icon_size"
-            android:layout_height="@dimen/file_icon_size"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_gravity="bottom|right"
-            android:layout_marginTop="@dimen/standard_quarter_margin"
             android:layout_marginBottom="@dimen/standard_quarter_margin"
             android:layout_marginRight="@dimen/standard_quarter_margin"
-            android:src="@drawable/ic_synced" />
+            android:layout_marginTop="@dimen/standard_quarter_margin"
+            android:src="@drawable/ic_synced"/>
 
         <ImageView
-            android:id="@+id/favoriteIcon"
-            android:layout_width="@dimen/favorite_icon_size"
-            android:layout_height="@dimen/favorite_icon_size"
+            android:id="@+id/keptOfflineIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="@dimen/standard_quarter_margin"
-            android:layout_marginRight="@dimen/standard_quarter_margin"
+            android:layout_marginRight="24dp"
             android:src="@drawable/ic_available_offline" />
 
         <ImageView
             android:id="@+id/custom_checkbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|top"
             android:layout_marginLeft="@dimen/standard_quarter_margin"
             android:layout_marginRight="@dimen/standard_quarter_margin"
-            android:gravity=""
-            android:src="@android:drawable/checkbox_off_background" />
+            android:layout_gravity="center_vertical|top"
+            android:src="@android:drawable/checkbox_off_background"
+            />
     </FrameLayout>
 
 </LinearLayout>

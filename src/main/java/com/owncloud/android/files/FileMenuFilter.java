@@ -229,19 +229,34 @@ public class FileMenuFilter {
             toShow.add(R.id.action_send_file);
         }
 
-        // FAVORITES
-        if (!allFiles() || synchronizing || allFavorites()) {
-            toHide.add(R.id.action_favorite_file);
+        // Kept available offline
+        if (!allFiles() || synchronizing || allKeptAvailableOffline()) {
+            toHide.add(R.id.action_keep_files_offline);
         } else {
-            toShow.add(R.id.action_favorite_file);
+            toShow.add(R.id.action_keep_files_offline);
         }
 
-        // UNFAVORITES
-        if (!allFiles() || synchronizing || allUnfavorites()) {
-            toHide.add(R.id.action_unfavorite_file);
+        // Not kept available offline
+        if (!allFiles() || synchronizing || allNotKeptAvailableOffline()) {
+            toHide.add(R.id.action_unset_keep_files_offline);
         } else {
-            toShow.add(R.id.action_unfavorite_file);
+            toShow.add(R.id.action_unset_keep_files_offline);
         }
+
+        // Favorite
+        if (!allFiles() || synchronizing || allFavorites()) {
+            toHide.add(R.id.action_favorite);
+        } else {
+            toShow.add(R.id.action_favorite);
+        }
+
+        // Unfavorite
+        if (!allFiles() || synchronizing || allNotFavorites()) {
+            toHide.add(R.id.action_unset_favorite);
+        } else {
+            toShow.add(R.id.action_unset_favorite);
+        }
+
 
     }
 
@@ -320,18 +335,36 @@ public class FileMenuFilter {
         return false;
     }
 
-    private boolean allFavorites() {
+    private boolean allKeptAvailableOffline() {
         for(OCFile file: mFiles) {
-            if(!file.isFavorite()) {
+            if(!file.isAvailableOffline()) {
                 return false;
             }
         }
         return true;
     }
 
-    private boolean allUnfavorites() {
+    private boolean allFavorites() {
         for(OCFile file: mFiles) {
-            if(file.isFavorite()) {
+            if(!file.getIsFavorite()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean allNotFavorites() {
+        for(OCFile file: mFiles) {
+            if(file.getIsFavorite()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean allNotKeptAvailableOffline() {
+        for(OCFile file: mFiles) {
+            if(file.isAvailableOffline()) {
                 return false;
             }
         }

@@ -24,6 +24,6 @@ package com.owncloud.android.ui.interfaces;
  * Interface for signaling filter finish
  */
 
-public interface ExtendedListFragmentInterface {
+public interface OCFileListFragmentInterface {
     void finishedFiltering();
 }

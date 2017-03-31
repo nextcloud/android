@@ -808,5 +808,4 @@ public class Preferences extends PreferenceActivity
     public void onCancelMigration() {
         // Migration was canceled so we don't do anything
     }
-
 }

@@ -60,7 +60,7 @@
     <bool name="multiaccount_support">true</bool>
 
     <!-- Drawer options -->
-    <bool name="recently_added_enabled">true</bool>
+    <bool name="recently_added_enabled">false</bool>
     <bool name="recently_modified_enabled">true</bool>
     <bool name="shared_enabled">true</bool>
     <bool name="videos_enabled">true</bool>
@@ -85,6 +85,8 @@
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>
 
+    <!-- Determine is participate enabled -->
+    <bool name="participate_enabled">false</bool>
     <!-- Participate links -->
     <string name="fdroid_beta_link" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.android.beta</string>
     <string name="beta_apk_link" translatable="false">https://github.com/nextcloud/android/raw/beta/apks/latest.apk</string>
@@ -101,6 +103,9 @@
 
     <!-- analytics enabled -->
     <bool name="analytics_enabled">false</bool>
+
+    <!-- Files becomes Home -->
+    <bool name="use_home">true</bool>
 
 </resources>
 

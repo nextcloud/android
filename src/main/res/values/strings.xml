@@ -22,7 +22,15 @@
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
 
     <string name="drawer_item_all_files">All files</string>
+    <string name="drawer_item_files">Files</string>
+    <string name="drawer_item_home">Home</string>
+    <string name="drawer_item_favorites">Favorites</string>
+    <string name="drawer_item_photos">Photos</string>
     <string name="drawer_item_on_device">On device</string>
+    <string name="drawer_item_recently_added">Recently added</string>
+    <string name="drawer_item_recently_modified">Recently modified</string>
+    <string name="drawer_item_shared">Shared</string>
+    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_item_settings">Settings</string>
     <string name="drawer_item_uploads_list">Uploads</string>
     <string name="drawer_item_activities">Activities</string>
@@ -86,13 +94,32 @@
     <string name="file_list_seconds_ago">seconds ago</string>
     <string name="file_list_empty_headline">No files in here</string>
     <string name="file_list_empty">Upload some content or sync with your devices!</string>
+    <string name="file_list_empty_favorites">Favorite some files or sync with your devices!</string>
+    <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorite will show up here</string>
+    <string name="file_list_empty_favorites_filter">No favorited files found for your query!</string>
     <string name="file_list_loading">Loading&#8230;</string>
     <string name="file_list_no_app_for_file_type">No app found for file type!</string>
     <string name="local_file_list_empty">There are no files in this folder.</string>
     <string name="file_list_empty_headline_search">No results in this folder</string>
+    <string name="file_list_empty_headline_server_search">No results</string>
+    <string name="file_list_empty_favorite_headline">No favorites</string>
+    <string name="file_list_empty_shared_headline">Nothing shared yet</string>
+    <string name="file_list_empty_shared">Files and folders you share will show up here</string>
+    <string name="file_list_empty_headline_server_search_videos">No videos</string>
+    <string name="file_list_empty_headline_server_search_photos">No photos</string>
     <string name="file_list_empty_search">Try looking in another folder?</string>
+    <string name="file_list_empty_recently_modified">No files modified in the last 7 days found</string>
+    <string name="file_list_empty_recently_modified_filter">No files for your query that were modified
+        in the last 7 days found!</string>
+    <string name="file_list_empty_recently_added">No recently added files found</string>
+    <string name="file_list_empty_recently_added_filter">No recently added files for your query found!</string>
+    <string name="file_list_empty_text_photos">Upload some photos or activate auto upload!</string>
+    <string name="file_list_empty_text_photos_filter">No photos for your query found!</string>
+    <string name="file_list_empty_text_videos">Upload some videos or activate auto upload!</string>
+    <string name="file_list_empty_text_videos_filter">No videos for your query found!</string>
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text">Upload some content or activate instant upload!</string>
+    <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload!</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">folders</string>
     <string name="file_list_file">file</string>
@@ -248,6 +275,8 @@
     
     <string name="favorite">Set as available offline</string>
     <string name="unfavorite">Unset as available offline</string>
+    <string name="favorite_real">Set as favorite</string>
+    <string name="unset_favorite_real">Unset favorite</string>
     <string name="common_rename">Rename</string>
     <string name="common_remove">Remove</string>
     <string name="confirmation_remove_file_alert">"Do you really want to remove %1$s?"</string>

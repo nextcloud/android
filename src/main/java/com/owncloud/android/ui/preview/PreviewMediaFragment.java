@@ -344,6 +344,21 @@ public class PreviewMediaFragment extends FileFragment implements
             item.setVisible(false);
             item.setEnabled(false);
         }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_favorite);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_unset_favorite);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
     }
 
 
@@ -376,14 +391,6 @@ public class PreviewMediaFragment extends FileFragment implements
             }
             case R.id.action_sync_file: {
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
-                return true;
-            }
-            case R.id.action_favorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), true);
-                return true;
-            }
-            case R.id.action_unfavorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
                 return true;
             }
             default:

@@ -219,6 +219,21 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             item.setEnabled(false);
         }
 
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_favorite);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_unset_favorite);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
+
         Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
 
         item = menu.findItem(R.id.action_switch_view);
@@ -285,14 +300,6 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
                 }
                 return true;
             }
-            case R.id.action_favorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), true);
-                return true;
-            }
-            case R.id.action_unfavorite_file:{
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(), false);
-                return true;
-            }
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -303,7 +310,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         switch (v.getId()) {
             case R.id.fdFavorite: {
                 CheckBox cb = (CheckBox) getView().findViewById(R.id.fdFavorite);
-                mContainerActivity.getFileOperationsHelper().toggleFavorite(getFile(),cb.isChecked());
+                mContainerActivity.getFileOperationsHelper().toggleOfflineFile(getFile(),cb.isChecked());
                 break;
             }
             case R.id.fdCancelBtn: {
@@ -362,7 +369,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             setTimeModified(file.getModificationTimestamp());
             
             CheckBox cb = (CheckBox)getView().findViewById(R.id.fdFavorite);
-            cb.setChecked(file.isFavorite());
+            cb.setChecked(file.isAvailableOffline());
 
             // configure UI for depending upon local state of the file
             FileDownloaderBinder downloaderBinder = mContainerActivity.getFileDownloaderBinder();

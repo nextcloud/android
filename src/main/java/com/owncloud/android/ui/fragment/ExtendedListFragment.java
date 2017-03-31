@@ -1,21 +1,22 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2012-2016 ownCloud Inc.
+ * @author Mario Danic
+ * Copyright (C) 2017 Mario Danic
+ * Copyright (C) 2012 Bartek Przybylski
+ * Copyright (C) 2012-2016 ownCloud Inc.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.ui.fragment;
@@ -24,8 +25,10 @@ import android.animation.LayoutTransition;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -47,12 +50,16 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.ui.ExtendedListView;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -60,6 +67,10 @@ import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.adapter.FileListListAdapter;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.ui.events.SearchEvent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
@@ -72,10 +83,10 @@ public class ExtendedListFragment extends Fragment
 
     protected static final String TAG = ExtendedListFragment.class.getSimpleName();
 
-    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION"; 
+    protected static final String KEY_SAVED_LIST_POSITION = "SAVED_LIST_POSITION";
 
     private static final String KEY_INDEXES = "INDEXES";
-    private static final String KEY_FIRST_POSITIONS= "FIRST_POSITIONS";
+    private static final String KEY_FIRST_POSITIONS = "FIRST_POSITIONS";
     private static final String KEY_TOPS = "TOPS";
     private static final String KEY_HEIGHT_CELL = "HEIGHT_CELL";
     private static final String KEY_EMPTY_LIST_MESSAGE = "EMPTY_LIST_MESSAGE";
@@ -113,6 +124,25 @@ public class ExtendedListFragment extends Fragment
 
     protected SearchView searchView;
     private Handler handler = new Handler();
+
+    @Parcel
+    public enum SearchType {
+        NO_SEARCH,
+        REGULAR_FILTER,
+        FILE_SEARCH,
+        FAVORITE_SEARCH,
+        FAVORITE_SEARCH_FILTER,
+        VIDEO_SEARCH,
+        VIDEO_SEARCH_FILTER,
+        PHOTO_SEARCH,
+        PHOTOS_SEARCH_FILTER,
+        RECENTLY_MODIFIED_SEARCH,
+        RECENTLY_MODIFIED_SEARCH_FILTER,
+        RECENTLY_ADDED_SEARCH,
+        RECENTLY_ADDED_SEARCH_FILTER,
+        // not a real filter, but nevertheless
+        SHARED_FILTER
+    }
 
     protected void setListAdapter(BaseAdapter listAdapter) {
         mAdapter = listAdapter;
@@ -160,7 +190,7 @@ public class ExtendedListFragment extends Fragment
         }
     }
 
-    public boolean isGridEnabled(){
+    public boolean isGridEnabled() {
         return (mCurrentListView != null && mCurrentListView.equals(mGridView));
     }
 
@@ -200,6 +230,20 @@ public class ExtendedListFragment extends Fragment
                     public void run() {
                         if (getActivity() != null && !(getActivity() instanceof FolderPickerActivity)) {
                             setFabEnabled(!hasFocus);
+
+                            boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
+                                    getCurrentOwnCloudAccount(MainApp.getAppContext()));
+
+                            if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && searchSupported) {
+                                BottomNavigationView bottomNavigationView = (BottomNavigationView) getActivity().
+                                        findViewById(R.id.bottom_navigation_view);
+                                if (hasFocus) {
+                                    bottomNavigationView.setVisibility(View.GONE);
+                                } else {
+                                    bottomNavigationView.setVisibility(View.VISIBLE);
+                                }
+                            }
+
                         }
                     }
                 }, 100);
@@ -220,9 +264,10 @@ public class ExtendedListFragment extends Fragment
 
                 if (currentVisibility != oldVisibility) {
                     if (currentVisibility == View.VISIBLE) {
-                        setEmptyListMessage(true);
+
+                        setEmptyListMessage(SearchType.REGULAR_FILTER);
                     } else {
-                        setEmptyListMessage(false);
+                        setEmptyListMessage(SearchType.NO_SEARCH);
                     }
 
                     oldVisibility = currentVisibility;
@@ -262,8 +307,14 @@ public class ExtendedListFragment extends Fragment
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
-                        fileListListAdapter.getFilter().filter(query);
+                        if (AccountUtils.hasSearchSupport(AccountUtils.
+                                getCurrentOwnCloudAccount(MainApp.getAppContext()))) {
+                            EventBus.getDefault().post(new SearchEvent(query, SearchOperation.SearchType.FILE_SEARCH,
+                                    SearchEvent.UnsetType.NO_UNSET));
+                        } else {
+                            FileListListAdapter fileListListAdapter = (FileListListAdapter) mAdapter;
+                            fileListListAdapter.getFilter().filter(query);
+                        }
                     }
                 }, delay);
             } else if (mAdapter != null && mAdapter instanceof LocalFileListAdapter) {
@@ -284,11 +335,11 @@ public class ExtendedListFragment extends Fragment
             if ((activity = getActivity()) != null) {
                 if (activity instanceof FileDisplayActivity) {
                     ((FileDisplayActivity) activity).refreshListOfFilesFragment(true);
-                } else if (activity instanceof UploadFilesActivity){
+                } else if (activity instanceof UploadFilesActivity) {
                     LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) mAdapter;
                     localFileListAdapter.filter(query);
                 } else if (activity instanceof FolderPickerActivity) {
-                    ((FolderPickerActivity)activity).refreshListOfFilesFragment(true);
+                    ((FolderPickerActivity) activity).refreshListOfFilesFragment(true);
                 }
 
             }
@@ -305,7 +356,7 @@ public class ExtendedListFragment extends Fragment
         View v = inflater.inflate(R.layout.list_fragment, null);
         setupEmptyList(v);
 
-        mListView = (ExtendedListView)(v.findViewById(R.id.list_root));
+        mListView = (ExtendedListView) (v.findViewById(R.id.list_root));
         mListView.setOnItemClickListener(this);
         mListFooterView = inflater.inflate(R.layout.list_footer, null, false);
 
@@ -331,6 +382,21 @@ public class ExtendedListFragment extends Fragment
         mFabUpload = (FloatingActionButton) v.findViewById(R.id.fab_upload);
         mFabMkdir = (FloatingActionButton) v.findViewById(R.id.fab_mkdir);
         mFabUploadFromApp = (FloatingActionButton) v.findViewById(R.id.fab_upload_from_app);
+
+        boolean searchSupported = AccountUtils.hasSearchSupport(AccountUtils.
+                getCurrentOwnCloudAccount(MainApp.getAppContext()));
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled) && searchSupported) {
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) mFabMain.getLayoutParams();
+            final float scale = v.getResources().getDisplayMetrics().density;
+
+            BottomNavigationView bottomNavigationView = (BottomNavigationView)
+                    v.findViewById(R.id.bottom_navigation_view);
+
+            // convert the DP into pixel
+            int pixel = (int) (32 * scale + 0.5f);
+            layoutParams.setMargins(0, 0, pixel / 2, bottomNavigationView.getMeasuredHeight() + pixel * 2);
+        }
 
         mCurrentListView = mListView;   // list by default
         if (savedInstanceState != null) {
@@ -366,23 +432,23 @@ public class ExtendedListFragment extends Fragment
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        
+
         if (savedInstanceState != null) {
             mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
             mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
             mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
             mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
             setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
-            
+
         } else {
             mIndexes = new ArrayList<>();
             mFirstPositions = new ArrayList<>();
             mTops = new ArrayList<>();
             mHeightCell = 0;
         }
-    }    
-    
-    
+    }
+
+
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         super.onSaveInstanceState(savedInstanceState);
@@ -400,12 +466,12 @@ public class ExtendedListFragment extends Fragment
      * Calculates the position of the item that will be used as a reference to
      * reposition the visible items in the list when the device is turned to
      * other position.
-     * 
+     *
      * The current policy is take as a reference the visible item in the center
      * of the screen.
-     * 
+     *
      * @return The position in the list of the visible item in the center of the
-     *         screen.
+     * screen.
      */
     protected int getReferencePosition() {
         if (mCurrentListView != null) {
@@ -421,25 +487,25 @@ public class ExtendedListFragment extends Fragment
      * Restore index and position
      */
     protected void restoreIndexAndTopPosition() {
-        if (mIndexes.size() > 0) {  
+        if (mIndexes.size() > 0) {
             // needs to be checked; not every browse-up had a browse-down before 
-            
+
             int index = mIndexes.remove(mIndexes.size() - 1);
-            final int firstPosition = mFirstPositions.remove(mFirstPositions.size() -1);
+            final int firstPosition = mFirstPositions.remove(mFirstPositions.size() - 1);
             int top = mTops.remove(mTops.size() - 1);
 
             Log_OC.v(TAG, "Setting selection to position: " + firstPosition + "; top: "
                     + top + "; index: " + index);
 
-            if (mCurrentListView!= null && mCurrentListView.equals(mListView)) {
-                if (mHeightCell*index <= mListView.getHeight()) {
+            if (mCurrentListView != null && mCurrentListView.equals(mListView)) {
+                if (mHeightCell * index <= mListView.getHeight()) {
                     mListView.setSelectionFromTop(firstPosition, top);
                 } else {
                     mListView.setSelectionFromTop(index, 0);
                 }
 
             } else {
-                if (mHeightCell*index <= mGridView.getHeight()) {
+                if (mHeightCell * index <= mGridView.getHeight()) {
                     mGridView.setSelection(firstPosition);
                     //mGridView.smoothScrollToPosition(firstPosition);
                 } else {
@@ -450,29 +516,29 @@ public class ExtendedListFragment extends Fragment
 
         }
     }
-    
+
     /*
      * Save index and top position
      */
     protected void saveIndexAndTopPosition(int index) {
-        
+
         mIndexes.add(index);
-        
+
         int firstPosition = mCurrentListView.getFirstVisiblePosition();
         mFirstPositions.add(firstPosition);
-        
+
         View view = mCurrentListView.getChildAt(0);
-        int top = (view == null) ? 0 : view.getTop() ;
+        int top = (view == null) ? 0 : view.getTop();
 
         mTops.add(top);
-        
+
         // Save the height of a cell
         mHeightCell = (view == null || mHeightCell != 0) ? mHeightCell : view.getHeight();
     }
-    
-    
+
+
     @Override
-    public void onItemClick (AdapterView<?> parent, View view, int position, long id) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         // to be @overriden
     }
 
@@ -501,7 +567,7 @@ public class ExtendedListFragment extends Fragment
     public void setOnRefreshListener(OnEnforceableRefreshListener listener) {
         mOnRefreshListener = listener;
     }
-    
+
 
     /**
      * Disables swipe gesture.
@@ -510,7 +576,7 @@ public class ExtendedListFragment extends Fragment
      *
      * When 'false' is set, prevents user gestures but keeps the option to refresh programatically,
      *
-     * @param   enabled     Desired state for capturing swipe gesture.
+     * @param enabled Desired state for capturing swipe gesture.
      */
     public void setSwipeEnabled(boolean enabled) {
         mRefreshListLayout.setEnabled(enabled);
@@ -523,10 +589,10 @@ public class ExtendedListFragment extends Fragment
      *
      * When 'false' is set, FAB visibility is set to View.GONE programmatically,
      *
-     * @param   enabled     Desired visibility for the FAB.
+     * @param enabled Desired visibility for the FAB.
      */
     public void setFabEnabled(boolean enabled) {
-        if(enabled) {
+        if (enabled) {
             mFabMain.setVisibility(View.VISIBLE);
         } else {
             mFabMain.setVisibility(View.GONE);
@@ -549,47 +615,99 @@ public class ExtendedListFragment extends Fragment
      * @param message  the message
      * @param icon     the icon to be shown
      */
-    public void setMessageForEmptyList(@StringRes int headline, @StringRes int message, @DrawableRes int icon) {
-        if (mEmptyListContainer != null && mEmptyListMessage != null) {
-            mEmptyListHeadline.setText(headline);
-            mEmptyListMessage.setText(message);
-            mEmptyListIcon.setImageResource(icon);
+    public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message, @DrawableRes final int icon) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
 
-            mEmptyListIcon.setVisibility(View.VISIBLE);
-            mEmptyListProgress.setVisibility(View.GONE);
-        }
+                if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                    mEmptyListHeadline.setText(headline);
+                    mEmptyListMessage.setText(message);
+                    mEmptyListIcon.setImageResource(icon);
+
+                    mEmptyListIcon.setVisibility(View.VISIBLE);
+                    mEmptyListProgress.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
-    public void setEmptyListMessage(boolean isSearch) {
-        if (isSearch) {
-            setMessageForEmptyList(R.string.file_list_empty_headline_search,
-                    R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
+    public void setEmptyListMessage(final SearchType searchType) {
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
 
-        } else {
-            setMessageForEmptyList(
-                    R.string.file_list_empty_headline,
-                    R.string.file_list_empty,
-                    R.drawable.ic_list_empty_folder
-            );
-        }
+                if (searchType == SearchType.NO_SEARCH) {
+                    setMessageForEmptyList(
+                            R.string.file_list_empty_headline,
+                            R.string.file_list_empty,
+                            R.drawable.ic_list_empty_folder
+                    );
+                } else if (searchType == SearchType.FILE_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty, R.drawable.ic_search_light_grey);
+                } else if (searchType == SearchType.FAVORITE_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_favorite_headline,
+                            R.string.file_list_empty_favorites_filter_list, R.drawable.ic_star_light_grey);
+                } else if (searchType == SearchType.VIDEO_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
+                            R.string.file_list_empty_text_videos, R.drawable.ic_list_empty_video);
+                } else if (searchType == SearchType.PHOTO_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
+                            R.string.file_list_empty_text_photos, R.drawable.ic_list_empty_image);
+                } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_recently_modified, R.drawable.ic_list_empty_recent);
+                } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_recently_added, R.drawable.ic_list_empty_recent);
+                } else if (searchType == SearchType.REGULAR_FILTER) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_search,
+                            R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
+                } else if (searchType == SearchType.FAVORITE_SEARCH_FILTER) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_favorites_filter, R.drawable.ic_star_light_grey);
+                } else if (searchType == SearchType.VIDEO_SEARCH_FILTER) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
+                            R.string.file_list_empty_text_videos_filter, R.drawable.ic_list_empty_video);
+                } else if (searchType == SearchType.PHOTOS_SEARCH_FILTER) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search_photos,
+                            R.string.file_list_empty_text_photos_filter, R.drawable.ic_list_empty_image);
+                } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH_FILTER) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_recently_modified_filter, R.drawable.ic_list_empty_recent);
+                } else if (searchType == SearchType.RECENTLY_ADDED_SEARCH_FILTER) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                            R.string.file_list_empty_recently_added_filter, R.drawable.ic_list_empty_recent);
+                } else if (searchType == SearchType.SHARED_FILTER) {
+                    setMessageForEmptyList(R.string.file_list_empty_shared_headline,
+                            R.string.file_list_empty_shared, R.drawable.ic_list_empty_shared);
+                }
+            }
+        });
     }
 
     /**
      * Set message for empty list view.
      */
     public void setEmptyListLoadingMessage() {
-        if (mEmptyListContainer != null && mEmptyListMessage != null) {
-            mEmptyListHeadline.setText(R.string.file_list_loading);
-            mEmptyListMessage.setText("");
+        new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+                if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                    mEmptyListHeadline.setText(R.string.file_list_loading);
+                    mEmptyListMessage.setText("");
 
-            mEmptyListIcon.setVisibility(View.GONE);
-            mEmptyListProgress.setVisibility(View.VISIBLE);
-        }
+                    mEmptyListIcon.setVisibility(View.GONE);
+                    mEmptyListProgress.setVisibility(View.VISIBLE);
+                }
+            }
+        });
     }
 
     /**
      * Get the text of EmptyListMessage TextView.
-     * 
+     *
      * @return String empty text view text-value
      */
     public String getEmptyViewText() {
@@ -632,7 +750,7 @@ public class ExtendedListFragment extends Fragment
     protected void setFooterEnabled(boolean enabled) {
         if (enabled) {
             if (mGridView.getFooterViewCount() == 0 && mGridView.isCorrectAdapter()) {
-                if (mGridFooterView.getParent() != null ) {
+                if (mGridFooterView.getParent() != null) {
                     ((ViewGroup) mGridFooterView.getParent()).removeView(mGridFooterView);
                 }
                 mGridView.addFooterView(mGridFooterView, null, false);
@@ -640,7 +758,7 @@ public class ExtendedListFragment extends Fragment
             mGridFooterView.invalidate();
 
             if (mListView.getFooterViewsCount() == 0) {
-                if (mListFooterView.getParent() != null ) {
+                if (mListFooterView.getParent() != null) {
                     ((ViewGroup) mListFooterView.getParent()).removeView(mListFooterView);
                 }
                 mListView.addFooterView(mListFooterView, null, false);
@@ -660,8 +778,8 @@ public class ExtendedListFragment extends Fragment
      */
     protected void setFooterText(String text) {
         if (text != null && text.length() > 0) {
-            ((TextView)mListFooterView.findViewById(R.id.footerText)).setText(text);
-            ((TextView)mGridFooterView.findViewById(R.id.footerText)).setText(text);
+            ((TextView) mListFooterView.findViewById(R.id.footerText)).setText(text);
+            ((TextView) mGridFooterView.findViewById(R.id.footerText)).setText(text);
             setFooterEnabled(true);
 
         } else {
