@@ -25,6 +25,7 @@
     <string name="drawer_item_on_device">Na urządzeniu</string>
     <string name="drawer_item_settings">Ustawienia</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
+    <string name="drawer_item_activities">Aktywności</string>
     <string name="drawer_quota">Użyto %1$s z %2$s</string>
 	<string name="drawer_close">Zamknij</string>
     <string name="drawer_open">Otwórz</string>
@@ -540,6 +541,9 @@
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
 
+    <string name="activity_list_loading_activity">Ładuję aktywności&#8230;</string>
+    <string name="activity_list_no_results">Nie znaleziono żadnych aktywności.</string>
+
     <string name="upload_file_dialog_title">Wprowadź nazwę i typ wysyłanego pliku</string>
     <string name="upload_file_dialog_filename">Nazwa pliku</string>
     <string name="upload_file_dialog_filetype">Typ pliku</string>
@@ -576,4 +580,9 @@
 
     <string name="user_information_description">Informacje użytkownika</string>
 
-    </resources>
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Brak aktywności</string>
+    <string name="activities_no_results_message">Ten strumień pokaże zdarzenia jak\ndodatki, zmiany &amp; udziały</string>
+
+
+</resources>
