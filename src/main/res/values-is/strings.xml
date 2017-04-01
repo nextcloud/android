@@ -13,10 +13,19 @@
     <string name="actionbar_send_file">Senda</string>
     <string name="actionbar_sort">Raða</string>
     <string name="actionbar_sort_title">Raða sem</string>
+    <string name="sort_by">Raða eftir</string>
+    <string name="menu_item_sort_by_name_a_z">A - Ö</string>
+    <string name="menu_item_sort_by_name_z_a">Ö - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Nýjast fyrst</string>
+    <string name="menu_item_sort_by_date_oldest_first">Elsta fyrst</string>
+    <string name="menu_item_sort_by_size_biggest_first">Stærsta fyrst</string>
+    <string name="menu_item_sort_by_size_smallest_first">Minnsta fyrst</string>
+
     <string name="drawer_item_all_files">Allar skrár</string>
-    <string name="drawer_item_on_device">á tækinu</string>
+    <string name="drawer_item_on_device">Á tækinu</string>
     <string name="drawer_item_settings">Stillingar</string>
     <string name="drawer_item_uploads_list">Innsendingar</string>
+    <string name="drawer_item_activities">Virkni</string>
     <string name="drawer_quota">%1$s af %2$s notað</string>
 	<string name="drawer_close">Loka</string>
     <string name="drawer_open">Opna</string>
@@ -312,6 +321,7 @@
     <string name="conflict_use_local_version">útgáfu á tölvu</string>
     <string name="conflict_use_server_version">útgáfu á þjóni</string>
 
+    <string name="preview_sorry">Leiðinlegt þetta!</string>
     <string name="preview_image_description">Forskoðun myndar</string>
     <string name="preview_image_error_unknown_format">Ekki er hægt að birta myndina</string>
 
@@ -506,6 +516,8 @@
     <string name="participate_testing_bug_text">Fannstu villu? Eitthvað er skrýtið?</string>
     <string name="participate_testing_report_text">Tilkynna um vandamál á Github</string>
     <string name="participate_testing_version_text">Hefurðu áhuga á að hjálpa okkur með næstu útgáfu?</string>
+    <string name="participate_beta_headline">Prófa náttfaraútgáfuna</string>
+    <string name="participate_beta_text">Þetta innifelur alla nýjust eiginleika og er alveg á jaðri framþróunarinnar. Villur og hnökrar geta komið upp, og ef slíkt gerist skaltu endilega tilkynna um þær til okkar.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
     <string name="participate_release_candidate_text">Útgáfukandídatinn (release candidate = RC) er skyndiútgáfa af væntanlegri útgáfu og er ætlað að vera nokkuð stöðug. Þú getur hjálpað til við að tryggja stöðugleikann með því að prófa þína eigin uppsetningu. Skráðu þig í prófanir í Play Store eða handvirkt með því að fara í \"útgáfur\"-hlutann í F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
@@ -526,6 +538,9 @@
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">Hleð inn virkniupplýsingum &#8230;</string>
+    <string name="activity_list_no_results">Engin virkni fannst.</string>
 
     <string name="upload_file_dialog_title">Settu inn skráaheiti og skráagerð fyrir innsendingu</string>
     <string name="upload_file_dialog_filename">Skráarheiti</string>
@@ -553,4 +568,19 @@
 
     <string name="whats_new_skip">Sleppa</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">Fullt nafn</string>
+    <string name="user_info_email">Tölvupóstfang</string>
+    <string name="user_info_phone">Símanúmer</string>
+    <string name="user_info_address">Heimilisfang</string>
+    <string name="user_info_website">Vefsvæði</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Upplýsingar um notanda</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Engin virkni ennþá</string>
+    <string name="activities_no_results_message">Streymið mun birta atburði á borð við\nviðbætingar, breytingar og deilingar</string>
+
+
+</resources>
