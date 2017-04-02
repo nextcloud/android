@@ -22,7 +22,15 @@
     <string name="menu_item_sort_by_size_smallest_first">Küçükten Büyüğe</string>
 
     <string name="drawer_item_all_files">Tüm dosyalar</string>
+    <string name="drawer_item_files">Dosyalar</string>
+    <string name="drawer_item_home">Giriş</string>
+    <string name="drawer_item_favorites">Sık Kullanılanlar</string>
+    <string name="drawer_item_photos">Fotoğraflar</string>
     <string name="drawer_item_on_device">Aygıt üzerinde</string>
+    <string name="drawer_item_recently_added">Son Eklenenler</string>
+    <string name="drawer_item_recently_modified">Son Değiştirilenler</string>
+    <string name="drawer_item_shared">Paylaşıldı</string>
+    <string name="drawer_item_videos">Görüntüler</string>
     <string name="drawer_item_settings">Ayarlar</string>
     <string name="drawer_item_uploads_list">Yüklemeler</string>
     <string name="drawer_item_activities">İşlemler</string>
@@ -86,13 +94,31 @@
     <string name="file_list_seconds_ago">saniye önce</string>
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin!</string>
+    <string name="file_list_empty_favorites">Bazı dosyaları sık kullanılanlara ekleyin ya da aygıtlarınızla paylaşın!</string>
+    <string name="file_list_empty_favorites_filter_list">Sık kullanılanlara eklediğiniz dosya ve klasörler burada görüntülenir</string>
+    <string name="file_list_empty_favorites_filter">Arama sonucunda sık kullanılan bir dosya bulunamadı!</string>
     <string name="file_list_loading">Yükleniyor&#8230;</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı!</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
     <string name="file_list_empty_headline_search">Bu klasörde herhangi bir sonuç yok</string>
+    <string name="file_list_empty_headline_server_search">Herhangi bir sonuç bulunamadı</string>
+    <string name="file_list_empty_favorite_headline">Herhangi bir sık kullanılan öge bulunamadı</string>
+    <string name="file_list_empty_shared_headline">Henüz hiçbir şey paylaşılmamış</string>
+    <string name="file_list_empty_shared">Paylaştığınız dosya ve klasörler burada görüntülenir</string>
+    <string name="file_list_empty_headline_server_search_videos">Herhangi bir görüntü bulunamadı</string>
+    <string name="file_list_empty_headline_server_search_photos">Herhangi bir fotoğraf bulunamadı</string>
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
+    <string name="file_list_empty_recently_modified">Son 7 gün içinde değiştirilmiş herhangi bir dosya bulunamadı</string>
+    <string name="file_list_empty_recently_modified_filter">Son 7 gün içinde değiştirilmiş herhangi bir dosya bulunamadı!</string>
+    <string name="file_list_empty_recently_added">Geçenlerde eklenmiş herhangi bir dosya bulunamadı</string>
+    <string name="file_list_empty_recently_added_filter">Arama sonucunda geçenlerde eklenmiş bir dosya bulunamadı!</string>
+    <string name="file_list_empty_text_photos">Bazı fotoğraflar yükleyin ya da otomatik yüklemeyi etkinleştirin!</string>
+    <string name="file_list_empty_text_photos_filter">Arama sonucunda herhangi bir fotoğraf bulunamadı!</string>
+    <string name="file_list_empty_text_videos">Bazı görüntüler yükleyin ya da otomatik yüklemeyi etkinleştirin!</string>
+    <string name="file_list_empty_text_videos_filter">Arama sonucunda herhangi bir görüntü bulunamadı!</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
     <string name="upload_list_empty_text">Buraya bazı içerikler yükleyin ya da anında yüklemeyi etkinleştirin!</string>
+    <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin!</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_folders">klasör</string>
     <string name="file_list_file">dosya</string>
@@ -248,6 +274,8 @@
     
     <string name="favorite">Çevrimdışı kullanılabilir olarak işaretle</string>
     <string name="unfavorite">Çevrimdışı kullanılabilir işaretini kaldır</string>
+    <string name="favorite_real">Sık Kullanılanlara Ekle</string>
+    <string name="unset_favorite_real">Sık Kullanılanlardan Çıkar</string>
     <string name="common_rename">Yeniden adlandır</string>
     <string name="common_remove">Sil</string>
     <string name="confirmation_remove_file_alert">%1$s silinsin mi?</string>
