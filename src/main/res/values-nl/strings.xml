@@ -13,10 +13,23 @@
     <string name="actionbar_send_file">Versturen</string>
     <string name="actionbar_sort">Sorteren</string>
     <string name="actionbar_sort_title">Sorteer op</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_oldest_first">Oudste eers</string>
+    <string name="menu_item_sort_by_size_biggest_first">Grootste eerst</string>
+    <string name="menu_item_sort_by_size_smallest_first">Kleinste eerst</string>
+
     <string name="drawer_item_all_files">Alle bestanden</string>
+    <string name="drawer_item_files">Bestanden</string>
+    <string name="drawer_item_home">Thuis</string>
+    <string name="drawer_item_favorites">Favorieten</string>
+    <string name="drawer_item_photos">Foto\'s</string>
     <string name="drawer_item_on_device">Op het apparaat</string>
+    <string name="drawer_item_shared">Gedeel</string>
+    <string name="drawer_item_videos">Video\'s</string>
     <string name="drawer_item_settings">Instellingen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
+    <string name="drawer_item_activities">Activiteiten</string>
     <string name="drawer_quota">%1$s van %2$s gebruikt</string>
 	<string name="drawer_close">Sluiten</string>
     <string name="drawer_open">Openen</string>
@@ -81,6 +94,10 @@
     <string name="file_list_no_app_for_file_type">Geen app gevonden voor dit bestandsformaat!</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
     <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
+    <string name="file_list_empty_headline_server_search">Geen resultaten</string>
+    <string name="file_list_empty_favorite_headline">Geen favorieten</string>
+    <string name="file_list_empty_headline_server_search_videos">Geen video\'s</string>
+    <string name="file_list_empty_headline_server_search_photos">Geen foto\'s</string>
     <string name="file_list_empty_search">In een andere map kijken?</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text">Upload bestanden of activeer directe uploads!</string>
@@ -530,6 +547,8 @@
         <item quantity="other">%d geselecteerd</item>
     </plurals>
 
+    <string name="activity_list_no_results">Geen activiteiten gevonden.</string>
+
     <string name="upload_file_dialog_title">Opgeven upload bestandsnaam en bestandstype</string>
     <string name="upload_file_dialog_filename">Bestandsnaam</string>
     <string name="upload_file_dialog_filetype">Bestandstype</string>
@@ -566,4 +585,6 @@
 
     <string name="user_information_description">Gebruikersinformatie</string>
 
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Nog geen activiteit</string>
     </resources>

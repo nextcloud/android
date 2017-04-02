@@ -22,7 +22,15 @@
     <string name="menu_item_sort_by_size_smallest_first">Маленькие–большие</string>
 
     <string name="drawer_item_all_files">Все файлы</string>
+    <string name="drawer_item_files">Файлы</string>
+    <string name="drawer_item_home">Главная</string>
+    <string name="drawer_item_favorites">Избранное</string>
+    <string name="drawer_item_photos">Фотографии</string>
     <string name="drawer_item_on_device">На устройстве</string>
+    <string name="drawer_item_recently_added">Недавно добавленные</string>
+    <string name="drawer_item_recently_modified">Недавно изменённые</string>
+    <string name="drawer_item_shared">Опубликованное</string>
+    <string name="drawer_item_videos">Видео</string>
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Загрузки</string>
     <string name="drawer_item_activities">События</string>
@@ -88,13 +96,32 @@
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_list_empty_headline">Здесь нет файлов</string>
     <string name="file_list_empty">Загрузите что-нибудь или синхронизируйте со своими устройствами!</string>
+    <string name="file_list_empty_favorites">Добавьте файлы в избранное или синхнонизируйте со своими устройствами!</string>
+    <string name="file_list_empty_favorites_filter_list">Здесь появятся файлы и каталоги, отмеченные как избранные</string>
+    <string name="file_list_empty_favorites_filter">По запросу избранных файлов не найдено</string>
     <string name="file_list_loading">Загрузка&#8230;</string>
     <string name="file_list_no_app_for_file_type">Приложение для этого типа файла не найдено!</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
     <string name="file_list_empty_headline_search">В этой папке результатов не найдено</string>
+    <string name="file_list_empty_headline_server_search">Результаты отсутствуют</string>
+    <string name="file_list_empty_favorite_headline">Избранное отсутствует</string>
+    <string name="file_list_empty_shared_headline">Вы еще ничем не поделились</string>
+    <string name="file_list_empty_shared">Здесь появятся файлы и каталоги, которыми вы поделитесь</string>
+    <string name="file_list_empty_headline_server_search_videos">Видео отсуствуют</string>
+    <string name="file_list_empty_headline_server_search_photos">Фотографии отсутствуют</string>
     <string name="file_list_empty_search">Искать в другом каталоге?</string>
+    <string name="file_list_empty_recently_modified">Не найдно файлов, изменённых за последние 7 дней</string>
+    <string name="file_list_empty_recently_modified_filter">По запросу не найдно файлов, 
+изменённых за последние 7 дней!</string>
+    <string name="file_list_empty_recently_added">Не найдено файлов, добавленных недавно</string>
+    <string name="file_list_empty_recently_added_filter">По запросу не найдено файлов, добавленных недавно!</string>
+    <string name="file_list_empty_text_photos">Загрузите фотографии или включите автоматическую загрузку!</string>
+    <string name="file_list_empty_text_photos_filter">По запросу фото не найдено!</string>
+    <string name="file_list_empty_text_videos">Загрузите видео или включите автоматическую загрузку!</string>
+    <string name="file_list_empty_text_videos_filter">По запросу видео–файлов не найдено!</string>
     <string name="upload_list_empty_headline">Нет доступных загрузок</string>
     <string name="upload_list_empty_text">Загрузите что-нибудь или включите автоматическую загрузку!</string>
+    <string name="upload_list_empty_text_auto_upload">Загрузите что-нибудь или включите автоматическую загрузку!</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_folders">каталоги</string>
     <string name="file_list_file">файл</string>
@@ -250,6 +277,8 @@
     
     <string name="favorite">Сделать доступным автономно</string>
     <string name="unfavorite">Убрать автономную доступность</string>
+    <string name="favorite_real">Пометить как избранное</string>
+    <string name="unset_favorite_real">Убрать из избранного</string>
     <string name="common_rename">Переименовать</string>
     <string name="common_remove">Удалить</string>
     <string name="confirmation_remove_file_alert">Вы действительно хотите удалить %1$s?</string>

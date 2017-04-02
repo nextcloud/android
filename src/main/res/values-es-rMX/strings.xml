@@ -85,6 +85,8 @@
     <string name="file_list_seconds_ago">hace algunos segundos</string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty">¡Cargue algún contenido o sincronice con sus dispositivos!</string>
+    <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas marcados como favoritos se mostrarán aquí</string>
+    <string name="file_list_empty_favorites_filter">¡No se encontraron archivos marcados como favoritos en su consulta!</string>
     <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">¡No se encontró una aplicación para este tipo de archivo!</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
