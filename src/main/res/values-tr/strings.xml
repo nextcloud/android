@@ -55,7 +55,7 @@
     <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVdroid (v1.3.0+) kurulumu</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Hesabın sunucu adresi DAVdroid tarafından çözümlenemedi</string>
-    <string name="prefs_calendar_contacts_no_store_error">Google Play mağazası yok ya da F-Droid uygulaması yüklenmemiş</string>
+    <string name="prefs_calendar_contacts_no_store_error">Google Play mağazası yok ya da F-Droid uygulaması kurulmamış</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitlemesi ayarlandı</string>
     <string name="prefs_help">Yardım</string>
     <string name="prefs_recommend">Arkadaşınıza önerin</string>
@@ -423,7 +423,7 @@
 
 	<string name="actionbar_logger">Günlükler</string>
 	<string name="log_send_history_button">Geçmişi gönder</string>
-	<string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması yükleyin.</string>
+	<string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması kurun.</string>
 	<string name="log_send_mail_subject">%1$s Android uygulaması günlükleri</string>
 	<string name="log_progress_dialog_text">Veri yükleniyor&#8230;</string>
 

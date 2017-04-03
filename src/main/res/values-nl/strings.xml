@@ -13,9 +13,11 @@
     <string name="actionbar_send_file">Versturen</string>
     <string name="actionbar_sort">Sorteren</string>
     <string name="actionbar_sort_title">Sorteer op</string>
+    <string name="sort_by">Sorteer op</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
-    <string name="menu_item_sort_by_date_oldest_first">Oudste eers</string>
+    <string name="menu_item_sort_by_date_newest_first">Nieuwste eerst</string>
+    <string name="menu_item_sort_by_date_oldest_first">Oudste eerst</string>
     <string name="menu_item_sort_by_size_biggest_first">Grootste eerst</string>
     <string name="menu_item_sort_by_size_smallest_first">Kleinste eerst</string>
 
@@ -25,6 +27,8 @@
     <string name="drawer_item_favorites">Favorieten</string>
     <string name="drawer_item_photos">Foto\'s</string>
     <string name="drawer_item_on_device">Op het apparaat</string>
+    <string name="drawer_item_recently_added">Recent toegevoged</string>
+    <string name="drawer_item_recently_modified">Recent gewijzigd</string>
     <string name="drawer_item_shared">Gedeel</string>
     <string name="drawer_item_videos">Video\'s</string>
     <string name="drawer_item_settings">Instellingen</string>
@@ -96,9 +100,14 @@
     <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
     <string name="file_list_empty_headline_server_search">Geen resultaten</string>
     <string name="file_list_empty_favorite_headline">Geen favorieten</string>
+    <string name="file_list_empty_shared_headline">Nog niets gedeeld</string>
+    <string name="file_list_empty_shared">Bestanden en mappen die je deelt, worden hier getoond</string>
     <string name="file_list_empty_headline_server_search_videos">Geen video\'s</string>
     <string name="file_list_empty_headline_server_search_photos">Geen foto\'s</string>
     <string name="file_list_empty_search">In een andere map kijken?</string>
+    <string name="file_list_empty_recently_modified">Geen bestanden gevonden die  de laatste 7 dagen zijn gewijzigd</string>
+    <string name="file_list_empty_text_photos_filter">Geen foto\'s voor je zoekopdracht gevonden!</string>
+    <string name="file_list_empty_text_videos_filter">Geen video\'s voor je zoekopdracht gevonden!</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text">Upload bestanden of activeer directe uploads!</string>
     <string name="file_list_folder">map</string>
@@ -256,6 +265,8 @@
     
     <string name="favorite">Offline beschikbaar maken</string>
     <string name="unfavorite">Niet langer offline beschikbaar maken</string>
+    <string name="favorite_real">Instellen als favoriet</string>
+    <string name="unset_favorite_real">Weghalen als favoriet</string>
     <string name="common_rename">Hernoemen</string>
     <string name="common_remove">Verwijderen</string>
     <string name="confirmation_remove_file_alert">Wil je %1$s echt verwijderen?</string>
@@ -547,6 +558,7 @@
         <item quantity="other">%d geselecteerd</item>
     </plurals>
 
+    <string name="activity_list_loading_activity">Laden activiteiten&#8230;</string>
     <string name="activity_list_no_results">Geen activiteiten gevonden.</string>
 
     <string name="upload_file_dialog_title">Opgeven upload bestandsnaam en bestandstype</string>
@@ -587,4 +599,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nog geen activiteit</string>
-    </resources>
+    <string name="activities_no_results_message">Deze stream laat gebeurtenissen zoals\toevoegingen, veranderingen &amp; gedeelde bestanden zien</string>
+
+
+</resources>

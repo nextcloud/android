@@ -22,9 +22,18 @@
     <string name="menu_item_sort_by_size_smallest_first">Kisebbek elöl</string>
 
     <string name="drawer_item_all_files">Összes fájl</string>
+    <string name="drawer_item_files">Fájlok</string>
+    <string name="drawer_item_home">Saját mappa</string>
+    <string name="drawer_item_favorites">Kedvencek</string>
+    <string name="drawer_item_photos">Fényképek</string>
     <string name="drawer_item_on_device">Az eszközön</string>
+    <string name="drawer_item_recently_added">Utoljára hozzáadva</string>
+    <string name="drawer_item_recently_modified">Utoljára módosítva</string>
+    <string name="drawer_item_shared">Megosztott</string>
+    <string name="drawer_item_videos">Videók</string>
     <string name="drawer_item_settings">Beállítások</string>
     <string name="drawer_item_uploads_list">Feltöltések</string>
+    <string name="drawer_item_activities">Tevékenységek</string>
     <string name="drawer_quota">%1$s felhasználva ennyiből: %2$s</string>
 	<string name="drawer_close">Bezárás</string>
     <string name="drawer_open">Megnyitás</string>
