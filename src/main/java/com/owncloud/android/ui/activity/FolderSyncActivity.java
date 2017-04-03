@@ -48,6 +48,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.ui.adapter.FolderSyncAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
@@ -177,8 +178,14 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         new Thread(new Runnable() {
             @Override
             public void run() {
-                final List<MediaFolder> mediaFolders = MediaProvider.getMediaFolders(getContentResolver(),
+                final List<MediaFolder> mediaFolders = MediaProvider.getImageFolders(getContentResolver(),
                         perFolderMediaItemLimit, FolderSyncActivity.this);
+                Log_OC.w(TAG, "Picture Folders: " + mediaFolders.size());
+                mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(),perFolderMediaItemLimit));
+                Log_OC.w(TAG, "Picture+Video Folders: " + mediaFolders.size());
+
+                //TODO properly merge image and video lists to remove duplicates
+
                 List<SyncedFolder> syncedFolderArrayList = mSyncedFolderProvider.getSyncedFolders();
                 List<SyncedFolder> currentAccountSyncedFoldersList = new ArrayList<>();
                 Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(FolderSyncActivity.this);
