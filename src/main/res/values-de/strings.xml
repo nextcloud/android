@@ -22,9 +22,18 @@
     <string name="menu_item_sort_by_size_smallest_first">Kleinste zuerst</string>
 
     <string name="drawer_item_all_files">Alle Dateien</string>
+    <string name="drawer_item_files">Dateien</string>
+    <string name="drawer_item_home">Home</string>
+    <string name="drawer_item_favorites">Favoriten</string>
+    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
+    <string name="drawer_item_recently_added">Kürzlich hinzugefügt</string>
+    <string name="drawer_item_recently_modified">Kürzlich geändert</string>
+    <string name="drawer_item_shared">Geteilt</string>
+    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_item_settings">Einstellungen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
+    <string name="drawer_item_activities">Aktivitäten</string>
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
 	<string name="drawer_close">Schließen</string>
     <string name="drawer_open">Öffnen</string>
@@ -85,13 +94,32 @@
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_list_empty_headline">Keine Dateien vorhanden</string>
     <string name="file_list_empty">Lade Inhalt hoch oder synchronisiere mit Deinen Geräten!</string>
+    <string name="file_list_empty_favorites">Favorisiere einige Dateien oder synchronisiere deine Geräte!</string>
+    <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier</string>
+    <string name="file_list_empty_favorites_filter">Keine favorisierten Dateien in deinem Verlauf gefunden!</string>
     <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
+    <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
+    <string name="file_list_empty_favorite_headline">Keine Favoriten</string>
+    <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
+    <string name="file_list_empty_shared">Von dir geteilte Dateien und Ordner werden hier erscheinen</string>
+    <string name="file_list_empty_headline_server_search_videos">Keine Videos</string>
+    <string name="file_list_empty_headline_server_search_photos">Keine Fotos</string>
     <string name="file_list_empty_search">Soll in einem anderen Ordner nachgesehen werden?</string>
+    <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
+    <string name="file_list_empty_recently_modified_filter">Keine Dateien in deinem Verlauf gefunden,
+        die in den letzten 7 Tagen geändert wurden!</string>
+    <string name="file_list_empty_recently_added">Keine kürzlich hinzu gefügten Dateien gefunden</string>
+    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzu gefügten Dateien in deinem Verlauf gefunden!</string>
+    <string name="file_list_empty_text_photos">Lade Fotos hoch oder aktiviere den Sofortupload!</string>
+    <string name="file_list_empty_text_photos_filter">Keine Fotos in deinem Verlauf gefunden!</string>
+    <string name="file_list_empty_text_videos">Lade einige Videos hoch oder aktiviere den Sofortupload!</string>
+    <string name="file_list_empty_text_videos_filter">Keine Videos in deinem Verlauf gefunden!</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text">Lade Inhalt hoch oder aktiviere den Sofortupload!</string>
+    <string name="upload_list_empty_text_auto_upload">Lade Inhalt hoch oder aktiviere den Sofortupload!</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_folders">Ordner</string>
     <string name="file_list_file">Datei</string>
@@ -247,6 +275,8 @@
     
     <string name="favorite">Als Offline verfügbar markieren</string>
     <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
+    <string name="favorite_real">Als Favorit markieren</string>
+    <string name="unset_favorite_real">Markierung als Favorit entfernen</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_remove">Entfernen</string>
     <string name="confirmation_remove_file_alert">Möchtest Du %1$s wirklich entfernen?</string>
@@ -538,6 +568,9 @@
         <item quantity="other">%d ausgewählt</item>
     </plurals>
 
+    <string name="activity_list_loading_activity">Lade Aktivitäten&#8230;</string>
+    <string name="activity_list_no_results">Keine Aktivitäten gefunden.</string>
+
     <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
     <string name="upload_file_dialog_filename">Dateiname</string>
     <string name="upload_file_dialog_filetype">Dateityp</string>
@@ -574,4 +607,9 @@
 
     <string name="user_information_description">Benutzerinformation</string>
 
-    </resources>
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Bislang keine Aktivitäten</string>
+    <string name="activities_no_results_message">Dieser Stream zeigt Ereignisse wie\nHinzugekommenes, Änderungen &amp; und Freigaben an</string>
+
+
+</resources>
