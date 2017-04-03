@@ -31,6 +31,7 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
     private List<String> filePaths;
     private String folderName;
     private long numberOfFiles;
+    private int type;
 
     /**
      * constructor for the display item specialization for a synced folder object.
@@ -47,14 +48,16 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      * @param filePaths       the UI info for the file path
      * @param folderName      the UI info for the folder's name
      * @param numberOfFiles   the UI info for number of files within the folder
+     * @param type            the type of the folder
      */
     public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
                                    Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                                   List<String> filePaths, String folderName, long numberOfFiles) {
+                                   List<String> filePaths, String folderName, long numberOfFiles, int type) {
         super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
+        this.type = type;
     }
 
     public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
@@ -63,7 +66,6 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
         super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled);
         this.folderName = folderName;
     }
-
 
     public List<String> getFilePaths() {
         return filePaths;
@@ -87,5 +89,13 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
 
     public void setNumberOfFiles(long numberOfFiles) {
         this.numberOfFiles = numberOfFiles;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

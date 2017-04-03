@@ -33,6 +33,7 @@ import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.ThemeUtils;
@@ -90,6 +91,11 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     @Override
     public void onBindHeaderViewHolder(final MainViewHolder holder, final int section) {
         holder.title.setText(mSyncFolderItems.get(section).getFolderName());
+        if (MediaFolder.VIDEO == mSyncFolderItems.get(section).getType()) {
+            holder.type.setImageResource(R.drawable.ic_video_18dp);
+        } else {
+            holder.type.setImageResource(R.drawable.ic_image_18dp);
+        }
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
         holder.syncStatusButton.setOnClickListener(new View.OnClickListener() {
@@ -175,6 +181,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     static class MainViewHolder extends RecyclerView.ViewHolder {
         private final ImageView image;
         private final TextView title;
+        private final ImageView type;
         private final ImageButton menuButton;
         private final ImageButton syncStatusButton;
         private final LinearLayout counterBar;
@@ -185,6 +192,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.thumbnail);
             title = (TextView) itemView.findViewById(R.id.title);
+            type = (ImageView) itemView.findViewById(R.id.type);
             menuButton = (ImageButton) itemView.findViewById(R.id.settingsButton);
             syncStatusButton = (ImageButton) itemView.findViewById(R.id.syncStatusButton);
             counterBar = (LinearLayout) itemView.findViewById(R.id.counterLayout);
