@@ -467,7 +467,6 @@ public class ThumbnailsCacheManager {
 
                 if (bitmap != null) {
                     if (tagId.equals(String.valueOf(imageView.getTag()))) {
-                        Log_OC.e(TAG, "SET RENDERED VIDEO THUMBNAIL");
                         imageView.setImageBitmap(bitmap);
                     }
                 } else {
@@ -477,7 +476,6 @@ public class ThumbnailsCacheManager {
                         } else {
                             if (MimeTypeUtil.isVideo(mFile)) {
                                 imageView.setImageBitmap(ThumbnailsCacheManager.mDefaultVideo);
-                                Log_OC.e(TAG, "SET VIDEO THUMBNAIL");
                             } else {
                                 imageView.setImageResource(MimeTypeUtil.getFileTypeIconId(null, mFile.getName()));
                             }
