@@ -120,8 +120,7 @@ public class BitmapUtils {
         float scale = px / max;
         int w = Math.round(scale * width);
         int h = Math.round(scale * height);
-        bitmap = Bitmap.createScaledBitmap(bitmap, w, h, true);
-        return bitmap;
+        return Bitmap.createScaledBitmap(bitmap, w, h, true);
     }
     
     /**
