@@ -512,7 +512,7 @@ public class ThumbnailsCacheManager {
         }
 
         private Bitmap doVideoInBackground(File file) {
-            Bitmap bitmap = null;
+            Bitmap bitmap;
             final String imageKey;
 
             if (mImageKey != null) {
@@ -522,10 +522,10 @@ public class ThumbnailsCacheManager {
             }
 
             // Check disk cache in background thread
-            Bitmap thumbnail = getBitmapFromDiskCache(imageKey);
+            bitmap = getBitmapFromDiskCache(imageKey);
 
             // Not found in disk cache
-            if (thumbnail == null) {
+            if (bitmap == null) {
                 MediaMetadataRetriever retriever = new MediaMetadataRetriever();
                 try {
                     retriever.setDataSource(file.getAbsolutePath());
