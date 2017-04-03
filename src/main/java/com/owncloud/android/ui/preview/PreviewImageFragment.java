@@ -358,7 +358,7 @@ public class PreviewImageFragment extends FileFragment {
             case R.id.action_sync_file:
                 mContainerActivity.getFileOperationsHelper().syncFile(getFile());
                 return true;
-            }
+
             default:
                 return super.onOptionsItemSelected(item);
         }
