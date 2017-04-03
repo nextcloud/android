@@ -25,8 +25,8 @@
                 android:paddingBottom="@dimen/alternate_half_padding"
                 android:paddingLeft="@dimen/standard_padding">
 
-    <TextView
-        android:id="@+id/title"
+    <LinearLayout
+        android:id="@+id/title_container"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/buttonBar"
@@ -38,6 +38,26 @@
         android:text="@string/placeholder_filename"
         android:textColor="?android:textColorPrimary"
         android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:paddingRight="@dimen/standard_half_padding"
+            android:src="@drawable/ic_account_plus"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:ellipsize="middle"
+            android:text="Header Text"
+            android:textColor="?android:textColorPrimary"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/buttonBar"
