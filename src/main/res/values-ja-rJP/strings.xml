@@ -13,10 +13,27 @@
     <string name="actionbar_send_file">送信</string>
     <string name="actionbar_sort">ソート</string>
     <string name="actionbar_sort_title">ソート: </string>
+    <string name="sort_by">ソート</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">最新が最初</string>
+    <string name="menu_item_sort_by_date_oldest_first">古いものが最初</string>
+    <string name="menu_item_sort_by_size_biggest_first">大きいものが最初</string>
+    <string name="menu_item_sort_by_size_smallest_first">小さいものが最初</string>
+
     <string name="drawer_item_all_files">すべてのファイル</string>
+    <string name="drawer_item_files">ファイル</string>
+    <string name="drawer_item_home">ホーム</string>
+    <string name="drawer_item_favorites">お気に入り</string>
+    <string name="drawer_item_photos">写真</string>
     <string name="drawer_item_on_device">デバイス上</string>
+    <string name="drawer_item_recently_added">最近追加</string>
+    <string name="drawer_item_recently_modified">最近更新</string>
+    <string name="drawer_item_shared">共有中</string>
+    <string name="drawer_item_videos">ビデオ</string>
     <string name="drawer_item_settings">設定</string>
     <string name="drawer_item_uploads_list">アップロード</string>
+    <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_quota">%2$s 中%1$s が使われています。</string>
 	<string name="drawer_close">閉じる</string>
     <string name="drawer_open">開く</string>
@@ -78,13 +95,32 @@
     <string name="file_list_seconds_ago">数秒前</string>
     <string name="file_list_empty_headline">ファイルがありません。</string>
     <string name="file_list_empty">何かコンテンツをアップロードするか、デバイスからファイルを同期してください！</string>
+    <string name="file_list_empty_favorites">ファイルをお気に入りに登録するか、デバイスとファイルを同期してください!</string>
+    <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーは、ここに表示されます</string>
+    <string name="file_list_empty_favorites_filter">お気に入りのファイルが見つかりませんでした!</string>
     <string name="file_list_loading">読込中&#8230;</string>
     <string name="file_list_no_app_for_file_type">ファイルタイプ に対応するアプリはありません！</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="file_list_empty_headline_search">このフォルダーの結果はありません</string>
+    <string name="file_list_empty_headline_server_search">結果なし</string>
+    <string name="file_list_empty_favorite_headline">お気に入りなし</string>
+    <string name="file_list_empty_shared_headline">まだ何も共有されていません</string>
+    <string name="file_list_empty_shared">共有したファイルやフォルダーは、ここに表示されます。</string>
+    <string name="file_list_empty_headline_server_search_videos">ビデオなし</string>
+    <string name="file_list_empty_headline_server_search_photos">写真なし</string>
     <string name="file_list_empty_search">別のフォルダーを見てみますか?</string>
+    <string name="file_list_empty_recently_modified">過去 7 日間に更新されたファイルはありません</string>
+    <string name="file_list_empty_recently_modified_filter">過去 7 日間に更新されたファイルは
+見つかりませんでした!</string>
+    <string name="file_list_empty_recently_added">最近追加したファイルはありません</string>
+    <string name="file_list_empty_recently_added_filter">最近追加したファイルが見つかりませんでした!</string>
+    <string name="file_list_empty_text_photos">何か写真をアップロードするか、自動アップロードを有効にしてください!</string>
+    <string name="file_list_empty_text_photos_filter">写真は見つかりませんでした!</string>
+    <string name="file_list_empty_text_videos">何かビデオをアップロードするか、自動アップロードを有効にしてください!</string>
+    <string name="file_list_empty_text_videos_filter">ビデオは見つかりませんでした!</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="upload_list_empty_text">何かコンテンツをアップロードするか、自動アップロードを有効にしてください！</string>
+    <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください！</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_folders">フォルダー</string>
     <string name="file_list_file">ファイル</string>
@@ -240,6 +276,8 @@
     
     <string name="favorite">オフラインで利用可能に設定</string>
     <string name="unfavorite">オフラインで利用不可に設定</string>
+    <string name="favorite_real">お気に入りとして登録</string>
+    <string name="unset_favorite_real">お気に入りの登録解除</string>
     <string name="common_rename">名前を変更</string>
     <string name="common_remove">削除</string>
     <string name="confirmation_remove_file_alert">本当に %1$s を削除しますか？</string>
@@ -508,6 +546,8 @@
     <string name="participate_testing_bug_text">バグがありましたか? なにか問題がありますか?</string>
     <string name="participate_testing_report_text">Githubでエラーを報告する</string>
     <string name="participate_testing_version_text">次のバージョンのテストに興味がありますか?</string>
+    <string name="participate_beta_headline">ナイトリーバージョンのテスト</string>
+    <string name="participate_beta_text">これは、すべての最新の機能が含まれており、非常に最先端です。 バグ/エラーが発生する可能性があります。もしその場合は、私たちに報告してください。</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_release_candidate_text">リリース候補(RC)は、今後のリリースのスナップショット であり、安定性が期待されます。 個々の設定をテストすることで、これを確実にすることができます。 Playストアでのテストに登録するか、F-Droidの「バージョン」セクションを手動で参照してください。</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
@@ -527,6 +567,9 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">アクティビティの読み込み中&#8230;</string>
+    <string name="activity_list_no_results">アクティビティが見つかりません。</string>
 
     <string name="upload_file_dialog_title">アップロードファイル名とファイルタイプを入力</string>
     <string name="upload_file_dialog_filename">ファイル名</string>
@@ -564,4 +607,10 @@
 
     <string name="user_information_description">ユーザー情報</string>
 
-    </resources>
+    <!-- Activities -->
+    <string name="activities_no_results_headline">まだアクティビティはありません</string>
+    <string name="activities_no_results_message">このタイムラインには、いいね\n
+追加、変更、共有が表示されます</string>
+
+
+</resources>

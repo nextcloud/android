@@ -22,7 +22,15 @@
     <string name="menu_item_sort_by_size_smallest_first">Najmniejsze najpierw</string>
 
     <string name="drawer_item_all_files">Wszystkie pliki</string>
+    <string name="drawer_item_files">Pliki</string>
+    <string name="drawer_item_home">Start</string>
+    <string name="drawer_item_favorites">Ulubione</string>
+    <string name="drawer_item_photos">Zdjęcia</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
+    <string name="drawer_item_recently_added">Ostatnio dodane</string>
+    <string name="drawer_item_recently_modified">Ostatnio modyfikowane</string>
+    <string name="drawer_item_shared">Współdzielone</string>
+    <string name="drawer_item_videos">Wideo</string>
     <string name="drawer_item_settings">Ustawienia</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
     <string name="drawer_item_activities">Aktywności</string>
@@ -86,13 +94,32 @@
     <string name="file_list_seconds_ago">sekund temu</string>
     <string name="file_list_empty_headline">Nie ma tu plików</string>
     <string name="file_list_empty">Wyślij pliki lub zsynchronizuj z twoimi urządzeniami!</string>
+    <string name="file_list_empty_favorites">Oznacz pliki jako ulubione lub synchrozniuj ze swoimi urządzeniami!</string>
+    <string name="file_list_empty_favorites_filter_list">Pliki i foldery oznaczone jako ulubione pokażą się tutaj</string>
+    <string name="file_list_empty_favorites_filter">Nie znaleziono ulbionych plików dla twojego zapytania!</string>
     <string name="file_list_loading">Wczytywanie&#8230;</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików!</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym folderze</string>
+    <string name="file_list_empty_headline_server_search">Brak wyników</string>
+    <string name="file_list_empty_favorite_headline">Brak ulubionych</string>
+    <string name="file_list_empty_shared_headline">Nic nie jest jeszcze współdzielone</string>
+    <string name="file_list_empty_shared">Pliki i foldery, które współdzielisz pokażą się tutaj</string>
+    <string name="file_list_empty_headline_server_search_videos">Brak plików wideo</string>
+    <string name="file_list_empty_headline_server_search_photos">Brak zdjęć</string>
     <string name="file_list_empty_search">Spróbować szukać w innym folderze?</string>
+    <string name="file_list_empty_recently_modified">Nie znaleziono plików zmodyfikowanych w ostatnich 7 dniach</string>
+    <string name="file_list_empty_recently_modified_filter">Żadne pliki z twojego zapytania, które zostały zmodyfikowane
+        w ostatnich 7 dniach nie zostały znalezione!</string>
+    <string name="file_list_empty_recently_added">Nie znaleziono żadnych ostatnio dodanych plików</string>
+    <string name="file_list_empty_recently_added_filter">Nie znaleziono żadnych ostatnio dodanych plików dla twojego zapytania!</string>
+    <string name="file_list_empty_text_photos">Wyślij zdjęcia lub aktywuj automatyczne wysyłanie!</string>
+    <string name="file_list_empty_text_photos_filter">Żadnych zdjęć nie znaleziono dla twojego zapytania!</string>
+    <string name="file_list_empty_text_videos">Wyślij wideo lub aktywuj automatycznze wysyłanie!</string>
+    <string name="file_list_empty_text_videos_filter">Żadnych plików wideo nie znaleziono dla twojego zapytania!</string>
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
     <string name="upload_list_empty_text">Wyślij jakieś dane lub włącz wysyłanie natychmiastowe!</string>
+    <string name="upload_list_empty_text_auto_upload">Wyślij jakąś zawartość lub aktywuj automatyczne wysyłanie!</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">foldery</string>
     <string name="file_list_file">plik</string>
@@ -248,6 +275,8 @@
     
     <string name="favorite">Udostępnij w trybie offline</string>
     <string name="unfavorite">Wyłącz udostępnianie w trybie offline</string>
+    <string name="favorite_real">Ustaw jako ulubione</string>
+    <string name="unset_favorite_real">Usuń ustawienie jako ulubione</string>
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_remove">Usuń</string>
     <string name="confirmation_remove_file_alert">Czy naprawdę chcesz usunąć %1$s?</string>
