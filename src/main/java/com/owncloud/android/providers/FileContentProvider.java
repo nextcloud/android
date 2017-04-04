@@ -937,7 +937,22 @@ public class FileContentProvider extends ContentProvider {
                 } finally {
                     db.endTransaction();
                 }
+            }
 
+            if (oldVersion < 18 && newVersion >= 18) {
+                Log_OC.i(SQL, "Entering in the #18 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    // add type column default being IMAGE(0)
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_TYPE +
+                            " INTEGER " + " DEFAULT 0");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
             }
 
             if (!upgraded) {
