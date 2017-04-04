@@ -37,23 +37,32 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/listItemHighlighted"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/standard_padding"
+                android:src="@drawable/ic_create_folder"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_padding"
+                android:text="Create custom folder"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_navigation_view"
             android:layout_below="@+id/appbar"
             android:id="@+id/ListLayout"
             android:orientation="vertical">
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@android:id/list"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:scrollbarStyle="outsideOverlay"
-                android:scrollbars="vertical"
-                android:visibility="visible"
-                android:layout_marginRight="-3dp"
-                android:layout_marginLeft="-3dp"
-                android:layout_marginBottom="-3dp"/>
 
             <LinearLayout
                 android:id="@android:id/progress"
@@ -87,7 +96,19 @@
                 android:layout_margin="@dimen/standard_margin"
                 android:gravity="center"
                 android:text="@string/folder_sync_no_results"
-                android:visibility="gone" />
+                android:visibility="gone"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@android:id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="-3dp"
+                android:layout_marginLeft="-3dp"
+                android:layout_marginRight="-3dp"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical"
+                android:visibility="visible"/>
         </LinearLayout>
 
         <android.support.design.widget.BottomNavigationView
