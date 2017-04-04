@@ -31,7 +31,6 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
     private List<String> filePaths;
     private String folderName;
     private long numberOfFiles;
-    private int type;
 
     /**
      * constructor for the display item specialization for a synced folder object.
@@ -52,18 +51,17 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
      */
     public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
                                    Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                                   List<String> filePaths, String folderName, long numberOfFiles, int type) {
-        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled);
+                                   List<String> filePaths, String folderName, long numberOfFiles, Integer type) {
+        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled, type);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
-        this.type = type;
     }
 
     public SyncedFolderDisplayItem(long id, String localPath, String remotePath, Boolean wifiOnly, Boolean chargingOnly,
                                    Boolean subfolderByDate, String account, Integer uploadAction, Boolean enabled,
-                                   String folderName) {
-        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled);
+                                   String folderName, Integer type) {
+        super(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate, account, uploadAction, enabled, type);
         this.folderName = folderName;
     }
 
@@ -89,13 +87,5 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
 
     public void setNumberOfFiles(long numberOfFiles) {
         this.numberOfFiles = numberOfFiles;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
     }
 }
