@@ -619,6 +619,7 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">No activity yet</string>
     <string name="activities_no_results_message">This stream will show events like\nadditions, changes &amp; shares</string>
+    <string name="webview_error">Error occurred</string>
 
 
 </resources>
