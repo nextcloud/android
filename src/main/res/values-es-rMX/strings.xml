@@ -22,6 +22,10 @@
     <string name="menu_item_sort_by_size_smallest_first">Más pequeño primero</string>
 
     <string name="drawer_item_all_files">Todos los archivos</string>
+    <string name="drawer_item_files">Archivos</string>
+    <string name="drawer_item_home">Inicio</string>
+    <string name="drawer_item_favorites">Favoritos</string>
+    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
     <string name="drawer_item_settings">Ajustes</string>
     <string name="drawer_item_uploads_list">Cargas</string>
@@ -85,13 +89,24 @@
     <string name="file_list_seconds_ago">hace algunos segundos</string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty">¡Cargue algún contenido o sincronice con sus dispositivos!</string>
-    <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas marcados como favoritos se mostrarán aquí</string>
+    <string name="file_list_empty_favorites">¡Marque algunos archivos como favoritos o sincronice con sus dispositivos!</string>
+    <string name="file_list_empty_favorites_filter_list">Los archivos y carpetas que marque como favoritos se mostrarán aquí</string>
     <string name="file_list_empty_favorites_filter">¡No se encontraron archivos marcados como favoritos en su consulta!</string>
     <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">¡No se encontró una aplicación para este tipo de archivo!</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
+    <string name="file_list_empty_headline_server_search">No hay resultados</string>
+    <string name="file_list_empty_favorite_headline">No hay favoritos</string>
+    <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
+    <string name="file_list_empty_shared">Los archivos y carpetas que comparta se mostrarán aquí. </string>
+    <string name="file_list_empty_headline_server_search_videos">No hay videos</string>
+    <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
     <string name="file_list_empty_search">¿Intentó buscar en otra carpeta?</string>
+    <string name="file_list_empty_recently_modified">Ningún archivo fue modificado en los últimos 7 días</string>
+    <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
+    <string name="file_list_empty_recently_added_filter">¡No se encontraron archivos agregados recientemente para su consulta!</string>
+    <string name="file_list_empty_text_photos_filter">¡Ninguna foto fue encontrada para su búsqueda!</string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text">¡Cargue nuevo contenido o active la carga instantánea!</string>
     <string name="file_list_folder">carpeta</string>
@@ -249,6 +264,8 @@
     
     <string name="favorite">Establer como disponible fuera de línea</string>
     <string name="unfavorite">Establecer como disponible en línea</string>
+    <string name="favorite_real">Establecer como favorito</string>
+    <string name="unset_favorite_real">Desestablecer como favorito</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Eliminar</string>
     <string name="confirmation_remove_file_alert">¿Realmente desea eliminar %1$s?</string>
