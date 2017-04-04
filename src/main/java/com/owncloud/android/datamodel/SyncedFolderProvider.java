@@ -187,7 +187,6 @@ public class SyncedFolderProvider extends Observable {
         }
 
         return result;
-
     }
 
     /**
@@ -211,15 +210,12 @@ public class SyncedFolderProvider extends Observable {
      *
      * @param id for the synced folder.
      */
-
     private int deleteSyncFolderWithId(long id) {
-        int result = mContentResolver.delete(
+        return mContentResolver.delete(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
                 ProviderMeta.ProviderTableMeta._ID + " = ?",
                 new String[]{String.valueOf(id)}
         );
-
-        return result;
     }
 
 
@@ -325,9 +321,11 @@ public class SyncedFolderProvider extends Observable {
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION));
             Boolean enabled = cursor.getInt(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ENABLED)) == 1;
+            Integer type = cursor.getInt(cursor.getColumnIndex(
+                    ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE));
 
             syncedFolder = new SyncedFolder(id, localPath, remotePath, wifiOnly, chargingOnly, subfolderByDate,
-                    accountName, uploadAction, enabled);
+                    accountName, uploadAction, enabled, type);
         }
         return syncedFolder;
     }
@@ -349,6 +347,8 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE, syncedFolder.getSubfolderByDate());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT, syncedFolder.getAccount());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION, syncedFolder.getUploadAction());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE, syncedFolder.getType());
+
         return cv;
     }
 
