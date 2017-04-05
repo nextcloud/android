@@ -27,10 +27,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -51,10 +53,14 @@ public class ExternalSiteWebView extends FileActivity {
         getWindow().requestFeature(Window.FEATURE_PROGRESS);
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.externalsite_webview);
 
         WebView webview = (WebView) findViewById(R.id.webView);
+        WebSettings webSettings = webview.getSettings();
+
+        webview.setFocusable(true);
+        webview.setFocusableInTouchMode(true);
+        webview.setClickable(true);
 
         // setup toolbar
         setupToolbar();
@@ -63,9 +69,23 @@ public class ExternalSiteWebView extends FileActivity {
         setupDrawer(R.id.nav_external);
         getSupportActionBar().setTitle("About us");
 
-
         // enable zoom
-        webview.getSettings().setBuiltInZoomControls(true);
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
+
+        // next two settings grant that non-responsive webs are zoomed out when loaded
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+
+        webSettings.setUserAgentString(MainApp.getUserAgent());
+
+        // no private data storing
+        webSettings.setSavePassword(false);
+        webSettings.setSaveFormData(false);
+
+        // disable local file access
+        webSettings.setAllowFileAccess(false);
 
         // enable javascript
         webview.getSettings().setJavaScriptEnabled(true);
