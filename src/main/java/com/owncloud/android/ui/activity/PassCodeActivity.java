@@ -27,6 +27,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -259,7 +260,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     // Preference
     private static final boolean INIT_SOFT_KEYBOARD_MODE = true;  // true=soft keyboard / false=buttons
     private static final boolean ENABLE_GO_HOME = false;
-    private static final boolean ENABLE_SWITCH_SOFT_KEYBOARD = true;
     private static final int GUARD_TIME = 5*1000;    // (ms)
     private static final boolean ENABLE_SUFFLE_BUTTONS = false;
 
@@ -304,12 +304,13 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     };
     private Integer[] mButtonsIDListShuffle = new Integer[12];
     private AppCompatButton[] mButtonsList = new AppCompatButton[12];
-    enum ButtonVisibility {
+    private enum ButtonVisibility {
         Startup,
         Visible,
         Invisible
     }
     private boolean mSoftKeyboardMode;          // true=soft(virtual) keyboard / false=buttons
+    private boolean mEnableSwitchSoftKeyboard = true;
     private ButtonVisibility mButtonVisibility;
     private boolean mShowButtonsWhenSoftKeyboardClose = true;
     private SoftKeyboardUtil mSoftKeyboard;
@@ -336,10 +337,19 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mPassCodeHdr = (TextView)findViewById(R.id.header);
         setupButtons();
-        mSoftKeyboardMode = mPref.getBoolean(AUTO_PREF__SOFT_KEYBOARD_MODE, INIT_SOFT_KEYBOARD_MODE);
         PassFieldLinearLayout ll = (PassFieldLinearLayout)findViewById(R.id.PasscodeLinearLayout);
         ll.initialize();
         mSoftKeyboard = new SoftKeyboardUtil(this, ll, this);
+        Configuration config = getResources().getConfiguration();
+        if (config.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO) {
+            // Hard(Physical)Keybord is avaiable
+            //   (Soft(Virtual)Keyboard can not be displayed)
+            mEnableSwitchSoftKeyboard = false;
+            mSoftKeyboardMode = false;          // buttons always show
+        } else {
+            mEnableSwitchSoftKeyboard = true;
+            mSoftKeyboardMode = mPref.getBoolean(AUTO_PREF__SOFT_KEYBOARD_MODE, INIT_SOFT_KEYBOARD_MODE);
+        }
 
         int explanationId = 0;
         if (ACTION_CHECK.equals(getIntent().getAction())) {
@@ -423,6 +433,23 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         editor.apply();
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        switch(newConfig.hardKeyboardHidden) {
+        case Configuration.HARDKEYBOARDHIDDEN_NO:
+            mEnableSwitchSoftKeyboard = false;
+            mSoftKeyboardMode = false;
+            setupKeyboard();
+            break;
+        case Configuration.HARDKEYBOARDHIDDEN_YES:
+            mEnableSwitchSoftKeyboard = true;
+            mSoftKeyboardMode = false;
+            setupKeyboard();
+            break;
+        }
+    }
+
     private void setupKeyboard() {
         mShowButtonsWhenSoftKeyboardClose = true;
         if (mSoftKeyboardMode) {
@@ -473,7 +500,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
             b.setText(mButtonsMainStr[j]);
             b.setOnClickListener(new ButtonClicked(j));
-            boolean switch_soft_keyboard = (j == 11 && ENABLE_SWITCH_SOFT_KEYBOARD);
+            boolean switch_soft_keyboard = (j == 11 && mEnableSwitchSoftKeyboard);
             if (switch_soft_keyboard) {
                 b.setLongClickable(true);
                 b.setOnLongClickListener(new OnLongClickListener() {
@@ -800,7 +827,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     @Override
     public void onClose()
     {
-        if (ENABLE_SWITCH_SOFT_KEYBOARD) {
+        if (mEnableSwitchSoftKeyboard) {
             if (mShowButtonsWhenSoftKeyboardClose) {
                 mSoftKeyboardMode = false;
                 setButtonsVisibility(true);
