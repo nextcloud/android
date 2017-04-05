@@ -27,8 +27,13 @@
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
+    <string name="drawer_item_recently_added">Agregado recientemente</string>
+    <string name="drawer_item_recently_modified">Modificado recientemente</string>
+    <string name="drawer_item_shared">Compartido</string>
+    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_item_settings">Ajustes</string>
     <string name="drawer_item_uploads_list">Cargas</string>
+    <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
 	<string name="drawer_close">Cerrar</string>
     <string name="drawer_open">Abrir</string>
@@ -106,9 +111,13 @@
     <string name="file_list_empty_recently_modified">Ningún archivo fue modificado en los últimos 7 días</string>
     <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
     <string name="file_list_empty_recently_added_filter">¡No se encontraron archivos agregados recientemente para su consulta!</string>
+    <string name="file_list_empty_text_photos">¡Cargue algunas fotos o active la carga automática!</string>
     <string name="file_list_empty_text_photos_filter">¡Ninguna foto fue encontrada para su búsqueda!</string>
+    <string name="file_list_empty_text_videos">¡Cargue algunos videos o active la carga automática!</string>
+    <string name="file_list_empty_text_videos_filter">¡No se encontraron videos para su búsqueda!</string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text">¡Cargue nuevo contenido o active la carga instantánea!</string>
+    <string name="upload_list_empty_text_auto_upload">¡Cargue algún contenido o active la carga automática!</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_folders">carpetas</string>
     <string name="file_list_file">archivo</string>
@@ -239,14 +248,14 @@
 	<string name="auth_account_not_new">Una cuenta para el mismo usuario y servidor ya existe en el dispositivo</string>
 	<string name="auth_account_not_the_same">El usuario ingresado no corresponde con el usuario de esta cuenta</string>
 	<string name="auth_unknown_error_title">¡Se presentó un error desconocido!</string>
-	<string name="auth_unknown_host_title">No se pudo encontrar el servidor</string>
+	<string name="auth_unknown_host_title">No fue posible encontrar el servidor</string>
 	<string name="auth_incorrect_path_title">No se encontró la instancia del servidor</string>
 	<string name="auth_timeout_title">El servidor tardó demasiado en responder</string>
 	<string name="auth_incorrect_address_title">Formato de dirección del servidor erróneo</string>
 	<string name="auth_ssl_general_error_title">Falla en la inicialización de SSL</string>
-	<string name="auth_ssl_unverified_server_title">No ha sido posible verificar la identidad del servidor SLL</string>
+	<string name="auth_ssl_unverified_server_title">No fue posible verificar la identidad del servidor SSL</string>
 	<string name="auth_bad_oc_version_title">Versión del servidor no reconocida</string>
-	<string name="auth_wrong_connection_title">No ha sido posible establecer la conexión</string>
+	<string name="auth_wrong_connection_title">No fue posible establecer la conexión</string>
 	<string name="auth_secure_connection">Conexión segura establecida</string>
 	<string name="auth_unauthorized">Nombre de usuario o contraseña incorrecto</string>
 	<string name="auth_oauth_error">Autorización no exitosa</string>
@@ -327,11 +336,11 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Cargar solo mediante WiFi</string>
+    <string name="auto_upload_on_wifi">Cargar sólo mediante WiFi</string>
     <string name="instant_upload_on_wifi">Cargar imágenes a través de WiFi únicamente</string>
     <string name="instant_video_upload_on_wifi">Cargar videos a través de WiFi únicamente</string>
-    <string name="instant_video_upload_on_charging">Cargar archivos solo con el dispositivo conectado a la toma de corriente</string>
-    <string name="instant_upload_on_charging">Cargar archivos solo con el dispositivo conectado a la toma de corriente</string>
+    <string name="instant_video_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
+    <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/CargasInstantáneas</string>
     <string name="conflict_title">Conflicto de archivo</string>
     <string name="conflict_message">¿Qué archivos desea mantener? Si selecciona ambas versiones, se le agregará un número al nombre del archivo local.</string>
@@ -557,6 +566,7 @@
         <item quantity="other">%d seleccionado</item>
     </plurals>
 
+    <string name="activity_list_loading_activity">Cargando actividades&#8230;</string>
     <string name="activity_list_no_results">No se encontraron actividades. </string>
 
     <string name="upload_file_dialog_title">Ingrese el nombre del archivo y el tipo del archivo a cargar</string>
