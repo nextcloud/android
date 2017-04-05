@@ -39,11 +39,11 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import java.util.Formatter;
-import java.util.Locale;
-
 import com.owncloud.android.R;
 import com.owncloud.android.utils.DisplayUtils;
+
+import java.util.Formatter;
+import java.util.Locale;
 
 
 /**
