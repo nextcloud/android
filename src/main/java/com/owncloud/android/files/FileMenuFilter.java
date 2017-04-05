@@ -32,6 +32,7 @@ import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -257,7 +258,12 @@ public class FileMenuFilter {
             toShow.add(R.id.action_unset_favorite);
         }
 
-
+        // STREAM
+        if (isSingleFile() && !anyFileDown() && (anyFileAudio() || anyFileVideo())){
+            toShow.add(R.id.action_stream_file);
+        } else {
+            toHide.add(R.id.action_stream_file);
+        }
     }
 
     private boolean anyFileSynchronizing() {
@@ -329,6 +335,24 @@ public class FileMenuFilter {
     private boolean anyFileDown() {
         for(OCFile file: mFiles) {
             if(file.isDown()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean anyFileAudio() {
+        for(OCFile file: mFiles) {
+            if(MimeTypeUtil.isAudio(file)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean anyFileVideo() {
+        for(OCFile file: mFiles) {
+            if(MimeTypeUtil.isVideo(file)) {
                 return true;
             }
         }
