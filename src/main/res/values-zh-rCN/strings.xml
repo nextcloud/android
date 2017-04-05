@@ -13,10 +13,27 @@
     <string name="actionbar_send_file">发送</string>
     <string name="actionbar_sort">排序</string>
     <string name="actionbar_sort_title">排序方式</string>
+    <string name="sort_by">排序方式</string>
+    <string name="menu_item_sort_by_name_a_z">按名称顺序</string>
+    <string name="menu_item_sort_by_name_z_a">按名称倒序</string>
+    <string name="menu_item_sort_by_date_newest_first">按时间顺序</string>
+    <string name="menu_item_sort_by_date_oldest_first">按时间倒序</string>
+    <string name="menu_item_sort_by_size_biggest_first">文件从大到小排序</string>
+    <string name="menu_item_sort_by_size_smallest_first">文件从小到大排序</string>
+
     <string name="drawer_item_all_files">全部文件</string>
+    <string name="drawer_item_files">文件</string>
+    <string name="drawer_item_home">首页</string>
+    <string name="drawer_item_favorites">收藏</string>
+    <string name="drawer_item_photos">照片</string>
     <string name="drawer_item_on_device">在设备上的</string>
+    <string name="drawer_item_recently_added">最近添加</string>
+    <string name="drawer_item_recently_modified">最近修改</string>
+    <string name="drawer_item_shared">已共享</string>
+    <string name="drawer_item_videos">视频</string>
     <string name="drawer_item_settings">设置</string>
     <string name="drawer_item_uploads_list">上传</string>
+    <string name="drawer_item_activities">动态</string>
     <string name="drawer_quota">%1$s 之 %2$s 已使用</string>
 	<string name="drawer_close">关闭</string>
     <string name="drawer_open">打开</string>
@@ -82,6 +99,12 @@
     <string name="file_list_no_app_for_file_type">没有找到程序打开文件格式！</string>
     <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
     <string name="file_list_empty_headline_search">此文件夹无结果</string>
+    <string name="file_list_empty_headline_server_search">没有结果</string>
+    <string name="file_list_empty_favorite_headline">无收藏</string>
+    <string name="file_list_empty_shared_headline">还没有共享过文件</string>
+    <string name="file_list_empty_shared">您共享的文件和文件夹将显示在这里</string>
+    <string name="file_list_empty_headline_server_search_videos">无视频</string>
+    <string name="file_list_empty_headline_server_search_photos">无照片</string>
     <string name="file_list_empty_search">在其他文件夹找找试试？</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
     <string name="upload_list_empty_text">上传一些内容或者激活实时上传</string>
@@ -527,6 +550,7 @@
         <item quantity="other">%d被选择</item>
     </plurals>
 
+    <string name="activity_list_loading_activity">正在加载动态&#8230;</string>
     <string name="upload_file_dialog_title">输入上传的文件名和文件类型</string>
     <string name="upload_file_dialog_filename">文件名</string>
     <string name="upload_file_dialog_filetype">文件类型</string>
@@ -552,5 +576,13 @@
     <string name="welcome_feature_3_text">保护你的照片安全</string>
 
     <string name="whats_new_skip">跳过</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">全名</string>
+    <string name="user_info_email">电子邮件</string>
+    <string name="user_info_phone">电话号码</string>
+    <string name="user_info_address">地址</string>
+    <string name="user_info_website">网站</string>
+    <string name="user_info_twitter">推特</string>
 
     </resources>
