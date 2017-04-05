@@ -73,6 +73,7 @@
     <bool name="bottom_toolbar_enabled">false</bool>
 
     <!-- Help, imprint and feedback -->
+    <bool name="fingerprint_enabled">true</bool>
     <bool name="calendar_contacts_enabled">true</bool>
     <bool name="help_enabled">true</bool>
     <bool name="imprint_enabled">false</bool> 
