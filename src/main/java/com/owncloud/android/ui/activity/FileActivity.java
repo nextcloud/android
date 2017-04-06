@@ -40,16 +40,18 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
+import com.owncloud.android.lib.common.accounts.ExternalLinksOperation;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -68,7 +70,10 @@ import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+
+import java.util.ArrayList;
 
 
 /**
@@ -179,6 +184,41 @@ public abstract class FileActivity extends DrawerActivity
     @Override
     protected void onStart() {
         super.onStart();
+
+        getAndDisplayExternalLinks();
+    }
+
+
+    /**
+     * Retrieves external links via api from 'external' app
+     */
+    public void getAndDisplayExternalLinks() {
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                if (getCapabilities().getExternalLinks().isTrue()) {
+                    Log_OC.d("ExternalLinks", "update via api");
+                    ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
+
+                    RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
+                    RemoteOperationResult result = getExternalLinksOperation.execute(
+                            AccountUtils.getCurrentOwnCloudAccount(FileActivity.this), FileActivity.this);
+
+                    if (result.isSuccess() && result.getData() != null) {
+                        externalLinksProvider.deleteAllExternalLinks();
+
+                        ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
+
+                        for (ExternalLink link : externalLinks) {
+                            externalLinksProvider.storeExternalLink(link);
+                        }
+                    }
+                } else {
+                    Log_OC.d("ExternalLinks", "links disabled");
+                }
+            }
+        });
+
+        t.start();
     }
 
     @Override

@@ -24,12 +24,14 @@ package com.owncloud.android.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
@@ -41,13 +43,24 @@ import com.owncloud.android.lib.common.utils.Log_OC;
  */
 
 public class ExternalSiteWebView extends FileActivity {
+    public static final String EXTRA_TITLE = "TITLE";
+    public static final String EXTRA_URL = "URL";
+    public static final String EXTRA_SHOW_SIDEBAR = "SHOW_SIDEBAR";
+    public static final String EXTRA_MENU_ITEM_ID = "MENU_ITEM_ID";
+
     private static final String TAG = ExternalSiteWebView.class.getSimpleName();
+
+    private boolean showSidebar = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log_OC.v(TAG, "onCreate() start");
 
-        // TODO get name, url, boolean showSidebar
+        Bundle extras = getIntent().getExtras();
+        String title = extras.getString(EXTRA_TITLE);
+        String url = extras.getString(EXTRA_URL);
+        int menuItemId = extras.getInt(EXTRA_MENU_ITEM_ID);
+        showSidebar = extras.getBoolean(EXTRA_SHOW_SIDEBAR);
 
         // show progress
         getWindow().requestFeature(Window.FEATURE_PROGRESS);
@@ -66,18 +79,25 @@ public class ExternalSiteWebView extends FileActivity {
         setupToolbar();
 
         // setup drawer
-        setupDrawer(R.id.nav_external);
-        getSupportActionBar().setTitle("About us");
+        if (showSidebar) {
+            setupDrawer(menuItemId);
+        } else {
+            setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        }
+
+        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // enable zoom
         webSettings.setSupportZoom(true);
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
 
-        // next two settings grant that non-responsive webs are zoomed out when loaded
+        // Non-responsive webs are zoomed out when loaded
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
 
+        // user agent
         webSettings.setUserAgentString(MainApp.getUserAgent());
 
         // no private data storing
@@ -91,9 +111,11 @@ public class ExternalSiteWebView extends FileActivity {
         webview.getSettings().setJavaScriptEnabled(true);
 
         final Activity activity = this;
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+
         webview.setWebChromeClient(new WebChromeClient() {
             public void onProgressChanged(WebView view, int progress) {
-                activity.setProgress(progress * 1000);
+                progressBar.setProgress(progress * 1000);
             }
         });
 
@@ -103,7 +125,7 @@ public class ExternalSiteWebView extends FileActivity {
             }
         });
 
-        webview.loadUrl("http://nextcloud.com");
+        webview.loadUrl(url);
     }
 
     @Override
@@ -111,10 +133,15 @@ public class ExternalSiteWebView extends FileActivity {
         boolean retval;
         switch (item.getItemId()) {
             case android.R.id.home: {
-                if (isDrawerOpen()) {
-                    closeDrawer();
+                if (showSidebar) {
+                    if (isDrawerOpen()) {
+                        closeDrawer();
+                    } else {
+                        openDrawer();
+                    }
                 } else {
-                    openDrawer();
+                    Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
+                    startActivity(settingsIntent);
                 }
             }
 
@@ -127,8 +154,7 @@ public class ExternalSiteWebView extends FileActivity {
     @Override
     public void showFiles(boolean onDeviceOnly) {
         super.showFiles(onDeviceOnly);
-        Intent fileDisplayActivity = new Intent(getApplicationContext(),
-                FileDisplayActivity.class);
+        Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
         fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(fileDisplayActivity);
     }

@@ -33,7 +33,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 17;
+    public static final int DB_VERSION = 19;
 
     private ProviderMeta() {
     }
@@ -44,6 +44,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_TABLE_NAME = "capabilities";
         public static final String UPLOADS_TABLE_NAME = "list_of_uploads";
         public static final String SYNCED_FOLDERS_TABLE_NAME = "synced_folders";
+        public static final String EXTERNAL_LINKS_TABLE_NAME = "external_links";
 
         private static final String CONTENT_PREFIX = "content://";
 
@@ -61,6 +62,8 @@ public class ProviderMeta {
                 + MainApp.getAuthority() + "/uploads");
         public static final Uri CONTENT_URI_SYNCED_FOLDERS = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/synced_folders");
+        public static final Uri CONTENT_URI_EXTERNAL_LINKS = Uri.parse(CONTENT_PREFIX
+                + MainApp.getAuthority() + "/external_links");
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
         public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";
@@ -139,6 +142,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_FILES_UNDELETE = "files_undelete";
         public static final String CAPABILITIES_FILES_VERSIONING = "files_versioning";
         public static final String CAPABILITIES_FILES_DROP = "files_drop";
+        public static final String CAPABILITIES_EXTERNAL_LINKS = "external_links";
 
         public static final String CAPABILITIES_DEFAULT_SORT_ORDER = CAPABILITIES_ACCOUNT_NAME
                 + " collate nocase asc";
@@ -167,5 +171,12 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_SUBFOLDER_BY_DATE = "subfolder_by_date";
         public static final String SYNCED_FOLDER_ACCOUNT = "account";
         public static final String SYNCED_FOLDER_UPLOAD_ACTION = "upload_option";
+
+        // Columns of external links table
+        public static final String EXTERNAL_LINKS_ICON_URL = "icon_url";
+        public static final String EXTERNAL_LINKS_LANGUAGE = "language";
+        public static final String EXTERNAL_LINKS_TYPE = "type";
+        public static final String EXTERNAL_LINKS_NAME = "name";
+        public static final String EXTERNAL_LINKS_URL = "url";
     }
 }
