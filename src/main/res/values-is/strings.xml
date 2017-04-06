@@ -22,7 +22,15 @@
     <string name="menu_item_sort_by_size_smallest_first">Minnsta fyrst</string>
 
     <string name="drawer_item_all_files">Allar skrár</string>
+    <string name="drawer_item_files">Skrár</string>
+    <string name="drawer_item_home">Heim</string>
+    <string name="drawer_item_favorites">Eftirlæti</string>
+    <string name="drawer_item_photos">Ljósmyndir</string>
     <string name="drawer_item_on_device">Á tækinu</string>
+    <string name="drawer_item_recently_added">Nýlega bætt við</string>
+    <string name="drawer_item_recently_modified">Nýlega breytt</string>
+    <string name="drawer_item_shared">Deilt</string>
+    <string name="drawer_item_videos">Myndskeið</string>
     <string name="drawer_item_settings">Stillingar</string>
     <string name="drawer_item_uploads_list">Innsendingar</string>
     <string name="drawer_item_activities">Virkni</string>
@@ -86,13 +94,32 @@
     <string name="file_list_seconds_ago">sek. síðan</string>
     <string name="file_list_empty_headline">Engar skrár hér</string>
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín!</string>
+    <string name="file_list_empty_favorites">Settu einhverjar skrár í eftirlæti eða samstilltu við tækin þín!</string>
+    <string name="file_list_empty_favorites_filter_list">Skrár og möppur sem þú merkir sem eftirlæti birtast hér</string>
+    <string name="file_list_empty_favorites_filter">Engar eftirlætisskrár fundust sem samsvara leitarstrengnum þínum!</string>
     <string name="file_list_loading">Hleð inn&#8230;</string>
     <string name="file_list_no_app_for_file_type">Engin forrit fundust fyrir skráategund!</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="file_list_empty_headline_search">Engar niðurstöður í þessari möppu</string>
+    <string name="file_list_empty_headline_server_search">Engar niðurstöður</string>
+    <string name="file_list_empty_favorite_headline">Engin eftirlæti</string>
+    <string name="file_list_empty_shared_headline">Engu deilt ennþá</string>
+    <string name="file_list_empty_shared">Skrár og möppur sem þú deilir birtast hér</string>
+    <string name="file_list_empty_headline_server_search_videos">Engin myndskeið</string>
+    <string name="file_list_empty_headline_server_search_photos">Engar ljósmyndir</string>
     <string name="file_list_empty_search">Reyna að leita í annarri möppu?</string>
+    <string name="file_list_empty_recently_modified">Engar skrár fundust sem breytt hefur verið síðustu 7 daga</string>
+    <string name="file_list_empty_recently_modified_filter">Engar skrár fundust sem breytt hefur verið
+        síðustu 7 daga!</string>
+    <string name="file_list_empty_recently_added">Engar nýlega viðbættar skrár fundust</string>
+    <string name="file_list_empty_recently_added_filter">Engar nýlega viðbættar skrár fundust sem samsvara leitarstrengnum þínum!</string>
+    <string name="file_list_empty_text_photos">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu!</string>
+    <string name="file_list_empty_text_photos_filter">Engar myndir fundust sem samsvara leitarstrengnum þínum!</string>
+    <string name="file_list_empty_text_videos">Sendu inn einhver myndskeið eða virkjaðu sjálfvirka innsendingu!</string>
+    <string name="file_list_empty_text_videos_filter">Engin myndskeið fundust sem samsvara leitarstrengnum þínum!</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text">Sendu inn eitthvað efni eða virkjaðu beina innsendingu!</string>
+    <string name="upload_list_empty_text_auto_upload">Sendu inn eitthvað efni eða virkjaðu sjálfvirka innsendingu!</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_folders">möppur</string>
     <string name="file_list_file">skrá</string>
@@ -248,6 +275,8 @@
     
     <string name="favorite">Stilla sem tiltækt án nettengingar</string>
     <string name="unfavorite">Afstilla sem tiltækt án nettengingar</string>
+    <string name="favorite_real">Setja í eftirlæti</string>
+    <string name="unset_favorite_real">Taka úr eftirlætum</string>
     <string name="common_rename">Endurnefna</string>
     <string name="common_remove">Fjarlægja</string>
     <string name="confirmation_remove_file_alert">Ertu viss um að þú viljir fjarlægja %1$s?</string>
@@ -323,8 +352,6 @@
 
     <string name="preview_sorry">Leiðinlegt þetta!</string>
     <string name="preview_image_description">Forskoðun myndar</string>
-    <string name="preview_image_error_unknown_format">Ekki er hægt að birta myndina</string>
-
     <string name="error__upload__local_file_not_copied">%1$s var ekki hægt að afrita í staðværu %2$s möppuna</string>
     <string name="prefs_instant_upload_path_title">Mappa fyrir beinar innsendingar</string>
     <string name="prefs_folder_sync_local_path_title">Staðvær mappa</string>

@@ -313,8 +313,6 @@
     <string name="conflict_use_server_version">versiunea de pe server</string>
 
     <string name="preview_image_description">Previzualizare imagine</string>
-    <string name="preview_image_error_unknown_format">Aceasta imagine nu poate fi arătată</string>
-
     <string name="error__upload__local_file_not_copied">%1$s nu a putut fi copiat in dosarul local %2$s </string>
     <string name="prefs_instant_upload_path_title">Dosar pentru încărcare instantă</string>
     <string name="prefs_folder_sync_local_path_title">Dosar local</string>

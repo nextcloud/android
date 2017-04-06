@@ -331,8 +331,6 @@
 
     <string name="preview_sorry">Anteeksi tästä!</string>
     <string name="preview_image_description">Kuvan esikatselu</string>
-    <string name="preview_image_error_unknown_format">Tätä kuvaa ei voi näyttää</string>
-
     <string name="prefs_instant_upload_path_title">Välitön lähetys kansio</string>
     <string name="prefs_folder_sync_local_path_title">Paikallinen kansio</string>
     <string name="prefs_folder_sync_remote_path_title">Etäkansio</string>

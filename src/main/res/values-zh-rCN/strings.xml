@@ -95,6 +95,9 @@
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_list_empty_headline">这里没有文件</string>
     <string name="file_list_empty">上传一些内容或者和你的设备同步</string>
+    <string name="file_list_empty_favorites">收藏一些文件或和你的设备同步！</string>
+    <string name="file_list_empty_favorites_filter_list">收藏的文件和文件夹会在这里显示</string>
+    <string name="file_list_empty_favorites_filter">未找到你要搜索的收藏文件</string>
     <string name="file_list_loading">加载中&#8230;</string>
     <string name="file_list_no_app_for_file_type">没有找到程序打开文件格式！</string>
     <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
@@ -106,8 +109,17 @@
     <string name="file_list_empty_headline_server_search_videos">无视频</string>
     <string name="file_list_empty_headline_server_search_photos">无照片</string>
     <string name="file_list_empty_search">在其他文件夹找找试试？</string>
+    <string name="file_list_empty_recently_modified">未找到 7 日内有更改的文件</string>
+    <string name="file_list_empty_recently_modified_filter">未找到你要搜索的 7 日内有更改的文件！</string>
+    <string name="file_list_empty_recently_added">未找到最近添加的文件</string>
+    <string name="file_list_empty_recently_added_filter">未找到你要搜索的最近添加文件</string>
+    <string name="file_list_empty_text_photos">上传一些照片或启用自动上传！</string>
+    <string name="file_list_empty_text_photos_filter">未找到你要搜索的照片！</string>
+    <string name="file_list_empty_text_videos">上传一些视频或启用自动上传！</string>
+    <string name="file_list_empty_text_videos_filter">未找到你要搜索的视频！</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
     <string name="upload_list_empty_text">上传一些内容或者激活实时上传</string>
+    <string name="upload_list_empty_text_auto_upload">上传一些内容或启用自动上传！</string>
     <string name="file_list_folder">文件夹</string>
     <string name="file_list_folders">文件夹</string>
     <string name="file_list_file">文件</string>
@@ -263,6 +275,8 @@
     
     <string name="favorite">可以设置离线</string>
     <string name="unfavorite">不可以设置离线</string>
+    <string name="favorite_real">加入收藏</string>
+    <string name="unset_favorite_real">取消收藏</string>
     <string name="common_rename">重命名</string>
     <string name="common_remove">删除</string>
     <string name="confirmation_remove_file_alert">你确定要删除%1$s?</string>
@@ -336,9 +350,8 @@
     <string name="conflict_use_local_version">本地版本</string>
     <string name="conflict_use_server_version">服务器版本</string>
 
+    <string name="preview_sorry">对此抱歉！</string>
     <string name="preview_image_description">图片预览</string>
-    <string name="preview_image_error_unknown_format">无法显示图片</string>
-
     <string name="error__upload__local_file_not_copied">无法复制 %1$s 到本地目录 %2$s</string>
     <string name="prefs_instant_upload_path_title">实时上传文件夹</string>
     <string name="prefs_folder_sync_local_path_title">本地文件夹</string>
@@ -530,6 +543,8 @@
     <string name="participate_testing_bug_text">发现一个错误？事情很奇怪？</string>
     <string name="participate_testing_report_text">在GIthub在报告问题</string>
     <string name="participate_testing_version_text">有感兴趣帮我们测试下一个版本吗？</string>
+    <string name="participate_beta_headline">测试每日构建版本</string>
+    <string name="participate_beta_text">这包括所有即将加入的特性，有相当的风险。如果Bug 或错误发生，请向我们报告。</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
     <string name="participate_release_candidate_text">候选发行版(RC)是下一个版本的快照，希望它是稳定的，你可以帮助测试以确认这一点。可以注册登陆在应用商店或手工在F-Droid的版本部分查找，并进行测试。</string>
     <string name="participate_contribute_headline">活跃的候选版</string>
@@ -551,6 +566,8 @@
     </plurals>
 
     <string name="activity_list_loading_activity">正在加载动态&#8230;</string>
+    <string name="activity_list_no_results">未找到动态</string>
+
     <string name="upload_file_dialog_title">输入上传的文件名和文件类型</string>
     <string name="upload_file_dialog_filename">文件名</string>
     <string name="upload_file_dialog_filetype">文件类型</string>
@@ -585,4 +602,11 @@
     <string name="user_info_website">网站</string>
     <string name="user_info_twitter">推特</string>
 
-    </resources>
+    <string name="user_information_description">用户信息</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">暂无动态</string>
+    <string name="activities_no_results_message">瀑布流中会显示诸如添加\n更改&amp;分享之类的事件</string>
+
+
+</resources>
