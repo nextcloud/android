@@ -28,11 +28,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -42,18 +40,15 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
-import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
-import com.owncloud.android.lib.common.accounts.ExternalLinksOperation;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -74,8 +69,6 @@ import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ErrorMessageAdapter;
-
-import java.util.ArrayList;
 
 
 /**
@@ -105,8 +98,6 @@ public abstract class FileActivity extends DrawerActivity
     private static final String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
     private static final String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
-    private static final String EXTERNAL_LINKS_COUNT = "EXTERNAL_LINKS_COUNT";
-
      /** Main {@link OCFile} handled by the activity.*/
     private OCFile mFile;
 
@@ -128,7 +119,7 @@ public abstract class FileActivity extends DrawerActivity
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
 
-    private SharedPreferences sharedPreferences;
+
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
@@ -184,57 +175,17 @@ public abstract class FileActivity extends DrawerActivity
             bindService(new Intent(this, FileUploader.class), mUploadServiceConnection,
                     Context.BIND_AUTO_CREATE);
         }
-
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        getAndDisplayExternalLinks();
+        fetchExternalLinks(false);
     }
 
 
-    /**
-     * Retrieves external links via api from 'external' app
-     */
-    public void getAndDisplayExternalLinks() {
-        Thread t = new Thread(new Runnable() {
-            public void run() {
-                if (getCapabilities() != null && getCapabilities().getExternalLinks().isTrue()) {
 
-                    int count = sharedPreferences.getInt(EXTERNAL_LINKS_COUNT, 0);
-                    if (count > 10) {
-                        sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, 0).apply();
-
-                        Log_OC.d("ExternalLinks", "update via api");
-                        ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
-
-                        RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                        RemoteOperationResult result = getExternalLinksOperation.execute(
-                                AccountUtils.getCurrentOwnCloudAccount(FileActivity.this), FileActivity.this);
-
-                        if (result.isSuccess() && result.getData() != null) {
-                            externalLinksProvider.deleteAllExternalLinks();
-
-                            ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
-
-                            for (ExternalLink link : externalLinks) {
-                                externalLinksProvider.storeExternalLink(link);
-                            }
-                        }
-                    } else {
-                        sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, count + 1).apply();
-                    }
-                } else {
-                    Log_OC.d("ExternalLinks", "links disabled");
-                }
-            }
-        });
-
-        t.start();
-    }
 
     @Override
     protected void onResume() {
@@ -603,7 +554,7 @@ public abstract class FileActivity extends DrawerActivity
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
 
-        getAndDisplayExternalLinks();
+        fetchExternalLinks(false);
     }
 
     protected OCFile getCurrentDir() {
