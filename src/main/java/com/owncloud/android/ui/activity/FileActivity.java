@@ -28,9 +28,11 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -103,6 +105,8 @@ public abstract class FileActivity extends DrawerActivity
     private static final String DIALOG_UNTRUSTED_CERT = "DIALOG_UNTRUSTED_CERT";
     private static final String DIALOG_CERT_NOT_SAVED = "DIALOG_CERT_NOT_SAVED";
 
+    private static final String EXTERNAL_LINKS_COUNT = "EXTERNAL_LINKS_COUNT";
+
      /** Main {@link OCFile} handled by the activity.*/
     private OCFile mFile;
 
@@ -123,6 +127,8 @@ public abstract class FileActivity extends DrawerActivity
     protected FileDownloaderBinder mDownloaderBinder = null;
     protected FileUploaderBinder mUploaderBinder = null;
     private ServiceConnection mDownloadServiceConnection, mUploadServiceConnection = null;
+
+    private SharedPreferences sharedPreferences;
 
     @Override
     public void showFiles(boolean onDeviceOnly) {
@@ -179,6 +185,7 @@ public abstract class FileActivity extends DrawerActivity
                     Context.BIND_AUTO_CREATE);
         }
 
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -196,21 +203,29 @@ public abstract class FileActivity extends DrawerActivity
         Thread t = new Thread(new Runnable() {
             public void run() {
                 if (getCapabilities() != null && getCapabilities().getExternalLinks().isTrue()) {
-                    Log_OC.d("ExternalLinks", "update via api");
-                    ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
 
-                    RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                    RemoteOperationResult result = getExternalLinksOperation.execute(
-                            AccountUtils.getCurrentOwnCloudAccount(FileActivity.this), FileActivity.this);
+                    int count = sharedPreferences.getInt(EXTERNAL_LINKS_COUNT, 0);
+                    if (count > 10) {
+                        sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, 0).apply();
 
-                    if (result.isSuccess() && result.getData() != null) {
-                        externalLinksProvider.deleteAllExternalLinks();
+                        Log_OC.d("ExternalLinks", "update via api");
+                        ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
 
-                        ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
+                        RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
+                        RemoteOperationResult result = getExternalLinksOperation.execute(
+                                AccountUtils.getCurrentOwnCloudAccount(FileActivity.this), FileActivity.this);
 
-                        for (ExternalLink link : externalLinks) {
-                            externalLinksProvider.storeExternalLink(link);
+                        if (result.isSuccess() && result.getData() != null) {
+                            externalLinksProvider.deleteAllExternalLinks();
+
+                            ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
+
+                            for (ExternalLink link : externalLinks) {
+                                externalLinksProvider.storeExternalLink(link);
+                            }
                         }
+                    } else {
+                        sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, count + 1).apply();
                     }
                 } else {
                     Log_OC.d("ExternalLinks", "links disabled");
