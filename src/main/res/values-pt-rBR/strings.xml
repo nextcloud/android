@@ -4,7 +4,7 @@
     <string name="about_version">versão %1$s</string>
     <string name="actionbar_sync">Atualizar conta</string>
     <string name="actionbar_upload">Enviar</string>
-    <string name="actionbar_upload_from_apps">Conteúdo de outros apps</string>
+    <string name="actionbar_upload_from_apps">Conteúdo de outros aplicativos</string>
     <string name="actionbar_upload_files">Arquivos</string>
     <string name="actionbar_open_with">Abrir com</string>
     <string name="actionbar_mkdir">Nova pasta</string>
@@ -13,10 +13,27 @@
     <string name="actionbar_send_file">Enviar</string>
     <string name="actionbar_sort">Classificar</string>
     <string name="actionbar_sort_title">Classificar por</string>
+    <string name="sort_by">Classificado por</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Mais novos primeiro</string>
+    <string name="menu_item_sort_by_date_oldest_first">Mais antigos primeiro</string>
+    <string name="menu_item_sort_by_size_biggest_first">Maiores primeiro</string>
+    <string name="menu_item_sort_by_size_smallest_first">Menores primeiro</string>
+
     <string name="drawer_item_all_files">Todos os arquivos</string>
+    <string name="drawer_item_files">Files</string>
+    <string name="drawer_item_home">Home</string>
+    <string name="drawer_item_favorites">Favoritos</string>
+    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_on_device">No aparelho</string>
+    <string name="drawer_item_recently_added">Adicionados recentemente</string>
+    <string name="drawer_item_recently_modified">Modificados recentemente</string>
+    <string name="drawer_item_shared">Compartilhado</string>
+    <string name="drawer_item_videos">Vídeos</string>
     <string name="drawer_item_settings">Configurações</string>
     <string name="drawer_item_uploads_list">Envios</string>
+    <string name="drawer_item_activities">Atividades</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
 	<string name="drawer_close">Fechar</string>
     <string name="drawer_open">Abrir</string>
@@ -77,13 +94,32 @@
     <string name="file_list_seconds_ago">segundos atrás</string>
     <string name="file_list_empty_headline">Nenhum arquivo aqui</string>
     <string name="file_list_empty">Faça o envio de conteúdo ou sincronize com seus dispositivos!</string>
+    <string name="file_list_empty_favorites">Favorite alguns arquivos ou sincronize com seus dispositivos!</string>
+    <string name="file_list_empty_favorites_filter_list">Arquivos e pastas que você favoritar serão mostrados aqui</string>
+    <string name="file_list_empty_favorites_filter">Nenhum arquivos favorito encontrado em sua pesquisa!</string>
     <string name="file_list_loading">Carregando&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nenhum aplicativo encontrado para esse tipo de arquivo!</string>
     <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
     <string name="file_list_empty_headline_search">Nenhum resultado nesta pasta</string>
+    <string name="file_list_empty_headline_server_search">Sem resultados</string>
+    <string name="file_list_empty_favorite_headline">Sem favoritos</string>
+    <string name="file_list_empty_shared_headline">Nada compartilhado ainda</string>
+    <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão mostrados aqui</string>
+    <string name="file_list_empty_headline_server_search_videos"> Sem vídeos</string>
+    <string name="file_list_empty_headline_server_search_photos">Sem fotos</string>
     <string name="file_list_empty_search">Tentar encontrar em outra pasta?</string>
+    <string name="file_list_empty_recently_modified">Nenhum arquivo modificado nos últimos 7 dias</string>
+    <string name="file_list_empty_recently_modified_filter">Nenhum arquivo modificado nos últimos 7 dias
+foram encontrados para sua pesquisa! </string>
+    <string name="file_list_empty_recently_added">Nenhum arquivo recentemente adicionado foi encontrado!</string>
+    <string name="file_list_empty_recently_added_filter">Nenhum arquivo recentemente adicionado foi encontrado para sua pesquisa!</string>
+    <string name="file_list_empty_text_photos">Envie algumas fotos ou ative o auto-envio!</string>
+    <string name="file_list_empty_text_photos_filter">Nenhuma foto foi encontrada para sua pesquisa!</string>
+    <string name="file_list_empty_text_videos">Envie alguns vídeos ou ative o auto-envio!</string>
+    <string name="file_list_empty_text_videos_filter">Nenhum vídeo encontrado para sua pesquisa!</string>
     <string name="upload_list_empty_headline">Nenhum envio disponível</string>
     <string name="upload_list_empty_text">Envie algum conteúdo ou ative o envio instantâneo!</string>
+    <string name="upload_list_empty_text_auto_upload">Envie algum conteúdo ou ative o auto-envio!</string>
     <string name="file_list_folder">pasta</string>
     <string name="file_list_folders">pastas</string>
     <string name="file_list_file">arquivo</string>
@@ -142,7 +178,7 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Arquivo local não encontrado</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erro de permissão</string>
     <string name="uploads_view_upload_status_conflict">Conflito</string>
-    <string name="uploads_view_upload_status_service_interrupted">App foi encerrado</string>
+    <string name="uploads_view_upload_status_service_interrupted">Aplicativo foi encerrado</string>
     <string name="uploads_view_upload_status_unknown_fail">Erro desconhecido</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Aguardando conexão wi-fi</string>
     <string name="uploads_view_later_waiting_to_upload">Aguardando para enviar</string>
@@ -239,6 +275,8 @@
     
     <string name="favorite">Definir como disponível offline</string>
     <string name="unfavorite">Definir como não disponível offline</string>
+    <string name="favorite_real">Marque como favorito</string>
+    <string name="unset_favorite_real">Desmarque como favorito</string>
     <string name="common_rename">Renomear</string>
     <string name="common_remove">Remover</string>
     <string name="confirmation_remove_file_alert">Deseja realmente remover %1$s?</string>
@@ -312,9 +350,8 @@
     <string name="conflict_use_local_version">versão local</string>
     <string name="conflict_use_server_version">versão do servidor</string>
 
+    <string name="preview_sorry">Desculpe isso!</string>
     <string name="preview_image_description">Pré-visualização da imagem</string>
-    <string name="preview_image_error_unknown_format">Esta imagem não pode ser mostrada</string>
-
     <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Pasta de envio instantâneo</string>
     <string name="prefs_folder_sync_local_path_title">Pasta local</string>
@@ -507,6 +544,8 @@ Contacte o administrador</string>
     <string name="participate_testing_bug_text">Encontrou um erro? Algo está estranho?</string>
     <string name="participate_testing_report_text">Relate o problema no Github</string>
     <string name="participate_testing_version_text">Está interessado em ajudar-nos a testar a próxima versão?</string>
+    <string name="participate_beta_headline">Teste a versão beta</string>
+    <string name="participate_beta_text">Isso inclui todos os próximos recursos. Erros pode ocorrer e irão. Por favor, reporte-os a nós.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">O release candidate (RC) é um instantâneo do lançamento e espera-se que seja estável. Testar a sua configuração individual pode ajudar a garantir isso. Registre-se para testar na Play Store ou procure manualmente na seção \"versões\" na F-Droid.</string>
     <string name="participate_contribute_headline">Contribuir ativamente</string>
@@ -527,6 +566,9 @@ Contacte o administrador</string>
         <item quantity="one">%d selecionado</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">Carregando atividades&#8230;</string>
+    <string name="activity_list_no_results">Nenhuma atividade encontrada.</string>
 
     <string name="upload_file_dialog_title">Forneça o nome e o tipo de arquivo que será enviado </string>
     <string name="upload_file_dialog_filename">Nome do Arquivo</string>
@@ -554,4 +596,19 @@ Contacte o administrador</string>
 
     <string name="whats_new_skip">Pular</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">Nome completo</string>
+    <string name="user_info_email">Email</string>
+    <string name="user_info_phone">Número do telefone</string>
+    <string name="user_info_address">Endereço</string>
+    <string name="user_info_website">Website</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Informação do usuário</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Nenhuma atividade ainda</string>
+    <string name="activities_no_results_message">O stream irá mostrar eventos como\nadições, mudanças &amp; compartilhamentos</string>
+
+
+</resources>

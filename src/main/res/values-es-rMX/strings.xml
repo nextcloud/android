@@ -61,8 +61,8 @@
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Retroalimentación</string>
     <string name="prefs_imprint">Imprint</string>
-    <string name="prefs_remember_last_share_location">Recordar la ubicación compartida</string>
-    <string name="prefs_remember_last_upload_location_summary">Recordar la última ubicación del recurso compartido cargado.</string>
+    <string name="prefs_remember_last_share_location">Recordar la ubicación del elemento compartido</string>
+    <string name="prefs_remember_last_upload_location_summary">Recordar la última ubicación del elemento compartido cargado.</string>
 
 	<string name="recommend_subject">Prueba  %1$s en tu teléfono inteligente!</string>
 	<string name="recommend_text">¡Quisiera invitarlo a usar %1$s en su teléfono inteligente!\\nDescargue aquí: %2$s</string>
@@ -350,8 +350,6 @@
 
     <string name="preview_sorry">¡Disculpas por eso!</string>
     <string name="preview_image_description">Vista previa de imagen</string>
-    <string name="preview_image_error_unknown_format">Esta imagen no puede ser mostrada</string>
-
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta de carga instantánea</string>
     <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
@@ -360,7 +358,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Almacenar en sub carpetas con base en el año y mes</string>
 
 	<string name="share_link_no_support_share_api">Lo sentimos, no se permite compartir en su servidor. Favor de contactar a su adminstrador. </string>
-	<string name="share_link_file_no_exist">Falla al compartir. Favor de revisar si el archivo existe</string>
+	<string name="share_link_file_no_exist">No fue posible compartir. Favor de revisar si el archivo existe</string>
 	<string name="share_link_file_error">Se presentó un error al trtatar de compartir este archivo o carpeta</string>
 	<string name="unshare_link_file_no_exist">Falla al dejar de compartir. Favor de revisar si existe el archivo</string>
 	<string name="unshare_link_file_error">Se presentó un error al tratar de dejar de compartir este archivo o carpeta</string>
@@ -607,4 +605,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Aún no hay actividades</string>
-    </resources>
+    <string name="activities_no_results_message">Este flujo le mostrará eventos tales como \nagregados, cambios &amp; compartidos</string>
+
+
+</resources>
