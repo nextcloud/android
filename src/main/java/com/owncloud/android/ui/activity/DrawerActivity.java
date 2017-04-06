@@ -28,6 +28,7 @@ import android.accounts.AccountManagerFuture;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -43,6 +44,8 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
@@ -760,7 +763,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             if (quotas.size() > 0) {
                 final ExternalLink firstQuota = quotas.get(0);
                 mQuotaTextView.setText(firstQuota.name);
-                mQuotaTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.arrow_down, 0, 0, 0);
                 mQuotaTextView.setClickable(true);
                 mQuotaTextView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -773,6 +775,25 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                         startActivity(externalWebViewIntent);
                     }
                 });
+
+
+                SimpleTarget target = new SimpleTarget<PictureDrawable>() {
+                    @Override
+                    public void onResourceReady(PictureDrawable resource, GlideAnimation glideAnimation) {
+                        mQuotaTextView.setCompoundDrawablesWithIntrinsicBounds(resource.getCurrent(), null,
+                                null, null);
+                    }
+
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        super.onLoadFailed(e, errorDrawable);
+
+                        mQuotaTextView.setCompoundDrawablesWithIntrinsicBounds(errorDrawable, null, null, null);
+                    }
+                };
+
+                externalLinksProvider.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey);
+
             } else {
                 mQuotaTextView.setText(String.format(
                         getString(R.string.drawer_quota),
@@ -871,10 +892,26 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     public void updateExternalLinksInDrawer() {
         if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
-            for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-                mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
-                        MENU_ORDER_EXTERNAL_LINKS, link.name)
-                        .setIcon(R.drawable.ic_activity_light_grey);
+            for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
+                SimpleTarget target = new SimpleTarget<PictureDrawable>() {
+                    @Override
+                    public void onResourceReady(PictureDrawable resource, GlideAnimation glideAnimation) {
+                        mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
+                                MENU_ORDER_EXTERNAL_LINKS, link.name)
+                                .setIcon(resource.getCurrent());
+                    }
+
+                    @Override
+                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                        super.onLoadFailed(e, errorDrawable);
+
+                        mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
+                                MENU_ORDER_EXTERNAL_LINKS, link.name)
+                                .setIcon(errorDrawable);
+                    }
+                };
+
+                externalLinksProvider.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey);
             }
         }
     }
