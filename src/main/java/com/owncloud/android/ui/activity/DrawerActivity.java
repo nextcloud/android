@@ -46,7 +46,10 @@ import android.widget.TextView;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.ExternalLink;
+import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.lib.common.UserInfo;
@@ -66,6 +69,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.ArrayList;
+
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
  * generation.
@@ -77,7 +82,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private static final int ACTION_MANAGE_ACCOUNTS = 101;
     private static final int MENU_ORDER_ACCOUNT = 1;
     private static final int MENU_ORDER_ACCOUNT_FUNCTION = 2;
-
+    private static final int MENU_ORDER_EXTERNAL_LINKS = 3;
+    private static final int MENU_ITEM_EXTERNAL_LINK = 111;
     /**
      * menu account avatar radius.
      */
@@ -96,7 +102,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     /**
      * Reference to the drawer layout.
      */
-    private DrawerLayout mDrawerLayout;
+    protected DrawerLayout mDrawerLayout;
 
     /**
      * Reference to the drawer toggle.
@@ -157,6 +163,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
      * runnable that will be executed after the drawer has been closed.
      */
     private Runnable pendingRunnable;
+
+    private ExternalLinksProvider externalLinksProvider;
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id.
@@ -450,6 +458,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 EventBus.getDefault().post(new SearchEvent("video/%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
                         SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR));
                 break;
+            case MENU_ITEM_EXTERNAL_LINK:
+                // external link clicked
+                externalLinkClicked(menuItem);
+                break;
             case Menu.NONE:
                 // account clicked
                 accountClicked(menuItem.getTitle().toString());
@@ -476,6 +488,20 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         if (!AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()).name.equals(accountName)) {
             AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), accountName);
             restart();
+        }
+    }
+
+    private void externalLinkClicked(MenuItem menuItem){
+        for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
+            if (menuItem.getTitle().toString().equalsIgnoreCase(link.name)) {
+                Intent externalWebViewIntent = new Intent(getApplicationContext(),
+                        ExternalSiteWebView.class);
+                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
+                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
+                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+                externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, menuItem.getItemId());
+                startActivity(externalWebViewIntent);
+            }
         }
     }
 
@@ -690,11 +716,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 }
 
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, false);
+                mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_external_links, false);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_bottom, false);
             } else {
                 mAccountChooserToggle.setImageResource(R.drawable.ic_down);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_accounts, false);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_standard, true);
+                mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_external_links, true);
                 mNavigationView.getMenu().setGroupVisible(R.id.drawer_menu_bottom, true);
             }
         }
@@ -724,10 +752,37 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mQuotaProgressBar.setProgress(relative);
         DisplayUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
 
-        mQuotaTextView.setText(String.format(
-                getString(R.string.drawer_quota),
-                DisplayUtils.bytesToHumanReadable(usedSpace),
-                DisplayUtils.bytesToHumanReadable(totalSpace)));
+        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+            ArrayList<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
+
+            if (quotas.size() > 0) {
+                final ExternalLink firstQuota = quotas.get(0);
+                mQuotaTextView.setText(firstQuota.name);
+                mQuotaTextView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.arrow_down, 0, 0, 0);
+                mQuotaTextView.setClickable(true);
+                mQuotaTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+                        startActivity(externalWebViewIntent);
+                    }
+                });
+            } else {
+                mQuotaTextView.setText(String.format(
+                        getString(R.string.drawer_quota),
+                        DisplayUtils.bytesToHumanReadable(usedSpace),
+                        DisplayUtils.bytesToHumanReadable(totalSpace)));
+            }
+        } else {
+            mQuotaTextView.setText(String.format(
+                    getString(R.string.drawer_quota),
+                    DisplayUtils.bytesToHumanReadable(usedSpace),
+                    DisplayUtils.bytesToHumanReadable(totalSpace)));
+        }
 
         showQuota(true);
     }
@@ -811,6 +866,17 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         t.start();
     }
 
+    private void updateExternalLinks() {
+        if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+            mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
+            for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
+                mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
+                        MENU_ORDER_EXTERNAL_LINKS, link.name)
+                        .setIcon(R.drawable.ic_activity_light_grey);
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -826,6 +892,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 .getDimension(R.dimen.nav_drawer_header_avatar_other_accounts_radius);
         mMenuAccountAvatarRadiusDimension = getResources()
                 .getDimension(R.dimen.nav_drawer_menu_avatar_radius);
+
+        externalLinksProvider =
+                new ExternalLinksProvider(MainApp.getAppContext().getContentResolver());
     }
 
     @Override
@@ -863,6 +932,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             }
         }
         updateAccountList();
+        updateExternalLinks();
     }
 
     @Override

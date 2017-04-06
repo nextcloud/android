@@ -58,9 +58,12 @@ import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
+import com.owncloud.android.lib.common.ExternalLink;
+import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -463,6 +466,8 @@ public class Preferences extends PreferenceActivity
             pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
         }
 
+        loadExternalSettingLinks(preferenceCategory);
+
         loadStoragePath();
     }
 
@@ -725,6 +730,38 @@ public class Preferences extends PreferenceActivity
             mDelegate = AppCompatDelegate.create(this, null);
         }
         return mDelegate;
+    }
+
+    private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
+        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+            ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
+
+            for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {
+
+                // only add if it does not exist, in case activity is re-used
+                if (findPreference(link.id.toString()) == null) {
+                    Preference p = new Preference(this);
+                    p.setTitle(link.name);
+                    p.setKey(link.id.toString());
+
+                    p.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, link.id);
+                            startActivity(externalWebViewIntent);
+
+                            return true;
+                        }
+                    });
+
+                    preferenceCategory.addPreference(p);
+                }
+            }
+        }
     }
 
     /**
