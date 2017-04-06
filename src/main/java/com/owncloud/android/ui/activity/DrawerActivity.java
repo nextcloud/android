@@ -165,7 +165,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     /**
      * text view of the quota view.
      */
-    private TextView mQuotaTextView;
+    private TextView mQuotaTextPercentage;
+    private TextView mQuotaTextLink;
 
     /**
      * runnable that will be executed after the drawer has been closed.
@@ -273,7 +274,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private void setupQuotaElement() {
         mQuotaView = (LinearLayout) findViewById(R.id.drawer_quota);
         mQuotaProgressBar = (ProgressBar) findViewById(R.id.drawer_quota_ProgressBar);
-        mQuotaTextView = (TextView) findViewById(R.id.drawer_quota_text);
+        mQuotaTextPercentage = (TextView) findViewById(R.id.drawer_quota_percentage);
+        mQuotaTextLink = (TextView) findViewById(R.id.drawer_quota_link);
         DisplayUtils.colorPreLollipopHorizontalProgressBar(mQuotaProgressBar);
     }
 
@@ -771,9 +773,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
             if (quotas.size() > 0) {
                 final ExternalLink firstQuota = quotas.get(0);
-                mQuotaTextView.setText(firstQuota.name);
-                mQuotaTextView.setClickable(true);
-                mQuotaTextView.setOnClickListener(new View.OnClickListener() {
+                mQuotaTextLink.setText(firstQuota.name);
+                mQuotaTextLink.setClickable(true);
+                mQuotaTextLink.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
@@ -789,7 +791,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 SimpleTarget target = new SimpleTarget<PictureDrawable>() {
                     @Override
                     public void onResourceReady(PictureDrawable resource, GlideAnimation glideAnimation) {
-                        mQuotaTextView.setCompoundDrawablesWithIntrinsicBounds(resource.getCurrent(), null,
+                        mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(resource.getCurrent(), null,
                                 null, null);
                     }
 
@@ -797,24 +799,23 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
 
-                        mQuotaTextView.setCompoundDrawablesWithIntrinsicBounds(errorDrawable, null, null, null);
+                        mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(errorDrawable, null, null, null);
                     }
                 };
 
                 externalLinksProvider.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey);
 
             } else {
-                mQuotaTextView.setText(String.format(
-                        getString(R.string.drawer_quota),
-                        DisplayUtils.bytesToHumanReadable(usedSpace),
-                        DisplayUtils.bytesToHumanReadable(totalSpace)));
+                mQuotaTextLink.setVisibility(View.INVISIBLE);
             }
         } else {
-            mQuotaTextView.setText(String.format(
-                    getString(R.string.drawer_quota),
-                    DisplayUtils.bytesToHumanReadable(usedSpace),
-                    DisplayUtils.bytesToHumanReadable(totalSpace)));
+            mQuotaTextLink.setVisibility(View.INVISIBLE);
         }
+
+        mQuotaTextPercentage.setText(String.format(
+                getString(R.string.drawer_quota),
+                DisplayUtils.bytesToHumanReadable(usedSpace),
+                DisplayUtils.bytesToHumanReadable(totalSpace)));
 
         showQuota(true);
     }
