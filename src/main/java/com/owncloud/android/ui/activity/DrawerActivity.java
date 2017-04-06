@@ -26,12 +26,14 @@ import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AccountManagerFuture;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -56,11 +58,13 @@ import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.lib.common.UserInfo;
+import com.owncloud.android.lib.common.accounts.ExternalLinksOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
+import com.owncloud.android.operations.GetCapabilitiesOperarion;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
@@ -82,6 +86,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private static final String TAG = DrawerActivity.class.getSimpleName();
     private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
     private static final String KEY_CHECKED_MENU_ITEM = "CHECKED_MENU_ITEM";
+    private static final String EXTERNAL_LINKS_COUNT = "EXTERNAL_LINKS_COUNT";
     private static final int ACTION_MANAGE_ACCOUNTS = 101;
     private static final int MENU_ORDER_ACCOUNT = 1;
     private static final int MENU_ORDER_ACCOUNT_FUNCTION = 2;
@@ -168,6 +173,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private Runnable pendingRunnable;
 
     private ExternalLinksProvider externalLinksProvider;
+    private SharedPreferences sharedPreferences;
 
     /**
      * Initializes the drawer, its content and highlights the menu item with the given id.
@@ -490,6 +496,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     private void accountClicked(String accountName) {
         if (!AccountUtils.getCurrentOwnCloudAccount(getApplicationContext()).name.equals(accountName)) {
             AccountUtils.setCurrentOwnCloudAccount(getApplicationContext(), accountName);
+
+            fetchExternalLinks(true);
+
             restart();
         }
     }
@@ -932,8 +941,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mMenuAccountAvatarRadiusDimension = getResources()
                 .getDimension(R.dimen.nav_drawer_menu_avatar_radius);
 
-        externalLinksProvider =
-                new ExternalLinksProvider(MainApp.getAppContext().getContentResolver());
+        externalLinksProvider = new ExternalLinksProvider(MainApp.getAppContext().getContentResolver());
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -1110,5 +1120,60 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     protected void onStop() {
         EventBus.getDefault().unregister(this);
         super.onStop();
+    }
+
+    /**
+     * Retrieves external links via api from 'external' app
+     */
+    public void fetchExternalLinks(final boolean force) {
+        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+            Thread t = new Thread(new Runnable() {
+                public void run() {
+                    // fetch capabilities as early as possible
+                    if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
+                            && getStorageManager() != null) {
+                        GetCapabilitiesOperarion getCapabilities = new GetCapabilitiesOperarion();
+                        getCapabilities.execute(getStorageManager(), getBaseContext());
+                    }
+
+                    Account account = AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this);
+
+                    if (account != null && getStorageManager().getCapability(account.name) != null &&
+                            getStorageManager().getCapability(account.name).getExternalLinks().isTrue()) {
+
+                        int count = sharedPreferences.getInt(EXTERNAL_LINKS_COUNT, -1);
+                        if (count > 10 || count == -1 || force) {
+                            if (force) {
+                                Log_OC.d("ExternalLinks", "force update");
+                            }
+
+                            sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, 0).apply();
+
+                            Log_OC.d("ExternalLinks", "update via api");
+                            ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
+
+                            RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
+                            RemoteOperationResult result = getExternalLinksOperation.execute(account, DrawerActivity.this);
+
+                            if (result.isSuccess() && result.getData() != null) {
+                                externalLinksProvider.deleteAllExternalLinks();
+
+                                ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
+
+                                for (ExternalLink link : externalLinks) {
+                                    externalLinksProvider.storeExternalLink(link);
+                                }
+                            }
+                        } else {
+                            sharedPreferences.edit().putInt(EXTERNAL_LINKS_COUNT, count + 1).apply();
+                        }
+                    } else {
+                        Log_OC.d("ExternalLinks", "links disabled");
+                    }
+                }
+            });
+
+            t.start();
+        }
     }
 }
