@@ -79,9 +79,9 @@ public class ExternalSiteWebView extends FileActivity {
         setupToolbar();
 
         // setup drawer
-        if (showSidebar) {
-            setupDrawer(menuItemId);
-        } else {
+        setupDrawer(menuItemId);
+
+        if (!showSidebar) {
             setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
 
