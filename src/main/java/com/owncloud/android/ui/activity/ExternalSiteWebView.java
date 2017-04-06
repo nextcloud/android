@@ -132,7 +132,7 @@ public class ExternalSiteWebView extends FileActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         boolean retval;
         switch (item.getItemId()) {
-            case android.R.id.home: {
+            case android.R.id.home:
                 if (showSidebar) {
                     if (isDrawerOpen()) {
                         closeDrawer();
@@ -143,7 +143,6 @@ public class ExternalSiteWebView extends FileActivity {
                     Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
                     startActivity(settingsIntent);
                 }
-            }
             retval = true;
             break;
 
