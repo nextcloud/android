@@ -195,7 +195,7 @@ public abstract class FileActivity extends DrawerActivity
     public void getAndDisplayExternalLinks() {
         Thread t = new Thread(new Runnable() {
             public void run() {
-                if (getCapabilities().getExternalLinks().isTrue()) {
+                if (getCapabilities() != null && getCapabilities().getExternalLinks().isTrue()) {
                     Log_OC.d("ExternalLinks", "update via api");
                     ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
 
