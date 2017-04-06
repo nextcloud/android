@@ -866,7 +866,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         t.start();
     }
 
-    private void updateExternalLinks() {
+    public void updateExternalLinksInDrawer() {
         if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
             for (ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
@@ -932,7 +932,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             }
         }
         updateAccountList();
-        updateExternalLinks();
+        updateExternalLinksInDrawer();
     }
 
     @Override

@@ -587,6 +587,8 @@ public abstract class FileActivity extends DrawerActivity
         Intent i = new Intent(this, FileDisplayActivity.class);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
+
+        getAndDisplayExternalLinks();
     }
 
     protected OCFile getCurrentDir() {
