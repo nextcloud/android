@@ -538,6 +538,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     public void openDrawer() {
         if (mDrawerLayout != null) {
             mDrawerLayout.openDrawer(GravityCompat.START);
+
+            updateExternalLinksInDrawer();
         }
     }
 
