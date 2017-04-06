@@ -144,6 +144,8 @@ public class ExternalSiteWebView extends FileActivity {
                     startActivity(settingsIntent);
                 }
             }
+            retval = true;
+            break;
 
             default:
                 retval = super.onOptionsItemSelected(item);

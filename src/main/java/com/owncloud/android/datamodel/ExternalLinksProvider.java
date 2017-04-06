@@ -144,7 +144,7 @@ public class ExternalLinksProvider {
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_ICON_URL));
             String language = cursor.getString(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE));
-            ExternalLinkType type = ExternalLinkType.LINK;
+            ExternalLinkType type;
             switch (cursor.getString(cursor.getColumnIndex(
                     ProviderMeta.ProviderTableMeta.EXTERNAL_LINKS_TYPE))) {
                 case "link":
@@ -155,6 +155,9 @@ public class ExternalLinksProvider {
                     break;
                 case "quota":
                     type = ExternalLinkType.QUOTA;
+                    break;
+                default:
+                    type = ExternalLinkType.UNKNOWN;
                     break;
             }
             String name = cursor.getString(cursor.getColumnIndex(
