@@ -47,7 +47,7 @@
             android:visibility="gone">
 
             <TextView
-                android:id="@+id/drawer_quota_text"
+                android:id="@+id/drawer_quota_percentage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/drawer_quota"/>
@@ -60,6 +60,13 @@
                 android:indeterminate="false"
                 android:indeterminateOnly="false"
                 android:text="@string/drawer_quota"
+                />
+
+            <TextView
+                android:id="@+id/drawer_quota_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
                 />
 
         </LinearLayout>
