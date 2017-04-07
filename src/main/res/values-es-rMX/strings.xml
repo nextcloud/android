@@ -350,6 +350,8 @@
 
     <string name="preview_sorry">¡Disculpas por eso!</string>
     <string name="preview_image_description">Vista previa de imagen</string>
+    <string name="preview_image_error_unknown_format">La imagen no puede ser mostrada</string>
+
     <string name="error__upload__local_file_not_copied">%1$s no pudo ser copiado a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta de carga instantánea</string>
     <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
