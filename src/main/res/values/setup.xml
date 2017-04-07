@@ -122,6 +122,8 @@
     <!-- Files becomes Home -->
     <bool name="use_home">false</bool>
 
+    <!-- Push server url -->
+    <string name="push_server_url" translatable="true"></string>
 </resources>
 
 
