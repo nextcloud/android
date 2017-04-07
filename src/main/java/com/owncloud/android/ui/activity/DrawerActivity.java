@@ -29,7 +29,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.PictureDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -771,6 +770,9 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
             ArrayList<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
 
+            float density = getResources().getDisplayMetrics().density;
+            final int size = Math.round(24 * density);
+
             if (quotas.size() > 0) {
                 final ExternalLink firstQuota = quotas.get(0);
                 mQuotaTextLink.setText(firstQuota.name);
@@ -788,22 +790,26 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 });
 
 
-                SimpleTarget target = new SimpleTarget<PictureDrawable>() {
+                SimpleTarget target = new SimpleTarget<Drawable>() {
                     @Override
-                    public void onResourceReady(PictureDrawable resource, GlideAnimation glideAnimation) {
-                        mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(resource.getCurrent(), null,
-                                null, null);
+                    public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                        Drawable test = resource.getCurrent();
+                        test.setBounds(0, 0, size, size);
+                        mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
                     }
 
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
 
-                        mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(errorDrawable, null, null, null);
+                        Drawable test = errorDrawable.getCurrent();
+                        test.setBounds(0, 0, size, size);
+
+                        mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
                     }
                 };
 
-                externalLinksProvider.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey);
+                externalLinksProvider.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey, size, size);
 
             } else {
                 mQuotaTextLink.setVisibility(View.INVISIBLE);
@@ -902,10 +908,14 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     public void updateExternalLinksInDrawer() {
         if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
+
+            float density = getResources().getDisplayMetrics().density;
+            final int size = Math.round(24 * density);
+
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-                SimpleTarget target = new SimpleTarget<PictureDrawable>() {
+                SimpleTarget target = new SimpleTarget<Drawable>() {
                     @Override
-                    public void onResourceReady(PictureDrawable resource, GlideAnimation glideAnimation) {
+                    public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
                         mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
                                 MENU_ORDER_EXTERNAL_LINKS, link.name)
                                 .setIcon(resource.getCurrent());
@@ -914,14 +924,13 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
-
                         mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
                                 MENU_ORDER_EXTERNAL_LINKS, link.name)
-                                .setIcon(errorDrawable);
+                                .setIcon(errorDrawable.getCurrent());
                     }
                 };
 
-                externalLinksProvider.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey);
+                externalLinksProvider.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, size, size);
             }
         }
     }

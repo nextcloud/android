@@ -14,6 +14,7 @@ package com.owncloud.android.utils.svg;
 import com.bumptech.glide.load.ResourceDecoder;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.resource.SimpleResource;
+import com.caverock.androidsvg.PreserveAspectRatio;
 import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 
@@ -24,9 +25,26 @@ import java.io.InputStream;
  * Decodes an SVG internal representation from an {@link InputStream}.
  */
 public class SvgDecoder implements ResourceDecoder<InputStream, SVG> {
-    public Resource<SVG> decode(InputStream source, int width, int height) throws IOException {
+    private int height = -1;
+    private int width = -1;
+
+    public SvgDecoder(){
+
+    }
+
+    public SvgDecoder(int height, int width) {
+        this.height = height;
+        this.width = width;
+    }
+
+    public Resource<SVG> decode(InputStream source, int w, int h) throws IOException {
         try {
             SVG svg = SVG.getFromInputStream(source);
+
+            if (width > 0) svg.setDocumentWidth(width);
+            if (height > 0) svg.setDocumentHeight(height);
+            svg.setDocumentPreserveAspectRatio(PreserveAspectRatio.LETTERBOX);
+
             return new SimpleResource<SVG>(svg);
         } catch (SVGParseException ex) {
             throw new IOException("Cannot load SVG from stream", ex);
