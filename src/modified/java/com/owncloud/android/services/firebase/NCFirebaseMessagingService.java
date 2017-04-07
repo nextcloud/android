@@ -31,17 +31,18 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.owncloud.android.R;
-import com.owncloud.android.lib.resources.notifications.models.Notification;
+import com.owncloud.android.ui.activity.NotificationsActivity;
 
 public class NCFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "NCFirebaseMessaging";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+        super.onMessageReceived(remoteMessage);
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
-        sendNotification(remoteMessage.getNotification().ge);
+        sendNotification(remoteMessage.getNotification().getTitle());
     }
 
     private void sendNotification(String contentTitle) {
@@ -55,6 +56,7 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(contentTitle)
                 .setSound(defaultSoundUri)
+                .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager =
