@@ -193,15 +193,16 @@ public class ExternalLinksProvider {
                 .into(imageView);
     }
 
-    private void downloadSVGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder) {
+    private void downloadSVGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
+                                 int width, int height) {
         GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
                 .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
                 .from(Uri.class)
                 .as(SVG.class)
                 .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
                 .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder()))
-                .decoder(new SvgDecoder())
+                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder(height, width)))
+                .decoder(new SvgDecoder(height, width))
                 .placeholder(placeholder)
                 .error(placeholder)
                 .animate(android.R.anim.fade_in);
@@ -215,9 +216,10 @@ public class ExternalLinksProvider {
     }
 
 
-    public void downloadIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder){
+    public void downloadIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
+                             int width, int height){
         if (iconUrl.endsWith(".svg")){
-            downloadSVGIcon(context, iconUrl, imageView, placeholder);
+            downloadSVGIcon(context, iconUrl, imageView, placeholder, width, height);
         } else {
             downloadPNGIcon(context, iconUrl, imageView, placeholder);
         }
