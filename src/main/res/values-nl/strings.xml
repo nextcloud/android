@@ -94,6 +94,9 @@
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_list_empty_headline">Hier zijn geen bestanden</string>
     <string name="file_list_empty">Upload bestanden of synchroniseer met je apparaten!</string>
+    <string name="file_list_empty_favorites">Maak enkele bestanden favoriet of synchroniseer met je apparaten!</string>
+    <string name="file_list_empty_favorites_filter_list">Bestanden en mappen gemarkeerd als favoriet worden hier getoond</string>
+    <string name="file_list_empty_favorites_filter">Geen favoriete bestanden gevonden voor je zoekopdracht!</string>
     <string name="file_list_loading">Laden&#160;&#8230;</string>
     <string name="file_list_no_app_for_file_type">Geen app gevonden voor dit bestandsformaat!</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
@@ -106,10 +109,16 @@
     <string name="file_list_empty_headline_server_search_photos">Geen foto\'s</string>
     <string name="file_list_empty_search">In een andere map kijken?</string>
     <string name="file_list_empty_recently_modified">Geen bestanden gevonden die  de laatste 7 dagen zijn gewijzigd</string>
+    <string name="file_list_empty_recently_modified_filter">Geen gewijzigde bestanden gevonden voor je zoekopdracht die de laatste 7 dagen zijn gewijzigd!</string>
+    <string name="file_list_empty_recently_added">Geen recent toegevoegde bestanden gevoden</string>
+    <string name="file_list_empty_recently_added_filter">Geen recent toegevoegde bestanden gevonden voor je zoekopdracht!</string>
+    <string name="file_list_empty_text_photos">Upload enkele foto\'s of activeer auto-upload!</string>
     <string name="file_list_empty_text_photos_filter">Geen foto\'s voor je zoekopdracht gevonden!</string>
+    <string name="file_list_empty_text_videos">Upload enkele videos of activeer auto-upload!</string>
     <string name="file_list_empty_text_videos_filter">Geen video\'s voor je zoekopdracht gevonden!</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text">Upload bestanden of activeer directe uploads!</string>
+    <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto upload!</string>
     <string name="file_list_folder">map</string>
     <string name="file_list_folders">mappen</string>
     <string name="file_list_file">bestand</string>
@@ -342,6 +351,8 @@
 
     <string name="preview_sorry">Sorry hiervoor!</string>
     <string name="preview_image_description">Voorvertoning van afbeelding</string>
+    <string name="preview_image_error_unknown_format">Afbeelding kan niet worden getoond</string>
+
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de lokale map %2$s</string>
     <string name="prefs_instant_upload_path_title">Directe-uploadmap</string>
     <string name="prefs_folder_sync_local_path_title">Lokale map</string>
@@ -597,7 +608,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nog geen activiteit</string>
-    <string name="activities_no_results_message">Deze stream laat gebeurtenissen zoals\toevoegingen, veranderingen &amp; gedeelde bestanden zien</string>
+    <string name="activities_no_results_message">Deze stream laat gebeurtenissen zoals\ntoevoegingen, veranderingen &amp; gedeelde bestanden zien</string>
 
 
 </resources>
