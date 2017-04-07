@@ -553,6 +553,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             mDrawerLayout.openDrawer(GravityCompat.START);
 
             updateExternalLinksInDrawer();
+            updateQuotaLink();
         }
     }
 
@@ -767,6 +768,28 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         mQuotaProgressBar.setProgress(relative);
         DisplayUtils.colorHorizontalProgressBar(mQuotaProgressBar, DisplayUtils.getRelativeInfoColor(this, relative));
 
+        updateQuotaLink();
+
+        mQuotaTextPercentage.setText(String.format(
+                getString(R.string.drawer_quota),
+                DisplayUtils.bytesToHumanReadable(usedSpace),
+                DisplayUtils.bytesToHumanReadable(totalSpace)));
+
+        showQuota(true);
+    }
+
+    protected void unsetAllDrawerMenuItems() {
+        if (mNavigationView != null && mNavigationView.getMenu() != null) {
+            Menu menu = mNavigationView.getMenu();
+            for (int i = 0; i < menu.size(); i++) {
+                menu.getItem(i).setChecked(false);
+            }
+        }
+
+        mCheckedMenuItem = Menu.NONE;
+    }
+
+    private void updateQuotaLink() {
         if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
             ArrayList<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
 
@@ -777,6 +800,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 final ExternalLink firstQuota = quotas.get(0);
                 mQuotaTextLink.setText(firstQuota.name);
                 mQuotaTextLink.setClickable(true);
+                mQuotaTextLink.setVisibility(View.VISIBLE);
                 mQuotaTextLink.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -817,24 +841,6 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         } else {
             mQuotaTextLink.setVisibility(View.INVISIBLE);
         }
-
-        mQuotaTextPercentage.setText(String.format(
-                getString(R.string.drawer_quota),
-                DisplayUtils.bytesToHumanReadable(usedSpace),
-                DisplayUtils.bytesToHumanReadable(totalSpace)));
-
-        showQuota(true);
-    }
-
-    protected void unsetAllDrawerMenuItems() {
-        if (mNavigationView != null && mNavigationView.getMenu() != null) {
-            Menu menu = mNavigationView.getMenu();
-            for (int i = 0; i < menu.size(); i++) {
-                menu.getItem(i).setChecked(false);
-            }
-        }
-
-        mCheckedMenuItem = Menu.NONE;
     }
 
     /**
@@ -992,6 +998,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
         }
         updateAccountList();
         updateExternalLinksInDrawer();
+        updateQuotaLink();
     }
 
     @Override
