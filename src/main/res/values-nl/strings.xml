@@ -360,13 +360,13 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
 
-	<string name="share_link_no_support_share_api">Sorry, delen is niet mogelijk op jouw server. Neem contact op met je beheerder.</string>
+	<string name="share_link_no_support_share_api">Sorry, delen is niet ingeschakeld op jouw server. Neem contact op met je beheerder.</string>
 	<string name="share_link_file_no_exist">Kan dit niet delen. Controleer of dit bestand wel bestaat</string>
-	<string name="share_link_file_error">Er trad een fout op bij uw poging dit bestand of deze map te delen</string>
+	<string name="share_link_file_error">Er trad een fout op bij je poging dit bestand of deze map te delen</string>
 	<string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat</string>
-	<string name="unshare_link_file_error">Er trad een fout op bij uw poging het delen van dit bestand of deze map te beëindigen</string>
+	<string name="unshare_link_file_error">Er trad een fout op bij je poging het delen van dit bestand of deze map te beëindigen</string>
     <string name="update_link_file_no_exist">Kan niet bijwerken. Ga na of het bestand bestaat</string>
-    <string name="update_link_file_error">Er trad een fout op bij uw poging de share bij te werken</string>
+    <string name="update_link_file_error">Er trad een fout op bij je poging de share bij te werken</string>
     <string name="share_link_password_title">Vul het wachtwoord in</string>
     <string name="share_link_empty_password">Je moet een wachtwoord opgeven</string>
 
