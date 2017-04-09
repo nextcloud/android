@@ -13,10 +13,20 @@
     <string name="actionbar_send_file">Invia</string>
     <string name="actionbar_sort">Ordina</string>
     <string name="actionbar_sort_title">Ordina per</string>
+    <string name="sort_by">Ordina per</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="drawer_item_all_files">Tutti i file</string>
+    <string name="drawer_item_files">File</string>
+    <string name="drawer_item_favorites">Preferiti</string>
+    <string name="drawer_item_photos">Foto</string>
     <string name="drawer_item_on_device">Su dispositivo</string>
+    <string name="drawer_item_recently_modified">Modificato di recente</string>
+    <string name="drawer_item_shared">Condiviso</string>
+    <string name="drawer_item_videos">Video</string>
     <string name="drawer_item_settings">Impostazioni</string>
     <string name="drawer_item_uploads_list">Caricamenti</string>
+    <string name="drawer_item_activities">Attività</string>
     <string name="drawer_quota">%1$s di %2$s utilizzati</string>
 	<string name="drawer_close">Chiudi</string>
     <string name="drawer_open">Apri</string>
@@ -81,6 +91,10 @@
     <string name="file_list_no_app_for_file_type">Nessuna applicazione trovata per il tipo di file!</string>
     <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
     <string name="file_list_empty_headline_search">Nessun risultato in questa cartella</string>
+    <string name="file_list_empty_headline_server_search">Nessun risultato</string>
+    <string name="file_list_empty_favorite_headline">Nessun preferito</string>
+    <string name="file_list_empty_headline_server_search_videos">Nessun video</string>
+    <string name="file_list_empty_headline_server_search_photos">Nessuna foto</string>
     <string name="file_list_empty_search">Vuoi provare a cercare in un\'altra cartella?</string>
     <string name="upload_list_empty_headline">Nessun caricamento disponibile</string>
     <string name="upload_list_empty_text">Carica alcuni contenuti o attiva il caricamento istantaneo!</string>
@@ -312,7 +326,10 @@
     <string name="conflict_use_local_version">Versione locale</string>
     <string name="conflict_use_server_version">versione del server</string>
 
+    <string name="preview_sorry">Spiacenti!</string>
     <string name="preview_image_description">Anteprima dell\'immagine</string>
+    <string name="preview_image_error_unknown_format">L\'immagine non può essere mostrata</string>
+
     <string name="error__upload__local_file_not_copied">%1$s non può essere copiato nella cartella locale %2$s</string>
     <string name="prefs_instant_upload_path_title">Cartella caricamenti istantanei</string>
     <string name="prefs_folder_sync_local_path_title">Cartella locale</string>
@@ -504,6 +521,7 @@
     <string name="participate_testing_bug_text">Hai trovato un bug? Qualcosa di strano?</string>
     <string name="participate_testing_report_text">Segnala un problema su GitHub</string>
     <string name="participate_testing_version_text">Sei interessato ad aiutarci a provare la nostra prossima versione?</string>
+    <string name="participate_beta_headline">Prova la versione nigthly</string>
     <string name="participate_release_candidate_headline">Candidata al rilascio</string>
     <string name="participate_release_candidate_text">Questa candidata al rilascio (RC) è uno snapshot della prossima versione e dovrebbe essere stabile. La prova della tua specifica configurazione potrebbe aiutare ad assicurare che lo sia. Registrati per i test su Google Play o controlla manualmente nella sezione \"versioni\" su F-Droid.</string>
     <string name="participate_contribute_headline">Contribuisci attivamente</string>
@@ -524,6 +542,9 @@
         <item quantity="one">%d selezionato</item>
         <item quantity="other">%d selezionati</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">Caricamento attività in corso &#8230;</string>
+    <string name="activity_list_no_results">Nessuna attività trovata.</string>
 
     <string name="upload_file_dialog_title">Digita il nome e il tipo del file da caricare</string>
     <string name="upload_file_dialog_filename">Nome file</string>
@@ -551,4 +572,19 @@
 
     <string name="whats_new_skip">Salta</string>
 
-    </resources>
+    <!-- User information -->
+    <string name="user_info_full_name">Nome completo</string>
+    <string name="user_info_email">Posta elettronica</string>
+    <string name="user_info_phone">Numero di telefono</string>
+    <string name="user_info_address">Indirizzo</string>
+    <string name="user_info_website">Sito web</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Informazioni utente</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Ancora nessuna attività</string>
+    <string name="activities_no_results_message">Questo flusso mostrerà gli eventi come aggiunte, cambiamenti e condivisioni</string>
+
+
+</resources>
