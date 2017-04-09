@@ -22,9 +22,17 @@
     <string name="menu_item_sort_by_size_smallest_first">El más pequeno primero</string>
 
     <string name="drawer_item_all_files">Todos los archivos</string>
+    <string name="drawer_item_files">Archivos</string>
+    <string name="drawer_item_favorites">Favoritos</string>
+    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
+    <string name="drawer_item_recently_added">Recientemente añadido</string>
+    <string name="drawer_item_recently_modified">Recientemente modificado</string>
+    <string name="drawer_item_shared">Compartido</string>
+    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_item_settings">Ajustes</string>
     <string name="drawer_item_uploads_list">Subidas</string>
+    <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_quota">%1$s de %2$s utilizado</string>
 	<string name="drawer_close">Cerrar</string>
     <string name="drawer_open">Abrir</string>
@@ -89,6 +97,11 @@
     <string name="file_list_no_app_for_file_type">¡Aplicación no encontrada para el tipo de archivo!</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
+    <string name="file_list_empty_headline_server_search">Sin resultados</string>
+    <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
+    <string name="file_list_empty_shared">Aquí aparecerán archivos y carpetas que usted comparta</string>
+    <string name="file_list_empty_headline_server_search_videos">No hay videos</string>
+    <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
     <string name="file_list_empty_search">¿A intentado buscar en otra carpeta?</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
     <string name="upload_list_empty_text">¡Suba algún contenido o active subidas instantáneas!</string>
@@ -322,6 +335,8 @@
 
     <string name="preview_sorry">¡Lo sentimos!</string>
     <string name="preview_image_description">Previsualización de imagen</string>
+    <string name="preview_image_error_unknown_format">El foto no puede ser mostrado.</string>
+
     <string name="error__upload__local_file_not_copied">%1$s se pudo copiar a la carpeta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Carpeta para subida instantánea</string>
     <string name="prefs_folder_sync_local_path_title">Carpeta local</string>
@@ -536,6 +551,7 @@
         <item quantity="other">%d seleccionados</item>
     </plurals>
 
+    <string name="activity_list_loading_activity">Cargando actividades&#8230;</string>
     <string name="upload_file_dialog_title">Ingrese nombre y tipo de archivo de subida</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
     <string name="upload_file_dialog_filetype">Tipo de archivo</string>
