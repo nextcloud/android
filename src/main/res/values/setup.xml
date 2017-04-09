@@ -123,7 +123,7 @@
     <bool name="use_home">false</bool>
 
     <!-- Push server url -->
-    <string name="push_server_url" translatable="true"></string>
+    <string name="push_server_url" translatable="false"></string>
 </resources>
 
 
