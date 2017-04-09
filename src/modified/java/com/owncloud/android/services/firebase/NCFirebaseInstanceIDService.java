@@ -52,9 +52,8 @@ public class NCFirebaseInstanceIDService extends FirebaseInstanceIdService {
         //You can implement this method to store the token on your server
         if (!TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
             PushUtils.generateRsa2048KeyPair();
+            sendRegistrationToServer(FirebaseInstanceId.getInstance().getToken());
         }
-
-        sendRegistrationToServer(FirebaseInstanceId.getInstance().getToken());
     }
 
     private void sendRegistrationToServer(String token) {
