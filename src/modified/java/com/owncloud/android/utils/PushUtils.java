@@ -20,9 +20,6 @@
 
 package com.owncloud.android.utils;
 
-import android.util.Base64;
-import android.util.Log;
-
 import com.owncloud.android.MainApp;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -31,15 +28,12 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -55,16 +49,21 @@ public class PushUtils {
         MessageDigest messageDigest = null;
         try {
             messageDigest = MessageDigest.getInstance("SHA-512");
-            byte[] byteData = messageDigest.digest(pushToken.getBytes("UTF-8"));
-            String base64 = Base64.encodeToString(byteData, Base64.NO_WRAP);
-            return base64;
+            messageDigest.update(pushToken.getBytes());
+            return bytesToHex(messageDigest.digest());
         } catch (NoSuchAlgorithmException e) {
             Log_OC.d(TAG, "SHA-512 algorithm not supported");
-        } catch (UnsupportedEncodingException e) {
-            Log_OC.d(TAG, "Unsupported encoding");
         }
-
         return "";
+    }
+
+    private static String bytesToHex(byte[] bytes) {
+        StringBuilder result = new StringBuilder();
+        for (byte individualByte : bytes) {
+            result.append(Integer.toString((individualByte & 0xff) + 0x100, 16)
+                    .substring(1));
+        }
+        return result.toString();
     }
 
     public static int generateRsa2048KeyPair() {
@@ -76,8 +75,9 @@ public class PushUtils {
         File keyPathFile = new File(keyPath);
         if (!new File(privateKeyPath).exists() && !new File(publicKeyPath).exists()) {
             try {
-                Log.d("MARIO", keyPathFile.getAbsolutePath());
-                keyPathFile.createNewFile();
+                if (!keyPathFile.exists()) {
+                    keyPathFile.createNewFile();
+                }
                 KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
                 keyGen.initialize(2048);
 
@@ -130,12 +130,10 @@ public class PushUtils {
 
             if (readPublicKey) {
                 X509EncodedKeySpec keySpec = new X509EncodedKeySpec(bytes);
-                PublicKey key = keyFactory.generatePublic(keySpec);
-                return key;
+                return keyFactory.generatePublic(keySpec);
             } else {
                 PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(bytes);
-                PrivateKey key = keyFactory.generatePrivate(keySpec);
-                return key;
+                return keyFactory.generatePrivate(keySpec);
             }
 
         } catch (FileNotFoundException e) {
