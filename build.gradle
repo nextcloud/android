@@ -13,7 +13,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -37,14 +37,12 @@ ext {
     preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 }
 
-configurations.all {
-    // Check for updates every build
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
-
 repositories {
     jcenter()
     maven { url "https://jitpack.io" }
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
 
     flatDir {
         dirs 'libs'
@@ -103,7 +101,7 @@ android {
     // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
     dexOptions {
-        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
+        // Skip pre-dexing whe`n running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries = preDexEnabled && !travisBuild
     }
 
