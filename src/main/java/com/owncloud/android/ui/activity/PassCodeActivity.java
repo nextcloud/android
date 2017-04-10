@@ -341,9 +341,9 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         ll.initialize();
         mSoftKeyboard = new SoftKeyboardUtil(this, ll, this);
         Configuration config = getResources().getConfiguration();
-        if (config.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO) {
-            // Hard(Physical)Keybord is avaiable
-            //   (Soft(Virtual)Keyboard can not be displayed)
+        if (config.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO &&
+                android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {    // 5.0(21)
+            // Soft(Virtual)Keyboard can not be displayed
             mEnableSwitchSoftKeyboard = false;
             mSoftKeyboardMode = false;          // buttons always show
         } else {
@@ -433,25 +433,29 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         editor.apply();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        switch(newConfig.hardKeyboardHidden) {
-        case Configuration.HARDKEYBOARDHIDDEN_NO:
-            mEnableSwitchSoftKeyboard = false;
-            mSoftKeyboardMode = false;
-            setupKeyboard();
-            break;
-        case Configuration.HARDKEYBOARDHIDDEN_YES:
-            mEnableSwitchSoftKeyboard = true;
-            mSoftKeyboardMode = false;
-            setupKeyboard();
-            break;
-        default:
-            // nothing to do
-            break;
-        }
-    }
+    // TODO: Enable this block when the hardware keyboard can be detected
+    // <activity android:name=".ui.activity.PassCodeActivity"
+	// 		  android:configChanges="keyboard|keyboardHidden"
+	// 		  />
+    // @Override
+    // public void onConfigurationChanged(Configuration newConfig) {
+    //     super.onConfigurationChanged(newConfig);
+    //     switch(newConfig.hardKeyboardHidden) {
+    //     case Configuration.HARDKEYBOARDHIDDEN_NO:
+    //         mEnableSwitchSoftKeyboard = false;
+    //         mSoftKeyboardMode = false;
+    //         setupKeyboard();
+    //         break;
+    //     case Configuration.HARDKEYBOARDHIDDEN_YES:
+    //         mEnableSwitchSoftKeyboard = true;
+    //         mSoftKeyboardMode = false;
+    //         setupKeyboard();
+    //         break;
+    //     default:
+    //         // nothing to do
+    //         break;
+    //     }
+    // }
 
     private void setupKeyboard() {
         mShowButtonsWhenSoftKeyboardClose = true;
