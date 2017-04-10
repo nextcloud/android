@@ -23,6 +23,7 @@
 
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_files">Archivos</string>
+    <string name="drawer_item_home">Inicio</string>
     <string name="drawer_item_favorites">Favoritos</string>
     <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_on_device">En el dispositivo</string>
@@ -93,18 +94,32 @@
     <string name="file_list_seconds_ago">hace segundos</string>
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty">¡Suba algun contenido o sincronice con sus dispositivos!</string>
+    <string name="file_list_empty_favorites">¡Marque archivos como favoritos o sincronice con sus dispositivos!</string>
+    <string name="file_list_empty_favorites_filter_list">Archivos y carpetas que marque como favoritos aparecerán aquí</string>
+    <string name="file_list_empty_favorites_filter">¡No se encontraron archivos favoritos en su consulta!</string>
     <string name="file_list_loading">Cargando&#8230;</string>
     <string name="file_list_no_app_for_file_type">¡Aplicación no encontrada para el tipo de archivo!</string>
     <string name="local_file_list_empty">No hay archivos en esta carpeta.</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">Sin resultados</string>
+    <string name="file_list_empty_favorite_headline">Sin favoritos</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
     <string name="file_list_empty_shared">Aquí aparecerán archivos y carpetas que usted comparta</string>
     <string name="file_list_empty_headline_server_search_videos">No hay videos</string>
     <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
     <string name="file_list_empty_search">¿A intentado buscar en otra carpeta?</string>
+    <string name="file_list_empty_recently_modified">No se modificaron archivos en los últimos 7 días</string>
+    <string name="file_list_empty_recently_modified_filter">¡No se encontraron archivos para su consulta que fueran modificados 
+        en los últimos 7 días!</string>
+    <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
+    <string name="file_list_empty_recently_added_filter">¡No se encontraron archivos agregados recientemente para su consulta!</string>
+    <string name="file_list_empty_text_photos">¡Suba algunos archivos o active la subida automática!</string>
+    <string name="file_list_empty_text_photos_filter">¡No hay fotos encontradas para su consulta!</string>
+    <string name="file_list_empty_text_videos">¡Suba unos videos o active la subida automática!</string>
+    <string name="file_list_empty_text_videos_filter">¡No se encontraron videos para su consulta!</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
     <string name="upload_list_empty_text">¡Suba algún contenido o active subidas instantáneas!</string>
+    <string name="upload_list_empty_text_auto_upload">¡Suba con tenido o active la subida automática!</string>
     <string name="file_list_folder">carpeta</string>
     <string name="file_list_folders">carpetas</string>
     <string name="file_list_file">fichero</string>
@@ -260,6 +275,8 @@
     
     <string name="favorite">Marcar como disponible offline</string>
     <string name="unfavorite">Desmarcar como disponible offline</string>
+    <string name="favorite_real">Marque como favorito</string>
+    <string name="unset_favorite_real">Desmarque como favorito</string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Borrar</string>
     <string name="confirmation_remove_file_alert">¿Está seguro de que quiere elimintar %1$s?</string>
@@ -552,6 +569,8 @@
     </plurals>
 
     <string name="activity_list_loading_activity">Cargando actividades&#8230;</string>
+    <string name="activity_list_no_results">No se encontró actividad.</string>
+
     <string name="upload_file_dialog_title">Ingrese nombre y tipo de archivo de subida</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
     <string name="upload_file_dialog_filetype">Tipo de archivo</string>
@@ -588,4 +607,9 @@
 
     <string name="user_information_description">Información de usuario</string>
 
-    </resources>
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Aun no hay actividad</string>
+    <string name="activities_no_results_message">Este flujo le mostrará eventos como\nagregados, cambios&amp; recursos compartidos</string>
+
+
+</resources>
