@@ -114,10 +114,10 @@ public class PreviewImageFragment extends FileFragment {
      *
      * This method hides to client objects the need of doing the construction in two steps.
      *
-     * @param imageFile                 An {@link OCFile} to preview as an image in the fragment
-     * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of
-     *                                  {@link FragmentStatePagerAdapter}
-     *                                  ; TODO better solution
+     * @param imageFile             An {@link OCFile} to preview as an image in the fragment
+     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of
+     *                              {@link FragmentStatePagerAdapter}
+     *                              ; TODO better solution
      */
     public static PreviewImageFragment newInstance(OCFile imageFile, boolean ignoreFirstSavedState) {
         PreviewImageFragment frag = new PreviewImageFragment();
@@ -130,13 +130,13 @@ public class PreviewImageFragment extends FileFragment {
 
 
     /**
-     *  Creates an empty fragment for image previews.
+     * Creates an empty fragment for image previews.
      *
-     *  MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically
-     *  (for instance, when the device is turned a aside).
+     * MUST BE KEPT: the system uses it when tries to reinstantiate a fragment automatically
+     * (for instance, when the device is turned a aside).
      *
-     *  DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
-     *  construction
+     * DO NOT CALL IT: an {@link OCFile} and {@link Account} must be provided for a successful
+     * construction
      */
     public PreviewImageFragment() {
         mIgnoreFirstSavedState = false;
@@ -185,7 +185,7 @@ public class PreviewImageFragment extends FileFragment {
                 toggleImageBackground();
             }
         });
-        
+
         mMultiView = (RelativeLayout) view.findViewById(R.id.multi_view);
 
         setupMultiView(view);
@@ -342,7 +342,7 @@ public class PreviewImageFragment extends FileFragment {
             case R.id.action_share_file:
                 mContainerActivity.getFileOperationsHelper().showShareFile(getFile());
                 return true;
-            
+
             case R.id.action_open_file_with:
                 openFile();
                 return true;
@@ -544,35 +544,53 @@ public class PreviewImageFragment extends FileFragment {
         private void showLoadedImage(LoadImage result) {
             final ImageViewCustom imageView = mImageViewRef.get();
             Bitmap bitmap = result.bitmap;
+
+
             if (imageView != null) {
-                if(bitmap != null) {
+                if (bitmap != null) {
                     Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
                             bitmap.getHeight());
                 }
 
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ||
+                        result.ocFile.getMimetype().equals("image/svg+xml")) {
                     if (getResources() != null) {
                         Resources r = getResources();
                         Drawable[] layers = new Drawable[2];
                         layers[0] = r.getDrawable(R.color.white);
-                        Drawable bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+                        Drawable bitmapDrawable;
+                        if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ) {
+                            bitmapDrawable = new BitmapDrawable(getResources(), bitmap);
+                        } else {
+                            bitmapDrawable = result.drawable;
+                        }
                         layers[1] = bitmapDrawable;
                         LayerDrawable layerDrawable = new LayerDrawable(layers);
-                        layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                        layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                        layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
-                        layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                        if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ) {
+                            layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                            layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                            layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                            layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                        } else {
+                            layerDrawable.setLayerHeight(0, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                                    getActivity()));
+                            layerDrawable.setLayerHeight(1, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                                    getActivity()));
+                            layerDrawable.setLayerWidth(0, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                                    getActivity()));
+                            layerDrawable.setLayerWidth(1, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                                    getActivity()));
+                        }
                         imageView.setImageDrawable(layerDrawable);
                     } else {
                         imageView.setImageBitmap(bitmap);
                     }
                 }
 
-                if (result.ocFile.getMimetype().equalsIgnoreCase("image/svg+xml")) {
-                    imageView.setImageDrawable(result.drawable);
-                } else if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
+                if (result.ocFile.getMimetype().equalsIgnoreCase("image/gif")) {
                     imageView.setGIFImageFromStoragePath(result.ocFile.getStoragePath());
-                } else if (!result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
+                } else if (!result.ocFile.getMimetype().equalsIgnoreCase("image/png") &&
+                        !result.ocFile.getMimetype().equals("image/svg+xml")) {
                     imageView.setImageBitmap(bitmap);
                 }
 
@@ -620,8 +638,8 @@ public class PreviewImageFragment extends FileFragment {
      * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment}
      * to be previewed.
      *
-     * @param file      File to test if can be previewed.
-     * @return          'True' if the file can be handled by the fragment.
+     * @param file File to test if can be previewed.
+     * @return 'True' if the file can be handled by the fragment.
      */
     public static boolean canBePreviewed(OCFile file) {
         return (file != null && MimeTypeUtil.isImage(file));
@@ -637,7 +655,8 @@ public class PreviewImageFragment extends FileFragment {
     }
 
     private void toggleImageBackground() {
-        if (getFile() != null && getFile().getMimetype().equalsIgnoreCase("image/png") && getActivity() != null
+        if (getFile() != null && (getFile().getMimetype().equalsIgnoreCase("image/png") ||
+                getFile().getMimetype().equalsIgnoreCase("image/svg+xml")) && getActivity() != null
                 && getActivity() instanceof PreviewImageActivity && getResources() != null) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
             LayerDrawable layerDrawable = (LayerDrawable) mImageView.getDrawable();
