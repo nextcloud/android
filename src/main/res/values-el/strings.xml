@@ -13,6 +13,8 @@
     <string name="actionbar_send_file">Αποστολή</string>
     <string name="actionbar_sort">Ταξινόμηση</string>
     <string name="actionbar_sort_title">Ταξινόμηση κατά</string>
+    <string name="menu_item_sort_by_name_a_z">Α - Ω</string>
+    <string name="menu_item_sort_by_name_z_a">Ω - Α</string>
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
     <string name="drawer_item_on_device">Στην συσκευή</string>
     <string name="drawer_item_settings">Ρυθμίσεις</string>
