@@ -51,6 +51,7 @@ public class ExternalSiteWebView extends FileActivity {
     private static final String TAG = ExternalSiteWebView.class.getSimpleName();
 
     private boolean showSidebar = false;
+    private int menuItemId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +60,7 @@ public class ExternalSiteWebView extends FileActivity {
         Bundle extras = getIntent().getExtras();
         String title = extras.getString(EXTRA_TITLE);
         String url = extras.getString(EXTRA_URL);
-        int menuItemId = extras.getInt(EXTRA_MENU_ITEM_ID);
+        menuItemId = extras.getInt(EXTRA_MENU_ITEM_ID);
         showSidebar = extras.getBoolean(EXTRA_SHOW_SIDEBAR);
 
         // show progress
@@ -158,5 +159,12 @@ public class ExternalSiteWebView extends FileActivity {
         Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
         fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(fileDisplayActivity);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        setDrawerMenuItemChecked(menuItemId);
+
     }
 }
