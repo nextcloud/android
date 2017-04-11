@@ -70,6 +70,7 @@ import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.svg.MenuSimpleTarget;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -919,21 +920,23 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             final int size = Math.round(24 * density);
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-                SimpleTarget target = new SimpleTarget<Drawable>() {
+
+                int id=mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
+                        MENU_ORDER_EXTERNAL_LINKS, link.name).setCheckable(true).getItemId();
+
+                MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
                     @Override
                     public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                        mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
-                                MENU_ORDER_EXTERNAL_LINKS, link.name)
-                                .setIcon(resource.getCurrent());
+                        mNavigationView.getMenu().findItem(getIdMenuItem()).setIcon(resource);
                     }
 
                     @Override
                     public void onLoadFailed(Exception e, Drawable errorDrawable) {
                         super.onLoadFailed(e, errorDrawable);
-                        mNavigationView.getMenu().add(R.id.drawer_menu_external_links, MENU_ITEM_EXTERNAL_LINK,
-                                MENU_ORDER_EXTERNAL_LINKS, link.name)
-                                .setIcon(errorDrawable.getCurrent());
+                        mNavigationView.getMenu().findItem(getIdMenuItem()).setIcon(errorDrawable.getCurrent());
                     }
+
+
                 };
 
                 externalLinksProvider.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, size, size);
