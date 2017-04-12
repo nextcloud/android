@@ -35,6 +35,9 @@
         See note in http://developer.android.com/intl/es/reference/android/Manifest.permission.html#GET_ACCOUNTS -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+
     <!-- USE_CREDENTIALS, MANAGE_ACCOUNTS and AUTHENTICATE_ACCOUNTS are needed for API < 23.
         In API >= 23 the do not exist anymore -->
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
@@ -80,6 +83,7 @@
         <activity android:name=".ui.activity.ActivitiesListActivity"/>
         <activity android:name=".ui.activity.FolderSyncActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
+        <activity android:name=".ui.activity.ContactsPreferenceActivity" />
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
                   
                   android:taskAffinity=""

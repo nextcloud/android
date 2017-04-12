@@ -620,5 +620,24 @@
     <string name="activities_no_results_headline">No activity yet</string>
     <string name="activities_no_results_message">This stream will show events like\nadditions, changes &amp; shares</string>
 
+    <string name="actionbar_contacts">Contacts backup</string>
+    <string name="contacts_backup_button">Backup now</string>
+    <string name="contacts_restore_button">Restore last backup</string>
+    <string name="contacts_header_restore">Restore</string>
+    <string name="contacts_header_backup">Backup</string>
+    <string name="contacts_automatic_backup">Contacts backup</string>
+    <string name="contacts_last_backup">Last backup</string>
+    <string name="contacts_read_permission">Read permission of contacts is needed</string>
+    <string name="contacts_write_permission">Write permission for contacts is needed</string>
+    <string name="contactlist_title">Restore contacts</string>
+    <string name="contaclist_restore_selected">Restore selected contacts</string>
+    <string name="contactlist_account_chooser_title">Choose account for import</string>
+    <string name="contactlist_no_permission">No permission, nothing imported!</string>
+    <string name="contacts_preference_choose_date">Choose date</string>
+    <string name="contacts_preference_backup_never">never</string>
+    <string name="contacts_preferences_no_file_found">No file found</string>
+    <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
+    <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
+
 
 </resources>

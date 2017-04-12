@@ -328,6 +328,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().removeItem(R.id.nav_shared);
         }
 
+        if (!getResources().getBoolean(R.bool.contacts_backup)) {
+            navigationView.getMenu().removeItem(R.id.nav_contacts);
+        }
+
         if (AccountUtils.hasSearchSupport(account)) {
             if (!getResources().getBoolean(R.bool.recently_added_enabled)) {
                 navigationView.getMenu().removeItem(R.id.nav_recently_added);
@@ -408,6 +412,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case R.id.nav_folder_sync:
                 Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
                 startActivity(folderSyncIntent);
+                break;
+            case R.id.nav_contacts:
+                Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
+                startActivity(contactsIntent);
                 break;
             case R.id.nav_settings:
                 Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);

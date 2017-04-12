@@ -150,6 +150,13 @@ public class MimeTypeUtil {
     }
 
     /**
+     * @return 'True' if mime type defines vcard
+     */
+    public static boolean isVCard(String mimeType) {
+        return "text/vcard".equalsIgnoreCase(mimeType);
+    }
+
+    /**
      * Checks if file passed is a video.
      *
      * @param file the file to be checked
@@ -201,6 +208,15 @@ public class MimeTypeUtil {
     public static boolean isText(OCFile file) {
         return (MimeTypeUtil.isText(file.getMimetype())
                 || MimeTypeUtil.isText(getMimeTypeFromPath(file.getRemotePath())));
+    }
+
+
+    /**
+     * @param file the file to be analyzed
+     * @return 'True' if the file is a vcard
+     */
+    public static boolean isVCard(OCFile file) {
+        return isVCard(file.getMimetype()) || isVCard(getMimeTypeFromPath(file.getRemotePath()));
     }
 
     /**
