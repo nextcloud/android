@@ -28,6 +28,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -41,7 +42,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -68,6 +69,7 @@ import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
+import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
 
@@ -159,6 +161,8 @@ public abstract class FileActivity extends DrawerActivity
 
         setAccount(account, savedInstanceState != null);
 
+        checkContactsBackupJob();
+
         mOperationsServiceConnection = new OperationsServiceConnection();
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                 Context.BIND_AUTO_CREATE);
@@ -231,6 +235,16 @@ public abstract class FileActivity extends DrawerActivity
             // Null check in case the actionbar is used in ActionBar.NAVIGATION_MODE_LIST
             // since it doesn't have a title then
             outState.putString(KEY_ACTION_BAR_TITLE, getSupportActionBar().getTitle().toString());
+        }
+    }
+
+    private void checkContactsBackupJob() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        if (sharedPreferences.getBoolean(ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, false)) {
+            ContactsPreferenceActivity.startContactBackupJob(getAccount());
+        } else {
+            ContactsPreferenceActivity.cancelContactBackupJob(getBaseContext());
         }
     }
 

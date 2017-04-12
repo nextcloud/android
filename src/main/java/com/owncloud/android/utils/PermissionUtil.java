@@ -11,6 +11,8 @@ import android.support.v4.content.ContextCompat;
  */
 public class PermissionUtil {
     public static final int PERMISSIONS_WRITE_EXTERNAL_STORAGE = 1;
+    public static final int PERMISSIONS_READ_CONTACTS = 2;
+    public static final int PERMISSIONS_WRITE_CONTACTS = 3;
 
     /**
      * Wrapper method for ContextCompat.checkSelfPermission().
@@ -22,7 +24,7 @@ public class PermissionUtil {
      */
     public static boolean checkSelfPermission(Context context, String permission) {
         return ContextCompat.checkSelfPermission(context, permission)
-                != android.content.pm.PackageManager.PERMISSION_GRANTED;
+                == android.content.pm.PackageManager.PERMISSION_GRANTED;
     }
 
     /**
@@ -49,5 +51,37 @@ public class PermissionUtil {
         ActivityCompat.requestPermissions(activity,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 PERMISSIONS_WRITE_EXTERNAL_STORAGE);
+    }
+
+    /**
+     * request the read permission for contacts
+     *
+     * @param activity The target activity.
+     */
+    public static void requestReadContactPermission(Activity activity) {
+        ActivityCompat.requestPermissions(activity,
+                new String[]{Manifest.permission.READ_CONTACTS},
+                PERMISSIONS_READ_CONTACTS);
+    }
+
+    /**
+     * request the write permission for contacts
+     *
+     * @param activity The target activity.
+     */
+    public static void requestWriteContactPermission(Activity activity) {
+        ActivityCompat.requestPermissions(activity,
+                new String[]{Manifest.permission.WRITE_CONTACTS},
+                PERMISSIONS_WRITE_CONTACTS);
+    }
+
+    /**
+     * request the write permission for contacts
+     *
+     * @param fragment The target fragment.
+     */
+    public static void requestWriteContactPermission(android.support.v4.app.Fragment fragment) {
+        fragment.requestPermissions(new String[]{Manifest.permission.WRITE_CONTACTS},
+                PERMISSIONS_WRITE_CONTACTS);
     }
 }
