@@ -95,6 +95,7 @@
     <string name="file_list_seconds_ago">pár másodperce</string>
     <string name="file_list_empty_headline">Itt nincsenek fájlok</string>
     <string name="file_list_empty">Tölts fel néhány tartalmat, vagy szinkronizálj az eszközöddel!</string>
+    <string name="file_list_empty_favorites_filter_list">A kedvencnek jelölt fájlokat és mappákat itt találod meg</string>
     <string name="file_list_loading">Betöltés&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nem található alkalmazás a fálj típushoz.</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
