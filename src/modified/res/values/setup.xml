@@ -24,7 +24,7 @@
     <bool name="show_welcome_link">false</bool>
 	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
 	<string name="share_api_link"></string>
-    
+
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
     <string name="auth_method_saml_web_sso">off</string>
@@ -33,6 +33,11 @@
     <string name = "send_files_to_other_apps">on</string>
     <bool name = "share_via_link_feature">true</bool>
     <bool name = "share_with_users_feature">true</bool>
+
+    // Contacts backup
+    <bool name="contacts_backup">true</bool>
+    <string name="contacts_backup_folder">/Contacts-Backup</string>
+    <integer name="contacts_backup_expire">30</integer>
 
     <!-- Colors -->
     <color name="login_text_color">@color/white</color>
