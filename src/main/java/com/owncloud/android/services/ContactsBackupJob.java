@@ -22,11 +22,14 @@
 package com.owncloud.android.services;
 
 import android.accounts.Account;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.IBinder;
 import android.os.ParcelFileDescriptor;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
@@ -61,6 +64,8 @@ public class ContactsBackupJob extends Job {
     public static final String TAG = "ContactsBackupJob";
     public static final String ACCOUNT = "account";
     public static final String FORCE = "force";
+    private OperationsServiceConnection operationsServiceConnection;
+    private OperationsService.OperationsServiceBinder operationsServiceBinder;
 
 
     @NonNull
@@ -84,7 +89,12 @@ public class ContactsBackupJob extends Job {
 
             backupContact(account, backupFolder);
 
-            expireFiles(daysToExpire, backupFolder, account);
+            // bind to Operations Service
+            operationsServiceConnection = new OperationsServiceConnection(daysToExpire, backupFolder, account);
+
+            getContext().startService(new Intent(getContext(), OperationsService.class));
+            getContext().bindService(new Intent(getContext(), OperationsService.class), operationsServiceConnection,
+                    OperationsService.BIND_AUTO_CREATE);
 
             // store execution date
             sharedPreferences.edit().putLong(ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP,
@@ -177,10 +187,11 @@ public class ContactsBackupJob extends Job {
                     service.putExtra(OperationsService.EXTRA_ACCOUNT, account);
                     service.putExtra(OperationsService.EXTRA_REMOTE_PATH, backup.getRemotePath());
                     service.putExtra(OperationsService.EXTRA_REMOVE_ONLY_LOCAL, false);
-
-                    getContext().startService(service);
+                    operationsServiceBinder.queueNewOperation(service);
                 }
             }
+
+            getContext().unbindService(operationsServiceConnection);
         }
     }
 
@@ -206,5 +217,40 @@ public class ContactsBackupJob extends Job {
             Log_OC.d(TAG, e.getMessage());
         }
         return vCard;
+    }
+
+    /**
+     * Implements callback methods for service binding.
+     */
+    private class OperationsServiceConnection implements ServiceConnection {
+        private Integer daysToExpire;
+        private String backupFolder;
+        private Account account;
+
+        OperationsServiceConnection(Integer daysToExpire, String backupFolder, Account account) {
+            this.daysToExpire = daysToExpire;
+            this.backupFolder = backupFolder;
+            this.account = account;
+        }
+
+        @Override
+        public void onServiceConnected(ComponentName component, IBinder service) {
+            Log_OC.d(TAG, "service connected");
+
+            operationsServiceBinder = (OperationsService.OperationsServiceBinder) service;
+
+            if (component.equals(new ComponentName(getContext(), OperationsService.class))) {
+                expireFiles(daysToExpire, backupFolder, account);
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName component) {
+            Log_OC.d(TAG, "service disconnected");
+
+            if (component.equals(new ComponentName(getContext(), OperationsService.class))) {
+             operationsServiceBinder = null;
+            }
+        }
     }
 }
