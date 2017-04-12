@@ -26,10 +26,10 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
-import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.ui.activity.NotificationsActivity;
 
@@ -39,10 +39,8 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-        Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Log.d(TAG, "Notification Message Body: " + remoteMessage.getNotification().getBody());
 
-        sendNotification(remoteMessage.getNotification().getTitle());
+        sendNotification(MainApp.getAppContext().getString(R.string.new_notification_received));
     }
 
     private void sendNotification(String contentTitle) {

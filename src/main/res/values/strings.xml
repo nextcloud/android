@@ -625,5 +625,7 @@
     <string name="activities_no_results_headline">No activity yet</string>
     <string name="activities_no_results_message">This stream will show events like\nadditions, changes &amp; shares</string>
 
+    <!-- Notifications -->
+    <string name="new_notification_received">New notification received</string>
 
 </resources>

@@ -20,8 +20,27 @@
 
 package com.owncloud.android.utils;
 
+import android.accounts.Account;
+import android.accounts.AuthenticatorException;
+import android.accounts.OperationCanceledException;
+import android.content.Context;
+import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
+
 import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
+import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.lib.common.OwnCloudAccount;
+import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.notifications.RegisterAccountDeviceForNotificationsOperation;
+import com.owncloud.android.lib.resources.notifications.RegisterAccountDeviceForProxyOperation;
+import com.owncloud.android.lib.resources.notifications.models.PushResponse;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -34,6 +53,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
@@ -43,6 +63,7 @@ public class PushUtils {
     private static final String TAG = "PushUtils";
     private static final String KEYPAIR_FOLDER = "nc-keypair";
     private static final String KEYPAIR_FILE_NAME = "push_key";
+    private static final String KEYPAIR_PRIV_EXTENSION = ".priv";
     private static final String KEYPAIR_PUB_EXTENSION = ".pub";
 
     public static String generateSHA512Hash(String pushToken) {
@@ -68,15 +89,17 @@ public class PushUtils {
 
     public static int generateRsa2048KeyPair() {
         String keyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator
-                + KEYPAIR_FOLDER;;
+                + KEYPAIR_FOLDER;
+        ;
 
-        String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME;
+        String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
         String publicKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PUB_EXTENSION;
         File keyPathFile = new File(keyPath);
+
         if (!new File(privateKeyPath).exists() && !new File(publicKeyPath).exists()) {
             try {
                 if (!keyPathFile.exists()) {
-                    keyPathFile.createNewFile();
+                    keyPathFile.mkdir();
                 }
                 KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
                 keyGen.initialize(2048);
@@ -91,8 +114,6 @@ public class PushUtils {
                 } else {
                     return -2;
                 }
-            } catch (IOException e) {
-                Log_OC.d(TAG, "Failed to generate a keypair folder path" + e.getLocalizedMessage());
             } catch (NoSuchAlgorithmException e) {
                 Log_OC.d(TAG, "RSA algorithm not supported");
             }
@@ -105,10 +126,65 @@ public class PushUtils {
         return -2;
     }
 
+    public static void pushRegistrationToServer() {
+        String token = PreferenceManager.getPushToken(MainApp.getAppContext());
+        if (!TextUtils.isEmpty(MainApp.getAppContext().getResources().getString(R.string.push_server_url)) &&
+                !TextUtils.isEmpty(token)) {
+            PushUtils.generateRsa2048KeyPair();
+            String pushTokenHash = PushUtils.generateSHA512Hash(token).toUpperCase();
+            PublicKey devicePublicKey = (PublicKey) PushUtils.readKeyFromFile(true);
+            if (devicePublicKey != null) {
+                byte[] publicKeyBytes = Base64.encode(devicePublicKey.getEncoded(), 0);
+                String publicKey = new String(publicKeyBytes);
+
+                Context context = MainApp.getAppContext();
+                for (Account account : AccountUtils.getAccounts(context)) {
+                    try {
+                        OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
+                        OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                getClientFor(ocAccount, context);
+
+                        RemoteOperation registerAccountDeviceForNotificationsOperation =
+                                new RegisterAccountDeviceForNotificationsOperation(pushTokenHash,
+                                        publicKey, context.getResources().getString(R.string.push_server_url));
+
+                        RemoteOperationResult remoteOperationResult = registerAccountDeviceForNotificationsOperation.
+                                execute(mClient);
+
+                        if (remoteOperationResult.isSuccess()) {
+                            PushResponse pushResponse = remoteOperationResult.getPushResponseData();
+
+                            RemoteOperation registerAccountDeviceForProxyOperation = new
+                                    RegisterAccountDeviceForProxyOperation(
+                                    context.getResources().getString(R.string.push_server_url),
+                                    token, pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
+                                    pushResponse.getPublicKey());
+
+                            remoteOperationResult = registerAccountDeviceForProxyOperation.execute(mClient);
+                            Log.d("THIS IS MARIO", "MARIO");
+                            PreferenceManager.setPushTokenLastSentTime(MainApp.getAppContext(),
+                                    System.currentTimeMillis());
+
+                        }
+                    } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                        Log_OC.d(TAG, "Failed to find an account");
+                    } catch (AuthenticatorException e) {
+                        Log_OC.d(TAG, "Failed via AuthenticatorException");
+                    } catch (IOException e) {
+                        Log_OC.d(TAG, "Failed via IOException");
+                    } catch (OperationCanceledException e) {
+                        Log_OC.d(TAG, "Failed via OperationCanceledException");
+                    }
+                }
+            }
+        }
+    }
+
     public static Key readKeyFromFile(boolean readPublicKey) {
         String keyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator
-                + KEYPAIR_FOLDER;;
-        String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME;
+                + KEYPAIR_FOLDER;
+        ;
+        String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
         String publicKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PUB_EXTENSION;
 
         String path;
@@ -153,6 +229,9 @@ public class PushUtils {
         byte[] encoded = key.getEncoded();
         FileOutputStream keyFileOutputStream = null;
         try {
+            if (!new File(path).exists()) {
+                new File(path).createNewFile();
+            }
             keyFileOutputStream = new FileOutputStream(path);
             keyFileOutputStream.write(encoded);
             keyFileOutputStream.close();
