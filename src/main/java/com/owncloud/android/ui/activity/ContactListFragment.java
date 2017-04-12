@@ -339,6 +339,8 @@ class ContactListAdapter extends ArrayAdapter<VCard> {
                 Drawable drawable = new BitmapDrawable(BitmapFactory.decodeByteArray(data, 0, data.length));
 
                 viewHolder.badge.setImageDrawable(drawable);
+            } else {
+                viewHolder.badge.setImageToDefault();
             }
 
             // name
