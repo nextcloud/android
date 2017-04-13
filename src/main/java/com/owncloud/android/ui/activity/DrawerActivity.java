@@ -834,7 +834,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                     }
                 };
 
-                externalLinksProvider.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey, size, size);
+                DisplayUtils.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey, size, size);
 
             } else {
                 mQuotaTextLink.setVisibility(View.INVISIBLE);
@@ -939,7 +939,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                 };
 
-                externalLinksProvider.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, size, size);
+                DisplayUtils.downloadIcon(this, link.iconUrl, target, R.drawable.ic_link_grey, size, size);
             }
         }
     }
