@@ -1,3 +1,9 @@
+## 2017-04-13 09:27
+
+- Added fingerprint support (Flole998/master) [https://github.com/nextcloud/android/pull/624] updated
+- Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://github.com/nextcloud/android/pull/451] updated
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
 ## 1.4.2 (March 14, 2017)
 - Auto Upload for newly taken photos/images (Android 6+)
 - Auto Upload improvements and fixes
