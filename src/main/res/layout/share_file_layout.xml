@@ -77,7 +77,7 @@
             android:id="@+id/share_header_divider"
             android:layout_width="match_parent"
             android:layout_height="@dimen/standard_eighth_margin"
-            android:background="@color/owncloud_blue"
+            android:background="@color/nc_blue"
             />
 
         <LinearLayout
