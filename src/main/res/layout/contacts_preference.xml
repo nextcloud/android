@@ -43,7 +43,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:text="@string/contacts_header_backup"
-            android:textColor="@color/primary"/>
+            android:textColor="@color/primary"
+            android:textStyle="bold"/>
 
         <android.support.v7.widget.SwitchCompat
             android:id="@+id/contacts_automatic_backup"
@@ -74,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:text="2017 / 03 / 10 - 11:33am"
+                android:text="@string/contacts_preference_backup_never"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
         </LinearLayout>
 
@@ -95,7 +96,8 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:text="@string/contacts_header_restore"
-            android:textColor="@color/primary"/>
+            android:textColor="@color/primary"
+            android:textStyle="bold"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/contacts_datepacker"
