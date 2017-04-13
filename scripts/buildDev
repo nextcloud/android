@@ -9,13 +9,13 @@ echo $date > ~/apks/latest
 sed -i  s"#'com.github.nextcloud:android-library.*#'com.github.nextcloud:android-library:dev-SNAPSHOT'#" build.gradle
 
 # use current date for version code/name
-sed -i s"#android:versionCode=.*#android:versionCode=\"$date\"#" AndroidManifest.xml
+sed -i s"#android:versionCode=.*#android:versionCode=\"$date\"#" src/main/AndroidManifest.xml
 sed -i s"#versionCode .*#versionCode $date#" build.gradle
 
-sed -i s"#android:versionName=.*\"#android:versionName=\"$date\"#" AndroidManifest.xml
+sed -i s"#android:versionName=.*\"#android:versionName=\"$date\"#" src/main/AndroidManifest.xml
 sed -i s"#versionName .*#versionName \"$date\"#" build.gradle
 
-# sed -e 's#\@string/app_name#Nextcloud dev#' -e 's#\@string/copy_link#Copy link#' -e 's#\@string/share_dialog_title#Sharing#' -e 's#\@string/manage_space_title#Manage space#' AndroidManifest.xml -i
+# sed -e 's#\@string/app_name#Nextcloud dev#' -e 's#\@string/copy_link#Copy link#' -e 's#\@string/share_dialog_title#Sharing#' -e 's#\@string/manage_space_title#Manage space#' src/main/AndroidManifest.xml -i
 
 # build signed apk
 gradle assembleRelease >> /tmp/dev.log 2>&1
