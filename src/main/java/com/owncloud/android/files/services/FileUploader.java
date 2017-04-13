@@ -503,6 +503,7 @@ public class FileUploader extends Service
                     /*ocUpload.setUseWifiOnly(isUseWifiOnly);
                     ocUpload.setWhileChargingOnly(isWhileChargingOnly);*/
                     ocUpload.setUploadStatus(UploadStatus.UPLOAD_IN_PROGRESS);
+                    ocUpload.setFileModifiedTimeStamp(files[i].getLocalModificationTimestamp());
 
                     newUpload = new UploadFileOperation(
                             account,

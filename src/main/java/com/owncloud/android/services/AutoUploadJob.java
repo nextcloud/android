@@ -30,6 +30,8 @@ import com.evernote.android.job.Job;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.UploadsStorageManager;
+import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -60,22 +62,54 @@ public class AutoUploadJob extends Job {
 
         // File can be deleted between job generation and job execution. If file does not exist, just ignore it
         if (file.exists()) {
-            final String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
+            UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(),
+                    context);
 
-            final FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
-            requester.uploadNewFile(
-                    context,
-                    account,
-                    filePath,
-                    remotePath,
-                    uploadBehaviour,
-                    mimeType,
-                    true,           // create parent folder if not existent
-                    UploadFileOperation.CREATED_AS_INSTANT_PICTURE
-            );
+            boolean found = false;
+
+            // check if we already uploaded this file
+            for (OCUpload ocUpload : uploadsStorageManager.getFinishedUploads()) {
+                if (ocUpload.getLocalPath().equals(filePath) &&
+                        ocUpload.getRemotePath().equals(remotePath) &&
+                        ocUpload.getAccountName().equals(account.name) &&
+                        ocUpload.getFileSize() == file.length() &&
+                        ocUpload.getFileModifiedTimeStamp() == file.lastModified()) {
+                    found = true;
+                    break;
+                }
+            }
+
+            // or if it's waiting to be uploaded
+            for (OCUpload ocUpload : uploadsStorageManager.getCurrentAndPendingUploads()) {
+                if (ocUpload.getLocalPath().equals(filePath) &&
+                        ocUpload.getRemotePath().equals(remotePath) &&
+                        ocUpload.getAccountName().equals(account.name) &&
+                        ocUpload.getFileSize() == file.length() &&
+                        ocUpload.getFileModifiedTimeStamp() == file.lastModified()) {
+                    found = true;
+                    break;
+                }
+            }
+
+
+            if (!found) {
+                final String mimeType = MimeTypeUtil.getBestMimeTypeByFilename(file.getAbsolutePath());
+
+                final FileUploader.UploadRequester requester = new FileUploader.UploadRequester();
+                requester.uploadNewFile(
+                        context,
+                        account,
+                        filePath,
+                        remotePath,
+                        uploadBehaviour,
+                        mimeType,
+                        true,           // create parent folder if not existent
+                        UploadFileOperation.CREATED_AS_INSTANT_PICTURE
+                );
+            }
         }
 
-
         return Result.SUCCESS;
+
     }
 }

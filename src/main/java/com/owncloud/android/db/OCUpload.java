@@ -101,6 +101,10 @@ public class OCUpload implements Parcelable {
      */
     private long mUploadEndTimeStamp;
 
+    /*
+        When the file was last touched
+     */
+    private long mFileModifiedTimeStamp;
 
     /**
      * Main constructor
@@ -160,6 +164,15 @@ public class OCUpload implements Parcelable {
     }
     public long getUploadId() {
         return mId;
+    }
+
+
+    public long getFileModifiedTimeStamp() {
+        return mFileModifiedTimeStamp;
+    }
+
+    public void setFileModifiedTimeStamp(long fileModifiedTimeStamp) {
+        this.mFileModifiedTimeStamp = fileModifiedTimeStamp;
     }
 
     /**
@@ -363,6 +376,7 @@ public class OCUpload implements Parcelable {
             mUploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
         }
         mUploadEndTimeStamp = source.readLong();
+        mFileModifiedTimeStamp = source.readLong();
         try {
             mLastResult = UploadResult.valueOf(source.readString());
         } catch (IllegalArgumentException x) {
@@ -388,6 +402,7 @@ public class OCUpload implements Parcelable {
         dest.writeInt(mIsCreateRemoteFolder ? 1 : 0);
         dest.writeString(mUploadStatus.name());
         dest.writeLong(mUploadEndTimeStamp);
+        dest.writeLong(mFileModifiedTimeStamp);
         dest.writeString(((mLastResult == null) ? "" : mLastResult.name()));
         dest.writeInt(mCreatedBy);
     }

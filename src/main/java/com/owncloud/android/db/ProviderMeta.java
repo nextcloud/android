@@ -33,7 +33,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 17;
+    public static final int DB_VERSION = 18;
 
     private ProviderMeta() {
     }
@@ -148,6 +148,7 @@ public class ProviderMeta {
         public static final String UPLOADS_REMOTE_PATH = "remote_path";
         public static final String UPLOADS_ACCOUNT_NAME = "account_name";
         public static final String UPLOADS_FILE_SIZE = "file_size";
+        public static final String UPLOADS_FILE_MODIFIED_TIMESTAMP = "file_last_modified";
         public static final String UPLOADS_STATUS = "status";
         public static final String UPLOADS_LOCAL_BEHAVIOUR = "local_behaviour";
         public static final String UPLOADS_UPLOAD_TIME = "upload_time";

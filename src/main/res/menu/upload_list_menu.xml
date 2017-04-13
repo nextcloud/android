@@ -24,11 +24,14 @@
         android:title="@string/action_retry_uploads"/>
     <item
         android:id="@+id/action_clear_failed_uploads"
-        android:title="@string/action_clear_failed_uploads"/>
+        android:title="@string/action_clear_failed_uploads"
+        android:visible="false"/>
     <item
         android:id="@+id/action_clear_successfull_uploads"
-        android:title="@string/action_clear_successful_uploads"/>
+        android:title="@string/action_clear_successful_uploads"
+        android:visible="false"/>
     <item
         android:id="@+id/action_clear_finished_uploads"
-        android:title="@string/action_clear_finished_uploads"/>
+        android:title="@string/action_clear_finished_uploads"
+        android:visible="false"/>
 </menu>

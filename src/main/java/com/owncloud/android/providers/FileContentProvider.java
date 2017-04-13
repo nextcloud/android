@@ -859,6 +859,22 @@ public class FileContentProvider extends ContentProvider {
 
             }
 
+            if (oldVersion < 18 && newVersion >= 18) {
+                Log_OC.i(SQL, "Entering in the #4 ADD in onUpgrade");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.UPLOADS_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.UPLOADS_FILE_MODIFIED_TIMESTAMP +
+                            " INTEGER " + " DEFAULT 0");
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+
+            }
+
+
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
