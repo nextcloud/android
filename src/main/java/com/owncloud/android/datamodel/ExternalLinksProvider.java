@@ -21,27 +21,15 @@ package com.owncloud.android.datamodel;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
-import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.bumptech.glide.GenericRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.model.StreamEncoder;
-import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.caverock.androidsvg.SVG;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.svg.SvgDecoder;
-import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -182,46 +170,6 @@ public class ExternalLinksProvider {
         return externalLink;
     }
 
-    private void downloadPNGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder) {
-        Glide
-                .with(context)
-                .load(iconUrl)
-                .centerCrop()
-                .placeholder(placeholder)
-                .error(placeholder)
-                .crossFade()
-                .into(imageView);
-    }
-
-    private void downloadSVGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
-                                 int width, int height) {
-        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
-                .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
-                .from(Uri.class)
-                .as(SVG.class)
-                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
-                .sourceEncoder(new StreamEncoder())
-                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder(height, width)))
-                .decoder(new SvgDecoder(height, width))
-                .placeholder(placeholder)
-                .error(placeholder)
-                .animate(android.R.anim.fade_in);
 
 
-        Uri uri = Uri.parse(iconUrl);
-        requestBuilder
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .load(uri)
-                .into(imageView);
-    }
-
-
-    public void downloadIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
-                             int width, int height){
-        if (iconUrl.endsWith(".svg")){
-            downloadSVGIcon(context, iconUrl, imageView, placeholder, width, height);
-        } else {
-            downloadPNGIcon(context, iconUrl, imageView, placeholder);
-        }
-    }
 }
