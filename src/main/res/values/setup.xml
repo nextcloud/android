@@ -145,6 +145,11 @@
 
     <!-- Push server url -->
     <string name="push_server_url" translatable="false"></string>
+
+    <!-- Dev settings -->
+    <string name="dev_link">https://download.nextcloud.com/android/dev/nextcloud-dev-</string>
+    <string name="dev_latest">https://download.nextcloud.com/android/dev/latest</string>
+    <string name="dev_changelog">https://github.com/nextcloud/android/raw/dev/CHANGELOG.md</string>
 </resources>
 
 
