@@ -108,7 +108,9 @@
     <string name="file_list_empty_headline_server_search_videos">No hay videos</string>
     <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
     <string name="file_list_empty_search">¿Intentó buscar en otra carpeta?</string>
-    <string name="file_list_empty_recently_modified">Ningún archivo fue modificado en los últimos 7 días</string>
+    <string name="file_list_empty_recently_modified">No se encontraron archivos que hayan sido modificado en los últimos 7 días</string>
+    <string name="file_list_empty_recently_modified_filter">¡No se encontraron archivos para su búsqueda que hayan sido modificados 
+en los últimos 7 días!</string>
     <string name="file_list_empty_recently_added">No se encontraron archivos agregados recientemente</string>
     <string name="file_list_empty_recently_added_filter">¡No se encontraron archivos agregados recientemente para su consulta!</string>
     <string name="file_list_empty_text_photos">¡Cargue algunas fotos o active la carga automática!</string>
@@ -229,7 +231,7 @@
     <string name="media_err_io">El archivo no ha podido ser leído</string>
     <string name="media_err_malformed">El archivo no ha sido codificado correctamente</string>
     <string name="media_err_timeout">Tiempo de espera expirado al intentar reproducir</string>
-    <string name="media_err_invalid_progressive_playback">Archivo de medio no puede ser transmitido</string>
+    <string name="media_err_invalid_progressive_playback">Archivo de medio no puede ser transmitido como flujo</string>
     <string name="media_err_unknown">El archivo de medios no se puede reproducir con el reproductor de medios por defecto </string>
     <string name="media_err_security_ex">Se presentó un error de seguridad al intentar reproducir %1$s</string>
     <string name="media_err_io_ex">Se presentó un error en la entrada de datos al intentar reproducir %1$s</string>
@@ -519,7 +521,7 @@
     <string name="action_retry_uploads">Falla en el reintento</string>
     <string name="action_clear_failed_uploads">Borrar fallidos</string>
     <string name="action_clear_successful_uploads">Borrar exitosos</string>
-    <string name="action_clear_finished_uploads">Borrar completados</string>
+    <string name="action_clear_finished_uploads">Borrar todos los completados</string>
 
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
