@@ -27,14 +27,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -45,8 +45,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.QuickContactBadge;
 import android.widget.TextView;
 
 import com.evernote.android.job.JobRequest;
@@ -57,6 +57,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.ContactsImportJob;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
@@ -164,7 +165,7 @@ public class ContactListFragment extends FileFragment {
     }
 
     static class ContactItemViewHolder {
-        QuickContactBadge badge;
+        ImageView badge;
         TextView name;
     }
 
@@ -321,7 +322,7 @@ class ContactListAdapter extends ArrayAdapter<VCard> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.contactlist_list_item, parent, false);
             viewHolder = new ContactListFragment.ContactItemViewHolder();
 
-            viewHolder.badge = (QuickContactBadge) convertView.findViewById(R.id.contactlist_item_icon);
+            viewHolder.badge = (ImageView) convertView.findViewById(R.id.contactlist_item_icon);
             viewHolder.name = (TextView) convertView.findViewById(R.id.contactlist_item_name);
 
             convertView.setTag(viewHolder);
@@ -336,11 +337,13 @@ class ContactListAdapter extends ArrayAdapter<VCard> {
             if (vcard.getPhotos().size() > 0) {
                 byte[] data = vcard.getPhotos().get(0).getData();
 
-                Drawable drawable = new BitmapDrawable(BitmapFactory.decodeByteArray(data, 0, data.length));
+                Bitmap thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
+                RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(getContext().getResources(),
+                        thumbnail);
 
                 viewHolder.badge.setImageDrawable(drawable);
             } else {
-                viewHolder.badge.setImageToDefault();
+                viewHolder.badge.setImageResource(R.drawable.ic_user);
             }
 
             // name
