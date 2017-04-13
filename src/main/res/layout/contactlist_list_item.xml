@@ -21,7 +21,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="72dp">
 
     <ImageView
         android:id="@+id/contactlist_item_icon"
@@ -35,19 +35,12 @@
     <CheckedTextView
         android:id="@+id/contactlist_item_name"
         android:layout_width="0dp"
-        android:layout_height="match_parent"
+        android:layout_height="72dp"
         android:layout_weight="1"
         android:checkMark="?android:attr/listChoiceIndicatorMultiple"
         android:ellipsize="marquee"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
-
-    <!--<CheckBox-->
-        <!--android:id="@+id/checkBox"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:padding="10dp"-->
-        <!--/>-->
 
 </LinearLayout>
