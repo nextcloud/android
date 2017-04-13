@@ -78,5 +78,5 @@ echo >> CHANGELOG.md
 cat $tmpFile >> CHANGELOG.md
 
 git add .
-git commit -m "update dev"
+git commit -m "update dev $(date +%F)"
 git push

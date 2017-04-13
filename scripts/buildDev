@@ -33,7 +33,7 @@ mv latest.apk ~/apks/
 /bin/ls -t ~/apks/*.apk | awk 'NR>6' | xargs rm -f
 
 git add .
-git commit -m "daily dev build"
+git commit -m "daily dev $date"
 git push
 
 git tag dev-$date
