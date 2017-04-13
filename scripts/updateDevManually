@@ -1,0 +1,43 @@
+#!/bin/bash
+
+echo -n "git pull:"
+git pull  || exit
+echo
+
+branches=$(scripts/getBranchesForDev)
+branchesCount=$(echo "$branches" | wc -l)
+
+count=1
+echo "Branches: $branchesCount" 
+
+while read -u 3 -r branch; do
+    branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
+
+    echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] $branch"
+
+
+    if [ $(echo $branchName | grep -c "^origin") -eq 0 ] ; then
+        # remote repo
+        git fetch -q $(echo $branchName | cut -f1 -d"/") 1> /dev/null
+    fi
+
+    git merge --no-edit $branchName 1> /dev/null
+
+    if [ $? -ne 0 ] ; then
+        echo "resolve conflict in androidStudio, after resolving press RETURN"
+        read
+        git add . && git commit --no-edit 1> /dev/null
+    else
+        echo " merged"
+    fi
+
+    let count++
+
+done 3<<< "$branches"
+
+echo "git push? [y/n]"
+read -r result
+
+if [ $result = "y" ] ; then
+    git push
+fi

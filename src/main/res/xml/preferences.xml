@@ -75,7 +75,7 @@
 		<Preference 		android:key="log_history"
 	                        android:title="@string/prefs_log_title_history"
 	                        android:summary="@string/prefs_log_summary_history"/ -->
-                        
+
     </PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_details">
@@ -93,6 +93,16 @@
 		<Preference android:title="@string/actionbar_logger" android:key="logger" />
 		<Preference android:title="@string/prefs_imprint" android:key="imprint" />
 		<Preference android:title="@string/about_title" android:id="@+id/about_app" android:key="about_app" />
+	</PreferenceCategory>
+
+	<PreferenceCategory android:title="@string/prefs_category_dev" android:key="dev_category">
+		<Preference android:id="@+id/dev_link"
+					android:title="Download latest dev version"
+					android:key="dev_link" />
+
+		<Preference android:id="@+id/changelog_link"
+					android:title="Changelog dev version"
+					android:key="changelog_link" />
 	</PreferenceCategory>
 
 </PreferenceScreen>
