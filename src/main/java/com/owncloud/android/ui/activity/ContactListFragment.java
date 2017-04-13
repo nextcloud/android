@@ -90,10 +90,6 @@ public class ContactListFragment extends FileFragment {
         return frag;
     }
 
-    public ContactListFragment() {
-        super();
-    }
-
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -170,8 +166,8 @@ public class ContactListFragment extends FileFragment {
     }
 
     static class ContactItemViewHolder extends RecyclerView.ViewHolder {
-        ImageView badge;
-        CheckedTextView name;
+        private ImageView badge;
+        private CheckedTextView name;
 
         ContactItemViewHolder(View itemView) {
             super(itemView);
@@ -182,8 +178,24 @@ public class ContactListFragment extends FileFragment {
             itemView.setTag(this);
         }
 
-        void setVCardListener(View.OnClickListener onClickListener) {
+        public void setVCardListener(View.OnClickListener onClickListener) {
             itemView.setOnClickListener(onClickListener);
+        }
+
+        public ImageView getBadge() {
+            return badge;
+        }
+
+        public void setBadge(ImageView badge) {
+            this.badge = badge;
+        }
+
+        public CheckedTextView getName() {
+            return name;
+        }
+
+        public void setName(CheckedTextView name) {
+            this.name = name;
         }
     }
 
@@ -294,9 +306,9 @@ public class ContactListFragment extends FileFragment {
     }
 
     private class ContactAccount {
-        String displayName;
-        String name;
-        String type;
+        private String displayName;
+        private String name;
+        private String type;
 
         ContactAccount(String displayName, String name, String type) {
             this.displayName = displayName;
@@ -353,18 +365,18 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                 RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.getResources(),
                         thumbnail);
 
-                holder.badge.setImageDrawable(drawable);
+                holder.getBadge().setImageDrawable(drawable);
             } else {
-                holder.badge.setImageResource(R.drawable.ic_user);
+                holder.getBadge().setImageResource(R.drawable.ic_user);
             }
 
             // Checkbox
             holder.setVCardListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    holder.name.setChecked(!holder.name.isChecked());
+                    holder.getName().setChecked(!holder.getName().isChecked());
 
-                    if (holder.name.isChecked()) {
+                    if (holder.getName().isChecked()) {
                         vCardClickListener.onVCardCheck(holder.getAdapterPosition());
                     } else {
                         vCardClickListener.onVCardUncheck(holder.getAdapterPosition());
@@ -376,7 +388,7 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
             StructuredName name = vcard.getStructuredName();
             String first = (name.getGiven() == null) ? "" : name.getGiven() + " ";
             String last = (name.getFamily() == null) ? "" : name.getFamily();
-            holder.name.setText(first + last);
+            holder.getName().setText(first + last);
         }
     }
 
