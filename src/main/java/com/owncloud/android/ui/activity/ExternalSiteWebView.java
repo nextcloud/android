@@ -149,6 +149,7 @@ public class ExternalSiteWebView extends FileActivity {
 
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }
