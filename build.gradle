@@ -212,6 +212,7 @@ dependencies {
     implementation 'com.github.nextcloud:android-library:1.0.33'
     versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT' // use always latest master
     versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'
+    versionDevImplementation 'com.github.nextcloud:android-library:master-SNAPSHOT'
     implementation "com.android.support:support-v4:${supportLibraryVersion}"
     implementation "com.android.support:design:${supportLibraryVersion}"
     implementation 'com.jakewharton:disklrucache:2.0.2'
