@@ -1,6 +1,7 @@
 #!/bin/bash
 
 statusFile="devUpdateStatus"
+touch mergedBranches
 
 # check if branch was changed
 git fetch
@@ -17,21 +18,21 @@ echo "Branches: $branchesCount" >> $statusFile
 
 if [ $devBranchWasUpdated -eq 0 ]; then
     # branch was updated outside, so build new dev
-    echo "Dev branch was updated successfully" >> $statusFile
+    echo -n "[00 / $(printf "%02d" $branchesCount)] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully" >> $statusFile
 fi
 
 while read -r branch; do
     echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] " >> $statusFile
-    
+
     branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
-    
+
     if [ $(echo $branchName | grep -c "^origin") -eq 0 ] ; then
         # remote repo
         git fetch -q $(echo $branchName | cut -f1 -d"/") 1> /dev/null
     fi
-    
+
     mergeOutput=$(git merge --no-edit $branchName)
-    
+
     if [ $? -ne 0 ] ; then
         echo "$branch CONFLICT" >> $statusFile
         git merge --abort
@@ -43,7 +44,7 @@ while read -r branch; do
             echo "$branch no update needed" >> $statusFile
          fi
     fi
-    
+
     let count++
 done <<< "$branches"
 
@@ -56,6 +57,8 @@ echo "## $(date '+%F %H:%M')" > CHANGELOG.md
 ## add new branches
 if [ $(comm -13 mergedBranches <(cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) | wc -l) -gt 0 ] ; then
     egrep "$(comm -13 mergedBranches <(cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) )" devUpdateStatus | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# added#'g >> CHANGELOG.md
+else
+    echo "no new branches added" >> CHANGELOG.md
 fi
 
 cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 >> mergedBranches
@@ -67,6 +70,8 @@ echo >> CHANGELOG.md
 ## add updated branches
 if [ $(cat devUpdateStatus | grep succ -c) -gt 0 ]; then
     cat devUpdateStatus | grep succ | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# updated#'g >> CHANGELOG.md
+else
+    echo "no branches updated" >> CHANGELOG.md
 fi
 
 echo >> CHANGELOG.md
