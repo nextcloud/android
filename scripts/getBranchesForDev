@@ -13,8 +13,9 @@ for pr in $pullRequests; do
     echo "$title ("$branchName") ["$htmlUrl"]"
 done
 
-# manually add master branch
+# manually add master and dev-base branch
 echo "Master (nextcloud/master) [https://github.com/nextcloud/android]"
+echo "Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base]"
 
 ## add remote repos
 for repoUrl in $(curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pullRequests | grep \"git_url\" | sort | uniq | cut -f4 -d"\"" ); do
