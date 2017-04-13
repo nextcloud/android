@@ -727,4 +727,12 @@
     <string name="send">Send</string>
     <string name="share">Share</string>
     <string name="link">Link</string>
+
+    <string name="store_short_desc">The Nextcloud Android app allows you to access all your files on your Nextcloud</string>
+    <string name="store_full_desc">The Open Source Nextcloud Android app allows you to access all your files on your Nextcloud.\n\nFeatures:\n* Easy, modern interface, fully themed in alignment with your server\'s theming\n* Upload your files to your Nextcloud server\n* Share your files with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or pin\n* Integration with DAVdroid for easy setup of Calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is fully open source and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+
+    <string name="store_short_dev_desc">The Nextcloud Dev app is a development snapshot and can be installed parallel.</string>
+    <string name="store_full_dev_desc">The Open Source Nextcloud Android app allows you to access all your files on your Nextcloud.\nThis is a dev version of the official Nextcloud app and includes brand-new, untested features which might lead to instabilities and data loss. The app is designed for users willing to test the new features and to report bugs if they occur. Do not use it for your productive work!\n\nThe dev version can be installed alongside the official Nextcloud app which is available at F-Droid, too. Once a day it is checked if the source code was updated, so there can be longer pauses between builds.</string>
+
+    <string name="prefs_category_dev">Dev</string>
 </resources>
