@@ -8,7 +8,7 @@
       "client_info": {
         "mobilesdk_app_id": "",
         "android_client_info": {
-          "package_name": "com.nextcloud.android.dev"
+          "package_name": "com.nextcloud.android.beta"
         }
       },
       "oauth_client": [],

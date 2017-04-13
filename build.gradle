@@ -74,7 +74,7 @@ android {
 
         multiDexEnabled true
 
-        applicationId "com.nextcloud.android.dev"
+        applicationId "com.nextcloud.android.beta"
         versionCode 20170413
         versionName "20170413"
 
@@ -84,7 +84,7 @@ android {
         productFlavors {
             // used for f-droid
             generic {
-                applicationId 'com.nextcloud.android.dev'
+                applicationId 'com.nextcloud.android.beta'
             }
 
             gplay {
