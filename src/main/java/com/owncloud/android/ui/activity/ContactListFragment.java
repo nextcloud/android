@@ -32,22 +32,18 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v7.app.AlertDialog;
-import android.util.SparseBooleanArray;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
@@ -63,7 +59,9 @@ import com.owncloud.android.utils.PermissionUtil;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import ezvcard.Ezvcard;
 import ezvcard.VCard;
@@ -79,8 +77,8 @@ public class ContactListFragment extends FileFragment {
     public static final String FILE_NAME = "FILE_NAME";
     public static final String ACCOUNT = "ACCOUNT";
 
-    private ListView listView;
-    private ArrayList<VCard> vCards;
+    private RecyclerView recyclerView;
+    private Set<Integer> checkedVCards;
 
     public static ContactListFragment newInstance(OCFile file, Account account) {
         ContactListFragment frag = new ContactListFragment();
@@ -101,7 +99,8 @@ public class ContactListFragment extends FileFragment {
 
         View view = inflater.inflate(R.layout.contactlist_fragment, null);
 
-        vCards = new ArrayList<>();
+        ArrayList<VCard> vCards = new ArrayList<>();
+        checkedVCards = new HashSet<>();
 
         try {
             OCFile ocFile = getArguments().getParcelable(FILE_NAME);
@@ -132,26 +131,12 @@ public class ContactListFragment extends FileFragment {
             }
         });
 
-        ContactListAdapter contactListAdapter = new ContactListAdapter(getContext(), vCards);
+        recyclerView = (RecyclerView) view.findViewById(R.id.contactlist_recyclerview);
 
-        listView = (ListView) view.findViewById(R.id.contactlist_listview);
-        listView.setChoiceMode(AbsListView.CHOICE_MODE_MULTIPLE);
-        listView.setAdapter(contactListAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                CheckedTextView tv = (CheckedTextView) view.findViewById(R.id.contactlist_item_name);
-
-                if (listView.getCheckedItemPositions().get(position)) {
-                    tv.setChecked(true);
-                } else {
-                    listView.getCheckedItemPositions().delete(position);
-                    tv.setChecked(false);
-                }
-
-                if (listView.getCheckedItemPositions().size() > 0) {
+        ContactListAdapter.OnVCardClickListener vCardClickListener = new ContactListAdapter.OnVCardClickListener() {
+            private void setRestoreButton() {
+                if (checkedVCards.size() > 0) {
                     restoreContacts.setEnabled(true);
                     restoreContacts.setBackgroundColor(getResources().getColor(R.color.primary_button_background_color));
                 } else {
@@ -159,24 +144,56 @@ public class ContactListFragment extends FileFragment {
                     restoreContacts.setBackgroundColor(getResources().getColor(R.color.standard_grey));
                 }
             }
-        });
+
+            @Override
+            public void onVCardCheck(int position) {
+                checkedVCards.add(position);
+                Log_OC.d(TAG, position + " checked");
+
+                setRestoreButton();
+            }
+
+            @Override
+            public void onVCardUncheck(int position) {
+                checkedVCards.remove(position);
+                Log_OC.d(TAG, position + " unchecked");
+
+                setRestoreButton();
+            }
+        };
+
+        ContactListAdapter contactListAdapter = new ContactListAdapter(getContext(), vCards, vCardClickListener);
+        recyclerView.setAdapter(contactListAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return view;
     }
 
-    static class ContactItemViewHolder {
+    static class ContactItemViewHolder extends RecyclerView.ViewHolder {
         ImageView badge;
-        TextView name;
+        CheckedTextView name;
+
+        ContactItemViewHolder(View itemView) {
+            super(itemView);
+
+            badge = (ImageView) itemView.findViewById(R.id.contactlist_item_icon);
+            name = (CheckedTextView) itemView.findViewById(R.id.contactlist_item_name);
+
+            itemView.setTag(this);
+        }
+
+        void setVCardListener(View.OnClickListener onClickListener) {
+            itemView.setOnClickListener(onClickListener);
+        }
     }
 
     private void importContacts(ContactAccount account) {
-        SparseBooleanArray checkedArray = listView.getCheckedItemPositions();
-        int[] intArray = new int[vCards.size()];
+        int[] intArray = new int[checkedVCards.size()];
 
-        for (int i = 0; i < vCards.size(); i++) {
-            if (checkedArray.get(i)) {
-                intArray[i] = 1;
-            }
+        int i = 0;
+        for (Integer checkedVCard : checkedVCards) {
+            intArray[i] = checkedVCard;
+            i++;
         }
 
         PersistableBundleCompat bundle = new PersistableBundleCompat();
@@ -195,7 +212,7 @@ public class ContactListFragment extends FileFragment {
                 .schedule();
 
 
-        Snackbar.make(listView, R.string.contacts_preferences_import_scheduled, Snackbar.LENGTH_LONG).show();
+        Snackbar.make(recyclerView, R.string.contacts_preferences_import_scheduled, Snackbar.LENGTH_LONG).show();
     }
 
     private void getAccountForImport() {
@@ -304,33 +321,28 @@ public class ContactListFragment extends FileFragment {
     }
 }
 
-class ContactListAdapter extends ArrayAdapter<VCard> {
+class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.ContactItemViewHolder> {
     private List<VCard> vCards;
+    private Context context;
+    private OnVCardClickListener vCardClickListener;
 
-    ContactListAdapter(Context context, List<VCard> vCards) {
-        super(context, 0, R.id.contactlist_item_name, vCards);
-
+    ContactListAdapter(Context context, List<VCard> vCards, OnVCardClickListener vCardClickListener) {
         this.vCards = vCards;
+        this.context = context;
+        this.vCardClickListener = vCardClickListener;
     }
 
-    @NonNull
+
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ContactListFragment.ContactItemViewHolder viewHolder;
+    public ContactListFragment.ContactItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.contactlist_list_item, parent, false);
 
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.contactlist_list_item, parent, false);
-            viewHolder = new ContactListFragment.ContactItemViewHolder();
+        return new ContactListFragment.ContactItemViewHolder(view);
+    }
 
-            viewHolder.badge = (ImageView) convertView.findViewById(R.id.contactlist_item_icon);
-            viewHolder.name = (TextView) convertView.findViewById(R.id.contactlist_item_name);
-
-            convertView.setTag(viewHolder);
-        } else {
-            viewHolder = (ContactListFragment.ContactItemViewHolder) convertView.getTag();
-        }
-
-        VCard vcard = vCards.get(position);
+    @Override
+    public void onBindViewHolder(final ContactListFragment.ContactItemViewHolder holder, final int position) {
+        final VCard vcard = vCards.get(holder.getAdapterPosition());
 
         if (vcard != null) {
             // photo
@@ -338,21 +350,44 @@ class ContactListAdapter extends ArrayAdapter<VCard> {
                 byte[] data = vcard.getPhotos().get(0).getData();
 
                 Bitmap thumbnail = BitmapFactory.decodeByteArray(data, 0, data.length);
-                RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(getContext().getResources(),
+                RoundedBitmapDrawable drawable = BitmapUtils.bitmapToCircularBitmapDrawable(context.getResources(),
                         thumbnail);
 
-                viewHolder.badge.setImageDrawable(drawable);
+                holder.badge.setImageDrawable(drawable);
             } else {
-                viewHolder.badge.setImageResource(R.drawable.ic_user);
+                holder.badge.setImageResource(R.drawable.ic_user);
             }
+
+            // Checkbox
+            holder.setVCardListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.name.setChecked(!holder.name.isChecked());
+
+                    if (holder.name.isChecked()) {
+                        vCardClickListener.onVCardCheck(holder.getAdapterPosition());
+                    } else {
+                        vCardClickListener.onVCardUncheck(holder.getAdapterPosition());
+                    }
+                }
+            });
 
             // name
             StructuredName name = vcard.getStructuredName();
             String first = (name.getGiven() == null) ? "" : name.getGiven() + " ";
             String last = (name.getFamily() == null) ? "" : name.getFamily();
-            viewHolder.name.setText(first + last);
+            holder.name.setText(first + last);
         }
+    }
 
-        return convertView;
+    @Override
+    public int getItemCount() {
+        return vCards.size();
+    }
+
+    interface OnVCardClickListener {
+        void onVCardCheck(int position);
+
+        void onVCardUncheck(int position);
     }
 }
