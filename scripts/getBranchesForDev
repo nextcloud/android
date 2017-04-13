@@ -1,0 +1,25 @@
+#!/bin/bash
+
+source ~/.git/githubPass
+
+pullRequests=$(curl -u "$GITHUB_USER:$GITHUB_PASS" 2>/dev/null https://api.github.com/search/issues?q=repo:nextcloud/android+state:open+type:pr+label:%22ready%20for%20dev%22 | grep pulls | cut -d'"' -f4)
+
+for pr in $pullRequests; do
+    xml=$(curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pr)
+    branchName=$(echo "$xml" | grep \"label\" | head -n1 | cut -d'"' -f 4| tr ":" "/")
+    title=$(echo "$xml" | grep "title" | head -n1 | cut -d'"' -f 4 | tr -d "(" | tr -d ")" | tr -d "[" | tr -d "]")
+    htmlUrl=$(echo "$xml"  |grep html_url | grep pull | cut -d'"' -f4)
+    
+    echo "$title ("$branchName") ["$htmlUrl"]"
+done
+
+# manually add master branch
+echo "Master (nextcloud/master) [https://github.com/nextcloud/android]"
+
+## add remote repos
+for repoUrl in $(curl -u "$GITHUB_USER:$GITHUB_PASS" 2> /dev/null $pullRequests | grep \"git_url\" | sort | uniq | cut -f4 -d"\"" ); do
+	repoName=$(echo $repoUrl | cut -f4 -d"/")
+	git remote add $repoName $repoUrl 2>/dev/null
+done
+
+

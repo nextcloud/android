@@ -1,0 +1,44 @@
+#!/bin/bash
+date=$(date +%Y%m%d)
+
+# use the current date
+mkdir -p ~/apks
+echo $date > ~/apks/latest
+
+# always use dev branch for android library
+sed -i  s"#'com.github.nextcloud:android-library.*#'com.github.nextcloud:android-library:dev-SNAPSHOT'#" build.gradle
+
+# use current date for version code/name
+sed -i s"#android:versionCode=.*#android:versionCode=\"$date\"#" AndroidManifest.xml
+sed -i s"#versionCode .*#versionCode $date#" build.gradle
+
+sed -i s"#android:versionName=.*\"#android:versionName=\"$date\"#" AndroidManifest.xml
+sed -i s"#versionName .*#versionName \"$date\"#" build.gradle
+
+# sed -e 's#\@string/app_name#Nextcloud dev#' -e 's#\@string/copy_link#Copy link#' -e 's#\@string/share_dialog_title#Sharing#' -e 's#\@string/manage_space_title#Manage space#' AndroidManifest.xml -i
+
+# build signed apk
+gradle assembleRelease >> /tmp/dev.log 2>&1
+
+if [ $? != 0 ] ; then 
+	echo "Build error!"
+	exit 1
+fi
+
+mv build/outputs/apk/android-release.apk ~/apks/nextcloud-dev-$date.apk
+ln -s nextcloud-dev-$date.apk latest.apk
+mv latest.apk ~/apks/
+
+# remove all but the latest 5 apks
+/bin/ls -t ~/apks/*.apk | awk 'NR>6' | xargs rm -f
+
+git add .
+git commit -m "daily dev build"
+git push
+
+git tag dev-$date
+git push origin dev-$date
+
+# remove all but the latest 5 tags
+git tag|grep dev | sort -r | awk 'NR>5' | xargs -n 1 git push --delete origin
+git tag|grep dev | sort -r | awk 'NR>5' | xargs -n 1 git tag -d

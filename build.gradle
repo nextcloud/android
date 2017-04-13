@@ -74,13 +74,17 @@ android {
 
         multiDexEnabled true
 
+        applicationId "com.nextcloud.android.dev"
+        versionCode 20170413
+        versionName "20170413"
+
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
         productFlavors {
             // used for f-droid
             generic {
-                applicationId 'com.nextcloud.client'
+                applicationId 'com.nextcloud.android.dev'
             }
 
             gplay {
@@ -122,6 +126,10 @@ android {
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
         exclude 'META-INF/LICENSE'
+    }
+
+    signingConfigs {
+        release
     }
 
     task checkstyle(type: Checkstyle) {
@@ -175,6 +183,19 @@ android {
     }
     check.dependsOn 'checkstyle', 'findbugs', 'pmd', 'lint'
 
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+        }
+    }
+
+}
+
+if (project.hasProperty('RELEASE_STORE_FILE')) {
+    android.signingConfigs.release.storeFile = file(RELEASE_STORE_FILE)
+    android.signingConfigs.release.storePassword = RELEASE_STORE_PASSWORD
+    android.signingConfigs.release.keyAlias = RELEASE_KEY_ALIAS
+    android.signingConfigs.release.keyPassword = RELEASE_KEY_PASSWORD
 }
 
 dependencies {

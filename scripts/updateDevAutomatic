@@ -1,0 +1,77 @@
+#!/bin/bash
+
+statusFile="devUpdateStatus"
+
+# check if branch was changed
+git fetch
+devBranchWasUpdated=$(git status | grep "dem selben Stand" -c)
+
+git pull -q || exit
+
+branches=$(scripts/getBranchesForDev)
+branchesCount=$(echo "$branches" | wc -l)
+count=1
+
+date +%F > $statusFile
+echo "Branches: $branchesCount" >> $statusFile
+
+if [ $devBranchWasUpdated -eq 0 ]; then
+    # branch was updated outside, so build new dev
+    echo "Dev branch was updated successfully" >> $statusFile
+fi
+
+while read -r branch; do
+    echo -n "[$(printf "%02d" $count) / $(printf "%02d" $branchesCount)] " >> $statusFile
+    
+    branchName=$(echo $branch | cut -d"(" -f2 | cut -d")" -f1 | tr ":" "/")
+    
+    if [ $(echo $branchName | grep -c "^origin") -eq 0 ] ; then
+        # remote repo
+        git fetch -q $(echo $branchName | cut -f1 -d"/") 1> /dev/null
+    fi
+    
+    mergeOutput=$(git merge --no-edit $branchName)
+    
+    if [ $? -ne 0 ] ; then
+        echo "$branch CONFLICT" >> $statusFile
+        git merge --abort
+    else
+        if [ $(echo $mergeOutput | grep "up-to-date" -c) -eq 0 ] ; then
+            # branch has newer state
+            echo "$branch merged successfully" >> $statusFile
+         else
+            echo "$branch no update needed" >> $statusFile
+         fi
+    fi
+    
+    let count++
+done <<< "$branches"
+
+## Update Changelog.md
+tmpFile=$(tempfile)
+cp CHANGELOG.md $tmpFile
+
+echo "## $(date '+%F %H:%M')" > CHANGELOG.md
+
+## add new branches
+if [ $(comm -13 mergedBranches <(cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) | wc -l) -gt 0 ] ; then
+    egrep "$(comm -13 mergedBranches <(cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 | sort) )" devUpdateStatus | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# added#'g >> CHANGELOG.md
+fi
+
+cat devUpdateStatus | grep succ | cut -d"(" -f2 | cut -d")" -f1 >> mergedBranches
+sort -u mergedBranches -o mergedBranches_unique
+mv mergedBranches_unique mergedBranches
+
+echo >> CHANGELOG.md
+
+## add updated branches
+if [ $(cat devUpdateStatus | grep succ -c) -gt 0 ]; then
+    cat devUpdateStatus | grep succ | cut -d"]" -f2 | sed s'#$#]#'g | sed s'#^#-#'g | sed s'#$# updated#'g >> CHANGELOG.md
+fi
+
+echo >> CHANGELOG.md
+cat $tmpFile >> CHANGELOG.md
+
+git add .
+git commit -m "update dev"
+git push
