@@ -23,11 +23,12 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-    <QuickContactBadge
+    <ImageView
         android:id="@+id/contactlist_item_icon"
-        android:layout_width="?android:attr/listPreferredItemHeight"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:layout_margin="5dp"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_margin="0dp"
+        android:padding="7dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_user"/>
 
