@@ -220,63 +220,64 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         int year = cal.get(Calendar.YEAR);
         int month = cal.get(Calendar.MONTH) + 1;
         int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
+                OCFile backupFolder = getStorageManager().getFileByPath(backupFolderString);
+                Vector<OCFile> backupFiles = getStorageManager().getFolderContent(backupFolder, false);
+
+                // find file with modification with date and time between 00:00 and 23:59
+                // if more than one file exists, take oldest
+                Calendar date = Calendar.getInstance();
+                date.set(year, month, dayOfMonth);
+
+                // start
+                date.set(Calendar.HOUR, 0);
+                date.set(Calendar.MINUTE, 0);
+                date.set(Calendar.SECOND, 1);
+                date.set(Calendar.MILLISECOND, 0);
+                date.set(Calendar.AM_PM, Calendar.AM);
+                Long start = date.getTimeInMillis();
+
+                // end
+                date.set(Calendar.HOUR, 23);
+                date.set(Calendar.MINUTE, 59);
+                date.set(Calendar.SECOND, 59);
+                Long end = date.getTimeInMillis();
+
+                OCFile backupToRestore = null;
+
+                for (OCFile file : backupFiles) {
+                    if (start < file.getModificationTimestamp() && end > file.getModificationTimestamp()) {
+                        if (backupToRestore == null) {
+                            backupToRestore = file;
+                        } else if (backupToRestore.getModificationTimestamp() < file.getModificationTimestamp()) {
+                            backupToRestore = file;
+                        }
+                    }
+                }
+
+                if (backupToRestore != null) {
+                    Fragment contactListFragment = ContactListFragment.newInstance(backupToRestore, getAccount());
+
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.contacts_linear_layout, contactListFragment);
+                    transaction.commit();
+                } else {
+                    Toast.makeText(ContactsPreferenceActivity.this, R.string.contacts_preferences_no_file_found,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
         DatePickerDialog datePickerDialog = new DatePickerDialog(this, dateSetListener, year, month, day);
         datePickerDialog.getDatePicker().setMaxDate(backupFiles.lastElement().getModificationTimestamp());
         datePickerDialog.getDatePicker().setMinDate(backupFiles.firstElement().getModificationTimestamp());
 
         datePickerDialog.show();
     }
-
-    DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
-            OCFile backupFolder = getStorageManager().getFileByPath(backupFolderString);
-            Vector<OCFile> backupFiles = getStorageManager().getFolderContent(backupFolder, false);
-
-            // find file with modification with date and time between 00:00 and 23:59
-            // if more than one file exists, take oldest
-            Calendar date = Calendar.getInstance();
-            date.set(year, month, dayOfMonth);
-
-            // start
-            date.set(Calendar.HOUR, 0);
-            date.set(Calendar.MINUTE, 0);
-            date.set(Calendar.SECOND, 1);
-            date.set(Calendar.MILLISECOND, 0);
-            date.set(Calendar.AM_PM, Calendar.AM);
-            Long start = date.getTimeInMillis();
-
-            // end
-            date.set(Calendar.HOUR, 23);
-            date.set(Calendar.MINUTE, 59);
-            date.set(Calendar.SECOND, 59);
-            Long end = date.getTimeInMillis();
-
-            OCFile backupToRestore = null;
-
-            for (OCFile file : backupFiles) {
-                if (start < file.getModificationTimestamp() && end > file.getModificationTimestamp()) {
-                    if (backupToRestore == null) {
-                        backupToRestore = file;
-                    } else if (backupToRestore.getModificationTimestamp() < file.getModificationTimestamp()) {
-                        backupToRestore = file;
-                    }
-                }
-            }
-
-            if (backupToRestore != null) {
-                Fragment contactListFragment = ContactListFragment.newInstance(backupToRestore, getAccount());
-
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.contacts_linear_layout, contactListFragment);
-                transaction.commit();
-            } else {
-                Toast.makeText(ContactsPreferenceActivity.this, R.string.contacts_preferences_no_file_found,
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
 
     public static void startContactBackupJob(Account account) {
         Log_OC.d(TAG, "start daily contacts backup job");
@@ -321,6 +322,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
         return retval;
     }
@@ -335,16 +337,16 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
     @Override
     public void showDetails(OCFile file) {
-
+        // not needed
     }
 
     @Override
     public void onBrowsedDownTo(OCFile folder) {
-
+        // not needed
     }
 
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
-
+        // not needed
     }
 }
