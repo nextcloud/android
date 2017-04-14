@@ -135,13 +135,13 @@
     <string name="uploader_upload_failed_credentials_error">Opplasting feilet, du må logge inn på nytt</string>
     <string name="uploads_view_title">Opplastinger</string>
     <string name="uploads_view_group_current_uploads">Nåværende</string>
-    <string name="uploads_view_group_failed_uploads">Feilet (trykk for å prøve igjen)</string>
+    <string name="uploads_view_group_failed_uploads">Mislyktes (trykk for å prøve igjen)</string>
     <string name="uploads_view_group_finished_uploads">Opplastet</string>
     <string name="uploads_view_upload_status_succeeded">Ferdig</string>
     <string name="uploads_view_upload_status_cancelled">Avbrutt</string>
     <string name="uploads_view_upload_status_paused">Pauset</string>
     <string name="uploads_view_upload_status_failed_connection_error">Tilkoblingsfeil</string>
-    <string name="uploads_view_upload_status_failed_retry">Opplasting vil prøves igjen snart</string>
+    <string name="uploads_view_upload_status_failed_retry">Nytt forsøk på opplasting vil settes i verk snart</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Legitimasjonsfeil</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mappefeil</string>
     <string name="uploads_view_upload_status_failed_file_error">Filfeil</string>
@@ -151,7 +151,7 @@
     <string name="uploads_view_upload_status_service_interrupted">Applikasjonen ble avsluttet</string>
     <string name="uploads_view_upload_status_unknown_fail">Ukjent feil</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">Venter på trådløstilkobling</string>
-    <string name="uploads_view_later_waiting_to_upload">Venter på å laste op</string>
+    <string name="uploads_view_later_waiting_to_upload">Venter på å laste opp</string>
     <string name="downloader_download_in_progress_ticker">Laster ned &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Laster ned %2$s</string>
     <string name="downloader_download_succeeded_ticker">Nedlasting fullført</string>
@@ -159,7 +159,7 @@
     <string name="downloader_download_failed_ticker">Nedlasting feilet</string>
     <string name="downloader_download_failed_content">Nedlasting av %1$s kunne ikke fullføres</string>
     <string name="downloader_not_downloaded_yet">Ikke lastet ned enda</string>
-    <string name="downloader_download_failed_credentials_error">Nedlasting feilet, du må logge inn på nytt</string>
+    <string name="downloader_download_failed_credentials_error">Nedlasting mislyktes, du må logge inn på nytt</string>
     <string name="common_choose_account">Velg konto</string>
     <string name="sync_fail_ticker">Synkronisering feilet</string>
     <string name="sync_fail_ticker_unauthorized">Synkronisering feilet, du må logge inn på nytt</string>
@@ -167,7 +167,7 @@
     <string name="sync_fail_content_unauthorized">Ugyldig passord for %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
     <string name="sync_conflicts_in_favourites_content">%1$d hold-i-synk filer kunne ikke synkroniseres</string>
-    <string name="sync_fail_in_favourites_ticker">Hold i synk filer mislyktes</string>
+    <string name="sync_fail_in_favourites_ticker">Holdt-i-synk -filer mislyktes</string>
     <string name="sync_fail_in_favourites_content">Innholdet av %1$d filer kunne ikke synkroniseres (%2$d konflikter)</string>
     <string name="sync_foreign_files_forgotten_ticker">Noen lokale filer ble glemt</string>
     <string name="sync_foreign_files_forgotten_content">%1$d filer fra %2$s mappen kunne ikke kopieres til</string>
@@ -197,7 +197,7 @@
     <string name="media_err_nothing_to_play">Ingen mediafil funnet</string>
     <string name="media_err_no_account">Ingen konto angitt</string>
     <string name="media_err_not_in_owncloud">Filen er ikke i en gyldig konto</string>
-    <string name="media_err_unsupported">Mediakodek er ikke støttet</string>
+    <string name="media_err_unsupported">Ustøttet mediakodek</string>
     <string name="media_err_io">Mediafilen kunne ikke leses</string>
     <string name="media_err_malformed">Mediafilen er ikke riktig kodet</string>
     <string name="media_err_timeout">Tidsavbrudd under avspillingsforsøk</string>
@@ -271,7 +271,7 @@
     <string name="oauth_check_onoff">Logg inn med oAuth2</string> 
     <string name="oauth_login_connection">Kobler til oAuth2 tjener...</string>    
         
-    <string name="ssl_validator_header">Identiteten til siden kunne ikke verifiseres</string>
+    <string name="ssl_validator_header">Identiteten til siden kunne ikke bekreftes</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Tjenerens sertifikat er ikke til å stole på</string>
     <string name="ssl_validator_reason_cert_expired">- Tjenerens sertifikat er utløpt</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Tjenersertifikatets gyldige datoer er i fremtiden</string>

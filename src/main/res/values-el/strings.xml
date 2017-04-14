@@ -16,9 +16,14 @@
     <string name="menu_item_sort_by_name_a_z">Α - Ω</string>
     <string name="menu_item_sort_by_name_z_a">Ω - Α</string>
     <string name="drawer_item_all_files">Όλα τα αρχεία</string>
+    <string name="drawer_item_files">Αρχεία</string>
+    <string name="drawer_item_favorites">Αγαπημένα</string>
+    <string name="drawer_item_photos">Φωτογραφίες</string>
     <string name="drawer_item_on_device">Στην συσκευή</string>
+    <string name="drawer_item_videos">Βίντεο</string>
     <string name="drawer_item_settings">Ρυθμίσεις</string>
     <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
+    <string name="drawer_item_activities">Δραστηριότητες</string>
     <string name="drawer_quota">χρησιμοποιούνται %1$s από %2$s</string>
 	<string name="drawer_close">Κλείσιμο</string>
     <string name="drawer_open">Άνοιγμα</string>
@@ -550,5 +555,15 @@
     <string name="welcome_feature_3_text">Διατήρηση των φωτογραφιών σας με ασφάλεια</string>
 
     <string name="whats_new_skip">Παράλειψη</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Πλήρες όνομα</string>
+    <string name="user_info_email">Ηλεκτρονικό ταχυδρομείο</string>
+    <string name="user_info_phone">Αριθμός τηλεφώνου</string>
+    <string name="user_info_address">Διεύθυνση</string>
+    <string name="user_info_website">Ιστοσελίδα</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Πληροφορίες χρήστη</string>
 
     </resources>
