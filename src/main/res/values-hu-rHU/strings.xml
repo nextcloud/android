@@ -95,11 +95,14 @@
     <string name="file_list_seconds_ago">pár másodperce</string>
     <string name="file_list_empty_headline">Itt nincsenek fájlok</string>
     <string name="file_list_empty">Tölts fel néhány tartalmat, vagy szinkronizálj az eszközöddel!</string>
+    <string name="file_list_empty_favorites">Jelölj kedvencnek néhány fájlt vagy szinkronizálj az eszközeiddel!</string>
     <string name="file_list_empty_favorites_filter_list">A kedvencnek jelölt fájlokat és mappákat itt találod meg</string>
+    <string name="file_list_empty_favorites_filter">Nincsenek a kérésednek megfelelő kedvenc fájlok!</string>
     <string name="file_list_loading">Betöltés&#8230;</string>
     <string name="file_list_no_app_for_file_type">Nem található alkalmazás a fálj típushoz.</string>
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
     <string name="file_list_empty_headline_search">Nincsenek eredmények ebben a mappában</string>
+    <string name="file_list_empty_headline_server_search">Nincsenek eredmények</string>
     <string name="file_list_empty_favorite_headline">Nincsenek kedvencek</string>
     <string name="file_list_empty_shared_headline">Nincs semmi megosztva</string>
     <string name="file_list_empty_shared">Az Ön által megosztott fájlok és mappák itt jelennek meg</string>
@@ -107,8 +110,13 @@
     <string name="file_list_empty_headline_server_search_photos">Nincsenek képek</string>
     <string name="file_list_empty_search">Megpróbálsz másik mappában keresni?</string>
     <string name="file_list_empty_recently_modified">Nem talátam az utóbbi 7 napban módosított fájlt</string>
+    <string name="file_list_empty_text_photos">Tölts fel néhány fényképet vagy aktiváld az automatikus feltöltést!</string>
+    <string name="file_list_empty_text_photos_filter">Nincsenek a kérésednek megfelelő fényképek!</string>
+    <string name="file_list_empty_text_videos">Tölts fel néhány videót vagy aktiváld az automatikus feltöltést!</string>
+    <string name="file_list_empty_text_videos_filter">Nincsenek a kérésednek megfelelő videók!</string>
     <string name="upload_list_empty_headline">Nincsenek feltöltések</string>
     <string name="upload_list_empty_text">Tölts fel valami tartalmat vagy kapcsold be az azonnali feltöltést!</string>
+    <string name="upload_list_empty_text_auto_upload">Tölts fel néhány tartalmat vagy aktiváld az automatikus feltöltést!</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_folders">mappák</string>
     <string name="file_list_file">fájl</string>
@@ -341,6 +349,8 @@
 
     <string name="preview_sorry">Elnézést kérek!</string>
     <string name="preview_image_description">Előnézeti kép</string>
+    <string name="preview_image_error_unknown_format">A két nem jeleníthető meg</string>
+
     <string name="error__upload__local_file_not_copied">%1$s nem lehet másolni a %2$s helyi mappába</string>
     <string name="prefs_instant_upload_path_title">Azonnali feltöltés mappa</string>
     <string name="prefs_folder_sync_local_path_title">Helyi mappa</string>
@@ -554,6 +564,9 @@
         <item quantity="other">%d kiválasztott</item>
     </plurals>
 
+    <string name="activity_list_loading_activity">Tevékenységek betöltése&#8230;</string>
+    <string name="activity_list_no_results">Nincsenek tevékenységek.</string>
+
     <string name="upload_file_dialog_title">Add meg a feltöltendő fájl nevét és típusát</string>
     <string name="upload_file_dialog_filename">Fájlnév</string>
     <string name="upload_file_dialog_filetype">Fájl típus</string>
@@ -592,4 +605,7 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Nincs még tevékenység</string>
-    </resources>
+    <string name="activities_no_results_message">Ez a folyam olyan eseményeket mutat mint\nbővítmények, változások és megosztások</string>
+
+
+</resources>
