@@ -11,7 +11,7 @@
     <string name="actionbar_settings">Настройки</string>
     <string name="actionbar_see_details">Подробно</string>
     <string name="actionbar_send_file">Отправить</string>
-    <string name="actionbar_sort">Сортировать</string>
+    <string name="actionbar_sort">Сортировка</string>
     <string name="actionbar_sort_title">Сортировать по</string>
     <string name="sort_by">Порядок сортировки</string>
     <string name="menu_item_sort_by_name_a_z">А–Я</string>
@@ -328,7 +328,7 @@
     <string name="ssl_validator_label_signature">Подпись:</string>
     <string name="ssl_validator_label_signature_algorithm">Алгоритм:</string>
     <string name="digest_algorithm_not_available">Этот хэш алгоритм не доступен на этом телефоне.</string>
-    <string name="ssl_validator_label_certificate_fingerprint">Слепок:</string>
+    <string name="ssl_validator_label_certificate_fingerprint">Отпечаток:</string>
     <string name="certificate_load_problem">Проблема при загрузке сертификата.</string>
     <string name="ssl_validator_null_cert">Сертификат не может быть показан.</string>
     <string name="ssl_validator_no_info_about_error">- Нет информации об ошибке</string>
