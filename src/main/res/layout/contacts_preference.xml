@@ -39,9 +39,9 @@
             android:id="@+id/contacts_header_backup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
             android:text="@string/contacts_header_backup"
             android:textColor="@color/primary"
             android:textStyle="bold"/>
@@ -50,7 +50,7 @@
             android:id="@+id/contacts_automatic_backup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/standard_margin"
             android:text="@string/contacts_automatic_backup"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
 
@@ -63,7 +63,7 @@
                 android:id="@+id/contacts_last_backup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/standard_margin"
                 android:layout_weight="1"
                 android:text="@string/contacts_last_backup"
                 android:textAppearance="?android:attr/textAppearanceMedium"
@@ -73,7 +73,7 @@
                 android:id="@+id/contacts_last_backup_timestamp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="@dimen/standard_margin"
                 android:layout_weight="1"
                 android:text="@string/contacts_preference_backup_never"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
@@ -83,7 +83,7 @@
             android:id="@+id/contacts_backup_now"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/standard_margin"
             android:onClick="backupContacts"
             android:text="@string/contacts_backup_button"
             android:theme="@style/Button.Primary"/>
@@ -92,9 +92,9 @@
             android:id="@+id/contacts_header_restore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginLeft="@dimen/standard_margin"
+            android:layout_marginRight="@dimen/standard_margin"
+            android:layout_marginTop="@dimen/standard_margin"
             android:text="@string/contacts_header_restore"
             android:textColor="@color/primary"
             android:textStyle="bold"/>
@@ -103,7 +103,7 @@
             android:id="@+id/contacts_datepacker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/standard_margin"
             android:onClick="openDate"
             android:text="@string/contacts_preference_choose_date"
             android:theme="@style/Button.Primary"/>
