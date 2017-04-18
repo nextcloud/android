@@ -53,6 +53,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PermissionUtil;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.Vector;
@@ -220,7 +221,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
         Vector<OCFile> backupFiles = getStorageManager().getFolderContent(backupFolder, false);
 
-        backupFiles.sort(new Comparator<OCFile>() {
+        Collections.sort(backupFiles, new Comparator<OCFile>() {
             @Override
             public int compare(OCFile o1, OCFile o2) {
                 if (o1.getModificationTimestamp() == o2.getModificationTimestamp()) {
