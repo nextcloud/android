@@ -555,6 +555,7 @@
         <item quantity="other">%d valgte</item>
     </plurals>
 
+    <string name="activity_list_loading_activity">Laster inn aktiviteter&#8230;</string>
     <string name="activity_list_no_results">Ingen aktiviteter funnet.</string>
 
     <string name="upload_file_dialog_title">Legg inn filnavn og -type for opplasting</string>
