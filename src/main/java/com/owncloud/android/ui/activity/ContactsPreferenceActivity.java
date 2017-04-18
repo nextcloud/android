@@ -93,7 +93,8 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         backupSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked && checkAndAskForContactsReadPermission()) {
+                if (isChecked &&
+                        checkAndAskForContactsReadPermission(PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC)) {
                     // store value
                     setAutomaticBackup(backupSwitch, true);
 
@@ -123,7 +124,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if (requestCode == PermissionUtil.PERMISSIONS_READ_CONTACTS) {
+        if (requestCode == PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC) {
             for (int index = 0; index < permissions.length; index++) {
                 if (Manifest.permission.READ_CONTACTS.equalsIgnoreCase(permissions[index])) {
                     if (grantResults[index] >= 0) {
@@ -136,9 +137,27 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
                 }
             }
         }
+
+        if (requestCode == PermissionUtil.PERMISSIONS_READ_CONTACTS_MANUALLY) {
+            for (int index = 0; index < permissions.length; index++) {
+                if (Manifest.permission.READ_CONTACTS.equalsIgnoreCase(permissions[index])) {
+                    if (grantResults[index] >= 0) {
+                        startContactsBackupJob();
+                    }
+
+                    break;
+                }
+            }
+        }
     }
 
     public void backupContacts(View v) {
+        if (checkAndAskForContactsReadPermission(PermissionUtil.PERMISSIONS_READ_CONTACTS_MANUALLY)) {
+            startContactsBackupJob();
+        }
+    }
+
+    private void startContactsBackupJob() {
         PersistableBundleCompat bundle = new PersistableBundleCompat();
         bundle.putString(ContactsBackupJob.ACCOUNT, getAccount().name);
         bundle.putBoolean(ContactsBackupJob.FORCE, true);
@@ -163,7 +182,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         editor.apply();
     }
 
-    private boolean checkAndAskForContactsReadPermission() {
+    private boolean checkAndAskForContactsReadPermission(final int permission) {
         // check permissions
         if ((PermissionUtil.checkSelfPermission(this, Manifest.permission.READ_CONTACTS))) {
             return true;
@@ -177,7 +196,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
                         .setAction(R.string.common_ok, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                PermissionUtil.requestReadContactPermission(ContactsPreferenceActivity.this);
+                                PermissionUtil.requestReadContactPermission(ContactsPreferenceActivity.this, permission);
                             }
                         });
 
@@ -188,7 +207,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
                 return false;
             } else {
                 // No explanation needed, request the permission.
-                PermissionUtil.requestReadContactPermission(ContactsPreferenceActivity.this);
+                PermissionUtil.requestReadContactPermission(ContactsPreferenceActivity.this, permission);
 
                 return false;
             }
