@@ -30,7 +30,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.IBinder;
-import android.os.ParcelFileDescriptor;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
@@ -49,9 +48,10 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Vector;
@@ -197,18 +197,29 @@ public class ContactsBackupJob extends Job {
     private String getContactFromCursor(Cursor cursor) {
         String lookupKey = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY));
         Uri uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_VCARD_URI, lookupKey);
-        ParcelFileDescriptor fd;
 
         String vCard = "";
         try {
-            fd = getContext().getContentResolver().openFileDescriptor(uri, "r");
-            FileInputStream fis;
-            if (fd != null) {
-                fis = new FileInputStream(fd.getFileDescriptor());
-                byte[] buf = new byte[fis.available()];
-                fis.read(buf);
-                vCard = new String(buf);
+            InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
+            InputStreamReader inputStreamReader;
+            char[] buffer = new char[1024];
+            StringBuilder stringBuilder = new StringBuilder();
+
+            if (inputStream != null) {
+                inputStreamReader = new InputStreamReader(inputStream);
+
+                while (true) {
+                    int byteCount = inputStreamReader.read(buffer, 0, buffer.length);
+
+                    if (byteCount > 0) {
+                        stringBuilder.append(buffer, 0, byteCount);
+                    } else {
+                        break;
+                    }
+                }
             }
+
+            vCard = stringBuilder.toString();
 
             return vCard;
 
