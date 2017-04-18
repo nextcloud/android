@@ -90,6 +90,10 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             return name;
         }
 
+        public int getGroupItemCount() {
+            return items == null ? 0 : items.length;
+        }
+
         public Comparator<OCUpload> comparator = new Comparator<OCUpload>() {
 
             @Override
@@ -702,7 +706,8 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
             convertView = inflaInflater.inflate(R.layout.upload_list_group, null);
         }
         TextView tv = (TextView) convertView.findViewById(R.id.uploadListGroupName);
-        tv.setText(group.getGroupName());
+        tv.setText(String.format(mParentActivity.getString(R.string.uploads_view_group_header),
+                group.getGroupName(), group.getGroupItemCount()));
         return convertView;
     }
 
