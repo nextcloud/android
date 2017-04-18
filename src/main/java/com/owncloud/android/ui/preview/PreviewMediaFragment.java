@@ -681,6 +681,8 @@ public class PreviewMediaFragment extends FileFragment implements
         }
 
         private void prepareMediaController() {
+            mMultiView.setVisibility(View.GONE);
+            mPreviewContainer.setVisibility(View.VISIBLE);
             mMediaServiceBinder.registerMediaController(mMediaController);
             if (mMediaController != null) {
                 mMediaController.setMediaPlayer(mMediaServiceBinder);
