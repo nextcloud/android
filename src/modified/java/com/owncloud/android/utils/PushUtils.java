@@ -26,7 +26,6 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
-import android.util.Log;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -131,11 +130,14 @@ public class PushUtils {
         if (!TextUtils.isEmpty(MainApp.getAppContext().getResources().getString(R.string.push_server_url)) &&
                 !TextUtils.isEmpty(token)) {
             PushUtils.generateRsa2048KeyPair();
-            String pushTokenHash = PushUtils.generateSHA512Hash(token).toUpperCase();
+            String pushTokenHash = PushUtils.generateSHA512Hash(token).toLowerCase();
             PublicKey devicePublicKey = (PublicKey) PushUtils.readKeyFromFile(true);
             if (devicePublicKey != null) {
-                byte[] publicKeyBytes = Base64.encode(devicePublicKey.getEncoded(), 0);
+                byte[] publicKeyBytes = Base64.encode(devicePublicKey.getEncoded(), Base64.NO_WRAP);
                 String publicKey = new String(publicKeyBytes);
+                publicKey = publicKey.replaceAll("(.{64})", "$1\n");
+
+                publicKey = "-----BEGIN PUBLIC KEY-----\n" + publicKey + "\n-----END PUBLIC KEY-----\n";
 
                 Context context = MainApp.getAppContext();
                 for (Account account : AccountUtils.getAccounts(context)) {
@@ -146,7 +148,8 @@ public class PushUtils {
 
                         RemoteOperation registerAccountDeviceForNotificationsOperation =
                                 new RegisterAccountDeviceForNotificationsOperation(pushTokenHash,
-                                        publicKey, context.getResources().getString(R.string.push_server_url));
+                                        publicKey,
+                                        context.getResources().getString(R.string.push_server_url));
 
                         RemoteOperationResult remoteOperationResult = registerAccountDeviceForNotificationsOperation.
                                 execute(mClient);
@@ -161,7 +164,6 @@ public class PushUtils {
                                     pushResponse.getPublicKey());
 
                             remoteOperationResult = registerAccountDeviceForProxyOperation.execute(mClient);
-                            Log.d("THIS IS MARIO", "MARIO");
                             PreferenceManager.setPushTokenLastSentTime(MainApp.getAppContext(),
                                     System.currentTimeMillis());
 
