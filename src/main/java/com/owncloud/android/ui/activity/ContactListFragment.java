@@ -386,9 +386,13 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
             // name
             StructuredName name = vcard.getStructuredName();
-            String first = (name.getGiven() == null) ? "" : name.getGiven() + " ";
-            String last = (name.getFamily() == null) ? "" : name.getFamily();
-            holder.getName().setText(first + last);
+            if (name != null) {
+                String first = (name.getGiven() == null) ? "" : name.getGiven() + " ";
+                String last = (name.getFamily() == null) ? "" : name.getFamily();
+                holder.getName().setText(first + last);
+            } else {
+                holder.getName().setText("");
+            }
         }
     }
 
