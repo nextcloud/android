@@ -38,6 +38,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -94,6 +95,7 @@ public class ContactListFragment extends FileFragment {
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.contactlist_fragment, null);
+        setHasOptionsMenu(true);
 
         ArrayList<VCard> vCards = new ArrayList<>();
         checkedVCards = new HashSet<>();
@@ -163,6 +165,14 @@ public class ContactListFragment extends FileFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         return view;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.action_search).setVisible(false);
+        menu.findItem(R.id.action_sync_account).setVisible(false);
+        menu.findItem(R.id.action_sort).setVisible(false);
+        menu.findItem(R.id.action_switch_view).setVisible(false);
     }
 
     static class ContactItemViewHolder extends RecyclerView.ViewHolder {
