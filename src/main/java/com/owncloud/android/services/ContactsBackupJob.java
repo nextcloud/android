@@ -92,7 +92,6 @@ public class ContactsBackupJob extends Job {
             // bind to Operations Service
             operationsServiceConnection = new OperationsServiceConnection(daysToExpire, backupFolder, account);
 
-            getContext().startService(new Intent(getContext(), OperationsService.class));
             getContext().bindService(new Intent(getContext(), OperationsService.class), operationsServiceConnection,
                     OperationsService.BIND_AUTO_CREATE);
 
@@ -190,9 +189,9 @@ public class ContactsBackupJob extends Job {
                     operationsServiceBinder.queueNewOperation(service);
                 }
             }
-
-            getContext().unbindService(operationsServiceConnection);
         }
+
+        getContext().unbindService(operationsServiceConnection);
     }
 
     private String getContactFromCursor(Cursor cursor) {
@@ -237,9 +236,9 @@ public class ContactsBackupJob extends Job {
         public void onServiceConnected(ComponentName component, IBinder service) {
             Log_OC.d(TAG, "service connected");
 
-            operationsServiceBinder = (OperationsService.OperationsServiceBinder) service;
 
             if (component.equals(new ComponentName(getContext(), OperationsService.class))) {
+                operationsServiceBinder = (OperationsService.OperationsServiceBinder) service;
                 expireFiles(daysToExpire, backupFolder, account);
             }
         }
