@@ -1332,48 +1332,48 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
         task.execute(true);
 
-            if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
-                setEmptyListMessage(SearchType.FILE_SEARCH);
+        if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
+            setEmptyListMessage(SearchType.FILE_SEARCH);
 
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
-                if (event.getSearchQuery().equals("image/%")) {
-                    setEmptyListMessage(SearchType.PHOTO_SEARCH);
-                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
-                } else if (event.getSearchQuery().equals("video/%")) {
-                    setEmptyListMessage(SearchType.VIDEO_SEARCH);
-                    menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
-                }
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
-                setEmptyListMessage(SearchType.FAVORITE_SEARCH);
-                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
-                setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
-                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
-                setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
-                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
-            } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
-                setEmptyListMessage(SearchType.SHARED_FILTER);
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.CONTENT_TYPE_SEARCH)) {
+            if (event.getSearchQuery().equals("image/%")) {
+                setEmptyListMessage(SearchType.PHOTO_SEARCH);
+                menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_GRID_AND_SORT;
+            } else if (event.getSearchQuery().equals("video/%")) {
+                setEmptyListMessage(SearchType.VIDEO_SEARCH);
                 menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
             }
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.FAVORITE_SEARCH)) {
+            setEmptyListMessage(SearchType.FAVORITE_SEARCH);
+            menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_ADDED_SEARCH)) {
+            setEmptyListMessage(SearchType.RECENTLY_ADDED_SEARCH);
+            menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH)) {
+            setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
+            menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SORT;
+        } else if (event.getSearchType().equals(SearchOperation.SearchType.SHARED_SEARCH)) {
+            setEmptyListMessage(SearchType.SHARED_FILTER);
+            menuItemAddRemoveValue = MenuItemAddRemove.REMOVE_SEARCH;
+        }
 
-            if (!currentSearchType.equals(SearchType.FILE_SEARCH) && getActivity() != null) {
-                getActivity().invalidateOptionsMenu();
-            }
+        if (!currentSearchType.equals(SearchType.FILE_SEARCH) && getActivity() != null) {
+            getActivity().invalidateOptionsMenu();
+        }
 
-            if (currentSearchType.equals(SearchType.PHOTO_SEARCH)) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        switchToGridView();
-                    }
-                });
-            } else if (currentSearchType.equals(SearchType.NO_SEARCH) || currentSearchType.equals(
-                    SearchType.REGULAR_FILTER)) {
-                new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
-            } else {
-                new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
-            }
+        if (currentSearchType.equals(SearchType.PHOTO_SEARCH)) {
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+                    switchToGridView();
+                }
+            });
+        } else if (currentSearchType.equals(SearchType.NO_SEARCH) || currentSearchType.equals(
+                SearchType.REGULAR_FILTER)) {
+            new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
+        } else {
+            new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
+        }
     }
 
     @Override

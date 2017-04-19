@@ -82,6 +82,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
+import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -97,6 +98,8 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -172,11 +175,9 @@ public class FileDisplayActivity extends HookActivity
 
         /// Load of saved instance state
         if (savedInstanceState != null) {
-            mWaitingToPreview = savedInstanceState.getParcelable(
-                    FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
+            mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = savedInstanceState.getParcelable(
-                    FileDisplayActivity.KEY_WAITING_TO_SEND);
+            mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
         } else {
             mWaitingToPreview = null;
@@ -247,11 +248,11 @@ public class FileDisplayActivity extends HookActivity
             }
         }
 
-        if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null){
+        if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment();
 
             int menuId = getIntent().getIntExtra(DRAWER_MENU_ID, -1);
-            if (menuId != -1){
+            if (menuId != -1) {
                 setupDrawer(menuId);
             }
         } else if (savedInstanceState == null) {
@@ -323,6 +324,7 @@ public class FileDisplayActivity extends HookActivity
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
+                    EventBus.getDefault().post(new TokenPushEvent());
                     refreshList(true);
                     // toggle on is save since this is the only scenario this code gets accessed
                 } else {
@@ -913,7 +915,7 @@ public class FileDisplayActivity extends HookActivity
     /**
      * Request the operation for moving the file/folder from one path to another
      *
-     * @param data       Intent received
+     * @param data Intent received
      */
     private void requestMoveOperation(Intent data) {
         OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
@@ -924,7 +926,7 @@ public class FileDisplayActivity extends HookActivity
     /**
      * Request the operation for copying the file/folder from one path to another
      *
-     * @param data       Intent received
+     * @param data Intent received
      */
     private void requestCopyOperation(Intent data) {
         OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);

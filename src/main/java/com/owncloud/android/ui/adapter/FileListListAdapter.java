@@ -116,7 +116,7 @@ public class FileListListAdapter extends BaseAdapter {
             OCFileListFragmentInterface OCFileListFragmentInterface,
             FileDataStorageManager fileDataStorageManager
     ) {
-    this(justFolders, context, transferServiceGetter, OCFileListFragmentInterface);
+        this(justFolders, context, transferServiceGetter, OCFileListFragmentInterface);
         mStorageManager = fileDataStorageManager;
     }
 

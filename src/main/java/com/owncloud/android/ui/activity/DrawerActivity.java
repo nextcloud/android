@@ -411,6 +411,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(activityIntent);
                 break;
+            case R.id.nav_notifications:
+                Intent notificationsIntent = new Intent(getApplicationContext(), NotificationsActivity.class);
+                startActivity(notificationsIntent);
+                break;
             case R.id.nav_folder_sync:
                 Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
                 startActivity(folderSyncIntent);

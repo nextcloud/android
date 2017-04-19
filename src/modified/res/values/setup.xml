@@ -109,6 +109,9 @@
 
     <!-- login data links -->
     <string name="login_data_own_scheme" translatable="false">cloud</string>
+    <!-- url for webview login, with the protocol prefix
+    If set, will replace all other login methods available -->
+    <string name="webview_login_url" translatable="false"></string>
 
     <!-- analytics enabled -->
     <bool name="analytics_enabled">false</bool>
@@ -116,6 +119,8 @@
     <!-- Files becomes Home -->
     <bool name="use_home">true</bool>
 
+    <!-- Push server url -->
+    <string name="push_server_url" translatable="false"></string>
 </resources>
 
 

@@ -21,16 +21,19 @@
 
 package com.owncloud.android.authentication;
 
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-
-import android.accounts.*;
+import android.accounts.AbstractAccountAuthenticator;
+import android.accounts.Account;
+import android.accounts.AccountAuthenticatorResponse;
+import android.accounts.AccountManager;
+import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
+import com.owncloud.android.R;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -90,8 +93,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
                         + e.getMessage(), e);
                 return e.getFailureBundle();
             }
-            
-            final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
+
+            Intent intent = new Intent(mContext, AuthenticatorActivity.class);
             intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
             intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
             intent.putExtra(KEY_REQUIRED_FEATURES, requiredFeatures);
@@ -134,6 +137,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
             Log_OC.e(TAG, "Failed to validate account type " + account.type + ": " + e.getMessage(), e);
             return e.getFailureBundle();
         }
+
         Intent intent = new Intent(mContext, AuthenticatorActivity.class);
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
                 response);
@@ -185,7 +189,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
         }
         
         /// if not stored, return Intent to access the AuthenticatorActivity and UPDATE the token for the account
-        final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
+        Intent intent = new Intent(mContext, AuthenticatorActivity.class);
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
         intent.putExtra(KEY_LOGIN_OPTIONS, options);
@@ -215,7 +219,8 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
     public Bundle updateCredentials(AccountAuthenticatorResponse response,
             Account account, String authTokenType, Bundle options)
             throws NetworkErrorException {
-        final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
+
+        Intent intent = new Intent(mContext, AuthenticatorActivity.class);
         intent.putExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, response);
         intent.putExtra(KEY_ACCOUNT, account);
         intent.putExtra(KEY_AUTH_TOKEN_TYPE, authTokenType);
