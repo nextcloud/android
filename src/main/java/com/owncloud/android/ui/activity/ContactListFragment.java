@@ -53,6 +53,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.ContactsImportJob;
+import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.PermissionUtil;
@@ -367,6 +368,16 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         final VCard vcard = vCards.get(holder.getAdapterPosition());
 
         if (vcard != null) {
+            // name
+            StructuredName name = vcard.getStructuredName();
+            if (name != null) {
+                String first = (name.getGiven() == null) ? "" : name.getGiven() + " ";
+                String last = (name.getFamily() == null) ? "" : name.getFamily();
+                holder.getName().setText(first + last);
+            } else {
+                holder.getName().setText("");
+            }
+
             // photo
             if (vcard.getPhotos().size() > 0) {
                 byte[] data = vcard.getPhotos().get(0).getData();
@@ -377,7 +388,16 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
 
                 holder.getBadge().setImageDrawable(drawable);
             } else {
-                holder.getBadge().setImageResource(R.drawable.ic_user);
+                try {
+                    holder.getBadge().setImageDrawable(
+                            TextDrawable.createNamedAvatar(
+                                    holder.getName().getText().toString(),
+                                    context.getResources().getDimension(R.dimen.list_item_avatar_icon_radius)
+                            )
+                    );
+                } catch (Exception e) {
+                    holder.getBadge().setImageResource(R.drawable.ic_user);
+                }
             }
 
             // Checkbox
@@ -393,16 +413,6 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                     }
                 }
             });
-
-            // name
-            StructuredName name = vcard.getStructuredName();
-            if (name != null) {
-                String first = (name.getGiven() == null) ? "" : name.getGiven() + " ";
-                String last = (name.getFamily() == null) ? "" : name.getFamily();
-                holder.getName().setText(first + last);
-            } else {
-                holder.getName().setText("");
-            }
         }
     }
 

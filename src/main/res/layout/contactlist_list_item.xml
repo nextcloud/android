@@ -25,10 +25,9 @@
 
     <ImageView
         android:id="@+id/contactlist_item_icon"
-        android:layout_width="@dimen/standard_list_item_size"
-        android:layout_height="@dimen/standard_list_item_size"
-        android:layout_margin="0dp"
-        android:padding="7dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/ic_user"/>
 
@@ -42,6 +41,6 @@
         android:ellipsize="marquee"
         android:gravity="center_vertical"
         android:maxLines="1"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:textAppearance="?android:attr/textAppearanceListItem"/>
 
 </LinearLayout>
