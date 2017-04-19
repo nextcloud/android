@@ -43,10 +43,10 @@
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_passcode">Блокировка кодом</string>
     <string name="prefs_show_hidden_files">Показать скрытые файлы</string>
-    <string name="prefs_instant_upload">Автозагрузка изображений</string>
-    <string name="prefs_instant_upload_summary">Автоматически загружать изображения, сделанные камерой</string>
-    <string name="prefs_instant_video_upload">Автозагрузка видео</string>
-    <string name="prefs_instant_video_upload_summary">Автоматически загружать видео, сделанные камерой</string>
+    <string name="prefs_instant_upload">Моментальная загрузка изображений</string>
+    <string name="prefs_instant_upload_summary">Немедленно загружать изображения, сделанные камерой</string>
+    <string name="prefs_instant_video_upload">Моментальная загрузка видео</string>
+    <string name="prefs_instant_video_upload_summary">Немедленно загружать видео, сделанные камерой</string>
     <string name="prefs_log_title">Включить журналирование</string>
     <string name="prefs_log_summary">Используется для регистрации ошибок</string>
     <string name="prefs_log_title_history">История журналирования</string>
@@ -72,8 +72,8 @@
     <string name="auth_host_url">Адрес сервера https://...</string>
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_password">Пароль</string>
-    <string name="auth_register">Ещё нет сервера?
-Щёлкните здесь чтобы получить от провайдера</string>
+    <string name="auth_register">Нет сервера?
+Нажмите здесь чтобы получить от провайдера</string>
     <string name="sync_string_files">Файлы</string>
     <string name="setup_btn_connect">Подключиться</string>
     <string name="uploader_btn_upload_text">Загрузить</string>
@@ -90,9 +90,9 @@
     <string name="uploader_error_message_source_file_not_found">Файл для загрузки не был найден в положенном месте. Пожалуйста проверьте, существует ли файл.</string>
     <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временный каталог. Пожалуйста попробуйте отправить его заново.</string>
     <string name="uploader_upload_files_behaviour">Настройка загрузки:</string>
-    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Переместить файл в папку Nextcloud</string>
-    <string name="uploader_upload_files_behaviour_only_upload">Хранить файл в исходном каталоге</string>
-    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалить файл из исходного каталога</string>
+    <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Перемещать файл в папку Nextcloud</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Сохранять файл в исходном каталоге</string>
+    <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалять файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
     <string name="file_list_empty_headline">Здесь нет файлов</string>
     <string name="file_list_empty">Загрузите что-нибудь или синхронизируйте со своими устройствами!</string>
@@ -105,7 +105,7 @@
     <string name="file_list_empty_headline_search">В этой папке результатов не найдено</string>
     <string name="file_list_empty_headline_server_search">Результаты отсутствуют</string>
     <string name="file_list_empty_favorite_headline">Избранное отсутствует</string>
-    <string name="file_list_empty_shared_headline">Вы еще ничем не поделились</string>
+    <string name="file_list_empty_shared_headline">Вы ещё ничем не поделились</string>
     <string name="file_list_empty_shared">Здесь появятся файлы и каталоги, которыми вы поделитесь</string>
     <string name="file_list_empty_headline_server_search_videos">Видео отсуствуют</string>
     <string name="file_list_empty_headline_server_search_photos">Фотографии отсутствуют</string>
@@ -120,7 +120,7 @@
     <string name="file_list_empty_text_videos">Загрузите видео или включите автоматическую загрузку!</string>
     <string name="file_list_empty_text_videos_filter">По запросу видео–файлов не найдено!</string>
     <string name="upload_list_empty_headline">Нет доступных загрузок</string>
-    <string name="upload_list_empty_text">Загрузите что-нибудь или включите автоматическую загрузку!</string>
+    <string name="upload_list_empty_text">Загрузите что-нибудь или включите моментальную загрузку!</string>
     <string name="upload_list_empty_text_auto_upload">Загрузите что-нибудь или включите автоматическую загрузку!</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_folders">каталоги</string>
@@ -357,7 +357,7 @@
     <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
 
     <string name="error__upload__local_file_not_copied">%1$s невозможно скопировать в локальный каталог %2$s </string>
-    <string name="prefs_instant_upload_path_title">Каталог для автоматической загрузки</string>
+    <string name="prefs_instant_upload_path_title">Каталог для немедленной загрузки</string>
     <string name="prefs_folder_sync_local_path_title">Локальный каталог</string>
     <string name="prefs_folder_sync_remote_path_title">Удалённый каталог</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Использовать подкаталоги</string>
@@ -450,10 +450,10 @@
     <string name="copy_file_error">Произошла ошибка при попытке копирования этого файла или каталога</string>
     <string name="forbidden_permissions_copy">для копирования этого файла</string>
 
-    <string name="prefs_category_instant_uploading">Автоматическая загрузка</string>
+    <string name="prefs_category_instant_uploading">Немедленная загрузка</string>
     <string name="prefs_category_details">Подробно</string>
 
-	<string name="prefs_instant_video_upload_path_title">Каталог для автоматической загрузки видео</string>
+	<string name="prefs_instant_video_upload_path_title">Каталог для немедленной загрузки видео</string>
     <string name="sync_folder_failed_content">Синхронизация каталога %1$s не может быть завершена</string>
 
 	<string name="shared_subject_header">поделился</string>
@@ -563,7 +563,7 @@
     <string name="folder_sync_no_results">Не найдены каталоги с медиа(файлами).</string>
     <string name="folder_sync_preferences">Настройки автозагрузки</string>
     <string name="folder_sync_settings">Настройки</string>
-    <string name="folder_sync_new_info">Автоматическая загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности автоматической загрузки!</string>
+    <string name="folder_sync_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности автоматической загрузки!</string>
     <string name="folder_sync_preferences_folder_path">Для %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>
@@ -596,7 +596,7 @@
     <string name="welcome_feature_2_title">Работа с несколькими аккаунтами</string>
     <string name="welcome_feature_2_text">Доступ ко всем вашим облакам</string>
 
-    <string name="welcome_feature_3_title">Автозагрузка</string>
+    <string name="welcome_feature_3_title">Немедленная загрузка</string>
     <string name="welcome_feature_3_text">Держите ваши фотографии в безопасности</string>
 
     <string name="whats_new_skip">Пропустить</string>
