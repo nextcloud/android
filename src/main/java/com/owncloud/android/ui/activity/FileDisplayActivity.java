@@ -131,6 +131,8 @@ public class FileDisplayActivity extends HookActivity
 
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
+    public static final String DRAWER_MENU_ID = "DRAWER_MENU_ID";
+
     public static final int REQUEST_CODE__SELECT_CONTENT_FROM_APPS = REQUEST_CODE__LAST_SHARED + 1;
     public static final int REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM = REQUEST_CODE__LAST_SHARED + 2;
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
@@ -170,10 +172,10 @@ public class FileDisplayActivity extends HookActivity
 
         /// Load of saved instance state
         if (savedInstanceState != null) {
-            mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(
+            mWaitingToPreview = savedInstanceState.getParcelable(
                     FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = (OCFile) savedInstanceState.getParcelable(
+            mWaitingToSend = savedInstanceState.getParcelable(
                     FileDisplayActivity.KEY_WAITING_TO_SEND);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
         } else {
@@ -245,11 +247,17 @@ public class FileDisplayActivity extends HookActivity
             }
         }
 
-        if (savedInstanceState == null) {
-            createMinFragments();
-        }
+        if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null){
+            switchToSearchFragment();
 
-        refreshList(true);
+            int menuId = getIntent().getIntExtra(DRAWER_MENU_ID, -1);
+            if (menuId != -1){
+                setupDrawer(menuId);
+            }
+        } else if (savedInstanceState == null) {
+            createMinFragments();
+            refreshList(true);
+        }
 
         setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
@@ -375,6 +383,19 @@ public class FileDisplayActivity extends HookActivity
                 updateActionBarTitleAndHomeButton(file.isFolder() ? null : file);
             }
         }
+    }
+
+    private void switchToSearchFragment() {
+        OCFileListFragment listOfFiles = new OCFileListFragment();
+        Bundle args = new Bundle();
+
+        args.putParcelable(OCFileListFragment.SEARCH_EVENT,
+                getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+
+        listOfFiles.setArguments(args);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+        transaction.commit();
     }
 
     private void createMinFragments() {

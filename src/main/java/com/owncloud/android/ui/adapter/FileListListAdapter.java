@@ -109,6 +109,17 @@ public class FileListListAdapter extends BaseAdapter {
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
     }
 
+    public FileListListAdapter(
+            boolean justFolders,
+            Context context,
+            ComponentsGetter transferServiceGetter,
+            OCFileListFragmentInterface OCFileListFragmentInterface,
+            FileDataStorageManager fileDataStorageManager
+    ) {
+    this(justFolders, context, transferServiceGetter, OCFileListFragmentInterface);
+        mStorageManager = fileDataStorageManager;
+    }
+
     @Override
     public boolean areAllItemsEnabled() {
         return true;
@@ -467,21 +478,24 @@ public class FileListListAdapter extends BaseAdapter {
         if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
             ArrayList<OCShare> shares = new ArrayList<>();
             for (int i = 0; i < objects.size(); i++) {
-                shares.add((OCShare) objects.get(i));
+                // check type before cast as of long running data fetch it is possible that old result is filled
+                if (objects.get(i) instanceof OCShare) {
+                    OCShare ocShare = (OCShare) objects.get(i);
+
+                    shares.add(ocShare);
+
+                    OCFile ocFile = mStorageManager.getFileByPath(ocShare.getPath());
+                    if (!mFiles.contains(ocFile)) {
+                        mFiles.add(ocFile);
+                    }
+                }
             }
             mStorageManager.saveShares(shares);
-        }
-        for (int i = 0; i < objects.size(); i++) {
-            if (!searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
+        } else {
+            for (int i = 0; i < objects.size(); i++) {
                 OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
                 searchForLocalFileInDefaultPath(ocFile);
                 mFiles.add(ocFile);
-            } else {
-                OCShare ocShare = (OCShare) objects.get(i);
-                OCFile ocFile = mStorageManager.getFileByPath(ocShare.getPath());
-                if (!mFiles.contains(ocFile)) {
-                    mFiles.add(ocFile);
-                }
             }
         }
 
