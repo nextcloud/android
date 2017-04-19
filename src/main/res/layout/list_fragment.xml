@@ -89,7 +89,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         app:fab_addButtonColorNormal="@color/primary_button_background_color"
-        app:fab_addButtonColorPressed="@color/owncloud_blue"
+        app:fab_addButtonColorPressed="@color/nc_blue"
         app:fab_addButtonPlusIconColor="@color/white"
         app:fab_labelStyle="@style/menu_labels_style"
         android:layout_marginBottom="@dimen/standard_margin"
@@ -105,7 +105,7 @@
             app:fab_size="mini"
             app:fab_icon="@drawable/ic_action_upload"
             app:fab_colorNormal="@color/primary_button_background_color"
-            app:fab_colorPressed="@color/owncloud_blue"
+            app:fab_colorPressed="@color/nc_blue"
             app:fab_title=""/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -115,7 +115,7 @@
             app:fab_size="mini"
             app:fab_icon="@drawable/ic_import"
             app:fab_colorNormal="@color/primary_button_background_color"
-            app:fab_colorPressed="@color/owncloud_blue"
+            app:fab_colorPressed="@color/nc_blue"
             app:fab_title=""/>
 
         <com.getbase.floatingactionbutton.FloatingActionButton
@@ -125,7 +125,7 @@
             app:fab_size="mini"
             app:fab_icon="@drawable/ic_action_create_dir"
             app:fab_colorNormal="@color/primary_button_background_color"
-            app:fab_colorPressed="@color/owncloud_blue"
+            app:fab_colorPressed="@color/nc_blue"
             app:fab_title=""/>
 
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
