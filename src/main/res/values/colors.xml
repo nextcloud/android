@@ -19,8 +19,8 @@
 -->
 <resources>
 
-    <color name="owncloud_blue">@color/actionbar_start_color</color>
-    <color name="owncloud_blue_accent">#007CC2</color>
+    <color name="nc_blue">@color/navigation_bar_start_color</color>
+    <color name="nc_blue_accent">#007CC2</color>
     <color name="owncloud_blue_bright">#00ddff</color>
 
     <color name="list_item_lastmod_and_filesize_text">@color/secondaryTextColor</color>
@@ -43,17 +43,10 @@
     <color name="highlightTextColor">#55739a</color>
 
     <!-- Colors -->
-    <color name="color_accent">@color/owncloud_blue_accent</color>
     <color name="dialog_list_item">#1F1F1F</color>
     <color name="standard_grey">#757575</color>
 
     <!-- standard material color definitions -->
-    <color name="primary">@color/owncloud_blue</color>
-    <color name="primary_dark">#006AA3</color>
-
-    <!-- special transparent action bar colors for image preview -->
-    <color name="owncloud_blue_transparent">#201D2D44</color>
-    <color name="owncloud_blue_dark_transparent">#40162233</color>
 
     <!-- level colors for info notifications/visualisations -->
     <color name="infolevel_info">@color/color_accent</color>
