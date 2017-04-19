@@ -33,7 +33,7 @@ ext {
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
-    // allows for -Dpre-dex=false to be set
+    // allows for -Dpre-dex=false to be set :)
     preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 }
 
