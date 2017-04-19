@@ -20,7 +20,6 @@
 package com.owncloud.android.services.firebase;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
@@ -38,9 +37,7 @@ public class NCFirebaseInstanceIDService extends FirebaseInstanceIdService {
         if (!TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
             PreferenceManager.setPushToken(MainApp.getAppContext(), FirebaseInstanceId.getInstance().getToken());
             PreferenceManager.setPushTokenUpdateTime(MainApp.getAppContext(), System.currentTimeMillis());
-        }
 
-        if (PreferenceManager.getPushTokenLastSentTime(MainApp.getAppContext()) != -1) {
             PushUtils.pushRegistrationToServer();
         }
     }

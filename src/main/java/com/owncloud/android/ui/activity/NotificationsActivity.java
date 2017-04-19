@@ -261,6 +261,7 @@ public class NotificationsActivity extends FileActivity {
 
             default:
                 retval = super.onOptionsItemSelected(item);
+                break;
         }
 
         return retval;
