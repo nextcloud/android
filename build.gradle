@@ -101,7 +101,7 @@ android {
     // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
     dexOptions {
-        // Skip pre-dexing whe`n running on Travis CI or when disabled via -Dpre-dex=false.
+        // Skip pre-dexing when running on Travis CI or when disabled via -Dpre-dex=false.
         preDexLibraries = preDexEnabled && !travisBuild
     }
 
@@ -175,7 +175,6 @@ dependencies {
     /// dependencies for app building
     compile name: 'touch-image-view'
     compile 'com.android.support:multidex:1.0.1'
-
 
     compile 'com.github.nextcloud:android-library:notifications-push-SNAPSHOT'
     compile "com.android.support:support-v4:${supportLibraryVersion}"

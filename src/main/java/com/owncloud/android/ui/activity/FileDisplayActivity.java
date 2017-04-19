@@ -175,11 +175,9 @@ public class FileDisplayActivity extends HookActivity
 
         /// Load of saved instance state
         if (savedInstanceState != null) {
-            mWaitingToPreview = savedInstanceState.getParcelable(
-                    FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
+            mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = savedInstanceState.getParcelable(
-                    FileDisplayActivity.KEY_WAITING_TO_SEND);
+            mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
         } else {
             mWaitingToPreview = null;
@@ -250,11 +248,11 @@ public class FileDisplayActivity extends HookActivity
             }
         }
 
-        if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null){
+        if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
             switchToSearchFragment();
 
             int menuId = getIntent().getIntExtra(DRAWER_MENU_ID, -1);
-            if (menuId != -1){
+            if (menuId != -1) {
                 setupDrawer(menuId);
             }
         } else if (savedInstanceState == null) {

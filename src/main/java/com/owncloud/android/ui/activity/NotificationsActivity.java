@@ -160,8 +160,10 @@ public class NotificationsActivity extends FileActivity {
         recyclerView.setAdapter(adapter);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
-                layoutManager.getOrientation());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
+                recyclerView.getContext(),
+                layoutManager.getOrientation()
+        );
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(dividerItemDecoration);
@@ -179,19 +181,15 @@ public class NotificationsActivity extends FileActivity {
 
         Thread t = new Thread(new Runnable() {
             public void run() {
-                OwnCloudAccount ocAccount = null;
+                OwnCloudAccount ocAccount;
                 try {
-                    ocAccount = new OwnCloudAccount(
-                            currentAccount,
-                            context
-                    );
+                    ocAccount = new OwnCloudAccount(currentAccount, context);
                     OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
                             getClientFor(ocAccount, MainApp.getAppContext());
                     mClient.setOwnCloudVersion(AccountUtils.getServerVersion(currentAccount));
 
                     RemoteOperation getRemoteNotificationOperation = new GetRemoteNotificationsOperation();
-                    final RemoteOperationResult result =
-                            getRemoteNotificationOperation.execute(mClient);
+                    final RemoteOperationResult result = getRemoteNotificationOperation.execute(mClient);
 
                     if (result.isSuccess() && result.getNotificationData() != null) {
                         final List<Notification> notifications = result.getNotificationData();
@@ -249,7 +247,7 @@ public class NotificationsActivity extends FileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval;
+        boolean retval = true;
 
         switch (item.getItemId()) {
             case android.R.id.home:
@@ -258,6 +256,7 @@ public class NotificationsActivity extends FileActivity {
                 } else {
                     openDrawer();
                 }
+                break;
 
             default:
                 retval = super.onOptionsItemSelected(item);
