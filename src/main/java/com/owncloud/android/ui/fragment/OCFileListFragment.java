@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -61,6 +62,7 @@ import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
+import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchOperation;
@@ -116,6 +118,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public final static String ARG_ALLOW_CONTEXTUAL_ACTIONS = MY_PACKAGE + ".ALLOW_CONTEXTUAL";
     public final static String ARG_HIDE_FAB = MY_PACKAGE + ".HIDE_FAB";
 
+    public static final String SEARCH_EVENT = "SEARCH_EVENT";
+
     private static final String KEY_FILE = MY_PACKAGE + ".extra.FILE";
     private static final String KEY_FAB_EVER_CLICKED = "FAB_EVER_CLICKED";
 
@@ -146,6 +150,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     private BottomNavigationView bottomNavigationView;
 
     private SearchType currentSearchType;
+    private boolean searchFragment = false;
 
     private enum MenuItemAddRemove {
         DO_NOTHING, REMOVE_SORT, REMOVE_GRID_AND_SORT, ADD_SORT, ADD_GRID_AND_SORT, ADD_GRID_AND_SORT_WITH_SEARCH,
@@ -310,7 +315,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 mJustFolders,
                 getActivity(),
                 mContainerActivity,
-                this
+                this,
+                mContainerActivity.getStorageManager()
         );
         setListAdapter(mAdapter);
 
@@ -333,6 +339,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             } else {
                 removeFabLabels();
             }
+        }
+
+        SearchEvent searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
+        if (searchEvent != null){
+            onMessageEvent(searchEvent);
         }
     }
 
@@ -940,6 +951,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     }
 
     public void refreshDirectory() {
+        searchFragment = false;
         listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
@@ -951,56 +963,58 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
      * @param directory File to be listed
      */
     public void listDirectory(OCFile directory, boolean onlyOnDevice, boolean fromSearch) {
-        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        if (storageManager != null) {
+        if (!searchFragment) {
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+            if (storageManager != null) {
 
-            // Check input parameters for null
-            if (directory == null) {
-                if (mFile != null) {
-                    directory = mFile;
-                } else {
-                    directory = storageManager.getFileByPath("/");
-                    if (directory == null) {
-                        return; // no files, wait for sync
+                // Check input parameters for null
+                if (directory == null) {
+                    if (mFile != null) {
+                        directory = mFile;
+                    } else {
+                        directory = storageManager.getFileByPath("/");
+                        if (directory == null) {
+                            return; // no files, wait for sync
+                        }
                     }
                 }
-            }
 
 
-            // If that's not a directory -> List its parent
-            if (!directory.isFolder()) {
-                Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
-                directory = storageManager.getFileById(directory.getParentId());
-            }
+                // If that's not a directory -> List its parent
+                if (!directory.isFolder()) {
+                    Log_OC.w(TAG, "You see, that is not a directory -> " + directory.toString());
+                    directory = storageManager.getFileById(directory.getParentId());
+                }
 
 
-            if (searchView != null && !searchView.isIconified() && !fromSearch) {
+                if (searchView != null && !searchView.isIconified() && !fromSearch) {
 
-                searchView.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        searchView.setQuery("", false);
-                        searchView.onActionViewCollapsed();
-                        Activity activity;
-                        if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
-                            FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
-                            if (getCurrentFile() != null) {
-                                fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
+                    searchView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            searchView.setQuery("", false);
+                            searchView.onActionViewCollapsed();
+                            Activity activity;
+                            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
+                                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
+                                if (getCurrentFile() != null) {
+                                    fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isRoot(getCurrentFile()));
+                                }
                             }
+
                         }
+                    });
+                }
 
-                    }
-                });
+                mAdapter.swapDirectory(directory, storageManager, onlyOnDevice);
+                if (mFile == null || !mFile.equals(directory)) {
+                    mCurrentListView.setSelection(0);
+                }
+                mFile = directory;
+
+                updateLayout();
+
             }
-
-            mAdapter.swapDirectory(directory, storageManager, onlyOnDevice);
-            if (mFile == null || !mFile.equals(directory)) {
-                mCurrentListView.setSelection(0);
-            }
-            mFile = directory;
-
-            updateLayout();
-
         }
     }
 
@@ -1047,42 +1061,46 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     }
 
     private String generateFooterText(int filesCount, int foldersCount) {
-        String output;
-        if (filesCount <= 0) {
-            if (foldersCount <= 0) {
-                output = "";
+        String output = "";
 
-            } else if (foldersCount == 1) {
-                output = getResources().getString(R.string.file_list__footer__folder);
+        if (getActivity() != null) {
+            if (filesCount <= 0) {
+                if (foldersCount <= 0) {
+                    output = "";
 
-            } else { // foldersCount > 1
-                output = getResources().getString(R.string.file_list__footer__folders, foldersCount);
-            }
+                } else if (foldersCount == 1) {
+                    output = getResources().getString(R.string.file_list__footer__folder);
 
-        } else if (filesCount == 1) {
-            if (foldersCount <= 0) {
-                output = getResources().getString(R.string.file_list__footer__file);
+                } else { // foldersCount > 1
+                    output = getResources().getString(R.string.file_list__footer__folders, foldersCount);
+                }
 
-            } else if (foldersCount == 1) {
-                output = getResources().getString(R.string.file_list__footer__file_and_folder);
+            } else if (filesCount == 1) {
+                if (foldersCount <= 0) {
+                    output = getResources().getString(R.string.file_list__footer__file);
 
-            } else { // foldersCount > 1
-                output = getResources().getString(R.string.file_list__footer__file_and_folders, foldersCount);
-            }
-        } else {    // filesCount > 1
-            if (foldersCount <= 0) {
-                output = getResources().getString(R.string.file_list__footer__files, filesCount);
+                } else if (foldersCount == 1) {
+                    output = getResources().getString(R.string.file_list__footer__file_and_folder);
 
-            } else if (foldersCount == 1) {
-                output = getResources().getString(R.string.file_list__footer__files_and_folder, filesCount);
+                } else { // foldersCount > 1
+                    output = getResources().getString(R.string.file_list__footer__file_and_folders, foldersCount);
+                }
+            } else {    // filesCount > 1
+                if (foldersCount <= 0) {
+                    output = getResources().getString(R.string.file_list__footer__files, filesCount);
 
-            } else { // foldersCount > 1
-                output = getResources().getString(
-                        R.string.file_list__footer__files_and_folders, filesCount, foldersCount
-                );
+                } else if (foldersCount == 1) {
+                    output = getResources().getString(R.string.file_list__footer__files_and_folder, filesCount);
 
+                } else { // foldersCount > 1
+                    output = getResources().getString(
+                            R.string.file_list__footer__files_and_folders, filesCount, foldersCount
+                    );
+
+                }
             }
         }
+
         return output;
     }
 
@@ -1245,6 +1263,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(SearchEvent event) {
+        searchFragment = true;
         setEmptyListLoadingMessage();
         mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH);
 
@@ -1284,29 +1303,34 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             }
         };
 
-        Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
+        final RemoteOperation remoteOperation;
+        if (!currentSearchType.equals(SearchType.SHARED_FILTER)) {
+            remoteOperation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
+        } else {
+            remoteOperation = new GetRemoteSharesOperation();
+        }
 
-        try {
-            OwnCloudAccount ocAccount = new OwnCloudAccount(
-                    currentAccount,
-                    MainApp.getAppContext()
-            );
+        final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
-            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                    getClientFor(ocAccount, MainApp.getAppContext());
-            if (!currentSearchType.equals(SearchType.SHARED_FILTER)) {
-                SearchOperation operation = new SearchOperation(event.getSearchQuery(), event.getSearchType());
-                RemoteOperationResult remoteOperationResult = operation.execute(mClient);
+        AsyncTask task = new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] params) {
+                RemoteOperationResult remoteOperationResult = remoteOperation.execute(currentAccount, getContext());
+
                 if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
                     mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
                 }
-            } else {
-                GetRemoteSharesOperation operation = new GetRemoteSharesOperation();
-                RemoteOperationResult remoteOperationResult = operation.execute(mClient);
-                if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
-                    mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
-                }
+
+                return remoteOperationResult.isSuccess();
             }
+
+            @Override
+            protected void onPostExecute(Object o) {
+                mAdapter.notifyDataSetChanged();
+            }
+        };
+
+        task.execute(true);
 
             if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
                 setEmptyListMessage(SearchType.FILE_SEARCH);
@@ -1350,18 +1374,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             } else {
                 new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
             }
-
-        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-            Log_OC.e(TAG, "Account not found", e);
-        } catch (AuthenticatorException e) {
-            Log_OC.e(TAG, "Authentication failed", e);
-        } catch (IOException e) {
-            Log_OC.e(TAG, "IO error", e);
-        } catch (OperationCanceledException e) {
-            Log_OC.e(TAG, "Operation has been canceled", e);
-        }
-
-
     }
 
     @Override
