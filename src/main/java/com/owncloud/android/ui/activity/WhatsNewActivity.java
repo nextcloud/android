@@ -37,6 +37,8 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -74,11 +76,20 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         mProgress = (ProgressIndicator) findViewById(R.id.progressIndicator);
         mPager = (ViewPager)findViewById(R.id.contentPanel);
         final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
-        FeaturesViewAdapter adapter = new FeaturesViewAdapter(getSupportFragmentManager(),
-                FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta));
+        String[] urls = getResources().getStringArray(R.array.whatsnew_urls);
 
-        mProgress.setNumberOfSteps(adapter.getCount());
-        mPager.setAdapter(adapter);
+        if (urls.length > 0) {
+            FeaturesWebViewAdapter featuresWebViewAdapter = new FeaturesWebViewAdapter(getSupportFragmentManager(),
+                    urls);
+            mProgress.setNumberOfSteps(featuresWebViewAdapter.getCount());
+            mPager.setAdapter(featuresWebViewAdapter);
+        } else {
+            FeaturesViewAdapter featuresViewAdapter = new FeaturesViewAdapter(getSupportFragmentManager(),
+                    FeatureList.getFiltered(getLastSeenVersionCode(), isFirstRun(), isBeta));
+            mProgress.setNumberOfSteps(featuresViewAdapter.getCount());
+            mPager.setAdapter(featuresViewAdapter);
+        }
+
         mPager.addOnPageChangeListener(this);
 
 
@@ -191,6 +202,60 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         // unused but to be implemented due to abstract parent
     }
 
+    private final class FeaturesWebViewAdapter extends FragmentPagerAdapter {
+        private String[] mWebUrls;
+
+        public FeaturesWebViewAdapter(FragmentManager fm, String[] webUrls) {
+            super(fm);
+            mWebUrls = webUrls;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return FeatureWebFragment.newInstance(mWebUrls[position]);
+        }
+
+        @Override
+        public int getCount() {
+            return mWebUrls.length;
+        }
+    }
+
+    public static class FeatureWebFragment extends Fragment {
+        private String mWebUrl;
+
+        static public FeatureWebFragment newInstance(String webUrl) {
+            FeatureWebFragment f = new FeatureWebFragment();
+            Bundle args = new Bundle();
+            args.putString("url", webUrl);
+            f.setArguments(args);
+            return f;
+        }
+
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            mWebUrl = getArguments() != null ? (String)getArguments().getString("url") : null;
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater,
+                                 @Nullable ViewGroup container,
+                                 @Nullable Bundle savedInstanceState) {
+            View v = inflater.inflate(R.layout.whats_new_webview_element, container, false);
+
+            WebView webView = (WebView) v.findViewById(R.id.whatsNewWebView);
+            webView.getSettings().setJavaScriptEnabled(true);
+            webView.getSettings().setAllowFileAccess(false);
+            webView.setWebViewClient(new WebViewClient());
+            webView.loadUrl(mWebUrl);
+
+            return v;
+        }
+
+
+    }
     private final class FeaturesViewAdapter extends FragmentPagerAdapter {
 
         private FeatureItem[] mFeatures;
