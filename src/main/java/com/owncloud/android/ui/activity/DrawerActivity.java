@@ -60,11 +60,13 @@ import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.parceler.Parcels;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -382,12 +384,24 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case R.id.nav_favorites:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
-                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.FAVORITE_SEARCH,
-                        SearchEvent.UnsetType.NO_UNSET));
+
+                Intent favoriteIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
+                favoriteIntent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(new SearchEvent("",
+                        SearchOperation.SearchType.FAVORITE_SEARCH, SearchEvent.UnsetType.NO_UNSET)));
+                favoriteIntent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
+                favoriteIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(favoriteIntent);
                 break;
             case R.id.nav_photos:
-                EventBus.getDefault().post(new SearchEvent("image/%",
-                        SearchOperation.SearchType.CONTENT_TYPE_SEARCH, SearchEvent.UnsetType.NO_UNSET));
+                menuItem.setChecked(true);
+                mCheckedMenuItem = menuItem.getItemId();
+
+                Intent photoIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
+                photoIntent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(new SearchEvent("image/%",
+                        SearchOperation.SearchType.CONTENT_TYPE_SEARCH, SearchEvent.UnsetType.NO_UNSET)));
+                photoIntent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
+                photoIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(photoIntent);
                 break;
             case R.id.nav_on_device:
                 menuItem.setChecked(true);
