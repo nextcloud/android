@@ -11,9 +11,9 @@ pipeline:
       # - ./gradlew connectedDebugAndroidTest --info
       # install app, then assemble and install instrumented tests of app module
       - ./gradlew :installGenericDebug
-      - ./gradlew :installModifiedDebug
+      #- ./gradlew :installModifiedDebug
       - ./gradlew :installGenericDebugAndroidTest
-      - ./gradlew :installModifiedDebugAndroidTest
+      #- ./gradlew :installModifiedDebugAndroidTest
       # run sample instrumented unit test
       # TODO fails because test runner is not available
       #- adb shell am instrument -w -e debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
