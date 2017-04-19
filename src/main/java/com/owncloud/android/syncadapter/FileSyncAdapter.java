@@ -399,7 +399,6 @@ public class FileSyncAdapter extends AbstractOwnCloudSyncAdapter {
         );
         if (needsToUpdateCredentials) {
             // let the user update credentials with one click
-            // let the user update credentials with one click
             Intent updateAccountCredentials = new Intent(getContext(), AuthenticatorActivity.class);
             updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, getAccount());
             updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,

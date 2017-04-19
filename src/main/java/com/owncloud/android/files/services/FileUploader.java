@@ -1080,7 +1080,6 @@ public class FileUploader extends Service
 
             if (needsToUpdateCredentials) {
                 // let the user update credentials with one click
-                // let the user update credentials with one click
                 Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
                 updateAccountCredentials.putExtra(
                         AuthenticatorActivity.EXTRA_ACCOUNT, upload.getAccount()
