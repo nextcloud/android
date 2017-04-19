@@ -75,6 +75,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/standard_margin"
                 android:layout_weight="1"
+                android:gravity="right"
                 android:text="@string/contacts_preference_backup_never"
                 android:textAppearance="?android:attr/textAppearanceMedium"/>
         </LinearLayout>
