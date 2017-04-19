@@ -24,7 +24,7 @@
 
         <shape
             android:shape="oval">
-            <solid android:color="@color/owncloud_blue_dark_transparent"/>
+            <solid android:color="@color/color_dark_transparent"/>
             <size android:width="8dp" android:height="8dp" />
         </shape>
     </item>

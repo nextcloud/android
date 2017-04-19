@@ -21,5 +21,5 @@
 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <solid android:color="@color/owncloud_blue_accent"/>
+    <solid android:color="@color/nc_blue_accent"/>
 </shape>

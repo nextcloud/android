@@ -57,7 +57,8 @@ public class SyncedFolderObserverService extends Service {
         fileFilter = new FileFilter() {
             @Override
             public boolean accept(File pathname) {
-                return !pathname.getName().startsWith(".") && !pathname.getName().endsWith(".tmp");
+                return !pathname.getName().startsWith(".") && !pathname.getName().endsWith(".tmp") &&
+                        !pathname.getName().endsWith(".temp") && !pathname.getName().endsWith(".thumbnail");
             }
         };
 

@@ -52,7 +52,7 @@
             android:layout_gravity="bottom|right"
             android:background="@drawable/round_bgnd"
             android:src="@drawable/ic_account_circle_white_18dp"
-            android:tint="@color/actionbar_start_color"/>
+            android:tint="@color/navigation_bar_start_color"/>
     </FrameLayout>
 
     <LinearLayout
