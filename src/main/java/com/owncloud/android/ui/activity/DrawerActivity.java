@@ -436,12 +436,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
 
-                Intent recentlyAddedIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
-                recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(new SearchEvent("%",
-                        SearchOperation.SearchType.CONTENT_TYPE_SEARCH, SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR)));
-                recentlyAddedIntent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
-                recentlyAddedIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(recentlyAddedIntent);
+                switchToSearchFragment(new SearchEvent("%",SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
+                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem);
                 break;
             case R.id.nav_recently_modified:
                 menuItem.setChecked(true);
