@@ -77,6 +77,7 @@
         </activity>
         <activity android:name=".ui.activity.ManageAccountsActivity" />
         <activity android:name=".ui.activity.UserInfoActivity" />
+        <activity android:name=".ui.activity.NotificationsActivity"/>
         <activity android:name=".ui.activity.ParticipateActivity" />
         <activity android:name=".ui.activity.ActivitiesListActivity"/>
         <activity android:name=".ui.activity.FolderSyncActivity" />

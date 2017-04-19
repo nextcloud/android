@@ -253,9 +253,8 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
 
             return v;
         }
-
-
     }
+
     private final class FeaturesViewAdapter extends FragmentPagerAdapter {
 
         private FeatureItem[] mFeatures;
@@ -318,5 +317,4 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
             return v;
         }
     }
-
 }

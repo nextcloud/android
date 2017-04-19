@@ -284,7 +284,8 @@ public class UserInfoActivity extends FileActivity {
     }
 
     private void changeAccountPassword(Account account) {
-        Intent updateAccountCredentials = new Intent(UserInfoActivity.this, AuthenticatorActivity.class);
+        // let the user update credentials with one click
+        Intent updateAccountCredentials = new Intent(this, AuthenticatorActivity.class);
         updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, account);
         updateAccountCredentials.putExtra(AuthenticatorActivity.EXTRA_ACTION,
                 AuthenticatorActivity.ACTION_UPDATE_TOKEN);
