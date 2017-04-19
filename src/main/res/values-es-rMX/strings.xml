@@ -60,7 +60,7 @@
     <string name="prefs_help">Ayuda</string>
     <string name="prefs_recommend">Recomendar a un amigo</string>
     <string name="prefs_feedback">Retroalimentación</string>
-    <string name="prefs_imprint">Imprint</string>
+    <string name="prefs_imprint">Exención de responsabilidad </string>
     <string name="prefs_remember_last_share_location">Recordar la ubicación del elemento compartido</string>
     <string name="prefs_remember_last_upload_location_summary">Recordar la última ubicación del elemento compartido cargado.</string>
 
@@ -232,7 +232,7 @@ en los últimos 7 días!</string>
     <string name="media_err_malformed">El archivo no ha sido codificado correctamente</string>
     <string name="media_err_timeout">Tiempo de espera expirado al intentar reproducir</string>
     <string name="media_err_invalid_progressive_playback">Archivo de medio no puede ser transmitido como flujo</string>
-    <string name="media_err_unknown">El archivo de medios no se puede reproducir con el reproductor de medios por defecto </string>
+    <string name="media_err_unknown">El archivo de medios no se puede reproducir con el reproductor predeterminado</string>
     <string name="media_err_security_ex">Se presentó un error de seguridad al intentar reproducir %1$s</string>
     <string name="media_err_io_ex">Se presentó un error en la entrada de datos al intentar reproducir %1$s</string>
     <string name="media_err_unexpected">Se presentó un error inesperado al intentar reproducir %1$s</string>
@@ -521,7 +521,7 @@ en los últimos 7 días!</string>
     <string name="action_retry_uploads">Falla en el reintento</string>
     <string name="action_clear_failed_uploads">Borrar fallidos</string>
     <string name="action_clear_successful_uploads">Borrar exitosos</string>
-    <string name="action_clear_finished_uploads">Borrar todos los completados</string>
+    <string name="action_clear_finished_uploads">Borrar todos</string>
 
     <string name="action_switch_grid_view">Vista de cuadrícula</string>
     <string name="action_switch_list_view">Vista de lista</string>
