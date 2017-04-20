@@ -615,5 +615,4 @@
     <string name="activities_no_results_headline">Событий ещё нет</string>
     <string name="activities_no_results_message">Этот поток будет отображать события вроде\nдобавления, изменения файлов или открытия доступа к ним</string>
 
-
-</resources>
+    </resources>
