@@ -13,7 +13,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0'
+        classpath 'com.android.tools.build:gradle:2.3.1'
         classpath 'com.google.gms:google-services:3.0.0'
     }
 }
@@ -37,14 +37,12 @@ ext {
     preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
 }
 
-configurations.all {
-    // Check for updates every build
-    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
-}
-
 repositories {
     jcenter()
     maven { url "https://jitpack.io" }
+    maven {
+        url 'https://oss.sonatype.org/content/repositories/snapshots/'
+    }
 
     flatDir {
         dirs 'libs'
@@ -118,6 +116,7 @@ android {
 
     packagingOptions {
         exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
     }
 
     task checkstyle(type: Checkstyle) {
@@ -178,7 +177,7 @@ dependencies {
     compile name: 'touch-image-view'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.github.nextcloud:android-library:externalLinks-SNAPSHOT'
+    compile 'com.github.nextcloud:android-library:-SNAPSHOT'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'
@@ -187,11 +186,11 @@ dependencies {
     compile 'com.getbase:floatingactionbutton:1.10.1'
     compile 'com.google.code.findbugs:annotations:2.0.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
-    compile 'com.google.android.gms:play-services:10.2.0'
-    compile 'com.github.evernote:android-job:v1.1.8'
+    compile 'com.github.evernote:android-job:v1.1.9'
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
 
     compile 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'
@@ -220,6 +219,10 @@ dependencies {
     // fix conflict in dependencies; see http://g.co/androidstudio/app-test-app-conflict for details
     //androidTestCompile "com.android.support:support-annotations:${supportLibraryVersion}"
 
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 tasks.withType(Test) {

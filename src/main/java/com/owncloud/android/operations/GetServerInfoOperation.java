@@ -21,7 +21,7 @@
 
 package com.owncloud.android.operations;
 
-import java.util.ArrayList;
+import android.content.Context;
 
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -33,7 +33,7 @@ import com.owncloud.android.lib.resources.status.GetRemoteStatusOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.operations.DetectAuthenticationMethodOperation.AuthenticationMethod;
 
-import android.content.Context;
+import java.util.ArrayList;
 
 /**
  * Get basic information from an ownCloud server given its URL.
@@ -78,6 +78,7 @@ public class GetServerInfoOperation extends RemoteOperation {
 	    
 	    // first: check the status of the server (including its version)
 	    GetRemoteStatusOperation getStatus = new GetRemoteStatusOperation(mContext);
+
 	    RemoteOperationResult result = getStatus.execute(client);
 	    
         if (result.isSuccess()) {

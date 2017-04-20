@@ -69,12 +69,14 @@ import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -347,6 +349,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().removeItem(R.id.nav_shared);
         }
 
+        if (!getResources().getBoolean(R.bool.contacts_backup)) {
+            navigationView.getMenu().removeItem(R.id.nav_contacts);
+        }
+
         if (AccountUtils.hasSearchSupport(account)) {
             if (!getResources().getBoolean(R.bool.recently_added_enabled)) {
                 navigationView.getMenu().removeItem(R.id.nav_recently_added);
@@ -401,12 +407,16 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case R.id.nav_favorites:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
-                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.FAVORITE_SEARCH,
-                        SearchEvent.UnsetType.NO_UNSET));
+
+                switchToSearchFragment(new SearchEvent("", SearchOperation.SearchType.FAVORITE_SEARCH,
+                        SearchEvent.UnsetType.NO_UNSET), menuItem);
                 break;
             case R.id.nav_photos:
-                EventBus.getDefault().post(new SearchEvent("image/%",
-                        SearchOperation.SearchType.CONTENT_TYPE_SEARCH, SearchEvent.UnsetType.NO_UNSET));
+                menuItem.setChecked(true);
+                mCheckedMenuItem = menuItem.getItemId();
+
+                switchToSearchFragment(new SearchEvent("image/%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
+                        SearchEvent.UnsetType.NO_UNSET), menuItem);
                 break;
             case R.id.nav_on_device:
                 menuItem.setChecked(true);
@@ -424,9 +434,17 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 activityIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(activityIntent);
                 break;
+            case R.id.nav_notifications:
+                Intent notificationsIntent = new Intent(getApplicationContext(), NotificationsActivity.class);
+                startActivity(notificationsIntent);
+                break;
             case R.id.nav_folder_sync:
                 Intent folderSyncIntent = new Intent(getApplicationContext(), FolderSyncActivity.class);
                 startActivity(folderSyncIntent);
+                break;
+            case R.id.nav_contacts:
+                Intent contactsIntent = new Intent(getApplicationContext(), ContactsPreferenceActivity.class);
+                startActivity(contactsIntent);
                 break;
             case R.id.nav_settings:
                 Intent settingsIntent = new Intent(getApplicationContext(), Preferences.class);
@@ -448,26 +466,30 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case R.id.nav_recently_added:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
-                EventBus.getDefault().post(new SearchEvent("%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
-                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR));
+
+                switchToSearchFragment(new SearchEvent("%",SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
+                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem);
                 break;
             case R.id.nav_recently_modified:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
-                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
-                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR));
+
+                switchToSearchFragment(new SearchEvent("", SearchOperation.SearchType.RECENTLY_MODIFIED_SEARCH,
+                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem);
                 break;
             case R.id.nav_shared:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
-                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.SHARED_SEARCH,
-                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR));
+
+                switchToSearchFragment(new SearchEvent("", SearchOperation.SearchType.SHARED_SEARCH,
+                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem);
                 break;
             case R.id.nav_videos:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
-                EventBus.getDefault().post(new SearchEvent("video/%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
-                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR));
+
+                switchToSearchFragment(new SearchEvent("video/%", SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
+                        SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR), menuItem);
                 break;
             case MENU_ITEM_EXTERNAL_LINK:
                 // external link clicked
@@ -479,6 +501,14 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             default:
                 Log_OC.i(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
         }
+    }
+
+    private void switchToSearchFragment(SearchEvent event, MenuItem menuItem) {
+        Intent recentlyAddedIntent = new Intent(getBaseContext(), FileDisplayActivity.class);
+        recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(event));
+        recentlyAddedIntent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
+        recentlyAddedIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(recentlyAddedIntent);
     }
 
     /**

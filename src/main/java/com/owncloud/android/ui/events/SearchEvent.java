@@ -21,20 +21,27 @@ package com.owncloud.android.ui.events;
 
 import com.owncloud.android.lib.resources.files.SearchOperation;
 
+import org.parceler.Parcel;
+
 /**
  * Search event
  */
+@Parcel
 public class SearchEvent {
-    public final String searchQuery;
+    public String searchQuery;
 
-    public final SearchOperation.SearchType searchType;
+    public SearchOperation.SearchType searchType;
 
-    public final UnsetType unsetType;
+    public UnsetType unsetType;
 
     public enum UnsetType {
         NO_UNSET,
         UNSET_DRAWER,
-        UNSET_BOTTOM_NAV_BAR;
+        UNSET_BOTTOM_NAV_BAR
+    }
+
+    public SearchEvent() {
+
     }
 
     public SearchEvent(String searchQuery, SearchOperation.SearchType searchType, UnsetType unsetType) {

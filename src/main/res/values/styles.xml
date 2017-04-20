@@ -106,7 +106,7 @@
 
 	<style name="Button.Login" parent="Button">
 		<item name="colorButtonNormal">@color/white</item>
-		<item name="android:textColor">@color/owncloud_blue</item>
+		<item name="android:textColor">@color/nc_blue</item>
 	</style>
 
 	<style name="Button.Borderless" parent="Base.Widget.AppCompat.Button.Borderless">
@@ -129,10 +129,10 @@
 
 	<!-- ACTION BAR STYLES -->
 	<style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.AppCompat.ActionBar">
-		<item name="android:background">@color/owncloud_blue_transparent</item>
+		<item name="android:background">@color/color_transparent</item>
 		<item name="android:windowActionBarOverlay">true</item>
 		<!-- Support library compatibility -->
-		<item name="background">@color/owncloud_blue_transparent</item>
+		<item name="background">@color/color_transparent</item>
 		<item name="windowActionBarOverlay">true</item>
 	</style>
 
@@ -150,8 +150,8 @@
 	
 	<style name="Theme.ownCloud.Widget.ActionBar"
 		parent="style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-    	<item name="android:background">@color/owncloud_blue</item>
-    	<item name="background">@drawable/main_header_bg</item>
+		<item name="android:background">@drawable/main_header_bg</item>
+		<item name="background">@drawable/main_header_bg</item>
     	<item name="android:textColor">#ffffff</item>
     	<item name="android:shadowColor">#222222</item>
     	<item name="android:shadowRadius">1</item>
@@ -162,19 +162,19 @@
 	<!-- Dialogs -->
 	<style name="Theme.ownCloud.Dialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
-		<item name="colorAccent">@color/owncloud_blue_accent</item>
+		<item name="colorAccent">@color/color_accent</item>
 		<item name="buttonBarButtonStyle">@style/Theme.ownCloud.Dialog.ButtonBar.Button</item>
 		<item name="buttonBarStyle">@style/Theme.ownCloud.Dialog.ButtonBar</item>
 	</style>
 
 	<style name="Theme.ownCloud.Dialog.NoTitle" parent="style/Theme.ownCloud.Dialog">
 		<item name="windowNoTitle">true</item>
-		<item name="colorAccent">@color/owncloud_blue_accent</item>
+		<item name="colorAccent">@color/color_accent</item>
 	</style>
 
 	<style name="Theme.ownCloud.Dialog.NoButtonBarStyle" parent="style/Theme.AppCompat.Light.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
-		<item name="colorAccent">@color/owncloud_blue_accent</item>
+		<item name="colorAccent">@color/color_accent</item>
 	</style>
 
 	<style name="menu_labels_style">
@@ -271,7 +271,7 @@
 	
 	<style name="OAuthDialog" parent="style/Theme.AppCompat.Light.Dialog.Alert">
 		<item name="windowNoTitle">false</item>
-		<item name="colorAccent">@color/owncloud_blue_accent</item>
+		<item name="colorAccent">@color/nc_blue_accent</item>
 	</style>    
 		
 	<color name="setup_text_hint">#777777</color>
