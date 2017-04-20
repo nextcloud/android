@@ -1434,4 +1434,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         EventBus.getDefault().unregister(this);
         super.onStop();
     }
+
+
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
+
+        if (searchEvent != null) {
+            onMessageEvent(searchEvent);
+        }
+    }
 }
