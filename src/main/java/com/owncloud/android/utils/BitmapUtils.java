@@ -28,7 +28,6 @@ import android.media.ExifInterface;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 
-import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.UnsupportedEncodingException;
@@ -265,15 +264,14 @@ public class BitmapUtils {
     /**
      * calculates the RGB value based on a given account name.
      *
-     * @param accountName The account name
+     * @param name The name
      * @return corresponding RGB color
      * @throws UnsupportedEncodingException if the charset is not supported
      * @throws NoSuchAlgorithmException if the specified algorithm is not available
      */
-    public static int[] calculateRGB(String accountName) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public static int[] calculateRGB(String name) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         // using adapted algorithm from /core/js/placeholder.js:50
-        String username = AccountUtils.getAccountUsername(accountName);
-        byte[] seed = username.getBytes("UTF-8");
+        byte[] seed = name.getBytes("UTF-8");
         MessageDigest md = MessageDigest.getInstance("MD5");
         Integer seedMd5Int = String.format(Locale.ROOT, "%032x",
                 new BigInteger(1, md.digest(seed))).hashCode();

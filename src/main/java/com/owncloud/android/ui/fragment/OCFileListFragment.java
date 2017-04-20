@@ -91,6 +91,7 @@ import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.MimeTypeUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -810,6 +811,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 if (PreviewImageFragment.canBePreviewed(file)) {
                     // preview image - it handles the download, if needed
                     ((FileDisplayActivity) mContainerActivity).startImagePreview(file);
+                } else if (file.isDown() && MimeTypeUtil.isVCard(file)){
+                    ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
                 } else if (PreviewTextFragment.canBePreviewed(file)) {
                     ((FileDisplayActivity) mContainerActivity).startTextPreview(file);
                 } else if (file.isDown()) {
