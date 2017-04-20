@@ -24,7 +24,7 @@
     <bool name="show_welcome_link">false</bool>
 	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
 	<string name="share_api_link"></string>
-    
+
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
     <string name="auth_method_saml_web_sso">off</string>
@@ -37,6 +37,11 @@
     <!-- To fill if you want to show webviews instead of regular welcome views -->
     <array name="whatsnew_urls"></array>
     
+    // Contacts backup
+    <bool name="contacts_backup">true</bool>
+    <string name="contacts_backup_folder">/Contacts-Backup</string>
+    <integer name="contacts_backup_expire">30</integer>
+
     <!-- Colors -->
     <color name="primary">@color/nc_blue</color>
     <color name="primary_dark">#006AA3</color>
