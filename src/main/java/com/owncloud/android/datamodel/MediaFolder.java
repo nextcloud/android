@@ -27,10 +27,10 @@ import java.util.List;
  * Business object representing a media folder with all information that are gathered via media queries.
  */
 public class MediaFolder {
-    public static final Integer IMAGE = 0;
-    public static final Integer VIDEO = 1;
-    public static final Integer IMAGE_VIDEO = 2;
-    public static final Integer CUSTOM = 3;
+    public static final Integer CUSTOM = 0;
+    public static final Integer IMAGE = 1;
+    public static final Integer VIDEO = 2;
+    public static final Integer IMAGE_VIDEO = 3;
 
     /** name of the folder. */
     public String folderName;
