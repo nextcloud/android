@@ -107,7 +107,7 @@
     <string name="file_list_empty_shared">Aquí aparecerán los archivos y carpetas que usted comparta</string>
     <string name="file_list_empty_headline_server_search_videos">No hay videos</string>
     <string name="file_list_empty_headline_server_search_photos">No hay fotos</string>
-    <string name="file_list_empty_search">¿A intentado buscar en otra carpeta?</string>
+    <string name="file_list_empty_search">¿Ha intentado buscar en otra carpeta?</string>
     <string name="file_list_empty_recently_modified">No se modificaron archivos en los últimos 7 días</string>
     <string name="file_list_empty_recently_modified_filter">¡No se encontraron para su consulta, archivos que 
  fueran modificados en los últimos 7 días!</string>
@@ -611,5 +611,4 @@
     <string name="activities_no_results_headline">Aun no hay actividad</string>
     <string name="activities_no_results_message">Esta secuencia le mostrará eventos como\nagregados, cambios&amp; recursos compartidos</string>
 
-
-</resources>
+    </resources>
