@@ -35,6 +35,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -152,6 +153,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     private SearchType currentSearchType;
     private boolean searchFragment = false;
+    private SearchEvent searchEvent;
+    private AsyncTask remoteOperationAsyncTask;
 
     private enum MenuItemAddRemove {
         DO_NOTHING, REMOVE_SORT, REMOVE_GRID_AND_SORT, ADD_SORT, ADD_GRID_AND_SORT, ADD_GRID_AND_SORT_WITH_SEARCH,
@@ -171,6 +174,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
         mProgressBarColor = getResources().getColor(R.color.primary);
         mMultiChoiceModeListener = new MultiChoiceModeListener();
+        searchFragment = false;
     }
 
     /**
@@ -283,12 +287,20 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     @Override
     public void onResume() {
         super.onResume();
+
+        if (remoteOperationAsyncTask != null) {
+            remoteOperationAsyncTask.cancel(true);
+        }
     }
 
     @Override
     public void onDetach() {
         setOnRefreshListener(null);
         mContainerActivity = null;
+
+        if (remoteOperationAsyncTask != null) {
+            remoteOperationAsyncTask.cancel(true);
+        }
         super.onDetach();
     }
 
@@ -342,8 +354,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             }
         }
 
-        SearchEvent searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
-        if (searchEvent != null){
+        searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
+        if (searchEvent != null) {
             onMessageEvent(searchEvent);
         }
     }
@@ -671,6 +683,26 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         ((FileActivity) getActivity()).addDrawerListener(mMultiChoiceModeListener);
     }
 
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            mAdapter = new FileListListAdapter(
+                    mJustFolders,
+                    getActivity(),
+                    mContainerActivity,
+                    this,
+                    mContainerActivity.getStorageManager());
+
+            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_EVENT));
+        }
+
+        if (searchEvent != null) {
+            onMessageEvent(searchEvent);
+        }
+    }
+
     /**
      * Saves the current listed folder.
      */
@@ -955,6 +987,11 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     public void refreshDirectory() {
         searchFragment = false;
+
+        if (remoteOperationAsyncTask != null) {
+            remoteOperationAsyncTask.cancel(true);
+        }
+
         listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
@@ -1315,25 +1352,32 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
         final Account currentAccount = AccountUtils.getCurrentOwnCloudAccount(MainApp.getAppContext());
 
-        AsyncTask task = new AsyncTask() {
+        remoteOperationAsyncTask = new AsyncTask() {
             @Override
             protected Object doInBackground(Object[] params) {
-                RemoteOperationResult remoteOperationResult = remoteOperation.execute(currentAccount, getContext());
+                if (getContext() != null && !isCancelled()) {
+                    RemoteOperationResult remoteOperationResult = remoteOperation.execute(currentAccount, getContext());
 
-                if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null) {
-                    mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
+                    if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null
+                            && !isCancelled() && searchFragment) {
+                        mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
+                    }
+
+                    return remoteOperationResult.isSuccess();
+                } else {
+                    return false;
                 }
-
-                return remoteOperationResult.isSuccess();
             }
 
             @Override
             protected void onPostExecute(Object o) {
-                mAdapter.notifyDataSetChanged();
+                if (!isCancelled()) {
+                    mAdapter.notifyDataSetChanged();
+                }
             }
         };
 
-        task.execute(true);
+        remoteOperationAsyncTask.execute(true);
 
         if (event.getSearchType().equals(SearchOperation.SearchType.FILE_SEARCH)) {
             setEmptyListMessage(SearchType.FILE_SEARCH);

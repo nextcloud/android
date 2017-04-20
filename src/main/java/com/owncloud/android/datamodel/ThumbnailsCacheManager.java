@@ -189,7 +189,7 @@ public class ThumbnailsCacheManager {
 
 
         public ThumbnailGenerationTask(ImageView imageView, FileDataStorageManager storageManager,
-                                       Account account) {
+                                       Account account) throws IllegalArgumentException {
             // Use a WeakReference to ensure the ImageView can be garbage collected
             mImageViewReference = new WeakReference<ImageView>(imageView);
             if (storageManager == null) {
@@ -577,7 +577,7 @@ public class ThumbnailsCacheManager {
         }
 
         private Bitmap doAvatarInBackground() {
-            String username = (String) mUsername;
+            String username = mUsername;
 
             final String imageKey = "a_" + username;
 
