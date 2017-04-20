@@ -33,6 +33,8 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
@@ -47,6 +49,13 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
+import com.bumptech.glide.GenericRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.StreamEncoder;
+import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -56,7 +65,10 @@ import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.TextDrawable;
 import com.owncloud.android.ui.activity.ToolbarActivity;
+import com.owncloud.android.utils.svg.SvgDecoder;
+import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
@@ -506,5 +518,47 @@ public class DisplayUtils {
                 }
             }
         }
+    }
+
+    public static void downloadIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
+                                    int width, int height) {
+        if (iconUrl.endsWith(".svg")) {
+            downloadSVGIcon(context, iconUrl, imageView, placeholder, width, height);
+        } else {
+            downloadPNGIcon(context, iconUrl, imageView, placeholder);
+        }
+    }
+
+    private static void downloadPNGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder) {
+        Glide
+                .with(context)
+                .load(iconUrl)
+                .centerCrop()
+                .placeholder(placeholder)
+                .error(placeholder)
+                .crossFade()
+                .into(imageView);
+    }
+
+    private static void downloadSVGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
+                                        int width, int height) {
+        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
+                .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
+                .from(Uri.class)
+                .as(SVG.class)
+                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+                .sourceEncoder(new StreamEncoder())
+                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder(height, width)))
+                .decoder(new SvgDecoder(height, width))
+                .placeholder(placeholder)
+                .error(placeholder)
+                .animate(android.R.anim.fade_in);
+
+
+        Uri uri = Uri.parse(iconUrl);
+        requestBuilder
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .load(uri)
+                .into(imageView);
     }
 }

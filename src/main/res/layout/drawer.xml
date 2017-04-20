@@ -46,6 +46,13 @@
             android:paddingTop="@dimen/standard_half_padding"
             android:visibility="gone">
 
+            <TextView
+                android:id="@+id/drawer_quota_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
+                />
+
             <ProgressBar
                 android:id="@+id/drawer_quota_ProgressBar"
                 style="?android:attr/progressBarStyleHorizontal"
@@ -57,9 +64,10 @@
                 />
 
             <TextView
-                android:id="@+id/drawer_quota_text"
+                android:id="@+id/drawer_quota_percentage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:drawablePadding="5dp"
                 android:text="@string/drawer_quota"/>
 
         </LinearLayout>

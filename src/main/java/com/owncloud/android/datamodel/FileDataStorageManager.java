@@ -897,21 +897,21 @@ public class FileDataStorageManager {
                     c.getColumnIndex(ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA)));
             file.setLastSyncDateForProperties(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE)));
             file.setLastSyncDateForData(c.getLong(c.getColumnIndex(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA)));
-            file.setAvailableOffline(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)) == 1 ? true : false);
+            file.setAvailableOffline(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_KEEP_IN_SYNC)) == 1);
             file.setEtag(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG)));
             file.setShareViaLink(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1 ? true : false);
+                    c.getColumnIndex(ProviderTableMeta.FILE_SHARED_VIA_LINK)) == 1);
             file.setShareWithSharee(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1 ? true : false);
+                    c.getColumnIndex(ProviderTableMeta.FILE_SHARED_WITH_SHAREE)) == 1);
             file.setPublicLink(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PUBLIC_LINK)));
             file.setPermissions(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_PERMISSIONS)));
             file.setRemoteId(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_REMOTE_ID)));
             file.setNeedsUpdateThumbnail(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1 ? true : false);
+                    c.getColumnIndex(ProviderTableMeta.FILE_UPDATE_THUMBNAIL)) == 1);
             file.setDownloading(c.getInt(
-                    c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1 ? true : false);
+                    c.getColumnIndex(ProviderTableMeta.FILE_IS_DOWNLOADING)) == 1);
             file.setEtagInConflict(c.getString(c.getColumnIndex(ProviderTableMeta.FILE_ETAG_IN_CONFLICT)));
-            file.setFavorite(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_FAVORITE)) == 1 ? true : false);
+            file.setFavorite(c.getInt(c.getColumnIndex(ProviderTableMeta.FILE_FAVORITE)) == 1);
 
         }
         return file;
@@ -1862,6 +1862,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.CAPABILITIES_FILES_UNDELETE, capability.getFilesUndelete().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING, capability.getFilesVersioning().getValue());
         cv.put(ProviderTableMeta.CAPABILITIES_FILES_DROP, capability.getFilesFileDrop().getValue());
+        cv.put(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS, capability.getExternalLinks().getValue());
 
         if (capabilityExists(mAccount.name)) {
             if (getContentResolver() != null) {
@@ -1998,7 +1999,8 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_VERSIONING))));
             capability.setFilesFileDrop(CapabilityBooleanType.fromValue(c.getInt(c
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_FILES_DROP))));
-
+            capability.setExternalLinks(CapabilityBooleanType.fromValue(c.getInt(c
+                    .getColumnIndex(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS))));
         }
         return capability;
     }

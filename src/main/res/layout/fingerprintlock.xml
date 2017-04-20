@@ -18,51 +18,47 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-
-    >
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:gravity="center_horizontal"
+              android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
-        app:title="Nextcloud"
-        app:titleTextColor="@color/white"
         app:layout_scrollFlags="scroll|enterAlways|snap"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white"/>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:gravity="center_horizontal"
-    android:orientation="vertical"
-    android:padding="@dimen/standard_padding" >
-
-
-    <TextView
-        android:id="@+id/scanfingerprinttext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fingerprint_scan_finger"
-        android:textColor="@android:color/black"
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:gravity="center_horizontal"
-        android:padding="8dp"
-        android:textSize="32dp"
-         />
-    <ImageView
-        android:id="@+id/fingerprinticon"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        android:src="@drawable/ic_fingerprint"
-        android:scaleType="fitCenter"
-        android:tint="@color/actionbar_start_color"/>
+        android:orientation="vertical"
+        android:padding="@dimen/standard_padding">
 
+        <TextView
+            android:id="@+id/scanfingerprinttext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:padding="8dp"
+            android:text="@string/fingerprint_scan_finger"
+            android:textColor="@android:color/black"
+            android:textSize="32dp"/>
 
-</LinearLayout>
+        <ImageView
+            android:id="@+id/fingerprinticon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_fingerprint"
+            android:tint="@color/navigation_bar_start_color"/>
+
+    </LinearLayout>
 </LinearLayout>

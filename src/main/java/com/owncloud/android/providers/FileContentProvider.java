@@ -71,6 +71,7 @@ public class FileContentProvider extends ContentProvider {
     private static final int CAPABILITIES = 5;
     private static final int UPLOADS = 6;
     private static final int SYNCED_FOLDERS = 7;
+    private static final int EXTERNAL_LINKS = 8;
 
     private static final String TAG = FileContentProvider.class.getSimpleName();
 
@@ -197,6 +198,9 @@ public class FileContentProvider extends ContentProvider {
             case SYNCED_FOLDERS:
                 count = db.delete(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, where, whereArgs);
                 break;
+            case EXTERNAL_LINKS:
+                count = db.delete(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, where, whereArgs);
+                break;
             default:
                 //Log_OC.e(TAG, "Unknown uri " + uri);
                 throw new IllegalArgumentException("Unknown uri: " + uri.toString());
@@ -319,6 +323,18 @@ public class FileContentProvider extends ContentProvider {
                 }
                 return insertedSyncedFolderUri;
 
+            case EXTERNAL_LINKS:
+                Uri insertedExternalLinkUri = null;
+                long externalLinkId = db.insert(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, null, values);
+                if (externalLinkId > 0) {
+                    insertedExternalLinkUri =
+                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_EXTERNAL_LINKS, externalLinkId);
+                } else {
+                    throw new SQLException("ERROR " + uri);
+
+                }
+                return insertedExternalLinkUri;
+
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -368,6 +384,7 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "uploads/", UPLOADS);
         mUriMatcher.addURI(authority, "uploads/#", UPLOADS);
         mUriMatcher.addURI(authority, "synced_folders", SYNCED_FOLDERS);
+        mUriMatcher.addURI(authority, "external_links", EXTERNAL_LINKS);
 
         return true;
     }
@@ -449,6 +466,13 @@ public class FileContentProvider extends ContentProvider {
                             + uri.getPathSegments().get(1));
                 }
                 break;
+            case EXTERNAL_LINKS:
+                sqlQuery.setTables(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME);
+                if (uri.getPathSegments().size() > 1) {
+                    sqlQuery.appendWhere(ProviderTableMeta._ID + "="
+                            + uri.getPathSegments().get(1));
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -467,6 +491,9 @@ public class FileContentProvider extends ContentProvider {
                     break;
                 case SYNCED_FOLDERS:
                     order = ProviderTableMeta.SYNCED_FOLDER_LOCAL_PATH;
+                    break;
+                case EXTERNAL_LINKS:
+                    order = ProviderTableMeta.EXTERNAL_LINKS_NAME;
                     break;
                 default: // Files
                     order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
@@ -581,6 +608,9 @@ public class FileContentProvider extends ContentProvider {
 
             // Create synced folders table
             createSyncedFoldersTable(db);
+
+            // Create external links table
+            createExternalLinksTable(db);
         }
 
         @Override
@@ -862,6 +892,41 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
+            if (oldVersion < 18 && newVersion >= 18) {
+                Log_OC.i(SQL, "Adding external link column to capabilities");
+                db.beginTransaction();
+                try {
+                    db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
+                            ADD_COLUMN + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS +
+                            " INTEGER " + " DEFAULT -1");
+
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 19 && newVersion >= 19) {
+                Log_OC.i(SQL, "Adding external link column to capabilities");
+                db.beginTransaction();
+                try {
+                    createExternalLinksTable(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
         }
     }
 
@@ -941,7 +1006,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_FILES_BIGFILECHUNKING + INTEGER   // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_UNDELETE + INTEGER  // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + INTEGER   // boolean
-                + ProviderTableMeta.CAPABILITIES_FILES_DROP + " INTEGER );");   // boolean
+                + ProviderTableMeta.CAPABILITIES_FILES_DROP + INTEGER  // boolean
+                + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + " INTEGER );" );   // boolean
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
@@ -984,6 +1050,17 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, "  // subfolder by date
                 + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "              // account
                 + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER );"     // upload action
+        );
+    }
+
+    private void createExternalLinksTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
+                + ProviderTableMeta.EXTERNAL_LINKS_ICON_URL + " TEXT, "     // icon url
+                + ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE + " TEXT, "     // language
+                + ProviderTableMeta.EXTERNAL_LINKS_TYPE + " INTEGER, "      // type
+                + ProviderTableMeta.EXTERNAL_LINKS_NAME + " TEXT, "         // name
+                + ProviderTableMeta.EXTERNAL_LINKS_URL + " TEXT )"          // url
         );
     }
 

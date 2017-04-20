@@ -38,6 +38,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.services.AutoUploadJob;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -396,7 +397,7 @@ public class UploadsStorageManager extends Observable {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private List<OCUpload> getPendingJobs() {
-        Set<JobRequest> jobRequests = JobManager.create(mContext).getAllJobRequests();
+        Set<JobRequest> jobRequests = JobManager.create(mContext).getAllJobRequestsForTag(AutoUploadJob.TAG);
 
         ArrayList<OCUpload> list = new ArrayList<>();
 

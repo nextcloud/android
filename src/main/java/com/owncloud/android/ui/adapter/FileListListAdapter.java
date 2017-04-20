@@ -49,6 +49,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -83,6 +84,7 @@ public class FileListListAdapter extends BaseAdapter {
 
     private FilesFilter mFilesFilter;
     private OCFile currentDirectory;
+    private static final String TAG = FileListListAdapter.class.getSimpleName();
 
     public FileListListAdapter(
             boolean justFolders,
@@ -107,6 +109,17 @@ public class FileListListAdapter extends BaseAdapter {
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
+    }
+
+    public FileListListAdapter(
+            boolean justFolders,
+            Context context,
+            ComponentsGetter transferServiceGetter,
+            OCFileListFragmentInterface OCFileListFragmentInterface,
+            FileDataStorageManager fileDataStorageManager
+    ) {
+        this(justFolders, context, transferServiceGetter, OCFileListFragmentInterface);
+        mStorageManager = fileDataStorageManager;
     }
 
     @Override
@@ -354,25 +367,30 @@ public class FileListListAdapter extends BaseAdapter {
                     } else {
                         // generate new Thumbnail
                         if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                            fileIcon, mStorageManager, mAccount
-                                    );
-                            if (thumbnail == null) {
-                                if (MimeTypeUtil.isVideo(file)) {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                                } else {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            try {
+                                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                        new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                                fileIcon, mStorageManager, mAccount
+                                        );
+
+                                if (thumbnail == null) {
+                                    if (MimeTypeUtil.isVideo(file)) {
+                                        thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                                    } else {
+                                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                    }
                                 }
+                                final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                        new ThumbnailsCacheManager.AsyncThumbnailDrawable(
+                                                mContext.getResources(),
+                                                thumbnail,
+                                                task
+                                        );
+                                fileIcon.setImageDrawable(asyncDrawable);
+                                task.execute(file);
+                            } catch (IllegalArgumentException e) {
+                                Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
                             }
-                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                            mContext.getResources(),
-                                            thumbnail,
-                                            task
-                                    );
-                            fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
                         }
                     }
 
@@ -467,21 +485,24 @@ public class FileListListAdapter extends BaseAdapter {
         if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
             ArrayList<OCShare> shares = new ArrayList<>();
             for (int i = 0; i < objects.size(); i++) {
-                shares.add((OCShare) objects.get(i));
+                // check type before cast as of long running data fetch it is possible that old result is filled
+                if (objects.get(i) instanceof OCShare) {
+                    OCShare ocShare = (OCShare) objects.get(i);
+
+                    shares.add(ocShare);
+
+                    OCFile ocFile = mStorageManager.getFileByPath(ocShare.getPath());
+                    if (!mFiles.contains(ocFile)) {
+                        mFiles.add(ocFile);
+                    }
+                }
             }
             mStorageManager.saveShares(shares);
-        }
-        for (int i = 0; i < objects.size(); i++) {
-            if (!searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
+        } else {
+            for (int i = 0; i < objects.size(); i++) {
                 OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
                 searchForLocalFileInDefaultPath(ocFile);
                 mFiles.add(ocFile);
-            } else {
-                OCShare ocShare = (OCShare) objects.get(i);
-                OCFile ocFile = mStorageManager.getFileByPath(ocShare.getPath());
-                if (!mFiles.contains(ocFile)) {
-                    mFiles.add(ocFile);
-                }
             }
         }
 

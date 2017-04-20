@@ -19,9 +19,10 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.owncloud.android"
-    android:versionCode="20170419"
-    android:versionName="20170419">
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.owncloud.android"
+          android:versionCode="20170419"
+          android:versionName="20170419">
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -34,6 +35,9 @@
         owned by the app, our use case.
         See note in http://developer.android.com/intl/es/reference/android/Manifest.permission.html#GET_ACCOUNTS -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <!-- USE_CREDENTIALS, MANAGE_ACCOUNTS and AUTHENTICATE_ACCOUNTS are needed for API < 23.
         In API >= 23 the do not exist anymore -->
@@ -77,10 +81,14 @@
         </activity>
         <activity android:name=".ui.activity.ManageAccountsActivity" />
         <activity android:name=".ui.activity.UserInfoActivity" />
+        <activity android:name=".ui.activity.NotificationsActivity"/>
         <activity android:name=".ui.activity.ParticipateActivity" />
         <activity android:name=".ui.activity.ActivitiesListActivity"/>
         <activity android:name=".ui.activity.FolderSyncActivity" />
         <activity android:name=".ui.activity.UploadFilesActivity" />
+        <activity android:name=".ui.activity.ExternalSiteWebView"
+                  android:configChanges="orientation|screenSize|keyboardHidden" />
+        <activity android:name=".ui.activity.ContactsPreferenceActivity" />
         <activity android:name=".ui.activity.ReceiveExternalFilesActivity"
                   
                   android:taskAffinity=""
@@ -254,6 +262,8 @@
 
 
         <service android:name=".services.observer.FileObserverService" />
+
+        <service android:name="com.evernote.android.job.gcm.PlatformGcmService" tools:node="remove"/>
 
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
