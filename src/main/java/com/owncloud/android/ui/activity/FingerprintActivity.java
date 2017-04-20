@@ -46,6 +46,7 @@ import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -62,11 +63,17 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 
+/**
+ * Activity to handle access to the app based on the fingerprint.
+ */
 public class FingerprintActivity extends AppCompatActivity {
+
+    private static final String TAG = FingerprintActivity.class.getSimpleName();
 
     public final static String KEY_CHECK_RESULT = "KEY_CHECK_RESULT";
 
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
+    public static final String ANDROID_KEY_STORE = "AndroidKeyStore";
 
     private KeyStore keyStore;
     // Variable used for storing the key in the Android Keystore container
@@ -90,39 +97,39 @@ public class FingerprintActivity extends AppCompatActivity {
     }
 
     private void startFingerprint() {
-        TextView fingerprinttext = (TextView) findViewById(R.id.scanfingerprinttext);
+        TextView fingerprintTextView = (TextView) findViewById(R.id.scanfingerprinttext);
 
-        FingerprintManager fingerprintManager = (FingerprintManager) MainApp.getAppContext().getSystemService(Context.FINGERPRINT_SERVICE);
+        FingerprintManager fingerprintManager =
+                (FingerprintManager) MainApp.getAppContext().getSystemService(Context.FINGERPRINT_SERVICE);
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.USE_FINGERPRINT)
+                != PackageManager.PERMISSION_GRANTED) {
             return;
         }
         KeyguardManager keyguardManager = (KeyguardManager) getSystemService(KEYGUARD_SERVICE);
 
         if (!keyguardManager.isKeyguardSecure()) {
             return;
-        }else{
+        } else {
             generateKey();
-
 
             if (cipherInit()) {
                 cryptoObject = new FingerprintManager.CryptoObject(cipher);
                 FingerprintHandler.Callback callback = new FingerprintHandler.Callback() {
                     @Override
                     public void onAuthenticated() {
-                        fingerprintresult(true);
+                        fingerprintResult(true);
                     }
 
                     @Override
                     public void onFailed(String error) {
-                        Toast.makeText(
-                                MainApp.getAppContext(),
-                                error,
-                                Toast.LENGTH_LONG)
-                                .show();
-                        ImageView imageView = (ImageView)findViewById(R.id.fingerprinticon);
-                        int[][] states = new int[][] { new int[] { android.R.attr.state_activated }, new int[] { -android.R.attr.state_activated } };
-                        int[] colors = new int[] { Color.parseColor("#FF0000"), Color.RED };
+                        Toast.makeText(MainApp.getAppContext(), error, Toast.LENGTH_LONG).show();
+                        ImageView imageView = (ImageView) findViewById(R.id.fingerprinticon);
+                        int[][] states = new int[][]{
+                                new int[]{android.R.attr.state_activated},
+                                new int[]{-android.R.attr.state_activated}
+                        };
+                        int[] colors = new int[]{Color.parseColor("#FF0000"), Color.RED};
                         ColorStateList csl = new ColorStateList(states, colors);
                         Drawable drawable = DrawableCompat.wrap(imageView.getDrawable());
                         DrawableCompat.setTintList(drawable, csl);
@@ -130,9 +137,10 @@ public class FingerprintActivity extends AppCompatActivity {
                     }
                 };
 
-                helper = new FingerprintHandler(fingerprinttext, callback);
+                helper = new FingerprintHandler(fingerprintTextView, callback);
                 cancellationSignal = new CancellationSignal();
-                if (ActivityCompat.checkSelfPermission(MainApp.getAppContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+                if (ActivityCompat.checkSelfPermission(MainApp.getAppContext(), Manifest.permission.USE_FINGERPRINT)
+                        != PackageManager.PERMISSION_GRANTED) {
                     return;
                 }
                 fingerprintManager.authenticate(cryptoObject, cancellationSignal, 0, helper, null);
@@ -148,7 +156,6 @@ public class FingerprintActivity extends AppCompatActivity {
         imageView.setImageDrawable(getDrawable(R.drawable.ic_fingerprint));
     }
 
-
     @Override
     public void onStop(){
         super.onStop();
@@ -158,9 +165,9 @@ public class FingerprintActivity extends AppCompatActivity {
     /**
      * Overrides click on the BACK arrow to prevent fingerprint from being worked around.
      *
-     * @param keyCode       Key code of the key that triggered the down event.
-     * @param event         Event triggered.
-     * @return              'True' when the key event was processed by this method.
+     * @param keyCode Key code of the key that triggered the down event.
+     * @param event   Event triggered.
+     * @return 'True' when the key event was processed by this method.
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
@@ -173,97 +180,92 @@ public class FingerprintActivity extends AppCompatActivity {
     @TargetApi(Build.VERSION_CODES.M)
     protected void generateKey() {
         try {
-            keyStore = KeyStore.getInstance("AndroidKeyStore");
+            keyStore = KeyStore.getInstance(ANDROID_KEY_STORE);
         } catch (Exception e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "Error getting KeyStore", e);
         }
-
 
         KeyGenerator keyGenerator;
         try {
-            keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+            keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, ANDROID_KEY_STORE);
         } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
             return;
         }
 
-
         try {
             keyStore.load(null);
-            keyGenerator.init(new
-                    KeyGenParameterSpec.Builder(KEY_NAME,
-                    KeyProperties.PURPOSE_ENCRYPT |
-                            KeyProperties.PURPOSE_DECRYPT)
-                    .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
-                    .setUserAuthenticationRequired(true)
-                    .setEncryptionPaddings(
-                            KeyProperties.ENCRYPTION_PADDING_PKCS7)
-                    .build());
+            keyGenerator.init(
+                    new KeyGenParameterSpec.Builder(
+                            KEY_NAME, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT
+                    )
+                            .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                            .setUserAuthenticationRequired(true)
+                            .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7)
+                            .build());
             keyGenerator.generateKey();
-        } catch (NoSuchAlgorithmException |
-                InvalidAlgorithmParameterException
-                | CertificateException | IOException e) {
+        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException | CertificateException | IOException e) {
             return;
         }
     }
 
-
     @TargetApi(Build.VERSION_CODES.M)
     public boolean cipherInit() {
         try {
-            cipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7);
+            cipher = Cipher.getInstance(
+                    KeyProperties.KEY_ALGORITHM_AES + "/"
+                            + KeyProperties.BLOCK_MODE_CBC + "/"
+                            + KeyProperties.ENCRYPTION_PADDING_PKCS7);
         } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
             return false;
         }
 
-
         try {
             keyStore.load(null);
-            SecretKey key = (SecretKey) keyStore.getKey(KEY_NAME,
-                    null);
+            SecretKey key = (SecretKey) keyStore.getKey(KEY_NAME, null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
         } catch (KeyPermanentlyInvalidatedException e) {
             return false;
-        } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException | NoSuchAlgorithmException | InvalidKeyException e) {
+        } catch (KeyStoreException
+                | CertificateException
+                | UnrecoverableKeyException
+                | IOException
+                | NoSuchAlgorithmException
+                | InvalidKeyException e) {
             return false;
         }
     }
 
-
-    private void fingerprintresult(boolean fingerok) {
-
-            if (fingerok) {
-                Intent resultIntent = new Intent();
-                resultIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                resultIntent.putExtra(KEY_CHECK_RESULT, true);
-                setResult(RESULT_OK, resultIntent);
-                finish();
-            } else {
-                showErrorAndRestart(R.string.fingerprint_unknown);
-            }
-
-
+    private void fingerprintResult(boolean fingerok) {
+        if (fingerok) {
+            Intent resultIntent = new Intent();
+            resultIntent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            resultIntent.putExtra(KEY_CHECK_RESULT, true);
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        } else {
+            showErrorAndRestart(R.string.fingerprint_unknown);
+        }
     }
-
 
     private void showErrorAndRestart(int errorMessage) {
         CharSequence errorSeq = getString(errorMessage);
         Toast.makeText(this, errorSeq, Toast.LENGTH_LONG).show();
     }
 
-
-
     final static public boolean isFingerprintCapable(Context context) {
         try {
-            FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
+            FingerprintManager fingerprintManager =
+                    (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
 
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT)
+                    != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 return fingerprintManager.isHardwareDetected();
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
         return false;
@@ -271,30 +273,29 @@ public class FingerprintActivity extends AppCompatActivity {
 
     final static public boolean isFingerprintReady(Context context) {
         try {
-            FingerprintManager fingerprintManager = (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
+            FingerprintManager fingerprintManager =
+                    (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
 
-            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.USE_FINGERPRINT)
+                    != PackageManager.PERMISSION_GRANTED) {
                 return false;
             }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 return fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints();
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             return false;
         }
+
         return false;
     }
-
-
-
 }
+
 @SuppressLint("NewApi")
 class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
-
     private TextView text;
     private Callback callback;
-
 
     // Constructor
     FingerprintHandler(TextView mtext, Callback mcallback) {
@@ -302,31 +303,25 @@ class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
         callback = mcallback;
     }
 
-
-
     @Override
     public void onAuthenticationError(int errMsgId, CharSequence errString) {
-  //      this.update(String.valueOf(errString), false);
+        // this.update(String.valueOf(errString), false);
     }
-
 
     @Override
     public void onAuthenticationHelp(int helpMsgId, CharSequence helpString) {
         this.update(String.valueOf(helpString), false);
     }
 
-
     @Override
     public void onAuthenticationFailed() {
         this.update(MainApp.getAppContext().getString(R.string.fingerprint_unknown), false);
     }
 
-
     @Override
     public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
         this.update("Fingerprint Authentication succeeded.", true);
     }
-
 
     public void update(final String e, Boolean success) {
         if(success) {
@@ -347,10 +342,7 @@ class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
     }
 
     interface Callback {
-
         void onAuthenticated();
-
         void onFailed(String error);
-
     }
 }

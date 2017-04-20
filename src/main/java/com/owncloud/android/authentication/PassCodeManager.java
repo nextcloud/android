@@ -125,10 +125,8 @@ public class PassCodeManager {
         return (appPrefs.getBoolean(PassCodeActivity.PREFERENCE_SET_PASSCODE, false));
     }
 
-    private boolean fingerprintShouldBeRequested(){
-        if ((System.currentTimeMillis() - mTimestamp) > PASS_CODE_TIMEOUT &&
-                mVisibleActivitiesCounter <= 0
-                ){
+    private boolean fingerprintShouldBeRequested() {
+        if ((System.currentTimeMillis() - mTimestamp) > PASS_CODE_TIMEOUT && mVisibleActivitiesCounter <= 0) {
             return fingerprintIsEnabled();
         }
         return false;
@@ -138,5 +136,4 @@ public class PassCodeManager {
         SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(MainApp.getAppContext());
         return (appPrefs.getBoolean(FingerprintActivity.PREFERENCE_USE_FINGERPRINT, false));
     }
-
 }
