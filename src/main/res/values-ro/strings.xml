@@ -2,7 +2,7 @@
 <resources>
     <string name="about_android">%1$s aplicație Android</string>
     <string name="about_version">versiunea %1$s</string>
-    <string name="actionbar_sync">Reîmprospătare cont</string>
+    <string name="actionbar_sync">Reîmprospătează contul</string>
     <string name="actionbar_upload">Încarcă</string>
     <string name="actionbar_upload_from_apps">Conținut de la alte aplicații</string>
     <string name="actionbar_upload_files">Fișiere</string>
@@ -11,12 +11,29 @@
     <string name="actionbar_settings">Setări</string>
     <string name="actionbar_see_details">Detalii</string>
     <string name="actionbar_send_file">Expediază</string>
-    <string name="actionbar_sort">Sortare</string>
+    <string name="actionbar_sort">Sortează</string>
     <string name="actionbar_sort_title">Sortare după</string>
+    <string name="sort_by">Sortare după</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Cel mai nou mai întâi</string>
+    <string name="menu_item_sort_by_date_oldest_first">Cel mai vechi mai întâi</string>
+    <string name="menu_item_sort_by_size_biggest_first">Cel mai mare mai întâi</string>
+    <string name="menu_item_sort_by_size_smallest_first">Cel mai mic mai întâi</string>
+
     <string name="drawer_item_all_files">Toate fișierele</string>
+    <string name="drawer_item_files">Fișiere</string>
+    <string name="drawer_item_home">Acasă</string>
+    <string name="drawer_item_favorites">Favorite</string>
+    <string name="drawer_item_photos">Poze</string>
     <string name="drawer_item_on_device">Pe dispozitiv</string>
+    <string name="drawer_item_recently_added">Adăugate recent</string>
+    <string name="drawer_item_recently_modified">Modificate recent</string>
+    <string name="drawer_item_shared">Partajate</string>
+    <string name="drawer_item_videos">Fișiere video</string>
     <string name="drawer_item_settings">Setări</string>
     <string name="drawer_item_uploads_list">Încărcări</string>
+    <string name="drawer_item_activities">Activități</string>
     <string name="drawer_quota">%1$s din %2$s folosiți</string>
 	<string name="drawer_close">Închide</string>
     <string name="drawer_open">Deschide</string>

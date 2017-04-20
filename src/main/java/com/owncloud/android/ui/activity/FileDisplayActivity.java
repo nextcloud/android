@@ -82,6 +82,7 @@ import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
+import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -96,7 +97,10 @@ import com.owncloud.android.ui.preview.PreviewVideoActivity;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
+import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -131,6 +135,8 @@ public class FileDisplayActivity extends HookActivity
 
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
+    public static final String DRAWER_MENU_ID = "DRAWER_MENU_ID";
+
     public static final int REQUEST_CODE__SELECT_CONTENT_FROM_APPS = REQUEST_CODE__LAST_SHARED + 1;
     public static final int REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM = REQUEST_CODE__LAST_SHARED + 2;
     public static final int REQUEST_CODE__MOVE_FILES = REQUEST_CODE__LAST_SHARED + 3;
@@ -141,7 +147,7 @@ public class FileDisplayActivity extends HookActivity
     private static final String TAG = FileDisplayActivity.class.getSimpleName();
 
     private static final String TAG_LIST_OF_FILES = "LIST_OF_FILES";
-    private static final String TAG_SECOND_FRAGMENT = "SECOND_FRAGMENT";
+    public static final String TAG_SECOND_FRAGMENT = "SECOND_FRAGMENT";
 
     private OCFile mWaitingToPreview;
 
@@ -170,11 +176,9 @@ public class FileDisplayActivity extends HookActivity
 
         /// Load of saved instance state
         if (savedInstanceState != null) {
-            mWaitingToPreview = (OCFile) savedInstanceState.getParcelable(
-                    FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
+            mWaitingToPreview = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
-            mWaitingToSend = (OCFile) savedInstanceState.getParcelable(
-                    FileDisplayActivity.KEY_WAITING_TO_SEND);
+            mWaitingToSend = savedInstanceState.getParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
         } else {
             mWaitingToPreview = null;
@@ -222,7 +226,7 @@ public class FileDisplayActivity extends HookActivity
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+        if (!PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
             // Check if we should show an explanation
             if (PermissionUtil.shouldShowRequestPermissionRationale(this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
@@ -245,11 +249,17 @@ public class FileDisplayActivity extends HookActivity
             }
         }
 
-        if (savedInstanceState == null) {
-            createMinFragments();
-        }
+        if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
+            switchToSearchFragment();
 
-        refreshList(true);
+            int menuId = getIntent().getIntExtra(DRAWER_MENU_ID, -1);
+            if (menuId != -1) {
+                setupDrawer(menuId);
+            }
+        } else if (savedInstanceState == null) {
+            createMinFragments();
+            refreshList(true);
+        }
 
         setIndeterminate(mSyncInProgress);
         // always AFTER setContentView(...) in onCreate(); to work around bug in its implementation
@@ -315,7 +325,8 @@ public class FileDisplayActivity extends HookActivity
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
-                    startSynchronization();
+                    EventBus.getDefault().post(new TokenPushEvent());
+                    refreshList(true);
                     // toggle on is save since this is the only scenario this code gets accessed
                 } else {
                     // permission denied --> do nothing
@@ -323,6 +334,8 @@ public class FileDisplayActivity extends HookActivity
                 }
                 return;
             }
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 
@@ -377,6 +390,19 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
+    private void switchToSearchFragment() {
+        OCFileListFragment listOfFiles = new OCFileListFragment();
+        Bundle args = new Bundle();
+
+        args.putParcelable(OCFileListFragment.SEARCH_EVENT,
+                getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+
+        listOfFiles.setArguments(args);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+        transaction.commit();
+    }
+
     private void createMinFragments() {
         OCFileListFragment listOfFiles = new OCFileListFragment();
         Bundle args = new Bundle();
@@ -406,7 +432,9 @@ public class FileDisplayActivity extends HookActivity
                 updateActionBarTitleAndHomeButton(file);
             } else {
                 cleanSecondFragment();
-                if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
+                if (file.isDown() && MimeTypeUtil.isVCard(file.getMimetype())){
+                    startContactListFragment(file);
+                } else if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
                     startTextPreview(file);
                 }
             }
@@ -562,6 +590,9 @@ public class FileDisplayActivity extends HookActivity
                         // for the local storage path
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
                             startMediaPreview(mWaitingToPreview, 0, true);
+                            detailsFragmentChanged = true;
+                        } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimetype())){
+                            startContactListFragment(mWaitingToPreview);
                             detailsFragmentChanged = true;
                         } else if (PreviewTextFragment.canBePreviewed(mWaitingToPreview)) {
                             startTextPreview(mWaitingToPreview);
@@ -892,7 +923,7 @@ public class FileDisplayActivity extends HookActivity
     /**
      * Request the operation for moving the file/folder from one path to another
      *
-     * @param data       Intent received
+     * @param data Intent received
      */
     private void requestMoveOperation(Intent data) {
         OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
@@ -903,7 +934,7 @@ public class FileDisplayActivity extends HookActivity
     /**
      * Request the operation for copying the file/folder from one path to another
      *
-     * @param data       Intent received
+     * @param data Intent received
      */
     private void requestCopyOperation(Intent data) {
         OCFile folderToMoveAt = data.getParcelableExtra(FolderPickerActivity.EXTRA_FOLDER);
@@ -1896,6 +1927,15 @@ public class FileDisplayActivity extends HookActivity
         Fragment textPreviewFragment = Fragment.instantiate(getApplicationContext(),
                 PreviewTextFragment.class.getName(), args);
         setSecondFragment(textPreviewFragment);
+        updateFragmentsVisibility(true);
+        updateActionBarTitleAndHomeButton(file);
+        setFile(file);
+    }
+
+    public void startContactListFragment(OCFile file) {
+        Fragment contactListFragment = ContactListFragment.newInstance(file, getAccount());
+
+        setSecondFragment(contactListFragment);
         updateFragmentsVisibility(true);
         updateActionBarTitleAndHomeButton(file);
         setFile(file);

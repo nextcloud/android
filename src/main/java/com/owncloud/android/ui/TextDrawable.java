@@ -28,6 +28,7 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 
+import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.utils.BitmapUtils;
 
 import java.io.UnsupportedEncodingException;
@@ -95,9 +96,26 @@ public class TextDrawable extends Drawable {
     @NonNull
     public static TextDrawable createAvatar(String accountName, float radiusInDp) throws
             UnsupportedEncodingException, NoSuchAlgorithmException {
-        int[] rgb = BitmapUtils.calculateRGB(accountName);
+        String username = AccountUtils.getAccountUsername(accountName);
+        return createNamedAvatar(username, radiusInDp);
+    }
+
+    /**
+     * creates an avatar in form of a TextDrawable with the first letter of a name in a circle with the
+     * given radius.
+     *
+     * @param name the name
+     * @param radiusInDp  the circle's radius
+     * @return the avatar as a TextDrawable
+     * @throws UnsupportedEncodingException if the charset is not supported when calculating the color values
+     * @throws NoSuchAlgorithmException if the specified algorithm is not available when calculating the color values
+     */
+    @NonNull
+    public static TextDrawable createNamedAvatar(String name, float radiusInDp) throws
+            UnsupportedEncodingException, NoSuchAlgorithmException {
+        int[] rgb = BitmapUtils.calculateRGB(name);
         TextDrawable avatar = new TextDrawable(
-                accountName.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], radiusInDp);
+                name.substring(0, 1).toUpperCase(), rgb[0], rgb[1], rgb[2], radiusInDp);
         return avatar;
     }
 
