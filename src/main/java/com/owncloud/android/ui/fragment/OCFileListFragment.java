@@ -1239,9 +1239,12 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 GRID_IS_PREFERED_PREFERENCE, Context.MODE_PRIVATE
         );
 
-        SharedPreferences.Editor editor = setting.edit();
-        editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
-        editor.apply();
+        // can be in case of favorites, shared
+        if (mFile != null) {
+            SharedPreferences.Editor editor = setting.edit();
+            editor.putBoolean(String.valueOf(mFile.getFileId()), setGrid);
+            editor.apply();
+        }
     }
 
     private void unsetAllMenuItems(final boolean unsetDrawer) {
