@@ -625,6 +625,8 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">No activity yet</string>
     <string name="activities_no_results_message">This stream will show events like\nadditions, changes &amp; shares</string>
+    <string name="webview_error">Error occurred</string>
+    <string name="prefs_category_about">About</string>
 
     <string name="actionbar_contacts">Contacts backup</string>
     <string name="contacts_backup_button">Backup now</string>

@@ -33,6 +33,8 @@
     <string name = "send_files_to_other_apps">on</string>
     <bool name = "share_via_link_feature">true</bool>
     <bool name = "share_with_users_feature">true</bool>
+    <bool name="show_external_links">true</bool>
+  
     <bool name="show_whats_new">true</bool>
     <!-- To fill if you want to show webviews instead of regular welcome views -->
     <array name="whatsnew_urls"></array>
