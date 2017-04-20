@@ -49,6 +49,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -83,6 +84,7 @@ public class FileListListAdapter extends BaseAdapter {
 
     private FilesFilter mFilesFilter;
     private OCFile currentDirectory;
+    private static final String TAG = FileListListAdapter.class.getSimpleName();
 
     public FileListListAdapter(
             boolean justFolders,
@@ -365,25 +367,30 @@ public class FileListListAdapter extends BaseAdapter {
                     } else {
                         // generate new Thumbnail
                         if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, fileIcon)) {
-                            final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(
-                                            fileIcon, mStorageManager, mAccount
-                                    );
-                            if (thumbnail == null) {
-                                if (MimeTypeUtil.isVideo(file)) {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                                } else {
-                                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                            try {
+                                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                                        new ThumbnailsCacheManager.ThumbnailGenerationTask(
+                                                fileIcon, mStorageManager, mAccount
+                                        );
+
+                                if (thumbnail == null) {
+                                    if (MimeTypeUtil.isVideo(file)) {
+                                        thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                                    } else {
+                                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                                    }
                                 }
+                                final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                                        new ThumbnailsCacheManager.AsyncThumbnailDrawable(
+                                                mContext.getResources(),
+                                                thumbnail,
+                                                task
+                                        );
+                                fileIcon.setImageDrawable(asyncDrawable);
+                                task.execute(file);
+                            } catch (IllegalArgumentException e) {
+                                Log_OC.d(TAG, "ThumbnailGenerationTask : " + e.getMessage());
                             }
-                            final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(
-                                            mContext.getResources(),
-                                            thumbnail,
-                                            task
-                                    );
-                            fileIcon.setImageDrawable(asyncDrawable);
-                            task.execute(file);
                         }
                     }
 
