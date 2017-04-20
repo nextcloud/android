@@ -157,7 +157,7 @@ public class Preferences extends PreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
-        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("details");
+        PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
 
 
         pCode = (CheckBoxPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
@@ -221,7 +221,7 @@ public class Preferences extends PreferenceActivity
                 }
 
             } else {
-               preferenceCategory.removePreference(fPrint);
+                preferenceCategoryDetails.removePreference(fPrint);
             }
         }
 
@@ -233,12 +233,12 @@ public class Preferences extends PreferenceActivity
                         PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = appPrefs.edit();
                 editor.putBoolean("show_hidden_files_pref", mShowHiddenFiles.isChecked());
-                editor.commit();
+                editor.apply();
                 return true;
             }
         });
 
-        preferenceCategory = (PreferenceCategory) findPreference("more");
+        PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
 
         boolean calendarContactsEnabled = getResources().getBoolean(R.bool.calendar_contacts_enabled);
         Preference pCalendarContacts = findPreference("calendar_contacts");
@@ -261,7 +261,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pCalendarContacts);
+                preferenceCategoryMore.removePreference(pCalendarContacts);
             }
         }
 
@@ -282,7 +282,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pHelp);
+                preferenceCategoryMore.removePreference(pHelp);
             }
         }
 
@@ -314,7 +314,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pRecommend);
+                preferenceCategoryMore.removePreference(pRecommend);
             }
         }
 
@@ -339,7 +339,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pFeedback);
+                preferenceCategoryMore.removePreference(pFeedback);
             }
         }
 
@@ -357,7 +357,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pLogger);
+                preferenceCategoryMore.removePreference(pLogger);
             }
         }
 
@@ -379,7 +379,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pImprint);
+                preferenceCategoryMore.removePreference(pImprint);
             }
         }
 
@@ -412,7 +412,6 @@ public class Preferences extends PreferenceActivity
                     return false;
                 }
             });
-
         }
 
         mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
