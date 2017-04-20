@@ -512,7 +512,7 @@ public class Preferences extends PreferenceActivity
             pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
         }
 
-        loadExternalSettingLinks(preferenceCategory);
+        loadExternalSettingLinks(preferenceCategoryMore);
 
         loadStoragePath();
     }
