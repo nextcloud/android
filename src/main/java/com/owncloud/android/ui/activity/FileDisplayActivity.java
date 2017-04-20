@@ -393,6 +393,7 @@ public class FileDisplayActivity extends HookActivity
 
         args.putParcelable(OCFileListFragment.SEARCH_EVENT,
                 getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
 
         listOfFiles.setArguments(args);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
