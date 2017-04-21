@@ -19,6 +19,7 @@
   License along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
                                         android:id="@+id/drawer_layout"
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
@@ -26,7 +27,7 @@
                                         android:fitsSystemWindows="true">
 
     <!-- The main content view -->
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/contacts_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -34,6 +35,13 @@
 
         <include
             layout="@layout/toolbar_standard"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/bottom_navigation_view"
+            android:layout_below="@+id/appbar"
+            android:orientation="vertical">
 
         <TextView
             android:id="@+id/contacts_header_backup"
@@ -109,7 +117,20 @@
             android:text="@string/contacts_preference_choose_date"
             android:theme="@style/Button.Primary"/>
 
-    </LinearLayout>
+        </LinearLayout>
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            app:itemBackground="@color/primary_button_background_color"
+            app:itemIconTint="@color/primary_button_text_color"
+            app:itemTextColor="@color/primary_button_text_color"
+            app:menu="@menu/navigation_bar_menu"/>
+
+    </RelativeLayout>
 
     <include
         layout="@layout/drawer"
