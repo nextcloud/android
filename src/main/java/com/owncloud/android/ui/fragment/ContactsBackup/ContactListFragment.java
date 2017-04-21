@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.fragment.ContactsBackup;
 
 import android.Manifest;
 import android.accounts.Account;
@@ -38,7 +38,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -54,6 +54,7 @@ import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.ContactsImportJob;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.PermissionUtil;
@@ -98,6 +99,11 @@ public class ContactListFragment extends FileFragment {
         View view = inflater.inflate(R.layout.contactlist_fragment, null);
         setHasOptionsMenu(true);
 
+        ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+        contactsPreferenceActivity.getSupportActionBar().setTitle(R.string.actionbar_contacts_restore);
+        contactsPreferenceActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
+
         ArrayList<VCard> vCards = new ArrayList<>();
         checkedVCards = new HashSet<>();
 
@@ -136,10 +142,10 @@ public class ContactListFragment extends FileFragment {
         ContactListAdapter.OnVCardClickListener vCardClickListener = new ContactListAdapter.OnVCardClickListener() {
             private void setRestoreButton() {
                 if (checkedVCards.size() > 0) {
-                    restoreContacts.setEnabled(true);
+                    restoreContacts.setVisibility(View.VISIBLE);
                     restoreContacts.setBackgroundColor(getResources().getColor(R.color.primary_button_background_color));
                 } else {
-                    restoreContacts.setEnabled(false);
+                    restoreContacts.setVisibility(View.GONE);
                     restoreContacts.setBackgroundColor(getResources().getColor(R.color.standard_grey));
                 }
             }
@@ -169,12 +175,35 @@ public class ContactListFragment extends FileFragment {
     }
 
     @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        menu.findItem(R.id.action_search).setVisible(false);
-        menu.findItem(R.id.action_sync_account).setVisible(false);
-        menu.findItem(R.id.action_sort).setVisible(false);
-        menu.findItem(R.id.action_switch_view).setVisible(false);
+    public void onDestroy() {
+        super.onDestroy();
+        ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+        contactsPreferenceActivity.setDrawerIndicatorEnabled(true);
     }
+
+    public void onResume() {
+        super.onResume();
+        ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+        contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        boolean retval;
+        ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                contactsPreferenceActivity.onBackPressed();
+                retval = true;
+                break;
+            default:
+                retval = super.onOptionsItemSelected(item);
+                break;
+        }
+        return retval;
+    }
+
 
     static class ContactItemViewHolder extends RecyclerView.ViewHolder {
         private ImageView badge;
