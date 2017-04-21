@@ -28,6 +28,7 @@ import android.accounts.Account;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
@@ -37,6 +38,8 @@ import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -44,6 +47,8 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
@@ -63,10 +68,18 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
+import com.owncloud.android.ui.events.MenuItemClickEvent;
+import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
+
+import org.greenrobot.eventbus.EventBus;
+import org.parceler.Parcels;
 
 import java.io.InputStream;
 import java.math.BigDecimal;
@@ -560,5 +573,77 @@ public class DisplayUtils {
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .load(uri)
                 .into(imageView);
+    }
+
+    public static void setupBottomBar(BottomNavigationView view, Resources resources, final Activity activity,
+                                      int checkedMenuItem) {
+
+        Menu menu = view.getMenu();
+
+        if (resources.getBoolean(R.bool.use_home)) {
+            menu.findItem(R.id.nav_bar_files).setTitle(resources.
+                    getString(R.string.drawer_item_home));
+            menu.findItem(R.id.nav_bar_files).setIcon(R.drawable.ic_home);
+        }
+
+        setBottomBarItem(view, checkedMenuItem);
+
+        view.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.nav_bar_files:
+                                EventBus.getDefault().post(new MenuItemClickEvent(item));
+                                if (activity != null) {
+                                    activity.invalidateOptionsMenu();
+                                }
+                                break;
+                            case R.id.nav_bar_favorites:
+                                SearchEvent favoritesEvent = new SearchEvent("",
+                                        SearchOperation.SearchType.FAVORITE_SEARCH,
+                                        SearchEvent.UnsetType.UNSET_DRAWER);
+
+                                switchToSearchFragment(activity, favoritesEvent);
+                                break;
+                            case R.id.nav_bar_photos:
+                                SearchEvent photosEvent = new SearchEvent("image/%",
+                                        SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
+                                        SearchEvent.UnsetType.UNSET_DRAWER);
+
+                                switchToSearchFragment(activity, photosEvent);
+                                break;
+                            case R.id.nav_bar_settings:
+                                EventBus.getDefault().post(new MenuItemClickEvent(item));
+                                break;
+                            default:
+                                break;
+                        }
+                        return true;
+                    }
+                });
+    }
+
+    public static void setBottomBarItem(BottomNavigationView view, int checkedMenuItem) {
+        Menu menu = view.getMenu();
+
+        for (int i = 0; i < menu.size(); i++) {
+            menu.getItem(i).setChecked(false);
+        }
+
+        if (checkedMenuItem != -1) {
+            menu.findItem(checkedMenuItem).setChecked(true);
+        }
+    }
+
+    private static void switchToSearchFragment(Activity activity, SearchEvent event) {
+        if (activity instanceof FileDisplayActivity) {
+            EventBus.getDefault().post(event);
+        } else {
+            Intent recentlyAddedIntent = new Intent(activity.getBaseContext(), FileDisplayActivity.class);
+            recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(event));
+            recentlyAddedIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            activity.startActivity(recentlyAddedIntent);
+        }
     }
 }

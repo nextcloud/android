@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -118,6 +119,13 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
             lastBackup.setText(R.string.contacts_preference_backup_never);
         } else {
             lastBackup.setText(DisplayUtils.getRelativeTimestamp(getBaseContext(), lastBackupTimestamp));
+        }
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
         }
     }
 
