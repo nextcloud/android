@@ -67,7 +67,7 @@ public class ContactsBackupFragment extends FileFragment {
     private SharedPreferences sharedPreferences;
 
     @BindView(R.id.contacts_automatic_backup)
-    private SwitchCompat backupSwitch;
+    public SwitchCompat backupSwitch;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
