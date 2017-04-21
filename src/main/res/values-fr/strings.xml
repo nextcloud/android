@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Paramètres</string>
     <string name="drawer_item_uploads_list">Historique des envois</string>
     <string name="drawer_item_activities">Activités</string>
+    <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
 	<string name="drawer_close">Fermer</string>
     <string name="drawer_open">Ouvrir</string>
@@ -571,6 +572,10 @@
     <string name="activity_list_loading_activity">Chargement des activités&#8230;</string>
     <string name="activity_list_no_results">Aucune activité trouvée.</string>
 
+    <string name="notifications_loading_activity">Chargement des notifications&#8230;</string>
+    <string name="notifications_no_results_headline">Aucune notification</string>
+    <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
+
     <string name="upload_file_dialog_title">Spécifiez le nom et le type du fichier téléversé</string>
     <string name="upload_file_dialog_filename">Nom de fichier</string>
     <string name="upload_file_dialog_filetype">Type de fichier</string>
@@ -610,5 +615,8 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Aucune activité pour le moment</string>
     <string name="activities_no_results_message">Ce flux affichera des événements comme\n des ajouts, des changements &amp; des partages</string>
+    <!-- Notifications -->
+    <string name="new_notification_received">Nouvelle notification reçue</string>
 
-    </resources>
+
+</resources>

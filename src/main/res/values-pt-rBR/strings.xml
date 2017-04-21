@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Configurações</string>
     <string name="drawer_item_uploads_list">Envios</string>
     <string name="drawer_item_activities">Atividades</string>
+    <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
 	<string name="drawer_close">Fechar</string>
     <string name="drawer_open">Abrir</string>
@@ -571,6 +572,10 @@ foram encontrados para sua pesquisa! </string>
     <string name="activity_list_loading_activity">Carregando atividades&#8230;</string>
     <string name="activity_list_no_results">Nenhuma atividade encontrada.</string>
 
+    <string name="notifications_loading_activity">Carregando notificações&#8230;</string>
+    <string name="notifications_no_results_headline">Não há notificações</string>
+    <string name="notifications_no_results_message">Por favor verifique mais tarde.</string>
+
     <string name="upload_file_dialog_title">Forneça o nome e o tipo de arquivo a enviar</string>
     <string name="upload_file_dialog_filename">Nome do Arquivo</string>
     <string name="upload_file_dialog_filetype">Tipo do Arquivo</string>
@@ -610,5 +615,8 @@ foram encontrados para sua pesquisa! </string>
     <!-- Activities -->
     <string name="activities_no_results_headline">Nenhuma atividade ainda</string>
     <string name="activities_no_results_message">O stream irá mostrar eventos como\nadições, mudanças &amp; compartilhamentos</string>
+    <!-- Notifications -->
+    <string name="new_notification_received">Nova notificação recebida</string>
 
-    </resources>
+
+</resources>

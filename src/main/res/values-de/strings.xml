@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Einstellungen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
     <string name="drawer_item_activities">Aktivitäten</string>
+    <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
 	<string name="drawer_close">Schließen</string>
     <string name="drawer_open">Öffnen</string>
@@ -571,6 +572,10 @@
     <string name="activity_list_loading_activity">Lade Aktivitäten&#8230;</string>
     <string name="activity_list_no_results">Keine Aktivitäten gefunden.</string>
 
+    <string name="notifications_loading_activity">Lade Benachrichtigungen&#8230;</string>
+    <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
+    <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
+
     <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
     <string name="upload_file_dialog_filename">Dateiname</string>
     <string name="upload_file_dialog_filetype">Dateityp</string>
@@ -610,5 +615,8 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Bislang keine Aktivitäten</string>
     <string name="activities_no_results_message">Dieser Stream zeigt Ereignisse wie\nHinzugekommenes, Änderungen &amp; und Freigaben an</string>
+    <!-- Notifications -->
+    <string name="new_notification_received">Neue Benachrichtigung erhalten</string>
 
-    </resources>
+
+</resources>

@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Ρυθμίσεις</string>
     <string name="drawer_item_uploads_list">Μεταφορτώσεις</string>
     <string name="drawer_item_activities">Δραστηριότητες</string>
+    <string name="drawer_item_notifications">Ειδοποιήσεις</string>
     <string name="drawer_quota">χρησιμοποιούνται %1$s από %2$s</string>
 	<string name="drawer_close">Κλείσιμο</string>
     <string name="drawer_open">Άνοιγμα</string>
@@ -571,6 +572,10 @@
     <string name="activity_list_loading_activity">Γίνεται φόρτωση δραστηριοτήτων&#8230;</string>
     <string name="activity_list_no_results">Δεν βρέθηκαν δραστηριότητες.</string>
 
+    <string name="notifications_loading_activity">Φόρτωση ενημερώσεων&#8230;</string>
+    <string name="notifications_no_results_headline">Καμία ειδοποίηση</string>
+    <string name="notifications_no_results_message">Παρακαλούμε ελέγξτε ξανά αργότερα. </string>
+
     <string name="upload_file_dialog_title">Εισαγωγή ονόματος και τύπου αρχείου μεταφόρτωσης</string>
     <string name="upload_file_dialog_filename">Όνομα αρχείου</string>
     <string name="upload_file_dialog_filetype">Τύπος αρχείου</string>
@@ -610,5 +615,8 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Καμία δραστηριότητα ακόμα</string>
     <string name="activities_no_results_message">Σε αυτήν τη ροή θα εμφανιστούν γενονότα όπως\nπροσθήκες, αλλαγές &amp; κοινόχρηστα</string>
+    <!-- Notifications -->
+    <string name="new_notification_received">Νέα ενημέρωση ελήφθη </string>
 
-    </resources>
+
+</resources>
