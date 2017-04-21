@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Настройки</string>
     <string name="drawer_item_uploads_list">Загрузки</string>
     <string name="drawer_item_activities">События</string>
+    <string name="drawer_item_notifications">Уведомления</string>
     <string name="drawer_quota">%1$s of %2$s использовано</string>
 	<string name="drawer_close">Закрыть</string>
     <string name="drawer_open">Открыть</string>
@@ -575,6 +576,10 @@
     <string name="activity_list_loading_activity">Загружаются события&#8230;</string>
     <string name="activity_list_no_results">Событий не найдено.</string>
 
+    <string name="notifications_loading_activity">Загрузка уведомлений&#8230;</string>
+    <string name="notifications_no_results_headline">Уведомлений нет</string>
+    <string name="notifications_no_results_message">Проверьте позже.</string>
+
     <string name="upload_file_dialog_title">Ввод имени и типа загружаемого файла </string>
     <string name="upload_file_dialog_filename">Имя файла</string>
     <string name="upload_file_dialog_filetype">Тип файла</string>
@@ -614,5 +619,8 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Событий ещё нет</string>
     <string name="activities_no_results_message">Этот поток будет отображать события вроде\nдобавления, изменения файлов или открытия доступа к ним</string>
+    <!-- Notifications -->
+    <string name="new_notification_received">Получено новое уведомление</string>
 
-    </resources>
+
+</resources>
