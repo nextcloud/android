@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Ayarlar</string>
     <string name="drawer_item_uploads_list">Yüklemeler</string>
     <string name="drawer_item_activities">İşlemler</string>
+    <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
 	<string name="drawer_close">Kapat</string>
     <string name="drawer_open">Aç</string>
@@ -570,6 +571,10 @@
     <string name="activity_list_loading_activity">İşlemler yükleniyor&#8230;</string>
     <string name="activity_list_no_results">Herhangi bir işlem bulunamadı.</string>
 
+    <string name="notifications_loading_activity">Bildirimler yükleniyor&#8230;</string>
+    <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
+    <string name="notifications_no_results_message">Daha sonra yeniden bakın.</string>
+
     <string name="upload_file_dialog_title">Yüklenecek dosya adını ve dosya türünü belirtin</string>
     <string name="upload_file_dialog_filename">Dosya adı</string>
     <string name="upload_file_dialog_filetype">Dosya türü</string>
@@ -609,5 +614,8 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Henüz bir işlem yapılmamış</string>
     <string name="activities_no_results_message">Bu akışta ekleme, değiştirme\nve paylaşım gibi işlemler görüntülenir</string>
+    <!-- Notifications -->
+    <string name="new_notification_received">Yeni bir bildirim var</string>
 
-    </resources>
+
+</resources>
