@@ -38,7 +38,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.ContactsBackupJob;
-import com.owncloud.android.ui.fragment.ContactsBackup.ContactsBackupFragment;
+import com.owncloud.android.ui.fragment.contactsBackup.ContactsBackupFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 
 import java.util.Set;

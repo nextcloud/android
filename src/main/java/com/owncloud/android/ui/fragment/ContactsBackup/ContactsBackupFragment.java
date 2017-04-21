@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.fragment.ContactsBackup;
+package com.owncloud.android.ui.fragment.contactsBackup;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -67,7 +67,7 @@ public class ContactsBackupFragment extends FileFragment {
     private SharedPreferences sharedPreferences;
 
     @BindView(R.id.contacts_automatic_backup)
-    SwitchCompat backupSwitch;
+    private SwitchCompat backupSwitch;
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

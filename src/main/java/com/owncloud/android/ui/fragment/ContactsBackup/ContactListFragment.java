@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.ui.fragment.ContactsBackup;
+package com.owncloud.android.ui.fragment.contactsBackup;
 
 import android.Manifest;
 import android.accounts.Account;
