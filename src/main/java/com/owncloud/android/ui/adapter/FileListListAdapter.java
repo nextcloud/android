@@ -49,7 +49,9 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
@@ -491,9 +493,19 @@ public class FileListListAdapter extends BaseAdapter {
 
                     shares.add(ocShare);
 
-                    OCFile ocFile = mStorageManager.getFileByPath(ocShare.getPath());
-                    if (!mFiles.contains(ocFile)) {
-                        mFiles.add(ocFile);
+                    // get ocFile from Server to have an up-to-date copy
+                    ReadRemoteFileOperation operation = new ReadRemoteFileOperation(ocShare.getPath());
+                    RemoteOperationResult result = operation.execute(mAccount, mContext);
+                    if (result.isSuccess()) {
+                        OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+
+                        mStorageManager.saveFile(file);
+
+                        if (!mFiles.contains(file)) {
+                            mFiles.add(file);
+                        }
+                    } else {
+                        Log_OC.e(TAG, "Error in getting prop for file: " + ocShare.getPath());
                     }
                 }
             }
