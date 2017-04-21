@@ -451,6 +451,16 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
+    //Is called with the flag FLAG_ACTIVITY_SINGLE_TOP and set the new file and intent
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if(intent.getAction()!=null && intent.getAction().equalsIgnoreCase(ACTION_DETAILS)){
+            setIntent(intent);
+            setFile((OCFile)intent.getParcelableExtra(EXTRA_FILE));
+        }
+    }
+
     private Fragment chooseInitialSecondFragment(OCFile file) {
         Fragment secondFragment = null;
         if (file != null && !file.isFolder()) {
@@ -987,6 +997,13 @@ public class FileDisplayActivity extends HookActivity
             getListOfFilesFragment().getFabMain().collapse();
         } else {
             // all closed
+
+            //if PreviewImageActivity called this activity and mDualPane==false  then calls PreviewImageActivity again
+            if((getIntent().getAction()!=null && getIntent().getAction().equalsIgnoreCase(ACTION_DETAILS)) && !mDualPane){
+                    getIntent().setAction(null);
+                    startImagePreview(getFile());
+            }
+
             OCFileListFragment listOfFiles = getListOfFilesFragment();
             if (mDualPane || getSecondFragment() == null) {
                 OCFile currentDir = getCurrentDir();
