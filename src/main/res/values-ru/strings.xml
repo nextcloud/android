@@ -43,6 +43,8 @@
     <string name="prefs_accounts">Аккаунты</string>
     <string name="prefs_manage_accounts">Управление аккаунтами</string>
     <string name="prefs_passcode">Блокировка кодом</string>
+    <string name="prefs_fingerprint">Блокировка отпечатком пальца</string>
+    <string name="prefs_fingerprint_notsetup">Отпечатки не были настроены.</string>
     <string name="prefs_show_hidden_files">Показать скрытые файлы</string>
     <string name="prefs_instant_upload">Моментальная загрузка изображений</string>
     <string name="prefs_instant_upload_summary">Немедленно загружать изображения, сделанные камерой</string>
@@ -136,7 +138,7 @@
     <string name="filedetails_sync_file">Синхронизировать</string>
     <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
     <string name="list_layout">Вид списка</string>
-    <string name="action_share">Общий доступ</string>
+    <string name="action_share">Поделиться</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
     <string name="common_ok">ОК</string>
@@ -212,11 +214,11 @@
     <string name="foreign_files_local_text">Локальные: %1$s</string>
     <string name="foreign_files_remote_text">Удалённые: %1$s</string>
     <string name="upload_query_move_foreign_files">Недостаточно места для копирования выбранных файлов в папку %1$s. Вы хотите их переместить?</string>
-    <string name="pass_code_enter_pass_code">Пожалуйста укажите ваш код</string>
+    <string name="pass_code_enter_pass_code">Введите ваш код</string>
     
-    <string name="pass_code_configure_your_pass_code">Укажите ваш код</string>
+    <string name="pass_code_configure_your_pass_code">Введите код</string>
     <string name="pass_code_configure_your_pass_code_explanation">Код будет запрашиваться каждый раз при запуске приложения</string>
-    <string name="pass_code_reenter_your_pass_code">Пожалуйста укажите ваш код ещё раз</string>
+    <string name="pass_code_reenter_your_pass_code">Введите ваш код ещё раз</string>
     <string name="pass_code_remove_your_pass_code">Убрать код</string>
     <string name="pass_code_mismatch">Коды не совпадают</string>
     <string name="pass_code_wrong">Некорректный код</string>
@@ -267,9 +269,9 @@
 	<string name="auth_oauth_error_access_denied">Сервер авторизации отказал в доступе</string>
 	<string name="auth_wtf_reenter_URL">Неожиданное состояние; пожалуйста укажите адрес сервера повторно</string>
 	<string name="auth_expired_oauth_token_toast">Время авторизации истекло. Пожалуйста, авторизуйтесь снова</string>
-	<string name="auth_expired_basic_auth_toast">Пожалуйста укажите текущий пароль</string>
+	<string name="auth_expired_basic_auth_toast">Введите текущий пароль</string>
 	<string name="auth_expired_saml_sso_token_toast">Время сессии истекло. Пожалуйста, подключитесь снова</string>
-	<string name="auth_connecting_auth_server">Подключение к серверу авторизации ...</string>
+	<string name="auth_connecting_auth_server">Подключение к серверу аутентификации…</string>
 	<string name="auth_unsupported_auth_method">Сервер не поддерживает выбранный метод аутентификации</string>
 	<string name="auth_unsupported_multiaccount">%1$s не поддерживает множественные аккаунты</string>
 	<string name="auth_fail_get_user_name">Сервер не вернул верный пользовательский идентификатор. Пожалуйста, свяжитесь с вашим администратором</string>
@@ -369,7 +371,7 @@
 	<string name="share_link_file_error">При попытке поделиться этим файлом или каталогом произошла ошибка</string>
 	<string name="unshare_link_file_no_exist">Невозможно закрыть доступ. Убедитесь что файл существует</string>
 	<string name="unshare_link_file_error">При попытке закрыть доступ к этому файлу или каталогу произошла ошибка</string>
-    <string name="update_link_file_no_exist">Не удается обновить. Пожалуйста, проверьте, существует ли файл</string>
+    <string name="update_link_file_no_exist">Обновить не удалось. Проверьте, существует ли файл</string>
     <string name="update_link_file_error">Произошла ошибка во время обновления ссылки доступа</string>
     <string name="share_link_password_title">Введите пароль</string>
     <string name="share_link_empty_password">Вы должны ввести пароль</string>
@@ -417,7 +419,7 @@
     <string name="file_migration_failed_while_updating_index">ОШИБКА: При обновлении индекса</string>
 
     <string name="file_migration_directory_already_exists">Каталог с данными уже существует. Что делать?</string>
-    <string name="file_migration_override_data_folder">Отвергать</string>
+    <string name="file_migration_override_data_folder">Перезаписать</string>
     <string name="file_migration_use_data_folder">Использовать существующий</string>
 
     <string name="prefs_category_accounts">Аккаунты</string>
@@ -427,7 +429,7 @@
 
 	<string name="actionbar_logger">Журналы</string>
 	<string name="log_send_history_button">Отправить историю</string>
-	<string name="log_send_no_mail_app">Программа для отправки журналов не найдена. Пожалуйста установите почтовое приложение.</string>
+	<string name="log_send_no_mail_app">Программа для отправки журналов не найдена. Установите приложение для работы с почтой.</string>
 	<string name="log_send_mail_subject">Журналы приложения %1$s для Android</string>
 	<string name="log_progress_dialog_text">Загрузка данных &#8230;</string>
 
@@ -486,7 +488,7 @@
     <string name="pref_behaviour_entries_keep_file">оставлен в исходном каталоге</string>
     <string name="pref_behaviour_entries_move">перемещен в каталог приложения</string>
     <string name="pref_behaviour_entries_delete_file">удалён</string>
-    <string name="prefs_storage_path">Путь хранилища</string>
+    <string name="prefs_storage_path">Путь к хранилищу</string>
     <string name="prefs_common">Основные</string>
 
     <string name="share_dialog_title">Общий доступ</string>
@@ -504,7 +506,7 @@
     <string name="share_with_title">Поделиться с &#8230;</string>
     <string name="share_with_edit_title">Поделиться с %1$s</string>
 
-    <string name="share_search">Найти</string>
+    <string name="share_search">Поиск</string>
 
     <string name="search_users_and_groups_hint">Поиск пользователей и групп</string>
     <string name="share_group_clarification">%1$s (группа)</string>
@@ -513,13 +515,13 @@
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
     <string name="share_sharee_unavailable">Извините, версия вашего сервера не позволяет поделиться с пользователями через клиент. \nПожалуйста обратитесь к администратору</string>
-    <string name="share_privilege_can_share">можно поделиться</string>
-    <string name="share_privilege_can_edit">можно редактировать</string>
+    <string name="share_privilege_can_share">может делиться с другими</string>
+    <string name="share_privilege_can_edit">может редактировать</string>
     <string name="share_privilege_can_edit_create">создать</string>
     <string name="share_privilege_can_edit_change">изменить</string>
     <string name="share_privilege_can_edit_delete">удалить</string>
     <string name="edit_share_unshare">Закрыть общий доступ</string>
-    <string name="edit_share_done">завершено</string>
+    <string name="edit_share_done">готово</string>
 
     <string name="action_retry_uploads">Повторить неудавшиеся</string>
     <string name="action_clear_failed_uploads">Очистить неудавшиеся</string>
@@ -548,7 +550,6 @@
     <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
     <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>
     <string name="participate_testing_version_text">Вам интересно участие в тестировании следующих версий?</string>
-    <string name="participate_beta_headline">Протестируйте \"ночную\" версию</string>
     <string name="participate_beta_text">Она включает в себя все готовящиеся возможности с самой передовой. Могут появляться баги, в таком случае, напишите о них нам</string>
     <string name="participate_release_candidate_headline">Кандидат в релизы</string>
     <string name="participate_release_candidate_text">Релиз-кандидат (RC) - это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или используйте раздел \"версии\" в каталоге приложений F-Droid.</string>
@@ -606,6 +607,9 @@
 
     <string name="whats_new_skip">Пропустить</string>
 
+    <string name="fingerprint_scan_finger">Приложите палец</string>
+    <string name="fingerprint_unknown">Отпечаток не распознан</string>
+
     <!-- User information -->
     <string name="user_info_full_name">Полное имя</string>
     <string name="user_info_email">Эл. почта</string>
@@ -619,6 +623,28 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Событий ещё нет</string>
     <string name="activities_no_results_message">Этот поток будет отображать события вроде\nдобавления, изменения файлов или открытия доступа к ним</string>
+    <string name="webview_error">Произошла ошибка</string>
+    <string name="prefs_category_about">О программе</string>
+
+    <string name="actionbar_contacts">Резервное копирование контактов</string>
+    <string name="contacts_backup_button">Создать резервную копию сейчас</string>
+    <string name="contacts_restore_button">Восстановить из резервной копии</string>
+    <string name="contacts_header_restore">Восстановить</string>
+    <string name="contacts_header_backup">Резервное копирование</string>
+    <string name="contacts_automatic_backup">Резервное копирование контактов</string>
+    <string name="contacts_last_backup">Последнее резервное копирование</string>
+    <string name="contacts_read_permission">Требуется разрешение на чтение контактов</string>
+    <string name="contacts_write_permission">Требуется разрешение на запись контактов</string>
+    <string name="contactlist_title">Восстановить контакты</string>
+    <string name="contaclist_restore_selected">Восстановить выбранные контакты</string>
+    <string name="contactlist_account_chooser_title">Выберите аккаунт для импорта</string>
+    <string name="contactlist_no_permission">Отсутствуют разрешения, ничего не импортировано!</string>
+    <string name="contacts_preference_choose_date">Выберите дату</string>
+    <string name="contacts_preference_backup_never">никогда</string>
+    <string name="contacts_preferences_no_file_found">Файл не найден</string>
+    <string name="contacts_preferences_backup_scheduled">Резервное копирование запланировано и скоро начётся</string>
+    <string name="contacts_preferences_import_scheduled">Импорт запланирован и скоро начнётся</string>
+
     <!-- Notifications -->
     <string name="new_notification_received">Получено новое уведомление</string>
 

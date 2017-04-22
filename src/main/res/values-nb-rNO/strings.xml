@@ -532,7 +532,6 @@
     <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
     <string name="participate_testing_report_text">Meld en feil på Github</string>
     <string name="participate_testing_version_text">Er du interessert i å hjelpe oss å teste ned neste versjonen?</string>
-    <string name="participate_beta_headline">Test nattskiftversjonen</string>
     <string name="participate_beta_text">Dette inkluderer alle kommende funksjoner og er helt på kanten. Feil/feilmeldinger kan oppstå og i sådant fall, meld fra om dem til oss.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Release candidate (RC) er en pakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett vil kunne hjelpe oss å sikre dette. Meld deg på for testen i Play butikken eller se i versjonsseksjonen i F-Droid.</string>

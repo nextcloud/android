@@ -43,6 +43,8 @@
     <string name="prefs_accounts">Hesaplar</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_passcode">Parola kod kilidi</string>
+    <string name="prefs_fingerprint">Parmak izi kilidi</string>
+    <string name="prefs_fingerprint_notsetup">Henüz bir parmak izi ayarlanmamış.</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_instant_upload">Fotoğraflar anında yüklensin</string>
     <string name="prefs_instant_upload_summary">Kamera ile çekilen fotoğraflar anında yüklensin</string>
@@ -545,7 +547,6 @@
     <string name="participate_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
     <string name="participate_testing_report_text">Github üzerinden bir sorun bildirin</string>
     <string name="participate_testing_version_text">Gelecek sürümler için bize yardımcı olmak ister misiniz?</string>
-    <string name="participate_beta_headline">Gecelik sürümü deneyin</string>
     <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan hata ve sorunlar olabilir. Bir hata ya da soruna rastlarsanız bize iletin.</string>
     <string name="participate_release_candidate_headline">Yayın adayı</string>
     <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümlere\" bakın.</string>
@@ -601,6 +602,9 @@
 
     <string name="whats_new_skip">Atla</string>
 
+    <string name="fingerprint_scan_finger">Lütfen parmağınızı tarayın</string>
+    <string name="fingerprint_unknown">Parmak tanınamadı</string>
+
     <!-- User information -->
     <string name="user_info_full_name">Tam ad</string>
     <string name="user_info_email">E-posta</string>
@@ -614,6 +618,28 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Henüz bir işlem yapılmamış</string>
     <string name="activities_no_results_message">Bu akışta ekleme, değiştirme\nve paylaşım gibi işlemler görüntülenir</string>
+    <string name="webview_error">Sorun çıktı</string>
+    <string name="prefs_category_about">Hakkında</string>
+
+    <string name="actionbar_contacts">Kişileri Yedekle</string>
+    <string name="contacts_backup_button">Şimdi yedekle</string>
+    <string name="contacts_restore_button">Son Yedeği Geri Yükle</string>
+    <string name="contacts_header_restore">Geri Yükle</string>
+    <string name="contacts_header_backup">Yedekle</string>
+    <string name="contacts_automatic_backup">Kişileri Yedekle</string>
+    <string name="contacts_last_backup">Son Yedek</string>
+    <string name="contacts_read_permission">Kişileri okuma izni gerekiyor</string>
+    <string name="contacts_write_permission">Kişilere yazma izni gerekiyor</string>
+    <string name="contactlist_title">Kişileri geri yükle</string>
+    <string name="contaclist_restore_selected">Seçilmiş kişileri geri yükle</string>
+    <string name="contactlist_account_chooser_title">Alınacak hesabı seçin</string>
+    <string name="contactlist_no_permission">İzin verilmemiş olduğundan hiçbir şey alınamadı!</string>
+    <string name="contacts_preference_choose_date">Tarih seçin</string>
+    <string name="contacts_preference_backup_never">asla</string>
+    <string name="contacts_preferences_no_file_found">Herhangi bir dosya bulunamadı</string>
+    <string name="contacts_preferences_backup_scheduled">Yedekleme zamanlandı ve kısa süre sonra başlatılacak</string>
+    <string name="contacts_preferences_import_scheduled">Alma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
+
     <!-- Notifications -->
     <string name="new_notification_received">Yeni bir bildirim var</string>
 

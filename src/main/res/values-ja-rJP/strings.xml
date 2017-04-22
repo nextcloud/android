@@ -546,7 +546,6 @@
     <string name="participate_testing_bug_text">バグがありましたか? なにか問題がありますか?</string>
     <string name="participate_testing_report_text">Githubでエラーを報告する</string>
     <string name="participate_testing_version_text">次のバージョンのテストに興味がありますか?</string>
-    <string name="participate_beta_headline">ナイトリーバージョンのテスト</string>
     <string name="participate_beta_text">これは、すべての最新の機能が含まれており、非常に最先端です。 バグ/エラーが発生する可能性があります。もしその場合は、私たちに報告してください。</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
     <string name="participate_release_candidate_text">リリース候補(RC)は、今後のリリースのスナップショット であり、安定性が期待されます。 個々の設定をテストすることで、これを確実にすることができます。 Playストアでのテストに登録するか、F-Droidの「バージョン」セクションを手動で参照してください。</string>
