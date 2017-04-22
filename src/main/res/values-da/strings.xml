@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Indstillinger</string>
     <string name="drawer_item_uploads_list">Uploade filer</string>
     <string name="drawer_item_activities">Aktiviteter</string>
+    <string name="drawer_item_notifications">Notifikationer</string>
     <string name="drawer_quota">%1$s af %2$s brugt</string>
 	<string name="drawer_close">Luk</string>
     <string name="drawer_open">Åbn</string>
@@ -42,6 +43,8 @@
     <string name="prefs_accounts">Konti</string>
     <string name="prefs_manage_accounts">Administrer konti</string>
     <string name="prefs_passcode">Passcode-lås</string>
+    <string name="prefs_fingerprint">Fingeraftrykslås</string>
+    <string name="prefs_fingerprint_notsetup">Ingen fingeraftryk er blevet sat op.</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_instant_upload">Upload billeder straks</string>
     <string name="prefs_instant_upload_summary">Upload straks billeder taget med kameraet</string>
@@ -109,6 +112,17 @@
     <string name="file_list_empty_headline_server_search_photos">Ingen fotos</string>
     <string name="file_list_empty_search">Prøve at kigge i en anden mappe?</string>
     <string name="file_list_empty_recently_modified">Fandt ikke filer som var ændret i seneste 7 dage</string>
+    <string name="file_list_empty_recently_modified_filter">Ingen filer for din søgning, der var modificeret blev fundet
+inden for de sidste 7 dage!</string>
+    <string name="file_list_empty_recently_added">Ingen nytilføjede filer fundet</string>
+    <string name="file_list_empty_recently_added_filter">Ingen nytilføjede filer for din søgning blev fundet!</string>
+    <string name="file_list_empty_text_photos">Upload nogle fotografier eller aktiver auto upload!</string>
+    <string name="file_list_empty_text_photos_filter">Ingen fotografier for din søgning blev fundet!</string>
+    <string name="file_list_empty_text_videos">Upload nogle videoer eller aktiver auto upload!</string>
+    <string name="file_list_empty_text_videos_filter">Ingen videoer for din søgning fundet</string>
+    <string name="upload_list_empty_headline">Ingen uploads tilgængelige</string>
+    <string name="upload_list_empty_text">Upload noget indhold eller aktiver øjeblikkelig upload!</string>
+    <string name="upload_list_empty_text_auto_upload">Upload noget indhold eller aktiver auto upload!</string>
     <string name="file_list_folder">mappe</string>
     <string name="file_list_folders">mapper</string>
     <string name="file_list_file">fil</string>
@@ -141,6 +155,7 @@
     <string name="about_title">Om</string>
     <string name="change_password">Skift kodeord</string>
     <string name="delete_account">Fjern konto</string>
+    <string name="delete_account_warning">Slet konto %s?\n\nDu kan ikke fortryde en sletning.</string>
     <string name="create_account">Opret konto</string>
     <string name="upload_chooser_title">Upload fra ...</string>
     <string name="uploader_info_dirname">Mappenavn</string>
@@ -150,6 +165,7 @@
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload fejlede</string>
     <string name="uploader_upload_failed_content_single">Upload af %1$s kunne ikke gennemføres</string>
+    <string name="uploader_upload_failed_credentials_error">Upload fejlet, du skal logge på igen</string>
     <string name="uploads_view_title">Uploade filer</string>
     <string name="uploads_view_group_current_uploads">Nuværende</string>
     <string name="uploads_view_group_failed_uploads">Mislykkedes (tryk for forsøge igen)</string>
@@ -158,6 +174,7 @@
     <string name="uploads_view_upload_status_cancelled">Annulléret</string>
     <string name="uploads_view_upload_status_paused">Sat på pause</string>
     <string name="uploads_view_upload_status_failed_connection_error">Tilslutnings-fejl</string>
+    <string name="uploads_view_upload_status_failed_retry">Upload vil blive tilbagetrukket inden længe</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Godkendelsesfejl</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mappefejl</string>
     <string name="uploads_view_upload_status_failed_file_error">Filfejl</string>
@@ -194,6 +211,7 @@
     <string name="foreign_files_fail">Visse filer kunne ikke flyttes</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
     <string name="foreign_files_remote_text">Fjernplacering: %1$s</string>
+    <string name="upload_query_move_foreign_files">Der er ikke nok plads til, at kopiere de valgte filer ind i %1$s mappen. Vil du flytte dem i stedet?</string>
     <string name="pass_code_enter_pass_code">Indtast venligst din adgangskode</string>
     
     <string name="pass_code_configure_your_pass_code">Angiv din passcode</string>
@@ -225,6 +243,7 @@
     <string name="media_play_pause_description">Afspil eller pause knap</string>
     <string name="media_forward_description">Hurtigt fremad-knap</string>
 
+	<string name="auth_getting_authorization">Skaffer autorisering &#8230;</string>
 	<string name="auth_trying_to_login">Prøver at logge ind &#8230;</string>
 	<string name="auth_no_net_conn_title">Ingen netværksforbindelse</string>
 	<string name="auth_nossl_plain_ok_title">Sikker forbindelse ikke tilgængelig.</string>
@@ -246,13 +265,19 @@
 	<string name="auth_unauthorized">Forkert brugernavn eller kodeord</string>
 	<string name="auth_oauth_error">Mislykket godkendelse</string>
 	<string name="auth_oauth_error_access_denied">Adgang afvist af autorisationsserver</string>
+	<string name="auth_wtf_reenter_URL">Uventet tilstand; indtast venligst server adressen igen</string>
 	<string name="auth_expired_oauth_token_toast">Din godkendelse udløb. Gentag godkendelse</string>
 	<string name="auth_expired_basic_auth_toast">Indtast venligst din nuværende adgangskode</string>
 	<string name="auth_expired_saml_sso_token_toast">Din session udløb. Forbind venligst igen</string>
+	<string name="auth_connecting_auth_server">Forbinder til autoriseringsserver ...</string>
 	<string name="auth_unsupported_auth_method">Serveren understøtter ikke denne godkendelsesmetode</string>
 	<string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
-	<string name="auth_account_does_not_exist">Kontoen findes endnu ikke på enheden</string>
+	<string name="auth_fail_get_user_name">Din server giver ikke et korrekt bruger id, kontakt venligst en administrator</string>
+	<string name="auth_can_not_auth_against_server">Kan ikke autorisere forbindelse til denne server</string>
+    <string name="auth_account_does_not_exist">Kontoen findes endnu ikke på enheden</string>
     
+    <string name="favorite">Gør tilgængelig unden internet</string>
+    <string name="unfavorite">Afmarker offline tilgængelighed</string>
     <string name="favorite_real">Angiv som favorit</string>
     <string name="unset_favorite_real">Fjern som favorit</string>
     <string name="common_rename">Omdøb</string>
@@ -272,6 +297,8 @@
     <string name="filename_forbidden_charaters_from_server">Filnavnet indeholder mindst ét ugyldigt tegn</string>
     <string name="filename_empty">Filnavnet kan ikke stå tomt.</string>
     <string name="wait_a_moment">Vent et øjeblik</string>
+    <string name="wait_checking_credentials">Undersøger lagrede certificeringer</string>
+    <string name="filedisplay_unexpected_bad_get_content">Uventet problem; vælg venligst filen fra en anden app</string>
     <string name="filedisplay_no_file_selected">Ingen fil blev valgt</string>
     <string name="activity_chooser_title">Send link til &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
@@ -301,7 +328,9 @@
     <string name="ssl_validator_label_validity_to">Til:</string>
     <string name="ssl_validator_label_signature">Signatur:</string>
     <string name="ssl_validator_label_signature_algorithm">Algoritme:</string>
+    <string name="digest_algorithm_not_available">Denne fordøgelsesalgorytme er ikke tilgængelig på din telefon.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Fingeraftryk:</string>
+    <string name="certificate_load_problem">Der er et problem med lagring af certificering.</string>
     <string name="ssl_validator_null_cert">Certifikatet kunne ikke vises.</string>
     <string name="ssl_validator_no_info_about_error">- Ingen information om fejlen</string>
 
@@ -329,10 +358,13 @@
     <string name="preview_image_error_unknown_format">Billede kan ikke vises</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kunne ikke kopieres til %2$s lokale mappe</string>
+    <string name="prefs_instant_upload_path_title">Øjeblikkelig opload mappe</string>
     <string name="prefs_folder_sync_local_path_title">Lokal mappe</string>
     <string name="prefs_folder_sync_remote_path_title">Ekstern mappe</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Benyt undermapper</string>
-    <string name="share_link_no_support_share_api">Beklager, deling er ikke slået til på din server. Kontakt venligst din administrator.</string>
+    <string name="prefs_instant_upload_path_use_subfolders_summary">Lagre i undermapper baseret på år og måned</string>
+
+	<string name="share_link_no_support_share_api">Beklager, deling er ikke slået til på din server. Kontakt venligst din administrator.</string>
 	<string name="share_link_file_no_exist">Kan ikke dele. Tjek venligst om filen findes.</string>
 	<string name="share_link_file_error">Der opstod en fejl ved deling af denne fil eller mappe</string>
 	<string name="unshare_link_file_no_exist">Kan ikke fjerne deling. Tjek venligst om filen findes.</string>
@@ -346,6 +378,8 @@
 
     <string name="copy_link">Kopiér link</string>
     <string name="clipboard_text_copied">Kopieret til udklipsholder</string>
+    <string name="clipboard_no_text_to_copy">Ingen tekst modtaget til kopiering til udklipsholder</string>
+    <string name="clipboard_uxexpected_error">Uventet fejl under kopiering til udklipsholder</string>
     <string name="clipboard_label">Tekst kopieret fra %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Kritisk fejl: kan ikke udføre handlingerne</string>

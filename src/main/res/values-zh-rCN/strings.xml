@@ -545,7 +545,6 @@
     <string name="participate_testing_bug_text">发现一个错误？事情很奇怪？</string>
     <string name="participate_testing_report_text">在GIthub在报告问题</string>
     <string name="participate_testing_version_text">有感兴趣帮我们测试下一个版本吗？</string>
-    <string name="participate_beta_headline">测试每日构建版本</string>
     <string name="participate_beta_text">这包括所有即将加入的特性，有相当的风险。如果Bug 或错误发生，请向我们报告。</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
     <string name="participate_release_candidate_text">候选发行版(RC)是下一个版本的快照，希望它是稳定的，你可以帮助测试以确认这一点。可以注册登陆在应用商店或手工在F-Droid的版本部分查找，并进行测试。</string>

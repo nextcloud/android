@@ -43,6 +43,8 @@
     <string name="prefs_accounts">Konten</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_passcode">PIN gesperrt</string>
+    <string name="prefs_fingerprint">Fingerabdruck-Sperre</string>
+    <string name="prefs_fingerprint_notsetup">Keine Fingerabdrücke eingerichtet.</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_instant_upload">Sofortiger Bilderupload</string>
     <string name="prefs_instant_upload_summary">Fotos von der Kamera sofort hochladen</string>
@@ -546,7 +548,6 @@
     <string name="participate_testing_bug_text">Fehler gefunden? Merkwürdiges Verhalten?</string>
     <string name="participate_testing_report_text">Fehler melden auf Github</string>
     <string name="participate_testing_version_text">Möchten Sie uns beim Testen der nächsten Version unterstützen?</string>
-    <string name="participate_beta_headline">Teste die \"nightly\" Version</string>
     <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melden Sie uns diese bitte.</string>
     <string name="participate_release_candidate_headline">Vorabversionen</string>
     <string name="participate_release_candidate_text">Eine Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test in der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version bei F-Droid unter „Versionen“.</string>
@@ -602,6 +603,9 @@
 
     <string name="whats_new_skip">Überspringen</string>
 
+    <string name="fingerprint_scan_finger">Bitte scannen Sie Ihren Finger</string>
+    <string name="fingerprint_unknown">Finger nicht erkannt</string>
+
     <!-- User information -->
     <string name="user_info_full_name">Vollständiger Name</string>
     <string name="user_info_email">E-Mail</string>
@@ -615,6 +619,28 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Bislang keine Aktivitäten</string>
     <string name="activities_no_results_message">Dieser Stream zeigt Ereignisse wie\nHinzugekommenes, Änderungen &amp; und Freigaben an</string>
+    <string name="webview_error">Fehler aufgetreten</string>
+    <string name="prefs_category_about">Über</string>
+
+    <string name="actionbar_contacts">Adressen-Sicherung</string>
+    <string name="contacts_backup_button">Sicherung jetzt erstellen</string>
+    <string name="contacts_restore_button">Letztes Backup wiederherstellen</string>
+    <string name="contacts_header_restore">Wiederherstellen</string>
+    <string name="contacts_header_backup">Sicherung</string>
+    <string name="contacts_automatic_backup">Adressen-Sicherung</string>
+    <string name="contacts_last_backup">Letzte Sicherung</string>
+    <string name="contacts_read_permission">Lese-Zugriffs-Erlaubnis für Adressen ist erforderlich</string>
+    <string name="contacts_write_permission">Schreib-Erlaubnis für Adressen ist erforderlich</string>
+    <string name="contactlist_title">Adressen wiederherstellen</string>
+    <string name="contaclist_restore_selected">Ausgewählte Adressen wiederherstellen</string>
+    <string name="contactlist_account_chooser_title">Konto für den Import auswählen</string>
+    <string name="contactlist_no_permission">Keine Berechtigung, es wurde nichts importiert!</string>
+    <string name="contacts_preference_choose_date">Datum auswählen</string>
+    <string name="contacts_preference_backup_never">nie</string>
+    <string name="contacts_preferences_no_file_found">Keine Datei gefunden</string>
+    <string name="contacts_preferences_backup_scheduled">Sicherung geplant und wird in Kürze starten</string>
+    <string name="contacts_preferences_import_scheduled">Import geplant und wird in Kürze starten</string>
+
     <!-- Notifications -->
     <string name="new_notification_received">Neue Benachrichtigung erhalten</string>
 
