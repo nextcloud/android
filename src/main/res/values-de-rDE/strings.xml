@@ -548,6 +548,7 @@
     <string name="participate_testing_bug_text">Fehler gefunden? Merkwürdiges Verhalten?</string>
     <string name="participate_testing_report_text">Fehler melden auf Github</string>
     <string name="participate_testing_version_text">Möchten Sie uns beim Testen der nächsten Version unterstützen?</string>
+    <string name="participate_beta_headline">Testen Sie die Beta-Version</string>
     <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melden Sie uns diese bitte.</string>
     <string name="participate_release_candidate_headline">Vorabversionen</string>
     <string name="participate_release_candidate_text">Eine Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test in der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version bei F-Droid unter „Versionen“.</string>
