@@ -548,6 +548,7 @@ foram encontrados para sua pesquisa! </string>
     <string name="participate_testing_bug_text">Encontrou um erro? Algo está estranho?</string>
     <string name="participate_testing_report_text">Relate o problema no Github</string>
     <string name="participate_testing_version_text">Está interessado em ajudar-nos a testar a próxima versão?</string>
+    <string name="participate_beta_headline">Teste a versão dev</string>
     <string name="participate_beta_text">Isso inclui todos os próximos recursos. Erros pode ocorrer e irão. Por favor, reporte-os a nós.</string>
     <string name="participate_release_candidate_headline">Candidato a versão</string>
     <string name="participate_release_candidate_text">O candidato à versão (RC) é um instantâneo do lançamento e espera-se que seja estável. Testar a sua configuração individual pode ajudar a garantir isso. Registre-se para testar na Play Store ou procure manualmente na seção \"versões\" na F-Droid.</string>
