@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Asetukset</string>
     <string name="drawer_item_uploads_list">Lataukset</string>
     <string name="drawer_item_activities">Toimet</string>
+    <string name="drawer_item_notifications">Ilmoitukset</string>
     <string name="drawer_quota">%1$s / %2$s käytetty</string>
 	<string name="drawer_close">Sulje</string>
     <string name="drawer_open">Avaa</string>
