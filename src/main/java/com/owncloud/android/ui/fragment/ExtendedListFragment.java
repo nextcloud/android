@@ -658,7 +658,7 @@ public class ExtendedListFragment extends Fragment
                             R.string.file_list_empty, R.drawable.ic_search_light_grey);
                 } else if (searchType == SearchType.FAVORITE_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_favorite_headline,
-                            R.string.file_list_empty_favorites_filter_list, R.drawable.ic_star_light_grey);
+                            R.string.file_list_empty_favorites_filter_list, R.drawable.ic_star_light_yellow);
                 } else if (searchType == SearchType.VIDEO_SEARCH) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
                             R.string.file_list_empty_text_videos, R.drawable.ic_list_empty_video);
@@ -676,7 +676,7 @@ public class ExtendedListFragment extends Fragment
                             R.string.file_list_empty_search, R.drawable.ic_search_light_grey);
                 } else if (searchType == SearchType.FAVORITE_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                            R.string.file_list_empty_favorites_filter, R.drawable.ic_star_light_grey);
+                            R.string.file_list_empty_favorites_filter, R.drawable.ic_star_light_yellow);
                 } else if (searchType == SearchType.VIDEO_SEARCH_FILTER) {
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search_videos,
                             R.string.file_list_empty_text_videos_filter, R.drawable.ic_list_empty_video);
