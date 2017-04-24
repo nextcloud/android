@@ -12,11 +12,11 @@
    height="24"
    viewBox="0 0 24 24"
    id="svg4"
-   sodipodi:docname="ic_star_light_grey.svg"
+   sodipodi:docname="ic_star_light_yellow.svg"
    inkscape:version="0.92.1 r15371"
-   inkscape:export-filename="C:\DEV\src\Android\Nextcloud\favourites\src\main\res\drawable-xxxhdpi\ic_star_light_grey.png"
-   inkscape:export-xdpi="1152"
-   inkscape:export-ydpi="1152">
+   inkscape:export-filename="C:\DEV\src\Android\Nextcloud\showSearchViewHeaders\src\main\res\drawable-mdpi\ic_star_light_yellow.png"
+   inkscape:export-xdpi="288"
+   inkscape:export-ydpi="288">
   <metadata
      id="metadata10">
     <rdf:RDF>
@@ -25,6 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -44,7 +45,7 @@
      id="namedview6"
      showgrid="false"
      inkscape:zoom="9.8333333"
-     inkscape:cx="12"
+     inkscape:cx="-42.61017"
      inkscape:cy="12"
      inkscape:window-x="-9"
      inkscape:window-y="-9"
@@ -53,5 +54,5 @@
   <path
      d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z"
      id="path2"
-     style="fill:#000000;fill-opacity:1;opacity:0.5" />
+     style="fill:#ffcc00;fill-opacity:1;opacity:0.5" />
 </svg>
