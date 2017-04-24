@@ -65,7 +65,7 @@ import butterknife.OnClick;
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP;
 
-public class ContactsBackupFragment extends FileFragment {
+public class ContactsBackupFragment extends FileFragment implements DatePickerDialog.OnDateSetListener{
     public static final String TAG = ContactsBackupFragment.class.getSimpleName();
 
     private SharedPreferences sharedPreferences;
@@ -149,15 +149,12 @@ public class ContactsBackupFragment extends FileFragment {
             calendarPickerOpen = true;
         }
 
-
         return view;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
     }
 
     @Override
@@ -267,7 +264,8 @@ public class ContactsBackupFragment extends FileFragment {
                 .build()
                 .schedule();
 
-        Snackbar.make(getView().findViewById(R.id.contacts_linear_layout), R.string.contacts_preferences_backup_scheduled,
+        Snackbar.make(getView().findViewById(R.id.contacts_linear_layout),
+                R.string.contacts_preferences_backup_scheduled,
                 Snackbar.LENGTH_LONG).show();
     }
 
@@ -321,7 +319,6 @@ public class ContactsBackupFragment extends FileFragment {
     public void openDate(@Nullable Date savedDate) {
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
-
         String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
         OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderString);
 
@@ -358,67 +355,8 @@ public class ContactsBackupFragment extends FileFragment {
             day = savedDate.getDay();
         }
 
-
-        DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                selectedDate = new Date(year, month, dayOfMonth);
-
-                String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
-                OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderString);
-                Vector<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(
-                        backupFolder, false);
-
-                // find file with modification with date and time between 00:00 and 23:59
-                // if more than one file exists, take oldest
-                Calendar date = Calendar.getInstance();
-                date.set(year, month, dayOfMonth);
-
-                // start
-                date.set(Calendar.HOUR, 0);
-                date.set(Calendar.MINUTE, 0);
-                date.set(Calendar.SECOND, 1);
-                date.set(Calendar.MILLISECOND, 0);
-                date.set(Calendar.AM_PM, Calendar.AM);
-                Long start = date.getTimeInMillis();
-
-                // end
-                date.set(Calendar.HOUR, 23);
-                date.set(Calendar.MINUTE, 59);
-                date.set(Calendar.SECOND, 59);
-                Long end = date.getTimeInMillis();
-
-                OCFile backupToRestore = null;
-
-                for (OCFile file : backupFiles) {
-                    if (start < file.getModificationTimestamp() && end > file.getModificationTimestamp()) {
-                        if (backupToRestore == null) {
-                            backupToRestore = file;
-                        } else if (backupToRestore.getModificationTimestamp() < file.getModificationTimestamp()) {
-                            backupToRestore = file;
-                        }
-                    }
-                }
-
-                if (backupToRestore != null) {
-                    Fragment contactListFragment = ContactListFragment.newInstance(backupToRestore,
-                            contactsPreferenceActivity.getAccount());
-
-                    FragmentTransaction transaction = contactsPreferenceActivity.getSupportFragmentManager().
-                            beginTransaction();
-                    transaction.replace(R.id.frame_container, contactListFragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
-                } else {
-                    Toast.makeText(contactsPreferenceActivity, R.string.contacts_preferences_no_file_found,
-                            Toast.LENGTH_SHORT).show();
-                }
-            }
-        };
-
         if (backupFiles.size() > 0 && backupFiles.lastElement() != null) {
-            datePickerDialog = new DatePickerDialog(contactsPreferenceActivity,
-                    dateSetListener, year, month, day);
+            datePickerDialog = new DatePickerDialog(contactsPreferenceActivity, this, year, month, day);
             datePickerDialog.getDatePicker().setMaxDate(backupFiles.lastElement().getModificationTimestamp());
             datePickerDialog.getDatePicker().setMinDate(backupFiles.firstElement().getModificationTimestamp());
 
@@ -455,8 +393,62 @@ public class ContactsBackupFragment extends FileFragment {
                 outState.putInt(KEY_CALENDAR_MONTH, datePickerDialog.getDatePicker().getMonth());
                 outState.putInt(KEY_CALENDAR_YEAR, datePickerDialog.getDatePicker().getYear());
             }
-
         }
     }
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+        final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+        selectedDate = new Date(year, month, dayOfMonth);
+
+        String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
+        OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderString);
+        Vector<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(
+                backupFolder, false);
+
+        // find file with modification with date and time between 00:00 and 23:59
+        // if more than one file exists, take oldest
+        Calendar date = Calendar.getInstance();
+        date.set(year, month, dayOfMonth);
+
+        // start
+        date.set(Calendar.HOUR, 0);
+        date.set(Calendar.MINUTE, 0);
+        date.set(Calendar.SECOND, 1);
+        date.set(Calendar.MILLISECOND, 0);
+        date.set(Calendar.AM_PM, Calendar.AM);
+        Long start = date.getTimeInMillis();
+
+        // end
+        date.set(Calendar.HOUR, 23);
+        date.set(Calendar.MINUTE, 59);
+        date.set(Calendar.SECOND, 59);
+        Long end = date.getTimeInMillis();
+
+        OCFile backupToRestore = null;
+
+        for (OCFile file : backupFiles) {
+            if (start < file.getModificationTimestamp() && end > file.getModificationTimestamp()) {
+                if (backupToRestore == null) {
+                    backupToRestore = file;
+                } else if (backupToRestore.getModificationTimestamp() < file.getModificationTimestamp()) {
+                    backupToRestore = file;
+                }
+            }
+        }
+
+        if (backupToRestore != null) {
+            Fragment contactListFragment = ContactListFragment.newInstance(backupToRestore,
+                    contactsPreferenceActivity.getAccount());
+
+            FragmentTransaction transaction = contactsPreferenceActivity.getSupportFragmentManager().
+                    beginTransaction();
+            transaction.replace(R.id.frame_container, contactListFragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        } else {
+            Toast.makeText(contactsPreferenceActivity, R.string.contacts_preferences_no_file_found,
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 }
