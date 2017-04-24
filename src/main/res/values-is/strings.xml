@@ -545,7 +545,6 @@
     <string name="participate_testing_bug_text">Fannstu villu? Eitthvað er skrýtið?</string>
     <string name="participate_testing_report_text">Tilkynna um vandamál á Github</string>
     <string name="participate_testing_version_text">Hefurðu áhuga á að hjálpa okkur með næstu útgáfu?</string>
-    <string name="participate_beta_headline">Prófa náttfaraútgáfuna</string>
     <string name="participate_beta_text">Þetta innifelur alla nýjust eiginleika og er alveg á jaðri framþróunarinnar. Villur og hnökrar geta komið upp, og ef slíkt gerist skaltu endilega tilkynna um þær til okkar.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
     <string name="participate_release_candidate_text">Útgáfukandídatinn (release candidate = RC) er skyndiútgáfa af væntanlegri útgáfu og er ætlað að vera nokkuð stöðug. Þú getur hjálpað til við að tryggja stöðugleikann með því að prófa þína eigin uppsetningu. Skráðu þig í prófanir í Play Store eða handvirkt með því að fara í \"útgáfur\"-hlutann í F-Droid.</string>

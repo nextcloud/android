@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Ajustes</string>
     <string name="drawer_item_uploads_list">Cargas</string>
     <string name="drawer_item_activities">Actividades</string>
+    <string name="drawer_item_notifications">Notificaciones</string>
     <string name="drawer_quota">%1$s de %2$s usados</string>
 	<string name="drawer_close">Cerrar</string>
     <string name="drawer_open">Abrir</string>
@@ -42,6 +43,8 @@
     <string name="prefs_accounts">Cuentas</string>
     <string name="prefs_manage_accounts">Administrar cuentas</string>
     <string name="prefs_passcode">Bloqueo de código de seguridad</string>
+    <string name="prefs_fingerprint">Bloqueo por huella digital</string>
+    <string name="prefs_fingerprint_notsetup">No se ha establecido ninguna huella digital. </string>
     <string name="prefs_show_hidden_files">Mostrar archivos escondidos</string>
     <string name="prefs_instant_upload">Carga instantánea de imágenes</string>
     <string name="prefs_instant_upload_summary">Cargar instantáneamente las fotografías tomadas por la cámara</string>
@@ -545,7 +548,6 @@ en los últimos 7 días!</string>
     <string name="participate_testing_bug_text">¿Encontró una falla? ¿Hay algo raro?</string>
     <string name="participate_testing_report_text">Reportar un tema en Github</string>
     <string name="participate_testing_version_text">¿Le interesaría ayudarnos a probar la siguiente Versión?</string>
-    <string name="participate_beta_headline">Probar la versión nocturna</string>
     <string name="participate_beta_text">Esto incluye todas las próximas características y es lo más nuevo. Fallas/errores pueden ocurrir y si es el caso, favor de reportarnoslos. </string>
     <string name="participate_release_candidate_headline">Candidato a lanzamiento</string>
     <string name="participate_release_candidate_text">El candidato a lanzamiento (CL) es una foto del más próximo lanzamiento y se espera que sea estable. Las pruebas a su configuración individual podría ayudarnos a asegurar esto. Regístrese para hacer pruebas en la Play Store o consulte directamente la sección de  \"versiones\" en F-Droid. </string>
@@ -570,6 +572,10 @@ en los últimos 7 días!</string>
 
     <string name="activity_list_loading_activity">Cargando actividades&#8230;</string>
     <string name="activity_list_no_results">No se encontraron actividades. </string>
+
+    <string name="notifications_loading_activity">Cargando notificaciones&#8230;</string>
+    <string name="notifications_no_results_headline">No hay notificaciones</string>
+    <string name="notifications_no_results_message">Favor de verificar más tarde. </string>
 
     <string name="upload_file_dialog_title">Ingrese el nombre del archivo y el tipo del archivo a cargar</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
@@ -597,6 +603,9 @@ en los últimos 7 días!</string>
 
     <string name="whats_new_skip">Saltar</string>
 
+    <string name="fingerprint_scan_finger">Favor de escanear su dedo</string>
+    <string name="fingerprint_unknown">El dedo no ha sido reconocido</string>
+
     <!-- User information -->
     <string name="user_info_full_name">Nombre completo</string>
     <string name="user_info_email">Correo electrónico</string>
@@ -610,4 +619,30 @@ en los últimos 7 días!</string>
     <!-- Activities -->
     <string name="activities_no_results_headline">Aún no hay actividades</string>
     <string name="activities_no_results_message">Este flujo le mostrará eventos tales como \nagregados, cambios &amp; compartidos</string>
-    </resources>
+    <string name="webview_error">Se presentó un error</string>
+    <string name="prefs_category_about">Acerca de</string>
+
+    <string name="actionbar_contacts">Respaldo de contactos</string>
+    <string name="contacts_backup_button">Respaldar ahora</string>
+    <string name="contacts_restore_button">Restaurar el último respaldo</string>
+    <string name="contacts_header_restore">Restaurar</string>
+    <string name="contacts_header_backup">Respaldar</string>
+    <string name="contacts_automatic_backup">Respaldo de contactos</string>
+    <string name="contacts_last_backup">Último respaldo</string>
+    <string name="contacts_read_permission">Se requieren permisos de lectura para los contactos</string>
+    <string name="contacts_write_permission">Se requieren permisos de escritura para los contactos</string>
+    <string name="contactlist_title">Restaurar contactos</string>
+    <string name="contaclist_restore_selected">Restaurar los contactos seleccionados</string>
+    <string name="contactlist_account_chooser_title">Seleccione la cuenta para importar</string>
+    <string name="contactlist_no_permission">¡Sin permisos, nada ha sido importado!</string>
+    <string name="contacts_preference_choose_date">Seleccione una fecha</string>
+    <string name="contacts_preference_backup_never">nunca</string>
+    <string name="contacts_preferences_no_file_found">No se encontraron archivos</string>
+    <string name="contacts_preferences_backup_scheduled">El respaldo está calendarizado y deberá iniciar en breve</string>
+    <string name="contacts_preferences_import_scheduled">La importación está calendarizada y deberá iniciar en breve</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">No se han recibido nuevas notificaciones </string>
+
+
+</resources>

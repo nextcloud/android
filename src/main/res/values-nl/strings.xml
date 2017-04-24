@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Instellingen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
     <string name="drawer_item_activities">Activiteiten</string>
+    <string name="drawer_item_notifications">Meldingen</string>
     <string name="drawer_quota">%1$s van %2$s gebruikt</string>
 	<string name="drawer_close">Sluiten</string>
     <string name="drawer_open">Openen</string>
@@ -42,6 +43,8 @@
     <string name="prefs_accounts">Accounts</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
     <string name="prefs_passcode">Toegangscode</string>
+    <string name="prefs_fingerprint">Vingerafdrukbeveiliging</string>
+    <string name="prefs_fingerprint_notsetup">Er zijn geen vingerafdrukken ingesteld.</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_instant_upload">Directe upload van afbeeldingen</string>
     <string name="prefs_instant_upload_summary">Direct uploaden van foto\'s genomen met de camera</string>
@@ -544,7 +547,7 @@
     <string name="participate_testing_bug_text">Foutje gevonden? Of iets raars?</string>
     <string name="participate_testing_report_text">Meld het op Github</string>
     <string name="participate_testing_version_text">Geïnteresseerd om ons te helpen de volgende versie te testen?</string>
-    <string name="participate_beta_headline">Test de nightly-versie</string>
+    <string name="participate_beta_headline">Test de dev versie</string>
     <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">De Release Candidate (RC) is een kopie van de komende release en zou stabiel moeten zijn. Testen van jouw installatie kan ons helpen om dit te bevestigen. Meld je aan om te testen op de Play Store of bekijk handmatig de \"versies\"-sectie op F-Droid.</string>
@@ -569,6 +572,10 @@
 
     <string name="activity_list_loading_activity">Laden activiteiten&#8230;</string>
     <string name="activity_list_no_results">Geen activiteiten gevonden.</string>
+
+    <string name="notifications_loading_activity">Laden meldingen&#8230;</string>
+    <string name="notifications_no_results_headline">Geen meldingen</string>
+    <string name="notifications_no_results_message">Controleer later opnieuw.</string>
 
     <string name="upload_file_dialog_title">Opgeven upload bestandsnaam en bestandstype</string>
     <string name="upload_file_dialog_filename">Bestandsnaam</string>
@@ -596,6 +603,9 @@
 
     <string name="whats_new_skip">Overslaan</string>
 
+    <string name="fingerprint_scan_finger">Scan je vinger</string>
+    <string name="fingerprint_unknown">Vinger niet herkend</string>
+
     <!-- User information -->
     <string name="user_info_full_name">Volledige naam</string>
     <string name="user_info_email">E-mailadres</string>
@@ -609,4 +619,30 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Nog geen activiteit</string>
     <string name="activities_no_results_message">Deze stream laat gebeurtenissen zoals\ntoevoegingen, veranderingen &amp; gedeelde bestanden zien</string>
-    </resources>
+    <string name="webview_error">Er heeft zich een fout voorgedaan</string>
+    <string name="prefs_category_about">Over</string>
+
+    <string name="actionbar_contacts">Contactpersonen backup</string>
+    <string name="contacts_backup_button">Nu backupppen</string>
+    <string name="contacts_restore_button">Herstel de laatste backup</string>
+    <string name="contacts_header_restore">Herstellen</string>
+    <string name="contacts_header_backup">Backuppen</string>
+    <string name="contacts_automatic_backup">Contactpersonen backup</string>
+    <string name="contacts_last_backup">Laatsts backup</string>
+    <string name="contacts_read_permission">Leesrechten voor contactpersonen vereist</string>
+    <string name="contacts_write_permission">Schrijfrechten voor contactpersonen vereist</string>
+    <string name="contactlist_title">Herstellen contactpersonen</string>
+    <string name="contaclist_restore_selected">Herstel de geselecteerde contactpersonen</string>
+    <string name="contactlist_account_chooser_title">Kies een account voor import</string>
+    <string name="contactlist_no_permission">Geen permissies, niets geïnporteerd!</string>
+    <string name="contacts_preference_choose_date">Kies datum</string>
+    <string name="contacts_preference_backup_never">nooit</string>
+    <string name="contacts_preferences_no_file_found">Geen bestand gevonden</string>
+    <string name="contacts_preferences_backup_scheduled">Backup ingepland en zal zo starten</string>
+    <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">Nieuwe meldingen ontvangen</string>
+
+
+</resources>

@@ -512,7 +512,6 @@
     <string name="participate_testing_bug_text">Našli ste chybu? Niečo nefunguje?</string>
     <string name="participate_testing_report_text">Nahlásiť chybu na Githube</string>
     <string name="participate_testing_version_text">Máte záujem pomôcť nám s testovaním ďalšej Verzie?</string>
-    <string name="participate_beta_headline">Testovať nočnú verziu</string>
     <string name="participate_beta_text">Táto verzia obsahuje všetký pripravované funkcie. Je veľmi nestabilná a môže obsahovať chyby. Ak na ne natrafíte, prosím nahláste nám ich. </string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_contribute_headline">Aktívne prispievať</string>

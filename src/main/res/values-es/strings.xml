@@ -545,7 +545,6 @@
     <string name="participate_testing_bug_text">¿Encontró un error? ¿Algo está mal?</string>
     <string name="participate_testing_report_text">Informar de un problema en Github</string>
     <string name="participate_testing_version_text">¿Está interesado en ayudarnos a probar la próxima versión?</string>
-    <string name="participate_beta_headline">Pruebar la versión \"nightly\" (de pruebas)</string>
     <string name="participate_beta_text">Esto incluye todas las características por llegar y está muy avazado en lo último. Pueden ocurrir fallos y errores, que si sucede, por favor infórmanos.</string>
     <string name="participate_release_candidate_headline">Versión a ser liberada</string>
     <string name="participate_release_candidate_text">La versión a ser liberada (release candidate - RC) es una instantánea de la próxima versión y se espera que sea estable. Probar su configuración individual podría ayudar a asegurar esto. Regístrese para probarla en Play Store o busque manualmente en la sección \"versiones\" de F-Droid.</string>
