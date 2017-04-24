@@ -22,12 +22,15 @@ package com.owncloud.android.ui.fragment.contactsbackup;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -52,6 +55,7 @@ import com.owncloud.android.utils.PermissionUtil;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.Vector;
 
 import butterknife.BindView;
@@ -68,6 +72,27 @@ public class ContactsBackupFragment extends FileFragment {
 
     @BindView(R.id.contacts_automatic_backup)
     public SwitchCompat backupSwitch;
+
+    @BindView(R.id.contacts_header_restore)
+    public TextView contactsRestoreHeader;
+
+    @BindView(R.id.contacts_datepicker)
+    public AppCompatButton contactsDatePickerBtn;
+
+    @BindView(R.id.contacts_last_backup_timestamp)
+    public TextView lastBackup;
+
+    private Date selectedDate = null;
+    private boolean calendarPickerOpen;
+
+    private DatePickerDialog datePickerDialog;
+
+
+    private static final String KEY_CALENDAR_PICKER_OPEN = "IS_CALENDAR_PICKER_OPEN";
+    private static final String KEY_CALENDAR_DAY = "CALENDAR_DAY";
+    private static final String KEY_CALENDAR_MONTH = "CALENDAR_MONTH";
+    private static final String KEY_CALENDAR_YEAR = "CALENDAR_YEAR";
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,18 +120,17 @@ public class ContactsBackupFragment extends FileFragment {
                     setAutomaticBackup(backupSwitch, true);
 
                     // enable daily job
-                    contactsPreferenceActivity.startContactBackupJob(contactsPreferenceActivity.getAccount());
+                    ContactsPreferenceActivity.startContactBackupJob(contactsPreferenceActivity.getAccount());
                 } else {
                     setAutomaticBackup(backupSwitch, false);
 
                     // cancel pending jobs
-                    contactsPreferenceActivity.cancelContactBackupJob(contactsPreferenceActivity);
+                    ContactsPreferenceActivity.cancelContactBackupJob(contactsPreferenceActivity);
                 }
             }
         });
 
         // display last backup
-        TextView lastBackup = (TextView) view.findViewById(R.id.contacts_last_backup_timestamp);
         Long lastBackupTimestamp = sharedPreferences.getLong(PREFERENCE_CONTACTS_LAST_BACKUP, -1);
 
         if (lastBackupTimestamp == -1) {
@@ -115,8 +139,57 @@ public class ContactsBackupFragment extends FileFragment {
             lastBackup.setText(DisplayUtils.getRelativeTimestamp(contactsPreferenceActivity, lastBackupTimestamp));
         }
 
+        if (savedInstanceState != null && savedInstanceState.getBoolean(KEY_CALENDAR_PICKER_OPEN, false)) {
+            if (savedInstanceState.getInt(KEY_CALENDAR_YEAR, -1) != -1 &&
+                    savedInstanceState.getInt(KEY_CALENDAR_MONTH, -1) != -1 &&
+                    savedInstanceState.getInt(KEY_CALENDAR_DAY, -1) != -1) {
+                selectedDate = new Date(savedInstanceState.getInt(KEY_CALENDAR_YEAR),
+                        savedInstanceState.getInt(KEY_CALENDAR_MONTH), savedInstanceState.getInt(KEY_CALENDAR_DAY));
+            }
+            calendarPickerOpen = true;
+        }
+
+
         return view;
     }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (calendarPickerOpen) {
+            if (selectedDate != null) {
+                openDate(selectedDate);
+            } else {
+                openDate(null);
+            }
+        }
+
+        final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+
+        String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
+        OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderString);
+
+        Vector<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(backupFolder,
+                false);
+
+        if (backupFiles == null || backupFiles.size() == 0 ||
+                sharedPreferences.getLong(PREFERENCE_CONTACTS_LAST_BACKUP, -1) == -1) {
+            contactsRestoreHeader.setVisibility(View.GONE);
+            contactsDatePickerBtn.setVisibility(View.GONE);
+        } else {
+            contactsRestoreHeader.setVisibility(View.VISIBLE);
+            contactsDatePickerBtn.setVisibility(View.VISIBLE);
+        }
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -241,7 +314,11 @@ public class ContactsBackupFragment extends FileFragment {
     }
 
     @OnClick(R.id.contacts_datepicker)
-    public void openDate() {
+    public void openCleanDate() {
+        openDate(null);
+    }
+
+    public void openDate(@Nullable Date savedDate) {
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
 
@@ -267,13 +344,26 @@ public class ContactsBackupFragment extends FileFragment {
         });
 
         Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH) + 1;
-        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int year;
+        int month;
+        int day;
+
+        if (savedDate == null) {
+            year = cal.get(Calendar.YEAR);
+            month = cal.get(Calendar.MONTH) + 1;
+            day = cal.get(Calendar.DAY_OF_MONTH);
+        } else {
+            year = savedDate.getYear();
+            month = savedDate.getMonth();
+            day = savedDate.getDay();
+        }
+
 
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                selectedDate = new Date(year, month, dayOfMonth);
+
                 String backupFolderString = getResources().getString(R.string.contacts_backup_folder) + OCFile.PATH_SEPARATOR;
                 OCFile backupFolder = contactsPreferenceActivity.getStorageManager().getFileByPath(backupFolderString);
                 Vector<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(
@@ -314,7 +404,8 @@ public class ContactsBackupFragment extends FileFragment {
                     Fragment contactListFragment = ContactListFragment.newInstance(backupToRestore,
                             contactsPreferenceActivity.getAccount());
 
-                    FragmentTransaction transaction = contactsPreferenceActivity.getSupportFragmentManager().beginTransaction();
+                    FragmentTransaction transaction = contactsPreferenceActivity.getSupportFragmentManager().
+                            beginTransaction();
                     transaction.replace(R.id.frame_container, contactListFragment);
                     transaction.addToBackStack(null);
                     transaction.commit();
@@ -325,12 +416,47 @@ public class ContactsBackupFragment extends FileFragment {
             }
         };
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(contactsPreferenceActivity,
-                dateSetListener, year, month, day);
-        datePickerDialog.getDatePicker().setMaxDate(backupFiles.lastElement().getModificationTimestamp());
-        datePickerDialog.getDatePicker().setMinDate(backupFiles.firstElement().getModificationTimestamp());
+        if (backupFiles.size() > 0 && backupFiles.lastElement() != null) {
+            datePickerDialog = new DatePickerDialog(contactsPreferenceActivity,
+                    dateSetListener, year, month, day);
+            datePickerDialog.getDatePicker().setMaxDate(backupFiles.lastElement().getModificationTimestamp());
+            datePickerDialog.getDatePicker().setMinDate(backupFiles.firstElement().getModificationTimestamp());
 
-        datePickerDialog.show();
+            datePickerDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface dialog) {
+                    selectedDate = null;
+                }
+            });
+
+            datePickerDialog.show();
+        } else {
+            Toast.makeText(contactsPreferenceActivity, R.string.contacts_preferences_something_strange_happened,
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (datePickerDialog != null) {
+            datePickerDialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        if (datePickerDialog != null) {
+            outState.putBoolean(KEY_CALENDAR_PICKER_OPEN, datePickerDialog.isShowing());
+
+            if (datePickerDialog.isShowing()) {
+                outState.putInt(KEY_CALENDAR_DAY, datePickerDialog.getDatePicker().getDayOfMonth());
+                outState.putInt(KEY_CALENDAR_MONTH, datePickerDialog.getDatePicker().getMonth());
+                outState.putInt(KEY_CALENDAR_YEAR, datePickerDialog.getDatePicker().getYear());
+            }
+
+        }
     }
 
 }
