@@ -36,6 +36,7 @@ import android.os.Looper;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -1268,8 +1269,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
         if (getActivity() != null) {
             getActivity().invalidateOptionsMenu();
-            ((FileDisplayActivity) getActivity()).getSupportActionBar().
-                    setTitle(R.string.default_display_name_for_root_folder);
+            setTitle(R.string.default_display_name_for_root_folder);
         }
     }
 
@@ -1339,33 +1339,29 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
         // set title
         if (getActivity() instanceof FileDisplayActivity) {
-            int title;
-
             switch (currentSearchType) {
                 case FAVORITE_SEARCH:
-                    title = R.string.drawer_item_favorites;
+                    setTitle(R.string.drawer_item_favorites);
                     break;
                 case PHOTO_SEARCH:
-                    title = R.string.drawer_item_photos;
+                    setTitle(R.string.drawer_item_photos);
                     break;
                 case VIDEO_SEARCH:
-                    title = R.string.drawer_item_videos;
+                    setTitle(R.string.drawer_item_videos);
                     break;
                 case RECENTLY_ADDED_SEARCH:
-                    title = R.string.drawer_item_recently_added;
+                    setTitle(R.string.drawer_item_recently_added);
                     break;
                 case RECENTLY_MODIFIED_SEARCH:
-                    title = R.string.drawer_item_recently_modified;
+                    setTitle(R.string.drawer_item_recently_modified);
                     break;
                 case SHARED_FILTER:
-                    title = R.string.drawer_item_shared;
+                    setTitle(R.string.drawer_item_shared);
                     break;
                 default:
-                    title = R.string.default_display_name_for_root_folder;
+                    setTitle(R.string.default_display_name_for_root_folder);
                     break;
             }
-
-            ((FileDisplayActivity) getActivity()).getSupportActionBar().setTitle(title);
         }
 
         Runnable switchViewsRunnable = new Runnable() {
@@ -1457,6 +1453,10 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         } else {
             new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
         }
+    }
+
+    private void setTitle(@StringRes int title) {
+        ((FileDisplayActivity) getActivity()).getSupportActionBar().setTitle(title);
     }
 
     @Override
