@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval" >
-    <stroke android:color="@color/owncloud_blue"
+    <stroke android:color="@color/nc_blue"
         android:width="2dp"/>
     <solid android:color="@android:color/transparent"/>
 

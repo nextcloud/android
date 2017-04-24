@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ripple
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:color="@color/owncloud_blue_accent">
+    android:color="@color/nc_blue_accent">
   <item>
     <inset android:drawable="@drawable/passcode_button_shape"/>
   </item>
