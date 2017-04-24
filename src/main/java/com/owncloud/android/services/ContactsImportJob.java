@@ -64,9 +64,7 @@ public class ContactsImportJob extends Job {
             vCards.addAll(Ezvcard.parse(file).all());
 
             for (int i = 0; i < intArray.length; i++ ){
-                if (intArray[i] == 1){
-                    operations.insertContact(vCards.get(i));
-                }
+                operations.insertContact(vCards.get(intArray[i]));
             }
         } catch (Exception e) {
             Log_OC.e(TAG, e.getMessage());
