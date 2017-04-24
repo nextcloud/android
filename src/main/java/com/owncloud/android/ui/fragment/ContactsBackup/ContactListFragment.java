@@ -297,7 +297,7 @@ public class ContactListFragment extends FileFragment {
             public void run() {
                 getFragmentManager().popBackStack();
             }
-        }, 1000);
+        }, 2500);
     }
 
     private void getAccountForImport() {
