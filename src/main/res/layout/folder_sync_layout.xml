@@ -42,10 +42,14 @@
             android:gravity="center">
 
             <ImageView
+                android:id="@+id/imageView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/standard_padding"
-                android:src="@drawable/ic_create_folder"/>
+                android:paddingBottom="@dimen/standard_padding"
+                android:paddingLeft="@dimen/standard_padding"
+                android:paddingRight="@dimen/standard_half_padding"
+                android:paddingTop="@dimen/standard_padding"
+                android:src="@drawable/ic_folder_star_24dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
