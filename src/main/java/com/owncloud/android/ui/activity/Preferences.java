@@ -243,7 +243,7 @@ public class Preferences extends PreferenceActivity
 
         PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
 
-        boolean calendarContactsEnabled = getResources().getBoolean(R.bool.calendar_contacts_enabled);
+        boolean calendarContactsEnabled = getResources().getBoolean(R.bool.davdroid_integration_enabled);
         Preference pCalendarContacts = findPreference("calendar_contacts");
         if (pCalendarContacts != null) {
             if (calendarContactsEnabled) {
