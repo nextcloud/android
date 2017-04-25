@@ -993,6 +993,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             remoteOperationAsyncTask.cancel(true);
         }
 
+        setFabEnabled(true);
         listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
 
@@ -1271,6 +1272,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             getActivity().invalidateOptionsMenu();
             setTitle(R.string.default_display_name_for_root_folder);
         }
+
+        setFabEnabled(true);
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1311,6 +1314,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         searchFragment = true;
         setEmptyListLoadingMessage();
         mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH);
+
+        setFabEnabled(false);
 
         if (event.getUnsetType().equals(SearchEvent.UnsetType.UNSET_BOTTOM_NAV_BAR)) {
             unsetAllMenuItems(false);
