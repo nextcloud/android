@@ -43,6 +43,8 @@
     <string name="prefs_accounts">Λογαριασμοί</string>
     <string name="prefs_manage_accounts">Διαχείριση λογαριασμών</string>
     <string name="prefs_passcode">Κλείδωμα με κωδικό πρόσβασης</string>
+    <string name="prefs_fingerprint">Κλείδωμα με αποτύπωμα</string>
+    <string name="prefs_fingerprint_notsetup">Δεν έχει οριστεί αποτύπωμα</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_instant_upload">Άμεση μεταφόρτωση εικόνων</string>
     <string name="prefs_instant_upload_summary">Άμεση μεταφόρτωση φωτογραφιών από την κάμερα</string>
@@ -546,6 +548,7 @@
     <string name="participate_testing_bug_text">Βρήκατε σφάλμα; Κάτι σας φαίνεται παράξενο;</string>
     <string name="participate_testing_report_text">Αναφέρετε σφάλμα στο Github</string>
     <string name="participate_testing_version_text">Σας ενδιαφέρει να μας βοηθήσετε να δοκιμάσουμε την επόμενη έκδοση;</string>
+    <string name="participate_beta_headline">Δοκιμή της εκδοσης προς ανάπτυξη</string>
     <string name="participate_beta_text">Αυτή περιέχει όλες τις επερχόμενες λειτουργίες και δαθέτει ότι τελευταίο έχει ενσωματωθεί. Σφάλματα/λάθη μπορεί να προκύψουν. Σας παρακαλούμε να μας τα αναφέρετε.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Η υποψήφια κυκλοφορία (RC) είναι ένα στιγμιότυπο της επερχόμενης έκδοσης και αναμένεται να είναι σταθερή. Η δοκιμή της μεμονωμένης εγκατάστασής σας θα βοηθήσει στην εξασφάλιση αυτού. Εγγραφείτε για δοκιμές στο Play store ή χειροκίνητα αναζητείστε στο τμήμα \"εκδόσεις\" στο F-Droid.</string>
@@ -601,6 +604,9 @@
 
     <string name="whats_new_skip">Παράλειψη</string>
 
+    <string name="fingerprint_scan_finger">Παρακαλώ σαρρώστε το αποτύπωμά σας</string>
+    <string name="fingerprint_unknown">Το αποτύπωμα δεν αναγνωρίστηκε</string>
+
     <!-- User information -->
     <string name="user_info_full_name">Πλήρες όνομα</string>
     <string name="user_info_email">Ηλεκτρονικό ταχυδρομείο</string>
@@ -614,6 +620,27 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Καμία δραστηριότητα ακόμα</string>
     <string name="activities_no_results_message">Σε αυτήν τη ροή θα εμφανιστούν γενονότα όπως\nπροσθήκες, αλλαγές &amp; κοινόχρηστα</string>
+    <string name="webview_error">Παρουσιάστηκε σφάλμα</string>
+    <string name="prefs_category_about">Περί</string>
+
+    <string name="actionbar_contacts">Αντίγραφο ασφαλείας επαφών</string>
+    <string name="contacts_backup_button">Δημιουργία αντιγράφου ασφαλείας τώρα</string>
+    <string name="contacts_restore_button">Επαναφορά τελευταίου αντιγράφου ασφαλείας</string>
+    <string name="contacts_header_restore">Επαναφορά</string>
+    <string name="contacts_header_backup">Αντίγραφο ασφαλείας</string>
+    <string name="contacts_automatic_backup">Αντίγραφο ασφαλείας επαφών</string>
+    <string name="contacts_last_backup">Τελευταίο αντίγραφο ασφαλείας</string>
+    <string name="contacts_read_permission">Απαιτείτούνται δικαιώματα ανάγνωσης για τις επαφές</string>
+    <string name="contacts_write_permission">Απαιτείτούνται δικαιώματα εγγραφής για τις επαφές</string>
+    <string name="contactlist_title">Επαναφορά επαφών</string>
+    <string name="contaclist_restore_selected">Επαναφορά επιλεγμένων επαφών</string>
+    <string name="contactlist_account_chooser_title">Επιλογή λογαριασμού για εισαγωγή</string>
+    <string name="contacts_preference_choose_date">Επιλογή ημερομηνίας</string>
+    <string name="contacts_preference_backup_never">ποτέ</string>
+    <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
+    <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
+    <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
+
     <!-- Notifications -->
     <string name="new_notification_received">Νέα ενημέρωση ελήφθη </string>
 
