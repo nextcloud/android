@@ -105,7 +105,7 @@
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
     <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
-    <string name="file_list_empty_favorite_headline">Keine Favoriten</string>
+    <string name="file_list_empty_favorite_headline">Noch keine Favoriten vorhanden</string>
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
     <string name="file_list_empty_shared">Dateien und Ordner, die Sie teilen, werden hier erscheinen</string>
     <string name="file_list_empty_headline_server_search_videos">Keine Videos</string>

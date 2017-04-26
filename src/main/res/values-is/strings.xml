@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Stillingar</string>
     <string name="drawer_item_uploads_list">Innsendingar</string>
     <string name="drawer_item_activities">Virkni</string>
+    <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_quota">%1$s af %2$s notað</string>
 	<string name="drawer_close">Loka</string>
     <string name="drawer_open">Opna</string>
@@ -42,6 +43,8 @@
     <string name="prefs_accounts">Notandaaðgangar</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="prefs_passcode">Læsing með lykilkóða</string>
+    <string name="prefs_fingerprint">Fingrafaralás</string>
+    <string name="prefs_fingerprint_notsetup">Engin fingraför hafa verið sett inn.</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_instant_upload">Hlaða strax inn myndum</string>
     <string name="prefs_instant_upload_summary">Hlaða strax inn myndum teknum á myndavél</string>
@@ -102,7 +105,7 @@
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="file_list_empty_headline_search">Engar niðurstöður í þessari möppu</string>
     <string name="file_list_empty_headline_server_search">Engar niðurstöður</string>
-    <string name="file_list_empty_favorite_headline">Engin eftirlæti</string>
+    <string name="file_list_empty_favorite_headline">Engin eftirlæti ennþá</string>
     <string name="file_list_empty_shared_headline">Engu deilt ennþá</string>
     <string name="file_list_empty_shared">Skrár og möppur sem þú deilir birtast hér</string>
     <string name="file_list_empty_headline_server_search_videos">Engin myndskeið</string>
@@ -545,6 +548,7 @@
     <string name="participate_testing_bug_text">Fannstu villu? Eitthvað er skrýtið?</string>
     <string name="participate_testing_report_text">Tilkynna um vandamál á Github</string>
     <string name="participate_testing_version_text">Hefurðu áhuga á að hjálpa okkur með næstu útgáfu?</string>
+    <string name="participate_beta_headline">Prófaðu þróunarútgáfuna</string>
     <string name="participate_beta_text">Þetta innifelur alla nýjust eiginleika og er alveg á jaðri framþróunarinnar. Villur og hnökrar geta komið upp, og ef slíkt gerist skaltu endilega tilkynna um þær til okkar.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
     <string name="participate_release_candidate_text">Útgáfukandídatinn (release candidate = RC) er skyndiútgáfa af væntanlegri útgáfu og er ætlað að vera nokkuð stöðug. Þú getur hjálpað til við að tryggja stöðugleikann með því að prófa þína eigin uppsetningu. Skráðu þig í prófanir í Play Store eða handvirkt með því að fara í \"útgáfur\"-hlutann í F-Droid.</string>
@@ -569,6 +573,10 @@
 
     <string name="activity_list_loading_activity">Hleð inn virkniupplýsingum &#8230;</string>
     <string name="activity_list_no_results">Engin virkni fannst.</string>
+
+    <string name="notifications_loading_activity">Hleð inn tilkynningum &#8230;</string>
+    <string name="notifications_no_results_headline">Engar tilkynningar</string>
+    <string name="notifications_no_results_message">Athugaðu aftur síðar.</string>
 
     <string name="upload_file_dialog_title">Settu inn skráaheiti og skráagerð fyrir innsendingu</string>
     <string name="upload_file_dialog_filename">Skráarheiti</string>
@@ -596,6 +604,9 @@
 
     <string name="whats_new_skip">Sleppa</string>
 
+    <string name="fingerprint_scan_finger">Skannaðu fingurinn þinn</string>
+    <string name="fingerprint_unknown">Fingrafar þekktist ekki</string>
+
     <!-- User information -->
     <string name="user_info_full_name">Fullt nafn</string>
     <string name="user_info_email">Tölvupóstfang</string>
@@ -609,4 +620,30 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Engin virkni ennþá</string>
     <string name="activities_no_results_message">Streymið mun birta atburði á borð við\nviðbætingar, breytingar og deilingar</string>
-    </resources>
+    <string name="webview_error">Villa átti sér stað</string>
+    <string name="prefs_category_about">Um hugbúnaðinn</string>
+
+    <string name="actionbar_contacts">Öryggisafrit af tengiliðum</string>
+    <string name="contacts_backup_button">Taka öryggisafrit núna</string>
+    <string name="contacts_restore_button">Endurheimta síðasta öryggisafrit</string>
+    <string name="contacts_header_restore">Endurheimta</string>
+    <string name="contacts_header_backup">Taka öryggisafrit</string>
+    <string name="contacts_automatic_backup">Öryggisafrit af tengiliðum</string>
+    <string name="contacts_last_backup">Síðasta öryggisafrit</string>
+    <string name="contacts_read_permission">Nauðsynlegt er að hafa lesheimildir fyrir tengiliði</string>
+    <string name="contacts_write_permission">Nauðsynlegt er að hafa skrifheimildir fyrir tengiliði</string>
+    <string name="contactlist_title">Endurheimta tengiliði</string>
+    <string name="contaclist_restore_selected">Endurheimta valda tengiliði</string>
+    <string name="contactlist_account_chooser_title">Veldu notandaaðgang fyrir innflutning</string>
+    <string name="contactlist_no_permission">Engar aðgangsheimildir, ekkert flutt inn!</string>
+    <string name="contacts_preference_choose_date">Veldu dagsetningu</string>
+    <string name="contacts_preference_backup_never">aldrei</string>
+    <string name="contacts_preferences_no_file_found">Engin skrá fannst</string>
+    <string name="contacts_preferences_backup_scheduled">Öryggisafritun er á áætlun og mun hefjast fljótlega</string>
+    <string name="contacts_preferences_import_scheduled">Innflutningur er á áætlun og mun hefjast fljótlega</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">Tók á móti nýrri tilkynningu</string>
+
+
+</resources>

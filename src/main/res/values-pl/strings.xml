@@ -103,7 +103,6 @@
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym folderze</string>
     <string name="file_list_empty_headline_server_search">Brak wyników</string>
-    <string name="file_list_empty_favorite_headline">Brak ulubionych</string>
     <string name="file_list_empty_shared_headline">Nic nie jest jeszcze współdzielone</string>
     <string name="file_list_empty_shared">Pliki i foldery, które współdzielisz pokażą się tutaj</string>
     <string name="file_list_empty_headline_server_search_videos">Brak plików wideo</string>

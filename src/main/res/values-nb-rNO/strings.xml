@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">Innstillinger</string>
     <string name="drawer_item_uploads_list">Opplastinger</string>
     <string name="drawer_item_activities">Aktiviteter</string>
+    <string name="drawer_item_notifications">Varsler</string>
     <string name="drawer_quota">%1$s av %2$s brukt</string>
 	<string name="drawer_close">Lukk</string>
     <string name="drawer_open">Åpne</string>
@@ -42,6 +43,8 @@
     <string name="prefs_accounts">Kontoer</string>
     <string name="prefs_manage_accounts">Håndter kontoer</string>
     <string name="prefs_passcode">Passordlås</string>
+    <string name="prefs_fingerprint">Fingeravtrykkslås</string>
+    <string name="prefs_fingerprint_notsetup">Det har ikke blitt satt opp noen fingeravtrykk.</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_instant_upload">Umiddelbare bildeopplastninger</string>
     <string name="prefs_instant_upload_summary">Last opp bilder tatt av kameraet umiddelbart</string>
@@ -94,20 +97,31 @@
     <string name="file_list_seconds_ago">for få sekunder siden</string>
     <string name="file_list_empty_headline">Ingen filer her</string>
     <string name="file_list_empty">Last opp innhold eller synkroniser med enhetene dine.</string>
+    <string name="file_list_empty_favorites">Marker noen filer som favoritter eller synkroniser enhetene dine!</string>
+    <string name="file_list_empty_favorites_filter_list">Filer og mapper du markerer som favoritter vil vises her</string>
+    <string name="file_list_empty_favorites_filter">Din spørring returnerte ingen filer markert som favoritter!</string>
     <string name="file_list_loading">Laster&#8230;</string>
     <string name="file_list_no_app_for_file_type">Ingen applikasjon funnet for filtypen!</string>
     <string name="local_file_list_empty">Det er ingen filer i denne mappen.</string>
     <string name="file_list_empty_headline_search">Ingen resultater i denne mappen</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
-    <string name="file_list_empty_favorite_headline">Ingen favoritter</string>
     <string name="file_list_empty_shared_headline">Ingenting delt enda</string>
     <string name="file_list_empty_shared">Filer og mapper som du deler vil bli vist her</string>
     <string name="file_list_empty_headline_server_search_videos">Ingen videoer</string>
     <string name="file_list_empty_headline_server_search_photos">Ingen bilder</string>
     <string name="file_list_empty_search">Vil du prøve i en annen mappe?</string>
+    <string name="file_list_empty_recently_modified">Fant ingen filer endret de siste syv dagene</string>
+    <string name="file_list_empty_recently_modified_filter">Spørringen din returnerte ingen filer endret
+        de siste syv dagene!</string>
+    <string name="file_list_empty_recently_added">Fant ingen nylig tillagte filer</string>
+    <string name="file_list_empty_recently_added_filter">Din spørring returnerte ingen filer som nylig er blitt lagt til!</string>
     <string name="file_list_empty_text_photos">Last opp noen bilder eller aktiver automatisk opplasting!</string>
+    <string name="file_list_empty_text_photos_filter">Din spørring returnerte ingen bilder!</string>
+    <string name="file_list_empty_text_videos">Last opp noen videoer eller skru på automatisk opplasting!</string>
+    <string name="file_list_empty_text_videos_filter">Din spørring returnerte ingen vidoer!</string>
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
     <string name="upload_list_empty_text">Last opp innhold eller aktiver umiddelbar opplasting.</string>
+    <string name="upload_list_empty_text_auto_upload">Last opp noe innhold eller aktiver automatisk opplasting!</string>
     <string name="file_list_folder">mappe</string>
     <string name="file_list_folders">mapper</string>
     <string name="file_list_file">fil</string>
@@ -264,6 +278,7 @@
     <string name="favorite">Sett som tilgjengelig frakoblet</string>
     <string name="unfavorite">Fjern som tilgjengelig frakoblet</string>
     <string name="favorite_real">Sett som favoritt</string>
+    <string name="unset_favorite_real">Fjern favorittmarkering</string>
     <string name="common_rename">Endre navn</string>
     <string name="common_remove">Fjern</string>
     <string name="confirmation_remove_file_alert">Vil du virkelig fjerne %1$s?</string>
@@ -532,6 +547,7 @@
     <string name="participate_testing_bug_text">Funnet en feil? Føles noe rart?</string>
     <string name="participate_testing_report_text">Meld en feil på Github</string>
     <string name="participate_testing_version_text">Er du interessert i å hjelpe oss å teste ned neste versjonen?</string>
+    <string name="participate_beta_headline">Test utvikler-versjonen</string>
     <string name="participate_beta_text">Dette inkluderer alle kommende funksjoner og er helt på kanten. Feil/feilmeldinger kan oppstå og i sådant fall, meld fra om dem til oss.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">Release candidate (RC) er en pakke av den kommende utgaven og er forventet å være stabil. Ved å teste denne med ditt oppsett vil kunne hjelpe oss å sikre dette. Meld deg på for testen i Play butikken eller se i versjonsseksjonen i F-Droid.</string>
@@ -556,6 +572,10 @@
 
     <string name="activity_list_loading_activity">Laster inn aktiviteter&#8230;</string>
     <string name="activity_list_no_results">Ingen aktiviteter funnet.</string>
+
+    <string name="notifications_loading_activity">Lsater inn varsler&#8230;</string>
+    <string name="notifications_no_results_headline">Ingen varsler</string>
+    <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
 
     <string name="upload_file_dialog_title">Legg inn filnavn og -type for opplasting</string>
     <string name="upload_file_dialog_filename">Filnavn</string>
@@ -583,6 +603,9 @@
 
     <string name="whats_new_skip">Hopp over</string>
 
+    <string name="fingerprint_scan_finger">Skann fingeren din</string>
+    <string name="fingerprint_unknown">Gjenkjenner ikke finger</string>
+
     <!-- User information -->
     <string name="user_info_full_name">Fullt navn</string>
     <string name="user_info_email">E-post</string>
@@ -596,4 +619,30 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">Ingen aktivitet enda</string>
     <string name="activities_no_results_message">Denne strømmen vil vise hendelser som\nf.eks. innlegging, endring og deling</string>
-    </resources>
+    <string name="webview_error">Feil oppstod</string>
+    <string name="prefs_category_about">Om</string>
+
+    <string name="actionbar_contacts">Sikkerhetskopiering av kontakter</string>
+    <string name="contacts_backup_button">Sikkerhetskopier nå</string>
+    <string name="contacts_restore_button">Gjenopprett fra siste sikkerhetskopiering</string>
+    <string name="contacts_header_restore">Gjenopprett</string>
+    <string name="contacts_header_backup">Sikkerhetskopier</string>
+    <string name="contacts_automatic_backup">Sikkerhetskopi av kontakter</string>
+    <string name="contacts_last_backup">Siste sikkerhetskopi</string>
+    <string name="contacts_read_permission">Lesetilgang til kontaktliste trengs</string>
+    <string name="contacts_write_permission">Skrivetilgang til kontaktliste trengs</string>
+    <string name="contactlist_title">Gjenopprett kontakter</string>
+    <string name="contaclist_restore_selected">Gjenopprett valgte kontakter</string>
+    <string name="contactlist_account_chooser_title">Velg konto for import</string>
+    <string name="contactlist_no_permission">Ingen tilgang, ingenting importert!</string>
+    <string name="contacts_preference_choose_date">Velg dato</string>
+    <string name="contacts_preference_backup_never">aldri</string>
+    <string name="contacts_preferences_no_file_found">Ingen fil funnet</string>
+    <string name="contacts_preferences_backup_scheduled">Sikkerhetskopi planlagt og i snarlig effektuering</string>
+    <string name="contacts_preferences_import_scheduled">Importering planlagt og i snarlig effektuering</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">Nytt varsel mottatt</string>
+
+
+</resources>

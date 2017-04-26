@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
@@ -48,6 +49,7 @@ import com.owncloud.android.ui.adapter.FolderSyncAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -116,6 +118,13 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         mRecyclerView.addItemDecoration(new MediaGridItemDecoration(spacing));
         mRecyclerView.setLayoutManager(lm);
         mRecyclerView.setAdapter(mAdapter);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
+        }
 
         load(gridWidth * 2);
     }
