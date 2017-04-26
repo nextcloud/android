@@ -184,7 +184,7 @@ public class PushUtils {
     public static Key readKeyFromFile(boolean readPublicKey) {
         String keyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator
                 + KEYPAIR_FOLDER;
-        ;
+        
         String privateKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PRIV_EXTENSION;
         String publicKeyPath = keyPath + File.separator + KEYPAIR_FILE_NAME + KEYPAIR_PUB_EXTENSION;
 
