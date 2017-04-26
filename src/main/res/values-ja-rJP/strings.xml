@@ -106,7 +106,6 @@
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="file_list_empty_headline_search">このフォルダーの結果はありません</string>
     <string name="file_list_empty_headline_server_search">結果なし</string>
-    <string name="file_list_empty_favorite_headline">お気に入りなし</string>
     <string name="file_list_empty_shared_headline">まだ何も共有されていません</string>
     <string name="file_list_empty_shared">共有したファイルやフォルダーは、ここに表示されます。</string>
     <string name="file_list_empty_headline_server_search_videos">ビデオなし</string>

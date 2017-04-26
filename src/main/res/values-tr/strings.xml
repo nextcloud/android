@@ -105,7 +105,6 @@
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
     <string name="file_list_empty_headline_search">Bu klasörde herhangi bir sonuç yok</string>
     <string name="file_list_empty_headline_server_search">Herhangi bir sonuç bulunamadı</string>
-    <string name="file_list_empty_favorite_headline">Herhangi bir sık kullanılan öge bulunamadı</string>
     <string name="file_list_empty_shared_headline">Henüz hiçbir şey paylaşılmamış</string>
     <string name="file_list_empty_shared">Paylaştığınız dosya ve klasörler burada görüntülenir</string>
     <string name="file_list_empty_headline_server_search_videos">Herhangi bir görüntü bulunamadı</string>

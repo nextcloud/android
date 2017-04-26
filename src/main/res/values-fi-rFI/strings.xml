@@ -100,7 +100,6 @@
     <string name="local_file_list_empty">Tässä kansiossa ei ole tiedostoja</string>
     <string name="file_list_empty_headline_search">Ei kohteita tässä kansiossa</string>
     <string name="file_list_empty_headline_server_search">Ei tuloksia</string>
-    <string name="file_list_empty_favorite_headline">Ei suosikkeja</string>
     <string name="file_list_empty_shared_headline">Ei mitään jaettua</string>
     <string name="file_list_empty_headline_server_search_videos">Ei videoita</string>
     <string name="file_list_empty_headline_server_search_photos">Ei kuvia</string>

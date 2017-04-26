@@ -95,7 +95,6 @@
     <string name="local_file_list_empty">Non ci sono file in questa cartella.</string>
     <string name="file_list_empty_headline_search">Nessun risultato in questa cartella</string>
     <string name="file_list_empty_headline_server_search">Nessun risultato</string>
-    <string name="file_list_empty_favorite_headline">Nessun preferito</string>
     <string name="file_list_empty_shared_headline">Ancora nessuna condivisione</string>
     <string name="file_list_empty_headline_server_search_videos">Nessun video</string>
     <string name="file_list_empty_headline_server_search_photos">Nessuna foto</string>

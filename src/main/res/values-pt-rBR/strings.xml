@@ -45,7 +45,7 @@
     <string name="prefs_passcode">Bloqueio de código de acesso</string>
     <string name="prefs_fingerprint">Bloqueio por impressão digital</string>
     <string name="prefs_fingerprint_notsetup">Nenhuma impressão digital foi configurada.</string>
-    <string name="prefs_show_hidden_files">Mostrar arquivos escondidos</string>
+    <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_instant_upload">Envio automático de imagens</string>
     <string name="prefs_instant_upload_summary">Envia automaticamente as fotos tiradas com a câmera</string>
     <string name="prefs_instant_video_upload">Envio automático de vídeos</string>
@@ -84,9 +84,9 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Instalação</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Sair</string>
     <string name="uploader_error_title_no_file_to_upload">Nenhum arquivo para envio</string>
-    <string name="uploader_error_message_received_piece_of_text">%1$s não pode enviar um pedaço de texto como um arquivo.</string>
+    <string name="uploader_error_message_received_piece_of_text">%1$s não pôde enviar um pedaço de texto como um arquivo.</string>
     <string name="uploader_error_message_no_file_to_upload">Os dados recebidos não incluem um arquivo válido.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">O arquivo não pode ser enviado</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">O arquivo não pôde ser enviado</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s não tem permissão para ler um arquivo recebido</string>
     <string name="uploader_error_message_source_file_not_found">Arquivo para envio não foi encontrado em sua localização. Verifique se o arquivo existe.</string>
     <string name="uploader_error_message_source_file_not_copied">Ocorreu um erro ao copiar o arquivo para uma pasta temporária. Por favor, tente enviar novamente.</string>
@@ -105,7 +105,6 @@
     <string name="local_file_list_empty">Não existe nenhum arquivo nesta pasta.</string>
     <string name="file_list_empty_headline_search">Nenhum resultado nesta pasta</string>
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
-    <string name="file_list_empty_favorite_headline">Sem favoritos</string>
     <string name="file_list_empty_shared_headline">Nada compartilhado ainda</string>
     <string name="file_list_empty_shared">Arquivos e pastas que você compartilhar serão mostrados aqui</string>
     <string name="file_list_empty_headline_server_search_videos"> Sem vídeos</string>
@@ -196,7 +195,7 @@ foram encontrados para sua pesquisa! </string>
     <string name="common_choose_account">Escolha a conta</string>
     <string name="sync_fail_ticker">Falha na sincronização</string>
     <string name="sync_fail_ticker_unauthorized">Falha na sincronização, você precisa se logar novamente</string>
-    <string name="sync_fail_content">A sincronização de %1$s não pode ser finalizada</string>
+    <string name="sync_fail_content">A sincronização de %1$s não pôde ser finalizada</string>
     <string name="sync_fail_content_unauthorized">Senha inválida para %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
     <string name="sync_conflicts_in_favourites_content">%1$d arquivos \"manter sincronizados\" não puderam ser sincronizados</string>
@@ -253,7 +252,7 @@ foram encontrados para sua pesquisa! </string>
 	<string name="auth_account_not_new">Já existe no dispositivo uma conta para o mesmo usuário e servidor</string>
 	<string name="auth_account_not_the_same">As informações que o usuário digitou não correspondem ao usuário da conta</string>
 	<string name="auth_unknown_error_title">Ocorreu um erro desconhecido!</string>
-	<string name="auth_unknown_host_title">Não pode encontrar host</string>
+	<string name="auth_unknown_host_title">Não foi possível encontrar o host</string>
 	<string name="auth_incorrect_path_title">Instância de servidor não encontrada</string>
 	<string name="auth_timeout_title">O servidor demorou demais a responder</string>
 	<string name="auth_incorrect_address_title">Formato de endereço de servidor errado</string>
@@ -290,9 +289,9 @@ foram encontrados para sua pesquisa! </string>
     <string name="rename_dialog_title">Digite um novo nome</string>
     <string name="rename_local_fail_msg">Cópia local não pôde ser renomeada. Tente outro nome</string>
     <string name="rename_server_fail_msg">Renomeação não pôde ser finalizada</string>
-    <string name="sync_file_fail_msg">Arquivo remoto não pode ser verificado</string>
+    <string name="sync_file_fail_msg">Arquivo remoto não pôde ser verificado</string>
     <string name="sync_file_nothing_to_do_msg">Conteúdo do arquivo já foi sincronizado</string>
-    <string name="create_dir_fail_msg">A pasta não pode ser criada</string>
+    <string name="create_dir_fail_msg">A pasta não pôde ser criada</string>
     <string name="filename_forbidden_characters">Caracteres proibidos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">O nome do arquivo contém pelo menos um caractere inválido  </string>
     <string name="filename_empty">O nome do arquivo não pode estar vazio</string>
@@ -306,13 +305,13 @@ foram encontrados para sua pesquisa! </string>
     <string name="oauth_check_onoff">Login com oAuth2</string> 
     <string name="oauth_login_connection">Conectando-se a oAuth2 servidor...</string>    
         
-    <string name="ssl_validator_header">A identidade do site não pode ser verificada</string>
+    <string name="ssl_validator_header">A identidade do site não pôde ser verificada</string>
     <string name="ssl_validator_reason_cert_not_trusted">- O certificado do servidor não é confiável</string>
     <string name="ssl_validator_reason_cert_expired">- O certificado do servidor expirou</string>
-    <string name="ssl_validator_reason_cert_not_yet_valid">- A data de validade do certificado do servidor está no futuro</string>
+    <string name="ssl_validator_reason_cert_not_yet_valid">- A data de expiração do certificado do servidor está no futuro</string>
     <string name="ssl_validator_reason_hostname_not_verified">- A URL do host não confere com o host do certificado</string>
     <string name="ssl_validator_question">Você confia nesse certificado mesmo assim?</string>
-    <string name="ssl_validator_not_saved">O certificado não pode ser salvo</string>
+    <string name="ssl_validator_not_saved">O certificado não pôde ser salvo</string>
     <string name="ssl_validator_btn_details_see">Detalhes</string>
     <string name="ssl_validator_btn_details_hide">Ocultar</string>
     <string name="ssl_validator_label_subject">Emitido para:</string>
@@ -331,7 +330,7 @@ foram encontrados para sua pesquisa! </string>
     <string name="digest_algorithm_not_available">Este algoritmo de resumo não está disponível no seu telefone.</string>
     <string name="ssl_validator_label_certificate_fingerprint">Impressão digital:</string>
     <string name="certificate_load_problem">Existe um problema ao carregar o certificado.</string>
-    <string name="ssl_validator_null_cert">O certificado não pode ser mostrado.</string>
+    <string name="ssl_validator_null_cert">O certificado não pôde ser mostrado.</string>
     <string name="ssl_validator_no_info_about_error">- Nenhuma informação sobre o erro</string>
 
     <string name="placeholder_sentence">Este é um espaço reservado</string>
@@ -355,7 +354,7 @@ foram encontrados para sua pesquisa! </string>
 
     <string name="preview_sorry">Desculpe isso!</string>
     <string name="preview_image_description">Pré-visualização da imagem</string>
-    <string name="preview_image_error_unknown_format">Imagem não pode ser mostrada</string>
+    <string name="preview_image_error_unknown_format">Imagem não pôde ser mostrada</string>
 
     <string name="error__upload__local_file_not_copied">%1$s não pôde ser copiado para pasta local %2$s</string>
     <string name="prefs_instant_upload_path_title">Pasta de envio automático</string>
@@ -382,12 +381,12 @@ foram encontrados para sua pesquisa! </string>
     <string name="clipboard_uxexpected_error">Erro inesperado ao copiar para a área de transferência</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
 
-    <string name="error_cant_bind_to_operations_service">Erro crítico: não pode executar as operações</string>
+    <string name="error_cant_bind_to_operations_service">Erro crítico: não foi possível executar as operações</string>
 
     <string name="network_error_socket_exception">Ocorreu um erro durante a conexão com o servidor.</string>
     <string name="network_error_socket_timeout_exception">Ocorreu um erro enquanto se espera pelo servidor, a operação pode não ter sido executada</string>
     <string name="network_error_connect_timeout_exception">Ocorreu um erro enquanto se espera pelo servidor, a operação pode não ter sido executada</string>
-    <string name="network_host_not_available">A operação não pode ser concluída, o servidor está indisponível</string>
+    <string name="network_host_not_available">A operação não pôde ser concluída pois o servidor está indisponível</string>
     <string name="forbidden_permissions">Você não tem permissão %s</string>
     <string name="forbidden_permissions_rename">para renomear este arquivo</string>
     <string name="forbidden_permissions_delete">para excluir este arquivo</string>

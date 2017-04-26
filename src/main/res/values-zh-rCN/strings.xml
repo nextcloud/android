@@ -34,6 +34,7 @@
     <string name="drawer_item_settings">设置</string>
     <string name="drawer_item_uploads_list">上传</string>
     <string name="drawer_item_activities">动态</string>
+    <string name="drawer_item_notifications">提示</string>
     <string name="drawer_quota">%1$s 之 %2$s 已使用</string>
 	<string name="drawer_close">关闭</string>
     <string name="drawer_open">打开</string>
@@ -42,6 +43,8 @@
     <string name="prefs_accounts">账号</string>
     <string name="prefs_manage_accounts">管理账号</string>
     <string name="prefs_passcode">密码锁</string>
+    <string name="prefs_fingerprint">指纹锁</string>
+    <string name="prefs_fingerprint_notsetup">指纹锁没有设置</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_instant_upload">即时图片上传</string>
     <string name="prefs_instant_upload_summary">即时上传相机拍摄的图片</string>
@@ -103,7 +106,6 @@
     <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
     <string name="file_list_empty_headline_search">此文件夹无结果</string>
     <string name="file_list_empty_headline_server_search">没有结果</string>
-    <string name="file_list_empty_favorite_headline">无收藏</string>
     <string name="file_list_empty_shared_headline">还没有共享过文件</string>
     <string name="file_list_empty_shared">您共享的文件和文件夹将显示在这里</string>
     <string name="file_list_empty_headline_server_search_videos">无视频</string>
@@ -545,6 +547,7 @@
     <string name="participate_testing_bug_text">发现一个错误？事情很奇怪？</string>
     <string name="participate_testing_report_text">在GIthub在报告问题</string>
     <string name="participate_testing_version_text">有感兴趣帮我们测试下一个版本吗？</string>
+    <string name="participate_beta_headline">检查这个设备的版本</string>
     <string name="participate_beta_text">这包括所有即将加入的特性，有相当的风险。如果Bug 或错误发生，请向我们报告。</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
     <string name="participate_release_candidate_text">候选发行版(RC)是下一个版本的快照，希望它是稳定的，你可以帮助测试以确认这一点。可以注册登陆在应用商店或手工在F-Droid的版本部分查找，并进行测试。</string>
@@ -568,6 +571,10 @@
 
     <string name="activity_list_loading_activity">正在加载动态&#8230;</string>
     <string name="activity_list_no_results">未找到动态</string>
+
+    <string name="notifications_loading_activity">加载提示&#8230</string>
+    <string name="notifications_no_results_headline">没有提示</string>
+    <string name="notifications_no_results_message">请稍后核对</string>
 
     <string name="upload_file_dialog_title">输入上传的文件名和文件类型</string>
     <string name="upload_file_dialog_filename">文件名</string>
@@ -595,6 +602,9 @@
 
     <string name="whats_new_skip">跳过</string>
 
+    <string name="fingerprint_scan_finger">请扫描你的手指</string>
+    <string name="fingerprint_unknown">手指未被识别</string>
+
     <!-- User information -->
     <string name="user_info_full_name">全名</string>
     <string name="user_info_email">电子邮件</string>
@@ -608,4 +618,30 @@
     <!-- Activities -->
     <string name="activities_no_results_headline">暂无动态</string>
     <string name="activities_no_results_message">瀑布流中会显示诸如添加\n更改&amp;分享之类的事件</string>
-    </resources>
+    <string name="webview_error">发生错误</string>
+    <string name="prefs_category_about">关于</string>
+
+    <string name="actionbar_contacts">联系人备份</string>
+    <string name="contacts_backup_button">现在备份</string>
+    <string name="contacts_restore_button">恢复上次备份</string>
+    <string name="contacts_header_restore">恢复</string>
+    <string name="contacts_header_backup">备份</string>
+    <string name="contacts_automatic_backup">联系人备份</string>
+    <string name="contacts_last_backup">上次备份</string>
+    <string name="contacts_read_permission">需要联系人的读书权限</string>
+    <string name="contacts_write_permission">需要联系人的写权限</string>
+    <string name="contactlist_title">恢复联系人</string>
+    <string name="contaclist_restore_selected">恢复选中的联系人</string>
+    <string name="contactlist_account_chooser_title">选择客户导入</string>
+    <string name="contactlist_no_permission">没有权限，无法导入！</string>
+    <string name="contacts_preference_choose_date">选择时间</string>
+    <string name="contacts_preference_backup_never">永远不</string>
+    <string name="contacts_preferences_no_file_found">没有文件被发现</string>
+    <string name="contacts_preferences_backup_scheduled">备份已经排期，稍后将开始</string>
+    <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">收到新提示</string>
+
+
+</resources>
