@@ -31,6 +31,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 /**
  * Activity providing information about ways to participate in the app's development.

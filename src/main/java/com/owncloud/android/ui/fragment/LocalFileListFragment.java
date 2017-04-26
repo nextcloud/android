@@ -35,6 +35,7 @@ import android.widget.ListView;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
