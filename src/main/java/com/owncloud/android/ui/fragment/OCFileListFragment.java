@@ -59,6 +59,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.FileMenuFilter;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -808,7 +809,23 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             } else { /// Click on a file
                 if (PreviewImageFragment.canBePreviewed(file)) {
                     // preview image - it handles the download, if needed
-                    ((FileDisplayActivity) mContainerActivity).startImagePreview(file);
+                    if (searchFragment) {
+                        VirtualFolderType type;
+                        switch (currentSearchType) {
+                            case FAVORITE_SEARCH:
+                                type = VirtualFolderType.FAVORITE;
+                                break;
+                            case PHOTO_SEARCH:
+                                type = VirtualFolderType.PHOTOS;
+                                break;
+                            default:
+                                type = VirtualFolderType.NONE;
+                                break;
+                        }
+                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type);
+                    } else {
+                        ((FileDisplayActivity) mContainerActivity).startImagePreview(file);
+                    }
                 } else if (file.isDown() && MimeTypeUtil.isVCard(file)){
                     ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
                 } else if (PreviewTextFragment.canBePreviewed(file)) {
