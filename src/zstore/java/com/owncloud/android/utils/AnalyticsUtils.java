@@ -21,12 +21,15 @@ package com.owncloud.android.utils;
 
 import android.app.Activity;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+import com.owncloud.android.MainApp;
+
 public class AnalyticsUtils {
     public static void setCurrentScreenName(Activity activity, String s, String s1) {
         // do nothing
     }
 
     public static void disableAnalytics() {
-        // do nothing
+        FirebaseAnalytics.getInstance(MainApp.getAppContext()).setAnalyticsCollectionEnabled(false);
     }
 }
