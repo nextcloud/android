@@ -27,6 +27,7 @@ import android.content.ContentProviderResult;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
@@ -36,7 +37,10 @@ import android.provider.MediaStore;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
+import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
@@ -247,6 +251,39 @@ public class FileDataStorageManager {
         return overriden;
     }
 
+    public long saveFileWithParent(OCFile file, Context context) {
+        if (file.getParentId() != 0 || file.getRemotePath().equals("/")) {
+            saveFile(file);
+
+        } else {
+            String remotePath = file.getRemotePath();
+            String parentPath = remotePath.substring(0, remotePath.lastIndexOf(file.getFileName()));
+
+            OCFile parentFile = getFileByPath(parentPath);
+
+            long fileId;
+            if (parentFile == null) {
+                // remote request
+                ReadRemoteFileOperation operation = new ReadRemoteFileOperation(parentPath);
+                RemoteOperationResult result = operation.execute(getAccount(), context);
+                if (result.isSuccess()) {
+                    OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+
+                    fileId = saveFileWithParent(remoteFolder, context);
+                } else {
+                    fileId = -1;
+                    Log_OC.e(TAG, "Error during saving file with parents: " + file.getRemotePath());
+                }
+            } else {
+                fileId = saveFileWithParent(parentFile, context);
+            }
+
+            file.setParentId(fileId);
+            saveFile(file);
+        }
+
+        return getFileByPath(file.getRemotePath()).getFileId();
+    }
 
     public void saveNewFile(OCFile newFile) {
         String remoteParentPath = new File(newFile.getRemotePath()).getParent();
@@ -868,6 +905,15 @@ public class FileDataStorageManager {
         return c;
     }
 
+    private OCFile createFileInstanceFromVirtual(Cursor c) {
+        OCFile file = null;
+        if (c != null) {
+            long fileId = c.getLong(c.getColumnIndex(ProviderTableMeta.VIRTUAL_OCFILE_ID));
+            file = getFileById(fileId);
+        }
+
+        return file;
+    }
 
     private OCFile createFileInstance(Cursor c) {
         OCFile file = null;
@@ -2003,6 +2049,91 @@ public class FileDataStorageManager {
                     .getColumnIndex(ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS))));
         }
         return capability;
+    }
+
+    public void deleteVirtuals(VirtualFolderType type) {
+        if (getContentResolver() != null) {
+            getContentResolver().delete(ProviderTableMeta.CONTENT_URI_VIRTUAL,
+                    ProviderTableMeta.VIRTUAL_TYPE + "=?", new String[]{String.valueOf(type)});
+        } else {
+            try {
+                getContentProviderClient().delete(ProviderTableMeta.CONTENT_URI_VIRTUAL,
+                        ProviderTableMeta.VIRTUAL_TYPE + "=?", new String[]{String.valueOf(type)});
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
+            }
+        }
+    }
+
+    public void saveVirtual(VirtualFolderType type, OCFile file) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.VIRTUAL_TYPE, type.toString());
+        cv.put(ProviderTableMeta.VIRTUAL_OCFILE_ID, file.getFileId());
+
+        if (getContentResolver() != null) {
+            getContentResolver().insert(ProviderTableMeta.CONTENT_URI_VIRTUAL, cv);
+        } else {
+            try {
+                getContentProviderClient().insert(ProviderTableMeta.CONTENT_URI_VIRTUAL, cv);
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, FAILED_TO_INSERT_MSG + e.getMessage(), e);
+            }
+        }
+    }
+
+    public Vector<OCFile> getVirtualFolderContent(VirtualFolderType type, boolean onlyImages) {
+        Vector<OCFile> ocFiles = new Vector<>();
+        Uri req_uri = ProviderTableMeta.CONTENT_URI_VIRTUAL;
+        Cursor c;
+
+        if (getContentProviderClient() != null) {
+            try {
+                c = getContentProviderClient().query(
+                        req_uri,
+                        null,
+                        ProviderTableMeta.VIRTUAL_TYPE + "=?",
+                        new String[]{String.valueOf(type)},
+                        null
+                );
+            } catch (RemoteException e) {
+                Log_OC.e(TAG, e.getMessage(), e);
+                return ocFiles;
+            }
+        } else {
+            c = getContentResolver().query(
+                    req_uri,
+                    null,
+                    ProviderTableMeta.VIRTUAL_TYPE + "=?",
+                    new String[]{String.valueOf(type)},
+                    null
+            );
+        }
+
+        if (c != null && c.moveToFirst()) {
+            do {
+                OCFile child = createFileInstanceFromVirtual(c);
+                    ocFiles.add(child);
+            } while (c.moveToNext());
+            c.close();
+        }
+
+        if (onlyImages) {
+            OCFile current = null;
+            Vector<OCFile> temp = new Vector<>();
+            for (int i=0; i < ocFiles.size(); i++) {
+                current = ocFiles.get(i);
+                if (MimeTypeUtil.isImage(current)) {
+                    temp.add(current);
+                }
+            }
+            ocFiles = temp;
+        }
+
+        if (ocFiles.size() > 0) {
+            Collections.sort(ocFiles);
+        }
+
+        return ocFiles;
     }
 
 }
