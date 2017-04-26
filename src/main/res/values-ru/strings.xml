@@ -107,6 +107,7 @@
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
     <string name="file_list_empty_headline_search">В этой папке результатов не найдено</string>
     <string name="file_list_empty_headline_server_search">Результаты отсутствуют</string>
+    <string name="file_list_empty_favorite_headline">Избранного ещё нет</string>
     <string name="file_list_empty_shared_headline">Вы ещё ничем не поделились</string>
     <string name="file_list_empty_shared">Здесь появятся файлы и каталоги, которыми вы поделитесь</string>
     <string name="file_list_empty_headline_server_search_videos">Видео отсуствуют</string>
