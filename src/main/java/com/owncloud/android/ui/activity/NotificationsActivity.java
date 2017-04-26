@@ -28,6 +28,7 @@ import android.accounts.OperationCanceledException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -51,6 +52,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.GetRemoteNotificationsOperation;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -167,6 +169,13 @@ public class NotificationsActivity extends FileActivity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(dividerItemDecoration);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
+        }
 
         fetchAndSetData();
     }
