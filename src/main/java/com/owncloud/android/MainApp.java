@@ -46,6 +46,7 @@ import com.owncloud.android.services.NCJobCreator;
 import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,6 +89,11 @@ public class MainApp extends MultiDexApplication {
         super.onCreate();
         JobManager.create(this).addJobCreator(new NCJobCreator());
         MainApp.mContext = getApplicationContext();
+
+        if (!getResources().getBoolean(R.bool.analytics_enabled)) {
+            AnalyticsUtils.disableAnalytics();
+        }
+
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         MainApp.storagePath = appPrefs.getString(Preferences.PreferenceKeys.STORAGE_PATH, Environment.

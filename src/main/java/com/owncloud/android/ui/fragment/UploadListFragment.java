@@ -32,6 +32,7 @@ import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ExpandableUploadListAdapter;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.

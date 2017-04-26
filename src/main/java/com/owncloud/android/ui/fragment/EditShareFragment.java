@@ -41,6 +41,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 public class EditShareFragment extends Fragment {
 

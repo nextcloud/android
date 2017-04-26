@@ -26,4 +26,7 @@ public class AnalyticsUtils {
         // do nothing
     }
 
+    public static void disableAnalytics() {
+        // do nothing
+    }
 }

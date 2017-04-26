@@ -50,6 +50,7 @@ import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.io.File;
 import java.util.ArrayList;
