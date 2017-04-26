@@ -105,7 +105,6 @@
     <string name="local_file_list_empty">Der er ingen filer i denne mappe.</string>
     <string name="file_list_empty_headline_search">Intet resultat for denne mappe</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
-    <string name="file_list_empty_favorite_headline">Ingen favoritter</string>
     <string name="file_list_empty_shared_headline">Intet er delt endnu</string>
     <string name="file_list_empty_shared">Filer og mapper du deler vil blive vist her</string>
     <string name="file_list_empty_headline_server_search_videos">Ingen videoer</string>

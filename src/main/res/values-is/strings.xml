@@ -102,7 +102,6 @@
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="file_list_empty_headline_search">Engar niðurstöður í þessari möppu</string>
     <string name="file_list_empty_headline_server_search">Engar niðurstöður</string>
-    <string name="file_list_empty_favorite_headline">Engin eftirlæti</string>
     <string name="file_list_empty_shared_headline">Engu deilt ennþá</string>
     <string name="file_list_empty_shared">Skrár og möppur sem þú deilir birtast hér</string>
     <string name="file_list_empty_headline_server_search_videos">Engin myndskeið</string>

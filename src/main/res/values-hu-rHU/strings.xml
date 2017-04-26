@@ -103,7 +103,6 @@
     <string name="local_file_list_empty">Nincs fájl ebben a mappában.</string>
     <string name="file_list_empty_headline_search">Nincsenek eredmények ebben a mappában</string>
     <string name="file_list_empty_headline_server_search">Nincsenek eredmények</string>
-    <string name="file_list_empty_favorite_headline">Nincsenek kedvencek</string>
     <string name="file_list_empty_shared_headline">Nincs semmi megosztva</string>
     <string name="file_list_empty_shared">Az Ön által megosztott fájlok és mappák itt jelennek meg</string>
     <string name="file_list_empty_headline_server_search_videos">Nincsenek videók</string>

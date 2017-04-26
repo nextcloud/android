@@ -105,7 +105,6 @@
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
     <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
     <string name="file_list_empty_headline_server_search">Geen resultaten</string>
-    <string name="file_list_empty_favorite_headline">Geen favorieten</string>
     <string name="file_list_empty_shared_headline">Nog niets gedeeld</string>
     <string name="file_list_empty_shared">Bestanden en mappen die je deelt, worden hier getoond</string>
     <string name="file_list_empty_headline_server_search_videos">Geen video\'s</string>

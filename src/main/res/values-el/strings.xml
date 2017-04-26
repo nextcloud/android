@@ -105,7 +105,6 @@
     <string name="local_file_list_empty">Δεν υπάρχουν αρχεία σε αυτό τον φάκελο.</string>
     <string name="file_list_empty_headline_search">Κανενα αποτέλεσμα σε αυτον τον φάκελο</string>
     <string name="file_list_empty_headline_server_search">Κανένα αποτέλεσμα</string>
-    <string name="file_list_empty_favorite_headline">Κανένα αγαπημένο</string>
     <string name="file_list_empty_shared_headline">Δεν έχει διαμοιραστεί τίποτα μέχρι στιγμής</string>
     <string name="file_list_empty_shared">Τα αρχεία και οι φάκελοι που διαμοιράζεστε θα εμφανίζονται εδώ</string>
     <string name="file_list_empty_headline_server_search_videos">Κανένα βίντεο</string>
