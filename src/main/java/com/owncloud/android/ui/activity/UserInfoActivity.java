@@ -24,9 +24,11 @@
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -70,6 +72,7 @@ public class UserInfoActivity extends FileActivity {
 
     private static final String KEY_USER_DATA = "USER_DATA";
     private static final String KEY_ACCOUNT = "ACCOUNT";
+    private static final String KEY_DIRECT_REMOVE = "DIRECT_REMOVE";
 
     private static final int KEY_DELETE_CODE = 101;
 
@@ -208,7 +211,7 @@ public class UserInfoActivity extends FileActivity {
                 changeAccountPassword(account);
                 break;
             case R.id.delete_account:
-                openAccountRemovalConfirmationDialog(account);
+                openAccountRemovalConfirmationDialog(account, getFragmentManager(), false);
                 break;
             default:
                 retval = super.onOptionsItemSelected(item);
@@ -292,19 +295,22 @@ public class UserInfoActivity extends FileActivity {
         startActivity(updateAccountCredentials);
     }
 
-    private void openAccountRemovalConfirmationDialog(Account account) {
+    public static void openAccountRemovalConfirmationDialog(Account account, FragmentManager fragmentManager,
+                                                            boolean removeDirectly) {
         UserInfoActivity.AccountRemovalConfirmationDialog dialog =
-                UserInfoActivity.AccountRemovalConfirmationDialog.newInstance(account);
-        dialog.show(getFragmentManager(), "dialog");
+                UserInfoActivity.AccountRemovalConfirmationDialog.newInstance(account, removeDirectly);
+        dialog.show(fragmentManager, "dialog");
     }
 
     public static class AccountRemovalConfirmationDialog extends DialogFragment {
 
         private Account account;
 
-        public static UserInfoActivity.AccountRemovalConfirmationDialog newInstance(Account account) {
+        public static UserInfoActivity.AccountRemovalConfirmationDialog newInstance(Account account,
+                                                                                    boolean removeDirectly) {
             Bundle bundle = new Bundle();
             bundle.putParcelable(KEY_ACCOUNT, account);
+            bundle.putBoolean(KEY_DIRECT_REMOVE, removeDirectly);
 
             UserInfoActivity.AccountRemovalConfirmationDialog dialog = new
                     UserInfoActivity.AccountRemovalConfirmationDialog();
@@ -322,6 +328,7 @@ public class UserInfoActivity extends FileActivity {
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
+            final boolean removeDirectly = getArguments().getBoolean(KEY_DIRECT_REMOVE);
             return new AlertDialog.Builder(getActivity(), R.style.Theme_ownCloud_Dialog)
                     .setTitle(R.string.delete_account)
                     .setMessage(getResources().getString(R.string.delete_account_warning, account.name))
@@ -334,9 +341,19 @@ public class UserInfoActivity extends FileActivity {
                                     bundle.putParcelable(KEY_ACCOUNT, Parcels.wrap(account));
                                     Intent intent = new Intent();
                                     intent.putExtras(bundle);
-                                    if (getActivity() != null) {
+                                    if (getActivity() != null && !removeDirectly) {
                                         getActivity().setResult(KEY_DELETE_CODE, intent);
                                         getActivity().finish();
+                                    } else {
+                                        AccountManager am = (AccountManager) getActivity()
+                                                .getSystemService(ACCOUNT_SERVICE);
+
+                                        am.removeAccount(account, null, null);
+
+                                        Intent start = new Intent(getActivity(), FileDisplayActivity.class);
+                                        start.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(start);
+
                                     }
 
                                 }

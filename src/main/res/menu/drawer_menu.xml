@@ -137,6 +137,11 @@
             android:icon="@drawable/ic_participate"
             android:orderInCategory="4"
             android:title="@string/drawer_participate"/>
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:orderInCategory="4"
+            android:title="@string/drawer_logout"/>
     </group>
 
     <!--
