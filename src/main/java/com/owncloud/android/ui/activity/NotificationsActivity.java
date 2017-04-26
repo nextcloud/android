@@ -53,6 +53,7 @@ import com.owncloud.android.lib.resources.notifications.GetRemoteNotificationsOp
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.ui.adapter.NotificationListAdapter;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -68,6 +69,7 @@ import butterknife.Unbinder;
 public class NotificationsActivity extends FileActivity {
 
     private static final String TAG = NotificationsActivity.class.getSimpleName();
+    private static final String SCREEN_NAME = "Notifications";
 
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
@@ -292,4 +294,11 @@ public class NotificationsActivity extends FileActivity {
             emptyContentIcon.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
+    }
+
 }
