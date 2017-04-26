@@ -78,7 +78,9 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
         String[] urls = getResources().getStringArray(R.array.whatsnew_urls);
 
-        if (urls.length > 0) {
+        boolean showWebView = urls.length > 0;
+
+        if (showWebView) {
             FeaturesWebViewAdapter featuresWebViewAdapter = new FeaturesWebViewAdapter(getSupportFragmentManager(),
                     urls);
             mProgress.setNumberOfSteps(featuresWebViewAdapter.getCount());
@@ -124,7 +126,14 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         });
 
         TextView tv = (TextView)findViewById(R.id.welcomeText);
-        tv.setText(isFirstRun() ? R.string.empty : R.string.whats_new_title);
+
+        if (showWebView) {
+            tv.setText(R.string.app_name);
+        } else if (isFirstRun()) {
+            tv.setText(R.string.empty);
+        } else {
+            tv.setText(R.string.whats_new_title);
+        }
 
         updateNextButtonIfNeeded();
     }
@@ -235,7 +244,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            mWebUrl = getArguments() != null ? (String)getArguments().getString("url") : null;
+            mWebUrl = getArguments() != null ? getArguments().getString("url") : null;
         }
 
         @Nullable

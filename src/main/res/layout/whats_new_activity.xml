@@ -29,12 +29,15 @@
         android:id="@+id/welcomeText"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
         android:layout_weight="6"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:text="@string/placeholder_sentence"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/login_text_hint_color"/>
+        android:textColor="@color/white"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/contentPanel"
