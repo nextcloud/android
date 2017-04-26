@@ -20,15 +20,15 @@
 
 package com.owncloud.android.ui.activity;
 
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
-
 import android.app.Activity;
 import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.os.Bundle;
-import android.content.ClipboardManager;
 import android.widget.Toast;
+
+import com.owncloud.android.R;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * Activity copying the text of the received Intent into the system clibpoard.

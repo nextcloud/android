@@ -63,9 +63,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static com.owncloud.android.R.drawable.file;
-import static com.owncloud.android.R.layout.files;
-
 /**
  *
  */

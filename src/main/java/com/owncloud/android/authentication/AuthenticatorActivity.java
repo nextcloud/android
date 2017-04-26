@@ -113,6 +113,7 @@ import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SamlWebViewDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 
 import java.security.cert.X509Certificate;
@@ -804,7 +805,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     protected void onResume() {
         super.onResume();
 
-        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
 
         if (!webViewLoginMethod) {
             // bound here to avoid spurious changes triggered by Android on device rotations

@@ -40,7 +40,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -237,7 +236,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         super.onResume();
         Log_OC.e(TAG, "onResume() start");
 
-        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
 
         // refresh list of files
         refreshListOfFilesFragment(false);

@@ -78,10 +78,12 @@ android {
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
         productFlavors {
+            // used for f-droid
             generic {
                 applicationId 'com.nextcloud.client'
             }
 
+            // both need .modified gradle file in place of the regular one
             modified {
                 // structure is:
                 // domain tld
@@ -89,6 +91,12 @@ android {
                 // .client
                 applicationId 'com.custom.client'
             }
+
+            zstore {
+                applicationId 'com.nextcloud.client'
+            }
+
+
         }
 
         configurations {
@@ -191,6 +199,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
+
     compile 'com.google.android.gms:play-services:10.2.1'
 
     compile 'org.parceler:parceler-api:1.1.6'

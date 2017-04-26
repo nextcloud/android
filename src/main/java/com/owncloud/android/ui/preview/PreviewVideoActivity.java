@@ -33,7 +33,6 @@ import android.support.v7.app.AlertDialog;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
@@ -109,7 +108,7 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
     @Override
     protected void onResume() {
         super.onResume();
-        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     /**

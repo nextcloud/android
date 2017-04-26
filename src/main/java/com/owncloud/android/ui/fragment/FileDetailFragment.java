@@ -111,7 +111,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
     public void onResume() {
         super.onResume();
         if (getActivity() != null) {
-            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
         }
     }
 
