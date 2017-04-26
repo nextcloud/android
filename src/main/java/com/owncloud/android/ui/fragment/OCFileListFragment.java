@@ -34,7 +34,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.preference.PreferenceManager;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.design.widget.BottomNavigationView;
@@ -84,7 +83,6 @@ import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.DummyDrawerEvent;
 import com.owncloud.android.ui.events.FavoriteEvent;
-import com.owncloud.android.ui.events.MenuItemClickEvent;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.helpers.SparseBooleanArrayParcelable;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -219,7 +217,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
         if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
             bottomNavigationView.setVisibility(View.VISIBLE);
-            prepareBottomNavigationView();
+            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), getActivity(), R.id.nav_bar_files);
         }
 
         if (!getResources().getBoolean(R.bool.bottom_toolbar_enabled) || savedInstanceState != null) {
@@ -245,44 +243,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
         Log_OC.i(TAG, "onCreateView() end");
         return v;
-    }
-
-    private void prepareBottomNavigationView() {
-        if (getResources().getBoolean(R.bool.use_home)) {
-            bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setTitle(getResources().
-                    getString(R.string.drawer_item_home));
-            bottomNavigationView.getMenu().findItem(R.id.nav_bar_files).setIcon(R.drawable.ic_home);
-        }
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(
-                new BottomNavigationView.OnNavigationItemSelectedListener() {
-                    @Override
-                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                        switch (item.getItemId()) {
-                            case R.id.nav_bar_files:
-                                EventBus.getDefault().post(new MenuItemClickEvent(item));
-                                menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
-                                if (getActivity() != null) {
-                                    getActivity().invalidateOptionsMenu();
-                                }
-                                break;
-                            case R.id.nav_bar_favorites:
-                                EventBus.getDefault().post(new SearchEvent("", SearchOperation.SearchType.FAVORITE_SEARCH,
-                                        SearchEvent.UnsetType.UNSET_DRAWER));
-                                break;
-                            case R.id.nav_bar_photos:
-                                EventBus.getDefault().post(new SearchEvent("image/%",
-                                        SearchOperation.SearchType.CONTENT_TYPE_SEARCH, SearchEvent.UnsetType.UNSET_DRAWER));
-                                break;
-                            case R.id.nav_bar_settings:
-                                EventBus.getDefault().post(new MenuItemClickEvent(item));
-                                break;
-                            default:
-                                break;
-                        }
-                        return true;
-                    }
-                });
     }
 
     @Override
@@ -1369,6 +1329,21 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             }
         }
 
+        if (bottomNavigationView != null && searchEvent != null) {
+            switch (currentSearchType) {
+                case FAVORITE_SEARCH:
+                    DisplayUtils.setBottomBarItem(bottomNavigationView, R.id.nav_bar_favorites);
+                    break;
+                case PHOTO_SEARCH:
+                    DisplayUtils.setBottomBarItem(bottomNavigationView, R.id.nav_bar_photos);
+                    break;
+
+                default:
+                    DisplayUtils.setBottomBarItem(bottomNavigationView, -1);
+                    break;
+            }
+        }
+
         Runnable switchViewsRunnable = new Runnable() {
             @Override
             public void run() {
@@ -1458,6 +1433,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         } else {
             new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
         }
+
+        searchEvent = null;
     }
 
     private void setTitle(@StringRes int title) {
