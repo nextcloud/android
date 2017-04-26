@@ -304,9 +304,11 @@ public class PreviewImageActivity extends FileActivity implements
         showDetailsIntent.putExtra(FileActivity.EXTRA_FILE, file);
         showDetailsIntent.putExtra(FileActivity.EXTRA_ACCOUNT,
                 AccountUtils.getCurrentOwnCloudAccount(this));
+        showDetailsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(showDetailsIntent);
         int pos = mPreviewImagePagerAdapter.getFilePosition(file);
         file = mPreviewImagePagerAdapter.getFileAt(pos);
+        finish();
     }
 
     private void requestForDownload(OCFile file) {
