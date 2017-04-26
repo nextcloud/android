@@ -72,6 +72,7 @@ public class FileContentProvider extends ContentProvider {
     private static final int UPLOADS = 6;
     private static final int SYNCED_FOLDERS = 7;
     private static final int EXTERNAL_LINKS = 8;
+    private static final int VIRTUAL = 9;
 
     private static final String TAG = FileContentProvider.class.getSimpleName();
 
@@ -200,6 +201,9 @@ public class FileContentProvider extends ContentProvider {
                 break;
             case EXTERNAL_LINKS:
                 count = db.delete(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, where, whereArgs);
+                break;
+            case VIRTUAL:
+                count = db.delete(ProviderTableMeta.VIRTUAL_TABLE_NAME, where, whereArgs);
                 break;
             default:
                 //Log_OC.e(TAG, "Unknown uri " + uri);
@@ -335,6 +339,18 @@ public class FileContentProvider extends ContentProvider {
                 }
                 return insertedExternalLinkUri;
 
+            case VIRTUAL:
+                Uri insertedVirtualUri;
+                long virtualId = db.insert(ProviderTableMeta.VIRTUAL_TABLE_NAME, null, values);
+
+                if (virtualId > 0) {
+                    insertedVirtualUri = ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_VIRTUAL, virtualId);
+                } else {
+                    throw new SQLException("ERROR " + uri);
+                }
+
+                return insertedVirtualUri;
+
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -385,6 +401,7 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "uploads/#", UPLOADS);
         mUriMatcher.addURI(authority, "synced_folders", SYNCED_FOLDERS);
         mUriMatcher.addURI(authority, "external_links", EXTERNAL_LINKS);
+        mUriMatcher.addURI(authority, "virtual", VIRTUAL);
 
         return true;
     }
@@ -473,6 +490,12 @@ public class FileContentProvider extends ContentProvider {
                             + uri.getPathSegments().get(1));
                 }
                 break;
+            case VIRTUAL:
+                sqlQuery.setTables(ProviderTableMeta.VIRTUAL_TABLE_NAME);
+                if (uri.getPathSegments().size() > 1) {
+                    sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -494,6 +517,9 @@ public class FileContentProvider extends ContentProvider {
                     break;
                 case EXTERNAL_LINKS:
                     order = ProviderTableMeta.EXTERNAL_LINKS_NAME;
+                    break;
+                case VIRTUAL:
+                    order = ProviderTableMeta.VIRTUAL_TYPE;
                     break;
                 default: // Files
                     order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
@@ -611,6 +637,9 @@ public class FileContentProvider extends ContentProvider {
 
             // Create external links table
             createExternalLinksTable(db);
+
+            // Create virtual table
+            createVirtualTable(db);
         }
 
         @Override
@@ -927,6 +956,22 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
+            if (oldVersion < 20 && newVersion >= 20) {
+                Log_OC.i(SQL, "Adding virtual table");
+                db.beginTransaction();
+                try {
+                    createVirtualTable(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
         }
     }
 
@@ -1061,6 +1106,14 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.EXTERNAL_LINKS_TYPE + " INTEGER, "      // type
                 + ProviderTableMeta.EXTERNAL_LINKS_NAME + " TEXT, "         // name
                 + ProviderTableMeta.EXTERNAL_LINKS_URL + " TEXT )"          // url
+        );
+    }
+
+    private void createVirtualTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.VIRTUAL_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "          // id
+                + ProviderTableMeta.VIRTUAL_TYPE + " TEXT, "                // type
+                + ProviderTableMeta.VIRTUAL_OCFILE_ID + " INTEGER )"        // file id
         );
     }
 
