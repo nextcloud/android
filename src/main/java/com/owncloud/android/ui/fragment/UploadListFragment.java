@@ -27,7 +27,6 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -77,7 +76,7 @@ public class UploadListFragment extends ExpandableListFragment {
     public void onResume() {
         super.onResume();
         if (getActivity() != null) {
-            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
         }
     }
 

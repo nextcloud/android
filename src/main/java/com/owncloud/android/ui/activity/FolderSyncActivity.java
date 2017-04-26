@@ -102,7 +102,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     @Override
     protected void onResume() {
         super.onResume();
-        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     /**

@@ -254,7 +254,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
 
         if (getActivity() != null) {
-            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
         }
     }
 

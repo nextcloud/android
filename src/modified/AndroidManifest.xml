@@ -23,12 +23,15 @@
           android:versionName="1.4.2">
 
     <application
-        android:name=".MainApp"
+        android:name=".ModifiedMainApp"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:fullBackupContent="@xml/backup_config"
         android:theme="@style/Theme.ownCloud.Toolbar"
+        tools:node="replace"
         android:manageSpaceActivity="com.owncloud.android.ui.activity.ManageSpaceActivity">
+
+
         <activity
             android:name=".ui.activity.ModifiedFileDisplayActivity"
             android:label="@string/app_name"

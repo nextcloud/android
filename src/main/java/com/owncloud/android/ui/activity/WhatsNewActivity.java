@@ -132,7 +132,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
     @Override
     protected void onResume() {
         super.onResume();
-        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     @Override

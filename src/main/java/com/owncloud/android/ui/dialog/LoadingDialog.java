@@ -18,8 +18,6 @@
  */
 package com.owncloud.android.ui.dialog;
 
-import com.owncloud.android.R;
-
 import android.app.Dialog;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -30,6 +28,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.owncloud.android.R;
 
 public class LoadingDialog extends DialogFragment {
 

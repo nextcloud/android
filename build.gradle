@@ -78,10 +78,12 @@ android {
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
         productFlavors {
+            // used for f-droid
             generic {
                 applicationId 'com.nextcloud.client'
             }
 
+            // both need .modified gradle file in place of the regular one
             modified {
                 // structure is:
                 // domain tld
@@ -89,6 +91,12 @@ android {
                 // .client
                 applicationId 'com.custom.client'
             }
+
+            zstore {
+                applicationId 'com.nextcloud.client'
+            }
+
+
         }
 
         configurations {
