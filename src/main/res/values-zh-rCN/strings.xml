@@ -572,7 +572,7 @@
     <string name="activity_list_loading_activity">正在加载动态&#8230;</string>
     <string name="activity_list_no_results">未找到动态</string>
 
-    <string name="notifications_loading_activity">加载提示&#8230</string>
+    <string name="notifications_loading_activity">加载提示&#8230;</string>
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>
 
