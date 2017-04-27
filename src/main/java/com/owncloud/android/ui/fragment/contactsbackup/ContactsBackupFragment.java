@@ -177,8 +177,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         Vector<OCFile> backupFiles = contactsPreferenceActivity.getStorageManager().getFolderContent(backupFolder,
                 false);
 
-        if (backupFiles == null || backupFiles.size() == 0 ||
-                sharedPreferences.getLong(PREFERENCE_CONTACTS_LAST_BACKUP, -1) == -1) {
+        if (backupFiles == null || backupFiles.size() == 0) {
             contactsRestoreHeader.setVisibility(View.GONE);
             contactsDatePickerBtn.setVisibility(View.GONE);
         } else {
