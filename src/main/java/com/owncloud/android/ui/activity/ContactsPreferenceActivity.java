@@ -308,19 +308,23 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
     }
 
     public static void startContactBackupJob(Account account) {
-        Log_OC.d(TAG, "start daily contacts backup job");
+        if (account != null) {
+            Log_OC.d(TAG, "start daily contacts backup job");
 
-        PersistableBundleCompat bundle = new PersistableBundleCompat();
-        bundle.putString(ContactsBackupJob.ACCOUNT, account.name);
+            PersistableBundleCompat bundle = new PersistableBundleCompat();
+            bundle.putString(ContactsBackupJob.ACCOUNT, account.name);
 
-        new JobRequest.Builder(ContactsBackupJob.TAG)
-                .setExtras(bundle)
-                .setRequiresCharging(false)
-                .setPersisted(true)
-                .setUpdateCurrent(true)
-                .setPeriodic(24 * 60 * 60 * 1000)
-                .build()
-                .schedule();
+            new JobRequest.Builder(ContactsBackupJob.TAG)
+                    .setExtras(bundle)
+                    .setRequiresCharging(false)
+                    .setPersisted(true)
+                    .setUpdateCurrent(true)
+                    .setPeriodic(24 * 60 * 60 * 1000)
+                    .build()
+                    .schedule();
+        } else {
+            Log_OC.d(TAG, "Daily contacts backup job NOT started as account does not exist!");
+        }
     }
 
     public static void cancelContactBackupJob(Context context) {
