@@ -81,7 +81,6 @@ import ezvcard.property.StructuredName;
 /**
  * This fragment shows all contacts from a file and allows to import them.
  */
-
 public class ContactListFragment extends FileFragment {
     public static final String TAG = ContactListFragment.class.getSimpleName();
 
@@ -89,7 +88,6 @@ public class ContactListFragment extends FileFragment {
     public static final String ACCOUNT = "ACCOUNT";
 
     public static final String CHECKED_ITEMS_ARRAY_KEY = "CHECKED_ITEMS";
-
 
     @BindView(R.id.contactlist_recyclerview)
     public RecyclerView recyclerView;
@@ -139,7 +137,7 @@ public class ContactListFragment extends FileFragment {
                 vCards.addAll(Ezvcard.parse(file).all());
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            Log_OC.e(TAG, "Error processing contacts file!", e);
         }
 
         restoreContacts.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +177,6 @@ public class ContactListFragment extends FileFragment {
         outState.putIntArray(CHECKED_ITEMS_ARRAY_KEY, contactListAdapter.getCheckedIntArray());
     }
 
-
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(VCardToggleEvent event) {
         if (event.showRestoreButton) {
@@ -189,7 +186,6 @@ public class ContactListFragment extends FileFragment {
             restoreContacts.setVisibility(View.GONE);
             restoreContacts.setBackgroundColor(getResources().getColor(R.color.standard_grey));
         }
-
     }
 
     @Override
@@ -204,7 +200,6 @@ public class ContactListFragment extends FileFragment {
         ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
         contactsPreferenceActivity.setDrawerIndicatorEnabled(false);
     }
-
 
     @Override
     public void onStart() {
@@ -234,7 +229,6 @@ public class ContactListFragment extends FileFragment {
         }
         return retval;
     }
-
 
     static class ContactItemViewHolder extends RecyclerView.ViewHolder {
         private ImageView badge;
@@ -271,8 +265,6 @@ public class ContactListFragment extends FileFragment {
     }
 
     private void importContacts(ContactAccount account) {
-
-
         PersistableBundleCompat bundle = new PersistableBundleCompat();
         bundle.putString(ContactsImportJob.ACCOUNT_NAME, account.name);
         bundle.putString(ContactsImportJob.ACCOUNT_TYPE, account.type);
@@ -287,7 +279,6 @@ public class ContactListFragment extends FileFragment {
                 .setUpdateCurrent(false)
                 .build()
                 .schedule();
-
 
         Snackbar.make(recyclerView, R.string.contacts_preferences_import_scheduled, Snackbar.LENGTH_LONG).show();
 
@@ -331,13 +322,14 @@ public class ContactListFragment extends FileFragment {
         } catch (Exception e) {
             Log_OC.d(TAG, e.getMessage());
         } finally {
-            cursor.close();
+            if (cursor != null) {
+                cursor.close();
+            }
         }
 
         if (accounts.size() == 1) {
             importContacts(accounts.get(0));
         } else {
-
             ArrayAdapter adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, accounts);
             AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
             builder.setTitle(R.string.contactlist_account_chooser_title)
@@ -424,7 +416,6 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
         this.context = context;
         this.checkedVCards = checkedVCards;
     }
-
 
     public int getCheckedCount() {
         if (checkedVCards != null) {
@@ -513,8 +504,6 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
                         if (checkedVCards.size() == 1) {
                             EventBus.getDefault().post(new VCardToggleEvent(true));
                         }
-
-
                     } else {
                         if (checkedVCards.contains(position)) {
                             checkedVCards.remove(position);
@@ -533,5 +522,4 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
     public int getItemCount() {
         return vCards.size();
     }
-
 }
