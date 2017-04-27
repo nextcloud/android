@@ -267,7 +267,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         if (bool) {
         ContactsPreferenceActivity.startContactBackupJob(contactsPreferenceActivity.getAccount());
         } else {
-            ContactsPreferenceActivity.cancelContactBackupJob(contactsPreferenceActivity);
+            ContactsPreferenceActivity.cancelAllContactBackupJobs(contactsPreferenceActivity);
         }
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
