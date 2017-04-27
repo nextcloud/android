@@ -39,6 +39,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,6 +107,15 @@ public class ContactListFragment extends FileFragment {
         frag.setArguments(arguments);
 
         return frag;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.contactlist_menu, menu);
     }
 
     @Override
@@ -223,11 +234,26 @@ public class ContactListFragment extends FileFragment {
                 contactsPreferenceActivity.onBackPressed();
                 retval = true;
                 break;
+            case R.id.action_select_all:
+                item.setChecked(!item.isChecked());
+                setSelectAllMenuItem(item, item.isChecked());
+                contactListAdapter.selectAllFiles(item.isChecked());
+                retval = true;
+                break;
             default:
                 retval = super.onOptionsItemSelected(item);
                 break;
         }
         return retval;
+    }
+
+    private void setSelectAllMenuItem(MenuItem selectAll, boolean checked) {
+        selectAll.setChecked(checked);
+        if(checked) {
+            selectAll.setIcon(R.drawable.ic_select_none);
+        } else {
+            selectAll.setIcon(R.drawable.ic_select_all);
+        }
     }
 
     static class ContactItemViewHolder extends RecyclerView.ViewHolder {
@@ -525,5 +551,22 @@ class ContactListAdapter extends RecyclerView.Adapter<ContactListFragment.Contac
     @Override
     public int getItemCount() {
         return vCards.size();
+    }
+
+    public void selectAllFiles(boolean select) {
+        checkedVCards = new HashSet<>();
+        if (select) {
+            for (int i = 0; i < vCards.size(); i++) {
+                checkedVCards.add(i);
+            }
+        }
+
+        if (checkedVCards.size() > 0) {
+            EventBus.getDefault().post(new VCardToggleEvent(true));
+        } else {
+            EventBus.getDefault().post(new VCardToggleEvent(false));
+        }
+
+        notifyDataSetChanged();
     }
 }
