@@ -28,6 +28,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -38,8 +41,10 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
 /**
  * This activity shows an URL as a web view
@@ -55,6 +60,7 @@ public class ExternalSiteWebView extends FileActivity {
 
     private boolean showSidebar = false;
     private int menuItemId;
+    private WebView webview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +68,7 @@ public class ExternalSiteWebView extends FileActivity {
 
         Bundle extras = getIntent().getExtras();
         String title = extras.getString(EXTRA_TITLE);
-        String url = extras.getString(EXTRA_URL);
+        final String url = extras.getString(EXTRA_URL);
         menuItemId = extras.getInt(EXTRA_MENU_ITEM_ID);
         showSidebar = extras.getBoolean(EXTRA_SHOW_SIDEBAR);
 
@@ -72,8 +78,8 @@ public class ExternalSiteWebView extends FileActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.externalsite_webview);
 
-        WebView webview = (WebView) findViewById(R.id.webView);
-        WebSettings webSettings = webview.getSettings();
+        webview = (WebView) findViewById(R.id.webView);
+        final WebSettings webSettings = webview.getSettings();
 
         webview.setFocusable(true);
         webview.setFocusableInTouchMode(true);
@@ -125,19 +131,22 @@ public class ExternalSiteWebView extends FileActivity {
 
         webview.setWebViewClient(new WebViewClient() {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                try {
-                    InputStream errorPage = getAssets().open("customError.html");
 
-                    if (errorPage != null) {
-                        view.loadUrl("file:///android_asset/customError.html");
-                    } else {
-                        Toast.makeText(activity, getString(R.string.webview_error) + ": " + description,
-                                Toast.LENGTH_SHORT).show();
+                BufferedReader buffreader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.custom_error)));
+                String line;
+                StringBuilder text = new StringBuilder();
+                try {
+                    while (( line = buffreader.readLine()) != null) {
+                        text.append(line);
+                        text.append('\n');
                     }
                 } catch (IOException e) {
-                    Toast.makeText(activity, getString(R.string.webview_error) + ": " + description,
-                            Toast.LENGTH_SHORT).show();
+                    Log_OC.e(TAG,e.getMessage());
+                    return;
                 }
+
+                webview.loadData(text.toString(),"text/html; charset=UTF-8", null);
+
             }
         });
 

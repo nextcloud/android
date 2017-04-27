@@ -74,6 +74,8 @@ import android.view.View.OnTouchListener;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.HttpAuthHandler;
 import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -115,6 +117,9 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.DisplayUtils;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.security.cert.X509Certificate;
 import java.util.Map;
 
@@ -335,6 +340,22 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     return true;
                 }
                 return false;
+            }
+
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+                BufferedReader buffreader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.custom_error)));
+                String line;
+                StringBuilder text = new StringBuilder();
+                try {
+                    while (( line = buffreader.readLine()) != null) {
+                        text.append(line);
+                        text.append('\n');
+                    }
+                } catch (IOException e) {
+                    Log_OC.e(TAG,e.getMessage());
+                    return;
+                }
+                mLoginWebView.loadData(text.toString(),"text/html; charset=UTF-8", null);
             }
         });
     }
