@@ -36,10 +36,12 @@
             layout="@layout/toolbar_standard"/>
 
         <LinearLayout
+            android:id="@+id/custom_folder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/listItemHighlighted"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_below="@+id/appbar">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -64,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_navigation_view"
-            android:layout_below="@+id/appbar"
+            android:layout_below="@+id/custom_folder"
             android:id="@+id/ListLayout"
             android:orientation="vertical">
 
