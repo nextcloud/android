@@ -38,6 +38,9 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * This activity shows an URL as a web view
  */
@@ -122,7 +125,19 @@ public class ExternalSiteWebView extends FileActivity {
 
         webview.setWebViewClient(new WebViewClient() {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                Toast.makeText(activity, getString(R.string.webview_error) + ": " + description, Toast.LENGTH_SHORT).show();
+                try {
+                    InputStream errorPage = getAssets().open("customError.html");
+
+                    if (errorPage != null) {
+                        view.loadUrl("file:///android_asset/customError.html");
+                    } else {
+                        Toast.makeText(activity, getString(R.string.webview_error) + ": " + description,
+                                Toast.LENGTH_SHORT).show();
+                    }
+                } catch (IOException e) {
+                    Toast.makeText(activity, getString(R.string.webview_error) + ": " + description,
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
