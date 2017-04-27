@@ -37,7 +37,9 @@
             android:id="@+id/upload_list_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/background_color"/>
+            android:background="@color/background_color"
+            android:layout_above="@+id/bottom_navigation_view"
+            android:layout_below="@+id/appbar" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
