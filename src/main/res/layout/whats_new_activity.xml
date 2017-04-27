@@ -37,7 +37,7 @@
         android:gravity="center_vertical"
         android:text="@string/placeholder_sentence"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textColor="@color/white"/>
+        android:textColor="@color/primary_button_text_color"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/contentPanel"
