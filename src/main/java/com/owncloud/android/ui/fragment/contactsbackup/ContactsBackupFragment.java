@@ -65,7 +65,7 @@ import butterknife.OnClick;
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP;
 
-public class ContactsBackupFragment extends FileFragment implements DatePickerDialog.OnDateSetListener{
+public class ContactsBackupFragment extends FileFragment implements DatePickerDialog.OnDateSetListener {
     public static final String TAG = ContactsBackupFragment.class.getSimpleName();
 
     private SharedPreferences sharedPreferences;
@@ -117,15 +117,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 if (isChecked &&
                         checkAndAskForContactsReadPermission(PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC)) {
                     // store value
-                    setAutomaticBackup(backupSwitch, true);
-
-                    // enable daily job
-                    ContactsPreferenceActivity.startContactBackupJob(contactsPreferenceActivity.getAccount());
+                    setAutomaticBackup(true);
                 } else {
-                    setAutomaticBackup(backupSwitch, false);
-
-                    // cancel pending jobs
-                    ContactsPreferenceActivity.cancelContactBackupJob(contactsPreferenceActivity);
+                    setAutomaticBackup(false);
                 }
             }
         });
@@ -217,9 +211,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             for (int index = 0; index < permissions.length; index++) {
                 if (Manifest.permission.READ_CONTACTS.equalsIgnoreCase(permissions[index])) {
                     if (grantResults[index] >= 0) {
-                        setAutomaticBackup(backupSwitch, true);
+                        setAutomaticBackup(true);
                     } else {
-                        setAutomaticBackup(backupSwitch, false);
+                        setAutomaticBackup(false);
                     }
 
                     break;
@@ -268,8 +262,16 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 Snackbar.LENGTH_LONG).show();
     }
 
-    private void setAutomaticBackup(SwitchCompat backupSwitch, boolean bool) {
-        backupSwitch.setChecked(bool);
+    private void setAutomaticBackup(final boolean bool) {
+
+        final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
+
+        if (bool) {
+        ContactsPreferenceActivity.startContactBackupJob(contactsPreferenceActivity.getAccount());
+        } else {
+            ContactsPreferenceActivity.cancelContactBackupJob(contactsPreferenceActivity);
+        }
+
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, bool);
         editor.apply();
