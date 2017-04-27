@@ -353,7 +353,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().removeItem(R.id.nav_contacts);
         }
 
-        if (!getResources().getBoolean(R.bool.logout)) {
+        if (!getResources().getBoolean(R.bool.show_drawer_logout)) {
             navigationView.getMenu().removeItem(R.id.nav_logout);
         }
 
