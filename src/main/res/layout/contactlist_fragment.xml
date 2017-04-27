@@ -31,12 +31,26 @@
         android:layout_weight="1"
         android:choiceMode="multipleChoice"/>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/contactlist_restore_selected"
+    <LinearLayout
+        android:id="@+id/contactlist_restore_selected_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/contaclist_restore_selected"
-        android:theme="@style/Button.Primary"
-        android:visibility="gone"/>
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@drawable/uploader_list_separator"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/contactlist_restore_selected"
+            style="@style/Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contaclist_restore_selected"/>
+
+    </LinearLayout>
 
 </LinearLayout>
