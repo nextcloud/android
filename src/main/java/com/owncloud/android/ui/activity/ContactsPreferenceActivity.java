@@ -25,11 +25,9 @@ import android.accounts.Account;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 
 import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
@@ -38,8 +36,9 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.ContactsBackupJob;
-import com.owncloud.android.ui.fragment.contactsbackup.ContactsBackupFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.contactsbackup.ContactsBackupFragment;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.util.Set;
 
@@ -78,7 +77,6 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
             DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
         }
     }
-
 
     public static void startContactBackupJob(Account account) {
         Log_OC.d(TAG, "start daily contacts backup job");
