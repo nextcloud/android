@@ -48,6 +48,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
@@ -93,6 +94,9 @@ public class ContactListFragment extends FileFragment {
 
     @BindView(R.id.contactlist_recyclerview)
     public RecyclerView recyclerView;
+
+    @BindView(R.id.contactlist_restore_selected_container)
+    public LinearLayout restoreContactsContainer;
 
     @BindView(R.id.contactlist_restore_selected)
     public Button restoreContacts;
@@ -191,11 +195,9 @@ public class ContactListFragment extends FileFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(VCardToggleEvent event) {
         if (event.showRestoreButton) {
-            restoreContacts.setVisibility(View.VISIBLE);
-            restoreContacts.setBackgroundColor(getResources().getColor(R.color.primary_button_background_color));
+            restoreContactsContainer.setVisibility(View.VISIBLE);
         } else {
-            restoreContacts.setVisibility(View.GONE);
-            restoreContacts.setBackgroundColor(getResources().getColor(R.color.standard_grey));
+            restoreContactsContainer.setVisibility(View.GONE);
         }
     }
 
