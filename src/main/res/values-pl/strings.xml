@@ -13,13 +13,28 @@
     <string name="actionbar_send_file">Wyślij</string>
     <string name="actionbar_sort">Sortuj</string>
     <string name="actionbar_sort_title">Sortuj według</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Nowsze - Starsze</string>
-    <string name="menu_item_sort_by_size">Największe - Najmniejsze</string>
+    <string name="sort_by">Sortuj po</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Najnowsze najpierw</string>
+    <string name="menu_item_sort_by_date_oldest_first">Najstarsze najpier</string>
+    <string name="menu_item_sort_by_size_biggest_first">Największe najpierw</string>
+    <string name="menu_item_sort_by_size_smallest_first">Najmniejsze najpierw</string>
+
     <string name="drawer_item_all_files">Wszystkie pliki</string>
+    <string name="drawer_item_files">Pliki</string>
+    <string name="drawer_item_home">Start</string>
+    <string name="drawer_item_favorites">Ulubione</string>
+    <string name="drawer_item_photos">Zdjęcia</string>
     <string name="drawer_item_on_device">Na urządzeniu</string>
+    <string name="drawer_item_recently_added">Ostatnio dodane</string>
+    <string name="drawer_item_recently_modified">Ostatnio modyfikowane</string>
+    <string name="drawer_item_shared">Współdzielone</string>
+    <string name="drawer_item_videos">Wideo</string>
     <string name="drawer_item_settings">Ustawienia</string>
     <string name="drawer_item_uploads_list">Wysłane</string>
+    <string name="drawer_item_activities">Aktywności</string>
+    <string name="drawer_item_notifications">Powiadomienia</string>
     <string name="drawer_quota">Użyto %1$s z %2$s</string>
 	<string name="drawer_close">Zamknij</string>
     <string name="drawer_open">Otwórz</string>
@@ -80,13 +95,31 @@
     <string name="file_list_seconds_ago">sekund temu</string>
     <string name="file_list_empty_headline">Nie ma tu plików</string>
     <string name="file_list_empty">Wyślij pliki lub zsynchronizuj z twoimi urządzeniami!</string>
+    <string name="file_list_empty_favorites">Oznacz pliki jako ulubione lub synchrozniuj ze swoimi urządzeniami!</string>
+    <string name="file_list_empty_favorites_filter_list">Pliki i foldery oznaczone jako ulubione pokażą się tutaj</string>
+    <string name="file_list_empty_favorites_filter">Nie znaleziono ulbionych plików dla twojego zapytania!</string>
     <string name="file_list_loading">Wczytywanie&#8230;</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików!</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym folderze</string>
+    <string name="file_list_empty_headline_server_search">Brak wyników</string>
+    <string name="file_list_empty_shared_headline">Nic nie jest jeszcze współdzielone</string>
+    <string name="file_list_empty_shared">Pliki i foldery, które współdzielisz pokażą się tutaj</string>
+    <string name="file_list_empty_headline_server_search_videos">Brak plików wideo</string>
+    <string name="file_list_empty_headline_server_search_photos">Brak zdjęć</string>
     <string name="file_list_empty_search">Spróbować szukać w innym folderze?</string>
+    <string name="file_list_empty_recently_modified">Nie znaleziono plików zmodyfikowanych w ostatnich 7 dniach</string>
+    <string name="file_list_empty_recently_modified_filter">Żadne pliki z twojego zapytania, które zostały zmodyfikowane
+        w ostatnich 7 dniach nie zostały znalezione!</string>
+    <string name="file_list_empty_recently_added">Nie znaleziono żadnych ostatnio dodanych plików</string>
+    <string name="file_list_empty_recently_added_filter">Nie znaleziono żadnych ostatnio dodanych plików dla twojego zapytania!</string>
+    <string name="file_list_empty_text_photos">Wyślij zdjęcia lub aktywuj automatyczne wysyłanie!</string>
+    <string name="file_list_empty_text_photos_filter">Żadnych zdjęć nie znaleziono dla twojego zapytania!</string>
+    <string name="file_list_empty_text_videos">Wyślij wideo lub aktywuj automatycznze wysyłanie!</string>
+    <string name="file_list_empty_text_videos_filter">Żadnych plików wideo nie znaleziono dla twojego zapytania!</string>
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
     <string name="upload_list_empty_text">Wyślij jakieś dane lub włącz wysyłanie natychmiastowe!</string>
+    <string name="upload_list_empty_text_auto_upload">Wyślij jakąś zawartość lub aktywuj automatyczne wysyłanie!</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">foldery</string>
     <string name="file_list_file">plik</string>
@@ -242,6 +275,8 @@
     
     <string name="favorite">Udostępnij w trybie offline</string>
     <string name="unfavorite">Wyłącz udostępnianie w trybie offline</string>
+    <string name="favorite_real">Ustaw jako ulubione</string>
+    <string name="unset_favorite_real">Usuń ustawienie jako ulubione</string>
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_remove">Usuń</string>
     <string name="confirmation_remove_file_alert">Czy naprawdę chcesz usunąć %1$s?</string>
@@ -314,9 +349,10 @@
     <string name="conflict_keep_both">Zatrzymaj oba</string>
     <string name="conflict_use_local_version">wersja lokalna</string>
     <string name="conflict_use_server_version">wersja zdalna</string>
-    
+
+    <string name="preview_sorry">Przykro mi z tego powodu!</string>
     <string name="preview_image_description">Podgląd</string>
-    <string name="preview_image_error_unknown_format">Ten obrazek nie może zostać wyświetlony</string>
+    <string name="preview_image_error_unknown_format">Obraz nie może być pokazany</string>
 
     <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
     <string name="prefs_instant_upload_path_title">Wysyłka obrazów do folderu</string>
@@ -509,8 +545,7 @@
     <string name="participate_testing_bug_text">Znaleziono błąd? Jest coś dziwnego?</string>
     <string name="participate_testing_report_text">Zgłoś błąd na GitHubie</string>
     <string name="participate_testing_version_text">Chcesz pomóc nam testować następną wersję?</string>
-    <string name="participate_beta_headline">Testuj wersję Beta</string>
-    <string name="participate_beta_text">To obejmuje wszystkie nadchodzące funkcjonalności, które są \"bleeding-edge\". Mogą występować błędy i jeśli wystąpią proszę zgłosić je do nas. &lt;br/>&lt;a href=\"%2$s\">Ściągnij APK&lt;/a> or</string>
+    <string name="participate_beta_text">Zawiera to w sobie wszystkie nadchodzące funkcjonalności i jest bardzo ryzykowne. Mogą się pojawiać błędy. Jeśli będą proszę je do nas zgłosić.</string>
     <string name="participate_release_candidate_headline">Wydanie kandydujące</string>
     <string name="participate_release_candidate_text">Release Candidate (RC) jest zarysem nadchodzącego wydania i oczekujemy że będzie stabilne. Testowanie indywidualnej konfiguracji może pomóc, aby to zapewnić. Zapisz się do testowania w sklepie Play lub ręcznie szukaj w sekcji \"wersje\" na F-Droid.</string>
     <string name="participate_contribute_headline">Aktywni członkowie projektu</string>
@@ -533,6 +568,14 @@
         <item quantity="many">%d zaznaczonych</item>
         <item quantity="other">%d zaznaczonych</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">Ładuję aktywności&#8230;</string>
+    <string name="activity_list_no_results">Nie znaleziono żadnych aktywności.</string>
+
+    <string name="notifications_loading_activity">Ładuję powiadomienia&#8230;</string>
+    <string name="notifications_no_results_headline">Brak powiadomień</string>
+    <string name="notifications_no_results_message">Proszę sprawdź później</string>
+
     <string name="upload_file_dialog_title">Wprowadź nazwę i typ wysyłanego pliku</string>
     <string name="upload_file_dialog_filename">Nazwa pliku</string>
     <string name="upload_file_dialog_filetype">Typ pliku</string>
@@ -558,4 +601,22 @@
     <string name="welcome_feature_3_text">Twoje zdjęcia będą bezpieczne</string>
 
     <string name="whats_new_skip">Pominąć</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Pełna nazwa</string>
+    <string name="user_info_email">E-mail</string>
+    <string name="user_info_phone">Numer telefonu</string>
+    <string name="user_info_address">Adres</string>
+    <string name="user_info_website">Strona WWW</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Informacje użytkownika</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Brak aktywności</string>
+    <string name="activities_no_results_message">Ten strumień pokaże zdarzenia jak\ndodatki, zmiany &amp; udziały</string>
+    <!-- Notifications -->
+    <string name="new_notification_received">Otrzymano nowe powiadomienie</string>
+
+
 </resources>

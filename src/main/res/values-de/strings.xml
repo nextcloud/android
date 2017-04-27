@@ -13,13 +13,28 @@
     <string name="actionbar_send_file">Senden</string>
     <string name="actionbar_sort">Sortieren</string>
     <string name="actionbar_sort_title">Sortieren nach</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Neueste - Älteste</string>
-    <string name="menu_item_sort_by_size">Größte - Kleinste</string>
+    <string name="sort_by">Sortieren nach</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Neueste zuerst</string>
+    <string name="menu_item_sort_by_date_oldest_first">Älteste zuerst</string>
+    <string name="menu_item_sort_by_size_biggest_first">Größte zuerst</string>
+    <string name="menu_item_sort_by_size_smallest_first">Kleinste zuerst</string>
+
     <string name="drawer_item_all_files">Alle Dateien</string>
+    <string name="drawer_item_files">Dateien</string>
+    <string name="drawer_item_home">Home</string>
+    <string name="drawer_item_favorites">Favoriten</string>
+    <string name="drawer_item_photos">Fotos</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
+    <string name="drawer_item_recently_added">Kürzlich hinzugefügt</string>
+    <string name="drawer_item_recently_modified">Kürzlich geändert</string>
+    <string name="drawer_item_shared">Geteilt</string>
+    <string name="drawer_item_videos">Videos</string>
     <string name="drawer_item_settings">Einstellungen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
+    <string name="drawer_item_activities">Aktivitäten</string>
+    <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
 	<string name="drawer_close">Schließen</string>
     <string name="drawer_open">Öffnen</string>
@@ -28,6 +43,8 @@
     <string name="prefs_accounts">Konten</string>
     <string name="prefs_manage_accounts">Konten verwalten</string>
     <string name="prefs_passcode">PIN gesperrt</string>
+    <string name="prefs_fingerprint">Fingerabdruck-Sperre</string>
+    <string name="prefs_fingerprint_notsetup">Keine Fingerabdrücke eingerichtet.</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_instant_upload">Sofortiger Bilder-Upload</string>
     <string name="prefs_instant_upload_summary">Lade Fotos von der Kamera sofort hoch</string>
@@ -80,13 +97,32 @@
     <string name="file_list_seconds_ago">Gerade eben</string>
     <string name="file_list_empty_headline">Keine Dateien vorhanden</string>
     <string name="file_list_empty">Lade Inhalt hoch oder synchronisiere mit Deinen Geräten!</string>
+    <string name="file_list_empty_favorites">Favorisiere einige Dateien oder synchronisiere deine Geräte!</string>
+    <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier</string>
+    <string name="file_list_empty_favorites_filter">Keine favorisierten Dateien in deinem Verlauf gefunden!</string>
     <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
+    <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
+    <string name="file_list_empty_favorite_headline">Noch keine Favoriten vorhanden</string>
+    <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
+    <string name="file_list_empty_shared">Von dir geteilte Dateien und Ordner werden hier erscheinen</string>
+    <string name="file_list_empty_headline_server_search_videos">Keine Videos</string>
+    <string name="file_list_empty_headline_server_search_photos">Keine Fotos</string>
     <string name="file_list_empty_search">Soll in einem anderen Ordner nachgesehen werden?</string>
+    <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
+    <string name="file_list_empty_recently_modified_filter">Keine Dateien in deinem Verlauf gefunden,
+        die in den letzten 7 Tagen geändert wurden!</string>
+    <string name="file_list_empty_recently_added">Keine kürzlich hinzu gefügten Dateien gefunden</string>
+    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzu gefügten Dateien in deinem Verlauf gefunden!</string>
+    <string name="file_list_empty_text_photos">Lade Fotos hoch oder aktiviere den Sofortupload!</string>
+    <string name="file_list_empty_text_photos_filter">Keine Fotos in deinem Verlauf gefunden!</string>
+    <string name="file_list_empty_text_videos">Lade einige Videos hoch oder aktiviere den Sofortupload!</string>
+    <string name="file_list_empty_text_videos_filter">Keine Videos in deinem Verlauf gefunden!</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text">Lade Inhalt hoch oder aktiviere den Sofortupload!</string>
+    <string name="upload_list_empty_text_auto_upload">Lade Inhalt hoch oder aktiviere den Sofortupload!</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_folders">Ordner</string>
     <string name="file_list_file">Datei</string>
@@ -242,6 +278,8 @@
     
     <string name="favorite">Als Offline verfügbar markieren</string>
     <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
+    <string name="favorite_real">Als Favorit markieren</string>
+    <string name="unset_favorite_real">Markierung als Favorit entfernen</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_remove">Entfernen</string>
     <string name="confirmation_remove_file_alert">Möchtest Du %1$s wirklich entfernen?</string>
@@ -314,9 +352,10 @@
     <string name="conflict_keep_both">Beide behalten</string>
     <string name="conflict_use_local_version">Lokale Version</string>
     <string name="conflict_use_server_version">Serverversion</string>
-    
+
+    <string name="preview_sorry">Das tut mir leid!</string>
     <string name="preview_image_description">Bildvorschau</string>
-    <string name="preview_image_error_unknown_format">Dieses Bild kann nicht angezeigt werden</string>
+    <string name="preview_image_error_unknown_format">Bild kann nicht angezeigt werden</string>
 
     <string name="error__upload__local_file_not_copied">%1$s konnte nicht in den lokalen %2$s Ordner kopiert werden</string>
     <string name="prefs_instant_upload_path_title">Sofort-Upload-Ordner</string>
@@ -509,8 +548,8 @@
     <string name="participate_testing_bug_text">Fehler gefunden? Komisches Verhalten?</string>
     <string name="participate_testing_report_text">Fehler melden auf Github</string>
     <string name="participate_testing_version_text">Interessiert uns beim Test der nächsten Version zu unterstützen?</string>
-    <string name="participate_beta_headline">Teste die Beta Version</string>
-    <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melde uns diese bitte. &lt;br/>&lt;a href=\"%2$s\">APK herunterladen&lt;/a> oder</string>
+    <string name="participate_beta_headline">Teste die Entwicklerversion</string>
+    <string name="participate_beta_text">Dies beinhaltet neue Funktionalitäten und ist nicht vollumfänglich qualitätsgesichert. Es können daher Fehler/Bugs auftreten, melde uns diese bitte.</string>
     <string name="participate_release_candidate_headline">Vorabversion</string>
     <string name="participate_release_candidate_text">Eine Vorabversion, auch Release Candidate (RC) genannt, ist ein stabiler Stand der kommenden, finalen Version. Ein Test in der eigenen Umgebung hilft uns diese Stabilität sicherzustellen. Melden Sie sich als Tester im Play Store an oder suchen und installieren Sie die passende Version bei F-Droid unter „Versionen“.</string>
     <string name="participate_contribute_headline">Aktiv etwas beitragen</string>
@@ -531,6 +570,14 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">Lade Aktivitäten&#8230;</string>
+    <string name="activity_list_no_results">Keine Aktivitäten gefunden.</string>
+
+    <string name="notifications_loading_activity">Lade Benachrichtigungen&#8230;</string>
+    <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
+    <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
+
     <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
     <string name="upload_file_dialog_filename">Dateiname</string>
     <string name="upload_file_dialog_filetype">Dateityp</string>
@@ -556,4 +603,47 @@
     <string name="welcome_feature_3_text">Schütze deine Fotos</string>
 
     <string name="whats_new_skip">Überspringen</string>
+
+    <string name="fingerprint_scan_finger">Bitte scanne Deinen Finger</string>
+    <string name="fingerprint_unknown">Finger nicht erkannt</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Vollständiger Name</string>
+    <string name="user_info_email">E-Mail</string>
+    <string name="user_info_phone">Telefonnummer</string>
+    <string name="user_info_address">Adresse</string>
+    <string name="user_info_website">Webseite</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Benutzerinformation</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Bislang keine Aktivitäten</string>
+    <string name="activities_no_results_message">Dieser Stream zeigt Ereignisse wie\nHinzugekommenes, Änderungen &amp; und Freigaben an</string>
+    <string name="webview_error">Fehler aufgetreten</string>
+    <string name="prefs_category_about">Über</string>
+
+    <string name="actionbar_contacts">Adressen-Sicherung</string>
+    <string name="contacts_backup_button">Sicherung jetzt erstellen</string>
+    <string name="contacts_restore_button">Letztes Backup wiederherstellen</string>
+    <string name="contacts_header_restore">Wiederherstellen</string>
+    <string name="contacts_header_backup">Sicherung</string>
+    <string name="contacts_automatic_backup">Adressen-Sicherung</string>
+    <string name="contacts_last_backup">Letzte Sicherung</string>
+    <string name="contacts_read_permission">Lese-Zugriffs-Erlaubnis für Adressen ist erforderlich</string>
+    <string name="contacts_write_permission">Schreib-Erlaubnis für Adressen ist erforderlich</string>
+    <string name="contactlist_title">Adressen wiederherstellen</string>
+    <string name="contaclist_restore_selected">Ausgewählte Adressen wiederherstellen</string>
+    <string name="contactlist_account_chooser_title">Konto für den Import auswählen</string>
+    <string name="contactlist_no_permission">Keine Berechtigung, es wurde nichts importiert!</string>
+    <string name="contacts_preference_choose_date">Datum auswählen</string>
+    <string name="contacts_preference_backup_never">nie</string>
+    <string name="contacts_preferences_no_file_found">Keine Datei gefunden</string>
+    <string name="contacts_preferences_backup_scheduled">Sicherung geplant und wird in Kürze starten</string>
+    <string name="contacts_preferences_import_scheduled">Import geplant und wird in Kürze starten</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">Neue Benachrichtigung erhalten</string>
+
+
 </resources>

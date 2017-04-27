@@ -13,13 +13,28 @@
     <string name="actionbar_send_file">Gönder</string>
     <string name="actionbar_sort">Sırala</string>
     <string name="actionbar_sort_title">Şuna göre sırala</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Yeniden Eskiye</string>
-    <string name="menu_item_sort_by_size">Büyükten Küçüğe</string>
+    <string name="sort_by">Sıralama</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Yeniden - Eskiye</string>
+    <string name="menu_item_sort_by_date_oldest_first">Eskiden Yeniye</string>
+    <string name="menu_item_sort_by_size_biggest_first">Büyükten Küçüğe</string>
+    <string name="menu_item_sort_by_size_smallest_first">Küçükten Büyüğe</string>
+
     <string name="drawer_item_all_files">Tüm dosyalar</string>
+    <string name="drawer_item_files">Dosyalar</string>
+    <string name="drawer_item_home">Giriş</string>
+    <string name="drawer_item_favorites">Sık Kullanılanlar</string>
+    <string name="drawer_item_photos">Fotoğraflar</string>
     <string name="drawer_item_on_device">Aygıt üzerinde</string>
+    <string name="drawer_item_recently_added">Son Eklenenler</string>
+    <string name="drawer_item_recently_modified">Son Değiştirilenler</string>
+    <string name="drawer_item_shared">Paylaşıldı</string>
+    <string name="drawer_item_videos">Görüntüler</string>
     <string name="drawer_item_settings">Ayarlar</string>
     <string name="drawer_item_uploads_list">Yüklemeler</string>
+    <string name="drawer_item_activities">İşlemler</string>
+    <string name="drawer_item_notifications">Bildirimler</string>
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
 	<string name="drawer_close">Kapat</string>
     <string name="drawer_open">Aç</string>
@@ -28,6 +43,8 @@
     <string name="prefs_accounts">Hesaplar</string>
     <string name="prefs_manage_accounts">Hesap yönetimi</string>
     <string name="prefs_passcode">Parola kod kilidi</string>
+    <string name="prefs_fingerprint">Parmak izi kilidi</string>
+    <string name="prefs_fingerprint_notsetup">Henüz bir parmak izi ayarlanmamış.</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_instant_upload">Fotoğraflar anında yüklensin</string>
     <string name="prefs_instant_upload_summary">Kamera ile çekilen fotoğraflar anında yüklensin</string>
@@ -41,7 +58,7 @@
     <string name="prefs_calendar_contacts">Takvim ve kişiler eşitlensin</string>
     <string name="prefs_calendar_contacts_summary">Geçerli hesap için DAVdroid (v1.3.0+) kurulumu</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Hesabın sunucu adresi DAVdroid tarafından çözümlenemedi</string>
-    <string name="prefs_calendar_contacts_no_store_error">Google Play mağazası yok ya da F-Droid uygulaması yüklenmemiş</string>
+    <string name="prefs_calendar_contacts_no_store_error">Google Play mağazası yok ya da F-Droid uygulaması kurulmamış</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">Takvim ve kişi eşitlemesi ayarlandı</string>
     <string name="prefs_help">Yardım</string>
     <string name="prefs_recommend">Arkadaşınıza önerin</string>
@@ -80,13 +97,30 @@
     <string name="file_list_seconds_ago">saniye önce</string>
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
     <string name="file_list_empty">Bazı içerikler yükleyin ya da aygıtlarınızla eşitleyin!</string>
+    <string name="file_list_empty_favorites">Bazı dosyaları sık kullanılanlara ekleyin ya da aygıtlarınızla paylaşın!</string>
+    <string name="file_list_empty_favorites_filter_list">Sık kullanılanlara eklediğiniz dosya ve klasörler burada görüntülenir</string>
+    <string name="file_list_empty_favorites_filter">Arama sonucunda sık kullanılan bir dosya bulunamadı!</string>
     <string name="file_list_loading">Yükleniyor&#8230;</string>
     <string name="file_list_no_app_for_file_type">Bu dosya türü için uygulama bulunamadı!</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
     <string name="file_list_empty_headline_search">Bu klasörde herhangi bir sonuç yok</string>
+    <string name="file_list_empty_headline_server_search">Herhangi bir sonuç bulunamadı</string>
+    <string name="file_list_empty_shared_headline">Henüz hiçbir şey paylaşılmamış</string>
+    <string name="file_list_empty_shared">Paylaştığınız dosya ve klasörler burada görüntülenir</string>
+    <string name="file_list_empty_headline_server_search_videos">Herhangi bir görüntü bulunamadı</string>
+    <string name="file_list_empty_headline_server_search_photos">Herhangi bir fotoğraf bulunamadı</string>
     <string name="file_list_empty_search">Başka bir klasöre bakılmasını ister misiniz?</string>
+    <string name="file_list_empty_recently_modified">Son 7 gün içinde değiştirilmiş herhangi bir dosya bulunamadı</string>
+    <string name="file_list_empty_recently_modified_filter">Son 7 gün içinde değiştirilmiş herhangi bir dosya bulunamadı!</string>
+    <string name="file_list_empty_recently_added">Geçenlerde eklenmiş herhangi bir dosya bulunamadı</string>
+    <string name="file_list_empty_recently_added_filter">Arama sonucunda geçenlerde eklenmiş bir dosya bulunamadı!</string>
+    <string name="file_list_empty_text_photos">Bazı fotoğraflar yükleyin ya da otomatik yüklemeyi etkinleştirin!</string>
+    <string name="file_list_empty_text_photos_filter">Arama sonucunda herhangi bir fotoğraf bulunamadı!</string>
+    <string name="file_list_empty_text_videos">Bazı görüntüler yükleyin ya da otomatik yüklemeyi etkinleştirin!</string>
+    <string name="file_list_empty_text_videos_filter">Arama sonucunda herhangi bir görüntü bulunamadı!</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
     <string name="upload_list_empty_text">Buraya bazı içerikler yükleyin ya da anında yüklemeyi etkinleştirin!</string>
+    <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin!</string>
     <string name="file_list_folder">klasör</string>
     <string name="file_list_folders">klasör</string>
     <string name="file_list_file">dosya</string>
@@ -242,6 +276,8 @@
     
     <string name="favorite">Çevrimdışı kullanılabilir olarak işaretle</string>
     <string name="unfavorite">Çevrimdışı kullanılabilir işaretini kaldır</string>
+    <string name="favorite_real">Sık Kullanılanlara Ekle</string>
+    <string name="unset_favorite_real">Sık Kullanılanlardan Çıkar</string>
     <string name="common_rename">Yeniden adlandır</string>
     <string name="common_remove">Sil</string>
     <string name="confirmation_remove_file_alert">%1$s silinsin mi?</string>
@@ -314,9 +350,10 @@
     <string name="conflict_keep_both">İkisini de sakla</string>
     <string name="conflict_use_local_version">yerel sürümü</string>
     <string name="conflict_use_server_version">sunucu sürümünü</string>
-    
+
+    <string name="preview_sorry">Bundan dolayı üzgünüz!</string>
     <string name="preview_image_description">Görsel önizleme</string>
-    <string name="preview_image_error_unknown_format">Bu görsel görüntülenemiyor</string>
+    <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
 
     <string name="error__upload__local_file_not_copied">%1$s, %2$s yerel klasörüne kopyalanamadı</string>
     <string name="prefs_instant_upload_path_title">Anında yükleme klasörü</string>
@@ -388,7 +425,7 @@
 
 	<string name="actionbar_logger">Günlükler</string>
 	<string name="log_send_history_button">Geçmişi gönder</string>
-	<string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması yükleyin.</string>
+	<string name="log_send_no_mail_app">Günlüklerin gönderilebileceği bir uygulama bulunamadı. Lütfen bir e-posta uygulaması kurun.</string>
 	<string name="log_send_mail_subject">%1$s Android uygulaması günlükleri</string>
 	<string name="log_progress_dialog_text">Veri yükleniyor&#8230;</string>
 
@@ -509,8 +546,8 @@
     <string name="participate_testing_bug_text">Bir hata mı buldunuz? Bir gariplik mi var?</string>
     <string name="participate_testing_report_text">Github üzerinden bir sorun bildirin</string>
     <string name="participate_testing_version_text">Gelecek sürümler için bize yardımcı olmak ister misiniz?</string>
-    <string name="participate_beta_headline">Beta sürümünü deneyin</string>
-    <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan hata ve sorunlar olabilir. Bir hata ya da soruna rastlarsanız bize iletin. <br/>&lt;a href =\"%2$s\">APK dosyasını indirin&lt;/a> ya da</string>
+    <string name="participate_beta_headline">Geliştirici sürümünü deneyin</string>
+    <string name="participate_beta_text">Bu sürümde tüm yeni özellikler bulunur ve çok taze olduğundan hata ve sorunlar olabilir. Bir hata ya da soruna rastlarsanız bize iletin.</string>
     <string name="participate_release_candidate_headline">Yayın adayı</string>
     <string name="participate_release_candidate_text">Yayın adayı (Release Candidate, RC) yayınlanacak sürümün bir kopyasıdır ve kararlı olması beklenir. Kişisel olarak kullanmanız kararlı olduğundan emin olmamızı sağlar. Denemek için Play Store üzerinden kayıt olun ya da el ile F-Droid üzerindeki \"sürümlere\" bakın.</string>
     <string name="participate_contribute_headline">Etkin Katkıda Bulunun</string>
@@ -531,6 +568,14 @@
         <item quantity="one">%d seçili</item>
         <item quantity="other">%d seçili</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">İşlemler yükleniyor&#8230;</string>
+    <string name="activity_list_no_results">Herhangi bir işlem bulunamadı.</string>
+
+    <string name="notifications_loading_activity">Bildirimler yükleniyor&#8230;</string>
+    <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
+    <string name="notifications_no_results_message">Daha sonra yeniden bakın.</string>
+
     <string name="upload_file_dialog_title">Yüklenecek dosya adını ve dosya türünü belirtin</string>
     <string name="upload_file_dialog_filename">Dosya adı</string>
     <string name="upload_file_dialog_filetype">Dosya türü</string>
@@ -556,4 +601,47 @@
     <string name="welcome_feature_3_text">Fotoğraflarınızı koruyun</string>
 
     <string name="whats_new_skip">Atla</string>
+
+    <string name="fingerprint_scan_finger">Lütfen parmağınızı tarayın</string>
+    <string name="fingerprint_unknown">Parmak tanınamadı</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Tam ad</string>
+    <string name="user_info_email">E-posta</string>
+    <string name="user_info_phone">Telefon numarası</string>
+    <string name="user_info_address">Adres</string>
+    <string name="user_info_website">Web sitesi</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Kullanıcı bilgileri</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Henüz bir işlem yapılmamış</string>
+    <string name="activities_no_results_message">Bu akışta ekleme, değiştirme\nve paylaşım gibi işlemler görüntülenir</string>
+    <string name="webview_error">Sorun çıktı</string>
+    <string name="prefs_category_about">Hakkında</string>
+
+    <string name="actionbar_contacts">Kişileri Yedekle</string>
+    <string name="contacts_backup_button">Şimdi yedekle</string>
+    <string name="contacts_restore_button">Son Yedeği Geri Yükle</string>
+    <string name="contacts_header_restore">Geri Yükle</string>
+    <string name="contacts_header_backup">Yedekle</string>
+    <string name="contacts_automatic_backup">Kişileri Yedekle</string>
+    <string name="contacts_last_backup">Son Yedek</string>
+    <string name="contacts_read_permission">Kişileri okuma izni gerekiyor</string>
+    <string name="contacts_write_permission">Kişilere yazma izni gerekiyor</string>
+    <string name="contactlist_title">Kişileri geri yükle</string>
+    <string name="contaclist_restore_selected">Seçilmiş kişileri geri yükle</string>
+    <string name="contactlist_account_chooser_title">Alınacak hesabı seçin</string>
+    <string name="contactlist_no_permission">İzin verilmemiş olduğundan hiçbir şey alınamadı!</string>
+    <string name="contacts_preference_choose_date">Tarih seçin</string>
+    <string name="contacts_preference_backup_never">asla</string>
+    <string name="contacts_preferences_no_file_found">Herhangi bir dosya bulunamadı</string>
+    <string name="contacts_preferences_backup_scheduled">Yedekleme zamanlandı ve kısa süre sonra başlatılacak</string>
+    <string name="contacts_preferences_import_scheduled">Alma işlemi zamanlandı ve kısa süre sonra başlatılacak</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">Yeni bir bildirim var</string>
+
+
 </resources>

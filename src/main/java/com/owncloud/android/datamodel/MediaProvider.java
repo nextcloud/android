@@ -86,8 +86,7 @@ public class MediaProvider {
                         filePath = cursorImages.getString(cursorImages.getColumnIndexOrThrow(
                                 MediaStore.MediaColumns.DATA));
                         mediaFolder.filePaths.add(filePath);
-                        mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf(folderName)
-                                + folderName.length());
+                        mediaFolder.absolutePath = filePath.substring(0, filePath.lastIndexOf("/"));
                     }
                     cursorImages.close();
 

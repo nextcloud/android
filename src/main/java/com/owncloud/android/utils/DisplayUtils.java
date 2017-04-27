@@ -28,13 +28,18 @@ import android.accounts.Account;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.PictureDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -42,10 +47,20 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.format.DateUtils;
 import android.text.style.StyleSpan;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 
+import com.bumptech.glide.GenericRequestBuilder;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.model.StreamEncoder;
+import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.caverock.androidsvg.SVG;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -53,9 +68,20 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.SearchOperation;
 import com.owncloud.android.ui.TextDrawable;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
+import com.owncloud.android.ui.events.MenuItemClickEvent;
+import com.owncloud.android.ui.events.SearchEvent;
+import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.utils.svg.SvgDecoder;
+import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 
+import org.greenrobot.eventbus.EventBus;
+import org.parceler.Parcels;
+
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
@@ -76,6 +102,10 @@ public class DisplayUtils {
     private static final int RELATIVE_THRESHOLD_WARNING = 90;
     private static final int RELATIVE_THRESHOLD_CRITICAL = 95;
     private static final String MIME_TYPE_UNKNOWN = "Unknown type";
+
+    private static final String HTTP_PROTOCOLL = "http://";
+    private static final String HTTPS_PROTOCOLL = "https://";
+    private static final String TWITTER_HANDLE_PREFIX = "@";
 
     private static Map<String, String> mimeType2HumanReadable;
 
@@ -148,6 +178,46 @@ public class DisplayUtils {
         Date date = new Date(milliseconds);
         DateFormat df = DateFormat.getDateTimeInstance();
         return df.format(date);
+    }
+
+    /**
+     * beautifies a given URL by removing any http/https protocol prefix.
+     *
+     * @param url to be beautified url
+     * @return beautified url
+     */
+    public static String beautifyURL(String url) {
+        if (url == null) {
+            return "";
+        }
+
+        if (url.length() >= 7 && url.substring(0, 7).equalsIgnoreCase(HTTP_PROTOCOLL)) {
+            return url.substring(HTTP_PROTOCOLL.length());
+        }
+
+        if (url.length() >= 8 && url.substring(0, 8).equalsIgnoreCase(HTTPS_PROTOCOLL)) {
+            return url.substring(HTTPS_PROTOCOLL.length());
+        }
+
+        return url;
+    }
+
+    /**
+     * beautifies a given twitter handle by prefixing it with an @ in case it is missing.
+     *
+     * @param handle to be beautified twitter handle
+     * @return beautified twitter handle
+     */
+    public static String beautifyTwitterHandle(String handle) {
+        if (handle == null) {
+            return "";
+        }
+
+        if (handle.startsWith(TWITTER_HANDLE_PREFIX)) {
+            return handle;
+        } else {
+            return TWITTER_HANDLE_PREFIX + handle;
+        }
     }
     
     /**
@@ -322,6 +392,17 @@ public class DisplayUtils {
     }
 
     /**
+     * sets the tinting of the given ImageButton's icon to color_accent.
+     *
+     * @param imageButton the image button who's icon should be colored
+     */
+    public static void colorImageButton(ImageButton imageButton, @ColorInt int color) {
+        if (imageButton != null) {
+            imageButton.setColorFilter(color, PorterDuff.Mode.SRC_ATOP);
+        }
+    }
+
+    /**
      * sets the coloring of the given progress bar to color_accent.
      *
      * @param progressBar the progress bar to be colored
@@ -449,6 +530,120 @@ public class DisplayUtils {
                     task.execute(account.name);
                 }
             }
+        }
+    }
+
+    public static void downloadIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
+                                    int width, int height) {
+        if (iconUrl.endsWith(".svg")) {
+            downloadSVGIcon(context, iconUrl, imageView, placeholder, width, height);
+        } else {
+            downloadPNGIcon(context, iconUrl, imageView, placeholder);
+        }
+    }
+
+    private static void downloadPNGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder) {
+        Glide
+                .with(context)
+                .load(iconUrl)
+                .centerCrop()
+                .placeholder(placeholder)
+                .error(placeholder)
+                .crossFade()
+                .into(imageView);
+    }
+
+    private static void downloadSVGIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
+                                        int width, int height) {
+        GenericRequestBuilder<Uri, InputStream, SVG, PictureDrawable> requestBuilder = Glide.with(context)
+                .using(Glide.buildStreamModelLoader(Uri.class, context), InputStream.class)
+                .from(Uri.class)
+                .as(SVG.class)
+                .transcode(new SvgDrawableTranscoder(), PictureDrawable.class)
+                .sourceEncoder(new StreamEncoder())
+                .cacheDecoder(new FileToStreamDecoder<>(new SvgDecoder(height, width)))
+                .decoder(new SvgDecoder(height, width))
+                .placeholder(placeholder)
+                .error(placeholder)
+                .animate(android.R.anim.fade_in);
+
+
+        Uri uri = Uri.parse(iconUrl);
+        requestBuilder
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .load(uri)
+                .into(imageView);
+    }
+
+    public static void setupBottomBar(BottomNavigationView view, Resources resources, final Activity activity,
+                                      int checkedMenuItem) {
+
+        Menu menu = view.getMenu();
+
+        if (resources.getBoolean(R.bool.use_home)) {
+            menu.findItem(R.id.nav_bar_files).setTitle(resources.
+                    getString(R.string.drawer_item_home));
+            menu.findItem(R.id.nav_bar_files).setIcon(R.drawable.ic_home);
+        }
+
+        setBottomBarItem(view, checkedMenuItem);
+
+        view.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.nav_bar_files:
+                                EventBus.getDefault().post(new MenuItemClickEvent(item));
+                                if (activity != null) {
+                                    activity.invalidateOptionsMenu();
+                                }
+                                break;
+                            case R.id.nav_bar_favorites:
+                                SearchEvent favoritesEvent = new SearchEvent("",
+                                        SearchOperation.SearchType.FAVORITE_SEARCH,
+                                        SearchEvent.UnsetType.UNSET_DRAWER);
+
+                                switchToSearchFragment(activity, favoritesEvent);
+                                break;
+                            case R.id.nav_bar_photos:
+                                SearchEvent photosEvent = new SearchEvent("image/%",
+                                        SearchOperation.SearchType.CONTENT_TYPE_SEARCH,
+                                        SearchEvent.UnsetType.UNSET_DRAWER);
+
+                                switchToSearchFragment(activity, photosEvent);
+                                break;
+                            case R.id.nav_bar_settings:
+                                EventBus.getDefault().post(new MenuItemClickEvent(item));
+                                break;
+                            default:
+                                break;
+                        }
+                        return true;
+                    }
+                });
+    }
+
+    public static void setBottomBarItem(BottomNavigationView view, int checkedMenuItem) {
+        Menu menu = view.getMenu();
+
+        for (int i = 0; i < menu.size(); i++) {
+            menu.getItem(i).setChecked(false);
+        }
+
+        if (checkedMenuItem != -1) {
+            menu.findItem(checkedMenuItem).setChecked(true);
+        }
+    }
+
+    private static void switchToSearchFragment(Activity activity, SearchEvent event) {
+        if (activity instanceof FileDisplayActivity) {
+            EventBus.getDefault().post(event);
+        } else {
+            Intent recentlyAddedIntent = new Intent(activity.getBaseContext(), FileDisplayActivity.class);
+            recentlyAddedIntent.putExtra(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(event));
+            recentlyAddedIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            activity.startActivity(recentlyAddedIntent);
         }
     }
 }

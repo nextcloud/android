@@ -74,7 +74,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private boolean mNeedsUpdating;
     private long mLastSyncDateForProperties;
     private long mLastSyncDateForData;
-    private boolean mFavorite;
+    private boolean mAvailableOffline;
 
     private String mEtag;
 
@@ -91,6 +91,8 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     private String mEtagInConflict;    // Save file etag in the server, when there is a conflict. No conflict =  null
 
     private boolean mShareWithSharee;
+
+    private boolean mIsFavorite;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call
@@ -139,7 +141,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLocalPath = source.readString();
         mMimeType = source.readString();
         mNeedsUpdating = source.readInt() == 0;
-        mFavorite = source.readInt() == 1;
+        mAvailableOffline = source.readInt() == 1;
         mLastSyncDateForProperties = source.readLong();
         mLastSyncDateForData = source.readLong();
         mEtag = source.readString();
@@ -151,7 +153,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mIsDownloading = source.readInt() == 1;
         mEtagInConflict = source.readString();
         mShareWithSharee = source.readInt() == 1;
-
+        mIsFavorite = source.readInt() == 1;
     }
 
     @Override
@@ -166,7 +168,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeString(mLocalPath);
         dest.writeString(mMimeType);
         dest.writeInt(mNeedsUpdating ? 1 : 0);
-        dest.writeInt(mFavorite ? 1 : 0);
+        dest.writeInt(mAvailableOffline ? 1 : 0);
         dest.writeLong(mLastSyncDateForProperties);
         dest.writeLong(mLastSyncDateForData);
         dest.writeString(mEtag);
@@ -178,6 +180,15 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         dest.writeInt(mIsDownloading ? 1 : 0);
         dest.writeString(mEtagInConflict);
         dest.writeInt(mShareWithSharee ? 1 : 0);
+        dest.writeInt(mIsFavorite ? 1 : 0);
+    }
+
+    public boolean getIsFavorite() {
+        return mIsFavorite;
+    }
+
+    public void setFavorite(boolean mIsFavorite) {
+        this.mIsFavorite = mIsFavorite;
     }
 
     /**
@@ -412,7 +423,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mModifiedTimestampAtLastSyncForData = 0;
         mLastSyncDateForProperties = 0;
         mLastSyncDateForData = 0;
-        mFavorite = false;
+        mAvailableOffline = false;
         mNeedsUpdating = false;
         mEtag = null;
         mShareByLink = false;
@@ -423,6 +434,7 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mIsDownloading = false;
         mEtagInConflict = null;
         mShareWithSharee = false;
+        mIsFavorite = false;
     }
 
     /**
@@ -521,12 +533,12 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
         mLastSyncDateForData = lastSyncDate;
     }
 
-    public void setFavorite(boolean favorite) {
-        mFavorite = favorite;
+    public void setAvailableOffline(boolean availableOffline) {
+        mAvailableOffline = availableOffline;
     }
 
-    public boolean isFavorite() {
-        return mFavorite;
+    public boolean isAvailableOffline() {
+        return mAvailableOffline;
     }
 
     @Override
@@ -570,10 +582,10 @@ public class OCFile implements Parcelable, Comparable<OCFile> {
     @Override
     public String toString() {
         String asString = "[id=%s, name=%s, mime=%s, downloaded=%s, local=%s, remote=%s, " +
-                "parentId=%s, favorite=%s etag=%s]";
+                "parentId=%s, availableOffline=%s etag=%s favourite=%s]";
         asString = String.format(asString, mId, getFileName(), mMimeType, isDown(),
-                mLocalPath, mRemotePath, mParentId, mFavorite,
-                mEtag);
+                mLocalPath, mRemotePath, mParentId, mAvailableOffline,
+                mEtag, mIsFavorite);
         return asString;
     }
 

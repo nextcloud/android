@@ -33,12 +33,15 @@ import android.content.ServiceConnection;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.OCFile;
@@ -52,6 +55,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.fragment.UploadListFragment;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
@@ -103,6 +107,13 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
         } // else, the Fragment Manager makes the job on configuration changes
 
         getSupportActionBar().setTitle(getString(R.string.uploads_view_title));
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
+
+        if (getResources().getBoolean(R.bool.bottom_toolbar_enabled)) {
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            DisplayUtils.setupBottomBar(bottomNavigationView, getResources(), this, -1);
+        }
     }
 
     private void createUploadListFragment(){
@@ -117,6 +128,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
 
         // Listen for upload messages
         mUploadMessagesReceiver = new UploadMessagesReceiver();
@@ -321,7 +334,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 mUploaderBinder = null;
             }
         }
-    }
+    };
 
     /**
      * Once the file upload has changed its status -> update uploads list view

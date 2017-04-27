@@ -58,9 +58,12 @@ import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ExternalLinksProvider;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
+import com.owncloud.android.lib.common.ExternalLink;
+import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -93,6 +96,7 @@ public class Preferences extends PreferenceActivity
     private Uri mUri;
 
     private CheckBoxPreference pCode;
+    private CheckBoxPreference fPrint;
     private CheckBoxPreference mShowHiddenFiles;
     private Preference pAboutApp;
     private AppCompatDelegate mDelegate;
@@ -156,6 +160,9 @@ public class Preferences extends PreferenceActivity
         // Register context menu for list of preferences.
         registerForContextMenu(getListView());
 
+        PreferenceCategory preferenceCategoryDetails = (PreferenceCategory) findPreference("details");
+
+
         pCode = (CheckBoxPreference) findPreference(PassCodeActivity.PREFERENCE_SET_PASSCODE);
         if (pCode != null) {
             pCode.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
@@ -178,6 +185,49 @@ public class Preferences extends PreferenceActivity
             });
         }
 
+        boolean fPrintEnabled = getResources().getBoolean(R.bool.fingerprint_enabled);
+        fPrint = (CheckBoxPreference) findPreference(FingerprintActivity.PREFERENCE_USE_FINGERPRINT);
+        if (fPrint != null) {
+            if(FingerprintActivity.isFingerprintCapable(MainApp.getAppContext()) && fPrintEnabled) {
+                fPrint.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                    @Override
+                    public boolean onPreferenceChange(Preference preference, Object newValue) {
+                        Boolean incoming = (Boolean) newValue;
+
+                        if(FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
+                            SharedPreferences appPrefs =
+                                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = appPrefs.edit();
+                            editor.putBoolean("use_fingerprint", incoming);
+                            editor.commit();
+                            return true;
+                        } else {
+                            if(incoming) {
+                                Toast.makeText(
+                                        MainApp.getAppContext(),
+                                        R.string.prefs_fingerprint_notsetup,
+                                        Toast.LENGTH_LONG)
+                                        .show();
+                                fPrint.setChecked(false);
+                            }
+                            SharedPreferences appPrefs =
+                                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                            SharedPreferences.Editor editor = appPrefs.edit();
+                            editor.putBoolean("use_fingerprint", false);
+                            editor.commit();
+                            return false;
+                        }
+                    }
+                });
+                if(!FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
+                    fPrint.setChecked(false);
+                }
+
+            } else {
+                preferenceCategoryDetails.removePreference(fPrint);
+            }
+        }
+
         mShowHiddenFiles = (CheckBoxPreference) findPreference("show_hidden_files");
         mShowHiddenFiles.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             @Override
@@ -186,14 +236,14 @@ public class Preferences extends PreferenceActivity
                         PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = appPrefs.edit();
                 editor.putBoolean("show_hidden_files_pref", mShowHiddenFiles.isChecked());
-                editor.commit();
+                editor.apply();
                 return true;
             }
         });
 
-        PreferenceCategory preferenceCategory = (PreferenceCategory) findPreference("more");
+        PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
 
-        boolean calendarContactsEnabled = getResources().getBoolean(R.bool.calendar_contacts_enabled);
+        boolean calendarContactsEnabled = getResources().getBoolean(R.bool.davdroid_integration_enabled);
         Preference pCalendarContacts = findPreference("calendar_contacts");
         if (pCalendarContacts != null) {
             if (calendarContactsEnabled) {
@@ -214,7 +264,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pCalendarContacts);
+                preferenceCategoryMore.removePreference(pCalendarContacts);
             }
         }
 
@@ -235,7 +285,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pHelp);
+                preferenceCategoryMore.removePreference(pHelp);
             }
         }
 
@@ -267,7 +317,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pRecommend);
+                preferenceCategoryMore.removePreference(pRecommend);
             }
         }
 
@@ -292,7 +342,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pFeedback);
+                preferenceCategoryMore.removePreference(pFeedback);
             }
         }
 
@@ -310,7 +360,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pLogger);
+                preferenceCategoryMore.removePreference(pLogger);
             }
         }
 
@@ -332,7 +382,7 @@ public class Preferences extends PreferenceActivity
                     }
                 });
             } else {
-                preferenceCategory.removePreference(pImprint);
+                preferenceCategoryMore.removePreference(pImprint);
             }
         }
 
@@ -365,7 +415,6 @@ public class Preferences extends PreferenceActivity
                     return false;
                 }
             });
-
         }
 
         mPrefInstantUploadCategory = (PreferenceCategory) findPreference("instant_uploading_category");
@@ -462,6 +511,8 @@ public class Preferences extends PreferenceActivity
             pAboutApp.setTitle(String.format(getString(R.string.about_android), getString(R.string.app_name)));
             pAboutApp.setSummary(String.format(getString(R.string.about_version), appVersion));
         }
+
+        loadExternalSettingLinks(preferenceCategoryMore);
 
         loadStoragePath();
     }
@@ -561,6 +612,7 @@ public class Preferences extends PreferenceActivity
     @Override
     protected void onResume() {
         super.onResume();
+        MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(this, SCREEN_NAME, TAG);
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -727,6 +779,38 @@ public class Preferences extends PreferenceActivity
         return mDelegate;
     }
 
+    private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
+        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+            ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
+
+            for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {
+
+                // only add if it does not exist, in case activity is re-used
+                if (findPreference(link.id.toString()) == null) {
+                    Preference p = new Preference(this);
+                    p.setTitle(link.name);
+                    p.setKey(link.id.toString());
+
+                    p.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                        @Override
+                        public boolean onPreferenceClick(Preference preference) {
+                            Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.name);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.url);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, link.id);
+                            startActivity(externalWebViewIntent);
+
+                            return true;
+                        }
+                    });
+
+                    preferenceCategory.addPreference(p);
+                }
+            }
+        }
+    }
+
     /**
      * Load upload path set on preferences
      */
@@ -808,5 +892,4 @@ public class Preferences extends PreferenceActivity
     public void onCancelMigration() {
         // Migration was canceled so we don't do anything
     }
-
 }

@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Odeslat</string>
     <string name="actionbar_sort">Seřadit</string>
     <string name="actionbar_sort_title">Seřadit podle</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Nejnovější - nejstarší</string>
-    <string name="menu_item_sort_by_size">Největší - nejmenší</string>
     <string name="drawer_item_all_files">Všechny soubory</string>
     <string name="drawer_item_on_device">Na přístroji</string>
     <string name="drawer_item_settings">Nastavení</string>
@@ -314,10 +311,9 @@
     <string name="conflict_keep_both">Ponechat oba</string>
     <string name="conflict_use_local_version">místní verze</string>
     <string name="conflict_use_server_version">serverová verze</string>
-    
-    <string name="preview_image_description">Náhled obrázku</string>
-    <string name="preview_image_error_unknown_format">Obrázek nelze zobrazit</string>
 
+    <string name="preview_sorry">Omlouváme se za to!</string>
+    <string name="preview_image_description">Náhled obrázku</string>
     <string name="error__upload__local_file_not_copied">%1$s nelze zkopírovat do místního adresáře %2$s</string>
     <string name="prefs_instant_upload_path_title">Adresář pro okamžité nahrání</string>
     <string name="prefs_folder_sync_local_path_title">Místní adresář</string>
@@ -509,8 +505,7 @@
     <string name="participate_testing_bug_text">Našel jsi chybu? Něco nefunguje?</string>
     <string name="participate_testing_report_text">Nahlásit chybu na Github</string>
     <string name="participate_testing_version_text">Chceš nám pomoci testovat další verzi?</string>
-    <string name="participate_beta_headline">Vyzkoušej beta verzi</string>
-    <string name="participate_beta_text">Toto obsahuje všechny připravované funkce a není plnohodnotně přezkoušeno. Může dojít k chybám. Pokud se tak stane, nahlas nám je, prosím.&lt;br/>&lt;a href="%2$s">Download APK&lt;/a> nebo</string>
+    <string name="participate_beta_text">Zahrnuje všechny nadcházející funkce a pohybuje se na hraně stability. Mohou se vyskytnout chyby, a pokud ano, nahlašte nám je prosím.</string>
     <string name="participate_release_candidate_headline">Předběžná verze</string>
     <string name="participate_release_candidate_text">Předběžná verze nebo také Release Candidate (RC) je stabilní stav připravované, finální verze. Přihlas se jako tester v Play store nebo si najdi a instaluj hodící se verzi z F-Droid pod \"Verze\".</string>
     <string name="participate_contribute_headline">Aktivně něčím přispět</string>
@@ -532,6 +527,7 @@
         <item quantity="few">vybráno %d</item>
         <item quantity="other">vybráno %d</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Zadejte jméno a typ souboru k nahrání</string>
     <string name="upload_file_dialog_filename">Jméno souboru</string>
     <string name="upload_file_dialog_filetype">Typ souboru</string>
@@ -557,4 +553,15 @@
     <string name="welcome_feature_3_text">Již se neobávjte o své fotografie</string>
 
     <string name="whats_new_skip">Přeskočit</string>
-</resources>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Celé jméno</string>
+    <string name="user_info_email">Email</string>
+    <string name="user_info_phone">Telefonní číslo</string>
+    <string name="user_info_address">Adresa</string>
+    <string name="user_info_website">Webová stránka</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Uživatelské informace</string>
+
+    </resources>

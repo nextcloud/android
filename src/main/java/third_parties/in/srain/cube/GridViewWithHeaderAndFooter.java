@@ -47,6 +47,14 @@ public class GridViewWithHeaderAndFooter extends GridView {
 
     public static final boolean DEBUG = false;
 
+    private int mNumColumns = AUTO_FIT;
+    private View mViewForMeasureRowHeight = null;
+    private int mRowHeight = -1;
+    private static final String LOG_TAG = "GridViewWHeaderNFooter";
+
+    private ArrayList<FixedViewInfo> mHeaderViewInfos = new ArrayList<>();
+    private ArrayList<FixedViewInfo> mFooterViewInfos = new ArrayList<>();
+
     /**
      * A class that represents a fixed view in a list, for example a header at the top
      * or a footer at the bottom.
@@ -66,14 +74,6 @@ public class GridViewWithHeaderAndFooter extends GridView {
          */
         public boolean isSelectable;
     }
-
-    private int mNumColumns = AUTO_FIT;
-    private View mViewForMeasureRowHeight = null;
-    private int mRowHeight = -1;
-    private static final String LOG_TAG = "grid-view-with-header-and-footer";
-
-    private ArrayList<FixedViewInfo> mHeaderViewInfos = new ArrayList<FixedViewInfo>();
-    private ArrayList<FixedViewInfo> mFooterViewInfos = new ArrayList<FixedViewInfo>();
 
     private void initHeaderGridView() {
     }

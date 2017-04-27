@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">Aplikacioni %1$s Android</string>
+    <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="actionbar_sync">Rifreskoni llogarinë</string>
     <string name="actionbar_upload">Ngarkoni</string>
@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Dërgojeni</string>
     <string name="actionbar_sort">Renditni</string>
     <string name="actionbar_sort_title">Renditni sipas</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Më e reja - Më e vjetra</string>
-    <string name="menu_item_sort_by_size">Më i madh - Më i vogël</string>
     <string name="drawer_item_all_files">Të gjithë skedarët</string>
     <string name="drawer_item_on_device">Në pajisjen</string>
     <string name="drawer_item_settings">Rregullime</string>
@@ -314,10 +311,8 @@
     <string name="conflict_keep_both">Mbaji të dyja</string>
     <string name="conflict_use_local_version">versionin vendor</string>
     <string name="conflict_use_server_version">versionin e shërbyesit</string>
-    
-    <string name="preview_image_description">Parapamje figure</string>
-    <string name="preview_image_error_unknown_format">Kjo figurë nuk mund të shfaqet</string>
 
+    <string name="preview_image_description">Parapamje figure</string>
     <string name="error__upload__local_file_not_copied">%1$s s\’u kopjua dot te dosja vendore %2$s</string>
     <string name="prefs_instant_upload_path_title">Dosja e ngarkimit të çastit </string>
     <string name="prefs_folder_sync_local_path_title">Dosje vendore</string>
@@ -509,8 +504,6 @@
     <string name="participate_testing_bug_text">Gjetet një defekt? Diçka është e çuditshme?</string>
     <string name="participate_testing_report_text">Raportoni një problem në Github</string>
     <string name="participate_testing_version_text">Jeni të interesuar për të na ndihmuar në testimin e versionit të ardhshëm?</string>
-    <string name="participate_beta_headline">Testoni versionin Beta</string>
-    <string name="participate_beta_text">Kjo përfshin të gjitha tiparet e ardhshme dhe është teknologji shumë e re. Baget/gabime mund të ndodhin dhe nëse ata ndodhin, ju lutem raportojini ato tek ne.&lt; br/>&lt; a href =\"%2$s\">Shkarko APK &lt;/a> ose</string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
     <string name="participate_release_candidate_text">Lëshimi i kandidatit  (RC) është një fragment i lëshimit të ardhshme dhe pritet të jetë i qëndrueshëm. Testimi i setup-it tuaj individuale mund të ndihmojë për ta siguruar këtë. Regjistrohuni për testimin në Play Store ose manualisht  shikoni në seksionin \"versionet\" në F-Droid.</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
@@ -531,6 +524,7 @@
         <item quantity="one">%d të përzgjedhura</item>
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
     <string name="upload_file_dialog_filename">Emri dokumentit</string>
     <string name="upload_file_dialog_filetype">Tipi dokumentit</string>
@@ -556,4 +550,5 @@
     <string name="welcome_feature_3_text">Mbajini fotot të sigurta</string>
 
     <string name="whats_new_skip">Kalo</string>
-</resources>
+
+    </resources>

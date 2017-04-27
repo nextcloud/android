@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">שליחה</string>
     <string name="actionbar_sort">מיון</string>
     <string name="actionbar_sort_title">מיון על בסיס</string>
-    <string name="menu_item_sort_by_name">א - ת</string>
-    <string name="menu_item_sort_by_date">חדש - ישן</string>
-    <string name="menu_item_sort_by_size">גדול - קטן</string>
     <string name="drawer_item_all_files">כל הקבצים</string>
     <string name="drawer_item_settings">הגדרות</string>
     <string name="drawer_item_uploads_list">העלאות</string>
@@ -287,7 +284,7 @@
     <string name="conflict_keep_both">להשאיר את שניהם</string>
     <string name="conflict_use_local_version">גרסה מקומית</string>
     <string name="conflict_use_server_version">גרסת שרת</string>
-    
+
     <string name="preview_image_description">תצוגה מקדימה לתמונה</string>
     <string name="preview_image_error_unknown_format">תמונה זו לא ניתנת לצפייה</string>
 
@@ -454,4 +451,5 @@
 
     <string name="welcome_feature_2_title">חשבונות מרובים</string>
     <string name="whats_new_skip">דלג</string>
-</resources>
+
+    </resources>

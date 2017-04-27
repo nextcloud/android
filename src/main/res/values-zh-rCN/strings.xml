@@ -13,13 +13,28 @@
     <string name="actionbar_send_file">发送</string>
     <string name="actionbar_sort">排序</string>
     <string name="actionbar_sort_title">排序方式</string>
-    <string name="menu_item_sort_by_name">按名字排序</string>
-    <string name="menu_item_sort_by_date">按时间排序</string>
-    <string name="menu_item_sort_by_size">按文件大小排序</string>
+    <string name="sort_by">排序方式</string>
+    <string name="menu_item_sort_by_name_a_z">按名称顺序</string>
+    <string name="menu_item_sort_by_name_z_a">按名称倒序</string>
+    <string name="menu_item_sort_by_date_newest_first">按时间顺序</string>
+    <string name="menu_item_sort_by_date_oldest_first">按时间倒序</string>
+    <string name="menu_item_sort_by_size_biggest_first">文件从大到小排序</string>
+    <string name="menu_item_sort_by_size_smallest_first">文件从小到大排序</string>
+
     <string name="drawer_item_all_files">全部文件</string>
+    <string name="drawer_item_files">文件</string>
+    <string name="drawer_item_home">首页</string>
+    <string name="drawer_item_favorites">收藏</string>
+    <string name="drawer_item_photos">照片</string>
     <string name="drawer_item_on_device">在设备上的</string>
+    <string name="drawer_item_recently_added">最近添加</string>
+    <string name="drawer_item_recently_modified">最近修改</string>
+    <string name="drawer_item_shared">已共享</string>
+    <string name="drawer_item_videos">视频</string>
     <string name="drawer_item_settings">设置</string>
     <string name="drawer_item_uploads_list">上传</string>
+    <string name="drawer_item_activities">动态</string>
+    <string name="drawer_item_notifications">提示</string>
     <string name="drawer_quota">%1$s 之 %2$s 已使用</string>
 	<string name="drawer_close">关闭</string>
     <string name="drawer_open">打开</string>
@@ -28,6 +43,8 @@
     <string name="prefs_accounts">账号</string>
     <string name="prefs_manage_accounts">管理账号</string>
     <string name="prefs_passcode">密码锁</string>
+    <string name="prefs_fingerprint">指纹锁</string>
+    <string name="prefs_fingerprint_notsetup">指纹锁没有设置</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_instant_upload">即时图片上传</string>
     <string name="prefs_instant_upload_summary">即时上传相机拍摄的图片</string>
@@ -81,13 +98,30 @@
     <string name="file_list_seconds_ago">几秒前</string>
     <string name="file_list_empty_headline">这里没有文件</string>
     <string name="file_list_empty">上传一些内容或者和你的设备同步</string>
+    <string name="file_list_empty_favorites">收藏一些文件或和你的设备同步！</string>
+    <string name="file_list_empty_favorites_filter_list">收藏的文件和文件夹会在这里显示</string>
+    <string name="file_list_empty_favorites_filter">未找到你要搜索的收藏文件</string>
     <string name="file_list_loading">加载中&#8230;</string>
     <string name="file_list_no_app_for_file_type">没有找到程序打开文件格式！</string>
     <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
     <string name="file_list_empty_headline_search">此文件夹无结果</string>
+    <string name="file_list_empty_headline_server_search">没有结果</string>
+    <string name="file_list_empty_shared_headline">还没有共享过文件</string>
+    <string name="file_list_empty_shared">您共享的文件和文件夹将显示在这里</string>
+    <string name="file_list_empty_headline_server_search_videos">无视频</string>
+    <string name="file_list_empty_headline_server_search_photos">无照片</string>
     <string name="file_list_empty_search">在其他文件夹找找试试？</string>
+    <string name="file_list_empty_recently_modified">未找到 7 日内有更改的文件</string>
+    <string name="file_list_empty_recently_modified_filter">未找到你要搜索的 7 日内有更改的文件！</string>
+    <string name="file_list_empty_recently_added">未找到最近添加的文件</string>
+    <string name="file_list_empty_recently_added_filter">未找到你要搜索的最近添加文件</string>
+    <string name="file_list_empty_text_photos">上传一些照片或启用自动上传！</string>
+    <string name="file_list_empty_text_photos_filter">未找到你要搜索的照片！</string>
+    <string name="file_list_empty_text_videos">上传一些视频或启用自动上传！</string>
+    <string name="file_list_empty_text_videos_filter">未找到你要搜索的视频！</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
     <string name="upload_list_empty_text">上传一些内容或者激活实时上传</string>
+    <string name="upload_list_empty_text_auto_upload">上传一些内容或启用自动上传！</string>
     <string name="file_list_folder">文件夹</string>
     <string name="file_list_folders">文件夹</string>
     <string name="file_list_file">文件</string>
@@ -243,6 +277,8 @@
     
     <string name="favorite">可以设置离线</string>
     <string name="unfavorite">不可以设置离线</string>
+    <string name="favorite_real">加入收藏</string>
+    <string name="unset_favorite_real">取消收藏</string>
     <string name="common_rename">重命名</string>
     <string name="common_remove">删除</string>
     <string name="confirmation_remove_file_alert">你确定要删除%1$s?</string>
@@ -315,7 +351,8 @@
     <string name="conflict_keep_both">保留两者</string>
     <string name="conflict_use_local_version">本地版本</string>
     <string name="conflict_use_server_version">服务器版本</string>
-    
+
+    <string name="preview_sorry">对此抱歉！</string>
     <string name="preview_image_description">图片预览</string>
     <string name="preview_image_error_unknown_format">无法显示图片</string>
 
@@ -510,8 +547,8 @@
     <string name="participate_testing_bug_text">发现一个错误？事情很奇怪？</string>
     <string name="participate_testing_report_text">在GIthub在报告问题</string>
     <string name="participate_testing_version_text">有感兴趣帮我们测试下一个版本吗？</string>
-    <string name="participate_beta_headline">测试Beta版</string>
-    <string name="participate_beta_text">这包括所有的即将出现的特性并且是前沿的技术. 错误可能会出现，如果有请报告给我们。 &lt;br/>&lt;a href=\"%2$s\">Download the APK&lt;/a> or</string>
+    <string name="participate_beta_headline">检查这个设备的版本</string>
+    <string name="participate_beta_text">这包括所有即将加入的特性，有相当的风险。如果Bug 或错误发生，请向我们报告。</string>
     <string name="participate_release_candidate_headline">发行候选版本</string>
     <string name="participate_release_candidate_text">候选发行版(RC)是下一个版本的快照，希望它是稳定的，你可以帮助测试以确认这一点。可以注册登陆在应用商店或手工在F-Droid的版本部分查找，并进行测试。</string>
     <string name="participate_contribute_headline">活跃的候选版</string>
@@ -531,6 +568,14 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d被选择</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">正在加载动态&#8230;</string>
+    <string name="activity_list_no_results">未找到动态</string>
+
+    <string name="notifications_loading_activity">加载提示&#8230;</string>
+    <string name="notifications_no_results_headline">没有提示</string>
+    <string name="notifications_no_results_message">请稍后核对</string>
+
     <string name="upload_file_dialog_title">输入上传的文件名和文件类型</string>
     <string name="upload_file_dialog_filename">文件名</string>
     <string name="upload_file_dialog_filetype">文件类型</string>
@@ -556,4 +601,47 @@
     <string name="welcome_feature_3_text">保护你的照片安全</string>
 
     <string name="whats_new_skip">跳过</string>
+
+    <string name="fingerprint_scan_finger">请扫描你的手指</string>
+    <string name="fingerprint_unknown">手指未被识别</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">全名</string>
+    <string name="user_info_email">电子邮件</string>
+    <string name="user_info_phone">电话号码</string>
+    <string name="user_info_address">地址</string>
+    <string name="user_info_website">网站</string>
+    <string name="user_info_twitter">推特</string>
+
+    <string name="user_information_description">用户信息</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">暂无动态</string>
+    <string name="activities_no_results_message">瀑布流中会显示诸如添加\n更改&amp;分享之类的事件</string>
+    <string name="webview_error">发生错误</string>
+    <string name="prefs_category_about">关于</string>
+
+    <string name="actionbar_contacts">联系人备份</string>
+    <string name="contacts_backup_button">现在备份</string>
+    <string name="contacts_restore_button">恢复上次备份</string>
+    <string name="contacts_header_restore">恢复</string>
+    <string name="contacts_header_backup">备份</string>
+    <string name="contacts_automatic_backup">联系人备份</string>
+    <string name="contacts_last_backup">上次备份</string>
+    <string name="contacts_read_permission">需要联系人的读书权限</string>
+    <string name="contacts_write_permission">需要联系人的写权限</string>
+    <string name="contactlist_title">恢复联系人</string>
+    <string name="contaclist_restore_selected">恢复选中的联系人</string>
+    <string name="contactlist_account_chooser_title">选择客户导入</string>
+    <string name="contactlist_no_permission">没有权限，无法导入！</string>
+    <string name="contacts_preference_choose_date">选择时间</string>
+    <string name="contacts_preference_backup_never">永远不</string>
+    <string name="contacts_preferences_no_file_found">没有文件被发现</string>
+    <string name="contacts_preferences_backup_scheduled">备份已经排期，稍后将开始</string>
+    <string name="contacts_preferences_import_scheduled">导入已经排期，稍后将开始</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">收到新提示</string>
+
+
 </resources>

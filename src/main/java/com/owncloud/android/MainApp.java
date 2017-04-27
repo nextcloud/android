@@ -34,6 +34,7 @@ import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 
 import com.evernote.android.job.JobManager;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
@@ -80,6 +81,8 @@ public class MainApp extends MultiDexApplication {
 
     private static SyncedFolderObserverService mObserverService;
 
+    private static FirebaseAnalytics firebaseAnalytics;
+
     @SuppressWarnings("unused")
     private boolean mBound;
 
@@ -88,6 +91,12 @@ public class MainApp extends MultiDexApplication {
         super.onCreate();
         JobManager.create(this).addJobCreator(new NCJobCreator());
         MainApp.mContext = getApplicationContext();
+
+        firebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+        if (!getResources().getBoolean(R.bool.analytics_enabled)) {
+            firebaseAnalytics.setAnalyticsCollectionEnabled(false);
+        }
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -118,6 +127,7 @@ public class MainApp extends MultiDexApplication {
         }
 
         cleanOldEntries();
+        updateAutoUploadEntries();
 
         Log_OC.d("SyncedFolderObserverService", "Start service SyncedFolderObserverService");
         Intent i = new Intent(this, SyncedFolderObserverService.class);
@@ -269,6 +279,14 @@ public class MainApp extends MultiDexApplication {
         return userAgent;
     }
 
+    private void updateAutoUploadEntries() {
+        // updates entries to reflect their true paths
+        if (!PreferenceManager.getAutoUploadPathsUpdate(this)) {
+            SyncedFolderProvider syncedFolderProvider =
+                    new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
+            syncedFolderProvider.updateAutoUploadPaths(mContext);
+        }
+    }
     private void cleanOldEntries() {
         // previous versions of application created broken entries in the SyncedFolderProvider
         // database, and this cleans all that and leaves 1 (newest) entry per synced folder
@@ -319,5 +337,16 @@ public class MainApp extends MultiDexApplication {
             mBound = false;
         }
     };
+
+    public static FirebaseAnalytics getFirebaseAnalyticsInstance() {
+        /*
+        In order for Firebase Analytics to work, you also need to
+        put a proper google-services.json in src/custom folder
+
+        If that file is flawed, nothing will be sent to Firebase
+         */
+        return firebaseAnalytics;
+    }
+
 
 }

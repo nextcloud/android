@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Pošlji</string>
     <string name="actionbar_sort">Razvrsti</string>
     <string name="actionbar_sort_title">Razvrsti ...</string>
-    <string name="menu_item_sort_by_name">A - Ž</string>
-    <string name="menu_item_sort_by_date">Novo - Staro</string>
-    <string name="menu_item_sort_by_size">Večje - Manjše</string>
     <string name="drawer_item_all_files">Vse datoteke</string>
     <string name="drawer_item_on_device">Na napravi</string>
     <string name="drawer_item_settings">Nastavitve</string>
@@ -302,10 +299,8 @@
     <string name="conflict_keep_both">Ohrani obe</string>
     <string name="conflict_use_local_version">krajevna različica</string>
     <string name="conflict_use_server_version">različica strežnika</string>
-    
-    <string name="preview_image_description">Predogled slike</string>
-    <string name="preview_image_error_unknown_format">Te slike ni mogoče prikazati</string>
 
+    <string name="preview_image_description">Predogled slike</string>
     <string name="error__upload__local_file_not_copied">Datoteke %1$s ni mogoče kopirati v krajevno mapo %2$s</string>
     <string name="prefs_instant_upload_path_title">Mapa za hipno nalaganje</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Uporabi podmape</string>
@@ -464,7 +459,6 @@
     <string name="participate_testing_bug_text">Napaka? Je kaj čudno?</string>
     <string name="participate_testing_report_text">Prijavi napako na Github</string>
     <string name="participate_testing_version_text">Te zanima pomoč in testiranje naslednje verzije?</string>
-    <string name="participate_beta_headline">Testiraj beta verzijo</string>
     <string name="participate_release_candidate_headline">Kandidat za objavo</string>
     <string name="participate_contribute_headline">Aktivni prispevek</string>
     <string name="participate_contribute_github_text">Prispevaj kot razvijalec, poglej detajle v &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a></string>
@@ -474,4 +468,5 @@
         <item quantity="few">%d izbranih</item>
         <item quantity="other">%d izbranih</item>
     </plurals>
+
     </resources>

@@ -35,9 +35,11 @@
     <dimen name="file_icon_size_grid">128dp</dimen>
     <dimen name="file_avatar_size">128dp</dimen>
     <dimen name="standard_padding">16dp</dimen>
+    <dimen name="standard_double_padding">32dp</dimen>
     <dimen name="standard_half_padding">8dp</dimen>
     <dimen name="standard_quarter_padding">4dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
+    <dimen name="standard_icon_list_horizontal_margin">24dp</dimen>
     <dimen name="standard_double_margin">32dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>

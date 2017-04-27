@@ -13,21 +13,38 @@
     <string name="actionbar_send_file">Senda</string>
     <string name="actionbar_sort">Raða</string>
     <string name="actionbar_sort_title">Raða sem</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Nýjast - Elst</string>
-    <string name="menu_item_sort_by_size">Stærst - Minnst</string>
+    <string name="sort_by">Raða eftir</string>
+    <string name="menu_item_sort_by_name_a_z">A - Ö</string>
+    <string name="menu_item_sort_by_name_z_a">Ö - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Nýjast fyrst</string>
+    <string name="menu_item_sort_by_date_oldest_first">Elsta fyrst</string>
+    <string name="menu_item_sort_by_size_biggest_first">Stærsta fyrst</string>
+    <string name="menu_item_sort_by_size_smallest_first">Minnsta fyrst</string>
+
     <string name="drawer_item_all_files">Allar skrár</string>
-    <string name="drawer_item_on_device">á tækinu</string>
+    <string name="drawer_item_files">Skrár</string>
+    <string name="drawer_item_home">Heim</string>
+    <string name="drawer_item_favorites">Eftirlæti</string>
+    <string name="drawer_item_photos">Ljósmyndir</string>
+    <string name="drawer_item_on_device">Á tækinu</string>
+    <string name="drawer_item_recently_added">Nýlega bætt við</string>
+    <string name="drawer_item_recently_modified">Nýlega breytt</string>
+    <string name="drawer_item_shared">Deilt</string>
+    <string name="drawer_item_videos">Myndskeið</string>
     <string name="drawer_item_settings">Stillingar</string>
     <string name="drawer_item_uploads_list">Innsendingar</string>
+    <string name="drawer_item_activities">Virkni</string>
+    <string name="drawer_item_notifications">Tilkynningar</string>
     <string name="drawer_quota">%1$s af %2$s notað</string>
 	<string name="drawer_close">Loka</string>
     <string name="drawer_open">Opna</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
-    <string name="prefs_accounts">Notendaaðgangar</string>
+    <string name="prefs_accounts">Notandaaðgangar</string>
     <string name="prefs_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="prefs_passcode">Læsing með lykilkóða</string>
+    <string name="prefs_fingerprint">Fingrafaralás</string>
+    <string name="prefs_fingerprint_notsetup">Engin fingraför hafa verið sett inn.</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_instant_upload">Hlaða strax inn myndum</string>
     <string name="prefs_instant_upload_summary">Hlaða strax inn myndum teknum á myndavél</string>
@@ -80,13 +97,32 @@
     <string name="file_list_seconds_ago">sek. síðan</string>
     <string name="file_list_empty_headline">Engar skrár hér</string>
     <string name="file_list_empty">Sendu inn eitthvað efni eða samstilltu við tækin þín!</string>
+    <string name="file_list_empty_favorites">Settu einhverjar skrár í eftirlæti eða samstilltu við tækin þín!</string>
+    <string name="file_list_empty_favorites_filter_list">Skrár og möppur sem þú merkir sem eftirlæti birtast hér</string>
+    <string name="file_list_empty_favorites_filter">Engar eftirlætisskrár fundust sem samsvara leitarstrengnum þínum!</string>
     <string name="file_list_loading">Hleð inn&#8230;</string>
     <string name="file_list_no_app_for_file_type">Engin forrit fundust fyrir skráategund!</string>
     <string name="local_file_list_empty">Það eru engar skrár í þessari möppu.</string>
     <string name="file_list_empty_headline_search">Engar niðurstöður í þessari möppu</string>
+    <string name="file_list_empty_headline_server_search">Engar niðurstöður</string>
+    <string name="file_list_empty_favorite_headline">Engin eftirlæti ennþá</string>
+    <string name="file_list_empty_shared_headline">Engu deilt ennþá</string>
+    <string name="file_list_empty_shared">Skrár og möppur sem þú deilir birtast hér</string>
+    <string name="file_list_empty_headline_server_search_videos">Engin myndskeið</string>
+    <string name="file_list_empty_headline_server_search_photos">Engar ljósmyndir</string>
     <string name="file_list_empty_search">Reyna að leita í annarri möppu?</string>
+    <string name="file_list_empty_recently_modified">Engar skrár fundust sem breytt hefur verið síðustu 7 daga</string>
+    <string name="file_list_empty_recently_modified_filter">Engar skrár fundust sem breytt hefur verið
+        síðustu 7 daga!</string>
+    <string name="file_list_empty_recently_added">Engar nýlega viðbættar skrár fundust</string>
+    <string name="file_list_empty_recently_added_filter">Engar nýlega viðbættar skrár fundust sem samsvara leitarstrengnum þínum!</string>
+    <string name="file_list_empty_text_photos">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu!</string>
+    <string name="file_list_empty_text_photos_filter">Engar myndir fundust sem samsvara leitarstrengnum þínum!</string>
+    <string name="file_list_empty_text_videos">Sendu inn einhver myndskeið eða virkjaðu sjálfvirka innsendingu!</string>
+    <string name="file_list_empty_text_videos_filter">Engin myndskeið fundust sem samsvara leitarstrengnum þínum!</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text">Sendu inn eitthvað efni eða virkjaðu beina innsendingu!</string>
+    <string name="upload_list_empty_text_auto_upload">Sendu inn eitthvað efni eða virkjaðu sjálfvirka innsendingu!</string>
     <string name="file_list_folder">mappa</string>
     <string name="file_list_folders">möppur</string>
     <string name="file_list_file">skrá</string>
@@ -168,7 +204,7 @@
     <string name="sync_fail_in_favourites_content">Efni %1$d skráa var ekki hægt að samstilla (%2$d árekstrar)</string>
     <string name="sync_foreign_files_forgotten_ticker">Sumar staðværar skrár gleymdust</string>
     <string name="sync_foreign_files_forgotten_content">%1$d skrár úr %2$s möppunni var ekki hægt að afrita í</string>
-    <string name="sync_foreign_files_forgotten_explanation">Frá og með útgáfu 1.3.16, munu skrár sem sendar eru frá þessu tæki verða afritaðar inn í staðværu %1$s möppuna, í þeim tilgangi að koma í veg fyrir gagnatap þegar stök skrá er samstillt við marga notendaaðganga.\n\nVegna þessarar breytingar hafa allar skrár sem sendar hafa verið inn í eldri útgáfum kerfisins verið afritaðar í %2$s möppuna. Hins vegar, núna kom villa í veg fyrir að þessari aðgerð lyki um leið og aðgangar voru samstilltir. Þú getur annað hvort látið skrárnar vera eins og þær eru og fjarlægt tengilinn í %3$s, eða fært skrárnar inn í %1$s möppuna og halda tenglinum í %4$s.\n\nStaðværar skrár eru taldar upp hér fyrir neðan, ásamt þeim fjartengdu skrám í %5$s sem þær voru tengdar við.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Frá og með útgáfu 1.3.16, munu skrár sem sendar eru frá þessu tæki verða afritaðar inn í staðværu %1$s möppuna, í þeim tilgangi að koma í veg fyrir gagnatap þegar stök skrá er samstillt við marga notandaaðganga.\n\nVegna þessarar breytingar hafa allar skrár sem sendar hafa verið inn í eldri útgáfum kerfisins verið afritaðar í %2$s möppuna. Hins vegar, núna kom villa í veg fyrir að þessari aðgerð lyki um leið og aðgangar voru samstilltir. Þú getur annað hvort látið skrárnar vera eins og þær eru og fjarlægt tengilinn í %3$s, eða fært skrárnar inn í %1$s möppuna og halda tenglinum í %4$s.\n\nStaðværar skrár eru taldar upp hér fyrir neðan, ásamt þeim fjartengdu skrám í %5$s sem þær voru tengdar við.</string>
     <string name="sync_current_folder_was_removed">Mappan %1$s er ekki lengur til staðar</string>
     <string name="foreign_files_move">Færa allt</string>
     <string name="foreign_files_success">Allar skrár voru færðar</string>
@@ -242,6 +278,8 @@
     
     <string name="favorite">Stilla sem tiltækt án nettengingar</string>
     <string name="unfavorite">Afstilla sem tiltækt án nettengingar</string>
+    <string name="favorite_real">Setja í eftirlæti</string>
+    <string name="unset_favorite_real">Taka úr eftirlætum</string>
     <string name="common_rename">Endurnefna</string>
     <string name="common_remove">Fjarlægja</string>
     <string name="confirmation_remove_file_alert">Ertu viss um að þú viljir fjarlægja %1$s?</string>
@@ -314,7 +352,8 @@
     <string name="conflict_keep_both">Halda báðum</string>
     <string name="conflict_use_local_version">útgáfu á tölvu</string>
     <string name="conflict_use_server_version">útgáfu á þjóni</string>
-    
+
+    <string name="preview_sorry">Leiðinlegt þetta!</string>
     <string name="preview_image_description">Forskoðun myndar</string>
     <string name="preview_image_error_unknown_format">Ekki er hægt að birta myndina</string>
 
@@ -383,7 +422,7 @@
 
     <string name="prefs_category_accounts">Notandaaðgangar</string>
     <string name="prefs_add_account">Bæta við notandaaðgangi</string>
-    <string name="drawer_manage_accounts">Sýsla með notendaaðganga</string>
+    <string name="drawer_manage_accounts">Sýsla með notandaaðganga</string>
     <string name="auth_redirect_non_secure_connection_title">Öruggri tengingu er endurbeint í gegnum óörugga leið.</string>
 
 	<string name="actionbar_logger">Annálar</string>
@@ -509,8 +548,8 @@
     <string name="participate_testing_bug_text">Fannstu villu? Eitthvað er skrýtið?</string>
     <string name="participate_testing_report_text">Tilkynna um vandamál á Github</string>
     <string name="participate_testing_version_text">Hefurðu áhuga á að hjálpa okkur með næstu útgáfu?</string>
-    <string name="participate_beta_headline">Prufukeyra Beta-prófunarútgáfuna</string>
-    <string name="participate_beta_text">Þetta inniheldur alla væntanlega eiginleika og er alveg á jaðri framþróunarinnar. Villur geta komið í ljós, láttu okkur vita af þeim. &lt;br/>&lt;a href="%2$s">Sækja APK-pakkann&lt;/a> eða</string>
+    <string name="participate_beta_headline">Prófaðu þróunarútgáfuna</string>
+    <string name="participate_beta_text">Þetta innifelur alla nýjust eiginleika og er alveg á jaðri framþróunarinnar. Villur og hnökrar geta komið upp, og ef slíkt gerist skaltu endilega tilkynna um þær til okkar.</string>
     <string name="participate_release_candidate_headline">Forútgáfa</string>
     <string name="participate_release_candidate_text">Útgáfukandídatinn (release candidate = RC) er skyndiútgáfa af væntanlegri útgáfu og er ætlað að vera nokkuð stöðug. Þú getur hjálpað til við að tryggja stöðugleikann með því að prófa þína eigin uppsetningu. Skráðu þig í prófanir í Play Store eða handvirkt með því að fara í \"útgáfur\"-hlutann í F-Droid.</string>
     <string name="participate_contribute_headline">Vertu virkur þáttakandi</string>
@@ -531,6 +570,14 @@
         <item quantity="one">%d valið</item>
         <item quantity="other">%d valið</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">Hleð inn virkniupplýsingum &#8230;</string>
+    <string name="activity_list_no_results">Engin virkni fannst.</string>
+
+    <string name="notifications_loading_activity">Hleð inn tilkynningum &#8230;</string>
+    <string name="notifications_no_results_headline">Engar tilkynningar</string>
+    <string name="notifications_no_results_message">Athugaðu aftur síðar.</string>
+
     <string name="upload_file_dialog_title">Settu inn skráaheiti og skráagerð fyrir innsendingu</string>
     <string name="upload_file_dialog_filename">Skráarheiti</string>
     <string name="upload_file_dialog_filetype">Skráartegund</string>
@@ -556,4 +603,47 @@
     <string name="welcome_feature_3_text">Haltu ljósmyndunum þínum öruggum</string>
 
     <string name="whats_new_skip">Sleppa</string>
+
+    <string name="fingerprint_scan_finger">Skannaðu fingurinn þinn</string>
+    <string name="fingerprint_unknown">Fingrafar þekktist ekki</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Fullt nafn</string>
+    <string name="user_info_email">Tölvupóstfang</string>
+    <string name="user_info_phone">Símanúmer</string>
+    <string name="user_info_address">Heimilisfang</string>
+    <string name="user_info_website">Vefsvæði</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Upplýsingar um notanda</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Engin virkni ennþá</string>
+    <string name="activities_no_results_message">Streymið mun birta atburði á borð við\nviðbætingar, breytingar og deilingar</string>
+    <string name="webview_error">Villa átti sér stað</string>
+    <string name="prefs_category_about">Um hugbúnaðinn</string>
+
+    <string name="actionbar_contacts">Öryggisafrit af tengiliðum</string>
+    <string name="contacts_backup_button">Taka öryggisafrit núna</string>
+    <string name="contacts_restore_button">Endurheimta síðasta öryggisafrit</string>
+    <string name="contacts_header_restore">Endurheimta</string>
+    <string name="contacts_header_backup">Taka öryggisafrit</string>
+    <string name="contacts_automatic_backup">Öryggisafrit af tengiliðum</string>
+    <string name="contacts_last_backup">Síðasta öryggisafrit</string>
+    <string name="contacts_read_permission">Nauðsynlegt er að hafa lesheimildir fyrir tengiliði</string>
+    <string name="contacts_write_permission">Nauðsynlegt er að hafa skrifheimildir fyrir tengiliði</string>
+    <string name="contactlist_title">Endurheimta tengiliði</string>
+    <string name="contaclist_restore_selected">Endurheimta valda tengiliði</string>
+    <string name="contactlist_account_chooser_title">Veldu notandaaðgang fyrir innflutning</string>
+    <string name="contactlist_no_permission">Engar aðgangsheimildir, ekkert flutt inn!</string>
+    <string name="contacts_preference_choose_date">Veldu dagsetningu</string>
+    <string name="contacts_preference_backup_never">aldrei</string>
+    <string name="contacts_preferences_no_file_found">Engin skrá fannst</string>
+    <string name="contacts_preferences_backup_scheduled">Öryggisafritun er á áætlun og mun hefjast fljótlega</string>
+    <string name="contacts_preferences_import_scheduled">Innflutningur er á áætlun og mun hefjast fljótlega</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">Tók á móti nýrri tilkynningu</string>
+
+
 </resources>

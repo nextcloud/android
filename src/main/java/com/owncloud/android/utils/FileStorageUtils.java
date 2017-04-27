@@ -200,7 +200,7 @@ public class FileStorageUtils {
         if (com.owncloud.android.db.PreferenceManager.instantVideoUploadPathUseSubfolders(context)) {
             subPath = getSubpathFromDate(dateTaken);
         }
-        return uploadVideoPath + subPath + (fileName == null ? "" : fileName);
+        return uploadVideoPath + OCFile.PATH_SEPARATOR + subPath + (fileName == null ? "" : fileName);
     }
     
     public static String getParentPath(String remotePath) {
@@ -228,6 +228,7 @@ public class FileStorageUtils {
         file.setEtag(remote.getEtag());
         file.setPermissions(remote.getPermissions());
         file.setRemoteId(remote.getRemoteId());
+        file.setFavorite(remote.getIsFavorite());
         return file;
     }
     
@@ -246,9 +247,23 @@ public class FileStorageUtils {
         file.setEtag(ocFile.getEtag());
         file.setPermissions(ocFile.getPermissions());
         file.setRemoteId(ocFile.getRemoteId());
+        file.setFavorite(ocFile.getIsFavorite());
         return file;
     }
-    
+
+    public static Vector<OCFile> sortOcFolderDescDateModified(Vector<OCFile> files) {
+        final int multiplier = -1;
+        Collections.sort(files, new Comparator<OCFile>() {
+            @SuppressFBWarnings(value = "Bx", justification = "Would require stepping up API level")
+            public int compare(OCFile o1, OCFile o2) {
+                Long obj1 = o1.getModificationTimestamp();
+                return multiplier * obj1.compareTo(o2.getModificationTimestamp());
+            }
+        });
+
+        return sortOCFilesByFavourite(files);
+    }
+
     /**
      * Sorts all filenames, regarding last user decision 
      */
@@ -454,11 +469,11 @@ public class FileStorageUtils {
     public static Vector<OCFile> sortOCFilesByFavourite(Vector<OCFile> files){
         Collections.sort(files, new Comparator<OCFile>() {
             public int compare(OCFile o1, OCFile o2) {
-                if (o1.isFavorite() && o2.isFavorite()) {
+                if (o1.getIsFavorite() && o2.getIsFavorite()) {
                     return 0;
-                } else if (o1.isFavorite()) {
+                } else if (o1.getIsFavorite()) {
                     return -1;
-                } else if (o2.isFavorite()) {
+                } else if (o2.getIsFavorite()) {
                     return 1;
                 }
                 return 0;

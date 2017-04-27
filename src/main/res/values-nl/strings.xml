@@ -13,13 +13,28 @@
     <string name="actionbar_send_file">Versturen</string>
     <string name="actionbar_sort">Sorteren</string>
     <string name="actionbar_sort_title">Sorteer op</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Nieuwste - Oudste</string>
-    <string name="menu_item_sort_by_size">Grootste - Kleinste</string>
+    <string name="sort_by">Sorteer op</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Nieuwste eerst</string>
+    <string name="menu_item_sort_by_date_oldest_first">Oudste eerst</string>
+    <string name="menu_item_sort_by_size_biggest_first">Grootste eerst</string>
+    <string name="menu_item_sort_by_size_smallest_first">Kleinste eerst</string>
+
     <string name="drawer_item_all_files">Alle bestanden</string>
+    <string name="drawer_item_files">Bestanden</string>
+    <string name="drawer_item_home">Thuis</string>
+    <string name="drawer_item_favorites">Favorieten</string>
+    <string name="drawer_item_photos">Foto\'s</string>
     <string name="drawer_item_on_device">Op het apparaat</string>
+    <string name="drawer_item_recently_added">Recent toegevoged</string>
+    <string name="drawer_item_recently_modified">Recent gewijzigd</string>
+    <string name="drawer_item_shared">Gedeel</string>
+    <string name="drawer_item_videos">Video\'s</string>
     <string name="drawer_item_settings">Instellingen</string>
     <string name="drawer_item_uploads_list">Uploads</string>
+    <string name="drawer_item_activities">Activiteiten</string>
+    <string name="drawer_item_notifications">Meldingen</string>
     <string name="drawer_quota">%1$s van %2$s gebruikt</string>
 	<string name="drawer_close">Sluiten</string>
     <string name="drawer_open">Openen</string>
@@ -28,6 +43,8 @@
     <string name="prefs_accounts">Accounts</string>
     <string name="prefs_manage_accounts">Accounts beheren</string>
     <string name="prefs_passcode">Toegangscode</string>
+    <string name="prefs_fingerprint">Vingerafdrukbeveiliging</string>
+    <string name="prefs_fingerprint_notsetup">Er zijn geen vingerafdrukken ingesteld.</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_instant_upload">Directe upload van afbeeldingen</string>
     <string name="prefs_instant_upload_summary">Direct uploaden van foto\'s genomen met de camera</string>
@@ -80,13 +97,31 @@
     <string name="file_list_seconds_ago">seconden geleden</string>
     <string name="file_list_empty_headline">Hier zijn geen bestanden</string>
     <string name="file_list_empty">Upload bestanden of synchroniseer met je apparaten!</string>
+    <string name="file_list_empty_favorites">Maak enkele bestanden favoriet of synchroniseer met je apparaten!</string>
+    <string name="file_list_empty_favorites_filter_list">Bestanden en mappen gemarkeerd als favoriet worden hier getoond</string>
+    <string name="file_list_empty_favorites_filter">Geen favoriete bestanden gevonden voor je zoekopdracht!</string>
     <string name="file_list_loading">Laden&#160;&#8230;</string>
     <string name="file_list_no_app_for_file_type">Geen app gevonden voor dit bestandsformaat!</string>
     <string name="local_file_list_empty">Er staan geen bestanden in deze map.</string>
     <string name="file_list_empty_headline_search">Geen resultaten in deze map</string>
+    <string name="file_list_empty_headline_server_search">Geen resultaten</string>
+    <string name="file_list_empty_favorite_headline">Nog geen favorieten</string>
+    <string name="file_list_empty_shared_headline">Nog niets gedeeld</string>
+    <string name="file_list_empty_shared">Bestanden en mappen die je deelt, worden hier getoond</string>
+    <string name="file_list_empty_headline_server_search_videos">Geen video\'s</string>
+    <string name="file_list_empty_headline_server_search_photos">Geen foto\'s</string>
     <string name="file_list_empty_search">In een andere map kijken?</string>
+    <string name="file_list_empty_recently_modified">Geen bestanden gevonden die  de laatste 7 dagen zijn gewijzigd</string>
+    <string name="file_list_empty_recently_modified_filter">Geen gewijzigde bestanden gevonden voor je zoekopdracht die de laatste 7 dagen zijn gewijzigd!</string>
+    <string name="file_list_empty_recently_added">Geen recent toegevoegde bestanden gevoden</string>
+    <string name="file_list_empty_recently_added_filter">Geen recent toegevoegde bestanden gevonden voor je zoekopdracht!</string>
+    <string name="file_list_empty_text_photos">Upload enkele foto\'s of activeer auto-upload!</string>
+    <string name="file_list_empty_text_photos_filter">Geen foto\'s voor je zoekopdracht gevonden!</string>
+    <string name="file_list_empty_text_videos">Upload enkele videos of activeer auto-upload!</string>
+    <string name="file_list_empty_text_videos_filter">Geen video\'s voor je zoekopdracht gevonden!</string>
     <string name="upload_list_empty_headline">Geen uploads beschikbaar</string>
     <string name="upload_list_empty_text">Upload bestanden of activeer directe uploads!</string>
+    <string name="upload_list_empty_text_auto_upload">Upload enkele gegevens of activeer auto upload!</string>
     <string name="file_list_folder">map</string>
     <string name="file_list_folders">mappen</string>
     <string name="file_list_file">bestand</string>
@@ -242,6 +277,8 @@
     
     <string name="favorite">Offline beschikbaar maken</string>
     <string name="unfavorite">Niet langer offline beschikbaar maken</string>
+    <string name="favorite_real">Instellen als favoriet</string>
+    <string name="unset_favorite_real">Weghalen als favoriet</string>
     <string name="common_rename">Hernoemen</string>
     <string name="common_remove">Verwijderen</string>
     <string name="confirmation_remove_file_alert">Wil je %1$s echt verwijderen?</string>
@@ -314,9 +351,10 @@
     <string name="conflict_keep_both">Beide bewaren</string>
     <string name="conflict_use_local_version">lokale versie</string>
     <string name="conflict_use_server_version">serverversie</string>
-    
+
+    <string name="preview_sorry">Sorry hiervoor!</string>
     <string name="preview_image_description">Voorvertoning van afbeelding</string>
-    <string name="preview_image_error_unknown_format">Deze afbeelding kan niet worden getoond</string>
+    <string name="preview_image_error_unknown_format">Afbeelding kan niet worden getoond</string>
 
     <string name="error__upload__local_file_not_copied">%1$s kon niet worden gekopieerd naar de lokale map %2$s</string>
     <string name="prefs_instant_upload_path_title">Directe-uploadmap</string>
@@ -325,13 +363,13 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Gebruik submappen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">Opslaan in submappen, gebaseerd op jaar en maand</string>
 
-	<string name="share_link_no_support_share_api">Sorry, delen is niet mogelijk op jouw server. Neem contact op met je beheerder.</string>
+	<string name="share_link_no_support_share_api">Sorry, delen is niet ingeschakeld op jouw server. Neem contact op met je beheerder.</string>
 	<string name="share_link_file_no_exist">Kan dit niet delen. Controleer of dit bestand wel bestaat</string>
-	<string name="share_link_file_error">Er trad een fout op bij uw poging dit bestand of deze map te delen</string>
+	<string name="share_link_file_error">Er trad een fout op bij je poging dit bestand of deze map te delen</string>
 	<string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Ga na of het bestand bestaat</string>
-	<string name="unshare_link_file_error">Er trad een fout op bij uw poging het delen van dit bestand of deze map te beëindigen</string>
+	<string name="unshare_link_file_error">Er trad een fout op bij je poging het delen van dit bestand of deze map te beëindigen</string>
     <string name="update_link_file_no_exist">Kan niet bijwerken. Ga na of het bestand bestaat</string>
-    <string name="update_link_file_error">Er trad een fout op bij uw poging de share bij te werken</string>
+    <string name="update_link_file_error">Er trad een fout op bij je poging de share bij te werken</string>
     <string name="share_link_password_title">Vul het wachtwoord in</string>
     <string name="share_link_empty_password">Je moet een wachtwoord opgeven</string>
 
@@ -509,8 +547,8 @@
     <string name="participate_testing_bug_text">Foutje gevonden? Of iets raars?</string>
     <string name="participate_testing_report_text">Meld het op Github</string>
     <string name="participate_testing_version_text">Geïnteresseerd om ons te helpen de volgende versie te testen?</string>
-    <string name="participate_beta_headline">Test de Beta-versie</string>
-    <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden. &lt;br/>&lt;a href="%2$s">Download de APK&lt;/a> of</string>
+    <string name="participate_beta_headline">Test de dev versie</string>
+    <string name="participate_beta_text">Dit omvat alle komende opties en is zeer \'bleeding edge\'. Bugs/fouten kunnen voorkomen en in dat geval vragen we je die aan ons te melden.</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">De Release Candidate (RC) is een kopie van de komende release en zou stabiel moeten zijn. Testen van jouw installatie kan ons helpen om dit te bevestigen. Meld je aan om te testen op de Play Store of bekijk handmatig de \"versies\"-sectie op F-Droid.</string>
     <string name="participate_contribute_headline">Actief meedoen</string>
@@ -531,6 +569,14 @@
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">Laden activiteiten&#8230;</string>
+    <string name="activity_list_no_results">Geen activiteiten gevonden.</string>
+
+    <string name="notifications_loading_activity">Laden meldingen&#8230;</string>
+    <string name="notifications_no_results_headline">Geen meldingen</string>
+    <string name="notifications_no_results_message">Controleer later opnieuw.</string>
+
     <string name="upload_file_dialog_title">Opgeven upload bestandsnaam en bestandstype</string>
     <string name="upload_file_dialog_filename">Bestandsnaam</string>
     <string name="upload_file_dialog_filetype">Bestandstype</string>
@@ -556,4 +602,47 @@
     <string name="welcome_feature_3_text">Hou je foto\'s veilig</string>
 
     <string name="whats_new_skip">Overslaan</string>
+
+    <string name="fingerprint_scan_finger">Scan je vinger</string>
+    <string name="fingerprint_unknown">Vinger niet herkend</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Volledige naam</string>
+    <string name="user_info_email">E-mailadres</string>
+    <string name="user_info_phone">Telefoonnummer</string>
+    <string name="user_info_address">Adres</string>
+    <string name="user_info_website">Website</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Gebruikersinformatie</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Nog geen activiteit</string>
+    <string name="activities_no_results_message">Deze stream laat gebeurtenissen zoals\ntoevoegingen, veranderingen &amp; gedeelde bestanden zien</string>
+    <string name="webview_error">Er heeft zich een fout voorgedaan</string>
+    <string name="prefs_category_about">Over</string>
+
+    <string name="actionbar_contacts">Contactpersonen backup</string>
+    <string name="contacts_backup_button">Nu backupppen</string>
+    <string name="contacts_restore_button">Herstel de laatste backup</string>
+    <string name="contacts_header_restore">Herstellen</string>
+    <string name="contacts_header_backup">Backuppen</string>
+    <string name="contacts_automatic_backup">Contactpersonen backup</string>
+    <string name="contacts_last_backup">Laatsts backup</string>
+    <string name="contacts_read_permission">Leesrechten voor contactpersonen vereist</string>
+    <string name="contacts_write_permission">Schrijfrechten voor contactpersonen vereist</string>
+    <string name="contactlist_title">Herstellen contactpersonen</string>
+    <string name="contaclist_restore_selected">Herstel de geselecteerde contactpersonen</string>
+    <string name="contactlist_account_chooser_title">Kies een account voor import</string>
+    <string name="contactlist_no_permission">Geen permissies, niets geïnporteerd!</string>
+    <string name="contacts_preference_choose_date">Kies datum</string>
+    <string name="contacts_preference_backup_never">nooit</string>
+    <string name="contacts_preferences_no_file_found">Geen bestand gevonden</string>
+    <string name="contacts_preferences_backup_scheduled">Backup ingepland en zal zo starten</string>
+    <string name="contacts_preferences_import_scheduled">Import ingepland en zal zo starten</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">Nieuwe meldingen ontvangen</string>
+
+
 </resources>

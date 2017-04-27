@@ -13,13 +13,28 @@
     <string name="actionbar_send_file">Exporter</string>
     <string name="actionbar_sort">Trier</string>
     <string name="actionbar_sort_title">Trier par</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">du plus récent au plus ancien</string>
-    <string name="menu_item_sort_by_size">du plus grand au plus petit</string>
+    <string name="sort_by">Trier par</string>
+    <string name="menu_item_sort_by_name_a_z">De A à Z</string>
+    <string name="menu_item_sort_by_name_z_a"> De Z à A</string>
+    <string name="menu_item_sort_by_date_newest_first">Le plus récent en premier</string>
+    <string name="menu_item_sort_by_date_oldest_first">Le plus ancien en premier</string>
+    <string name="menu_item_sort_by_size_biggest_first">Le plus grand en premier</string>
+    <string name="menu_item_sort_by_size_smallest_first">Le plus petit en premier</string>
+
     <string name="drawer_item_all_files">Tous les fichiers</string>
+    <string name="drawer_item_files">Fichiers</string>
+    <string name="drawer_item_home">Accueil</string>
+    <string name="drawer_item_favorites">Favoris</string>
+    <string name="drawer_item_photos">Photos</string>
     <string name="drawer_item_on_device">Sur l\'appareil</string>
+    <string name="drawer_item_recently_added">Ajoutés récemment</string>
+    <string name="drawer_item_recently_modified">Modifiés récemment</string>
+    <string name="drawer_item_shared">Partagé</string>
+    <string name="drawer_item_videos">Vidéos</string>
     <string name="drawer_item_settings">Paramètres</string>
     <string name="drawer_item_uploads_list">Historique des envois</string>
+    <string name="drawer_item_activities">Activités</string>
+    <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
 	<string name="drawer_close">Fermer</string>
     <string name="drawer_open">Ouvrir</string>
@@ -28,6 +43,8 @@
     <string name="prefs_accounts">Comptes</string>
     <string name="prefs_manage_accounts">Gestion des comptes</string>
     <string name="prefs_passcode">Code de sécurité</string>
+    <string name="prefs_fingerprint">Verrouillage par empreinte digitale</string>
+    <string name="prefs_fingerprint_notsetup">Aucune empreinte digitale n\'a été installée.</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_instant_upload">Téléversement immédiat des photos</string>
     <string name="prefs_instant_upload_summary">Téléverser immédiatement les photos prises par la caméra</string>
@@ -38,7 +55,7 @@
     <string name="prefs_log_title_history">Historique de la journalisation</string>
     <string name="prefs_log_summary_history">Cela affiche les logs enregistrés</string>
     <string name="prefs_log_delete_history_button">Effacer le journal</string>
-    <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda &amp; des contacts</string>
+    <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda et des contacts</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Une  adresse de serveur pour le compte pourrait ne pas être résolue par DAVdroid</string>
     <string name="prefs_calendar_contacts_no_store_error">Aucune application Google Play store ou F-Droid installée</string>
@@ -80,13 +97,32 @@
     <string name="file_list_seconds_ago">à l\'instant</string>
     <string name="file_list_empty_headline">Aucun fichier</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils !</string>
+    <string name="file_list_empty_favorites">Mettez certains fichiers en favoris ou synchronisez vos appareils !</string>
+    <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris apparaîtront ici</string>
+    <string name="file_list_empty_favorites_filter">Auncun fichier mis en favori trouvé qui correspond à votre requête !</string>
     <string name="file_list_loading">Chargement&#8230;</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier !</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
     <string name="file_list_empty_headline_search">Aucun résultat dans ce dossier</string>
+    <string name="file_list_empty_headline_server_search">Aucun résultat</string>
+    <string name="file_list_empty_favorite_headline">Aucun favoris pour l\'instant</string>
+    <string name="file_list_empty_shared_headline">Rien n\'est partagé pour l\'instant</string>
+    <string name="file_list_empty_shared">Les fichiers et dossiers que vous partagez apparaîtront ici</string>
+    <string name="file_list_empty_headline_server_search_videos">Aucune vidéo</string>
+    <string name="file_list_empty_headline_server_search_photos">Aucune photo</string>
     <string name="file_list_empty_search">Essayez de chercher dans un autre dossier ?</string>
+    <string name="file_list_empty_recently_modified">Aucun fichier modifié au cours des 7 derniers jours trouvé</string>
+    <string name="file_list_empty_recently_modified_filter">Aucun fichier trouvé qui correspond à votre requête qui a été modifié
+        durant les 7 derniers jours !</string>
+    <string name="file_list_empty_recently_added">Auncun fichier ajouté récemment trouvé</string>
+    <string name="file_list_empty_recently_added_filter">Auncun fichier ajouté récemment trouvé qui correspond à votre requête !</string>
+    <string name="file_list_empty_text_photos">Téléversez des photos ou activez le téléversement automatique !</string>
+    <string name="file_list_empty_text_photos_filter">Aucune photo trouvée qui correspond à votre requête !</string>
+    <string name="file_list_empty_text_videos">Téléversez des vidéos ou activez le téléversement automatique !</string>
+    <string name="file_list_empty_text_videos_filter">Aucune vidéo trouvée qui correspond à votre requête !</string>
     <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
     <string name="upload_list_empty_text">Téléversez du contenu ou activez le téléversement instantané !</string>
+    <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement instantané !</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_folders">dossiers</string>
     <string name="file_list_file">fichier</string>
@@ -242,6 +278,8 @@
     
     <string name="favorite">Rendre disponible hors-ligne</string>
     <string name="unfavorite">Ne plus rendre disponible hors-ligne</string>
+    <string name="favorite_real">Mettre en favori</string>
+    <string name="unset_favorite_real">Supprimer des favoris</string>
     <string name="common_rename">Renommer</string>
     <string name="common_remove">Supprimer</string>
     <string name="confirmation_remove_file_alert">Voulez-vous vraiment supprimer %1$s ?</string>
@@ -314,9 +352,10 @@
     <string name="conflict_keep_both">Conserver les deux</string>
     <string name="conflict_use_local_version">version locale</string>
     <string name="conflict_use_server_version">version serveur</string>
-    
+
+    <string name="preview_sorry">Désolé à propos de cela !</string>
     <string name="preview_image_description">Prévisualisation de l\'image</string>
-    <string name="preview_image_error_unknown_format">Cette image ne peut pas être affichée</string>
+    <string name="preview_image_error_unknown_format">L\'image ne peut pas être affichée</string>
 
     <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
     <string name="prefs_instant_upload_path_title">Téléversement immédiat du dossier</string>
@@ -510,7 +549,7 @@
     <string name="participate_testing_report_text">Signaler un problème sur Github</string>
     <string name="participate_testing_version_text">Vous avez envie de nous aider en testant les futures versions ?</string>
     <string name="participate_beta_headline">Testez la version Bêta</string>
-    <string name="participate_beta_text">La version Beta inclut les dernières fonctionnalités qui sont encore toutes fraîches. Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler. &lt;br/>&lt;a href="%2$s">Télécharger l\'APK&lt;/a> ou</string>
+    <string name="participate_beta_text">La version Beta inclut les dernières fonctionnalités qui sont encore toutes fraîches. Des erreurs peuvent se produire et si c\'est le cas, merci de nous les signaler.</string>
     <string name="participate_release_candidate_headline">Testez la version Release Candidate</string>
     <string name="participate_release_candidate_text">La version « release candidate » (RC) est un instantanné de la dernière version supposée stable. Le test de votre configuration pourrait nous aider à nous assurer que cette version est entièrement stable. Inscrivez vous pour être testeur sur le Play store ou allez jeter un œil dans la section \"versions\" de F-Droid.</string>
     <string name="participate_contribute_headline">Participez activement</string>
@@ -531,6 +570,14 @@
         <item quantity="one">%d sélectionné</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
+
+    <string name="activity_list_loading_activity">Chargement des activités&#8230;</string>
+    <string name="activity_list_no_results">Aucune activité trouvée.</string>
+
+    <string name="notifications_loading_activity">Chargement des notifications&#8230;</string>
+    <string name="notifications_no_results_headline">Aucune notification</string>
+    <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
+
     <string name="upload_file_dialog_title">Spécifiez le nom et le type du fichier téléversé</string>
     <string name="upload_file_dialog_filename">Nom de fichier</string>
     <string name="upload_file_dialog_filetype">Type de fichier</string>
@@ -556,4 +603,47 @@
     <string name="welcome_feature_3_text">Conservez vos photos en toute sécurité</string>
 
     <string name="whats_new_skip">Ignorer</string>
+
+    <string name="fingerprint_scan_finger">Veuillez scanner votre doigt</string>
+    <string name="fingerprint_unknown">Doigt non reconnu</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Nom complet</string>
+    <string name="user_info_email">Adresse e-mail</string>
+    <string name="user_info_phone">Numéro de téléphone</string>
+    <string name="user_info_address">Adresse</string>
+    <string name="user_info_website">Site web</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Information d\'utilisateur</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline">Aucune activité pour le moment</string>
+    <string name="activities_no_results_message">Ce flux affichera des événements comme\n des ajouts, des changements &amp; des partages</string>
+    <string name="webview_error">Une erreur est survenue</string>
+    <string name="prefs_category_about">À propos</string>
+
+    <string name="actionbar_contacts">Copie de sauvegarde des contacts</string>
+    <string name="contacts_backup_button">Sauvegarder maintenant</string>
+    <string name="contacts_restore_button">Restaurer la dernière copie de sauvegarde</string>
+    <string name="contacts_header_restore">Restaurer</string>
+    <string name="contacts_header_backup">Copie de sauvegarde</string>
+    <string name="contacts_automatic_backup">Copie de sauvegarde des contacts</string>
+    <string name="contacts_last_backup">Dernière copie de sauvegarde</string>
+    <string name="contacts_read_permission">L\'autorisation de lecture des contacts est nécessaire</string>
+    <string name="contacts_write_permission">L\'autorisation d\'écriture des contacts est nécessaire</string>
+    <string name="contactlist_title">Restaurer les contacts</string>
+    <string name="contaclist_restore_selected">Restaurer les contacts sélectionnés</string>
+    <string name="contactlist_account_chooser_title">Choisissez un compte pour importer</string>
+    <string name="contactlist_no_permission">Aucune autorisation, rien d\'importé !</string>
+    <string name="contacts_preference_choose_date">Choisir la date</string>
+    <string name="contacts_preference_backup_never">jamais</string>
+    <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
+    <string name="contacts_preferences_backup_scheduled">Sauvegarde planifiée et va commencer prochainement</string>
+    <string name="contacts_preferences_import_scheduled">Importation planifiée et va commencer prochainement</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">Nouvelle notification reçue</string>
+
+
 </resources>

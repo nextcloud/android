@@ -32,6 +32,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.LocalFileListAdapter;
@@ -64,6 +65,13 @@ public class LocalFileListFragment extends ExtendedListFragment {
         setHasOptionsMenu(true);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            MainApp.getFirebaseAnalyticsInstance().setCurrentScreen(getActivity(), SCREEN_NAME, TAG);
+        }
+    }
 
     /**
      * {@inheritDoc}
@@ -133,7 +141,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
             } else {    /// Click on a file
                 ImageView checkBoxV = (ImageView) v.findViewById(R.id.custom_checkbox);
                 if (checkBoxV != null) {
-                    if (getListView().isItemChecked(position)) {
+                    if (((AbsListView)getListView()).isItemChecked(position)) {
                         checkBoxV.setImageResource(R.drawable.ic_checkbox_marked);
                     } else {
                         checkBoxV.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -214,7 +222,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
         }
 
         // by now, only files in the same directory will be kept as selected
-        mCurrentListView.clearChoices();
+        ((AbsListView)mCurrentListView).clearChoices();
         mAdapter.swapDirectory(directory);
         if (mDirectory == null || !mDirectory.equals(directory)) {
             mCurrentListView.setSelection(0);
@@ -230,7 +238,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
      */
     public String[] getCheckedFilePaths() {
         ArrayList<String> result = new ArrayList<String>();
-        SparseBooleanArray positions = mCurrentListView.getCheckedItemPositions();
+        SparseBooleanArray positions = ((AbsListView)mCurrentListView).getCheckedItemPositions();
         if (positions.size() > 0) {
             for (int i = 0; i < positions.size(); i++) {
                 if (positions.get(positions.keyAt(i)) == true) {
@@ -262,7 +270,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
      * @param select <code>true</code> to select all, <code>false</code> to deselect all
      */
     public void selectAllFiles(boolean select) {
-        AbsListView listView = getListView();
+        AbsListView listView = (AbsListView) getListView();
         for (int position = 0; position < listView.getCount(); position++) {
             File file = (File) mAdapter.getItem(position);
             if (file.isFile()) {
@@ -281,7 +289,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          *  
          * @param directory
          */
-        void onDirectoryClick(File directory);
+        public void onDirectoryClick(File directory);
         
         /**
          * Callback method invoked when a file (non directory)
@@ -289,7 +297,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          *  
          * @param file
          */
-        void onFileClick(File file);
+        public void onFileClick(File file);
         
         
         /**
@@ -298,7 +306,7 @@ public class LocalFileListFragment extends ExtendedListFragment {
          * 
          * @return  Directory to list firstly. Can be NULL.
          */
-        File getInitialDirectory();
+        public File getInitialDirectory();
 
     }
 

@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">Send</string>
     <string name="actionbar_sort">Sort</string>
     <string name="actionbar_sort_title">Sort by</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">Newest - Oldest</string>
-    <string name="menu_item_sort_by_size">Biggest - Smallest</string>
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_on_device">On device</string>
     <string name="drawer_item_settings">Settings</string>
@@ -314,10 +311,8 @@
     <string name="conflict_keep_both">Keep both</string>
     <string name="conflict_use_local_version">local version</string>
     <string name="conflict_use_server_version">server version</string>
-    
-    <string name="preview_image_description">Image preview</string>
-    <string name="preview_image_error_unknown_format">This image cannot be shown</string>
 
+    <string name="preview_image_description">Image preview</string>
     <string name="error__upload__local_file_not_copied">%1$s could not be copied to %2$s local folder</string>
     <string name="prefs_instant_upload_path_title">Instant upload folder</string>
     <string name="prefs_folder_sync_local_path_title">Local folder</string>
@@ -509,8 +504,6 @@
     <string name="participate_testing_bug_text">Found a bug? Something is odd?</string>
     <string name="participate_testing_report_text">Report an issue on Github</string>
     <string name="participate_testing_version_text">Interested in helping us testing the next Version?</string>
-    <string name="participate_beta_headline">Test the Beta version</string>
-    <string name="participate_beta_text">This includes all upcoming features and is very bleeding edge. Bugs/errors can occur and if they do, please report them to us. &lt;br/>&lt;a href="%2$s">Download the APK&lt;/a> or</string>
     <string name="participate_release_candidate_headline">Release candidate</string>
     <string name="participate_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming release and it is expected to be stable. Testing your individual setup could help to ensure this. Sign up for testing on the Play store or manually look in the \"versions\" section on F-Droid.</string>
     <string name="participate_contribute_headline">Actively Contribute</string>
@@ -531,6 +524,7 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
+
     <string name="upload_file_dialog_title">Input upload filename and filetype</string>
     <string name="upload_file_dialog_filename">Filename</string>
     <string name="upload_file_dialog_filetype">Filetype</string>
@@ -556,4 +550,5 @@
     <string name="welcome_feature_3_text">Keep your photos safe</string>
 
     <string name="whats_new_skip">Skip</string>
-</resources>
+
+    </resources>

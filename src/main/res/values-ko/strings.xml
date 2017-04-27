@@ -13,9 +13,6 @@
     <string name="actionbar_send_file">보내기</string>
     <string name="actionbar_sort">정렬</string>
     <string name="actionbar_sort_title">정렬 순서</string>
-    <string name="menu_item_sort_by_name">A - Z</string>
-    <string name="menu_item_sort_by_date">최신 - 오래된</string>
-    <string name="menu_item_sort_by_size">가장 큰 - 가장 작은</string>
     <string name="drawer_item_all_files">모든 파일</string>
     <string name="drawer_item_on_device">장치</string>
     <string name="drawer_item_settings">설정</string>
@@ -285,7 +282,7 @@
     <string name="conflict_keep_both">모두 저장</string>
     <string name="conflict_use_local_version">로컬 버전</string>
     <string name="conflict_use_server_version">서버 버전</string>
-    
+
     <string name="preview_image_description">사진 미리 보기</string>
     <string name="preview_image_error_unknown_format">이 사진을 미리 볼 수 없습니다</string>
 
@@ -445,7 +442,6 @@
     <string name="participate_testing_bug_text">버그를 발견하셨습니까? 뭔가 이상한가요?</string>
     <string name="participate_testing_report_text">Github에 문제 신고</string>
     <string name="participate_testing_version_text">다음 버전을 테스트하여 우리를 돕는데 관심이 있으십니까?</string>
-    <string name="participate_beta_headline">베타 버전 테스트</string>
     <string name="participate_release_candidate_headline">릴리스 후보</string>
     <string name="participate_contribute_headline">적극적으로 기여</string>
     <string name="move_to">(으)로 이동&#8230;</string>
@@ -453,4 +449,5 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d 선택</item>
     </plurals>
+
     </resources>
