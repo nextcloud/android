@@ -28,14 +28,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.Window;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceError;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -43,7 +39,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
@@ -68,7 +63,7 @@ public class ExternalSiteWebView extends FileActivity {
 
         Bundle extras = getIntent().getExtras();
         String title = extras.getString(EXTRA_TITLE);
-        final String url = extras.getString(EXTRA_URL);
+        String url = extras.getString(EXTRA_URL);
         menuItemId = extras.getInt(EXTRA_MENU_ITEM_ID);
         showSidebar = extras.getBoolean(EXTRA_SHOW_SIDEBAR);
 
