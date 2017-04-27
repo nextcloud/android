@@ -1197,7 +1197,8 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
 
                     Account account = AccountUtils.getCurrentOwnCloudAccount(DrawerActivity.this);
 
-                    if (account != null && getStorageManager().getCapability(account.name) != null &&
+                    if (account != null && getStorageManager() != null &&
+                            getStorageManager().getCapability(account.name) != null &&
                             getStorageManager().getCapability(account.name).getExternalLinks().isTrue()) {
 
                         int count = sharedPreferences.getInt(EXTERNAL_LINKS_COUNT, -1);
