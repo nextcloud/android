@@ -105,6 +105,7 @@
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
     <string name="file_list_empty_headline_search">Aucun résultat dans ce dossier</string>
     <string name="file_list_empty_headline_server_search">Aucun résultat</string>
+    <string name="file_list_empty_favorite_headline">Aucun favoris pour l\'instant</string>
     <string name="file_list_empty_shared_headline">Rien n\'est partagé pour l\'instant</string>
     <string name="file_list_empty_shared">Les fichiers et dossiers que vous partagez apparaîtront ici</string>
     <string name="file_list_empty_headline_server_search_videos">Aucune vidéo</string>
