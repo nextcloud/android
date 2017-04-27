@@ -102,6 +102,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.parceler.Parcels;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -1952,12 +1953,10 @@ public class FileDisplayActivity extends HookActivity
     }
 
     public void startContactListFragment(OCFile file) {
-        Fragment contactListFragment = ContactListFragment.newInstance(file, getAccount());
-
-        setSecondFragment(contactListFragment);
-        updateFragmentsVisibility(true);
-        updateActionBarTitleAndHomeButton(file);
-        setFile(file);
+        Intent intent = new Intent(this, ContactsPreferenceActivity.class);
+        intent.putExtra(ContactListFragment.FILE_NAME, Parcels.wrap(file));
+        intent.putExtra(ContactListFragment.ACCOUNT, Parcels.wrap(getAccount()));
+        startActivity(intent);
     }
 
     /**

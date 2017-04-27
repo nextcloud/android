@@ -87,12 +87,10 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
     private DatePickerDialog datePickerDialog;
 
-
     private static final String KEY_CALENDAR_PICKER_OPEN = "IS_CALENDAR_PICKER_OPEN";
     private static final String KEY_CALENDAR_DAY = "CALENDAR_DAY";
     private static final String KEY_CALENDAR_MONTH = "CALENDAR_MONTH";
     private static final String KEY_CALENDAR_YEAR = "CALENDAR_YEAR";
-
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
