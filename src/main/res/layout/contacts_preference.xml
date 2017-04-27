@@ -36,23 +36,14 @@
         <include
             layout="@layout/toolbar_standard"/>
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/bottom_navigation_view"
             android:layout_below="@+id/appbar"
-            android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/contacts_header_backup"
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
             android:id="@+id/frame_container">
 
         </FrameLayout>
-
-        </LinearLayout>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/bottom_navigation_view"
