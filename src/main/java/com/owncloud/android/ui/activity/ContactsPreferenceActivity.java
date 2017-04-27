@@ -37,8 +37,11 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.ContactsBackupJob;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.ContactsBackupFragment;
 import com.owncloud.android.utils.DisplayUtils;
+
+import org.parceler.Parcels;
 
 import java.util.Set;
 
@@ -64,9 +67,18 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         // setup drawer
         setupDrawer(R.id.nav_contacts);
 
+        Intent intent = getIntent();
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.add(R.id.frame_container, new ContactsBackupFragment());
+            if (intent == null || intent.getParcelableExtra(ContactListFragment.FILE_NAME) == null ||
+                    intent.getParcelableExtra(ContactListFragment.ACCOUNT) == null) {
+                transaction.add(R.id.frame_container, new ContactsBackupFragment());
+            } else {
+                OCFile file = Parcels.unwrap(intent.getParcelableExtra(ContactListFragment.FILE_NAME));
+                Account account = Parcels.unwrap(intent.getParcelableExtra(ContactListFragment.ACCOUNT));
+                ContactListFragment contactListFragment = ContactListFragment.newInstance(file, account);
+                transaction.add(R.id.frame_container, contactListFragment);
+            }
             transaction.commit();
         }
 

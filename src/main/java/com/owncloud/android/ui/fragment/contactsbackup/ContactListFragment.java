@@ -286,9 +286,13 @@ public class ContactListFragment extends FileFragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                getFragmentManager().popBackStack();
+                if (getFragmentManager().getBackStackEntryCount() > 0) {
+                    getFragmentManager().popBackStack();
+                } else {
+                    getActivity().finish();
+                }
             }
-        }, 2500);
+        }, 1750);
     }
 
     private void getAccountForImport() {
