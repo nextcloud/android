@@ -22,8 +22,8 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
-import android.app.ProgressDialog;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;

@@ -47,6 +47,7 @@ import android.widget.Toast;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -69,6 +70,7 @@ import javax.crypto.SecretKey;
 public class FingerprintActivity extends AppCompatActivity {
 
     private static final String TAG = FingerprintActivity.class.getSimpleName();
+    private static final String SCREEN_NAME = "Fingerprint";
 
     public final static String KEY_CHECK_RESULT = "KEY_CHECK_RESULT";
 
@@ -151,6 +153,7 @@ public class FingerprintActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
         startFingerprint();
         ImageView imageView = (ImageView)findViewById(R.id.fingerprinticon);
         imageView.setImageDrawable(getDrawable(R.drawable.ic_fingerprint));

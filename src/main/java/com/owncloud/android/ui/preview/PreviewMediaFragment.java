@@ -65,6 +65,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 
@@ -236,7 +237,7 @@ public class PreviewMediaFragment extends FileFragment implements
 
         }
         else {
-            file = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
+            file = (OCFile) savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_FILE);
             setFile(file);
             mAccount = savedInstanceState.getParcelable(PreviewMediaFragment.EXTRA_ACCOUNT);
             mSavedPlaybackPosition =
@@ -564,6 +565,9 @@ public class PreviewMediaFragment extends FileFragment implements
     @Override
     public void onResume() {
         super.onResume();
+        if (getActivity() != null) {
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
+        }
         Log_OC.v(TAG, "onResume");
     }
 

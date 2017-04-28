@@ -1,24 +1,23 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author Bartek Przybylski
- *   @author David A. Velasco
- *   @author masensio
- *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2016 ownCloud Inc.
+ * @author Bartek Przybylski
+ * @author David A. Velasco
+ * @author masensio
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2016 ownCloud Inc.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.db;
 
@@ -89,13 +88,13 @@ public class ProviderMeta {
         public static final String FILE_PERMISSIONS = "permissions";
         public static final String FILE_REMOTE_ID = "remote_id";
         public static final String FILE_UPDATE_THUMBNAIL = "update_thumbnail";
-        public static final String FILE_IS_DOWNLOADING= "is_downloading";
+        public static final String FILE_IS_DOWNLOADING = "is_downloading";
         public static final String FILE_ETAG_IN_CONFLICT = "etag_in_conflict";
         public static final String FILE_FAVORITE = "favorite";
 
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME
                 + " collate nocase asc";
-        
+
         // Columns of ocshares table
         public static final String OCSHARES_FILE_SOURCE = "file_source";
         public static final String OCSHARES_ITEM_SOURCE = "item_source";
@@ -111,8 +110,8 @@ public class ProviderMeta {
         public static final String OCSHARES_USER_ID = "user_id";
         public static final String OCSHARES_ID_REMOTE_SHARED = "id_remote_shared";
         public static final String OCSHARES_ACCOUNT_OWNER = "owner_share";
-        
-        public static final String OCSHARES_DEFAULT_SORT_ORDER = OCSHARES_FILE_SOURCE 
+
+        public static final String OCSHARES_DEFAULT_SORT_ORDER = OCSHARES_FILE_SOURCE
                 + " collate nocase asc";
 
         // Columns of capabilities table
@@ -160,7 +159,7 @@ public class ProviderMeta {
         public static final String UPLOADS_UPLOAD_END_TIMESTAMP = "upload_end_timestamp";
         public static final String UPLOADS_LAST_RESULT = "last_result";
         public static final String UPLOADS_CREATED_BY = "created_by";
-        public static final String UPLOADS_DEFAULT_SORT_ORDER = ProviderTableMeta._ID  + " collate nocase desc";
+        public static final String UPLOADS_DEFAULT_SORT_ORDER = ProviderTableMeta._ID + " collate nocase desc";
 
         // Columns of synced folder table
         public static final String SYNCED_FOLDER_LOCAL_PATH = "local_path";

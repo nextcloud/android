@@ -56,6 +56,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
@@ -174,6 +175,14 @@ public class ShareFileFragment extends Fragment implements ShareUserListAdapter.
         if (getArguments() != null) {
             mFile = getArguments().getParcelable(ARG_FILE);
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
         }
     }
 

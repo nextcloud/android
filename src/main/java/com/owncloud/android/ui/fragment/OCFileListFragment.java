@@ -89,6 +89,7 @@ import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -251,6 +252,10 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
         if (remoteOperationAsyncTask != null) {
             remoteOperationAsyncTask.cancel(true);
+        }
+
+        if (getActivity() != null) {
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
         }
     }
 

@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
+ * @author David A. Velasco
+ * Copyright (C) 2015 ownCloud Inc.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package com.owncloud.android.utils;
 
@@ -40,19 +39,19 @@ import java.util.Locale;
  * Utility class with methods for decoding Bitmaps.
  */
 public class BitmapUtils {
-    
-    
+
+
     /**
      * Decodes a bitmap from a file containing it minimizing the memory use, known that the bitmap
      * will be drawn in a surface of reqWidth x reqHeight
-     * 
+     *
      * @param srcPath       Absolute path to the file containing the image.
      * @param reqWidth      Width of the surface where the Bitmap will be drawn on, in pixels.
      * @param reqHeight     Height of the surface where the Bitmap will be drawn on, in pixels.
      * @return
      */
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
-    
+
         // set desired options that will affect the size of the bitmap
         final Options options = new Options();
         options.inScaled = true;
@@ -63,39 +62,39 @@ public class BitmapUtils {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
             options.inMutable = false;
         }
-        
+
         // make a false load of the bitmap to get its dimensions
         options.inJustDecodeBounds = true;
-        
-        BitmapFactory.decodeFile(srcPath, options);   
-        
+
+        BitmapFactory.decodeFile(srcPath, options);
+
         // calculate factor to subsample the bitmap
         options.inSampleSize = calculateSampleFactor(options, reqWidth, reqHeight);
 
         // decode bitmap with inSampleSize set
         options.inJustDecodeBounds = false;
         return BitmapFactory.decodeFile(srcPath, options);
-    }    
+    }
 
 
     /**
      * Calculates a proper value for options.inSampleSize in order to decode a Bitmap minimizing 
      * the memory overload and covering a target surface of reqWidth x reqHeight if the original
      * image is big enough. 
-     * 
+     *
      * @param options       Bitmap decoding options; options.outHeight and options.inHeight should
      *                      be set. 
      * @param reqWidth      Width of the surface where the Bitmap will be drawn on, in pixels.
      * @param reqHeight     Height of the surface where the Bitmap will be drawn on, in pixels.
-     * @return              The largest inSampleSize value that is a power of 2 and keeps both
+     * @return The largest inSampleSize value that is a power of 2 and keeps both
      *                      height and width larger than reqWidth and reqHeight.
      */
     private static int calculateSampleFactor(Options options, int reqWidth, int reqHeight) {
-        
+
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
-    
+
         if (height > reqHeight || width > reqWidth) {
             final int halfHeight = height / 2;
             final int halfWidth = width / 2;
@@ -107,10 +106,10 @@ public class BitmapUtils {
                 inSampleSize *= 2;
             }
         }
-        
+
         return inSampleSize;
     }
-    
+
     /**
      * Rotate bitmap according to EXIF orientation. 
      * Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/ 
@@ -118,64 +117,54 @@ public class BitmapUtils {
      * @param storagePath Path to source file of bitmap. Needed for EXIF information. 
      * @return correctly EXIF-rotated bitmap
      */
-    public static Bitmap rotateImage(Bitmap bitmap, String storagePath){
+    public static Bitmap rotateImage(Bitmap bitmap, String storagePath) {
         Bitmap resultBitmap = bitmap;
 
-        try
-        {
+        try {
             ExifInterface exifInterface = new ExifInterface(storagePath);
             int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
 
             Matrix matrix = new Matrix();
 
             // 1: nothing to do
-            
+
             // 2
-            if (orientation == ExifInterface.ORIENTATION_FLIP_HORIZONTAL)
-            {
+            if (orientation == ExifInterface.ORIENTATION_FLIP_HORIZONTAL) {
                 matrix.postScale(-1.0f, 1.0f);
             }
             // 3
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_180)
-            {
+            else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
                 matrix.postRotate(180);
             }
             // 4
-            else if (orientation == ExifInterface.ORIENTATION_FLIP_VERTICAL)
-            {
+            else if (orientation == ExifInterface.ORIENTATION_FLIP_VERTICAL) {
                 matrix.postScale(1.0f, -1.0f);
             }
             // 5
-            else if (orientation == ExifInterface.ORIENTATION_TRANSPOSE)
-            {
+            else if (orientation == ExifInterface.ORIENTATION_TRANSPOSE) {
                 matrix.postRotate(-90);
                 matrix.postScale(1.0f, -1.0f);
             }
             // 6
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_90)
-            {
+            else if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
                 matrix.postRotate(90);
             }
             // 7
-            else if (orientation == ExifInterface.ORIENTATION_TRANSVERSE)
-            {
+            else if (orientation == ExifInterface.ORIENTATION_TRANSVERSE) {
                 matrix.postRotate(90);
                 matrix.postScale(1.0f, -1.0f);
             }
             // 8
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_270)
-            {
+            else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
                 matrix.postRotate(270);
-            } 
-            
+            }
+
             // Rotate the bitmap
             resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
             if (!resultBitmap.equals(bitmap)) {
                 bitmap.recycle();
             }
-        }
-        catch (Exception exception)
-        {
+        } catch (Exception exception) {
             Log_OC.e("BitmapUtil", "Could not rotate the image: " + storagePath);
         }
         return resultBitmap;
@@ -192,24 +181,20 @@ public class BitmapUtils {
      *  gfxbuilder-core/src/main/com/camick/awt/HSLColor.java
      */
     @SuppressWarnings("PMD.MethodNamingConventions")
-    public static int[] HSLtoRGB(float h, float s, float l, float alpha)
-    {
-        if (s <0.0f || s > 100.0f)
-        {
+    public static int[] HSLtoRGB(float h, float s, float l, float alpha) {
+        if (s < 0.0f || s > 100.0f) {
             String message = "Color parameter outside of expected range - Saturation";
-            throw new IllegalArgumentException( message );
+            throw new IllegalArgumentException(message);
         }
 
-        if (l <0.0f || l > 100.0f)
-        {
+        if (l < 0.0f || l > 100.0f) {
             String message = "Color parameter outside of expected range - Luminance";
-            throw new IllegalArgumentException( message );
+            throw new IllegalArgumentException(message);
         }
 
-        if (alpha <0.0f || alpha > 1.0f)
-        {
+        if (alpha < 0.0f || alpha > 1.0f) {
             String message = "Color parameter outside of expected range - Alpha";
-            throw new IllegalArgumentException( message );
+            throw new IllegalArgumentException(message);
         }
 
         //  Formula needs all values between 0 - 1.
@@ -237,29 +222,29 @@ public class BitmapUtils {
     }
 
     @SuppressWarnings("PMD.MethodNamingConventions")
-    private static float HueToRGB(float p, float q, float h){
-		if (h < 0) {
+    private static float HueToRGB(float p, float q, float h) {
+        if (h < 0) {
             h += 1;
         }
 
-		if (h > 1 ) {
+        if (h > 1) {
             h -= 1;
         }
 
-		if (6 * h < 1) {
-			return p + ((q - p) * 6 * h);
-		}
+        if (6 * h < 1) {
+            return p + ((q - p) * 6 * h);
+        }
 
-		if (2 * h < 1 ) {
-			return  q;
-		}
+        if (2 * h < 1) {
+            return q;
+        }
 
-		if (3 * h < 2) {
-			return p + ( (q - p) * 6 * ((2.0f / 3.0f) - h) );
-		}
+        if (3 * h < 2) {
+            return p + ((q - p) * 6 * ((2.0f / 3.0f) - h));
+        }
 
-   		return p;
-	}
+        return p;
+    }
 
     /**
      * calculates the RGB value based on a given account name.

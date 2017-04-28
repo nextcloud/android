@@ -26,6 +26,7 @@ import android.view.View.OnClickListener;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 public class UploadPathActivity extends FolderPickerActivity implements FileFragment.ContainerActivity,
         OnClickListener, OnEnforceableRefreshListener {
@@ -46,6 +47,12 @@ public class UploadPathActivity extends FolderPickerActivity implements FileFrag
         OCFile folder = new OCFile(instantUploadPath);
 
         setFile(folder);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     /**

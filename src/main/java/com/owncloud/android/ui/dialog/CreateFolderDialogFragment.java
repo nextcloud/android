@@ -20,22 +20,22 @@
 
 package com.owncloud.android.ui.dialog;
 
-import com.owncloud.android.R;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.files.FileUtils;
-import com.owncloud.android.ui.activity.ComponentsGetter;
-
-import android.support.v7.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager.LayoutParams;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.owncloud.android.R;
+import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.files.FileUtils;
+import com.owncloud.android.ui.activity.ComponentsGetter;
 
 /**
  *  Dialog to input the name for a new folder to create.  
