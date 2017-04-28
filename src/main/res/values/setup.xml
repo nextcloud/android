@@ -40,7 +40,7 @@
     <bool name="show_external_links">true</bool>
     <bool name="show_drawer_logout">false</bool>
     
-    // Contacts backup
+    <!-- Contacts backup -->
     <bool name="contacts_backup">true</bool>
     <string name="contacts_backup_folder">/Contacts-Backup</string>
     <integer name="contacts_backup_expire">-1</integer>
@@ -120,7 +120,7 @@
     <string name="report_issue_link" translatable="false">https://github.com/nextcloud/android/issues</string>
 
     <!-- login data links -->
-    <string name="login_data_own_scheme" translatable="false">cloud</string>
+    <string name="login_data_own_scheme" translatable="false">nc</string>
     <!-- url for webview login, with the protocol prefix
     If set, will replace all other login methods available -->
     <string name="webview_login_url" translatable="false"></string>

@@ -50,6 +50,7 @@ import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -97,6 +98,12 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
         getSupportActionBar().setTitle(getString(R.string.drawer_folder_sync));
 
         setupContent();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     /**

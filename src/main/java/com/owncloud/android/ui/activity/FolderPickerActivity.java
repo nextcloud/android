@@ -52,6 +52,7 @@ import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 
@@ -103,7 +104,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             caption = getIntent().getStringExtra(EXTRA_ACTION);
         } else {
             caption = getString(R.string.default_display_name_for_root_folder);
-        }
+        };
         getSupportActionBar().setTitle(caption);
 
         setIndeterminate(mSyncInProgress);
@@ -235,6 +236,8 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
     protected void onResume() {
         super.onResume();
         Log_OC.e(TAG, "onResume() start");
+
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
 
         // refresh list of files
         refreshListOfFilesFragment(false);
