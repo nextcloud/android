@@ -276,10 +276,12 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         if (bool) {
             ContactsPreferenceActivity.startContactBackupJob(contactsPreferenceActivity.getAccount());
         } else {
-            ContactsPreferenceActivity.cancelAllContactBackupJobs(contactsPreferenceActivity);
+            ContactsPreferenceActivity.cancelContactBackupJobForAccount(contactsPreferenceActivity,
+                    contactsPreferenceActivity.getAccount());
         }
 
-        arbitraryDataProvider.storeOrUpdateKeyValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, String.valueOf(bool));
+        arbitraryDataProvider.storeOrUpdateKeyValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
+                String.valueOf(bool));
     }
 
     private boolean checkAndAskForContactsReadPermission(final int permission) {
