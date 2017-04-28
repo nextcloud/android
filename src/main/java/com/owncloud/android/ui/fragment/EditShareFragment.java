@@ -41,6 +41,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 public class EditShareFragment extends Fragment {
 
@@ -375,6 +376,14 @@ public class EditShareFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
+        }
+    }
 
     /**
      * Get {@link OCShare} instance from DB and updates the UI.

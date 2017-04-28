@@ -40,6 +40,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundExce
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.media.MediaService;
 import com.owncloud.android.ui.activity.FileActivity;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 /**
@@ -105,6 +106,11 @@ public class PreviewVideoActivity extends FileActivity implements OnCompletionLi
         mVideoPlayer.setKeepScreenOn(true);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
+    }
 
     /**
      * {@inheritDoc}

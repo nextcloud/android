@@ -41,6 +41,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ShareUserListAdapter;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.util.ArrayList;
 
@@ -102,6 +103,14 @@ public class SearchShareesFragment extends Fragment implements ShareUserListAdap
             mAccount = getArguments().getParcelable(ARG_ACCOUNT);
         }
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
+        }
     }
 
     /**

@@ -830,56 +830,58 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
     }
 
     private void updateQuotaLink() {
-        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
-            ArrayList<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
+        if (mQuotaTextLink != null) {
+            if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+                ArrayList<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
 
-            float density = getResources().getDisplayMetrics().density;
-            final int size = Math.round(24 * density);
+                float density = getResources().getDisplayMetrics().density;
+                final int size = Math.round(24 * density);
 
-            if (quotas.size() > 0) {
-                final ExternalLink firstQuota = quotas.get(0);
-                mQuotaTextLink.setText(firstQuota.name);
-                mQuotaTextLink.setClickable(true);
-                mQuotaTextLink.setVisibility(View.VISIBLE);
-                mQuotaTextLink.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
-                        startActivity(externalWebViewIntent);
-                    }
-                });
+                if (quotas.size() > 0) {
+                    final ExternalLink firstQuota = quotas.get(0);
+                    mQuotaTextLink.setText(firstQuota.name);
+                    mQuotaTextLink.setClickable(true);
+                    mQuotaTextLink.setVisibility(View.VISIBLE);
+                    mQuotaTextLink.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent externalWebViewIntent = new Intent(getApplicationContext(), ExternalSiteWebView.class);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.name);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.url);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
+                            externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+                            startActivity(externalWebViewIntent);
+                        }
+                    });
 
 
-                SimpleTarget target = new SimpleTarget<Drawable>() {
-                    @Override
-                    public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
-                        Drawable test = resource.getCurrent();
-                        test.setBounds(0, 0, size, size);
-                        mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
-                    }
+                    SimpleTarget target = new SimpleTarget<Drawable>() {
+                        @Override
+                        public void onResourceReady(Drawable resource, GlideAnimation glideAnimation) {
+                            Drawable test = resource.getCurrent();
+                            test.setBounds(0, 0, size, size);
+                            mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
+                        }
 
-                    @Override
-                    public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                        super.onLoadFailed(e, errorDrawable);
+                        @Override
+                        public void onLoadFailed(Exception e, Drawable errorDrawable) {
+                            super.onLoadFailed(e, errorDrawable);
 
-                        Drawable test = errorDrawable.getCurrent();
-                        test.setBounds(0, 0, size, size);
+                            Drawable test = errorDrawable.getCurrent();
+                            test.setBounds(0, 0, size, size);
 
-                        mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
-                    }
-                };
+                            mQuotaTextLink.setCompoundDrawablesWithIntrinsicBounds(test, null, null, null);
+                        }
+                    };
 
-                DisplayUtils.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey, size, size);
+                    DisplayUtils.downloadIcon(this, firstQuota.iconUrl, target, R.drawable.ic_link_grey, size, size);
 
+                } else {
+                    mQuotaTextLink.setVisibility(View.INVISIBLE);
+                }
             } else {
                 mQuotaTextLink.setVisibility(View.INVISIBLE);
             }
-        } else {
-            mQuotaTextLink.setVisibility(View.INVISIBLE);
         }
     }
 

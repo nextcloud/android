@@ -42,6 +42,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.BufferedWriter;
@@ -416,6 +417,9 @@ public class PreviewTextFragment extends FileFragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (getActivity() != null) {
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
+        }
         Log_OC.e(TAG, "onResume");
     }
 

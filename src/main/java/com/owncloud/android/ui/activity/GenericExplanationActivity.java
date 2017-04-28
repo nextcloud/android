@@ -33,6 +33,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.util.ArrayList;
 
@@ -82,6 +83,12 @@ public class GenericExplanationActivity  extends AppCompatActivity {
         } else {
             listView.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     public class ExplanationListAdapterView extends ArrayAdapter<String> {
