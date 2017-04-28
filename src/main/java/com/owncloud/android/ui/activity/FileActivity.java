@@ -250,7 +250,7 @@ public abstract class FileActivity extends DrawerActivity
         if (sharedPreferences.getBoolean(ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, false)) {
             ContactsPreferenceActivity.startContactBackupJob(getAccount());
         } else {
-            ContactsPreferenceActivity.cancelContactBackupJob(getBaseContext());
+            ContactsPreferenceActivity.cancelAllContactBackupJobs(getBaseContext());
         }
     }
 
