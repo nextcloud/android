@@ -19,14 +19,6 @@
 
 package com.owncloud.android.ui.adapter;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
@@ -34,6 +26,14 @@ import android.graphics.BitmapFactory;
 import com.jakewharton.disklrucache.DiskLruCache;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.lib.common.utils.Log_OC;
+
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class DiskLruImageCache {
 

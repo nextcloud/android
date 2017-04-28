@@ -20,12 +20,12 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.view.View;
+import android.widget.TextView;
+
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
-
-import android.view.View;
-import android.widget.TextView;
 
 /**
  * TODO

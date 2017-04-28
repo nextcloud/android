@@ -50,6 +50,7 @@ import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
@@ -107,6 +108,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
         mProgressListener = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
+        }
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

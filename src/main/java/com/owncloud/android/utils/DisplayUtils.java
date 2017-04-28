@@ -1,25 +1,25 @@
 /**
- *   Nextcloud Android client application
+ * Nextcloud Android client application
  *
- *   @author Andy Scherzinger
- *   @author Bartek Przybylski
- *   @author David A. Velasco
- *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *   Copyright (C) 2016 Andy Scherzinger
+ * @author Andy Scherzinger
+ * @author Bartek Przybylski
+ * @author David A. Velasco
+ * Copyright (C) 2011  Bartek Przybylski
+ * Copyright (C) 2015 ownCloud Inc.
+ * Copyright (C) 2016 Andy Scherzinger
  *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
+ * License as published by the Free Software Foundation; either
+ * version 3 of the License, or any later version.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
  *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU Affero General Public
+ * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.utils;
@@ -97,8 +97,8 @@ import java.util.Set;
 public class DisplayUtils {
     private static final String TAG = DisplayUtils.class.getSimpleName();
 
-    private static final String[] sizeSuffixes = { "B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
-    private static final int[] sizeScales = { 0, 0, 1, 1, 1, 2, 2, 2, 2 };
+    private static final String[] sizeSuffixes = {"B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"};
+    private static final int[] sizeScales = {0, 0, 1, 1, 1, 2, 2, 2, 2};
     private static final int RELATIVE_THRESHOLD_WARNING = 90;
     private static final int RELATIVE_THRESHOLD_CRITICAL = 95;
     private static final String MIME_TYPE_UNKNOWN = "Unknown type";
@@ -154,7 +154,7 @@ public class DisplayUtils {
     /**
      * Converts MIME types like "image/jpg" to more end user friendly output
      * like "JPG image".
-     * 
+     *
      * @param mimetype MIME type to convert
      * @return A human friendly version of the MIME type, {@link #MIME_TYPE_UNKNOWN} if it can't be converted
      */
@@ -219,7 +219,7 @@ public class DisplayUtils {
             return TWITTER_HANDLE_PREFIX + handle;
         }
     }
-    
+
     /**
      * Converts an internationalized domain name (IDN) in an URL to and from ASCII/Unicode.
      *
@@ -231,7 +231,7 @@ public class DisplayUtils {
     public static String convertIdn(String url, boolean toASCII) {
 
         String urlNoDots = url;
-        String dots="";
+        String dots = "";
         while (urlNoDots.startsWith(".")) {
             urlNoDots = url.substring(1);
             dots = dots + ".";
@@ -360,8 +360,8 @@ public class DisplayUtils {
     public static String getPathWithoutLastSlash(String path) {
 
         // Remove last slash from path
-        if (path.length() > 1 && path.charAt(path.length()-1) == OCFile.PATH_SEPARATOR.charAt(0)) {
-            path = path.substring(0, path.length()-1);
+        if (path.length() > 1 && path.charAt(path.length() - 1) == OCFile.PATH_SEPARATOR.charAt(0)) {
+            path = path.substring(0, path.length() - 1);
         }
         return path;
     }
@@ -424,7 +424,7 @@ public class DisplayUtils {
         if (seekBar != null && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             colorPreLollipopHorizontalProgressBar(seekBar);
 
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 int color = seekBar.getResources().getColor(R.color.color_accent);
                 seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
                 seekBar.getThumb().setColorFilter(color, PorterDuff.Mode.SRC_IN);
@@ -484,6 +484,7 @@ public class DisplayUtils {
 
     public interface AvatarGenerationListener {
         void avatarGenerated(Drawable avatarDrawable, Object callContext);
+
         boolean shouldCallGeneratedCallback(String tag, Object callContext);
     }
 
@@ -496,7 +497,7 @@ public class DisplayUtils {
      * @param storageManager reference for caching purposes
      */
     public static void setAvatar(Account account, AvatarGenerationListener listener, float avatarRadius, Resources resources,
-                           FileDataStorageManager storageManager, Object callContext) {
+                                 FileDataStorageManager storageManager, Object callContext) {
         if (account != null) {
             if (callContext instanceof View) {
                 ((View) callContext).setContentDescription(account.name);
@@ -525,7 +526,7 @@ public class DisplayUtils {
                         final ThumbnailsCacheManager.AsyncAvatarDrawable asyncDrawable =
                                 new ThumbnailsCacheManager.AsyncAvatarDrawable(resources, thumbnail, task);
                         listener.avatarGenerated(BitmapUtils.bitmapToCircularBitmapDrawable(
-                                        resources, asyncDrawable.getBitmap()), callContext);
+                                resources, asyncDrawable.getBitmap()), callContext);
                     }
                     task.execute(account.name);
                 }

@@ -46,6 +46,7 @@ import com.owncloud.android.services.NCJobCreator;
 import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -88,6 +89,10 @@ public class MainApp extends MultiDexApplication {
         super.onCreate();
         JobManager.create(this).addJobCreator(new NCJobCreator());
         MainApp.mContext = getApplicationContext();
+
+        if (!getResources().getBoolean(R.bool.analytics_enabled)) {
+            AnalyticsUtils.disableAnalytics();
+        }
 
         SharedPreferences appPrefs =
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -278,6 +283,7 @@ public class MainApp extends MultiDexApplication {
             syncedFolderProvider.updateAutoUploadPaths(mContext);
         }
     }
+
     private void cleanOldEntries() {
         // previous versions of application created broken entries in the SyncedFolderProvider
         // database, and this cleans all that and leaves 1 (newest) entry per synced folder
@@ -312,7 +318,9 @@ public class MainApp extends MultiDexApplication {
         }
     }
 
-    /** Defines callbacks for service binding, passed to bindService() */
+    /**
+     * Defines callbacks for service binding, passed to bindService()
+     */
     private ServiceConnection syncedFolderObserverServiceConnection = new ServiceConnection() {
 
         @Override

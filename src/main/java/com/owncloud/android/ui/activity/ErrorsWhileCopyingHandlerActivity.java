@@ -44,6 +44,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
@@ -131,6 +132,12 @@ public class ErrorsWhileCopyingHandlerActivity  extends AppCompatActivity
         okBtn.setText(R.string.foreign_files_move);
         cancelBtn.setOnClickListener(this);
         okBtn.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
         /**

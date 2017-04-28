@@ -50,6 +50,7 @@ import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
@@ -317,6 +318,12 @@ public class UploadFilesActivity extends FileActivity implements
         outState.putBoolean(UploadFilesActivity.KEY_ALL_SELECTED,
                 mOptionsMenu.findItem(R.id.action_select_all).isChecked());
         Log_OC.d(TAG, "onSaveInstanceState() end");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     /**

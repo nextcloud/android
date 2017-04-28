@@ -32,6 +32,7 @@ import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.adapter.ExpandableUploadListAdapter;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 /**
  * A Fragment that lists all files and folders in a given LOCAL path.
@@ -70,6 +71,14 @@ public class UploadListFragment extends ExpandableListFragment {
         );
         setOnRefreshListener(this);
         return v;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (getActivity() != null) {
+            AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
+        }
     }
 
     @Override
@@ -135,7 +144,7 @@ public class UploadListFragment extends ExpandableListFragment {
          * @param file the file that has been clicked on.
          * @return return true if click was handled.
          */
-        boolean onUploadItemClick(OCUpload file);
+        public boolean onUploadItemClick(OCUpload file);
     }
 
     public void binderReady(){

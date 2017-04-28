@@ -55,6 +55,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.fragment.UploadListFragment;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
@@ -127,6 +128,8 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
+
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
 
         // Listen for upload messages
         mUploadMessagesReceiver = new UploadMessagesReceiver();
@@ -331,7 +334,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 mUploaderBinder = null;
             }
         }
-    }
+    };
 
     /**
      * Once the file upload has changed its status -> update uploads list view

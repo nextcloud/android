@@ -20,14 +20,15 @@
  */
 package com.owncloud.android.ui.adapter;
 
-import java.text.DateFormat;
-import java.util.Date;
-
-import com.owncloud.android.R;
-import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import android.net.http.SslCertificate;
 import android.view.View;
 import android.widget.TextView;
+
+import com.owncloud.android.R;
+import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
+
+import java.text.DateFormat;
+import java.util.Date;
 
 /**
  * TODO

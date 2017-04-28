@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.io.File;
 
@@ -67,6 +68,12 @@ public class ManageSpaceActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -19,16 +19,18 @@
 
 package com.owncloud.android.ui.notifications;
 
-import java.util.Random;
-
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 import android.support.v4.app.NotificationCompat;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 import com.owncloud.android.R;
+
+import java.util.Random;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class NotificationUtils {
 

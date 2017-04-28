@@ -20,6 +20,20 @@
 
 package com.owncloud.android.ui.dialog;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.TextView;
+
+import com.owncloud.android.R;
+import com.owncloud.android.lib.common.network.CertificateCombinedException;
+import com.owncloud.android.lib.common.network.NetworkUtils;
+import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
+
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStoreException;
@@ -31,21 +45,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.security.auth.x500.X500Principal;
-
-import com.owncloud.android.R;
-
-import android.app.Dialog;
-import android.content.Context;
-import android.os.Bundle;
-import android.view.View;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.TextView;
-
-import com.owncloud.android.lib.common.network.CertificateCombinedException;
-import com.owncloud.android.lib.common.network.NetworkUtils;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
 
 /**
  * Dialog to request the user about a certificate that could not be validated with the certificates store in the system.

@@ -51,6 +51,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.features.FeatureList;
 import com.owncloud.android.features.FeatureList.FeatureItem;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 /**
  * Activity displaying general feature after a fresh install and new features after an update.
@@ -136,6 +137,12 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         }
 
         updateNextButtonIfNeeded();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     @Override
