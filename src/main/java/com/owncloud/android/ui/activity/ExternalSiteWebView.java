@@ -32,11 +32,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * This activity shows an URL as a web view
@@ -52,6 +52,7 @@ public class ExternalSiteWebView extends FileActivity {
 
     private boolean showSidebar = false;
     private int menuItemId;
+    private WebView webview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,8 +70,8 @@ public class ExternalSiteWebView extends FileActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.externalsite_webview);
 
-        WebView webview = (WebView) findViewById(R.id.webView);
-        WebSettings webSettings = webview.getSettings();
+        webview = (WebView) findViewById(R.id.webView);
+        final WebSettings webSettings = webview.getSettings();
 
         webview.setFocusable(true);
         webview.setFocusableInTouchMode(true);
@@ -122,7 +123,7 @@ public class ExternalSiteWebView extends FileActivity {
 
         webview.setWebViewClient(new WebViewClient() {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                Toast.makeText(activity, getString(R.string.webview_error) + ": " + description, Toast.LENGTH_SHORT).show();
+                webview.loadData(DisplayUtils.getData(getResources().openRawResource(R.raw.custom_error)),"text/html; charset=UTF-8", null);
             }
         });
 
