@@ -47,9 +47,19 @@ public class ArbitraryDataProvider {
         this.contentResolver = contentResolver;
     }
 
+    public int deleteKeyForAccount(Account account, String key) {
+        int result = contentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA,
+                ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " = ? AND " +
+                        ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY + "= ?",
+                new String[]{account.name, key}
+        );
+
+        return result;
+    }
+
+
     public void storeOrUpdateKeyValue(Account account, String key, String newValue) {
-
-
         ArbitraryDataSet data = getArbitraryDataSet(account, key);
         if (data == null) {
             Log_OC.v(TAG, "Adding arbitrary data with cloud id: " + account.name + " key: " + key

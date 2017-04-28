@@ -20,9 +20,12 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.os.Bundle;
+
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.PushUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -31,6 +34,13 @@ public class ModifiedFileDisplayActivity extends FileDisplayActivity {
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
         PushUtils.pushRegistrationToServer();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // see if there's stuff to push every time we start the app
+        EventBus.getDefault().post(new TokenPushEvent());
     }
 
 }
