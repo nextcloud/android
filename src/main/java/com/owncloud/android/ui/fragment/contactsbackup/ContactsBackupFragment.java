@@ -21,9 +21,9 @@
 package com.owncloud.android.ui.fragment.contactsbackup;
 
 import android.Manifest;
+import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -44,8 +44,8 @@ import android.widget.Toast;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.services.ContactsBackupJob;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -67,8 +67,6 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
 
 public class ContactsBackupFragment extends FileFragment implements DatePickerDialog.OnDateSetListener {
     public static final String TAG = ContactsBackupFragment.class.getSimpleName();
-
-    private SharedPreferences sharedPreferences;
 
     @BindView(R.id.contacts_automatic_backup)
     public SwitchCompat backupSwitch;
@@ -93,6 +91,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
     private static final String KEY_CALENDAR_DAY = "CALENDAR_DAY";
     private static final String KEY_CALENDAR_MONTH = "CALENDAR_MONTH";
     private static final String KEY_CALENDAR_YEAR = "CALENDAR_YEAR";
+    private ArbitraryDataProvider arbitraryDataProvider;
+    private Account account;
+
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -104,12 +105,14 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
+        account = (Account) getArguments().get(ContactListFragment.ACCOUNT);
+
         contactsPreferenceActivity.getSupportActionBar().setTitle(R.string.actionbar_contacts);
         contactsPreferenceActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(contactsPreferenceActivity);
+        arbitraryDataProvider = new ArbitraryDataProvider(getContext().getContentResolver());
 
-        backupSwitch.setChecked(sharedPreferences.getBoolean(PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, false));
+        backupSwitch.setChecked(arbitraryDataProvider.getBooleanValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP));
 
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -127,7 +130,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         backupSwitch.setOnCheckedChangeListener(onCheckedChangeListener);
 
         // display last backup
-        Long lastBackupTimestamp = sharedPreferences.getLong(PREFERENCE_CONTACTS_LAST_BACKUP, -1);
+        Long lastBackupTimestamp = arbitraryDataProvider.getLongValue(account, PREFERENCE_CONTACTS_LAST_BACKUP);
 
         if (lastBackupTimestamp == -1) {
             lastBackup.setText(R.string.contacts_preference_backup_never);
@@ -276,9 +279,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             ContactsPreferenceActivity.cancelAllContactBackupJobs(contactsPreferenceActivity);
         }
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, bool);
-        editor.apply();
+        arbitraryDataProvider.storeOrUpdateKeyValue(account, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, String.valueOf(bool));
     }
 
     private boolean checkAndAskForContactsReadPermission(final int permission) {

@@ -75,7 +75,11 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             if (intent == null || intent.getParcelableExtra(ContactListFragment.FILE_NAME) == null ||
                     intent.getParcelableExtra(ContactListFragment.ACCOUNT) == null) {
-                transaction.add(R.id.frame_container, new ContactsBackupFragment());
+                ContactsBackupFragment fragment = new ContactsBackupFragment();
+                Bundle bundle = new Bundle();
+                bundle.putParcelable(ContactListFragment.ACCOUNT, getAccount());
+                fragment.setArguments(bundle);
+                transaction.add(R.id.frame_container, fragment);
             } else {
                 OCFile file = Parcels.unwrap(intent.getParcelableExtra(ContactListFragment.FILE_NAME));
                 Account account = Parcels.unwrap(intent.getParcelableExtra(ContactListFragment.ACCOUNT));

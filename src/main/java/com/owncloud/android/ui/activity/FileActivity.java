@@ -28,7 +28,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -41,8 +40,8 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.files.services.FileDownloader;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader;
@@ -245,12 +244,11 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     private void checkContactsBackupJob() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
-        if (sharedPreferences.getBoolean(ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, false)) {
+        if (getAccount() != null && arbitraryDataProvider.getBooleanValue(getAccount(),
+                ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
             ContactsPreferenceActivity.startContactBackupJob(getAccount());
-        } else {
-            ContactsPreferenceActivity.cancelAllContactBackupJobs(getBaseContext());
         }
     }
 

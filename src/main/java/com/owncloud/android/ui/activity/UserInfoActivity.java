@@ -31,7 +31,6 @@ import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
@@ -51,7 +50,7 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -343,12 +342,12 @@ public class UserInfoActivity extends FileActivity {
                                     ContactsPreferenceActivity.cancelContactBackupJobForAccount(getActivity(), account);
 
                                     // disable daily backup
-                                    SharedPreferences sharedPreferences = PreferenceManager
-                                            .getDefaultSharedPreferences(getActivity());
-                                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                                    editor.putBoolean(ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
-                                            false);
-                                    editor.apply();
+                                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                                            getActivity().getContentResolver());
+
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(account,
+                                            ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
+                                            "false");
 
                                     if (getActivity() != null && !removeDirectly) {
                                         Bundle bundle = new Bundle();
