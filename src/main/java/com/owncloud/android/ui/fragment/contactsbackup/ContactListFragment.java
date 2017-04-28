@@ -377,7 +377,8 @@ public class ContactListFragment extends FileFragment {
     private boolean checkAndAskForContactsWritePermission() {
         // check permissions
         if (!PermissionUtil.checkSelfPermission(getContext(), Manifest.permission.WRITE_CONTACTS)) {
-            PermissionUtil.requestWriteContactPermission(this);
+            requestPermissions(new String[]{Manifest.permission.WRITE_CONTACTS},
+                    PermissionUtil.PERMISSIONS_WRITE_CONTACTS);
             return false;
         } else {
             return true;

@@ -87,6 +87,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
     private DatePickerDialog datePickerDialog;
 
+    private CompoundButton.OnCheckedChangeListener onCheckedChangeListener;
+
     private static final String KEY_CALENDAR_PICKER_OPEN = "IS_CALENDAR_PICKER_OPEN";
     private static final String KEY_CALENDAR_DAY = "CALENDAR_DAY";
     private static final String KEY_CALENDAR_MONTH = "CALENDAR_MONTH";
@@ -109,18 +111,20 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
         backupSwitch.setChecked(sharedPreferences.getBoolean(PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, false));
 
-        backupSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked &&
-                        checkAndAskForContactsReadPermission(PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC)) {
-                    // store value
-                    setAutomaticBackup(true);
-                } else {
-                    setAutomaticBackup(false);
+                if (checkAndAskForContactsReadPermission(PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC)) {
+                    if (isChecked) {
+                        setAutomaticBackup(true);
+                    } else {
+                        setAutomaticBackup(false);
+                    }
                 }
             }
-        });
+        };
+
+        backupSwitch.setOnCheckedChangeListener(onCheckedChangeListener);
 
         // display last backup
         Long lastBackupTimestamp = sharedPreferences.getLong(PREFERENCE_CONTACTS_LAST_BACKUP, -1);
@@ -211,7 +215,9 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                     if (grantResults[index] >= 0) {
                         setAutomaticBackup(true);
                     } else {
-                        setAutomaticBackup(false);
+                        backupSwitch.setOnCheckedChangeListener(null);
+                        backupSwitch.setChecked(false);
+                        backupSwitch.setOnCheckedChangeListener(onCheckedChangeListener);
                     }
 
                     break;
@@ -265,7 +271,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
         if (bool) {
-        ContactsPreferenceActivity.startContactBackupJob(contactsPreferenceActivity.getAccount());
+            ContactsPreferenceActivity.startContactBackupJob(contactsPreferenceActivity.getAccount());
         } else {
             ContactsPreferenceActivity.cancelAllContactBackupJobs(contactsPreferenceActivity);
         }
@@ -292,7 +298,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                         .setAction(R.string.common_ok, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                PermissionUtil.requestReadContactPermission(contactsPreferenceActivity, permission);
+                                requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                                        PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC);
                             }
                         });
 
@@ -303,8 +310,8 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 return false;
             } else {
                 // No explanation needed, request the permission.
-                PermissionUtil.requestReadContactPermission(contactsPreferenceActivity, permission);
-
+                requestPermissions(new String[]{Manifest.permission.READ_CONTACTS},
+                        PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC);
                 return false;
             }
         }
