@@ -47,10 +47,12 @@ public class ArbitraryDataProvider {
     }
 
     public void storeOrUpdateKeyValue(Account account, String key, String newValue) {
-        Log_OC.v(TAG, "Adding arbitrary data with cloud id: " + account.name + " key: " + key + " value: " + newValue);
+
 
         ArbitraryDataSet data = getArbitraryDataSet(account, key);
         if (data == null) {
+            Log_OC.v(TAG, "Adding arbitrary data with cloud id: " + account.name + " key: " + key
+                    + " value: " + newValue);
             ContentValues cv = new ContentValues();
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, account.name);
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY, key);
@@ -63,6 +65,8 @@ public class ArbitraryDataProvider {
                         + " value: " + newValue);
             }
         } else {
+            Log_OC.v(TAG, "Updating arbitrary data with cloud id: " + account.name + " key: " + key
+                    + " value: " + newValue);
             ContentValues cv = new ContentValues();
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID, data.getCloudId());
             cv.put(ProviderMeta.ProviderTableMeta.ARBITRARY_DATA_KEY, data.getKey());
@@ -91,6 +95,12 @@ public class ArbitraryDataProvider {
         } else {
             return Long.valueOf(value);
         }
+    }
+
+    public boolean getBooleanValue(Account account, String key) {
+        String value = getValue(account, key);
+
+        return !value.isEmpty() && value.equalsIgnoreCase("true");
     }
 
     private ArrayList<String> getValues(Account account, String key) {
