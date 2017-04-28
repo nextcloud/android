@@ -26,7 +26,6 @@ import android.accounts.Account;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -45,8 +44,8 @@ import com.evernote.android.job.JobManager;
 import com.evernote.android.job.JobRequest;
 import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.services.ContactsBackupJob;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -70,7 +69,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
     public static final String PREFERENCE_CONTACTS_LAST_BACKUP = "PREFERENCE_CONTACTS_LAST_BACKUP";
 
     private SwitchCompat backupSwitch;
-    private SharedPreferences sharedPreferences;
+    private ArbitraryDataProvider arbitraryDataProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,10 +86,11 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         getSupportActionBar().setTitle(R.string.actionbar_contacts);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
 
         backupSwitch = (SwitchCompat) findViewById(R.id.contacts_automatic_backup);
-        backupSwitch.setChecked(sharedPreferences.getBoolean(PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, false));
+        backupSwitch.setChecked(arbitraryDataProvider.getValue(getAccount(), PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)
+                .equals("true"));
 
         backupSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -113,7 +113,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
         // display last backup
         TextView lastBackup = (TextView) findViewById(R.id.contacts_last_backup_timestamp);
-        Long lastBackupTimestamp = sharedPreferences.getLong(PREFERENCE_CONTACTS_LAST_BACKUP, -1);
+        Long lastBackupTimestamp = arbitraryDataProvider.getLongValue(getAccount(), PREFERENCE_CONTACTS_LAST_BACKUP);
 
         if (lastBackupTimestamp == -1) {
             lastBackup.setText(R.string.contacts_preference_backup_never);
@@ -186,9 +186,8 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
     private void setAutomaticBackup(SwitchCompat backupSwitch, boolean bool) {
         backupSwitch.setChecked(bool);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean(PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, bool);
-        editor.apply();
+        arbitraryDataProvider.storeOrUpdateKeyValue(getAccount(),
+                PREFERENCE_CONTACTS_AUTOMATIC_BACKUP, String.valueOf(bool));
     }
 
     private boolean checkAndAskForContactsReadPermission(final int permission) {
@@ -200,12 +199,13 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
             if (PermissionUtil.shouldShowRequestPermissionRationale(ContactsPreferenceActivity.this,
                     android.Manifest.permission.READ_CONTACTS)) {
                 // Show explanation to the user and then request permission
-                Snackbar snackbar = Snackbar.make(findViewById(R.id.contacts_linear_layout), R.string.contacts_read_permission,
-                        Snackbar.LENGTH_INDEFINITE)
+                Snackbar snackbar = Snackbar.make(findViewById(R.id.contacts_linear_layout),
+                        R.string.contacts_read_permission, Snackbar.LENGTH_INDEFINITE)
                         .setAction(R.string.common_ok, new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                PermissionUtil.requestReadContactPermission(ContactsPreferenceActivity.this, permission);
+                                PermissionUtil.requestReadContactPermission(ContactsPreferenceActivity.this,
+                                        permission);
                             }
                         });
 
