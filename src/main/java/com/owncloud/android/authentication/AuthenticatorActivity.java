@@ -337,6 +337,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
                 return false;
             }
+
+            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+
+                mLoginWebView.loadData(DisplayUtils.getData(getResources().openRawResource(R.raw.custom_error)),"text/html; charset=UTF-8", null);
+            }
         });
     }
 
