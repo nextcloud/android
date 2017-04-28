@@ -79,6 +79,12 @@ Our formatter setup is rather simple:
 * Auto optimize imports (Settings->Editor->Auto Import->Optimize imports on the fly)
 
 
+### Build variants
+There are three build variants
+* generic: no Google Stuff, used for FDroid
+* gplay: with Google Stuff (Push notification) and Analytics disabled, used for Google Play Store
+* modified: custom, with Google Stuff and Analytics enabled, used for branded releases
+
 ## Contribution process
 * Contribute your code in the branch 'master'. It will give us a better chance to test your code before merging it with stable code.
 * For your first contribution start a pull request on master.

@@ -263,8 +263,6 @@
 
         <service android:name=".services.observer.FileObserverService" />
 
-        <service android:name="com.evernote.android.job.gcm.PlatformGcmService" tools:node="remove"/>
-
         <activity
             android:name=".ui.activity.CopyToClipboardActivity"
             android:icon="@drawable/copy_link"

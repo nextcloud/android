@@ -19,13 +19,13 @@
  */
 package com.owncloud.android.ui.errorhandling;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandler {
 	private final Activity mContext;

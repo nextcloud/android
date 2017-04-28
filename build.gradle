@@ -82,10 +82,14 @@ android {
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
 
         productFlavors {
+            // used for f-droid
             generic {
                 applicationId 'com.nextcloud.android.beta'
             }
 
+            gplay {
+                applicationId 'com.nextcloud.client'
+            }
 
             modified {
                 // structure is:
@@ -214,11 +218,15 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
 
+// uncomment for gplay, modified
+//    compile 'com.google.android.gms:play-services:10.2.1'
+
     compile 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'
 
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.caverock:androidsvg:1.2.1'
+
     /// dependencies for local unit tests
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
@@ -254,4 +262,5 @@ tasks.withType(Test) {
     }
 }
 
-apply plugin: 'com.google.gms.google-services'
+// uncomment for gplay, modified (must be at the bottom)
+//apply plugin: 'com.google.gms.google-services'

@@ -31,6 +31,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 /**
  * Activity providing information about ways to participate in the app's development.
@@ -56,6 +57,11 @@ public class ParticipateActivity extends FileActivity {
         setupContent();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
+    }
 
     private void setupContent() {
         TextView rcView = (TextView) findViewById(R.id.participate_release_candidate_text);

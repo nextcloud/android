@@ -105,6 +105,7 @@
     <string name="local_file_list_empty">No hay archivos en esta carpeta</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
+    <string name="file_list_empty_favorite_headline">Aún no hay favoritos</string>
     <string name="file_list_empty_shared_headline">Aún no hay nada compartido</string>
     <string name="file_list_empty_shared">Los archivos y carpetas que comparta se mostrarán aquí. </string>
     <string name="file_list_empty_headline_server_search_videos">No hay videos</string>

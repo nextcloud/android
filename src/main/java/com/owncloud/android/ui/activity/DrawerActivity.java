@@ -353,6 +353,10 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             navigationView.getMenu().removeItem(R.id.nav_contacts);
         }
 
+        if (!getResources().getBoolean(R.bool.show_drawer_logout)) {
+            navigationView.getMenu().removeItem(R.id.nav_logout);
+        }
+
         if (AccountUtils.hasSearchSupport(account)) {
             if (!getResources().getBoolean(R.bool.recently_added_enabled)) {
                 navigationView.getMenu().removeItem(R.id.nav_recently_added);
@@ -454,6 +458,11 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
                 Intent participateIntent = new Intent(getApplicationContext(),
                         ParticipateActivity.class);
                 startActivity(participateIntent);
+                break;
+            case R.id.nav_logout:
+                mCheckedMenuItem = -1;
+                menuItem.setChecked(false);
+                UserInfoActivity.openAccountRemovalConfirmationDialog(getAccount(), getFragmentManager(), true);
                 break;
             case R.id.drawer_menu_account_add:
                 createAccount(false);

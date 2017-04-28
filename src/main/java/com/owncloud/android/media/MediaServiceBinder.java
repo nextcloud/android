@@ -1,21 +1,20 @@
 /**
- *   ownCloud Android client application
+ * ownCloud Android client application
  *
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud Inc.
+ * @author David A. Velasco
+ * Copyright (C) 2016 ownCloud Inc.
  *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2,
+ * as published by the Free Software Foundation.
  *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package com.owncloud.android.media;
@@ -34,7 +33,7 @@ import com.owncloud.android.media.MediaService.State;
 
 /**
  *  Binder allowing client components to perform operations on on the MediaPlayer managed by a MediaService instance.
- * 
+ *
  *  Provides the operations of {@link MediaController.MediaPlayerControl}, and an extra method to check if
  *  an {@link OCFile} instance is handled by the MediaService.
  */
@@ -45,10 +44,10 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
      * {@link MediaService} instance to access with the binder
      */
     private MediaService mService = null;
-    
+
     /**
      * Public constructor
-     * 
+     *
      * @param service       A {@link MediaService} instance to access with the binder 
      */
     public MediaServiceBinder(MediaService service) {
@@ -57,13 +56,13 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         }
         mService = service;
     }
-    
-    
+
+
     public boolean isPlaying(OCFile mFile) {
-        return (mFile != null && mFile.equals(mService.getCurrentFile())); 
+        return (mFile != null && mFile.equals(mService.getCurrentFile()));
     }
 
-    
+
     @Override
     public boolean canPause() {
         return true;
@@ -110,10 +109,10 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         }
     }
 
-    
+
     /**
      * Reports if the MediaService is playing a file or not.
-     * 
+     *
      * Considers that the file is being played when it is in preparation because the expected
      * client of this method is a {@link MediaController} , and we do not want that the 'play'
      * button is shown when the file is being prepared by the MediaService.
@@ -124,7 +123,7 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         return (currentState == State.PLAYING || (currentState == State.PREPARING && mService.mPlayOnPrepared));
     }
 
-    
+
     @Override
     public void pause() {
         Log_OC.d(TAG, "Pausing through binder...");
@@ -146,7 +145,7 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
         Log_OC.d(TAG, "Starting through binder...");
         mService.processPlayRequest();  // this will finish the service if there is no file preloaded to play
     }
-    
+
     public void start(Account account, OCFile file, boolean playImmediately, int position) {
         Log_OC.d(TAG, "Loading and starting through binder...");
         Intent i = new Intent(mService, MediaService.class);
@@ -162,12 +161,12 @@ public class MediaServiceBinder extends Binder implements MediaController.MediaP
     public void registerMediaController(MediaControlView mediaController) {
         mService.setMediaContoller(mediaController);
     }
-    
+
     public void unregisterMediaController(MediaControlView mediaController) {
         if (mediaController != null && mediaController == mService.getMediaController()) {
             mService.setMediaContoller(null);
         }
-        
+
     }
 
     public boolean isInPlaybackState() {

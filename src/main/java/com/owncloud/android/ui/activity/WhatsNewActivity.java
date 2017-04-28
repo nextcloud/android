@@ -51,6 +51,7 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.features.FeatureList;
 import com.owncloud.android.features.FeatureList.FeatureItem;
 import com.owncloud.android.ui.whatsnew.ProgressIndicator;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 /**
  * Activity displaying general feature after a fresh install and new features after an update.
@@ -78,7 +79,9 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
         String[] urls = getResources().getStringArray(R.array.whatsnew_urls);
 
-        if (urls.length > 0) {
+        boolean showWebView = urls.length > 0;
+
+        if (showWebView) {
             FeaturesWebViewAdapter featuresWebViewAdapter = new FeaturesWebViewAdapter(getSupportFragmentManager(),
                     urls);
             mProgress.setNumberOfSteps(featuresWebViewAdapter.getCount());
@@ -124,9 +127,22 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         });
 
         TextView tv = (TextView)findViewById(R.id.welcomeText);
-        tv.setText(isFirstRun() ? R.string.empty : R.string.whats_new_title);
+
+        if (showWebView) {
+            tv.setText(R.string.app_name);
+        } else if (isFirstRun()) {
+            tv.setText(R.string.empty);
+        } else {
+            tv.setText(R.string.whats_new_title);
+        }
 
         updateNextButtonIfNeeded();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
     }
 
     @Override
@@ -235,7 +251,7 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            mWebUrl = getArguments() != null ? (String)getArguments().getString("url") : null;
+            mWebUrl = getArguments() != null ? getArguments().getString("url") : null;
         }
 
         @Nullable
