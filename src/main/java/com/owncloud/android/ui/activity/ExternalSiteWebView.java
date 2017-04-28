@@ -36,10 +36,7 @@ import android.widget.ProgressBar;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import com.owncloud.android.utils.DisplayUtils;
 
 /**
  * This activity shows an URL as a web view
@@ -126,22 +123,7 @@ public class ExternalSiteWebView extends FileActivity {
 
         webview.setWebViewClient(new WebViewClient() {
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-
-                BufferedReader buffreader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.custom_error)));
-                String line;
-                StringBuilder text = new StringBuilder();
-                try {
-                    while (( line = buffreader.readLine()) != null) {
-                        text.append(line);
-                        text.append('\n');
-                    }
-                } catch (IOException e) {
-                    Log_OC.e(TAG,e.getMessage());
-                    return;
-                }
-
-                webview.loadData(text.toString(),"text/html; charset=UTF-8", null);
-
+                webview.loadData(DisplayUtils.getData(getResources().openRawResource(R.raw.custom_error)),"text/html; charset=UTF-8", null);
             }
         });
 

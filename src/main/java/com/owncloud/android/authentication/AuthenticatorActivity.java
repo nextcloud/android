@@ -115,9 +115,6 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
 import com.owncloud.android.utils.DisplayUtils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.security.cert.X509Certificate;
 import java.util.Map;
 
@@ -341,19 +338,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
 
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-                BufferedReader buffreader = new BufferedReader(new InputStreamReader(getResources().openRawResource(R.raw.custom_error)));
-                String line;
-                StringBuilder text = new StringBuilder();
-                try {
-                    while (( line = buffreader.readLine()) != null) {
-                        text.append(line);
-                        text.append('\n');
-                    }
-                } catch (IOException e) {
-                    Log_OC.e(TAG,e.getMessage());
-                    return;
-                }
-                mLoginWebView.loadData(text.toString(),"text/html; charset=UTF-8", null);
+
+                mLoginWebView.loadData(DisplayUtils.getData(getResources().openRawResource(R.raw.custom_error)),"text/html; charset=UTF-8", null);
             }
         });
     }

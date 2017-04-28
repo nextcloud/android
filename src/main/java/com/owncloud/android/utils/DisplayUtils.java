@@ -81,7 +81,10 @@ import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
 import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcels;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.IDN;
 import java.text.DateFormat;
@@ -646,4 +649,27 @@ public class DisplayUtils {
             activity.startActivity(recentlyAddedIntent);
         }
     }
+
+
+    /**
+     * Get String data from a InputStream
+     *
+     * @param inputStream        The File InputStream
+     */
+    public static String getData(InputStream inputStream){
+
+        BufferedReader buffreader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        StringBuilder text = new StringBuilder();
+        try {
+            while (( line = buffreader.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+        } catch (IOException e) {
+            Log_OC.e(TAG,e.getMessage());
+        }
+        return text.toString();
+    }
+
 }
