@@ -56,8 +56,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
-import com.owncloud.android.utils.AnalyticsUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.AnalyticsUtils;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -406,21 +406,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        clearPassCodeEditText();
-        if (mSnackbar == null || !mSnackbar.isShown()) {
-            mButtonVisibility = ButtonVisibility.Startup;
-            setupKeyboard();
-            if (mSoftKeyboardMode) {
-                mSoftKeyboard.initVisible();
-            } else {
-                mSoftKeyboard.initHidden();
-            }
-        }
-    }
-
-    @Override
     protected void onPause() {
         super.onPause();
         mSoftKeyboard.appClose();
@@ -526,6 +511,16 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     protected void onResume() {
         super.onResume();
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
+        clearPassCodeEditText();
+        if (mSnackbar == null || !mSnackbar.isShown()) {
+            mButtonVisibility = ButtonVisibility.Startup;
+            setupKeyboard();
+            if (mSoftKeyboardMode) {
+                mSoftKeyboard.initVisible();
+            } else {
+                mSoftKeyboard.initHidden();
+            }
+        }
     }
 
     private void hideButtons() {
