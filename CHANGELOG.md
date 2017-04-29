@@ -1,3 +1,8 @@
+## 2017-04-30 00:30
+no new branches added
+
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
 ## 2017-04-29 00:32
 no new branches added
 
