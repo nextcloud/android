@@ -283,7 +283,6 @@
     <string name="common_rename">Renomear</string>
     <string name="common_remove">Excluir</string>
     <string name="confirmation_remove_file_alert">Deseja realmente excluir %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Quer realmente excluir %1$s de seu conteúdo?</string>
     <string name="confirmation_remove_local">Somente local</string>
     <string name="remove_success_msg">Excluído</string>
     <string name="remove_fail_msg">Erro ao excluir</string>
