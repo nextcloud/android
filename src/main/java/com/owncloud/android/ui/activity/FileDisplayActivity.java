@@ -83,6 +83,7 @@ import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.TokenPushEvent;
+import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -101,6 +102,7 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 
 import org.greenrobot.eventbus.EventBus;
+import org.parceler.Parcels;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -433,7 +435,7 @@ public class FileDisplayActivity extends HookActivity
                 updateActionBarTitleAndHomeButton(file);
             } else {
                 cleanSecondFragment();
-                if (file.isDown() && MimeTypeUtil.isVCard(file.getMimetype())){
+                if (file.isDown() && MimeTypeUtil.isVCard(file.getMimetype())) {
                     startContactListFragment(file);
                 } else if (file.isDown() && PreviewTextFragment.canBePreviewed(file)) {
                     startTextPreview(file);
@@ -602,7 +604,7 @@ public class FileDisplayActivity extends HookActivity
                         if (PreviewMediaFragment.canBePreviewed(mWaitingToPreview)) {
                             startMediaPreview(mWaitingToPreview, 0, true);
                             detailsFragmentChanged = true;
-                        } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimetype())){
+                        } else if (MimeTypeUtil.isVCard(mWaitingToPreview.getMimetype())) {
                             startContactListFragment(mWaitingToPreview);
                             detailsFragmentChanged = true;
                         } else if (PreviewTextFragment.canBePreviewed(mWaitingToPreview)) {
@@ -1951,12 +1953,10 @@ public class FileDisplayActivity extends HookActivity
     }
 
     public void startContactListFragment(OCFile file) {
-        Fragment contactListFragment = ContactListFragment.newInstance(file, getAccount());
-
-        setSecondFragment(contactListFragment);
-        updateFragmentsVisibility(true);
-        updateActionBarTitleAndHomeButton(file);
-        setFile(file);
+        Intent intent = new Intent(this, ContactsPreferenceActivity.class);
+        intent.putExtra(ContactListFragment.FILE_NAME, Parcels.wrap(file));
+        intent.putExtra(ContactListFragment.ACCOUNT, Parcels.wrap(getAccount()));
+        startActivity(intent);
     }
 
     /**
