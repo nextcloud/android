@@ -251,7 +251,7 @@ public class FileDataStorageManager {
         return overriden;
     }
 
-    public long saveFileWithParent(OCFile file, Context context) {
+    public OCFile saveFileWithParent(OCFile file, Context context) {
         if (file.getParentId() != 0 || file.getRemotePath().equals("/")) {
             saveFile(file);
 
@@ -261,7 +261,7 @@ public class FileDataStorageManager {
 
             OCFile parentFile = getFileByPath(parentPath);
 
-            long fileId;
+            OCFile returnFile;
             if (parentFile == null) {
                 // remote request
                 ReadRemoteFileOperation operation = new ReadRemoteFileOperation(parentPath);
@@ -269,20 +269,20 @@ public class FileDataStorageManager {
                 if (result.isSuccess()) {
                     OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
-                    fileId = saveFileWithParent(remoteFolder, context);
+                    returnFile = saveFileWithParent(remoteFolder, context);
                 } else {
-                    fileId = -1;
+                    returnFile = null;
                     Log_OC.e(TAG, "Error during saving file with parents: " + file.getRemotePath());
                 }
             } else {
-                fileId = saveFileWithParent(parentFile, context);
+                returnFile = saveFileWithParent(parentFile, context);
             }
 
-            file.setParentId(fileId);
+            file.setParentId(returnFile.getFileId());
             saveFile(file);
         }
 
-        return getFileByPath(file.getRemotePath()).getFileId();
+        return file;
     }
 
     public void saveNewFile(OCFile newFile) {
