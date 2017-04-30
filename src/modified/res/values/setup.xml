@@ -4,18 +4,18 @@
     <bool name="is_beta">false</bool>
 
     <!-- App name  and other strings-->
-    <string name="app_name">Nextcloud</string>
-    <string name="account_type">nextcloud</string>	<!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
+    <string name="app_name">Custom</string>
+    <string name="account_type">custom</string>    <!-- better if was a domain name; but changing it now would require migrate accounts when the app is updated -->
     <string name="authority">com.custom.client.provider</string>	<!-- better if was the app package with ".provider" appended ; it identifies the provider -->
     <string name="users_and_groups_search_authority">com.custom.client.provider.UsersAndGroupsSearch</string>
     <string name="users_and_groups_share_with">com.custom.client.provider.UsersAndGroupsSearch.action.SHARE_WITH</string>
     <string name="document_provider_authority">com.custom.client.provider.Documents</string>
     <string name="file_provider_authority">com.custom.client.provider.Files</string>
-    <string name ="db_file">nextcloud.db</string>
-    <string name ="db_name">nextcloud</string>
-    <string name ="data_folder">nextcloud</string>
-    <string name ="log_name">nextcloud</string>
-    <string name ="default_display_name_for_root_folder">Nextcloud</string>
+    <string name ="db_file">custom.db</string>
+    <string name ="db_name">custom</string>
+    <string name="data_folder">custom</string>
+    <string name ="log_name">custom</string>
+    <string name="default_display_name_for_root_folder">Custom</string>
     <string name ="user_agent">Mozilla/5.0 (Android) ownCloud-android/%1$s</string>
     
     <!-- URLs and flags related -->
