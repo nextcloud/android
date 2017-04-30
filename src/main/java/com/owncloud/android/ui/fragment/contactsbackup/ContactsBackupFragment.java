@@ -117,7 +117,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
         onCheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (checkAndAskForContactsReadPermission(PermissionUtil.PERMISSIONS_READ_CONTACTS_AUTOMATIC)) {
+                if (checkAndAskForContactsReadPermission()) {
                     if (isChecked) {
                         setAutomaticBackup(true);
                     } else {
@@ -243,7 +243,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
 
     @OnClick(R.id.contacts_backup_now)
     public void backupContacts() {
-        if (checkAndAskForContactsReadPermission(PermissionUtil.PERMISSIONS_READ_CONTACTS_MANUALLY)) {
+        if (checkAndAskForContactsReadPermission()) {
             startContactsBackupJob();
         }
     }
@@ -284,7 +284,7 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
                 String.valueOf(bool));
     }
 
-    private boolean checkAndAskForContactsReadPermission(final int permission) {
+    private boolean checkAndAskForContactsReadPermission() {
         final ContactsPreferenceActivity contactsPreferenceActivity = (ContactsPreferenceActivity) getActivity();
 
         // check permissions
