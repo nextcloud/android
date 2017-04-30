@@ -561,8 +561,8 @@ public class FileListListAdapter extends BaseAdapter {
         for (int i = 0; i < objects.size(); i++) {
             OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
             searchForLocalFileInDefaultPath(ocFile);
-            mStorageManager.saveFileWithParent(ocFile, mContext);
-            mStorageManager.saveVirtual(type, mStorageManager.getFileByPath(ocFile.getRemotePath()));
+            ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
+            mStorageManager.saveVirtual(type, ocFile);
         }
 
         mFiles.addAll(mStorageManager.getVirtualFolderContent(type, onlyImages));

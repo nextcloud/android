@@ -251,10 +251,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public void onResume() {
         super.onResume();
 
-        if (remoteOperationAsyncTask != null) {
-            remoteOperationAsyncTask.cancel(true);
-        }
-
         if (getActivity() != null) {
             AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
         }
@@ -322,7 +318,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
 
         searchEvent = Parcels.unwrap(getArguments().getParcelable(OCFileListFragment.SEARCH_EVENT));
-        if (searchEvent != null) {
+        if (searchEvent != null && searchFragment) {
             onMessageEvent(searchEvent);
         }
     }
@@ -964,10 +960,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public void refreshDirectory() {
         searchFragment = false;
 
-        if (remoteOperationAsyncTask != null) {
-            remoteOperationAsyncTask.cancel(true);
-        }
-
         setFabEnabled(true);
         listDirectory(getCurrentFile(), MainApp.isOnlyOnDevice(), false);
     }
@@ -1449,8 +1441,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         } else {
             new Handler(Looper.getMainLooper()).post(switchViewsRunnable);
         }
-
-        searchEvent = null;
     }
 
     private void setTitle(@StringRes int title) {
@@ -1474,7 +1464,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public void onRefresh() {
         super.onRefresh();
 
-        if (searchEvent != null) {
+        if (searchEvent != null && searchFragment) {
             onMessageEvent(searchEvent);
         }
     }
