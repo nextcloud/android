@@ -21,6 +21,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:animateLayoutChanges="true"
               android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
@@ -30,14 +31,26 @@
         android:layout_weight="1"
         android:choiceMode="multipleChoice"/>
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/contactlist_restore_selected"
+    <LinearLayout
+        android:id="@+id/contactlist_restore_selected_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/standard_margin"
-        android:enabled="false"
-        android:text="@string/contaclist_restore_selected"
-        android:background="@color/standard_grey"
-        android:theme="@style/Button.Primary"/>
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:src="@drawable/uploader_list_separator"/>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/contactlist_restore_selected"
+            style="@style/Button.Borderless"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/contaclist_restore_selected"/>
+
+    </LinearLayout>
 
 </LinearLayout>
