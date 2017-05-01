@@ -635,6 +635,7 @@
     <string name="prefs_category_dev">Dev</string>
 
     <string name="actionbar_contacts">Backup contacts</string>
+    <string name="actionbar_contacts_restore">Restore contacts</string>
     <string name="contacts_backup_button">Backup now</string>
     <string name="contacts_restore_button">Restore last backup</string>
     <string name="contacts_header_restore">Restore</string>
@@ -650,6 +651,7 @@
     <string name="contacts_preference_choose_date">Choose date</string>
     <string name="contacts_preference_backup_never">never</string>
     <string name="contacts_preferences_no_file_found">No file found</string>
+    <string name="contacts_preferences_something_strange_happened">We can\'t find your last backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
 

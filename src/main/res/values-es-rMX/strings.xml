@@ -283,7 +283,6 @@ en los últimos 7 días. </string>
     <string name="common_rename">Renombrar</string>
     <string name="common_remove">Eliminar</string>
     <string name="confirmation_remove_file_alert">¿Realmente desea eliminar %1$s?</string>
-    <string name="confirmation_remove_folder_alert">¿Desea realmente eliminar %1$s y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="remove_success_msg">Eliminado</string>
     <string name="remove_fail_msg">Falla al eliminar</string>
@@ -625,7 +624,6 @@ en los últimos 7 días. </string>
     <string name="prefs_category_about">Acerca de</string>
 
     <string name="actionbar_contacts">Respaldar contactos</string>
-    <string name="contacts_backup_button">Ahora</string>
     <string name="contacts_restore_button">Restaurar el último respaldo</string>
     <string name="contacts_header_restore">Restaurar</string>
     <string name="contacts_header_backup">Respaldar</string>

@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 public class ProviderMeta {
 
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 19;
+    public static final int DB_VERSION = 20;
 
     private ProviderMeta() {
     }
@@ -44,6 +44,7 @@ public class ProviderMeta {
         public static final String UPLOADS_TABLE_NAME = "list_of_uploads";
         public static final String SYNCED_FOLDERS_TABLE_NAME = "synced_folders";
         public static final String EXTERNAL_LINKS_TABLE_NAME = "external_links";
+        public static final String ARBITRARY_DATA_TABLE_NAME = "arbitrary_data";
 
         private static final String CONTENT_PREFIX = "content://";
 
@@ -63,6 +64,8 @@ public class ProviderMeta {
                 + MainApp.getAuthority() + "/synced_folders");
         public static final Uri CONTENT_URI_EXTERNAL_LINKS = Uri.parse(CONTENT_PREFIX
                 + MainApp.getAuthority() + "/external_links");
+        public static final Uri CONTENT_URI_ARBITRARY_DATA = Uri.parse(CONTENT_PREFIX
+                + MainApp.getAuthority() + "/arbitrary_data");
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
         public static final String CONTENT_TYPE_ITEM = "vnd.android.cursor.item/vnd.owncloud.file";
@@ -177,5 +180,10 @@ public class ProviderMeta {
         public static final String EXTERNAL_LINKS_TYPE = "type";
         public static final String EXTERNAL_LINKS_NAME = "name";
         public static final String EXTERNAL_LINKS_URL = "url";
+
+        // Columns of arbitrary data table
+        public static final String ARBITRARY_DATA_CLOUD_ID = "cloud_id";
+        public static final String ARBITRARY_DATA_KEY = "key";
+        public static final String ARBITRARY_DATA_VALUE = "value";
     }
 }

@@ -283,7 +283,7 @@
     <string name="common_rename">Renomear</string>
     <string name="common_remove">Excluir</string>
     <string name="confirmation_remove_file_alert">Deseja realmente excluir %1$s?</string>
-    <string name="confirmation_remove_folder_alert">Quer realmente excluir %1$s de seu conteúdo?</string>
+    <string name="confirmation_remove_folder_alert">Você realmente quer remover %1$s e seu conteúdo?</string>
     <string name="confirmation_remove_local">Somente local</string>
     <string name="remove_success_msg">Excluído</string>
     <string name="remove_fail_msg">Erro ao excluir</string>
@@ -625,7 +625,6 @@
     <string name="prefs_category_about">Sobre</string>
 
     <string name="actionbar_contacts">Fazer backup dos contatos</string>
-    <string name="contacts_backup_button">Agora</string>
     <string name="contacts_restore_button">Retornar último backup</string>
     <string name="contacts_header_restore">Retornar</string>
     <string name="contacts_header_backup">Backup</string>

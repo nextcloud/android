@@ -50,6 +50,7 @@ import android.widget.TextView;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -337,11 +338,22 @@ public class UserInfoActivity extends FileActivity {
                             new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialogInterface, int i) {
-                                    Bundle bundle = new Bundle();
-                                    bundle.putParcelable(KEY_ACCOUNT, Parcels.wrap(account));
-                                    Intent intent = new Intent();
-                                    intent.putExtras(bundle);
+                                    // remove contact backup job
+                                    ContactsPreferenceActivity.cancelContactBackupJobForAccount(getActivity(), account);
+
+                                    // disable daily backup
+                                    ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
+                                            getActivity().getContentResolver());
+
+                                    arbitraryDataProvider.storeOrUpdateKeyValue(account,
+                                            ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
+                                            "false");
+
                                     if (getActivity() != null && !removeDirectly) {
+                                        Bundle bundle = new Bundle();
+                                        bundle.putParcelable(KEY_ACCOUNT, Parcels.wrap(account));
+                                        Intent intent = new Intent();
+                                        intent.putExtras(bundle);
                                         getActivity().setResult(KEY_DELETE_CODE, intent);
                                         getActivity().finish();
                                     } else {

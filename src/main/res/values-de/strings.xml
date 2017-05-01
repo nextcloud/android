@@ -283,7 +283,7 @@
     <string name="common_rename">Umbenennen</string>
     <string name="common_remove">Entfernen</string>
     <string name="confirmation_remove_file_alert">Möchtest Du %1$s wirklich entfernen?</string>
-    <string name="confirmation_remove_folder_alert">Soll %1$s und dessen Inhalt wirklich entfernt werden?</string>
+    <string name="confirmation_remove_folder_alert">Willst Du %1$s deren Inhalte wirklich löschen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="remove_success_msg">Entfernt</string>
     <string name="remove_fail_msg">Entfernen fehlgeschlagen</string>
@@ -557,6 +557,7 @@
     <string name="participate_contribute_irc_text">An Chats teilnehmen auf IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Hilf anderen im &lt;a href="%1$s">Forum&lt;/a></string>
     <string name="participate_contribute_translate_text">Die App &lt;a href="%1$s">Übersetzen&lt;/a></string>
+    <string name="participate_contribute_github_text">Zum Überprüfen, Ändern und Schreiben von Quellcode schaue bitte unter &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> für weitere Details.</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>
@@ -624,7 +625,6 @@
     <string name="prefs_category_about">Über</string>
 
     <string name="actionbar_contacts">Kontakte-Sicherung</string>
-    <string name="contacts_backup_button">Sicherung jetzt erstellen</string>
     <string name="contacts_restore_button">Letztes Backup wiederherstellen</string>
     <string name="contacts_header_restore">Wiederherstellen</string>
     <string name="contacts_header_backup">Sicherung</string>
