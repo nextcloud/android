@@ -506,7 +506,6 @@
     <string name="webview_error">Feil oppstod</string>
     <string name="prefs_category_about">Om</string>
 
-    <string name="contacts_backup_button">Nå</string>
     <string name="contacts_restore_button">Gjenopprett fra siste sikkerhetskopiering</string>
     <string name="contacts_header_restore">Gjenopprett</string>
     <string name="contacts_header_backup">Sikkerhetskopier</string>

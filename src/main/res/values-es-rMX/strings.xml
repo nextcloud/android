@@ -624,7 +624,6 @@ en los últimos 7 días. </string>
     <string name="prefs_category_about">Acerca de</string>
 
     <string name="actionbar_contacts">Respaldar contactos</string>
-    <string name="contacts_backup_button">Ahora</string>
     <string name="contacts_restore_button">Restaurar el último respaldo</string>
     <string name="contacts_header_restore">Restaurar</string>
     <string name="contacts_header_backup">Respaldar</string>
