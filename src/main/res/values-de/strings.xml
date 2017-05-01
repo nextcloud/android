@@ -283,6 +283,7 @@
     <string name="common_rename">Umbenennen</string>
     <string name="common_remove">Entfernen</string>
     <string name="confirmation_remove_file_alert">Möchtest Du %1$s wirklich entfernen?</string>
+    <string name="confirmation_remove_folder_alert">Willst Du %1$s deren Inhalte wirklich löschen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="remove_success_msg">Entfernt</string>
     <string name="remove_fail_msg">Entfernen fehlgeschlagen</string>
@@ -624,7 +625,6 @@
     <string name="prefs_category_about">Über</string>
 
     <string name="actionbar_contacts">Kontakte-Sicherung</string>
-    <string name="contacts_backup_button">Sicherung jetzt erstellen</string>
     <string name="contacts_restore_button">Letztes Backup wiederherstellen</string>
     <string name="contacts_header_restore">Wiederherstellen</string>
     <string name="contacts_header_backup">Sicherung</string>

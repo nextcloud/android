@@ -58,15 +58,19 @@
     <string name="prefs_calendar_contacts">Configurer la synchronisation de l\'agenda et des contacts</string>
     <string name="prefs_calendar_contacts_summary">Configurer DAVdroid (v1.3.0+) pour le compte actuel</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Une  adresse de serveur pour le compte pourrait ne pas être résolue par DAVdroid</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisation de l\'agenda & des contacts configurée</string>
     <string name="prefs_help">Aide</string>
     <string name="prefs_recommend">Recommander à un ami</string>
     <string name="prefs_feedback">Nous contacter par mail</string>
     <string name="prefs_imprint">Mentions</string>
     <string name="recommend_subject">Essayez %1$s sur votre smartphone !</string>
-	<string name="auth_check_server">Vérifier le serveur</string>
+	<string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre smartphone.\nTéléchargez-la ici : %2$s.</string>
+
+    <string name="auth_check_server">Vérifier le serveur</string>
     <string name="auth_host_url">Adresse du serveur https://…</string>
     <string name="auth_username">Nom d\'utilisateur</string>
     <string name="auth_password">Mot de passe</string>
+    <string name="auth_register">Vous n\'avez pas encore un serveur ?\nCliquez ici pour en obtenir un d\'un fournisseur</string>
     <string name="sync_string_files">Fichiers</string>
     <string name="setup_btn_connect">Connecter</string>
     <string name="uploader_btn_upload_text">Téléverser</string>
@@ -78,21 +82,38 @@
     <string name="uploader_error_title_no_file_to_upload">Aucun fichier à téléverser</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s ne peut téléverser un morceau de texte comme un fichier.</string>
     <string name="uploader_error_message_no_file_to_upload">Les données reçues n\'incluent aucun fichier valide</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Le fichier ne peut pas être téléversé</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s n\'est pas autorisé à lire un fichier reçu</string>
+    <string name="uploader_error_message_source_file_not_found">Le fichier à téléverser n\'a pas été trouvé. Merci de vérifier si ce fichier existe.</string>
+    <string name="uploader_error_message_source_file_not_copied">Impossible de copier le fichier vers un dossier temporaire. Merci de recommencer votre envoi.</string>
     <string name="uploader_upload_files_behaviour">Option de téléversement :</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Déplacer le fichier dans le dossier Nextcloud</string>
     <string name="uploader_upload_files_behaviour_only_upload">Conserver le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="file_list_seconds_ago">à l\'instant</string>
+    <string name="file_list_empty_headline">Aucun fichier ici</string>
+    <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
+    <string name="file_list_empty_favorites">Mettez certains fichiers en favoris ou synchronisez vos appareils.</string>
+    <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris apparaîtront ici</string>
     <string name="file_list_loading">Chargement&#8230;</string>
     <string name="local_file_list_empty">Aucun fichier n\'est présent dans ce dossier.</string>
     <string name="file_list_empty_headline_search">Aucun résultat dans ce dossier</string>
     <string name="file_list_empty_headline_server_search">Aucun résultat</string>
+    <string name="file_list_empty_favorite_headline">Rien n\'est mis en favoris pour l\'instant</string>
     <string name="file_list_empty_shared_headline">Rien n\'est partagé pour l\'instant</string>
     <string name="file_list_empty_shared">Les fichiers et dossiers que vous partagez apparaîtront ici</string>
     <string name="file_list_empty_headline_server_search_videos">Aucune vidéo</string>
     <string name="file_list_empty_headline_server_search_photos">Aucune photo</string>
+    <string name="file_list_empty_search">Il se trouve peut-être dans un autre dossier ?</string>
+    <string name="file_list_empty_recently_modified">Aucun fichier modifié au cours des 7 derniers jours trouvé</string>
+    <string name="file_list_empty_recently_modified_filter">Votre recherche n\'a pas retourné de fichiers modifiés dans les 7 derniers jours.</string>
+    <string name="file_list_empty_recently_added">Aucun fichier ajouté récemment trouvé</string>
+    <string name="file_list_empty_recently_added_filter">Votre recherche n\'a pas renvoyée de fichiers récement ajoutés.</string>
+    <string name="file_list_empty_text_photos">Téléversez des photos ou activez le téléversement automatique.</string>
+    <string name="file_list_empty_text_videos">Téléversez des vidéos ou activez le téléversement automatique.</string>
     <string name="upload_list_empty_headline">Aucun historique de téléversement</string>
+    <string name="upload_list_empty_text">Téléversez du contenu ou activez le téléversement instantané.</string>
+    <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>
     <string name="file_list_folder">dossier</string>
     <string name="file_list_folders">dossiers</string>
     <string name="file_list_file">fichier</string>
@@ -104,11 +125,13 @@
     <string name="filedetails_modified">Modifié le :</string>
     <string name="filedetails_download">Télécharger</string>
     <string name="filedetails_sync_file">Synchroniser</string>
+    <string name="filedetails_renamed_in_upload_msg">Le fichier a été renommé en %1$s pendant le téléversement</string>
     <string name="action_share">Partager</string>
     <string name="common_yes">Oui</string>
     <string name="common_no">Non</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">Retirer le téléversement</string>
+    <string name="common_retry_upload">Réessayer le téléversement</string>
     <string name="common_cancel_sync">Annuler la synchronisation</string>
     <string name="common_cancel">Annuler</string>
     <string name="common_back">Retour</string>
@@ -128,8 +151,10 @@
     <string name="uploader_info_dirname">Nom du dossier</string>
     <string name="uploader_upload_in_progress_ticker">Téléversement&#8230;</string>
     <string name="uploader_upload_in_progress_content">Téléversement de %2$s : %1$d%%</string>
+    <string name="uploader_upload_succeeded_ticker">Téléversé</string>
     <string name="uploader_upload_succeeded_content_single">%1$s téléversé</string>
     <string name="uploader_upload_failed_ticker">Échec du téléversement</string>
+    <string name="uploader_upload_failed_content_single">Impossible de téléverser %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Le téléversement a échoué, vous devez vous reconnecter</string>
     <string name="uploads_view_title">Historique des envois</string>
     <string name="uploads_view_group_current_uploads">Actuellement</string>
@@ -146,22 +171,30 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Fichier local non trouvé</string>
     <string name="uploads_view_upload_status_failed_permission_error">Erreur de permissions</string>
     <string name="uploads_view_upload_status_conflict">Conflit</string>
+    <string name="uploads_view_upload_status_service_interrupted">L\'application a été arrêtée</string>
     <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">En attente d\'une connexion WiFi</string>
     <string name="uploads_view_later_waiting_to_upload">En attente de téléversement</string>
     <string name="downloader_download_in_progress_ticker">Téléchargement en cours&#8230;</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
+    <string name="downloader_download_succeeded_ticker">Téléchargé</string>
     <string name="downloader_download_succeeded_content">%1$s téléchargé</string>
     <string name="downloader_download_failed_ticker">Le téléchargement a échoué</string>
+    <string name="downloader_download_failed_content">Impossible de télécharger %1$s</string>
     <string name="downloader_not_downloaded_yet">Pas encore téléchargé</string>
     <string name="downloader_download_failed_credentials_error">Le téléchargement a échoué, vous devez vous reconnecter</string>
     <string name="common_choose_account">Choisissez un compte</string>
     <string name="sync_fail_ticker">La synchronisation a échoué</string>
+    <string name="sync_fail_ticker_unauthorized">La synchronisation a échoué, vous devez vous reconnecter</string>
+    <string name="sync_fail_content">Impossible de terminer la synchronisation de %1$s</string>
+    <string name="sync_fail_content_unauthorized">Mauvais mot de passe pour %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
     <string name="sync_conflicts_in_favourites_content">%1$d fichiers à garder synchronisés n\'ont pu être synchronisés</string>
     <string name="sync_fail_in_favourites_ticker">La synchronisation des fichiers a échoué</string>
     <string name="sync_fail_in_favourites_content">Le contenu de %1$d fichiers n\'a pu être synchronisé (%2$d conflits)</string>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été oubliés</string>
     <string name="sync_foreign_files_forgotten_content">%1$d fichiers du dossier %2$s n\'ont pas pu être copiés dans</string>
+    <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
     <string name="foreign_files_move">Tout déplacer</string>
     <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
     <string name="foreign_files_fail">Certains fichiers n\'ont pu être déplacés</string>
@@ -184,7 +217,11 @@
     <string name="media_event_done">Lecture de %1$s terminée</string>
     <string name="media_err_nothing_to_play">Aucun fichier média trouvé</string>
     <string name="media_err_no_account">Aucun compte fourni</string>
+    <string name="media_err_not_in_owncloud">Le fichier n\'est pas dans un compte valide</string>
     <string name="media_err_unsupported">Le codec de ce média n\'est pas pris en charge </string>
+    <string name="media_err_io">Impossible de lire le fichier média</string>
+    <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
+    <string name="media_err_invalid_progressive_playback">Le fichier média ne peut pas être diffusé</string>
     <string name="media_rewind_description">Bouton de rembobinage</string>
     <string name="media_play_pause_description">Bouton de lecture ou de pause</string>
     <string name="media_forward_description">Bouton d\'avance rapide</string>
@@ -219,13 +256,16 @@
     <string name="common_remove">Supprimer</string>
     <string name="confirmation_remove_file_alert">Voulez-vous vraiment supprimer %1$s ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
+    <string name="remove_success_msg">Supprimé</string>
     <string name="remove_fail_msg">Échec de la suppression</string>
     <string name="rename_dialog_title">Entrez un nouveau nom</string>
     <string name="sync_file_nothing_to_do_msg">Le contenu du fichier est déjà synchronisé</string>
     <string name="filename_forbidden_characters">Caractères interdits : / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Le nom de fichier contient au moins un caractère invalide</string>
     <string name="filename_empty">Le nom du fichier ne peut pas être vide</string>
+    <string name="wait_a_moment">Veuillez patienter...</string>
     <string name="wait_checking_credentials">Vérification des identifiants enregistrés</string>
+    <string name="filedisplay_no_file_selected">Aucun fichier sélectionné</string>
     <string name="activity_chooser_title">Envoyer le lien vers &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copie du fichier depuis le stockage privé</string>
     
@@ -259,6 +299,7 @@
 
     <string name="placeholder_sentence">Ceci est un espace réservé</string>
     <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_filetype">Image PNG</string>
     <string name="placeholder_filesize">389 Ko</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -269,6 +310,7 @@
     <string name="conflict_use_local_version">version locale</string>
     <string name="conflict_use_server_version">version serveur</string>
 
+    <string name="preview_sorry">Désolé.</string>
     <string name="preview_image_description">Prévisualisation de l\'image</string>
     <string name="error__upload__local_file_not_copied">%1$s n\'a pas pu être copié dans le dossier local %2$s</string>
     <string name="prefs_instant_upload_path_title">Téléversement immédiat du dossier</string>
@@ -466,6 +508,7 @@
 
     <!-- User information -->
     <string name="user_info_full_name">Nom complet</string>
+    <string name="user_info_email">Adresse e-mail</string>
     <string name="user_info_phone">Numéro de téléphone</string>
     <string name="user_info_address">Adresse</string>
     <string name="user_info_website">Site web</string>
@@ -481,7 +524,7 @@
     <string name="contacts_restore_button">Restaurer la dernière copie de sauvegarde</string>
     <string name="contacts_header_restore">Restaurer</string>
     <string name="contacts_header_backup">Copie de sauvegarde</string>
-    <string name="contacts_automatic_backup">Copie de sauvegarde des contacts</string>
+    <string name="contacts_automatic_backup">Sauvegarde des contacts</string>
     <string name="contacts_last_backup">Dernière copie de sauvegarde</string>
     <string name="contactlist_title">Restaurer les contacts</string>
     <string name="contaclist_restore_selected">Restaurer les contacts sélectionnés</string>
@@ -493,4 +536,7 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">Nouvelle notification reçue</string>
-    </resources>
+    <string name="drawer_logout">Se déconnecter</string>
+
+
+</resources>
