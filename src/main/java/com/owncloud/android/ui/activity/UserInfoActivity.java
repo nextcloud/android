@@ -358,7 +358,8 @@ public class UserInfoActivity extends FileActivity {
                                     String arbitraryDataPushString;
 
                                     if (!TextUtils.isEmpty(arbitraryDataPushString = arbitraryDataProvider.getValue(
-                                            account, PushUtils.KEY_PUSH))) {
+                                            account, PushUtils.KEY_PUSH)) &&
+                                            !TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
                                         Gson gson = new Gson();
                                         PushArbitraryData pushArbitraryData = gson.fromJson(arbitraryDataPushString,
                                                 PushArbitraryData.class);
