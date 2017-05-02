@@ -36,6 +36,7 @@ import android.os.CancellationSignal;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -256,7 +257,8 @@ public class FingerprintActivity extends AppCompatActivity {
         Toast.makeText(this, errorSeq, Toast.LENGTH_LONG).show();
     }
 
-    final static public boolean isFingerprintCapable(Context context) {
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    static public boolean isFingerprintCapable(Context context) {
         try {
             FingerprintManager fingerprintManager =
                     (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
@@ -274,7 +276,8 @@ public class FingerprintActivity extends AppCompatActivity {
         return false;
     }
 
-    final static public boolean isFingerprintReady(Context context) {
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    static public boolean isFingerprintReady(Context context) {
         try {
             FingerprintManager fingerprintManager =
                     (FingerprintManager) context.getSystemService(Context.FINGERPRINT_SERVICE);
