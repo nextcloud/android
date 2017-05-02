@@ -250,10 +250,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public void onResume() {
         super.onResume();
 
-        if (remoteOperationAsyncTask != null) {
-            remoteOperationAsyncTask.cancel(true);
-        }
-
         if (getActivity() != null) {
             AnalyticsUtils.setCurrentScreenName(getActivity(), SCREEN_NAME, TAG);
         }
