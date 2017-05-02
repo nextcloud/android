@@ -401,7 +401,7 @@
 
     <string name="file_migration_dialog_title">Actualizando ruta de almacenamiento</string>
     <string name="file_migration_finish_button">Terminar</string>
-    <string name="file_migration_preparing">Preparando la migración&@8230;</string>
+    <string name="file_migration_preparing">Preparando la migración&#8230;</string>
     <string name="file_migration_checking_destination">Comprobando destino&#8230;</string>
     <string name="file_migration_saving_accounts_configuration">Guardando configuración de cuentas&#8230;</string>
     <string name="file_migration_waiting_for_unfinished_sync">Esperando que todas las sincronizaciones terminen&#8230;</string>
