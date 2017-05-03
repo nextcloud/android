@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.masaaki.myapplication.MainActivity">
+    <item
+        android:id="@+id/action_switch_keyboard"
+        android:title="siwtch keyboard"
+        app:showAsAction="never" />
+</menu>

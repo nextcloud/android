@@ -2,7 +2,7 @@
 <translate
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:interpolator="@anim/shake_interpolator"
-	android:duration="500"
+	android:duration="400"
 	android:fromXDelta="0.0%p"
 	android:toXDelta="10.0%p"
 	>
