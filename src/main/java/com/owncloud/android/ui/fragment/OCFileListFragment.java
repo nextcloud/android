@@ -1442,8 +1442,13 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         }
     }
 
-    private void setTitle(@StringRes int title) {
-        ((FileDisplayActivity) getActivity()).getSupportActionBar().setTitle(title);
+    private void setTitle(@StringRes final int title) {
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ((FileDisplayActivity) getActivity()).getSupportActionBar().setTitle(title);
+            }
+        });
     }
 
     @Override
