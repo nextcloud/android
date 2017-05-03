@@ -20,17 +20,17 @@
 
 package com.owncloud.android.datamodel;
 
-public class PushArbitraryData {
+public class PushConfigurationState {
     public String pushToken;
     public String deviceIdentifier;
     public String deviceIdentifierSignature;
     public String userPublicKey;
     public boolean shouldBeDeleted;
 
-    public PushArbitraryData() {
+    public PushConfigurationState() {
     }
 
-    public PushArbitraryData(String pushToken, String deviceIdentifier, String deviceIdentifierSignature,
+    public PushConfigurationState(String pushToken, String deviceIdentifier, String deviceIdentifierSignature,
                              String userPublicKey, boolean shouldBeDeleted) {
         this.pushToken = pushToken;
         this.deviceIdentifier = deviceIdentifier;

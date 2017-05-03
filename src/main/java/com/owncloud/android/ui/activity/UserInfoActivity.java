@@ -52,7 +52,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.PushArbitraryData;
+import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -361,8 +361,8 @@ public class UserInfoActivity extends FileActivity {
                                             account, PushUtils.KEY_PUSH)) &&
                                             !TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
                                         Gson gson = new Gson();
-                                        PushArbitraryData pushArbitraryData = gson.fromJson(arbitraryDataPushString,
-                                                PushArbitraryData.class);
+                                        PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryDataPushString,
+                                                PushConfigurationState.class);
                                         pushArbitraryData.setShouldBeDeleted(true);
                                         arbitraryDataProvider.storeOrUpdateKeyValue(account, PushUtils.KEY_PUSH,
                                                 gson.toJson(pushArbitraryData));
