@@ -19,7 +19,6 @@
 package com.owncloud.android.ui.preview;
 
 import android.accounts.Account;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -31,6 +30,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.PictureDrawable;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
@@ -549,7 +549,6 @@ public class PreviewImageFragment extends FileFragment {
             }
         }
 
-        @SuppressLint("InlinedApi")
         private void showLoadedImage(LoadImage result) {
             final ImageViewCustom imageView = mImageViewRef.get();
             Bitmap bitmap = result.bitmap;
@@ -575,20 +574,23 @@ public class PreviewImageFragment extends FileFragment {
                         }
                         layers[1] = bitmapDrawable;
                         LayerDrawable layerDrawable = new LayerDrawable(layers);
-                        if (result.ocFile.getMimetype().equalsIgnoreCase("image/png") ) {
-                            layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                            layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
-                            layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
-                            layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
-                        } else {
-                            layerDrawable.setLayerHeight(0, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
-                                    getActivity()));
-                            layerDrawable.setLayerHeight(1, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
-                                    getActivity()));
-                            layerDrawable.setLayerWidth(0, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
-                                    getActivity()));
-                            layerDrawable.setLayerWidth(1, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
-                                    getActivity()));
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            if (result.ocFile.getMimetype().equalsIgnoreCase("image/png")) {
+                                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmap.getHeight(), getActivity()));
+                                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmap.getWidth(), getActivity()));
+                            } else {
+                                layerDrawable.setLayerHeight(0, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                                        getActivity()));
+                                layerDrawable.setLayerHeight(1, convertDpToPixel(bitmapDrawable.getIntrinsicHeight(),
+                                        getActivity()));
+                                layerDrawable.setLayerWidth(0, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                                        getActivity()));
+                                layerDrawable.setLayerWidth(1, convertDpToPixel(bitmapDrawable.getIntrinsicWidth(),
+                                        getActivity()));
+                            }
                         }
                         imageView.setImageDrawable(layerDrawable);
                     } else {
@@ -664,7 +666,8 @@ public class PreviewImageFragment extends FileFragment {
     }
 
     private void toggleImageBackground() {
-        if (getFile() != null && (getFile().getMimetype().equalsIgnoreCase("image/png") ||
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getFile() != null
+                && (getFile().getMimetype().equalsIgnoreCase("image/png") ||
                 getFile().getMimetype().equalsIgnoreCase("image/svg+xml")) && getActivity() != null
                 && getActivity() instanceof PreviewImageActivity && getResources() != null) {
             PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
