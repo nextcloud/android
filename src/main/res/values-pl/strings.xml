@@ -47,7 +47,9 @@
     <string name="prefs_fingerprint_notsetup">Brak skonfigurowanych odcisków palców</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_instant_upload">Natychmiastowe wysyłanie zdjęć</string>
+    <string name="prefs_instant_upload_summary">Wyślij zdjęcia z aparatu</string>
     <string name="prefs_instant_video_upload">Natychmiastowe wysyłanie wideo</string>
+    <string name="prefs_instant_video_upload_summary">Wyślij filmy nagrane aparatem</string>
     <string name="prefs_log_title">Włącz logowanie</string>
     <string name="prefs_log_summary">To jest używane do logowania problemów</string>
     <string name="prefs_log_title_history">Historia logowania</string>
@@ -56,6 +58,7 @@
     <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVdroid (v1.3.0+) dla obecnego konta</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Adres serwera dla konta nie mógł został przekonwertowany do DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">F-droid i Google Play nie są zainstalowane</string>
     <string name="prefs_help">Pomoc</string>
     <string name="prefs_recommend">Poleć znajomemu</string>
     <string name="prefs_feedback">Opinie</string>
@@ -91,7 +94,9 @@
     <string name="file_list_empty">Wyślij zawartość lub synchronizuj ją ze swoimi urządzeniami</string>
     <string name="file_list_empty_favorites">Dodaj pliki do ulubionych lub synchronizuj je ze swoimi urządzeniami</string>
     <string name="file_list_empty_favorites_filter_list">Tutaj znajdziesz pliki i foldery oznaczone jako ulubione</string>
+    <string name="file_list_empty_favorites_filter">Twoje wyszukiwanie nie zwróciło żadnych ulubionych plików</string>
     <string name="file_list_loading">Wczytywanie&#8230;</string>
+    <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="local_file_list_empty">Nie ma plików w tym folderze.</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym folderze</string>
     <string name="file_list_empty_headline_server_search">Brak wyników</string>
@@ -100,6 +105,8 @@
     <string name="file_list_empty_shared">Pliki i foldery, które współdzielisz pokażą się tutaj</string>
     <string name="file_list_empty_headline_server_search_videos">Brak plików wideo</string>
     <string name="file_list_empty_headline_server_search_photos">Brak zdjęć</string>
+    <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików zmodyfikowanych w ciągu ostatnich 7 dni</string>
+    <string name="file_list_empty_recently_modified_filter">Twoje wyszukiwanie nie zwróciło żądnych plików zmodyfikowanych w ciągu ostatnich 7 dni </string>
     <string name="file_list_empty_recently_added">NIe znaleziono żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_recently_added_filter">Twoje wyszukiwanie nie zwróciło żadnych ostatnio dodanych plików</string>
     <string name="file_list_empty_text_photos">Wyślij zdjęcia lub włącz automatyczne wysyłanie</string>
@@ -107,6 +114,8 @@
     <string name="file_list_empty_text_videos">Wyślij pliki wideo lub włącz automatyczne wysyłanie</string>
     <string name="file_list_empty_text_videos_filter">Twoje wyszukiwanie nie zwróciło żadnych plików wideo</string>
     <string name="upload_list_empty_headline">Brak dostępnych danych do wysłania</string>
+    <string name="upload_list_empty_text">Wyślij zawartość lub włącz wysyłanie natychmiastowe.</string>
+    <string name="upload_list_empty_text_auto_upload">Wyślij zawartość lub włącz wysyłanie automatyczne.</string>
     <string name="file_list_folder">folder</string>
     <string name="file_list_folders">foldery</string>
     <string name="file_list_file">plik</string>
@@ -118,6 +127,7 @@
     <string name="filedetails_modified">Zmodyfikowano:</string>
     <string name="filedetails_download">Pobierz</string>
     <string name="filedetails_sync_file">Synchronizuj</string>
+    <string name="filedetails_renamed_in_upload_msg">Podczas wysyłania zmieniono nazwę pliku na %1$s</string>
     <string name="action_share">Udostępnij</string>
     <string name="common_yes">Tak</string>
     <string name="common_no">Nie</string>
@@ -192,6 +202,7 @@
     <string name="foreign_files_fail">Niektóre pliki nie mogły być przeniesione</string>
     <string name="foreign_files_local_text">Lokalnie: %1$s</string>
     <string name="foreign_files_remote_text">Zdalnie: %1$s</string>
+    <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do folderu %1$s. Czy w zamian chcesz je tam przenieść?</string>
     <string name="pass_code_enter_pass_code">Wymyśl kod PIN.</string>
     
     <string name="pass_code_configure_your_pass_code">Wpisz kod PIN.</string>
@@ -211,6 +222,13 @@
     <string name="media_err_no_account">Nie znaleziono konta</string>
     <string name="media_err_unsupported">Nieobsługiwany kodek multimediów</string>
     <string name="media_err_io">NIe można odczytać pliku</string>
+    <string name="media_err_malformed">Nieprawidłowe kodowanie pliku multimedialnego</string>
+    <string name="media_err_timeout">Upłynął limit czasu podczas próby odtwarzania pliku</string>
+    <string name="media_err_invalid_progressive_playback">Plik multimedialny nie może być przesyłany strumieniowo</string>
+    <string name="media_err_unknown">Wbudowany odtwarzacz multimediów nie może odtworzyć pliku</string>
+    <string name="media_err_security_ex">Napotkano błąd zabezpieczeń podczas próby odtwarzania %1$s</string>
+    <string name="media_err_io_ex">Błąd danych wejściowych podczas próby odtwarzania %1$s</string>
+    <string name="media_err_unexpected">Nieoczekiwany błąd podczas próby odtworzenia %1$s</string>
     <string name="media_rewind_description">Przycisk przewijania do tyłu</string>
     <string name="media_play_pause_description">Przycisk odtwarzania / pauzowania</string>
     <string name="media_forward_description">Przycisk przewijania do przodu</string>
@@ -243,6 +261,8 @@
 	<string name="auth_unsupported_auth_method">Serwer nie obsługuje tej metody autoryzacji</string>
 	<string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
 	<string name="auth_can_not_auth_against_server">Błąd autoryzacji na tym serwerze</string>
+    <string name="auth_account_does_not_exist">Konto jeszcze nie istnieje na tym urządzeniu</string>
+    
     <string name="favorite">Udostępnij w trybie offline</string>
     <string name="unfavorite">Wyłącz udostępnianie w trybie offline</string>
     <string name="favorite_real">Ustaw jako ulubione</string>
@@ -250,10 +270,12 @@
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_remove">Usuń</string>
     <string name="confirmation_remove_file_alert">Czy naprawdę chcesz usunąć %1$s?</string>
+    <string name="confirmation_remove_folder_alert">Czy na pewno chcesz usunąć %1$s wraz z zawartością?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="remove_success_msg">Usunięto</string>
     <string name="remove_fail_msg">Nie można usunąć</string>
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
+    <string name="rename_local_fail_msg">Nie można zmienić nazwy kopii lokalne, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie udało się nadać serwerowi nowej nazwy</string>
     <string name="sync_file_fail_msg">Nie udało się sprawdzić zdalnego pliku</string>
     <string name="sync_file_nothing_to_do_msg">Zawartość pliku została już synchronizowana</string>
@@ -263,6 +285,7 @@
     <string name="filename_empty">Nazwa pliku nie może być pusta.</string>
     <string name="wait_a_moment">Proszę czekać...</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
+    <string name="filedisplay_unexpected_bad_get_content">Nieoczekiwany błąd, prosze wybrać plik z innej aplikacji</string>
     <string name="filedisplay_no_file_selected">Nie wybrano żadnego pliku</string>
     <string name="activity_chooser_title">Wyślij link do &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego zasobu</string>
@@ -312,6 +335,7 @@
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">Konflikt pliku</string>
+    <string name="conflict_message">Które pliki chcesz zachować? Jeżeli wybierzesz obie wersje, do nazwy pliku lokalnego zostanie dodana liczba.</string>
     <string name="conflict_keep_both">Zatrzymaj oba</string>
     <string name="conflict_use_local_version">wersja lokalna</string>
     <string name="conflict_use_server_version">wersja zdalna</string>
@@ -321,7 +345,7 @@
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
 
     <string name="error__upload__local_file_not_copied">%1$s nie może zostać skopiowany do lokalnego folderu %2$s</string>
-    <string name="prefs_instant_upload_path_title">Wysyłka obrazów do folderu</string>
+    <string name="prefs_instant_upload_path_title">Folder natychmiastowego wysyłania</string>
     <string name="prefs_folder_sync_local_path_title">Folder lokalny</string>
     <string name="prefs_folder_sync_remote_path_title">Folder zdalny</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podfolderów</string>
@@ -388,6 +412,7 @@
     <string name="drawer_manage_accounts">Zarządzaj kontami</string>
     <string name="actionbar_logger">Logi</string>
 	<string name="log_send_history_button">Wyślij historię</string>
+	<string name="log_send_no_mail_app">Brak aplikacji do wysyłania logów. Zainstaluj klienta poczty e-mail.</string>
 	<string name="log_send_mail_subject">%1$s Logi aplikacji Android</string>
 	<string name="log_progress_dialog_text">Ładowanie danych &#8230;</string>
 
@@ -399,20 +424,23 @@
 	<string name="folder_picker_choose_button_text">Wybierz</string>
 
     <string name="move_file_not_found">Nie można przenieść pliku. Sprawdź, czy plik istnieje.</string>
+    <string name="move_file_invalid_into_descendent">Nie można przenieść folderu do jednego z jego podfolderów</string>
     <string name="move_file_invalid_overwrite">Plik już istnieje w folderze docelowym</string>
     <string name="move_file_error">Pojawił się błąd podczas próby przeniesienia tego pliku lub folderu</string>
     <string name="forbidden_permissions_move">aby przenieść ten plik</string>
 
 
     <string name="copy_file_not_found">Nie można skopiować. Sprawdź, czy plik istnieje</string>
+    <string name="copy_file_invalid_into_descendent">Nie można skopiować folderu do jednego z jego podfolderów</string>
     <string name="copy_file_invalid_overwrite">Plik już istnieje w folderze docelowym</string>
     <string name="copy_file_error">Wystąpił błąd podczas próby kopiowania tego pliku lub folderu</string>
     <string name="forbidden_permissions_copy">by skopiować ten plik</string>
 
-    <string name="prefs_category_instant_uploading">Automatyczne wysyłanie</string>
+    <string name="prefs_category_instant_uploading">Natychmiastowo wysłane</string>
     <string name="prefs_category_details">Szczegóły</string>
 
-	<string name="sync_folder_failed_content">Synchronizacja folderu %1$s nie może zostać zakończona</string>
+	<string name="prefs_instant_video_upload_path_title">Folder wideo do natychmiastowego wysyłania</string>
+    <string name="sync_folder_failed_content">Synchronizacja folderu %1$s nie może zostać zakończona</string>
 
 	<string name="shared_subject_header">udostępniony</string>
 	<string name="with_you_subject_header">z tobą</string>
@@ -477,7 +505,11 @@
     <string name="edit_share_unshare">Cofnij udostępnianie</string>
     <string name="edit_share_done">zakończono</string>
 
+    <string name="action_retry_uploads">Próba nieudana</string>
     <string name="action_clear_failed_uploads">Wyczyść nieudane</string>
+    <string name="action_clear_successful_uploads">Wyczyszczono</string>
+    <string name="action_clear_finished_uploads">Wyczyść zakończone wysyłania</string>
+
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
 
@@ -485,8 +517,11 @@
     <string name="manage_space_clear_data">Wyczyść dane</string>
     <string name="manage_space_error">Nie udało się usunąć niektórych plików.</string>
 
+    <string name="permission_storage_access">Wymagane są dodatkowe uprawnienia do pobierania i wysyłania plików.</string>
+    <string name="local_file_not_found_toast">Plik nie został znaleziony w lokalnym systemie plików</string>
     <string name="confirmation_remove_files_alert">Czy naprawdę chcesz usunąć zaznaczone elementy?</string>
     <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
     <string name="actionbar_search">Wyszukaj</string>
     <string name="files_drop_not_supported">Ta funkcja jest dostępna w Nextcloud, prosimy wykonać aktualizację</string>
     <string name="learn_more">Dowiedz się więcej</string>
@@ -504,6 +539,7 @@
     <string name="choose_remote_folder">Wybierz folder&#8230;</string>
     <string name="folder_sync_loading_folders">Ładowanie folderów&#8230;</string>
     <string name="folder_sync_no_results">Nie znaleziono folderów multimedialnych.</string>
+    <string name="folder_sync_preferences">Preferencje automatycznego wysyłania</string>
     <string name="folder_sync_settings">Ustawienia</string>
     <string name="folder_sync_preferences_folder_path">Dla %1$s</string>
     <plurals name="items_selected_count">
@@ -546,6 +582,9 @@
 
     <string name="whats_new_skip">Pominąć</string>
 
+    <string name="fingerprint_scan_finger">Umieść palec na czytniku odcisku palca</string>
+    <string name="fingerprint_unknown">Nie rozpoznano odcisku palca</string>
+
     <!-- User information -->
     <string name="user_info_full_name">Pełna nazwa</string>
     <string name="user_info_email">E-mail</string>
@@ -563,7 +602,10 @@
 
     <string name="actionbar_contacts">Utwórz kopię zapasową kontaktów</string>
     <string name="actionbar_contacts_restore">Przywróć kontakty</string>
+    <string name="contacts_backup_button">Utwórz kopię zapasową</string>
     <string name="contacts_restore_button">Przywróć ostatnią kopię zapasową</string>
+    <string name="contacts_header_restore">Przywróć</string>
+    <string name="contacts_header_backup">Kopia zapasowa</string>
     <string name="contacts_automatic_backup">Kopia zapasowa kontaktów</string>
     <string name="contacts_last_backup">Ostatnia kopia zapasowa</string>
     <string name="contacts_read_permission">Potrzebne uprawnienia do odczytu kontaktów</string>
@@ -571,9 +613,14 @@
     <string name="contactlist_title">Przywróć kontakty</string>
     <string name="contaclist_restore_selected">Przywróć wybrane kontakty</string>
     <string name="contactlist_account_chooser_title">Wybierz konto do zaimportiwania</string>
+    <string name="contactlist_no_permission">Nie nadano uprawnień, nic nie zostało zaimportowane!</string>
     <string name="contacts_preference_choose_date">Wybierz datę</string>
     <string name="contacts_preference_backup_never">nigdy</string>
     <string name="contacts_preferences_no_file_found">Nie znaleziono żadnych plików</string>
+    <string name="contacts_preferences_something_strange_happened">Nie odnaleziono twojej ostatniej kopii zapasowej!</string>
+    <string name="contacts_preferences_backup_scheduled">Kopia zapasowa została zaplanowana i wkrótce zostanie uruchomiona</string>
+    <string name="contacts_preferences_import_scheduled">Importowanie zostało zaplanowane i wkrótce zostanie uruchomione</string>
+
     <!-- Notifications -->
     <string name="new_notification_received">Otrzymano nowe powiadomienie</string>
     <string name="drawer_logout">Wyloguj</string>
