@@ -1,3 +1,9 @@
+## 2017-05-03 16:25
+- Enhance external Sdcard usage (nextcloud/externalStorage) [https://github.com/nextcloud/android/pull/947] added
+
+- Enhance external Sdcard usage (nextcloud/externalStorage) [https://github.com/nextcloud/android/pull/947] updated
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
 ## 2017-05-03 00:30
 no new branches added
 
