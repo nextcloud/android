@@ -189,41 +189,49 @@ public class Preferences extends PreferenceActivity
         boolean fPrintEnabled = getResources().getBoolean(R.bool.fingerprint_enabled);
         fPrint = (CheckBoxPreference) findPreference(FingerprintActivity.PREFERENCE_USE_FINGERPRINT);
         if (fPrint != null) {
-            if(FingerprintActivity.isFingerprintCapable(MainApp.getAppContext()) && fPrintEnabled) {
-                fPrint.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                    @Override
-                    public boolean onPreferenceChange(Preference preference, Object newValue) {
-                        Boolean incoming = (Boolean) newValue;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if (FingerprintActivity.isFingerprintCapable(MainApp.getAppContext()) && fPrintEnabled) {
+                    fPrint.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                        @Override
+                        public boolean onPreferenceChange(Preference preference, Object newValue) {
+                            Boolean incoming = (Boolean) newValue;
 
-                        if(FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
-                            SharedPreferences appPrefs =
-                                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            SharedPreferences.Editor editor = appPrefs.edit();
-                            editor.putBoolean("use_fingerprint", incoming);
-                            editor.commit();
-                            return true;
-                        } else {
-                            if(incoming) {
-                                Toast.makeText(
-                                        MainApp.getAppContext(),
-                                        R.string.prefs_fingerprint_notsetup,
-                                        Toast.LENGTH_LONG)
-                                        .show();
-                                fPrint.setChecked(false);
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                                if (FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
+                                    SharedPreferences appPrefs =
+                                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                    SharedPreferences.Editor editor = appPrefs.edit();
+                                    editor.putBoolean("use_fingerprint", incoming);
+                                    editor.apply();
+                                    return true;
+                                } else {
+                                    if (incoming) {
+                                        Toast.makeText(
+                                                MainApp.getAppContext(),
+                                                R.string.prefs_fingerprint_notsetup,
+                                                Toast.LENGTH_LONG)
+                                                .show();
+                                        fPrint.setChecked(false);
+                                    }
+                                    SharedPreferences appPrefs =
+                                            PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                                    SharedPreferences.Editor editor = appPrefs.edit();
+                                    editor.putBoolean("use_fingerprint", false);
+                                    editor.apply();
+                                    return false;
+                                }
+                            } else {
+                                return false;
                             }
-                            SharedPreferences appPrefs =
-                                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                            SharedPreferences.Editor editor = appPrefs.edit();
-                            editor.putBoolean("use_fingerprint", false);
-                            editor.commit();
-                            return false;
                         }
+                    });
+                    if (!FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
+                        fPrint.setChecked(false);
                     }
-                });
-                if(!FingerprintActivity.isFingerprintReady(MainApp.getAppContext())) {
-                    fPrint.setChecked(false);
-                }
 
+                } else {
+                    preferenceCategoryDetails.removePreference(fPrint);
+                }
             } else {
                 preferenceCategoryDetails.removePreference(fPrint);
             }
