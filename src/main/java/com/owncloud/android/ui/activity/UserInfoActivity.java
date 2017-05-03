@@ -29,6 +29,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -47,17 +48,24 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.PushConfigurationState;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetRemoteUserInfoOperation;
+import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.PushUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.parceler.Parcels;
 
 import butterknife.BindString;
@@ -341,13 +349,39 @@ public class UserInfoActivity extends FileActivity {
                                     // remove contact backup job
                                     ContactsPreferenceActivity.cancelContactBackupJobForAccount(getActivity(), account);
 
+                                    ContentResolver contentResolver = getActivity().getContentResolver();
+                                    // delete all synced folder for an account
+                                    SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(
+                                            contentResolver);
+                                    syncedFolderProvider.deleteSyncFoldersForAccount(account);
+
+                                    UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(
+                                            contentResolver, getActivity());
+                                    uploadsStorageManager.cancelPendingAutoUploadJobsForAccount(account);
+
                                     // disable daily backup
                                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
-                                            getActivity().getContentResolver());
+                                            contentResolver);
 
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account,
                                             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
                                             "false");
+
+
+                                    String arbitraryDataPushString;
+
+                                    if (!TextUtils.isEmpty(arbitraryDataPushString = arbitraryDataProvider.getValue(
+                                            account, PushUtils.KEY_PUSH)) &&
+                                            !TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
+                                        Gson gson = new Gson();
+                                        PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryDataPushString,
+                                                PushConfigurationState.class);
+                                        pushArbitraryData.setShouldBeDeleted(true);
+                                        arbitraryDataProvider.storeOrUpdateKeyValue(account, PushUtils.KEY_PUSH,
+                                                gson.toJson(pushArbitraryData));
+                                        EventBus.getDefault().post(new TokenPushEvent());
+                                    }
+
 
                                     if (getActivity() != null && !removeDirectly) {
                                         Bundle bundle = new Bundle();

@@ -20,6 +20,7 @@
  */
 package com.owncloud.android.datamodel;
 
+import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -411,6 +412,15 @@ public class UploadsStorageManager extends Observable {
         }
 
         return list;
+    }
+
+    public void cancelPendingAutoUploadJobsForAccount(Account account) {
+        JobManager jobManager = JobManager.create(mContext);
+        for (JobRequest ji: jobManager.getAllJobRequestsForTag(AutoUploadJob.TAG)) {
+            if (ji.getExtras().getString(AutoUploadJob.ACCOUNT, "").equalsIgnoreCase(account.name)) {
+                jobManager.cancel(ji.getJobId());
+            }
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
