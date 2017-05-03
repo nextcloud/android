@@ -29,6 +29,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -53,6 +54,8 @@ import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.PushConfigurationState;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -346,9 +349,19 @@ public class UserInfoActivity extends FileActivity {
                                     // remove contact backup job
                                     ContactsPreferenceActivity.cancelContactBackupJobForAccount(getActivity(), account);
 
+                                    ContentResolver contentResolver = getActivity().getContentResolver();
+                                    // delete all synced folder for an account
+                                    SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(
+                                            contentResolver);
+                                    syncedFolderProvider.deleteSyncFoldersForAccount(account);
+
+                                    UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(
+                                            contentResolver, getActivity());
+                                    uploadsStorageManager.cancelPendingAutoUploadJobsForAccount(account);
+
                                     // disable daily backup
                                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
-                                            getActivity().getContentResolver());
+                                            contentResolver);
 
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account,
                                             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
