@@ -19,6 +19,7 @@
  */
 package com.owncloud.android.datamodel;
 
+import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -190,6 +191,22 @@ public class SyncedFolderProvider extends Observable {
     }
 
     /**
+     *  Delete all synced folders for an account
+     *
+     *  @param account whose synced folders should be deleted
+     */
+    public int deleteSyncFoldersForAccount(Account account) {
+        int result = mContentResolver.delete(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+                ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + " = ?",
+                new String[]{String.valueOf(account.name)}
+        );
+
+        return result;
+
+    }
+
+    /**
      * Delete a synced folder from the db
      *
      * @param id for the synced folder.
@@ -204,6 +221,7 @@ public class SyncedFolderProvider extends Observable {
 
         return result;
     }
+
 
     /**
      * Try to figure out if a path exists for synced folder, and if not, go one folder back
