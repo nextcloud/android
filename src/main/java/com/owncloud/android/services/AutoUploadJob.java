@@ -52,7 +52,7 @@ public class AutoUploadJob extends Job {
         final String filePath = bundle.getString(LOCAL_PATH, "");
         final String remotePath = bundle.getString(REMOTE_PATH, "");
         final Account account = AccountUtils.getOwnCloudAccountByName(context, bundle.getString(ACCOUNT, ""));
-        final Integer uploadBehaviour = bundle.getInt(UPLOAD_BEHAVIOUR, -1);
+        final Integer uploadBehaviour = bundle.getInt(UPLOAD_BEHAVIOUR, FileUploader.LOCAL_BEHAVIOUR_FORGET);
 
 
         File file = new File(filePath);

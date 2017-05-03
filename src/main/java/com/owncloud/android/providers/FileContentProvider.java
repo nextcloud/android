@@ -72,7 +72,8 @@ public class FileContentProvider extends ContentProvider {
     private static final int UPLOADS = 6;
     private static final int SYNCED_FOLDERS = 7;
     private static final int EXTERNAL_LINKS = 8;
-    private static final int VIRTUAL = 9;
+    private static final int ARBITRARY_DATA = 9;
+    private static final int VIRTUAL = 10;
 
     private static final String TAG = FileContentProvider.class.getSimpleName();
 
@@ -201,6 +202,9 @@ public class FileContentProvider extends ContentProvider {
                 break;
             case EXTERNAL_LINKS:
                 count = db.delete(ProviderTableMeta.EXTERNAL_LINKS_TABLE_NAME, where, whereArgs);
+                break;
+            case ARBITRARY_DATA:
+                count = db.delete(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, where, whereArgs);
                 break;
             case VIRTUAL:
                 count = db.delete(ProviderTableMeta.VIRTUAL_TABLE_NAME, where, whereArgs);
@@ -339,6 +343,18 @@ public class FileContentProvider extends ContentProvider {
                 }
                 return insertedExternalLinkUri;
 
+            case ARBITRARY_DATA:
+                Uri insertedArbitraryDataUri = null;
+                long arbitraryDataId = db.insert(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, null, values);
+                if (arbitraryDataId > 0) {
+                    insertedArbitraryDataUri =
+                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_ARBITRARY_DATA, arbitraryDataId);
+                } else {
+                    throw new SQLException("ERROR " + uri);
+
+                }
+                return insertedArbitraryDataUri;
+
             case VIRTUAL:
                 Uri insertedVirtualUri;
                 long virtualId = db.insert(ProviderTableMeta.VIRTUAL_TABLE_NAME, null, values);
@@ -401,6 +417,7 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "uploads/#", UPLOADS);
         mUriMatcher.addURI(authority, "synced_folders", SYNCED_FOLDERS);
         mUriMatcher.addURI(authority, "external_links", EXTERNAL_LINKS);
+        mUriMatcher.addURI(authority, "arbitrary_data", ARBITRARY_DATA);
         mUriMatcher.addURI(authority, "virtual", VIRTUAL);
 
         return true;
@@ -490,6 +507,13 @@ public class FileContentProvider extends ContentProvider {
                             + uri.getPathSegments().get(1));
                 }
                 break;
+            case ARBITRARY_DATA:
+                sqlQuery.setTables(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME);
+                if (uri.getPathSegments().size() > 1) {
+                    sqlQuery.appendWhere(ProviderTableMeta._ID + "="
+                            + uri.getPathSegments().get(1));
+                }
+                break;
             case VIRTUAL:
                 sqlQuery.setTables(ProviderTableMeta.VIRTUAL_TABLE_NAME);
                 if (uri.getPathSegments().size() > 1) {
@@ -517,6 +541,9 @@ public class FileContentProvider extends ContentProvider {
                     break;
                 case EXTERNAL_LINKS:
                     order = ProviderTableMeta.EXTERNAL_LINKS_NAME;
+                    break;
+                case ARBITRARY_DATA:
+                    order = ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID;
                     break;
                 case VIRTUAL:
                     order = ProviderTableMeta.VIRTUAL_TYPE;
@@ -564,25 +591,19 @@ public class FileContentProvider extends ContentProvider {
             case DIRECTORY:
                 return 0; //updateFolderSize(db, selectionArgs[0]);
             case SHARES:
-                return db.update(
-                        ProviderTableMeta.OCSHARES_TABLE_NAME, values, selection, selectionArgs
-                );
+                return db.update(ProviderTableMeta.OCSHARES_TABLE_NAME, values, selection, selectionArgs);
             case CAPABILITIES:
-                return db.update(
-                        ProviderTableMeta.CAPABILITIES_TABLE_NAME, values, selection, selectionArgs
-                );
+                return db.update(ProviderTableMeta.CAPABILITIES_TABLE_NAME, values, selection, selectionArgs);
             case UPLOADS:
-                int ret = db.update(
-                        ProviderTableMeta.UPLOADS_TABLE_NAME, values, selection, selectionArgs
-                );
+                int ret = db.update(ProviderTableMeta.UPLOADS_TABLE_NAME, values, selection, selectionArgs);
                 trimSuccessfulUploads(db);
                 return ret;
             case SYNCED_FOLDERS:
                 return db.update(ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME, values, selection, selectionArgs);
+            case ARBITRARY_DATA:
+                return db.update(ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME, values, selection, selectionArgs);
             default:
-                return db.update(
-                        ProviderTableMeta.FILE_TABLE_NAME, values, selection, selectionArgs
-                );
+                return db.update(ProviderTableMeta.FILE_TABLE_NAME, values, selection, selectionArgs);
         }
     }
 
@@ -637,6 +658,9 @@ public class FileContentProvider extends ContentProvider {
 
             // Create external links table
             createExternalLinksTable(db);
+
+            // Create arbitrary data table
+            createArbitraryData(db);
 
             // Create virtual table
             createVirtualTable(db);
@@ -958,6 +982,22 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 20 && newVersion >= 20) {
+                Log_OC.i(SQL, "Adding arbitrary data table");
+                db.beginTransaction();
+                try {
+                    createArbitraryData(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 21 && newVersion >= 21) {
                 Log_OC.i(SQL, "Adding virtual table");
                 db.beginTransaction();
                 try {
@@ -1106,6 +1146,15 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.EXTERNAL_LINKS_TYPE + " INTEGER, "      // type
                 + ProviderTableMeta.EXTERNAL_LINKS_NAME + " TEXT, "         // name
                 + ProviderTableMeta.EXTERNAL_LINKS_URL + " TEXT )"          // url
+        );
+    }
+
+    private void createArbitraryData(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.ARBITRARY_DATA_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "      // id
+                + ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " TEXT, " // cloud id (account name + FQDN)
+                + ProviderTableMeta.ARBITRARY_DATA_KEY + " TEXT, "      // key
+                + ProviderTableMeta.ARBITRARY_DATA_VALUE + " TEXT) "    // value
         );
     }
 

@@ -591,11 +591,18 @@ public class ExtendedListFragment extends Fragment
      *
      * @param enabled Desired visibility for the FAB.
      */
-    public void setFabEnabled(boolean enabled) {
-        if (enabled) {
-            mFabMain.setVisibility(View.VISIBLE);
-        } else {
-            mFabMain.setVisibility(View.GONE);
+    public void setFabEnabled(final boolean enabled) {
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (enabled) {
+                        mFabMain.setVisibility(View.VISIBLE);
+                    } else {
+                        mFabMain.setVisibility(View.GONE);
+                    }
+                }
+            });
         }
     }
 

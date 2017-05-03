@@ -46,10 +46,10 @@
     <string name="prefs_fingerprint">Fingerabdruck-Sperre</string>
     <string name="prefs_fingerprint_notsetup">Keine Fingerabdrücke eingerichtet.</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
-    <string name="prefs_instant_upload">Sofortiger Bilder-Upload</string>
-    <string name="prefs_instant_upload_summary">Lade Fotos von der Kamera sofort hoch</string>
-    <string name="prefs_instant_video_upload">Sofortiger Video-Upload</string>
-    <string name="prefs_instant_video_upload_summary">Lade Videos von der Kamera sofort hoch</string>
+    <string name="prefs_instant_upload">Sofortiges Hochladen von Bildern</string>
+    <string name="prefs_instant_upload_summary">Lade mit der Kamera gemachte Fotos sofort hoch</string>
+    <string name="prefs_instant_video_upload">Sofortiges Hochladen von Videos</string>
+    <string name="prefs_instant_video_upload_summary">Lade mit der Kamera gemachte Videos sofort hoch</string>
     <string name="prefs_log_title">Protokollierung aktivieren</string>
     <string name="prefs_log_summary">Dies wird zur Protokollierung von Problemen genutzt</string>
     <string name="prefs_log_title_history">Protokollierungs-Historie</string>
@@ -58,17 +58,17 @@
     <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0+) für aktuelles Konto einrichten</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Serveradresse des Kontos für die DAVdroid-Nutzung konnte nicht ermittelt werden</string>
-    <string name="prefs_calendar_contacts_no_store_error">Weder Google Play Store noch F-Droid App installiert</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Kontakte-Synchronisierung erfolgreich konfiguriert</string>
+    <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Adress-Synchronisation konfigurieren</string>
     <string name="prefs_help">Hilfe</string>
-    <string name="prefs_recommend">Empfehle dies einem Freund</string>
+    <string name="prefs_recommend">Einem Freund empfehlen</string>
     <string name="prefs_feedback">Rückmeldungen</string>
     <string name="prefs_imprint">Impressum</string>
     <string name="prefs_remember_last_share_location">Geteilten Speicherort merken</string>
-    <string name="prefs_remember_last_upload_location_summary">Geteilten Upload-Speicherort merken</string>
+    <string name="prefs_remember_last_upload_location_summary">Zuletzt verwendeten, geteilten Upload-Speicherort merken</string>
 
 	<string name="recommend_subject">Probiere %1$s auf Deinem Smartphone!</string>
-	<string name="recommend_text">Ich empfehle Dir die Nutzung von %1$s auf Deinem Smartphone!\nLade es hier herunter: %2$s</string>
+	<string name="recommend_text">"Ich empfehle Dir die Nutzung von %1$s auf Deinem Smartphone!\nLade es hier herunter: %2$s"</string>
 
     <string name="auth_check_server">Server überprüfen</string>
     <string name="auth_host_url">Server-Adresse https://…</string>
@@ -86,20 +86,21 @@
     <string name="uploader_error_title_no_file_to_upload">Keine Datei zum Hochladen</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s kann einen Textteil als Datei hochladen</string>
     <string name="uploader_error_message_no_file_to_upload">Empfangene Daten enthalten keine gültige Datei.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Datei kann nicht hochgeladen werden</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Diese Datei kan nicht hochgeladen werden</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s darf eine empfangene Datei nicht lesen</string>
-    <string name="uploader_error_message_source_file_not_found">Hochzuladende Datei wurde an ihrem Ort nicht gefunden. Prüfe, ob die Datei existiert.</string>
+    <string name="uploader_error_message_source_file_not_found">Die zum Hochladen ausgewählte Datei kann nicht gefunden werden. Bitte prüfe ob die Datei existiert.
+</string>
     <string name="uploader_error_message_source_file_not_copied">Es ist ein Fehler beim Kopieren dieser Datei in einen temporären Ordner aufgetreten. Bitte erneut versuchen die Datei zu senden.</string>
     <string name="uploader_upload_files_behaviour">Upload Option:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Datei in Nextcloud Ordner verschieben</string>
     <string name="uploader_upload_files_behaviour_only_upload">Hochladen und im Quellordner behalten</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hochladen und Datei im Quellordner löschen</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
-    <string name="file_list_empty_headline">Keine Dateien vorhanden</string>
-    <string name="file_list_empty">Lade Inhalt hoch oder synchronisiere mit Deinen Geräten!</string>
-    <string name="file_list_empty_favorites">Favorisiere einige Dateien oder synchronisiere deine Geräte!</string>
+    <string name="file_list_empty_headline"> Keine Dateien vorhanden </string>
+    <string name="file_list_empty">Lade Inhalt hoch oder synchronisiere mit Deinen Geräten.</string>
+    <string name="file_list_empty_favorites">Favorisiere einige Dateien oder synchronisiere deine Geräte.</string>
     <string name="file_list_empty_favorites_filter_list">Dateien und Ordner, die als Favoriten markiert werden, erscheinen hier</string>
-    <string name="file_list_empty_favorites_filter">Keine favorisierten Dateien in deinem Verlauf gefunden!</string>
+    <string name="file_list_empty_favorites_filter">Keine favorisierten Dateien in deinem Verlauf gefunden.</string>
     <string name="file_list_loading">Lade&#8230;</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden!</string>
     <string name="local_file_list_empty">Es befinden sich keine Dateien in diesem Ordner.</string>
@@ -110,19 +111,18 @@
     <string name="file_list_empty_shared">Von dir geteilte Dateien und Ordner werden hier erscheinen</string>
     <string name="file_list_empty_headline_server_search_videos">Keine Videos</string>
     <string name="file_list_empty_headline_server_search_photos">Keine Fotos</string>
-    <string name="file_list_empty_search">Soll in einem anderen Ordner nachgesehen werden?</string>
+    <string name="file_list_empty_search">Vielleicht befindet es sich in einem anderen Ordner?</string>
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
-    <string name="file_list_empty_recently_modified_filter">Keine Dateien in deinem Verlauf gefunden,
-        die in den letzten 7 Tagen geändert wurden!</string>
-    <string name="file_list_empty_recently_added">Keine kürzlich hinzu gefügten Dateien gefunden</string>
-    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzu gefügten Dateien in deinem Verlauf gefunden!</string>
+    <string name="file_list_empty_recently_modified_filter">Keine Dateien gefunden, die in den letzten 7 Tagen geändert wurden.</string>
+    <string name="file_list_empty_recently_added">Keine kürzlich hinzugefügten Dateien gefunden</string>
+    <string name="file_list_empty_recently_added_filter">Keine kürzlich hinzu gefügten Dateien gefunden!</string>
     <string name="file_list_empty_text_photos">Lade Fotos hoch oder aktiviere den Sofortupload!</string>
-    <string name="file_list_empty_text_photos_filter">Keine Fotos in deinem Verlauf gefunden!</string>
-    <string name="file_list_empty_text_videos">Lade einige Videos hoch oder aktiviere den Sofortupload!</string>
-    <string name="file_list_empty_text_videos_filter">Keine Videos in deinem Verlauf gefunden!</string>
+    <string name="file_list_empty_text_photos_filter">Keine Fotos gefunden.</string>
+    <string name="file_list_empty_text_videos">Lade einige Videos hoch oder aktiviere den Sofortupload.</string>
+    <string name="file_list_empty_text_videos_filter">Keine Videos gefunden.</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
-    <string name="upload_list_empty_text">Lade Inhalt hoch oder aktiviere den Sofortupload!</string>
-    <string name="upload_list_empty_text_auto_upload">Lade Inhalt hoch oder aktiviere den Sofortupload!</string>
+    <string name="upload_list_empty_text">Lade Inhalte hoch oder aktiviere den Sofortupload.</string>
+    <string name="upload_list_empty_text_auto_upload">Lade Inhalte hoch oder aktiviere den Auto Upload!</string>
     <string name="file_list_folder">Ordner</string>
     <string name="file_list_folders">Ordner</string>
     <string name="file_list_file">Datei</string>
@@ -134,14 +134,14 @@
     <string name="filedetails_modified">Geändert:</string>
     <string name="filedetails_download">Herunterladen</string>
     <string name="filedetails_sync_file">Synchronisation</string>
-    <string name="filedetails_renamed_in_upload_msg">Datei wurde wärend des Uploads in %1$s umbenannt</string>
+    <string name="filedetails_renamed_in_upload_msg">Datei während des Hochladens in %1$s umbenannt</string>
     <string name="list_layout">Layout der Liste</string>
     <string name="action_share">Teilen</string>
     <string name="common_yes">Ja</string>
     <string name="common_no">Nein</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">Upload entfernen</string>
-    <string name="common_retry_upload">Hochladen erneut versuchen</string>
+    <string name="common_retry_upload">Versuche erneut hochzuladen</string>
     <string name="common_cancel_sync">Synchronisation abbrechen</string>
     <string name="common_cancel">Abbrechen</string>
     <string name="common_back">Zurück</string>
@@ -161,10 +161,10 @@
     <string name="uploader_info_dirname">Ordnername</string>
     <string name="uploader_upload_in_progress_ticker">Hochladen &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Hochladen %2$s</string>
-    <string name="uploader_upload_succeeded_ticker">Hochladen erfolgreich</string>
+    <string name="uploader_upload_succeeded_ticker">Hochgeladen</string>
     <string name="uploader_upload_succeeded_content_single">%1$s hochgeladen</string>
     <string name="uploader_upload_failed_ticker">Hochladen fehlgeschlagen</string>
-    <string name="uploader_upload_failed_content_single">Hochladen von  %1$s konnte nicht abgeschlossen werden</string>
+    <string name="uploader_upload_failed_content_single">Konnte %1$s nicht hochladen</string>
     <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Aktuell</string>
@@ -181,21 +181,21 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Lokale Datei nicht gefunden</string>
     <string name="uploads_view_upload_status_failed_permission_error">Berechtigungsfehler</string>
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
-    <string name="uploads_view_upload_status_service_interrupted">Die Anwendung wurde beendet</string>
+    <string name="uploads_view_upload_status_service_interrupted">App beendet</string>
     <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Warten auf Drahtlos-Verbindung</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Warte auf W-Lan-Verbindung</string>
     <string name="uploads_view_later_waiting_to_upload">Warte auf Hochladen</string>
     <string name="downloader_download_in_progress_ticker">Herunterladen &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Herunterladen %2$s</string>
-    <string name="downloader_download_succeeded_ticker">Herunterladen erfolgreich</string>
+    <string name="downloader_download_succeeded_ticker">Heruntergeladen</string>
     <string name="downloader_download_succeeded_content">%1$s heruntergeladen</string>
     <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
-    <string name="downloader_download_failed_content">Herunterladen von %1$s konnte nicht abgeschlossen werden</string>
+    <string name="downloader_download_failed_content">Konnte %1$s nicht herunterladen</string>
     <string name="downloader_not_downloaded_yet">Noch nicht Heruntergeladen</string>
     <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="common_choose_account">Konto auswählen</string>
     <string name="sync_fail_ticker">Synchronisation fehlgeschlagen</string>
-    <string name="sync_fail_ticker_unauthorized">Synchronisation fehlgeschlagen, erneute Anmeldung erforderlich.</string>
+    <string name="sync_fail_ticker_unauthorized">Synchronisation fehlgeschlagen. Du mußt Dich erneut anmelden</string>
     <string name="sync_fail_content">Synchronisation von %1$s konnte nicht abgeschlossen werden</string>
     <string name="sync_fail_content_unauthorized">Falsches Passwort für %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
@@ -204,8 +204,8 @@
     <string name="sync_fail_in_favourites_content">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (%2$d Konflikte)</string>
     <string name="sync_foreign_files_forgotten_ticker">Einige lokale Dateien wurden vergessen</string>
     <string name="sync_foreign_files_forgotten_content">%1$d Dateien aus dem %2$s Verzeichnis konnten nicht kopiert werden nach</string>
-    <string name="sync_foreign_files_forgotten_explanation">Seit Version 1.3.16 werden Dateien die von diesem Gerät aus hochgeladen werden in den lokalen Ordner %1$s kopiert um Datenverlust zu vermeiden, wenn eine einzelne Datei mit mehreren Accounts synchronisiert wird.\n\nInfolge dieser Änderung wurden alle Dateien, die mit vorherigen Versionen dieser App hochgeladen wurden, in den Ordner %2$s verschoben. Jedoch ist während der Konto-Synchronisation ein Fehler aufgetreten, der das Abschließen dieses Vorgangs verhindert hat. Die Datei(en) können entweder wie sie sind belassen und den Link zu %3$s entfernt werden oder die Datei(en) in den Ordner %1$s verschoben und  den Link zu %4$s beibehalten werden.\n\nUnten befindet sich eine Liste der lokalen Datei(en) und der mit ihnen verbundenen Remote-Datei(en) in %5$s.</string>
-    <string name="sync_current_folder_was_removed">Das Verzeichnis %1$s existiert nicht mehr</string>
+    <string name="sync_foreign_files_forgotten_explanation">Seit Version 1.3.16 werden Dateien die von diesem Gerät aus hochgeladen werden in den lokalen Ordner %1$s kopiert um Datenverlust zu vermeiden, wenn eine einzelne Datei mit mehreren Accounts synchronisiert wird.\n\nInfolge dieser Änderung wurden alle Dateien, die mit vorherigen Versionen dieser App hochgeladen wurden, in den Ordner %2$s verschoben. Jedoch ist während der Konto-Synchronisation ein Fehler aufgetreten, der das Abschließen dieses Vorgangs verhindert hat. Die Datei(en) können entweder wie sie sind belassen und den Link zu %3$s entfernt werden oder die Datei(en) in den Ordner %1$s verschoben und den Link zu %4$s beibehalten werden.\n\nUnten befindet sich eine Liste der lokalen Datei(en) und der mit ihnen verbundenen Remote-Datei(en) in %5$s.</string>
+    <string name="sync_current_folder_was_removed">Der Ordner %1$s existiert nicht mehr</string>
     <string name="foreign_files_move">Verschiebe alle</string>
     <string name="foreign_files_success">Alle Dateien wurden verschoben</string>
     <string name="foreign_files_fail">Einige Dateien konnten nicht verschoben werden</string>
@@ -229,12 +229,12 @@
     <string name="media_event_done">%1$s Wiedergabe Beendet</string>
     <string name="media_err_nothing_to_play">Keine Mediendatei gefunden</string>
     <string name="media_err_no_account">Kein Konto angegeben</string>
-    <string name="media_err_not_in_owncloud">Datei ist nicht in einem gültigen Konto</string>
+    <string name="media_err_not_in_owncloud">Die Datei befindet sich nicht in einem gültigen Konto</string>
     <string name="media_err_unsupported">Medien-Codec wird nicht unterstützt</string>
-    <string name="media_err_io">Mediendatei konnte nicht gelesen werden</string>
-    <string name="media_err_malformed">Mediendatei nicht korrekt encodiert</string>
+    <string name="media_err_io">Konnte die Mediendatei nicht lesen</string>
+    <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>
     <string name="media_err_timeout">Wartezeit beim Abspielversuch abgelaufen</string>
-    <string name="media_err_invalid_progressive_playback">Mediendatei kann nicht gestreamt werden</string>
+    <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
     <string name="media_err_unknown">Diese Mediendatei konnte nicht mit dem Standardplayer geöffnet werden</string>
     <string name="media_err_security_ex">Sicherheitsfehler beim Versuch %1$s wiederzugeben</string>
     <string name="media_err_io_ex">Eingabefehler beim Versuch %1$s wiederzugeben</string>
@@ -253,14 +253,14 @@
 	<string name="auth_account_not_new">Ein Benutzerkonto für den gleichen Benutzer und Server existiert auf diesem Gerät bereits</string>
 	<string name="auth_account_not_the_same">Der eingegebene Benutzer passt nicht zu dem Benutzer dieses Benutzerkontos</string>
 	<string name="auth_unknown_error_title">Ein unbekannter Fehler ist aufgetreten!</string>
-	<string name="auth_unknown_host_title">Konnte den Host nicht finden.</string>
-	<string name="auth_incorrect_path_title">Server-Installation nicht gefunden</string>
+	<string name="auth_unknown_host_title">Konnte den Host nicht finden</string>
+	<string name="auth_incorrect_path_title">Server nicht gefunden</string>
 	<string name="auth_timeout_title">Der Server braucht zu lange für eine Antwort.</string>
-	<string name="auth_incorrect_address_title">falsches Server-Adress Format</string>
+	<string name="auth_incorrect_address_title">Falsches Adress-Format für den Server</string>
 	<string name="auth_ssl_general_error_title">SSL-Initialisierung fehlgeschlagen.</string>
 	<string name="auth_ssl_unverified_server_title">SSL-Server-Identität konnte nicht überprüft werden</string>
 	<string name="auth_bad_oc_version_title">Unbekannte Server-Version</string>
-	<string name="auth_wrong_connection_title">Verbindung konnte nicht aufgebaut werden</string>
+	<string name="auth_wrong_connection_title">Verbindung konnte nicht hergestellt werden</string>
 	<string name="auth_secure_connection">Sichere Verbindung hergestellt</string>
 	<string name="auth_unauthorized">Falscher Benutzername oder Passwort</string>
 	<string name="auth_oauth_error">Autorisierung nicht erfolgreich</string>
@@ -283,9 +283,9 @@
     <string name="common_rename">Umbenennen</string>
     <string name="common_remove">Entfernen</string>
     <string name="confirmation_remove_file_alert">Möchtest Du %1$s wirklich entfernen?</string>
-    <string name="confirmation_remove_folder_alert">Soll %1$s und dessen Inhalt wirklich entfernt werden?</string>
+    <string name="confirmation_remove_folder_alert">Willst Du %1$s deren Inhalte wirklich löschen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
-    <string name="remove_success_msg">Erfolgreich entfernt</string>
+    <string name="remove_success_msg">Entfernt</string>
     <string name="remove_fail_msg">Entfernen fehlgeschlagen</string>
     <string name="rename_dialog_title">Gib einen neuen Namen ein</string>
     <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuche es mit einem anderen Namen.</string>
@@ -296,15 +296,15 @@
     <string name="filename_forbidden_characters">Verbotene Zeichen: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
     <string name="filename_empty">Dateiname darf nicht leer sein</string>
-    <string name="wait_a_moment">Bitte warte einen Moment.</string>
+    <string name="wait_a_moment">Bitte warten...</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="filedisplay_unexpected_bad_get_content">Ein unerwartetes Problem ist aufgetreten. Bitte versuche, die Datei in einer anderen App zu öffnen</string>
-    <string name="filedisplay_no_file_selected">Es wurde keine Datei ausgewählt.</string>
+    <string name="filedisplay_no_file_selected">Keine Datei gewählt</string>
     <string name="activity_chooser_title">Link senden an &#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei vom privatem Speicher</string>
     
     <string name="oauth_check_onoff">Anmelden mit oAuth2</string> 
-    <string name="oauth_login_connection">Verbinde mit dem oAuth2-Server.</string>    
+    <string name="oauth_login_connection">Verbinde mit dem oAuth2-Server...</string>    
         
     <string name="ssl_validator_header">Die Identität der Website konnte nicht überprüft werden</string>
     <string name="ssl_validator_reason_cert_not_trusted">- Das Zertifikat des Servers ist nicht vertrauenswürdig</string>
@@ -341,11 +341,11 @@
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Nur über WLAN hochladen</string>
-    <string name="instant_upload_on_wifi">Bilder nur über Wifi hochladen</string>
-    <string name="instant_video_upload_on_wifi">Videos nur über Wifi hochladen</string>
-    <string name="instant_video_upload_on_charging">Hochladen nur während des Ladens</string>
-    <string name="instant_upload_on_charging">Hochladen nur während des Ladens</string>
+    <string name="auto_upload_on_wifi">Nur über W-Lan hochladen</string>
+    <string name="instant_upload_on_wifi">Bilder nur über W-Lan hochladen</string>
+    <string name="instant_video_upload_on_wifi">Videos nur über W-Lan hochladen</string>
+    <string name="instant_video_upload_on_charging">Nur während des Ladens hochladen</string>
+    <string name="instant_upload_on_charging">Nur während des Ladens hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
     <string name="conflict_title">Dateikonfilikt</string>
     <string name="conflict_message">Welche Datei soll behalten werden? Wenn du beide Versionen wählst, wird der lokalen Datei eine Zahl am Ende des Dateinamens angefügt.</string>
@@ -353,7 +353,7 @@
     <string name="conflict_use_local_version">Lokale Version</string>
     <string name="conflict_use_server_version">Serverversion</string>
 
-    <string name="preview_sorry">Das tut mir leid!</string>
+    <string name="preview_sorry">Entschuldigung.</string>
     <string name="preview_image_description">Bildvorschau</string>
     <string name="preview_image_error_unknown_format">Bild kann nicht angezeigt werden</string>
 
@@ -364,7 +364,7 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">Unterordner benutzen</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">In Unterordnern speichern, basierend auf Jahr und Monat</string>
 
-	<string name="share_link_no_support_share_api">Entschuldigung, das Teilen ist auf deinem Server nicht aktiviert. Bitte kontaktiere deinen Administrator.</string>
+	<string name="share_link_no_support_share_api">Teilen ist auf Deinem Server nicht aktiviert. Bitte kontaktiere den Administrator.</string>
 	<string name="share_link_file_no_exist">Teilen nicht möglich. Prüfe, ob die Datei existiert</string>
 	<string name="share_link_file_error">Es ist ein Fehler beim Freigeben der Datei oder des Ordners aufgetreten.</string>
 	<string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Prüfe, dass die Datei existiert</string>
@@ -388,32 +388,33 @@
     <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden</string>
     <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operationkonnte nicht abgeschlossen werden</string>
     <string name="network_host_not_available">Die Operation kann nicht abgeschlossen werden, der Server ist nicht erreichbar</string>
-    <string name="forbidden_permissions">Sie haben keine Berechtigung %s</string>
+
+    <string name="forbidden_permissions">Dir fehlt die Erlaubnis %s</string>
     <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
     <string name="forbidden_permissions_delete">diese Datei zu löschen</string>
     <string name="share_link_forbidden_permissions">diese Datei zu teilen</string>
     <string name="unshare_link_forbidden_permissions">diese Datei nicht mehr zu teilen</string>
     <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
-    <string name="forbidden_permissions_create">eine Datei zu erstellen</string>
-    <string name="uploader_upload_forbidden_permissions">in diesen Order etwas hochzuladen</string>
+    <string name="forbidden_permissions_create">diese Datei zu erstellen</string>
+    <string name="uploader_upload_forbidden_permissions">diesen Ordner hochzuladen</string>
     <string name="downloader_download_file_not_found">Diese Datei steht auf dem Server nicht mehr zur Verfügung</string>
 
     <string name="file_migration_dialog_title">Aktualisiere Speicherort</string>
     <string name="file_migration_finish_button">Beenden</string>
     <string name="file_migration_preparing">Bereite Migration vor&#8230;</string>
     <string name="file_migration_checking_destination">Prüfe Zielort&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">Speichere Konteneinstellung&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">Warte auf Abschluss der Synchronisierungen&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Sichere Konfiguration der Konten&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Warte auf die Fertigstellung der Synchronisationen&#8230;</string>
     <string name="file_migration_migrating">Verschiebe Dateien&#8230;</string>
     <string name="file_migration_updating_index">Aktualisiere Index&#8230;</string>
     <string name="file_migration_cleaning">Aufräumen&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">Konteneinstellung wiederherstellen&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Konfiguration der Konten wiederherstellen&#8230;</string>
     <string name="file_migration_ok_finished">Abgeschlossen</string>
-    <string name="file_migration_failed_not_enough_space">FEHLER: Nicht genügend Speicherplatz</string>
+    <string name="file_migration_failed_not_enough_space">FEHLER: zu wenig Platz</string>
     <string name="file_migration_failed_not_writable">FEHLER: Datei kann nicht geschrieben werden</string>
-    <string name="file_migration_failed_not_readable">FEHLER: Datei nicht lesbar</string>
+    <string name="file_migration_failed_not_readable">FEHLER: Datei kann nicht gelesen werden</string>
     <string name="file_migration_failed_dir_already_exists">FEHLER: Nextcloud Ordner existiert bereits</string>
-    <string name="file_migration_failed_while_coping">FEHLER: Während der Migration</string>
+    <string name="file_migration_failed_while_coping">FEHLER: Migration fehlgeschlagen</string>
     <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indexes</string>
 
     <string name="file_migration_directory_already_exists">Datenordner existiert bereits, was soll geschehen?</string>
@@ -435,7 +436,7 @@
 	<string name="saml_authentication_wrong_pass">Falsches Passwort</string>
 	<string name="actionbar_move">Verschieben</string>
     <string name="actionbar_copy">Kopieren</string>
-	<string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen!</string>
+	<string name="file_list_empty_moving">Noch nichts vorhanden. Du kannst einen Ordner hinzufügen.</string>
 	<string name="folder_picker_choose_button_text">Auswählen</string>
 
     <string name="move_file_not_found">Verschieben nicht möglich. Prüfe, ob die Datei existiert</string>
@@ -454,7 +455,7 @@
     <string name="prefs_category_instant_uploading">sofort hochladen</string>
     <string name="prefs_category_details">Details</string>
 
-	<string name="prefs_instant_video_upload_path_title">Sofortupload-Video-Ordner</string>
+	<string name="prefs_instant_video_upload_path_title">Video Speicherpfad wählen</string>
     <string name="sync_folder_failed_content">Bei der Synchronisation konnte %1$s Ordner nicht fertig gestellt werden</string>
 
 	<string name="shared_subject_header">geteilt</string>
@@ -556,7 +557,7 @@
     <string name="participate_contribute_irc_text">An Chats teilnehmen auf IRC: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Hilf anderen im &lt;a href="%1$s">Forum&lt;/a></string>
     <string name="participate_contribute_translate_text">Die App &lt;a href="%1$s">Übersetzen&lt;/a></string>
-    <string name="participate_contribute_github_text">Als Entwickler einen Beitrag leisten, Details unter &lt;a href="https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md">CONTRIBUTING.md&lt;/a></string>
+    <string name="participate_contribute_github_text">Zum Überprüfen, Ändern und Schreiben von Quellcode schaue bitte unter &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> für weitere Details.</string>
     <string name="move_to">Verschieben nach&#8230;</string>
     <string name="copy_to">Kopieren nach&#8230;</string>
     <string name="choose_remote_folder">Wähle Verzeichnis&#8230;</string>
@@ -564,7 +565,7 @@
     <string name="folder_sync_no_results">Keine Medienverzeichnisse gefunden.</string>
     <string name="folder_sync_preferences">Einstellungen Auto-Hochladen</string>
     <string name="folder_sync_settings">Einstellungen</string>
-    <string name="folder_sync_new_info">Sofortiger Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto Upload gehen und neu configurieren. Bitte entschuldige die Unannehmlichkeiten.\n\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto Uploads!</string>
+    <string name="folder_sync_new_info">Sofortiger Upload wurde vollständig überarbeitet. Bitte über das Hauptmenü zum Auto Upload gehen und neu configurieren. Bitte entschuldige die Unannehmlichkeiten.\n\nViel Vergnügen mit den neuen und erweiterten Möglichkeiten des Auto Uploads.</string>
     <string name="folder_sync_preferences_folder_path">Für %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
@@ -619,19 +620,20 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Bislang keine Aktivitäten</string>
-    <string name="activities_no_results_message">Dieser Stream zeigt Ereignisse wie\nHinzugekommenes, Änderungen &amp; und Freigaben an</string>
+    <string name="activities_no_results_message">Dieser Stream zeigt Ereignisse wie\nHinzugekommenes, Änderungen und Freigaben an</string>
     <string name="webview_error">Fehler aufgetreten</string>
     <string name="prefs_category_about">Über</string>
 
-    <string name="actionbar_contacts">Adressen-Sicherung</string>
-    <string name="contacts_backup_button">Sicherung jetzt erstellen</string>
+    <string name="actionbar_contacts">Kontakte-Sicherung</string>
+    <string name="actionbar_contacts_restore">Adressen wiederherstellen</string>
+    <string name="contacts_backup_button">Sicherung jetzt starten</string>
     <string name="contacts_restore_button">Letztes Backup wiederherstellen</string>
     <string name="contacts_header_restore">Wiederherstellen</string>
     <string name="contacts_header_backup">Sicherung</string>
     <string name="contacts_automatic_backup">Adressen-Sicherung</string>
     <string name="contacts_last_backup">Letzte Sicherung</string>
-    <string name="contacts_read_permission">Lese-Zugriffs-Erlaubnis für Adressen ist erforderlich</string>
-    <string name="contacts_write_permission">Schreib-Erlaubnis für Adressen ist erforderlich</string>
+    <string name="contacts_read_permission">Leseberechtigung auf Kontakte erforderlich</string>
+    <string name="contacts_write_permission">Schreibberechtigung auf Kontakte erforderlich</string>
     <string name="contactlist_title">Adressen wiederherstellen</string>
     <string name="contaclist_restore_selected">Ausgewählte Adressen wiederherstellen</string>
     <string name="contactlist_account_chooser_title">Konto für den Import auswählen</string>
@@ -639,11 +641,13 @@
     <string name="contacts_preference_choose_date">Datum auswählen</string>
     <string name="contacts_preference_backup_never">nie</string>
     <string name="contacts_preferences_no_file_found">Keine Datei gefunden</string>
+    <string name="contacts_preferences_something_strange_happened">Wir können dein letztes Backup nicht finden!</string>
     <string name="contacts_preferences_backup_scheduled">Sicherung geplant und wird in Kürze starten</string>
     <string name="contacts_preferences_import_scheduled">Import geplant und wird in Kürze starten</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">Neue Benachrichtigung erhalten</string>
+    <string name="drawer_logout">Abmelden</string>
 
 
 </resources>
