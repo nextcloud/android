@@ -24,6 +24,7 @@ package com.owncloud.android.ui.adapter;
 
 
 import android.accounts.Account;
+import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -48,6 +49,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.db.PreferenceManager;
+import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
 import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -485,10 +487,14 @@ public class FileListListAdapter extends BaseAdapter {
 
     public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
         mFiles = new Vector<>();
-        if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
-            parseShares(objects);
-        } else {
-           parseVirtuals(objects, searchType);
+
+        // early exit
+        if (objects.size() > 0) {
+            if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
+                parseShares(objects);
+            } else {
+                parseVirtuals(objects, searchType);
+            }
         }
 
         if (!searchType.equals(ExtendedListFragment.SearchType.PHOTO_SEARCH) &&
@@ -558,14 +564,33 @@ public class FileListListAdapter extends BaseAdapter {
 
         mStorageManager.deleteVirtuals(type);
 
+        ArrayList<ContentValues> contentValues = new ArrayList<>();
+
         for (int i = 0; i < objects.size(); i++) {
-            OCFile ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
-            searchForLocalFileInDefaultPath(ocFile);
-            ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
-            mStorageManager.saveVirtual(type, ocFile);
+            OCFile ocFile;
+
+            // try to find it in database
+            ocFile = mStorageManager.getFileByPath(((RemoteFile) objects.get(i)).getRemotePath());
+
+            if (ocFile == null) {
+                // new
+                ocFile = FileStorageUtils.fillOCFile((RemoteFile) objects.get(i));
+                searchForLocalFileInDefaultPath(ocFile);
+                ocFile = mStorageManager.saveFileWithParent(ocFile, mContext);
+            }
+
+            if (!onlyImages || MimeTypeUtil.isImage(ocFile)) {
+                mFiles.add(ocFile);
+            }
+
+            ContentValues cv = new ContentValues();
+            cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_TYPE, type.toString());
+            cv.put(ProviderMeta.ProviderTableMeta.VIRTUAL_OCFILE_ID, ocFile.getFileId());
+
+            contentValues.add(cv);
         }
 
-        mFiles.addAll(mStorageManager.getVirtualFolderContent(type, onlyImages));
+        mStorageManager.saveVirtuals(type, contentValues);
     }
 
     /**
