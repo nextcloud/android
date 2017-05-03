@@ -91,11 +91,15 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     @Override
     public void onBindHeaderViewHolder(final MainViewHolder holder, final int section) {
         holder.title.setText(mSyncFolderItems.get(section).getFolderName());
+
         if (MediaFolder.VIDEO == mSyncFolderItems.get(section).getType()) {
             holder.type.setImageResource(R.drawable.ic_video_18dp);
-        } else {
+        } else if (MediaFolder.IMAGE == mSyncFolderItems.get(section).getType()) {
             holder.type.setImageResource(R.drawable.ic_image_18dp);
+        } else {
+            holder.type.setImageResource(R.drawable.ic_folder_star_18dp);
         }
+        
         holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
         holder.syncStatusButton.setOnClickListener(new View.OnClickListener() {
