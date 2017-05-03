@@ -27,9 +27,12 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Base64;
 
+import com.google.gson.Gson;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
+import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.PushArbitraryData;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -39,7 +42,11 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.notifications.RegisterAccountDeviceForNotificationsOperation;
 import com.owncloud.android.lib.resources.notifications.RegisterAccountDeviceForProxyOperation;
+import com.owncloud.android.lib.resources.notifications.UnregisterAccountDeviceForNotificationsOperation;
+import com.owncloud.android.lib.resources.notifications.UnregisterAccountDeviceForProxyOperation;
 import com.owncloud.android.lib.resources.notifications.models.PushResponse;
+
+import org.apache.commons.httpclient.HttpStatus;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -65,7 +72,11 @@ public class PushUtils {
     private static final String KEYPAIR_PRIV_EXTENSION = ".priv";
     private static final String KEYPAIR_PUB_EXTENSION = ".pub";
 
-    public static String generateSHA512Hash(String pushToken) {
+    public static final String KEY_PUSH = "push";
+
+    private static ArbitraryDataProvider arbitraryDataProvider;
+
+    private static String generateSHA512Hash(String pushToken) {
         MessageDigest messageDigest = null;
         try {
             messageDigest = MessageDigest.getInstance("SHA-512");
@@ -86,7 +97,7 @@ public class PushUtils {
         return result.toString();
     }
 
-    public static int generateRsa2048KeyPair() {
+    private static int generateRsa2048KeyPair() {
         String keyPath = MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator
                 + KEYPAIR_FOLDER;
 
@@ -124,8 +135,58 @@ public class PushUtils {
         return -2;
     }
 
+    private static void deleteRegistrationForAccount(Account account) {
+        Context context = MainApp.getAppContext();
+        OwnCloudAccount ocAccount = null;
+        arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
+
+        try {
+            ocAccount = new OwnCloudAccount(account, context);
+            OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                    getClientFor(ocAccount, context);
+
+            RemoteOperation unregisterAccountDeviceForNotificationsOperation = new
+                    UnregisterAccountDeviceForNotificationsOperation();
+
+            RemoteOperationResult remoteOperationResult = unregisterAccountDeviceForNotificationsOperation.
+                    execute(mClient);
+
+            if (remoteOperationResult.getHttpCode() == HttpStatus.SC_ACCEPTED) {
+                String arbitraryValue;
+                if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account, KEY_PUSH))) {
+                    Gson gson = new Gson();
+                    PushArbitraryData pushArbitraryData = gson.fromJson(arbitraryValue, PushArbitraryData.class);
+                    RemoteOperation unregisterAccountDeviceForProxyOperation =
+                            new UnregisterAccountDeviceForProxyOperation(context.getResources().
+                                    getString(R.string.push_server_url),
+                                    pushArbitraryData.getDeviceIdentifier(),
+                                    pushArbitraryData.getDeviceIdentifierSignature(),
+                                    pushArbitraryData.getUserPublicKey());
+
+                    remoteOperationResult = unregisterAccountDeviceForProxyOperation.execute(mClient);
+
+                    if (remoteOperationResult.isSuccess()) {
+                        arbitraryDataProvider.deleteKeyForAccount(account, KEY_PUSH);
+                    }
+                }
+            }
+
+
+        } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+            Log_OC.d(TAG, "Failed to find an account");
+        } catch (AuthenticatorException e) {
+            Log_OC.d(TAG, "Failed via AuthenticatorException");
+        } catch (IOException e) {
+            Log_OC.d(TAG, "Failed via IOException");
+        } catch (OperationCanceledException e) {
+            Log_OC.d(TAG, "Failed via OperationCanceledException");
+        }
+    }
+
     public static void pushRegistrationToServer() {
         String token = PreferenceManager.getPushToken(MainApp.getAppContext());
+        arbitraryDataProvider = new ArbitraryDataProvider(MainApp.getAppContext().getContentResolver());
+
         if (!TextUtils.isEmpty(MainApp.getAppContext().getResources().getString(R.string.push_server_url)) &&
                 !TextUtils.isEmpty(token)) {
             PushUtils.generateRsa2048KeyPair();
@@ -139,42 +200,56 @@ public class PushUtils {
                 publicKey = "-----BEGIN PUBLIC KEY-----\n" + publicKey + "\n-----END PUBLIC KEY-----\n";
 
                 Context context = MainApp.getAppContext();
+                String providerValue;
+                Gson gson = new Gson();
                 for (Account account : AccountUtils.getAccounts(context)) {
-                    try {
-                        OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
-                        OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
-                                getClientFor(ocAccount, context);
+                    if (!TextUtils.isEmpty(providerValue = arbitraryDataProvider.getValue(account, KEY_PUSH))) {
+                        PushArbitraryData accountPushData = gson.fromJson(providerValue, PushArbitraryData.class);
+                        if (!accountPushData.getPushToken().equals(token) && !accountPushData.isShouldBeDeleted()) {
+                            try {
+                                OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
+                                OwnCloudClient mClient = OwnCloudClientManagerFactory.getDefaultSingleton().
+                                        getClientFor(ocAccount, context);
 
-                        RemoteOperation registerAccountDeviceForNotificationsOperation =
-                                new RegisterAccountDeviceForNotificationsOperation(pushTokenHash,
-                                        publicKey,
-                                        context.getResources().getString(R.string.push_server_url));
+                                RemoteOperation registerAccountDeviceForNotificationsOperation =
+                                        new RegisterAccountDeviceForNotificationsOperation(pushTokenHash,
+                                                publicKey,
+                                                context.getResources().getString(R.string.push_server_url));
 
-                        RemoteOperationResult remoteOperationResult = registerAccountDeviceForNotificationsOperation.
-                                execute(mClient);
+                                RemoteOperationResult remoteOperationResult = registerAccountDeviceForNotificationsOperation.
+                                        execute(mClient);
 
-                        if (remoteOperationResult.isSuccess()) {
-                            PushResponse pushResponse = remoteOperationResult.getPushResponseData();
+                                if (remoteOperationResult.isSuccess()) {
+                                    PushResponse pushResponse = remoteOperationResult.getPushResponseData();
 
-                            RemoteOperation registerAccountDeviceForProxyOperation = new
-                                    RegisterAccountDeviceForProxyOperation(
-                                    context.getResources().getString(R.string.push_server_url),
-                                    token, pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
-                                    pushResponse.getPublicKey());
+                                    RemoteOperation registerAccountDeviceForProxyOperation = new
+                                            RegisterAccountDeviceForProxyOperation(
+                                            context.getResources().getString(R.string.push_server_url),
+                                            token, pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
+                                            pushResponse.getPublicKey());
 
-                            remoteOperationResult = registerAccountDeviceForProxyOperation.execute(mClient);
-                            PreferenceManager.setPushTokenLastSentTime(MainApp.getAppContext(),
-                                    System.currentTimeMillis());
+                                    remoteOperationResult = registerAccountDeviceForProxyOperation.execute(mClient);
 
+                                    if (remoteOperationResult.isSuccess()) {
+                                        PushArbitraryData pushArbitraryData = new PushArbitraryData(token,
+                                                pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
+                                                pushResponse.getPublicKey(), false);
+                                        arbitraryDataProvider.storeOrUpdateKeyValue(account, KEY_PUSH,
+                                                gson.toJson(pushArbitraryData));
+                                    }
+                                }
+                            } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
+                                Log_OC.d(TAG, "Failed to find an account");
+                            } catch (AuthenticatorException e) {
+                                Log_OC.d(TAG, "Failed via AuthenticatorException");
+                            } catch (IOException e) {
+                                Log_OC.d(TAG, "Failed via IOException");
+                            } catch (OperationCanceledException e) {
+                                Log_OC.d(TAG, "Failed via OperationCanceledException");
+                            }
+                        } else if (accountPushData.isShouldBeDeleted()) {
+                            deleteRegistrationForAccount(account);
                         }
-                    } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
-                        Log_OC.d(TAG, "Failed to find an account");
-                    } catch (AuthenticatorException e) {
-                        Log_OC.d(TAG, "Failed via AuthenticatorException");
-                    } catch (IOException e) {
-                        Log_OC.d(TAG, "Failed via IOException");
-                    } catch (OperationCanceledException e) {
-                        Log_OC.d(TAG, "Failed via OperationCanceledException");
                     }
                 }
             }
