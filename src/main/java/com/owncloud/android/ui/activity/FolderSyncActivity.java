@@ -181,7 +181,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 final List<MediaFolder> mediaFolders = MediaProvider.getImageFolders(getContentResolver(),
                         perFolderMediaItemLimit, FolderSyncActivity.this);
                 Log_OC.w(TAG, "Picture Folders: " + mediaFolders.size());
-                mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(),perFolderMediaItemLimit));
+                mediaFolders.addAll(MediaProvider.getVideoFolders(getContentResolver(), perFolderMediaItemLimit));
                 Log_OC.w(TAG, "Picture+Video Folders: " + mediaFolders.size());
 
                 //TODO properly merge image and video lists to remove duplicates
