@@ -604,7 +604,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             DisplayUtils.colorToolbarProgressBar(getActivity(), mProgressBarColor);
 
             // show FAB on multi selection mode exit
-            if (!mHideFab) {
+            if (!mHideFab && !searchFragment) {
                 setFabEnabled(true);
             }
         }
