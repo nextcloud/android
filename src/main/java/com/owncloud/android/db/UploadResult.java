@@ -36,7 +36,6 @@ public enum UploadResult {
     SERVICE_INTERRUPTED(10),
     DELAYED_FOR_CHARGING(11),
     MAINTENANCE_MODE(12);
-    MAINTENANCE_MODE(12);
 
     private final int value;
 
