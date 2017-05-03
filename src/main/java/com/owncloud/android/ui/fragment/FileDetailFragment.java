@@ -241,6 +241,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
             item.setEnabled(false);
         }
 
+        // additional restriction for this fragment
+        item = menu.findItem(R.id.action_search);
+        if (item != null) {
+            item.setVisible(false);
+            item.setEnabled(false);
+        }
+
 
         Boolean dualPane = getResources().getBoolean(R.bool.large_land_layout);
 
