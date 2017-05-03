@@ -29,6 +29,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
+import android.content.ContentResolver;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -347,14 +348,15 @@ public class UserInfoActivity extends FileActivity {
                                     // remove contact backup job
                                     ContactsPreferenceActivity.cancelContactBackupJobForAccount(getActivity(), account);
 
+                                    ContentResolver contentResolver = getActivity().getContentResolver();
                                     // delete all synced folder for an account
                                     SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(
-                                            getActivity().getContentResolver());
+                                            contentResolver);
                                     syncedFolderProvider.deleteSyncFoldersForAccount(account);
 
                                     // disable daily backup
                                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
-                                            getActivity().getContentResolver());
+                                            contentResolver);
 
                                     arbitraryDataProvider.storeOrUpdateKeyValue(account,
                                             ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP,
