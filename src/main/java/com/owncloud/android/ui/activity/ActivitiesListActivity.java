@@ -51,8 +51,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.activities.GetRemoteActivitiesOperation;
 import com.owncloud.android.ui.adapter.ActivityListAdapter;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -74,10 +74,8 @@ public class ActivitiesListActivity extends FileActivity {
     @BindView(R.id.empty_list_view)
     public LinearLayout emptyContentContainer;
 
-    @BindView(R.id.swipe_containing_list)
     public SwipeRefreshLayout swipeListRefreshLayout;
 
-    @BindView(R.id.swipe_containing_empty)
     public SwipeRefreshLayout swipeEmptyListRefreshLayout;
 
     @BindView(R.id.empty_list_view_text)
@@ -111,8 +109,12 @@ public class ActivitiesListActivity extends FileActivity {
 
         setContentView(R.layout.activity_list_layout);
         unbinder = ButterKnife.bind(this);
+
         // setup toolbar
         setupToolbar();
+
+        swipeEmptyListRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_containing_empty);
+        swipeListRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_containing_list);
 
         // setup drawer
         setupDrawer(R.id.nav_activity);
@@ -197,8 +199,7 @@ public class ActivitiesListActivity extends FileActivity {
 
                     RemoteOperation getRemoteNotificationOperation = new GetRemoteActivitiesOperation();
                     Log_OC.d(TAG, "BEFORE getRemoteActivitiesOperation.execute");
-                    final RemoteOperationResult result =
-                            getRemoteNotificationOperation.execute(mClient);
+                    final RemoteOperationResult result = getRemoteNotificationOperation.execute(mClient);
 
                     if (result.isSuccess() && result.getData() != null) {
                         final ArrayList<Object> activities = result.getData();

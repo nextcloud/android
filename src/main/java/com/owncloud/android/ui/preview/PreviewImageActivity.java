@@ -109,7 +109,6 @@ public class PreviewImageActivity extends FileActivity implements
         // to keep our UI controls visibility in line with system bars visibility
         mFullScreenAnchorView.setOnSystemUiVisibilityChangeListener
                 (new View.OnSystemUiVisibilityChangeListener() {
-                    @SuppressLint("InlinedApi")
                     @Override
                     public void onSystemUiVisibilityChange(int flags) {
                         boolean visible = (flags & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
@@ -441,9 +440,7 @@ public class PreviewImageActivity extends FileActivity implements
         return true;
     }
 
-    @SuppressLint("InlinedApi")
     public void toggleFullScreen() {
-
         boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
                 & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 

@@ -651,13 +651,6 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         super.onViewStateRestored(savedInstanceState);
 
         if (savedInstanceState != null) {
-            mAdapter = new FileListListAdapter(
-                    mJustFolders,
-                    getActivity(),
-                    mContainerActivity,
-                    this,
-                    mContainerActivity.getStorageManager());
-
             searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(SEARCH_EVENT));
         }
 

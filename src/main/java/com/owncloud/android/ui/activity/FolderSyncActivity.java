@@ -45,12 +45,13 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.ui.adapter.FolderSyncAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
-import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.DisplayUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -303,7 +304,7 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 false,
                 false,
                 AccountUtils.getCurrentOwnCloudAccount(this).name,
-                0,
+                FileUploader.LOCAL_BEHAVIOUR_FORGET,
                 false,
                 mediaFolder.filePaths,
                 mediaFolder.folderName,

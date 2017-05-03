@@ -36,8 +36,6 @@ public class NCFirebaseInstanceIDService extends FirebaseInstanceIdService {
         //You can implement this method to store the token on your server
         if (!TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
             PreferenceManager.setPushToken(MainApp.getAppContext(), FirebaseInstanceId.getInstance().getToken());
-            PreferenceManager.setPushTokenUpdateTime(MainApp.getAppContext(), System.currentTimeMillis());
-
             PushUtils.pushRegistrationToServer();
         }
     }
