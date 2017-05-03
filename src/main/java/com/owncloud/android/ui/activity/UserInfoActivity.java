@@ -55,6 +55,7 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -353,6 +354,10 @@ public class UserInfoActivity extends FileActivity {
                                     SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(
                                             contentResolver);
                                     syncedFolderProvider.deleteSyncFoldersForAccount(account);
+
+                                    UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(
+                                            contentResolver, getActivity());
+                                    uploadsStorageManager.cancelPendingAutoUploadJobsForAccount(account);
 
                                     // disable daily backup
                                     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(
