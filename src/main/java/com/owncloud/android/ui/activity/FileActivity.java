@@ -162,8 +162,6 @@ public abstract class FileActivity extends DrawerActivity
 
         setAccount(account, savedInstanceState != null);
 
-        checkContactsBackupJob();
-
         mOperationsServiceConnection = new OperationsServiceConnection();
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                 Context.BIND_AUTO_CREATE);
@@ -242,16 +240,6 @@ public abstract class FileActivity extends DrawerActivity
             outState.putString(KEY_ACTION_BAR_TITLE, getSupportActionBar().getTitle().toString());
         }
     }
-
-    private void checkContactsBackupJob() {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(getContentResolver());
-
-        if (getAccount() != null && arbitraryDataProvider.getBooleanValue(getAccount(),
-                ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
-            ContactsPreferenceActivity.startContactBackupJob(getAccount());
-        }
-    }
-
 
     /**
      * Getter for the main {@link OCFile} handled by the activity.

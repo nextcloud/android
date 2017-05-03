@@ -197,8 +197,8 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
 
-// uncomment for gplay, modified
-//    compile 'com.google.android.gms:play-services:10.2.1'
+    // uncomment for gplay, modified
+    //compile 'com.google.android.gms:play-services:10.2.4'
 
     compile 'org.parceler:parceler-api:1.1.6'
     annotationProcessor 'org.parceler:parceler:1.1.6'

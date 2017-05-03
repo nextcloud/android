@@ -47,31 +47,13 @@ public abstract class PreferenceManager {
     private static final String PREF__LEGACY_CLEAN = "legacyClean";
     private static final String PREF__AUTO_UPLOAD_UPDATE_PATH = "autoUploadPathUpdate";
     private static final String PREF__PUSH_TOKEN = "pushToken";
-    private static final String PREF__PUSH_TOKEN_UPDATE_TIME = "pushTokenLastUpdated";
-    private static final String PREF__PUSH_TOKEN_LAST_REGISTRATION_TIME = "pushTokenLastSent";
-
-    public static void setPushTokenLastSentTime(Context context, long time) {
-        saveLongPreference(context, PREF__PUSH_TOKEN_LAST_REGISTRATION_TIME, time);
-    }
-
-    public static long getPushTokenLastSentTime(Context context) {
-        return getDefaultSharedPreferences(context).getLong(PREF__PUSH_TOKEN_LAST_REGISTRATION_TIME, -1);
-    }
 
     public static void setPushToken(Context context, String pushToken) {
-        saveStringPreference(context, PREF__PUSH_TOKEN, pushToken);
+        saveStringPreferenceNow(context, PREF__PUSH_TOKEN, pushToken);
     }
 
     public static String getPushToken(Context context) {
         return getDefaultSharedPreferences(context).getString(PREF__PUSH_TOKEN, "");
-    }
-
-    public static void setPushTokenUpdateTime(Context context, long time) {
-        saveLongPreference(context, PREF__PUSH_TOKEN_UPDATE_TIME, time);
-    }
-
-    public static long getPushTokenUpdateTime(Context context) {
-        return getDefaultSharedPreferences(context).getLong(PREF__PUSH_TOKEN_UPDATE_TIME, -1);
     }
 
     public static boolean instantPictureUploadEnabled(Context context) {
@@ -287,6 +269,12 @@ public abstract class PreferenceManager {
         SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
         appPreferences.putString(key, value);
         appPreferences.apply();
+    }
+
+    private static void saveStringPreferenceNow(Context context, String key, String value) {
+        SharedPreferences.Editor appPreferences = getDefaultSharedPreferences(context.getApplicationContext()).edit();
+        appPreferences.putString(key, value);
+        appPreferences.commit();
     }
 
     private static void saveIntPreference(Context context, String key, int value) {
