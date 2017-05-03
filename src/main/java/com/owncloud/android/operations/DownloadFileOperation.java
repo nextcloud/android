@@ -81,9 +81,11 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
     public String getSavePath() {
-        String path = mFile.getStoragePath();  // re-downloads should be done over the original file
-        if (path != null && path.length() > 0) {
-            return path;
+        if (mFile.getStoragePath() != null) {
+            File path = new File(mFile.getStoragePath());  // re-downloads should be done over the original file
+            if (path.canWrite()) {
+                return path.getAbsolutePath();
+            }
         }
         return FileStorageUtils.getDefaultSavePathFor(mAccount.name, mFile);
     }
