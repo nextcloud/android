@@ -32,7 +32,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AccountUtils;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.PushArbitraryData;
+import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -155,7 +155,8 @@ public class PushUtils {
                 String arbitraryValue;
                 if (!TextUtils.isEmpty(arbitraryValue = arbitraryDataProvider.getValue(account, KEY_PUSH))) {
                     Gson gson = new Gson();
-                    PushArbitraryData pushArbitraryData = gson.fromJson(arbitraryValue, PushArbitraryData.class);
+                    PushConfigurationState pushArbitraryData = gson.fromJson(arbitraryValue,
+                            PushArbitraryData.class);
                     RemoteOperation unregisterAccountDeviceForProxyOperation =
                             new UnregisterAccountDeviceForProxyOperation(context.getResources().
                                     getString(R.string.push_server_url),
@@ -204,7 +205,8 @@ public class PushUtils {
                 Gson gson = new Gson();
                 for (Account account : AccountUtils.getAccounts(context)) {
                     if (!TextUtils.isEmpty(providerValue = arbitraryDataProvider.getValue(account, KEY_PUSH))) {
-                        PushArbitraryData accountPushData = gson.fromJson(providerValue, PushArbitraryData.class);
+                        PushConfigurationState accountPushData = gson.fromJson(providerValue,
+                                PushConfigurationState.class);
                         if (!accountPushData.getPushToken().equals(token) && !accountPushData.isShouldBeDeleted()) {
                             try {
                                 OwnCloudAccount ocAccount = new OwnCloudAccount(account, context);
@@ -231,7 +233,7 @@ public class PushUtils {
                                     remoteOperationResult = registerAccountDeviceForProxyOperation.execute(mClient);
 
                                     if (remoteOperationResult.isSuccess()) {
-                                        PushArbitraryData pushArbitraryData = new PushArbitraryData(token,
+                                        PushConfigurationState pushArbitraryData = new PushConfigurationState(token,
                                                 pushResponse.getDeviceIdentifier(), pushResponse.getSignature(),
                                                 pushResponse.getPublicKey(), false);
                                         arbitraryDataProvider.storeOrUpdateKeyValue(account, KEY_PUSH,
