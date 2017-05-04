@@ -157,7 +157,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
     @Override
     public void onBindViewHolder(MainViewHolder holder, int section, int relativePosition, int absolutePosition) {
 
-        if (section != 0 && mSyncFolderItems.get(section - 1).getFilePaths() != null) {
+        if (section != 0 && mSyncFolderItems.get(section).getFilePaths() != null) {
             File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
             ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
