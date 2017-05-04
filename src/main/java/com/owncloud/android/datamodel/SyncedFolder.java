@@ -26,7 +26,7 @@ import java.io.Serializable;
 /**
  * Synced folder entity containing all information per synced folder.
  */
-public class SyncedFolder implements Serializable {
+public class SyncedFolder implements Serializable, Cloneable {
     public static final long UNPERSISTED_ID = Long.MIN_VALUE;
     private static final long serialVersionUID = -793476118299906429L;
     private long id = UNPERSISTED_ID;
@@ -93,6 +93,15 @@ public class SyncedFolder implements Serializable {
         this.enabled = enabled;
         this.type = type;
     }
+
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch( CloneNotSupportedException e) {
+            return null;
+        }
+    }
+
 
     public long getId() {
         return id;
