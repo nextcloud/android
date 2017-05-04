@@ -113,7 +113,7 @@ class PassFieldLinearLayout extends LinearLayout implements View.OnFocusChangeLi
 }
 
 class SoftKeyboardUtil {
-    private static final String TAG = SoftKeyboardUtil.class.getSimpleName();
+//    private static final String TAG = SoftKeyboardUtil.class.getSimpleName();
 
     private AppCompatActivity mActivity;
     private boolean mIsSoftKeyboardOpened;
@@ -230,10 +230,7 @@ class SoftKeyboardUtil {
     }
 }
 
-
 public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardUtil.SoftKeyboardListener {
-//public class PassCodeActivity extends ToolbarActivity implements SoftKeyboardUtil.SoftKeyboardListener {
-
     private static final String TAG = PassCodeActivity.class.getSimpleName();
 
     private static final String SCREEN_NAME = "Passcode lock";
@@ -278,8 +275,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             R.id.button7,
             R.id.button8,
             R.id.button9,
-//            R.id.clear,
-//            R.id.back,
     };
     private static final String mButtonsMainStr[] = {
             "0",
@@ -292,8 +287,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             "7",
             "8",
             "9",
-            // "Clear",
-            // "Back\n..."
     };
     private static final int passFields[] = {
             R.id.passField1,
@@ -310,7 +303,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
     private boolean mSoftKeyboardMode;          // true=soft(virtual) keyboard / false=buttons
     private boolean mEnableSwitchSoftKeyboard = true;
-    private ButtonVisibility mButtonVisibility;
+    private ButtonVisibility mButtonVisibility = ButtonVisibility.Startup;
     private boolean mShowButtonsWhenSoftKeyboardClose = true;
     private SoftKeyboardUtil mSoftKeyboard;
     private SharedPreferences mPref;
@@ -318,6 +311,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     private Snackbar mSnackbar;
     private Handler mHandler = new Handler();
     private TextView mPassCodeHdr;
+    private boolean mSwitchKeyboardMenuEnable = false;
 
     /**
      * Initializes the activity.
@@ -385,9 +379,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             throw new IllegalArgumentException("A valid ACTION is needed in the Intent passed to " + TAG);
         }
 
-        mButtonVisibility = ButtonVisibility.Visible;
         if (explanationId != 0) {
-            mButtonVisibility = ButtonVisibility.Startup;
             setButtonsVisibility(false);
             View view = findViewById(android.R.id.content);
             mSnackbar = Snackbar.make(view, explanationId, Snackbar.LENGTH_LONG);
@@ -402,6 +394,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                     @Override
                     public void onDismissed(Snackbar snackbar, int event) {
                         setupKeyboard();
+                        setSwitchKeyboardMenuVisibility(true);
                     }
                 })
                 .show();
@@ -414,13 +407,13 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
         clearPassCodeEditText();
         if (mSnackbar == null || !mSnackbar.isShown()) {
-            mButtonVisibility = ButtonVisibility.Startup;
             setupKeyboard();
             if (mSoftKeyboardMode) {
                 mSoftKeyboard.initVisible();
             } else {
                 mSoftKeyboard.initHidden();
             }
+            setSwitchKeyboardMenuVisibility(true);
         }
     }
 
@@ -440,6 +433,9 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_passcode, menu);
+        if (!mSwitchKeyboardMenuEnable) {
+            menu.findItem(R.id.action_switch_keyboard).setVisible(false);
+        }
         return true;
     }
 
@@ -454,8 +450,20 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                 mSoftKeyboardMode = !mSoftKeyboardMode;
                 setupKeyboard();
                 break;
+            default:
+                // nothing to do
+                break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if ((getChangingConfigurations() & Configuration.SCREENLAYOUT_LAYOUTDIR_RTL) != 0 &&
+                mSoftKeyboardMode == true) {
+            hideSoftKeyboard();
+        }
     }
 
     // TODO: Enable this block when the hardware keyboard can be detected
@@ -532,23 +540,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             int j = ENABLE_SUFFLE_BUTTONS ? mButtonsIDListShuffle[i] : i;
             b.setText(mButtonsMainStr[j]);
             b.setOnClickListener(new ButtonClicked(j));
-            // boolean switch_soft_keyboard = (j == 11 && mEnableSwitchSoftKeyboard);
-            // if (switch_soft_keyboard) {
-            //     b.setLongClickable(true);
-            //     b.setOnLongClickListener(new OnLongClickListener() {
-            //         @Override
-            //         public boolean onLongClick(View v) {
-            //             mSoftKeyboardMode = !mSoftKeyboardMode;
-            //             setupKeyboard();
-            //             return true;
-            //         }
-            //     });
-            // }
-            // if (j == 11) {
-            //     b.setText(Html.fromHtml("Back<br><small><small>...</small></small>"));
-            //     //b.setText("");
-            //     //b.setBackgroundResource(R.drawable.upload_failed);
-            // }
         }
         AppCompatButton del = (AppCompatButton)findViewById(R.id.del);
         buttonAnimation(del, true, duration);
@@ -580,6 +571,11 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         }
     }
 
+    private void setSwitchKeyboardMenuVisibility(boolean visible) {
+        mSwitchKeyboardMenuEnable = visible;
+        invalidateOptionsMenu();
+    }
+
     /**
      * Enables or disables the cancel button to allow the user interrupt the ACTION
      * requested to the activity.
@@ -587,23 +583,11 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
      * @param enabled 'True' makes the cancel button available, 'false' hides it.
      */
     protected void setCancelButtonEnabled(boolean enabled) {
-        // AppCompatButton cancel = (AppCompatButton)findViewById(R.id.cancel);
         ActionBar actionbar = getSupportActionBar();
         if (enabled) {
-            // cancel.setVisibility(View.VISIBLE);
-            // cancel.setOnClickListener(new OnClickListener() {
-            //     @Override
-            //     public void onClick(View v) {
-            //         finish();
-            //     }
-            // });
-
             actionbar.setDisplayHomeAsUpEnabled(true);
             actionbar.setDisplayShowHomeEnabled(true);
         } else {
-            // cancel.setVisibility(View.GONE);
-            // cancel.setOnClickListener(null);
-
             actionbar.setDisplayHomeAsUpEnabled(false);
             actionbar.setDisplayShowHomeEnabled(false);
         }
@@ -678,6 +662,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         } else {
             hideSoftKeyboard();
         }
+        setSwitchKeyboardMenuVisibility(false);
         Animation animation = AnimationUtils.loadAnimation(PassCodeActivity.this, R.anim.shake);
         PassFieldLinearLayout ll = (PassFieldLinearLayout)findViewById(R.id.PasscodeLinearLayout);
         ll.startAnimation(animation);
@@ -705,6 +690,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             clearPassCodeEditText();
             mConfirmingPassCodeFlag = false;
         }
+        setSwitchKeyboardMenuVisibility(true);
     }
 
     private void hideSoftKeyboard() {

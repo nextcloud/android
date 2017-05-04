@@ -4,6 +4,6 @@
     tools:context="com.example.masaaki.myapplication.MainActivity">
     <item
         android:id="@+id/action_switch_keyboard"
-        android:title="siwtch keyboard"
+        android:title="@string/pass_code_switch_keyboard"
         app:showAsAction="never" />
 </menu>
