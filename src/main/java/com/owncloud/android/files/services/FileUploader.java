@@ -302,7 +302,8 @@ public class FileUploader extends Service
             UploadsStorageManager uploadsStorageManager = new UploadsStorageManager(context.getContentResolver(), context);
             OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
             Account currentAccount = null;
-            boolean resultMatch, accountMatch;
+            boolean resultMatch;
+            boolean accountMatch;
             for ( OCUpload failedUpload: failedUploads) {
                 accountMatch = (account == null || account.name.equals(failedUpload.getAccountName()));
                 resultMatch = (uploadResult == null || uploadResult.equals(failedUpload.getLastResult()));
@@ -434,7 +435,9 @@ public class FileUploader extends Service
                 return Service.START_NOT_STICKY;
             }
 
-            String[] localPaths = null, remotePaths = null, mimeTypes = null;
+            String[] localPaths = null;
+            String[] remotePaths = null;
+            String[] mimeTypes = null;
             OCFile[] files = null;
 
             if (intent.hasExtra(KEY_FILE)) {

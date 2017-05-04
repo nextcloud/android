@@ -49,6 +49,20 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
     private final String TAG = CopyAndUploadContentUrisTask.class.getSimpleName();
 
     /**
+     * Listener in main thread to be notified when the task ends. Held in a WeakReference assuming that its
+     * lifespan is associated with an Activity context, that could be finished by the user before the AsyncTask
+     * ends.
+     */
+    private WeakReference<OnCopyTmpFilesTaskListener> mListener;
+
+    /**
+     * Reference to application context, used to access app resources. Holding it should not be a problem,
+     * since it needs to exist until the end of the AsyncTask although the caller Activity were finished
+     * before.
+     */
+    private final Context mAppContext;
+
+    /**
      * Helper method building a correct array of parameters to be passed to {@link #execute(Object[])} )}
      *
      * Just packages the received parameters in correct order, doesn't check anything about them.
@@ -92,21 +106,6 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
             contentResolver
         };
     }
-
-    /**
-     * Listener in main thread to be notified when the task ends. Held in a WeakReference assuming that its
-     * lifespan is associated with an Activity context, that could be finished by the user before the AsyncTask
-     * ends.
-     */
-    private WeakReference<OnCopyTmpFilesTaskListener> mListener;
-
-    /**
-     * Reference to application context, used to access app resources. Holding it should not be a problem,
-     * since it needs to exist until the end of the AsyncTask although the caller Activity were finished
-     * before.
-     */
-    private final Context mAppContext;
-
 
     public CopyAndUploadContentUrisTask(
         OnCopyTmpFilesTaskListener listener,
