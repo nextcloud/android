@@ -251,10 +251,7 @@ public class FileDataStorageManager {
     }
 
     public OCFile saveFileWithParent(OCFile file, Context context) {
-        if (file.getParentId() != 0 || file.getRemotePath().equals("/")) {
-//            nothing needed
-
-        } else {
+        if (file.getParentId() == 0 && !file.getRemotePath().equals("/")) {
             String remotePath = file.getRemotePath();
             String parentPath = remotePath.substring(0, remotePath.lastIndexOf(file.getFileName()));
 
