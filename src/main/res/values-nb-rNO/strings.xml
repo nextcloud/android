@@ -535,7 +535,7 @@
     <string name="manage_space_clear_data">Nullstill data</string>
     <string name="manage_space_error">Noen filer kunne ikke fjernes.</string>
 
-    <string name="permission_storage_access">Flere tillatelser trengs for å laste opp & ned filer.</string>
+    <string name="permission_storage_access">Flere tillatelser trengs for å laste opp og ned filer.</string>
     <string name="local_file_not_found_toast">Filen ble ikke funnet i lokalt filsystem</string>
     <string name="confirmation_remove_files_alert">Vil du virkelig fjerne de valgte elementene?</string>
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
@@ -594,7 +594,7 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Et trygt hjem for alle dine data</string>
-    <string name="welcome_feature_1_text">Benytt, del & beskytt filene dine hjemme og i din bedrift</string>
+    <string name="welcome_feature_1_text">Benytt, del og beskytt filene dine hjemme og i din bedrift</string>
 
     <string name="welcome_feature_2_title">Multi-konto</string>
     <string name="welcome_feature_2_text">Foren alle skyene dine</string>
