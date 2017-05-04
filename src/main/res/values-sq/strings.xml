@@ -78,12 +78,10 @@
     <string name="file_list_empty_headline">Këtu nuk ka asnjë skedar</string>
     <string name="file_list_empty">Ngarko disa të dhëna ose sinkronizo me pajisjet e tua!</string>
     <string name="file_list_loading">Po ngarkohet&#8230;</string>
-    <string name="file_list_no_app_for_file_type">S’u gjet aplikacion për llojin e kartelës!</string>
     <string name="local_file_list_empty">Në këtë dosje s’ka skedar.</string>
     <string name="file_list_empty_headline_search">Nuk ka rezultate në këtë dosje</string>
     <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
-    <string name="upload_list_empty_text">Ngarko disa të dhëna ose aktivizo ngarkimin e menjëhershëm!</string>
     <string name="file_list_folder">dosje</string>
     <string name="file_list_folders">dosje</string>
     <string name="file_list_file">Skedar</string>
@@ -313,6 +311,8 @@
     <string name="conflict_use_server_version">versionin e shërbyesit</string>
 
     <string name="preview_image_description">Parapamje figure</string>
+    <string name="preview_image_error_unknown_format">Kjo figurë nuk mund të shfaqet</string>
+
     <string name="error__upload__local_file_not_copied">%1$s s\’u kopjua dot te dosja vendore %2$s</string>
     <string name="prefs_instant_upload_path_title">Dosja e ngarkimit të çastit </string>
     <string name="prefs_folder_sync_local_path_title">Dosje vendore</string>
@@ -344,6 +344,7 @@
     <string name="network_error_socket_timeout_exception">Ndodhi një gabim teksa po pritej për serverin, veprimi s\’u krye dot</string>
     <string name="network_error_connect_timeout_exception">Ndodhi një gabim teksa po pritej për serverin, veprimi s\'u krye dot</string>
     <string name="network_host_not_available">Veprimi s\'u plotësua dot, serveri është i pakapshëm</string>
+
     <string name="forbidden_permissions">Nuk keni leje %s</string>
     <string name="forbidden_permissions_rename">për riemërtim të këtij skedari</string>
     <string name="forbidden_permissions_delete">për fshirje të kësaj kartele</string>
@@ -391,7 +392,7 @@
 	<string name="saml_authentication_wrong_pass">Fjalëkalim i gabuar</string>
 	<string name="actionbar_move">Zhvendose</string>
     <string name="actionbar_copy">Kopjoni</string>
-	<string name="file_list_empty_moving">S\’ka gjë këtu. Mund të shtoni një dosje!</string>
+	<string name="file_list_empty_moving">S\’ka gjë këtu. Mund të shtoni një dosje.</string>
 	<string name="folder_picker_choose_button_text">Zgjidhni</string>
 
     <string name="move_file_not_found">S\’arrin të zhvendosë. Ju lutemi, kontrolloni nëse ekziston apo jo skedari</string>
@@ -490,7 +491,7 @@
     <string name="manage_space_clear_data">Pastroji të dhënat</string>
     <string name="manage_space_error">Ca kartela s’u fshinë dot.</string>
 
-    <string name="permission_storage_access">Që të ngarkoni &amp; shkarkoni skedar kërkohen leje shtesë.</string>
+    <string name="permission_storage_access">Që të ngarkoni dhe shkarkoni skedar kërkohen leje shtesë.</string>
     <string name="local_file_not_found_toast">Skedari s’u gjet te sistemi vendor i skedarëve</string>
     <string name="confirmation_remove_files_alert">Doni vërtetë të hiqni artikujt e zgjedhur?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
@@ -504,13 +505,13 @@
     <string name="participate_testing_bug_text">Gjetet një defekt? Diçka është e çuditshme?</string>
     <string name="participate_testing_report_text">Raportoni një problem në Github</string>
     <string name="participate_testing_version_text">Jeni të interesuar për të na ndihmuar në testimin e versionit të ardhshëm?</string>
+    <string name="participate_beta_headline">Testoni versionin Beta</string>
     <string name="participate_release_candidate_headline">Lëshimi i kandidatit</string>
     <string name="participate_release_candidate_text">Lëshimi i kandidatit  (RC) është një fragment i lëshimit të ardhshme dhe pritet të jetë i qëndrueshëm. Testimi i setup-it tuaj individuale mund të ndihmojë për ta siguruar këtë. Regjistrohuni për testimin në Play Store ose manualisht  shikoni në seksionin \"versionet\" në F-Droid.</string>
     <string name="participate_contribute_headline">Kontribim aktiv</string>
     <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;a href="%1$s">forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Përktheni&lt;/a> aplikacionin</string>
-    <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih&lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
     <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>
@@ -525,7 +526,6 @@
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
 
-    <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
     <string name="upload_file_dialog_filename">Emri dokumentit</string>
     <string name="upload_file_dialog_filetype">Tipi dokumentit</string>
     <string name="upload_file_dialog_filetype_snippet_text">Skedar elementi tekst(.txt)</string>
@@ -541,8 +541,6 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Një shtëpi e sigurt për të gjitha të dhënat tuaja</string>
-    <string name="welcome_feature_1_text">Akseso, ndaj &amp; mbro skedarët e tuaja në shtëpinë dhe organizatën tuaj.</string>
-
     <string name="welcome_feature_2_title">Llogari e shumfishtë</string>
     <string name="welcome_feature_2_text">Lidhuni me të gjitha shërbimet cloud</string>
 

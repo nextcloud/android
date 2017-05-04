@@ -22,6 +22,8 @@
 
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -78,6 +80,12 @@ public class WhatsNewActivity extends FragmentActivity implements ViewPager.OnPa
         mPager = (ViewPager)findViewById(R.id.contentPanel);
         final boolean isBeta = getResources().getBoolean(R.bool.is_beta);
         String[] urls = getResources().getStringArray(R.array.whatsnew_urls);
+
+        // Sometimes, accounts are not deleted when you uninstall the application so we'll do it now
+        AccountManager am = (AccountManager) getSystemService(ACCOUNT_SERVICE);
+        for (Account account : AccountUtils.getAccounts(this)) {
+            am.removeAccount(account, null, null);
+        }
 
         boolean showWebView = urls.length > 0;
 
