@@ -20,69 +20,95 @@
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/alternate_half_padding"
-                android:paddingBottom="@dimen/alternate_half_padding"
-                android:paddingLeft="@dimen/standard_padding">
+                android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/title_container"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:id="@+id/header_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonBar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignTop="@+id/buttonBar"
-        android:layout_toLeftOf="@+id/buttonBar">
+        android:paddingBottom="@dimen/alternate_half_padding"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/alternate_half_padding">
+
+        <LinearLayout
+            android:id="@+id/title_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/buttonBar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@+id/buttonBar"
+            android:layout_toLeftOf="@+id/buttonBar">
+
+            <ImageView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:paddingRight="@dimen/standard_half_padding"
+                android:src="@drawable/ic_account_plus"/>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center_vertical"
+                android:ellipsize="middle"
+                android:text="Header Text"
+                android:textColor="?android:textColorPrimary"
+                android:textStyle="bold"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/buttonBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true">
+
+            <ImageButton
+                android:id="@+id/syncStatusButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:clickable="true"
+                android:padding="@dimen/standard_half_padding"
+                android:src="@drawable/ic_cloud_sync_off"/>
+
+            <ImageButton
+                android:id="@+id/settingsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:clickable="true"
+                android:paddingBottom="@dimen/standard_half_padding"
+                android:paddingLeft="@dimen/standard_half_padding"
+                android:paddingRight="@dimen/standard_padding"
+                android:paddingTop="@dimen/standard_half_padding"
+                android:src="@drawable/ic_dots_vertical"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/custom_folder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp">
 
         <ImageView
-            android:id="@+id/type"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:paddingRight="@dimen/standard_half_padding"
-            android:src="@drawable/ic_account_plus"/>
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/custom_folder_tv"
+            android:paddingRight="4dp"
+            android:src="@drawable/ic_folder_star_24dp"/>
 
         <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start|center_vertical"
-            android:ellipsize="middle"
-            android:text="Header Text"
-            android:textColor="?android:textColorPrimary"
-            android:textStyle="bold"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/buttonBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true">
-
-        <ImageButton
-            android:id="@+id/syncStatusButton"
+            android:id="@+id/custom_folder_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:clickable="true"
-            android:paddingTop="@dimen/standard_half_padding"
-            android:paddingBottom="@dimen/standard_half_padding"
-            android:paddingLeft="@dimen/standard_half_padding"
-            android:paddingRight="@dimen/standard_padding"
-            android:src="@drawable/ic_cloud_sync_off"/>
-
-        <ImageButton
-            android:id="@+id/settingsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/transparent"
-            android:clickable="true"
-            android:paddingBottom="@dimen/standard_half_padding"
-            android:paddingLeft="0dp"
-            android:paddingRight="@dimen/standard_padding"
-            android:paddingTop="@dimen/standard_half_padding"
-            android:src="@drawable/ic_dots_vertical"/>
-    </LinearLayout>
+            android:layout_centerInParent="true"
+            android:text="@string/autoupload_custom_folder"/>
+    </RelativeLayout>
 
 </RelativeLayout>

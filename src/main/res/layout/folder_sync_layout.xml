@@ -35,33 +35,6 @@
         <include
             layout="@layout/toolbar_standard"/>
 
-        <LinearLayout
-            android:id="@+id/custom_folder"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/listItemHighlighted"
-            android:gravity="center"
-            android:layout_below="@+id/appbar">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/standard_padding"
-                android:paddingLeft="@dimen/standard_padding"
-                android:paddingRight="@dimen/standard_half_padding"
-                android:paddingTop="@dimen/standard_padding"
-                android:src="@drawable/ic_folder_star_24dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/standard_padding"
-                android:paddingRight="@dimen/standard_padding"
-                android:paddingTop="@dimen/standard_padding"
-                android:text="Create custom folder"/>
-        </LinearLayout>
-
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
