@@ -96,7 +96,8 @@ public class AccountUtils {
             int lastAtPos = account.name.lastIndexOf("@");
             String hostAndPort = account.name.substring(lastAtPos + 1);
             String username = account.name.substring(0, lastAtPos);
-            String otherHostAndPort, otherUsername;
+            String otherHostAndPort;
+            String otherUsername;
             Locale currentLocale = context.getResources().getConfiguration().locale;
             for (Account otherAccount : ocAccounts) {
                 lastAtPos = otherAccount.name.lastIndexOf("@");

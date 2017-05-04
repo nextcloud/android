@@ -41,13 +41,13 @@ import java.util.concurrent.ConcurrentMap;
  */
 public class IndexedForest<V> {
 
-    private ConcurrentMap<String, Node<V>> mMap = new ConcurrentHashMap<String, Node<V>>();
+    private ConcurrentMap<String, Node<V>> mMap = new ConcurrentHashMap<>();
 
     @SuppressWarnings("PMD.ShortClassName")
     private class Node<V> {
         String mKey = null;
         Node<V> mParent = null;
-        Set<Node<V>> mChildren = new HashSet<Node<V>>();    // TODO be careful with hash()
+        Set<Node<V>> mChildren = new HashSet<>();    // TODO be careful with hash()
         V mPayload = null;
 
         // payload is optional
@@ -112,7 +112,9 @@ public class IndexedForest<V> {
 
         } else {
             // value really added
-            String currentPath = remotePath, parentPath = null, parentKey = null;
+            String currentPath = remotePath;
+            String parentPath = null;
+            String parentKey = null;
             Node<V> currentNode = valuedNode, parentNode = null;
             boolean linked = false;
             while (!OCFile.ROOT_PATH.equals(currentPath) && !linked) {
