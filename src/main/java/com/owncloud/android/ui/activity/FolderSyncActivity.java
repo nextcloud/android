@@ -201,6 +201,10 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
                 mHandler.post(new TimerTask() {
                     @Override
                     public void run() {
+                        // strange hack to make everything work as expected
+                        if (syncFolderItems.size() > 0) {
+                            syncFolderItems.add(0, syncFolderItems.get(0));
+                        }
                         mAdapter.setSyncFolderItems(syncFolderItems);
                         setListShown(true);
                     }
