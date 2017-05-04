@@ -425,6 +425,7 @@ public abstract class DrawerActivity extends ToolbarActivity implements DisplayU
             case R.id.nav_on_device:
                 menuItem.setChecked(true);
                 mCheckedMenuItem = menuItem.getItemId();
+                EventBus.getDefault().post(new ChangeMenuEvent());
                 showFiles(true);
                 break;
             case R.id.nav_uploads:
