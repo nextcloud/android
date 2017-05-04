@@ -26,6 +26,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 
@@ -54,6 +55,7 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
 
     public static final String PREFERENCE_CONTACTS_AUTOMATIC_BACKUP = "PREFERENCE_CONTACTS_AUTOMATIC_BACKUP";
     public static final String PREFERENCE_CONTACTS_LAST_BACKUP = "PREFERENCE_CONTACTS_LAST_BACKUP";
+    public static final String BACKUP_TO_LIST = "BACKUP_TO_LIST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,5 +159,14 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
         // not needed
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().findFragmentByTag(ContactListFragment.TAG) != null) {
+            getSupportFragmentManager().popBackStack(BACKUP_TO_LIST, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        } else {
+            finish();
+        }
     }
 }

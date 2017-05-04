@@ -375,7 +375,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
         
         // loop to update every child
-        OCFile remoteFile = null, localFile = null, updatedFile = null;
+        OCFile remoteFile = null;
+        OCFile localFile = null;
+        OCFile updatedFile = null;
         RemoteFile r;
         for (int i=1; i<folderAndFiles.size(); i++) {
             /// new OCFile instance with the data from the server

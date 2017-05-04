@@ -178,7 +178,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     private void initiateStorageMap() {
 
-        mRootIdToStorageManager = new HashMap<Long, FileDataStorageManager>();
+        mRootIdToStorageManager = new HashMap<>();
 
         ContentResolver contentResolver = getContext().getContentResolver();
 
@@ -188,7 +188,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             final OCFile rootDir = storageManager.getFileByPath("/");
             mRootIdToStorageManager.put(rootDir.getFileId(), storageManager);
         }
-
     }
 
     private boolean waitOrGetCancelled(CancellationSignal cancellationSignal) {
@@ -198,15 +197,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             return false;
         }
 
-        if (cancellationSignal != null && cancellationSignal.isCanceled()) {
-            return false;
-        }
-
-        return true;
+        return !(cancellationSignal != null && cancellationSignal.isCanceled());
     }
 
     Vector<OCFile> findFiles(OCFile root, String query) {
-        Vector<OCFile> result = new Vector<OCFile>();
+        Vector<OCFile> result = new Vector<>();
         for (OCFile f : mCurrentStorageManager.getFolderContent(root, false)) {
             if (f.isFolder()) {
                 result.addAll(findFiles(f, query));

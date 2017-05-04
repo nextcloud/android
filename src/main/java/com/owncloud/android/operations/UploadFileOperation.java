@@ -72,43 +72,17 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 public class UploadFileOperation extends SyncOperation {
 
+    private static final String TAG = UploadFileOperation.class.getSimpleName();
+
     public static final int CREATED_BY_USER = 0;
     public static final int CREATED_AS_INSTANT_PICTURE = 1;
     public static final int CREATED_AS_INSTANT_VIDEO = 2;
 
-    public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
-
-        // MIME type
-        if (mimeType == null || mimeType.length() <= 0) {
-            mimeType = MimeTypeUtil.getBestMimeTypeByFilename(localPath);
-        }
-
-        OCFile newFile = new OCFile(remotePath);
-        newFile.setStoragePath(localPath);
-        newFile.setLastSyncDateForProperties(0);
-        newFile.setLastSyncDateForData(0);
-
-        // size
-        if (localPath != null && localPath.length() > 0) {
-            File localFile = new File(localPath);
-            newFile.setFileLength(localFile.length());
-            newFile.setLastSyncDateForData(localFile.lastModified());
-        } // don't worry about not assigning size, the problems with localPath
-        // are checked when the UploadFileOperation instance is created
-
-
-        newFile.setMimetype(mimeType);
-
-        return newFile;
-    }
-
-    private static final String TAG = UploadFileOperation.class.getSimpleName();
-
-    private Account mAccount;
     /**
      * OCFile which is to be uploaded.
      */
     private OCFile mFile;
+
     /**
      * Original OCFile which is to be uploaded in case file had to be renamed
      * (if forceOverwrite==false and remote file already exists).
@@ -139,6 +113,34 @@ public class UploadFileOperation extends SyncOperation {
 
     protected RequestEntity mEntity = null;
 
+    private Account mAccount;
+
+    public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
+
+        // MIME type
+        if (mimeType == null || mimeType.length() <= 0) {
+            mimeType = MimeTypeUtil.getBestMimeTypeByFilename(localPath);
+        }
+
+        OCFile newFile = new OCFile(remotePath);
+        newFile.setStoragePath(localPath);
+        newFile.setLastSyncDateForProperties(0);
+        newFile.setLastSyncDateForData(0);
+
+        // size
+        if (localPath != null && localPath.length() > 0) {
+            File localFile = new File(localPath);
+            newFile.setFileLength(localFile.length());
+            newFile.setLastSyncDateForData(localFile.lastModified());
+        } // don't worry about not assigning size, the problems with localPath
+        // are checked when the UploadFileOperation instance is created
+
+
+        newFile.setMimetype(mimeType);
+
+        return newFile;
+    }
+
     public UploadFileOperation(Account account,
                                OCFile file,
                                OCUpload upload,
@@ -148,8 +150,7 @@ public class UploadFileOperation extends SyncOperation {
                                Context context
     ) {
         if (account == null) {
-            throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " +
-                    "creation");
+            throw new IllegalArgumentException("Illegal NULL account in UploadFileOperation " + "creation");
         }
         if (upload == null) {
             throw new IllegalArgumentException("Illegal NULL file in UploadFileOperation creation");
@@ -293,7 +294,9 @@ public class UploadFileOperation extends SyncOperation {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
         RemoteOperationResult result = null;
-        File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
+        File temporalFile = null;
+        File originalFile = new File(mOriginalStoragePath);
+        File expectedFile = null;
 
         try {
 
