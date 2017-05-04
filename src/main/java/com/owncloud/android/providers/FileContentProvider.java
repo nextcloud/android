@@ -27,6 +27,7 @@ import android.accounts.AccountManager;
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -42,7 +43,11 @@ import android.text.TextUtils;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -54,6 +59,7 @@ import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -982,10 +988,41 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, "Entering in the #20 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
-                    // add type column default being IMAGE(0)
+                    // add type column default being LEGACY (3)
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_TYPE +
                             " INTEGER " + " DEFAULT 3");
+
+                    ContentResolver contentResolver = getContext().getContentResolver();
+
+                    SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+
+                    final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 0);
+                    final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 0);
+
+                    ArrayList<Long> idsToDelete = new ArrayList<>();
+                    for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+                        idsToDelete.add(syncedFolder.getId());
+                        for (int i = 0; i < imageMediaFolders.size(); i++) {
+                            if (imageMediaFolders.get(i).absolutePath.equals(syncedFolder.getLocalPath())) {
+                                SyncedFolder imageSyncedFolder = (SyncedFolder) syncedFolder.clone();
+                                imageSyncedFolder.setType(MediaFolder.IMAGE);
+                                syncedFolderProvider.storeFolderSync(imageSyncedFolder);
+                                break;
+                            }
+                        }
+
+                        for (int j = 0; j < videoMediaFolders.size(); j++) {
+                            if (videoMediaFolders.get(j).absolutePath.equals(syncedFolder.getLocalPath())) {
+                                SyncedFolder videoSyncedFolder = (SyncedFolder) syncedFolder.clone();
+                                videoSyncedFolder.setType(MediaFolder.VIDEO);
+                                syncedFolderProvider.storeFolderSync(videoSyncedFolder);
+                                break;
+                            }
+                        }
+                    }
+
+                    syncedFolderProvider.deleteSyncedFoldersInList(idsToDelete);
 
                     upgraded = true;
                     db.setTransactionSuccessful();
