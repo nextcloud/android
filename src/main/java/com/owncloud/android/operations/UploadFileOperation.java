@@ -294,7 +294,9 @@ public class UploadFileOperation extends SyncOperation {
         mCancellationRequested.set(false);
         mUploadStarted.set(true);
         RemoteOperationResult result = null;
-        File temporalFile = null, originalFile = new File(mOriginalStoragePath), expectedFile = null;
+        File temporalFile = null;
+        File originalFile = new File(mOriginalStoragePath);
+        File expectedFile = null;
 
         try {
 
