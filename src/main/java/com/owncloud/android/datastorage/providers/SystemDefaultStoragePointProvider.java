@@ -43,8 +43,7 @@ public class SystemDefaultStoragePointProvider extends AbstractStoragePointProvi
     public Vector<StoragePoint> getAvailableStoragePoint() {
         Vector<StoragePoint> result = new Vector<>();
 
-        final String defaultStringDesc =
-                MainApp.getAppContext().getString(R.string.storage_description_default);
+        final String defaultStringDesc = MainApp.getAppContext().getString(R.string.storage_description_default);
         File path;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             path = MainApp.getAppContext().getExternalMediaDirs()[0];
@@ -52,7 +51,7 @@ public class SystemDefaultStoragePointProvider extends AbstractStoragePointProvi
             path = getExternalStorageDirectory();
         }
 
-        if (path != null) {
+        if (path != null && path.canWrite()) {
             result.add(new StoragePoint(defaultStringDesc, path.getAbsolutePath()));
         }
 
