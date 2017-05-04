@@ -985,7 +985,7 @@ public class FileContentProvider extends ContentProvider {
                     // add type column default being IMAGE(0)
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_TYPE +
-                            " INTEGER " + " DEFAULT 0");
+                            " INTEGER " + " DEFAULT 3");
 
                     upgraded = true;
                     db.setTransactionSuccessful();
@@ -1178,6 +1178,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "            // enabled
                 + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, "  // subfolder by date
                 + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "              // account
+                + ProviderTableMeta.SYNCED_FOLDER_TYPE + " INTEGER, "               // type
                 + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER );"     // upload action
         );
     }
