@@ -84,12 +84,12 @@ import com.owncloud.android.services.observer.FileObserverService;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.events.TokenPushEvent;
-import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FileDetailFragment;
 import com.owncloud.android.ui.fragment.FileFragment;
 import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.ui.fragment.TaskRetainerFragment;
+import com.owncloud.android.ui.fragment.contactsbackup.ContactListFragment;
 import com.owncloud.android.ui.helpers.UriUploader;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
@@ -573,6 +573,14 @@ public class FileDisplayActivity extends HookActivity
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
             fileListFragment.listDirectory(MainApp.isOnlyOnDevice(), fromSearch);
+        }
+    }
+
+    public void resetSearchView() {
+        OCFileListFragment fileListFragment = getListOfFilesFragment();
+
+        if (fileListFragment != null) {
+            fileListFragment.setSearchFragment(false);
         }
     }
 

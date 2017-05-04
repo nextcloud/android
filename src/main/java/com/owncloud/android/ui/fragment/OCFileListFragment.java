@@ -1473,4 +1473,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             onMessageEvent(searchEvent);
         }
     }
+
+    public void setSearchFragment(boolean searchFragment) {
+        this.searchFragment = searchFragment;
+    }
 }
