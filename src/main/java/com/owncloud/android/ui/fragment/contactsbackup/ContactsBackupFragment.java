@@ -29,7 +29,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.SwitchCompat;
 import android.view.LayoutInflater;
@@ -450,11 +449,11 @@ public class ContactsBackupFragment extends FileFragment implements DatePickerDi
             Fragment contactListFragment = ContactListFragment.newInstance(backupToRestore,
                     contactsPreferenceActivity.getAccount());
 
-            FragmentTransaction transaction = contactsPreferenceActivity.getSupportFragmentManager().
-                    beginTransaction();
-            transaction.replace(R.id.frame_container, contactListFragment);
-            transaction.addToBackStack(null);
-            transaction.commit();
+            contactsPreferenceActivity.getSupportFragmentManager().
+                    beginTransaction()
+                    .replace(R.id.frame_container, contactListFragment, ContactListFragment.TAG)
+                    .addToBackStack(ContactsPreferenceActivity.BACKUP_TO_LIST)
+                    .commit();
         } else {
             Toast.makeText(contactsPreferenceActivity, R.string.contacts_preferences_no_file_found,
                     Toast.LENGTH_SHORT).show();
