@@ -221,10 +221,9 @@ public class StorageMigration {
         }
 
         private void askToStillMove() {
-
             new AlertDialog.Builder(mContext)
-                    .setMessage("Source directory not readable. Do you still want to change the storage path to "
-                            + mStorageTarget + "? Note: all data will have to be downloaded again.")
+                    .setTitle(R.string.file_migration_source_not_readable_title)
+                    .setMessage(mContext.getString(R.string.file_migration_source_not_readable, mStorageTarget))
                     .setNegativeButton(R.string.common_no, new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
