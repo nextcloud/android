@@ -1131,7 +1131,11 @@ public class FileContentProvider extends ContentProvider {
             // AccountManager are not synchronous
             Account[] accounts = AccountManager.get(getContext()).getAccountsByType(
                     MainApp.getAccountType());
-            String serverUrl, username, oldAccountName, newAccountName;
+            String serverUrl;
+            String username;
+            String oldAccountName;
+            String newAccountName;
+
             for (Account account : accounts) {
                 // build both old and new account name
                 serverUrl = ama.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);

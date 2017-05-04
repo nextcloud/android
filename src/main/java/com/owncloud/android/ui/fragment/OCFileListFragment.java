@@ -1020,7 +1020,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     private void updateFooter() {
         if (!mJustFolders) {
-            int filesCount = 0, foldersCount = 0;
+            int filesCount = 0;
+            int foldersCount = 0;
             int count = mAdapter.getCount();
             OCFile file;
             for (int i = 0; i < count; i++) {
