@@ -29,6 +29,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter;
@@ -61,6 +62,8 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         mListener = listener;
         mSyncFolderItems = new ArrayList<>();
         mLight = light;
+
+        shouldShowHeadersForEmptySections(true);
     }
 
     public void setSyncFolderItems(List<SyncedFolderDisplayItem> syncFolderItems) {
@@ -81,6 +84,10 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     @Override
     public int getItemCount(int section) {
+        if (section == 0) {
+            return 0;
+        }
+
         if (mSyncFolderItems.get(section).getFilePaths() != null) {
             return mSyncFolderItems.get(section).getFilePaths().size();
         } else {
@@ -90,17 +97,33 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
 
     @Override
     public void onBindHeaderViewHolder(final MainViewHolder holder, final int section) {
-        holder.title.setText(mSyncFolderItems.get(section).getFolderName());
+        if (section != 0) {
+            holder.mainHeaderContainer.setVisibility(View.VISIBLE);
+            holder.customFolderHeaderContainer.setVisibility(View.GONE);
 
-        if (MediaFolder.VIDEO == mSyncFolderItems.get(section).getType()) {
-            holder.type.setImageResource(R.drawable.ic_video_18dp);
-        } else if (MediaFolder.IMAGE == mSyncFolderItems.get(section).getType()) {
-            holder.type.setImageResource(R.drawable.ic_image_18dp);
-        } else {
-            holder.type.setImageResource(R.drawable.ic_folder_star_18dp);
-        }
-        
-        holder.syncStatusButton.setVisibility(View.VISIBLE);
+            holder.title.setText(mSyncFolderItems.get(section).getFolderName());
+
+            if (MediaFolder.VIDEO == mSyncFolderItems.get(section).getType()) {
+                holder.type.setImageResource(R.drawable.ic_video_18dp);
+            } else if (MediaFolder.IMAGE == mSyncFolderItems.get(section).getType()) {
+                holder.type.setImageResource(R.drawable.ic_image_18dp);
+            } else {
+                holder.type.setImageResource(R.drawable.ic_folder_star_18dp);
+            }
+
+            holder.syncStatusButton.setVisibility(View.VISIBLE);
+            holder.syncStatusButton.setTag(section);
+            holder.syncStatusButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mSyncFolderItems.get(section).setEnabled(!mSyncFolderItems.get(section).isEnabled());
+                    setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+                    mListener.onSyncStatusToggleClick(section, mSyncFolderItems.get(section));
+                }
+            });
+            setSyncButtonActiveIcon(holder.syncStatusButton, mSyncFolderItems.get(section).isEnabled());
+
+                    holder.syncStatusButton.setVisibility(View.VISIBLE);
         holder.syncStatusButton.setTag(section);
         holder.syncStatusButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,12 +147,17 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
                 }
             });
         }
+        } else {
+            holder.mainHeaderContainer.setVisibility(View.GONE);
+            holder.customFolderHeaderContainer.setVisibility(View.VISIBLE);
+
+        }
     }
 
     @Override
     public void onBindViewHolder(MainViewHolder holder, int section, int relativePosition, int absolutePosition) {
 
-        if (mSyncFolderItems.get(section).getFilePaths() != null) {
+        if (section != 0 && mSyncFolderItems.get(section - 1).getFilePaths() != null) {
             File file = new File(mSyncFolderItems.get(section).getFilePaths().get(relativePosition));
 
             ThumbnailsCacheManager.MediaThumbnailGenerationTask task =
@@ -159,7 +187,7 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
                 holder.thumbnailDarkener.setVisibility(View.GONE);
             }
 
-            //holder.itemView.setTag(String.format(Locale.getDefault(), "%d:%d:%d", section, relativePos, absolutePos));
+            //holder.itemView.setTag(String.format(Locale.getDefault(), "%d:%d:%d", adjustedSection, relativePos, absolutePos));
             //holder.itemView.setOnClickListener(this);
         } else {
             holder.itemView.setTag(relativePosition % mGridWidth);
@@ -192,8 +220,13 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         private final TextView counterValue;
         private final ImageView thumbnailDarkener;
 
+        private final RelativeLayout mainHeaderContainer;
+        private final RelativeLayout customFolderHeaderContainer;
+
         private MainViewHolder(View itemView) {
             super(itemView);
+            mainHeaderContainer = (RelativeLayout) itemView.findViewById(R.id.header_container);
+            customFolderHeaderContainer = (RelativeLayout) itemView.findViewById(R.id.custom_folder);
             image = (ImageView) itemView.findViewById(R.id.thumbnail);
             title = (TextView) itemView.findViewById(R.id.title);
             type = (ImageView) itemView.findViewById(R.id.type);
