@@ -789,6 +789,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         if (file != null) {
             if (file.isFolder()) {
                 // update state and view of this fragment
+                searchFragment = false;
                 listDirectory(file, MainApp.isOnlyOnDevice(), false);
                 // then, notify parent activity to let it update its state and view
                 mContainerActivity.onBrowsedDownTo(file);
