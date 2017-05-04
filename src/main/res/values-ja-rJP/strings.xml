@@ -46,10 +46,10 @@
     <string name="prefs_fingerprint">指紋ロック</string>
     <string name="prefs_fingerprint_notsetup">指紋は設定されていません。</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
-    <string name="prefs_instant_upload">自動画像アップロード</string>
-    <string name="prefs_instant_upload_summary">カメラで撮影した画像を自動アップロード</string>
-    <string name="prefs_instant_video_upload">自動動画アップロード</string>
-    <string name="prefs_instant_video_upload_summary">カメラで撮影した動画を自動アップロード</string>
+    <string name="prefs_instant_upload">写真の自動アップロード</string>
+    <string name="prefs_instant_upload_summary">カメラで撮影した写真を自動アップロードします</string>
+    <string name="prefs_instant_video_upload">ビデオの自動アップロード</string>
+    <string name="prefs_instant_video_upload_summary">カメラで撮影したビデオを自動アップロードします</string>
     <string name="prefs_log_title">ログの有効化</string>
     <string name="prefs_log_summary">これは問題をログに記録するのに使用します。</string>
     <string name="prefs_log_title_history">ログの履歴</string>
@@ -58,24 +58,20 @@
     <string name="prefs_calendar_contacts">コンタクト &amp; カレンダーを同期</string>
     <string name="prefs_calendar_contacts_summary">DAVdroid (v1.3.0以上) を現在のアカウントで使う</string>
     <string name="prefs_calendar_contacts_address_resolve_error">DAVdroid でアカウントのサーバーアドレスが解決できませんでした。</string>
-    <string name="prefs_calendar_contacts_no_store_error">Google playストアかF-droidアプリがインストールされていません。</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">コンタクト &amp; カレンダーを同期設定しました</string>
+    <string name="prefs_calendar_contacts_no_store_error">F-droid または Google Play がインストールされていません</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">カレンダー &amp; 連絡先の同期設定しました</string>
     <string name="prefs_help">ヘルプ</string>
-    <string name="prefs_recommend">友達に推薦</string>
+    <string name="prefs_recommend">友達に推奨</string>
     <string name="prefs_feedback">フィードバック</string>
     <string name="prefs_imprint">インプリント</string>
     <string name="prefs_remember_last_share_location">共有場所を記憶する</string>
-    <string name="prefs_remember_last_upload_location_summary">最後に共有アップロードした場所を記憶する</string>
+    <string name="prefs_remember_last_upload_location_summary">最後に使用した共有場所を記憶する</string>
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
-	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか！\n
-ここからダウンロードしてください: %2$s</string>
-
-    <string name="auth_check_server">サーバーのチェック</string>
+	<string name="auth_check_server">サーバーのチェック</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
-    <string name="auth_register">まだサーバーがありませんか？\nここをクリックして、プロバイダーから取得してください</string>
     <string name="sync_string_files">ファイル</string>
     <string name="setup_btn_connect">接続</string>
     <string name="uploader_btn_upload_text">アップロード</string>
@@ -87,22 +83,13 @@
     <string name="uploader_error_title_no_file_to_upload">アップロードするファイルはありません</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s でテキストをファイルとしてアップロードできませんでした。</string>
     <string name="uploader_error_message_no_file_to_upload">受信したデータには有効なファイルが含まれませんでした。</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">アップロードできません</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s で受信ファイルを読み込む権限がありません</string>
-    <string name="uploader_error_message_source_file_not_found">アップロードするファイルが指定の場所にありません。ファイルがあるかどうか確認してください。</string>
-    <string name="uploader_error_message_source_file_not_copied">ファイルを一時フォルダーにコピーする際にエラーが発生しました。再送してください。</string>
     <string name="uploader_upload_files_behaviour">アップロードオプション:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">ファイルをNextcloudのフォルダーに移動</string>
     <string name="uploader_upload_files_behaviour_only_upload">ファイルをソースフォルダに保持する</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ファイルをソースフォルダから削除する</string>
     <string name="file_list_seconds_ago">数秒前</string>
-    <string name="file_list_empty_headline">ファイルがありません。</string>
-    <string name="file_list_empty">何かコンテンツをアップロードするか、デバイスからファイルを同期してください！</string>
-    <string name="file_list_empty_favorites">ファイルをお気に入りに登録するか、デバイスとファイルを同期してください!</string>
-    <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーは、ここに表示されます</string>
-    <string name="file_list_empty_favorites_filter">お気に入りのファイルが見つかりませんでした!</string>
     <string name="file_list_loading">読込中&#8230;</string>
-    <string name="file_list_no_app_for_file_type">ファイルタイプ に対応するアプリはありません！</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="file_list_empty_headline_search">このフォルダーの結果はありません</string>
     <string name="file_list_empty_headline_server_search">結果なし</string>
@@ -110,19 +97,7 @@
     <string name="file_list_empty_shared">共有したファイルやフォルダーは、ここに表示されます。</string>
     <string name="file_list_empty_headline_server_search_videos">ビデオなし</string>
     <string name="file_list_empty_headline_server_search_photos">写真なし</string>
-    <string name="file_list_empty_search">別のフォルダーを見てみますか?</string>
-    <string name="file_list_empty_recently_modified">過去 7 日間に更新されたファイルはありません</string>
-    <string name="file_list_empty_recently_modified_filter">過去 7 日間に更新されたファイルは
-見つかりませんでした!</string>
-    <string name="file_list_empty_recently_added">最近追加したファイルはありません</string>
-    <string name="file_list_empty_recently_added_filter">最近追加したファイルが見つかりませんでした!</string>
-    <string name="file_list_empty_text_photos">何か写真をアップロードするか、自動アップロードを有効にしてください!</string>
-    <string name="file_list_empty_text_photos_filter">写真は見つかりませんでした!</string>
-    <string name="file_list_empty_text_videos">何かビデオをアップロードするか、自動アップロードを有効にしてください!</string>
-    <string name="file_list_empty_text_videos_filter">ビデオは見つかりませんでした!</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
-    <string name="upload_list_empty_text">何かコンテンツをアップロードするか、自動アップロードを有効にしてください！</string>
-    <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください！</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_folders">フォルダー</string>
     <string name="file_list_file">ファイル</string>
@@ -134,14 +109,11 @@
     <string name="filedetails_modified">更新:</string>
     <string name="filedetails_download">ダウンロード</string>
     <string name="filedetails_sync_file">ファイルを同期</string>
-    <string name="filedetails_renamed_in_upload_msg">アップロード中にファイル名を %1$s に変更しました</string>
-    <string name="list_layout">リストレイアウト</string>
     <string name="action_share">共有</string>
     <string name="common_yes">はい</string>
     <string name="common_no">いいえ</string>
     <string name="common_ok">OK</string>
     <string name="common_remove_upload">アップロードを削除</string>
-    <string name="common_retry_upload">アップロード再実行</string>
     <string name="common_cancel_sync">同期のキャンセル</string>
     <string name="common_cancel">キャンセル</string>
     <string name="common_back">戻る</string>
@@ -161,10 +133,8 @@
     <string name="uploader_info_dirname">フォルダー名</string>
     <string name="uploader_upload_in_progress_ticker">アップロード中&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% アップロード中 %2$s</string>
-    <string name="uploader_upload_succeeded_ticker">アップロード完了</string>
     <string name="uploader_upload_succeeded_content_single">%1$s は正常にアップロードされました</string>
     <string name="uploader_upload_failed_ticker">アップロードに失敗</string>
-    <string name="uploader_upload_failed_content_single">%1$s のアップロードが完了しませんでした</string>
     <string name="uploader_upload_failed_credentials_error">アップロードに失敗しました,ログインし直す必要があります</string>
     <string name="uploads_view_title">アップロード</string>
     <string name="uploads_view_group_current_uploads">現在</string>
@@ -181,37 +151,27 @@
     <string name="uploads_view_upload_status_failed_localfile_error">ローカルファイルがありません</string>
     <string name="uploads_view_upload_status_failed_permission_error">権限エラー</string>
     <string name="uploads_view_upload_status_conflict">競合</string>
-    <string name="uploads_view_upload_status_service_interrupted">強制終了されました</string>
     <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">WiFiの接続を待っています</string>
     <string name="uploads_view_later_waiting_to_upload">アップロード待ち</string>
     <string name="downloader_download_in_progress_ticker">ダウンロード中 &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% ダウンロード中 %2$s</string>
-    <string name="downloader_download_succeeded_ticker">ダウンロードに成功</string>
     <string name="downloader_download_succeeded_content">%1$s は正常にダウンロードされました</string>
     <string name="downloader_download_failed_ticker">ダウンロードに失敗</string>
-    <string name="downloader_download_failed_content">%1$s のダウンロードは完了しませんでした</string>
     <string name="downloader_not_downloaded_yet">未ダウンロード</string>
     <string name="downloader_download_failed_credentials_error">ダウンロードに失敗しました,ログインし直す必要があります</string>
     <string name="common_choose_account">アカウントを選択</string>
     <string name="sync_fail_ticker">同期の失敗</string>
-    <string name="sync_fail_ticker_unauthorized">同期失敗;もう一度ログインしてください。</string>
-    <string name="sync_fail_content">%1$s の同期が完了しませんでした。</string>
-    <string name="sync_fail_content_unauthorized">1$sの無効なパスワード</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
     <string name="sync_conflicts_in_favourites_content">%1$d 同期ファイルを同期できませんでした</string>
     <string name="sync_fail_in_favourites_ticker">ファイルの同期に失敗しました</string>
     <string name="sync_fail_in_favourites_content">%1$d ファイルのコンテンツを同期できませんでした（%2$d の競合）</string>
     <string name="sync_foreign_files_forgotten_ticker">一部のローカルファイルが忘れられています</string>
     <string name="sync_foreign_files_forgotten_content"> %2$s フォルダー内の %1$d ファイルはコピーできませんでした。</string>
-    <string name="sync_foreign_files_forgotten_explanation">バージョン 1.3.16以降、このデバイスからアップロードされたファイルは、単独のファイルが複数のアカウントと同期する際にデータの損失を防ぐため、ローカルの%1$sフォルダーにコピーされます。 この変更により、このアプリの以前のバージョンでアップロードされたすべてのファイルは%2$sフォルダーにコピーされます。しかしながら、アカウント同期中にはエラーが発生してこの操作が完了しないようになっています。ファイルをこのままにして%3$sへのリンクを削除するか、あるいは%1$sフォルダーにファイルを移動して%4$sへのリンクを維持することができます。 以下のリストにあるのは、ローカルのファイル及びそれらにリンクしている %5$s内のリモートファイルです。</string>
-    <string name="sync_current_folder_was_removed">フォルダー %1$s はもう存在しません</string>
     <string name="foreign_files_move">すべて移動</string>
     <string name="foreign_files_success">すべてのファイルを移動しました</string>
     <string name="foreign_files_fail">一部のファイルは移動できませんでした</string>
     <string name="foreign_files_local_text">ローカル: %1$s</string>
     <string name="foreign_files_remote_text">リモート: %1$s</string>
-    <string name="upload_query_move_foreign_files">%1$s フォルダに選択されたファイルをコピーするのに十分な空き領域がありません。コピーする代わりに移動にしますか？</string>
     <string name="pass_code_enter_pass_code">パスコードを入力してください</string>
     
     <string name="pass_code_configure_your_pass_code">パスコードを入力</string>
@@ -229,16 +189,7 @@
     <string name="media_event_done">%1$s プレイバック終了</string>
     <string name="media_err_nothing_to_play">メディアファイルが見つかりませんでした</string>
     <string name="media_err_no_account">アカウントが提供されていません</string>
-    <string name="media_err_not_in_owncloud">ファイルが有効なアカウントにありません</string>
     <string name="media_err_unsupported">サポートされていないメディアコーデック</string>
-    <string name="media_err_io">メディアファイルを読み込めませんでした</string>
-    <string name="media_err_malformed">メディアファイルが正確にエンコードされていません</string>
-    <string name="media_err_timeout">再生中にタイムアウトが発生しました</string>
-    <string name="media_err_invalid_progressive_playback">メディアファイルをストリーミングできません</string>
-    <string name="media_err_unknown">メディアファイルをStock Media Playerで再生できません</string>
-    <string name="media_err_security_ex">再生時にセキュリティエラー %1$s</string>
-    <string name="media_err_io_ex">再生時に入力エラー %1$s</string>
-    <string name="media_err_unexpected">再生時に予期しないエラー %1$s</string>
     <string name="media_rewind_description">巻き戻しボタン</string>
     <string name="media_play_pause_description">再生/一時停止ボタン</string>
     <string name="media_forward_description">早送りボタン</string>
@@ -250,32 +201,21 @@
 	<string name="auth_connection_established">接続が確立しました</string>
 	<string name="auth_testing_connection">接続のテスト中</string>
 	<string name="auth_not_configured_title">サーバー設定が間違っています</string>
-	<string name="auth_account_not_new">同じユーザーとサーバーのアカウントがデバイス上にすでに存在します</string>
 	<string name="auth_account_not_the_same">入力されたユーザーはこのアカウントのユーザーと一致しません</string>
 	<string name="auth_unknown_error_title">不明なエラーに発生しました</string>
-	<string name="auth_unknown_host_title">ホストが見つかりませんでした</string>
-	<string name="auth_incorrect_path_title">サーバーのインスタンスが見つかりません</string>
 	<string name="auth_timeout_title">サーバーからの反応がありません</string>
-	<string name="auth_incorrect_address_title">サーバーアドレス形式が不正です</string>
 	<string name="auth_ssl_general_error_title">SSLの初期化に失敗しました</string>
-	<string name="auth_ssl_unverified_server_title">SSLサーバー識別子を確認できませんでした</string>
 	<string name="auth_bad_oc_version_title">認識できないサーバーのバージョンです</string>
-	<string name="auth_wrong_connection_title">接続を確立できませんでした</string>
 	<string name="auth_secure_connection">暗号化通信を確立しました</string>
 	<string name="auth_unauthorized">ユーザー名もしくはパスワードが間違っています</string>
 	<string name="auth_oauth_error">認証失敗</string>
 	<string name="auth_oauth_error_access_denied">認証サーバーによってアクセスが拒否されました</string>
-	<string name="auth_wtf_reenter_URL">予期せぬ状態；別のサーバーアドレスを入力してみてください</string>
 	<string name="auth_expired_oauth_token_toast">認証情報は有効期限切れです。再度認証を行ってください。</string>
 	<string name="auth_expired_basic_auth_toast">現在のパスワードを入力してください</string>
 	<string name="auth_expired_saml_sso_token_toast">セッションの有効期限切れです。再度接続してください。</string>
-	<string name="auth_connecting_auth_server">認証サーバーに接続中...</string>
 	<string name="auth_unsupported_auth_method">サーバーはこの認証方式をサポートしていません</string>
 	<string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
-	<string name="auth_fail_get_user_name">サーバーが正しいユーザーIDを返しませんでした。管理者に問い合わせてください。 </string>
 	<string name="auth_can_not_auth_against_server">認証サーバーに接続できません</string>
-    <string name="auth_account_does_not_exist">デバイス上にまだアカウントが存在しません</string>
-    
     <string name="favorite">オフラインで利用可能に設定</string>
     <string name="unfavorite">オフラインで利用不可に設定</string>
     <string name="favorite_real">お気に入りとして登録</string>
@@ -283,36 +223,24 @@
     <string name="common_rename">名前を変更</string>
     <string name="common_remove">削除</string>
     <string name="confirmation_remove_file_alert">本当に %1$s を削除しますか？</string>
-    <string name="confirmation_remove_folder_alert">本当に %1$s およびそのコンテンツを削除してもよろしいですか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
-    <string name="remove_success_msg">削除に成功しました</string>
     <string name="remove_fail_msg">削除を完了できませんでした</string>
     <string name="rename_dialog_title">新しい名前を入力</string>
-    <string name="rename_local_fail_msg">ローカルコピーの名前の変更ができませんでした。別の名前で試してみてください</string>
-    <string name="rename_server_fail_msg">名前の変更ができませんでした</string>
-    <string name="sync_file_fail_msg">リモートファイルをチェックできませんでした</string>
     <string name="sync_file_nothing_to_do_msg">ファイルコンテンツはすでに同期されています</string>
-    <string name="create_dir_fail_msg">フォルダーを作成できませんでした</string>
     <string name="filename_forbidden_characters">使用できない文字: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">ファイル名に1文字以上の無効な文字が含まれています</string>
     <string name="filename_empty">ファイル名を空にすることはできません。</string>
-    <string name="wait_a_moment">しばらくお待ちください</string>
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
-    <string name="filedisplay_unexpected_bad_get_content">予期しない問題 ; 違うアプリからファイルを選択してください。</string>
-    <string name="filedisplay_no_file_selected">ファイルは選択されていません</string>
     <string name="activity_chooser_title">リンクを送信&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
     
     <string name="oauth_check_onoff">oAuth2でログイン</string> 
-    <string name="oauth_login_connection">oAuth2サーバーに接続中...</string>    
-        
     <string name="ssl_validator_header">サイトの識別子を確認できませんでした</string>
     <string name="ssl_validator_reason_cert_not_trusted">- サーバー証明書は信頼されていません</string>
     <string name="ssl_validator_reason_cert_expired">- サーバー証明書は有効期限切れです</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- サーバー証明書の有効期限は未来のものです</string>
     <string name="ssl_validator_reason_hostname_not_verified">- URLは証明書内のホスト名と一致しません</string>
     <string name="ssl_validator_question">この証明書を信頼してもよろしいですか？</string>
-    <string name="ssl_validator_not_saved">証明書は保存できませんでした</string>
     <string name="ssl_validator_btn_details_see">詳細</string>
     <string name="ssl_validator_btn_details_hide">非表示</string>
     <string name="ssl_validator_label_subject">発行先:</string>
@@ -336,27 +264,17 @@
 
     <string name="placeholder_sentence">これはプレースホルダです</string>
     <string name="placeholder_filename">placeholder.txt</string>
-    <string name="placeholder_filetype">PNG 画像</string>
     <string name="placeholder_filesize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">WiFi経由でのみアップロード</string>
-    <string name="instant_upload_on_wifi">WiFi経由でのみ画像をアップロード</string>
-    <string name="instant_video_upload_on_wifi">WiFi経由でのみ動画をアップロード</string>
-    <string name="instant_video_upload_on_charging">充電中のみアップロード</string>
-    <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="conflict_title">ファイルが競合</string>
-    <string name="conflict_message">どちらのファイルを保存したいですか？両方のバージョンを選択した場合は、ファイル名の後ろに数字を追加したファイルのコピーを作成します。</string>
     <string name="conflict_keep_both">両方を保持</string>
     <string name="conflict_use_local_version">ローカルのもの</string>
     <string name="conflict_use_server_version">サーバーのもの</string>
 
-    <string name="preview_sorry">申し訳ありません!</string>
     <string name="preview_image_description">イメージプレビュー</string>
-    <string name="preview_image_error_unknown_format">画像を表示できません</string>
-
     <string name="error__upload__local_file_not_copied">%1$s は、ローカルフォルダー %2$s  にコピーできませんでした。</string>
     <string name="prefs_instant_upload_path_title">自動アップロードフォルダー</string>
     <string name="prefs_folder_sync_local_path_title">ローカルフォルダー</string>
@@ -364,7 +282,6 @@
     <string name="prefs_instant_upload_path_use_subfolders_title">サブフォルダーを利用</string>
     <string name="prefs_instant_upload_path_use_subfolders_summary">年と月を元にしたサブフォルダーに保存</string>
 
-	<string name="share_link_no_support_share_api">すみませんが、サーバーで共有が有効になっていません。 管理者に問い合わせてください。</string>
 	<string name="share_link_file_no_exist">共有できません。ファイルがあるか確認してください。</string>
 	<string name="share_link_file_error">このファイルまたはフォルダーを共有する際にエラーが発生しました</string>
 	<string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
@@ -378,56 +295,29 @@
 
     <string name="copy_link">リンクをコピー</string>
     <string name="clipboard_text_copied">クリップボードにコピー</string>
-    <string name="clipboard_no_text_to_copy">クリップボードにテキストはコピーされませんでした</string>
     <string name="clipboard_uxexpected_error">クリップボードにテキストをコピーするときにエラーが発生しました。</string>
     <string name="clipboard_label">%1$s からテキストをコピー</string>
 
-    <string name="error_cant_bind_to_operations_service">致命的なエラー：操作を実行できません</string>
-
-    <string name="network_error_socket_exception">サーバーへの接続中にエラーが発生しました。</string>
-    <string name="network_error_socket_timeout_exception">サーバーからの応答を待っている間にエラーが発生しました。操作を完了することができませんでした。</string>
-    <string name="network_error_connect_timeout_exception">サーバーからの応答を待っている間にエラーが発生しました。操作を完了することができません。</string>
-    <string name="network_host_not_available">操作を完了することができません。サーバーが利用できません。</string>
-    <string name="forbidden_permissions">権限 %s がありません</string>
     <string name="forbidden_permissions_rename">ファイル名の変更</string>
     <string name="forbidden_permissions_delete">ファイルを削除</string>
     <string name="share_link_forbidden_permissions">ファイルを共有</string>
     <string name="unshare_link_forbidden_permissions">ファイルの共有を解除</string>
     <string name="update_link_forbidden_permissions">共有を更新</string>
-    <string name="forbidden_permissions_create">ファイルを作成</string>
-    <string name="uploader_upload_forbidden_permissions">フォルダーをアップロード</string>
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
 
     <string name="file_migration_dialog_title">ストレージの場所を更新中</string>
     <string name="file_migration_finish_button">完了</string>
-    <string name="file_migration_preparing">移行の準備中&#8230;</string>
     <string name="file_migration_checking_destination">宛先の確認中&#8230;</string>
-    <string name="file_migration_saving_accounts_configuration">アカウント設定を保存中&#8230;</string>
-    <string name="file_migration_waiting_for_unfinished_sync">未完了の同期を待機中&#8230;</string>
     <string name="file_migration_migrating">データの移動中&#8230;</string>
     <string name="file_migration_updating_index">インデックスの更新中&#8230;</string>
     <string name="file_migration_cleaning">クリーニング中&#8230;</string>
-    <string name="file_migration_restoring_accounts_configuration">アカウント設定を復元中&#8230;</string>
     <string name="file_migration_ok_finished">完了</string>
-    <string name="file_migration_failed_not_enough_space">十分な空き容量がありません</string>
-    <string name="file_migration_failed_not_writable">ファイルが書き込み可能ではありません。</string>
-    <string name="file_migration_failed_not_readable">ファイルが読み取り可能ではありません。</string>
     <string name="file_migration_failed_dir_already_exists">Nextcloudのディレクトリはすでに存在します。</string>
-    <string name="file_migration_failed_while_coping">エラー: 移行中</string>
-    <string name="file_migration_failed_while_updating_index">エラー: インデックスの更新中</string>
-
-    <string name="file_migration_directory_already_exists">データフォルダはすでに存在します。どうしますか?</string>
-    <string name="file_migration_override_data_folder">上書き</string>
-    <string name="file_migration_use_data_folder">既存を使用する</string>
-
     <string name="prefs_category_accounts">アカウント</string>
     <string name="prefs_add_account">アカウントを追加</string>
     <string name="drawer_manage_accounts">アカウント管理</string>
-    <string name="auth_redirect_non_secure_connection_title">暗号化されていない接続を経て、暗号化接続へリダイレクトされました。</string>
-
-	<string name="actionbar_logger">ログ</string>
+    <string name="actionbar_logger">ログ</string>
 	<string name="log_send_history_button">履歴を送信</string>
-	<string name="log_send_no_mail_app">ログを送信するアプリが見つかりませんでした。メールアプリをインストールしてください。</string>
 	<string name="log_send_mail_subject">%1$s アンドロイドアプリログ</string>
 	<string name="log_progress_dialog_text">データの読込中 &#8230;</string>
 
@@ -435,27 +325,20 @@
 	<string name="saml_authentication_wrong_pass">パスワードが間違っています</string>
 	<string name="actionbar_move">移動</string>
     <string name="actionbar_copy">コピー</string>
-	<string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
 	<string name="folder_picker_choose_button_text">選択</string>
 
-    <string name="move_file_not_found">移動できません。ファイルがあるか確認してください。</string>
-    <string name="move_file_invalid_into_descendent">フォルダーを子フォルダーへ移動することはできません。</string>
-    <string name="move_file_invalid_overwrite">そのファイルは宛先フォルダーにすでに存在します。</string>
     <string name="move_file_error">このファイルまたはフォルダーを移動する際にエラーが発生しました</string>
     <string name="forbidden_permissions_move">このファイルを移動</string>
 
 
     <string name="copy_file_not_found">コピーできません。ファイルがあるか確認してください。</string>
-    <string name="copy_file_invalid_into_descendent">フォルダーを子フォルダーへコピーすることはできません。</string>
-    <string name="copy_file_invalid_overwrite">そのファイルは宛先フォルダーにすでに存在します。</string>
     <string name="copy_file_error">このファイルまたはフォルダーをコピーする際にエラーが発生しました</string>
     <string name="forbidden_permissions_copy">このファイルをコピー</string>
 
     <string name="prefs_category_instant_uploading">自動アップロード</string>
     <string name="prefs_category_details">詳細</string>
 
-	<string name="prefs_instant_video_upload_path_title">自動アップロード動画フォルダー</string>
-    <string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>
+	<string name="sync_folder_failed_content">%1$s フォルダーの同期が完了しませんでした。</string>
 
 	<string name="shared_subject_header">共有中</string>
 	<string name="with_you_subject_header">あなたと</string>
@@ -496,7 +379,6 @@
     <string name="share_add_user_or_group">ユーザーかグループを追加</string>
     <string name="share_via_link_section_title">URLで共有</string>
     <string name="share_via_link_expiration_date_label">有効期限を設定</string>
-    <string name="share_via_link_password_label">パスワード保護を有効化</string>
     <string name="share_via_link_password_title">セキュア</string>
     <string name="share_via_link_edit_permission_label">編集を許可</string>
     <string name="share_via_link_hide_file_listing_permission_label">ファイルリストを隠す</string>
@@ -512,7 +394,6 @@
     <string name="share_email_clarification">%1$s (メール)</string>
     <string name="share_known_remote_clarification">%1$s ( %2$s で)</string>
 
-    <string name="share_sharee_unavailable">申し訳ありませんが、このサーバーのバージョンではこのクライアントアプリ上で他のユーザーと共有することができません。 \n管理者に相談してしてください。</string>
     <string name="share_privilege_can_share">共有可</string>
     <string name="share_privilege_can_edit">編集を許可</string>
     <string name="share_privilege_can_edit_create">作成</string>
@@ -521,50 +402,34 @@
     <string name="edit_share_unshare">共有の停止</string>
     <string name="edit_share_done">完了</string>
 
-    <string name="action_retry_uploads">再試行に失敗</string>
     <string name="action_clear_failed_uploads">クリアに失敗</string>
-    <string name="action_clear_successful_uploads">クリアに成功</string>
-    <string name="action_clear_finished_uploads">終了済をクリア</string>
-
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
 
     <string name="manage_space_title">管理領域</string>
-    <string name="manage_space_description">%1$s のデータから 設定、データベース、サーバー証明書が完全に削除されます。\n\n ダウンロードされたファイルはそのまま残ります。\n\n 実行中はしばらくお待ちください。</string>
     <string name="manage_space_clear_data">データのクリア</string>
     <string name="manage_space_error">いくつかのファイルがクリアできませんでした。</string>
 
-    <string name="permission_storage_access">ファイルをダウンロード &amp; アップロードする追加の権限が必要です。</string>
-    <string name="local_file_not_found_toast">ローカルファイルにファイルがありません</string>
     <string name="confirmation_remove_files_alert">本当に選択したものを削除しますか？</string>
     <string name="confirmation_remove_folders_alert">本当に 洗濯したアイテム およびそのコンテンツを削除してもよろしいですか？</string>
-    <string name="uploads_view_upload_status_waiting_for_charging">デバイスの充電を待機中</string>
     <string name="actionbar_search">検索</string>
     <string name="files_drop_not_supported">これはNextCloudの機能です。更新してください。</string>
     <string name="learn_more">もっと見る</string>
     <string name="drawer_folder_sync">自動アップロード</string>
     <string name="drawer_participate">参加する</string>
-    <string name="participate_testing_headline">テストを手伝ってください</string>
-    <string name="participate_testing_bug_text">バグがありましたか? なにか問題がありますか?</string>
     <string name="participate_testing_report_text">Githubでエラーを報告する</string>
-    <string name="participate_testing_version_text">次のバージョンのテストに興味がありますか?</string>
     <string name="participate_beta_headline">開発バージョンをテスト</string>
-    <string name="participate_beta_text">これは、すべての最新の機能が含まれており、非常に最先端です。 バグ/エラーが発生する可能性があります。もしその場合は、私たちに報告してください。</string>
     <string name="participate_release_candidate_headline">リリース候補</string>
-    <string name="participate_release_candidate_text">リリース候補(RC)は、今後のリリースのスナップショット であり、安定性が期待されます。 個々の設定をテストすることで、これを確実にすることができます。 Playストアでのテストに登録するか、F-Droidの「バージョン」セクションを手動で参照してください。</string>
     <string name="participate_contribute_headline">積極的な貢献</string>
     <string name="participate_contribute_irc_text">IRCでチャットに参加してください: &lt;a href=\"%1$s\">#nextcloud-モバイル&lt;/a></string>
     <string name="participate_contribute_forum_text">&lt;a href=\"%1$s\">フォーラム&lt;/a> で他の人を助けてください</string>
     <string name="participate_contribute_translate_text">アプリを &lt;a href=\"%1$s\">翻訳する&lt;/a></string>
-    <string name="participate_contribute_github_text">開発者として貢献には、 &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> をご覧ください。</string>
     <string name="move_to">&#8230;に移動</string>
     <string name="copy_to">&#8230;にコピー</string>
     <string name="choose_remote_folder">&#8230; フォルダーを選択</string>
     <string name="folder_sync_loading_folders">&#8230; フォルダを読み込み中</string>
     <string name="folder_sync_no_results">メディアフォルダが見つかりませんでした</string>
-    <string name="folder_sync_preferences">自動アップロードの設定</string>
     <string name="folder_sync_settings">設定</string>
-    <string name="folder_sync_new_info">インスタントアップロードは完全に刷新されました。 メインメニューから自動アップロードを再設定してください。 ご迷惑をおかけして申し訳ありません。\n\n新しく拡張された自動アップロード機能をお楽しみください！</string>
     <string name="folder_sync_preferences_folder_path">%1$s の</string>
     <plurals name="items_selected_count">
         <item quantity="other">%d選択されています。</item>
@@ -577,7 +442,6 @@
     <string name="notifications_no_results_headline">通知なし</string>
     <string name="notifications_no_results_message">後で確認してください。</string>
 
-    <string name="upload_file_dialog_title">アップロードファイル名とファイルタイプを入力</string>
     <string name="upload_file_dialog_filename">ファイル名</string>
     <string name="upload_file_dialog_filetype">ファイルタイプ</string>
     <string name="upload_file_dialog_filetype_snippet_text">スニペットテキストファイル(.txt)</string>
@@ -593,8 +457,6 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">すべてのデータの安全なホーム</string>
-    <string name="welcome_feature_1_text">アクセス、共有＆amp; 自宅や企業でファイルを保護する</string>
-
     <string name="welcome_feature_2_title">マルチアカウント</string>
     <string name="welcome_feature_2_text">すべてのクラウドへ接続する</string>
 
@@ -608,7 +470,6 @@
 
     <!-- User information -->
     <string name="user_info_full_name">氏名</string>
-    <string name="user_info_email">メール</string>
     <string name="user_info_phone">電話番号</string>
     <string name="user_info_address">住所</string>
     <string name="user_info_website">ウェブサイト</string>
@@ -618,24 +479,16 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">まだアクティビティはありません</string>
-    <string name="activities_no_results_message">このタイムラインには、いいね\n
-追加、変更、共有が表示されます</string>
     <string name="webview_error">エラーが発生しました</string>
     <string name="prefs_category_about">アプリについて</string>
 
-    <string name="actionbar_contacts">アドレス帳バックアップ</string>
-    <string name="contacts_backup_button">今すぐバックアップ</string>
     <string name="contacts_restore_button">前回のバックアップを復元</string>
     <string name="contacts_header_restore">復元</string>
     <string name="contacts_header_backup">バックアップ</string>
     <string name="contacts_automatic_backup">アドレス帳バックアップ</string>
     <string name="contacts_last_backup">前回のバックアップ</string>
-    <string name="contacts_read_permission">アドレス帳の読み取りアクセス許可が必要です</string>
-    <string name="contacts_write_permission">アドレス帳の書き込みアクセス許可が必要です</string>
     <string name="contactlist_title">アドレス帳を復元</string>
     <string name="contaclist_restore_selected">選択したアドレス帳を復元</string>
-    <string name="contactlist_account_chooser_title">インポートするアカウントを選択</string>
-    <string name="contactlist_no_permission">アクセス許可がありません。インポートできません!</string>
     <string name="contacts_preference_choose_date">日付を選択</string>
     <string name="contacts_preference_backup_never">しない</string>
     <string name="contacts_preferences_no_file_found">ファイルが見つかりません</string>
@@ -644,6 +497,4 @@
 
     <!-- Notifications -->
     <string name="new_notification_received">新しい通知を受け取りました</string>
-
-
-</resources>
+    </resources>
