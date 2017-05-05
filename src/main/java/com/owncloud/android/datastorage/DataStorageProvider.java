@@ -24,7 +24,6 @@ package com.owncloud.android.datastorage;
 import android.os.Build;
 
 import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
 import com.owncloud.android.datastorage.providers.EnvironmentStoragePointProvider;
 import com.owncloud.android.datastorage.providers.HardcodedStoragePointProvider;
 import com.owncloud.android.datastorage.providers.IStoragePointProvider;
@@ -65,7 +64,7 @@ public class DataStorageProvider {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            for (File f : MainApp.getAppContext().getExternalFilesDirs(null)) {
+            for (File f : MainApp.getAppContext().getExternalMediaDirs()) {
                 if (f != null) {
                     mCachedStoragePoints.add(new StoragePoint(f.getAbsolutePath(), f.getAbsolutePath()));
                 }
@@ -87,7 +86,8 @@ public class DataStorageProvider {
                 return s.getDescription();
             }
         }
-        return MainApp.getAppContext().getString(R.string.storage_description_unknown);
+        // Fallback to just display complete path
+        return path;
     }
 
     public void addStoragePointProvider(IStoragePointProvider provider) {
