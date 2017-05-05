@@ -302,7 +302,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
     private boolean mSoftKeyboardMode;          // true=soft(virtual) keyboard / false=buttons
     private ButtonVisibility mButtonVisibility = ButtonVisibility.Startup;
-    private boolean mShowButtonsWhenSoftKeyboardClose = true;
     private SoftKeyboardUtil mSoftKeyboard;
     private SharedPreferences mPref;
     private String mPassCodeStr;
@@ -486,7 +485,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     // }
 
     private void setupKeyboard() {
-        mShowButtonsWhenSoftKeyboardClose = true;
         if (mSoftKeyboardMode) {
             showSoftKeyboard();
             setButtonsVisibility(false);
@@ -689,7 +687,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
 
     private void hideSoftKeyboard() {
-        mShowButtonsWhenSoftKeyboardClose = false;
         mSoftKeyboard.hide();
     }
 
