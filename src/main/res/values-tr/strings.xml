@@ -411,8 +411,6 @@
     <string name="file_migration_restoring_accounts_configuration">Hesap ayarları geri yükleniyor&#8230;</string>
     <string name="file_migration_ok_finished">Tamamlandı</string>
     <string name="file_migration_failed_not_enough_space">HATA: Depolama alanı yetersiz</string>
-    <string name="file_migration_failed_not_writable">HATA: Dosya yazılabilir değil</string>
-    <string name="file_migration_failed_not_readable">HATA: Dosya okunabilir değil</string>
     <string name="file_migration_failed_dir_already_exists">HATA: Nextcloud klasörü zaten var</string>
     <string name="file_migration_failed_while_coping">HATA: Aktarımda sorun çıktı</string>
     <string name="file_migration_failed_while_updating_index">HATA: Dizin güncellenirken sorun çıktı</string>

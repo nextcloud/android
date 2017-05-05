@@ -411,8 +411,6 @@
     <string name="file_migration_restoring_accounts_configuration">Konfiguration der Konten wiederherstellen&#8230;</string>
     <string name="file_migration_ok_finished">Abgeschlossen</string>
     <string name="file_migration_failed_not_enough_space">FEHLER: zu wenig Platz</string>
-    <string name="file_migration_failed_not_writable">FEHLER: Datei kann nicht geschrieben werden</string>
-    <string name="file_migration_failed_not_readable">FEHLER: Datei kann nicht gelesen werden</string>
     <string name="file_migration_failed_dir_already_exists">FEHLER: Nextcloud Ordner existiert bereits</string>
     <string name="file_migration_failed_while_coping">FEHLER: Migration fehlgeschlagen</string>
     <string name="file_migration_failed_while_updating_index">FEHLER: Während der Aktualisierung des Indexes</string>

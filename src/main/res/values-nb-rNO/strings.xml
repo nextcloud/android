@@ -411,8 +411,6 @@
     <string name="file_migration_restoring_accounts_configuration">Gjenoppretter kontokonfigurasjon&#8230;</string>
     <string name="file_migration_ok_finished">Fullført</string>
     <string name="file_migration_failed_not_enough_space">FEIL: Ikke nok plass</string>
-    <string name="file_migration_failed_not_writable">FEIL: Filen er skrivebeskyttet</string>
-    <string name="file_migration_failed_not_readable">FEIL: er ikke lesbar</string>
     <string name="file_migration_failed_dir_already_exists">FEIL: Nextcloudmappen finnes allerede</string>
     <string name="file_migration_failed_while_coping">FEIL: Under migrering</string>
     <string name="file_migration_failed_while_updating_index">FEIL: Under oppdatering av indeks</string>
