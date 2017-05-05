@@ -57,6 +57,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadRemoteFileOperation;
 import com.owncloud.android.lib.resources.files.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
+import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
@@ -532,6 +533,14 @@ public class FileListListAdapter extends BaseAdapter {
                 RemoteOperationResult result = operation.execute(mAccount, mContext);
                 if (result.isSuccess()) {
                     OCFile file = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+
+                    ShareType newShareType = ocShare.getShareType();
+                    if (newShareType == ShareType.PUBLIC_LINK) {
+                        file.setShareViaLink(true);
+                    } else if (newShareType == ShareType.USER || newShareType == ShareType.GROUP ||
+                                    newShareType == ShareType.EMAIL || newShareType == ShareType.FEDERATED) {
+                        file.setShareWithSharee(true);
+                    }
 
                     mStorageManager.saveFile(file);
 
