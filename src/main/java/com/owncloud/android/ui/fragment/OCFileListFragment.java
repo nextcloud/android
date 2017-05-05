@@ -666,7 +666,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable(KEY_FILE, mFile);
-        outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, Parcels.wrap(currentSearchType));
+        if (searchFragment) {
+            outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, Parcels.wrap(currentSearchType));
+        }
         mMultiChoiceModeListener.storeStateIn(outState);
     }
 
@@ -1242,6 +1244,9 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
             setTitle(R.string.default_display_name_for_root_folder);
         }
 
+        getActivity().getIntent().removeExtra(OCFileListFragment.SEARCH_EVENT);
+        getArguments().putParcelable(OCFileListFragment.SEARCH_EVENT, null);
+
         setFabEnabled(true);
     }
 
@@ -1468,10 +1473,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     @Override
     public void onRefresh() {
-        super.onRefresh();
-
         if (searchEvent != null && searchFragment) {
             onMessageEvent(searchEvent);
+
+            mRefreshListLayout.setRefreshing(false);
+            mRefreshGridLayout.setRefreshing(false);
+            mRefreshEmptyLayout.setRefreshing(false);
+        } else {
+            super.onRefresh();
         }
     }
 
