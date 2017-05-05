@@ -19,7 +19,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.services;
+package com.owncloud.android.jobs;
 
 import android.accounts.Account;
 import android.content.ComponentName;
@@ -44,6 +44,7 @@ import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity;
 
 import java.io.File;
@@ -97,7 +98,7 @@ public class ContactsBackupJob extends Job {
                     OperationsService.BIND_AUTO_CREATE);
 
             // store execution date
-            arbitraryDataProvider.storeOrUpdateKeyValue(account,
+            arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
                     ContactsPreferenceActivity.PREFERENCE_CONTACTS_LAST_BACKUP,
                     String.valueOf(Calendar.getInstance().getTimeInMillis()));
         } else {
