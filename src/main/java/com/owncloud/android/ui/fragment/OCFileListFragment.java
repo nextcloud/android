@@ -1468,10 +1468,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
     @Override
     public void onRefresh() {
-        super.onRefresh();
-
         if (searchEvent != null && searchFragment) {
             onMessageEvent(searchEvent);
+
+            mRefreshListLayout.setRefreshing(false);
+            mRefreshGridLayout.setRefreshing(false);
+            mRefreshEmptyLayout.setRefreshing(false);
+        } else {
+            super.onRefresh();
         }
     }
 
