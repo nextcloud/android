@@ -33,3 +33,5 @@ matrix:
     - Generic
     - Gplay
     - Modified
+
+branches: master
