@@ -996,6 +996,22 @@ public class FileContentProvider extends ContentProvider {
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
+
+            if (oldVersion < 21 && newVersion >= 21) {
+                Log_OC.i(SQL, "Adding virtual table");
+                db.beginTransaction();
+                try {
+                    createVirtualTable(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
         }
     }
 
