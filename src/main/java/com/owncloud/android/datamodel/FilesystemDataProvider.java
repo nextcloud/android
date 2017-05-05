@@ -40,6 +40,27 @@ public class FilesystemDataProvider {
         this.contentResolver = contentResolver;
     }
 
+    public long countFilesThatNeedUploadInFolder(String localPath) {
+        String likeParam = localPath + "%";
+
+        Cursor cursor = contentResolver.query(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
+                new String[] {"count(*)"},
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ?",
+                new String[]{likeParam},
+                null);
+
+        if (cursor.getCount() == 0) {
+            cursor.close();
+            return 0;
+        } else {
+            cursor.moveToFirst();
+            int result = cursor.getInt(0);
+            cursor.close();
+            return result;
+        }
+    }
+
     public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, boolean sentForUpload) {
         FileSystemDataSet data = getFilesystemDataSet(localPath);
 
