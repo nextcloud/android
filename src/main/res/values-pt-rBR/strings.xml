@@ -411,8 +411,6 @@
     <string name="file_migration_restoring_accounts_configuration">Restaurando a configuração das contas&#8230;</string>
     <string name="file_migration_ok_finished">Finalizado</string>
     <string name="file_migration_failed_not_enough_space">ERRO: Espaço insuficiente</string>
-    <string name="file_migration_failed_not_writable">ERRO: Arquivo é somente leitura</string>
-    <string name="file_migration_failed_not_readable">ERRO: Arquivo não é legível</string>
     <string name="file_migration_failed_dir_already_exists">ERRO: Diretório Nexcloud já existe</string>
     <string name="file_migration_failed_while_coping">ERRO: Falha durante a migração</string>
     <string name="file_migration_failed_while_updating_index">ERRO: Falha ao atualizar índice</string>

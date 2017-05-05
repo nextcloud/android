@@ -389,8 +389,6 @@
     <string name="file_migration_restoring_accounts_configuration">Obnovování konfigurace účtů&#8230;</string>
     <string name="file_migration_ok_finished">Dokončeno</string>
     <string name="file_migration_failed_not_enough_space">CHYBA: Nedostatečné místo</string>
-    <string name="file_migration_failed_not_writable">CHYBA: Soubor není zapisovatelný</string>
-    <string name="file_migration_failed_not_readable">CHYBA: Soubor nelze číst</string>
     <string name="file_migration_failed_dir_already_exists">CHYBA: Nextcloud adresář již existuje</string>
     <string name="file_migration_failed_while_coping">CHYBA: V průběhu migrace</string>
     <string name="file_migration_failed_while_updating_index">CHYBA: V průběhu aktualizace indexu</string>
