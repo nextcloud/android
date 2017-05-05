@@ -410,8 +410,6 @@
     <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta&#8230;</string>
     <string name="file_migration_ok_finished">Skończone</string>
     <string name="file_migration_failed_not_enough_space">BŁĄD: Brak miejsca</string>
-    <string name="file_migration_failed_not_writable">BŁĄD: Plik nie do zapisu</string>
-    <string name="file_migration_failed_not_readable">BŁĄD: Plik nie do odczytu </string>
     <string name="file_migration_failed_dir_already_exists">BŁĄD: Katalog Nextcloud już istnieje</string>
     <string name="file_migration_failed_while_coping">BŁĄD: Nieudana migracja</string>
     <string name="file_migration_failed_while_updating_index">BŁĄD: Nieudana aktualizacja indeksu</string>

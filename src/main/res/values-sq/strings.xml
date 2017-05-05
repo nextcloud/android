@@ -82,6 +82,7 @@
     <string name="file_list_empty_headline_search">Nuk ka rezultate në këtë dosje</string>
     <string name="file_list_empty_search">Përpiquni të shikoni në një dosje tjetër</string>
     <string name="upload_list_empty_headline">Nuk ka asnjë ngarkim në gjëndje</string>
+    <string name="upload_list_empty_text">Ngarko disa të dhëna ose aktivizo ngarkimin e menjëhershëm!</string>
     <string name="file_list_folder">dosje</string>
     <string name="file_list_folders">dosje</string>
     <string name="file_list_file">Skedar</string>
@@ -367,8 +368,6 @@
     <string name="file_migration_restoring_accounts_configuration">Rikthimi i konfigurimit&#8230; të llogarive</string>
     <string name="file_migration_ok_finished">Përfundoi</string>
     <string name="file_migration_failed_not_enough_space">GABIM: Nuk ka hapsirë mjaftueshëm </string>
-    <string name="file_migration_failed_not_writable">GABIM: Skedari nuk mund të shkruhet</string>
-    <string name="file_migration_failed_not_readable">GABIM: Skedari nuk është i lexueshëm</string>
     <string name="file_migration_failed_dir_already_exists">GABIM: Drejtoria Nextcloud ekziston tashmë</string>
     <string name="file_migration_failed_while_coping">GABIM: Gjatë migrimit</string>
     <string name="file_migration_failed_while_updating_index">GABIM: Gjatë përditësimit të indeksit</string>
@@ -512,6 +511,7 @@
     <string name="participate_contribute_irc_text">Bashkohu në bisedat në IRC: &lt;a href=\"%1$s\">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Ndihmo të tjerët në &lt;a href="%1$s">forum&lt;/a></string>
     <string name="participate_contribute_translate_text">&lt;a href=\"%1$s\">Përktheni&lt;/a> aplikacionin</string>
+    <string name="participate_contribute_github_text">Kontriboni si një zhvillues, shih&lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a> për detaje</string>
     <string name="move_to">Levizni tek&#8230;</string>
     <string name="copy_to">Kopjojeni tek&#8230;</string>
     <string name="choose_remote_folder">Zgjidh dosjen&#8230;</string>
@@ -526,6 +526,7 @@
         <item quantity="other">%d të përzgjedhura</item>
     </plurals>
 
+    <string name="upload_file_dialog_title">Vendos emrin dhe tipin e dokumentit të aploduar </string>
     <string name="upload_file_dialog_filename">Emri dokumentit</string>
     <string name="upload_file_dialog_filetype">Tipi dokumentit</string>
     <string name="upload_file_dialog_filetype_snippet_text">Skedar elementi tekst(.txt)</string>
@@ -541,6 +542,8 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Një shtëpi e sigurt për të gjitha të dhënat tuaja</string>
+    <string name="welcome_feature_1_text">Akseso, ndaj dhe mbro skedarët e tuaja në shtëpinë dhe organizatën tuaj.</string>
+
     <string name="welcome_feature_2_title">Llogari e shumfishtë</string>
     <string name="welcome_feature_2_text">Lidhuni me të gjitha shërbimet cloud</string>
 

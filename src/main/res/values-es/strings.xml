@@ -411,8 +411,6 @@
     <string name="file_migration_restoring_accounts_configuration">Restaurando configuración de cuentas&#8230;</string>
     <string name="file_migration_ok_finished">Finalizado</string>
     <string name="file_migration_failed_not_enough_space">ERROR: no hay espacio suficiente</string>
-    <string name="file_migration_failed_not_writable">ERROR: El archivo no se puede escribir</string>
-    <string name="file_migration_failed_not_readable">ERROR: El archivo no se puede leer</string>
     <string name="file_migration_failed_dir_already_exists">ERROR: El directorio de Nextcloud ya existe</string>
     <string name="file_migration_failed_while_coping">ERROR: Fallo durante la migración</string>
     <string name="file_migration_failed_while_updating_index">ERROR: Fallo al actualizar el índice</string>

@@ -68,10 +68,13 @@
     <string name="prefs_remember_last_upload_location_summary">最後に使用した共有場所を記憶する</string>
 
 	<string name="recommend_subject">スマートフォンで %1$s を試してください！</string>
-	<string name="auth_check_server">サーバーのチェック</string>
+	<string name="recommend_text">スマートフォンで %1$s を利用してみませんか。\nここからダウンロードしてください: %2$s</string>
+
+    <string name="auth_check_server">サーバーのチェック</string>
     <string name="auth_host_url">サーバーアドレス https://…</string>
     <string name="auth_username">ユーザー名</string>
     <string name="auth_password">パスワード</string>
+    <string name="auth_register">まだサーバーがありませんか？\nここをクリックして、プロバイダーから取得してください</string>
     <string name="sync_string_files">ファイル</string>
     <string name="setup_btn_connect">接続</string>
     <string name="uploader_btn_upload_text">アップロード</string>
@@ -83,20 +86,32 @@
     <string name="uploader_error_title_no_file_to_upload">アップロードするファイルはありません</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s でテキストをファイルとしてアップロードできませんでした。</string>
     <string name="uploader_error_message_no_file_to_upload">受信したデータには有効なファイルが含まれませんでした。</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">このファイルはアップロードできません</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s で受信ファイルを読み込む権限がありません</string>
+    <string name="uploader_error_message_source_file_not_found">選択したアップロードするファイルが見つかりません。ファイルが存在するかどうか確認してください。</string>
+    <string name="uploader_error_message_source_file_not_copied">ファイルを一時フォルダーにコピーできませんでした。再送してください。</string>
     <string name="uploader_upload_files_behaviour">アップロードオプション:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">ファイルをNextcloudのフォルダーに移動</string>
     <string name="uploader_upload_files_behaviour_only_upload">ファイルをソースフォルダに保持する</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ファイルをソースフォルダから削除する</string>
     <string name="file_list_seconds_ago">数秒前</string>
+    <string name="file_list_empty_headline">ここにファイルはありません</string>
+    <string name="file_list_empty">コンテンツをアップロードするか、デバイスと同期してください。</string>
+    <string name="file_list_empty_favorites">ファイルをお気に入りに登録するか、デバイスと同期してください。</string>
+    <string name="file_list_empty_favorites_filter_list">お気に入りに登録されたファイルやフォルダーがここに表示されます</string>
+    <string name="file_list_empty_favorites_filter">お気に入りのファイルが見つかりませんでした。</string>
     <string name="file_list_loading">読込中&#8230;</string>
+    <string name="file_list_no_app_for_file_type">このファイル形式に設定されたアプリがありません。</string>
     <string name="local_file_list_empty">このフォルダーにはファイルがありません。</string>
     <string name="file_list_empty_headline_search">このフォルダーの結果はありません</string>
     <string name="file_list_empty_headline_server_search">結果なし</string>
+    <string name="file_list_empty_favorite_headline">まだお気に入りに登録されていません</string>
     <string name="file_list_empty_shared_headline">まだ何も共有されていません</string>
     <string name="file_list_empty_shared">共有したファイルやフォルダーは、ここに表示されます。</string>
     <string name="file_list_empty_headline_server_search_videos">ビデオなし</string>
     <string name="file_list_empty_headline_server_search_photos">写真なし</string>
+    <string name="file_list_empty_search">別のフォルダーにありませんか？</string>
+    <string name="file_list_empty_recently_modified">過去 7 日間に更新されたファイルは見つかりません</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="file_list_folder">フォルダー</string>
     <string name="file_list_folders">フォルダー</string>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s для Android</string>
+    <string name="about_android">%1$s для Android
+</string>
     <string name="about_version">версия %1$s</string>
     <string name="actionbar_sync">Обновить учётную запись</string>
     <string name="actionbar_upload">Загрузить</string>
@@ -46,6 +47,10 @@
     <string name="prefs_fingerprint">Блокировка отпечатком пальца</string>
     <string name="prefs_fingerprint_notsetup">Отпечатки не были настроены.</string>
     <string name="prefs_show_hidden_files">Показать скрытые файлы</string>
+    <string name="prefs_instant_upload">Моментальная загрузка изображений</string>
+    <string name="prefs_instant_upload_summary">Немедленно загружать изображения, сделанные камерой</string>
+    <string name="prefs_instant_video_upload">Моментальная загрузка видео</string>
+    <string name="prefs_instant_video_upload_summary">Немедленно загружать видео, сделанные камерой</string>
     <string name="prefs_log_title">Включить журналирование</string>
     <string name="prefs_log_summary">Используется для регистрации ошибок</string>
     <string name="prefs_log_title_history">История журналирования</string>
@@ -54,14 +59,24 @@
     <string name="prefs_calendar_contacts">Синхронизировать календарь и контакты</string>
     <string name="prefs_calendar_contacts_summary">Настроить DAVdroid (v1.3.0+) для текущего аккаунта</string>
     <string name="prefs_calendar_contacts_address_resolve_error">Не удается определить адрес сервера для DAVdroid</string>
+    <string name="prefs_calendar_contacts_no_store_error">Не установлен магазин Google Play  или приложение F-Droid</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Настройка синхронизации календаря &amp; контактов выполнена успешно.</string>
     <string name="prefs_help">Помощь</string>
+    <string name="prefs_recommend">Рекомендовать другу</string>
     <string name="prefs_feedback">Обратная связь</string>
     <string name="prefs_imprint">Штамп</string>
-    <string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
-	<string name="auth_check_server">Проверить сервер</string>
+    <string name="prefs_remember_last_share_location">Запомнить расположение общего ресурса</string>
+    <string name="prefs_remember_last_upload_location_summary">Запомнить расположение загрузки последней публикации</string>
+
+	<string name="recommend_subject">Попробуйте %1$s на вашем смартфоне!</string>
+	<string name="recommend_text">Хочу предложить вам использовать %1$s на смартфоне!\nЗагрузить можно здесь: %2$s
+	</string>
+
+    <string name="auth_check_server">Проверить сервер</string>
     <string name="auth_host_url">Адрес сервера https://...</string>
     <string name="auth_username">Имя пользователя</string>
     <string name="auth_password">Пароль</string>
+    <string name="auth_register">Нет сервера?\nНажмите здесь чтобы получить от провайдера</string>
     <string name="sync_string_files">Файлы</string>
     <string name="setup_btn_connect">Подключиться</string>
     <string name="uploader_btn_upload_text">Загрузить</string>
@@ -73,21 +88,43 @@
     <string name="uploader_error_title_no_file_to_upload">Нет файла для загрузки</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s не удается загрузить часть текста как файл.</string>
     <string name="uploader_error_message_no_file_to_upload">Принятые данные не содержат исправный файл.</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">Этот файл не может быть загружен</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s не позволено читать принятый файл</string>
+    <string name="uploader_error_message_source_file_not_found">Файл для загрузки не был найден в положенном месте. Пожалуйста проверьте, существует ли файл.</string>
+    <string name="uploader_error_message_source_file_not_copied">Произошла ошибка во время копирования этого файла во временный каталог. Пожалуйста попробуйте отправить его заново.</string>
     <string name="uploader_upload_files_behaviour">Настройка загрузки:</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Перемещать файл в папку Nextcloud</string>
     <string name="uploader_upload_files_behaviour_only_upload">Сохранять файл в исходном каталоге</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Удалять файл из исходного каталога</string>
     <string name="file_list_seconds_ago">несколько секунд назад</string>
+    <string name="file_list_empty_headline">Здесь нет файлов</string>
+    <string name="file_list_empty">Загрузите что-нибудь или синхронизируйте со своими устройствами!</string>
+    <string name="file_list_empty_favorites">Добавьте файлы в избранное или синхронизируйте со своими устройствами!</string>
+    <string name="file_list_empty_favorites_filter_list">Здесь появятся файлы и каталоги, отмеченные как избранные</string>
+    <string name="file_list_empty_favorites_filter">По запросу избранных файлов не найдено.</string>
     <string name="file_list_loading">Загрузка&#8230;</string>
+    <string name="file_list_no_app_for_file_type">Приложение для этого типа файла не найдено!</string>
     <string name="local_file_list_empty">В этом каталоге нет файлов.</string>
     <string name="file_list_empty_headline_search">В этой папке результатов не найдено</string>
     <string name="file_list_empty_headline_server_search">Результаты отсутствуют</string>
+    <string name="file_list_empty_favorite_headline">Избранного ещё нет</string>
     <string name="file_list_empty_shared_headline">Вы ещё ничем не поделились</string>
     <string name="file_list_empty_shared">Здесь появятся файлы и каталоги, которыми вы поделитесь</string>
     <string name="file_list_empty_headline_server_search_videos">Видео отсуствуют</string>
     <string name="file_list_empty_headline_server_search_photos">Фотографии отсутствуют</string>
+    <string name="file_list_empty_search">Искать в другом каталоге?</string>
+    <string name="file_list_empty_recently_modified">Не найдно файлов, изменённых за последние 7 дней</string>
+    <string name="file_list_empty_recently_modified_filter">По запросу не найдно файлов, 
+изменённых за последние 7 дней!</string>
+    <string name="file_list_empty_recently_added">Не найдено файлов, добавленных недавно</string>
+    <string name="file_list_empty_recently_added_filter">По запросу не найдено файлов, добавленных недавно!</string>
+    <string name="file_list_empty_text_photos">Загрузите фотографии или включите автоматическую загрузку!</string>
+    <string name="file_list_empty_text_photos_filter">По запросу фото не найдено!</string>
+    <string name="file_list_empty_text_videos">Загрузите видео или включите автоматическую загрузку!</string>
+    <string name="file_list_empty_text_videos_filter">По запросу файлов видео не найдено!</string>
     <string name="upload_list_empty_headline">Нет доступных загрузок</string>
+    <string name="upload_list_empty_text">Загрузите что-нибудь или включите моментальную загрузку!</string>
+    <string name="upload_list_empty_text_auto_upload">Загрузите что-нибудь или включите автоматическую загрузку!</string>
     <string name="file_list_folder">каталог</string>
     <string name="file_list_folders">каталоги</string>
     <string name="file_list_file">файл</string>
@@ -99,11 +136,14 @@
     <string name="filedetails_modified">Изменён:</string>
     <string name="filedetails_download">Скачать</string>
     <string name="filedetails_sync_file">Синхронизировать</string>
+    <string name="filedetails_renamed_in_upload_msg">Файл был переименован в %1$s во время загрузки</string>
+    <string name="list_layout">Вид списком</string>
     <string name="action_share">Поделиться</string>
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
     <string name="common_ok">ОК</string>
     <string name="common_remove_upload">Удалить загрузку</string>
+    <string name="common_retry_upload">Повторить загрузку</string>
     <string name="common_cancel_sync">Отменить синхронизацию</string>
     <string name="common_cancel">Отменить</string>
     <string name="common_back">Назад</string>
@@ -123,8 +163,10 @@
     <string name="uploader_info_dirname">Имя каталога</string>
     <string name="uploader_upload_in_progress_ticker">Загружается &#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Загружается %2$s</string>
+    <string name="uploader_upload_succeeded_ticker">Загружено</string>
     <string name="uploader_upload_succeeded_content_single">%1$s загружено</string>
     <string name="uploader_upload_failed_ticker">Сбой при загрузке</string>
+    <string name="uploader_upload_failed_content_single">Невозможно загрузить %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Загрузка не удалась, вам необходимо войти повторно.</string>
     <string name="uploads_view_title">Загрузки</string>
     <string name="uploads_view_group_current_uploads">Текущие</string>
@@ -141,22 +183,30 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Локальный файл не найден</string>
     <string name="uploads_view_upload_status_failed_permission_error">Ошибка прав доступа</string>
     <string name="uploads_view_upload_status_conflict">Конфликт</string>
+    <string name="uploads_view_upload_status_service_interrupted">Работа приложения была прекращена</string>
     <string name="uploads_view_upload_status_unknown_fail">Неизвестная ошибка</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Ожидание подключения Wi-Fi</string>
     <string name="uploads_view_later_waiting_to_upload">Ожидание загрузки</string>
     <string name="downloader_download_in_progress_ticker">Скачивается &#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Скачивается %2$s</string>
+    <string name="downloader_download_succeeded_ticker">Скачивание завершено</string>
     <string name="downloader_download_succeeded_content">%1$s скачано</string>
     <string name="downloader_download_failed_ticker">Сбой при скачивании</string>
+    <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>
     <string name="downloader_not_downloaded_yet">Ещё не скачано</string>
     <string name="downloader_download_failed_credentials_error">Сбой при скачивании, вам необходимо войти повторно</string>
     <string name="common_choose_account">Выберите аккаунт</string>
     <string name="sync_fail_ticker">Сбой при синхронизации</string>
+    <string name="sync_fail_ticker_unauthorized">Ошибка синхронизации, вам нужно войти повторно</string>
+    <string name="sync_fail_content">Синхронизация %1$s не может быть завершена</string>
+    <string name="sync_fail_content_unauthorized">Неверный пароль для %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
     <string name="sync_conflicts_in_favourites_content">%1$d файлов не может быть синхронизировано</string>
     <string name="sync_fail_in_favourites_ticker">Не удалось синхронизировать файлы</string>
     <string name="sync_fail_in_favourites_content">Содержимое %1$d файлов не может быть синхронизировано (конфликтов: %2$d)</string>
     <string name="sync_foreign_files_forgotten_ticker">Некоторые загруженные файлы не были перенесены в локальную папку </string>
     <string name="sync_foreign_files_forgotten_content">Не удалось скопировать %1$d файлов из каталога %2$s в</string>
+    <string name="sync_foreign_files_forgotten_explanation">Начиная с версии 1.3.16, файлы, загружаемые с этого устройства, копируются в локальный каталог %1$s, чтобы предотвратить потерю данных при синхронизации файла с несколькими учётными записями.\n\nПоэтому все файлы, загруженные предыдущими версиями данного приложения, были скопированы в каталог %2$s. Однако, во время синхронизации что-то помешало завершить эту операцию. Можете оставить файлы как есть и удалить ссылку на %3$s, либо переместить их в %1$s и сохранить ссылку на %4$s.\n\nНиже перечислены локальные файлы, и соответствующие им удалённые файлы в %5$s, к которым они привязаны.</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
     <string name="foreign_files_move">Переместить всё</string>
     <string name="foreign_files_success">Все файлы были перемещены</string>
@@ -330,10 +380,16 @@
 
     <string name="copy_link">Копировать ссылку</string>
     <string name="clipboard_text_copied">Скопировано в буфер обмена</string>
+    <string name="clipboard_no_text_to_copy">Нет принятого текста для копирования в буфер обмена</string>
     <string name="clipboard_uxexpected_error">Неожиданная ошибка во время копирования в буфер обмена</string>
     <string name="clipboard_label">Текст скопирован из %1$s</string>
 
     <string name="error_cant_bind_to_operations_service">Критическая ошибка: невозможно выполнить действия</string>
+
+    <string name="network_error_socket_exception">При подключении к серверу возникла ошибка.</string>
+    <string name="network_error_socket_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>
+    <string name="network_error_connect_timeout_exception">Во время ожидания сервера произошла ошибка, действие не может быть завершено.</string>
+    <string name="network_host_not_available">Действие не может быть завершено, сервер недоступен</string>
 
     <string name="forbidden_permissions">У вас нет права доступа %s</string>
     <string name="forbidden_permissions_rename">для переименования этого файла</string>
@@ -357,8 +413,6 @@
     <string name="file_migration_restoring_accounts_configuration">Восстановление настроек пользователя&#8230;</string>
     <string name="file_migration_ok_finished">Завершено</string>
     <string name="file_migration_failed_not_enough_space">ОШИБКА: Недостаточно места</string>
-    <string name="file_migration_failed_not_writable">ОШИБКА: Файл недоступен для записи</string>
-    <string name="file_migration_failed_not_readable">ОШИБКА: Файл не доступен для чтения</string>
     <string name="file_migration_failed_dir_already_exists">ОШИБКА: Каталог Nextcloud уже существует</string>
     <string name="file_migration_failed_while_coping">ОШИБКА: Ошибка при миграции</string>
     <string name="file_migration_failed_while_updating_index">ОШИБКА: Ошибка при обновлении индекса</string>
@@ -387,18 +441,22 @@
 
     <string name="move_file_not_found">Невозможно переместить. Убедитесь, что файл существует</string>
     <string name="move_file_invalid_into_descendent">Невозможно переместить каталог в его подкаталог</string>
+    <string name="move_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
     <string name="move_file_error">Произошла ошибка при попытке перемещения этого файла или каталога</string>
     <string name="forbidden_permissions_move">для перемещения этого файла</string>
 
 
     <string name="copy_file_not_found">Не удалось произвести копирование. Проверьте что файл существует</string>
+    <string name="copy_file_invalid_into_descendent">Невозможно копирование каталога в его подкаталог</string>
+    <string name="copy_file_invalid_overwrite">Файл уже существует в каталоге назначения</string>
     <string name="copy_file_error">Произошла ошибка при попытке копирования этого файла или каталога</string>
     <string name="forbidden_permissions_copy">для копирования этого файла</string>
 
     <string name="prefs_category_instant_uploading">Немедленная загрузка</string>
     <string name="prefs_category_details">Подробно</string>
 
-	<string name="sync_folder_failed_content">Синхронизация каталога %1$s не может быть завершена</string>
+	<string name="prefs_instant_video_upload_path_title">Каталог для немедленной загрузки видео</string>
+    <string name="sync_folder_failed_content">Синхронизация каталога %1$s не может быть завершена</string>
 
 	<string name="shared_subject_header">поделился</string>
 	<string name="with_you_subject_header">с вами</string>
@@ -439,6 +497,7 @@
     <string name="share_add_user_or_group">Добавить пользователя или группу</string>
     <string name="share_via_link_section_title">Поделиться ссылкой</string>
     <string name="share_via_link_expiration_date_label">Установить срок действия</string>
+    <string name="share_via_link_password_label">Защитить паролем</string>
     <string name="share_via_link_password_title">Безопасный</string>
     <string name="share_via_link_edit_permission_label">Разрешить редактирование</string>
     <string name="share_via_link_hide_file_listing_permission_label">Скрыть список файлов</string>
@@ -454,6 +513,7 @@
     <string name="share_email_clarification">%1$s (email)</string>
     <string name="share_known_remote_clarification">%1$s ( в %2$s )</string>
 
+    <string name="share_sharee_unavailable">Извините, версия вашего сервера не позволяет поделиться с пользователями через клиент. \nПожалуйста обратитесь к администратору</string>
     <string name="share_privilege_can_share">может делиться с другими</string>
     <string name="share_privilege_can_edit">может редактировать</string>
     <string name="share_privilege_can_edit_create">создать</string>
@@ -462,24 +522,37 @@
     <string name="edit_share_unshare">Закрыть общий доступ</string>
     <string name="edit_share_done">готово</string>
 
+    <string name="action_retry_uploads">Повторить неудавшиеся</string>
     <string name="action_clear_failed_uploads">Очистить неудавшиеся</string>
+    <string name="action_clear_successful_uploads">Очищено</string>
+    <string name="action_clear_finished_uploads">Очистить завершенные</string>
+
     <string name="action_switch_grid_view">Вид сеткой</string>
     <string name="action_switch_list_view">Вид списком</string>
 
     <string name="manage_space_title">Управление свободным местом</string>
+    <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \n\nЗагруженные файлы будут сохранены нетронутыми. \n\nЭтот процесс может занять некоторое время.</string>
     <string name="manage_space_clear_data">Очистить данные</string>
     <string name="manage_space_error">Некоторые файлы не могут быть удалены.</string>
 
+    <string name="permission_storage_access">Для загрузки и скачивания файлов требуются дополнительные права доступа.</string>
+    <string name="local_file_not_found_toast">Файл не был найден в локальной файловой системе</string>
     <string name="confirmation_remove_files_alert">Вы действительно хотите удалить выбранные элементы?</string>
     <string name="confirmation_remove_folders_alert">Вы действительно хотите удалить выбранные элементы и их содержимое?</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">Ожидание зарядки устройства</string>
     <string name="actionbar_search">Поиск</string>
     <string name="files_drop_not_supported">Это есть в новой версии Nextcloud, пожалуйста обновитесь</string>
     <string name="learn_more">Узнать больше</string>
     <string name="drawer_folder_sync">Автоматическая загрузка</string>
     <string name="drawer_participate">Участие</string>
+    <string name="participate_testing_headline">Помогите нам в тестировании</string>
+    <string name="participate_testing_bug_text">Нашли ошибку? Заметили необычное поведение программы?</string>
     <string name="participate_testing_report_text">Сообщить о проблеме на Github</string>
+    <string name="participate_testing_version_text">Вам интересно участие в тестировании следующих версий?</string>
     <string name="participate_beta_headline">Протестируйте разрабатываемую версию</string>
+    <string name="participate_beta_text">Она включает в себя все готовящиеся возможности с самой передовой. Могут появляться баги, в таком случае, напишите о них нам</string>
     <string name="participate_release_candidate_headline">Кандидат в релизы</string>
+    <string name="participate_release_candidate_text">Релиз-кандидат (RC) - это текущее состояние готовящегося выпуска, и, ожидается, что он будет стабильным. Проверка с вашими индивидуальными настройками может помочь убедится в этом. Зарегистрируйтесь для тестирования в Google Play или используйте раздел \"версии\" в каталоге приложений F-Droid.</string>
     <string name="participate_contribute_headline">Активное участие</string>
     <string name="participate_contribute_irc_text">Присоединиться к IRC-чату: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Помогите другим на нашем &lt;a href="%1$s">форуме&lt;/a></string>
@@ -489,7 +562,9 @@
     <string name="choose_remote_folder">Выберите каталог &#8230;</string>
     <string name="folder_sync_loading_folders">Загрузка каталогов &#8230;</string>
     <string name="folder_sync_no_results">Не найдены каталоги с медиа(файлами).</string>
+    <string name="folder_sync_preferences">Настройки автозагрузки</string>
     <string name="folder_sync_settings">Настройки</string>
+    <string name="folder_sync_new_info">Моментальная загрузка была полностью переделана. Используйте главное меню для перенастройки автоматической загрузки. Извините за неудобства.\n\nВам понравятся новые расширенные возможности автоматической загрузки!</string>
     <string name="folder_sync_preferences_folder_path">Для %1$s</string>
     <plurals name="items_selected_count">
         <item quantity="one">%d выбран</item>
@@ -505,6 +580,7 @@
     <string name="notifications_no_results_headline">Уведомлений нет</string>
     <string name="notifications_no_results_message">Проверьте позже.</string>
 
+    <string name="upload_file_dialog_title">Ввод имени и типа загружаемого файла </string>
     <string name="upload_file_dialog_filename">Имя файла</string>
     <string name="upload_file_dialog_filetype">Тип файла</string>
     <string name="upload_file_dialog_filetype_snippet_text">Текстовый файл заготовок(*.txt)</string>
@@ -520,6 +596,8 @@
 
     <!-- Welcome to Nc intro features -->
     <string name="welcome_feature_1_title">Надежный дом для всех ваших данных</string>
+    <string name="welcome_feature_1_text">Доступ, общий доступ и защита ваших файлов для дома и предприятия</string>
+
     <string name="welcome_feature_2_title">Работа с несколькими аккаунтами</string>
     <string name="welcome_feature_2_text">Доступ ко всем вашим облакам</string>
 
