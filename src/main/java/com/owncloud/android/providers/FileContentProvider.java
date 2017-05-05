@@ -668,6 +668,9 @@ public class FileContentProvider extends ContentProvider {
 
             // Create virtual table
             createVirtualTable(db);
+
+            // Create filesystem table
+            createFileSystemTable(db);
         }
 
         @Override
@@ -1010,6 +1013,11 @@ public class FileContentProvider extends ContentProvider {
                             ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_TYPE +
                             " INTEGER " + " DEFAULT 0");
 
+
+                    // create Filesystem table
+                    Log_OC.i(SQL, "Create filesystem table");
+                    createFileSystemTable(db);
+
                     // magic to split out existing synced folders in two when needed
                     // otherwise, we migrate them to their proper type (image or video)
                     Log_OC.i(SQL, "Migrate synced_folders records for image/video split");
@@ -1276,6 +1284,18 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.VIRTUAL_OCFILE_ID + " INTEGER )"        // file id
         );
     }
+
+    private void createFileSystemTable(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE " + ProviderTableMeta.FILESYSTEM_TABLE_NAME + "("
+                + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "      // id
+                + ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " TEXT, "
+                + ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " INTEGER, "
+                + ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY + " LONG, "
+                + ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " INTEGER, "
+                + ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " LONG );"
+        );
+    }
+
 
     /**
      * Version 10 of database does not modify its scheme. It coincides with the upgrade of the ownCloud account names
