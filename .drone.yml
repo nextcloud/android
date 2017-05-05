@@ -1,6 +1,6 @@
 pipeline:
   test:
-    image: nextcloudci/android:android-15
+    image: nextcloudci/android:android-16
     commands:
       # uncomment gplay
       - sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle
