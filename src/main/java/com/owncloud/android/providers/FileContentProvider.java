@@ -1221,8 +1221,8 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.SYNCED_FOLDER_ENABLED + " INTEGER, "            // enabled
                 + ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_BY_DATE + " INTEGER, "  // subfolder by date
                 + ProviderTableMeta.SYNCED_FOLDER_ACCOUNT + "  TEXT, "              // account
-                + ProviderTableMeta.SYNCED_FOLDER_TYPE + " INTEGER, "               // type
-                + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER );"     // upload action
+                + ProviderTableMeta.SYNCED_FOLDER_UPLOAD_ACTION + " INTEGER, "     // upload action
+                + ProviderTableMeta.SYNCED_FOLDER_TYPE + " INTEGER );"               // type
         );
     }
 
@@ -1233,7 +1233,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.EXTERNAL_LINKS_LANGUAGE + " TEXT, "     // language
                 + ProviderTableMeta.EXTERNAL_LINKS_TYPE + " INTEGER, "      // type
                 + ProviderTableMeta.EXTERNAL_LINKS_NAME + " TEXT, "         // name
-                + ProviderTableMeta.EXTERNAL_LINKS_URL + " TEXT )"          // url
+                + ProviderTableMeta.EXTERNAL_LINKS_URL + " TEXT );"          // url
         );
     }
 
@@ -1242,7 +1242,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta._ID + " INTEGER PRIMARY KEY, "      // id
                 + ProviderTableMeta.ARBITRARY_DATA_CLOUD_ID + " TEXT, " // cloud id (account name + FQDN)
                 + ProviderTableMeta.ARBITRARY_DATA_KEY + " TEXT, "      // key
-                + ProviderTableMeta.ARBITRARY_DATA_VALUE + " TEXT) "    // value
+                + ProviderTableMeta.ARBITRARY_DATA_VALUE + " TEXT );"    // value
         );
     }
 
