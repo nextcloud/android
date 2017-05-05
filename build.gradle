@@ -192,6 +192,7 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.googlecode.ez-vcard:ez-vcard:0.10.2'
+    compile 'org.lukhnos:nnio:0.2'
 
     // uncomment for gplay, modified
     //compile 'com.google.android.gms:play-services:10.2.4'

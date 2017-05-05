@@ -20,7 +20,7 @@
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.owncloud.android.services;
+package com.owncloud.android.jobs;
 
 import android.accounts.Account;
 import android.content.Context;
