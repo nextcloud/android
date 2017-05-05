@@ -130,7 +130,7 @@
                 android:name="android.accounts.AccountAuthenticator"
                 android:resource="@xml/authenticator" />
         </service>
-        <service android:name=".services.observer.SyncedFolderObserverService"/>
+
         <service
             android:name=".syncadapter.FileSyncService"
             android:exported="true" >
