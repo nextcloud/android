@@ -44,6 +44,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+    This job is meant to run periodically every half an hour, and has the following burden on it's shoulders:
+        - looks through all relevant folders and stores files & folders into a database
+        - cleans files from DB that we haven't encountered in a while (TODO)
+        - store newly created files to be uploaded into uploads table (TODO)
+        - initiate uploads from the uploads table (TODO)
+        - restart uploads that have previously failed (TODO
+*/
 public class NewAutoUploadJob extends Job {
     public static final String TAG = "NewAutoUploadJob";
 
