@@ -1,6 +1,6 @@
-2017-05-05
+2017-05-06
 Branches: 7
-[00 / 07] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully[01 / 07] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
+[01 / 07] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
 [02 / 07] Fix file modification date on upload (nextcloud/fix_file_modification_date_on_upload) [https://github.com/nextcloud/android/pull/451] CONFLICT
 [03 / 07] Updated federated sharing edit options (nextcloud/federated_sharing_edit_options) [https://github.com/nextcloud/android/pull/395] CONFLICT
 [04 / 07] Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] CONFLICT
