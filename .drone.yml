@@ -7,7 +7,7 @@ pipeline:
 
       - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
       - emulator -avd test -no-window &
-      - ./wait_for_emulator.sh
+      # - ./wait_for_emulator.sh
 
       # build app and assemble APK, in debug mode
       - ./gradlew assemble$$FLAVOUR
@@ -28,8 +28,8 @@ pipeline:
       - ANDROID_ABI=armeabi-v7a
       - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:/opt/android-sdk-linux/tools/lib64/gles_mesa/
 
-  matrix:
-    FLAVOUR:
-      - Generic
-      - Gplay
-      - Modified
+matrix:
+  FLAVOUR:
+    - Generic
+    - Gplay
+    - Modified
