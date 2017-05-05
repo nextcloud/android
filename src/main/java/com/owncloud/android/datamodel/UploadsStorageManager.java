@@ -37,7 +37,7 @@ import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
-import com.owncloud.android.services.AutoUploadJob;
+import com.owncloud.android.jobs.AutoUploadJob;
 
 import java.util.ArrayList;
 import java.util.Calendar;

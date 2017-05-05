@@ -42,7 +42,7 @@ import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.services.NCJobCreator;
+import com.owncloud.android.jobs.NCJobCreator;
 import com.owncloud.android.services.observer.SyncedFolderObserverService;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
