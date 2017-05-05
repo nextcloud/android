@@ -985,7 +985,23 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 20 && newVersion >= 20) {
-                Log_OC.i(SQL, "Entering in the #20 ADD in onUpgrade");
+                Log_OC.i(SQL, "Adding arbitrary data table");
+                db.beginTransaction();
+                try {
+                    createArbitraryData(db);
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+            }
+
+            if (!upgraded) {
+                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+            }
+
+            if (oldVersion < 21 && newVersion >= 21) {
+                Log_OC.i(SQL, "Entering in the #21 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
                     // add type column default being CUSTOM (0)
@@ -993,10 +1009,6 @@ public class FileContentProvider extends ContentProvider {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_TYPE +
                             " INTEGER " + " DEFAULT 0");
-
-                    // create arbitrary data table
-                    Log_OC.i(SQL, "Create arbitrary_data table");
-                    createArbitraryData(db);
 
                     // magic to split out existing synced folders in two when needed
                     // otherwise, we migrate them to their proper type (image or video)
