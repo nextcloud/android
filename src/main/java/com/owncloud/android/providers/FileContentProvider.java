@@ -989,15 +989,18 @@ public class FileContentProvider extends ContentProvider {
                 db.beginTransaction();
                 try {
                     // add type column default being CUSTOM (0)
+                    Log_OC.i(SQL, "Add type column and default value 0 (CUSTOM) to synced_folders table");
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_TYPE +
                             " INTEGER " + " DEFAULT 0");
 
                     // create arbitrary data table
+                    Log_OC.i(SQL, "Create arbitrary_data table");
                     createArbitraryData(db);
 
                     // magic to split out existing synced folders in two when needed
                     // otherwise, we migrate them to their proper type (image or video)
+                    Log_OC.i(SQL, "Migrate synced_folders records for image/video split");
                     ContentResolver contentResolver = getContext().getContentResolver();
 
                     SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
@@ -1007,22 +1010,28 @@ public class FileContentProvider extends ContentProvider {
 
                     ArrayList<Long> idsToDelete = new ArrayList<>();
                     List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
+                    long primaryKey;
+                    SyncedFolder newSyncedFolder;
                     for (SyncedFolder syncedFolder : syncedFolders) {
                         idsToDelete.add(syncedFolder.getId());
                         for (int i = 0; i < imageMediaFolders.size(); i++) {
                             if (imageMediaFolders.get(i).absolutePath.equals(syncedFolder.getLocalPath())) {
-                                SyncedFolder imageSyncedFolder = (SyncedFolder) syncedFolder.clone();
-                                imageSyncedFolder.setType(MediaFolder.IMAGE);
-                                syncedFolderProvider.storeFolderSync(imageSyncedFolder);
+                                newSyncedFolder = (SyncedFolder) syncedFolder.clone();
+                                newSyncedFolder.setType(MediaFolder.IMAGE);
+                                primaryKey = syncedFolderProvider.storeFolderSync(newSyncedFolder);
+                                Log_OC.i(SQL, "Migrated image synced_folders record: "
+                                        + primaryKey + " - " + newSyncedFolder.getLocalPath());
                                 break;
                             }
                         }
 
                         for (int j = 0; j < videoMediaFolders.size(); j++) {
                             if (videoMediaFolders.get(j).absolutePath.equals(syncedFolder.getLocalPath())) {
-                                SyncedFolder videoSyncedFolder = (SyncedFolder) syncedFolder.clone();
-                                videoSyncedFolder.setType(MediaFolder.VIDEO);
-                                syncedFolderProvider.storeFolderSync(videoSyncedFolder);
+                                newSyncedFolder = (SyncedFolder) syncedFolder.clone();
+                                newSyncedFolder.setType(MediaFolder.VIDEO);
+                                primaryKey = syncedFolderProvider.storeFolderSync(newSyncedFolder);
+                                Log_OC.i(SQL, "Migrated video synced_folders record: "
+                                        + primaryKey + " - " + newSyncedFolder.getLocalPath());
                                 break;
                             }
                         }
