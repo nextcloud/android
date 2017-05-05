@@ -988,11 +988,16 @@ public class FileContentProvider extends ContentProvider {
                 Log_OC.i(SQL, "Entering in the #20 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
-                    // add type column default being LEGACY (3)
+                    // add type column default being CUSTOM (0)
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.SYNCED_FOLDERS_TABLE_NAME +
                             ADD_COLUMN + ProviderTableMeta.SYNCED_FOLDER_TYPE +
-                            " INTEGER " + " DEFAULT 3");
+                            " INTEGER " + " DEFAULT 0");
 
+                    // create arbitrary data table
+                    createArbitraryData(db);
+
+                    // magic to split out existing synced folders in two when needed
+                    // otherwise, we migrate them to their proper type (image or video)
                     ContentResolver contentResolver = getContext().getContentResolver();
 
                     SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
@@ -1001,7 +1006,8 @@ public class FileContentProvider extends ContentProvider {
                     final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 0);
 
                     ArrayList<Long> idsToDelete = new ArrayList<>();
-                    for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+                    List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
+                    for (SyncedFolder syncedFolder : syncedFolders) {
                         idsToDelete.add(syncedFolder.getId());
                         for (int i = 0; i < imageMediaFolders.size(); i++) {
                             if (imageMediaFolders.get(i).absolutePath.equals(syncedFolder.getLocalPath())) {
