@@ -7,7 +7,7 @@ pipeline:
 
       - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
       - emulator -avd test -no-window &
-      # - ./wait_for_emulator.sh
+      - ./wait_for_emulator.sh
 
       # build app and assemble APK, in debug mode
       - ./gradlew assemble${FLAVOUR}
