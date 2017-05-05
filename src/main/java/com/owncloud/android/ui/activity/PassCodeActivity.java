@@ -301,7 +301,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         Invisible
     }
     private boolean mSoftKeyboardMode;          // true=soft(virtual) keyboard / false=buttons
-    private boolean mEnableSwitchSoftKeyboard = true;
     private ButtonVisibility mButtonVisibility = ButtonVisibility.Startup;
     private boolean mShowButtonsWhenSoftKeyboardClose = true;
     private SoftKeyboardUtil mSoftKeyboard;
@@ -340,10 +339,8 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         if (config.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO &&
                 android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {    // 5.0(21)
             // Soft(Virtual)Keyboard can not be displayed
-            mEnableSwitchSoftKeyboard = false;
             mSoftKeyboardMode = false;          // buttons always show
         } else {
-            mEnableSwitchSoftKeyboard = true;
             mSoftKeyboardMode = mPref.getBoolean(AUTO_PREF__SOFT_KEYBOARD_MODE, INIT_SOFT_KEYBOARD_MODE);
         }
 
@@ -475,12 +472,10 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     //     super.onConfigurationChanged(newConfig);
     //     switch(newConfig.hardKeyboardHidden) {
     //     case Configuration.HARDKEYBOARDHIDDEN_NO:
-    //         mEnableSwitchSoftKeyboard = false;
     //         mSoftKeyboardMode = false;
     //         setupKeyboard();
     //         break;
     //     case Configuration.HARDKEYBOARDHIDDEN_YES:
-    //         mEnableSwitchSoftKeyboard = true;
     //         mSoftKeyboardMode = false;
     //         setupKeyboard();
     //         break;
