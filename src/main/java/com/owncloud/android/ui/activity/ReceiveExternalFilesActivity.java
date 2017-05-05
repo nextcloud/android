@@ -726,7 +726,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         ListView mListView = (ListView) findViewById(android.R.id.list);
 
         String current_dir = mParents.peek();
-        if (current_dir.equals("")) {
+        if ("".equals(current_dir)) {
             actionBar.setTitle(getString(R.string.uploader_top_message));
         } else {
             actionBar.setTitle(current_dir);
@@ -953,7 +953,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
         String lastPath = PreferenceManager.getLastUploadPath(this);
         // "/" equals root-directory
-        if (lastPath.equals("/")) {
+        if ("/".equals(lastPath)) {
             mParents.add("");
         } else {
             String[] dir_names = lastPath.split("/");

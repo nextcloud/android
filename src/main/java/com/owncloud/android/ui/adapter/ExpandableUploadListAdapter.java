@@ -67,11 +67,14 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class ExpandableUploadListAdapter extends BaseExpandableListAdapter implements Observer {
 
     private static final String TAG = ExpandableUploadListAdapter.class.getSimpleName();
+
+    public ProgressListener mProgressListener;
+
     private FileActivity mParentActivity;
 
     private UploadsStorageManager mUploadsStorageManager;
 
-    public ProgressListener mProgressListener;
+    private UploadGroup[] mUploadGroups = null;
 
     interface Refresh {
         public void refresh();
@@ -140,8 +143,6 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
 
         abstract public int getGroupIcon();
     }
-
-    private UploadGroup[] mUploadGroups = null;
 
     public ExpandableUploadListAdapter(FileActivity parentActivity) {
         Log_OC.d(TAG, "ExpandableUploadListAdapter");

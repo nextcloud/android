@@ -354,7 +354,6 @@ public class FileContentProvider extends ContentProvider {
 
                 }
                 return insertedArbitraryDataUri;
-
             case VIRTUAL:
                 Uri insertedVirtualUri;
                 long virtualId = db.insert(ProviderTableMeta.VIRTUAL_TABLE_NAME, null, values);
@@ -366,7 +365,6 @@ public class FileContentProvider extends ContentProvider {
                 }
 
                 return insertedVirtualUri;
-
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -986,11 +984,13 @@ public class FileContentProvider extends ContentProvider {
                 db.beginTransaction();
                 try {
                     createArbitraryData(db);
+                    createVirtualTable(db);
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
                     db.endTransaction();
                 }
+
             }
 
             if (!upgraded) {
@@ -1092,7 +1092,7 @@ public class FileContentProvider extends ContentProvider {
                 + ProviderTableMeta.CAPABILITIES_FILES_UNDELETE + INTEGER  // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_VERSIONING + INTEGER   // boolean
                 + ProviderTableMeta.CAPABILITIES_FILES_DROP + INTEGER  // boolean
-                + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + " INTEGER );" );   // boolean
+                + ProviderTableMeta.CAPABILITIES_EXTERNAL_LINKS + " INTEGER );");   // boolean
     }
 
     private void createUploadsTable(SQLiteDatabase db) {
@@ -1173,7 +1173,7 @@ public class FileContentProvider extends ContentProvider {
      *
      * See {@link com.owncloud.android.authentication.AccountUtils#updateAccountVersion(android.content.Context)}
      *
-     * @param db        Database where table of files is included.
+     * @param db Database where table of files is included.
      */
     private void updateAccountName(SQLiteDatabase db) {
         Log_OC.d(SQL, "THREAD:  " + Thread.currentThread().getName());
@@ -1184,7 +1184,11 @@ public class FileContentProvider extends ContentProvider {
             // AccountManager are not synchronous
             Account[] accounts = AccountManager.get(getContext()).getAccountsByType(
                     MainApp.getAccountType());
-            String serverUrl, username, oldAccountName, newAccountName;
+            String serverUrl;
+            String username;
+            String oldAccountName;
+            String newAccountName;
+
             for (Account account : accounts) {
                 // build both old and new account name
                 serverUrl = ama.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
@@ -1226,9 +1230,9 @@ public class FileContentProvider extends ContentProvider {
      * Rename the local ownCloud folder of one account to match the a rename of the account itself. Updates the
      * table of files in database so that the paths to the local files keep being the same.
      *
-     * @param db                    Database where table of files is included.
-     * @param newAccountName        New name for the target OC account.
-     * @param oldAccountName        Old name of the target OC account.
+     * @param db             Database where table of files is included.
+     * @param newAccountName New name for the target OC account.
+     * @param oldAccountName Old name of the target OC account.
      */
     private void updateDownloadedFiles(SQLiteDatabase db, String newAccountName,
                                        String oldAccountName) {
