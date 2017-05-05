@@ -255,7 +255,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
     // Preference
     private static final boolean INIT_SOFT_KEYBOARD_MODE = true;  // true=soft keyboard / false=buttons
-    private static final boolean ENABLE_GO_HOME = true;
     private static final int GUARD_TIME = 5*1000;    // (ms)
     private static final boolean ENABLE_SUFFLE_BUTTONS = false;
 
@@ -428,6 +427,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         SharedPreferences.Editor editor = mPref.edit();
         editor.putBoolean(AUTO_PREF__SOFT_KEYBOARD_MODE, mSoftKeyboardMode);
         editor.apply();
+        clearPassCodeEditText();
     }
 
     @Override
@@ -461,7 +461,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     protected void onDestroy() {
         super.onDestroy();
         if ((getChangingConfigurations() & Configuration.SCREENLAYOUT_LAYOUTDIR_RTL) != 0 &&
-                mSoftKeyboardMode == true) {
+                mSoftKeyboardMode) {
             hideSoftKeyboard();
         }
     }
@@ -749,9 +749,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                     ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
                 finish();
             } else {
-                if (ENABLE_GO_HOME) {
-                    goHome();
-                }
+                goHome();
             }
             return true;
         } else if (KeyEvent.KEYCODE_0 <= keyCode &&  keyCode <= KeyEvent.KEYCODE_9) {
@@ -840,9 +838,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             if (mIndex <= 9) {
                 // 0,1,2,...,8,9
                 key = KeyEvent.KEYCODE_0 + mIndex;
-            // } else if (mIndex == 10) {
-            //     // clear
-            //     key = KeyEvent.KEYCODE_CLEAR;
             } else {
                 // delete
                 key = KeyEvent.KEYCODE_DEL;
@@ -854,26 +849,13 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
     // when softKeyboard close
     @Override
-    public void onClose()
-    {
-        if (mEnableSwitchSoftKeyboard) {
-            if (mShowButtonsWhenSoftKeyboardClose) {
-                mSoftKeyboardMode = false;
-                setButtonsVisibility(true);
-            }
+    public void onClose() {
+        if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction()) ||
+                ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
+            // same as back button
+            finish();
         } else {
-            if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction()) ||
-                    ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
-                // same as cancel button
-                finish();
-            } else {
-                if (ENABLE_GO_HOME) {
-                    goHome();
-                } else {
-                    showErrorMessage(R.string.pass_code_enter_pass_code);
-                    startGuard();
-                }
-            }
+            goHome();
         }
     }
 }
