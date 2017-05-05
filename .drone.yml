@@ -10,14 +10,14 @@ pipeline:
       # - ./wait_for_emulator.sh
 
       # build app and assemble APK, in debug mode
-      - ./gradlew assemble$$FLAVOUR
+      - ./gradlew assemble${FLAVOUR}
 
       # run all the instrumented tests of app module - DISABLED until we get an stable setup for Espresso in Travis
       # - ./gradlew connectedDebugAndroidTest --info
 
       # install app, then assemble and install instrumented tests of app module
-      - ./gradlew :install$$FLAVOURDebug
-      - ./gradlew :install$$FLAVOURDebugAndroidTest
+      - ./gradlew :install${FLAVOUR}Debug
+      - ./gradlew :install${FLAVOUR}DebugAndroidTest
 
       # run sample instrumented unit test
       # TODO fails because test runner is not available
