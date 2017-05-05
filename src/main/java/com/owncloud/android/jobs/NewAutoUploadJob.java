@@ -71,11 +71,10 @@ public class NewAutoUploadJob extends Job {
 
         for (SyncedFolder syncedFolder : syncedFolders) {
             for (SyncedFolder secondarySyncedFolder : syncedFolders) {
-                if (syncedFolder != secondarySyncedFolder) {
-                    if (secondarySyncedFolder.getLocalPath().startsWith(syncedFolder.getLocalPath()) &&
-                            !syncedFoldersToDelete.contains(secondarySyncedFolder)) {
-                        syncedFoldersToDelete.add(secondarySyncedFolder);
-                    }
+                if (!syncedFolder.equals(secondarySyncedFolder) &&
+                        secondarySyncedFolder.getLocalPath().startsWith(syncedFolder.getLocalPath()) &&
+                        !syncedFoldersToDelete.contains(secondarySyncedFolder)) {
+                    syncedFoldersToDelete.add(secondarySyncedFolder);
                 }
             }
         }
