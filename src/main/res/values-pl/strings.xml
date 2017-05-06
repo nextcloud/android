@@ -410,6 +410,8 @@
     <string name="file_migration_restoring_accounts_configuration">Przywracanie konfiguracji konta&#8230;</string>
     <string name="file_migration_ok_finished">Skończone</string>
     <string name="file_migration_failed_not_enough_space">BŁĄD: Brak miejsca</string>
+    <string name="file_migration_failed_not_writable">BŁĄD: Nie można zapisać pliku docelowego</string>
+    <string name="file_migration_failed_not_readable">BŁĄD: Nie można odczytać pliku źródłowego</string>
     <string name="file_migration_failed_dir_already_exists">BŁĄD: Katalog Nextcloud już istnieje</string>
     <string name="file_migration_failed_while_coping">BŁĄD: Nieudana migracja</string>
     <string name="file_migration_failed_while_updating_index">BŁĄD: Nieudana aktualizacja indeksu</string>
@@ -417,6 +419,9 @@
     <string name="file_migration_directory_already_exists">Folder z danymi już istnieje. Wybierz jedną z następujących czynności:</string>
     <string name="file_migration_override_data_folder">Zamień</string>
     <string name="file_migration_use_data_folder">Użyj</string>
+
+    <string name="file_migration_source_not_readable_title">Nie można odczytać katalogu źródłowego!</string>
+    <string name="file_migration_source_not_readable">Czy nadal chcesz zmienić ścieżkę do %1$s?\n\nUwaga: Wszystkie dane będą musiały zostać ponownie pobrane.</string>
 
     <string name="prefs_category_accounts">Konta</string>
     <string name="prefs_add_account">Dodaj konto</string>

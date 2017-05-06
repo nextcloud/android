@@ -410,6 +410,8 @@
     <string name="file_migration_restoring_accounts_configuration">Restauration de la configuration des comptes&#8230;</string>
     <string name="file_migration_ok_finished">Terminé</string>
     <string name="file_migration_failed_not_enough_space">ERREUR : Espace insuffisant</string>
+    <string name="file_migration_failed_not_writable">ERREUR : Le fichier n\'est pas modifiable</string>
+    <string name="file_migration_failed_not_readable">ERREUR : Le fichier n\'est pas lisible</string>
     <string name="file_migration_failed_dir_already_exists">ERREUR : Le dossier Nextcloud existe déjà</string>
     <string name="file_migration_failed_while_coping">ERREUR : Echec lors de la migration</string>
     <string name="file_migration_failed_while_updating_index">ERREUR : Echec lors de la mise à jour de l\'index</string>
@@ -417,6 +419,9 @@
     <string name="file_migration_directory_already_exists">Le dossier de données existe déjà. Choisissez une des options suivantes :</string>
     <string name="file_migration_override_data_folder">Remplacer</string>
     <string name="file_migration_use_data_folder">Conserver le dossier actuel</string>
+
+    <string name="file_migration_source_not_readable_title">Le dossier n\'est pas lisible !</string>
+    <string name="file_migration_source_not_readable">Souhaitez-vous modifier le chemin de stockage pour %1$s ?\n\nNote : toutes les données devront être à nouveau téléchargées.</string>
 
     <string name="prefs_category_accounts">Comptes</string>
     <string name="prefs_add_account">Ajouter un compte</string>
