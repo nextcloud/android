@@ -539,10 +539,14 @@ public class DisplayUtils {
 
     public static void downloadIcon(Context context, String iconUrl, SimpleTarget imageView, int placeholder,
                                     int width, int height) {
-        if (iconUrl.endsWith(".svg")) {
-            downloadSVGIcon(context, iconUrl, imageView, placeholder, width, height);
-        } else {
-            downloadPNGIcon(context, iconUrl, imageView, placeholder);
+        try {
+            if (iconUrl.endsWith(".svg")) {
+                downloadSVGIcon(context, iconUrl, imageView, placeholder, width, height);
+            } else {
+                downloadPNGIcon(context, iconUrl, imageView, placeholder);
+            }
+        } catch (Exception e) {
+            Log_OC.d(TAG, "not setting image as activity is destroyed");
         }
     }
 
