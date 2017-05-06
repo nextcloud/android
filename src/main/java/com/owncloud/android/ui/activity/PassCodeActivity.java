@@ -31,10 +31,12 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -341,6 +343,17 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             mSoftKeyboardMode = false;          // buttons always show
         } else {
             mSoftKeyboardMode = mPref.getBoolean(AUTO_PREF__SOFT_KEYBOARD_MODE, INIT_SOFT_KEYBOARD_MODE);
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int systemBarColor = ContextCompat.getColor(this, R.color.primary_dark);
+            getWindow().setStatusBarColor(systemBarColor);
+        }
+
+        {   // TODO: setText!
+            AppCompatButton b = (AppCompatButton)findViewById(R.id.del);
+            //b.setText("\u232B");
+            b.setText("⌫");
         }
 
         int explanationId = 0;
