@@ -486,7 +486,10 @@ public class FileListListAdapter extends BaseAdapter {
         }
     }
 
-    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType) {
+    public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType, FileDataStorageManager storageManager) {
+        if (storageManager != null) {
+            mStorageManager = storageManager;
+        }
         mFiles = new Vector<>();
 
         // early exit

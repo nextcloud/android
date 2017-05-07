@@ -175,7 +175,12 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         mProgressBarActionModeColor = getResources().getColor(R.color.action_mode_background);
         mProgressBarColor = getResources().getColor(R.color.primary);
         mMultiChoiceModeListener = new MultiChoiceModeListener();
-        searchFragment = false;
+
+        if (savedInstanceState != null) {
+            currentSearchType = Parcels.unwrap(savedInstanceState.getParcelable(KEY_CURRENT_SEARCH_TYPE));
+            searchEvent = Parcels.unwrap(savedInstanceState.getParcelable(OCFileListFragment.SEARCH_EVENT));
+        }
+        searchFragment = currentSearchType != null;
     }
 
     /**
@@ -668,6 +673,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
         outState.putParcelable(KEY_FILE, mFile);
         if (searchFragment) {
             outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, Parcels.wrap(currentSearchType));
+            outState.putParcelable(OCFileListFragment.SEARCH_EVENT, Parcels.wrap(searchEvent));
         }
         mMultiChoiceModeListener.storeStateIn(outState);
     }
@@ -1287,7 +1293,7 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
     public void onMessageEvent(SearchEvent event) {
         searchFragment = true;
         setEmptyListLoadingMessage();
-        mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH);
+        mAdapter.setData(new ArrayList<>(), SearchType.NO_SEARCH, mContainerActivity.getStorageManager());
 
         setFabEnabled(false);
 
@@ -1386,7 +1392,8 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
 
                     if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null
                             && !isCancelled() && searchFragment) {
-                        mAdapter.setData(remoteOperationResult.getData(), currentSearchType);
+                        mAdapter.setData(remoteOperationResult.getData(), currentSearchType,
+                                mContainerActivity.getStorageManager());
                     }
 
                     return remoteOperationResult.isSuccess();
