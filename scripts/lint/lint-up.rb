@@ -1,3 +1,5 @@
+## Script from https://github.com/tir38/android-lint-entropy-reducer at 07.05.2017
+
 puts "=================== starting Android Lint Entropy Reducer ===================="
 
 # ========================  SETUP ============================
