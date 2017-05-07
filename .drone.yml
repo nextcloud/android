@@ -5,7 +5,7 @@ pipeline:
       # needs gplay
       - sh -c "sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle"
       - ./gradlew lint
-      - grep 'Lint Report:' build/reports/lint.html  | cut -d'>' -f2 |cut -d'<' -f1
+      - grep 'Lint Report:' build/reports/lint/lint.html  | cut -d'>' -f2 |cut -d'<' -f1
 
   test:
     image: nextcloudci/android:android-15
