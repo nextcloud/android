@@ -1,6 +1,6 @@
 pipeline:
   lint:
-    image: nextcloudci/android:android-17
+    image: nextcloudci/android:android-18
     commands:
       # needs gplay
       - sh -c "sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle"
