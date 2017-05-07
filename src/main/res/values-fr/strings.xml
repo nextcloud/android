@@ -340,7 +340,7 @@
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="auto_upload_on_wifi">Téléverse par wifi uniquement</string>
+    <string name="auto_upload_on_wifi">Téléverser par wifi uniquement</string>
     <string name="instant_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
     <string name="instant_video_upload_on_wifi">Téléverser les images via une connexion WiFi uniquement</string>
     <string name="instant_video_upload_on_charging">Téléverser les images uniquement si le chargeur est branché</string>
@@ -486,7 +486,7 @@
     <string name="upload_move_files">Déplacer le fichier</string>
     <string name="select_all">Tout sélectionner</string>
 
-    <string name="pref_behaviour_entries_keep_file">conserver dans le dossier original</string>
+    <string name="pref_behaviour_entries_keep_file">conservé dans le dossier original</string>
     <string name="pref_behaviour_entries_move">déplacé vers le dossier de l\'application</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="prefs_storage_path">Chemin de stockage</string>
@@ -529,8 +529,8 @@
     <string name="action_clear_successful_uploads">Effacé</string>
     <string name="action_clear_finished_uploads">Effacer tous les téléversements terminés</string>
 
-    <string name="action_switch_grid_view">Affichage Mosaïque</string>
-    <string name="action_switch_list_view">Affichage Liste</string>
+    <string name="action_switch_grid_view">Affichage mosaïque</string>
+    <string name="action_switch_list_view">Affichage liste</string>
 
     <string name="manage_space_title">Gestion de l\'espace</string>
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
@@ -644,8 +644,8 @@
     <string name="contacts_preference_backup_never">jamais</string>
     <string name="contacts_preferences_no_file_found">Aucun fichier trouvé</string>
     <string name="contacts_preferences_something_strange_happened">Nous ne trouvons pas votre dernière copie de sauvegarde !</string>
-    <string name="contacts_preferences_backup_scheduled">Sauvegarde planifiée et va commencer prochainement</string>
-    <string name="contacts_preferences_import_scheduled">Importation planifiée et va commencer prochainement</string>
+    <string name="contacts_preferences_backup_scheduled">La sauvegarde est planifiée et va démarrer</string>
+    <string name="contacts_preferences_import_scheduled">L\'import est planifié et va démarrer</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">Nouvelle notification reçue</string>

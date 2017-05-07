@@ -410,6 +410,8 @@
     <string name="file_migration_restoring_accounts_configuration">Γίνεται επαναφορά ρυθμίσεων λογαριασμών&#8230;</string>
     <string name="file_migration_ok_finished">Ολοκληρώθηκε</string>
     <string name="file_migration_failed_not_enough_space">ΣΦΑΛΜΑ: Ανεπαρκής αποθηκευτικός χώρος</string>
+    <string name="file_migration_failed_not_writable">ΣΦΑΛΜΑ: Το αρχείο προορισμού δεν είναι εγγράψιμο</string>
+    <string name="file_migration_failed_not_readable">Σφάλμα: Το αρχείο προέλευσης δεν είναι αναγνώσιμο</string>
     <string name="file_migration_failed_dir_already_exists">ΣΦΑΛΜΑ: Υπάρχει ήδη ο κατάλογος Nextcloud</string>
     <string name="file_migration_failed_while_coping">ΣΦΑΛΜΑ: Κατά την μεταφορά</string>
     <string name="file_migration_failed_while_updating_index">ΣΦΑΛΜΑ: Κατά την ενημέρωση ευρετηρίου</string>
@@ -637,6 +639,7 @@
     <string name="contacts_preference_choose_date">Επιλογή ημερομηνίας</string>
     <string name="contacts_preference_backup_never">ποτέ</string>
     <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
+    <string name="contacts_preferences_something_strange_happened">Δεν μπορούμε να βρούμε το τελευταίο σας αντίγραφο ασφαλείας!</string>
     <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
 
