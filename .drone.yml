@@ -4,7 +4,7 @@ pipeline:
     commands:
       # needs gplay
       - sh -c "sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle"
-      - scripts/lint/lint-up.rb
+      - ruby scripts/lint/lint-up.rb
   test:
     image: nextcloudci/android:android-15
     commands:
