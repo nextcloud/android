@@ -1,5 +1,6 @@
 pipeline:
   lint:
+    image: nextcloudci/android:android-15
     commands:
       ./gradlew lint
   test:
