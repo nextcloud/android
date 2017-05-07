@@ -3,7 +3,7 @@ pipeline:
     image: nextcloudci/android:android-17
     commands:
       # needs gplay
-      - sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle
+      - sh -c "sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle"
       - ./gradlew lint
   test:
     image: nextcloudci/android:android-15
