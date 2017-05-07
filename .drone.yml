@@ -2,7 +2,9 @@ pipeline:
   lint:
     image: nextcloudci/android:android-15
     commands:
-      ./gradlew lint
+      # needs gplay
+      - sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle
+      - ./gradlew lint
   test:
     image: nextcloudci/android:android-15
     commands:
