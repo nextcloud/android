@@ -253,14 +253,14 @@ public class FileDisplayActivity extends HookActivity
         }
 
         if (getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT) != null) {
-            switchToSearchFragment();
+            switchToSearchFragment(savedInstanceState);
 
             int menuId = getIntent().getIntExtra(DRAWER_MENU_ID, -1);
             if (menuId != -1) {
                 setupDrawer(menuId);
             }
-        } else if (savedInstanceState == null) {
-            createMinFragments();
+        } else {
+            createMinFragments(savedInstanceState);
             refreshList(true);
         }
 
@@ -393,28 +393,36 @@ public class FileDisplayActivity extends HookActivity
         }
     }
 
-    private void switchToSearchFragment() {
-        OCFileListFragment listOfFiles = new OCFileListFragment();
-        Bundle args = new Bundle();
+    private void switchToSearchFragment(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            OCFileListFragment listOfFiles = new OCFileListFragment();
+            Bundle args = new Bundle();
 
-        args.putParcelable(OCFileListFragment.SEARCH_EVENT,
-                getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
-        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+            args.putParcelable(OCFileListFragment.SEARCH_EVENT,
+                    getIntent().getParcelableExtra(OCFileListFragment.SEARCH_EVENT));
+            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
 
-        listOfFiles.setArguments(args);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
-        transaction.commit();
+            listOfFiles.setArguments(args);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+            transaction.commit();
+        } else {
+            getSupportFragmentManager().findFragmentByTag(TAG_LIST_OF_FILES);
+        }
     }
 
-    private void createMinFragments() {
-        OCFileListFragment listOfFiles = new OCFileListFragment();
-        Bundle args = new Bundle();
-        args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
-        listOfFiles.setArguments(args);
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
-        transaction.commit();
+    private void createMinFragments(Bundle savedInstanceState) {
+        if (savedInstanceState == null) {
+            OCFileListFragment listOfFiles = new OCFileListFragment();
+            Bundle args = new Bundle();
+            args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
+            listOfFiles.setArguments(args);
+            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+            transaction.add(R.id.left_fragment_container, listOfFiles, TAG_LIST_OF_FILES);
+            transaction.commit();
+        } else {
+            getSupportFragmentManager().findFragmentByTag(TAG_LIST_OF_FILES);
+        }
     }
 
     private void initFragmentsWithFile() {
