@@ -412,6 +412,8 @@ Kies er eentje van een provider.</string>
     <string name="file_migration_restoring_accounts_configuration">Accountconfiguratie herstellen&#8230;</string>
     <string name="file_migration_ok_finished">Afgerond</string>
     <string name="file_migration_failed_not_enough_space">FOUT: Niet genoeg ruimte</string>
+    <string name="file_migration_failed_not_writable">FOUT: Doelbestand niet schrijfbaar</string>
+    <string name="file_migration_failed_not_readable">FOUT: Bronbestand niet leesbaar</string>
     <string name="file_migration_failed_dir_already_exists">FOUT: Nextcloudmap bestaat al</string>
     <string name="file_migration_failed_while_coping">FOUT: Tijdens migratie</string>
     <string name="file_migration_failed_while_updating_index">FOUT: Tijdens bijwerken index</string>
@@ -420,6 +422,7 @@ Kies er eentje van een provider.</string>
     <string name="file_migration_override_data_folder">Vervangen</string>
     <string name="file_migration_use_data_folder">Gebruiken</string>
 
+    <string name="file_migration_source_not_readable_title">Bronmap niet leesbaar!</string>
     <string name="prefs_category_accounts">Accounts</string>
     <string name="prefs_add_account">Account toevoegen</string>
     <string name="drawer_manage_accounts">Accounts beheren </string>
@@ -624,6 +627,7 @@ Kies er eentje van een provider.</string>
     <string name="prefs_category_about">Over</string>
 
     <string name="actionbar_contacts">Contactpersonen backup</string>
+    <string name="actionbar_contacts_restore">Herstellen contactpersonen</string>
     <string name="contacts_backup_button">Nu backupppen</string>
     <string name="contacts_restore_button">Herstel de laatste backup</string>
     <string name="contacts_header_restore">Herstellen</string>
