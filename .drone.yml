@@ -28,6 +28,7 @@ pipeline:
     commands:
       # needs gplay
       - sh -c "sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle"
-      - ruby scripts/lint/lint-up.rb ${GIT_USERNAME} ${GIT_TOKEN} ${DRONE_BRANCH}
+      - BRANCH=$(curl 2>/dev/null -u ${GIT_USERNAME}:${GIT_TOKEN} https://api.github.com/repos/nextcloud/android/pulls/565  |  grep \"ref\": /tmp/t1 | grep -v master | cut -d"\"" -f4)
+      - ruby scripts/lint/lint-up.rb ${GIT_USERNAME} ${GIT_TOKEN} $BRANCH
 
 branches: master
