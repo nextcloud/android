@@ -50,6 +50,7 @@ import android.text.style.StyleSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -448,13 +449,39 @@ public class DisplayUtils {
 
     /**
      * Sets the color of the status bar to {@code color} on devices with OS version lollipop or higher.
+     * (Window version)
+     *
+     * _param Window  window
+     * @param color   the color
+     */
+    public static void colorStatusBar(Window window, @ColorInt int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(color);
+        }
+    }
+
+    /**
+     * set the Nextcloud standard colors for the statusbar.
+     *
+     * @param context  the context relevant for setting the color according to the context's theme
+     * _param Window   window
+     */
+    public static void colorStatusBarDefault(Context context, Window window) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            colorStatusBar(window, ContextCompat.getColor(context, R.color.primary_dark));
+        }
+    }
+
+    /**
+     * Sets the color of the status bar to {@code color} on devices with OS version lollipop or higher.
+     * (FragmentActivity version)
      *
      * @param fragmentActivity fragment activity
      * @param color            the color
      */
     public static void colorStatusBar(FragmentActivity fragmentActivity, @ColorInt int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            fragmentActivity.getWindow().setStatusBarColor(color);
+            colorStatusBar(fragmentActivity.getWindow(), color);
         }
     }
 

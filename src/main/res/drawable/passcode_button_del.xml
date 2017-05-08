@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-  <item android:state_pressed="false">
+<selector xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:state_pressed="true"
+        android:drawable="@drawable/passcode_erase_to_the_left"
+        app:backgroundTint="@color/nc_blue">
+        <shape>
+            <solid android:color="@color/nc_blue" />
+        </shape>
+    </item>
+  <item android:drawable="@drawable/passcode_erase_to_the_left" >
     <color android:color="@color/transparent" />
-  </item>
-  <item android:state_pressed="true">
-    <color android:color="@color/nc_blue" />
   </item>
 </selector>

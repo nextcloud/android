@@ -31,7 +31,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -41,6 +40,7 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.AttributeSet;
@@ -58,6 +58,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.owncloud.android.R;
@@ -68,6 +69,8 @@ import java.util.Collections;
 import java.util.List;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
+import static com.owncloud.android.utils.DisplayUtils.colorSnackbar;
+import static com.owncloud.android.utils.DisplayUtils.colorStatusBarDefault;
 
 class PassFieldLinearLayout extends LinearLayout implements View.OnFocusChangeListener  {
 
@@ -257,7 +260,8 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
     // Preference
     private static final boolean INIT_SOFT_KEYBOARD_MODE = true;  // true=soft keyboard / false=buttons
-    private static final int GUARD_TIME = 5*1000;    // (ms)
+    private static final int GUARD_TIME = 10*1000;  // (ms)
+    private static final int GUARD_DISP_STEP = 50;  // (ms)
     private static final boolean ENABLE_SUFFLE_BUTTONS = false;
 
     private static final String KEY_CONFIRMING_PASSCODE = "CONFIRMING_PASSCODE";
@@ -311,6 +315,8 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     private Handler mHandler = new Handler();
     private TextView mPassCodeHdr;
     private boolean mSwitchKeyboardMenuEnable = false;
+    private int mGuardTimeLeft;     // (ms)
+    private boolean mGuardFlag = false;
 
     /**
      * Initializes the activity.
@@ -325,8 +331,12 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         super.onCreate(savedInstanceState);
         setContentView(R.layout.passcodelock);
 
+        // TODO: ToolbarActivity.java:52 setupToolbar()
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setIndeterminateDrawable(
+            ContextCompat.getDrawable(this, R.drawable.actionbar_progress_indeterminate_horizontal));
 
         toolbar.inflateMenu(R.menu.menu_passcode);
 
@@ -345,15 +355,12 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             mSoftKeyboardMode = mPref.getBoolean(AUTO_PREF__SOFT_KEYBOARD_MODE, INIT_SOFT_KEYBOARD_MODE);
         }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int systemBarColor = ContextCompat.getColor(this, R.color.primary_dark);
-            getWindow().setStatusBarColor(systemBarColor);
-        }
+        colorStatusBarDefault(this, getWindow());
 
         {   // TODO: setText!
-            AppCompatButton b = (AppCompatButton)findViewById(R.id.del);
+            //AppCompatButton b = (AppCompatButton)findViewById(R.id.del);
             //b.setText("\u232B");
-            b.setText("⌫");
+            //b.setText("⌫");
         }
 
         int explanationId = 0;
@@ -389,8 +396,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
         if (explanationId != 0) {
             setButtonsVisibility(false);
-            View view = findViewById(android.R.id.content);
-            mSnackbar = Snackbar.make(view, explanationId, Snackbar.LENGTH_LONG);
+            mSnackbar = makeSnackbar(explanationId, Snackbar.LENGTH_LONG);
             mSnackbar
                 .setAction(R.string.common_ok, new OnClickListener() {
                     @Override
@@ -433,6 +439,11 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             mSnackbar.setCallback(null);
         }
         mHandler.removeCallbacksAndMessages(null);
+
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setProgress(0);
+        mGuardFlag = false;
+        
         SharedPreferences.Editor editor = mPref.edit();
         editor.putBoolean(AUTO_PREF__SOFT_KEYBOARD_MODE, mSoftKeyboardMode);
         editor.apply();
@@ -547,7 +558,8 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             b.setText(mButtonsMainStr[j]);
             b.setOnClickListener(new ButtonClicked(j));
         }
-        AppCompatButton del = (AppCompatButton)findViewById(R.id.del);
+        AppCompatImageButton del = (AppCompatImageButton)findViewById(R.id.del);
+//        AppCompatButton del = (AppCompatButton)findViewById(R.id.del);
         buttonAnimation(del, true, duration);
         del.setOnClickListener(new ButtonClicked(10));
     }
@@ -561,7 +573,8 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             b.setLongClickable(false);
             b.setOnLongClickListener(null);
         }
-        AppCompatButton del = (AppCompatButton)findViewById(R.id.del);
+        AppCompatImageButton del = (AppCompatImageButton)findViewById(R.id.del);
+//        AppCompatButton del = (AppCompatButton)findViewById(R.id.del);
         buttonAnimation(del, false, duration);
         del.setOnClickListener(null);
     }
@@ -645,15 +658,20 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
             } else {
                 mPassCodeHdr.setText(R.string.pass_code_configure_your_pass_code);
-                showErrorMessage(R.string.pass_code_mismatch);
                 startGuard();
             }
         }
     }
 
-    private void showErrorMessage(int errorMessage) {
+    private Snackbar makeSnackbar(int messageId, int length) {
         View view = findViewById(android.R.id.content);
-        mSnackbar = Snackbar.make(view, errorMessage, Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(view, messageId, length);
+        colorSnackbar(this, snackbar);
+        return snackbar;
+    }
+    
+    private void showErrorMessage(int errorMessage) {
+        mSnackbar = makeSnackbar(errorMessage, Snackbar.LENGTH_INDEFINITE);
         mSnackbar.show();
     }
 
@@ -673,12 +691,48 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         PassFieldLinearLayout ll = (PassFieldLinearLayout)findViewById(R.id.PasscodeLinearLayout);
         ll.startAnimation(animation);
 
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                endGuard();
-            }
-        }, GUARD_TIME);
+        if (ACTION_CHECK.equals(getIntent().getAction()) ||
+            ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
+            // hard guard
+            mGuardTimeLeft = GUARD_TIME + GUARD_DISP_STEP;
+            final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            progressBar.setIndeterminate(false);    // TODO: ToolbarActivity:117 setIndeterminate()
+            progressBar.setMax(GUARD_TIME);         // TODO: ?? ToolbarActivity:128 setProgressBarBackgroundColor()
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    mGuardTimeLeft -= GUARD_DISP_STEP;
+                    progressBar.setProgress(mGuardTimeLeft);
+                    if (mGuardTimeLeft == 0) {
+                        endGuard();
+                    } else {
+                        mHandler.postDelayed(this, GUARD_DISP_STEP);
+                    }
+                }
+            });
+            setCancelButtonEnabled(false);
+            mGuardFlag = true;
+        } else {
+            // easy guard
+            mSnackbar = makeSnackbar(R.string.pass_code_mismatch, Snackbar.LENGTH_LONG);
+            mSnackbar
+                    .setAction(R.string.common_ok, new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // nothing to do
+                        }
+                    })
+                    .setCallback(new Snackbar.Callback() {
+                        @Override
+                        public void onDismissed(Snackbar snackbar, int event) {
+                            setupKeyboard();
+                            setSwitchKeyboardMenuVisibility(true);
+                            mConfirmingPassCodeFlag = false;
+                            clearPassCodeEditText();
+                        }
+                    })
+                    .show();
+        }
     }
 
     private void endGuard() {
@@ -691,10 +745,10 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             resultIntent.putExtra(KEY_CHECK_RESULT, true);
             setResult(RESULT_CANCELED, resultIntent);
             finish();
-        } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
-            setupKeyboard();
-            clearPassCodeEditText();
-            mConfirmingPassCodeFlag = false;
+        // } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
+        //     setupKeyboard();
+        //     clearPassCodeEditText();
+        //     mConfirmingPassCodeFlag = false;
         }
         setSwitchKeyboardMenuVisibility(true);
     }
@@ -750,9 +804,12 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction()) ||
-                    ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
+            if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
                 finish();
+            } else if (ACTION_CHECK_WITH_RESULT.equals(getIntent().getAction())) {
+                if (!mGuardFlag) {
+                    finish();
+                }
             } else {
                 goHome();
             }

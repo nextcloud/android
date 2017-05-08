@@ -27,12 +27,12 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="@dimen/standard_padding"
-        android:weightSum="1">
+        android:padding="@dimen/standard_padding">
 
 
         <TextView
@@ -40,7 +40,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="0.19"
             android:gravity="center"
             android:text="@string/pass_code_enter_pass_code"
             android:textColor="@android:color/black"
@@ -90,7 +89,7 @@
                     android:gravity="center" />
             </com.owncloud.android.ui.activity.PassFieldLinearLayout>
 
-            <android.support.v7.widget.AppCompatButton
+            <ImageButton
                 android:id="@+id/del"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -99,11 +98,10 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="30dp"
                 android:layout_marginRight="30dp"
-                android:background="@drawable/passcode_button_del"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:gravity="center_vertical|fill_vertical|center"
-                android:text="\u232B"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:scaleType="centerInside"
+                android:src="@drawable/passcode_erase_to_the_left" />
 
         </RelativeLayout>
 
@@ -126,7 +124,7 @@
                     android:layout_margin="13dp"
                     android:background="@drawable/passcode_button"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/button2"
@@ -135,7 +133,7 @@
                     android:layout_margin="13dp"
                     android:background="@drawable/passcode_button"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/button3"
@@ -144,7 +142,7 @@
                     android:layout_margin="13dp"
                     android:background="@drawable/passcode_button"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/button4"
@@ -153,7 +151,7 @@
                     android:layout_margin="13dp"
                     android:background="@drawable/passcode_button"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/button5"
@@ -162,7 +160,7 @@
                     android:layout_margin="13dp"
                     android:background="@drawable/passcode_button"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
@@ -178,7 +176,8 @@
                     android:layout_margin="13dp"
                     android:background="@drawable/passcode_button"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
+
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/button7"
                     android:layout_width="50dp"
@@ -186,7 +185,7 @@
                     android:layout_margin="13dp"
                     android:background="@drawable/passcode_button"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/button8"
@@ -195,7 +194,7 @@
                     android:layout_margin="13dp"
                     android:background="@drawable/passcode_button"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
 
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/button9"
@@ -204,7 +203,8 @@
                     android:layout_margin="13dp"
                     android:background="@drawable/passcode_button"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
+
                 <android.support.v7.widget.AppCompatButton
                     android:id="@+id/button0"
                     android:layout_width="50dp"
@@ -212,7 +212,7 @@
                     android:layout_margin="13dp"
                     android:background="@drawable/passcode_button"
                     android:gravity="center"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 

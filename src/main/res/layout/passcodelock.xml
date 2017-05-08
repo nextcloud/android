@@ -87,7 +87,7 @@
                     android:gravity="center" />
             </com.owncloud.android.ui.activity.PassFieldLinearLayout>
 
-            <android.support.v7.widget.AppCompatButton
+            <ImageButton
                 android:id="@+id/del"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -96,11 +96,10 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="30dp"
                 android:layout_marginRight="30dp"
-                android:background="@drawable/passcode_button_del"
                 android:gravity="center_vertical|fill_vertical|center"
-                android:text="\u232B"
-                android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="centerInside"
+                android:src="@drawable/passcode_erase_to_the_left" />
 
         </RelativeLayout>
 
