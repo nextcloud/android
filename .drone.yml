@@ -28,4 +28,4 @@ pipeline:
     commands:
       # needs gplay
       - sh -c "sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle"
-      - ruby scripts/lint/lint-up.rb
+      - ruby scripts/lint/lint-up.rb ${GIT_USERNAME} ${GIT_TOKEN}
