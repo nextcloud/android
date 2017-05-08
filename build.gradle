@@ -77,8 +77,8 @@ android {
         multiDexEnabled true
 
         applicationId "com.nextcloud.android.beta"
-        versionCode 20170508
-        versionName "20170508"
+        versionCode 20170509
+        versionName "20170509"
 
         // adapt structure from Eclipse to Gradle/Android Studio expectations;
         // see http://tools.android.com/tech-docs/new-build-system/user-guide#TOC-Configuring-the-Structure
