@@ -645,4 +645,12 @@ në 7 ditët e fundit.</string>
     <string name="contacts_preference_backup_never">kurrë</string>
     <string name="contacts_preferences_no_file_found">Nuk u gjet asnjë skedarë</string>
     <string name="contacts_preferences_something_strange_happened">Ne nuk mund të gjejmë backup-in tuaj të fundit!</string>
-    </resources>
+    <string name="contacts_preferences_backup_scheduled">Backup-i u skedulua dhe do të filloj së shpejti</string>
+    <string name="contacts_preferences_import_scheduled">Importimi u skedulua dhe do të filloj së shpejti</string>
+
+    <!-- Notifications -->
+    <string name="new_notification_received">Morët njoftime të reja</string>
+    <string name="drawer_logout">Dilni</string>
+
+
+</resources>
