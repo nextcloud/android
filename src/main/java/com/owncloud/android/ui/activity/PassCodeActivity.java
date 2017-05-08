@@ -357,11 +357,11 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
         colorStatusBarDefault(this, getWindow());
 
-        {   // TODO: setText!
-            //AppCompatButton b = (AppCompatButton)findViewById(R.id.del);
-            //b.setText("\u232B");
-            //b.setText("⌫");
-        }
+        // {   // TODO: setText!
+        //     //AppCompatButton b = (AppCompatButton)findViewById(R.id.del);
+        //     //b.setText("\u232B");
+        //     //b.setText("⌫");
+        // }
 
         int explanationId = 0;
         if (ACTION_CHECK.equals(getIntent().getAction())) {
