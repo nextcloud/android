@@ -3,13 +3,6 @@
 
 puts "=================== starting Android Lint Entropy Reducer ===================="
 
-# get user, token from arguments
-git_user, git_token = ARGV
-
-puts "user: " + git_user
-exit 0
-
-
 # ========================  SETUP ============================
 
 # User name for git commits made by this script.
