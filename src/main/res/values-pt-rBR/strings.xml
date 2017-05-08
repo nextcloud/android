@@ -155,7 +155,7 @@
     <string name="about_title">Sobre</string>
     <string name="change_password">Alterar senha</string>
     <string name="delete_account">Excluir conta</string>
-    <string name="delete_account_warning">Excluir a conta %s?\n\nNão é possível desfazer a exclusão.</string>
+    <string name="delete_account_warning">Excluir a conta %s?\n\nNão será possível desfazer a exclusão.</string>
     <string name="create_account">Criar conta</string>
     <string name="upload_chooser_title">Enviar de &#8230;</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
@@ -273,7 +273,7 @@
 	<string name="auth_unsupported_auth_method">O servidor não suporta este método de autenticação</string>
 	<string name="auth_unsupported_multiaccount">%1$s não suporta múltiplas contas</string>
 	<string name="auth_fail_get_user_name">Seu servidor não está retornando um ID correto de usuário. Por favor, contacte o administrador</string>
-	<string name="auth_can_not_auth_against_server">Não é possível obter autenticação neste servidor</string>
+	<string name="auth_can_not_auth_against_server">Não foi possível obter autenticação neste servidor</string>
     <string name="auth_account_does_not_exist">A conta ainda não existe no dispositivo</string>
     
     <string name="favorite">Definir como disponível offline</string>
@@ -365,11 +365,11 @@
     <string name="prefs_instant_upload_path_use_subfolders_summary">Armazena em subpastas baseado no ano e mês</string>
 
 	<string name="share_link_no_support_share_api">O compartilhamento não está habilitado em seu servidor. Por favor, contact o administrador.</string>
-	<string name="share_link_file_no_exist">Não é possível compartilhar. Por favor verifique se o arquivo existe</string>
+	<string name="share_link_file_no_exist">Não foi possível compartilhar. Por favor verifique se o arquivo existe</string>
 	<string name="share_link_file_error">Ocorreu um erro durante a tentativa de compartilhar esse arquivo ou pasta</string>
-	<string name="unshare_link_file_no_exist">Não é possível descompartilhar. Por favor verifique se o arquivo existe</string>
+	<string name="unshare_link_file_no_exist">Não foi possível descompartilhar. Por favor verifique se o arquivo existe</string>
 	<string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta</string>
-    <string name="update_link_file_no_exist">Não é possível atualizar. Verifique se o arquivo existe</string>
+    <string name="update_link_file_no_exist">Não foi possível atualizar. Verifique se o arquivo existe</string>
     <string name="update_link_file_error">Ocorreu um erro enquanto tentava atualizar o compartilhamento</string>
     <string name="share_link_password_title">Digite uma senha</string>
     <string name="share_link_empty_password">Você deve digitar uma senha</string>
@@ -431,7 +431,7 @@
 
 	<string name="actionbar_logger">Logs</string>
 	<string name="log_send_history_button">Enviar histórico</string>
-	<string name="log_send_no_mail_app">Nenhum aplicativo para enviar registros foi encontrado. Por favor instale um cliente de email.</string>
+	<string name="log_send_no_mail_app">Nenhum aplicativo para enviar registros foi encontrado. Por favor instale um cliente de e-mail.</string>
 	<string name="log_send_mail_subject">%1$s logs do aplicativo Android</string>
 	<string name="log_progress_dialog_text">Carregando dados &#8230;</string>
 
@@ -449,7 +449,7 @@
     <string name="forbidden_permissions_move">mover este arquivo</string>
 
 
-    <string name="copy_file_not_found">Não é possível copiar. Por favor, verifique se o arquivo existe</string>
+    <string name="copy_file_not_found">Não foi possível copiar. Por favor, verifique se o arquivo existe</string>
     <string name="copy_file_invalid_into_descendent">Não é possível copiar uma pasta para uma das suas próprias pastas subjacentes</string>
     <string name="copy_file_invalid_overwrite">O arquivo já está presente na pasta destino</string>
     <string name="copy_file_error">Ocorreu um erro ao tentar copiar este arquivo ou pasta</string>
@@ -613,7 +613,7 @@
 
     <!-- User information -->
     <string name="user_info_full_name">Nome completo</string>
-    <string name="user_info_email">Email</string>
+    <string name="user_info_email">E-mail</string>
     <string name="user_info_phone">Número do telefone</string>
     <string name="user_info_address">Endereço</string>
     <string name="user_info_website">Website</string>

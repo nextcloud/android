@@ -411,6 +411,8 @@
     <string name="file_migration_restoring_accounts_configuration">Gjenoppretter kontokonfigurasjon&#8230;</string>
     <string name="file_migration_ok_finished">Fullført</string>
     <string name="file_migration_failed_not_enough_space">FEIL: Ikke nok plass</string>
+    <string name="file_migration_failed_not_writable">FEIL: Målfila er ikke skrivbar</string>
+    <string name="file_migration_failed_not_readable">Feil: Kildefila er ikke lesbar</string>
     <string name="file_migration_failed_dir_already_exists">FEIL: Nextcloudmappen finnes allerede</string>
     <string name="file_migration_failed_while_coping">FEIL: Under migrering</string>
     <string name="file_migration_failed_while_updating_index">FEIL: Under oppdatering av indeks</string>
@@ -418,6 +420,9 @@
     <string name="file_migration_directory_already_exists">Datamappe finnes fra før, hva skal gjøres?</string>
     <string name="file_migration_override_data_folder">Erstatt</string>
     <string name="file_migration_use_data_folder">Bruk</string>
+
+    <string name="file_migration_source_not_readable_title">Målmappa er ikke lesbar!</string>
+    <string name="file_migration_source_not_readable">Ønsker du å endre lagringsstien til %1$s\n\nMerk: All data vil måtte lastes ned igjen.</string>
 
     <string name="prefs_category_accounts">Kontoer</string>
     <string name="prefs_add_account">Legg til en konto</string>
@@ -622,6 +627,7 @@
     <string name="prefs_category_about">Om</string>
 
     <string name="actionbar_contacts">Sikkerhetskopiering av kontakter</string>
+    <string name="actionbar_contacts_restore">Gjenopprett kontakter</string>
     <string name="contacts_backup_button">Sikkerhetskopier nå</string>
     <string name="contacts_restore_button">Gjenopprett fra siste sikkerhetskopiering</string>
     <string name="contacts_header_restore">Gjenopprett</string>
