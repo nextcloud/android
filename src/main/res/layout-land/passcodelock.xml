@@ -39,11 +39,11 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
             android:text="@string/pass_code_enter_pass_code"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/two_line_primary_text_size" />
+            android:gravity="center"
+            android:textSize="@dimen/two_line_primary_text_size"
+	    android:layout_gravity="center" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                     android:gravity="center" />
             </com.owncloud.android.ui.activity.PassFieldLinearLayout>
 
-            <ImageButton
+            <android.support.v7.widget.AppCompatButton
                 android:id="@+id/del"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
@@ -98,19 +98,19 @@
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="30dp"
                 android:layout_marginRight="30dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
+                android:background="@drawable/passcode_button_del"
                 android:gravity="center_vertical|fill_vertical|center"
-                android:scaleType="centerInside"
-                android:src="@drawable/passcode_erase_to_the_left" />
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
         </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/ButtonsLinearLayout"
+            android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:orientation="vertical">
+            android:layout_gravity="center">
 
             <LinearLayout
                 android:layout_width="wrap_content"

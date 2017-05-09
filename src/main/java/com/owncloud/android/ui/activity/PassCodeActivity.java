@@ -30,6 +30,7 @@ import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,7 +41,6 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
 import android.util.AttributeSet;
@@ -307,6 +307,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         Invisible
     }
     private boolean mSoftKeyboardMode;          // true=soft(virtual) keyboard / false=buttons
+    private boolean mEnableSwitchSoftKeyboard = true;
     private ButtonVisibility mButtonVisibility = ButtonVisibility.Startup;
     private SoftKeyboardUtil mSoftKeyboard;
     private SharedPreferences mPref;
@@ -317,6 +318,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     private boolean mSwitchKeyboardMenuEnable = false;
     private int mGuardTimeLeft;     // (ms)
     private boolean mGuardFlag = false;
+    private Typeface mTypeFace;
 
     /**
      * Initializes the activity.
@@ -340,6 +342,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
         toolbar.inflateMenu(R.menu.menu_passcode);
 
+        mTypeFace = Typeface.createFromAsset(getAssets(), "Symbola_subset.ttf");
         mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         mPassCodeHdr = (TextView)findViewById(R.id.header);
         setupButtons();
@@ -350,18 +353,14 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         if (config.hardKeyboardHidden == Configuration.HARDKEYBOARDHIDDEN_NO &&
                 android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP) {    // 5.0(21)
             // Soft(Virtual)Keyboard can not be displayed
+            mEnableSwitchSoftKeyboard = false;
             mSoftKeyboardMode = false;          // buttons always show
         } else {
+            mEnableSwitchSoftKeyboard = true;
             mSoftKeyboardMode = mPref.getBoolean(AUTO_PREF__SOFT_KEYBOARD_MODE, INIT_SOFT_KEYBOARD_MODE);
         }
 
         colorStatusBarDefault(this, getWindow());
-
-        // {   // TODO: setText!
-        //     //AppCompatButton b = (AppCompatButton)findViewById(R.id.del);
-        //     //b.setText("\u232B");
-        //     //b.setText("⌫");
-        // }
 
         int explanationId = 0;
         if (ACTION_CHECK.equals(getIntent().getAction())) {
@@ -495,10 +494,12 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     //     super.onConfigurationChanged(newConfig);
     //     switch(newConfig.hardKeyboardHidden) {
     //     case Configuration.HARDKEYBOARDHIDDEN_NO:
+    //         mEnableSwitchSoftKeyboard = false;
     //         mSoftKeyboardMode = false;
     //         setupKeyboard();
     //         break;
     //     case Configuration.HARDKEYBOARDHIDDEN_YES:
+    //         mEnableSwitchSoftKeyboard = true;
     //         mSoftKeyboardMode = false;
     //         setupKeyboard();
     //         break;
@@ -524,8 +525,11 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         }
         for (int i = 0; i < mButtonsIDList.length; i++) {
             mButtonsList[i] = (AppCompatButton)findViewById(mButtonsIDList[i]);
-            // mButtonsList[i].setAllCaps(false);
+            //mButtonsList[i].setTypeface(mTypeFace);
         }
+        AppCompatButton b = (AppCompatButton)findViewById(R.id.del);
+        b.setText("\u232B");		// U+232B (Erase To The Left)
+        b.setTypeface(mTypeFace);
     }
 
     private void buttonAnimation(View view, boolean visible, int duration) {
@@ -558,8 +562,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             b.setText(mButtonsMainStr[j]);
             b.setOnClickListener(new ButtonClicked(j));
         }
-        AppCompatImageButton del = (AppCompatImageButton)findViewById(R.id.del);
-//        AppCompatButton del = (AppCompatButton)findViewById(R.id.del);
+        AppCompatButton del = (AppCompatButton)findViewById(R.id.del);
         buttonAnimation(del, true, duration);
         del.setOnClickListener(new ButtonClicked(10));
     }
@@ -573,8 +576,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             b.setLongClickable(false);
             b.setOnLongClickListener(null);
         }
-        AppCompatImageButton del = (AppCompatImageButton)findViewById(R.id.del);
-//        AppCompatButton del = (AppCompatButton)findViewById(R.id.del);
+        AppCompatButton del = (AppCompatButton)findViewById(R.id.del);
         buttonAnimation(del, false, duration);
         del.setOnClickListener(null);
     }
@@ -591,7 +593,11 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
 
     private void setSwitchKeyboardMenuVisibility(boolean visible) {
-        mSwitchKeyboardMenuEnable = visible;
+        if (mEnableSwitchSoftKeyboard) {
+            mSwitchKeyboardMenuEnable = visible;
+        } else {
+            mSwitchKeyboardMenuEnable = false;
+        }
         invalidateOptionsMenu();
     }
 
