@@ -643,9 +643,13 @@
     <string name="contacts_preference_choose_date">Velg dato</string>
     <string name="contacts_preference_backup_never">aldri</string>
     <string name="contacts_preferences_no_file_found">Ingen fil funnet</string>
+    <string name="contacts_preferences_something_strange_happened">Vi kan ikke finne din siste sikkerhetskopi!</string>
     <string name="contacts_preferences_backup_scheduled">Sikkerhetskopi planlagt og i snarlig effektuering</string>
     <string name="contacts_preferences_import_scheduled">Importering planlagt og i snarlig effektuering</string>
 
     <!-- Notifications -->
     <string name="new_notification_received">Nytt varsel mottatt</string>
-    </resources>
+    <string name="drawer_logout">Utlogging</string>
+
+
+</resources>
