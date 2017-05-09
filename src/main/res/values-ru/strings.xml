@@ -562,6 +562,7 @@
     <string name="participate_contribute_irc_text">Присоединиться к IRC-чату: &lt;a href="%1$s">#nextcloud-mobile&lt;/a></string>
     <string name="participate_contribute_forum_text">Помогите другим на нашем &lt;a href="%1$s">форуме&lt;/a></string>
     <string name="participate_contribute_translate_text">Участвовать в &lt;a href=\"%1$s\">переводе&lt;/a> приложения</string>
+    <string name="participate_contribute_github_text">Рецензируйте, именяйте и пишите код, подробности по ссылке &lt;a href=\"https://github.com/nextcloud/android/blob/master/CONTRIBUTING.md\">CONTRIBUTING.md&lt;/a>.</string>
     <string name="move_to">Переместить в&#8230;</string>
     <string name="copy_to">Копировать в&#8230;</string>
     <string name="choose_remote_folder">Выберите каталог &#8230;</string>
