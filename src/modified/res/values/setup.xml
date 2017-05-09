@@ -42,7 +42,7 @@
 
     <!-- Contacts backup -->
     <bool name="contacts_backup">true</bool>
-    <string name="contacts_backup_folder">/Contacts-Backup</string>
+    <string name="contacts_backup_folder">/.Contacts-Backup</string>
     <integer name="contacts_backup_expire">30</integer>
 
     <!-- Colors -->
