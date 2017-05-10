@@ -171,7 +171,7 @@ public class PassCodeActivity extends AppCompatActivity {
 
 
     /**
-     * Binds the appropiate listeners to the input boxes receiving each digit of the pass code.
+     * Binds the appropriate listeners to the input boxes receiving each digit of the pass code.
      */
     protected void setTextListeners() {
     

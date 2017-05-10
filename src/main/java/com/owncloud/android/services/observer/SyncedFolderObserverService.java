@@ -72,7 +72,7 @@ public class SyncedFolderObserverService extends Service {
                     observer.addListener(new AdvancedFileAlterationListener(syncedFolder));
                     monitor.addObserver(observer);
                 } catch (Exception e) {
-                    Log_OC.d(TAG, "Failed getting an observer to intialize " + e);
+                    Log_OC.d(TAG, "Failed getting an observer to initialize " + e);
                 }
 
             }
@@ -138,7 +138,7 @@ public class SyncedFolderObserverService extends Service {
                         advancedFileAlterationObserver.addListener(new AdvancedFileAlterationListener(syncedFolder));
                         monitor.addObserver(advancedFileAlterationObserver);
                     } catch (Exception e) {
-                        Log_OC.d(TAG, "Failed getting an observer to intialize");
+                        Log_OC.d(TAG, "Failed getting an observer to initialize");
                     }
                 } else {
                     monitor.removeObserver(fileAlterationObserver);
@@ -155,7 +155,7 @@ public class SyncedFolderObserverService extends Service {
                 advancedFileAlterationObserver.addListener(new AdvancedFileAlterationListener(syncedFolder));
                 monitor.addObserver(advancedFileAlterationObserver);
             } catch (Exception e) {
-                Log_OC.d(TAG, "Failed getting an observer to intialize");
+                Log_OC.d(TAG, "Failed getting an observer to initialize");
             }
 
         }
