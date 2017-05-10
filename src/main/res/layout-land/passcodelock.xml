@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ownCloud Android client application
+
+  Copyright (C) 2012  Bartek Przybylski
+  Copyright (C) 2015 ownCloud Inc.
+
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU General Public License version 2,
+  as published by the Free Software Foundation.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        layout="@layout/toolbar_standard" />
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/standard_padding">
+
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pass_code_enter_pass_code"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:textSize="@dimen/two_line_primary_text_size"
+	    android:layout_gravity="center" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.owncloud.android.ui.activity.PassFieldLinearLayout
+                android:id="@+id/PasscodeLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/passField1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_circular_border"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/passField2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_circular_border"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/passField3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_circular_border"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/passField4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_circular_border"
+                    android:gravity="center" />
+            </com.owncloud.android.ui.activity.PassFieldLinearLayout>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/del"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/passcode_button_del"
+                android:gravity="center_vertical|fill_vertical|center"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/ButtonsLinearLayout"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button1"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_button"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_button"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button3"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_button"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button4"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_button"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button5"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_button"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button6"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_button"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button7"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_button"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button8"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_button"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button9"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_button"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/button0"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_margin="13dp"
+                    android:background="@drawable/passcode_button"
+                    android:gravity="center"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

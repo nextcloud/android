@@ -7,12 +7,12 @@
         android:drawable="@color/primary" />
     <item android:id="@android:id/secondaryProgress">
         <scale
-            android:drawable="@color/primary"
+            android:drawable="@color/half_black"
             android:scaleWidth="100%" />
     </item>
     <item android:id="@android:id/progress">
         <scale
-            android:drawable="@color/primary"
+            android:drawable="@color/white"
             android:scaleWidth="100%" />
     </item>
 

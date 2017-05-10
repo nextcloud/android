@@ -211,7 +211,10 @@
         <service android:name=".files.services.FileUploader" />
         <service android:name=".media.MediaService" />
 
-        <activity android:name=".ui.activity.PassCodeActivity" />
+        <activity
+            android:name=".ui.activity.PassCodeActivity"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.ownCloud.Toolbar.Drawer" />
         <activity android:name=".ui.activity.FingerprintActivity"/>
         <activity android:name=".ui.activity.ConflictsResolveActivity"/>
         <activity android:name=".ui.activity.GenericExplanationActivity"/>

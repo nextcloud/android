@@ -223,6 +223,7 @@
     <string name="pass_code_wrong">Incorrect passcode</string>
     <string name="pass_code_removed">Passcode removed</string>
     <string name="pass_code_stored">Passcode stored</string>
+    <string name="pass_code_switch_keyboard">Switch keyboard</string>
     
     <string name="media_notif_ticker">"%1$s music player"</string>
     <string name="media_state_playing">"%1$s (playing)"</string>
