@@ -41,7 +41,12 @@ import org.lukhnos.nnio.file.Paths;
 import org.lukhnos.nnio.file.SimpleFileVisitor;
 import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.nio.channels.FileChannel;
+import java.nio.channels.FileLock;
+import java.nio.channels.OverlappingFileLockException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +90,7 @@ public class NewAutoUploadJob extends Job {
         List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
         List<SyncedFolder> syncedFoldersToDelete = new ArrayList<>();
 
+        // be smart, and only traverse folders once instead of multiple times
         for (SyncedFolder syncedFolder : syncedFolders) {
             for (SyncedFolder secondarySyncedFolder : syncedFolders) {
                 if (!syncedFolder.equals(secondarySyncedFolder) &&
@@ -98,6 +104,7 @@ public class NewAutoUploadJob extends Job {
         // delete all the folders from the list that we won't traverse
         syncedFolders.removeAll(syncedFoldersToDelete);
 
+        // store all files from the filesystem
         for (int i = 0; i < syncedFolders.size(); i++) {
             Path path = Paths.get(syncedFolders.get(i).getLocalPath());
 
@@ -106,8 +113,19 @@ public class NewAutoUploadJob extends Job {
                     @Override
                     public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
 
-                        filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
-                                attrs.lastModifiedTime().toMillis(), path.toFile().isDirectory(), false);
+                        File file = path.toFile();
+                        FileChannel channel = new RandomAccessFile(file, "rw").getChannel();
+                        FileLock lock = channel.lock();
+                        try {
+                            lock = channel.tryLock();
+                            filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
+                                    attrs.lastModifiedTime().toMillis(), file.isDirectory(), false);
+                        } catch (OverlappingFileLockException e) {
+                            filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
+                                    attrs.lastModifiedTime().toMillis(), file.isDirectory(), true);
+                        } finally {
+                            lock.release();
+                        }
 
                         return FileVisitResult.CONTINUE;
                     }

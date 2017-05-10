@@ -29,17 +29,20 @@ public class FileSystemDataSet {
     private boolean isFolder;
     private boolean isSentForUpload;
     private long foundAt;
+    private boolean isFileModified;
 
     public FileSystemDataSet() {
     }
 
-    public FileSystemDataSet(int id, String localPath, long modifiedAt, boolean isFolder, boolean isSentForUpload, long foundAt) {
+    public FileSystemDataSet(int id, String localPath, long modifiedAt, boolean isFolder,
+                             boolean isSentForUpload, long foundAt, boolean isFileModified) {
         this.id = id;
         this.localPath = localPath;
         this.modifiedAt = modifiedAt;
         this.isFolder = isFolder;
         this.isSentForUpload = isSentForUpload;
         this.foundAt = foundAt;
+        this.isFileModified = isFileModified;
     }
 
     public int getId() {
@@ -90,4 +93,11 @@ public class FileSystemDataSet {
         isSentForUpload = sentForUpload;
     }
 
+    public boolean isFileModified() {
+        return isFileModified;
+    }
+
+    public void setFileModified(boolean fileModified) {
+        isFileModified = fileModified;
+    }
 }
