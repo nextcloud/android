@@ -20,6 +20,7 @@
 package com.owncloud.android;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -31,6 +32,8 @@ import android.support.v4.util.Pair;
 
 import com.evernote.android.job.JobManager;
 import com.owncloud.android.authentication.PassCodeManager;
+import com.owncloud.android.datamodel.MediaFolder;
+import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -260,6 +263,54 @@ public class MainApp extends MultiDexApplication {
             SyncedFolderProvider syncedFolderProvider =
                     new SyncedFolderProvider(MainApp.getAppContext().getContentResolver());
             syncedFolderProvider.updateAutoUploadPaths(mContext);
+        }
+    }
+
+    private void splitOutAutoUploadEntries() {
+        if (!PreferenceManager.getAutoUploadSplitEntries(this)) {
+            // magic to split out existing synced folders in two when needed
+            // otherwise, we migrate them to their proper type (image or video)
+            Log_OC.i(TAG, "Migrate synced_folders records for image/video split");
+            ContentResolver contentResolver = this.getContentResolver();
+
+            SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
+
+            final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1);
+            final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1);
+
+            ArrayList<Long> idsToDelete = new ArrayList<>();
+            List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
+            long primaryKey;
+            SyncedFolder newSyncedFolder;
+            for (SyncedFolder syncedFolder : syncedFolders) {
+                idsToDelete.add(syncedFolder.getId());
+                for (int i = 0; i < imageMediaFolders.size(); i++) {
+                    if (imageMediaFolders.get(i).absolutePath.equals(syncedFolder.getLocalPath())) {
+                        newSyncedFolder = (SyncedFolder) syncedFolder.clone();
+                        newSyncedFolder.setType(MediaFolder.IMAGE);
+                        primaryKey = syncedFolderProvider.storeFolderSync(newSyncedFolder);
+                        Log_OC.i(TAG, "Migrated image synced_folders record: "
+                                + primaryKey + " - " + newSyncedFolder.getLocalPath());
+                        break;
+                    }
+                }
+
+                for (int j = 0; j < videoMediaFolders.size(); j++) {
+                    if (videoMediaFolders.get(j).absolutePath.equals(syncedFolder.getLocalPath())) {
+                        newSyncedFolder = (SyncedFolder) syncedFolder.clone();
+                        newSyncedFolder.setType(MediaFolder.VIDEO);
+                        primaryKey = syncedFolderProvider.storeFolderSync(newSyncedFolder);
+                        Log_OC.i(TAG, "Migrated video synced_folders record: "
+                                + primaryKey + " - " + newSyncedFolder.getLocalPath());
+                        break;
+                    }
+                }
+            }
+
+            syncedFolderProvider.deleteSyncedFoldersInList(idsToDelete);
+
+            PreferenceManager.setAutoUploadSplitEntries(this, true);
+
         }
     }
 
