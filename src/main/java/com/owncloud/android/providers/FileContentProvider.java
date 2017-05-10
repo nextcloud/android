@@ -27,7 +27,6 @@ import android.accounts.AccountManager;
 import android.content.ContentProvider;
 import android.content.ContentProviderOperation;
 import android.content.ContentProviderResult;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -43,11 +42,7 @@ import android.text.TextUtils;
 
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
-import com.owncloud.android.datamodel.MediaFolder;
-import com.owncloud.android.datamodel.MediaProvider;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolder;
-import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -59,7 +54,6 @@ import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -852,6 +846,7 @@ public class FileContentProvider extends ContentProvider {
                     db.endTransaction();
                 }
             }
+
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
             }
@@ -1027,8 +1022,9 @@ public class FileContentProvider extends ContentProvider {
                     db.endTransaction();
                 }
 
-            if (!upgraded) {
-                Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+                if (!upgraded) {
+                    Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
+                }
             }
 
             if (oldVersion < 20 && newVersion >= 20) {
