@@ -420,6 +420,9 @@
     <string name="file_migration_override_data_folder">Αντικατάσταση</string>
     <string name="file_migration_use_data_folder">Χρήση</string>
 
+    <string name="file_migration_source_not_readable_title">Ο πηγαίος φάκελος δεν ειναι αναγνώσιμος!</string>
+    <string name="file_migration_source_not_readable">Θέλετε ακόμη να αλλάξετε το μονοπάτι αποθήκευσης σε %1$s;\n\nΣημείωση: όλα τα δεδομένα θα πρέπει να κατεβαστούν ξανά. </string>
+
     <string name="prefs_category_accounts">Λογαριασμοί</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
     <string name="drawer_manage_accounts">Διαχείριση λογαριασμών</string>
@@ -636,6 +639,7 @@
     <string name="contactlist_title">Επαναφορά επαφών</string>
     <string name="contaclist_restore_selected">Επαναφορά επιλεγμένων επαφών</string>
     <string name="contactlist_account_chooser_title">Επιλογή λογαριασμού για εισαγωγή</string>
+    <string name="contactlist_no_permission">Κανένα δικαίωμα δεν δόθηκε, τίποτε δεν εισήχθη</string>
     <string name="contacts_preference_choose_date">Επιλογή ημερομηνίας</string>
     <string name="contacts_preference_backup_never">ποτέ</string>
     <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
