@@ -24,6 +24,7 @@ package com.owncloud.android.jobs;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.os.PowerManager;
 import android.support.annotation.NonNull;
 
 import com.evernote.android.job.Job;
@@ -47,7 +48,14 @@ public class AutoUploadJob extends Job {
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
+
         final Context context = MainApp.getAppContext();
+
+        PowerManager powerManager = (PowerManager) context.getSystemService(context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                TAG);
+        wakeLock.acquire();
+
         PersistableBundleCompat bundle = params.getExtras();
         final String filePath = bundle.getString(LOCAL_PATH, "");
         final String remotePath = bundle.getString(REMOTE_PATH, "");
@@ -76,6 +84,7 @@ public class AutoUploadJob extends Job {
         }
 
 
+        wakeLock.release();
         return Result.SUCCESS;
     }
 }
