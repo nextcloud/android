@@ -23,6 +23,7 @@ package com.owncloud.android.jobs;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.os.PowerManager;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -62,8 +63,15 @@ public class NewAutoUploadJob extends Job {
     @NonNull
     @Override
     protected Result onRunJob(Params params) {
+
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
+
+        PowerManager powerManager = (PowerManager) context.getSystemService(context.POWER_SERVICE);
+        PowerManager.WakeLock wakeLock = powerManager.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK,
+                TAG);
+        wakeLock.acquire();
+
 
         // Create all the providers we'll need
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProvider(contentResolver);
@@ -114,6 +122,8 @@ public class NewAutoUploadJob extends Job {
                 Log.d(TAG, "Something went wrong while indexing files for auto upload");
             }
         }
+
+        wakeLock.release();
         return Result.SUCCESS;
     }
 }
