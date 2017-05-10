@@ -61,7 +61,7 @@ public class FilesystemDataProvider {
         }
     }
 
-    public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, boolean sentForUpload) {
+    public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, boolean fileBeingModified) {
         FileSystemDataSet data = getFilesystemDataSet(localPath);
 
         int isFolderValue = 0;
@@ -69,19 +69,22 @@ public class FilesystemDataProvider {
             isFolderValue = 1;
         }
 
-        int isSentForUpload = 0;
-        if (sentForUpload) {
-            isSentForUpload = 1;
+        int isBeingModified = 0;
+        if (fileBeingModified) {
+            isBeingModified = 1;
         }
 
         ContentValues cv = new ContentValues();
-        cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH, localPath);
-        cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED, modifiedAt);
-        cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER, isFolderValue);
         cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY, System.currentTimeMillis());
-        cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, isSentForUpload);
+        cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_BEING_MODIFIED, isBeingModified);
 
         if (data == null) {
+
+            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH, localPath);
+            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED, modifiedAt);
+            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER, isFolderValue);
+            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 0);
+
 
             Uri result = contentResolver.insert(ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM, cv);
 
@@ -89,6 +92,10 @@ public class FilesystemDataProvider {
                 Log_OC.v(TAG, "Failed to insert filesystem data with local path: " + localPath);
             }
         } else {
+
+            if (data.getModifiedAt() != modifiedAt) {
+                cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 0);
+            }
 
             int result = contentResolver.update(
                     ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
@@ -134,10 +141,18 @@ public class FilesystemDataProvider {
                     isSentForUpload = true;
                 }
 
+                boolean isBeingModified = false;
+                if (cursor.getInt(cursor.getColumnIndex(
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_BEING_MODIFIED)) != 0) {
+                    isBeingModified = true;
+                }
+
+
                 if (id == -1) {
                     Log_OC.e(TAG, "Arbitrary value could not be created from cursor");
                 } else {
-                    dataSet = new FileSystemDataSet(id, localPath, modifiedAt, isFolder, isSentForUpload, foundAt);
+                    dataSet = new FileSystemDataSet(id, localPath, modifiedAt, isFolder, isSentForUpload, foundAt,
+                            isBeingModified);
                 }
             }
             cursor.close();
