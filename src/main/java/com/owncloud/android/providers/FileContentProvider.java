@@ -1021,53 +1021,11 @@ public class FileContentProvider extends ContentProvider {
                     upgraded = true;
                     db.setTransactionSuccessful();
 
-                    // magic to split out existing synced folders in two when needed
-                    // otherwise, we migrate them to their proper type (image or video)
-                    Log_OC.i(SQL, "Migrate synced_folders records for image/video split");
-                    ContentResolver contentResolver = getContext().getContentResolver();
-
-                    SyncedFolderProvider syncedFolderProvider = new SyncedFolderProvider(contentResolver);
-
-                    final List<MediaFolder> imageMediaFolders = MediaProvider.getImageFolders(contentResolver, 1);
-                    final List<MediaFolder> videoMediaFolders = MediaProvider.getVideoFolders(contentResolver, 1);
-
-                    ArrayList<Long> idsToDelete = new ArrayList<>();
-                    List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
-                    long primaryKey;
-                    SyncedFolder newSyncedFolder;
-                    for (SyncedFolder syncedFolder : syncedFolders) {
-                        idsToDelete.add(syncedFolder.getId());
-                        for (int i = 0; i < imageMediaFolders.size(); i++) {
-                            if (imageMediaFolders.get(i).absolutePath.equals(syncedFolder.getLocalPath())) {
-                                newSyncedFolder = (SyncedFolder) syncedFolder.clone();
-                                newSyncedFolder.setType(MediaFolder.IMAGE);
-                                primaryKey = syncedFolderProvider.storeFolderSync(newSyncedFolder);
-                                Log_OC.i(SQL, "Migrated image synced_folders record: "
-                                        + primaryKey + " - " + newSyncedFolder.getLocalPath());
-                                break;
-                            }
-                        }
-
-                        for (int j = 0; j < videoMediaFolders.size(); j++) {
-                            if (videoMediaFolders.get(j).absolutePath.equals(syncedFolder.getLocalPath())) {
-                                newSyncedFolder = (SyncedFolder) syncedFolder.clone();
-                                newSyncedFolder.setType(MediaFolder.VIDEO);
-                                primaryKey = syncedFolderProvider.storeFolderSync(newSyncedFolder);
-                                Log_OC.i(SQL, "Migrated video synced_folders record: "
-                                        + primaryKey + " - " + newSyncedFolder.getLocalPath());
-                                break;
-                            }
-                        }
-                    }
-
-                    syncedFolderProvider.deleteSyncedFoldersInList(idsToDelete);
-
                 } catch (Throwable t) {
                     Log_OC.e(TAG, "ERROR!", t);
                 } finally {
                     db.endTransaction();
                 }
-            }
 
             if (!upgraded) {
                 Log_OC.i(SQL, String.format(Locale.ENGLISH, UPGRADE_VERSION_MSG, oldVersion, newVersion));
