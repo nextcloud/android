@@ -186,7 +186,7 @@ dependencies {
     compile 'com.github.tobiasKaminsky:android-floating-action-button:1.10.2'
     compile 'com.google.code.findbugs:annotations:2.0.1'
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
-    compile 'com.github.evernote:android-job:v1.1.9'
+    compile 'com.github.evernote:android-job:v1.1.10'
     compile 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'org.greenrobot:eventbus:3.0.0'
