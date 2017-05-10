@@ -1018,6 +1018,9 @@ public class FileContentProvider extends ContentProvider {
                     Log_OC.i(SQL, "Create filesystem table");
                     createFileSystemTable(db);
 
+                    upgraded = true;
+                    db.setTransactionSuccessful();
+
                     // magic to split out existing synced folders in two when needed
                     // otherwise, we migrate them to their proper type (image or video)
                     Log_OC.i(SQL, "Migrate synced_folders records for image/video split");
@@ -1059,8 +1062,6 @@ public class FileContentProvider extends ContentProvider {
 
                     syncedFolderProvider.deleteSyncedFoldersInList(idsToDelete);
 
-                    upgraded = true;
-                    db.setTransactionSuccessful();
                 } catch (Throwable t) {
                     Log_OC.e(TAG, "ERROR!", t);
                 } finally {
