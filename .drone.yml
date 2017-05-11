@@ -1,74 +1,47 @@
 pipeline:
-# test: 
-# image: nextcloudci/android: android-18
-# commands: 
-# - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI -c 20M
-# - emulator -avd test -no-window &
-# - ./wait_for_emulator.sh
-# # build app and assemble APK, in Debug mode
-# - ./gradlew assembleGeneric
-# # run all the instrumented tests of app module - DISABLED until we get an stable setup for Espresso in Travis
-# # - ./gradlew connectedDebugAndroidTest --info
-# # install app, then assemble and install instrumented tests of app module
-# - ./gradlew : installGenericDebug
-# #- ./gradlew : installModifiedDebug
-# - ./gradlew : installGenericDebugAndroidTest
-# #- ./gradlew : installModifiedDebugAndroidTest
-# # run sample instrumented unit test
-# # TODO fails because test runner is not available
-# #- adb shell am instrument -w -e Debug false -e class com.owncloud.android.datamodel.OCFileUnitTest com.owncloud.android.test/android.support.test.runner.AndroidJUnitRunner
-#
-# environment: 
-# - ANDROID_TARGET=android-24
-# - ANDROID_ABI=armeabi-v7a
-# - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/: /opt/android-sdk-linux/tools/lib64/gles_mesa/
-
-   lint:
-     image: nextcloudci/android:android-18
-     commands:
-       # needs gplay
-       # - sh -c sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle
-     - echo DRONE_ARCH: ${DRONE_ARCH}
-     - echo DRONE_REPO: ${DRONE_REPO}
-     - echo DRONE_REPO_OWNER: ${DRONE_REPO_OWNER}
-     - echo DRONE_REPO_NAME: ${DRONE_REPO_NAME}
-     - echo DRONE_REPO_SCM: ${DRONE_REPO_SCM}
-     - echo DRONE_REPO_LINK: ${DRONE_REPO_LINK}
-     - echo DRONE_REPO_AVATAR: ${DRONE_REPO_AVATAR}
-     - echo DRONE_REPO_BRANCH: ${DRONE_REPO_BRANCH}
-     - echo DRONE_REPO_PRIVATE: ${DRONE_REPO_PRIVATE}
-     - echo DRONE_REPO_TRUSTED: ${DRONE_REPO_TRUSTED}
-     - echo DRONE_REMOTE_URL: ${DRONE_REMOTE_URL}
-     - echo DRONE_COMMIT_SHA: ${DRONE_COMMIT_SHA}
-     - echo DRONE_COMMIT_REF: ${DRONE_COMMIT_REF}
-     - echo DRONE_COMMIT_BRANCH: ${DRONE_COMMIT_BRANCH}
-     - echo DRONE_COMMIT_LINK: ${DRONE_COMMIT_LINK}
-     - echo DRONE_COMMIT_MESSAGE: ${DRONE_COMMIT_MESSAGE}
-     - echo DRONE_COMMIT_AUTHOR: ${DRONE_COMMIT_AUTHOR}
-     - echo DRONE_COMMIT_AUTHOR_EMAIL: ${DRONE_COMMIT_AUTHOR_EMAIL}
-     - echo DRONE_COMMIT_AUTHOR_AVATAR: ${DRONE_COMMIT_AUTHOR_AVATAR}
-     - echo DRONE_BUILD_NUMBER: ${DRONE_BUILD_NUMBER}
-     - echo DRONE_BUILD_EVENT: ${DRONE_BUILD_EVENT}
-     - echo DRONE_BUILD_STATUS: ${DRONE_BUILD_STATUS}
-     - echo DRONE_BUILD_LINK: ${DRONE_BUILD_LINK}
-     - echo DRONE_BUILD_CREATED: ${DRONE_BUILD_CREATED}
-     - echo DRONE_BUILD_STARTED: ${DRONE_BUILD_STARTED}
-     - echo DRONE_BUILD_FINISHED: ${DRONE_BUILD_FINISHED}
-     - echo DRONE_PREV_BUILD_STATUS: ${DRONE_PREV_BUILD_STATUS}
-     - echo DRONE_PREV_BUILD_NUMBER: ${DRONE_PREV_BUILD_NUMBER}
-     - echo DRONE_PREV_COMMIT_SHA: ${DRONE_PREV_COMMIT_SHA}
-     - echo DRONE_JOB_NUMBER: ${DRONE_JOB_NUMBER}
-     - echo DRONE_JOB_STATUS: ${DRONE_JOB_STATUS}
-     - echo DRONE_JOB_EXIT_CODE: ${DRONE_JOB_EXIT_CODE}
-     - echo DRONE_JOB_STARTED: ${DRONE_JOB_STARTED}
-     - echo DRONE_JOB_FINISHED: ${DRONE_JOB_FINISHED}
-     - echo DRONE_YAML_SIGNED: ${DRONE_YAML_SIGNED}
-     - echo DRONE_YAML_VERIFIED: ${DRONE_YAML_VERIFIED}
-     - echo DRONE_BRANCH: ${DRONE_BRANCH}
-     - echo DRONE_COMMIT: ${DRONE_COMMIT}
-     - echo DRONE_TAG: ${DRONE_TAG}
-     - echo DRONE_PULL_REQUEST: ${DRONE_PULL_REQUEST}
-     - echo DRONE_DEPLOY_TO: ${DRONE_DEPLOY_TO}
-     # - ruby scripts/lint/lint-up.rb ${GIT_USERNAME} ${GIT_TOKEN} $BRANCH
+  lint:
+    image: nextcloudci/android:android-18
+    commands:
+    - echo DRONE_ARCH: ${DRONE_ARCH}
+    - echo DRONE_REPO: ${DRONE_REPO}
+    - echo DRONE_REPO_OWNER: ${DRONE_REPO_OWNER}
+    - echo DRONE_REPO_NAME: ${DRONE_REPO_NAME}
+    - echo DRONE_REPO_SCM: ${DRONE_REPO_SCM}
+    - echo DRONE_REPO_LINK: ${DRONE_REPO_LINK}
+    - echo DRONE_REPO_AVATAR: ${DRONE_REPO_AVATAR}
+    - echo DRONE_REPO_BRANCH: ${DRONE_REPO_BRANCH}
+    - echo DRONE_REPO_PRIVATE: ${DRONE_REPO_PRIVATE}
+    - echo DRONE_REPO_TRUSTED: ${DRONE_REPO_TRUSTED}
+    - echo DRONE_REMOTE_URL: ${DRONE_REMOTE_URL}
+    - echo DRONE_COMMIT_SHA: ${DRONE_COMMIT_SHA}
+    - echo DRONE_COMMIT_REF: ${DRONE_COMMIT_REF}
+    - echo DRONE_COMMIT_BRANCH: ${DRONE_COMMIT_BRANCH}
+    - echo DRONE_COMMIT_LINK: ${DRONE_COMMIT_LINK}
+    - echo DRONE_COMMIT_MESSAGE: ${DRONE_COMMIT_MESSAGE}
+    - echo DRONE_COMMIT_AUTHOR: ${DRONE_COMMIT_AUTHOR}
+    - echo DRONE_COMMIT_AUTHOR_EMAIL: ${DRONE_COMMIT_AUTHOR_EMAIL}
+    - echo DRONE_COMMIT_AUTHOR_AVATAR: ${DRONE_COMMIT_AUTHOR_AVATAR}
+    - echo DRONE_BUILD_NUMBER: ${DRONE_BUILD_NUMBER}
+    - echo DRONE_BUILD_EVENT: ${DRONE_BUILD_EVENT}
+    - echo DRONE_BUILD_STATUS: ${DRONE_BUILD_STATUS}
+    - echo DRONE_BUILD_LINK: ${DRONE_BUILD_LINK}
+    - echo DRONE_BUILD_CREATED: ${DRONE_BUILD_CREATED}
+    - echo DRONE_BUILD_STARTED: ${DRONE_BUILD_STARTED}
+    - echo DRONE_BUILD_FINISHED: ${DRONE_BUILD_FINISHED}
+    - echo DRONE_PREV_BUILD_STATUS: ${DRONE_PREV_BUILD_STATUS}
+    - echo DRONE_PREV_BUILD_NUMBER: ${DRONE_PREV_BUILD_NUMBER}
+    - echo DRONE_PREV_COMMIT_SHA: ${DRONE_PREV_COMMIT_SHA}
+    - echo DRONE_JOB_NUMBER: ${DRONE_JOB_NUMBER}
+    - echo DRONE_JOB_STATUS: ${DRONE_JOB_STATUS}
+    - echo DRONE_JOB_EXIT_CODE: ${DRONE_JOB_EXIT_CODE}
+    - echo DRONE_JOB_STARTED: ${DRONE_JOB_STARTED}
+    - echo DRONE_JOB_FINISHED: ${DRONE_JOB_FINISHED}
+    - echo DRONE_YAML_SIGNED: ${DRONE_YAML_SIGNED}
+    - echo DRONE_YAML_VERIFIED: ${DRONE_YAML_VERIFIED}
+    - echo DRONE_BRANCH: ${DRONE_BRANCH}
+    - echo DRONE_COMMIT: ${DRONE_COMMIT}
+    - echo DRONE_TAG: ${DRONE_TAG}
+    - echo DRONE_PULL_REQUEST: ${DRONE_PULL_REQUEST}
+    - echo DRONE_DEPLOY_TO: ${DRONE_DEPLOY_TO}
 
 branches: master
