@@ -19,6 +19,7 @@
  */
 package com.owncloud.android;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -31,6 +32,7 @@ import android.support.multidex.MultiDexApplication;
 import android.support.v4.util.Pair;
 
 import com.evernote.android.job.JobManager;
+import com.evernote.android.job.JobRequest;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaProvider;
@@ -39,12 +41,14 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.db.PreferenceManager;
 import com.owncloud.android.jobs.NCJobCreator;
+import com.owncloud.android.jobs.NewAutoUploadJob;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory.Policy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.Preferences;
 import com.owncloud.android.ui.activity.WhatsNewActivity;
 import com.owncloud.android.utils.AnalyticsUtils;
+import com.owncloud.android.utils.PermissionUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -116,7 +120,18 @@ public class MainApp extends MultiDexApplication {
 
         cleanOldEntries();
         updateAutoUploadEntries();
-        splitOutAutoUploadEntries();
+
+        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+            splitOutAutoUploadEntries();
+        } else {
+            PreferenceManager.setAutoUploadSplitEntries(this, true);
+        }
+
+        new JobRequest.Builder(NewAutoUploadJob.TAG)
+                .setExecutionWindow(3000L, 4000L)
+                .setUpdateCurrent(true)
+                .build()
+                .schedule();
 
         // register global protection with pass code
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
