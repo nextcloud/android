@@ -166,15 +166,11 @@ system ("git remote add origin https://" + git_user + ":" + git_token + "@github
 # add previous Lint result file to git
 system ('git add ' + PREVIOUS_LINT_RESULTS_FILE)
 
-# Use right branch.
-system ('git checkout ' + git_branch)
-
 # commit changes; Add "skip ci" so that we don't accidentally trigger another Drone build
 system ('git commit -m "Drone: update Lint results to reflect reduced error/warning count [skip ci]" ')
 
 # push to origin
-system("git config push.default simple")
-system ("git push")
+system ('git push origin HEAD:' + git_branch)
 
 # restore previous git user name and email
 system("git config --local user.name '#{previous_git_username}'")
