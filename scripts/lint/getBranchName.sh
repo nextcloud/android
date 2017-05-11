@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # $1: username, $2: password/token, $3: url
 
