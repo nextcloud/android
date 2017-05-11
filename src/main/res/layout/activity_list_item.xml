@@ -61,6 +61,11 @@
             android:text="@string/placeholder_sentence"
             android:textColor="?android:attr/textColorSecondary"/>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
         <TextView
             android:id="@+id/activity_datetime"
             android:layout_width="wrap_content"

@@ -22,8 +22,10 @@ package com.owncloud.android.ui.adapter;
 import android.content.Context;
 import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,13 +47,17 @@ import com.owncloud.android.utils.svg.SvgSoftwareLayerSetter;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Adapter for the activity view
  */
 
-public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapter.ActivityViewHolder> {
+public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+    public static final int HEADER_TYPE=100;
+    public static final int ACTIVITY_TYPE=101;
 
     private Context context;
     private List<Object> mValues;
@@ -63,43 +69,82 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
 
     public void setActivityItems(List<Object> activityItems) {
         mValues.clear();
-        mValues.addAll(activityItems);
+        String sTime="";
+        for (Object o : activityItems) {
+            Activity activity = (Activity) o;
+            String time=DisplayUtils.getRelativeTimestamp(context,
+                    activity.getDatetime().getTime()).toString();
+            if(sTime.equalsIgnoreCase(time)){
+                mValues.add(activity);
+            }else{
+
+                sTime=time;
+                mValues.add(sTime);
+                mValues.add(activity);
+            }
+        }
         notifyDataSetChanged();
+
     }
 
     @Override
-    public ActivityViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item, parent, false);
-        return new ActivityViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType==ACTIVITY_TYPE) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item, parent, false);
+            return new ActivityViewHolder(v);
+        }else {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_list_item_header, parent, false);
+            return new ActivityViewHeaderHolder(v);
+        }
+
     }
 
     @Override
-    public void onBindViewHolder(ActivityViewHolder holder, int position) {
-        Activity activity = (Activity) mValues.get(position);
-        if (activity.getDatetime() != null) {
-            holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
-                    activity.getDatetime().getTime()));
-        } else {
-            holder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
-                    activity.getDate().getTime()));
-        }
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        if (!TextUtils.isEmpty(activity.getSubject())) {
-            holder.subject.setText(activity.getSubject());
-            holder.subject.setVisibility(View.VISIBLE);
-        } else {
-            holder.subject.setVisibility(View.GONE);
-        }
+        if(holder instanceof ActivityViewHolder) {
+            ActivityViewHolder activityViewHolder=(ActivityViewHolder) holder;
+            Activity activity = (Activity) mValues.get(position);
+            if (activity.getDatetime() != null) {
+                activityViewHolder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
+                        activity.getDatetime().getTime()));
+            } else {
+                activityViewHolder.dateTime.setText(DisplayUtils.getRelativeTimestamp(context,
+                        new Date().getTime()));
+            }
 
-        if (!TextUtils.isEmpty(activity.getMessage())) {
-            holder.message.setText(activity.getMessage());
-            holder.message.setVisibility(View.VISIBLE);
-        } else {
-            holder.message.setVisibility(View.GONE);
-        }
+            if (!TextUtils.isEmpty(activity.getSubject())) {
+                activityViewHolder.subject.setText(activity.getSubject());
+                activityViewHolder.subject.setVisibility(View.VISIBLE);
+            } else {
+                activityViewHolder.subject.setVisibility(View.GONE);
+            }
 
-        if (!TextUtils.isEmpty(activity.getIcon())) {
-            downloadIcon(activity.getIcon(), holder.activityIcon);
+            if (!TextUtils.isEmpty(activity.getMessage())) {
+                activityViewHolder.message.setText(activity.getMessage());
+                activityViewHolder.message.setVisibility(View.VISIBLE);
+            } else {
+                activityViewHolder.message.setVisibility(View.GONE);
+            }
+
+            if (!TextUtils.isEmpty(activity.getIcon())) {
+                downloadIcon(activity.getIcon(), activityViewHolder.activityIcon);
+            }
+
+            ArrayList<String> richObjects=new ArrayList<>();
+            richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
+            richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
+            richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
+            richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
+            richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
+
+            RichObjectAdapter richObjectAdapter=new RichObjectAdapter(richObjects);
+            activityViewHolder.list.setLayoutManager(new GridLayoutManager(context,4));
+            activityViewHolder.list.setAdapter(richObjectAdapter);
+
+        }else{
+            ActivityViewHeaderHolder activityViewHeaderHolder=(ActivityViewHeaderHolder)holder;
+            activityViewHeaderHolder.title.setText((String)mValues.get(position));
         }
     }
 
@@ -126,6 +171,14 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
     }
 
     @Override
+    public int getItemViewType(int position) {
+        if(mValues.get(position) instanceof Activity)
+            return ACTIVITY_TYPE;
+        else
+            return HEADER_TYPE;
+    }
+
+    @Override
     public int getItemCount() {
         return mValues.size();
     }
@@ -136,6 +189,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
         private final TextView subject;
         private final TextView message;
         private final TextView dateTime;
+        private final RecyclerView list;
 
         private ActivityViewHolder(View itemView) {
             super(itemView);
@@ -143,6 +197,19 @@ public class ActivityListAdapter extends RecyclerView.Adapter<ActivityListAdapte
             subject = (TextView) itemView.findViewById(R.id.activity_subject);
             message = (TextView) itemView.findViewById(R.id.activity_message);
             dateTime = (TextView) itemView.findViewById(R.id.activity_datetime);
+            list = (RecyclerView) itemView.findViewById(R.id.list);
         }
     }
+
+    class ActivityViewHeaderHolder extends RecyclerView.ViewHolder {
+
+        private final TextView title;
+
+        private ActivityViewHeaderHolder(View itemView) {
+            super(itemView);
+            title = (TextView) itemView.findViewById(R.id.title_header);
+
+        }
+    }
+
 }

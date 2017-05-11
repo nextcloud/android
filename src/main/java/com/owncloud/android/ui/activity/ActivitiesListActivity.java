@@ -167,7 +167,7 @@ public class ActivitiesListActivity extends FileActivity {
                 layoutManager.getOrientation());
 
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(dividerItemDecoration);
+        //recyclerView.addItemDecoration(dividerItemDecoration);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation_view);
 
