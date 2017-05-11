@@ -23,16 +23,22 @@ package com.owncloud.android.jobs;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.media.ExifInterface;
 import android.os.PowerManager;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.evernote.android.job.Job;
+import com.evernote.android.job.JobRequest;
+import com.evernote.android.job.util.support.PersistableBundleCompat;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
+import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.FileStorageUtils;
 
 import org.lukhnos.nnio.file.FileVisitResult;
 import org.lukhnos.nnio.file.Files;
@@ -47,8 +53,15 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.TimeZone;
 
 /*
     This job is meant to run periodically every half an hour, and has the following burden on it's shoulders:
@@ -88,6 +101,7 @@ public class NewAutoUploadJob extends Job {
                 Long.toString(System.currentTimeMillis()));
 
         List<SyncedFolder> syncedFolders = syncedFolderProvider.getSyncedFolders();
+        List<SyncedFolder> syncedFoldersOriginalList = syncedFolderProvider.getSyncedFolders();
         List<SyncedFolder> syncedFoldersToDelete = new ArrayList<>();
 
         // be smart, and only traverse folders once instead of multiple times
@@ -140,6 +154,66 @@ public class NewAutoUploadJob extends Job {
                 Log.d(TAG, "Something went wrong while indexing files for auto upload");
             }
         }
+
+        Set<String> pathsToSet = new HashSet<>();
+
+        // get all files that we want to upload
+        for (SyncedFolder syncedFolder : syncedFoldersOriginalList) {
+            Object[] pathsToUpload = filesystemDataProvider.getFilesToUploadForPath(syncedFolder.getLocalPath());
+
+            for (Object pathToUpload : pathsToUpload) {
+                File file = new File((String) pathToUpload);
+
+                String mimetypeString = FileStorageUtils.getMimeTypeFromName(file.getAbsolutePath());
+                Long lastModificationTime = file.lastModified();
+                final Locale currentLocale = context.getResources().getConfiguration().locale;
+
+                if ("image/jpeg".equalsIgnoreCase(mimetypeString) || "image/tiff".equalsIgnoreCase(mimetypeString)) {
+                    try {
+                        ExifInterface exifInterface = new ExifInterface(file.getAbsolutePath());
+                        String exifDate = exifInterface.getAttribute(ExifInterface.TAG_DATETIME);
+                        if (!TextUtils.isEmpty(exifDate)) {
+                            ParsePosition pos = new ParsePosition(0);
+                            SimpleDateFormat sFormatter = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss",
+                                    currentLocale);
+                            sFormatter.setTimeZone(TimeZone.getTimeZone(TimeZone.getDefault().getID()));
+                            Date dateTime = sFormatter.parse(exifDate, pos);
+                            lastModificationTime = dateTime.getTime();
+                        }
+
+                    } catch (IOException e) {
+                        Log_OC.d(TAG, "Failed to get the proper time " + e.getLocalizedMessage());
+                    }
+                }
+
+                PersistableBundleCompat bundle = new PersistableBundleCompat();
+                bundle.putString(AutoUploadJob.LOCAL_PATH, file.getAbsolutePath());
+                bundle.putString(AutoUploadJob.REMOTE_PATH, FileStorageUtils.getInstantUploadFilePath(
+                        currentLocale,
+                        syncedFolder.getRemotePath(), file.getName(),
+                        lastModificationTime,
+                        syncedFolder.getSubfolderByDate()));
+                bundle.putString(AutoUploadJob.ACCOUNT, syncedFolder.getAccount());
+                bundle.putInt(AutoUploadJob.UPLOAD_BEHAVIOUR, syncedFolder.getUploadAction());
+
+                pathsToSet.add((String) pathToUpload);
+
+                new JobRequest.Builder(AutoUploadJob.TAG)
+                        .setExecutionWindow(30_000L, 80_000L)
+                        .setRequiresCharging(syncedFolder.getChargingOnly())
+                        .setRequiredNetworkType(syncedFolder.getWifiOnly() ? JobRequest.NetworkType.UNMETERED :
+                                JobRequest.NetworkType.ANY)
+                        .setExtras(bundle)
+                        .setPersisted(false)
+                        .setRequirementsEnforced(true)
+                        .setUpdateCurrent(false)
+                        .build()
+                        .schedule();
+            }
+        }
+
+        // set them as sent for upload
+        filesystemDataProvider.updateFilesInList(pathsToSet.toArray());
 
         wakeLock.release();
         return Result.SUCCESS;

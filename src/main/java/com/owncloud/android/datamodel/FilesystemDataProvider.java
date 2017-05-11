@@ -27,6 +27,9 @@ import android.net.Uri;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class FilesystemDataProvider {
 
     static private final String TAG = FilesystemDataProvider.class.getSimpleName();
@@ -40,12 +43,65 @@ public class FilesystemDataProvider {
         this.contentResolver = contentResolver;
     }
 
+    public int updateFilesInList(Object[] paths) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, 1);
+
+        String[] stringPaths = new String[paths.length];
+        for(int i = 0; i < paths.length; i++) {
+            stringPaths[i] = (String) paths[i];
+        }
+
+        int result = contentResolver.update(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
+                cv,
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + "IN (?)",
+                stringPaths
+        );
+
+        return result;
+
+    }
+
+    public Object[] getFilesToUploadForPath(String localPath) {
+        Set<String> localPathsToUpload = new HashSet<>();
+
+        String likeParam = localPath + "%";
+
+        Cursor cursor = contentResolver.query(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
+                null,
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_BEING_MODIFIED + " = ? and " +
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?",
+                new String[]{likeParam, "0", "0", "0"},
+                null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String value = cursor.getString(cursor.getColumnIndex(
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
+                if (value == null) {
+                    Log_OC.e(TAG, "Cannot get local path");
+                } else {
+                    localPathsToUpload.add(value);
+                }
+            } while (cursor.moveToNext());
+        }
+
+
+        cursor.close();
+        return localPathsToUpload.toArray();
+
+    }
+
     public long countFilesThatNeedUploadInFolder(String localPath) {
         String likeParam = localPath + "%";
 
         Cursor cursor = contentResolver.query(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
-                new String[] {"count(*)"},
+                new String[]{"count(*)"},
                 ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ?",
                 new String[]{likeParam},
                 null);
