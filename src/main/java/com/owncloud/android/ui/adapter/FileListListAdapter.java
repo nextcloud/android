@@ -487,13 +487,13 @@ public class FileListListAdapter extends BaseAdapter {
     }
 
     public void setData(ArrayList<Object> objects, ExtendedListFragment.SearchType searchType, FileDataStorageManager storageManager) {
-        if (storageManager != null) {
+        if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
         }
         mFiles = new Vector<>();
 
         // early exit
-        if (objects.size() > 0) {
+        if (objects.size() > 0 && mStorageManager != null) {
             if (searchType.equals(ExtendedListFragment.SearchType.SHARED_FILTER)) {
                 parseShares(objects);
             } else {
