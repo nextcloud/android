@@ -243,14 +243,14 @@ public class FileMenuFilter {
         }
 
         // Favorite
-        if (!canBeFavorited() || synchronizing || allFavorites()) {
+        if (mFiles.isEmpty() || synchronizing || allFavorites()) {
             toHide.add(R.id.action_favorite);
         } else {
             toShow.add(R.id.action_favorite);
         }
 
         // Unfavorite
-        if (!canBeFavorited() || synchronizing || allNotFavorites()) {
+        if (mFiles.isEmpty() || synchronizing || allNotFavorites()) {
             toHide.add(R.id.action_unset_favorite);
         } else {
             toShow.add(R.id.action_unset_favorite);
@@ -314,10 +314,6 @@ public class FileMenuFilter {
 
     private boolean allFiles() {
         return mFiles != null && !containsFolder();
-    }
-
-    private boolean canBeFavorited() {
-        return mFiles != null;
     }
 
     private boolean containsFolder() {
