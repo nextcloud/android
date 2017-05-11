@@ -66,7 +66,7 @@ pipeline:
        - echo "DRONE_YAML_VERIFIED: ${DRONE_YAML_VERIFIED}"
        - echo "DRONE_BRANCH: ${DRONE_BRANCH}"
        - echo "DRONE_COMMIT: ${DRONE_COMMIT}"
-       - echo "DRONE_TAG: ${DRONE_TAG}"
+       # - echo "DRONE_TAG: ${DRONE_TAG}"
        - echo "DRONE_PULL_REQUEST: ${DRONE_PULL_REQUEST}"
        - echo "DRONE_DEPLOY_TO: ${DRONE_DEPLOY_TO}"
        # - ruby scripts/lint/lint-up.rb ${GIT_USERNAME}" ${GIT_TOKEN}" $BRANCH
