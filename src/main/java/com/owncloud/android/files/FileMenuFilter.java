@@ -243,14 +243,14 @@ public class FileMenuFilter {
         }
 
         // Favorite
-        if (!allFiles() || synchronizing || allFavorites()) {
+        if (mFiles.isEmpty() || synchronizing || allFavorites()) {
             toHide.add(R.id.action_favorite);
         } else {
             toShow.add(R.id.action_favorite);
         }
 
         // Unfavorite
-        if (!allFiles() || synchronizing || allNotFavorites()) {
+        if (mFiles.isEmpty() || synchronizing || allNotFavorites()) {
             toHide.add(R.id.action_unset_favorite);
         } else {
             toShow.add(R.id.action_unset_favorite);
