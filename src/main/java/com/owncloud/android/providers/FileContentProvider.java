@@ -74,6 +74,7 @@ public class FileContentProvider extends ContentProvider {
     private static final int EXTERNAL_LINKS = 8;
     private static final int ARBITRARY_DATA = 9;
     private static final int VIRTUAL = 10;
+    private static final int FILESYSTEM = 11;
 
     private static final String TAG = FileContentProvider.class.getSimpleName();
 
@@ -208,6 +209,9 @@ public class FileContentProvider extends ContentProvider {
                 break;
             case VIRTUAL:
                 count = db.delete(ProviderTableMeta.VIRTUAL_TABLE_NAME, where, whereArgs);
+                break;
+            case FILESYSTEM:
+                count = db.delete(ProviderTableMeta.FILESYSTEM_TABLE_NAME, where, whereArgs);
                 break;
             default:
                 //Log_OC.e(TAG, "Unknown uri " + uri);
@@ -365,6 +369,18 @@ public class FileContentProvider extends ContentProvider {
                 }
 
                 return insertedVirtualUri;
+            case FILESYSTEM:
+                Uri insertedFilesystemUri = null;
+                long filesystedId = db.insert(ProviderTableMeta.FILESYSTEM_TABLE_NAME, null, values);
+                if (filesystedId > 0) {
+                    insertedFilesystemUri =
+                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILESYSTEM, filesystedId);
+                } else {
+                    throw new SQLException("ERROR " + uri);
+
+                }
+                return insertedFilesystemUri;
+
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -417,6 +433,7 @@ public class FileContentProvider extends ContentProvider {
         mUriMatcher.addURI(authority, "external_links", EXTERNAL_LINKS);
         mUriMatcher.addURI(authority, "arbitrary_data", ARBITRARY_DATA);
         mUriMatcher.addURI(authority, "virtual", VIRTUAL);
+        mUriMatcher.addURI(authority, "filesystem", FILESYSTEM);
 
         return true;
     }
@@ -518,6 +535,13 @@ public class FileContentProvider extends ContentProvider {
                     sqlQuery.appendWhere(ProviderTableMeta._ID + "=" + uri.getPathSegments().get(1));
                 }
                 break;
+            case FILESYSTEM:
+                sqlQuery.setTables(ProviderTableMeta.FILESYSTEM_TABLE_NAME);
+                if (uri.getPathSegments().size() > 1) {
+                    sqlQuery.appendWhere(ProviderTableMeta._ID + "="
+                            + uri.getPathSegments().get(1));
+                }
+                break;
             default:
                 throw new IllegalArgumentException("Unknown uri id: " + uri);
         }
@@ -548,6 +572,9 @@ public class FileContentProvider extends ContentProvider {
                     break;
                 default: // Files
                     order = ProviderTableMeta.FILE_DEFAULT_SORT_ORDER;
+                    break;
+                case FILESYSTEM:
+                    order = ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH;
                     break;
             }
         } else {
