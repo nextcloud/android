@@ -1390,10 +1390,14 @@ public class OCFileListFragment extends ExtendedListFragment implements OCFileLi
                 if (getContext() != null && !isCancelled()) {
                     RemoteOperationResult remoteOperationResult = remoteOperation.execute(currentAccount, getContext());
 
+                    FileDataStorageManager storageManager = null;
+                    if (mContainerActivity != null && mContainerActivity.getStorageManager() != null) {
+                        storageManager = mContainerActivity.getStorageManager();
+                    }
+
                     if (remoteOperationResult.isSuccess() && remoteOperationResult.getData() != null
                             && !isCancelled() && searchFragment) {
-                        mAdapter.setData(remoteOperationResult.getData(), currentSearchType,
-                                mContainerActivity.getStorageManager());
+                        mAdapter.setData(remoteOperationResult.getData(), currentSearchType, storageManager);
                     }
 
                     return remoteOperationResult.isSuccess();
