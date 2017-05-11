@@ -77,7 +77,6 @@ public class FileListListAdapter extends BaseAdapter {
     private Vector<OCFile> mFilesAll = new Vector<OCFile>();
     private Vector<OCFile> mFiles = null;
     private boolean mJustFolders;
-    private boolean mShowHiddenFiles;
 
     private FileDataStorageManager mStorageManager;
     private Account mAccount;
@@ -105,9 +104,6 @@ public class FileListListAdapter extends BaseAdapter {
         // Read sorting order, default to sort by name ascending
         FileStorageUtils.mSortOrder = PreferenceManager.getSortOrder(mContext);
         FileStorageUtils.mSortAscending = PreferenceManager.getSortAscending(mContext);
-
-        // Fetch preferences for showing hidden files
-        mShowHiddenFiles = PreferenceManager.showHiddenFilesEnabled(mContext);
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -456,7 +452,7 @@ public class FileListListAdapter extends BaseAdapter {
             if (mJustFolders) {
                 mFiles = getFolders(mFiles);
             }
-            if (!mShowHiddenFiles) {
+            if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
                 mFiles = filterHiddenFiles(mFiles);
             }
             mFiles = FileStorageUtils.sortOcFolder(mFiles);
@@ -623,7 +619,7 @@ public class FileListListAdapter extends BaseAdapter {
             mFiles = new Vector<>();
             if (ocFiles != null && ocFiles.size() > 0) {
                 mFiles.addAll(ocFiles);
-                if (!mShowHiddenFiles) {
+                if (!PreferenceManager.showHiddenFilesEnabled(mContext)) {
                     mFiles = filterHiddenFiles(mFiles);
                 }
                 mFiles = FileStorageUtils.sortOcFolder(mFiles);

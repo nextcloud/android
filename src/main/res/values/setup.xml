@@ -42,7 +42,7 @@
     
     <!-- Contacts backup -->
     <bool name="contacts_backup">true</bool>
-    <string name="contacts_backup_folder">/Contacts-Backup</string>
+    <string name="contacts_backup_folder">/.Contacts-Backup</string>
     <integer name="contacts_backup_expire">-1</integer>
     
     <!-- To fill if you want to show webviews instead of regular welcome views -->
