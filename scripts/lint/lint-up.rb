@@ -2,10 +2,7 @@
 # adapts to drone, use git username / token as parameter
 
 puts "=================== starting Android Lint Entropy Reducer ===================="
-
 git_user, git_token, git_branch = ARGV
-puts "branch: " + git_branch
-exit 0
 
 # ========================  SETUP ============================
 

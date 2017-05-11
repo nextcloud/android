@@ -2,7 +2,7 @@ pipeline:
   lint:
     image: nextcloudci/android:android-18
     commands:
-      - BRANCH=$(scripts/lint/getBranchName.sh ${GIT_USERNAME} ${GIT_TOKEN} ${DRONE_COMMIT_LINK})
+      - export BRANCH=$(scripts/lint/getBranchName.sh ${GIT_USERNAME} ${GIT_TOKEN} ${DRONE_PULL_REQUEST})
       - ruby scripts/lint/lint-up.rb ${GIT_USERNAME} ${GIT_TOKEN} $BRANCH
 
 branches: master
