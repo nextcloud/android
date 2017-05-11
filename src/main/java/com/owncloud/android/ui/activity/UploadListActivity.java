@@ -90,7 +90,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
 
         setContentView(R.layout.upload_list_layout);
 
-        // this activity has no file really bound, it's for mulitple accounts at the same time; should no inherit
+        // this activity has no file really bound, it's for multiple accounts at the same time; should no inherit
         // from FileActivity; moreover, some behaviours inherited from FileActivity should be delegated to Fragments;
         // but that's other story
         setFile(null);

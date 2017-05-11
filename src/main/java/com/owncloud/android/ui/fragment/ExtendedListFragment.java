@@ -549,7 +549,7 @@ public class ExtendedListFragment extends Fragment
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // to be @overriden
+        // to be @overridden
     }
 
     @Override

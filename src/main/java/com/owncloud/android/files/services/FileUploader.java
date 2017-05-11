@@ -84,7 +84,7 @@ import java.util.Vector;
  *
  * On next invocation of {@link FileUploader} uploaded files which
  * previously failed will be uploaded again until either upload succeeded or a
- * fatal error occured.
+ * fatal error occurred.
  *
  * Every file passed to this service is uploaded. No filtering is performed.
  * However, Intent keys (e.g., KEY_WIFI_ONLY) are obeyed.
