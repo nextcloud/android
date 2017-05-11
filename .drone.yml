@@ -71,5 +71,4 @@ pipeline:
       echo DRONE_PULL_REQUEST: ${DRONE_PULL_REQUEST}
       echo DRONE_DEPLOY_TO: ${DRONE_DEPLOY_TO}
 
-
 branches: master
