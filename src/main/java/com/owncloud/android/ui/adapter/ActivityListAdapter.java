@@ -24,13 +24,18 @@ import android.graphics.drawable.PictureDrawable;
 import android.net.Uri;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -38,6 +43,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.activities.models.Activity;
 import com.owncloud.android.utils.DisplayUtils;
@@ -114,7 +120,8 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             }
 
             if (!TextUtils.isEmpty(activity.getSubject())) {
-                activityViewHolder.subject.setText(activity.getSubject());
+                activityViewHolder.subject.setMovementMethod(LinkMovementMethod.getInstance());
+                activityViewHolder.subject.setText(addClickablePart("{user} aceptó la compartición remota de {file}"), TextView.BufferType.SPANNABLE);
                 activityViewHolder.subject.setVisibility(View.VISIBLE);
             } else {
                 activityViewHolder.subject.setVisibility(View.GONE);
@@ -168,6 +175,33 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .load(uri)
                 .into(itemViewType);
+    }
+
+    private SpannableStringBuilder addClickablePart(String str) {
+        SpannableStringBuilder ssb = new SpannableStringBuilder(str);
+
+        int idx1 = str.indexOf("{");
+        int idx2 = 0;
+        while (idx1 != -1) {
+            idx2 = str.indexOf("}", idx1) + 1;
+
+            String stringFake="alex12345.png";
+            ssb.replace(idx1,idx2,stringFake);
+            str=ssb.toString();
+            idx2=idx1+stringFake.length();
+            final String clickString = str.substring(idx1, idx2);
+            ssb.setSpan(new ClickableSpan() {
+                @Override
+                public void onClick(View widget) {
+                    Toast.makeText(context, clickString,
+                            Toast.LENGTH_SHORT).show();
+                }
+            }, idx1, idx2, 0);
+            ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),idx1,idx2,0);
+            idx1 = str.indexOf("{", idx2);
+        }
+
+        return ssb;
     }
 
     @Override
