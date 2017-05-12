@@ -908,7 +908,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 16 && newVersion >= 16) {
-                Log_OC.i("SQL", "Entering in the #16 ADD synced folders table");
+                Log_OC.i(SQL, "Entering in the #16 ADD synced folders table");
                 db.beginTransaction();
                 try {
                     // Create synced folders table
@@ -925,7 +925,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 17 && newVersion >= 17) {
-                Log_OC.i(SQL, "Entering in the #4 ADD in onUpgrade");
+                Log_OC.i(SQL, "Entering in the #17 ADD in onUpgrade");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.FILE_TABLE_NAME +
@@ -945,7 +945,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 18 && newVersion >= 18) {
-                Log_OC.i(SQL, "Adding external link column to capabilities");
+                Log_OC.i(SQL, "Entering in the #18 Adding external link column to capabilities");
                 db.beginTransaction();
                 try {
                     db.execSQL(ALTER_TABLE + ProviderTableMeta.CAPABILITIES_TABLE_NAME +
@@ -964,7 +964,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 19 && newVersion >= 19) {
-                Log_OC.i(SQL, "Adding external link column to capabilities");
+                Log_OC.i(SQL, "Entering in the #19 Adding external link column to capabilities");
                 db.beginTransaction();
                 try {
                     createExternalLinksTable(db);
@@ -980,17 +980,15 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 20 && newVersion >= 20) {
-                Log_OC.i(SQL, "Adding arbitrary data table");
+                Log_OC.i(SQL, "Entering in the #20 Adding arbitrary data table");
                 db.beginTransaction();
                 try {
                     createArbitraryData(db);
-                    createVirtualTable(db);
                     upgraded = true;
                     db.setTransactionSuccessful();
                 } finally {
                     db.endTransaction();
                 }
-
             }
 
             if (!upgraded) {
@@ -998,7 +996,7 @@ public class FileContentProvider extends ContentProvider {
             }
 
             if (oldVersion < 21 && newVersion >= 21) {
-                Log_OC.i(SQL, "Adding virtual table");
+                Log_OC.i(SQL, "Entering in the #21 Adding virtual table");
                 db.beginTransaction();
                 try {
                     createVirtualTable(db);
