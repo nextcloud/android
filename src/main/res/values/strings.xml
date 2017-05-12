@@ -663,6 +663,5 @@
     <string name="new_notification_received">New notification received</string>
     <string name="drawer_logout">Logout</string>
     <string name="picture_set_as_no_app">No app found to set a picture with!</string>
-
-
+    <string name="privacy">Privacy</string>
 </resources>
