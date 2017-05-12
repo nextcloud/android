@@ -410,8 +410,8 @@
     <string name="file_migration_restoring_accounts_configuration">Γίνεται επαναφορά ρυθμίσεων λογαριασμών&#8230;</string>
     <string name="file_migration_ok_finished">Ολοκληρώθηκε</string>
     <string name="file_migration_failed_not_enough_space">ΣΦΑΛΜΑ: Ανεπαρκής αποθηκευτικός χώρος</string>
-    <string name="file_migration_failed_not_writable">ΣΦΑΛΜΑ: Το αρχείο δεν είναι εγγράψιμο</string>
-    <string name="file_migration_failed_not_readable">ΣΦΑΛΜΑ: Το αρχείο δεν είναι αναγνώσιμο</string>
+    <string name="file_migration_failed_not_writable">ΣΦΑΛΜΑ: Το αρχείο προορισμού δεν είναι εγγράψιμο</string>
+    <string name="file_migration_failed_not_readable">Σφάλμα: Το αρχείο προέλευσης δεν είναι αναγνώσιμο</string>
     <string name="file_migration_failed_dir_already_exists">ΣΦΑΛΜΑ: Υπάρχει ήδη ο κατάλογος Nextcloud</string>
     <string name="file_migration_failed_while_coping">ΣΦΑΛΜΑ: Κατά την μεταφορά</string>
     <string name="file_migration_failed_while_updating_index">ΣΦΑΛΜΑ: Κατά την ενημέρωση ευρετηρίου</string>
@@ -419,6 +419,9 @@
     <string name="file_migration_directory_already_exists">Ο φάκελος των δεδομένων υπάρχει ήδη, τι να κάνω;</string>
     <string name="file_migration_override_data_folder">Αντικατάσταση</string>
     <string name="file_migration_use_data_folder">Χρήση</string>
+
+    <string name="file_migration_source_not_readable_title">Ο πηγαίος φάκελος δεν ειναι αναγνώσιμος!</string>
+    <string name="file_migration_source_not_readable">Θέλετε ακόμη να αλλάξετε το μονοπάτι αποθήκευσης σε %1$s;\n\nΣημείωση: όλα τα δεδομένα θα πρέπει να κατεβαστούν ξανά. </string>
 
     <string name="prefs_category_accounts">Λογαριασμοί</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
@@ -636,9 +639,11 @@
     <string name="contactlist_title">Επαναφορά επαφών</string>
     <string name="contaclist_restore_selected">Επαναφορά επιλεγμένων επαφών</string>
     <string name="contactlist_account_chooser_title">Επιλογή λογαριασμού για εισαγωγή</string>
+    <string name="contactlist_no_permission">Κανένα δικαίωμα δεν δόθηκε, τίποτε δεν εισήχθη</string>
     <string name="contacts_preference_choose_date">Επιλογή ημερομηνίας</string>
     <string name="contacts_preference_backup_never">ποτέ</string>
     <string name="contacts_preferences_no_file_found">Δεν βρέθηκε αρχείο</string>
+    <string name="contacts_preferences_something_strange_happened">Δεν μπορούμε να βρούμε το τελευταίο σας αντίγραφο ασφαλείας!</string>
     <string name="contacts_preferences_backup_scheduled">Η λήψη αντιγράφου αφαλείας έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
     <string name="contacts_preferences_import_scheduled">Η εισαγωγή έχει προγραμματιστεί και θα ξεκινήσει σύντομα</string>
 

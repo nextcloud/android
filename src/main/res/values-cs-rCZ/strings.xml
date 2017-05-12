@@ -19,7 +19,10 @@
     <string name="menu_item_sort_by_date_newest_first">První nejnovější</string>
     <string name="menu_item_sort_by_date_oldest_first">První nejstarší</string>
     <string name="menu_item_sort_by_size_biggest_first">První největší</string>
+    <string name="menu_item_sort_by_size_smallest_first">Nejprve nejmenší</string>
+
     <string name="drawer_item_all_files">Všechny soubory</string>
+    <string name="drawer_item_files">Soubor</string>
     <string name="drawer_item_home">Domů</string>
     <string name="drawer_item_favorites">Oblíbené</string>
     <string name="drawer_item_photos">Fotky</string>
@@ -27,6 +30,7 @@
     <string name="drawer_item_recently_added">Nedávno přidané</string>
     <string name="drawer_item_recently_modified">Nedávno změněné</string>
     <string name="drawer_item_shared">Sdíleno</string>
+    <string name="drawer_item_videos">Video</string>
     <string name="drawer_item_settings">Nastavení</string>
     <string name="drawer_item_uploads_list">Nahrání</string>
     <string name="drawer_item_activities">Aktivity</string>
@@ -99,9 +103,13 @@
     <string name="file_list_empty_headline_search">V této složce nebylo nic nalezeno</string>
     <string name="file_list_empty_headline_server_search">Žádné výsledky</string>
     <string name="file_list_empty_favorite_headline">Zatím není nic oblíbeno</string>
+    <string name="file_list_empty_shared_headline">Není nic sdílené</string>
+    <string name="file_list_empty_headline_server_search_videos">Žádné video</string>
+    <string name="file_list_empty_headline_server_search_photos">Žádná fotka</string>
     <string name="file_list_empty_search">Zkusit hledat v jiné složce?</string>
     <string name="upload_list_empty_headline">Nic k nahrání</string>
     <string name="upload_list_empty_text">Nahrajte nějaký obsah, nebo aktivujte okamžité nahrání!</string>
+    <string name="upload_list_empty_text_auto_upload">Nahrajte nějaký obsah nebo aktivujte automatické nahrávání.</string>
     <string name="file_list_folder">adresář</string>
     <string name="file_list_folders">adresářů</string>
     <string name="file_list_file">soubor</string>
@@ -332,6 +340,7 @@
     <string name="conflict_use_local_version">místní verze</string>
     <string name="conflict_use_server_version">serverová verze</string>
 
+    <string name="preview_sorry">Omlouváme se za to.</string>
     <string name="preview_image_description">Náhled obrázku</string>
     <string name="preview_image_error_unknown_format">Nelze zobrazit obrázek</string>
 
@@ -389,8 +398,6 @@
     <string name="file_migration_restoring_accounts_configuration">Obnovování konfigurace účtů&#8230;</string>
     <string name="file_migration_ok_finished">Dokončeno</string>
     <string name="file_migration_failed_not_enough_space">CHYBA: Nedostatečné místo</string>
-    <string name="file_migration_failed_not_writable">CHYBA: Soubor není zapisovatelný</string>
-    <string name="file_migration_failed_not_readable">CHYBA: Soubor nelze číst</string>
     <string name="file_migration_failed_dir_already_exists">CHYBA: Nextcloud adresář již existuje</string>
     <string name="file_migration_failed_while_coping">CHYBA: V průběhu migrace</string>
     <string name="file_migration_failed_while_updating_index">CHYBA: V průběhu aktualizace indexu</string>
@@ -551,6 +558,9 @@
     </plurals>
 
     <string name="activity_list_loading_activity">Načítání aktivit&#8230;</string>
+    <string name="activity_list_no_results">Žádné aktivity nebyly nalezeny.</string>
+
+    <string name="notifications_no_results_headline">Žádné oznámení</string>
     <string name="notifications_no_results_message">Prosíme, vraťte se později.</string>
 
     <string name="upload_file_dialog_title">Jméno a typ vstupního souboru k nahrání</string>
@@ -594,16 +604,34 @@
 
     <!-- Activities -->
     <string name="activities_no_results_headline">Zatím žádná aktivita</string>
+    <string name="activities_no_results_message">Datový proud bude zobrazovat události jako přidání, změny a sdílení</string>
     <string name="webview_error">Došlo k chybě</string>
     <string name="prefs_category_about">O aplikaci</string>
 
+    <string name="actionbar_contacts">Záložní kontakty</string>
+    <string name="actionbar_contacts_restore">Obnovení kontaktů</string>
+    <string name="contacts_backup_button">Zálohujte nyní</string>
     <string name="contacts_restore_button">Obnovit poslední zálohu</string>
     <string name="contacts_header_restore">Obnovit</string>
     <string name="contacts_header_backup">Záloha</string>
+    <string name="contacts_automatic_backup">Zálohování kontaktů</string>
     <string name="contacts_last_backup">Poslední záloha</string>
     <string name="contacts_read_permission">Je třeba oprávnění ke čtení seznamu kontaktů</string>
+    <string name="contacts_write_permission">Povolení změn v seznam kontaktů je vyžadováno</string>
+    <string name="contactlist_title">Restore contacts</string>
+    <string name="contaclist_restore_selected">Obnovit vybrané kontakty</string>
+    <string name="contactlist_account_chooser_title">Vyber účet, který chceš importovat</string>
+    <string name="contactlist_no_permission">Povolení není udělené, žádný import!</string>
     <string name="contacts_preference_choose_date">Zvolte datum</string>
     <string name="contacts_preference_backup_never">Nikdy</string>
+    <string name="contacts_preferences_no_file_found">Nebyl nalezen žádný soubor</string>
+    <string name="contacts_preferences_something_strange_happened">Nemůžeme najít poslední zálohu!</string>
+    <string name="contacts_preferences_backup_scheduled">Zálohování je naplánováno a brzy začne</string>
+    <string name="contacts_preferences_import_scheduled">Import je naplánován a brzy začne</string>
+
     <!-- Notifications -->
     <string name="new_notification_received">Přijato nové upozornění</string>
-    </resources>
+    <string name="drawer_logout">Odhlásit se</string>
+
+
+</resources>
