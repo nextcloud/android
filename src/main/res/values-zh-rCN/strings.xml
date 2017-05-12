@@ -65,10 +65,15 @@
     <string name="prefs_feedback">反馈</string>
     <string name="prefs_imprint">版本说明</string>
     <string name="recommend_subject">在您的智能手机上试用 %1$s！</string>
-	<string name="auth_check_server">检查服务器</string>
+	<string name="recommend_text">我想邀请你在智能机上使用%1$s。
+从这里下载：%2$s</string>
+
+    <string name="auth_check_server">检查服务器</string>
     <string name="auth_host_url">服务器地址 https://...</string>
     <string name="auth_username">用户名</string>
     <string name="auth_password">密码</string>
+    <string name="auth_register">你是不是还没有服务器？
+点击这里从提供商获取一个</string>
     <string name="sync_string_files">文件</string>
     <string name="setup_btn_connect">连接</string>
     <string name="uploader_btn_upload_text">上传</string>
@@ -80,20 +85,35 @@
     <string name="uploader_error_title_no_file_to_upload">文件没有上传</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s不能把一段文字做为文件上传</string>
     <string name="uploader_error_message_no_file_to_upload">得到的数据没有包括有效文件</string>
+    <string name="uploader_error_title_file_cannot_be_uploaded">不能上传这个文件</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s 不让读取已经获得的文件</string>
+    <string name="uploader_error_message_source_file_not_found">没有找到刚刚选择上传的文件。请检查文件是否存在。</string>
+    <string name="uploader_error_message_source_file_not_copied">不能把文件拷贝到临时文件夹。试着重新发送。</string>
     <string name="uploader_upload_files_behaviour">上传选项：</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">移动文件到Nextcloud文件夹</string>
     <string name="uploader_upload_files_behaviour_only_upload">在原文件夹中保留文件</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">从原文件夹中删除文件</string>
     <string name="file_list_seconds_ago">几秒前</string>
+    <string name="file_list_empty_headline">这里没有文件
+</string>
+    <string name="file_list_empty_favorites">把一些文件设为“我喜欢的”或者从设备同步</string>
+    <string name="file_list_empty_favorites_filter_list">你标记为“我喜欢的”文件和文件夹会显示在这里</string>
+    <string name="file_list_empty_favorites_filter">没有找到您搜索的“我喜欢的”。</string>
     <string name="file_list_loading">加载中&#8230;</string>
+    <string name="file_list_no_app_for_file_type">没有设置应用程序来处理这种类型的文件</string>
     <string name="local_file_list_empty">在该文件夹中不存在文件。</string>
     <string name="file_list_empty_headline_search">此文件夹无结果</string>
     <string name="file_list_empty_headline_server_search">没有结果</string>
+    <string name="file_list_empty_favorite_headline">还没有“我喜欢的”</string>
     <string name="file_list_empty_shared_headline">还没有共享过文件</string>
     <string name="file_list_empty_shared">您共享的文件和文件夹将显示在这里</string>
     <string name="file_list_empty_headline_server_search_videos">无视频</string>
     <string name="file_list_empty_headline_server_search_photos">无照片</string>
+    <string name="file_list_empty_search">说不定它在另外一个文件夹？</string>
+    <string name="file_list_empty_recently_modified">没有找到最近7天修改的文件</string>
+    <string name="file_list_empty_recently_modified_filter">没有搜索到被修改的文件
+ 在最近7天。</string>
+    <string name="file_list_empty_recently_added">没有找到最近添加的文件</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
     <string name="file_list_folder">文件夹</string>
     <string name="file_list_folders">文件夹</string>
