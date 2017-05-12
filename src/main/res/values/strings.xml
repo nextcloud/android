@@ -659,6 +659,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">New notification received</string>
     <string name="drawer_logout">Logout</string>
+    <string name="privacy">Privacy</string>
 
 
 </resources>
