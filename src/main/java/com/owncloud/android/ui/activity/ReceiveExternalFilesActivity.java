@@ -1137,10 +1137,14 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 }
 
                 @Override
-                public void onNeutral(String callerTag) {}
+                public void onNeutral(String callerTag) {
+                    // not used at the moment
+                }
 
                 @Override
-                public void onCancel(String callerTag) {}
+                public void onCancel(String callerTag) {
+                    // not used at the moment
+                }
             }
         );
         errorDialog.show(getSupportFragmentManager(), FTAG_ERROR_FRAGMENT);
