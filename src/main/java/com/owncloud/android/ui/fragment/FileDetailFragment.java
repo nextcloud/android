@@ -118,10 +118,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener 
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onActivityCreated(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

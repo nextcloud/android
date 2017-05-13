@@ -191,7 +191,7 @@ public class DialogMenuItem implements MenuItem {
 
     @Override
     public void setShowAsAction(int actionEnum) {
-
+        // not used at the moment
     }
 
     @Override
