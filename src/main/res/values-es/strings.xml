@@ -651,6 +651,4 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nueva notificación recibida</string>
     <string name="drawer_logout">Desconectar</string>
-
-
-</resources>
+    </resources>

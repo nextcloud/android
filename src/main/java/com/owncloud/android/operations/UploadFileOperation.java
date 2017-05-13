@@ -2,7 +2,7 @@
  *   ownCloud Android client application
  *
  *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud Inc.
+ *   Copyright (C) 2016 ownCloud GmbH.
  *
  *   This program is free software: you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -323,6 +323,7 @@ public class UploadFileOperation extends SyncOperation {
             remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
                     remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
             result = grantFolderExistence(remoteParentPath, client);
+
             if (!result.isSuccess()) {
 
                 return result;
@@ -370,15 +371,19 @@ public class UploadFileOperation extends SyncOperation {
                 throw new OperationCancelledException();
             }
 
+            // Get the last modification date of the file from the file system
+            Long timeStampLong = originalFile.lastModified()/1000;
+            String timeStamp = timeStampLong.toString();
+
             /// perform the upload
             if ( mChunked &&
                     (new File(mFile.getStoragePath())).length() >
                             ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
             }
             Iterator <OnDatatransferProgressListener> listener = mDataTransferListeners.iterator();
             while (listener.hasNext()) {

@@ -652,6 +652,4 @@
     <!-- Notifications -->
     <string name="new_notification_received">Otrzymano nowe powiadomienie</string>
     <string name="drawer_logout">Wyloguj</string>
-
-
-</resources>
+    </resources>
