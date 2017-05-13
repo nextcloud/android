@@ -10,10 +10,14 @@
 - Favorites, Photos and Activities
 - Fingerprint locking
 - SVG preview
+- Set edit permissions in federated shares of folders (NC 10+)
 - New sorting dialog
 - User information view
 - Custom external links support
+- Detect server maintainance mode
 - Nicer error views for images & video preview
+- Included privacy policy
+- Preserve modification time of uploaded files
 - Various bug fixes & improvements
 
 ## 1.4.3 (May 22, 2017)
