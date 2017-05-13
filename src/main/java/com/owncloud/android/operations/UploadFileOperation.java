@@ -371,12 +371,16 @@ public class UploadFileOperation extends SyncOperation {
                 throw new OperationCancelledException();
             }
 
+            // Get the last modification date of the file from the file system
+            Long timeStampLong = originalFile.lastModified()/1000;
+            String timeStamp = timeStampLong.toString();
+
             /// perform the upload
             if ( mChunked &&
                     (new File(mFile.getStoragePath())).length() >
                             ChunkedUploadRemoteFileOperation.CHUNK_SIZE ) {
                 mUploadOperation = new ChunkedUploadRemoteFileOperation(mContext, mFile.getStoragePath(),
-                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
+                        mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict(), timeStamp);
             } else {
                 mUploadOperation = new UploadRemoteFileOperation(mFile.getStoragePath(),
                         mFile.getRemotePath(), mFile.getMimetype(), mFile.getEtagInConflict());
