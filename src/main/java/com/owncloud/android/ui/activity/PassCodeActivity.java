@@ -107,7 +107,7 @@ class PassFieldLinearLayout extends LinearLayout implements View.OnFocusChangeLi
             return true;
         }
     }
-    
+
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
         PassThroughInputConnection ic = new PassThroughInputConnection(this, false);
@@ -312,7 +312,8 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     private SoftKeyboardUtil mSoftKeyboard;
     private SharedPreferences mPref;
     private String mPassCodeStr;
-    private Snackbar mSnackbar;
+    private Snackbar mSnackBar;
+    private Snackbar.Callback mSnackBarCallback = null;
     private Handler mHandler = new Handler();
     private TextView mPassCodeHdr;
     private boolean mSwitchKeyboardMenuEnable = false;
@@ -395,21 +396,24 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
 
         if (explanationId != 0) {
             setButtonsVisibility(false);
-            mSnackbar = makeSnackbar(explanationId, Snackbar.LENGTH_LONG);
-            mSnackbar
+            mSnackBarCallback = new Snackbar.Callback() {
+                @Override
+                public void onDismissed(Snackbar snackbar, int event) {
+                    setupKeyboard();
+                    setSwitchKeyboardMenuVisibility(true);
+                    mSnackBarCallback = null;
+                }
+            };
+            mSnackBar = makeSnackbar(explanationId, Snackbar.LENGTH_LONG);
+            mSnackBar
                 .setAction(R.string.common_ok, new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // nothing to do
+					    mSnackBar.setCallback(null);
+	                    mSnackBarCallback = null;
                     }
                 })
-                .setCallback(new Snackbar.Callback() {
-                    @Override
-                    public void onDismissed(Snackbar snackbar, int event) {
-                        setupKeyboard();
-                        setSwitchKeyboardMenuVisibility(true);
-                    }
-                })
+                .setCallback(mSnackBarCallback)
                 .show();
         }
     }
@@ -419,7 +423,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
         super.onResume();
         AnalyticsUtils.setCurrentScreenName(this, SCREEN_NAME, TAG);
         clearPassCodeEditText();
-        if (mSnackbar == null || !mSnackbar.isShown()) {
+        if (mSnackBar == null || !mSnackBar.isShown()) {
             setupKeyboard();
             if (mSoftKeyboardMode) {
                 mSoftKeyboard.initVisible();
@@ -433,10 +437,16 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     @Override
     protected void onPause() {
         super.onPause();
-        mSoftKeyboard.appClose();
-        if (mSnackbar != null && mSnackbar.isShown()) {
-            mSnackbar.setCallback(null);
+
+        if (mSoftKeyboardMode) {
+            mSoftKeyboard.appClose();
+            hideSoftKeyboard();
         }
+
+        if (mSnackBar != null && mSnackBar.isShown()) {
+            mSnackBar.dismiss();
+        }
+
         mHandler.removeCallbacksAndMessages(null);
 
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -484,30 +494,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             hideSoftKeyboard();
         }
     }
-
-    // TODO: Enable this block when the hardware keyboard can be detected
-    // <activity android:name=".ui.activity.PassCodeActivity"
-	// 		  android:configChanges="keyboard|keyboardHidden"
-	// 		  />
-    // @Override
-    // public void onConfigurationChanged(Configuration newConfig) {
-    //     super.onConfigurationChanged(newConfig);
-    //     switch(newConfig.hardKeyboardHidden) {
-    //     case Configuration.HARDKEYBOARDHIDDEN_NO:
-    //         mEnableSwitchSoftKeyboard = false;
-    //         mSoftKeyboardMode = false;
-    //         setupKeyboard();
-    //         break;
-    //     case Configuration.HARDKEYBOARDHIDDEN_YES:
-    //         mEnableSwitchSoftKeyboard = true;
-    //         mSoftKeyboardMode = false;
-    //         setupKeyboard();
-    //         break;
-    //     default:
-    //         // nothing to do
-    //         break;
-    //     }
-    // }
 
     private void setupKeyboard() {
         if (mSoftKeyboardMode) {
@@ -677,13 +663,13 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
     }
     
     private void showErrorMessage(int errorMessage) {
-        mSnackbar = makeSnackbar(errorMessage, Snackbar.LENGTH_INDEFINITE);
-        mSnackbar.show();
+        mSnackBar = makeSnackbar(errorMessage, Snackbar.LENGTH_INDEFINITE);
+        mSnackBar.show();
     }
 
     private void eraseErrorMessage() {
-        mSnackbar.dismiss();
-        mSnackbar = null;
+        mSnackBar.dismiss();
+        mSnackBar = null;
     }
 
     private void startGuard() {
@@ -703,7 +689,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             mGuardTimeLeft = GUARD_TIME + GUARD_DISP_STEP;
             final ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
             progressBar.setIndeterminate(false);    // TODO: ToolbarActivity:117 setIndeterminate()
-            progressBar.setMax(GUARD_TIME);         // TODO: ?? ToolbarActivity:128 setProgressBarBackgroundColor()
+            progressBar.setMax(GUARD_TIME);        // TODO: ?? ToolbarActivity:128 setProgressBarBackgroundColor()
             mHandler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -720,23 +706,28 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             mGuardFlag = true;
         } else {
             // easy guard
-            mSnackbar = makeSnackbar(R.string.pass_code_mismatch, Snackbar.LENGTH_LONG);
-            mSnackbar
+            mSnackBarCallback = new Snackbar.Callback() {
+                @Override
+                public void onDismissed(Snackbar snackbar, int event) {
+                    setupKeyboard();
+                    setSwitchKeyboardMenuVisibility(true);
+                    mConfirmingPassCodeFlag = false;
+                    clearPassCodeEditText();
+                    mSnackBarCallback = null;
+                    mSnackBar = null;
+                }
+            };
+            mSnackBar = makeSnackbar(R.string.pass_code_mismatch, Snackbar.LENGTH_LONG);
+            mSnackBar
                     .setAction(R.string.common_ok, new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // nothing to do
+                            mSnackBar.setCallback(mSnackBarCallback);
+                            mSnackBarCallback = null;
+                            mSnackBar = null;
                         }
                     })
-                    .setCallback(new Snackbar.Callback() {
-                        @Override
-                        public void onDismissed(Snackbar snackbar, int event) {
-                            setupKeyboard();
-                            setSwitchKeyboardMenuVisibility(true);
-                            mConfirmingPassCodeFlag = false;
-                            clearPassCodeEditText();
-                        }
-                    })
+                    .setCallback(mSnackBarCallback)
                     .show();
         }
     }
@@ -751,10 +742,6 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
             resultIntent.putExtra(KEY_CHECK_RESULT, true);
             setResult(RESULT_CANCELED, resultIntent);
             finish();
-        // } else if (ACTION_REQUEST_WITH_RESULT.equals(getIntent().getAction())) {
-        //     setupKeyboard();
-        //     clearPassCodeEditText();
-        //     mConfirmingPassCodeFlag = false;
         }
         setSwitchKeyboardMenuVisibility(true);
     }

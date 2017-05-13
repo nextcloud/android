@@ -278,4 +278,8 @@
 	</style>
 	<style name="NextcloudTextAppearanceSmall" parent="style/TextAppearance.AppCompat.Small">
 	</style>
+
+	<style name="Button.Passcode.Del" parent="Theme.AppCompat.Light">
+		<item name="colorControlHighlight">@color/nc_blue_accent</item>
+	</style>
 </resources>

@@ -89,17 +89,17 @@
 
             <android.support.v7.widget.AppCompatButton
                 android:id="@+id/del"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="30dp"
-                android:layout_marginRight="30dp"
                 android:background="@drawable/passcode_button_del"
                 android:gravity="center_vertical|fill_vertical|center"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:theme="@style/Button.Passcode.Del"/>
 
         </RelativeLayout>
 
