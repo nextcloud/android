@@ -29,7 +29,7 @@ configurations.all {
 }
 
 ext {
-    supportLibraryVersion = '25.0.0'
+    supportLibraryVersion = '25.2.0'
 
     travisBuild = System.getenv("TRAVIS") == "true"
 
@@ -63,7 +63,7 @@ android {
     }
 
     compileSdkVersion 25
-    buildToolsVersion '25.0.0'
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
