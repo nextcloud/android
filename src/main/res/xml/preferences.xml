@@ -95,6 +95,10 @@
 		<Preference android:title="@string/prefs_imprint" android:key="imprint" />
 	</PreferenceCategory>
 	<PreferenceCategory android:title="@string/prefs_category_about" android:key="about">
+		<Preference
+			android:title="@string/privacy"
+			android:id="@+id/privacy"
+			android:key="privacy"/>
 		<Preference android:title="@string/about_title" android:id="@+id/about_app" android:key="about_app" />
 	</PreferenceCategory>
 
