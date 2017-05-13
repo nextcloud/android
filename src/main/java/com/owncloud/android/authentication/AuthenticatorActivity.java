@@ -563,6 +563,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 @Override
                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                    // not used at the moment
                 }
 
                 @Override
