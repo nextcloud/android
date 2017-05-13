@@ -514,6 +514,7 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
      * @return              Text describing the status of the given upload.
      */
     private String getStatusText(OCUpload upload) {
+
         String status;
         switch (upload.getUploadStatus()) {
 
@@ -595,6 +596,9 @@ public class ExpandableUploadListAdapter extends BaseExpandableListAdapter imple
                     case UPLOADED:
                         // should not get here ; status should be UPLOAD_SUCCESS
                         status =  mParentActivity.getString(R.string.uploads_view_upload_status_succeeded);
+                        break;
+                    case MAINTENANCE_MODE:
+                        status = mParentActivity.getString(R.string.maintenance_mode);
                         break;
                     default:
                         status = "Naughty devs added a new fail result but no description for the user";
