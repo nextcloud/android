@@ -61,7 +61,7 @@ public class IndexedForest<V> {
 
         public Node<V> getParent() {
             return mParent;
-        };
+        }
 
         public Set<Node<V>> getChildren() {
             return mChildren;
@@ -143,7 +143,7 @@ public class IndexedForest<V> {
 
             return new Pair<String, String>(targetKey, linkedTo);
         }
-    };
+    }
 
 
     public Pair<V, String> removePayload(String accountName, String remotePath) {
