@@ -151,23 +151,19 @@ public class EditShareFragment extends Fragment {
             int sharePermissions = mShare.getPermissions();
             boolean isFederated = ShareType.FEDERATED.equals(mShare.getShareType());
             OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mAccount);
-            boolean isNotReshareableFederatedSupported = (
-                    serverVersion != null &&
-                            serverVersion.isNotReshareableFederatedSupported()
-            );
-            CompoundButton compound;
+            boolean isNotReshareableFederatedSupported = (serverVersion != null &&
+                    serverVersion.isNotReshareableFederatedSupported());
 
-            compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
-            if(isFederated) {
+            CompoundButton compound = (CompoundButton) editShareView.findViewById(R.id.canShareSwitch);
+
+            if (isFederated) {
                 compound.setVisibility(View.INVISIBLE);
             }
             compound.setChecked((sharePermissions & OCShare.SHARE_PERMISSION_FLAG) > 0);
 
             compound = (CompoundButton) editShareView.findViewById(R.id.canEditSwitch);
-            int anyUpdatePermission =
-                    OCShare.CREATE_PERMISSION_FLAG |
-                            OCShare.UPDATE_PERMISSION_FLAG |
-                            OCShare.DELETE_PERMISSION_FLAG;
+            int anyUpdatePermission = OCShare.CREATE_PERMISSION_FLAG | OCShare.UPDATE_PERMISSION_FLAG |
+                    OCShare.DELETE_PERMISSION_FLAG;
             boolean canEdit = (sharePermissions & anyUpdatePermission) > 0;
             compound.setChecked(canEdit);
 

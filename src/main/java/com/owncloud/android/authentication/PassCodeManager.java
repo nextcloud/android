@@ -60,7 +60,7 @@ public class PassCodeManager {
         return mPassCodeManagerInstance;
     }
 
-    protected PassCodeManager() {};
+    protected PassCodeManager() {}
 
     public void onActivityCreated(Activity activity) {
         if (passCodeIsEnabled() || fingerprintIsEnabled()) {
