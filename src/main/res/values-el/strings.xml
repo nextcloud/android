@@ -650,6 +650,4 @@
     <!-- Notifications -->
     <string name="new_notification_received">Νέα ενημέρωση ελήφθη </string>
     <string name="drawer_logout">Έξοδος</string>
-
-
-</resources>
+    </resources>

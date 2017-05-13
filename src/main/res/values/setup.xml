@@ -27,7 +27,7 @@
     <bool name="show_welcome_link">true</bool>
 	<string name="welcome_link_url">"https://nextcloud.com/providers"</string>
 	<string name="share_api_link"></string>
-    
+
     <!-- Flags to setup the authentication methods available in the app -->
     <string name="auth_method_oauth2">off</string>
     <string name="auth_method_saml_web_sso">off</string>
@@ -36,18 +36,18 @@
     <string name="send_files_to_other_apps">on</string>
     <bool name="share_via_link_feature">true</bool>
     <bool name="share_with_users_feature">true</bool>
-    <bool name="show_whats_new">true</bool>
     <bool name="show_external_links">true</bool>
-    <bool name="show_drawer_logout">false</bool>
-    
+
     <!-- Contacts backup -->
     <bool name="contacts_backup">true</bool>
     <string name="contacts_backup_folder">/.Contacts-Backup</string>
     <integer name="contacts_backup_expire">-1</integer>
-    
+
+    <!-- What's new -->
+    <bool name="show_whats_new">true</bool>
     <!-- To fill if you want to show webviews instead of regular welcome views -->
     <array name="whatsnew_urls"></array>
-    
+
     <!-- Colors -->
     <color name="primary">@color/nc_blue</color>
     <color name="primary_dark">#006AA3</color>
@@ -84,6 +84,7 @@
     <bool name="recently_modified_enabled">false</bool>
     <bool name="shared_enabled">true</bool>
     <bool name="videos_enabled">false</bool>
+    <bool name="show_drawer_logout">false</bool>
 
     <!-- Bottom toolbar -->
     <bool name="bottom_toolbar_enabled">false</bool>
@@ -92,11 +93,13 @@
     <bool name="fingerprint_enabled">true</bool>
     <bool name="davdroid_integration_enabled">true</bool>
     <bool name="help_enabled">true</bool>
-    <bool name="imprint_enabled">false</bool> 
+    <string name="url_help">https://help.nextcloud.com/c/feature</string>
+    <bool name="privacy_enabled">true</bool>
+    <string name="privacy_url">https://nextcloud.com/privacy</string>
+    <bool name="imprint_enabled">false</bool>
     <bool name="recommend_enabled">true</bool>
     <bool name="feedback_enabled">true</bool>
     <bool name="logger_enabled">false</bool>
-    <string name="url_help">https://help.nextcloud.com/c/feature</string>
     <string name="url_imprint"></string>
     <string name="mail_recommend">"mailto:"</string>
     <string name="mail_feedback">"mailto:android@nextcloud.com"</string>

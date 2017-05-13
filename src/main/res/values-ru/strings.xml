@@ -655,6 +655,4 @@
     <!-- Notifications -->
     <string name="new_notification_received">Получено новое уведомление</string>
     <string name="drawer_logout">Выйти</string>
-
-
-</resources>
+    </resources>
