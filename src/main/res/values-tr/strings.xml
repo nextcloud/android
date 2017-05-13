@@ -651,6 +651,4 @@
     <!-- Notifications -->
     <string name="new_notification_received">Yeni bir bildirim var</string>
     <string name="drawer_logout">Oturumu Kapat</string>
-
-
-</resources>
+    </resources>

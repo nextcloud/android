@@ -652,6 +652,4 @@ Kies er eentje van een provider.</string>
     <!-- Notifications -->
     <string name="new_notification_received">Nieuwe meldingen ontvangen</string>
     <string name="drawer_logout">Uitloggen</string>
-
-
-</resources>
+    </resources>
