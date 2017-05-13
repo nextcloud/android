@@ -401,7 +401,9 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                 public void onDismissed(Snackbar snackbar, int event) {
                     setupKeyboard();
                     setSwitchKeyboardMenuVisibility(true);
+                    mSnackBar.setCallback(null);
                     mSnackBarCallback = null;
+                    mSnackBar = null;
                 }
             };
             mSnackBar = makeSnackbar(explanationId, Snackbar.LENGTH_LONG);
@@ -409,8 +411,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                 .setAction(R.string.common_ok, new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-					    mSnackBar.setCallback(null);
-	                    mSnackBarCallback = null;
+                        // nothing to do
                     }
                 })
                 .setCallback(mSnackBarCallback)
@@ -713,6 +714,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                     setSwitchKeyboardMenuVisibility(true);
                     mConfirmingPassCodeFlag = false;
                     clearPassCodeEditText();
+                    mSnackBar.setCallback(null);
                     mSnackBarCallback = null;
                     mSnackBar = null;
                 }
@@ -722,9 +724,7 @@ public class PassCodeActivity extends AppCompatActivity implements SoftKeyboardU
                     .setAction(R.string.common_ok, new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            mSnackBar.setCallback(mSnackBarCallback);
-                            mSnackBarCallback = null;
-                            mSnackBar = null;
+                            // nothing to do
                         }
                     })
                     .setCallback(mSnackBarCallback)
