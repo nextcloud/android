@@ -1252,7 +1252,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             }
         } else {
             if (!webViewLoginMethod) {
-                updateStatusIconFailUserName();
+                int statusText = result.getCode() == ResultCode.MAINTENANCE_MODE ? R.string.maintenance_mode : R.string.auth_fail_get_user_name;
+                updateStatusIconFailUserName(statusText);
                 showAuthStatus();
             }
             Log_OC.e(TAG, "Access to user name failed: " + result.getLogMessage());
@@ -1452,6 +1453,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 mServerStatusIcon = R.drawable.ic_lock_open_white;
                 mServerStatusText = R.string.auth_redirect_non_secure_connection_title;
                 break;
+            case MAINTENANCE_MODE:
+                mServerStatusText = R.string.maintenance_mode;
+                break;
             default:
                 mServerStatusText = 0;
                 mServerStatusIcon = 0;
@@ -1541,10 +1545,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-
-    private void updateStatusIconFailUserName() {
+    private void updateStatusIconFailUserName(int failedStatusText){
         mAuthStatusIcon = R.drawable.ic_alert;
-        mAuthStatusText = R.string.auth_fail_get_user_name;
+        mAuthStatusText = failedStatusText;
     }
 
     private void updateServerStatusIconNoRegularAuth() {
