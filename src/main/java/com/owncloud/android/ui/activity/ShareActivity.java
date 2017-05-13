@@ -51,6 +51,8 @@ import com.owncloud.android.ui.fragment.ShareFragmentListener;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.GetShareWithUsersAsyncTask;
 
+import java.util.ArrayList;
+
 
 /**
  * Activity for sharing files
@@ -111,10 +113,19 @@ public class ShareActivity extends FileActivity
             Uri data = intent.getData();
             String dataString = intent.getDataString();
             String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
-            doShareWith(
-                    shareWith,
-                    data.getAuthority()
-            );
+
+            ArrayList<String> shareeNames = new ArrayList<>();
+            for (OCShare share : getStorageManager().getSharesWithForAFile(getFile().getRemotePath(), getAccount().name)) {
+                shareeNames.add(share.getShareWith());
+            }
+
+            if (!shareeNames.contains(shareWith)) {
+
+                doShareWith(
+                        shareWith,
+                        data.getAuthority()
+                );
+            }
 
         } else {
             Log_OC.e(TAG, "Unexpected intent " + intent.toString());
