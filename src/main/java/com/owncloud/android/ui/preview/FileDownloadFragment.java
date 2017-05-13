@@ -323,15 +323,9 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             }
             mLastPercent = percent;
         }
-
     }
-
 
     public void setError(boolean error) {
         mError = error;
     }
-
-    ;
-
-
 }

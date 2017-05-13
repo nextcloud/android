@@ -334,7 +334,7 @@ public class UploadListActivity extends FileActivity implements UploadListFragme
                 mUploaderBinder = null;
             }
         }
-    };
+    }
 
     /**
      * Once the file upload has changed its status -> update uploads list view
