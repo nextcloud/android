@@ -1,3 +1,8 @@
+## 2017-05-13 09:04
+- Re-use second fragment if available (nextcloud/audioRotationBug) [https://github.com/nextcloud/android/pull/985] added
+
+- Re-use second fragment if available (nextcloud/audioRotationBug) [https://github.com/nextcloud/android/pull/985] updated
+
 ## 2017-05-13 00:31
 no new branches added
 
