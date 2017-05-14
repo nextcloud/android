@@ -1,3 +1,9 @@
+## 2017-05-15 00:32
+no new branches added
+
+- Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] updated
+- Master (nextcloud/master) [https://github.com/nextcloud/android] updated
+
 ## 2017-05-13 09:04
 - Re-use second fragment if available (nextcloud/audioRotationBug) [https://github.com/nextcloud/android/pull/985] added
 
