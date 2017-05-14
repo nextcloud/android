@@ -358,6 +358,7 @@ public class PreviewImageActivity extends FileActivity implements
      */
     @Override
     public void onPageScrollStateChanged(int state) {
+        // not used at the moment
     }
 
     /**
@@ -367,15 +368,14 @@ public class PreviewImageActivity extends FileActivity implements
      * @param   position                Position index of the first page currently being displayed. 
      *                                  Page position+1 will be visible if positionOffset is
      *                                  nonzero.
-     *                                  
      * @param   positionOffset          Value from [0, 1) indicating the offset from the page
      *                                  at position.
      * @param   positionOffsetPixels    Value in pixels indicating the offset from position. 
      */
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        // not used at the moment
     }
-    
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloader} service.

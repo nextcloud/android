@@ -265,6 +265,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                 // The Toast must be shown in the main thread to grant that will be hidden correctly; otherwise
                 // the thread may die before, an exception will occur, and the message will be left on the screen
                 // until the app dies
+
                 Toast.makeText(
                         getContext().getApplicationContext(),
                         ErrorMessageAdapter.getErrorCauseMessage(

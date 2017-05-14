@@ -632,6 +632,4 @@
     <!-- Notifications -->
     <string name="new_notification_received">Přijato nové upozornění</string>
     <string name="drawer_logout">Odhlásit se</string>
-
-
-</resources>
+    </resources>
