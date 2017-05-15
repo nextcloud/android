@@ -90,7 +90,6 @@
   <string name="common_rename">Umbenennen</string>
   <string name="ssl_validator_btn_details_see">Details</string>
   <string name="activity_chooser_send_file_title">Senden</string>
-  <string name="empty"></string>
   <string name="prefs_category_accounts">Konten</string>
   <string name="folder_picker_choose_button_text">Auswählen</string>
   <string name="prefs_category_details">Details</string>
