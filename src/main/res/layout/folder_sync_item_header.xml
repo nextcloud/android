@@ -94,13 +94,15 @@
         android:layout_height="wrap_content"
         android:minHeight="48dp">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <ImageButton
+            android:id="@+id/custom_folder_iv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/custom_folder_tv"
             android:paddingRight="4dp"
+            android:clickable="true"
+            android:background="@color/transparent"
             android:src="@drawable/ic_folder_star_24dp"/>
 
         <TextView
@@ -108,6 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:clickable="true"
             android:text="@string/autoupload_custom_folder"/>
     </RelativeLayout>
 
