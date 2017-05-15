@@ -570,7 +570,8 @@
     <string name="participate_contribute_github_text">Review, amend and write code, see &lt;font color=\"%1$s\">&lt;a href=\"%2$s\">CONTRIBUTING.md&lt;/a>&lt;/font> for details</string>
     <string name="move_to">Move to&#8230;</string>
     <string name="copy_to">Copy to&#8230;</string>
-    <string name="choose_remote_folder">Choose folder&#8230;</string>
+    <string name="choose_remote_folder">Choose remote folder&#8230;</string>
+    <string name="choose_local_folder">Choose local folder&#8230;</string>
     <string name="folder_sync_loading_folders">Loading folders&#8230;</string>
     <string name="folder_sync_no_results">No media folders found.</string>
     <string name="folder_sync_preferences">Preferences for auto uploading</string>
