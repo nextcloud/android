@@ -115,10 +115,6 @@ public class FileStorageUtils {
         return savePath.getUsableSpace();
     }
 
-    public static String getLogPath() {
-        return MainApp.getStoragePath() + File.separator + MainApp.getDataFolder() + File.separator + "log";
-    }
-
     /**
      * Returns the a string like 2016/08/ for the passed date. If date is 0 an empty
      * string is returned
