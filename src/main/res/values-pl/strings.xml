@@ -542,6 +542,8 @@
     <string name="local_file_not_found_toast">Plik nie został znaleziony w lokalnym systemie plików</string>
     <string name="confirmation_remove_files_alert">Czy naprawdę chcesz usunąć zaznaczone elementy?</string>
     <string name="confirmation_remove_folders_alert">Czy naprawdę chcesz usunąć zaznaczone elementy oraz ich zawartość?</string>
+    <string name="maintenance_mode">Serwer w trybie konserwacji</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Oczekiwanie na ładowanie urządzenia</string>
     <string name="actionbar_search">Wyszukaj</string>
     <string name="files_drop_not_supported">Ta funkcja jest dostępna w Nextcloud, prosimy wykonać aktualizację</string>

@@ -543,6 +543,8 @@
     <string name="local_file_not_found_toast">Dosya yerel dosya sisteminde bulunamadı</string>
     <string name="confirmation_remove_files_alert">Seçilen ögeleri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilen ögeleri ve içeriklerini gerçekten silmek istiyor musunuz?</string>
+    <string name="maintenance_mode">Sunucu bakım kipinde</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Aygıtın şarj olması bekleniyor</string>
     <string name="actionbar_search">Arama</string>
     <string name="files_drop_not_supported">Bu bir Nextcloud özelliğidir, lütfen güncelleyin.</string>
