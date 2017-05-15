@@ -98,9 +98,6 @@ public class MediaService extends Service implements OnCompletionListener, OnPre
         PAUSED
     }
 
-    ;
-
-
     /** Current state */
     private State mState = State.STOPPED;
 

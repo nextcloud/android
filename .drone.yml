@@ -1,6 +1,6 @@
 pipeline:
   test:
-    image: nextcloudci/android:android-17
+    image: nextcloudci/android:android-18
     commands:
       # uncomment gplay for Gplay, Modified only
       - sh -c "if [ '$FLAVOUR' != 'Generic' ]; then sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle; fi"
@@ -27,6 +27,17 @@ pipeline:
       - ANDROID_TARGET=android-24
       - ANDROID_ABI=armeabi-v7a
       - LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu/:/opt/android-sdk-linux/tools/lib64/gles_mesa/
+
+  lint:
+      image: nextcloudci/android:android-18
+      commands:
+        # needs gplay
+        - sed -i '/com.google.*.gms/s/^.*\/\///g' build.gradle
+        - export BRANCH=$(scripts/lint/getBranchName.sh ${GIT_USERNAME} ${GIT_TOKEN} ${DRONE_PULL_REQUEST})
+        - ruby scripts/lint/lint-up.rb ${GIT_USERNAME} ${GIT_TOKEN} $BRANCH
+      when:
+        matrix:
+          FLAVOUR: Modified
 
 matrix:
   FLAVOUR:

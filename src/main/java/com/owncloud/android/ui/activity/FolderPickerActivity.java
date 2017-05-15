@@ -104,7 +104,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
             caption = getIntent().getStringExtra(EXTRA_ACTION);
         } else {
             caption = getString(R.string.default_display_name_for_root_folder);
-        };
+        }
         getSupportActionBar().setTitle(caption);
 
         setIndeterminate(mSyncInProgress);
@@ -518,8 +518,6 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
         }
     }
 
-    
-
     /**
      * Shows the information of the {@link OCFile} received as a
      * parameter in the second fragment.
@@ -528,7 +526,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
      */
     @Override
     public void showDetails(OCFile file) {
-
+        // not used at the moment
     }
 
     /**
@@ -536,7 +534,7 @@ public class FolderPickerActivity extends FileActivity implements FileFragment.C
      */
     @Override
     public void onTransferStateChanged(OCFile file, boolean downloading, boolean uploading) {
-            
+        // not used at the moment
     }
 
     @Override

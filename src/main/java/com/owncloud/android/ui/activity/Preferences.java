@@ -869,7 +869,7 @@ public class Preferences extends PreferenceActivity
         MainApp.setStoragePath(mStoragePath);
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(PreferenceKeys.STORAGE_PATH, mStoragePath);
-        editor.commit();
+        editor.apply();
         String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(mStoragePath);
         mPrefStoragePath.setSummary(storageDescription);
         mPrefStoragePath.setValue(newStoragePath);
@@ -895,7 +895,7 @@ public class Preferences extends PreferenceActivity
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(PreferenceKeys.INSTANT_UPLOAD_PATH, mUploadPath);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -916,7 +916,7 @@ public class Preferences extends PreferenceActivity
                 PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(PreferenceKeys.INSTANT_VIDEO_UPLOAD_PATH, mUploadVideoPath);
-        editor.commit();
+        editor.apply();
     }
 
     @Override

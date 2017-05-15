@@ -296,7 +296,6 @@ public class StorageMigration {
         protected Integer doInBackground(Void... voids) {
             publishProgress(R.string.file_migration_preparing);
 
-            Log_OC.stopLogging();
             boolean[] syncStates = null;
             try {
                 publishProgress(R.string.file_migration_saving_accounts_configuration);
@@ -309,7 +308,6 @@ public class StorageMigration {
                 publishProgress(R.string.file_migration_restoring_accounts_configuration);
                 restoreAccountsSyncStatus(syncStates);
             }
-            Log_OC.startLogging(mStorageTarget);
 
             return 0;
         }
@@ -338,7 +336,6 @@ public class StorageMigration {
         @Override
         protected Integer doInBackground(Void... args) {
             publishProgress(R.string.file_migration_preparing);
-            Log_OC.stopLogging();
 
             boolean[] syncState = null;
 
@@ -372,14 +369,12 @@ public class StorageMigration {
 
             } catch (MigrationException e) {
                 rollback();
-                Log_OC.startLogging(mStorageSource);
                 return e.getResId();
             } finally {
                 publishProgress(R.string.file_migration_restoring_accounts_configuration);
                 restoreAccountsSyncStatus(syncState);
             }
 
-            Log_OC.startLogging(mStorageTarget);
             publishProgress(R.string.file_migration_ok_finished);
 
             return 0;

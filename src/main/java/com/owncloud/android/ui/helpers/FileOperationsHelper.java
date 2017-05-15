@@ -28,7 +28,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Build;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.content.FileProvider;
@@ -480,8 +480,15 @@ public class FileOperationsHelper {
         if (hideFileListing) {
             updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.CREATE_PERMISSION_FLAG);
         } else {
-            updateShareIntent.
-                    putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS, OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER);
+            OwnCloudVersion serverVersion = AccountUtils.getServerVersion(mFileActivity.getAccount());
+
+            if (serverVersion != null && serverVersion.isNotReshareableFederatedSupported()) {
+                updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
+                        OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_AFTER_OC9);
+            } else {
+                updateShareIntent.putExtra(OperationsService.EXTRA_SHARE_PERMISSIONS,
+                        OCShare.FEDERATED_PERMISSIONS_FOR_FOLDER_UP_TO_OC9);
+            }
         }
 
         queueShareIntent(updateShareIntent);

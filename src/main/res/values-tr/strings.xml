@@ -275,7 +275,8 @@
 	<string name="auth_fail_get_user_name">Sunucunuz doğru bir kullanıcı kodu döndürmüyor, lütfen bir yönetici ile görüşün</string>
 	<string name="auth_can_not_auth_against_server">Bu sunucuda kimlik doğrulanamadı</string>
     <string name="auth_account_does_not_exist">Aygıt üzerinde henüz bu hesap açılmamış</string>
-    
+
+
     <string name="favorite">Çevrimdışı kullanılabilir olarak işaretle</string>
     <string name="unfavorite">Çevrimdışı kullanılabilir işaretini kaldır</string>
     <string name="favorite_real">Sık Kullanılanlara Ekle</string>
@@ -542,6 +543,8 @@
     <string name="local_file_not_found_toast">Dosya yerel dosya sisteminde bulunamadı</string>
     <string name="confirmation_remove_files_alert">Seçilen ögeleri gerçekten silmek istiyor musunuz?</string>
     <string name="confirmation_remove_folders_alert">Seçilen ögeleri ve içeriklerini gerçekten silmek istiyor musunuz?</string>
+    <string name="maintenance_mode">Sunucu bakım kipinde</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Aygıtın şarj olması bekleniyor</string>
     <string name="actionbar_search">Arama</string>
     <string name="files_drop_not_supported">Bu bir Nextcloud özelliğidir, lütfen güncelleyin.</string>
@@ -651,6 +654,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Yeni bir bildirim var</string>
     <string name="drawer_logout">Oturumu Kapat</string>
+    <string name="privacy">Gizlilik</string>
 
 
 </resources>

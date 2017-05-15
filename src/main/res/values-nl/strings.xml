@@ -276,7 +276,8 @@ Kies er eentje van een provider.</string>
 	<string name="auth_fail_get_user_name">Je server geeft geen goede userid terug, neem contact op met je beheerder</string>
 	<string name="auth_can_not_auth_against_server">Kan niet autenticeren tegen deze server</string>
     <string name="auth_account_does_not_exist">Account bestaan nog niet op dit apparaat</string>
-    
+
+
     <string name="favorite">Offline beschikbaar maken</string>
     <string name="unfavorite">Niet langer offline beschikbaar maken</string>
     <string name="favorite_real">Instellen als favoriet</string>
@@ -652,6 +653,4 @@ Kies er eentje van een provider.</string>
     <!-- Notifications -->
     <string name="new_notification_received">Nieuwe meldingen ontvangen</string>
     <string name="drawer_logout">Uitloggen</string>
-
-
-</resources>
+    </resources>

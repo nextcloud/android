@@ -1,51 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="about_android">%1$s aplicación d\'Android</string>
+    <string name="about_android">Aplicación %1$s p\'Android</string>
     <string name="about_version">versión %1$s</string>
-    <string name="actionbar_sync">Anovar cuenta</string>
+    <string name="actionbar_sync">Refrescar cuenta</string>
     <string name="actionbar_upload">Xubir</string>
     <string name="actionbar_upload_from_apps">Conteníu dende otres aplicaciones</string>
     <string name="actionbar_upload_files">Ficheros</string>
     <string name="actionbar_open_with">Abrir con</string>
-    <string name="actionbar_mkdir">Nueva carpeta</string>
+    <string name="actionbar_mkdir">Carpeta nueva</string>
     <string name="actionbar_settings">Axustes</string>
     <string name="actionbar_see_details">Detalles</string>
     <string name="actionbar_send_file">Unviar</string>
     <string name="actionbar_sort">Ordenar</string>
-    <string name="actionbar_sort_title">Ordenar por</string>
+    <string name="actionbar_sort_title">Ordenar per</string>
+    <string name="sort_by">Ordenar per</string>
+    <string name="menu_item_sort_by_name_a_z">A - Z</string>
+    <string name="menu_item_sort_by_name_z_a">Z - A</string>
+    <string name="menu_item_sort_by_date_newest_first">Lo más nuevo</string>
+    <string name="menu_item_sort_by_date_oldest_first">Lo más vieyo</string>
+    <string name="menu_item_sort_by_size_biggest_first">Lo más grande</string>
+    <string name="menu_item_sort_by_size_smallest_first">Lo más pequeño</string>
+
     <string name="drawer_item_all_files">Tolos ficheros</string>
+    <string name="drawer_item_files">Ficheros</string>
+    <string name="drawer_item_home">Aniciu</string>
+    <string name="drawer_item_favorites">Favoritos</string>
+    <string name="drawer_item_photos">Semeyes</string>
+    <string name="drawer_item_on_device">Nel preséu</string>
+    <string name="drawer_item_recently_added">Amestao apocayá</string>
+    <string name="drawer_item_recently_modified">Modificao apocayá</string>
+    <string name="drawer_item_shared">Compartío</string>
+    <string name="drawer_item_videos">Vídeos</string>
     <string name="drawer_item_settings">Axustes</string>
     <string name="drawer_item_uploads_list">Xubes </string>
-    <string name="drawer_close">Zarrar</string>
+    <string name="drawer_item_activities">Actividaes</string>
+    <string name="drawer_item_notifications">Avisos</string>
+    <string name="drawer_quota">%1$s de %2$s usao</string>
+	<string name="drawer_close">Zarrar</string>
     <string name="drawer_open">Abrir</string>
     <string name="prefs_category_general">Xeneral</string>
     <string name="prefs_category_more">Más</string>
     <string name="prefs_accounts">Cuentes</string>
-    <string name="prefs_manage_accounts">Alministrar cuentes</string>
-    <string name="prefs_passcode">Contraseña</string>
-    <string name="prefs_instant_upload">Xubida de semeya instantánea</string>
+    <string name="prefs_manage_accounts">Xestionar cuentes</string>
+    <string name="prefs_fingerprint_notsetup">Nun se configuraron buelgues.</string>
+    <string name="prefs_show_hidden_files">Amosar ficheros anubríos</string>
+    <string name="prefs_instant_upload">Xuba nel intre de semeyes</string>
     <string name="prefs_instant_upload_summary">Xuba nel intre de semeyes feches cola cámara</string>
-    <string name="prefs_instant_video_upload">Xubida de videu nel intre</string>
-    <string name="prefs_instant_video_upload_summary">Xubida nel intre de vídeos grabaos pela cámara</string>
+    <string name="prefs_instant_video_upload">Xuba nel intre de vídeos</string>
+    <string name="prefs_instant_video_upload_summary">Xuba nel intre de vídeos fechos cola cámara</string>
     <string name="prefs_log_title">Habilitar rexistru</string>
     <string name="prefs_log_summary">Esto úsase pa rexistrar problemes</string>
     <string name="prefs_log_title_history">Historial del rexistru</string>
-    <string name="prefs_log_summary_history">Esto amuesa los rexistros atroxaos</string>
+    <string name="prefs_log_summary_history">Esto amuesa los rexistros grabaos</string>
     <string name="prefs_log_delete_history_button">Desaniciar historial</string>
+    <string name="prefs_calendar_contacts">Sincronizar calendariu &amp; contautos</string>
+    <string name="prefs_calendar_contacts_summary">Configura DAVdroid (v1.3.0+) pa la cuenta actual</string>
     <string name="prefs_help">Ayuda</string>
-    <string name="prefs_recommend">Recomendar a un collaciu</string>
     <string name="prefs_feedback">Mensaxes de retroalimentación</string>
-    <string name="prefs_imprint">Imprint</string>
-    <string name="prefs_remember_last_share_location">Recuerdala llocalización compartida</string>
-    <string name="prefs_remember_last_upload_location_summary">Recuerda la cabera llocalización compartida</string>
-
-	<string name="recommend_subject">¡Prueba %1$s nel to teléfonu intelixente!</string>
-	<string name="recommend_text">Prestaríame invitate a usar %1$s nel to smartphone Descárgalo equi: %2$s</string>
+    <string name="recommend_subject">¡Prueba %1$s nel to teléfonu intelixente!</string>
+	<string name="recommend_text">Quiero convidate a usar %1$s nel to teléfonu intelixente.\nBáxalu d\'equí: %2$s</string>
 
     <string name="auth_check_server">Comprobar servidor</string>
     <string name="auth_host_url">Direición del sirvidor https://...</string>
     <string name="auth_username">Nome d\'usuariu</string>
     <string name="auth_password">Contraseña</string>
+    <string name="auth_register">¿Entá nun tienes un sirvidor?\nPrimi equí pa consiguir ún d\'un fornidor</string>
     <string name="sync_string_files">Ficheros</string>
     <string name="setup_btn_connect">Coneutar</string>
     <string name="uploader_btn_upload_text">Xubir</string>
@@ -56,14 +75,24 @@
     <string name="uploader_wrn_no_account_quit_btn_text">Colar</string>
     <string name="uploader_error_title_no_file_to_upload">Ensin ficheru pa xubir</string>
     <string name="uploader_error_message_received_piece_of_text">%1$s nun puede xubir un cachu de testu como un ficheru.</string>
-    <string name="uploader_error_title_file_cannot_be_uploaded">Ficheru nun puede xubise</string>
     <string name="uploader_error_message_read_permission_not_granted">%1$s nun ta permitíu lleer un ficheru recibíu</string>
-    <string name="uploader_error_message_source_file_not_found">Ficheru pa xubir nun s\'atopó nel so allugamientu . Por favor, compruebe si esiste\'l ficheru.</string>
-    <string name="uploader_error_message_source_file_not_copied">Hebo un fallu mientres s\'intentaba copiar un ficheru a una carpeta temporal. Por favor, intente unviala de nuevu.</string>
+    <string name="uploader_error_message_source_file_not_copied">Nun pudo copiase\'l ficheru a una carpeta temporal. Prueba a reunvialu.</string>
+    <string name="uploader_upload_files_behaviour_only_upload">Caltener ficheru na carpeta fonte</string>
     <string name="file_list_seconds_ago">hai segundos</string>
-    <string name="file_list_loading">Cargando...</string>
-    <string name="file_list_no_app_for_file_type">¡Nun s\'alcontró aplicación pa la triba de ficheru!</string>
+    <string name="file_list_empty_headline">Equí nun hai ficheros</string>
+    <string name="file_list_loading">Cargando&#8230;</string>
     <string name="local_file_list_empty">Nun hai ficheros nesta carpeta.</string>
+    <string name="file_list_empty_headline_search">Ensin resultaos nesta carpeta</string>
+    <string name="file_list_empty_headline_server_search">Ensin resultaos</string>
+    <string name="file_list_empty_shared_headline">Entá nun se compartió nada</string>
+    <string name="file_list_empty_shared">Equí amosaránse los ficheros y carpetes que compartas</string>
+    <string name="file_list_empty_headline_server_search_videos">Ensín vídeos</string>
+    <string name="file_list_empty_headline_server_search_photos">Ensin semeyes</string>
+    <string name="file_list_empty_search">¿Quiciabes tea nuna carpeta diferente?</string>
+    <string name="file_list_empty_recently_modified_filter">La to gueta nun devolvió ficheros
+        modificaos nos caberos 7 díes.</string>
+    <string name="file_list_empty_text_videos_filter">La to gueta nun devolvió vídeos.</string>
+    <string name="upload_list_empty_headline">Nun hai xubes disponibles</string>
     <string name="file_list_folder">Carpeta</string>
     <string name="file_list_folders">Carpetes</string>
     <string name="file_list_file">Ficheru</string>
@@ -75,34 +104,32 @@
     <string name="filedetails_modified">Modificáu:</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_sync_file">Sincroniza</string>
-    <string name="filedetails_renamed_in_upload_msg">El ficheru renomóse a %1$s demientres la xuba</string>
-    <string name="list_layout">Llista de diseños</string>
+    <string name="filedetails_renamed_in_upload_msg">Renomóse\'l ficheru %1$s na xuba</string>
     <string name="action_share">Compartir</string>
     <string name="common_yes">Sí</string>
     <string name="common_no">Non</string>
     <string name="common_ok">Aceutar</string>
     <string name="common_remove_upload">Desaniciar xuba</string>
-    <string name="common_retry_upload">Reintentar xuba</string>
+    <string name="common_retry_upload">Retentar xuba</string>
     <string name="common_cancel_sync">Encaboxar sincronización</string>
     <string name="common_cancel">Encaboxar</string>
     <string name="common_back">Atrás</string>
     <string name="common_save_exit">Guardar y colar</string>
     <string name="common_error">Fallu</string>
-    <string name="common_loading">Cargando ...</string>
+    <string name="common_loading">Cargando&#8230;</string>
     <string name="common_unknown">desconocí­u</string>
     <string name="common_error_unknown">Fallu desconocíu</string>
     <string name="about_title">Tocante</string>
     <string name="change_password">Camudar contraseña</string>
     <string name="delete_account">Desaniciar cuenta</string>
     <string name="create_account">Crear cuenta</string>
-    <string name="upload_chooser_title">Xubir dende ...</string>
+    <string name="upload_chooser_title">Xubir dende&#8230;</string>
     <string name="uploader_info_dirname">Nome de la carpeta</string>
-    <string name="uploader_upload_in_progress_ticker">Xubiendo ...</string>
+    <string name="uploader_upload_in_progress_ticker">Xubiendo&#8230;</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Xubiendo %2$s</string>
-    <string name="uploader_upload_succeeded_ticker">Xuba correuta</string>
     <string name="uploader_upload_succeeded_content_single">%1$s xubíu</string>
     <string name="uploader_upload_failed_ticker">Xuba fallida</string>
-    <string name="uploader_upload_failed_content_single">Nun pudo completase la xuba de %1$s</string>
+    <string name="uploader_upload_failed_content_single">Nun pudo xubise %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Falló la xubida, necesites aniciar sesión de nueves</string>
     <string name="uploads_view_title">Xubes</string>
     <string name="uploads_view_group_current_uploads">Actual</string>
@@ -119,36 +146,36 @@
     <string name="uploads_view_upload_status_failed_localfile_error">Ficheru llocal nun s\'atopó</string>
     <string name="uploads_view_upload_status_failed_permission_error">Fallu de permisu</string>
     <string name="uploads_view_upload_status_conflict">Conflictu</string>
-    <string name="uploads_view_upload_status_service_interrupted">Aplicación terminóse</string>
+    <string name="uploads_view_upload_status_service_interrupted">Aplicación finada</string>
     <string name="uploads_view_upload_status_unknown_fail">Fallu desconocíu</string>
-    <string name="uploads_view_upload_status_waiting_for_wifi">Esperando conectividá wifi</string>
+    <string name="uploads_view_upload_status_waiting_for_wifi">Esperando pola coneutividá Wi-Fi</string>
     <string name="uploads_view_later_waiting_to_upload">Esperando pa xubir</string>
-    <string name="downloader_download_in_progress_ticker">Baxando ...</string>
+    <string name="downloader_download_in_progress_ticker">Baxando&#8230;</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargando %2$s</string>
-    <string name="downloader_download_succeeded_ticker">Descarga correuta</string>
     <string name="downloader_download_succeeded_content">%1$s descargáu</string>
     <string name="downloader_download_failed_ticker">Descarga fallida</string>
-    <string name="downloader_download_failed_content">La descarga de %1$s nun pudo completase</string>
+    <string name="downloader_download_failed_content">Nun pudo baxase %1$s</string>
     <string name="downloader_not_downloaded_yet">Entá non baxáu</string>
     <string name="downloader_download_failed_credentials_error">Descarga fallida, necesites aniciar sesión de nueves</string>
     <string name="common_choose_account">Esbillar cuenta</string>
     <string name="sync_fail_ticker">Sincronización fallida</string>
-    <string name="sync_fail_content">La sincronización de %1$s nun pudo completase</string>
-    <string name="sync_fail_content_unauthorized">Contraseña inválida pa %1$s</string>
+    <string name="sync_fail_content">Nun pudo completase la sincronización de %1$s</string>
+    <string name="sync_fail_content_unauthorized">Contraseña incorreuta pa %1$s</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflictos alcontraos</string>
     <string name="sync_conflicts_in_favourites_content">Los ficheros %1$d kept-in-sync pueden nun tar sincronizaos</string>
     <string name="sync_fail_in_favourites_ticker">Fallu al caltener ficheros sincronizaos.</string>
     <string name="sync_fail_in_favourites_content">Los conteníos de los ficheros %1$d pueden nun tar sincronizaos (%2$d conflictos)</string>
     <string name="sync_foreign_files_forgotten_ticker">Dexáronse dalgunos ficheros llocales.</string>
     <string name="sync_foreign_files_forgotten_content">Los ficheros %1$d fuera de la carpeta %2$s nun puen copiase dientro</string>
-    <string name="sync_foreign_files_forgotten_explanation">Lo mesmo que na versión 1.3.16, los archivos xubíos dende esti preséu copiáronse dientro la carpeta llocal %1$s pa prevenir la perda de datos cuando un ficheru se sincroniza con múltiples cuentes Por mor d\'esti cambéu, tolos ficheros xubíos en versiones previes d\'esta aplicación tán copiaos na carpeta %2$s . Por embargu, un error torgó\'l pieslle de la operación demientres la sincronización de la cuenta. Pues dexar el/los ficheru/os como tán, desaniciar l\'enllaz a %3$s , o mover el/los ficheru/os a la carpeta %1$s y guardar l\'enllaz a %4$s . El llistáu d\'abaxo contién los ficheros llocales y remotos enllazaos en %5$s</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s yá nun esiste</string>
     <string name="foreign_files_move">Mover too</string>
     <string name="foreign_files_success">Moviéronse tolos ficheros</string>
     <string name="foreign_files_fail">Nun pudieron movese dalgunos ficheros</string>
     <string name="foreign_files_local_text">Llocal: %1$s</string>
     <string name="foreign_files_remote_text">Remotu: %1$s</string>
-    <string name="pass_code_configure_your_pass_code">Introduz la contraseña</string>
+    <string name="pass_code_enter_pass_code">Introduz el to códigu de pasu, por favor</string>
+    
+    <string name="pass_code_configure_your_pass_code">Introduz el to códigu de pasu</string>
     <string name="pass_code_configure_your_pass_code_explanation">La contraseña va ser solicitada cada vegada que s\'anicie l\'aplicación</string>
     <string name="pass_code_reenter_your_pass_code">Por favor, vuelvi inxertar la contraseña</string>
     <string name="pass_code_remove_your_pass_code">Desanicia la to contraseña</string>
@@ -163,77 +190,76 @@
     <string name="media_event_done">%1$s reproducción finada</string>
     <string name="media_err_nothing_to_play">Nun s\'atopó nengún ficheru multimedia</string>
     <string name="media_err_no_account">Nun s\'especificó nenguna cuenta.</string>
-    <string name="media_err_not_in_owncloud">El ficheru nun ta nuna cuenta válida</string>
+    <string name="media_err_not_in_owncloud">El ficheru nun ye una cuenta válida</string>
     <string name="media_err_unsupported">Códec multimedia non soportáu</string>
-    <string name="media_err_io">El códec multimedia nun ye llexible.</string>
-    <string name="media_err_malformed">Ficheru multimedia codificáu incorreutamente</string>
-    <string name="media_err_timeout">Acabóse\'l tiempu intentando reproducir</string>
-    <string name="media_err_invalid_progressive_playback">El ficheru multimedia nun pue tresferise</string>
-    <string name="media_err_unknown">Ficheru multimedia nun pue reproducise</string>
-    <string name="media_err_security_ex">Fallu de seguridá intentando reproducir %1$s</string>
-    <string name="media_err_io_ex">Fallu d\'entrada intentando reproducir %1$s</string>
-    <string name="media_err_unexpected">Error inesperáu intentando reproducir %1$s</string>
+    <string name="media_err_io">Nun pudo lleese\'l ficheru de medios</string>
+    <string name="media_err_malformed">El ficheru de medios tien una codificación incorreuta</string>
+    <string name="media_err_timeout">Escoso\'l tiempu pa reproducir el ficheru</string>
+    <string name="media_err_invalid_progressive_playback">El ficheru de medios nun pue tresmitise</string>
+    <string name="media_err_security_ex">Alcontróse un fallu de seguranza tentando de reproducir %1$s</string>
+    <string name="media_err_io_ex">Fallu d\'entrada entrín se tentaba de reproducir %1$s</string>
+    <string name="media_err_unexpected">Fallu inesperáu entrín se tentaba de reproducir %1$s</string>
     <string name="media_rewind_description">Botón de rebobináu</string>
     <string name="media_play_pause_description">Botón de reproducción o posa</string>
     <string name="media_forward_description">Botón d\'avance rápidu</string>
 
-	<string name="auth_getting_authorization">Garrando autorización...</string>
-	<string name="auth_trying_to_login">Intentando aniciar sesión...</string>
+	<string name="auth_getting_authorization">Consiguiendo autorización&#8230;</string>
+	<string name="auth_trying_to_login">Tentado d\'aniciar sesión&#8230;</string>
 	<string name="auth_no_net_conn_title">Ensin conexón de rede</string>
 	<string name="auth_nossl_plain_ok_title">Conexón segura non disponible</string>
 	<string name="auth_connection_established">Conexón afitada</string>
 	<string name="auth_testing_connection">Probando conexón</string>
 	<string name="auth_not_configured_title">Configuración del sirvidor mal fecha</string>
-	<string name="auth_account_not_new">Yá esiste una cuenta col mesmu usuariu y sirvidor nel preséu</string>
+	<string name="auth_account_not_new">Yá esiste nel preséu una cuenta pal mesmu usuariu y sirvidor</string>
 	<string name="auth_account_not_the_same">L\'usuariu inxertáu nun concasa col usuariu d\'esta cuenta</string>
 	<string name="auth_unknown_error_title">¡Asocedió un fallu desconocíu!</string>
-	<string name="auth_unknown_host_title">Nun pue atopase\'l sirvidor</string>
-	<string name="auth_incorrect_path_title">Nun s\'atopa la instancia del sirvidor.</string>
+	<string name="auth_unknown_host_title">Nun pudo alcontrase l\'agospiu</string>
+	<string name="auth_incorrect_path_title">Nun s\'alcontró\'l sirvidor</string>
 	<string name="auth_timeout_title">El sirvidor tardó muncho en responder</string>
-	<string name="auth_incorrect_address_title">Formatu de direición de sirvidor incorrectu</string>
 	<string name="auth_ssl_general_error_title">Falló la inicialización SSL</string>
-	<string name="auth_ssl_unverified_server_title">Nun se pue certificar la identidá del sirvidor SSL</string>
+	<string name="auth_ssl_unverified_server_title">Nun pudo verificase la identidá del sirvidor SSL</string>
 	<string name="auth_bad_oc_version_title">Versión del sirvidor non reconocida</string>
-	<string name="auth_wrong_connection_title">Nun se pue afitar conexón</string>
+	<string name="auth_wrong_connection_title">Nun pudo afitase la conexón</string>
 	<string name="auth_secure_connection">Afitada conexón segura</string>
 	<string name="auth_unauthorized">Nome d\'usuariu o contraseña erroneos</string>
 	<string name="auth_oauth_error">Autorización ensin ésitu</string>
 	<string name="auth_oauth_error_access_denied">Accesu refugáu pol sirvidor d\'autenticación</string>
-	<string name="auth_wtf_reenter_URL">Estáu non esperáu; por favor, inxerta la direición del sirvidor otra vegada</string>
 	<string name="auth_expired_oauth_token_toast">La to autorización finó. Por favor, autorízala otra vegada</string>
 	<string name="auth_expired_basic_auth_toast">Por favor, introduzca la contraseña actual</string>
 	<string name="auth_expired_saml_sso_token_toast">La so sesión finó. Por favor conéutate otra vegada</string>
-	<string name="auth_connecting_auth_server">Coneutando al sirvidor d\'autentificación…</string>
+	<string name="auth_connecting_auth_server">Coneutando col sirvidor d\'autenticación...</string>
 	<string name="auth_unsupported_auth_method">El sirvidor nun sofita esti métodu/triba d\'autentificación</string>
 	<string name="auth_unsupported_multiaccount">%1$s nun permite cuentes múltiples</string>
+	<string name="auth_fail_get_user_name">El to sirvidor nun ta devolviendo una ID correuta d\'usuariu, por favor contauta con un alministrador</string>
 	<string name="auth_can_not_auth_against_server">Nun pues autentificate nesti sirvidor</string>
-    <string name="auth_account_does_not_exist">La cuenta nun esiste nel preséu aínda</string>
-    
+    <string name="auth_account_does_not_exist">La cuenta entá nun esiste nel preséu</string>
+
+
     <string name="favorite">Afitar como disponible ensin conexón</string>
     <string name="unfavorite">Desaniciar como disponible ensin conexón</string>
+    <string name="favorite_real">Afitar como favoritu</string>
     <string name="common_rename">Renomar</string>
     <string name="common_remove">Desaniciáu</string>
-    <string name="confirmation_remove_folder_alert">¿De xuru quies desaniciar %1$s y los sos conteníos?</string>
+    <string name="confirmation_remove_file_alert">¿De xuru que quies desaniciar %1$s?</string>
     <string name="confirmation_remove_local">Namái llocal</string>
-    <string name="remove_success_msg">Desaniciu correutu</string>
     <string name="remove_fail_msg">Fallu nel desaniciu </string>
     <string name="rename_dialog_title">Introduz un nome nuevu</string>
-    <string name="rename_local_fail_msg">Nun se puede renomar la copia llocal; intenta un nome diferente</string>
-    <string name="rename_server_fail_msg">Nun se pudo completar el renomáu</string>
-    <string name="sync_file_fail_msg">El ficheru remotu nun pudo comprobase</string>
+    <string name="rename_server_fail_msg">Nun pudo dase\'l nome nuevu al sirvidor</string>
+    <string name="sync_file_fail_msg">Nun pudo comprobase\'l ficheru remotu</string>
     <string name="sync_file_nothing_to_do_msg">El conteníu del ficheru yá ta sincronizáu</string>
-    <string name="create_dir_fail_msg">Nun se puede crear la carpeta</string>
+    <string name="create_dir_fail_msg">Nun pudo crease la carpeta</string>
     <string name="filename_forbidden_characters">Caráuteres prohibíos: / \\ &lt; &gt; : \" | ? *</string>
     <string name="filename_forbidden_charaters_from_server">El nome del ficheru contién polo menos un carácter non válidu</string>
     <string name="filename_empty">El nome de ficheru nun pue tar baleru</string>
-    <string name="wait_a_moment">Espera un momentu</string>
+    <string name="wait_a_moment">Espera un momentu...</string>
     <string name="wait_checking_credentials">Comprobación de credenciales almacenaes</string>
-    <string name="filedisplay_no_file_selected">Nun s\'esbilló dengún ficheru</string>
-    <string name="activity_chooser_title">Unviar enllaz a ...</string>
+    <string name="filedisplay_unexpected_bad_get_content">Problema inesperáu, por favor esbilla\'l ficheru dende una aplicación diferente</string>
+    <string name="filedisplay_no_file_selected">Nun s\'esbillaron ficheros</string>
+    <string name="activity_chooser_title">Unviar enllaz a&#8230;</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando ficheru dende l\'almacenamientu priváu</string>
     
     <string name="oauth_check_onoff">Aniciar sesión con oAuth2</string> 
-    <string name="oauth_login_connection">Coneutando al sirvidor oAuth2…</string>    
+    <string name="oauth_login_connection">Coneutando col sirvidor d\'OAuth2</string>    
         
     <string name="ssl_validator_header">La identidá del sitiu nun pue certificase</string>
     <string name="ssl_validator_reason_cert_not_trusted">- El certificáu del sirvidor nun ye de confianza</string>
@@ -270,19 +296,27 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
 
-    <string name="instant_upload_on_wifi">Xubir semeyes namái per WiFi</string>
-    <string name="instant_video_upload_on_wifi">Xubir vídeos namái per WIFI</string>
+    <string name="auto_upload_on_wifi">Xubir namái na Wi-Fi</string>
+    <string name="instant_upload_on_wifi">Xubir namái semeyes na Wi-Fi</string>
+    <string name="instant_video_upload_on_wifi">Xubir namái vídeos na Wi-Fi</string>
+    <string name="instant_video_upload_on_charging">Namái xubir al cargar</string>
+    <string name="instant_upload_on_charging">Namái xubir al cargar</string>
     <string name="instant_upload_path">/XubidaNelIntre</string>
     <string name="conflict_title">Conflictu nel ficheru</string>
-    <string name="conflict_message">¿Qué ficheros quies caltener? Si seleiciones dambes versiones, el ficheru llocal va tener un númberu amestáu al so nome</string>
+    <string name="conflict_message">¿Qué ficheros quies caltener? Si esbilles dambes versiones, el ficheru llocal tendrá un númberu axuntáu al so nome.</string>
     <string name="conflict_keep_both">Caltener dambos</string>
     <string name="conflict_use_local_version">Versión llocal</string>
     <string name="conflict_use_server_version">Versión de sirvidor</string>
-    
+
+    <string name="preview_sorry">Perdón.</string>
     <string name="preview_image_description">Previsualización d\'imaxe</string>
-    <string name="preview_image_error_unknown_format">Nun pue amosase esta imaxe</string>
+    <string name="preview_image_error_unknown_format">Nun pue amosase la imaxe</string>
 
     <string name="error__upload__local_file_not_copied">Nun se pudo copiar %1$s al ficheru llocal %2$s</string>
+    <string name="prefs_instant_upload_path_title">Carpeta de xuba nel intre</string>
+    <string name="prefs_folder_sync_local_path_title">Carpeta llocal</string>
+    <string name="prefs_folder_sync_remote_path_title">Carpeta remota</string>
+    <string name="prefs_instant_upload_path_use_subfolders_title">Usar socarpetes</string>
     <string name="share_link_file_no_exist">Nun pue compartise. Por favor, comprueba si\'l ficheru esiste</string>
 	<string name="share_link_file_error">Hebo un fallu mientres s\'intentaba compartir esti ficheru o carpeta</string>
 	<string name="unshare_link_file_no_exist">Incapaz de dexar de compartir. Por favor, comprueba si\'l ficheru esiste</string>
@@ -295,56 +329,81 @@
 
     <string name="copy_link">Copiar enllaz</string>
     <string name="clipboard_text_copied">Copiáu al cartafueyu</string>
-    <string name="clipboard_no_text_to_copy">Nun se recibió dengún testu pa copiar al cartafueyu</string>
     <string name="clipboard_uxexpected_error">Error inesperáu intentando copiar al cartafueyu</string>
     <string name="clipboard_label">Testu copiáu dende %1$s</string>
 
-    <string name="error_cant_bind_to_operations_service">Fallu críticu: nun puen facese les operaciones</string>
+    <string name="error_cant_bind_to_operations_service">Fallu críticu: Nun puen facese les operaciones</string>
 
-    <string name="network_error_socket_exception">Asocedió un fallu cuando se coneutaba col sirvidor.</string>
+    <string name="network_error_socket_exception">Asocedió un fallu na conexón col sirvidor.</string>
+    <string name="network_error_socket_timeout_exception">Asocedió un fallu entrín s\'esperaba pol sirvidor. Nun pudo completase la operación.</string>
+    <string name="network_error_connect_timeout_exception">Asocedió un fallu entrín s\'esperaba pol sirvidor. Nun pudo completase la operación.</string>
+    <string name="network_host_not_available">Nun pudo completase la operación. Sirvidor non disponible</string>
+
     <string name="forbidden_permissions">Nun tienes permisu %s</string>
     <string name="forbidden_permissions_rename">pa renomar esti ficheru</string>
     <string name="forbidden_permissions_delete">pa desaniciar esti ficheru</string>
     <string name="share_link_forbidden_permissions">pa compartir esti ficheru</string>
-    <string name="unshare_link_forbidden_permissions">pa nun compartir esti ficheru</string>
-    <string name="update_link_forbidden_permissions">p\'actualizar esta cuota</string>
+    <string name="unshare_link_forbidden_permissions">pa dexar de compartir esti ficheru</string>
+    <string name="update_link_forbidden_permissions">p\'anovar esta compartición</string>
     <string name="forbidden_permissions_create">pa crear esti ficheru</string>
-    <string name="uploader_upload_forbidden_permissions">pa xubir ficheros a esta carpeta</string>
+    <string name="uploader_upload_forbidden_permissions">pa xubir esta carpeta</string>
     <string name="downloader_download_file_not_found">Esti ficheru yá nun ta nel sirvidor</string>
+
+    <string name="file_migration_finish_button">Finar</string>
+    <string name="file_migration_preparing">Tresnando la migración&#8230;</string>
+    <string name="file_migration_checking_destination">Comprobando destín&#8230;</string>
+    <string name="file_migration_saving_accounts_configuration">Guardando configuración de les cuentes&#8230;</string>
+    <string name="file_migration_waiting_for_unfinished_sync">Esperando que finen toles sincronizaciones&#8230;</string>
+    <string name="file_migration_migrating">Moviendo datos&#8230;</string>
+    <string name="file_migration_updating_index">Anovando índiz&#8230;</string>
+    <string name="file_migration_cleaning">Llimpiando&#8230;</string>
+    <string name="file_migration_restoring_accounts_configuration">Restaurando configuración de les cuentes&#8230;</string>
+    <string name="file_migration_ok_finished">Finó</string>
+    <string name="file_migration_failed_not_enough_space">FALLU: Espaciu insuficiente</string>
+    <string name="file_migration_failed_not_writable">FALLU: El ficheru de destín nun ye escribible</string>
+    <string name="file_migration_failed_not_readable">FALLU: Nun pue lleese\'l códigu fonte</string>
+    <string name="file_migration_failed_dir_already_exists">FALLU: Yá esiste\'l to direutoriu de Nextcloud</string>
+    <string name="file_migration_failed_while_coping">FALLU: Fallu na migración</string>
+    <string name="file_migration_failed_while_updating_index">FALLU: Falló l\'anovamientu del índiz</string>
+
+    <string name="file_migration_override_data_folder">Trocar</string>
+    <string name="file_migration_use_data_folder">Usar</string>
+
+    <string name="file_migration_source_not_readable_title">¡El direutoriu fonte nun ye lleible!</string>
+    <string name="file_migration_source_not_readable">¿Entá quies camudar el camín d\'almacenamientu a %1$s?\n\nNota: tendrán de baxase de nueves tolos datos.</string>
 
     <string name="prefs_category_accounts">Cuentes</string>
     <string name="prefs_add_account">Amestar cuenta</string>
-    <string name="auth_redirect_non_secure_connection_title">La conexón segura rediríxese pente una ruta insegura.</string>
+    <string name="drawer_manage_accounts">Xestionar cuentes</string>
+    <string name="auth_redirect_non_secure_connection_title">Conexón segura redirixida pente una ruta insegura.</string>
 
 	<string name="actionbar_logger">Rexistros</string>
 	<string name="log_send_history_button">Unviar historial</string>
-	<string name="log_send_no_mail_app">Nun s\'atopó nenguna aplicación pa unviar rexistros.  Por favor instala una aplicación de corréu electrónicu</string>
 	<string name="log_send_mail_subject">Aplicación de rexistros d\'Android %1$s</string>
-	<string name="log_progress_dialog_text">Cargando datos ...</string>
+	<string name="log_progress_dialog_text">Cargando datos&#8230;</string>
 
 	<string name="saml_authentication_required_text">Necesítase autenticación</string>
 	<string name="saml_authentication_wrong_pass">Contraseña incorreuta</string>
 	<string name="actionbar_move">Mover</string>
-    <string name="file_list_empty_moving">Ensín nada dientro. ¡Pues amestar una carpeta!</string>
+    <string name="actionbar_copy">Copiar</string>
+	<string name="file_list_empty_moving">Equí nun hai nada. Pes amestar una carpeta</string>
 	<string name="folder_picker_choose_button_text">Esbillar</string>
 
-    <string name="move_file_not_found">Nun pue movese. Por favor, comprueba si\'l ficheru esiste</string>
-    <string name="move_file_invalid_into_descendent">Nun ye posible mover una carpeta dientro de so subcarpeta</string>
-    <string name="move_file_invalid_overwrite">El ficheru yá esiste na carpeta destín</string>
+    <string name="move_file_not_found">Nun pue movese\'l ficheru. Comprueba si esiste, por favor</string>
     <string name="move_file_error">Asocedió un fallu entrín s\'intentaba mover esta carpeta</string>
     <string name="forbidden_permissions_move">pa mover esti ficheru</string>
 
 
     <string name="copy_file_not_found">Nun pue copiáse. Por favor, comprueba si\'l ficheru esiste</string>
-    <string name="copy_file_invalid_into_descendent">Nun ye posible copiar una carpeta diento de so subcarpeta</string>
-    <string name="copy_file_invalid_overwrite">El ficheru yá esiste na carpeta destín</string>
+    <string name="copy_file_invalid_overwrite">El ficheru yá ta presente na carpeta destín</string>
     <string name="copy_file_error">Asocedió un fallú entrín s\'intentaba copiar esta carpeta o ficheru</string>
     <string name="forbidden_permissions_copy">pa copiar esti ficheru</string>
 
     <string name="prefs_category_instant_uploading">Xubes nel intre</string>
     <string name="prefs_category_details">Detalles</string>
 
-	<string name="sync_folder_failed_content">La sincronización de la carpeta %1$s nun pudo completase</string>
+	<string name="prefs_instant_video_upload_path_title">Carpeta Vídeo pa xubes nel intre</string>
+    <string name="sync_folder_failed_content">La sincronización de la carpeta %1$s nun pudo completase</string>
 
 	<string name="shared_subject_header">compartíu</string>
 	<string name="with_you_subject_header">contigo</string>
@@ -366,12 +425,17 @@
     <string name="file_list__footer__files">%1$d ficheros</string>
     <string name="file_list__footer__files_and_folder">%1$d ficheros, 1 carpeta</string>
     <string name="file_list__footer__files_and_folders">%1$d ficheros, %2$d carpetes</string>
-    <string name="prefs_instant_behaviour_dialogTitle">Ficheru orixinal será&#8230;</string>
-    <string name="prefs_instant_behaviour_title">Ficheru orixinal será&#8230;</string>
+    <string name="prefs_instant_behaviour_dialogTitle">El ficheru orixinal sedrá&#8230;</string>
+    <string name="prefs_instant_behaviour_title">El ficheru orixinal sedrá&#8230;</string>
     <string name="upload_copy_files">Copiar ficheru</string>
     <string name="upload_move_files">Mover ficheru</string>
+    <string name="select_all">Esbillar too</string>
+
     <string name="pref_behaviour_entries_keep_file">guardáu en carpeta orixinal</string>
     <string name="pref_behaviour_entries_move">movíu a la carpeta d\'aplicaciones</string>
+    <string name="prefs_storage_path">Camín d\'almacenamientu</string>
+    <string name="prefs_common">Común</string>
+
     <string name="share_dialog_title">Compartiendo</string>
     <string name="share_file">Compartir %1$s</string>
     <string name="share_with_user_section_title">Compartir con usuarios y grupos</string>
@@ -379,11 +443,10 @@
     <string name="share_add_user_or_group">Amestar usuariu o grupu</string>
     <string name="share_via_link_section_title">Compartir enllaz</string>
     <string name="share_via_link_expiration_date_label">Afitar la data de caducidá</string>
-    <string name="share_via_link_password_label">Protexer con contraseña</string>
     <string name="share_via_link_password_title">Aseguráu</string>
     <string name="share_via_link_edit_permission_label">Permitir edición</string>
     <string name="share_get_public_link_button">Consiguir enllaz</string>
-    <string name="share_with_title">Compartir con ...</string>
+    <string name="share_with_title">Compartir con&#8230;</string>
     <string name="share_with_edit_title">Compartir con %1$s</string>
 
     <string name="share_search">Guetar</string>
@@ -391,6 +454,7 @@
     <string name="search_users_and_groups_hint">Guetar usuarios y grupos</string>
     <string name="share_group_clarification">%1$s (gropu)</string>
     <string name="share_remote_clarification">%1$s (remotu)</string>
+    <string name="share_email_clarification">%1$s (corréu)</string>
     <string name="share_known_remote_clarification">%1$s ( en %2$s )</string>
 
     <string name="share_privilege_can_share">pue compartir</string>
@@ -401,19 +465,72 @@
     <string name="edit_share_unshare">Dexar de compartir</string>
     <string name="edit_share_done">fechu</string>
 
-    <string name="action_retry_uploads">Reintentar falló</string>
     <string name="action_clear_failed_uploads">Llimpiar falló</string>
-    <string name="action_clear_successful_uploads">Llimpieza con ésitu</string>
-    <string name="action_clear_finished_uploads">Esborrar tolos finalizaos</string>
-
+    <string name="action_clear_successful_uploads">Llimpióse</string>
     <string name="action_switch_grid_view">Vista de rexella</string>
     <string name="action_switch_list_view">Vista de llista</string>
 
     <string name="manage_space_title">Alministrar espaciu</string>
-    <string name="manage_space_description">Axustes, bases de datos y sirvidor de certificaos de los datos %1$s esborraránse dafechu. \n\nLos archivos descargados caltendrase intactos.\n\nEsti procesu puede tardar dalgún tiempu.</string>
     <string name="manage_space_clear_data">Llimpiar datos</string>
     <string name="manage_space_error">Dalgunos ficheros nun pudieron esborrase.</string>
 
-    <string name="permission_storage_access">Ríquense permisos adicionales para xubir &amp; los ficheros descargaos.</string>
-    <string name="local_file_not_found_toast">El ficheru nun s\'atopó nel sistema de ficheros llocal</string>
+    <string name="local_file_not_found_toast">Nun s\'alcontró\'l ficheru nel sistema llocal de ficheros</string>
+    <string name="confirmation_remove_files_alert">¿De xuru que quies desaniciar los elementos esbillaos?</string>
+    <string name="confirmation_remove_folders_alert">¿De xuru que quies desaniciar los elementos esbillaos y los sos conteníos?</string>
+    <string name="actionbar_search">Guetar</string>
+    <string name="learn_more">Deprendi más</string>
+    <string name="participate_release_candidate_headline">Llanzamientu candidatu</string>
+    <string name="move_to">Mover a&#8230;</string>
+    <string name="copy_to">Copiar a&#8230;</string>
+    <string name="choose_remote_folder">Escoyer carpeta&#8230;</string>
+    <string name="folder_sync_loading_folders">Cargando carpetes&#8230;</string>
+    <string name="folder_sync_no_results">Nun s\'alcontraron carpetes de medios.</string>
+    <string name="folder_sync_preferences">Preferencies pa la xuba automática</string>
+    <string name="folder_sync_settings">Axustes</string>
+    <string name="activity_list_loading_activity">Cargando actividaes&#8230;</string>
+    <string name="activity_list_no_results">Nun s\'alcontraron actividaes.</string>
+
+    <string name="notifications_loading_activity">Cargando avisos&#8230;</string>
+    <string name="notifications_no_results_headline">Ensin avisos</string>
+    <string name="upload_file_dialog_filename">Nome de ficheru</string>
+    <string name="upload_file_dialog_filetype">Triba de ficheru</string>
+    <string name="storage_description_sd_no">Tarxeta SD %1$d</string>
+    <string name="storage_description_unknown">Desconozse</string>
+
+    <!-- What's new feature and texts to show -->
+    <string name="whats_new_title">Qué hai nuevo en Nextcloud</string>
+
+    <!-- Welcome to Nc intro features -->
+    <string name="welcome_feature_1_title">Un llar seguru pa tolos tos datos</string>
+    <string name="welcome_feature_1_text">Accedu, comparti y protexi los tos ficheros en casa y nel trabayu</string>
+
+    <string name="welcome_feature_3_title">Xuba nel intre</string>
+    <string name="whats_new_skip">Saltar</string>
+
+    <string name="fingerprint_scan_finger">Escania\'l to deu, por favor</string>
+    <string name="fingerprint_unknown">Nun se reconoz el deu</string>
+
+    <!-- User information -->
+    <string name="user_info_full_name">Nome completu</string>
+    <string name="user_info_email">Corréu</string>
+    <string name="user_info_phone">Númberu telefónicu</string>
+    <string name="user_info_address">Direición</string>
+    <string name="user_info_website">Sitiu web</string>
+    <string name="user_info_twitter">Twitter</string>
+
+    <string name="user_information_description">Información d\'usuariu</string>
+
+    <!-- Activities -->
+    <string name="activities_no_results_headline"> Entá nun hai actividá</string>
+    <string name="webview_error">Asocedió un fallu</string>
+    <string name="prefs_category_about">Tocante a</string>
+
+    <string name="actionbar_contacts">Respaldar contautos</string>
+    <string name="actionbar_contacts_restore">Restaurar contautos</string>
+    <string name="contacts_backup_button">Respaldar agora</string>
+    <string name="contacts_header_restore">Respaldar</string>
+    <string name="contacts_preference_backup_never">enxamás</string>
+    <!-- Notifications -->
+    <string name="new_notification_received">Recibióse un avisu nuevu</string>
+    <string name="drawer_logout">Zarrar sesión</string>
     </resources>

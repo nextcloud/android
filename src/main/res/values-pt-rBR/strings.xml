@@ -275,7 +275,8 @@
 	<string name="auth_fail_get_user_name">Seu servidor não está retornando um ID correto de usuário. Por favor, contacte o administrador</string>
 	<string name="auth_can_not_auth_against_server">Não foi possível obter autenticação neste servidor</string>
     <string name="auth_account_does_not_exist">A conta ainda não existe no dispositivo</string>
-    
+
+
     <string name="favorite">Definir como disponível offline</string>
     <string name="unfavorite">Definir como não disponível offline</string>
     <string name="favorite_real">Marque como favorito</string>
@@ -542,6 +543,8 @@
     <string name="local_file_not_found_toast">Arquivo não encontrado no sistema de arquivos local</string>
     <string name="confirmation_remove_files_alert">Deseja realmente excluir os itens selecionados?</string>
     <string name="confirmation_remove_folders_alert">Deseja realmente excluir os itens selecionados e seus conteúdos?</string>
+    <string name="maintenance_mode">O servidor está em modo de manutenção</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Esperando carregar</string>
     <string name="actionbar_search">Pesquisar</string>
     <string name="files_drop_not_supported">Este é um recurso do Nextcloud. Por favor, atualize.</string>
@@ -651,6 +654,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nova notificação recebida</string>
     <string name="drawer_logout">Sair</string>
+    <string name="privacy">Privacidade</string>
 
 
 </resources>

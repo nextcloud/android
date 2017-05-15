@@ -4,7 +4,7 @@
     <string name="about_version">Version %1$s</string>
     <string name="actionbar_sync">Konto aktualisieren</string>
     <string name="actionbar_upload">Hochladen</string>
-    <string name="actionbar_upload_from_apps">Inhalt anderer Apps</string>
+    <string name="actionbar_upload_from_apps">Content from other apps</string>
     <string name="actionbar_upload_files">Dateien</string>
     <string name="actionbar_open_with">Öffnen mit</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
@@ -13,7 +13,7 @@
     <string name="actionbar_send_file">Senden</string>
     <string name="actionbar_sort">Sortieren</string>
     <string name="actionbar_sort_title">Sortiere nach</string>
-    <string name="sort_by">Sortieren nach</string>
+    <string name="sort_by">Sortiere nach</string>
     <string name="menu_item_sort_by_name_a_z">A - Z</string>
     <string name="menu_item_sort_by_name_z_a">Z - A</string>
     <string name="menu_item_sort_by_date_newest_first">Neueste zuerst</string>
@@ -275,7 +275,8 @@
 	<string name="auth_fail_get_user_name">Ihr Server gibt keine korrekte Benutzer-ID zurück, bitte kontaktieren Sie einen Administrator</string>
 	<string name="auth_can_not_auth_against_server">Kann sich nicht auf diesem Server authentifizieren</string>
     <string name="auth_account_does_not_exist">Das Benutzerkonto ist bis jetzt noch nicht auf dem Gerät vorhanden</string>
-    
+
+
     <string name="favorite">Als Offline verfügbar markieren</string>
     <string name="unfavorite">Offline verfügbar Markierung entfernen</string>
     <string name="favorite_real">Als Favorit markieren</string>
@@ -542,6 +543,8 @@
     <string name="local_file_not_found_toast">Die Datei wurde im lokalen Dateisystem nicht gefunden</string>
     <string name="confirmation_remove_files_alert">Wollen Sie die ausgewählten Einträge wirklich löschen?</string>
     <string name="confirmation_remove_folders_alert">Wollen Sie die ausgewählten Einträge und deren Inhalte wirklich löschen?</string>
+    <string name="maintenance_mode">Server befindet sich im Wartungsmodus</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Warte auf das Aufladen des Gerätes</string>
     <string name="actionbar_search">Suche</string>
     <string name="files_drop_not_supported">Dies ist eine Nextcloud Funktion, bitte updaten.</string>
@@ -651,6 +654,7 @@
     <!-- Notifications -->
     <string name="new_notification_received">Neue Benachrichtigung erhalten</string>
     <string name="drawer_logout">Abmelden</string>
+    <string name="privacy">Datenschutz</string>
 
 
 </resources>

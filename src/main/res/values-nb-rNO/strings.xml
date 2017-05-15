@@ -275,7 +275,8 @@
 	<string name="auth_fail_get_user_name">Tjeneren din svarer ikke med korrekt bruker-ID, vennligst ta kontakt med en administrator </string>
 	<string name="auth_can_not_auth_against_server">Kan ikke autentisere mot denne tjeneren</string>
     <string name="auth_account_does_not_exist">Kontoen eksisterer ikke på enheten enda</string>
-    
+
+
     <string name="favorite">Sett som tilgjengelig frakoblet</string>
     <string name="unfavorite">Fjern som tilgjengelig frakoblet</string>
     <string name="favorite_real">Sett som favoritt</string>
@@ -650,6 +651,4 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nytt varsel mottatt</string>
     <string name="drawer_logout">Utlogging</string>
-
-
-</resources>
+    </resources>
