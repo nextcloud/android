@@ -55,7 +55,7 @@ public class FilesystemDataProvider {
         int result = contentResolver.update(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 cv,
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + "IN (?)",
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " IN (?)",
                 stringPaths
         );
 
