@@ -279,49 +279,18 @@ public class FileDataStorageManager {
         Log_OC.d(TAG,  "Saving folder " + folder.getRemotePath() + " with " + updatedFiles.size()
                 + " children and " + filesToRemove.size() + " files to remove");
 
-        ArrayList<ContentProviderOperation> operations =
-                new ArrayList<ContentProviderOperation>(updatedFiles.size());
+        ArrayList<ContentProviderOperation> operations = new ArrayList<>(updatedFiles.size());
 
         // prepare operations to insert or update files to save in the given folder
         for (OCFile file : updatedFiles) {
-            ContentValues cv = new ContentValues();
-            cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
-            cv.put(
-                    ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
-                    file.getModificationTimestampAtLastSyncForData()
-            );
-            cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
-            cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
-            cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
-            cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
-            //cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
-            cv.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
-            cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
-            if (!file.isFolder()) {
-                cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
-            }
-            cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
-            cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
-            cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isAvailableOffline() ? 1 : 0);
-            cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
-            cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, file.isSharedViaLink() ? 1 : 0);
-            cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, file.isSharedWithSharee() ? 1 : 0);
-            cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
-            cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
-            cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
-            cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
-            cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
-            cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
-            cv.put(ProviderTableMeta.FILE_FAVORITE, file.getIsFavorite());
+            ContentValues cv = createContentValueForFile(file, folder);
 
             boolean existsByPath = fileExists(file.getRemotePath());
             if (existsByPath || fileExists(file.getFileId())) {
                 // updating an existing file
-                operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
-                        withValues(cv).
-                        withSelection(ProviderTableMeta._ID + "=?",
-                                new String[]{String.valueOf(file.getFileId())})
+                operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI)
+                        .withValues(cv)
+                        .withSelection(ProviderTableMeta._ID + "=?", new String[]{String.valueOf(file.getFileId())})
                         .build());
 
             } else {
@@ -332,17 +301,14 @@ public class FileDataStorageManager {
         }
 
         // prepare operations to remove files in the given folder
-        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND +
-                ProviderTableMeta.FILE_PATH + "=?";
+        String where = ProviderTableMeta.FILE_ACCOUNT_OWNER + AND + ProviderTableMeta.FILE_PATH + "=?";
         String [] whereArgs = null;
         for (OCFile file : filesToRemove) {
             if (file.getParentId() == folder.getFileId()) {
                 whereArgs = new String[]{mAccount.name, file.getRemotePath()};
                 if (file.isFolder()) {
                     operations.add(ContentProviderOperation.newDelete(
-                            ContentUris.withAppendedId(
-                                    ProviderTableMeta.CONTENT_URI_DIR, file.getFileId()
-                            )
+                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_DIR, file.getFileId())
                     ).withSelection(where, whereArgs).build());
 
                     File localFolder = new File(FileStorageUtils.getDefaultSavePathFor(mAccount.name, file));
@@ -351,8 +317,7 @@ public class FileDataStorageManager {
                     }
                 } else {
                     operations.add(ContentProviderOperation.newDelete(
-                            ContentUris.withAppendedId(
-                                    ProviderTableMeta.CONTENT_URI_FILE, file.getFileId()
+                            ContentUris.withAppendedId(ProviderTableMeta.CONTENT_URI_FILE, file.getFileId()
                             )
                     ).withSelection(where, whereArgs).build());
 
@@ -366,29 +331,7 @@ public class FileDataStorageManager {
         }
 
         // update metadata of folder
-        ContentValues cv = new ContentValues();
-        cv.put(ProviderTableMeta.FILE_MODIFIED, folder.getModificationTimestamp());
-        cv.put(
-                ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
-                folder.getModificationTimestampAtLastSyncForData()
-        );
-        cv.put(ProviderTableMeta.FILE_CREATION, folder.getCreationTimestamp());
-        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);
-        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, folder.getMimetype());
-        cv.put(ProviderTableMeta.FILE_NAME, folder.getFileName());
-        cv.put(ProviderTableMeta.FILE_PARENT, folder.getParentId());
-        cv.put(ProviderTableMeta.FILE_PATH, folder.getRemotePath());
-        cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
-        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, folder.getLastSyncDateForProperties());
-        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, folder.getLastSyncDateForData());
-        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, folder.isAvailableOffline() ? 1 : 0);
-        cv.put(ProviderTableMeta.FILE_ETAG, folder.getEtag());
-        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, folder.isSharedViaLink() ? 1 : 0);
-        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, folder.isSharedWithSharee() ? 1 : 0);
-        cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, folder.getPublicLink());
-        cv.put(ProviderTableMeta.FILE_PERMISSIONS, folder.getPermissions());
-        cv.put(ProviderTableMeta.FILE_REMOTE_ID, folder.getRemoteId());
-        cv.put(ProviderTableMeta.FILE_FAVORITE, folder.getIsFavorite());
+        ContentValues cv = createContentValueForFile(folder);
 
         operations.add(ContentProviderOperation.newUpdate(ProviderTableMeta.CONTENT_URI).
                 withValues(cv).
@@ -431,7 +374,67 @@ public class FileDataStorageManager {
                 }
             }
         }
+    }
 
+    private ContentValues createContentValueForFile(OCFile folder) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.FILE_MODIFIED, folder.getModificationTimestamp());
+        cv.put(
+                ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
+                folder.getModificationTimestampAtLastSyncForData()
+        );
+        cv.put(ProviderTableMeta.FILE_CREATION, folder.getCreationTimestamp());
+        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, 0);
+        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, folder.getMimetype());
+        cv.put(ProviderTableMeta.FILE_NAME, folder.getFileName());
+        cv.put(ProviderTableMeta.FILE_PARENT, folder.getParentId());
+        cv.put(ProviderTableMeta.FILE_PATH, folder.getRemotePath());
+        cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, folder.getLastSyncDateForProperties());
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, folder.getLastSyncDateForData());
+        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, folder.isAvailableOffline() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_ETAG, folder.getEtag());
+        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, folder.isSharedViaLink() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, folder.isSharedWithSharee() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, folder.getPublicLink());
+        cv.put(ProviderTableMeta.FILE_PERMISSIONS, folder.getPermissions());
+        cv.put(ProviderTableMeta.FILE_REMOTE_ID, folder.getRemoteId());
+        cv.put(ProviderTableMeta.FILE_FAVORITE, folder.getIsFavorite());
+        return cv;
+    }
+
+    private ContentValues createContentValueForFile(OCFile file, OCFile folder) {
+        ContentValues cv = new ContentValues();
+        cv.put(ProviderTableMeta.FILE_MODIFIED, file.getModificationTimestamp());
+        cv.put(
+                ProviderTableMeta.FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
+                file.getModificationTimestampAtLastSyncForData()
+        );
+        cv.put(ProviderTableMeta.FILE_CREATION, file.getCreationTimestamp());
+        cv.put(ProviderTableMeta.FILE_CONTENT_LENGTH, file.getFileLength());
+        cv.put(ProviderTableMeta.FILE_CONTENT_TYPE, file.getMimetype());
+        cv.put(ProviderTableMeta.FILE_NAME, file.getFileName());
+        //cv.put(ProviderTableMeta.FILE_PARENT, file.getParentId());
+        cv.put(ProviderTableMeta.FILE_PARENT, folder.getFileId());
+        cv.put(ProviderTableMeta.FILE_PATH, file.getRemotePath());
+        if (!file.isFolder()) {
+            cv.put(ProviderTableMeta.FILE_STORAGE_PATH, file.getStoragePath());
+        }
+        cv.put(ProviderTableMeta.FILE_ACCOUNT_OWNER, mAccount.name);
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE, file.getLastSyncDateForProperties());
+        cv.put(ProviderTableMeta.FILE_LAST_SYNC_DATE_FOR_DATA, file.getLastSyncDateForData());
+        cv.put(ProviderTableMeta.FILE_KEEP_IN_SYNC, file.isAvailableOffline() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_ETAG, file.getEtag());
+        cv.put(ProviderTableMeta.FILE_SHARED_VIA_LINK, file.isSharedViaLink() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_SHARED_WITH_SHAREE, file.isSharedWithSharee() ? 1 : 0);
+        cv.put(ProviderTableMeta.FILE_PUBLIC_LINK, file.getPublicLink());
+        cv.put(ProviderTableMeta.FILE_PERMISSIONS, file.getPermissions());
+        cv.put(ProviderTableMeta.FILE_REMOTE_ID, file.getRemoteId());
+        cv.put(ProviderTableMeta.FILE_UPDATE_THUMBNAIL, file.needsUpdateThumbnail());
+        cv.put(ProviderTableMeta.FILE_IS_DOWNLOADING, file.isDownloading());
+        cv.put(ProviderTableMeta.FILE_ETAG_IN_CONFLICT, file.getEtagInConflict());
+        cv.put(ProviderTableMeta.FILE_FAVORITE, file.getIsFavorite());
+        return cv;
     }
 
 
