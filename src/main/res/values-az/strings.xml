@@ -226,7 +226,6 @@ inzibatçınızla əlaqə saxlayasınız.</string>
   <string name="network_error_socket_timeout_exception">Serveri gözlədiyimiz müddətdə səhv baş verdi, əməliyyat bitə bilməz</string>
   <string name="network_error_connect_timeout_exception">Serveri gözlədiyimiz müddətdə səhv baş verdi, əməliyyat bitə bilməz</string>
   <string name="network_host_not_available">Əməliyyat bitə bilməz, serverə çatmaq mümkün deyil </string>
-  <string name="empty"></string>
   <string name="forbidden_permissions">Sizin yetkiniz yoxdur %s</string>
   <string name="forbidden_permissions_rename">faylın adını dəyişmək</string>
   <string name="forbidden_permissions_delete">bu faylı silmək üçün</string>
