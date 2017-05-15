@@ -548,6 +548,11 @@ public class FolderSyncActivity extends FileActivity implements FolderSyncAdapte
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(CustomFolderEvent event) {
         Log.d(TAG, "Show custom folder magic here");
+        SyncedFolderDisplayItem emptyCustomFolder = new SyncedFolderDisplayItem(
+                SyncedFolder.UNPERSISTED_ID, null, null, true, false,
+                false, AccountUtils.getCurrentOwnCloudAccount(this).name,
+                FileUploader.LOCAL_BEHAVIOUR_FORGET, false, null, MediaFolder.CUSTOM);
+        onSyncFolderSettingsClick(0, emptyCustomFolder);
     };
 
 }
