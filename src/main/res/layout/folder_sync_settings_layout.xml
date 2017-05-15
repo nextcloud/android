@@ -18,8 +18,8 @@
   You should have received a copy of the GNU Affero General Public
   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<LinearLayout android:id="@+id/root"
-              xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/root"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:gravity="center"
@@ -35,9 +35,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:orientation="vertical"
             android:paddingBottom="@dimen/standard_padding"
-            android:paddingTop="@dimen/standard_padding"
-            android:orientation="vertical">
+            android:paddingTop="@dimen/standard_padding">
 
             <TextView
                 android:id="@+id/folder_sync_settings_title"
@@ -52,7 +52,6 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="middle"
                 android:maxLines="2"
-                android:text="@string/folder_sync_preferences_folder_path"
                 android:textColor="?android:attr/textColorSecondary"/>
 
         </LinearLayout>
@@ -62,8 +61,8 @@
             android:layout_height="match_parent"
             android:gravity="end|top"
             android:orientation="vertical"
-            android:paddingTop="@dimen/standard_padding"
-            android:paddingLeft="@dimen/standard_padding">
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_padding">
 
             <android.support.v7.widget.SwitchCompat
                 android:id="@+id/sync_enabled"
@@ -89,32 +88,118 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:id="@+id/local_folder_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:baselineAligned="false"
+                android:clipToPadding="false"
+                android:gravity="center_vertical"
+                android:minHeight="?attr/listPreferredItemHeightSmall">
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/standard_padding"
+                    android:paddingTop="@dimen/standard_padding">
+
+                    <TextView
+                        android:id="@+id/local_folder_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="@string/prefs_folder_sync_local_path_title"
+                        android:textAppearance="?attr/textAppearanceListItem"/>
+
+                    <TextView
+                        android:id="@+id/local_folder_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/local_folder_title"
+                        android:layout_below="@id/local_folder_title"
+                        android:ellipsize="middle"
+                        android:maxLines="2"
+                        android:text="@string/choose_remote_folder"
+                        android:textColor="?android:attr/textColorSecondary"/>
+
+                </RelativeLayout>
+
+                <!-- Preference should place its actual preference widget here. -->
+                <LinearLayout
+                    android:id="@+id/local_folder_frame"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/standard_padding">
+
+                    <ImageView
+                        android:id="@+id/local_folder_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:padding="@dimen/standard_quarter_padding"
+                        android:src="@drawable/ic_folder_open"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/remote_folder_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:baselineAligned="false"
+                android:clipToPadding="false"
                 android:gravity="center_vertical"
-                android:minHeight="?android:attr/listPreferredItemHeightSmall"
-                android:orientation="vertical"
-                android:paddingBottom="@dimen/standard_padding"
-                android:paddingTop="@dimen/standard_padding">
+                android:minHeight="?attr/listPreferredItemHeightSmall">
 
-                <TextView
-                    android:id="@+id/remote_folder_title"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:text="@string/prefs_folder_sync_remote_path_title"
-                    android:textAppearance="?attr/textAppearanceListItem"/>
+                    android:layout_weight="1"
+                    android:paddingBottom="@dimen/standard_padding"
+                    android:paddingTop="@dimen/standard_padding">
 
-                <TextView
-                    android:id="@+id/remote_folder_summary"
+                    <TextView
+                        android:id="@+id/remote_folder_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:text="@string/prefs_folder_sync_remote_path_title"
+                        android:textAppearance="?attr/textAppearanceListItem"/>
+
+                    <TextView
+                        android:id="@+id/remote_folder_summary"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignLeft="@id/remote_folder_title"
+                        android:layout_below="@id/remote_folder_title"
+                        android:ellipsize="middle"
+                        android:maxLines="2"
+                        android:text="@string/choose_remote_folder"
+                        android:textColor="?android:attr/textColorSecondary"/>
+
+                </RelativeLayout>
+
+                <!-- Preference should place its actual preference widget here. -->
+                <LinearLayout
+                    android:id="@+id/remote_folder_frame"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:maxLines="2"
-                    android:text="@string/placeholder_filename"
-                    android:textColor="?android:attr/textColorSecondary"/>
+                    android:layout_height="match_parent"
+                    android:gravity="end|center_vertical"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/standard_padding">
+
+                    <ImageView
+                        android:id="@+id/remote_folder_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:padding="@dimen/standard_quarter_padding"
+                        android:src="@drawable/ic_folder_open"/>
+
+                </LinearLayout>
 
             </LinearLayout>
 
