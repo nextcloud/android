@@ -1,8 +1,8 @@
-2017-05-15
+2017-05-16
 Branches: 6
 [00 / 06] Dev branch (nextcloud/dev) [https://github.com/nextcloud/android/tree/dev] was updated successfully[01 / 06] Re-use second fragment if available (nextcloud/audioRotationBug) [https://github.com/nextcloud/android/pull/985] no update needed
 [02 / 06] Search inside of text files (nextcloud/bugfix-454) [https://github.com/nextcloud/android/pull/565] CONFLICT
 [03 / 06] Pinch zoom (nextcloud/pinchZoom) [https://github.com/nextcloud/android/pull/143] CONFLICT
 [04 / 06] Resized images (nextcloud/resizedImages) [https://github.com/nextcloud/android/pull/69] CONFLICT
-[05 / 06] Master (nextcloud/master) [https://github.com/nextcloud/android] merged successfully
+[05 / 06] Master (nextcloud/master) [https://github.com/nextcloud/android] CONFLICT
 [06 / 06] Dev base (nextcloud/dev-base) [https://github.com/nextcloud/android/tree/dev-base] CONFLICT
