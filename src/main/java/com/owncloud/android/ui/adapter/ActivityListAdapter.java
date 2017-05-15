@@ -35,7 +35,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
@@ -43,9 +42,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
-import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.activities.models.Activity;
+import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.svg.SvgDecoder;
 import com.owncloud.android.utils.svg.SvgDrawableTranscoder;
@@ -64,13 +63,15 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public static final int HEADER_TYPE=100;
     public static final int ACTIVITY_TYPE=101;
+    private final ActivityListInterface activityListInterface;
 
     private Context context;
     private List<Object> mValues;
 
-    public ActivityListAdapter(Context context) {
+    public ActivityListAdapter(Context context, ActivityListInterface activityListInterface) {
         this.mValues = new ArrayList<>();
         this.context = context;
+        this.activityListInterface=activityListInterface;
     }
 
     public void setActivityItems(List<Object> activityItems) {
@@ -145,9 +146,10 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
             richObjects.add("http://static3.businessinsider.com/image/55b675ab2acae7c7018ba34e-1200/milky-way-galaxy.jpg");
 
-            RichObjectAdapter richObjectAdapter=new RichObjectAdapter(richObjects);
+            RichObjectAdapter richObjectAdapter=new RichObjectAdapter(context,activityListInterface);
             activityViewHolder.list.setLayoutManager(new GridLayoutManager(context,4));
             activityViewHolder.list.setAdapter(richObjectAdapter);
+            richObjectAdapter.setValues(richObjects);
 
         }else{
             ActivityViewHeaderHolder activityViewHeaderHolder=(ActivityViewHeaderHolder)holder;
@@ -193,8 +195,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ssb.setSpan(new ClickableSpan() {
                 @Override
                 public void onClick(View widget) {
-                    Toast.makeText(context, clickString,
-                            Toast.LENGTH_SHORT).show();
+                    activityListInterface.onActivityClicked();
                 }
             }, idx1, idx2, 0);
             ssb.setSpan(new StyleSpan(android.graphics.Typeface.BOLD),idx1,idx2,0);
