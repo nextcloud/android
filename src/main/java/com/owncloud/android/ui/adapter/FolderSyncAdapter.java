@@ -37,7 +37,11 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.ui.events.CustomFolderEvent;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ThemeUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -150,7 +154,12 @@ public class FolderSyncAdapter extends SectionedRecyclerViewAdapter<FolderSyncAd
         } else {
             holder.mainHeaderContainer.setVisibility(View.GONE);
             holder.customFolderHeaderContainer.setVisibility(View.VISIBLE);
-
+            holder.customFolderHeaderContainer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    EventBus.getDefault().post(new CustomFolderEvent());
+                }
+            });
         }
     }
 
