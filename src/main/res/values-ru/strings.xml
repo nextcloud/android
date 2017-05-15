@@ -545,6 +545,8 @@
     <string name="local_file_not_found_toast">Файл не был найден в локальной файловой системе</string>
     <string name="confirmation_remove_files_alert">Вы действительно хотите удалить выбранные элементы?</string>
     <string name="confirmation_remove_folders_alert">Вы действительно хотите удалить выбранные элементы и их содержимое?</string>
+    <string name="maintenance_mode">Сервер находится в режиме обслуживания</string>
+
     <string name="uploads_view_upload_status_waiting_for_charging">Ожидание зарядки устройства</string>
     <string name="actionbar_search">Поиск</string>
     <string name="files_drop_not_supported">Это есть в новой версии Nextcloud, пожалуйста обновитесь</string>
