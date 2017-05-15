@@ -275,7 +275,8 @@
 	<string name="auth_fail_get_user_name">Su servidor no está retornando una identificación de usuario correcta; contacte a un administrador </string>
 	<string name="auth_can_not_auth_against_server">No puede autenticarse a este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta no existe todavía en el dispositivo</string>
-    
+
+
     <string name="favorite">Marcar el modo disponible a desconectado</string>
     <string name="unfavorite">Desmarcar el modo disponible de desconectado</string>
     <string name="favorite_real">Marque como favorito</string>
@@ -651,6 +652,4 @@
     <!-- Notifications -->
     <string name="new_notification_received">Nueva notificación recibida</string>
     <string name="drawer_logout">Desconectar</string>
-
-
-</resources>
+    </resources>

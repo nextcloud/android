@@ -275,7 +275,8 @@ në 7 ditët e fundit.</string>
 	<string name="auth_fail_get_user_name">Serveri juaj nuk është duke kthyer një  id përdoruesi të saktë, ju lutem kontaktoni një administrator</string>
 	<string name="auth_can_not_auth_against_server">S’kryhet dot identifikimi me këtë server</string>
     <string name="auth_account_does_not_exist">Llogaria s\’ekziston ende te pajisja</string>
-    
+
+
     <string name="favorite">Caktojeni si të gatshëm jo në linjë</string>
     <string name="unfavorite">Hiqeni si të gatshëm jo në linjë</string>
     <string name="favorite_real">Vendose si të preferuar</string>
@@ -651,6 +652,7 @@ në 7 ditët e fundit.</string>
     <!-- Notifications -->
     <string name="new_notification_received">Morët njoftime të reja</string>
     <string name="drawer_logout">Dilni</string>
+    <string name="privacy">Privatësi</string>
 
 
 </resources>

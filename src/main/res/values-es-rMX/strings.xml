@@ -275,7 +275,8 @@ en los últimos 7 días. </string>
 	<string name="auth_fail_get_user_name">Su servidor no está regresando un ID de usuario correcto, favor de contactar al adminitrador</string>
 	<string name="auth_can_not_auth_against_server">No es posible autenticarse en este servidor</string>
     <string name="auth_account_does_not_exist">La cuenta aún no existe en el dispositivo</string>
-    
+
+
     <string name="favorite">Establer como disponible fuera de línea</string>
     <string name="unfavorite">Establecer como disponible en línea</string>
     <string name="favorite_real">Establecer como favorito</string>
@@ -651,6 +652,4 @@ en los últimos 7 días. </string>
     <!-- Notifications -->
     <string name="new_notification_received">No se han recibido nuevas notificaciones </string>
     <string name="drawer_logout">Salir de la sesión</string>
-
-
-</resources>
+    </resources>

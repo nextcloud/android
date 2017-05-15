@@ -51,10 +51,11 @@ repositories {
 
 android {
     lintOptions {
-        abortOnError true
+        abortOnError false
         lintConfig file("${project.rootDir}/lint.xml")
         htmlReport true
         htmlOutput file("$project.buildDir/reports/lint/lint.html")
+        disable 'MissingTranslation'
     }
 
     dexOptions {
@@ -113,10 +114,6 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
-    }
-
-    lintOptions {
-        abortOnError false
     }
 
     packagingOptions {
@@ -182,7 +179,7 @@ dependencies {
     compile name: 'touch-image-view'
     compile 'com.android.support:multidex:1.0.1'
 
-    compile 'com.github.nextcloud:android-library:1.0.15'
+    compile 'com.github.nextcloud:android-library:1.0.18'
     compile "com.android.support:support-v4:${supportLibraryVersion}"
     compile "com.android.support:design:${supportLibraryVersion}"
     compile 'com.jakewharton:disklrucache:2.0.2'

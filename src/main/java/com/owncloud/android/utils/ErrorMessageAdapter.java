@@ -17,7 +17,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 package com.owncloud.android.utils;
 
 import android.content.res.Resources;
@@ -57,8 +56,8 @@ public class ErrorMessageAdapter {
 
         String message = null;
 
-        if (!result.isSuccess() && isNetworkError(result.getCode())) {
-            message = getErrorMessage(result, res);
+        if (!result.isSuccess() && isCommonError(result.getCode())) {
+            message = getCommonErrorMessage(result, res);
 
         } else if (operation instanceof UploadFileOperation) {
 
@@ -119,6 +118,7 @@ public class ErrorMessageAdapter {
                     // Error --> No permissions
                     message = String.format(res.getString(R.string.forbidden_permissions),
                             res.getString(R.string.forbidden_permissions_delete));
+
                 } else {
                     message = res.getString(R.string.remove_fail_msg);
                 }
@@ -158,9 +158,11 @@ public class ErrorMessageAdapter {
 
             } else if (result.getCode() == ResultCode.INVALID_CHARACTER_DETECT_IN_SERVER) {
                 message = res.getString(R.string.filename_forbidden_charaters_from_server);
+
             } else {
                 message = res.getString(R.string.create_dir_fail_msg);
             }
+
         } else if (operation instanceof CreateShareViaLinkOperation ||
                 operation instanceof CreateShareWithShareeOperation) {
 
@@ -238,6 +240,7 @@ public class ErrorMessageAdapter {
                 // Show a Message, operation finished without success
                 message = res.getString(R.string.move_file_error);
             }
+
         } else if (operation instanceof SynchronizeFolderOperation) {
 
             if (!result.isSuccess()) {
@@ -253,9 +256,11 @@ public class ErrorMessageAdapter {
                             folderPathName);
                 }
             }
+
         } else if (operation instanceof CopyFileOperation) {
             if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 message = res.getString(R.string.copy_file_not_found);
+
             } else if (result.getCode() == ResultCode.INVALID_COPY_INTO_DESCENDANT) {
                 message = res.getString(R.string.copy_file_invalid_into_descendent);
 
@@ -275,7 +280,7 @@ public class ErrorMessageAdapter {
         return message;
     }
 
-    private static String getErrorMessage(RemoteOperationResult result, Resources res) {
+    private static String getCommonErrorMessage(RemoteOperationResult result, Resources res) {
 
         String message = null;
 
@@ -295,15 +300,18 @@ public class ErrorMessageAdapter {
 
             } else if (result.getCode() == ResultCode.HOST_NOT_AVAILABLE) {
                 message = res.getString(R.string.network_host_not_available);
+            } else if (result.getCode() == ResultCode.MAINTENANCE_MODE) {
+                message = res.getString(R.string.maintenance_mode);
             }
         }
 
         return message;
     }
 
-    private static boolean isNetworkError(RemoteOperationResult.ResultCode code) {
+    private static boolean isCommonError(RemoteOperationResult.ResultCode code) {
         return code == ResultCode.WRONG_CONNECTION ||
                 code == ResultCode.TIMEOUT ||
-                code == ResultCode.HOST_NOT_AVAILABLE;
+                code == ResultCode.HOST_NOT_AVAILABLE ||
+                code == ResultCode.MAINTENANCE_MODE;
     }
 }
