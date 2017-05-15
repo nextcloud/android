@@ -112,13 +112,8 @@ public class MainApp extends MultiDexApplication {
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
         if (BuildConfig.DEBUG) {
-
-            String dataFolder = getDataFolder();
-
-            // Set folder for store logs
-            Log_OC.setLogDataFolder(dataFolder);
-
-            Log_OC.startLogging(MainApp.storagePath);
+            // use app writable dir, no permissions needed
+            Log_OC.startLogging(getAppContext());
             Log_OC.d("Debug", "start logging");
         }
 

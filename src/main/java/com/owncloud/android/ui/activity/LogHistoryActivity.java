@@ -40,7 +40,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.dialog.LoadingDialog;
 import com.owncloud.android.utils.AnalyticsUtils;
-import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -64,7 +63,7 @@ public class LogHistoryActivity extends ToolbarActivity {
 
     private static final String SCREEN_NAME = "Logs";
 
-    private String mLogPath = FileStorageUtils.getLogPath();
+    private String mLogPath = Log_OC.getLogPath();
     private File logDIR = null;
     private String mLogText;
 
@@ -166,11 +165,7 @@ public class LogHistoryActivity extends ToolbarActivity {
                 if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
                     uris.add(Uri.fromFile(logFile));
                 } else {
-                    uris.add(FileProvider.getUriForFile(
-                            this,
-                            getString(R.string.file_provider_authority),
-                            logFile
-                    ));
+                    uris.add(FileProvider.getUriForFile(this, getString(R.string.file_provider_authority), logFile));
                 }
             }
         }
